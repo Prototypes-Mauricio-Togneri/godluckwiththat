@@ -2,6 +2,8 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/services/palette.dart';
 
+const int blockSize = 20;
+
 class MainScreen extends StatelessWidget {
   final MainState state;
 
@@ -40,12 +42,21 @@ class Map extends StatelessWidget {
     return InteractiveViewer(
       minScale: 0.1,
       maxScale: 10,
-      child: CustomPaint(
-        painter: MapBackgroundPainter(),
-        foregroundPainter: MapForegroundPainter(),
-        child: Container(),
+      constrained: false,
+      child: GestureDetector(
+        onTapUp: _onTapUp,
+        child: CustomPaint(
+          size: const Size(blockSize * 120, blockSize * 80),
+          painter: MapBackgroundPainter(),
+          foregroundPainter: MapForegroundPainter(),
+        ),
       ),
     );
+  }
+
+  void _onTapUp(TapUpDetails details) {
+    print('TAP: ${details.localPosition}');
+    //path.contains(Offset(x, y));
   }
 }
 
@@ -53,11 +64,15 @@ class MapBackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint();
-    paint.color = Palette.grid;
+
+    paint.color = Palette.gridBackground;
+    paint.style = PaintingStyle.fill;
+    canvas.drawRect(Rect.fromLTRB(0, 0, size.width, size.height), paint);
+
+    paint.color = Palette.gridLine;
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 0.3;
 
-    const int blockSize = 20;
     final int numHorizontal = size.width ~/ blockSize;
     final int numVertical = size.height ~/ blockSize;
 

@@ -7,5 +7,6 @@ class Palette {
   static const Color white = Colors.white;
   static const Color grey = Colors.grey;
 
-  static const Color grid = Color(0x44aaaaaa);
+  static const Color gridLine = Color(0x44aaaaaa);
+  static const Color gridBackground = Color(0xff666666);
 }
