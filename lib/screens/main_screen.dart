@@ -1,4 +1,5 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/services/palette.dart';
 
@@ -43,15 +44,22 @@ class Map extends StatelessWidget {
       minScale: 0.1,
       maxScale: 10,
       constrained: false,
-      child: GestureDetector(
-        onTapUp: _onTapUp,
-        child: CustomPaint(
-          size: const Size(blockSize * 120, blockSize * 80),
-          painter: MapBackgroundPainter(),
-          foregroundPainter: MapForegroundPainter(),
+      child: Listener(
+        onPointerHover: _onPointerHover,
+        child: GestureDetector(
+          onTapUp: _onTapUp,
+          child: CustomPaint(
+            size: const Size(blockSize * 120, blockSize * 80),
+            painter: MapBackgroundPainter(),
+            foregroundPainter: MapForegroundPainter(),
+          ),
         ),
       ),
     );
+  }
+
+  void _onPointerHover(PointerHoverEvent event) {
+    //print(event.position);
   }
 
   void _onTapUp(TapUpDetails details) {
