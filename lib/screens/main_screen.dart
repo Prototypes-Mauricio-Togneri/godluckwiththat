@@ -53,9 +53,9 @@ class MapBackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint();
-    paint.color = Palette.grey;
+    paint.color = Palette.grid;
     paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 0.5;
+    paint.strokeWidth = 0.3;
 
     const int blockSize = 20;
     final int numHorizontal = size.width ~/ blockSize;
@@ -82,13 +82,18 @@ class MapForegroundPainter extends CustomPainter {
     final Paint paint = Paint();
     paint.color = Colors.blue;
     paint.style = PaintingStyle.stroke;
-    paint.strokeCap = StrokeCap.round;
-    paint.strokeJoin = StrokeJoin.round;
-    paint.strokeWidth = 5;
-    final Offset offset = Offset(size.width * 0.5, size.height * 0.5);
+    paint.strokeCap = StrokeCap.square;
+    paint.strokeJoin = StrokeJoin.miter;
+    paint.strokeWidth = 1;
 
-    final Rect rect = Rect.fromCenter(center: offset, width: 50, height: 50);
-    canvas.drawRect(rect, paint);
+    final Path path = Path();
+    path.moveTo(1000, 390);
+    path.lineTo(1010, 400);
+    path.lineTo(1000, 410);
+    path.lineTo(990, 400);
+    path.close();
+
+    canvas.drawPath(path, paint);
   }
 
   @override
