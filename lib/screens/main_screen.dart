@@ -53,11 +53,23 @@ class MapBackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint();
-    paint.color = Colors.red;
-    paint.style = PaintingStyle.fill;
+    paint.color = Palette.grey;
+    paint.style = PaintingStyle.stroke;
+    paint.strokeWidth = 0.5;
 
-    final Rect rect = Rect.fromLTWH(0, 0, size.width, size.height);
-    canvas.drawRect(rect, paint);
+    const int blockSize = 20;
+    final int numHorizontal = size.width ~/ blockSize;
+    final int numVertical = size.height ~/ blockSize;
+
+    for (int i = 1; i < numHorizontal; i++) {
+      final double x = (i * blockSize).toDouble();
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
+    }
+
+    for (int i = 1; i < numVertical; i++) {
+      final double y = (i * blockSize).toDouble();
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
+    }
   }
 
   @override
