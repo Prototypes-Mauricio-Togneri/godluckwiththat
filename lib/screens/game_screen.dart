@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/extensions/path_extension.dart';
 import 'package:tensionnode/services/palette.dart';
 
 class GameScreen extends StatelessWidget {
@@ -75,6 +76,21 @@ class MapBackgroundPainter extends CustomPainter {
       final double y = (i * state.blockSize).toDouble();
       canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
     }
+
+    if (state.hasHighlightedNode) {
+      final Paint paint = Paint();
+      paint.color = Palette.highlightNode;
+      paint.style = PaintingStyle.fill;
+
+      final Path path = Path();
+      path.diamond(
+        position: state.highlightedNode,
+        blockSize: state.blockSize,
+        size: 1,
+      );
+
+      canvas.drawPath(path, paint);
+    }
   }
 
   @override
@@ -89,27 +105,20 @@ class MapForegroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint();
-    paint.color = Colors.blue;
+    paint.color = Palette.hq;
     paint.style = PaintingStyle.stroke;
     paint.strokeCap = StrokeCap.square;
     paint.strokeJoin = StrokeJoin.miter;
     paint.strokeWidth = 0.5;
 
     final Path path = Path();
-    path.moveTo(state.hqPosition.dx * state.blockSize, (state.hqPosition.dy * state.blockSize) - (state.blockSize / 2));
-    path.lineTo((state.hqPosition.dx * state.blockSize) + (state.blockSize / 2), state.hqPosition.dy * state.blockSize);
-    path.lineTo(state.hqPosition.dx * state.blockSize, (state.hqPosition.dy * state.blockSize) + (state.blockSize / 2));
-    path.lineTo((state.hqPosition.dx * state.blockSize) - (state.blockSize / 2), state.hqPosition.dy * state.blockSize);
-    path.close();
+    path.diamond(
+      position: state.hqPosition,
+      blockSize: state.blockSize,
+      size: state.blockSize,
+    );
 
     canvas.drawPath(path, paint);
-
-    if (state.hasHighlightedNode) {
-      final Paint paint = Paint();
-      paint.color = Palette.highlightNode;
-      paint.style = PaintingStyle.fill;
-      canvas.drawCircle(state.highlightedNode, 0.5, paint);
-    }
   }
 
   @override
@@ -159,7 +168,7 @@ class GameState extends BaseState {
     final int x = (event.localPosition.dx / blockSize).round();
     final int y = (event.localPosition.dy / blockSize).round();
 
-    _highlightedNode = Offset(x.toDouble() * _blockSize, y.toDouble() * _blockSize);
+    _highlightedNode = Offset(x.toDouble(), y.toDouble());
     notify();
   }
 
