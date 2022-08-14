@@ -16,5 +16,11 @@ class Headquarters extends Node {
       color: Palette.hq,
       size: blockSize,
     );
+
+    renderer.diamondFilled(
+      position: position,
+      color: Palette.hq,
+      size: blockSize / 2,
+    );
   }
 }

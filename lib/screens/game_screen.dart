@@ -35,29 +35,32 @@ class Map extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StateProvider<GameState>(
-      state: state,
-      builder: (context, state) => Stack(
-        children: [
-          InteractiveViewer(
-            transformationController: state.transformationController,
-            minScale: 1,
-            maxScale: 20,
-            constrained: false,
-            child: Listener(
-              onPointerHover: state.onPointerHover,
-              child: GestureDetector(
-                onTapUp: state.onTapUp,
-                child: CustomPaint(
-                  size: state.mapSize,
-                  painter: MapBackgroundPainter(state),
-                  foregroundPainter: MapForegroundPainter(state),
+    return Container(
+      color: Palette.gridBackground,
+      child: StateProvider<GameState>(
+        state: state,
+        builder: (context, state) => Stack(
+          children: [
+            InteractiveViewer(
+              transformationController: state.transformationController,
+              minScale: 1,
+              maxScale: 20,
+              constrained: false,
+              child: Listener(
+                onPointerHover: state.onPointerHover,
+                child: GestureDetector(
+                  onTapUp: state.onTapUp,
+                  child: CustomPaint(
+                    size: state.mapSize,
+                    painter: MapBackgroundPainter(state),
+                    foregroundPainter: MapForegroundPainter(state),
+                  ),
                 ),
               ),
             ),
-          ),
-          Hud(state),
-        ],
+            Hud(state),
+          ],
+        ),
       ),
     );
   }
@@ -130,12 +133,6 @@ class MapBackgroundPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint2 = Paint();
-
-    paint2.color = Palette.gridBackground;
-    paint2.style = PaintingStyle.fill;
-    canvas.drawRect(Rect.fromLTRB(0, 0, size.width, size.height), paint2);
-
     for (int i = 1; i < state.numberOfNodesHorizontal; i++) {
       final double x = (i * state.blockSize).toDouble();
       canvas.drawLine(Offset(x, 0), Offset(x, size.height), gridPaint);
