@@ -17,7 +17,12 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Palette.black,
-      body: Map(state),
+      body: Stack(
+        children: [
+          Map(state),
+          GameLoop(state),
+        ],
+      ),
     );
   }
 }
@@ -100,7 +105,7 @@ class ResourceIndicator extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          resource.value.toString(),
+          resource.value.toInt().toString(),
           style: const TextStyle(
             color: Palette.white,
             fontSize: 15,
@@ -186,6 +191,52 @@ class MapForegroundPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
+class GameLoop extends StatefulWidget {
+  final GameState state;
+
+  const GameLoop(this.state);
+
+  @override
+  State<GameLoop> createState() => _GameLoopState();
+}
+
+class _GameLoopState extends State<GameLoop> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  final DateTime _initialTime = DateTime.now();
+  double previous = 0;
+  double get currentTime => DateTime.now().difference(_initialTime).inMilliseconds / 1000.0;
+
+  @override
+  void initState() {
+    super.initState();
+    previous = currentTime;
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 1))..repeat();
+    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.stop();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        final double current = currentTime;
+        final double dt = current - previous;
+        widget.state.update(dt);
+        previous = current;
+
+        return const Empty();
+      },
+    );
+  }
+}
+
 class GameState extends BaseState {
   final _transformationController = TransformationController();
   final int _blockSize = 10;
@@ -195,9 +246,9 @@ class GameState extends BaseState {
   final Offset hqPosition = const Offset(50, 40);
   Offset? _highlightedNode;
 
-  final Resource resource1 = const Resource(name: 'Copper', value: 300);
-  final Resource resource2 = const Resource(name: 'Iron', value: 200);
-  final Resource resource3 = const Resource(name: 'Titanium', value: 100);
+  final Resource resource1 = Resource(name: 'Copper', value: 300);
+  final Resource resource2 = Resource(name: 'Iron', value: 200);
+  final Resource resource3 = Resource(name: 'Titanium', value: 100);
 
   GameState() {
     const double zoom = 5;
@@ -238,5 +289,12 @@ class GameState extends BaseState {
     final Offset localPosition = details.localPosition.nodePosition(blockSize);
     print('TAP: (${localPosition.dx}, ${localPosition.dy})');
     //path.contains(Offset(x, y));
+  }
+
+  void update(double dt) {
+    resource1.value += dt * 10;
+    resource2.value += dt * 5;
+    resource3.value += dt * 2;
+    Delayed.post(notify);
   }
 }
