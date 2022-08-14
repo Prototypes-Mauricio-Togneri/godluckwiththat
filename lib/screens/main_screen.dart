@@ -43,7 +43,7 @@ class Map extends StatelessWidget {
     return InteractiveViewer(
       transformationController: state.transformationController,
       minScale: 1,
-      maxScale: 10,
+      maxScale: 20,
       constrained: false,
       child: Listener(
         onPointerHover: _onPointerHover,
@@ -97,7 +97,7 @@ class MapBackgroundPainter extends CustomPainter {
 
     paint.color = Palette.gridLine;
     paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 0.3;
+    paint.strokeWidth = 0.1;
 
     for (int i = 1; i < numberOfNodesHorizontal; i++) {
       final double x = (i * blockSize).toDouble();
@@ -127,7 +127,7 @@ class MapForegroundPainter extends CustomPainter {
     paint.style = PaintingStyle.stroke;
     paint.strokeCap = StrokeCap.square;
     paint.strokeJoin = StrokeJoin.miter;
-    paint.strokeWidth = 1;
+    paint.strokeWidth = 0.5;
 
     final Path path = Path();
     path.moveTo(hqPosition.dx * blockSize, (hqPosition.dy * blockSize) - (blockSize / 2));
@@ -145,14 +145,14 @@ class MapForegroundPainter extends CustomPainter {
 
 class MainState extends BaseState {
   final _transformationController = TransformationController();
-  final int _blockSize = 20;
+  final int _blockSize = 10;
   final int _numberOfNodesHorizontal = 100;
   final int _numberOfNodesVertical = 100;
 
   final Offset hqPosition = const Offset(50, 40);
 
   MainState() {
-    const double zoom = 2;
+    const double zoom = 5;
     final double xTranslate = (hqPosition.dx * _blockSize * zoom) - 960;
     final double yTranslate = (hqPosition.dy * _blockSize * zoom) - 490;
 
