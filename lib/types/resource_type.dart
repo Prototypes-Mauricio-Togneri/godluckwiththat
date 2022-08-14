@@ -1,0 +1,5 @@
+enum ResourceType {
+  resource1,
+  resource2,
+  resource3,
+}
