@@ -10,8 +10,7 @@ import 'package:tensionnode/model/resource.dart';
 class GameState extends BaseState {
   final _transformationController = TransformationController();
   final int _blockSize = 10;
-  final int _numberOfNodesHorizontal = 100;
-  final int _numberOfNodesVertical = 100;
+  final Size mapDimensions = const Size(100, 100);
 
   late final Headquarters headquarters;
   late final Mine mine1;
@@ -24,13 +23,11 @@ class GameState extends BaseState {
 
   GameState() {
     headquarters = Headquarters(
-      position: const Offset(50, 40),
-      blockSize: _blockSize,
+      position: const Offset(0, 0),
     );
 
     mine1 = Mine(
-      position: const Offset(40, 35),
-      blockSize: _blockSize,
+      position: const Offset(-10, -5),
     );
 
     nodes.add(headquarters);
@@ -38,8 +35,8 @@ class GameState extends BaseState {
 
     const double zoom = 5;
     final Size size = WidgetsBinding.instance.window.physicalSize;
-    final double xTranslate = (headquarters.position.dx * _blockSize * zoom) - (size.width / 2);
-    final double yTranslate = (headquarters.position.dy * _blockSize * zoom) - (size.height / 2);
+    final double xTranslate = ((mapDimensions.width / 2) * _blockSize * zoom) - (size.width / 2);
+    final double yTranslate = ((mapDimensions.height / 2) * _blockSize * zoom) - (size.height / 2);
 
     _transformationController.value.setEntry(0, 0, zoom);
     _transformationController.value.setEntry(1, 1, zoom);
@@ -49,15 +46,11 @@ class GameState extends BaseState {
   }
 
   Size get mapSize => Size(
-        (_blockSize * _numberOfNodesHorizontal).toDouble(),
-        (_blockSize * _numberOfNodesVertical).toDouble(),
+        (_blockSize * mapDimensions.width).toDouble(),
+        (_blockSize * mapDimensions.height).toDouble(),
       );
 
   int get blockSize => _blockSize;
-
-  int get numberOfNodesHorizontal => _numberOfNodesHorizontal;
-
-  int get numberOfNodesVertical => _numberOfNodesVertical;
 
   bool get hasHighlightedNode => _highlightedNode != null;
 
@@ -66,12 +59,18 @@ class GameState extends BaseState {
   TransformationController get transformationController => _transformationController;
 
   void onPointerHover(PointerHoverEvent event) {
-    _highlightedNode = event.localPosition.nodePosition(blockSize);
+    _highlightedNode = event.localPosition.nodePosition(
+      dimensions: mapDimensions,
+      blockSize: blockSize,
+    );
     notify();
   }
 
   void onTapUp(TapUpDetails details) {
-    final Offset localPosition = details.localPosition.nodePosition(blockSize);
+    final Offset localPosition = details.localPosition.nodePosition(
+      dimensions: mapDimensions,
+      blockSize: blockSize,
+    );
     print('TAP: (${localPosition.dx}, ${localPosition.dy})');
     //path.contains(Offset(x, y));
   }

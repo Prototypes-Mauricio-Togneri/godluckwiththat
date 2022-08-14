@@ -5,7 +5,6 @@ import 'package:tensionnode/types/node_type.dart';
 class Node {
   final NodeType type;
   final Offset position;
-  final num blockSize;
   Node? top;
   Node? bottom;
   Node? left;
@@ -14,7 +13,6 @@ class Node {
   Node({
     required this.type,
     required this.position,
-    required this.blockSize,
   });
 
   void update(double dt) {}

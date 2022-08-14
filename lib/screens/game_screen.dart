@@ -132,12 +132,12 @@ class MapBackgroundPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    for (int i = 1; i < state.numberOfNodesHorizontal; i++) {
+    for (int i = 1; i < state.mapDimensions.width; i++) {
       final double x = (i * state.blockSize).toDouble();
       canvas.drawLine(Offset(x, 0), Offset(x, size.height), gridPaint);
     }
 
-    for (int i = 1; i < state.numberOfNodesVertical; i++) {
+    for (int i = 1; i < state.mapDimensions.height; i++) {
       final double y = (i * state.blockSize).toDouble();
       canvas.drawLine(Offset(0, y), Offset(size.width, y), gridPaint);
     }
@@ -155,6 +155,7 @@ class MapForegroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Renderer renderer = Renderer(
+      mapSize: state.mapSize,
       blockSize: state.blockSize,
       canvas: canvas,
     );

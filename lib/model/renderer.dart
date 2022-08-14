@@ -2,10 +2,12 @@ import 'package:flutter/rendering.dart';
 import 'package:tensionnode/extensions/path_extension.dart';
 
 class Renderer {
+  final Size mapSize;
   final num blockSize;
   final Canvas canvas;
 
   const Renderer({
+    required this.mapSize,
     required this.blockSize,
     required this.canvas,
   });
@@ -23,7 +25,10 @@ class Renderer {
     paint.strokeWidth = 0.5;
 
     _diamondFilled(
-      position: position,
+      position: position.translate(
+        (mapSize.width / blockSize) / 2,
+        (mapSize.height / blockSize) / 2,
+      ),
       paint: paint,
       size: size,
     );
@@ -41,7 +46,10 @@ class Renderer {
     paint.strokeJoin = StrokeJoin.miter;
 
     _diamondFilled(
-      position: position,
+      position: position.translate(
+        (mapSize.width / blockSize) / 2,
+        (mapSize.height / blockSize) / 2,
+      ),
       paint: paint,
       size: size,
     );

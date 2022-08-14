@@ -6,7 +6,6 @@ import 'package:tensionnode/types/node_type.dart';
 class Mine extends Node {
   Mine({
     required super.position,
-    required super.blockSize,
   }) : super(type: NodeType.mine);
 
   @override
@@ -14,13 +13,13 @@ class Mine extends Node {
     renderer.diamondHollow(
       position: position,
       color: Palette.mine1,
-      size: blockSize,
+      size: renderer.blockSize,
     );
 
     renderer.diamondFilled(
       position: position,
       color: Palette.mine1,
-      size: blockSize / 2,
+      size: renderer.blockSize / 2,
     );
   }
 }
