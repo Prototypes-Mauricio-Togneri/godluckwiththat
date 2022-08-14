@@ -2,7 +2,8 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/extensions/offset_extension.dart';
-import 'package:tensionnode/extensions/path_extension.dart';
+import 'package:tensionnode/model/headquarters.dart';
+import 'package:tensionnode/model/renderer.dart';
 import 'package:tensionnode/model/resource.dart';
 import 'package:tensionnode/services/palette.dart';
 
@@ -118,44 +119,31 @@ class ResourceIndicator extends StatelessWidget {
 
 class MapBackgroundPainter extends CustomPainter {
   final GameState state;
+  late final Paint gridPaint;
 
-  const MapBackgroundPainter(this.state);
+  MapBackgroundPainter(this.state) {
+    gridPaint = Paint();
+    gridPaint.color = Palette.gridLine;
+    gridPaint.style = PaintingStyle.stroke;
+    gridPaint.strokeWidth = 0.1;
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint();
+    final Paint paint2 = Paint();
 
-    paint.color = Palette.gridBackground;
-    paint.style = PaintingStyle.fill;
-    canvas.drawRect(Rect.fromLTRB(0, 0, size.width, size.height), paint);
-
-    paint.color = Palette.gridLine;
-    paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 0.1;
+    paint2.color = Palette.gridBackground;
+    paint2.style = PaintingStyle.fill;
+    canvas.drawRect(Rect.fromLTRB(0, 0, size.width, size.height), paint2);
 
     for (int i = 1; i < state.numberOfNodesHorizontal; i++) {
       final double x = (i * state.blockSize).toDouble();
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), gridPaint);
     }
 
     for (int i = 1; i < state.numberOfNodesVertical; i++) {
       final double y = (i * state.blockSize).toDouble();
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
-    }
-
-    if (state.hasHighlightedNode) {
-      final Paint paint = Paint();
-      paint.color = Palette.highlightNode;
-      paint.style = PaintingStyle.fill;
-
-      final Path path = Path();
-      path.diamond(
-        position: state.highlightedNode,
-        blockSize: state.blockSize,
-        size: 1,
-      );
-
-      canvas.drawPath(path, paint);
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), gridPaint);
     }
   }
 
@@ -170,21 +158,20 @@ class MapForegroundPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint();
-    paint.color = Palette.hq;
-    paint.style = PaintingStyle.stroke;
-    paint.strokeCap = StrokeCap.square;
-    paint.strokeJoin = StrokeJoin.miter;
-    paint.strokeWidth = 0.5;
-
-    final Path path = Path();
-    path.diamond(
-      position: state.hqPosition,
+    final Renderer renderer = Renderer(
       blockSize: state.blockSize,
-      size: state.blockSize,
+      canvas: canvas,
     );
 
-    canvas.drawPath(path, paint);
+    state.headquarters.render(renderer);
+
+    if (state.hasHighlightedNode) {
+      renderer.diamondFilled(
+        position: state.highlightedNode,
+        color: Palette.highlightNode,
+        size: state.blockSize / 10,
+      );
+    }
   }
 
   @override
@@ -243,7 +230,7 @@ class GameState extends BaseState {
   final int _numberOfNodesHorizontal = 100;
   final int _numberOfNodesVertical = 100;
 
-  final Offset hqPosition = const Offset(50, 40);
+  late final Headquarters headquarters;
   Offset? _highlightedNode;
 
   final Resource resource1 = Resource(name: 'Copper', value: 300);
@@ -251,10 +238,15 @@ class GameState extends BaseState {
   final Resource resource3 = Resource(name: 'Titanium', value: 100);
 
   GameState() {
+    headquarters = Headquarters(
+      position: const Offset(50, 40),
+      blockSize: _blockSize,
+    );
+
     const double zoom = 5;
     final Size size = WidgetsBinding.instance.window.physicalSize;
-    final double xTranslate = (hqPosition.dx * _blockSize * zoom) - (size.width / 2);
-    final double yTranslate = (hqPosition.dy * _blockSize * zoom) - (size.height / 2);
+    final double xTranslate = (headquarters.position.dx * _blockSize * zoom) - (size.width / 2);
+    final double yTranslate = (headquarters.position.dy * _blockSize * zoom) - (size.height / 2);
 
     _transformationController.value.setEntry(0, 0, zoom);
     _transformationController.value.setEntry(1, 1, zoom);
@@ -295,6 +287,9 @@ class GameState extends BaseState {
     resource1.value += dt * 10;
     resource2.value += dt * 5;
     resource3.value += dt * 2;
+
+    headquarters.update(dt);
+
     Delayed.post(notify);
   }
 }
