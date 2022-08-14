@@ -9,7 +9,7 @@ import 'package:tensionnode/model/resource.dart';
 
 class GameState extends BaseState {
   final _transformationController = TransformationController();
-  final int _blockSize = 10;
+  final int blockSize = 10;
   final Size mapDimensions = const Size(100, 100);
 
   late final Headquarters headquarters;
@@ -35,8 +35,8 @@ class GameState extends BaseState {
 
     const double zoom = 5;
     final Size size = WidgetsBinding.instance.window.physicalSize;
-    final double xTranslate = ((mapDimensions.width / 2) * _blockSize * zoom) - (size.width / 2);
-    final double yTranslate = ((mapDimensions.height / 2) * _blockSize * zoom) - (size.height / 2);
+    final double xTranslate = ((mapDimensions.width / 2) * blockSize * zoom) - (size.width / 2);
+    final double yTranslate = ((mapDimensions.height / 2) * blockSize * zoom) - (size.height / 2);
 
     _transformationController.value.setEntry(0, 0, zoom);
     _transformationController.value.setEntry(1, 1, zoom);
@@ -46,11 +46,9 @@ class GameState extends BaseState {
   }
 
   Size get mapSize => Size(
-        (_blockSize * mapDimensions.width).toDouble(),
-        (_blockSize * mapDimensions.height).toDouble(),
+        (blockSize * mapDimensions.width).toDouble(),
+        (blockSize * mapDimensions.height).toDouble(),
       );
-
-  int get blockSize => _blockSize;
 
   bool get hasHighlightedNode => _highlightedNode != null;
 
