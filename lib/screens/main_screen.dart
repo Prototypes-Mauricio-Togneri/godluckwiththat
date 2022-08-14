@@ -56,7 +56,10 @@ class Map extends StatelessWidget {
               numberOfNodesVertical: state.numberOfNodesVertical,
               blockSize: state.blockSize,
             ),
-            foregroundPainter: MapForegroundPainter(),
+            foregroundPainter: MapForegroundPainter(
+              state.hqPosition,
+              state.blockSize,
+            ),
           ),
         ),
       ),
@@ -68,7 +71,7 @@ class Map extends StatelessWidget {
   }
 
   void _onTapUp(TapUpDetails details) {
-    print('TAP: ${details.localPosition}');
+    print('TAP: (${details.localPosition.dx.toInt()}, ${details.localPosition.dy.toInt()})');
     //path.contains(Offset(x, y));
   }
 }
@@ -78,7 +81,7 @@ class MapBackgroundPainter extends CustomPainter {
   final int numberOfNodesVertical;
   final int blockSize;
 
-  MapBackgroundPainter({
+  const MapBackgroundPainter({
     required this.numberOfNodesHorizontal,
     required this.numberOfNodesVertical,
     required this.blockSize,
@@ -112,6 +115,11 @@ class MapBackgroundPainter extends CustomPainter {
 }
 
 class MapForegroundPainter extends CustomPainter {
+  final Offset hqPosition;
+  final int blockSize;
+
+  const MapForegroundPainter(this.hqPosition, this.blockSize);
+
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint();
@@ -122,10 +130,10 @@ class MapForegroundPainter extends CustomPainter {
     paint.strokeWidth = 1;
 
     final Path path = Path();
-    path.moveTo(1000, 390);
-    path.lineTo(1010, 400);
-    path.lineTo(1000, 410);
-    path.lineTo(990, 400);
+    path.moveTo(hqPosition.dx * blockSize, (hqPosition.dy * blockSize) - (blockSize / 2));
+    path.lineTo((hqPosition.dx * blockSize) + (blockSize / 2), hqPosition.dy * blockSize);
+    path.lineTo(hqPosition.dx * blockSize, (hqPosition.dy * blockSize) + (blockSize / 2));
+    path.lineTo((hqPosition.dx * blockSize) - (blockSize / 2), hqPosition.dy * blockSize);
     path.close();
 
     canvas.drawPath(path, paint);
@@ -141,10 +149,16 @@ class MainState extends BaseState {
   final int _numberOfNodesHorizontal = 100;
   final int _numberOfNodesVertical = 100;
 
+  final Offset hqPosition = const Offset(50, 40);
+
   MainState() {
-    final double zoomFactor = 5;
-    final double xTranslate = 200;
-    final double yTranslate = 200;
+    //const double zoomFactor = 5;
+    //const double xTranslate = 4000;
+    //const double yTranslate = 3500;
+
+    const double zoomFactor = 10;
+    const double xTranslate = 9000;
+    const double yTranslate = 7500;
 
     _transformationController.value.setEntry(0, 0, zoomFactor);
     _transformationController.value.setEntry(1, 1, zoomFactor);
