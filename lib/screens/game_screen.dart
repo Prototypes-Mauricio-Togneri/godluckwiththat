@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/extensions/offset_extension.dart';
 import 'package:tensionnode/extensions/path_extension.dart';
+import 'package:tensionnode/model/resource.dart';
 import 'package:tensionnode/services/palette.dart';
 
 class GameScreen extends StatelessWidget {
@@ -30,20 +31,79 @@ class Map extends StatelessWidget {
   Widget build(BuildContext context) {
     return StateProvider<GameState>(
       state: state,
-      builder: (context, state) => InteractiveViewer(
-        transformationController: state.transformationController,
-        minScale: 1,
-        maxScale: 20,
-        constrained: false,
-        child: Listener(
-          onPointerHover: state.onPointerHover,
-          child: GestureDetector(
-            onTapUp: state.onTapUp,
-            child: CustomPaint(
-              size: state.mapSize,
-              painter: MapBackgroundPainter(state),
-              foregroundPainter: MapForegroundPainter(state),
+      builder: (context, state) => Stack(
+        children: [
+          InteractiveViewer(
+            transformationController: state.transformationController,
+            minScale: 1,
+            maxScale: 20,
+            constrained: false,
+            child: Listener(
+              onPointerHover: state.onPointerHover,
+              child: GestureDetector(
+                onTapUp: state.onTapUp,
+                child: CustomPaint(
+                  size: state.mapSize,
+                  painter: MapBackgroundPainter(state),
+                  foregroundPainter: MapForegroundPainter(state),
+                ),
+              ),
             ),
+          ),
+          Hud(state),
+        ],
+      ),
+    );
+  }
+}
+
+class Hud extends StatelessWidget {
+  final GameState state;
+
+  const Hud(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        height: 50,
+        padding: const EdgeInsets.all(5),
+        color: Palette.hudBackground,
+        child: Row(
+          children: [
+            ResourceIndicator(state.resource1),
+            const HBox(10),
+            ResourceIndicator(state.resource2),
+            const HBox(10),
+            ResourceIndicator(state.resource3),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ResourceIndicator extends StatelessWidget {
+  final Resource resource;
+
+  const ResourceIndicator(this.resource);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 40,
+      height: 40,
+      decoration: BoxDecoration(
+        color: Palette.hudResourceIndicator,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Center(
+        child: Text(
+          resource.value.toString(),
+          style: const TextStyle(
+            color: Palette.white,
+            fontSize: 15,
           ),
         ),
       ),
@@ -134,6 +194,10 @@ class GameState extends BaseState {
 
   final Offset hqPosition = const Offset(50, 40);
   Offset? _highlightedNode;
+
+  final Resource resource1 = const Resource(name: 'Copper', value: 300);
+  final Resource resource2 = const Resource(name: 'Iron', value: 200);
+  final Resource resource3 = const Resource(name: 'Titanium', value: 100);
 
   GameState() {
     const double zoom = 5;

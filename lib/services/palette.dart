@@ -12,4 +12,6 @@ class Palette {
   static const Color highlightNode = Color(0x44aaaaaa);
 
   static const Color hq = Colors.blue;
+  static const Color hudBackground = Color(0xcc333333);
+  static const Color hudResourceIndicator = Color(0x44000000);
 }
