@@ -5,7 +5,6 @@ import 'package:tensionnode/extensions/offset_extension.dart';
 import 'package:tensionnode/model/headquarters.dart';
 import 'package:tensionnode/model/mine.dart';
 import 'package:tensionnode/model/node.dart';
-import 'package:tensionnode/model/resource.dart';
 
 class GameState extends BaseState {
   final _transformationController = TransformationController();
@@ -17,9 +16,9 @@ class GameState extends BaseState {
   final List<Node> nodes = [];
   Offset? _highlightedNode;
 
-  final Resource resource1 = Resource(name: 'Copper', value: 300);
-  final Resource resource2 = Resource(name: 'Iron', value: 200);
-  final Resource resource3 = Resource(name: 'Titanium', value: 100);
+  num resource1 = 300;
+  num resource2 = 200;
+  num resource3 = 100;
 
   GameState() {
     headquarters = Headquarters(
@@ -74,9 +73,9 @@ class GameState extends BaseState {
   }
 
   void update(double dt) {
-    resource1.value += dt * 10;
-    resource2.value += dt * 5;
-    resource3.value += dt * 2;
+    resource1 += dt * 10;
+    resource2 += dt * 5;
+    resource3 += dt * 2;
 
     headquarters.update(dt);
 

@@ -80,11 +80,21 @@ class Hud extends StatelessWidget {
         color: Palette.hudBackground,
         child: Row(
           children: [
-            ResourceIndicator(state.resource1),
             const HBox(10),
-            ResourceIndicator(state.resource2),
-            const HBox(10),
-            ResourceIndicator(state.resource3),
+            ResourceIndicator(
+              name: 'Copper',
+              value: state.resource1,
+            ),
+            const HBox(30),
+            ResourceIndicator(
+              name: 'Iron',
+              value: state.resource2,
+            ),
+            const HBox(30),
+            ResourceIndicator(
+              name: 'Titanium',
+              value: state.resource3,
+            ),
           ],
         ),
       ),
@@ -93,28 +103,45 @@ class Hud extends StatelessWidget {
 }
 
 class ResourceIndicator extends StatelessWidget {
-  final Resource resource;
+  final String name;
+  final num value;
 
-  const ResourceIndicator(this.resource);
+  const ResourceIndicator({
+    required this.name,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 40,
-      height: 40,
-      decoration: BoxDecoration(
-        color: Palette.hudResourceIndicator,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Center(
-        child: Text(
-          resource.value.toInt().toString(),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          name,
           style: const TextStyle(
             color: Palette.white,
             fontSize: 15,
           ),
         ),
-      ),
+        const HBox(10),
+        Container(
+          height: 40,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(
+            color: Palette.hudResourceIndicator,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Center(
+            child: Text(
+              value.toInt().toString(),
+              style: const TextStyle(
+                color: Palette.white,
+                fontSize: 15,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
