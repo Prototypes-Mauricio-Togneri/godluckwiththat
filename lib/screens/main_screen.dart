@@ -42,7 +42,7 @@ class Map extends StatelessWidget {
   Widget build(BuildContext context) {
     return InteractiveViewer(
       transformationController: state.transformationController,
-      minScale: 0.1,
+      minScale: 1,
       maxScale: 10,
       constrained: false,
       child: Listener(
@@ -152,17 +152,13 @@ class MainState extends BaseState {
   final Offset hqPosition = const Offset(50, 40);
 
   MainState() {
-    //const double zoomFactor = 5;
-    //const double xTranslate = 4000;
-    //const double yTranslate = 3500;
+    const double zoom = 2;
+    final double xTranslate = (hqPosition.dx * _blockSize * zoom) - 960;
+    final double yTranslate = (hqPosition.dy * _blockSize * zoom) - 490;
 
-    const double zoomFactor = 10;
-    const double xTranslate = 9000;
-    const double yTranslate = 7500;
-
-    _transformationController.value.setEntry(0, 0, zoomFactor);
-    _transformationController.value.setEntry(1, 1, zoomFactor);
-    _transformationController.value.setEntry(2, 2, zoomFactor);
+    _transformationController.value.setEntry(0, 0, zoom);
+    _transformationController.value.setEntry(1, 1, zoom);
+    _transformationController.value.setEntry(2, 2, zoom);
     _transformationController.value.setEntry(0, 3, -xTranslate);
     _transformationController.value.setEntry(1, 3, -yTranslate);
   }
