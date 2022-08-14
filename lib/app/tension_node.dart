@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tensionnode/screens/main_screen.dart';
+import 'package:tensionnode/screens/game_screen.dart';
 import 'package:tensionnode/services/navigation.dart';
 import 'package:tensionnode/services/palette.dart';
 
@@ -17,7 +17,7 @@ class TensionNode extends StatelessWidget {
         backgroundColor: Palette.white,
         scaffoldBackgroundColor: Palette.white,
       ),
-      home: MainScreen.instance(),
+      home: GameScreen.instance(),
     );
   }
 }

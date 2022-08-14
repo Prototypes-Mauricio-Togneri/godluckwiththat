@@ -3,12 +3,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/services/palette.dart';
 
-class MainScreen extends StatelessWidget {
+class GameScreen extends StatelessWidget {
   final MainState state;
 
-  const MainScreen(this.state);
+  const GameScreen(this.state);
 
-  factory MainScreen.instance() => MainScreen(MainState());
+  factory GameScreen.instance() => GameScreen(MainState());
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +46,9 @@ class Map extends StatelessWidget {
       maxScale: 20,
       constrained: false,
       child: Listener(
-        onPointerHover: _onPointerHover,
+        onPointerHover: state.onPointerHover,
         child: GestureDetector(
-          onTapUp: _onTapUp,
+          onTapUp: state.onTapUp,
           child: CustomPaint(
             size: state.mapSize,
             painter: MapBackgroundPainter(
@@ -64,15 +64,6 @@ class Map extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _onPointerHover(PointerHoverEvent event) {
-    //print(event.position);
-  }
-
-  void _onTapUp(TapUpDetails details) {
-    print('TAP: (${details.localPosition.dx.toInt()}, ${details.localPosition.dy.toInt()})');
-    //path.contains(Offset(x, y));
   }
 }
 
@@ -176,4 +167,13 @@ class MainState extends BaseState {
   int get numberOfNodesVertical => _numberOfNodesVertical;
 
   TransformationController get transformationController => _transformationController;
+
+  void onPointerHover(PointerHoverEvent event) {
+    //print(event.position);
+  }
+
+  void onTapUp(TapUpDetails details) {
+    print('TAP: (${details.localPosition.dx.toInt()}, ${details.localPosition.dy.toInt()})');
+    //path.contains(Offset(x, y));
+  }
 }
