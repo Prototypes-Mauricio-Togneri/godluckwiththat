@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/extensions/offset_extension.dart';
 import 'package:tensionnode/extensions/path_extension.dart';
 import 'package:tensionnode/services/palette.dart';
 
@@ -165,20 +166,13 @@ class GameState extends BaseState {
   TransformationController get transformationController => _transformationController;
 
   void onPointerHover(PointerHoverEvent event) {
-    _highlightedNode = _toLocalPosition(event.localPosition);
+    _highlightedNode = event.localPosition.nodePosition(blockSize);
     notify();
   }
 
   void onTapUp(TapUpDetails details) {
-    final Offset localPosition = _toLocalPosition(details.localPosition);
+    final Offset localPosition = details.localPosition.nodePosition(blockSize);
     print('TAP: (${localPosition.dx}, ${localPosition.dy})');
     //path.contains(Offset(x, y));
-  }
-
-  Offset _toLocalPosition(Offset position) {
-    final int x = (position.dx / blockSize).round();
-    final int y = (position.dy / blockSize).round();
-
-    return Offset(x.toDouble(), y.toDouble());
   }
 }
