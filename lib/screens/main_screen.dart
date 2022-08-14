@@ -3,8 +3,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/services/palette.dart';
 
-const int blockSize = 20;
-
 class MainScreen extends StatelessWidget {
   final MainState state;
 
@@ -28,19 +26,22 @@ class Content extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Palette.black,
-      body: Map(),
+      body: Map(state),
     );
   }
 }
 
 class Map extends StatelessWidget {
-  const Map();
+  final MainState state;
+
+  const Map(this.state);
 
   @override
   Widget build(BuildContext context) {
     return InteractiveViewer(
+      transformationController: state.transformationController,
       minScale: 0.1,
       maxScale: 10,
       constrained: false,
@@ -49,8 +50,12 @@ class Map extends StatelessWidget {
         child: GestureDetector(
           onTapUp: _onTapUp,
           child: CustomPaint(
-            size: const Size(blockSize * 120, blockSize * 80),
-            painter: MapBackgroundPainter(),
+            size: state.mapSize,
+            painter: MapBackgroundPainter(
+              numberOfNodesHorizontal: state.numberOfNodesHorizontal,
+              numberOfNodesVertical: state.numberOfNodesVertical,
+              blockSize: state.blockSize,
+            ),
             foregroundPainter: MapForegroundPainter(),
           ),
         ),
@@ -69,6 +74,16 @@ class Map extends StatelessWidget {
 }
 
 class MapBackgroundPainter extends CustomPainter {
+  final int numberOfNodesHorizontal;
+  final int numberOfNodesVertical;
+  final int blockSize;
+
+  MapBackgroundPainter({
+    required this.numberOfNodesHorizontal,
+    required this.numberOfNodesVertical,
+    required this.blockSize,
+  });
+
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint();
@@ -81,15 +96,12 @@ class MapBackgroundPainter extends CustomPainter {
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 0.3;
 
-    final int numHorizontal = size.width ~/ blockSize;
-    final int numVertical = size.height ~/ blockSize;
-
-    for (int i = 1; i < numHorizontal; i++) {
+    for (int i = 1; i < numberOfNodesHorizontal; i++) {
       final double x = (i * blockSize).toDouble();
       canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
     }
 
-    for (int i = 1; i < numVertical; i++) {
+    for (int i = 1; i < numberOfNodesVertical; i++) {
       final double y = (i * blockSize).toDouble();
       canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
     }
@@ -123,4 +135,34 @@ class MapForegroundPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-class MainState extends BaseState {}
+class MainState extends BaseState {
+  final _transformationController = TransformationController();
+  final int _blockSize = 20;
+  final int _numberOfNodesHorizontal = 100;
+  final int _numberOfNodesVertical = 100;
+
+  MainState() {
+    final double zoomFactor = 5;
+    final double xTranslate = 200;
+    final double yTranslate = 200;
+
+    _transformationController.value.setEntry(0, 0, zoomFactor);
+    _transformationController.value.setEntry(1, 1, zoomFactor);
+    _transformationController.value.setEntry(2, 2, zoomFactor);
+    _transformationController.value.setEntry(0, 3, -xTranslate);
+    _transformationController.value.setEntry(1, 3, -yTranslate);
+  }
+
+  Size get mapSize => Size(
+        (_blockSize * _numberOfNodesHorizontal).toDouble(),
+        (_blockSize * _numberOfNodesVertical).toDouble(),
+      );
+
+  int get blockSize => _blockSize;
+
+  int get numberOfNodesHorizontal => _numberOfNodesHorizontal;
+
+  int get numberOfNodesVertical => _numberOfNodesVertical;
+
+  TransformationController get transformationController => _transformationController;
+}
