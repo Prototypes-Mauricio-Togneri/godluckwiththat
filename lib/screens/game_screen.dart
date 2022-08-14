@@ -165,15 +165,20 @@ class GameState extends BaseState {
   TransformationController get transformationController => _transformationController;
 
   void onPointerHover(PointerHoverEvent event) {
-    final int x = (event.localPosition.dx / blockSize).round();
-    final int y = (event.localPosition.dy / blockSize).round();
-
-    _highlightedNode = Offset(x.toDouble(), y.toDouble());
+    _highlightedNode = _toLocalPosition(event.localPosition);
     notify();
   }
 
   void onTapUp(TapUpDetails details) {
-    print('TAP: (${details.localPosition.dx.toInt()}, ${details.localPosition.dy.toInt()})');
+    final Offset localPosition = _toLocalPosition(details.localPosition);
+    print('TAP: (${localPosition.dx}, ${localPosition.dy})');
     //path.contains(Offset(x, y));
+  }
+
+  Offset _toLocalPosition(Offset position) {
+    final int x = (position.dx / blockSize).round();
+    final int y = (position.dy / blockSize).round();
+
+    return Offset(x.toDouble(), y.toDouble());
   }
 }
