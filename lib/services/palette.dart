@@ -9,4 +9,5 @@ class Palette {
 
   static const Color gridLine = Color(0x44aaaaaa);
   static const Color gridBackground = Color(0xff666666);
+  static const Color highlightNode = Color(0x44aaaaaa);
 }

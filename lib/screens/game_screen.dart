@@ -4,25 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:tensionnode/services/palette.dart';
 
 class GameScreen extends StatelessWidget {
-  final MainState state;
+  final GameState state;
 
   const GameScreen(this.state);
 
-  factory GameScreen.instance() => GameScreen(MainState());
-
-  @override
-  Widget build(BuildContext context) {
-    return StateProvider<MainState>(
-      state: state,
-      builder: (context, state) => Content(state),
-    );
-  }
-}
-
-class Content extends StatelessWidget {
-  final MainState state;
-
-  const Content(this.state);
+  factory GameScreen.instance() => GameScreen(GameState());
 
   @override
   Widget build(BuildContext context) {
@@ -34,31 +20,27 @@ class Content extends StatelessWidget {
 }
 
 class Map extends StatelessWidget {
-  final MainState state;
+  final GameState state;
 
   const Map(this.state);
 
   @override
   Widget build(BuildContext context) {
-    return InteractiveViewer(
-      transformationController: state.transformationController,
-      minScale: 1,
-      maxScale: 20,
-      constrained: false,
-      child: Listener(
-        onPointerHover: state.onPointerHover,
-        child: GestureDetector(
-          onTapUp: state.onTapUp,
-          child: CustomPaint(
-            size: state.mapSize,
-            painter: MapBackgroundPainter(
-              numberOfNodesHorizontal: state.numberOfNodesHorizontal,
-              numberOfNodesVertical: state.numberOfNodesVertical,
-              blockSize: state.blockSize,
-            ),
-            foregroundPainter: MapForegroundPainter(
-              state.hqPosition,
-              state.blockSize,
+    return StateProvider<GameState>(
+      state: state,
+      builder: (context, state) => InteractiveViewer(
+        transformationController: state.transformationController,
+        minScale: 1,
+        maxScale: 20,
+        constrained: false,
+        child: Listener(
+          onPointerHover: state.onPointerHover,
+          child: GestureDetector(
+            onTapUp: state.onTapUp,
+            child: CustomPaint(
+              size: state.mapSize,
+              painter: MapBackgroundPainter(state),
+              foregroundPainter: MapForegroundPainter(state),
             ),
           ),
         ),
@@ -68,15 +50,9 @@ class Map extends StatelessWidget {
 }
 
 class MapBackgroundPainter extends CustomPainter {
-  final int numberOfNodesHorizontal;
-  final int numberOfNodesVertical;
-  final int blockSize;
+  final GameState state;
 
-  const MapBackgroundPainter({
-    required this.numberOfNodesHorizontal,
-    required this.numberOfNodesVertical,
-    required this.blockSize,
-  });
+  const MapBackgroundPainter(this.state);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -90,26 +66,25 @@ class MapBackgroundPainter extends CustomPainter {
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 0.1;
 
-    for (int i = 1; i < numberOfNodesHorizontal; i++) {
-      final double x = (i * blockSize).toDouble();
+    for (int i = 1; i < state.numberOfNodesHorizontal; i++) {
+      final double x = (i * state.blockSize).toDouble();
       canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
     }
 
-    for (int i = 1; i < numberOfNodesVertical; i++) {
-      final double y = (i * blockSize).toDouble();
+    for (int i = 1; i < state.numberOfNodesVertical; i++) {
+      final double y = (i * state.blockSize).toDouble();
       canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
     }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
 class MapForegroundPainter extends CustomPainter {
-  final Offset hqPosition;
-  final int blockSize;
+  final GameState state;
 
-  const MapForegroundPainter(this.hqPosition, this.blockSize);
+  const MapForegroundPainter(this.state);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -121,28 +96,36 @@ class MapForegroundPainter extends CustomPainter {
     paint.strokeWidth = 0.5;
 
     final Path path = Path();
-    path.moveTo(hqPosition.dx * blockSize, (hqPosition.dy * blockSize) - (blockSize / 2));
-    path.lineTo((hqPosition.dx * blockSize) + (blockSize / 2), hqPosition.dy * blockSize);
-    path.lineTo(hqPosition.dx * blockSize, (hqPosition.dy * blockSize) + (blockSize / 2));
-    path.lineTo((hqPosition.dx * blockSize) - (blockSize / 2), hqPosition.dy * blockSize);
+    path.moveTo(state.hqPosition.dx * state.blockSize, (state.hqPosition.dy * state.blockSize) - (state.blockSize / 2));
+    path.lineTo((state.hqPosition.dx * state.blockSize) + (state.blockSize / 2), state.hqPosition.dy * state.blockSize);
+    path.lineTo(state.hqPosition.dx * state.blockSize, (state.hqPosition.dy * state.blockSize) + (state.blockSize / 2));
+    path.lineTo((state.hqPosition.dx * state.blockSize) - (state.blockSize / 2), state.hqPosition.dy * state.blockSize);
     path.close();
 
     canvas.drawPath(path, paint);
+
+    if (state.hasHighlightedNode) {
+      final Paint paint = Paint();
+      paint.color = Palette.highlightNode;
+      paint.style = PaintingStyle.fill;
+      canvas.drawCircle(state.highlightedNode, 0.5, paint);
+    }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
-class MainState extends BaseState {
+class GameState extends BaseState {
   final _transformationController = TransformationController();
   final int _blockSize = 10;
   final int _numberOfNodesHorizontal = 100;
   final int _numberOfNodesVertical = 100;
 
   final Offset hqPosition = const Offset(50, 40);
+  Offset? _highlightedNode;
 
-  MainState() {
+  GameState() {
     const double zoom = 5;
     final Size size = WidgetsBinding.instance.window.physicalSize;
     final double xTranslate = (hqPosition.dx * _blockSize * zoom) - (size.width / 2);
@@ -166,10 +149,18 @@ class MainState extends BaseState {
 
   int get numberOfNodesVertical => _numberOfNodesVertical;
 
+  bool get hasHighlightedNode => _highlightedNode != null;
+
+  Offset get highlightedNode => _highlightedNode ?? Offset.zero;
+
   TransformationController get transformationController => _transformationController;
 
   void onPointerHover(PointerHoverEvent event) {
-    //print(event.position);
+    final int x = (event.localPosition.dx / blockSize).round();
+    final int y = (event.localPosition.dy / blockSize).round();
+
+    _highlightedNode = Offset(x.toDouble() * _blockSize, y.toDouble() * _blockSize);
+    notify();
   }
 
   void onTapUp(TapUpDetails details) {
