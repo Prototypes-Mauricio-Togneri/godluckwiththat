@@ -25,10 +25,7 @@ class Renderer {
     paint.strokeWidth = 0.5;
 
     _diamondFilled(
-      position: position.translate(
-        (mapSize.width / blockSize) / 2,
-        (mapSize.height / blockSize) / 2,
-      ),
+      position: _translate(position),
       paint: paint,
       size: size,
     );
@@ -46,10 +43,7 @@ class Renderer {
     paint.strokeJoin = StrokeJoin.miter;
 
     _diamondFilled(
-      position: position.translate(
-        (mapSize.width / blockSize) / 2,
-        (mapSize.height / blockSize) / 2,
-      ),
+      position: _translate(position),
       paint: paint,
       size: size,
     );
@@ -69,4 +63,31 @@ class Renderer {
 
     canvas.drawPath(path, paint);
   }
+
+  void line({
+    required Offset from,
+    required Offset to,
+    required Color color,
+  }) {
+    final Paint paint = Paint();
+    paint.color = color;
+    paint.style = PaintingStyle.stroke;
+    paint.strokeCap = StrokeCap.square;
+    paint.strokeJoin = StrokeJoin.miter;
+    paint.strokeWidth = 0.5;
+
+    final Path path = Path();
+    path.line(
+      from: _translate(from),
+      to: _translate(to),
+      blockSize: blockSize,
+    );
+
+    canvas.drawPath(path, paint);
+  }
+
+  Offset _translate(Offset position) => position.translate(
+        (mapSize.width / blockSize) / 2,
+        (mapSize.height / blockSize) / 2,
+      );
 }

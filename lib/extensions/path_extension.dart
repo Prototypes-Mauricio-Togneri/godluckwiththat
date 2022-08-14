@@ -12,4 +12,13 @@ extension PathExtension on Path {
     lineTo((position.dx * blockSize) - (size / 2), position.dy * blockSize);
     close();
   }
+
+  void line({
+    required Offset from,
+    required Offset to,
+    required num blockSize,
+  }) {
+    moveTo(from.dx * blockSize, from.dy * blockSize);
+    lineTo(to.dx * blockSize, to.dy * blockSize);
+  }
 }

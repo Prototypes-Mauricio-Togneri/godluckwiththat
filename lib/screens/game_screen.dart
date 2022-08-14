@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/model/lane.dart';
 import 'package:tensionnode/model/node.dart';
 import 'package:tensionnode/model/renderer.dart';
-import 'package:tensionnode/model/resource.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
 
@@ -186,6 +186,10 @@ class MapForegroundPainter extends CustomPainter {
       blockSize: state.blockSize,
       canvas: canvas,
     );
+
+    for (final Lane lane in state.lanes) {
+      lane.render(renderer);
+    }
 
     for (final Node node in state.nodes) {
       node.render(renderer);

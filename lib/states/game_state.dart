@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/extensions/offset_extension.dart';
 import 'package:tensionnode/model/headquarters.dart';
+import 'package:tensionnode/model/lane.dart';
 import 'package:tensionnode/model/mine.dart';
 import 'package:tensionnode/model/node.dart';
 
@@ -14,6 +15,7 @@ class GameState extends BaseState {
   late final Headquarters headquarters;
   late final Mine mine1;
   final List<Node> nodes = [];
+  final List<Lane> lanes = [];
   Offset? _highlightedNode;
 
   num resource1 = 300;
@@ -27,6 +29,19 @@ class GameState extends BaseState {
 
     mine1 = Mine(
       position: const Offset(-10, -5),
+    );
+
+    lanes.add(
+      const Lane(
+        from: Offset(-10, -5),
+        to: Offset(-10, 0),
+      ),
+    );
+    lanes.add(
+      const Lane(
+        from: Offset(-10, 0),
+        to: Offset(0, 0),
+      ),
     );
 
     nodes.add(headquarters);
