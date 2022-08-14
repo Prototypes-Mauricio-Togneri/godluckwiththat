@@ -153,8 +153,9 @@ class MainState extends BaseState {
 
   MainState() {
     const double zoom = 5;
-    final double xTranslate = (hqPosition.dx * _blockSize * zoom) - 960;
-    final double yTranslate = (hqPosition.dy * _blockSize * zoom) - 490;
+    final Size size = WidgetsBinding.instance.window.physicalSize;
+    final double xTranslate = (hqPosition.dx * _blockSize * zoom) - (size.width / 2);
+    final double yTranslate = (hqPosition.dy * _blockSize * zoom) - (size.height / 2);
 
     _transformationController.value.setEntry(0, 0, zoom);
     _transformationController.value.setEntry(1, 1, zoom);
