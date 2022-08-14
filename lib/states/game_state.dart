@@ -3,6 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/extensions/offset_extension.dart';
 import 'package:tensionnode/model/headquarters.dart';
+import 'package:tensionnode/model/mine.dart';
+import 'package:tensionnode/model/node.dart';
 import 'package:tensionnode/model/resource.dart';
 
 class GameState extends BaseState {
@@ -12,6 +14,8 @@ class GameState extends BaseState {
   final int _numberOfNodesVertical = 100;
 
   late final Headquarters headquarters;
+  late final Mine mine1;
+  final List<Node> nodes = [];
   Offset? _highlightedNode;
 
   final Resource resource1 = Resource(name: 'Copper', value: 300);
@@ -23,6 +27,14 @@ class GameState extends BaseState {
       position: const Offset(50, 40),
       blockSize: _blockSize,
     );
+
+    mine1 = Mine(
+      position: const Offset(40, 35),
+      blockSize: _blockSize,
+    );
+
+    nodes.add(headquarters);
+    nodes.add(mine1);
 
     const double zoom = 5;
     final Size size = WidgetsBinding.instance.window.physicalSize;

@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/model/node.dart';
 import 'package:tensionnode/model/renderer.dart';
 import 'package:tensionnode/model/resource.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -158,7 +159,9 @@ class MapForegroundPainter extends CustomPainter {
       canvas: canvas,
     );
 
-    state.headquarters.render(renderer);
+    for (final Node node in state.nodes) {
+      node.render(renderer);
+    }
 
     if (state.hasHighlightedNode) {
       renderer.diamondFilled(
