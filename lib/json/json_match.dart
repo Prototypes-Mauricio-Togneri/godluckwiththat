@@ -56,8 +56,8 @@ class JsonMatch {
 
     for (final JsonLane lane in lanes) {
       result.add(
-        nodes.at(lane.from.x, lane.from.y),
-        nodes.at(lane.to.x, lane.to.y),
+        nodes.at(lane.from.position),
+        nodes.at(lane.to.position),
       );
     }
 

@@ -15,7 +15,7 @@ class Node {
     required this.position,
   });
 
-  bool isAt(int x, int y) => position.dx == x && position.dy == y;
+  bool isAt(Offset testPosition) => position == testPosition;
 
   void update(double dt) {}
 

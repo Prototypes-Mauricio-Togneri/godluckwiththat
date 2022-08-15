@@ -8,23 +8,23 @@ import 'package:tensionnode/model/nodes/node.dart';
 class Nodes {
   final List<Node> _nodes = [];
 
-  Headquarters get headquarters => at(0, 0)! as Headquarters;
+  Headquarters get headquarters => at(Offset.zero)! as Headquarters;
 
-  Headquarters addHQ(int x, int y) => add(
+  Headquarters addHQ(Offset position) => add(
         Headquarters(
-          position: Offset(x.toDouble(), y.toDouble()),
+          position: position,
         ),
       );
 
-  Mine addMine(int x, int y) => add(
+  Mine addMine(Offset position) => add(
         Mine(
-          position: Offset(x.toDouble(), y.toDouble()),
+          position: position,
         ),
       );
 
-  Intersection addIntersection(int x, int y) => add(
+  Intersection addIntersection(Offset position) => add(
         Intersection(
-          position: Offset(x.toDouble(), y.toDouble()),
+          position: position,
         ),
       );
 
@@ -34,9 +34,9 @@ class Nodes {
     return element;
   }
 
-  Node? at(int x, int y) {
+  Node? at(Offset position) {
     for (final Node node in _nodes) {
-      if (node.isAt(x, y)) {
+      if (node.isAt(position)) {
         return node;
       }
     }
