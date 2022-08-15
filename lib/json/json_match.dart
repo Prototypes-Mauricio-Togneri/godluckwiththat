@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/engine/lanes.dart';
 import 'package:tensionnode/engine/nodes.dart';
+import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/json/json_lane.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_node.dart';

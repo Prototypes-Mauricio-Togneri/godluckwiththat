@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/json/json_position.dart';
+import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/intersection.dart';
 import 'package:tensionnode/model/nodes/mine.dart';
@@ -28,17 +28,17 @@ class JsonNode {
   Node getNode() {
     switch (type) {
       case NodeType.headquarters:
-        return Headquarters(position: position.getPosition);
+        return Headquarters(position: position.position);
       case NodeType.mine:
-        return Mine(position: position.getPosition);
+        return Mine(position: position.position);
       case NodeType.power_plant:
-        return PowerPlant(position: position.getPosition);
+        return PowerPlant(position: position.position);
       case NodeType.tower:
-        return Tower(position: position.getPosition);
+        return Tower(position: position.position);
       case NodeType.wall:
-        return Wall(position: position.getPosition);
+        return Wall(position: position.position);
       case NodeType.intersection:
-        return Intersection(position: position.getPosition);
+        return Intersection(position: position.position);
     }
   }
 

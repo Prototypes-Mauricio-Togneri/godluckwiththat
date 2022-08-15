@@ -7,8 +7,8 @@ part of 'json_lane.dart';
 // **************************************************************************
 
 JsonLane _$JsonLaneFromJson(Map<String, dynamic> json) => JsonLane(
-      from: JsonPosition.fromJson(json['from'] as Map<String, dynamic>),
-      to: JsonPosition.fromJson(json['to'] as Map<String, dynamic>),
+      from: (json['from'] as List<dynamic>).map((e) => e as int).toList(),
+      to: (json['to'] as List<dynamic>).map((e) => e as int).toList(),
     );
 
 Map<String, dynamic> _$JsonLaneToJson(JsonLane instance) => <String, dynamic>{
