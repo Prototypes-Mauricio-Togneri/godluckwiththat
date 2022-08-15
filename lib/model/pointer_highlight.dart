@@ -10,7 +10,7 @@ class PointerHighlight {
       renderer.diamondFilled(
         position: position!,
         color: Palette.highlightNode,
-        size: renderer.blockSize / 10,
+        size: renderer.map.blockSize / 10,
       );
     }
   }

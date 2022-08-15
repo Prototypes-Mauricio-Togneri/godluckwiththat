@@ -18,7 +18,7 @@ class GameScreen extends StatelessWidget {
       backgroundColor: Palette.black,
       body: Stack(
         children: [
-          Map(state),
+          MapPainter(state),
           GameLoop(state),
         ],
       ),
@@ -26,10 +26,10 @@ class GameScreen extends StatelessWidget {
   }
 }
 
-class Map extends StatelessWidget {
+class MapPainter extends StatelessWidget {
   final GameState state;
 
-  const Map(this.state);
+  const MapPainter(this.state);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class Map extends StatelessWidget {
                 child: GestureDetector(
                   onTapUp: state.onTapUp,
                   child: CustomPaint(
-                    size: state.mapSize,
+                    size: state.map.size,
                     painter: MapBackgroundPainter(state),
                     foregroundPainter: MapForegroundPainter(state),
                   ),
@@ -158,13 +158,13 @@ class MapBackgroundPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    for (int i = 1; i < state.mapDimensions.width; i++) {
-      final double x = (i * state.blockSize).toDouble();
+    for (int i = 1; i < state.map.dimensions.width; i++) {
+      final double x = (i * state.map.blockSize).toDouble();
       canvas.drawLine(Offset(x, 0), Offset(x, size.height), gridPaint);
     }
 
-    for (int i = 1; i < state.mapDimensions.height; i++) {
-      final double y = (i * state.blockSize).toDouble();
+    for (int i = 1; i < state.map.dimensions.height; i++) {
+      final double y = (i * state.map.blockSize).toDouble();
       canvas.drawLine(Offset(0, y), Offset(size.width, y), gridPaint);
     }
   }

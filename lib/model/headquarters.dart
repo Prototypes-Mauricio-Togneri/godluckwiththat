@@ -13,13 +13,13 @@ class Headquarters extends Node {
     renderer.diamondHollow(
       position: position,
       color: Palette.hq,
-      size: renderer.blockSize,
+      size: renderer.map.blockSize,
     );
 
     renderer.diamondFilled(
       position: position,
       color: Palette.hq,
-      size: renderer.blockSize / 2,
+      size: renderer.map.blockSize / 2,
     );
   }
 }

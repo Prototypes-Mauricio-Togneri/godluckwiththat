@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/extensions/offset_extension.dart';
+import 'package:tensionnode/model/game_map.dart';
 import 'package:tensionnode/model/headquarters.dart';
 import 'package:tensionnode/model/lane.dart';
 import 'package:tensionnode/model/mine.dart';
@@ -11,13 +12,14 @@ import 'package:tensionnode/model/renderer.dart';
 
 class GameState extends BaseState {
   final TransformationController transformationController = TransformationController();
-  final int blockSize = 10;
-  final Size mapDimensions = const Size(100, 100);
+  final GameMap map = const GameMap(
+    numberOfBlocksHorizontal: 100,
+    numberOfBlocksVertical: 100,
+    blockSize: 10,
+  );
 
   late final Renderer renderer;
   final PointerHighlight pointerHighlight = PointerHighlight();
-  late final Headquarters headquarters;
-  late final Mine mine1;
   final List<Node> nodes = [];
   final List<Lane> lanes = [];
 
@@ -26,16 +28,13 @@ class GameState extends BaseState {
   num resource3 = 100;
 
   GameState() {
-    renderer = Renderer(
-      mapSize: mapSize,
-      blockSize: blockSize,
-    );
+    renderer = Renderer(map: map);
 
-    headquarters = Headquarters(
+    final Headquarters headquarters = Headquarters(
       position: const Offset(0, 0),
     );
 
-    mine1 = Mine(
+    final Mine mine1 = Mine(
       position: const Offset(-10, -5),
     );
 
@@ -56,37 +55,27 @@ class GameState extends BaseState {
     nodes.add(mine1);
 
     const double zoom = 5;
-    final Size size = WidgetsBinding.instance.window.physicalSize;
-    final double xTranslate = ((mapDimensions.width / 2) * blockSize * zoom) - (size.width / 2);
-    final double yTranslate = ((mapDimensions.height / 2) * blockSize * zoom) - (size.height / 2);
+    final Offset center = map.center(
+      zoom: zoom,
+      screenSize: WidgetsBinding.instance.window.physicalSize,
+    );
 
     transformationController.value.setEntry(0, 0, zoom);
     transformationController.value.setEntry(1, 1, zoom);
     transformationController.value.setEntry(2, 2, zoom);
-    transformationController.value.setEntry(0, 3, -xTranslate);
-    transformationController.value.setEntry(1, 3, -yTranslate);
+    transformationController.value.setEntry(0, 3, -center.dx);
+    transformationController.value.setEntry(1, 3, -center.dy);
   }
-
-  Size get mapSize => Size(
-        (blockSize * mapDimensions.width).toDouble(),
-        (blockSize * mapDimensions.height).toDouble(),
-      );
 
   void onPointerHover(PointerHoverEvent event) {
     pointerHighlight.setPosition(
-      event.localPosition.nodePosition(
-        dimensions: mapDimensions,
-        blockSize: blockSize,
-      ),
+      event.localPosition.nodePosition(map: map),
     );
     notify();
   }
 
   void onTapUp(TapUpDetails details) {
-    final Offset localPosition = details.localPosition.nodePosition(
-      dimensions: mapDimensions,
-      blockSize: blockSize,
-    );
+    final Offset localPosition = details.localPosition.nodePosition(map: map);
     print('TAP: (${localPosition.dx}, ${localPosition.dy})');
     //path.contains(Offset(x, y));
   }
@@ -96,7 +85,9 @@ class GameState extends BaseState {
     resource2 += dt * 5;
     resource3 += dt * 2;
 
-    headquarters.update(dt);
+    for (final Node node in nodes) {
+      node.update(dt);
+    }
 
     Delayed.post(notify);
   }

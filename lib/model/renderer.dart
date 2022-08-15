@@ -1,15 +1,12 @@
 import 'package:flutter/rendering.dart';
 import 'package:tensionnode/extensions/path_extension.dart';
+import 'package:tensionnode/model/game_map.dart';
 
 class Renderer {
-  final Size mapSize;
-  final num blockSize;
+  final GameMap map;
   late Canvas canvas;
 
-  Renderer({
-    required this.mapSize,
-    required this.blockSize,
-  });
+  Renderer({required this.map});
 
   void setCanvas(Canvas newCanvas) => canvas = newCanvas;
 
@@ -58,7 +55,7 @@ class Renderer {
     final Path path = Path();
     path.diamond(
       position: position,
-      blockSize: blockSize,
+      blockSize: map.blockSize,
       size: size,
     );
 
@@ -81,14 +78,14 @@ class Renderer {
     path.line(
       from: _translate(from),
       to: _translate(to),
-      blockSize: blockSize,
+      blockSize: map.blockSize,
     );
 
     canvas.drawPath(path, paint);
   }
 
   Offset _translate(Offset position) => position.translate(
-        (mapSize.width / blockSize) / 2,
-        (mapSize.height / blockSize) / 2,
+        (map.size.width / map.blockSize) / 2,
+        (map.size.height / map.blockSize) / 2,
       );
 }
