@@ -22,8 +22,7 @@ class JsonMap {
 
   factory JsonMap.fromString(String json) => JsonMap.fromJson(jsonDecode(json));
 
-  factory JsonMap.fromJson(Map<String, dynamic> json) =>
-      _$JsonMapFromJson(json);
+  factory JsonMap.fromJson(Map<String, dynamic> json) => _$JsonMapFromJson(json);
 
   Map<String, dynamic> toJson() => _$JsonMapToJson(this);
 }

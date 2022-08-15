@@ -191,22 +191,18 @@ class GameLoop extends StatefulWidget {
   State<GameLoop> createState() => _GameLoopState();
 }
 
-class _GameLoopState extends State<GameLoop>
-    with SingleTickerProviderStateMixin {
+class _GameLoopState extends State<GameLoop> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
   final DateTime _initialTime = DateTime.now();
   double previous = 0;
-  double get currentTime =>
-      DateTime.now().difference(_initialTime).inMilliseconds / 1000.0;
+  double get currentTime => DateTime.now().difference(_initialTime).inMilliseconds / 1000.0;
 
   @override
   void initState() {
     super.initState();
     previous = currentTime;
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 1))
-          ..repeat();
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 1))..repeat();
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
   }
 

@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionnode/engine/nodes.dart';
 import 'package:tensionnode/json/json_map.dart';
+import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/model/game_map.dart';
 
 part 'json_match.g.dart';
@@ -16,10 +18,14 @@ class JsonMatch {
   @JsonKey(name: 'map')
   final JsonMap map;
 
+  @JsonKey(name: 'nodes')
+  final List<JsonNode> nodes;
+
   const JsonMatch({
     required this.version,
     required this.id,
     required this.map,
+    required this.nodes,
   });
 
   GameMap get gameMap => GameMap(
@@ -28,11 +34,19 @@ class JsonMatch {
         blockSize: map.blockSize,
       );
 
-  factory JsonMatch.fromString(String json) =>
-      JsonMatch.fromJson(jsonDecode(json));
+  Nodes getNodes() {
+    final Nodes result = Nodes();
 
-  factory JsonMatch.fromJson(Map<String, dynamic> json) =>
-      _$JsonMatchFromJson(json);
+    for (final JsonNode node in nodes) {
+      result.add(node.getNode());
+    }
+
+    return result;
+  }
+
+  factory JsonMatch.fromString(String json) => JsonMatch.fromJson(jsonDecode(json));
+
+  factory JsonMatch.fromJson(Map<String, dynamic> json) => _$JsonMatchFromJson(json);
 
   Map<String, dynamic> toJson() => _$JsonMatchToJson(this);
 }

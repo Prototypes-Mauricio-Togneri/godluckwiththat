@@ -8,25 +8,25 @@ import 'package:tensionnode/model/nodes/node.dart';
 class Nodes {
   final List<Node> _nodes = [];
 
-  Headquarters addHQ(int x, int y) => _add(
+  Headquarters addHQ(int x, int y) => add(
         Headquarters(
           position: Offset(x.toDouble(), y.toDouble()),
         ),
       );
 
-  Mine addMine(int x, int y) => _add(
+  Mine addMine(int x, int y) => add(
         Mine(
           position: Offset(x.toDouble(), y.toDouble()),
         ),
       );
 
-  Intersection addIntersection(int x, int y) => _add(
+  Intersection addIntersection(int x, int y) => add(
         Intersection(
           position: Offset(x.toDouble(), y.toDouble()),
         ),
       );
 
-  T _add<T extends Node>(T element) {
+  T add<T extends Node>(T element) {
     _nodes.add(element);
 
     return element;
