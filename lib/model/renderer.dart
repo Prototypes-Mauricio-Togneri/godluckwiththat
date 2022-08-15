@@ -5,6 +5,7 @@ import 'package:tensionnode/services/palette.dart';
 
 class Renderer {
   final GameMap map;
+  final Path _path = Path();
   late Canvas canvas;
 
   Renderer(this.map);
@@ -46,7 +47,7 @@ class Renderer {
     required Paint paint,
     required num size,
   }) {
-    final Path path = Path();
+    final Path path = newPath;
     path.diamond(
       position: position,
       size: size,
@@ -63,12 +64,18 @@ class Renderer {
     final Paint paint = Palette.lanePaint;
     paint.color = color;
 
-    final Path path = Path();
+    final Path path = newPath;
     path.line(
       from: map.gameToReal(from),
       to: map.gameToReal(to),
     );
 
     canvas.drawPath(path, paint);
+  }
+
+  Path get newPath {
+    _path.reset();
+
+    return _path;
   }
 }
