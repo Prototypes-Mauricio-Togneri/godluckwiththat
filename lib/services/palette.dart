@@ -16,12 +16,28 @@ class Palette {
   static const Color hudBackground = Color(0xcc333333);
   static const Color hudResourceIndicator = Color(0x44000000);
 
-  static Paint gridPaint = Paint();
+  static final Paint gridPaint = Paint();
+  static final Paint diamondHollowPaint = Paint();
+  static final Paint diamondFilledPaint = Paint();
+  static final Paint lanePaint = Paint();
 
   static void init() {
-    gridPaint = Paint();
     gridPaint.color = Palette.gridLine;
     gridPaint.style = PaintingStyle.stroke;
     gridPaint.strokeWidth = 0.1;
+
+    diamondHollowPaint.style = PaintingStyle.stroke;
+    diamondHollowPaint.strokeCap = StrokeCap.square;
+    diamondHollowPaint.strokeJoin = StrokeJoin.miter;
+    diamondHollowPaint.strokeWidth = 0.5;
+
+    diamondFilledPaint.style = PaintingStyle.fill;
+    diamondFilledPaint.strokeCap = StrokeCap.square;
+    diamondFilledPaint.strokeJoin = StrokeJoin.miter;
+
+    lanePaint.style = PaintingStyle.stroke;
+    lanePaint.strokeCap = StrokeCap.square;
+    lanePaint.strokeJoin = StrokeJoin.miter;
+    lanePaint.strokeWidth = 0.5;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/rendering.dart';
 import 'package:tensionnode/extensions/path_extension.dart';
 import 'package:tensionnode/model/game_map.dart';
+import 'package:tensionnode/services/palette.dart';
 
 class Renderer {
   final GameMap map;
@@ -15,12 +16,8 @@ class Renderer {
     required Color color,
     required num size,
   }) {
-    final Paint paint = Paint();
+    final Paint paint = Palette.diamondHollowPaint;
     paint.color = color;
-    paint.style = PaintingStyle.stroke;
-    paint.strokeCap = StrokeCap.square;
-    paint.strokeJoin = StrokeJoin.miter;
-    paint.strokeWidth = 0.5;
 
     _diamondFilled(
       position: map.gameToReal(position),
@@ -34,11 +31,8 @@ class Renderer {
     required Color color,
     required num size,
   }) {
-    final Paint paint = Paint();
+    final Paint paint = Palette.diamondFilledPaint;
     paint.color = color;
-    paint.style = PaintingStyle.fill;
-    paint.strokeCap = StrokeCap.square;
-    paint.strokeJoin = StrokeJoin.miter;
 
     _diamondFilled(
       position: map.gameToReal(position),
@@ -66,12 +60,8 @@ class Renderer {
     required Offset to,
     required Color color,
   }) {
-    final Paint paint = Paint();
+    final Paint paint = Palette.lanePaint;
     paint.color = color;
-    paint.style = PaintingStyle.stroke;
-    paint.strokeCap = StrokeCap.square;
-    paint.strokeJoin = StrokeJoin.miter;
-    paint.strokeWidth = 0.5;
 
     final Path path = Path();
     path.line(
