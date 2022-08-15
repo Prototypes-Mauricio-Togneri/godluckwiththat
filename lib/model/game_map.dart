@@ -23,26 +23,15 @@ class GameMap {
 
   void setCenter(TransformationController transformationController) {
     const double zoom = 5;
-    final Offset center = _center(
-      zoom: zoom,
-      screenSize: WidgetsBinding.instance.window.physicalSize,
-    );
+    final Size screenSize = WidgetsBinding.instance.window.physicalSize;
+    final double xTranslate = ((dimensions.width / 2) * blockSize * zoom) - (screenSize.width / 2);
+    final double yTranslate = ((dimensions.height / 2) * blockSize * zoom) - (screenSize.height / 2);
 
     transformationController.value.setEntry(0, 0, zoom);
     transformationController.value.setEntry(1, 1, zoom);
     transformationController.value.setEntry(2, 2, zoom);
-    transformationController.value.setEntry(0, 3, -center.dx);
-    transformationController.value.setEntry(1, 3, -center.dy);
-  }
-
-  Offset _center({
-    required double zoom,
-    required Size screenSize,
-  }) {
-    final double xTranslate = ((dimensions.width / 2) * blockSize * zoom) - (screenSize.width / 2);
-    final double yTranslate = ((dimensions.height / 2) * blockSize * zoom) - (screenSize.height / 2);
-
-    return Offset(xTranslate, yTranslate);
+    transformationController.value.setEntry(0, 3, -xTranslate);
+    transformationController.value.setEntry(1, 3, -yTranslate);
   }
 
   Offset gameToReal(Offset position) => position.translate(
