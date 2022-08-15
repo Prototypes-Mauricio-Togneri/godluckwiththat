@@ -45,10 +45,13 @@ class GameMap {
     return Offset(xTranslate, yTranslate);
   }
 
-  Offset realToGame(Offset position) {
-    final int x = (position.dx / blockSize).round();
-    final int y = (position.dy / blockSize).round();
+  Offset gameToReal(Offset position) => position.translate(
+        (size.width / blockSize) / 2,
+        (size.height / blockSize) / 2,
+      );
 
-    return Offset(x - (dimensions.width / 2), y - (dimensions.height / 2));
-  }
+  Offset realToGame(Offset position) => Offset(
+        (position.dx / blockSize).round() - (dimensions.width / 2),
+        (position.dy / blockSize).round() - (dimensions.height / 2),
+      );
 }

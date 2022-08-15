@@ -23,7 +23,7 @@ class Renderer {
     paint.strokeWidth = 0.5;
 
     _diamondFilled(
-      position: _translate(position),
+      position: map.gameToReal(position),
       paint: paint,
       size: size,
     );
@@ -41,7 +41,7 @@ class Renderer {
     paint.strokeJoin = StrokeJoin.miter;
 
     _diamondFilled(
-      position: _translate(position),
+      position: map.gameToReal(position),
       paint: paint,
       size: size,
     );
@@ -76,16 +76,11 @@ class Renderer {
 
     final Path path = Path();
     path.line(
-      from: _translate(from),
-      to: _translate(to),
+      from: map.gameToReal(from),
+      to: map.gameToReal(to),
       blockSize: map.blockSize,
     );
 
     canvas.drawPath(path, paint);
   }
-
-  Offset _translate(Offset position) => position.translate(
-        (map.size.width / map.blockSize) / 2,
-        (map.size.height / map.blockSize) / 2,
-      );
 }
