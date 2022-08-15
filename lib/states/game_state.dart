@@ -1,7 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/extensions/offset_extension.dart';
 import 'package:tensionnode/model/game_map.dart';
 import 'package:tensionnode/model/headquarters.dart';
 import 'package:tensionnode/model/lane.dart';
@@ -58,14 +57,12 @@ class GameState extends BaseState {
   }
 
   void onPointerHover(PointerHoverEvent event) {
-    pointerHighlight.setPosition(
-      event.localPosition.nodePosition(map: map),
-    );
+    pointerHighlight.setPosition(map.realToGame(event.localPosition));
     notify();
   }
 
   void onTapUp(TapUpDetails details) {
-    final Offset localPosition = details.localPosition.nodePosition(map: map);
+    final Offset localPosition = map.realToGame(details.localPosition);
     print('TAP: (${localPosition.dx}, ${localPosition.dy})');
     //path.contains(Offset(x, y));
   }
