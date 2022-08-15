@@ -29,13 +29,12 @@ class GameState extends BaseState {
   GameState() {
     renderer = Renderer(map: map);
 
-    final Headquarters headquarters = Headquarters(
+    nodes.add(Headquarters(
       position: const Offset(0, 0),
-    );
-
-    final Mine mine1 = Mine(
+    ));
+    nodes.add(Mine(
       position: const Offset(-10, -5),
-    );
+    ));
 
     lanes.add(
       const Lane(
@@ -49,9 +48,6 @@ class GameState extends BaseState {
         to: Offset(0, 0),
       ),
     );
-
-    nodes.add(headquarters);
-    nodes.add(mine1);
 
     map.setCenter(transformationController);
   }
