@@ -147,25 +147,19 @@ class ResourceIndicator extends StatelessWidget {
 
 class MapBackgroundPainter extends CustomPainter {
   final GameState state;
-  late final Paint gridPaint;
 
-  MapBackgroundPainter(this.state) {
-    gridPaint = Paint();
-    gridPaint.color = Palette.gridLine;
-    gridPaint.style = PaintingStyle.stroke;
-    gridPaint.strokeWidth = 0.1;
-  }
+  const MapBackgroundPainter(this.state);
 
   @override
   void paint(Canvas canvas, Size size) {
     for (int i = 1; i < state.map.dimensions.width; i++) {
       final double x = (i * state.map.blockSize).toDouble();
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), gridPaint);
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), Palette.gridPaint);
     }
 
     for (int i = 1; i < state.map.dimensions.height; i++) {
       final double y = (i * state.map.blockSize).toDouble();
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), gridPaint);
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), Palette.gridPaint);
     }
   }
 

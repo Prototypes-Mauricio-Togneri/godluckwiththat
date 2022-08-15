@@ -15,4 +15,13 @@ class Palette {
   static const Color mine1 = Colors.yellow;
   static const Color hudBackground = Color(0xcc333333);
   static const Color hudResourceIndicator = Color(0x44000000);
+
+  static Paint gridPaint = Paint();
+
+  static void init() {
+    gridPaint = Paint();
+    gridPaint.color = Palette.gridLine;
+    gridPaint.style = PaintingStyle.stroke;
+    gridPaint.strokeWidth = 0.1;
+  }
 }
