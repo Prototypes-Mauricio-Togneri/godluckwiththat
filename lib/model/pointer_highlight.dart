@@ -1,5 +1,5 @@
 import 'package:flutter/rendering.dart';
-import 'package:tensionnode/model/renderer.dart';
+import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/services/palette.dart';
 
 class PointerHighlight {
