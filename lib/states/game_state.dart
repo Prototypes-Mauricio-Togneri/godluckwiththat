@@ -1,13 +1,10 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/engine/nodes.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/game_map.dart';
 import 'package:tensionnode/model/lane.dart';
-import 'package:tensionnode/model/nodes/headquarters.dart';
-import 'package:tensionnode/model/nodes/intersection.dart';
-import 'package:tensionnode/model/nodes/mine.dart';
-import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
 
 class GameState extends BaseState {
@@ -20,7 +17,7 @@ class GameState extends BaseState {
 
   late final Renderer renderer;
   final PointerHighlight pointerHighlight = PointerHighlight();
-  final List<Node> nodes = [];
+  final Nodes nodes = Nodes();
   final List<Lane> lanes = [];
 
   num resource1 = 300;
@@ -30,7 +27,10 @@ class GameState extends BaseState {
   GameState() {
     renderer = Renderer(map);
 
-    nodes.addAll([
+    nodes.addHQ(0, 0);
+    nodes.addMine(-10, -5);
+
+    /*nodes.addAll([
       Headquarters(
         position: const Offset(0, 0),
       ),
@@ -79,7 +79,7 @@ class GameState extends BaseState {
       Intersection(
         position: const Offset(-1, 0),
       ),
-    ]);
+    ]);*/
 
     lanes.addAll([
       const Lane(
@@ -111,9 +111,7 @@ class GameState extends BaseState {
     resource2 += dt * 5;
     resource3 += dt * 2;
 
-    for (final Node node in nodes) {
-      node.update(dt);
-    }
+    nodes.update(dt);
 
     Delayed.post(notify);
   }

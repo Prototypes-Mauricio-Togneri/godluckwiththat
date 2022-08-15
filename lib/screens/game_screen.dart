@@ -1,7 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/model/lane.dart';
-import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
 
@@ -180,10 +179,7 @@ class MapForegroundPainter extends CustomPainter {
       lane.render(state.renderer);
     }
 
-    for (final Node node in state.nodes) {
-      node.render(state.renderer);
-    }
-
+    state.nodes.render(state.renderer);
     state.pointerHighlight.render(state.renderer);
   }
 
