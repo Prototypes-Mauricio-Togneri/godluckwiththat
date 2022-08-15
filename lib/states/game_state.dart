@@ -10,7 +10,7 @@ import 'package:tensionnode/model/pointer_highlight.dart';
 import 'package:tensionnode/model/renderer.dart';
 
 class GameState extends BaseState {
-  final _transformationController = TransformationController();
+  final TransformationController transformationController = TransformationController();
   final int blockSize = 10;
   final Size mapDimensions = const Size(100, 100);
 
@@ -60,19 +60,17 @@ class GameState extends BaseState {
     final double xTranslate = ((mapDimensions.width / 2) * blockSize * zoom) - (size.width / 2);
     final double yTranslate = ((mapDimensions.height / 2) * blockSize * zoom) - (size.height / 2);
 
-    _transformationController.value.setEntry(0, 0, zoom);
-    _transformationController.value.setEntry(1, 1, zoom);
-    _transformationController.value.setEntry(2, 2, zoom);
-    _transformationController.value.setEntry(0, 3, -xTranslate);
-    _transformationController.value.setEntry(1, 3, -yTranslate);
+    transformationController.value.setEntry(0, 0, zoom);
+    transformationController.value.setEntry(1, 1, zoom);
+    transformationController.value.setEntry(2, 2, zoom);
+    transformationController.value.setEntry(0, 3, -xTranslate);
+    transformationController.value.setEntry(1, 3, -yTranslate);
   }
 
   Size get mapSize => Size(
         (blockSize * mapDimensions.width).toDouble(),
         (blockSize * mapDimensions.height).toDouble(),
       );
-
-  TransformationController get transformationController => _transformationController;
 
   void onPointerHover(PointerHoverEvent event) {
     pointerHighlight.setPosition(
