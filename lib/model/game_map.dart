@@ -34,9 +34,9 @@ class GameMap {
     transformationController.value.setEntry(1, 3, -yTranslate);
   }
 
-  Offset gameToReal(Offset position) => position.translate(
-        (size.width / blockSize) / 2,
-        (size.height / blockSize) / 2,
+  Offset gameToReal(Offset position) => Offset(
+        position.dx + ((size.width / blockSize) / 2),
+        position.dy + ((size.height / blockSize) / 2),
       );
 
   Offset realToGame(Offset position) => Offset(
