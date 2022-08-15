@@ -5,6 +5,7 @@ import 'package:tensionnode/engine/lanes.dart';
 import 'package:tensionnode/engine/nodes.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/game_map.dart';
+import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
 
 class GameState extends BaseState {
@@ -16,18 +17,15 @@ class GameState extends BaseState {
   );
 
   late final Renderer renderer;
+  late final Headquarters headquarters;
   final PointerHighlight pointerHighlight = PointerHighlight();
   final Nodes nodes = Nodes();
   final Lanes lanes = Lanes();
 
-  num resource1 = 300;
-  num resource2 = 200;
-  num resource3 = 100;
-
   GameState() {
     renderer = Renderer(map);
 
-    nodes.addHQ(0, 0);
+    headquarters = nodes.addHQ(0, 0);
     nodes.addMine(-10, -5);
     nodes.addIntersection(-10, -4);
     nodes.addIntersection(-10, -3);
@@ -76,9 +74,9 @@ class GameState extends BaseState {
   }
 
   void update(double dt) {
-    resource1 += dt * 10;
-    resource2 += dt * 5;
-    resource3 += dt * 2;
+    headquarters.resource1 += dt * 10;
+    headquarters.resource2 += dt * 5;
+    headquarters.resource3 += dt * 2;
 
     nodes.update(dt);
 

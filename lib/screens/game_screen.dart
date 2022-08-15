@@ -80,17 +80,17 @@ class Hud extends StatelessWidget {
             const HBox(10),
             ResourceIndicator(
               name: 'Copper',
-              value: state.resource1,
+              value: state.headquarters.resource1,
             ),
             const HBox(30),
             ResourceIndicator(
               name: 'Iron',
-              value: state.resource2,
+              value: state.headquarters.resource2,
             ),
             const HBox(30),
             ResourceIndicator(
               name: 'Titanium',
-              value: state.resource3,
+              value: state.headquarters.resource3,
             ),
           ],
         ),

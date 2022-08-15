@@ -4,6 +4,10 @@ import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class Headquarters extends Node {
+  num resource1 = 0;
+  num resource2 = 0;
+  num resource3 = 0;
+
   Headquarters({
     required super.position,
   }) : super(type: NodeType.headquarters);
