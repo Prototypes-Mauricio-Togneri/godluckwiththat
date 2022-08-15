@@ -1,4 +1,4 @@
-import 'package:flutter/rendering.dart';
+import 'package:flutter/material.dart';
 
 class GameMap {
   final int numberOfBlocksHorizontal;
@@ -21,7 +21,21 @@ class GameMap {
         (blockSize * dimensions.height).toDouble(),
       );
 
-  Offset center({
+  void setCenter(TransformationController transformationController) {
+    const double zoom = 5;
+    final Offset center = _center(
+      zoom: zoom,
+      screenSize: WidgetsBinding.instance.window.physicalSize,
+    );
+
+    transformationController.value.setEntry(0, 0, zoom);
+    transformationController.value.setEntry(1, 1, zoom);
+    transformationController.value.setEntry(2, 2, zoom);
+    transformationController.value.setEntry(0, 3, -center.dx);
+    transformationController.value.setEntry(1, 3, -center.dy);
+  }
+
+  Offset _center({
     required double zoom,
     required Size screenSize,
   }) {

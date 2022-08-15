@@ -54,17 +54,7 @@ class GameState extends BaseState {
     nodes.add(headquarters);
     nodes.add(mine1);
 
-    const double zoom = 5;
-    final Offset center = map.center(
-      zoom: zoom,
-      screenSize: WidgetsBinding.instance.window.physicalSize,
-    );
-
-    transformationController.value.setEntry(0, 0, zoom);
-    transformationController.value.setEntry(1, 1, zoom);
-    transformationController.value.setEntry(2, 2, zoom);
-    transformationController.value.setEntry(0, 3, -center.dx);
-    transformationController.value.setEntry(1, 3, -center.dy);
+    map.setCenter(transformationController);
   }
 
   void onPointerHover(PointerHoverEvent event) {
