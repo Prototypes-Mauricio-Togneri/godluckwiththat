@@ -12,13 +12,13 @@ class Mine extends Node {
   void render(Renderer renderer) {
     renderer.diamondHollow(
       position: position,
-      color: Palette.mine1,
+      color: Palette.mine,
       size: renderer.map.blockSize,
     );
 
     renderer.diamondFilled(
       position: position,
-      color: Palette.mine1,
+      color: Palette.mine,
       size: renderer.map.blockSize / 2,
     );
   }

@@ -29,25 +29,25 @@ class GameState extends BaseState {
   GameState() {
     renderer = Renderer(map);
 
-    nodes.add(Headquarters(
-      position: const Offset(0, 0),
-    ));
-    nodes.add(Mine(
-      position: const Offset(-10, -5),
-    ));
+    nodes.addAll([
+      Headquarters(
+        position: const Offset(0, 0),
+      ),
+      Mine(
+        position: const Offset(-10, -5),
+      )
+    ]);
 
-    lanes.add(
+    lanes.addAll([
       const Lane(
         from: Offset(-10, -5),
         to: Offset(-10, 0),
       ),
-    );
-    lanes.add(
       const Lane(
         from: Offset(-10, 0),
         to: Offset(0, 0),
       ),
-    );
+    ]);
 
     map.setCenter(transformationController);
   }
