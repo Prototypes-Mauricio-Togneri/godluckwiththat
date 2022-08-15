@@ -12,7 +12,7 @@ class Lane {
   });
 
   void render(Renderer renderer) {
-    renderer.line(
+    renderer.lane(
       from: from,
       to: to,
       color: Palette.white,
