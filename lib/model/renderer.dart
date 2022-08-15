@@ -6,7 +6,7 @@ class Renderer {
   final GameMap map;
   late Canvas canvas;
 
-  Renderer({required this.map});
+  Renderer(this.map);
 
   void setCanvas(Canvas newCanvas) => canvas = newCanvas;
 

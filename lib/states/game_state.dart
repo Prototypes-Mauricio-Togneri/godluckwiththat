@@ -27,7 +27,7 @@ class GameState extends BaseState {
   num resource3 = 100;
 
   GameState() {
-    renderer = Renderer(map: map);
+    renderer = Renderer(map);
 
     nodes.add(Headquarters(
       position: const Offset(0, 0),
