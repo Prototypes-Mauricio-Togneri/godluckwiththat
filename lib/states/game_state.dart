@@ -5,6 +5,7 @@ import 'package:tensionnode/engine/nodes.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/game_map.dart';
 import 'package:tensionnode/model/lane.dart';
+import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
 
 class GameState extends BaseState {
@@ -28,18 +29,18 @@ class GameState extends BaseState {
     renderer = Renderer(map);
 
     nodes.addHQ(0, 0);
-    nodes.addMine(-10, -5);
+    final Node mine = nodes.addMine(-10, -5);
+    final Node i1 = nodes.addIntersection(-10, -4);
+
+    lanes.add(
+      Lane(
+        from: mine,
+        to: i1,
+      ),
+    );
 
     /*nodes.addAll([
-      Headquarters(
-        position: const Offset(0, 0),
-      ),
-      Mine(
-        position: const Offset(-10, -5),
-      ),
-      Intersection(
-        position: const Offset(-10, -4),
-      ),
+      
       Intersection(
         position: const Offset(-10, -3),
       ),
@@ -80,17 +81,6 @@ class GameState extends BaseState {
         position: const Offset(-1, 0),
       ),
     ]);*/
-
-    lanes.addAll([
-      const Lane(
-        from: Offset(-10, -5),
-        to: Offset(-10, 0),
-      ),
-      const Lane(
-        from: Offset(-10, 0),
-        to: Offset(0, 0),
-      ),
-    ]);
 
     map.setCenter(transformationController);
   }

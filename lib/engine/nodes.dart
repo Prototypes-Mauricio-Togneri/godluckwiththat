@@ -14,13 +14,13 @@ class Nodes {
         ),
       );
 
-  void addMine(int x, int y) => _add(
+  Mine addMine(int x, int y) => _add(
         Mine(
           position: Offset(x.toDouble(), y.toDouble()),
         ),
       );
 
-  void addIntersection(int x, int y) => _add(
+  Intersection addIntersection(int x, int y) => _add(
         Intersection(
           position: Offset(x.toDouble(), y.toDouble()),
         ),
