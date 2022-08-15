@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/model/lane.dart';
-import 'package:tensionnode/model/node.dart';
+import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
 

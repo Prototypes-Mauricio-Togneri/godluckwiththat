@@ -2,10 +2,10 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/model/game_map.dart';
-import 'package:tensionnode/model/headquarters.dart';
 import 'package:tensionnode/model/lane.dart';
-import 'package:tensionnode/model/mine.dart';
-import 'package:tensionnode/model/node.dart';
+import 'package:tensionnode/model/nodes/headquarters.dart';
+import 'package:tensionnode/model/nodes/mine.dart';
+import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
 import 'package:tensionnode/model/renderer.dart';
 
