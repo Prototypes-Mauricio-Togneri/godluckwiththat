@@ -134,6 +134,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
+  daassets:
+    dependency: "direct dev"
+    description:
+      name: daassets
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.2"
   dafluta:
     dependency: "direct main"
     description:

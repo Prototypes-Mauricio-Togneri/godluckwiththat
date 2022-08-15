@@ -7,6 +7,9 @@ part 'json_match.g.dart';
 
 @JsonSerializable()
 class JsonMatch {
+  @JsonKey(name: 'version')
+  final int version;
+
   @JsonKey(name: 'id')
   final String id;
 
@@ -14,6 +17,7 @@ class JsonMatch {
   final JsonMap map;
 
   const JsonMatch({
+    required this.version,
     required this.id,
     required this.map,
   });
@@ -24,9 +28,11 @@ class JsonMatch {
         blockSize: map.blockSize,
       );
 
-  factory JsonMatch.fromString(String json) => JsonMatch.fromJson(jsonDecode(json));
+  factory JsonMatch.fromString(String json) =>
+      JsonMatch.fromJson(jsonDecode(json));
 
-  factory JsonMatch.fromJson(Map<String, dynamic> json) => _$JsonMatchFromJson(json);
+  factory JsonMatch.fromJson(Map<String, dynamic> json) =>
+      _$JsonMatchFromJson(json);
 
   Map<String, dynamic> toJson() => _$JsonMatchToJson(this);
 }

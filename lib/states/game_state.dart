@@ -2,11 +2,14 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/engine/lanes.dart';
+import 'package:tensionnode/engine/loader.dart';
 import 'package:tensionnode/engine/nodes.dart';
 import 'package:tensionnode/engine/renderer.dart';
+import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/model/game_map.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
+import 'package:tensionnode/services/assets.dart';
 
 class GameState extends BaseState {
   final TransformationController transformationController = TransformationController();
@@ -60,6 +63,12 @@ class GameState extends BaseState {
     lanes.add(nodes.at(-1, 0), nodes.at(0, 0));
 
     map.setCenter(transformationController);
+  }
+
+  @override
+  Future onLoad() async {
+    final JsonMatch match = await Loader.match(Assets.MAPS_MAP1);
+    print(match.gameMap);
   }
 
   void onPointerHover(PointerHoverEvent event) {

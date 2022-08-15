@@ -1,0 +1,9 @@
+{
+    "version": 1,
+    "id": "map1",
+    "map": {
+        "number_of_blocks_horizontal": 100,
+        "number_of_blocks_vertical": 100,
+        "block_size": 10
+    }
+}
