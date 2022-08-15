@@ -2,7 +2,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/model/lane.dart';
 import 'package:tensionnode/model/node.dart';
-import 'package:tensionnode/model/renderer.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
 
@@ -171,7 +170,7 @@ class MapBackgroundPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
 class MapForegroundPainter extends CustomPainter {
@@ -181,27 +180,17 @@ class MapForegroundPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Renderer renderer = Renderer(
-      mapSize: state.mapSize,
-      blockSize: state.blockSize,
-      canvas: canvas,
-    );
+    state.renderer.setCanvas(canvas);
 
     for (final Lane lane in state.lanes) {
-      lane.render(renderer);
+      lane.render(state.renderer);
     }
 
     for (final Node node in state.nodes) {
-      node.render(renderer);
+      node.render(state.renderer);
     }
 
-    if (state.hasHighlightedNode) {
-      renderer.diamondFilled(
-        position: state.highlightedNode,
-        color: Palette.highlightNode,
-        size: state.blockSize / 10,
-      );
-    }
+    state.pointerHighlight.render(state.renderer);
   }
 
   @override

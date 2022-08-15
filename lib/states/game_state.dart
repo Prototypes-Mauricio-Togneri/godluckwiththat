@@ -6,23 +6,31 @@ import 'package:tensionnode/model/headquarters.dart';
 import 'package:tensionnode/model/lane.dart';
 import 'package:tensionnode/model/mine.dart';
 import 'package:tensionnode/model/node.dart';
+import 'package:tensionnode/model/pointer_highlight.dart';
+import 'package:tensionnode/model/renderer.dart';
 
 class GameState extends BaseState {
   final _transformationController = TransformationController();
   final int blockSize = 10;
   final Size mapDimensions = const Size(100, 100);
 
+  late final Renderer renderer;
+  final PointerHighlight pointerHighlight = PointerHighlight();
   late final Headquarters headquarters;
   late final Mine mine1;
   final List<Node> nodes = [];
   final List<Lane> lanes = [];
-  Offset? _highlightedNode;
 
   num resource1 = 300;
   num resource2 = 200;
   num resource3 = 100;
 
   GameState() {
+    renderer = Renderer(
+      mapSize: mapSize,
+      blockSize: blockSize,
+    );
+
     headquarters = Headquarters(
       position: const Offset(0, 0),
     );
@@ -64,16 +72,14 @@ class GameState extends BaseState {
         (blockSize * mapDimensions.height).toDouble(),
       );
 
-  bool get hasHighlightedNode => _highlightedNode != null;
-
-  Offset get highlightedNode => _highlightedNode ?? Offset.zero;
-
   TransformationController get transformationController => _transformationController;
 
   void onPointerHover(PointerHoverEvent event) {
-    _highlightedNode = event.localPosition.nodePosition(
-      dimensions: mapDimensions,
-      blockSize: blockSize,
+    pointerHighlight.setPosition(
+      event.localPosition.nodePosition(
+        dimensions: mapDimensions,
+        blockSize: blockSize,
+      ),
     );
     notify();
   }

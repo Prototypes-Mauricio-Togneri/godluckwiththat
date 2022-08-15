@@ -4,13 +4,14 @@ import 'package:tensionnode/extensions/path_extension.dart';
 class Renderer {
   final Size mapSize;
   final num blockSize;
-  final Canvas canvas;
+  late Canvas canvas;
 
-  const Renderer({
+  Renderer({
     required this.mapSize,
     required this.blockSize,
-    required this.canvas,
   });
+
+  void setCanvas(Canvas newCanvas) => canvas = newCanvas;
 
   void diamondHollow({
     required Offset position,
