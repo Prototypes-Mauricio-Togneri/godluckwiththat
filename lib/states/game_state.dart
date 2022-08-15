@@ -68,7 +68,9 @@ class GameState extends BaseState {
   @override
   Future onLoad() async {
     final JsonMatch match = await Loader.match(Assets.MAPS_MAP1);
-    print(match.gameMap);
+    print(match.getMap());
+    print(match.getNodes());
+    print(match.getLanes(match.getNodes()));
   }
 
   void onPointerHover(PointerHoverEvent event) {
