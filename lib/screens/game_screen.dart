@@ -35,28 +35,30 @@ class MapPainter extends StatelessWidget {
       color: Palette.gridBackground,
       child: StateProvider<GameState>(
         state: state,
-        builder: (context, state) => Stack(
-          children: [
-            InteractiveViewer(
-              transformationController: state.transformationController,
-              minScale: 1,
-              maxScale: 20,
-              constrained: false,
-              child: Listener(
-                onPointerHover: state.onPointerHover,
-                child: GestureDetector(
-                  onTapUp: state.onTapUp,
-                  child: CustomPaint(
-                    size: state.map.size,
-                    painter: MapBackgroundPainter(state),
-                    foregroundPainter: MapForegroundPainter(state),
+        builder: (context, state) => state.loaded
+            ? Stack(
+                children: [
+                  InteractiveViewer(
+                    transformationController: state.transformationController,
+                    minScale: 1,
+                    maxScale: 20,
+                    constrained: false,
+                    child: Listener(
+                      onPointerHover: state.onPointerHover,
+                      child: GestureDetector(
+                        onTapUp: state.onTapUp,
+                        child: CustomPaint(
+                          size: state.map.size,
+                          painter: MapBackgroundPainter(state),
+                          foregroundPainter: MapForegroundPainter(state),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-            Hud(state),
-          ],
-        ),
+                  Hud(state),
+                ],
+              )
+            : const Empty(),
       ),
     );
   }
@@ -219,7 +221,11 @@ class _GameLoopState extends State<GameLoop> with SingleTickerProviderStateMixin
       builder: (context, child) {
         final double current = currentTime;
         final double dt = current - previous;
-        widget.state.update(dt);
+
+        if (widget.state.loaded) {
+          widget.state.update(dt);
+        }
+
         previous = current;
 
         return const Empty();

@@ -13,64 +13,27 @@ import 'package:tensionnode/services/assets.dart';
 
 class GameState extends BaseState {
   final TransformationController transformationController = TransformationController();
-  final GameMap map = const GameMap(
-    numberOfBlocksHorizontal: 100,
-    numberOfBlocksVertical: 100,
-    blockSize: 10,
-  );
+  final PointerHighlight pointerHighlight = PointerHighlight();
 
+  late final GameMap map;
   late final Renderer renderer;
   late final Headquarters headquarters;
-  final PointerHighlight pointerHighlight = PointerHighlight();
-  final Nodes nodes = Nodes();
-  final Lanes lanes = Lanes();
+  late final Nodes nodes;
+  late final Lanes lanes;
 
-  GameState() {
-    renderer = Renderer(map);
-
-    headquarters = nodes.addHQ(0, 0);
-    nodes.addMine(-10, -5);
-    nodes.addIntersection(-10, -4);
-    nodes.addIntersection(-10, -3);
-    nodes.addIntersection(-10, -2);
-    nodes.addIntersection(-10, -1);
-    nodes.addIntersection(-10, 0);
-    nodes.addIntersection(-9, 0);
-    nodes.addIntersection(-8, 0);
-    nodes.addIntersection(-7, 0);
-    nodes.addIntersection(-6, 0);
-    nodes.addIntersection(-5, 0);
-    nodes.addIntersection(-4, 0);
-    nodes.addIntersection(-3, 0);
-    nodes.addIntersection(-2, 0);
-    nodes.addIntersection(-1, 0);
-
-    lanes.add(nodes.at(-10, -5), nodes.at(-10, -4));
-    lanes.add(nodes.at(-10, -4), nodes.at(-10, -3));
-    lanes.add(nodes.at(-10, -4), nodes.at(-10, -3));
-    lanes.add(nodes.at(-10, -3), nodes.at(-10, -2));
-    lanes.add(nodes.at(-10, -2), nodes.at(-10, -1));
-    lanes.add(nodes.at(-10, -1), nodes.at(-10, 0));
-    lanes.add(nodes.at(-10, 0), nodes.at(-9, 0));
-    lanes.add(nodes.at(-9, 0), nodes.at(-8, 0));
-    lanes.add(nodes.at(-8, 0), nodes.at(-7, 0));
-    lanes.add(nodes.at(-7, 0), nodes.at(-6, 0));
-    lanes.add(nodes.at(-6, 0), nodes.at(-5, 0));
-    lanes.add(nodes.at(-5, 0), nodes.at(-4, 0));
-    lanes.add(nodes.at(-4, 0), nodes.at(-3, 0));
-    lanes.add(nodes.at(-3, 0), nodes.at(-2, 0));
-    lanes.add(nodes.at(-2, 0), nodes.at(-1, 0));
-    lanes.add(nodes.at(-1, 0), nodes.at(0, 0));
-
-    map.setCenter(transformationController);
-  }
+  bool loaded = false;
 
   @override
   Future onLoad() async {
     final JsonMatch match = await Loader.match(Assets.MAPS_MAP1);
-    print(match.getMap());
-    print(match.getNodes());
-    print(match.getLanes(match.getNodes()));
+    map = match.getMap();
+    nodes = match.getNodes();
+    headquarters = nodes.headquarters;
+    lanes = match.getLanes(nodes);
+    renderer = Renderer(map);
+    map.setCenter(transformationController);
+    loaded = true;
+    notify();
   }
 
   void onPointerHover(PointerHoverEvent event) {

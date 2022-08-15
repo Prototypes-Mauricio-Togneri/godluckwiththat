@@ -8,6 +8,8 @@ import 'package:tensionnode/model/nodes/node.dart';
 class Nodes {
   final List<Node> _nodes = [];
 
+  Headquarters get headquarters => at(0, 0)! as Headquarters;
+
   Headquarters addHQ(int x, int y) => add(
         Headquarters(
           position: Offset(x.toDouble(), y.toDouble()),
