@@ -5,12 +5,16 @@ import 'package:tensionnode/model/nodes/node.dart';
 class Lanes {
   final List<Lane> _lanes = [];
 
-  Lane add(Node from, Node to) => _add(
+  void add(Node? from, Node? to) {
+    if ((from != null) && (to != null)) {
+      _add(
         Lane(
           from: from,
           to: to,
         ),
       );
+    }
+  }
 
   Lane _add(Lane element) {
     _lanes.add(element);

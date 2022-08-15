@@ -32,6 +32,16 @@ class Nodes {
     return element;
   }
 
+  Node? at(int x, int y) {
+    for (final Node node in _nodes) {
+      if (node.isAt(x, y)) {
+        return node;
+      }
+    }
+
+    return null;
+  }
+
   void update(double dt) {
     for (final Node node in _nodes) {
       node.update(dt);

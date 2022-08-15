@@ -15,6 +15,8 @@ class Node {
     required this.position,
   });
 
+  bool isAt(int x, int y) => position.dx == x && position.dy == y;
+
   void update(double dt) {}
 
   void render(Renderer renderer) {}
