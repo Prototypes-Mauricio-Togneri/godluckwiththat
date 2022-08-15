@@ -1,6 +1,5 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/model/lane.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
 
@@ -174,11 +173,7 @@ class MapForegroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     state.renderer.setCanvas(canvas);
-
-    for (final Lane lane in state.lanes) {
-      lane.render(state.renderer);
-    }
-
+    state.lanes.render(state.renderer);
     state.nodes.render(state.renderer);
     state.pointerHighlight.render(state.renderer);
   }

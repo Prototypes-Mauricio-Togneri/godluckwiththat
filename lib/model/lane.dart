@@ -11,6 +11,8 @@ class Lane {
     required this.to,
   });
 
+  void update(double dt) {}
+
   void render(Renderer renderer) {
     renderer.lane(
       from: from.position,

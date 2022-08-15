@@ -1,10 +1,10 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/engine/lanes.dart';
 import 'package:tensionnode/engine/nodes.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/game_map.dart';
-import 'package:tensionnode/model/lane.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
 
@@ -19,7 +19,7 @@ class GameState extends BaseState {
   late final Renderer renderer;
   final PointerHighlight pointerHighlight = PointerHighlight();
   final Nodes nodes = Nodes();
-  final List<Lane> lanes = [];
+  final Lanes lanes = Lanes();
 
   num resource1 = 300;
   num resource2 = 200;
@@ -32,12 +32,7 @@ class GameState extends BaseState {
     final Node mine = nodes.addMine(-10, -5);
     final Node i1 = nodes.addIntersection(-10, -4);
 
-    lanes.add(
-      Lane(
-        from: mine,
-        to: i1,
-      ),
-    );
+    lanes.add(mine, i1);
 
     /*nodes.addAll([
       
