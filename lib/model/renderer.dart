@@ -55,7 +55,6 @@ class Renderer {
     final Path path = Path();
     path.diamond(
       position: position,
-      blockSize: map.blockSize,
       size: size,
     );
 
@@ -78,7 +77,6 @@ class Renderer {
     path.line(
       from: map.gameToReal(from),
       to: map.gameToReal(to),
-      blockSize: map.blockSize,
     );
 
     canvas.drawPath(path, paint);

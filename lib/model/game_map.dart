@@ -35,8 +35,8 @@ class GameMap {
   }
 
   Offset gameToReal(Offset position) => Offset(
-        position.dx + (dimensions.width / 2),
-        position.dy + (dimensions.height / 2),
+        (position.dx + (dimensions.width / 2)) * blockSize,
+        (position.dy + (dimensions.height / 2)) * blockSize,
       );
 
   Offset realToGame(Offset position) => Offset(
