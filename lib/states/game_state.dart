@@ -5,6 +5,7 @@ import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/game_map.dart';
 import 'package:tensionnode/model/lane.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
+import 'package:tensionnode/model/nodes/intersection.dart';
 import 'package:tensionnode/model/nodes/mine.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
@@ -35,7 +36,49 @@ class GameState extends BaseState {
       ),
       Mine(
         position: const Offset(-10, -5),
-      )
+      ),
+      Intersection(
+        position: const Offset(-10, -4),
+      ),
+      Intersection(
+        position: const Offset(-10, -3),
+      ),
+      Intersection(
+        position: const Offset(-10, -2),
+      ),
+      Intersection(
+        position: const Offset(-10, -1),
+      ),
+      Intersection(
+        position: const Offset(-10, 0),
+      ),
+      Intersection(
+        position: const Offset(-9, 0),
+      ),
+      Intersection(
+        position: const Offset(-8, 0),
+      ),
+      Intersection(
+        position: const Offset(-7, 0),
+      ),
+      Intersection(
+        position: const Offset(-6, 0),
+      ),
+      Intersection(
+        position: const Offset(-5, 0),
+      ),
+      Intersection(
+        position: const Offset(-4, 0),
+      ),
+      Intersection(
+        position: const Offset(-3, 0),
+      ),
+      Intersection(
+        position: const Offset(-2, 0),
+      ),
+      Intersection(
+        position: const Offset(-1, 0),
+      ),
     ]);
 
     lanes.addAll([

@@ -13,7 +13,7 @@ class Intersection extends Node {
     renderer.diamondFilled(
       position: position,
       color: Palette.intersection,
-      size: renderer.map.blockSize / 10,
+      size: renderer.map.blockSize / 5,
     );
   }
 }
