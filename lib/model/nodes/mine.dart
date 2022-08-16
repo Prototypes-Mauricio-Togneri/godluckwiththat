@@ -14,6 +14,7 @@ class Mine extends Node {
   Mine({
     required this.resourceType,
     required super.position,
+    required super.hp,
   }) : super(type: NodeType.mine);
 
   @override

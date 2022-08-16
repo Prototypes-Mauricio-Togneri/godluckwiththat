@@ -6,6 +6,7 @@ import 'package:tensionnode/types/node_type.dart';
 class Tower extends Node {
   Tower({
     required super.position,
+    required super.hp,
   }) : super(type: NodeType.tower);
 
   @override

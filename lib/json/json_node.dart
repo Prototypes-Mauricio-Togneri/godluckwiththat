@@ -18,6 +18,9 @@ class JsonNode {
   @JsonKey(name: 'type')
   final NodeType type;
 
+  @JsonKey(name: 'hp')
+  final num hp;
+
   @JsonKey(name: 'resource')
   final ResourceType? resource;
 
@@ -26,6 +29,7 @@ class JsonNode {
 
   const JsonNode({
     required this.type,
+    required this.hp,
     required this.resource,
     required this.position,
   });
@@ -33,17 +37,36 @@ class JsonNode {
   Node getNode() {
     switch (type) {
       case NodeType.headquarters:
-        return Headquarters(position: position.position);
+        return Headquarters(
+          position: position.position,
+          hp: hp,
+        );
       case NodeType.mine:
-        return Mine(position: position.position, resourceType: resource!);
+        return Mine(
+          position: position.position,
+          hp: hp,
+          resourceType: resource!,
+        );
       case NodeType.power_plant:
-        return PowerPlant(position: position.position);
+        return PowerPlant(
+          position: position.position,
+          hp: hp,
+        );
       case NodeType.tower:
-        return Tower(position: position.position);
+        return Tower(
+          position: position.position,
+          hp: hp,
+        );
       case NodeType.wall:
-        return Wall(position: position.position);
+        return Wall(
+          position: position.position,
+          hp: hp,
+        );
       case NodeType.intersection:
-        return Intersection(position: position.position);
+        return Intersection(
+          position: position.position,
+          hp: hp,
+        );
     }
   }
 

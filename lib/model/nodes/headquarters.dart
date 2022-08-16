@@ -10,6 +10,7 @@ class Headquarters extends Node {
 
   Headquarters({
     required super.position,
+    required super.hp,
   }) : super(type: NodeType.headquarters);
 
   @override

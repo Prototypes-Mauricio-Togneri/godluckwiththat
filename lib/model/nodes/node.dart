@@ -5,6 +5,7 @@ import 'package:tensionnode/types/node_type.dart';
 class Node {
   final NodeType type;
   final Offset position;
+  num hp;
   Node? top;
   Node? bottom;
   Node? left;
@@ -13,6 +14,7 @@ class Node {
   Node({
     required this.type,
     required this.position,
+    required this.hp,
   });
 
   bool isAt(Offset testPosition) => position == testPosition;

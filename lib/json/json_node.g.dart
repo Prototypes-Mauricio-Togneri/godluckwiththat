@@ -8,12 +8,14 @@ part of 'json_node.dart';
 
 JsonNode _$JsonNodeFromJson(Map<String, dynamic> json) => JsonNode(
       type: $enumDecode(_$NodeTypeEnumMap, json['type']),
+      hp: json['hp'] as num,
       resource: $enumDecodeNullable(_$ResourceTypeEnumMap, json['resource']),
       position: (json['position'] as List<dynamic>).map((e) => e as int).toList(),
     );
 
 Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) => <String, dynamic>{
       'type': _$NodeTypeEnumMap[instance.type]!,
+      'hp': instance.hp,
       'resource': _$ResourceTypeEnumMap[instance.resource],
       'position': instance.position,
     };

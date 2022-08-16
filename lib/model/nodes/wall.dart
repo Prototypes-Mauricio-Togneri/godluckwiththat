@@ -6,6 +6,7 @@ import 'package:tensionnode/types/node_type.dart';
 class Wall extends Node {
   Wall({
     required super.position,
+    required super.hp,
   }) : super(type: NodeType.wall);
 
   @override
