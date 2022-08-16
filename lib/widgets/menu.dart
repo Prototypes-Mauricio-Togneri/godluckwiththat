@@ -205,7 +205,10 @@ class MenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(primary: color),
+      style: ElevatedButton.styleFrom(
+        primary: color,
+        minimumSize: const Size(150, 40),
+      ),
       onPressed: onPressed,
       child: Row(
         mainAxisSize: MainAxisSize.min,
