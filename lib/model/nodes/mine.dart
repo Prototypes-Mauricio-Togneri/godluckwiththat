@@ -9,17 +9,8 @@ class Mine extends Node {
   }) : super(type: NodeType.mine);
 
   @override
-  void render(Renderer renderer) {
-    renderer.diamondHollow(
-      position: position,
-      color: Palette.mine,
-      size: renderer.map.blockSize,
-    );
-
-    renderer.diamondFilled(
-      position: position,
-      color: Palette.mine,
-      size: renderer.map.blockSize / 2,
-    );
-  }
+  void render(Renderer renderer) => drawNodeDiamond(
+        renderer: renderer,
+        color: Palette.mine,
+      );
 }

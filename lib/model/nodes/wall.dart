@@ -9,17 +9,8 @@ class Wall extends Node {
   }) : super(type: NodeType.wall);
 
   @override
-  void render(Renderer renderer) {
-    renderer.diamondHollow(
-      position: position,
-      color: Palette.hq,
-      size: renderer.map.blockSize,
-    );
-
-    renderer.diamondFilled(
-      position: position,
-      color: Palette.hq,
-      size: renderer.map.blockSize / 2,
-    );
-  }
+  void render(Renderer renderer) => drawNodeDiamond(
+        renderer: renderer,
+        color: Palette.wall,
+      );
 }

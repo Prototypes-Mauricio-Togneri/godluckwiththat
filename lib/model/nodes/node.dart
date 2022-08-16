@@ -20,4 +20,21 @@ class Node {
   void update(double dt) {}
 
   void render(Renderer renderer) {}
+
+  void drawNodeDiamond({
+    required Renderer renderer,
+    required Color color,
+  }) {
+    renderer.diamondHollow(
+      position: position,
+      color: color,
+      size: renderer.map.blockSize,
+    );
+
+    renderer.diamondFilled(
+      position: position,
+      color: color,
+      size: renderer.map.blockSize / 2,
+    );
+  }
 }
