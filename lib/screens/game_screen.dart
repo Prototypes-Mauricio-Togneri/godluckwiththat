@@ -57,17 +57,7 @@ class MapPainter extends StatelessWidget {
                     ),
                   ),
                   Hud(state),
-                  if (state.hasMenu)
-                    if (state.menuInfo!.hasNode)
-                      NodeMenu(
-                        state: state,
-                        menuInfo: state.menuInfo!,
-                      )
-                    else
-                      EmptyMenu(
-                        state: state,
-                        menuInfo: state.menuInfo!,
-                      ),
+                  Menu(state),
                 ],
               )
             : const Empty(),
@@ -157,6 +147,31 @@ class ResourceIndicator extends StatelessWidget {
   }
 }
 
+class Menu extends StatelessWidget {
+  final GameState state;
+
+  const Menu(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    if (state.hasMenu) {
+      if (state.menuInfo!.hasNode) {
+        return NodeMenu(
+          state: state,
+          menuInfo: state.menuInfo!,
+        );
+      } else {
+        return EmptyMenu(
+          state: state,
+          menuInfo: state.menuInfo!,
+        );
+      }
+    } else {
+      return const Empty();
+    }
+  }
+}
+
 class NodeMenu extends StatelessWidget {
   final GameState state;
   final MenuInfo menuInfo;
@@ -181,7 +196,7 @@ class NodeMenu extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              menuInfo.node!.type.name,
+              menuInfo.node!.type.name.toUpperCase(),
               style: const TextStyle(
                 color: Palette.white,
               ),
