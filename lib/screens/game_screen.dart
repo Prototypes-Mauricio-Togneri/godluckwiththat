@@ -153,7 +153,9 @@ class NodeMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Positioned(
+      top: state.nodeClickedPosition.dy,
+      left: state.nodeClickedPosition.dx,
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(

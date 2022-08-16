@@ -25,10 +25,13 @@ class GameState extends BaseState {
 
   bool loaded = false;
   Node? _nodeClicked;
+  Offset? _nodeClickedPosition;
 
   bool get hasNodeClicked => _nodeClicked != null;
 
   Node get nodeClicked => _nodeClicked!;
+
+  Offset get nodeClickedPosition => _nodeClickedPosition!;
 
   @override
   Future onLoad() async {
@@ -52,14 +55,19 @@ class GameState extends BaseState {
   void onTapUp(TapUpDetails details) {
     final Offset position = map.realToGame(details.localPosition);
     print('TAP: (${position.dx}, ${position.dy})');
-    //path.contains(Offset(x, y));
 
-    _nodeClicked = nodes.at(position);
-    notify();
+    final Node? nodeClicked = nodes.at(position);
+
+    if (nodeClicked != _nodeClicked) {
+      _nodeClicked = nodeClicked;
+      _nodeClickedPosition = details.globalPosition;
+      notify();
+    }
   }
 
   void onDestroyNode(Node node) {
     _nodeClicked = null;
+    _nodeClickedPosition = null;
     notify();
   }
 
