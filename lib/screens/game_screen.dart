@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionnode/model/menu_info.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
+import 'package:tensionnode/types/menu_type.dart';
 
 class GameScreen extends StatelessWidget {
   final GameState state;
@@ -155,16 +156,21 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (state.hasMenu) {
-      if (state.menuInfo!.hasNode) {
-        return NodeMenu(
-          state: state,
-          menuInfo: state.menuInfo!,
-        );
-      } else {
-        return EmptyMenu(
-          state: state,
-          menuInfo: state.menuInfo!,
-        );
+      switch (state.menuInfo!.type) {
+        case MenuType.node:
+          return NodeMenu(
+            state: state,
+            menuInfo: state.menuInfo!,
+          );
+        case MenuType.empty:
+          return EmptyMenu(
+            state: state,
+            menuInfo: state.menuInfo!,
+          );
+        case MenuType.build:
+          return const Empty();
+        case MenuType.destroy:
+          return const Empty();
       }
     } else {
       return const Empty();
@@ -183,42 +189,25 @@ class NodeMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: menuInfo.realPosition.dy,
-      left: menuInfo.realPosition.dx,
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Palette.hudBackground,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              menuInfo.node!.type.name.toUpperCase(),
-              style: const TextStyle(
-                color: Palette.white,
-              ),
+    return MenuContainer(
+      position: menuInfo.realPosition,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            menuInfo.node!.type.name.toUpperCase(),
+            style: const TextStyle(
+              color: Palette.white,
             ),
-            const VBox(10),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Palette.red),
-              onPressed: () => state.onDestroyNode(menuInfo.node!),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(
-                    Icons.delete,
-                    size: 20,
-                  ),
-                  HBox(5),
-                  Text('Destroy'),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+          const VBox(10),
+          MenuButton(
+            text: 'Destroy',
+            icon: Icons.delete,
+            color: Palette.red,
+            onPressed: () => state.onDestroyNode(menuInfo.node!),
+          ),
+        ],
       ),
     );
   }
@@ -235,35 +224,105 @@ class EmptyMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MenuContainer(
+      position: menuInfo.realPosition,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          MenuButton(
+            text: 'Build',
+            icon: Icons.build,
+            color: Palette.blue,
+            onPressed: () => state.onCreateNode(menuInfo),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BuildMenu extends StatelessWidget {
+  final GameState state;
+  final MenuInfo menuInfo;
+
+  const BuildMenu({
+    required this.state,
+    required this.menuInfo,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MenuContainer(
+      position: menuInfo.realPosition,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          MenuButton(
+            text: 'Build',
+            icon: Icons.build,
+            color: Palette.blue,
+            onPressed: () => state.onCreateNode(menuInfo),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MenuContainer extends StatelessWidget {
+  final Offset position;
+  final Widget child;
+
+  const MenuContainer({
+    required this.position,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Positioned(
-      top: menuInfo.realPosition.dy,
-      left: menuInfo.realPosition.dx,
+      top: position.dy,
+      left: position.dx,
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: Palette.hudBackground,
           borderRadius: BorderRadius.circular(5),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Palette.blue),
-              onPressed: () => state.onCreateNode(menuInfo.gamePosition),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(
-                    Icons.build,
-                    size: 20,
-                  ),
-                  HBox(5),
-                  Text('Build'),
-                ],
-              ),
-            ),
-          ],
-        ),
+        child: child,
+      ),
+    );
+  }
+}
+
+class MenuButton extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  final Color color;
+  final VoidCallback onPressed;
+
+  const MenuButton({
+    required this.text,
+    required this.icon,
+    required this.color,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(primary: color),
+      onPressed: onPressed,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            size: 20,
+          ),
+          const HBox(5),
+          Text(text),
+        ],
       ),
     );
   }

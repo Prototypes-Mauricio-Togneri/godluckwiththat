@@ -54,11 +54,19 @@ class GameState extends BaseState {
       print('TAP: (${position.dx}, ${position.dy})');
 
       final Node? nodeClicked = nodes.at(position);
-      menuInfo = MenuInfo(
-        node: nodeClicked,
-        realPosition: details.globalPosition,
-        gamePosition: position,
-      );
+
+      if (nodeClicked != null) {
+        menuInfo = MenuInfo.node(
+          node: nodeClicked,
+          realPosition: details.globalPosition,
+          gamePosition: position,
+        );
+      } else {
+        menuInfo = MenuInfo.empty(
+          realPosition: details.globalPosition,
+          gamePosition: position,
+        );
+      }
 
       notify();
     } else {
@@ -72,8 +80,11 @@ class GameState extends BaseState {
     notify();
   }
 
-  void onCreateNode(Offset offset) {
-    menuInfo = null;
+  void onCreateNode(MenuInfo oldMenu) {
+    menuInfo = MenuInfo.build(
+      realPosition: oldMenu.realPosition,
+      gamePosition: oldMenu.gamePosition,
+    );
     notify();
   }
 
