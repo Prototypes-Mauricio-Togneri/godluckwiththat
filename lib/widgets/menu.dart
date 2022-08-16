@@ -58,16 +58,29 @@ class NodeMenu extends StatelessWidget {
         children: [
           Text(
             menuInfo.node!.type.name.toUpperCase(),
+            textAlign: TextAlign.center,
             style: const TextStyle(
               color: Palette.white,
             ),
           ),
-          const VBox(10),
-          MenuButton(
-            text: 'Destroy',
-            icon: Icons.delete,
-            color: Palette.red,
-            onPressed: () => state.onDestroyNode(menuInfo.node!),
+          if (menuInfo.node!.needsRepair)
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: MenuButton(
+                text: 'Repair',
+                icon: Icons.build,
+                color: Palette.green,
+                onPressed: () => state.onRepair(menuInfo.node!),
+              ),
+            ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: MenuButton(
+              text: 'Destroy',
+              icon: Icons.delete,
+              color: Palette.red,
+              onPressed: () => state.onDestroyNode(menuInfo.node!),
+            ),
           ),
         ],
       ),

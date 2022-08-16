@@ -17,6 +17,8 @@ class Node {
     required this.hp,
   });
 
+  bool get needsRepair => hp < 100; // TODO(momo): fix
+
   bool isAt(Offset testPosition) => position == testPosition;
 
   void update(double dt) {}

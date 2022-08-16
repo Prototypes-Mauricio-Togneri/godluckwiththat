@@ -76,6 +76,11 @@ class GameState extends BaseState {
     }
   }
 
+  void onRepair(Node node) {
+    menuInfo = null;
+    notify();
+  }
+
   void onDestroyNode(Node node) {
     menuInfo = null;
     notify();
