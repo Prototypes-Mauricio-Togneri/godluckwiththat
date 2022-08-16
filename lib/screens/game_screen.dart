@@ -151,17 +151,7 @@ class MapBackgroundPainter extends CustomPainter {
   const MapBackgroundPainter(this.state);
 
   @override
-  void paint(Canvas canvas, Size size) {
-    for (int i = 1; i < state.map.dimensions.width; i++) {
-      final double x = (i * state.map.blockSize).toDouble();
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), Palette.gridPaint);
-    }
-
-    for (int i = 1; i < state.map.dimensions.height; i++) {
-      final double y = (i * state.map.blockSize).toDouble();
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), Palette.gridPaint);
-    }
-  }
+  void paint(Canvas canvas, Size size) => state.renderBackground(canvas, size);
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
@@ -173,12 +163,7 @@ class MapForegroundPainter extends CustomPainter {
   const MapForegroundPainter(this.state);
 
   @override
-  void paint(Canvas canvas, Size size) {
-    state.renderer.setCanvas(canvas);
-    state.lanes.render(state.renderer);
-    state.nodes.render(state.renderer);
-    state.pointerHighlight.render(state.renderer);
-  }
+  void paint(Canvas canvas, Size size) => state.renderForeground(canvas);
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;

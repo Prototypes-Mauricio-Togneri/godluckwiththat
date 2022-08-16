@@ -10,6 +10,7 @@ import 'package:tensionnode/model/game_map.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
 import 'package:tensionnode/services/assets.dart';
+import 'package:tensionnode/services/palette.dart';
 
 class GameState extends BaseState {
   final TransformationController transformationController = TransformationController();
@@ -55,5 +56,24 @@ class GameState extends BaseState {
     nodes.update(dt);
 
     Delayed.post(notify);
+  }
+
+  void renderBackground(Canvas canvas, Size size) {
+    for (int i = 1; i < map.dimensions.width; i++) {
+      final double x = (i * map.blockSize).toDouble();
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), Palette.gridPaint);
+    }
+
+    for (int i = 1; i < map.dimensions.height; i++) {
+      final double y = (i * map.blockSize).toDouble();
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), Palette.gridPaint);
+    }
+  }
+
+  void renderForeground(Canvas canvas) {
+    renderer.setCanvas(canvas);
+    lanes.render(renderer);
+    nodes.render(renderer);
+    pointerHighlight.render(renderer);
   }
 }
