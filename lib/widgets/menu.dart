@@ -53,6 +53,7 @@ class NodeMenu extends StatelessWidget {
     return MenuContainer(
       position: menuInfo.realPosition,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
@@ -88,6 +89,7 @@ class EmptyMenu extends StatelessWidget {
     return MenuContainer(
       position: menuInfo.realPosition,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
           MenuButton(
@@ -116,6 +118,7 @@ class BuildMenu extends StatelessWidget {
     return MenuContainer(
       position: menuInfo.realPosition,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
           MenuButton(
@@ -183,7 +186,7 @@ class MenuContainer extends StatelessWidget {
           color: Palette.hudBackground,
           borderRadius: BorderRadius.circular(5),
         ),
-        child: child,
+        child: IntrinsicWidth(child: child),
       ),
     );
   }
@@ -207,7 +210,7 @@ class MenuButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         primary: color,
-        minimumSize: const Size(150, 40),
+        minimumSize: const Size(0, 45),
       ),
       onPressed: onPressed,
       child: Row(
