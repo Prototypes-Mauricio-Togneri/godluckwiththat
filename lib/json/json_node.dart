@@ -9,6 +9,7 @@ import 'package:tensionnode/model/nodes/power_plant.dart';
 import 'package:tensionnode/model/nodes/tower.dart';
 import 'package:tensionnode/model/nodes/wall.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 part 'json_node.g.dart';
 
@@ -17,11 +18,15 @@ class JsonNode {
   @JsonKey(name: 'type')
   final NodeType type;
 
+  @JsonKey(name: 'resource')
+  final ResourceType? resource;
+
   @JsonKey(name: 'position')
   final JsonPosition position;
 
   const JsonNode({
     required this.type,
+    required this.resource,
     required this.position,
   });
 
@@ -30,7 +35,7 @@ class JsonNode {
       case NodeType.headquarters:
         return Headquarters(position: position.position);
       case NodeType.mine:
-        return Mine(position: position.position);
+        return Mine(position: position.position, resourceType: resource!);
       case NodeType.power_plant:
         return PowerPlant(position: position.position);
       case NodeType.tower:

@@ -16,6 +16,7 @@
         },
         {
             "type": "mine",
+            "resource": "resource1",
             "position": [
                 -10,
                 -5
