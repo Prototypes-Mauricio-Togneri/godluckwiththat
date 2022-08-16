@@ -56,6 +56,7 @@ class MapPainter extends StatelessWidget {
                     ),
                   ),
                   Hud(state),
+                  if (state.hasNodeClicked) NodeMenu(state),
                 ],
               )
             : const Empty(),
@@ -141,6 +142,52 @@ class ResourceIndicator extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class NodeMenu extends StatelessWidget {
+  final GameState state;
+
+  const NodeMenu(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Palette.hudBackground,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              state.nodeClicked.type.name,
+              style: const TextStyle(
+                color: Palette.white,
+              ),
+            ),
+            const VBox(10),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Palette.red),
+              onPressed: () => state.onDestroyNode(state.nodeClicked),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(
+                    Icons.delete,
+                    size: 20,
+                  ),
+                  HBox(5),
+                  Text('Destroy'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
