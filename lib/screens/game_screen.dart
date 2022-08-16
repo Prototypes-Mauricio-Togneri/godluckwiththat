@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/model/menu_info.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
 
@@ -56,7 +57,17 @@ class MapPainter extends StatelessWidget {
                     ),
                   ),
                   Hud(state),
-                  if (state.hasNodeClicked) NodeMenu(state),
+                  if (state.hasMenu)
+                    if (state.menuInfo!.hasNode)
+                      NodeMenu(
+                        state: state,
+                        menuInfo: state.menuInfo!,
+                      )
+                    else
+                      EmptyMenu(
+                        state: state,
+                        menuInfo: state.menuInfo!,
+                      ),
                 ],
               )
             : const Empty(),
@@ -148,14 +159,18 @@ class ResourceIndicator extends StatelessWidget {
 
 class NodeMenu extends StatelessWidget {
   final GameState state;
+  final MenuInfo menuInfo;
 
-  const NodeMenu(this.state);
+  const NodeMenu({
+    required this.state,
+    required this.menuInfo,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: state.nodeClickedPosition.dy,
-      left: state.nodeClickedPosition.dx,
+      top: menuInfo.realPosition.dy,
+      left: menuInfo.realPosition.dx,
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -166,7 +181,7 @@ class NodeMenu extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              state.nodeClicked.type.name,
+              menuInfo.node!.type.name,
               style: const TextStyle(
                 color: Palette.white,
               ),
@@ -174,7 +189,7 @@ class NodeMenu extends StatelessWidget {
             const VBox(10),
             ElevatedButton(
               style: ElevatedButton.styleFrom(primary: Palette.red),
-              onPressed: () => state.onDestroyNode(state.nodeClicked),
+              onPressed: () => state.onDestroyNode(menuInfo.node!),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: const [
@@ -184,6 +199,51 @@ class NodeMenu extends StatelessWidget {
                   ),
                   HBox(5),
                   Text('Destroy'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class EmptyMenu extends StatelessWidget {
+  final GameState state;
+  final MenuInfo menuInfo;
+
+  const EmptyMenu({
+    required this.state,
+    required this.menuInfo,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: menuInfo.realPosition.dy,
+      left: menuInfo.realPosition.dx,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Palette.hudBackground,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Palette.blue),
+              onPressed: () => state.onCreateNode(menuInfo.gamePosition),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(
+                    Icons.build,
+                    size: 20,
+                  ),
+                  HBox(5),
+                  Text('Build'),
                 ],
               ),
             ),

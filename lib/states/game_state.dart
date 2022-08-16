@@ -7,6 +7,7 @@ import 'package:tensionnode/engine/nodes.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/model/game_map.dart';
+import 'package:tensionnode/model/menu_info.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
@@ -24,14 +25,9 @@ class GameState extends BaseState {
   late final Lanes lanes;
 
   bool loaded = false;
-  Node? _nodeClicked;
-  Offset? _nodeClickedPosition;
+  MenuInfo? menuInfo;
 
-  bool get hasNodeClicked => _nodeClicked != null;
-
-  Node get nodeClicked => _nodeClicked!;
-
-  Offset get nodeClickedPosition => _nodeClickedPosition!;
+  bool get hasMenu => menuInfo != null;
 
   @override
   Future onLoad() async {
@@ -53,21 +49,31 @@ class GameState extends BaseState {
   }
 
   void onTapUp(TapUpDetails details) {
-    final Offset position = map.realToGame(details.localPosition);
-    print('TAP: (${position.dx}, ${position.dy})');
+    if (menuInfo == null) {
+      final Offset position = map.realToGame(details.localPosition);
+      print('TAP: (${position.dx}, ${position.dy})');
 
-    final Node? nodeClicked = nodes.at(position);
+      final Node? nodeClicked = nodes.at(position);
+      menuInfo = MenuInfo(
+        node: nodeClicked,
+        realPosition: details.globalPosition,
+        gamePosition: position,
+      );
 
-    if (nodeClicked != _nodeClicked) {
-      _nodeClicked = nodeClicked;
-      _nodeClickedPosition = details.globalPosition;
+      notify();
+    } else {
+      menuInfo = null;
       notify();
     }
   }
 
   void onDestroyNode(Node node) {
-    _nodeClicked = null;
-    _nodeClickedPosition = null;
+    menuInfo = null;
+    notify();
+  }
+
+  void onCreateNode(Offset offset) {
+    menuInfo = null;
     notify();
   }
 
