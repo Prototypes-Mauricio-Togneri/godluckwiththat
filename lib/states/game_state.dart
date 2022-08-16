@@ -13,6 +13,7 @@ import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/types/node_type.dart';
 
 class GameState extends BaseState {
   final TransformationController transformationController = TransformationController();
@@ -80,11 +81,19 @@ class GameState extends BaseState {
     notify();
   }
 
-  void onCreateNode(MenuInfo oldMenu) {
+  void onBuild(MenuInfo oldMenu) {
     menuInfo = MenuInfo.build(
       realPosition: oldMenu.realPosition,
       gamePosition: oldMenu.gamePosition,
     );
+    notify();
+  }
+
+  void onCreateNode({
+    required NodeType type,
+    required Offset position,
+  }) {
+    menuInfo = null;
     notify();
   }
 
