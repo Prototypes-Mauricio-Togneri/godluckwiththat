@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionnode/engine/lanes.dart';
 import 'package:tensionnode/engine/loader.dart';
 import 'package:tensionnode/engine/nodes.dart';
+import 'package:tensionnode/engine/patches.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/model/game_map.dart';
@@ -22,6 +23,7 @@ class GameState extends BaseState {
   late final GameMap map;
   late final Renderer renderer;
   late final Headquarters headquarters;
+  late final Patches patches;
   late final Nodes nodes;
   late final Lanes lanes;
 
@@ -34,6 +36,7 @@ class GameState extends BaseState {
   Future onLoad() async {
     final JsonMatch match = await Loader.match(Assets.MAPS_MAP1);
     map = match.getMap();
+    patches = match.getPatches();
     nodes = match.getNodes();
     headquarters = nodes.headquarters;
     lanes = match.getLanes(nodes);
@@ -126,6 +129,7 @@ class GameState extends BaseState {
 
   void renderForeground(Canvas canvas) {
     renderer.setCanvas(canvas);
+    patches.render(renderer);
     lanes.render(renderer);
     nodes.render(renderer);
     _pointerHighlight.render(renderer);

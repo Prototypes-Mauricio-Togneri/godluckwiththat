@@ -5,10 +5,25 @@ extension PathExtension on Path {
     required Offset position,
     required num size,
   }) {
-    moveTo(position.dx, position.dy - (size / 2));
-    lineTo(position.dx + (size / 2), position.dy);
-    lineTo(position.dx, position.dy + (size / 2));
-    lineTo(position.dx - (size / 2), position.dy);
+    final num halfSize = size / 2;
+
+    moveTo(position.dx, position.dy - halfSize);
+    lineTo(position.dx + halfSize, position.dy);
+    lineTo(position.dx, position.dy + halfSize);
+    lineTo(position.dx - halfSize, position.dy);
+    close();
+  }
+
+  void square({
+    required Offset position,
+    required num size,
+  }) {
+    final num halfSize = size / 2;
+
+    moveTo(position.dx - halfSize, position.dy - halfSize);
+    lineTo(position.dx + halfSize, position.dy - halfSize);
+    lineTo(position.dx + halfSize, position.dy + halfSize);
+    lineTo(position.dx - halfSize, position.dy + halfSize);
     close();
   }
 

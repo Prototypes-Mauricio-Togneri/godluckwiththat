@@ -20,7 +20,7 @@ class Renderer {
     final Paint paint = Palette.diamondHollowPaint;
     paint.color = color;
 
-    _diamondFilled(
+    _diamond(
       position: map.gameToReal(position),
       paint: paint,
       size: size,
@@ -35,14 +35,14 @@ class Renderer {
     final Paint paint = Palette.diamondFilledPaint;
     paint.color = color;
 
-    _diamondFilled(
+    _diamond(
       position: map.gameToReal(position),
       paint: paint,
       size: size,
     );
   }
 
-  void _diamondFilled({
+  void _diamond({
     required Offset position,
     required Paint paint,
     required num size,
@@ -50,6 +50,23 @@ class Renderer {
     final Path path = newPath;
     path.diamond(
       position: position,
+      size: size,
+    );
+
+    canvas.drawPath(path, paint);
+  }
+
+  void squaredFilled({
+    required Offset position,
+    required Color color,
+    required num size,
+  }) {
+    final Paint paint = Palette.squareFilledPaint;
+    paint.color = color;
+
+    final Path path = newPath;
+    path.square(
+      position: map.gameToReal(position),
       size: size,
     );
 

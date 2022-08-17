@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/patch.dart';
 
 class Patches {
@@ -14,5 +15,11 @@ class Patches {
     }
 
     return null;
+  }
+
+  void render(Renderer renderer) {
+    for (final Patch patch in _patches) {
+      patch.render(renderer);
+    }
   }
 }

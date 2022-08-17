@@ -21,12 +21,17 @@ class Palette {
   static const Color wall = Colors.grey;
   static const Color intersection = Colors.white;
 
+  static const Color resource1 = Color(0x66e91e63);
+  static const Color resource2 = Color(0x669c27b0);
+  static const Color resource3 = Color(0x66795548);
+
   static const Color hudBackground = Color(0xcc333333);
   static const Color hudResourceIndicator = Color(0x44000000);
 
   static final Paint gridPaint = Paint();
   static final Paint diamondHollowPaint = Paint();
   static final Paint diamondFilledPaint = Paint();
+  static final Paint squareFilledPaint = Paint();
   static final Paint lanePaint = Paint();
 
   static void init() {
@@ -42,6 +47,10 @@ class Palette {
     diamondFilledPaint.style = PaintingStyle.fill;
     diamondFilledPaint.strokeCap = StrokeCap.square;
     diamondFilledPaint.strokeJoin = StrokeJoin.miter;
+
+    squareFilledPaint.style = PaintingStyle.fill;
+    squareFilledPaint.strokeCap = StrokeCap.square;
+    squareFilledPaint.strokeJoin = StrokeJoin.miter;
 
     lanePaint.style = PaintingStyle.stroke;
     lanePaint.strokeCap = StrokeCap.square;
