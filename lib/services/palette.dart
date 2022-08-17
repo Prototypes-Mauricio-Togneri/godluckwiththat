@@ -17,7 +17,7 @@ class Palette {
   static const Color hq = Colors.blue;
   static const Color mine = Colors.red;
   static const Color powerPlant = Colors.yellow;
-  static const Color tower = Colors.green;
+  static const Color defense = Colors.green;
   static const Color wall = Colors.grey;
   static const Color intersection = Colors.white;
 

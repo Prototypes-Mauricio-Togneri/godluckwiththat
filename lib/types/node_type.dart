@@ -2,7 +2,7 @@ enum NodeType {
   headquarters,
   mine,
   power_plant,
-  tower,
+  defense,
   wall,
   intersection,
 }

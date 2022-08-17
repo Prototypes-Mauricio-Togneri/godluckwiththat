@@ -155,11 +155,11 @@ class BuildMenu extends StatelessWidget {
           ),
           const VBox(10),
           MenuButton(
-            text: 'Tower',
+            text: 'Defense',
             icon: Icons.cell_tower_outlined,
             color: Palette.blue,
             onPressed: () => state.onCreateNode(
-              type: NodeType.tower,
+              type: NodeType.defense,
               position: menuInfo.gamePosition,
             ),
           ),

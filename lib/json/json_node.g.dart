@@ -24,7 +24,7 @@ const _$NodeTypeEnumMap = {
   NodeType.headquarters: 'headquarters',
   NodeType.mine: 'mine',
   NodeType.power_plant: 'power_plant',
-  NodeType.tower: 'tower',
+  NodeType.defense: 'defense',
   NodeType.wall: 'wall',
   NodeType.intersection: 'intersection',
 };
