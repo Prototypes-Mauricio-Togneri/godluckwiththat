@@ -117,6 +117,14 @@ class NodeMenu extends StatelessWidget {
           ),
           const VBox(10),
           Text(
+            '${menuInfo.gamePosition!.dx}, ${menuInfo.gamePosition!.dy}',
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Palette.white,
+            ),
+          ),
+          const VBox(10),
+          Text(
             'HP: ${node.hp} / ${node.maxHp}',
             textAlign: TextAlign.center,
             style: const TextStyle(
