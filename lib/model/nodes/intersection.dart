@@ -1,7 +1,6 @@
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/nodes/node.dart';
-import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class Intersection extends Node {
@@ -16,11 +15,11 @@ class Intersection extends Node {
 
   @override
   void render(Renderer renderer) {
-    renderer.diamondFilled(
+    /*renderer.diamondFilled(
       position: position,
       color: Palette.intersection,
       size: renderer.map.blockSize / 5,
-    );
+    );*/
 
     drawHP(renderer);
   }

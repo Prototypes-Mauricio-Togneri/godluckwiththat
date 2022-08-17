@@ -80,10 +80,9 @@ class Palette {
     connectionPaint.strokeJoin = StrokeJoin.miter;
     connectionPaint.strokeWidth = 2;
 
-    connectionArrowPaint.style = PaintingStyle.stroke;
+    connectionArrowPaint.style = PaintingStyle.fill;
     connectionArrowPaint.strokeCap = StrokeCap.square;
     connectionArrowPaint.strokeJoin = StrokeJoin.miter;
-    connectionArrowPaint.strokeWidth = 0.3;
 
     hpPaint.style = PaintingStyle.stroke;
     hpPaint.strokeCap = StrokeCap.square;

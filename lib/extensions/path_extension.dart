@@ -42,6 +42,7 @@ extension PathExtension on Path {
     moveTo(position.dx - size, position.dy + size);
     lineTo(position.dx, position.dy);
     lineTo(position.dx + size, position.dy + size);
+    close();
   }
 
   void arrowDown({
@@ -51,6 +52,7 @@ extension PathExtension on Path {
     moveTo(position.dx + size, position.dy - size);
     lineTo(position.dx, position.dy);
     lineTo(position.dx - size, position.dy - size);
+    close();
   }
 
   void arrowLeft({
@@ -60,6 +62,7 @@ extension PathExtension on Path {
     moveTo(position.dx + size, position.dy - size);
     lineTo(position.dx, position.dy);
     lineTo(position.dx + size, position.dy + size);
+    close();
   }
 
   void arrowRight({
@@ -69,5 +72,6 @@ extension PathExtension on Path {
     moveTo(position.dx - size, position.dy - size);
     lineTo(position.dx, position.dy);
     lineTo(position.dx - size, position.dy + size);
+    close();
   }
 }

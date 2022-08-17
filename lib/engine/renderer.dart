@@ -163,7 +163,7 @@ class Renderer {
     paintArrow.color = arrowColor;
 
     final Offset position = map.gameToReal(Offset((from.dx + to.dx) / 2, (from.dy + to.dy) / 2));
-    final num size = Palette.connectionPaint.strokeWidth / 5;
+    final num size = Palette.connectionPaint.strokeWidth / 3;
 
     final Path pathArrow = newPath;
 
