@@ -15,15 +15,15 @@ class Palette {
   static const Color highlightNode = Color(0xaaffffff);
 
   static const Color hq = Colors.white;
-  static const Color mine = Colors.red;
+  static const Color mine = Color.fromARGB(255, 255, 17, 0);
   static const Color powerPlant = Colors.yellow;
   static const Color defense = Colors.green;
   static const Color wall = Colors.grey;
   static const Color intersection = Colors.white;
 
-  static const Color resource1 = Color(0x66e91e63);
-  static const Color resource2 = Color(0x669c27b0);
-  static const Color resource3 = Color(0x66795548);
+  static const Color resource1 = Color.fromARGB(100, 255, 139, 139);
+  static const Color resource2 = Color.fromARGB(128, 255, 0, 255);
+  static const Color resource3 = Color.fromARGB(100, 150, 250, 146);
   static const Color energy = Colors.amber;
 
   static const Color hudBackground = Color(0xee555555);
