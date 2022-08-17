@@ -61,6 +61,8 @@ class GameState extends BaseState {
       transformationController.value.translate(zoom);
     } else if (event.isKeyPressed(LogicalKeyboardKey.arrowRight) || (event.physicalKey == PhysicalKeyboardKey.keyD)) {
       transformationController.value.translate(-zoom);
+    } else if ((event is RawKeyUpEvent) && (event.isKeyPressed(LogicalKeyboardKey.space) || (event.physicalKey == PhysicalKeyboardKey.space))) {
+      renderer.toggleHP();
     }
   }
 

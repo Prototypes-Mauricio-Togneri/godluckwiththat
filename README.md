@@ -1,6 +1,5 @@
 # Tension Node
 
-Show life bar (space bar to show/hide)
 Repair with middle click
 Show direction in connections
 Add energy nodes

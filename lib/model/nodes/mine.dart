@@ -32,9 +32,13 @@ class Mine extends Node {
   }
 
   @override
-  void render(Renderer renderer) => drawNodeSquare(
-        renderer: renderer,
-        color: Palette.mine,
-        size: renderer.map.blockSize,
-      );
+  void render(Renderer renderer) {
+    drawNodeSquare(
+      renderer: renderer,
+      color: Palette.mine,
+      size: renderer.map.blockSize,
+    );
+
+    drawHP(renderer);
+  }
 }

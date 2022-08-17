@@ -62,4 +62,14 @@ class Node {
       size: size / 2,
     );
   }
+
+  void drawHP(Renderer renderer) {
+    if (renderer.showHP) {
+      renderer.hp(
+        position: position,
+        value: hp,
+        max: maxHp,
+      );
+    }
+  }
 }

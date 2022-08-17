@@ -18,9 +18,13 @@ class Headquarters extends Node {
         );
 
   @override
-  void render(Renderer renderer) => drawNodeDiamond(
-        renderer: renderer,
-        color: Palette.hq,
-        size: renderer.map.blockSize,
-      );
+  void render(Renderer renderer) {
+    drawNodeDiamond(
+      renderer: renderer,
+      color: Palette.hq,
+      size: renderer.map.blockSize,
+    );
+
+    drawHP(renderer);
+  }
 }

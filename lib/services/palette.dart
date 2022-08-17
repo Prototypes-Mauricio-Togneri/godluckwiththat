@@ -35,6 +35,7 @@ class Palette {
   static final Paint squareHollowPaint = Paint();
   static final Paint squareFilledPaint = Paint();
   static final Paint lanePaint = Paint();
+  static final Paint hpPaint = Paint();
 
   static void init() {
     gridPaint.color = Palette.gridLine;
@@ -63,5 +64,10 @@ class Palette {
     lanePaint.strokeCap = StrokeCap.square;
     lanePaint.strokeJoin = StrokeJoin.miter;
     lanePaint.strokeWidth = 0.5;
+
+    hpPaint.style = PaintingStyle.stroke;
+    hpPaint.strokeCap = StrokeCap.square;
+    hpPaint.strokeJoin = StrokeJoin.miter;
+    hpPaint.strokeWidth = 0.5;
   }
 }
