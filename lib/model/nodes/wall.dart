@@ -13,5 +13,6 @@ class Wall extends Node {
   void render(Renderer renderer) => drawNodeDiamond(
         renderer: renderer,
         color: Palette.wall,
+        size: renderer.map.blockSize / 2,
       );
 }

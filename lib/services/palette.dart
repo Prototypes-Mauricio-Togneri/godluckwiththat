@@ -14,7 +14,7 @@ class Palette {
   static const Color gridBackground = Color(0xff222222);
   static const Color highlightNode = Color(0xaaffffff);
 
-  static const Color hq = Colors.blue;
+  static const Color hq = Colors.white;
   static const Color mine = Colors.red;
   static const Color powerPlant = Colors.yellow;
   static const Color defense = Colors.green;

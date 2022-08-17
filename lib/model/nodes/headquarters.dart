@@ -17,5 +17,6 @@ class Headquarters extends Node {
   void render(Renderer renderer) => drawNodeDiamond(
         renderer: renderer,
         color: Palette.hq,
+        size: renderer.map.blockSize,
       );
 }

@@ -28,17 +28,18 @@ class Node {
   void drawNodeDiamond({
     required Renderer renderer,
     required Color color,
+    required num size,
   }) {
     renderer.diamondHollow(
       position: position,
       color: color,
-      size: renderer.map.blockSize,
+      size: size,
     );
 
     renderer.diamondFilled(
       position: position,
       color: color,
-      size: renderer.map.blockSize / 2,
+      size: size / 2,
     );
   }
 }

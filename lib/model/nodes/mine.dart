@@ -31,5 +31,6 @@ class Mine extends Node {
   void render(Renderer renderer) => drawNodeDiamond(
         renderer: renderer,
         color: Palette.mine,
+        size: renderer.map.blockSize / 1.1,
       );
 }

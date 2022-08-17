@@ -13,5 +13,6 @@ class Defense extends Node {
   void render(Renderer renderer) => drawNodeDiamond(
         renderer: renderer,
         color: Palette.defense,
+        size: renderer.map.blockSize / 2,
       );
 }

@@ -107,6 +107,33 @@
             "resource": "resource1",
             "position": [
                 -10,
+                -5
+            ]
+        },
+        {
+            "type": "mine",
+            "hp": 100,
+            "resource": "resource1",
+            "position": [
+                -9,
+                -5
+            ]
+        },
+        {
+            "type": "mine",
+            "hp": 100,
+            "resource": "resource1",
+            "position": [
+                -10,
+                -4
+            ]
+        },
+        {
+            "type": "mine",
+            "hp": 100,
+            "resource": "resource1",
+            "position": [
+                -9,
                 -4
             ]
         },
