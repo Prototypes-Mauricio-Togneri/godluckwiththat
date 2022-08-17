@@ -11,6 +11,8 @@ class GameMap {
     required this.blockSize,
   });
 
+  double get maxZoom => blockSize * 2;
+
   Size get dimensions => Size(
         numberOfBlocksHorizontal.toDouble(),
         numberOfBlocksVertical.toDouble(),

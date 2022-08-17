@@ -47,7 +47,7 @@ class MapPainter extends StatelessWidget {
                     child: InteractiveViewer(
                       transformationController: state.transformationController,
                       minScale: 1,
-                      maxScale: 20,
+                      maxScale: state.map.maxZoom,
                       constrained: false,
                       onInteractionStart: state.onViewerInteraction,
                       child: Listener(
