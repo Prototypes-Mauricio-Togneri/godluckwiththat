@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/model/nodes/defense.dart';
@@ -8,7 +7,6 @@ import 'package:tensionnode/model/nodes/intersection.dart';
 import 'package:tensionnode/model/nodes/mine.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/nodes/power_plant.dart';
-import 'package:tensionnode/model/nodes/wall.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -55,11 +53,6 @@ class JsonNode {
         );
       case NodeType.defense:
         return Defense(
-          position: position.position,
-          hp: hp,
-        );
-      case NodeType.wall:
-        return Wall(
           position: position.position,
           hp: hp,
         );

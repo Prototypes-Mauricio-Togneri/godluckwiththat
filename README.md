@@ -1,6 +1,5 @@
 # Tension Node
 
-Move wall into defense
 Show life bar (space bar to show/hide)
 Repair with middle click
 Show building stats when clicked

@@ -22,11 +22,10 @@ Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) => <String, dynamic>{
 
 const _$NodeTypeEnumMap = {
   NodeType.headquarters: 'headquarters',
+  NodeType.intersection: 'intersection',
   NodeType.mine: 'mine',
   NodeType.power_plant: 'power_plant',
   NodeType.defense: 'defense',
-  NodeType.wall: 'wall',
-  NodeType.intersection: 'intersection',
 };
 
 const _$ResourceTypeEnumMap = {

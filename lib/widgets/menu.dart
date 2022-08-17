@@ -210,16 +210,6 @@ class BuildMenu extends StatelessWidget {
               position: menuInfo.gamePosition!,
             ),
           ),
-          const VBox(10),
-          MenuButton(
-            text: 'Wall',
-            icon: Icons.width_normal_outlined,
-            color: Palette.blue,
-            onPressed: () => state.onCreateNode(
-              type: NodeType.wall,
-              position: menuInfo.gamePosition!,
-            ),
-          ),
         ],
       ),
     );
