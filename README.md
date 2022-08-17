@@ -6,7 +6,6 @@ Add main menu
     save game
     options
 Add connections
-Handle middle click and right click
 
 ## Upgrades
 * Buildings consume less energy

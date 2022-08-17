@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -14,5 +16,6 @@ class Initializer {
     setPathUrlStrategy();
     locator.registerSingleton<Navigation>(Navigation());
     Palette.init();
+    window.document.onContextMenu.listen((evt) => evt.preventDefault());
   }
 }
