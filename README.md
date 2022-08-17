@@ -1,6 +1,5 @@
 # Tension Node
 
-Add patches
 Add main menu
     continue
     load game
