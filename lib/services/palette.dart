@@ -25,7 +25,8 @@ class Palette {
   static const Color resource2 = Color(0x669c27b0);
   static const Color resource3 = Color(0x66795548);
 
-  static const Color hudBackground = Color(0xcc333333);
+  static const Color hudBackground = Color(0xee555555);
+  static const Color hudButton = Color(0xff000000);
   static const Color hudResourceIndicator = Color(0x44000000);
 
   static final Paint gridPaint = Paint();

@@ -7,6 +7,7 @@ class Headquarters extends Node {
   num resource1 = 0;
   num resource2 = 0;
   num resource3 = 0;
+  num energy = 0;
 
   Headquarters({
     required super.position,
