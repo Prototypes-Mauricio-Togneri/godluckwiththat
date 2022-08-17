@@ -1,3 +1,4 @@
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -15,7 +16,10 @@ class Mine extends Node {
     required this.resourceType,
     required super.position,
     required super.hp,
-  }) : super(type: NodeType.mine);
+  }) : super(
+          type: NodeType.mine,
+          maxHp: Constants.MINE_MAX_HP,
+        );
 
   @override
   void update(double dt) {

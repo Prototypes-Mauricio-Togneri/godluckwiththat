@@ -1,3 +1,4 @@
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -7,7 +8,10 @@ class Defense extends Node {
   Defense({
     required super.position,
     required super.hp,
-  }) : super(type: NodeType.defense);
+  }) : super(
+          type: NodeType.defense,
+          maxHp: Constants.DEFENSE_MAX_HP,
+        );
 
   @override
   void render(Renderer renderer) => drawNodeDiamond(

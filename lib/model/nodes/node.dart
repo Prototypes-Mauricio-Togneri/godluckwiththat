@@ -6,6 +6,7 @@ class Node {
   final NodeType type;
   final Offset position;
   num hp;
+  num maxHp;
   Node? top;
   Node? bottom;
   Node? left;
@@ -15,9 +16,10 @@ class Node {
     required this.type,
     required this.position,
     required this.hp,
+    required this.maxHp,
   });
 
-  bool get needsRepair => hp < 100; // TODO(momo): fix
+  bool get needsRepair => hp < maxHp;
 
   bool isAt(Offset testPosition) => position == testPosition;
 

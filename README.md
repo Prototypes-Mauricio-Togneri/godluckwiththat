@@ -2,7 +2,6 @@
 
 Show life bar (space bar to show/hide)
 Repair with middle click
-Show building stats when clicked
 Show direction in connections
 Add energy nodes
 Add more mines and connect them all

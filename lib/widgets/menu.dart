@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/model/menu_info.dart';
+import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
 import 'package:tensionnode/types/menu_type.dart';
@@ -99,6 +100,8 @@ class NodeMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Node node = menuInfo.node!;
+
     return ContextualMenu(
       position: menuInfo.realPosition!,
       child: Column(
@@ -106,20 +109,29 @@ class NodeMenu extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            menuInfo.node!.type.name.toUpperCase(),
+            node.type.name.toUpperCase(),
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Palette.white,
             ),
           ),
-          if (menuInfo.node!.needsRepair)
+          const VBox(10),
+          Text(
+            'HP: ${node.hp} / ${node.maxHp}',
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Palette.white,
+              fontSize: 12,
+            ),
+          ),
+          if (node.needsRepair)
             Padding(
               padding: const EdgeInsets.only(top: 10),
               child: MenuButton(
                 text: 'Repair',
                 icon: Icons.build,
                 color: Palette.green,
-                onPressed: () => state.onRepair(menuInfo.node!),
+                onPressed: () => state.onRepair(node),
               ),
             ),
           Padding(
@@ -128,7 +140,7 @@ class NodeMenu extends StatelessWidget {
               text: 'Destroy',
               icon: Icons.delete,
               color: Palette.red,
-              onPressed: () => state.onDestroyNode(menuInfo.node!),
+              onPressed: () => state.onDestroyNode(node),
             ),
           ),
         ],
