@@ -58,7 +58,7 @@ class GameState extends BaseState {
   }
 
   void onKeyPressed(RawKeyEvent event) {
-    final double zoom = transformationController.value.getRow(0)[0];
+    final double zoom = 21 - transformationController.value.getRow(0)[0];
 
     if (event.isKeyPressed(LogicalKeyboardKey.arrowUp) || (event.physicalKey == PhysicalKeyboardKey.keyW)) {
       transformationController.value.translate(0, zoom);
