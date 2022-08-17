@@ -1,7 +1,10 @@
 # Tension Node
 
 Blur background when showing main menu
-Add connections
+Show direction in connections
+Add energy nodes
+Add more mines and connect them all
+Add connection model
 
 ## Upgrades
 * Buildings consume less energy
