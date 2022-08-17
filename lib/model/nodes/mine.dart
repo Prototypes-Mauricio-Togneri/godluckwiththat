@@ -1,7 +1,6 @@
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/nodes/node.dart';
-import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -35,7 +34,7 @@ class Mine extends Node {
   void render(Renderer renderer) {
     drawNodeSquare(
       renderer: renderer,
-      color: Palette.mine,
+      color: resourceType.color,
       size: renderer.map.blockSize,
     );
 

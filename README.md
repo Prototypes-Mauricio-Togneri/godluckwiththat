@@ -1,8 +1,9 @@
 # Tension Node
 
-Show direction in connections
-Add energy nodes
+## TODO
 Add more mines and connect them all
+Add energy nodes
+Show direction in connections
 Add connection model
 
 ## Resources
@@ -14,13 +15,13 @@ Add connection model
 * Wall
 * Light turret
 * Heavy turret
+* Long range turret
 * Ion turret
 * Gauss turret
 * Plasma turret
 * Pulse turret
 
 - Shotgunner
-- Ranger
 - Sprayer
 
 ## Upgrades
