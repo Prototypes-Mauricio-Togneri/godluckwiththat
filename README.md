@@ -1,7 +1,7 @@
 # Tension Node
 
 ## TODO
-Add connection model
+Improve connection model
 
 ## Resources
 * Metal
@@ -17,9 +17,6 @@ Add connection model
 * Gauss turret
 * Plasma turret
 * Pulse turret
-
-- Shotgunner
-- Sprayer
 
 ## Upgrades
 * Increase building hp
