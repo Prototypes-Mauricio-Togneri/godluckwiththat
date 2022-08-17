@@ -140,12 +140,12 @@ class Renderer {
   }) =>
       canvas.drawCircle(position, size.toDouble(), paint);
 
-  void lane({
+  void connection({
     required Offset from,
     required Offset to,
     required Color color,
   }) {
-    final Paint paint = Palette.lanePaint;
+    final Paint paint = Palette.connectionPaint;
     paint.color = color;
 
     final Path path = newPath;

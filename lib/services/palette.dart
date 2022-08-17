@@ -36,7 +36,7 @@ class Palette {
   static final Paint squareFilledPaint = Paint();
   static final Paint circleHollowPaint = Paint();
   static final Paint circleFilledPaint = Paint();
-  static final Paint lanePaint = Paint();
+  static final Paint connectionPaint = Paint();
   static final Paint hpPaint = Paint();
 
   static void init() {
@@ -71,10 +71,10 @@ class Palette {
     circleFilledPaint.strokeCap = StrokeCap.square;
     circleFilledPaint.strokeJoin = StrokeJoin.miter;
 
-    lanePaint.style = PaintingStyle.stroke;
-    lanePaint.strokeCap = StrokeCap.square;
-    lanePaint.strokeJoin = StrokeJoin.miter;
-    lanePaint.strokeWidth = 0.5;
+    connectionPaint.style = PaintingStyle.stroke;
+    connectionPaint.strokeCap = StrokeCap.square;
+    connectionPaint.strokeJoin = StrokeJoin.miter;
+    connectionPaint.strokeWidth = 0.5;
 
     hpPaint.style = PaintingStyle.stroke;
     hpPaint.strokeCap = StrokeCap.square;

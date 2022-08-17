@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/engine/lanes.dart';
+import 'package:tensionnode/engine/connections.dart';
 import 'package:tensionnode/engine/nodes.dart';
 import 'package:tensionnode/engine/patches.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
-import 'package:tensionnode/json/json_lane.dart';
+import 'package:tensionnode/json/json_connection.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
@@ -29,8 +29,8 @@ class JsonMatch {
   @JsonKey(name: 'nodes')
   final List<JsonNode> nodes;
 
-  @JsonKey(name: 'lanes')
-  final List<JsonLane> lanes;
+  @JsonKey(name: 'connections')
+  final List<JsonConnection> connections;
 
   const JsonMatch({
     required this.version,
@@ -38,7 +38,7 @@ class JsonMatch {
     required this.map,
     required this.patches,
     required this.nodes,
-    required this.lanes,
+    required this.connections,
   });
 
   GameMap getMap() => GameMap(
@@ -67,13 +67,13 @@ class JsonMatch {
     return result;
   }
 
-  Lanes getLanes(Nodes nodes) {
-    final Lanes result = Lanes();
+  Connections getConnections(Nodes nodes) {
+    final Connections result = Connections();
 
-    for (final JsonLane lane in lanes) {
+    for (final JsonConnection connections in connections) {
       result.add(
-        nodes.at(lane.from.position),
-        nodes.at(lane.to.position),
+        nodes.at(connections.from.position),
+        nodes.at(connections.to.position),
       );
     }
 

@@ -2,7 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tensionnode/engine/lanes.dart';
+import 'package:tensionnode/engine/connections.dart';
 import 'package:tensionnode/engine/loader.dart';
 import 'package:tensionnode/engine/nodes.dart';
 import 'package:tensionnode/engine/patches.dart';
@@ -26,13 +26,13 @@ class GameState extends BaseState {
   late final Headquarters headquarters;
   late final Patches patches;
   late final Nodes nodes;
-  late final Lanes lanes;
+  late final Connections connections;
 
   bool loaded = false;
   MenuInfo? menuInfo;
 
   num get energyProduced => nodes.energyProduced;
-  
+
   num get energyConsumed => nodes.energyConsumed;
 
   bool get hasMenu => menuInfo != null;
@@ -44,7 +44,7 @@ class GameState extends BaseState {
     patches = match.getPatches();
     nodes = match.getNodes();
     headquarters = nodes.headquarters;
-    lanes = match.getLanes(nodes);
+    connections = match.getConnections(nodes);
     renderer = Renderer(map);
     map.setCenter(transformationController);
     loaded = true;
@@ -195,7 +195,7 @@ class GameState extends BaseState {
   void renderForeground(Canvas canvas) {
     renderer.setCanvas(canvas);
     patches.render(renderer);
-    lanes.render(renderer);
+    connections.render(renderer);
     nodes.render(renderer);
     _pointerHighlight.render(renderer);
   }

@@ -418,7 +418,7 @@
             ]
         }
     ],
-    "lanes": [
+    "connections": [
         {
             "from": [
                 -10,
