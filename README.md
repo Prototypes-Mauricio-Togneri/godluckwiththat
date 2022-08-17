@@ -1,7 +1,6 @@
 # Tension Node
 
 ## TODO
-Add more mines and connect them all
 Show direction in connections
 Add connection model
 
