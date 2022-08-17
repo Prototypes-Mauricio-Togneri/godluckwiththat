@@ -6,7 +6,6 @@ Add main menu
     save game
     options
 Add connections
-Manage energy as a resource
 Handle middle click and right click
 
 ## Upgrades

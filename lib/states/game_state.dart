@@ -55,7 +55,7 @@ class GameState extends BaseState {
     notify();
   }
 
-  void onTapUp(TapUpDetails details) {
+  void onLeftClick(TapUpDetails details) {
     if (menuInfo == null) {
       final Offset position = map.realToGame(details.localPosition);
       print('TAP: (${position.dx}, ${position.dy})');
@@ -80,6 +80,14 @@ class GameState extends BaseState {
       menuInfo = null;
       notify();
     }
+  }
+
+  void onRightClick(TapUpDetails details) {
+    print('RIGHT CLICK');
+  }
+
+  void onMiddleClick(TapUpDetails details) {
+    print('MIDDLE CLICK');
   }
 
   void onMainMenu() {}

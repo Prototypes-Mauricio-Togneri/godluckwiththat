@@ -48,7 +48,9 @@ class MapPainter extends StatelessWidget {
                     child: Listener(
                       onPointerHover: state.onPointerHover,
                       child: GestureDetector(
-                        onTapUp: state.onTapUp,
+                        onTapUp: state.onLeftClick,
+                        onSecondaryTapUp: state.onRightClick,
+                        onTertiaryTapUp: state.onMiddleClick,
                         child: CustomPaint(
                           size: state.map.size,
                           painter: MapBackgroundPainter(state),
