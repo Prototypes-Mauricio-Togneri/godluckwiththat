@@ -14,9 +14,13 @@ class PowerPlant extends Node {
         );
 
   @override
-  void render(Renderer renderer) => drawNodeDiamond(
-        renderer: renderer,
-        color: Palette.powerPlant,
-        size: renderer.map.blockSize / 2,
-      );
+  void render(Renderer renderer) {
+    drawNodeDiamond(
+      renderer: renderer,
+      color: Palette.powerPlant,
+      size: renderer.map.blockSize / 2,
+    );
+
+    drawHP(renderer);
+  }
 }

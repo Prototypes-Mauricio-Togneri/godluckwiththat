@@ -20,5 +20,7 @@ class Intersection extends Node {
       color: Palette.intersection,
       size: renderer.map.blockSize / 5,
     );
+
+    drawHP(renderer);
   }
 }

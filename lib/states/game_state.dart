@@ -75,8 +75,6 @@ class GameState extends BaseState {
   void onLeftClick(TapUpDetails details) {
     if (menuInfo == null) {
       final Offset position = map.realToGame(details.localPosition);
-      print('TAP: (${position.dx}, ${position.dy})');
-
       final Node? nodeClicked = nodes.at(position);
 
       if (nodeClicked != null) {
@@ -104,7 +102,12 @@ class GameState extends BaseState {
   }
 
   void onMiddleClick(TapUpDetails details) {
-    print('MIDDLE CLICK');
+    final Offset position = map.realToGame(details.localPosition);
+    final Node? nodeClicked = nodes.at(position);
+
+    if (nodeClicked != null) {
+      nodeClicked.repair();
+    }
   }
 
   void onMainMenu() {
@@ -113,6 +116,7 @@ class GameState extends BaseState {
   }
 
   void onRepair(Node node) {
+    node.repair();
     menuInfo = null;
     notify();
   }

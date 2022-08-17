@@ -27,6 +27,10 @@ class Node {
 
   void render(Renderer renderer) {}
 
+  void repair() {
+    hp = maxHp;
+  }
+
   void drawNodeDiamond({
     required Renderer renderer,
     required Color color,
