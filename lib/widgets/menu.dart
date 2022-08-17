@@ -117,10 +117,11 @@ class NodeMenu extends StatelessWidget {
           ),
           const VBox(10),
           Text(
-            '${menuInfo.gamePosition!.dx}, ${menuInfo.gamePosition!.dy}',
+            '(${menuInfo.gamePosition!.dx}, ${menuInfo.gamePosition!.dy})',
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Palette.white,
+              fontSize: 12,
             ),
           ),
           const VBox(10),
@@ -132,6 +133,18 @@ class NodeMenu extends StatelessWidget {
               fontSize: 12,
             ),
           ),
+          if (node.energyConsumed > 0)
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                'Energy: ${node.energyConsumed}',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Palette.white,
+                  fontSize: 12,
+                ),
+              ),
+            ),
           if (node.needsRepair)
             Padding(
               padding: const EdgeInsets.only(top: 10),

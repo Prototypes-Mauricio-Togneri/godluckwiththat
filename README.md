@@ -27,6 +27,7 @@ Add connection model
 * Buildings consume less energy
 * Connections move more resources per second
 * Mines collect more resources per second
+* Turret properties improvements
 
 ## Features
 * Campaign mode

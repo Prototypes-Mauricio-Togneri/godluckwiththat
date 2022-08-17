@@ -5,6 +5,11 @@ import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class Defense extends Node {
+  num damage = 0;
+  num shield = 0;
+  num range = 0;
+  num fireRate = 0;
+
   Defense({
     required super.position,
     required super.hp,
