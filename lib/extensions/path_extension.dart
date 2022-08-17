@@ -34,4 +34,40 @@ extension PathExtension on Path {
     moveTo(from.dx, from.dy);
     lineTo(to.dx, to.dy);
   }
+
+  void arrowUp({
+    required Offset position,
+    required num size,
+  }) {
+    moveTo(position.dx - size, position.dy + size);
+    lineTo(position.dx, position.dy);
+    lineTo(position.dx + size, position.dy + size);
+  }
+
+  void arrowDown({
+    required Offset position,
+    required num size,
+  }) {
+    moveTo(position.dx + size, position.dy - size);
+    lineTo(position.dx, position.dy);
+    lineTo(position.dx - size, position.dy - size);
+  }
+
+  void arrowLeft({
+    required Offset position,
+    required num size,
+  }) {
+    moveTo(position.dx + size, position.dy - size);
+    lineTo(position.dx, position.dy);
+    lineTo(position.dx + size, position.dy + size);
+  }
+
+  void arrowRight({
+    required Offset position,
+    required num size,
+  }) {
+    moveTo(position.dx - size, position.dy - size);
+    lineTo(position.dx, position.dy);
+    lineTo(position.dx - size, position.dy + size);
+  }
 }

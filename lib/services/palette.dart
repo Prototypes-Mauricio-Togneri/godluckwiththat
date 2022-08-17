@@ -14,11 +14,14 @@ class Palette {
   static const Color gridBackground = Color(0xff1a1a1a);
   static const Color highlightNode = Color(0xaaffffff);
 
+  static const Color connectionLine = Colors.white;
+  static const Color connectionArrow = Color(0xff777777);
+
   static const Color hq = Colors.white;
   static const Color mine = Color.fromARGB(255, 255, 17, 0);
   static const Color powerPlant = Colors.yellow;
   static const Color defense = Colors.green;
-  static const Color intersection = Colors.white;
+  static const Color intersection = Color(0xffcccccc);
 
   static const Color resource1 = Colors.red;
   static const Color resource2 = Colors.green;
@@ -37,6 +40,7 @@ class Palette {
   static final Paint circleHollowPaint = Paint();
   static final Paint circleFilledPaint = Paint();
   static final Paint connectionPaint = Paint();
+  static final Paint connectionArrowPaint = Paint();
   static final Paint hpPaint = Paint();
 
   static void init() {
@@ -74,7 +78,12 @@ class Palette {
     connectionPaint.style = PaintingStyle.stroke;
     connectionPaint.strokeCap = StrokeCap.square;
     connectionPaint.strokeJoin = StrokeJoin.miter;
-    connectionPaint.strokeWidth = 0.5;
+    connectionPaint.strokeWidth = 2;
+
+    connectionArrowPaint.style = PaintingStyle.stroke;
+    connectionArrowPaint.strokeCap = StrokeCap.square;
+    connectionArrowPaint.strokeJoin = StrokeJoin.miter;
+    connectionArrowPaint.strokeWidth = 0.3;
 
     hpPaint.style = PaintingStyle.stroke;
     hpPaint.strokeCap = StrokeCap.square;

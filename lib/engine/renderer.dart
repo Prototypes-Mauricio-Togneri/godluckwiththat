@@ -2,6 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:tensionnode/extensions/path_extension.dart';
 import 'package:tensionnode/model/game_map.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/types/direction.dart';
 
 class Renderer {
   bool showHP = false;
@@ -141,20 +142,59 @@ class Renderer {
       canvas.drawCircle(position, size.toDouble(), paint);
 
   void connection({
+    required Direction direction,
     required Offset from,
     required Offset to,
-    required Color color,
+    required Color lineColor,
+    required Color arrowColor,
   }) {
-    final Paint paint = Palette.connectionPaint;
-    paint.color = color;
+    final Paint paintLine = Palette.connectionPaint;
+    paintLine.color = lineColor;
 
-    final Path path = newPath;
-    path.line(
+    final Path pathLine = newPath;
+    pathLine.line(
       from: map.gameToReal(from),
       to: map.gameToReal(to),
     );
 
-    canvas.drawPath(path, paint);
+    canvas.drawPath(pathLine, paintLine);
+
+    final Paint paintArrow = Palette.connectionArrowPaint;
+    paintArrow.color = arrowColor;
+
+    final Offset position = map.gameToReal(Offset((from.dx + to.dx) / 2, (from.dy + to.dy) / 2));
+    final num size = Palette.connectionPaint.strokeWidth / 5;
+
+    final Path pathArrow = newPath;
+
+    switch (direction) {
+      case Direction.up:
+        pathArrow.arrowUp(
+          position: position,
+          size: size,
+        );
+        break;
+      case Direction.down:
+        pathArrow.arrowDown(
+          position: position,
+          size: size,
+        );
+        break;
+      case Direction.left:
+        pathArrow.arrowLeft(
+          position: position,
+          size: size,
+        );
+        break;
+      case Direction.right:
+        pathArrow.arrowRight(
+          position: position,
+          size: size,
+        );
+        break;
+    }
+
+    canvas.drawPath(pathArrow, paintArrow);
   }
 
   void hp({

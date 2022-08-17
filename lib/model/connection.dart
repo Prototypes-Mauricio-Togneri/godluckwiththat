@@ -15,9 +15,11 @@ class Connection {
 
   void render(Renderer renderer) {
     renderer.connection(
+      direction: from.directionTo(to),
       from: from.position,
       to: to.position,
-      color: Palette.white,
+      lineColor: Palette.connectionLine,
+      arrowColor: Palette.connectionArrow,
     );
   }
 }

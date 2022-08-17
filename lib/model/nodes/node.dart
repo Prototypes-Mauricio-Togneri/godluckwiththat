@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/engine/renderer.dart';
+import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class Node {
@@ -20,6 +21,23 @@ class Node {
     required this.maxHp,
     required this.energyConsumed,
   });
+
+  Direction directionTo(Node node) {
+    final num x = position.dx - node.position.dx;
+    final num y = position.dy - node.position.dy;
+
+    if ((x == 0) && (y > 0)) {
+      return Direction.up;
+    } else if ((x == 0) && (y < 0)) {
+      return Direction.down;
+    } else if ((x > 0) && (y == 0)) {
+      return Direction.left;
+    } else if ((x < 0) && (y == 0)) {
+      return Direction.right;
+    } else {
+      throw Error();
+    }
+  }
 
   bool get needsRepair => hp < maxHp;
 
