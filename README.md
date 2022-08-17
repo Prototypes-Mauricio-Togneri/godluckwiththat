@@ -1,10 +1,5 @@
 # Tension Node
 
-Add main menu
-    continue
-    load game
-    save game
-    options
 Add connections
 
 ## Upgrades

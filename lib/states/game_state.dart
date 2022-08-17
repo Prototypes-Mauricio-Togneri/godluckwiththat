@@ -90,7 +90,10 @@ class GameState extends BaseState {
     print('MIDDLE CLICK');
   }
 
-  void onMainMenu() {}
+  void onMainMenu() {
+    menuInfo = MenuInfo.main();
+    notify();
+  }
 
   void onRepair(Node node) {
     menuInfo = null;
@@ -104,8 +107,8 @@ class GameState extends BaseState {
 
   void onBuild(MenuInfo oldMenu) {
     menuInfo = MenuInfo.build(
-      realPosition: oldMenu.realPosition,
-      gamePosition: oldMenu.gamePosition,
+      realPosition: oldMenu.realPosition!,
+      gamePosition: oldMenu.gamePosition!,
     );
     notify();
   }
@@ -114,6 +117,26 @@ class GameState extends BaseState {
     required NodeType type,
     required Offset position,
   }) {
+    menuInfo = null;
+    notify();
+  }
+
+  void onContinue() {
+    menuInfo = null;
+    notify();
+  }
+
+  void onLoadGame() {
+    menuInfo = null;
+    notify();
+  }
+
+  void onSaveGame() {
+    menuInfo = null;
+    notify();
+  }
+
+  void onSettings() {
     menuInfo = null;
     notify();
   }

@@ -15,6 +15,8 @@ class Menu extends StatelessWidget {
   Widget build(BuildContext context) {
     if (state.hasMenu) {
       switch (state.menuInfo!.type) {
+        case MenuType.main:
+          return MainMenu(state: state);
         case MenuType.node:
           return NodeMenu(
             state: state,
@@ -39,6 +41,51 @@ class Menu extends StatelessWidget {
   }
 }
 
+class MainMenu extends StatelessWidget {
+  final GameState state;
+
+  const MainMenu({required this.state});
+
+  @override
+  Widget build(BuildContext context) {
+    return CenteredMenu(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          MenuButton(
+            text: 'Continue',
+            icon: Icons.play_arrow,
+            color: Palette.blue,
+            onPressed: state.onContinue,
+          ),
+          const VBox(10),
+          MenuButton(
+            text: 'Load game',
+            icon: Icons.upload,
+            color: Palette.blue,
+            onPressed: state.onLoadGame,
+          ),
+          const VBox(10),
+          MenuButton(
+            text: 'Save game',
+            icon: Icons.save,
+            color: Palette.blue,
+            onPressed: state.onSaveGame,
+          ),
+          const VBox(10),
+          MenuButton(
+            text: 'Settings',
+            icon: Icons.settings,
+            color: Palette.blue,
+            onPressed: state.onSettings,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class NodeMenu extends StatelessWidget {
   final GameState state;
   final MenuInfo menuInfo;
@@ -50,8 +97,8 @@ class NodeMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MenuContainer(
-      position: menuInfo.realPosition,
+    return ContextualMenu(
+      position: menuInfo.realPosition!,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -99,8 +146,8 @@ class EmptyMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MenuContainer(
-      position: menuInfo.realPosition,
+    return ContextualMenu(
+      position: menuInfo.realPosition!,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -128,8 +175,8 @@ class BuildMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MenuContainer(
-      position: menuInfo.realPosition,
+    return ContextualMenu(
+      position: menuInfo.realPosition!,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -140,7 +187,7 @@ class BuildMenu extends StatelessWidget {
             color: Palette.blue,
             onPressed: () => state.onCreateNode(
               type: NodeType.mine,
-              position: menuInfo.gamePosition,
+              position: menuInfo.gamePosition!,
             ),
           ),
           const VBox(10),
@@ -150,7 +197,7 @@ class BuildMenu extends StatelessWidget {
             color: Palette.blue,
             onPressed: () => state.onCreateNode(
               type: NodeType.power_plant,
-              position: menuInfo.gamePosition,
+              position: menuInfo.gamePosition!,
             ),
           ),
           const VBox(10),
@@ -160,7 +207,7 @@ class BuildMenu extends StatelessWidget {
             color: Palette.blue,
             onPressed: () => state.onCreateNode(
               type: NodeType.defense,
-              position: menuInfo.gamePosition,
+              position: menuInfo.gamePosition!,
             ),
           ),
           const VBox(10),
@@ -170,7 +217,7 @@ class BuildMenu extends StatelessWidget {
             color: Palette.blue,
             onPressed: () => state.onCreateNode(
               type: NodeType.wall,
-              position: menuInfo.gamePosition,
+              position: menuInfo.gamePosition!,
             ),
           ),
         ],
@@ -179,11 +226,11 @@ class BuildMenu extends StatelessWidget {
   }
 }
 
-class MenuContainer extends StatelessWidget {
+class ContextualMenu extends StatelessWidget {
   final Offset position;
   final Widget child;
 
-  const MenuContainer({
+  const ContextualMenu({
     required this.position,
     required this.child,
   });
@@ -193,6 +240,28 @@ class MenuContainer extends StatelessWidget {
     return Positioned(
       top: position.dy,
       left: position.dx,
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Palette.hudBackground,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: IntrinsicWidth(child: child),
+      ),
+    );
+  }
+}
+
+class CenteredMenu extends StatelessWidget {
+  final Widget child;
+
+  const CenteredMenu({
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -234,7 +303,7 @@ class MenuButton extends StatelessWidget {
             size: 20,
           ),
           const HBox(5),
-          Text(text),
+          Text(text.toUpperCase()),
         ],
       ),
     );

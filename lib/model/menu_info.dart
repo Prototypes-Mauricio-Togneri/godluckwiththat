@@ -5,15 +5,17 @@ import 'package:tensionnode/types/menu_type.dart';
 class MenuInfo {
   final MenuType type;
   final Node? node;
-  final Offset realPosition;
-  final Offset gamePosition;
+  final Offset? realPosition;
+  final Offset? gamePosition;
 
   MenuInfo._({
     required this.type,
-    required this.node,
-    required this.realPosition,
-    required this.gamePosition,
+    this.node,
+    this.realPosition,
+    this.gamePosition,
   });
+
+  factory MenuInfo.main() => MenuInfo._(type: MenuType.main);
 
   factory MenuInfo.node({
     required Node node,
@@ -33,7 +35,6 @@ class MenuInfo {
   }) =>
       MenuInfo._(
         type: MenuType.empty,
-        node: null,
         realPosition: realPosition,
         gamePosition: gamePosition,
       );
@@ -44,7 +45,6 @@ class MenuInfo {
   }) =>
       MenuInfo._(
         type: MenuType.build,
-        node: null,
         realPosition: realPosition,
         gamePosition: gamePosition,
       );
