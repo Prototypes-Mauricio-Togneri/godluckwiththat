@@ -11,43 +11,40 @@ class Hud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        height: 50,
-        padding: const EdgeInsets.all(5),
-        color: Palette.hudBackground,
-        child: Row(
-          children: [
-            MainMenuButton(state),
-            const Spacer(),
-            ResourceIndicator(
-              icon: Icons.square,
-              color: ResourceType.resource1.color,
-              value: state.headquarters.resource1.toInt().toString(),
-            ),
-            const HBox(30),
-            ResourceIndicator(
-              icon: Icons.square,
-              color: ResourceType.resource2.color,
-              value: state.headquarters.resource2.toInt().toString(),
-            ),
-            const HBox(30),
-            ResourceIndicator(
-              icon: Icons.square,
-              color: ResourceType.resource3.color,
-              value: state.headquarters.resource3.toInt().toString(),
-            ),
-            const HBox(30),
-            ResourceIndicator(
-              icon: Icons.bolt,
-              color: Palette.energy,
-              value: '${state.energyConsumed} / ${state.energyProduced}',
-            ),
-            const Spacer(),
-            RepairButton(state),
-          ],
-        ),
+    return Container(
+      height: 50,
+      padding: const EdgeInsets.all(5),
+      color: Palette.hudBackground,
+      child: Row(
+        children: [
+          MainMenuButton(state),
+          const Spacer(),
+          ResourceIndicator(
+            icon: Icons.square,
+            color: ResourceType.resource1.color,
+            value: state.headquarters.resource1.toInt().toString(),
+          ),
+          const HBox(30),
+          ResourceIndicator(
+            icon: Icons.square,
+            color: ResourceType.resource2.color,
+            value: state.headquarters.resource2.toInt().toString(),
+          ),
+          const HBox(30),
+          ResourceIndicator(
+            icon: Icons.square,
+            color: ResourceType.resource3.color,
+            value: state.headquarters.resource3.toInt().toString(),
+          ),
+          const HBox(30),
+          ResourceIndicator(
+            icon: Icons.bolt,
+            color: Palette.energy,
+            value: '${state.energyConsumed} / ${state.energyProduced}',
+          ),
+          const Spacer(),
+          RepairButton(state),
+        ],
       ),
     );
   }

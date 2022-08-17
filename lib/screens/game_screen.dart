@@ -37,40 +37,49 @@ class MapPainter extends StatelessWidget {
       color: Palette.gridBackground,
       child: StateProvider<GameState>(
         state: state,
-        builder: (context, state) => state.loaded
-            ? Stack(
-                children: [
-                  RawKeyboardListener(
-                    autofocus: true,
-                    focusNode: FocusNode(),
-                    onKey: state.onKeyPressed,
-                    child: InteractiveViewer(
-                      transformationController: state.transformationController,
-                      minScale: 1,
-                      maxScale: state.map.maxZoom,
-                      constrained: false,
-                      onInteractionStart: state.onViewerInteraction,
-                      child: Listener(
-                        onPointerHover: state.onPointerHover,
-                        child: GestureDetector(
-                          onTapUp: state.onLeftClick,
-                          onSecondaryTapUp: state.onRightClick,
-                          onTertiaryTapUp: state.onMiddleClick,
-                          child: CustomPaint(
-                            size: state.map.size,
-                            painter: MapBackgroundPainter(state),
-                            foregroundPainter: MapForegroundPainter(state),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Hud(state),
-                  Menu(state),
-                ],
-              )
-            : const Empty(),
+        builder: (context, state) => state.loaded ? MapContent(state) : const Empty(),
       ),
+    );
+  }
+}
+
+class MapContent extends StatelessWidget {
+  final GameState state;
+
+  const MapContent(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        RawKeyboardListener(
+          autofocus: true,
+          focusNode: FocusNode(),
+          onKey: state.onKeyPressed,
+          child: InteractiveViewer(
+            transformationController: state.transformationController,
+            minScale: 1,
+            maxScale: state.map.maxZoom,
+            constrained: false,
+            onInteractionStart: state.onViewerInteraction,
+            child: Listener(
+              onPointerHover: state.onPointerHover,
+              child: GestureDetector(
+                onTapUp: state.onLeftClick,
+                onSecondaryTapUp: state.onRightClick,
+                onTertiaryTapUp: state.onMiddleClick,
+                child: CustomPaint(
+                  size: state.map.size,
+                  painter: MapBackgroundPainter(state),
+                  foregroundPainter: MapForegroundPainter(state),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Hud(state),
+        Menu(state),
+      ],
     );
   }
 }
