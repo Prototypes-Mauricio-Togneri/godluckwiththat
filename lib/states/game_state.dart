@@ -110,6 +110,8 @@ class GameState extends BaseState {
     }
   }
 
+  void onRepairAll() => nodes.repairAll();
+
   void onMainMenu() {
     menuInfo = MenuInfo.main();
     notify();

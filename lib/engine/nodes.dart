@@ -35,4 +35,10 @@ class Nodes {
       node.render(renderer);
     }
   }
+
+  void repairAll() {
+    for (final Node node in _nodes) {
+      node.repair();
+    }
+  }
 }

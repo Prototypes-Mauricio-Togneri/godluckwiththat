@@ -45,6 +45,7 @@ class Hud extends StatelessWidget {
               value: '${state.energyConsumed} / ${state.energyProduced}',
             ),
             const Spacer(),
+            RepairButton(state),
           ],
         ),
       ),
@@ -74,6 +75,37 @@ class MainMenuButton extends StatelessWidget {
           child: const Center(
             child: Icon(
               Icons.menu,
+              color: Palette.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class RepairButton extends StatelessWidget {
+  final GameState state;
+
+  const RepairButton(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Palette.transparent,
+      child: InkWell(
+        onTap: state.onRepairAll,
+        borderRadius: BorderRadius.circular(5),
+        child: Container(
+          height: 40,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(
+            color: Palette.hudButton,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: const Center(
+            child: Icon(
+              Icons.build,
               color: Palette.white,
             ),
           ),

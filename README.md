@@ -1,6 +1,5 @@
 # Tension Node
 
-Repair with middle click
 Show direction in connections
 Add energy nodes
 Add more mines and connect them all
