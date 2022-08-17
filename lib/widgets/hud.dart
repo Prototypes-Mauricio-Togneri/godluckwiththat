@@ -34,6 +34,11 @@ class Hud extends StatelessWidget {
               name: 'Titanium',
               value: state.headquarters.resource3,
             ),
+            const HBox(30),
+            ResourceIndicator(
+              name: 'Energy',
+              value: state.headquarters.energy,
+            ),
             const Spacer(),
           ],
         ),
@@ -96,7 +101,7 @@ class ResourceIndicator extends StatelessWidget {
         ),
         const HBox(10),
         Container(
-          height: 40,
+          height: 30,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             color: Palette.hudResourceIndicator,
