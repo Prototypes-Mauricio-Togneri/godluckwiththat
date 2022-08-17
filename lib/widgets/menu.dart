@@ -152,6 +152,14 @@ class EmptyMenu extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
+          Text(
+            '${menuInfo.gamePosition!.dx}, ${menuInfo.gamePosition!.dy}',
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Palette.white,
+            ),
+          ),
+          const VBox(10),
           MenuButton(
             text: 'Build',
             icon: Icons.construction,

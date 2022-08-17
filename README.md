@@ -3,7 +3,6 @@
 Show life bar (space bar to show/hide)
 Repair with middle click
 Show building stats when clicked
-Paint coordinates
 Blur background when showing main menu
 Show direction in connections
 Add energy nodes
