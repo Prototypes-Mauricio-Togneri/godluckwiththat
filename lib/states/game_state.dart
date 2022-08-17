@@ -32,6 +32,7 @@ class GameState extends BaseState {
   MenuInfo? menuInfo;
 
   num get energyProduced => nodes.energyProduced;
+  
   num get energyConsumed => nodes.energyConsumed;
 
   bool get hasMenu => menuInfo != null;
