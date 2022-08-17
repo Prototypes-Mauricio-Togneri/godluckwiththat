@@ -12,7 +12,7 @@ class Palette {
 
   static const Color gridLine = Color(0x55888888);
   static const Color gridBackground = Color(0xff1a1a1a);
-  static const Color highlightNode = Color(0xaaffffff);
+  static const Color highlightNode = Color(0xaa444444);
 
   static const Color connectionLine = Colors.white;
   static const Color connectionArrow = Color(0xff777777);

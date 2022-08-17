@@ -1,7 +1,6 @@
 # Tension Node
 
 ## TODO
-Show direction in connections
 Add connection model
 
 ## Resources
