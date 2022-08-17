@@ -8,6 +8,7 @@ import 'package:tensionnode/json/json_connection.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
+import 'package:tensionnode/json/json_resources.dart';
 import 'package:tensionnode/model/game_map.dart';
 
 part 'json_match.g.dart';
@@ -23,6 +24,9 @@ class JsonMatch {
   @JsonKey(name: 'map')
   final JsonMap map;
 
+  @JsonKey(name: 'resources')
+  final JsonResources resources;
+
   @JsonKey(name: 'patches')
   final List<JsonPatch> patches;
 
@@ -36,6 +40,7 @@ class JsonMatch {
     required this.version,
     required this.id,
     required this.map,
+    required this.resources,
     required this.patches,
     required this.nodes,
     required this.connections,

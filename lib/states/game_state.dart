@@ -45,6 +45,9 @@ class GameState extends BaseState {
     patches = match.getPatches();
     nodes = match.getNodes();
     headquarters = nodes.headquarters;
+    headquarters.resource1 = match.resources.resource1;
+    headquarters.resource2 = match.resources.resource2;
+    headquarters.resource3 = match.resources.resource3;
     connections = match.getConnections(nodes);
     renderer = Renderer(map);
     map.setCenter(transformationController);
