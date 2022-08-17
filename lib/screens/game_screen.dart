@@ -49,6 +49,7 @@ class MapPainter extends StatelessWidget {
                       minScale: 1,
                       maxScale: 20,
                       constrained: false,
+                      onInteractionStart: state.onViewerInteraction,
                       child: Listener(
                         onPointerHover: state.onPointerHover,
                         child: GestureDetector(

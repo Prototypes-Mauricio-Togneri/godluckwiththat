@@ -50,6 +50,11 @@ class GameState extends BaseState {
     notify();
   }
 
+  void onViewerInteraction(ScaleStartDetails details) {
+    menuInfo = null;
+    notify();
+  }
+
   void onKeyPressed(RawKeyEvent event) {
     final double zoom = transformationController.value.getRow(0)[0];
 
