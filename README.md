@@ -1,5 +1,6 @@
 # Tension Node
 
+Paint coordinates
 Blur background when showing main menu
 Show direction in connections
 Add energy nodes
