@@ -31,8 +31,8 @@ class GameState extends BaseState {
   bool loaded = false;
   MenuInfo? menuInfo;
 
-  num energyProduced = 100;
-  num energyConsumed = 50;
+  num energyProduced = 0;
+  num energyConsumed = 0;
 
   bool get hasMenu => menuInfo != null;
 
@@ -47,6 +47,8 @@ class GameState extends BaseState {
     renderer = Renderer(map);
     map.setCenter(transformationController);
     loaded = true;
+    energyConsumed = nodes.energyConsumed();
+    energyProduced = nodes.energyProduced();
     notify();
   }
 

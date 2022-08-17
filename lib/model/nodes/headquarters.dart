@@ -15,6 +15,7 @@ class Headquarters extends Node {
   }) : super(
           type: NodeType.headquarters,
           maxHp: Constants.HEADQUARTERS_MAX_HP,
+          energyConsumed: 0,
         );
 
   @override

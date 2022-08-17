@@ -11,6 +11,7 @@ class PowerPlant extends Node {
   }) : super(
           type: NodeType.power_plant,
           maxHp: Constants.POWER_PLANT_MAX_HP,
+          energyConsumed: 0,
         );
 
   @override

@@ -11,6 +11,7 @@ class Intersection extends Node {
   }) : super(
           type: NodeType.intersection,
           maxHp: Constants.INTERSECTION_MAX_HP,
+          energyConsumed: Constants.INTERSECTION_ENERGY,
         );
 
   @override

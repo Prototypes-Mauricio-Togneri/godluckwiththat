@@ -18,6 +18,7 @@ class Mine extends Node {
   }) : super(
           type: NodeType.mine,
           maxHp: Constants.MINE_MAX_HP,
+          energyConsumed: Constants.MINE_ENERGY,
         );
 
   @override

@@ -11,6 +11,7 @@ class Defense extends Node {
   }) : super(
           type: NodeType.defense,
           maxHp: Constants.DEFENSE_MAX_HP,
+          energyConsumed: Constants.DEFENSE_ENERGY,
         );
 
   @override

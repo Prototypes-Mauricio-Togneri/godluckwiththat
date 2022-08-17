@@ -5,6 +5,7 @@ import 'package:tensionnode/types/node_type.dart';
 class Node {
   final NodeType type;
   final Offset position;
+  final int energyConsumed;
   num hp;
   num maxHp;
   Node? top;
@@ -17,6 +18,7 @@ class Node {
     required this.position,
     required this.hp,
     required this.maxHp,
+    required this.energyConsumed,
   });
 
   bool get needsRepair => hp < maxHp;
