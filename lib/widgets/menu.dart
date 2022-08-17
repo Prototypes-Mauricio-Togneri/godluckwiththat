@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/model/menu_info.dart';
@@ -259,14 +261,23 @@ class CenteredMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Palette.hudBackground,
-          borderRadius: BorderRadius.circular(5),
+    return Container(
+      color: Palette.transparent,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: 10,
+          sigmaY: 10,
         ),
-        child: IntrinsicWidth(child: child),
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Palette.hudBackground,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: IntrinsicWidth(child: child),
+          ),
+        ),
       ),
     );
   }
