@@ -74,7 +74,7 @@ class Renderer {
     );
   }
 
-  void squaredFilled({
+  void squareFilled({
     required Offset position,
     required Color color,
     required num size,
@@ -102,6 +102,43 @@ class Renderer {
 
     canvas.drawPath(path, paint);
   }
+
+  void circleHollow({
+    required Offset position,
+    required Color color,
+    required num size,
+  }) {
+    final Paint paint = Palette.circleHollowPaint;
+    paint.color = color;
+
+    _circle(
+      position: map.gameToReal(position),
+      paint: paint,
+      size: size,
+    );
+  }
+
+  void circleFilled({
+    required Offset position,
+    required Color color,
+    required num size,
+  }) {
+    final Paint paint = Palette.circleFilledPaint;
+    paint.color = color;
+
+    _circle(
+      position: map.gameToReal(position),
+      paint: paint,
+      size: size,
+    );
+  }
+
+  void _circle({
+    required Offset position,
+    required Paint paint,
+    required num size,
+  }) =>
+      canvas.drawCircle(position, size.toDouble(), paint);
 
   void lane({
     required Offset from,

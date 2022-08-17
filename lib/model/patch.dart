@@ -14,7 +14,7 @@ class Patch {
   bool isAt(Offset testPosition) => position == testPosition;
 
   void render(Renderer renderer) {
-    renderer.squaredFilled(
+    renderer.squareFilled(
       position: position,
       color: type.color.withAlpha(50),
       size: renderer.map.blockSize,

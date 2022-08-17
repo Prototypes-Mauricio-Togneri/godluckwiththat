@@ -2,7 +2,6 @@
 
 ## TODO
 Add more mines and connect them all
-Add energy nodes
 Show direction in connections
 Add connection model
 
@@ -44,4 +43,5 @@ Add connection model
 
 ## Info
 path.contains(Offset(x, y))
+Search for [A-Z]([^ ])*\( to find all constructors and optimize loop
 view-source:https://autofactory-game.web.app

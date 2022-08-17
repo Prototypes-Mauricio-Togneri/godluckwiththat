@@ -60,7 +60,25 @@ class Node {
       size: size,
     );
 
-    renderer.squaredFilled(
+    renderer.squareFilled(
+      position: position,
+      color: color,
+      size: size / 2,
+    );
+  }
+
+  void drawNodeCircle({
+    required Renderer renderer,
+    required Color color,
+    required num size,
+  }) {
+    renderer.circleHollow(
+      position: position,
+      color: color,
+      size: size,
+    );
+
+    renderer.circleFilled(
       position: position,
       color: color,
       size: size / 2,

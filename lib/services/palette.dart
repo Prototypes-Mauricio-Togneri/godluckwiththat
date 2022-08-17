@@ -34,6 +34,8 @@ class Palette {
   static final Paint diamondFilledPaint = Paint();
   static final Paint squareHollowPaint = Paint();
   static final Paint squareFilledPaint = Paint();
+  static final Paint circleHollowPaint = Paint();
+  static final Paint circleFilledPaint = Paint();
   static final Paint lanePaint = Paint();
   static final Paint hpPaint = Paint();
 
@@ -59,6 +61,15 @@ class Palette {
     squareFilledPaint.style = PaintingStyle.fill;
     squareFilledPaint.strokeCap = StrokeCap.square;
     squareFilledPaint.strokeJoin = StrokeJoin.miter;
+
+    circleHollowPaint.style = PaintingStyle.stroke;
+    circleHollowPaint.strokeCap = StrokeCap.square;
+    circleHollowPaint.strokeJoin = StrokeJoin.miter;
+    circleHollowPaint.strokeWidth = 0.5;
+
+    circleFilledPaint.style = PaintingStyle.fill;
+    circleFilledPaint.strokeCap = StrokeCap.square;
+    circleFilledPaint.strokeJoin = StrokeJoin.miter;
 
     lanePaint.style = PaintingStyle.stroke;
     lanePaint.strokeCap = StrokeCap.square;
