@@ -22,19 +22,19 @@ class Hud extends StatelessWidget {
             MainMenuButton(state),
             const Spacer(),
             ResourceIndicator(
-              icon: Icons.circle,
+              icon: Icons.square,
               color: ResourceType.resource1.color,
               value: state.headquarters.resource1.toInt().toString(),
             ),
             const HBox(30),
             ResourceIndicator(
-              icon: Icons.circle,
+              icon: Icons.square,
               color: ResourceType.resource2.color,
               value: state.headquarters.resource2.toInt().toString(),
             ),
             const HBox(30),
             ResourceIndicator(
-              icon: Icons.circle,
+              icon: Icons.square,
               color: ResourceType.resource3.color,
               value: state.headquarters.resource3.toInt().toString(),
             ),

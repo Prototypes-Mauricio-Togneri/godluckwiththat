@@ -16,7 +16,7 @@ class Patch {
   void render(Renderer renderer) {
     renderer.squaredFilled(
       position: position,
-      color: type.color,
+      color: type.color.withAlpha(50),
       size: renderer.map.blockSize,
     );
   }

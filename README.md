@@ -1,5 +1,6 @@
 # Tension Node
 
+Blur background when showing main menu
 Add connections
 
 ## Upgrades

@@ -21,9 +21,9 @@ class Palette {
   static const Color wall = Colors.grey;
   static const Color intersection = Colors.white;
 
-  static const Color resource1 = Color.fromARGB(100, 255, 139, 139);
-  static const Color resource2 = Color.fromARGB(128, 255, 0, 255);
-  static const Color resource3 = Color.fromARGB(100, 150, 250, 146);
+  static const Color resource1 = Colors.red;
+  static const Color resource2 = Colors.green;
+  static const Color resource3 = Colors.blue;
   static const Color energy = Colors.amber;
 
   static const Color hudBackground = Color(0xee555555);
