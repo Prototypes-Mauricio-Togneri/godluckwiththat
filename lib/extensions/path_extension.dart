@@ -39,9 +39,9 @@ extension PathExtension on Path {
     required Offset position,
     required num size,
   }) {
-    moveTo(position.dx - size, position.dy + size);
-    lineTo(position.dx, position.dy);
-    lineTo(position.dx + size, position.dy + size);
+    moveTo(position.dx - size, position.dy + (size / 2));
+    lineTo(position.dx, position.dy - (size / 2));
+    lineTo(position.dx + size, position.dy + (size / 2));
     close();
   }
 
@@ -49,9 +49,9 @@ extension PathExtension on Path {
     required Offset position,
     required num size,
   }) {
-    moveTo(position.dx + size, position.dy - size);
-    lineTo(position.dx, position.dy);
-    lineTo(position.dx - size, position.dy - size);
+    moveTo(position.dx + size, position.dy - (size / 2));
+    lineTo(position.dx, position.dy + (size / 2));
+    lineTo(position.dx - size, position.dy - (size / 2));
     close();
   }
 
@@ -59,9 +59,9 @@ extension PathExtension on Path {
     required Offset position,
     required num size,
   }) {
-    moveTo(position.dx + size, position.dy - size);
-    lineTo(position.dx, position.dy);
-    lineTo(position.dx + size, position.dy + size);
+    moveTo(position.dx + (size / 2), position.dy - size);
+    lineTo(position.dx - (size / 2), position.dy);
+    lineTo(position.dx + (size / 2), position.dy + size);
     close();
   }
 
@@ -69,9 +69,9 @@ extension PathExtension on Path {
     required Offset position,
     required num size,
   }) {
-    moveTo(position.dx - size, position.dy - size);
-    lineTo(position.dx, position.dy);
-    lineTo(position.dx - size, position.dy + size);
+    moveTo(position.dx - (size / 2), position.dy - size);
+    lineTo(position.dx + (size / 2), position.dy);
+    lineTo(position.dx - (size / 2), position.dy + size);
     close();
   }
 }
