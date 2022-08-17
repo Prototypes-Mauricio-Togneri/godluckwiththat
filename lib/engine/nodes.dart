@@ -6,12 +6,17 @@ import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/nodes/power_plant.dart';
 
 class Nodes {
+  num energyProduced = 0;
+  num energyConsumed = 0;
   final List<Node> _nodes = [];
 
   Headquarters get headquarters => at(Offset.zero)! as Headquarters;
 
   T add<T extends Node>(T element) {
     _nodes.add(element);
+
+    energyConsumed = getEnergyConsumed();
+    energyProduced = getEnergyProduced();
 
     return element;
   }
@@ -44,7 +49,7 @@ class Nodes {
     }
   }
 
-  int energyConsumed() {
+  int getEnergyConsumed() {
     int energy = 0;
 
     for (final Node node in _nodes) {
@@ -54,7 +59,7 @@ class Nodes {
     return energy;
   }
 
-  int energyProduced() {
+  int getEnergyProduced() {
     int energy = 0;
 
     for (final Node node in _nodes) {
