@@ -29,6 +29,7 @@ class GameState extends BaseState {
   late final Connections connections;
 
   bool loaded = false;
+  bool running = true;
   MenuInfo? menuInfo;
 
   num get energyProduced => nodes.energyProduced;
@@ -119,6 +120,7 @@ class GameState extends BaseState {
   void onRepairAll() => nodes.repairAll();
 
   void onMainMenu() {
+    running = false;
     menuInfo = MenuInfo.main();
     notify();
   }
@@ -151,6 +153,7 @@ class GameState extends BaseState {
   }
 
   void onContinue() {
+    running = true;
     menuInfo = null;
     notify();
   }
@@ -171,13 +174,15 @@ class GameState extends BaseState {
   }
 
   void update(double dt) {
-    headquarters.resource1 += dt * 10;
-    headquarters.resource2 += dt * 5;
-    headquarters.resource3 += dt * 2;
+    if (running) {
+      headquarters.resource1 += dt * 10;
+      headquarters.resource2 += dt * 5;
+      headquarters.resource3 += dt * 2;
 
-    nodes.update(dt);
+      nodes.update(dt);
 
-    Delayed.post(notify);
+      Delayed.post(notify);
+    }
   }
 
   void renderBackground(Canvas canvas, Size size) {
