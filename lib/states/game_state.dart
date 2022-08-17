@@ -56,8 +56,7 @@ class GameState extends BaseState {
   }
 
   void onViewerInteraction(ScaleStartDetails details) {
-    menuInfo = null;
-    notify();
+    closeMenu();
   }
 
   void onKeyPressed(RawKeyEvent event) {
@@ -73,6 +72,12 @@ class GameState extends BaseState {
       transformationController.value.translate(-zoom);
     } else if ((event is RawKeyUpEvent) && (event.isKeyPressed(LogicalKeyboardKey.space) || (event.physicalKey == PhysicalKeyboardKey.space))) {
       renderer.toggleHP();
+    } else if ((event is RawKeyUpEvent) && (event.isKeyPressed(LogicalKeyboardKey.escape) || (event.physicalKey == PhysicalKeyboardKey.escape))) {
+      if (menuInfo == null) {
+        onMainMenu();
+      } else {
+        onContinue();
+      }
     }
   }
 
@@ -102,8 +107,7 @@ class GameState extends BaseState {
 
       notify();
     } else {
-      menuInfo = null;
-      notify();
+      closeMenu();
     }
   }
 
@@ -130,13 +134,11 @@ class GameState extends BaseState {
 
   void onRepair(Node node) {
     node.repair();
-    menuInfo = null;
-    notify();
+    closeMenu();
   }
 
   void onDestroyNode(Node node) {
-    menuInfo = null;
-    notify();
+    closeMenu();
   }
 
   void onBuild(MenuInfo oldMenu) {
@@ -151,27 +153,27 @@ class GameState extends BaseState {
     required NodeType type,
     required Offset position,
   }) {
-    menuInfo = null;
-    notify();
+    closeMenu();
   }
 
   void onContinue() {
     running = true;
-    menuInfo = null;
-    notify();
+    closeMenu();
   }
 
   void onLoadGame() {
-    menuInfo = null;
-    notify();
+    onContinue();
   }
 
   void onSaveGame() {
-    menuInfo = null;
-    notify();
+    onContinue();
   }
 
   void onSettings() {
+    onContinue();
+  }
+
+  void closeMenu() {
     menuInfo = null;
     notify();
   }
