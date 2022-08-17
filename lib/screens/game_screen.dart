@@ -96,7 +96,7 @@ class MapForegroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) => state.renderForeground(canvas);
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
 class GameLoop extends StatefulWidget {
