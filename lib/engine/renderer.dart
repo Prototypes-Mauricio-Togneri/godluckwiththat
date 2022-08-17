@@ -56,6 +56,21 @@ class Renderer {
     canvas.drawPath(path, paint);
   }
 
+  void squareHollow({
+    required Offset position,
+    required Color color,
+    required num size,
+  }) {
+    final Paint paint = Palette.squareHollowPaint;
+    paint.color = color;
+
+    _square(
+      position: map.gameToReal(position),
+      paint: paint,
+      size: size,
+    );
+  }
+
   void squaredFilled({
     required Offset position,
     required Color color,
@@ -64,9 +79,21 @@ class Renderer {
     final Paint paint = Palette.squareFilledPaint;
     paint.color = color;
 
+    _square(
+      position: map.gameToReal(position),
+      paint: paint,
+      size: size,
+    );
+  }
+
+  void _square({
+    required Offset position,
+    required Paint paint,
+    required num size,
+  }) {
     final Path path = newPath;
     path.square(
-      position: map.gameToReal(position),
+      position: position,
       size: size,
     );
 

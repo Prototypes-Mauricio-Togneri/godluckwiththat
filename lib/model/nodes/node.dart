@@ -42,4 +42,22 @@ class Node {
       size: size / 2,
     );
   }
+
+  void drawNodeSquare({
+    required Renderer renderer,
+    required Color color,
+    required num size,
+  }) {
+    renderer.squareHollow(
+      position: position,
+      color: color,
+      size: size,
+    );
+
+    renderer.squaredFilled(
+      position: position,
+      color: color,
+      size: size / 2,
+    );
+  }
 }

@@ -28,9 +28,9 @@ class Mine extends Node {
   }
 
   @override
-  void render(Renderer renderer) => drawNodeDiamond(
+  void render(Renderer renderer) => drawNodeSquare(
         renderer: renderer,
         color: Palette.mine,
-        size: renderer.map.blockSize / 1.1,
+        size: renderer.map.blockSize,
       );
 }
