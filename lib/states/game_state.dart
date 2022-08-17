@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tensionnode/engine/lanes.dart';
 import 'package:tensionnode/engine/loader.dart';
 import 'package:tensionnode/engine/nodes.dart';
@@ -47,6 +48,20 @@ class GameState extends BaseState {
     map.setCenter(transformationController);
     loaded = true;
     notify();
+  }
+
+  void onKeyPressed(RawKeyEvent event) {
+    final double zoom = transformationController.value.getRow(0)[0];
+
+    if (event.isKeyPressed(LogicalKeyboardKey.arrowUp) || (event.physicalKey == PhysicalKeyboardKey.keyW)) {
+      transformationController.value.translate(0, zoom);
+    } else if (event.isKeyPressed(LogicalKeyboardKey.arrowDown) || (event.physicalKey == PhysicalKeyboardKey.keyS)) {
+      transformationController.value.translate(0, -zoom);
+    } else if (event.isKeyPressed(LogicalKeyboardKey.arrowLeft) || (event.physicalKey == PhysicalKeyboardKey.keyA)) {
+      transformationController.value.translate(zoom);
+    } else if (event.isKeyPressed(LogicalKeyboardKey.arrowRight) || (event.physicalKey == PhysicalKeyboardKey.keyD)) {
+      transformationController.value.translate(-zoom);
+    }
   }
 
   void onPointerHover(PointerHoverEvent event) {

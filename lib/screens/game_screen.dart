@@ -40,21 +40,26 @@ class MapPainter extends StatelessWidget {
         builder: (context, state) => state.loaded
             ? Stack(
                 children: [
-                  InteractiveViewer(
-                    transformationController: state.transformationController,
-                    minScale: 1,
-                    maxScale: 20,
-                    constrained: false,
-                    child: Listener(
-                      onPointerHover: state.onPointerHover,
-                      child: GestureDetector(
-                        onTapUp: state.onLeftClick,
-                        onSecondaryTapUp: state.onRightClick,
-                        onTertiaryTapUp: state.onMiddleClick,
-                        child: CustomPaint(
-                          size: state.map.size,
-                          painter: MapBackgroundPainter(state),
-                          foregroundPainter: MapForegroundPainter(state),
+                  RawKeyboardListener(
+                    autofocus: true,
+                    focusNode: FocusNode(),
+                    onKey: state.onKeyPressed,
+                    child: InteractiveViewer(
+                      transformationController: state.transformationController,
+                      minScale: 1,
+                      maxScale: 20,
+                      constrained: false,
+                      child: Listener(
+                        onPointerHover: state.onPointerHover,
+                        child: GestureDetector(
+                          onTapUp: state.onLeftClick,
+                          onSecondaryTapUp: state.onRightClick,
+                          onTertiaryTapUp: state.onMiddleClick,
+                          child: CustomPaint(
+                            size: state.map.size,
+                            painter: MapBackgroundPainter(state),
+                            foregroundPainter: MapForegroundPainter(state),
+                          ),
                         ),
                       ),
                     ),
