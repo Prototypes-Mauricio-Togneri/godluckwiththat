@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class Hud extends StatelessWidget {
   final GameState state;
@@ -21,23 +22,27 @@ class Hud extends StatelessWidget {
             MainMenuButton(state),
             const Spacer(),
             ResourceIndicator(
-              name: 'Copper',
-              value: state.headquarters.resource1,
+              icon: Icons.circle,
+              color: ResourceType.resource1.color,
+              value: state.headquarters.resource1.toInt().toString(),
             ),
             const HBox(30),
             ResourceIndicator(
-              name: 'Iron',
-              value: state.headquarters.resource2,
+              icon: Icons.circle,
+              color: ResourceType.resource2.color,
+              value: state.headquarters.resource2.toInt().toString(),
             ),
             const HBox(30),
             ResourceIndicator(
-              name: 'Titanium',
-              value: state.headquarters.resource3,
+              icon: Icons.circle,
+              color: ResourceType.resource3.color,
+              value: state.headquarters.resource3.toInt().toString(),
             ),
             const HBox(30),
             ResourceIndicator(
-              name: 'Energy',
-              value: state.headquarters.energy,
+              icon: Icons.bolt,
+              color: Palette.energy,
+              value: '${state.energyConsumed} / ${state.energyProduced}',
             ),
             const Spacer(),
           ],
@@ -79,11 +84,13 @@ class MainMenuButton extends StatelessWidget {
 }
 
 class ResourceIndicator extends StatelessWidget {
-  final String name;
-  final num value;
+  final IconData icon;
+  final Color color;
+  final String value;
 
   const ResourceIndicator({
-    required this.name,
+    required this.icon,
+    required this.color,
     required this.value,
   });
 
@@ -92,12 +99,10 @@ class ResourceIndicator extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          name,
-          style: const TextStyle(
-            color: Palette.white,
-            fontSize: 15,
-          ),
+        Icon(
+          icon,
+          size: 25,
+          color: color,
         ),
         const HBox(10),
         Container(
@@ -109,7 +114,7 @@ class ResourceIndicator extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              value.toInt().toString(),
+              value,
               style: const TextStyle(
                 color: Palette.white,
                 fontSize: 15,

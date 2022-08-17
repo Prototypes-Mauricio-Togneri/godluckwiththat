@@ -30,6 +30,9 @@ class GameState extends BaseState {
   bool loaded = false;
   MenuInfo? menuInfo;
 
+  num energyProduced = 100;
+  num energyConsumed = 50;
+
   bool get hasMenu => menuInfo != null;
 
   @override
