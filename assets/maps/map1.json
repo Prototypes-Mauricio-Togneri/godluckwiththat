@@ -6,6 +6,36 @@
         "number_of_blocks_vertical": 100,
         "block_size": 10
     },
+    "patches": [
+        {
+            "resource": "resource1",
+            "position": [
+                -10,
+                -5
+            ]
+        },
+        {
+            "resource": "resource1",
+            "position": [
+                -9,
+                -5
+            ]
+        },
+        {
+            "resource": "resource1",
+            "position": [
+                -10,
+                -4
+            ]
+        },
+        {
+            "resource": "resource1",
+            "position": [
+                -9,
+                -4
+            ]
+        }
+    ],
     "nodes": [
         {
             "type": "headquarters",

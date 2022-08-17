@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/engine/lanes.dart';
 import 'package:tensionnode/engine/nodes.dart';
+import 'package:tensionnode/engine/patches.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/json/json_lane.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_node.dart';
+import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/model/game_map.dart';
 
 part 'json_match.g.dart';
@@ -21,6 +23,9 @@ class JsonMatch {
   @JsonKey(name: 'map')
   final JsonMap map;
 
+  @JsonKey(name: 'patches')
+  final List<JsonPatch> patches;
+
   @JsonKey(name: 'nodes')
   final List<JsonNode> nodes;
 
@@ -31,6 +36,7 @@ class JsonMatch {
     required this.version,
     required this.id,
     required this.map,
+    required this.patches,
     required this.nodes,
     required this.lanes,
   });
@@ -40,6 +46,16 @@ class JsonMatch {
         numberOfBlocksVertical: map.numberOfBlocksVertical,
         blockSize: map.blockSize,
       );
+
+  Patches getPatches() {
+    final Patches result = Patches();
+
+    for (final JsonPatch patch in patches) {
+      result.add(patch.getPatch());
+    }
+
+    return result;
+  }
 
   Nodes getNodes() {
     final Nodes result = Nodes();
