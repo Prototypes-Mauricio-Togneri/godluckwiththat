@@ -52,7 +52,7 @@ class ScreenLayout extends StatelessWidget {
             ),
           ],
         ),
-        Menu(state),
+        if (state.hasMenu) Menu(state),
       ],
     );
   }

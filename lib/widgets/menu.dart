@@ -18,28 +18,24 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (state.hasMenu) {
-      switch (state.menuInfo!.type) {
-        case MenuType.main:
-          return MainMenu(state: state);
-        case MenuType.node:
-          return NodeMenu(
-            state: state,
-            menuInfo: state.menuInfo!,
-          );
-        case MenuType.empty:
-          return EmptyMenu(
-            state: state,
-            menuInfo: state.menuInfo!,
-          );
-        case MenuType.destroy:
-          return DestroyMenu(
-            state: state,
-            menuInfo: state.menuInfo!,
-          );
-      }
-    } else {
-      return const Empty();
+    switch (state.menuInfo!.type) {
+      case MenuType.main:
+        return MainMenu(state: state);
+      case MenuType.node:
+        return NodeMenu(
+          state: state,
+          menuInfo: state.menuInfo!,
+        );
+      case MenuType.empty:
+        return EmptyMenu(
+          state: state,
+          menuInfo: state.menuInfo!,
+        );
+      case MenuType.destroy:
+        return DestroyMenu(
+          state: state,
+          menuInfo: state.menuInfo!,
+        );
     }
   }
 }
