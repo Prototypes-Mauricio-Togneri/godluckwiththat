@@ -1,7 +1,6 @@
 # Tension Node
 
 ## TODO
-Report bug
 Improve connection model
 
 ## Resources

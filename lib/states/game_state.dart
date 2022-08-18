@@ -34,6 +34,7 @@ class GameState extends BaseState {
   bool loaded = false;
   bool running = true;
   MenuInfo? menuInfo;
+  NodeType? nodeToBuild;
 
   num get energyProduced => nodes.energyProduced;
 
@@ -82,7 +83,9 @@ class GameState extends BaseState {
     } else if (event.isSpace()) {
       renderer.toggleHP();
     } else if (event.isEscape()) {
-      if (menuInfo == null) {
+      if (nodeToBuild != null) {
+        nodeToBuild = null;
+      } else if (menuInfo == null) {
         onMainMenu();
       } else {
         onContinue();
@@ -92,7 +95,10 @@ class GameState extends BaseState {
 
   void onPointerHover(PointerHoverEvent event) {
     final Offset position = map.realToGame(event.localPosition);
-    _pointerHighlight.setPosition(position);
+    _pointerHighlight.update(
+      newPosition: position,
+      newNodeType: nodeToBuild,
+    );
     notify();
   }
 
@@ -122,6 +128,7 @@ class GameState extends BaseState {
   }
 
   void onRightClick(TapUpDetails details) {
+    nodeToBuild = null;
     closeMenu();
   }
 
@@ -135,7 +142,8 @@ class GameState extends BaseState {
   }
 
   void onBuild(NodeType type) {
-    // TODO(momo): implement
+    nodeToBuild = type;
+    notify();
   }
 
   void onReportBug() {
