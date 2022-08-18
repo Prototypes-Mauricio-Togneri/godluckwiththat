@@ -3,5 +3,6 @@ enum MenuType {
   node,
   empty,
   build,
+  defense,
   destroy,
 }

@@ -33,8 +33,6 @@ class Nodes {
         hp: Constants.MINE_MAX_HP,
       );
       add(mine);
-    } else if (type == NodeType.defense) {
-      // TODO(momo): show new menu
     }
   }
 

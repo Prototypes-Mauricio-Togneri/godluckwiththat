@@ -37,8 +37,13 @@ class Menu extends StatelessWidget {
             state: state,
             menuInfo: state.menuInfo!,
           );
+        case MenuType.defense:
+          return const Empty(); // TODO(momo): implement
         case MenuType.destroy:
-          return const Empty();
+          return DestroyMenu(
+            state: state,
+            menuInfo: state.menuInfo!,
+          );
       }
     } else {
       return const Empty();
@@ -145,7 +150,7 @@ class NodeMenu extends StatelessWidget {
               text: 'Destroy',
               icon: Icons.delete,
               color: Palette.red,
-              onPressed: () => state.onDestroyNode(node),
+              onPressed: () => state.onDestroyNodeConfirmation(menuInfo),
             ),
         ],
       ),
@@ -179,6 +184,45 @@ class EmptyMenu extends StatelessWidget {
             icon: Icons.construction,
             color: Palette.blue,
             onPressed: () => state.onBuild(menuInfo),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DestroyMenu extends StatelessWidget {
+  final GameState state;
+  final MenuInfo menuInfo;
+
+  const DestroyMenu({
+    required this.state,
+    required this.menuInfo,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ContextualMenu(
+      position: menuInfo.realPosition!,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Label(
+            text: 'Destroy node?',
+            align: TextAlign.center,
+          ),
+          MenuButton(
+            text: 'Destroy',
+            icon: Icons.delete,
+            color: Palette.red,
+            onPressed: () => state.onDestroyNode(menuInfo.node!),
+          ),
+          MenuButton(
+            text: 'Cancel',
+            icon: Icons.cancel,
+            color: Palette.grey,
+            onPressed: state.closeMenu,
           ),
         ],
       ),

@@ -137,6 +137,15 @@ class GameState extends BaseState {
     closeMenu();
   }
 
+  void onDestroyNodeConfirmation(MenuInfo oldMenuInfo) {
+    menuInfo = MenuInfo.destroy(
+      node: oldMenuInfo.node!,
+      realPosition: oldMenuInfo.realPosition!,
+      gamePosition: oldMenuInfo.gamePosition!,
+    );
+    notify();
+  }
+
   void onDestroyNode(Node node) {
     nodes.destroy(node);
     closeMenu();
@@ -156,12 +165,17 @@ class GameState extends BaseState {
     required Offset position,
     required ResourceType? resourceType,
   }) {
-    nodes.create(
-      type: type,
-      position: position,
-      resourceType: resourceType,
-    );
     closeMenu();
+
+    if (type == NodeType.defense) {
+      // TODO(momo): show new menu
+    } else {
+      nodes.create(
+        type: type,
+        position: position,
+        resourceType: resourceType,
+      );
+    }
   }
 
   void onContinue() {
