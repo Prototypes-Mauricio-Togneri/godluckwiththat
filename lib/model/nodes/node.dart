@@ -4,6 +4,7 @@ import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class Node {
+  final String id;
   final NodeType type;
   final Offset position;
   final int energyConsumed;
@@ -20,7 +21,7 @@ class Node {
     required this.hp,
     required this.maxHp,
     required this.energyConsumed,
-  });
+  }) : id = '${position.dx},${position.dy}';
 
   Direction directionTo(Node node) {
     final num x = position.dx - node.position.dx;

@@ -1,12 +1,12 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:tensionnode/engine/connections.dart';
 import 'package:tensionnode/engine/loader.dart';
 import 'package:tensionnode/engine/nodes.dart';
 import 'package:tensionnode/engine/patches.dart';
 import 'package:tensionnode/engine/renderer.dart';
+import 'package:tensionnode/extensions/raw_key_event_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/model/game_map.dart';
 import 'package:tensionnode/model/menu_info.dart';
@@ -55,24 +55,22 @@ class GameState extends BaseState {
     notify();
   }
 
-  void onViewerInteraction(ScaleStartDetails details) {
-    closeMenu();
-  }
+  void onViewerInteraction(ScaleStartDetails details) => closeMenu();
 
   void onKeyPressed(RawKeyEvent event) {
     final double zoom = map.maxZoom - transformationController.value.getRow(0)[0] + 1;
 
-    if (event.isKeyPressed(LogicalKeyboardKey.arrowUp) || (event.physicalKey == PhysicalKeyboardKey.keyW)) {
+    if (event.isUp()) {
       transformationController.value.translate(0, zoom);
-    } else if (event.isKeyPressed(LogicalKeyboardKey.arrowDown) || (event.physicalKey == PhysicalKeyboardKey.keyS)) {
+    } else if (event.isDown()) {
       transformationController.value.translate(0, -zoom);
-    } else if (event.isKeyPressed(LogicalKeyboardKey.arrowLeft) || (event.physicalKey == PhysicalKeyboardKey.keyA)) {
+    } else if (event.isLeft()) {
       transformationController.value.translate(zoom);
-    } else if (event.isKeyPressed(LogicalKeyboardKey.arrowRight) || (event.physicalKey == PhysicalKeyboardKey.keyD)) {
+    } else if (event.isRight()) {
       transformationController.value.translate(-zoom);
-    } else if ((event is RawKeyUpEvent) && (event.isKeyPressed(LogicalKeyboardKey.space) || (event.physicalKey == PhysicalKeyboardKey.space))) {
+    } else if (event.isSpace()) {
       renderer.toggleHP();
-    } else if ((event is RawKeyUpEvent) && (event.isKeyPressed(LogicalKeyboardKey.escape) || (event.physicalKey == PhysicalKeyboardKey.escape))) {
+    } else if (event.isEscape()) {
       if (menuInfo == null) {
         onMainMenu();
       } else {
@@ -100,6 +98,7 @@ class GameState extends BaseState {
         );
       } else {
         menuInfo = MenuInfo.empty(
+          patch: patches.at(position),
           realPosition: details.globalPosition,
           gamePosition: position,
         );
@@ -138,11 +137,13 @@ class GameState extends BaseState {
   }
 
   void onDestroyNode(Node node) {
+    nodes.destroy(node);
     closeMenu();
   }
 
   void onBuild(MenuInfo oldMenu) {
     menuInfo = MenuInfo.build(
+      patch: oldMenu.patch,
       realPosition: oldMenu.realPosition!,
       gamePosition: oldMenu.gamePosition!,
     );
@@ -153,6 +154,7 @@ class GameState extends BaseState {
     required NodeType type,
     required Offset position,
   }) {
+    nodes.create(type: type, position: position);
     closeMenu();
   }
 

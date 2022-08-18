@@ -212,15 +212,16 @@ class BuildMenu extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          MenuButton(
-            text: 'Mine',
-            icon: Icons.factory,
-            color: Palette.blue,
-            onPressed: () => state.onCreateNode(
-              type: NodeType.mine,
-              position: menuInfo.gamePosition!,
+          if (menuInfo.hasPatch)
+            MenuButton(
+              text: 'Mine',
+              icon: Icons.factory,
+              color: Palette.blue,
+              onPressed: () => state.onCreateNode(
+                type: NodeType.mine,
+                position: menuInfo.gamePosition!,
+              ),
             ),
-          ),
           const VBox(10),
           MenuButton(
             text: 'Power plant',

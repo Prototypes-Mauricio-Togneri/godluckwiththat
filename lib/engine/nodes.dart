@@ -4,6 +4,7 @@ import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/nodes/power_plant.dart';
+import 'package:tensionnode/types/node_type.dart';
 
 class Nodes {
   num energyProduced = 0;
@@ -11,6 +12,23 @@ class Nodes {
   final List<Node> _nodes = [];
 
   Headquarters get headquarters => at(Offset.zero)! as Headquarters;
+
+  void create({
+    required NodeType type,
+    required Offset position,
+  }) {
+    if (type == NodeType.power_plant) {
+      final PowerPlant powerPlant = PowerPlant(
+        position: position,
+        hp: Constants.POWER_PLANT_MAX_HP,
+      );
+      add(powerPlant);
+    }
+  }
+
+  void destroy(Node node) {
+    _nodes.remove(node);
+  }
 
   T add<T extends Node>(T element) {
     _nodes.add(element);
