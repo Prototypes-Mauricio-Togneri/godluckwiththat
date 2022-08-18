@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/engine/connections.dart';
+import 'package:tensionnode/engine/fps.dart';
 import 'package:tensionnode/engine/loader.dart';
 import 'package:tensionnode/engine/nodes.dart';
 import 'package:tensionnode/engine/patches.dart';
@@ -23,6 +24,7 @@ import 'package:tensionnode/types/resource_type.dart';
 class GameState extends BaseState {
   final TransformationController transformationController = TransformationController();
   final PointerHighlight _pointerHighlight = PointerHighlight();
+  final FPS fps = FPS();
 
   late final GameMap map;
   late final Renderer renderer;
@@ -216,10 +218,8 @@ class GameState extends BaseState {
     notify();
   }
 
-  int fps = 0;
-
-  void update(double dt, int fps) {
-    this.fps = fps;
+  void update(double dt) {
+    fps.update(dt);
 
     if (running) {
       headquarters.resource1 += dt * 10;

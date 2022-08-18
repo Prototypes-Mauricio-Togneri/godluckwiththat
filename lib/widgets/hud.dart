@@ -156,7 +156,7 @@ class HorizontalHud extends StatelessWidget {
           ResourceIndicator(
             icon: Icons.speed,
             color: Palette.energy,
-            value: '${state.fps}',
+            value: '${state.fps.fps()}',
           ),
           const Spacer(),
         ],

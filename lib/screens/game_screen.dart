@@ -18,10 +18,11 @@ class GameScreen extends StatelessWidget {
       backgroundColor: Palette.black,
       body: Stack(
         children: [
-          StateProvider<GameState>(
+          ScreenLayout(state),
+          /*StateProvider<GameState>(
             state: state,
             builder: (context, state) => state.loaded ? ScreenLayout(state) : const Empty(),
-          ),
+          ),*/
           GameLoop(state),
         ],
       ),
@@ -42,13 +43,18 @@ class ScreenLayout extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             VerticalHud(state),
-            Expanded(
-              child: Column(
-                children: [
-                  HorizontalHud(state),
-                  Expanded(child: MapPainter(state)),
-                ],
-              ),
+            StateProvider<GameState>(
+              state: state,
+              builder: (context, state) => state.loaded
+                  ? Expanded(
+                      child: Column(
+                        children: [
+                          HorizontalHud(state),
+                          Expanded(child: MapPainter(state)),
+                        ],
+                      ),
+                    )
+                  : const Empty(),
             ),
           ],
         ),
@@ -159,8 +165,7 @@ class _GameLoopState extends State<GameLoop> with SingleTickerProviderStateMixin
         final double dt = current - previous;
 
         if (widget.state.loaded) {
-          final int fps = 1000 ~/ (dt * 1000);
-          widget.state.update(dt, fps);
+          widget.state.update(dt);
         }
 
         previous = current;
