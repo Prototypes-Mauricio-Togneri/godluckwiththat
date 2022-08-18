@@ -101,6 +101,10 @@ class GameState extends BaseState {
 
   void onPointerHover(PointerHoverEvent event) {
     final Offset position = map.realToGame(event.localPosition);
+    _updatePointerHover(position);
+  }
+
+  void _updatePointerHover(Offset position) {
     _pointerHighlight.update(
       newPosition: position,
       newNodeType: nodeToBuild,
@@ -146,6 +150,7 @@ class GameState extends BaseState {
   void onRightClick(TapUpDetails details) {
     nodeToBuild = null;
     closeMenu();
+    _updatePointerHover(details.localPosition);
   }
 
   void onMiddleClick(TapUpDetails details) {
