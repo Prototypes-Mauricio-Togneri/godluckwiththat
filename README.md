@@ -1,6 +1,7 @@
 # Tension Node
 
 ## TODO
+Use custom font
 Improve connection model
 
 ## Resources
