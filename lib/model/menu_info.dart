@@ -58,6 +58,16 @@ class MenuInfo {
         gamePosition: gamePosition,
       );
 
+  factory MenuInfo.defense({
+    required Offset realPosition,
+    required Offset gamePosition,
+  }) =>
+      MenuInfo._(
+        type: MenuType.defense,
+        realPosition: realPosition,
+        gamePosition: gamePosition,
+      );
+
   factory MenuInfo.destroy({
     required Node node,
     required Offset realPosition,

@@ -38,7 +38,10 @@ class Menu extends StatelessWidget {
             menuInfo: state.menuInfo!,
           );
         case MenuType.defense:
-          return const Empty(); // TODO(momo): implement
+          return DefenseMenu(
+            state: state,
+            menuInfo: state.menuInfo!,
+          );
         case MenuType.destroy:
           return DestroyMenu(
             state: state,
@@ -191,6 +194,35 @@ class EmptyMenu extends StatelessWidget {
   }
 }
 
+class DefenseMenu extends StatelessWidget {
+  final GameState state;
+  final MenuInfo menuInfo;
+
+  const DefenseMenu({
+    required this.state,
+    required this.menuInfo,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ContextualMenu(
+      position: menuInfo.realPosition!,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          MenuButton(
+            text: 'Turret 1',
+            icon: Icons.construction,
+            color: Palette.blue,
+            onPressed: () => state.onBuild(menuInfo),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class DestroyMenu extends StatelessWidget {
   final GameState state;
   final MenuInfo menuInfo;
@@ -254,8 +286,7 @@ class BuildMenu extends StatelessWidget {
               color: Palette.blue,
               onPressed: () => state.onCreateNode(
                 type: NodeType.mine,
-                position: menuInfo.gamePosition!,
-                resourceType: menuInfo.patch!.type,
+                oldMenuInfo: menuInfo,
               ),
               topPadding: 0,
             ),
@@ -266,8 +297,7 @@ class BuildMenu extends StatelessWidget {
               color: Palette.blue,
               onPressed: () => state.onCreateNode(
                 type: NodeType.power_plant,
-                position: menuInfo.gamePosition!,
-                resourceType: null,
+                oldMenuInfo: menuInfo,
               ),
               topPadding: 0,
             ),
@@ -278,8 +308,7 @@ class BuildMenu extends StatelessWidget {
               color: Palette.blue,
               onPressed: () => state.onCreateNode(
                 type: NodeType.defense,
-                position: menuInfo.gamePosition!,
-                resourceType: null,
+                oldMenuInfo: menuInfo,
               ),
             ),
         ],
