@@ -26,8 +26,8 @@ class GameMap {
   void setCenter(TransformationController transformationController) {
     const double zoom = 5;
     final Size screenSize = WidgetsBinding.instance.window.physicalSize;
-    final double xTranslate = (dimensions.width * blockSize * zoom / 2) - (screenSize.width / 2);
-    final double yTranslate = (dimensions.height * blockSize * zoom / 2) - (screenSize.height / 2);
+    final double xTranslate = (dimensions.width * blockSize * zoom / 2) - (screenSize.width / 2) + 170;
+    final double yTranslate = (dimensions.height * blockSize * zoom / 2) - (screenSize.height / 2) + 40;
 
     transformationController.value.setEntry(0, 0, zoom);
     transformationController.value.setEntry(1, 1, zoom);
