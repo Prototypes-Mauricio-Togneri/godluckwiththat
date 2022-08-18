@@ -4,11 +4,73 @@ import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/widgets/label.dart';
+import 'package:tensionnode/widgets/menu.dart';
 
 class Hud extends StatelessWidget {
   final GameState state;
 
   const Hud(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        HorizontalHud(state),
+        VerticalHud(state),
+      ],
+    );
+  }
+}
+
+class VerticalHud extends StatelessWidget {
+  final GameState state;
+
+  const VerticalHud(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        color: Palette.hudBackground,
+        child: IntrinsicWidth(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              MenuButton(
+                text: 'Menu',
+                icon: Icons.menu,
+                color: Palette.blue,
+                onPressed: state.onMainMenu,
+                topPadding: 0,
+              ),
+              const Spacer(),
+              MenuButton(
+                text: 'Repair all',
+                icon: Icons.build,
+                color: Palette.green,
+                onPressed: state.onRepairAll,
+              ),
+              MenuButton(
+                text: 'Report bug',
+                icon: Icons.bug_report,
+                color: Palette.red,
+                onPressed: state.onReportBug,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class HorizontalHud extends StatelessWidget {
+  final GameState state;
+
+  const HorizontalHud(this.state);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +80,6 @@ class Hud extends StatelessWidget {
       color: Palette.hudBackground,
       child: Row(
         children: [
-          MainMenuButton(state),
           const Spacer(),
           ResourceIndicator(
             icon: Icons.square,
@@ -44,70 +105,7 @@ class Hud extends StatelessWidget {
             value: '${state.energyConsumed} / ${state.energyProduced}',
           ),
           const Spacer(),
-          RepairButton(state),
         ],
-      ),
-    );
-  }
-}
-
-class MainMenuButton extends StatelessWidget {
-  final GameState state;
-
-  const MainMenuButton(this.state);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Palette.transparent,
-      child: InkWell(
-        onTap: state.onMainMenu,
-        borderRadius: BorderRadius.circular(5),
-        child: Container(
-          height: 40,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          decoration: BoxDecoration(
-            color: Palette.hudButton,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: const Center(
-            child: Icon(
-              Icons.menu,
-              color: Palette.white,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class RepairButton extends StatelessWidget {
-  final GameState state;
-
-  const RepairButton(this.state);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Palette.transparent,
-      child: InkWell(
-        onTap: state.onRepairAll,
-        borderRadius: BorderRadius.circular(5),
-        child: Container(
-          height: 40,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          decoration: BoxDecoration(
-            color: Palette.hudButton,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: const Center(
-            child: Icon(
-              Icons.build,
-              color: Palette.white,
-            ),
-          ),
-        ),
       ),
     );
   }

@@ -134,6 +134,10 @@ class GameState extends BaseState {
     }
   }
 
+  void onReportBug() {
+    // TODO(momo): open email
+  }
+
   void onRepairAll() => nodes.repairAll();
 
   void onMainMenu() {
