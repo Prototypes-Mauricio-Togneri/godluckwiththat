@@ -63,22 +63,20 @@ class MainMenu extends StatelessWidget {
             icon: Icons.play_arrow,
             color: Palette.blue,
             onPressed: state.onContinue,
+            topPadding: 0,
           ),
-          const VBox(10),
           MenuButton(
             text: 'Load game',
             icon: Icons.upload,
             color: Palette.blue,
             onPressed: state.onLoadGame,
           ),
-          const VBox(10),
           MenuButton(
             text: 'Save game',
             icon: Icons.save,
             color: Palette.blue,
             onPressed: state.onSaveGame,
           ),
-          const VBox(10),
           MenuButton(
             text: 'Settings',
             icon: Icons.settings,
@@ -136,24 +134,18 @@ class NodeMenu extends StatelessWidget {
               ),
             ),
           if (node.needsRepair)
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: MenuButton(
-                text: 'Repair',
-                icon: Icons.build,
-                color: Palette.green,
-                onPressed: () => state.onRepair(node),
-              ),
+            MenuButton(
+              text: 'Repair',
+              icon: Icons.build,
+              color: Palette.green,
+              onPressed: () => state.onRepair(node),
             ),
           if (!(node is Headquarters))
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: MenuButton(
-                text: 'Destroy',
-                icon: Icons.delete,
-                color: Palette.red,
-                onPressed: () => state.onDestroyNode(node),
-              ),
+            MenuButton(
+              text: 'Destroy',
+              icon: Icons.delete,
+              color: Palette.red,
+              onPressed: () => state.onDestroyNode(node),
             ),
         ],
       ),
@@ -182,7 +174,6 @@ class EmptyMenu extends StatelessWidget {
             text: '${menuInfo.gamePosition!.dx}, ${menuInfo.gamePosition!.dy}',
             align: TextAlign.center,
           ),
-          const VBox(10),
           MenuButton(
             text: 'Build',
             icon: Icons.construction,
@@ -220,28 +211,33 @@ class BuildMenu extends StatelessWidget {
               onPressed: () => state.onCreateNode(
                 type: NodeType.mine,
                 position: menuInfo.gamePosition!,
+                resourceType: menuInfo.patch!.type,
+              ),
+              topPadding: 0,
+            ),
+          if (!menuInfo.hasPatch)
+            MenuButton(
+              text: 'Power plant',
+              icon: Icons.bolt,
+              color: Palette.blue,
+              onPressed: () => state.onCreateNode(
+                type: NodeType.power_plant,
+                position: menuInfo.gamePosition!,
+                resourceType: null,
+              ),
+              topPadding: 0,
+            ),
+          if (!menuInfo.hasPatch)
+            MenuButton(
+              text: 'Defense',
+              icon: Icons.cell_tower_outlined,
+              color: Palette.blue,
+              onPressed: () => state.onCreateNode(
+                type: NodeType.defense,
+                position: menuInfo.gamePosition!,
+                resourceType: null,
               ),
             ),
-          const VBox(10),
-          MenuButton(
-            text: 'Power plant',
-            icon: Icons.bolt,
-            color: Palette.blue,
-            onPressed: () => state.onCreateNode(
-              type: NodeType.power_plant,
-              position: menuInfo.gamePosition!,
-            ),
-          ),
-          const VBox(10),
-          MenuButton(
-            text: 'Defense',
-            icon: Icons.cell_tower_outlined,
-            color: Palette.blue,
-            onPressed: () => state.onCreateNode(
-              type: NodeType.defense,
-              position: menuInfo.gamePosition!,
-            ),
-          ),
         ],
       ),
     );
@@ -310,32 +306,37 @@ class MenuButton extends StatelessWidget {
   final IconData icon;
   final Color color;
   final VoidCallback onPressed;
+  final double topPadding;
 
   const MenuButton({
     required this.text,
     required this.icon,
     required this.color,
     required this.onPressed,
+    this.topPadding = 10,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary: color,
-        minimumSize: const Size(0, 45),
-      ),
-      onPressed: onPressed,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            size: 20,
-          ),
-          const HBox(5),
-          Label(text: text.toUpperCase()),
-        ],
+    return Padding(
+      padding: EdgeInsets.only(top: topPadding),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: color,
+          minimumSize: const Size(0, 45),
+        ),
+        onPressed: onPressed,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 20,
+            ),
+            const HBox(5),
+            Label(text: text.toUpperCase()),
+          ],
+        ),
       ),
     );
   }

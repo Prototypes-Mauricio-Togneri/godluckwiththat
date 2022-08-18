@@ -2,9 +2,11 @@ import 'package:flutter/rendering.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
+import 'package:tensionnode/model/nodes/mine.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/nodes/power_plant.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class Nodes {
   num energyProduced = 0;
@@ -16,6 +18,7 @@ class Nodes {
   void create({
     required NodeType type,
     required Offset position,
+    required ResourceType? resourceType,
   }) {
     if (type == NodeType.power_plant) {
       final PowerPlant powerPlant = PowerPlant(
@@ -23,6 +26,15 @@ class Nodes {
         hp: Constants.POWER_PLANT_MAX_HP,
       );
       add(powerPlant);
+    } else if (type == NodeType.mine) {
+      final Mine mine = Mine(
+        resourceType: resourceType!,
+        position: position,
+        hp: Constants.MINE_MAX_HP,
+      );
+      add(mine);
+    } else if (type == NodeType.defense) {
+      // TODO(momo): show new menu
     }
   }
 

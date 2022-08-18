@@ -16,6 +16,7 @@ import 'package:tensionnode/model/pointer_highlight.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
   final TransformationController transformationController = TransformationController();
@@ -111,7 +112,7 @@ class GameState extends BaseState {
   }
 
   void onRightClick(TapUpDetails details) {
-    print('RIGHT CLICK');
+    closeMenu();
   }
 
   void onMiddleClick(TapUpDetails details) {
@@ -153,8 +154,13 @@ class GameState extends BaseState {
   void onCreateNode({
     required NodeType type,
     required Offset position,
+    required ResourceType? resourceType,
   }) {
-    nodes.create(type: type, position: position);
+    nodes.create(
+      type: type,
+      position: position,
+      resourceType: resourceType,
+    );
     closeMenu();
   }
 
@@ -164,14 +170,17 @@ class GameState extends BaseState {
   }
 
   void onLoadGame() {
+    // TODO(momo): show toast
     onContinue();
   }
 
   void onSaveGame() {
+    // TODO(momo): show toast
     onContinue();
   }
 
   void onSettings() {
+    // TODO(momo): show toast
     onContinue();
   }
 
