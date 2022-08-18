@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
+import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
@@ -27,6 +28,72 @@ class VerticalHud extends StatelessWidget {
               color: Palette.blue,
               onPressed: state.onMainMenu,
               topPadding: 0,
+            ),
+            const VBox(20),
+            const Label(text: 'Resources'),
+            MenuButton(
+              text: 'Mine',
+              icon: Icons.factory,
+              color: Colors.blueGrey,
+              onPressed: () => state.onBuild(NodeType.mine),
+            ),
+            const VBox(40),
+            const Label(text: 'Energy'),
+            MenuButton(
+              text: 'Power plant',
+              icon: Icons.bolt,
+              color: Colors.blueGrey,
+              onPressed: () => state.onBuild(NodeType.power_plant),
+            ),
+            const VBox(40),
+            const Label(text: 'Defenses'),
+            MenuButton(
+              text: 'Wall',
+              icon: Icons.cell_tower,
+              color: Colors.blueGrey,
+              onPressed: () => state.onBuild(NodeType.wall),
+            ),
+            MenuButton(
+              text: 'Light turret',
+              icon: Icons.cell_tower,
+              color: Colors.blueGrey,
+              onPressed: () => state.onBuild(NodeType.light_turret),
+            ),
+            MenuButton(
+              text: 'Heavy turret',
+              icon: Icons.cell_tower,
+              color: Colors.blueGrey,
+              onPressed: () => state.onBuild(NodeType.heavy_turret),
+            ),
+            MenuButton(
+              text: 'Long range turret',
+              icon: Icons.cell_tower,
+              color: Colors.blueGrey,
+              onPressed: () => state.onBuild(NodeType.long_range_turret),
+            ),
+            MenuButton(
+              text: 'Ion turret',
+              icon: Icons.cell_tower,
+              color: Colors.blueGrey,
+              onPressed: () => state.onBuild(NodeType.ion_turret),
+            ),
+            MenuButton(
+              text: 'Gauss turret',
+              icon: Icons.cell_tower,
+              color: Colors.blueGrey,
+              onPressed: () => state.onBuild(NodeType.gauss_turret),
+            ),
+            MenuButton(
+              text: 'Plasma turret',
+              icon: Icons.cell_tower,
+              color: Colors.blueGrey,
+              onPressed: () => state.onBuild(NodeType.plasma_turret),
+            ),
+            MenuButton(
+              text: 'Pulse turret',
+              icon: Icons.cell_tower,
+              color: Colors.blueGrey,
+              onPressed: () => state.onBuild(NodeType.pulse_turret),
             ),
             const Spacer(),
             MenuButton(

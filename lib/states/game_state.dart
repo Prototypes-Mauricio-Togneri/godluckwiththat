@@ -134,8 +134,12 @@ class GameState extends BaseState {
     }
   }
 
+  void onBuild(NodeType type) {
+    // TODO(momo): implement
+  }
+
   void onReportBug() {
-    // TODO(momo): open email
+    // TODO(momo): implement
   }
 
   void onRepairAll() => nodes.repairAll();
