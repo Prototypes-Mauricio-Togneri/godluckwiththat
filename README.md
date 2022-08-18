@@ -1,6 +1,9 @@
 # Tension Node
 
 ## TODO
+Right click opens context menu (repair all, report bug, etc)
+Improve build menus
+Report bug
 Improve connection model
 
 ## Resources

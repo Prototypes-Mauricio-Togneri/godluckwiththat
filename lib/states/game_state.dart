@@ -1,4 +1,6 @@
+import 'dart:html';
 import 'package:dafluta/dafluta.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/engine/connections.dart';
@@ -42,6 +44,10 @@ class GameState extends BaseState {
 
   @override
   Future onLoad() async {
+    if (kIsWeb) {
+      window.addEventListener('blur', onUnfocus);
+    }
+
     final JsonMatch match = await Loader.match(Assets.MAPS_MAP1);
     map = match.getMap();
     patches = match.getPatches();
@@ -55,6 +61,10 @@ class GameState extends BaseState {
     map.setCenter(transformationController);
     loaded = true;
     notify();
+  }
+
+  void onUnfocus(Event e) {
+    onMainMenu();
   }
 
   void onViewerInteraction(ScaleStartDetails details) => closeMenu();
