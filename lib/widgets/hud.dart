@@ -4,7 +4,7 @@ import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/widgets/label.dart';
-import 'package:tensionnode/widgets/menu.dart';
+import 'package:tensionnode/widgets/menu_button.dart';
 
 class Hud extends StatelessWidget {
   final GameState state;
@@ -13,11 +13,11 @@ class Hud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HorizontalHud(state),
         VerticalHud(state),
+        HorizontalHud(state),
       ],
     );
   }
@@ -30,37 +30,35 @@ class VerticalHud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        color: Palette.hudBackground,
-        child: IntrinsicWidth(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              MenuButton(
-                text: 'Menu',
-                icon: Icons.menu,
-                color: Palette.blue,
-                onPressed: state.onMainMenu,
-                topPadding: 0,
-              ),
-              const Spacer(),
-              MenuButton(
-                text: 'Repair all',
-                icon: Icons.build,
-                color: Palette.green,
-                onPressed: state.onRepairAll,
-              ),
-              MenuButton(
-                text: 'Report bug',
-                icon: Icons.bug_report,
-                color: Palette.red,
-                onPressed: state.onReportBug,
-              ),
-            ],
-          ),
+    return Container(
+      padding: const EdgeInsets.all(10),
+      color: Palette.hudBackground,
+      child: IntrinsicWidth(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            MenuButton(
+              text: 'Menu',
+              icon: Icons.menu,
+              color: Palette.blue,
+              onPressed: state.onMainMenu,
+              topPadding: 0,
+            ),
+            const Spacer(),
+            MenuButton(
+              text: 'Repair all',
+              icon: Icons.build,
+              color: Palette.green,
+              onPressed: state.onRepairAll,
+            ),
+            MenuButton(
+              text: 'Report bug',
+              icon: Icons.bug_report,
+              color: Palette.red,
+              onPressed: state.onReportBug,
+            ),
+          ],
         ),
       ),
     );
@@ -74,38 +72,40 @@ class HorizontalHud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      padding: const EdgeInsets.all(5),
-      color: Palette.hudBackground,
-      child: Row(
-        children: [
-          const Spacer(),
-          ResourceIndicator(
-            icon: Icons.square,
-            color: ResourceType.resource1.color,
-            value: state.headquarters.resource1.toInt().toString(),
-          ),
-          const HBox(30),
-          ResourceIndicator(
-            icon: Icons.square,
-            color: ResourceType.resource2.color,
-            value: state.headquarters.resource2.toInt().toString(),
-          ),
-          const HBox(30),
-          ResourceIndicator(
-            icon: Icons.square,
-            color: ResourceType.resource3.color,
-            value: state.headquarters.resource3.toInt().toString(),
-          ),
-          const HBox(30),
-          ResourceIndicator(
-            icon: Icons.bolt,
-            color: Palette.energy,
-            value: '${state.energyConsumed} / ${state.energyProduced}',
-          ),
-          const Spacer(),
-        ],
+    return Expanded(
+      child: Container(
+        height: 50,
+        padding: const EdgeInsets.all(5),
+        color: Palette.hudBackground,
+        child: Row(
+          children: [
+            const Spacer(),
+            ResourceIndicator(
+              icon: Icons.square,
+              color: ResourceType.resource1.color,
+              value: state.headquarters.resource1.toInt().toString(),
+            ),
+            const HBox(30),
+            ResourceIndicator(
+              icon: Icons.square,
+              color: ResourceType.resource2.color,
+              value: state.headquarters.resource2.toInt().toString(),
+            ),
+            const HBox(30),
+            ResourceIndicator(
+              icon: Icons.square,
+              color: ResourceType.resource3.color,
+              value: state.headquarters.resource3.toInt().toString(),
+            ),
+            const HBox(30),
+            ResourceIndicator(
+              icon: Icons.bolt,
+              color: Palette.energy,
+              value: '${state.energyConsumed} / ${state.energyProduced}',
+            ),
+            const Spacer(),
+          ],
+        ),
       ),
     );
   }
