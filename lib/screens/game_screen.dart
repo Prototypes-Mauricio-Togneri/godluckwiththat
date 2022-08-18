@@ -159,7 +159,8 @@ class _GameLoopState extends State<GameLoop> with SingleTickerProviderStateMixin
         final double dt = current - previous;
 
         if (widget.state.loaded) {
-          widget.state.update(dt);
+          final int fps = 1000 ~/ (dt * 1000);
+          widget.state.update(dt, fps);
         }
 
         previous = current;

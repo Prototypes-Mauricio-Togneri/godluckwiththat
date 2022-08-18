@@ -216,7 +216,11 @@ class GameState extends BaseState {
     notify();
   }
 
-  void update(double dt) {
+  int fps = 0;
+
+  void update(double dt, int fps) {
+    this.fps = fps;
+
     if (running) {
       headquarters.resource1 += dt * 10;
       headquarters.resource2 += dt * 5;

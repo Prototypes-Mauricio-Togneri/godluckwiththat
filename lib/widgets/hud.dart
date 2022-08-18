@@ -152,6 +152,12 @@ class HorizontalHud extends StatelessWidget {
             color: Palette.energy,
             value: '${state.energyConsumed} / ${state.energyProduced}',
           ),
+          const HBox(30),
+          ResourceIndicator(
+            icon: Icons.speed,
+            color: Palette.energy,
+            value: '${state.fps}',
+          ),
           const Spacer(),
         ],
       ),
