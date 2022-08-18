@@ -13,7 +13,6 @@ class VerticalHud extends StatelessWidget {
 
   const VerticalHud(this.state);
 
-  // TODO(momo): try using wrapping the column into a IntrinsicWidth and test the FPS
   @override
   Widget build(BuildContext context) {
     return Container(
