@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
+import 'package:tensionnode/states/hud_state.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/widgets/label.dart';
@@ -116,7 +117,7 @@ class VerticalHud extends StatelessWidget {
 }
 
 class HorizontalHud extends StatelessWidget {
-  final GameState state;
+  final HudState state;
 
   const HorizontalHud(this.state);
 
@@ -132,19 +133,19 @@ class HorizontalHud extends StatelessWidget {
           ResourceIndicator(
             icon: Icons.square,
             color: ResourceType.resource1.color,
-            value: state.headquarters.resource1.toInt().toString(),
+            value: state.resource1.toInt().toString(),
           ),
           const HBox(30),
           ResourceIndicator(
             icon: Icons.square,
             color: ResourceType.resource2.color,
-            value: state.headquarters.resource2.toInt().toString(),
+            value: state.resource2.toInt().toString(),
           ),
           const HBox(30),
           ResourceIndicator(
             icon: Icons.square,
             color: ResourceType.resource3.color,
-            value: state.headquarters.resource3.toInt().toString(),
+            value: state.resource3.toInt().toString(),
           ),
           const HBox(30),
           ResourceIndicator(
@@ -156,7 +157,7 @@ class HorizontalHud extends StatelessWidget {
           ResourceIndicator(
             icon: Icons.speed,
             color: Palette.energy,
-            value: '${state.fps.fps()}',
+            value: '${state.fps}',
           ),
           const Spacer(),
         ],

@@ -18,6 +18,7 @@ import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/states/hud_state.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -25,6 +26,8 @@ class GameState extends BaseState {
   final TransformationController transformationController = TransformationController();
   final PointerHighlight _pointerHighlight = PointerHighlight();
   final FPS fps = FPS();
+
+  final HudState hudState = HudState();
 
   late final GameMap map;
   late final Renderer renderer;

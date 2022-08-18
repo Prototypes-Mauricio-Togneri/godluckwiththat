@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
+import 'package:tensionnode/states/hud_state.dart';
 import 'package:tensionnode/widgets/hud.dart';
 import 'package:tensionnode/widgets/menu.dart';
 
@@ -19,10 +20,6 @@ class GameScreen extends StatelessWidget {
       body: Stack(
         children: [
           ScreenLayout(state),
-          /*StateProvider<GameState>(
-            state: state,
-            builder: (context, state) => state.loaded ? ScreenLayout(state) : const Empty(),
-          ),*/
           GameLoop(state),
         ],
       ),
@@ -37,67 +34,112 @@ class ScreenLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /*return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        VerticalHud(state),
+        Expanded(
+          child: Column(
+            children: [
+              HorizontalHudContainer(state.hudState),
+              MapContainer(state),
+            ],
+          ),
+        ),
+      ],
+    );*/
+
     return Stack(
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             VerticalHud(state),
-            StateProvider<GameState>(
-              state: state,
-              builder: (context, state) => state.loaded
-                  ? Expanded(
-                      child: Column(
-                        children: [
-                          HorizontalHud(state),
-                          Expanded(child: MapPainter(state)),
-                        ],
-                      ),
-                    )
-                  : const Empty(),
+            Expanded(
+              child: Column(
+                children: [
+                  HorizontalHudContainer(state.hudState),
+                  MapContainer(state),
+                ],
+              ),
             ),
           ],
         ),
-        if (state.hasMenu) Menu(state),
+        MenuContainer(state),
       ],
     );
   }
 }
 
-class MapPainter extends StatelessWidget {
-  final GameState state;
+class HorizontalHudContainer extends StatelessWidget {
+  final HudState state;
 
-  const MapPainter(this.state);
+  const HorizontalHudContainer(this.state);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Palette.gridBackground,
-      child: RawKeyboardListener(
-        autofocus: true,
-        focusNode: FocusNode(),
-        onKey: state.onKeyPressed,
-        child: InteractiveViewer(
-          transformationController: state.transformationController,
-          minScale: 1,
-          maxScale: state.map.maxZoom,
-          constrained: false,
-          onInteractionStart: state.onViewerInteraction,
-          child: Listener(
-            onPointerHover: state.onPointerHover,
-            child: GestureDetector(
-              onTapUp: state.onLeftClick,
-              onSecondaryTapUp: state.onRightClick,
-              onTertiaryTapUp: state.onMiddleClick,
-              child: CustomPaint(
-                size: state.map.size,
-                painter: MapBackgroundPainter(state),
-                foregroundPainter: MapForegroundPainter(state),
+    return StateProvider<HudState>(
+      state: state,
+      builder: (context, state) => HorizontalHud(state),
+    );
+  }
+}
+
+class MenuContainer extends StatelessWidget {
+  final GameState state;
+
+  const MenuContainer(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return StateProvider<GameState>(
+      state: state,
+      builder: (context, state) => (state.hasMenu) ? Menu(state) : const Empty(),
+    );
+  }
+}
+
+class MapContainer extends StatelessWidget {
+  final GameState state;
+
+  const MapContainer(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return StateProvider<GameState>(
+      state: state,
+      builder: (context, state) => state.loaded
+          ? Expanded(
+              child: Container(
+                color: Palette.gridBackground,
+                child: RawKeyboardListener(
+                  autofocus: true,
+                  focusNode: FocusNode(),
+                  onKey: state.onKeyPressed,
+                  child: InteractiveViewer(
+                    transformationController: state.transformationController,
+                    minScale: 1,
+                    maxScale: state.map.maxZoom,
+                    constrained: false,
+                    onInteractionStart: state.onViewerInteraction,
+                    child: Listener(
+                      onPointerHover: state.onPointerHover,
+                      child: GestureDetector(
+                        onTapUp: state.onLeftClick,
+                        onSecondaryTapUp: state.onRightClick,
+                        onTertiaryTapUp: state.onMiddleClick,
+                        child: CustomPaint(
+                          size: state.map.size,
+                          painter: MapBackgroundPainter(state),
+                          foregroundPainter: MapForegroundPainter(state),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-      ),
+            )
+          : const Empty(),
     );
   }
 }
@@ -123,7 +165,7 @@ class MapForegroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) => state.renderForeground(canvas);
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
 class GameLoop extends StatefulWidget {
