@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
+import 'package:tensionnode/types/label.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Hud extends StatelessWidget {
@@ -142,12 +143,9 @@ class ResourceIndicator extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
           ),
           child: Center(
-            child: Text(
-              value,
-              style: const TextStyle(
-                color: Palette.white,
-                fontSize: 15,
-              ),
+            child: Label(
+              text: value,
+              size: 15,
             ),
           ),
         ),

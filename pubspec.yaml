@@ -30,5 +30,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  fonts:
+    - family: BungeeHairline
+      fonts:
+        - asset: assets/fonts/BungeeHairlineRegular.ttf
+
   assets:
+    - assets/fonts/
     - assets/maps/

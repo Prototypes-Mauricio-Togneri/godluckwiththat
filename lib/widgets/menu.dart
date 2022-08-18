@@ -7,6 +7,7 @@ import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
+import 'package:tensionnode/types/label.dart';
 import 'package:tensionnode/types/menu_type.dart';
 import 'package:tensionnode/types/node_type.dart';
 
@@ -109,41 +110,29 @@ class NodeMenu extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            node.type.name.toUpperCase(),
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Palette.white,
-            ),
+          Label(
+            text: node.type.name.toUpperCase(),
+            align: TextAlign.center,
           ),
           const VBox(10),
-          Text(
-            '(${menuInfo.gamePosition!.dx}, ${menuInfo.gamePosition!.dy})',
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Palette.white,
-              fontSize: 12,
-            ),
+          Label(
+            text: '(${menuInfo.gamePosition!.dx}, ${menuInfo.gamePosition!.dy})',
+            align: TextAlign.center,
+            size: 12,
           ),
           const VBox(10),
-          Text(
-            'HP: ${node.hp} / ${node.maxHp}',
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Palette.white,
-              fontSize: 12,
-            ),
+          Label(
+            text: 'HP: ${node.hp} / ${node.maxHp}',
+            align: TextAlign.center,
+            size: 12,
           ),
           if (node.energyConsumed > 0)
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Text(
-                'Energy: ${node.energyConsumed}',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Palette.white,
-                  fontSize: 12,
-                ),
+              child: Label(
+                text: 'Energy: ${node.energyConsumed}',
+                align: TextAlign.center,
+                size: 12,
               ),
             ),
           if (node.needsRepair)
@@ -189,12 +178,9 @@ class EmptyMenu extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            '${menuInfo.gamePosition!.dx}, ${menuInfo.gamePosition!.dy}',
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Palette.white,
-            ),
+          Label(
+            text: '${menuInfo.gamePosition!.dx}, ${menuInfo.gamePosition!.dy}',
+            align: TextAlign.center,
           ),
           const VBox(10),
           MenuButton(
@@ -347,7 +333,7 @@ class MenuButton extends StatelessWidget {
             size: 20,
           ),
           const HBox(5),
-          Text(text.toUpperCase()),
+          Label(text: text.toUpperCase()),
         ],
       ),
     );

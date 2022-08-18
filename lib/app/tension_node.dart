@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/screens/game_screen.dart';
 import 'package:tensionnode/services/navigation.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -13,9 +14,11 @@ class TensionNode extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: Navigation.get.routes.key,
       theme: ThemeData(
+        primaryColor: Palette.primary,
         primarySwatch: Palette.primary,
         backgroundColor: Palette.white,
-        scaffoldBackgroundColor: Palette.white,
+        scaffoldBackgroundColor: Palette.black,
+        fontFamily: Constants.FONT_NAME,
       ),
       home: GameScreen.instance(),
     );
