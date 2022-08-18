@@ -17,7 +17,6 @@ import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
-import 'package:tensionnode/types/build_type.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -160,34 +159,6 @@ class GameState extends BaseState {
   void onDestroyNode(Node node) {
     nodes.destroy(node);
     closeMenu();
-  }
-
-  void onBuild(MenuInfo oldMenu) {
-    menuInfo = MenuInfo.build(
-      patch: oldMenu.patch,
-      realPosition: oldMenu.realPosition!,
-      gamePosition: oldMenu.gamePosition!,
-    );
-    notify();
-  }
-
-  void onBuildNode({
-    required BuildType type,
-    required MenuInfo oldMenuInfo,
-  }) {
-    if (type == BuildType.defense) {
-      menuInfo = MenuInfo.defense(
-        realPosition: oldMenuInfo.realPosition!,
-        gamePosition: oldMenuInfo.gamePosition!,
-      );
-      notify();
-    } else {
-      createNode(
-        type: type.nodeType!,
-        position: oldMenuInfo.gamePosition!,
-        resourceType: oldMenuInfo.patch?.type,
-      );
-    }
   }
 
   void createNode({

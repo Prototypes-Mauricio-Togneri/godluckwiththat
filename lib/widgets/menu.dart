@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/model/menu_info.dart';
@@ -7,7 +6,6 @@ import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
-import 'package:tensionnode/types/build_type.dart';
 import 'package:tensionnode/types/menu_type.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/widgets/label.dart';
@@ -30,16 +28,6 @@ class Menu extends StatelessWidget {
           );
         case MenuType.empty:
           return EmptyMenu(
-            state: state,
-            menuInfo: state.menuInfo!,
-          );
-        case MenuType.build:
-          return BuildMenu(
-            state: state,
-            menuInfo: state.menuInfo!,
-          );
-        case MenuType.defense:
-          return DefenseMenu(
             state: state,
             menuInfo: state.menuInfo!,
           );
@@ -183,108 +171,103 @@ class EmptyMenu extends StatelessWidget {
             text: '${menuInfo.gamePosition!.dx}, ${menuInfo.gamePosition!.dy}',
             align: TextAlign.center,
           ),
-          MenuButton(
-            text: 'Build',
-            icon: Icons.construction,
-            color: Palette.blue,
-            onPressed: () => state.onBuild(menuInfo),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class DefenseMenu extends StatelessWidget {
-  final GameState state;
-  final MenuInfo menuInfo;
-
-  const DefenseMenu({
-    required this.state,
-    required this.menuInfo,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ContextualMenu(
-      position: menuInfo.realPosition!,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          MenuButton(
-            text: 'Wall',
-            icon: Icons.cell_tower,
-            color: Palette.blue,
-            onPressed: () => state.createNode(
-              type: NodeType.wall,
-              position: menuInfo.gamePosition!,
+          if (menuInfo.hasPatch)
+            MenuButton(
+              text: 'Mine',
+              icon: Icons.factory,
+              color: Palette.blue,
+              onPressed: () => state.createNode(
+                type: NodeType.mine,
+                position: menuInfo.gamePosition!,
+                resourceType: menuInfo.patch!.type,
+              ),
             ),
-            topPadding: 0,
-          ),
-          MenuButton(
-            text: 'Light turret',
-            icon: Icons.cell_tower,
-            color: Palette.blue,
-            onPressed: () => state.createNode(
-              type: NodeType.light_turret,
-              position: menuInfo.gamePosition!,
+          if (!menuInfo.hasPatch)
+            Column(
+              children: [
+                MenuButton(
+                  text: 'Power plant',
+                  icon: Icons.bolt,
+                  color: Palette.blue,
+                  onPressed: () => state.createNode(
+                    type: NodeType.power_plant,
+                    position: menuInfo.gamePosition!,
+                  ),
+                ),
+                MenuButton(
+                  text: 'Wall',
+                  icon: Icons.cell_tower,
+                  color: Palette.blue,
+                  onPressed: () => state.createNode(
+                    type: NodeType.wall,
+                    position: menuInfo.gamePosition!,
+                  ),
+                ),
+                MenuButton(
+                  text: 'Light turret',
+                  icon: Icons.cell_tower,
+                  color: Palette.blue,
+                  onPressed: () => state.createNode(
+                    type: NodeType.light_turret,
+                    position: menuInfo.gamePosition!,
+                  ),
+                ),
+                MenuButton(
+                  text: 'Heavy turret',
+                  icon: Icons.cell_tower,
+                  color: Palette.blue,
+                  onPressed: () => state.createNode(
+                    type: NodeType.heavy_turret,
+                    position: menuInfo.gamePosition!,
+                  ),
+                ),
+                MenuButton(
+                  text: 'Long range turret',
+                  icon: Icons.cell_tower,
+                  color: Palette.blue,
+                  onPressed: () => state.createNode(
+                    type: NodeType.long_range_turret,
+                    position: menuInfo.gamePosition!,
+                  ),
+                ),
+                MenuButton(
+                  text: 'Ion turret',
+                  icon: Icons.cell_tower,
+                  color: Palette.blue,
+                  onPressed: () => state.createNode(
+                    type: NodeType.ion_turret,
+                    position: menuInfo.gamePosition!,
+                  ),
+                ),
+                MenuButton(
+                  text: 'Gauss turret',
+                  icon: Icons.cell_tower,
+                  color: Palette.blue,
+                  onPressed: () => state.createNode(
+                    type: NodeType.gauss_turret,
+                    position: menuInfo.gamePosition!,
+                  ),
+                ),
+                MenuButton(
+                  text: 'Plasma turret',
+                  icon: Icons.cell_tower,
+                  color: Palette.blue,
+                  onPressed: () => state.createNode(
+                    type: NodeType.plasma_turret,
+                    position: menuInfo.gamePosition!,
+                  ),
+                ),
+                MenuButton(
+                  text: 'Pulse turret',
+                  icon: Icons.cell_tower,
+                  color: Palette.blue,
+                  onPressed: () => state.createNode(
+                    type: NodeType.pulse_turret,
+                    position: menuInfo.gamePosition!,
+                  ),
+                ),
+              ],
             ),
-          ),
-          MenuButton(
-            text: 'Heavy turret',
-            icon: Icons.cell_tower,
-            color: Palette.blue,
-            onPressed: () => state.createNode(
-              type: NodeType.heavy_turret,
-              position: menuInfo.gamePosition!,
-            ),
-          ),
-          MenuButton(
-            text: 'Long range turret',
-            icon: Icons.cell_tower,
-            color: Palette.blue,
-            onPressed: () => state.createNode(
-              type: NodeType.long_range_turret,
-              position: menuInfo.gamePosition!,
-            ),
-          ),
-          MenuButton(
-            text: 'Ion turret',
-            icon: Icons.cell_tower,
-            color: Palette.blue,
-            onPressed: () => state.createNode(
-              type: NodeType.ion_turret,
-              position: menuInfo.gamePosition!,
-            ),
-          ),
-          MenuButton(
-            text: 'Gauss turret',
-            icon: Icons.cell_tower,
-            color: Palette.blue,
-            onPressed: () => state.createNode(
-              type: NodeType.gauss_turret,
-              position: menuInfo.gamePosition!,
-            ),
-          ),
-          MenuButton(
-            text: 'Plasma turret',
-            icon: Icons.cell_tower,
-            color: Palette.blue,
-            onPressed: () => state.createNode(
-              type: NodeType.plasma_turret,
-              position: menuInfo.gamePosition!,
-            ),
-          ),
-          MenuButton(
-            text: 'Pulse turret',
-            icon: Icons.cell_tower,
-            color: Palette.blue,
-            onPressed: () => state.createNode(
-              type: NodeType.pulse_turret,
-              position: menuInfo.gamePosition!,
-            ),
-          ),
         ],
       ),
     );
@@ -324,61 +307,6 @@ class DestroyMenu extends StatelessWidget {
             color: Palette.grey,
             onPressed: state.closeMenu,
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class BuildMenu extends StatelessWidget {
-  final GameState state;
-  final MenuInfo menuInfo;
-
-  const BuildMenu({
-    required this.state,
-    required this.menuInfo,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ContextualMenu(
-      position: menuInfo.realPosition!,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (menuInfo.hasPatch)
-            MenuButton(
-              text: 'Mine',
-              icon: Icons.factory,
-              color: Palette.blue,
-              onPressed: () => state.onBuildNode(
-                type: BuildType.mine,
-                oldMenuInfo: menuInfo,
-              ),
-              topPadding: 0,
-            ),
-          if (!menuInfo.hasPatch)
-            MenuButton(
-              text: 'Power plant',
-              icon: Icons.bolt,
-              color: Palette.blue,
-              onPressed: () => state.onBuildNode(
-                type: BuildType.power_plant,
-                oldMenuInfo: menuInfo,
-              ),
-              topPadding: 0,
-            ),
-          if (!menuInfo.hasPatch)
-            MenuButton(
-              text: 'Defense',
-              icon: Icons.cell_tower_outlined,
-              color: Palette.blue,
-              onPressed: () => state.onBuildNode(
-                type: BuildType.defense,
-                oldMenuInfo: menuInfo,
-              ),
-            ),
         ],
       ),
     );
