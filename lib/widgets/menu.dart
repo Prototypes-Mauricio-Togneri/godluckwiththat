@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/model/menu_info.dart';
+import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
@@ -155,15 +156,16 @@ class NodeMenu extends StatelessWidget {
                 onPressed: () => state.onRepair(node),
               ),
             ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: MenuButton(
-              text: 'Destroy',
-              icon: Icons.delete,
-              color: Palette.red,
-              onPressed: () => state.onDestroyNode(node),
+          if (!(node is Headquarters))
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: MenuButton(
+                text: 'Destroy',
+                icon: Icons.delete,
+                color: Palette.red,
+                onPressed: () => state.onDestroyNode(node),
+              ),
             ),
-          ),
         ],
       ),
     );
