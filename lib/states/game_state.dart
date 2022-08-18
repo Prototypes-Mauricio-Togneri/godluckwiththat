@@ -160,7 +160,7 @@ class GameState extends BaseState {
   }
 
   void onCreateNode({
-    required NodeType type,
+    required NodeType type, // TODO(momo): create type BuildType
     required MenuInfo oldMenuInfo,
   }) {
     if (type == NodeType.defense) {

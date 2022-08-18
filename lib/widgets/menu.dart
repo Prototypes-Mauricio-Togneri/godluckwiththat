@@ -212,8 +212,51 @@ class DefenseMenu extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           MenuButton(
-            text: 'Turret 1',
-            icon: Icons.construction,
+            text: 'Wall',
+            icon: Icons.cell_tower,
+            color: Palette.blue,
+            onPressed: () => state.onBuild(menuInfo),
+            topPadding: 0,
+          ),
+          MenuButton(
+            text: 'Light turret',
+            icon: Icons.cell_tower,
+            color: Palette.blue,
+            onPressed: () => state.onBuild(menuInfo),
+          ),
+          MenuButton(
+            text: 'Heavy turret',
+            icon: Icons.cell_tower,
+            color: Palette.blue,
+            onPressed: () => state.onBuild(menuInfo),
+          ),
+          MenuButton(
+            text: 'Long range turret',
+            icon: Icons.cell_tower,
+            color: Palette.blue,
+            onPressed: () => state.onBuild(menuInfo),
+          ),
+          MenuButton(
+            text: 'Ion turret',
+            icon: Icons.cell_tower,
+            color: Palette.blue,
+            onPressed: () => state.onBuild(menuInfo),
+          ),
+          MenuButton(
+            text: 'Gauss turret',
+            icon: Icons.cell_tower,
+            color: Palette.blue,
+            onPressed: () => state.onBuild(menuInfo),
+          ),
+          MenuButton(
+            text: 'Plasma turret',
+            icon: Icons.cell_tower,
+            color: Palette.blue,
+            onPressed: () => state.onBuild(menuInfo),
+          ),
+          MenuButton(
+            text: 'Pulse turret',
+            icon: Icons.cell_tower,
             color: Palette.blue,
             onPressed: () => state.onBuild(menuInfo),
           ),
