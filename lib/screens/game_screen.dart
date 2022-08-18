@@ -34,21 +34,6 @@ class ScreenLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        VerticalHud(state),
-        Expanded(
-          child: Column(
-            children: [
-              HorizontalHudContainer(state.hudState),
-              MapContainer(state),
-            ],
-          ),
-        ),
-      ],
-    );*/
-
     return Stack(
       children: [
         Row(
