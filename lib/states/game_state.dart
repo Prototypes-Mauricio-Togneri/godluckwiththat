@@ -15,6 +15,7 @@ import 'package:tensionnode/model/game_map.dart';
 import 'package:tensionnode/model/menu_info.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/node.dart';
+import 'package:tensionnode/model/patch.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -108,27 +109,37 @@ class GameState extends BaseState {
   }
 
   void onLeftClick(TapUpDetails details) {
-    if (menuInfo == null) {
-      final Offset position = map.realToGame(details.localPosition);
-      final Node? nodeClicked = nodes.at(position);
+    final Offset position = map.realToGame(details.localPosition);
+    final Node? nodeClicked = nodes.at(position);
 
-      if (nodeClicked != null) {
-        menuInfo = MenuInfo.node(
-          node: nodeClicked,
-          realPosition: details.globalPosition,
-          gamePosition: position,
-        );
-      } else {
-        menuInfo = MenuInfo.empty(
-          patch: patches.at(position),
-          realPosition: details.globalPosition,
-          gamePosition: position,
-        );
-      }
+    if (nodeToBuild != null) {
+      final Patch? patch = patches.at(position);
 
-      notify();
+      createNode(
+        type: nodeToBuild!,
+        position: position,
+        resourceType: patch?.type,
+      );
     } else {
-      closeMenu();
+      if (menuInfo == null) {
+        if (nodeClicked != null) {
+          menuInfo = MenuInfo.node(
+            node: nodeClicked,
+            realPosition: details.globalPosition,
+            gamePosition: position,
+          );
+        } else {
+          menuInfo = MenuInfo.empty(
+            patch: patches.at(position),
+            realPosition: details.globalPosition,
+            gamePosition: position,
+          );
+        }
+
+        notify();
+      } else {
+        closeMenu();
+      }
     }
   }
 

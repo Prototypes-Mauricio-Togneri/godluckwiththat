@@ -28,12 +28,14 @@ class Nodes {
       );
       add(powerPlant);
     } else if (type == NodeType.mine) {
-      final Mine mine = Mine(
-        resourceType: resourceType!,
-        position: position,
-        hp: Constants.MINE_MAX_HP,
-      );
-      add(mine);
+      if (resourceType != null) {
+        final Mine mine = Mine(
+          resourceType: resourceType,
+          position: position,
+          hp: Constants.MINE_MAX_HP,
+        );
+        add(mine);
+      }
     } else if (type == NodeType.light_turret) {
       final LightTurret lightTurret = LightTurret(
         position: position,
