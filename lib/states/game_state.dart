@@ -222,8 +222,6 @@ class GameState extends BaseState {
   }
 
   void update(double dt) {
-    fps.update(dt);
-
     if (running) {
       headquarters.resource1 += dt * 10;
       headquarters.resource2 += dt * 5;
@@ -232,6 +230,15 @@ class GameState extends BaseState {
       nodes.update(dt);
 
       Delayed.post(notify);
+
+      fps.update(dt);
+      hudState.resource1 = headquarters.resource1;
+      hudState.resource2 = headquarters.resource2;
+      hudState.resource3 = headquarters.resource3;
+      hudState.energyProduced = energyProduced;
+      hudState.energyConsumed = energyConsumed;
+      hudState.fps = fps.fps();
+      Delayed.post(hudState.notify);
     }
   }
 
