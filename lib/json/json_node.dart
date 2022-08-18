@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
-import 'package:tensionnode/model/nodes/defense.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/intersection.dart';
+import 'package:tensionnode/model/nodes/light_turret.dart';
 import 'package:tensionnode/model/nodes/mine.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/nodes/power_plant.dart';
@@ -51,13 +51,55 @@ class JsonNode {
           position: position.position,
           hp: hp,
         );
-      case NodeType.defense:
-        return Defense(
+      case NodeType.intersection:
+        return Intersection(
           position: position.position,
           hp: hp,
         );
-      case NodeType.intersection:
-        return Intersection(
+      case NodeType.light_turret:
+        return LightTurret(
+          position: position.position,
+          hp: hp,
+        );
+      case NodeType.wall:
+        // TODO(momo): Handle this case.
+        return LightTurret(
+          position: position.position,
+          hp: hp,
+        );
+      case NodeType.heavy_turret:
+        // TODO(momo): Handle this case.
+        return LightTurret(
+          position: position.position,
+          hp: hp,
+        );
+      case NodeType.long_range_turret:
+        // TODO(momo): Handle this case.
+        return LightTurret(
+          position: position.position,
+          hp: hp,
+        );
+      case NodeType.ion_turret:
+        // TODO(momo): Handle this case.
+        return LightTurret(
+          position: position.position,
+          hp: hp,
+        );
+      case NodeType.gauss_turret:
+        // TODO(momo): Handle this case.
+        return LightTurret(
+          position: position.position,
+          hp: hp,
+        );
+      case NodeType.plasma_turret:
+        // TODO(momo): Handle this case.
+        return LightTurret(
+          position: position.position,
+          hp: hp,
+        );
+      case NodeType.pulse_turret:
+        // TODO(momo): Handle this case.
+        return LightTurret(
           position: position.position,
           hp: hp,
         );

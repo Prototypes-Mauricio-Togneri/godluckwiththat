@@ -2,6 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
+import 'package:tensionnode/model/nodes/light_turret.dart';
 import 'package:tensionnode/model/nodes/mine.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/nodes/power_plant.dart';
@@ -33,6 +34,12 @@ class Nodes {
         hp: Constants.MINE_MAX_HP,
       );
       add(mine);
+    } else if (type == NodeType.light_turret) {
+      final LightTurret lightTurret = LightTurret(
+        position: position,
+        hp: Constants.LIGHT_TURRET_MAX_HP,
+      );
+      add(lightTurret);
     }
   }
 

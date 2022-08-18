@@ -4,27 +4,27 @@ import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
 
-class Defense extends Node {
+class LightTurret extends Node {
   num damage = 0;
   num shield = 0;
   num range = 0;
   num fireRate = 0;
 
-  Defense({
+  LightTurret({
     required super.position,
     required super.hp,
   }) : super(
-          type: NodeType.defense,
-          maxHp: Constants.DEFENSE_MAX_HP,
-          energyConsumed: Constants.DEFENSE_ENERGY,
+          type: NodeType.light_turret,
+          maxHp: Constants.LIGHT_TURRET_MAX_HP,
+          energyConsumed: Constants.LIGHT_TURRET_ENERGY,
         );
 
   @override
   void render(Renderer renderer) {
     drawNodeDiamond(
       renderer: renderer,
-      color: Palette.defense,
-      size: renderer.map.blockSize / 2,
+      color: Palette.lightTurret,
+      size: renderer.map.blockSize,
     );
 
     drawHP(renderer);

@@ -2,8 +2,8 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
-import 'package:tensionnode/types/label.dart';
 import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionnode/widgets/label.dart';
 
 class Hud extends StatelessWidget {
   final GameState state;

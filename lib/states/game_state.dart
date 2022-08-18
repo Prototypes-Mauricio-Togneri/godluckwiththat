@@ -15,7 +15,9 @@ import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/types/build_type.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
   final TransformationController transformationController = TransformationController();
@@ -159,25 +161,37 @@ class GameState extends BaseState {
     notify();
   }
 
-  void onCreateNode({
-    required NodeType type, // TODO(momo): create type BuildType
+  void onBuildNode({
+    required BuildType type,
     required MenuInfo oldMenuInfo,
   }) {
-    if (type == NodeType.defense) {
+    if (type == BuildType.defense) {
       menuInfo = MenuInfo.defense(
         realPosition: oldMenuInfo.realPosition!,
         gamePosition: oldMenuInfo.gamePosition!,
       );
       notify();
     } else {
-      closeMenu();
-
-      nodes.create(
-        type: type,
+      createNode(
+        type: type.nodeType!,
         position: oldMenuInfo.gamePosition!,
         resourceType: oldMenuInfo.patch?.type,
       );
     }
+  }
+
+  void createNode({
+    required NodeType type,
+    required Offset position,
+    ResourceType? resourceType,
+  }) {
+    closeMenu();
+
+    nodes.create(
+      type: type,
+      position: position,
+      resourceType: resourceType,
+    );
   }
 
   void onContinue() {

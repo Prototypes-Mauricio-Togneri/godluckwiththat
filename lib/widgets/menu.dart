@@ -7,9 +7,10 @@ import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
-import 'package:tensionnode/types/label.dart';
+import 'package:tensionnode/types/build_type.dart';
 import 'package:tensionnode/types/menu_type.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/widgets/label.dart';
 
 class Menu extends StatelessWidget {
   final GameState state;
@@ -215,50 +216,74 @@ class DefenseMenu extends StatelessWidget {
             text: 'Wall',
             icon: Icons.cell_tower,
             color: Palette.blue,
-            onPressed: () => state.onBuild(menuInfo),
+            onPressed: () => state.createNode(
+              type: NodeType.wall,
+              position: menuInfo.gamePosition!,
+            ),
             topPadding: 0,
           ),
           MenuButton(
             text: 'Light turret',
             icon: Icons.cell_tower,
             color: Palette.blue,
-            onPressed: () => state.onBuild(menuInfo),
+            onPressed: () => state.createNode(
+              type: NodeType.light_turret,
+              position: menuInfo.gamePosition!,
+            ),
           ),
           MenuButton(
             text: 'Heavy turret',
             icon: Icons.cell_tower,
             color: Palette.blue,
-            onPressed: () => state.onBuild(menuInfo),
+            onPressed: () => state.createNode(
+              type: NodeType.heavy_turret,
+              position: menuInfo.gamePosition!,
+            ),
           ),
           MenuButton(
             text: 'Long range turret',
             icon: Icons.cell_tower,
             color: Palette.blue,
-            onPressed: () => state.onBuild(menuInfo),
+            onPressed: () => state.createNode(
+              type: NodeType.long_range_turret,
+              position: menuInfo.gamePosition!,
+            ),
           ),
           MenuButton(
             text: 'Ion turret',
             icon: Icons.cell_tower,
             color: Palette.blue,
-            onPressed: () => state.onBuild(menuInfo),
+            onPressed: () => state.createNode(
+              type: NodeType.ion_turret,
+              position: menuInfo.gamePosition!,
+            ),
           ),
           MenuButton(
             text: 'Gauss turret',
             icon: Icons.cell_tower,
             color: Palette.blue,
-            onPressed: () => state.onBuild(menuInfo),
+            onPressed: () => state.createNode(
+              type: NodeType.gauss_turret,
+              position: menuInfo.gamePosition!,
+            ),
           ),
           MenuButton(
             text: 'Plasma turret',
             icon: Icons.cell_tower,
             color: Palette.blue,
-            onPressed: () => state.onBuild(menuInfo),
+            onPressed: () => state.createNode(
+              type: NodeType.plasma_turret,
+              position: menuInfo.gamePosition!,
+            ),
           ),
           MenuButton(
             text: 'Pulse turret',
             icon: Icons.cell_tower,
             color: Palette.blue,
-            onPressed: () => state.onBuild(menuInfo),
+            onPressed: () => state.createNode(
+              type: NodeType.pulse_turret,
+              position: menuInfo.gamePosition!,
+            ),
           ),
         ],
       ),
@@ -327,8 +352,8 @@ class BuildMenu extends StatelessWidget {
               text: 'Mine',
               icon: Icons.factory,
               color: Palette.blue,
-              onPressed: () => state.onCreateNode(
-                type: NodeType.mine,
+              onPressed: () => state.onBuildNode(
+                type: BuildType.mine,
                 oldMenuInfo: menuInfo,
               ),
               topPadding: 0,
@@ -338,8 +363,8 @@ class BuildMenu extends StatelessWidget {
               text: 'Power plant',
               icon: Icons.bolt,
               color: Palette.blue,
-              onPressed: () => state.onCreateNode(
-                type: NodeType.power_plant,
+              onPressed: () => state.onBuildNode(
+                type: BuildType.power_plant,
                 oldMenuInfo: menuInfo,
               ),
               topPadding: 0,
@@ -349,8 +374,8 @@ class BuildMenu extends StatelessWidget {
               text: 'Defense',
               icon: Icons.cell_tower_outlined,
               color: Palette.blue,
-              onPressed: () => state.onCreateNode(
-                type: NodeType.defense,
+              onPressed: () => state.onBuildNode(
+                type: BuildType.defense,
                 oldMenuInfo: menuInfo,
               ),
             ),

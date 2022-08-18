@@ -20,8 +20,8 @@ class Palette {
   static const Color hq = Colors.white;
   static const Color mine = Color.fromARGB(255, 255, 17, 0);
   static const Color powerPlant = Colors.yellow;
-  static const Color defense = Colors.green;
   static const Color intersection = Color(0xffcccccc);
+  static const Color lightTurret = Colors.purple;
 
   static const Color resource1 = Colors.red;
   static const Color resource2 = Colors.green;
