@@ -3,6 +3,7 @@ import 'package:tensionnode/extensions/path_extension.dart';
 import 'package:tensionnode/model/game_map.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/direction.dart';
+import 'package:tensionnode/types/node_type.dart';
 
 class Renderer {
   bool showHP = false;
@@ -258,5 +259,129 @@ class Renderer {
     _path.reset();
 
     return _path;
+  }
+
+  void drawByType({
+    required NodeType type,
+    required Offset position,
+    required Color color,
+  }) {
+    switch (type) {
+      case NodeType.headquarters:
+        drawHeadquarters(position: position, color: color);
+        break;
+      case NodeType.intersection:
+        drawIntersection(position: position, color: color);
+        break;
+      case NodeType.mine:
+        drawMine(position: position, color: color);
+        break;
+      case NodeType.power_plant:
+        drawPowerPlant(position: position, color: color);
+        break;
+      case NodeType.wall:
+        // TODO(momo): implement
+        break;
+      case NodeType.light_turret:
+        drawLightTurret(position: position, color: color);
+        break;
+      case NodeType.heavy_turret:
+        // TODO(momo): implement
+        break;
+      case NodeType.long_range_turret:
+        // TODO(momo): implement
+        break;
+      case NodeType.ion_turret:
+        // TODO(momo): implement
+        break;
+      case NodeType.gauss_turret:
+        // TODO(momo): implement
+        break;
+      case NodeType.plasma_turret:
+        // TODO(momo): implement
+        break;
+      case NodeType.pulse_turret:
+        // TODO(momo): implement
+        break;
+    }
+  }
+
+  void drawHeadquarters({
+    required Offset position,
+    required Color color,
+  }) {
+    diamondHollow(
+      position: position,
+      color: color,
+      size: map.blockSize * 1.5,
+    );
+
+    diamondFilled(
+      position: position,
+      color: color,
+      size: map.blockSize * 1.5 / 2,
+    );
+  }
+
+  void drawIntersection({
+    required Offset position,
+    required Color color,
+  }) {
+    diamondFilled(
+      position: position,
+      color: color,
+      size: map.blockSize / 5,
+    );
+  }
+
+  void drawMine({
+    required Offset position,
+    required Color color,
+  }) {
+    squareHollow(
+      position: position,
+      color: color,
+      size: map.blockSize,
+    );
+
+    squareFilled(
+      position: position,
+      color: color,
+      size: map.blockSize / 2,
+    );
+  }
+
+  void drawPowerPlant({
+    required Offset position,
+    required Color color,
+  }) {
+    circleHollow(
+      position: position,
+      color: color,
+      size: map.blockSize / 2.2,
+    );
+
+    circleFilled(
+      position: position,
+      color: color,
+      size: map.blockSize / 2.2 / 2,
+    );
+  }
+
+  void drawLightTurret({
+    required Offset position,
+    required Color color,
+  }) {
+    diamondHollow(
+      position: position,
+      color: color,
+      size: map.blockSize,
+    );
+
+    diamondFilled(
+      position: position,
+      color: color,
+      size: map.blockSize / 2,
+    );
   }
 }

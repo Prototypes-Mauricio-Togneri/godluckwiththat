@@ -33,10 +33,9 @@ class Mine extends Node {
 
   @override
   void render(Renderer renderer) {
-    drawNodeSquare(
-      renderer: renderer,
+    renderer.drawMine(
+      position: position,
       color: resourceType.color,
-      size: renderer.map.blockSize,
     );
 
     drawHP(renderer);

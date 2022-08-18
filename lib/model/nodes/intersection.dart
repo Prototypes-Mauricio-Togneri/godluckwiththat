@@ -16,10 +16,9 @@ class Intersection extends Node {
 
   @override
   void render(Renderer renderer) {
-    renderer.diamondFilled(
+    renderer.drawIntersection(
       position: position,
       color: Palette.intersection,
-      size: renderer.map.blockSize / 5,
     );
 
     drawHP(renderer);

@@ -10,16 +10,10 @@ class PointerHighlight {
   void render(Renderer renderer) {
     if (position != null) {
       if (nodeType != null) {
-        renderer.squareHollow(
+        renderer.drawByType(
+          type: nodeType!,
           position: position!,
           color: Palette.highlightNode,
-          size: renderer.map.blockSize,
-        );
-  
-        renderer.squareFilled(
-          position: position!,
-          color: Palette.highlightNode,
-          size: renderer.map.blockSize / 2,
         );
       } else {
         renderer.diamondFilled(

@@ -16,10 +16,9 @@ class PowerPlant extends Node {
 
   @override
   void render(Renderer renderer) {
-    drawNodeCircle(
-      renderer: renderer,
+    renderer.drawPowerPlant(
+      position: position,
       color: Palette.powerPlant,
-      size: renderer.map.blockSize / 2.2,
     );
 
     drawHP(renderer);

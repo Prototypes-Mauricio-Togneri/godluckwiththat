@@ -21,10 +21,9 @@ class LightTurret extends Node {
 
   @override
   void render(Renderer renderer) {
-    drawNodeDiamond(
-      renderer: renderer,
+    renderer.drawLightTurret(
+      position: position,
       color: Palette.lightTurret,
-      size: renderer.map.blockSize,
     );
 
     drawHP(renderer);

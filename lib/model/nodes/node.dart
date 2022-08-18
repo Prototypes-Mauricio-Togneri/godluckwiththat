@@ -52,60 +52,6 @@ class Node {
     hp = maxHp;
   }
 
-  void drawNodeDiamond({
-    required Renderer renderer,
-    required Color color,
-    required num size,
-  }) {
-    renderer.diamondHollow(
-      position: position,
-      color: color,
-      size: size,
-    );
-
-    renderer.diamondFilled(
-      position: position,
-      color: color,
-      size: size / 2,
-    );
-  }
-
-  void drawNodeSquare({
-    required Renderer renderer,
-    required Color color,
-    required num size,
-  }) {
-    renderer.squareHollow(
-      position: position,
-      color: color,
-      size: size,
-    );
-
-    renderer.squareFilled(
-      position: position,
-      color: color,
-      size: size / 2,
-    );
-  }
-
-  void drawNodeCircle({
-    required Renderer renderer,
-    required Color color,
-    required num size,
-  }) {
-    renderer.circleHollow(
-      position: position,
-      color: color,
-      size: size,
-    );
-
-    renderer.circleFilled(
-      position: position,
-      color: color,
-      size: size / 2,
-    );
-  }
-
   void drawHP(Renderer renderer) {
     if (renderer.showHP) {
       renderer.hp(
