@@ -1,6 +1,11 @@
 # Tension Node
 
 ## TODO
+Notifying HUD only if change
+Show toast
+Use Firebase
+    * Auth
+    * Firestore
 Improve connection model
 
 ## Resources
