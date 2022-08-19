@@ -19,6 +19,7 @@ import 'package:tensionnode/model/patch.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/services/toast.dart';
 import 'package:tensionnode/states/hud_state.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -167,8 +168,11 @@ class GameState extends BaseState {
     notify();
   }
 
-  void onReportBug() {
-    // TODO(momo): implement
+  void onReportBug(BuildContext context) {
+    Toast.error(
+      context: context,
+      text: 'Not implemented yet',
+    );
   }
 
   void onRepairAll() => nodes.repairAll();

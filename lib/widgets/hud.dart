@@ -107,7 +107,7 @@ class VerticalHud extends StatelessWidget {
             text: 'Report bug',
             icon: Icons.bug_report,
             color: Palette.red,
-            onPressed: state.onReportBug,
+            onPressed: () => state.onReportBug(context),
           ),
         ],
       ),

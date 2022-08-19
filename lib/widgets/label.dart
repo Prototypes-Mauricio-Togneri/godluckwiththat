@@ -21,7 +21,7 @@ class Label extends StatelessWidget {
     this.decoration = TextDecoration.none,
     this.align,
     this.overflow,
-    this.singleLine = true,
+    this.singleLine = false,
     this.onTap,
     this.maxLines,
   });

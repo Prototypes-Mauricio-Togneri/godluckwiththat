@@ -9,6 +9,7 @@ environment:
 dependencies:
   get_it: ^7.2.0
   dafluta: ^4.1.0
+  motion_toast: ^2.3.2
   url_strategy: ^0.2.0
   json_annotation: ^4.6.0
 
