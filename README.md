@@ -1,7 +1,6 @@
 # Tension Node
 
 ## TODO
-Notifying HUD only if change
 Use Firebase
     * Auth
     * Firestore
