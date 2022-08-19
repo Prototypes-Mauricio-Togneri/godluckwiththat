@@ -252,13 +252,12 @@ class GameState extends BaseState {
       Delayed.post(notify);
 
       fps.update(dt);
-      hudState.resource1 = headquarters.resource1;
-      hudState.resource2 = headquarters.resource2;
-      hudState.resource3 = headquarters.resource3;
-      hudState.energyProduced = energyProduced;
-      hudState.energyConsumed = energyConsumed;
-      hudState.fps = fps.fps();
-      Delayed.post(hudState.notify);
+      hudState.update(
+        headquarters: headquarters,
+        energyProduced: energyProduced,
+        energyConsumed: energyConsumed,
+        fps: fps,
+      );
     }
   }
 

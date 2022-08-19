@@ -132,19 +132,19 @@ class HorizontalHud extends StatelessWidget {
           ResourceIndicator(
             icon: Icons.square,
             color: ResourceType.resource1.color,
-            value: state.resource1.toInt().toString(),
+            value: state.resource1,
           ),
           const HBox(30),
           ResourceIndicator(
             icon: Icons.square,
             color: ResourceType.resource2.color,
-            value: state.resource2.toInt().toString(),
+            value: state.resource2,
           ),
           const HBox(30),
           ResourceIndicator(
             icon: Icons.square,
             color: ResourceType.resource3.color,
-            value: state.resource3.toInt().toString(),
+            value: state.resource3,
           ),
           const HBox(30),
           ResourceIndicator(
@@ -156,7 +156,7 @@ class HorizontalHud extends StatelessWidget {
           ResourceIndicator(
             icon: Icons.speed,
             color: Palette.energy,
-            value: '${state.fps}',
+            value: state.fps,
           ),
           const Spacer(),
         ],
@@ -195,9 +195,12 @@ class ResourceIndicator extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
           ),
           child: Center(
-            child: Label(
-              text: value,
-              size: 15,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 3),
+              child: Label(
+                text: value,
+                size: 15,
+              ),
             ),
           ),
         ),
