@@ -1,6 +1,8 @@
 # Tension Node
 
 ## TODO
+Tooltips
+Space bar to show improved connection and new HP bar
 Use Firebase
     * Auth
     * Firestore
