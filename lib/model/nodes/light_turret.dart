@@ -28,4 +28,6 @@ class LightTurret extends Node {
 
     drawHP(renderer);
   }
+
+  static String cost() => 'TODO';
 }

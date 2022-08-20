@@ -1,5 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/model/nodes/light_turret.dart';
+import 'package:tensionnode/model/nodes/mine.dart';
+import 'package:tensionnode/model/nodes/power_plant.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
 import 'package:tensionnode/states/hud_state.dart';
@@ -37,6 +40,7 @@ class VerticalHud extends StatelessWidget {
             icon: Icons.factory,
             color: Colors.blueGrey,
             onPressed: () => state.onBuild(NodeType.mine),
+            tooltip: Mine.cost(),
           ),
           const VBox(40),
           const Label(text: 'Energy'),
@@ -45,6 +49,7 @@ class VerticalHud extends StatelessWidget {
             icon: Icons.bolt,
             color: Colors.blueGrey,
             onPressed: () => state.onBuild(NodeType.power_plant),
+            tooltip: PowerPlant.cost(),
           ),
           const VBox(40),
           const Label(text: 'Defenses'),
@@ -59,6 +64,7 @@ class VerticalHud extends StatelessWidget {
             icon: Icons.cell_tower,
             color: Colors.blueGrey,
             onPressed: () => state.onBuild(NodeType.light_turret),
+            tooltip: LightTurret.cost(),
           ),
           MenuButton(
             text: 'Heavy turret',

@@ -1,7 +1,7 @@
 # Tension Node
 
 ## TODO
-Tooltips
+Make full menu a dialog
 Space bar to show improved connection and new HP bar
 Use Firebase
     * Auth

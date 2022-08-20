@@ -11,6 +11,9 @@ class Mine extends Node {
 
   static const int PRODUCTION_TIME = 5; // in seconds
 
+  static const int RESOURCE1_COST = 100;
+  static const int ENERGY_COST = 10;
+
   Mine({
     required this.resourceType,
     required super.position,
@@ -40,4 +43,6 @@ class Mine extends Node {
 
     drawHP(renderer);
   }
+
+  static String cost() => 'Resource 1: $RESOURCE1_COST\nEnergy: $ENERGY_COST';
 }
