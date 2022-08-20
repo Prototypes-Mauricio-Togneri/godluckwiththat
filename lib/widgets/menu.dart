@@ -19,8 +19,6 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (state.menuInfo!.type) {
-      case MenuType.main:
-        return MainMenu(state: state);
       case MenuType.node:
         return NodeMenu(
           state: state,
@@ -37,49 +35,6 @@ class Menu extends StatelessWidget {
           menuInfo: state.menuInfo!,
         );
     }
-  }
-}
-
-class MainMenu extends StatelessWidget {
-  final GameState state;
-
-  const MainMenu({required this.state});
-
-  @override
-  Widget build(BuildContext context) {
-    return CenteredMenu(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          MenuButton(
-            text: 'Continue',
-            icon: Icons.play_arrow,
-            color: Palette.blue,
-            onPressed: state.onContinue,
-            topPadding: 0,
-          ),
-          MenuButton(
-            text: 'Load game',
-            icon: Icons.upload,
-            color: Palette.blue,
-            onPressed: state.onLoadGame,
-          ),
-          MenuButton(
-            text: 'Save game',
-            icon: Icons.save,
-            color: Palette.blue,
-            onPressed: state.onSaveGame,
-          ),
-          MenuButton(
-            text: 'Settings',
-            icon: Icons.settings,
-            color: Palette.blue,
-            onPressed: state.onSettings,
-          ),
-        ],
-      ),
-    );
   }
 }
 

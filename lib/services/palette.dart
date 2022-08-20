@@ -10,6 +10,8 @@ class Palette {
   static const Color blue = Colors.blue;
   static const Color green = Colors.green;
 
+  static const Color screenBackground = Color(0x80000000);
+
   static const Color gridLine = Color(0x55888888);
   static const Color gridBackground = Color(0xff1a1a1a);
   static const Color highlightNode = Color(0xaa444444);

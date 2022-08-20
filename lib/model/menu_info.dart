@@ -20,8 +20,6 @@ class MenuInfo {
 
   bool get hasPatch => patch != null;
 
-  factory MenuInfo.main() => MenuInfo._(type: MenuType.main);
-
   factory MenuInfo.node({
     required Node node,
     required Offset realPosition,

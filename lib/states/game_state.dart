@@ -3,6 +3,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/engine/connections.dart';
 import 'package:tensionnode/engine/fps.dart';
 import 'package:tensionnode/engine/loader.dart';
@@ -178,9 +179,15 @@ class GameState extends BaseState {
   void onRepairAll() => nodes.repairAll();
 
   void onMainMenu() {
-    running = false;
-    menuInfo = MenuInfo.main();
-    notify();
+    if (running) {
+      running = false;
+      MainMenu.show(
+        onContinue: onContinue,
+        onLoad: onLoadGame,
+        onSave: onSaveGame,
+        onSettings: onSettings,
+      );
+    }
   }
 
   void onRepair(Node node) {
