@@ -46,7 +46,8 @@ class Palette {
   static final Paint squareFilledPaint = Paint();
   static final Paint circleHollowPaint = Paint();
   static final Paint circleFilledPaint = Paint();
-  static final Paint connectionPaint = Paint();
+  static final Paint connectionBasicPaint = Paint();
+  static final Paint connectionAdvancePaint = Paint();
   static final Paint connectionArrowPaint = Paint();
   static final Paint hpPaint = Paint();
 
@@ -82,10 +83,15 @@ class Palette {
     circleFilledPaint.strokeCap = StrokeCap.square;
     circleFilledPaint.strokeJoin = StrokeJoin.miter;
 
-    connectionPaint.style = PaintingStyle.stroke;
-    connectionPaint.strokeCap = StrokeCap.square;
-    connectionPaint.strokeJoin = StrokeJoin.miter;
-    connectionPaint.strokeWidth = 2;
+    connectionBasicPaint.style = PaintingStyle.stroke;
+    connectionBasicPaint.strokeCap = StrokeCap.square;
+    connectionBasicPaint.strokeJoin = StrokeJoin.miter;
+    connectionBasicPaint.strokeWidth = 0.5;
+
+    connectionAdvancePaint.style = PaintingStyle.stroke;
+    connectionAdvancePaint.strokeCap = StrokeCap.square;
+    connectionAdvancePaint.strokeJoin = StrokeJoin.miter;
+    connectionAdvancePaint.strokeWidth = 2;
 
     connectionArrowPaint.style = PaintingStyle.fill;
     connectionArrowPaint.strokeCap = StrokeCap.square;

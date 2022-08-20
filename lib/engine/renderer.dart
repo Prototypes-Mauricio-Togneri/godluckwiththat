@@ -6,14 +6,14 @@ import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class Renderer {
-  bool advanceMode = false;
+  bool _advanceMode = false;
   final GameMap map;
   final Path _path = Path();
   late Canvas canvas;
 
   Renderer(this.map);
 
-  void toggleAdvanceMode() => advanceMode = !advanceMode;
+  void toggleAdvanceMode() => _advanceMode = !_advanceMode;
 
   void setCanvas(Canvas newCanvas) => canvas = newCanvas;
 
@@ -149,53 +149,66 @@ class Renderer {
     required Color lineColor,
     required Color arrowColor,
   }) {
-    final Paint paintLine = Palette.connectionPaint;
-    paintLine.color = lineColor;
+    if (_advanceMode) {
+      final Paint paintLine = Palette.connectionAdvancePaint;
+      paintLine.color = lineColor;
 
-    final Path pathLine = newPath;
-    pathLine.line(
-      from: map.gameToReal(from),
-      to: map.gameToReal(to),
-    );
+      final Path pathLine = newPath;
+      pathLine.line(
+        from: map.gameToReal(from),
+        to: map.gameToReal(to),
+      );
 
-    canvas.drawPath(pathLine, paintLine);
+      canvas.drawPath(pathLine, paintLine);
 
-    final Paint paintArrow = Palette.connectionArrowPaint;
-    paintArrow.color = arrowColor;
+      final Paint paintArrow = Palette.connectionArrowPaint;
+      paintArrow.color = arrowColor;
 
-    final Offset position = map.gameToReal(Offset((from.dx + to.dx) / 2, (from.dy + to.dy) / 2));
-    final num size = Palette.connectionPaint.strokeWidth / 3;
+      final Offset position = map.gameToReal(Offset((from.dx + to.dx) / 2, (from.dy + to.dy) / 2));
+      final num size = Palette.connectionAdvancePaint.strokeWidth / 3;
 
-    final Path pathArrow = newPath;
+      final Path pathArrow = newPath;
 
-    switch (direction) {
-      case Direction.up:
-        pathArrow.arrowUp(
-          position: position,
-          size: size,
-        );
-        break;
-      case Direction.down:
-        pathArrow.arrowDown(
-          position: position,
-          size: size,
-        );
-        break;
-      case Direction.left:
-        pathArrow.arrowLeft(
-          position: position,
-          size: size,
-        );
-        break;
-      case Direction.right:
-        pathArrow.arrowRight(
-          position: position,
-          size: size,
-        );
-        break;
+      switch (direction) {
+        case Direction.up:
+          pathArrow.arrowUp(
+            position: position,
+            size: size,
+          );
+          break;
+        case Direction.down:
+          pathArrow.arrowDown(
+            position: position,
+            size: size,
+          );
+          break;
+        case Direction.left:
+          pathArrow.arrowLeft(
+            position: position,
+            size: size,
+          );
+          break;
+        case Direction.right:
+          pathArrow.arrowRight(
+            position: position,
+            size: size,
+          );
+          break;
+      }
+
+      canvas.drawPath(pathArrow, paintArrow);
+    } else {
+      final Paint paintLine = Palette.connectionBasicPaint;
+      paintLine.color = lineColor;
+
+      final Path pathLine = newPath;
+      pathLine.line(
+        from: map.gameToReal(from),
+        to: map.gameToReal(to),
+      );
+
+      canvas.drawPath(pathLine, paintLine);
     }
-
-    canvas.drawPath(pathArrow, paintArrow);
   }
 
   void hp({
@@ -203,49 +216,51 @@ class Renderer {
     required num value,
     required num max,
   }) {
-    final Paint paint = Paint();
-    paint.color = Palette.hpContainerBackground;
-    paint.style = PaintingStyle.fill;
-    final Rect rect = Rect.fromCenter(
-      center: map.gameToReal(position),
-      width: map.blockSize.toDouble(),
-      height: map.blockSize.toDouble(),
-    );
+    if (_advanceMode && (value < max)) {
+      final Paint paint = Paint();
+      paint.color = Palette.hpContainerBackground;
+      paint.style = PaintingStyle.fill;
+      final Rect rect = Rect.fromCenter(
+        center: map.gameToReal(position),
+        width: map.blockSize.toDouble(),
+        height: map.blockSize.toDouble(),
+      );
 
-    canvas.drawRect(rect, paint);
+      canvas.drawRect(rect, paint);
 
-    final int percentage = value * 100 ~/ max;
+      final int percentage = value * 100 ~/ max;
 
-    Color color = Palette.white;
+      Color color = Palette.white;
 
-    if (percentage >= 75) {
-      color = Palette.hpHigh;
-    } else if (percentage >= 50) {
-      color = Palette.hpMedium;
-    } else {
-      color = Palette.hpLow;
-    }
+      if (percentage >= 75) {
+        color = Palette.hpHigh;
+      } else if (percentage >= 50) {
+        color = Palette.hpMedium;
+      } else {
+        color = Palette.hpLow;
+      }
 
-    final TextPainter textPainter = TextPainter(
-      text: TextSpan(
-        text: '$percentage',
-        style: TextStyle(
-          color: color,
-          fontSize: 5,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      textAlign: TextAlign.center,
-      textDirection: TextDirection.ltr,
-    )..layout();
-
-    textPainter.paint(
-      canvas,
-      map.gameToReal(position).translate(
-            -textPainter.size.width / 2,
-            -textPainter.size.height / 2,
+      final TextPainter textPainter = TextPainter(
+        text: TextSpan(
+          text: '$percentage',
+          style: TextStyle(
+            color: color,
+            fontSize: 5,
+            fontWeight: FontWeight.bold,
           ),
-    );
+        ),
+        textAlign: TextAlign.center,
+        textDirection: TextDirection.ltr,
+      )..layout();
+
+      textPainter.paint(
+        canvas,
+        map.gameToReal(position).translate(
+              -textPainter.size.width / 2,
+              -textPainter.size.height / 2,
+            ),
+      );
+    }
   }
 
   Path get newPath {
@@ -320,11 +335,13 @@ class Renderer {
     required Offset position,
     required Color color,
   }) {
-    diamondFilled(
-      position: position,
-      color: color,
-      size: map.blockSize / 5,
-    );
+    if (_advanceMode) {
+      diamondFilled(
+        position: position,
+        color: color,
+        size: map.blockSize / 5,
+      );
+    }
   }
 
   void drawMine({
