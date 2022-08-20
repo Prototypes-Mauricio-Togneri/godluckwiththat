@@ -53,7 +53,7 @@ class Node {
   }
 
   void drawHP(Renderer renderer) {
-    if (renderer.showHP) {
+    if (renderer.advanceMode && (hp < maxHp)) {
       renderer.hp(
         position: position,
         value: hp,

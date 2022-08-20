@@ -89,7 +89,7 @@ class GameState extends BaseState {
     } else if (event.isRight()) {
       transformationController.value.translate(-zoom);
     } else if (event.isSpace()) {
-      renderer.toggleHP();
+      renderer.toggleAdvanceMode();
     } else if (event.isEscape()) {
       if (nodeToBuild != null) {
         nodeToBuild = null;

@@ -6,14 +6,14 @@ import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class Renderer {
-  bool showHP = false;
+  bool advanceMode = false;
   final GameMap map;
   final Path _path = Path();
   late Canvas canvas;
 
   Renderer(this.map);
 
-  void toggleHP() => showHP = !showHP;
+  void toggleAdvanceMode() => advanceMode = !advanceMode;
 
   void setCanvas(Canvas newCanvas) => canvas = newCanvas;
 
@@ -203,56 +203,49 @@ class Renderer {
     required num value,
     required num max,
   }) {
-    _hpLine(
-      position: position,
-      value: 1,
-      color: Palette.red,
-    );
-    _hpLine(
-      position: position,
-      value: value / max,
-      color: Palette.green,
-    );
-
-    _hpContainer(position);
-  }
-
-  void _hpLine({
-    required Offset position,
-    required num value,
-    required Color color,
-  }) {
-    final Paint paint = Palette.hpPaint;
-    paint.color = color;
-
-    final double y = -(map.blockSize / 2) - Palette.hpPaint.strokeWidth;
-    final double width = map.blockSize.toDouble();
-
-    final Offset positionLeft = map.gameToReal(position).translate(-width / 2, y);
-
-    final Path path = newPath;
-    path.line(
-      from: positionLeft,
-      to: positionLeft.translate(width * value, 0),
-    );
-
-    canvas.drawPath(path, paint);
-  }
-
-  void _hpContainer(Offset position) {
-    final double y = -(map.blockSize / 2) - (Palette.hpPaint.strokeWidth * 3 / 2);
-    final double width = map.blockSize.toDouble() + Palette.hpPaint.strokeWidth;
-
-    final Offset topLeft = map.gameToReal(position).translate(-width / 2, y);
-    final Offset bottomRight = topLeft.translate(map.blockSize + Palette.hpPaint.strokeWidth, Palette.hpPaint.strokeWidth);
-
     final Paint paint = Paint();
-    paint.color = Palette.white;
-    paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 0.1;
-    final Rect rect = Rect.fromPoints(topLeft, bottomRight);
+    paint.color = Palette.hpContainerBackground;
+    paint.style = PaintingStyle.fill;
+    final Rect rect = Rect.fromCenter(
+      center: map.gameToReal(position),
+      width: map.blockSize.toDouble(),
+      height: map.blockSize.toDouble(),
+    );
 
     canvas.drawRect(rect, paint);
+
+    final int percentage = value * 100 ~/ max;
+
+    Color color = Palette.white;
+
+    if (percentage >= 75) {
+      color = Palette.hpHigh;
+    } else if (percentage >= 50) {
+      color = Palette.hpMedium;
+    } else {
+      color = Palette.hpLow;
+    }
+
+    final TextPainter textPainter = TextPainter(
+      text: TextSpan(
+        text: '$percentage',
+        style: TextStyle(
+          color: color,
+          fontSize: 5,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      textAlign: TextAlign.center,
+      textDirection: TextDirection.ltr,
+    )..layout();
+
+    textPainter.paint(
+      canvas,
+      map.gameToReal(position).translate(
+            -textPainter.size.width / 2,
+            -textPainter.size.height / 2,
+          ),
+    );
   }
 
   Path get newPath {

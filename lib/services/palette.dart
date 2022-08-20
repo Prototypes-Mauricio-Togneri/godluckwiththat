@@ -12,6 +12,11 @@ class Palette {
 
   static const Color screenBackground = Color(0x80000000);
 
+  static const Color hpHigh = Colors.green;
+  static const Color hpMedium = Colors.yellow;
+  static const Color hpLow = Colors.red;
+  static const Color hpContainerBackground = Color(0x88000000);
+
   static const Color gridLine = Color(0x55888888);
   static const Color gridBackground = Color(0xff1a1a1a);
   static const Color highlightNode = Color(0xaa444444);
