@@ -1,6 +1,9 @@
 import 'package:flutter/rendering.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/renderer.dart';
+import 'package:tensionnode/extensions/json_position_extension.dart';
+import 'package:tensionnode/json/json_match.dart';
+import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/light_turret.dart';
 import 'package:tensionnode/model/nodes/mine.dart';
@@ -56,6 +59,27 @@ class Nodes {
     energyProduced = getEnergyProduced();
 
     return element;
+  }
+
+  void fillConnections(JsonMatch match) {
+    for (final Node node in _nodes) {
+      final JsonNode? jsonNode = match.getNode(node.position);
+
+      node.fillConnections(
+        topNode: (jsonNode != null) ? _at(jsonNode.top) : null,
+        bottomNode: (jsonNode != null) ? _at(jsonNode.bottom) : null,
+        leftNode: (jsonNode != null) ? _at(jsonNode.left) : null,
+        rightNode: (jsonNode != null) ? _at(jsonNode.right) : null,
+      );
+    }
+  }
+
+  Node? _at(JsonPosition? position) {
+    if (position != null) {
+      return at(position.position);
+    } else {
+      return null;
+    }
   }
 
   Node? at(Offset position) {

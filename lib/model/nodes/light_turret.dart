@@ -21,6 +21,8 @@ class LightTurret extends Node {
 
   @override
   void render(Renderer renderer) {
+    renderConnections(renderer);
+
     renderer.drawLightTurret(
       position: position,
       color: Palette.lightTurret,

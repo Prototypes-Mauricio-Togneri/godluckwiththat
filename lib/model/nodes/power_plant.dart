@@ -19,6 +19,8 @@ class PowerPlant extends Node {
 
   @override
   void render(Renderer renderer) {
+    renderConnections(renderer);
+
     renderer.drawPowerPlant(
       position: position,
       color: Palette.powerPlant,

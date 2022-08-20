@@ -16,6 +16,8 @@ class Intersection extends Node {
 
   @override
   void render(Renderer renderer) {
+    renderConnections(renderer);
+
     renderer.drawIntersection(
       position: position,
       color: Palette.intersection,

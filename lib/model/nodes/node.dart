@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/engine/renderer.dart';
+import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/node_type.dart';
 
@@ -44,6 +45,18 @@ class Node {
 
   bool isAt(Offset testPosition) => position == testPosition;
 
+  void fillConnections({
+    required Node? topNode,
+    required Node? bottomNode,
+    required Node? leftNode,
+    required Node? rightNode,
+  }) {
+    top = topNode;
+    bottom = bottomNode;
+    left = leftNode;
+    right = rightNode;
+  }
+
   void update(double dt) {}
 
   void render(Renderer renderer) {}
@@ -58,5 +71,42 @@ class Node {
       value: hp,
       max: maxHp,
     );
+  }
+
+  void renderConnections(Renderer renderer) {
+    _renderConnectionTo(
+      renderer: renderer,
+      to: top,
+    );
+
+    _renderConnectionTo(
+      renderer: renderer,
+      to: bottom,
+    );
+
+    _renderConnectionTo(
+      renderer: renderer,
+      to: left,
+    );
+
+    _renderConnectionTo(
+      renderer: renderer,
+      to: right,
+    );
+  }
+
+  void _renderConnectionTo({
+    required Renderer renderer,
+    required Node? to,
+  }) {
+    if (to != null) {
+      renderer.connection(
+        direction: directionTo(to),
+        from: position,
+        to: to.position,
+        lineColor: Palette.connectionLine,
+        arrowColor: Palette.connectionArrow,
+      );
+    }
   }
 }

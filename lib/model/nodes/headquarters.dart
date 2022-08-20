@@ -20,11 +20,13 @@ class Headquarters extends Node {
 
   @override
   void render(Renderer renderer) {
+    renderConnections(renderer);
+
     renderer.drawHeadquarters(
       position: position,
       color: Palette.hq,
     );
-    
+
     drawHP(renderer);
   }
 }

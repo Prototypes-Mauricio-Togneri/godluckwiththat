@@ -1,10 +1,8 @@
 import 'dart:convert';
+import 'package:flutter/widgets.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/engine/connections.dart';
 import 'package:tensionnode/engine/nodes.dart';
 import 'package:tensionnode/engine/patches.dart';
-import 'package:tensionnode/extensions/json_position_extension.dart';
-import 'package:tensionnode/json/json_connection.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
@@ -33,9 +31,6 @@ class JsonMatch {
   @JsonKey(name: 'nodes')
   final List<JsonNode> nodes;
 
-  @JsonKey(name: 'connections')
-  final List<JsonConnection> connections;
-
   const JsonMatch({
     required this.version,
     required this.id,
@@ -43,7 +38,6 @@ class JsonMatch {
     required this.resources,
     required this.patches,
     required this.nodes,
-    required this.connections,
   });
 
   GameMap getMap() => GameMap(
@@ -72,17 +66,14 @@ class JsonMatch {
     return result;
   }
 
-  Connections getConnections(Nodes nodes) {
-    final Connections result = Connections();
-
-    for (final JsonConnection connections in connections) {
-      result.add(
-        nodes.at(connections.from.position),
-        nodes.at(connections.to.position),
-      );
+  JsonNode? getNode(Offset position) {
+    for (final JsonNode node in nodes) {
+      if ((node.position[0] == position.dx) && (node.position[1] == position.dy)) {
+        return node;
+      }
     }
 
-    return result;
+    return null;
   }
 
   factory JsonMatch.fromString(String json) => JsonMatch.fromJson(jsonDecode(json));

@@ -36,6 +36,8 @@ class Mine extends Node {
 
   @override
   void render(Renderer renderer) {
+    renderConnections(renderer);
+
     renderer.drawMine(
       position: position,
       color: resourceType.color,

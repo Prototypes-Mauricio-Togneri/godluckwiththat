@@ -26,11 +26,27 @@ class JsonNode {
   @JsonKey(name: 'position')
   final JsonPosition position;
 
+  @JsonKey(name: 'top')
+  final JsonPosition? top;
+
+  @JsonKey(name: 'bottom')
+  final JsonPosition? bottom;
+
+  @JsonKey(name: 'left')
+  final JsonPosition? left;
+
+  @JsonKey(name: 'right')
+  final JsonPosition? right;
+
   const JsonNode({
     required this.type,
     required this.hp,
     required this.resource,
     required this.position,
+    required this.top,
+    required this.bottom,
+    required this.left,
+    required this.right,
   });
 
   Node getNode() {

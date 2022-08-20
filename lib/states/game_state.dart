@@ -1,10 +1,8 @@
 import 'dart:html';
 import 'package:dafluta/dafluta.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
-import 'package:tensionnode/engine/connections.dart';
 import 'package:tensionnode/engine/fps.dart';
 import 'package:tensionnode/engine/loader.dart';
 import 'package:tensionnode/engine/nodes.dart';
@@ -37,7 +35,6 @@ class GameState extends BaseState {
   late final Headquarters headquarters;
   late final Patches patches;
   late final Nodes nodes;
-  late final Connections connections;
 
   bool loaded = false;
   bool running = true;
@@ -52,19 +49,19 @@ class GameState extends BaseState {
 
   @override
   Future onLoad() async {
-    if (kIsWeb) {
-      window.addEventListener('blur', onUnfocus);
-    }
+    //if (kIsWeb) {
+    //  window.addEventListener('blur', onUnfocus);
+    //}
 
     final JsonMatch match = await Loader.match(Assets.MAPS_MAP1);
     map = match.getMap();
     patches = match.getPatches();
     nodes = match.getNodes();
+    nodes.fillConnections(match);
     headquarters = nodes.headquarters;
     headquarters.resource1 = match.resources.resource1;
     headquarters.resource2 = match.resources.resource2;
     headquarters.resource3 = match.resources.resource3;
-    connections = match.getConnections(nodes);
     renderer = Renderer(map);
     map.setCenter(transformationController);
     loaded = true;
@@ -283,7 +280,6 @@ class GameState extends BaseState {
   void renderForeground(Canvas canvas) {
     renderer.setCanvas(canvas);
     patches.render(renderer);
-    connections.render(renderer);
     nodes.render(renderer);
     _pointerHighlight.render(renderer);
   }

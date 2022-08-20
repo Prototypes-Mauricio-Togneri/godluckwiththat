@@ -13,7 +13,6 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       resources: JsonResources.fromJson(json['resources'] as Map<String, dynamic>),
       patches: (json['patches'] as List<dynamic>).map((e) => JsonPatch.fromJson(e as Map<String, dynamic>)).toList(),
       nodes: (json['nodes'] as List<dynamic>).map((e) => JsonNode.fromJson(e as Map<String, dynamic>)).toList(),
-      connections: (json['connections'] as List<dynamic>).map((e) => JsonConnection.fromJson(e as Map<String, dynamic>)).toList(),
     );
 
 Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
@@ -23,5 +22,4 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'resources': instance.resources,
       'patches': instance.patches,
       'nodes': instance.nodes,
-      'connections': instance.connections,
     };

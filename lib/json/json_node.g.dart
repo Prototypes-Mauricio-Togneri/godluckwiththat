@@ -11,6 +11,10 @@ JsonNode _$JsonNodeFromJson(Map<String, dynamic> json) => JsonNode(
       hp: json['hp'] as num,
       resource: $enumDecodeNullable(_$ResourceTypeEnumMap, json['resource']),
       position: (json['position'] as List<dynamic>).map((e) => e as int).toList(),
+      top: (json['top'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      bottom: (json['bottom'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      left: (json['left'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      right: (json['right'] as List<dynamic>?)?.map((e) => e as int).toList(),
     );
 
 Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) => <String, dynamic>{
@@ -18,6 +22,10 @@ Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) => <String, dynamic>{
       'hp': instance.hp,
       'resource': _$ResourceTypeEnumMap[instance.resource],
       'position': instance.position,
+      'top': instance.top,
+      'bottom': instance.bottom,
+      'left': instance.left,
+      'right': instance.right,
     };
 
 const _$NodeTypeEnumMap = {
