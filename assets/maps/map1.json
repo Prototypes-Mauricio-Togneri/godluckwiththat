@@ -135,6 +135,10 @@
             "position": [
                 -10,
                 -4
+            ],
+            "left": [
+                -11,
+                -4
             ]
         },
         {
@@ -189,6 +193,10 @@
             "position": [
                 0,
                 6
+            ],
+            "top": [
+                0,
+                5
             ]
         },
         {
@@ -264,12 +272,8 @@
             "position": [
                 -11,
                 -5
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
+            ],
+            "bottom": [
                 -11,
                 -4
             ]
@@ -278,6 +282,10 @@
             "type": "intersection",
             "hp": 10,
             "position": [
+                -11,
+                -4
+            ],
+            "bottom": [
                 -11,
                 -3
             ]
@@ -287,383 +295,225 @@
             "hp": 10,
             "position": [
                 -11,
-                -2
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                -11,
-                -1
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                -11,
-                0
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                -10,
-                0
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                -9,
-                0
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                -8,
-                0
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                -7,
-                0
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                -6,
-                0
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                -5,
-                0
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                -4,
-                0
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                -3,
-                0
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                -2,
-                0
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                -1,
-                0
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                0,
-                5
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                0,
-                4
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                0,
-                3
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                0,
-                2
-            ]
-        },
-        {
-            "type": "intersection",
-            "hp": 10,
-            "position": [
-                0,
-                1
-            ]
-        }
-    ],
-    "connections": [
-        {
-            "from": [
-                -10,
-                -5
-            ],
-            "to": [
-                -11,
-                -5
-            ]
-        },
-        {
-            "from": [
-                -10,
-                -4
-            ],
-            "to": [
-                -11,
-                -4
-            ]
-        },
-        {
-            "from": [
-                -11,
-                -5
-            ],
-            "to": [
-                -11,
-                -4
-            ]
-        },
-        {
-            "from": [
-                -11,
-                -4
-            ],
-            "to": [
-                -11,
-                -3
-            ]
-        },
-        {
-            "from": [
-                -11,
                 -3
             ],
-            "to": [
+            "bottom": [
                 -11,
                 -2
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 -11,
                 -2
             ],
-            "to": [
+            "bottom": [
                 -11,
                 -1
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 -11,
                 -1
             ],
-            "to": [
+            "bottom": [
                 -11,
                 0
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 -11,
-                -0
+                0
             ],
-            "to": [
+            "right": [
                 -10,
                 0
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 -10,
                 0
             ],
-            "to": [
+            "right": [
                 -9,
                 0
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 -9,
                 0
             ],
-            "to": [
+            "right": [
                 -8,
                 0
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 -8,
                 0
             ],
-            "to": [
+            "right": [
                 -7,
                 0
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 -7,
                 0
             ],
-            "to": [
+            "right": [
                 -6,
                 0
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 -6,
                 0
             ],
-            "to": [
+            "right": [
                 -5,
                 0
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 -5,
                 0
             ],
-            "to": [
+            "right": [
                 -4,
                 0
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 -4,
                 0
             ],
-            "to": [
+            "right": [
                 -3,
                 0
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 -3,
                 0
             ],
-            "to": [
+            "right": [
                 -2,
                 0
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 -2,
                 0
             ],
-            "to": [
+            "right": [
                 -1,
                 0
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 -1,
                 0
             ],
-            "to": [
+            "right": [
                 0,
                 0
             ]
         },
         {
-            "from": [
-                0,
-                6
-            ],
-            "to": [
-                0,
-                5
-            ]
-        },
-        {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 0,
                 5
             ],
-            "to": [
+            "top": [
                 0,
                 4
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 0,
                 4
             ],
-            "to": [
+            "top": [
                 0,
                 3
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 0,
                 3
             ],
-            "to": [
+            "top": [
                 0,
                 2
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 0,
                 2
             ],
-            "to": [
+            "top": [
                 0,
                 1
             ]
         },
         {
-            "from": [
+            "type": "intersection",
+            "hp": 10,
+            "position": [
                 0,
                 1
             ],
-            "to": [
+            "top": [
                 0,
                 0
             ]
