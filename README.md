@@ -1,10 +1,14 @@
 # Tension Node
 
 ## TODO
+Remove menu to add buildings when clicking on an empty node
+Move resources through the paths
+Add functionality to add/remove paths
+Allow to add all the other type of buildings
+
 Use Firebase
     * Auth
     * Firestore
-Improve connection model
 
 ## Resources
 * Metal

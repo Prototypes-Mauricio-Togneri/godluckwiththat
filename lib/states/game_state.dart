@@ -124,13 +124,15 @@ class GameState extends BaseState {
         resourceType: patch?.type,
       );
     } else {
-      if (menuInfo == null) {
-        if (nodeClicked != null) {
-          menuInfo = MenuInfo.node(
-            node: nodeClicked,
-            realPosition: details.globalPosition,
-            gamePosition: position,
-          );
+      if (nodeClicked != null) {
+        menuInfo = MenuInfo.node(
+          node: nodeClicked,
+          realPosition: details.globalPosition,
+          gamePosition: position,
+        );
+      } else {
+        if (menuInfo != null) {
+          closeMenu();
         } else {
           menuInfo = MenuInfo.empty(
             patch: patches.at(position),
@@ -138,11 +140,9 @@ class GameState extends BaseState {
             gamePosition: position,
           );
         }
-
-        notify();
-      } else {
-        closeMenu();
       }
+
+      notify();
     }
   }
 
