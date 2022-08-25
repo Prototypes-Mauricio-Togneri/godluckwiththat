@@ -1,22 +1,27 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Connection {
-  final Node to;
-  final ResourceType? resourceType;
+  final Node _from;
+  final Node _to;
+  ResourceType? _resourceType;
+  num _accumulatedTime = 0;
 
-  const Connection({
-    required this.to,
-    this.resourceType,
-  });
+  Connection(this._from, this._to);
 
-  Offset get position => to.position;
+  Offset get position => _to.position;
 
-  Direction directionFrom(Offset position) {
-    final num x = position.dx - to.position.dx;
-    final num y = position.dy - to.position.dy;
+  bool get isAvailable => _resourceType == null;
+
+  bool get isBusy => _resourceType != null;
+
+  Direction get direction {
+    final num x = _from.position.dx - _to.position.dx;
+    final num y = _from.position.dy - _to.position.dy;
 
     if ((x == 0) && (y > 0)) {
       return Direction.up;
@@ -29,5 +34,51 @@ class Connection {
     } else {
       throw Error();
     }
+  }
+
+  void send(ResourceType type) {
+    _accumulatedTime = 0;
+    _resourceType = type;
+  }
+
+  void update(double dt) {
+    if (isBusy) {
+      _accumulatedTime += dt;
+
+      if (_accumulatedTime >= Constants.CONNECTION_PROCESS_TIME) {
+        _accumulatedTime = 0;
+        _to.addResource(_resourceType!);
+        _resourceType = null;
+      }
+    }
+  }
+
+  void render(Renderer renderer) {
+    Offset middlePosition = _from.position;
+
+    switch (direction) {
+      case Direction.up:
+        middlePosition = middlePosition.translate(0, -0.5);
+        break;
+      case Direction.down:
+        middlePosition = middlePosition.translate(0, 0.5);
+        break;
+      case Direction.left:
+        middlePosition = middlePosition.translate(-0.5, 0);
+        break;
+      case Direction.right:
+        middlePosition = middlePosition.translate(0.5, 0);
+        break;
+    }
+
+    final String text = (_resourceType != null) ? (_resourceType!.index + 1).toString() : '0';
+
+    renderer.renderText(
+      text: text,
+      color: Colors.pink,
+      size: 3,
+      position: middlePosition,
+      weight: FontWeight.bold,
+    );
   }
 }

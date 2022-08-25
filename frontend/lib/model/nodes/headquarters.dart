@@ -3,6 +3,7 @@ import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class Headquarters extends Node {
   num resource1 = 0;
@@ -28,5 +29,22 @@ class Headquarters extends Node {
     );
 
     drawHP(renderer);
+
+    super.render(renderer);
+  }
+
+  @override
+  void addResource(ResourceType type) {
+    switch (type) {
+      case ResourceType.resource1:
+        resource1++;
+        break;
+      case ResourceType.resource2:
+        resource2++;
+        break;
+      case ResourceType.resource3:
+        resource3++;
+        break;
+    }
   }
 }

@@ -1,14 +1,17 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/model/connection.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class Node {
   final String id;
   final NodeType type;
   final Offset position;
   final int energyConsumed;
+  final List<ResourceType> accumulatedResources = [];
+  int nextConnectionIndex = 0;
   num hp;
   num maxHp;
   Connection? top;
@@ -28,6 +31,24 @@ class Node {
 
   bool isAt(Offset testPosition) => position == testPosition;
 
+  Connection? get nextConnection {
+    nextConnectionIndex = (nextConnectionIndex + 1) % 4;
+
+    if (nextConnectionIndex == 0) {
+      return top;
+    } else if (nextConnectionIndex == 1) {
+      return right;
+    } else if (nextConnectionIndex == 2) {
+      return bottom;
+    } else if (nextConnectionIndex == 3) {
+      return left;
+    } else {
+      return null;
+    }
+  }
+
+  void addResource(ResourceType type) => accumulatedResources.add(type);
+
   void fillConnections({
     required Connection? topNode,
     required Connection? bottomNode,
@@ -40,9 +61,54 @@ class Node {
     right = rightNode;
   }
 
-  void update(double dt) {}
+  @mustCallSuper
+  void update(double dt) {
+    _updateConnection(top, dt);
+    _updateConnection(right, dt);
+    _updateConnection(bottom, dt);
+    _updateConnection(left, dt);
 
-  void render(Renderer renderer) {}
+    if (accumulatedResources.isNotEmpty) {
+      for (int i = 0; i < 4; i++) {
+        final Connection? connection = nextConnection;
+
+        if ((connection != null) && (connection.isAvailable)) {
+          final ResourceType resourceType = accumulatedResources.removeAt(0);
+          connection.send(resourceType);
+          break;
+        }
+      }
+    }
+  }
+
+  void _updateConnection(Connection? connection, double dt) {
+    if (connection != null) {
+      connection.update(dt);
+    }
+  }
+
+  @mustCallSuper
+  void render(Renderer renderer) {
+    if (renderer.hasDebugMode) {
+      renderer.renderText(
+        text: '${accumulatedResources.length}',
+        color: Colors.yellow,
+        size: 3,
+        position: position,
+      );
+
+      _renderConnection(top, renderer);
+      _renderConnection(right, renderer);
+      _renderConnection(bottom, renderer);
+      _renderConnection(left, renderer);
+    }
+  }
+
+  void _renderConnection(Connection? connection, Renderer renderer) {
+    if (connection != null) {
+      connection.render(renderer);
+    }
+  }
 
   void repair() {
     hp = maxHp;
@@ -84,7 +150,7 @@ class Node {
   }) {
     if (connection != null) {
       renderer.connection(
-        direction: connection.directionFrom(position),
+        direction: connection.direction,
         from: position,
         to: connection.position,
         lineColor: Palette.connectionLine,

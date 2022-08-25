@@ -118,20 +118,20 @@ class Nodes {
       final JsonNode? jsonNode = match.getNode(node.position);
 
       node.fillConnections(
-        topNode: (jsonNode != null) ? _connection(jsonNode.top) : null,
-        bottomNode: (jsonNode != null) ? _connection(jsonNode.bottom) : null,
-        leftNode: (jsonNode != null) ? _connection(jsonNode.left) : null,
-        rightNode: (jsonNode != null) ? _connection(jsonNode.right) : null,
+        topNode: (jsonNode != null) ? _connection(node, jsonNode.top) : null,
+        bottomNode: (jsonNode != null) ? _connection(node, jsonNode.bottom) : null,
+        leftNode: (jsonNode != null) ? _connection(node, jsonNode.left) : null,
+        rightNode: (jsonNode != null) ? _connection(node, jsonNode.right) : null,
       );
     }
   }
 
-  Connection? _connection(JsonPosition? position) {
+  Connection? _connection(Node from, JsonPosition? position) {
     if (position != null) {
-      final Node? node = at(position.position);
+      final Node? to = at(position.position);
 
-      if (node != null) {
-        return Connection(to: node);
+      if (to != null) {
+        return Connection(from, to);
       }
     }
 

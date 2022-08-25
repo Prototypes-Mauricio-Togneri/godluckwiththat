@@ -9,6 +9,8 @@ extension RawKeyEventExtension on RawKeyEvent {
 
   bool isRight() => isKeyPressed(LogicalKeyboardKey.arrowRight) || (physicalKey == PhysicalKeyboardKey.keyD);
 
+  bool isX() => (this is RawKeyUpEvent) && (isKeyPressed(LogicalKeyboardKey.keyX) || (physicalKey == PhysicalKeyboardKey.keyX));
+
   bool isSpace() => (this is RawKeyUpEvent) && (isKeyPressed(LogicalKeyboardKey.space) || (physicalKey == PhysicalKeyboardKey.space));
 
   bool isEscape() => (this is RawKeyUpEvent) && (isKeyPressed(LogicalKeyboardKey.escape) || (physicalKey == PhysicalKeyboardKey.escape));

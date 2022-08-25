@@ -7,9 +7,8 @@ import 'package:tensionnode/types/resource_type.dart';
 class Mine extends Node {
   final ResourceType resourceType;
   num accumulatedTime = 0;
-  int output = 0;
 
-  static const int PRODUCTION_TIME = 5; // in seconds
+  static const double PRODUCTION_TIME = 5; // in seconds
 
   static const int RESOURCE1_COST = 100;
   static const int ENERGY_COST = 10;
@@ -30,8 +29,10 @@ class Mine extends Node {
 
     if (accumulatedTime >= PRODUCTION_TIME) {
       accumulatedTime = 0;
-      output = 1;
+      accumulatedResources.add(resourceType);
     }
+
+    super.update(dt);
   }
 
   @override
@@ -44,6 +45,8 @@ class Mine extends Node {
     );
 
     drawHP(renderer);
+
+    super.render(renderer);
   }
 
   static String cost() => 'Resource 1: $RESOURCE1_COST\nEnergy: $ENERGY_COST';

@@ -137,6 +137,7 @@ class HorizontalHud extends StatelessWidget {
             icon: Icons.speed,
             color: Palette.energy,
             value: state.fps,
+            width: 50,
           ),
           const Spacer(),
         ],
@@ -149,11 +150,13 @@ class ResourceIndicator extends StatelessWidget {
   final IconData icon;
   final Color color;
   final String value;
+  final double? width;
 
   const ResourceIndicator({
     required this.icon,
     required this.color,
     required this.value,
+    this.width,
   });
 
   @override
@@ -168,6 +171,7 @@ class ResourceIndicator extends StatelessWidget {
         ),
         const HBox(10),
         Container(
+          width: width,
           height: 30,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(

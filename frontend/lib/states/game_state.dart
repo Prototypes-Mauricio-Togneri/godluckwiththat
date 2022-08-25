@@ -82,6 +82,8 @@ class GameState extends BaseState {
       mapLayoutState.update();
     } else if (event.isSpace()) {
       renderer.toggleAdvanceMode();
+    } else if (event.isX()) {
+      renderer.toggleDebugMode();
     } else if (event.isEscape()) {
       if (nodeToBuild != null) {
         nodeToBuild = null;

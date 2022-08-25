@@ -26,6 +26,8 @@ class PowerPlant extends Node {
     );
 
     drawHP(renderer);
+    
+    super.render(renderer);
   }
 
   static String cost() => 'Resource 1: $RESOURCE1_COST';

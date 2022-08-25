@@ -15,4 +15,6 @@ class Constants {
   static const int WALL_ENERGY = 10;
   static const int LIGHT_TURRET_ENERGY = 50;
   static const int HEAVY_TURRET_ENERGY = 100;
+
+  static const num CONNECTION_PROCESS_TIME = 1; // in seconds
 }

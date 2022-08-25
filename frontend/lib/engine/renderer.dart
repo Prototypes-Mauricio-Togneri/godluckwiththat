@@ -6,6 +6,7 @@ import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class Renderer {
+  bool _debugMode = false;
   bool _advanceMode = false;
   final GameMap map;
   final Path _path = Path();
@@ -13,7 +14,11 @@ class Renderer {
 
   Renderer(this.map);
 
+  bool get hasDebugMode => _debugMode;
+
   void toggleAdvanceMode() => _advanceMode = !_advanceMode;
+
+  void toggleDebugMode() => _debugMode = !_debugMode;
 
   void setCanvas(Canvas newCanvas) => canvas = newCanvas;
 
@@ -240,27 +245,43 @@ class Renderer {
         color = Palette.hpLow;
       }
 
-      final TextPainter textPainter = TextPainter(
-        text: TextSpan(
-          text: '$percentage',
-          style: TextStyle(
-            color: color,
-            fontSize: 5,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        textAlign: TextAlign.center,
-        textDirection: TextDirection.ltr,
-      )..layout();
-
-      textPainter.paint(
-        canvas,
-        map.gameToReal(position).translate(
-              -textPainter.size.width / 2,
-              -textPainter.size.height / 2,
-            ),
+      renderText(
+        text: '$percentage',
+        color: color,
+        size: 5,
+        position: position,
+        weight: FontWeight.bold,
       );
     }
+  }
+
+  void renderText({
+    required String text,
+    required Color color,
+    required double size,
+    required Offset position,
+    FontWeight weight = FontWeight.normal,
+  }) {
+    final TextPainter textPainter = TextPainter(
+      text: TextSpan(
+        text: text,
+        style: TextStyle(
+          color: color,
+          fontSize: size,
+          fontWeight: weight,
+        ),
+      ),
+      textAlign: TextAlign.center,
+      textDirection: TextDirection.ltr,
+    )..layout();
+
+    textPainter.paint(
+      canvas,
+      map.gameToReal(position).translate(
+            -textPainter.size.width / 2,
+            -textPainter.size.height / 2,
+          ),
+    );
   }
 
   Path get newPath {
