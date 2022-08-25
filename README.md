@@ -3,7 +3,6 @@
 ## TODO
 Move resources through the paths
 Add functionality to add/remove paths
-Allow to add all the other type of buildings
 
 Don't render elements outside of the viewport
 Use Firebase
