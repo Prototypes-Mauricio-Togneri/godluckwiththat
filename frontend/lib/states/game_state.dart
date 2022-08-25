@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -68,9 +67,9 @@ class GameState extends BaseState {
     notify();
   }
 
-  void onUnfocus(Event e) {
+  /*void onUnfocus(Event e) {
     onMainMenu();
-  }
+  }*/
 
   void onViewerInteraction(ScaleStartDetails details) => closeMenu();
 
