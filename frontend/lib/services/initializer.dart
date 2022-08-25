@@ -1,7 +1,5 @@
-//import 'dart:html';
-
+import 'dart:html';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tensionnode/services/navigation.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -12,10 +10,9 @@ final GetIt locator = GetIt.instance;
 class Initializer {
   static Future load() async {
     WidgetsFlutterBinding.ensureInitialized();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     setPathUrlStrategy();
     locator.registerSingleton<Navigation>(Navigation());
     Palette.init();
-    //window.document.onContextMenu.listen((evt) => evt.preventDefault());
+    window.document.onContextMenu.listen((evt) => evt.preventDefault());
   }
 }
