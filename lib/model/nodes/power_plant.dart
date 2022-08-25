@@ -6,7 +6,6 @@ import 'package:tensionnode/types/node_type.dart';
 
 class PowerPlant extends Node {
   static const int RESOURCE1_COST = 200;
-  static const int ENERGY_COST = 20;
 
   PowerPlant({
     required super.position,
@@ -29,5 +28,5 @@ class PowerPlant extends Node {
     drawHP(renderer);
   }
 
-  static String cost() => 'Resource 1: $RESOURCE1_COST\nEnergy: $ENERGY_COST';
+  static String cost() => 'Resource 1: $RESOURCE1_COST';
 }

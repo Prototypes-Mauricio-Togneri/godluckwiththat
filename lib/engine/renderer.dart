@@ -288,28 +288,13 @@ class Renderer {
         drawPowerPlant(position: position, color: color);
         break;
       case NodeType.wall:
-        // TODO(momo): implement
+        drawWall(position: position, color: color);
         break;
       case NodeType.light_turret:
         drawLightTurret(position: position, color: color);
         break;
       case NodeType.heavy_turret:
-        // TODO(momo): implement
-        break;
-      case NodeType.long_range_turret:
-        // TODO(momo): implement
-        break;
-      case NodeType.ion_turret:
-        // TODO(momo): implement
-        break;
-      case NodeType.gauss_turret:
-        // TODO(momo): implement
-        break;
-      case NodeType.plasma_turret:
-        // TODO(momo): implement
-        break;
-      case NodeType.pulse_turret:
-        // TODO(momo): implement
+        drawHeavyTurret(position: position, color: color);
         break;
     }
   }
@@ -378,7 +363,43 @@ class Renderer {
     );
   }
 
+  // TODO(momo): update
+  void drawWall({
+    required Offset position,
+    required Color color,
+  }) {
+    diamondHollow(
+      position: position,
+      color: color,
+      size: map.blockSize,
+    );
+
+    diamondFilled(
+      position: position,
+      color: color,
+      size: map.blockSize / 2,
+    );
+  }
+
   void drawLightTurret({
+    required Offset position,
+    required Color color,
+  }) {
+    diamondHollow(
+      position: position,
+      color: color,
+      size: map.blockSize,
+    );
+
+    diamondFilled(
+      position: position,
+      color: color,
+      size: map.blockSize / 2,
+    );
+  }
+
+  // TODO(momo): update
+  void drawHeavyTurret({
     required Offset position,
     required Color color,
   }) {

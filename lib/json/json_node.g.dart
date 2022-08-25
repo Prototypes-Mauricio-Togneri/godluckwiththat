@@ -36,11 +36,6 @@ const _$NodeTypeEnumMap = {
   NodeType.wall: 'wall',
   NodeType.light_turret: 'light_turret',
   NodeType.heavy_turret: 'heavy_turret',
-  NodeType.long_range_turret: 'long_range_turret',
-  NodeType.ion_turret: 'ion_turret',
-  NodeType.gauss_turret: 'gauss_turret',
-  NodeType.plasma_turret: 'plasma_turret',
-  NodeType.pulse_turret: 'pulse_turret',
 };
 
 const _$ResourceTypeEnumMap = {

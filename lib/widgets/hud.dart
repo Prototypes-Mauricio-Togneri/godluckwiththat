@@ -1,8 +1,10 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/model/nodes/heavy_turret.dart';
 import 'package:tensionnode/model/nodes/light_turret.dart';
 import 'package:tensionnode/model/nodes/mine.dart';
 import 'package:tensionnode/model/nodes/power_plant.dart';
+import 'package:tensionnode/model/nodes/wall.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
 import 'package:tensionnode/states/hud_state.dart';
@@ -58,6 +60,7 @@ class VerticalHud extends StatelessWidget {
             icon: Icons.cell_tower,
             color: Colors.blueGrey,
             onPressed: () => state.onBuild(NodeType.wall),
+            tooltip: Wall.cost(),
           ),
           MenuButton(
             text: 'Light turret',
@@ -71,36 +74,7 @@ class VerticalHud extends StatelessWidget {
             icon: Icons.cell_tower,
             color: Colors.blueGrey,
             onPressed: () => state.onBuild(NodeType.heavy_turret),
-          ),
-          MenuButton(
-            text: 'Long range turret',
-            icon: Icons.cell_tower,
-            color: Colors.blueGrey,
-            onPressed: () => state.onBuild(NodeType.long_range_turret),
-          ),
-          MenuButton(
-            text: 'Ion turret',
-            icon: Icons.cell_tower,
-            color: Colors.blueGrey,
-            onPressed: () => state.onBuild(NodeType.ion_turret),
-          ),
-          MenuButton(
-            text: 'Gauss turret',
-            icon: Icons.cell_tower,
-            color: Colors.blueGrey,
-            onPressed: () => state.onBuild(NodeType.gauss_turret),
-          ),
-          MenuButton(
-            text: 'Plasma turret',
-            icon: Icons.cell_tower,
-            color: Colors.blueGrey,
-            onPressed: () => state.onBuild(NodeType.plasma_turret),
-          ),
-          MenuButton(
-            text: 'Pulse turret',
-            icon: Icons.cell_tower,
-            color: Colors.blueGrey,
-            onPressed: () => state.onBuild(NodeType.pulse_turret),
+            tooltip: HeavyTurret.cost(),
           ),
           const Spacer(),
           MenuButton(

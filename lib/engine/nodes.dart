@@ -5,10 +5,12 @@ import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
+import 'package:tensionnode/model/nodes/heavy_turret.dart';
 import 'package:tensionnode/model/nodes/light_turret.dart';
 import 'package:tensionnode/model/nodes/mine.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/nodes/power_plant.dart';
+import 'package:tensionnode/model/nodes/wall.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -24,28 +26,74 @@ class Nodes {
     required Offset position,
     required ResourceType? resourceType,
   }) {
-    if (type == NodeType.power_plant) {
-      final PowerPlant powerPlant = PowerPlant(
-        position: position,
-        hp: Constants.POWER_PLANT_MAX_HP,
-      );
-      add(powerPlant);
-    } else if (type == NodeType.mine) {
-      if (resourceType != null) {
-        final Mine mine = Mine(
-          resourceType: resourceType,
-          position: position,
-          hp: Constants.MINE_MAX_HP,
-        );
-        add(mine);
-      }
-    } else if (type == NodeType.light_turret) {
-      final LightTurret lightTurret = LightTurret(
-        position: position,
-        hp: Constants.LIGHT_TURRET_MAX_HP,
-      );
-      add(lightTurret);
+    switch (type) {
+      case NodeType.intersection:
+        // TODO(momo): implement
+        break;
+      case NodeType.mine:
+        _addMine(position: position, resourceType: resourceType);
+        break;
+      case NodeType.power_plant:
+        _addPowerPlant(position);
+        break;
+      case NodeType.wall:
+        _addWall(position);
+        break;
+      case NodeType.light_turret:
+        _addLightTurret(position);
+        break;
+      case NodeType.heavy_turret:
+        _addHeavyTurret(position);
+        break;
+
+      default:
     }
+  }
+
+  void _addMine({
+    required Offset position,
+    required ResourceType? resourceType,
+  }) {
+    if (resourceType != null) {
+      final Mine mine = Mine(
+        resourceType: resourceType,
+        position: position,
+        hp: Constants.MINE_MAX_HP,
+      );
+      add(mine);
+    }
+  }
+
+  void _addPowerPlant(Offset position) {
+    final PowerPlant powerPlant = PowerPlant(
+      position: position,
+      hp: Constants.POWER_PLANT_MAX_HP,
+    );
+    add(powerPlant);
+  }
+
+  void _addWall(Offset position) {
+    final Wall wall = Wall(
+      position: position,
+      hp: Constants.WALL_MAX_HP,
+    );
+    add(wall);
+  }
+
+  void _addLightTurret(Offset position) {
+    final LightTurret wall = LightTurret(
+      position: position,
+      hp: Constants.LIGHT_TURRET_MAX_HP,
+    );
+    add(wall);
+  }
+
+  void _addHeavyTurret(Offset position) {
+    final HeavyTurret wall = HeavyTurret(
+      position: position,
+      hp: Constants.HEAVY_TURRET_MAX_HP,
+    );
+    add(wall);
   }
 
   void destroy(Node node) {
