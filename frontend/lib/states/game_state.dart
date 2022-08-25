@@ -19,6 +19,7 @@ import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/services/toast.dart';
 import 'package:tensionnode/states/hud_state.dart';
+import 'package:tensionnode/states/map_layout_state.dart';
 import 'package:tensionnode/states/map_loaded_state.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -29,6 +30,7 @@ class GameState extends BaseState {
 
   final HudState hudState = HudState();
   final MapLoadedState mapLoadedState = MapLoadedState();
+  final MapLayoutState mapLayoutState = MapLayoutState();
 
   late final GameMap map;
   late final Renderer renderer;
@@ -68,12 +70,16 @@ class GameState extends BaseState {
   void onKeyPressed(RawKeyEvent event) {
     if (event.isUp()) {
       map.moveUp();
+      mapLayoutState.update();
     } else if (event.isDown()) {
       map.moveDown();
+      mapLayoutState.update();
     } else if (event.isLeft()) {
       map.moveLeft();
+      mapLayoutState.update();
     } else if (event.isRight()) {
       map.moveRight();
+      mapLayoutState.update();
     } else if (event.isSpace()) {
       renderer.toggleAdvanceMode();
     } else if (event.isEscape()) {

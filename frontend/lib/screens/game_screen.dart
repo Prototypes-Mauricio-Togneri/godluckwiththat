@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
 import 'package:tensionnode/states/hud_state.dart';
+import 'package:tensionnode/states/map_layout_state.dart';
 import 'package:tensionnode/states/map_loaded_state.dart';
 import 'package:tensionnode/widgets/hud.dart';
 import 'package:tensionnode/widgets/menu.dart';
@@ -116,22 +117,25 @@ class MapLayout extends StatelessWidget {
           child: LayoutBuilder(builder: (context, constraints) {
             state.map.mapLayoutSize = Size(constraints.maxWidth, constraints.maxHeight);
 
-            return InteractiveViewer(
-              transformationController: state.map.transformationController,
-              minScale: 1,
-              maxScale: state.map.maxZoom,
-              constrained: false,
-              onInteractionStart: state.onViewerInteraction,
-              child: Listener(
-                onPointerHover: state.onPointerHover,
-                child: GestureDetector(
-                  onTapUp: state.onLeftClick,
-                  onSecondaryTapUp: state.onRightClick,
-                  onTertiaryTapUp: state.onMiddleClick,
-                  child: CustomPaint(
-                    size: state.map.size,
-                    painter: MapBackgroundPainter(state),
-                    foregroundPainter: MapForegroundPainter(state),
+            return StateProvider<MapLayoutState>(
+              state: state.mapLayoutState,
+              builder: (context, mapLayoutState) => InteractiveViewer(
+                transformationController: state.map.transformationController,
+                minScale: 1,
+                maxScale: state.map.maxZoom,
+                constrained: false,
+                onInteractionStart: state.onViewerInteraction,
+                child: Listener(
+                  onPointerHover: state.onPointerHover,
+                  child: GestureDetector(
+                    onTapUp: state.onLeftClick,
+                    onSecondaryTapUp: state.onRightClick,
+                    onTertiaryTapUp: state.onMiddleClick,
+                    child: CustomPaint(
+                      size: state.map.size,
+                      painter: MapBackgroundPainter(state),
+                      foregroundPainter: MapForegroundPainter(state),
+                    ),
                   ),
                 ),
               ),
