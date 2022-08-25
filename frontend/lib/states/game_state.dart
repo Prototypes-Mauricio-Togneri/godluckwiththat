@@ -63,12 +63,6 @@ class GameState extends BaseState {
     notify();
   }
 
-  void onViewInteractionUpdate(ScaleUpdateDetails details) {
-    //final num x = transformationController.value.getRow(0)[3];
-    //final num y = transformationController.value.getRow(1)[3];
-    //print('$x, $y');
-  }
-
   void onViewerInteraction(ScaleStartDetails details) => closeMenu();
 
   void onKeyPressed(RawKeyEvent event) {
@@ -271,5 +265,21 @@ class GameState extends BaseState {
     patches.render(renderer);
     nodes.render(renderer);
     _pointerHighlight.render(renderer);
+
+    final Matrix4 matrix = Matrix4.inverted(transformationController.value);
+
+    final Rect rect = Rect.fromLTWH(
+      matrix.row0[3],
+      matrix.row1[3],
+      200,
+      100,
+    );
+
+    final Paint paint = Paint();
+    paint.color = Colors.red;
+    paint.style = PaintingStyle.stroke;
+    paint.strokeWidth = 2;
+
+    canvas.drawRect(rect, paint);
   }
 }
