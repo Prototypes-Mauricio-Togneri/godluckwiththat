@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/game_state.dart';
 import 'package:tensionnode/states/hud_state.dart';
+import 'package:tensionnode/states/map_loaded_state.dart';
 import 'package:tensionnode/widgets/hud.dart';
 import 'package:tensionnode/widgets/menu.dart';
 
@@ -91,40 +92,53 @@ class MapContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StateProvider<GameState>(
-      state: state,
-      builder: (context, state) => state.loaded
-          ? Expanded(
-              child: Container(
-                color: Palette.gridBackground,
-                child: RawKeyboardListener(
-                  autofocus: true,
-                  focusNode: FocusNode(),
-                  onKey: state.onKeyPressed,
-                  child: InteractiveViewer(
-                    transformationController: state.transformationController,
-                    minScale: 1,
-                    maxScale: state.map.maxZoom,
-                    constrained: false,
-                    onInteractionStart: state.onViewerInteraction,
-                    child: Listener(
-                      onPointerHover: state.onPointerHover,
-                      child: GestureDetector(
-                        onTapUp: state.onLeftClick,
-                        onSecondaryTapUp: state.onRightClick,
-                        onTertiaryTapUp: state.onMiddleClick,
-                        child: CustomPaint(
-                          size: state.map.size,
-                          painter: MapBackgroundPainter(state),
-                          foregroundPainter: MapForegroundPainter(state),
-                        ),
-                      ),
-                    ),
+    return StateProvider<MapLoadedState>(
+      state: state.mapLoadedState,
+      builder: (context, mapLoadedState) => mapLoadedState.loaded ? MapLayout(state) : const Empty(),
+    );
+  }
+}
+
+class MapLayout extends StatelessWidget {
+  final GameState state;
+
+  const MapLayout(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        color: Palette.gridBackground,
+        child: RawKeyboardListener(
+          autofocus: true,
+          focusNode: FocusNode(),
+          onKey: state.onKeyPressed,
+          child: LayoutBuilder(builder: (context, constraints) {
+            state.map.mapLayoutSize = Size(constraints.maxWidth, constraints.maxHeight);
+
+            return InteractiveViewer(
+              transformationController: state.transformationController,
+              minScale: 1,
+              maxScale: state.map.maxZoom,
+              constrained: false,
+              onInteractionStart: state.onViewerInteraction,
+              child: Listener(
+                onPointerHover: state.onPointerHover,
+                child: GestureDetector(
+                  onTapUp: state.onLeftClick,
+                  onSecondaryTapUp: state.onRightClick,
+                  onTertiaryTapUp: state.onMiddleClick,
+                  child: CustomPaint(
+                    size: state.map.size,
+                    painter: MapBackgroundPainter(state),
+                    foregroundPainter: MapForegroundPainter(state),
                   ),
                 ),
               ),
-            )
-          : const Empty(),
+            );
+          }),
+        ),
+      ),
     );
   }
 }
@@ -150,7 +164,7 @@ class MapForegroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) => state.renderForeground(canvas);
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
 class GameLoop extends StatefulWidget {
@@ -191,7 +205,7 @@ class _GameLoopState extends State<GameLoop> with SingleTickerProviderStateMixin
         final double current = currentTime;
         final double dt = current - previous;
 
-        if (widget.state.loaded) {
+        if (widget.state.mapLoadedState.loaded) {
           widget.state.update(dt);
         }
 

@@ -19,6 +19,7 @@ import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/services/toast.dart';
 import 'package:tensionnode/states/hud_state.dart';
+import 'package:tensionnode/states/map_loaded_state.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -28,6 +29,7 @@ class GameState extends BaseState {
   final FPS fps = FPS();
 
   final HudState hudState = HudState();
+  final MapLoadedState mapLoadedState = MapLoadedState();
 
   late final GameMap map;
   late final Renderer renderer;
@@ -35,7 +37,6 @@ class GameState extends BaseState {
   late final Patches patches;
   late final Nodes nodes;
 
-  bool loaded = false;
   bool running = true;
   MenuInfo? menuInfo;
   NodeType? nodeToBuild;
@@ -59,7 +60,7 @@ class GameState extends BaseState {
     headquarters.resource3 = match.resources.resource3;
     renderer = Renderer(map);
     map.setCenter(transformationController);
-    loaded = true;
+    mapLoadedState.setLoaded();
     notify();
   }
 
@@ -276,8 +277,8 @@ class GameState extends BaseState {
     final Rect rect = Rect.fromLTWH(
       matrix.row0[3],
       matrix.row1[3],
-      1670 / zoom,
-      930 / zoom,
+      map.mapLayoutSize.width / zoom,
+      map.mapLayoutSize.height / zoom,
     );
 
     final Paint paint = Paint();

@@ -4,8 +4,9 @@ class GameMap {
   final int numberOfBlocksHorizontal;
   final int numberOfBlocksVertical;
   final int blockSize;
+  Size mapLayoutSize = Size.zero;
 
-  const GameMap({
+  GameMap({
     required this.numberOfBlocksHorizontal,
     required this.numberOfBlocksVertical,
     required this.blockSize,
