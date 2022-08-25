@@ -24,7 +24,6 @@ import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
-  final TransformationController transformationController = TransformationController();
   final PointerHighlight _pointerHighlight = PointerHighlight();
   final FPS fps = FPS();
 
@@ -59,7 +58,7 @@ class GameState extends BaseState {
     headquarters.resource2 = match.resources.resource2;
     headquarters.resource3 = match.resources.resource3;
     renderer = Renderer(map);
-    map.setCenter(transformationController);
+    map.setCenter();
     mapLoadedState.setLoaded();
     notify();
   }
@@ -67,16 +66,14 @@ class GameState extends BaseState {
   void onViewerInteraction(ScaleStartDetails details) => closeMenu();
 
   void onKeyPressed(RawKeyEvent event) {
-    final double zoom = map.maxZoom - transformationController.value.getMaxScaleOnAxis() + 1;
-
     if (event.isUp()) {
-      transformationController.value.translate(0, zoom);
+      map.moveUp();
     } else if (event.isDown()) {
-      transformationController.value.translate(0, -zoom);
+      map.moveDown();
     } else if (event.isLeft()) {
-      transformationController.value.translate(zoom);
+      map.moveLeft();
     } else if (event.isRight()) {
-      transformationController.value.translate(-zoom);
+      map.moveRight();
     } else if (event.isSpace()) {
       renderer.toggleAdvanceMode();
     } else if (event.isEscape()) {
@@ -250,7 +247,7 @@ class GameState extends BaseState {
   }
 
   void renderBackground(Canvas canvas, Size size) {
-    final zoom = transformationController.value.getMaxScaleOnAxis();
+    final double zoom = map.currentZoom;
 
     if (zoom >= 3) {
       for (int i = 1; i < map.dimensions.width; i++) {
@@ -271,21 +268,11 @@ class GameState extends BaseState {
     nodes.render(renderer);
     _pointerHighlight.render(renderer);
 
-    final Matrix4 matrix = Matrix4.inverted(transformationController.value);
-    final zoom = transformationController.value.getMaxScaleOnAxis();
-
-    final Rect rect = Rect.fromLTWH(
-      matrix.row0[3],
-      matrix.row1[3],
-      map.mapLayoutSize.width / zoom,
-      map.mapLayoutSize.height / zoom,
-    );
-
     final Paint paint = Paint();
     paint.color = Colors.red;
     paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 2;
 
-    canvas.drawRect(rect, paint);
+    canvas.drawRect(map.viewport, paint);
   }
 }

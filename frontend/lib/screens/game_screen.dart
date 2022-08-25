@@ -117,7 +117,7 @@ class MapLayout extends StatelessWidget {
             state.map.mapLayoutSize = Size(constraints.maxWidth, constraints.maxHeight);
 
             return InteractiveViewer(
-              transformationController: state.transformationController,
+              transformationController: state.map.transformationController,
               minScale: 1,
               maxScale: state.map.maxZoom,
               constrained: false,

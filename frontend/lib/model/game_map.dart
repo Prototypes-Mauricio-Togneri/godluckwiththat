@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GameMap {
+  final TransformationController transformationController = TransformationController();
   final int numberOfBlocksHorizontal;
   final int numberOfBlocksVertical;
   final int blockSize;
@@ -24,7 +25,21 @@ class GameMap {
         (blockSize * dimensions.height).toDouble(),
       );
 
-  void setCenter(TransformationController transformationController) {
+  double get currentZoom => transformationController.value.getMaxScaleOnAxis();
+
+  Rect get viewport {
+    final Matrix4 matrix = Matrix4.inverted(transformationController.value);
+    final double zoom = currentZoom;
+
+    return Rect.fromLTWH(
+      matrix.row0[3],
+      matrix.row1[3],
+      mapLayoutSize.width / zoom,
+      mapLayoutSize.height / zoom,
+    );
+  }
+
+  void setCenter() {
     const double zoom = 5;
     final Size screenSize = WidgetsBinding.instance.window.physicalSize;
     final double xTranslate = (dimensions.width * blockSize * zoom / 2) - (screenSize.width / 2) + 170;
@@ -35,6 +50,26 @@ class GameMap {
     transformationController.value.setEntry(2, 2, zoom);
     transformationController.value.setEntry(0, 3, -xTranslate);
     transformationController.value.setEntry(1, 3, -yTranslate);
+  }
+
+  void moveUp() {
+    final double delta = maxZoom - currentZoom + 1;
+    transformationController.value.translate(0, delta);
+  }
+
+  void moveDown() {
+    final double delta = maxZoom - currentZoom + 1;
+    transformationController.value.translate(0, -delta);
+  }
+
+  void moveLeft() {
+    final double delta = maxZoom - currentZoom + 1;
+    transformationController.value.translate(delta);
+  }
+
+  void moveRight() {
+    final double delta = maxZoom - currentZoom + 1;
+    transformationController.value.translate(-delta);
   }
 
   Offset gameToReal(Offset position) => Offset(
