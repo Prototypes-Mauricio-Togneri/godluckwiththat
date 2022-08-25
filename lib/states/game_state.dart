@@ -130,16 +130,8 @@ class GameState extends BaseState {
           realPosition: details.globalPosition,
           gamePosition: position,
         );
-      } else {
-        if (menuInfo != null) {
-          closeMenu();
-        } else {
-          menuInfo = MenuInfo.empty(
-            patch: patches.at(position),
-            realPosition: details.globalPosition,
-            gamePosition: position,
-          );
-        }
+      } else if (menuInfo != null) {
+        closeMenu();
       }
 
       notify();

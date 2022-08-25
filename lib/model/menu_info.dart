@@ -1,24 +1,19 @@
 import 'package:flutter/rendering.dart';
 import 'package:tensionnode/model/nodes/node.dart';
-import 'package:tensionnode/model/patch.dart';
 import 'package:tensionnode/types/menu_type.dart';
 
 class MenuInfo {
   final MenuType type;
   final Node? node;
-  final Patch? patch;
   final Offset? realPosition;
   final Offset? gamePosition;
 
   MenuInfo._({
     required this.type,
     this.node,
-    this.patch,
     this.realPosition,
     this.gamePosition,
   });
-
-  bool get hasPatch => patch != null;
 
   factory MenuInfo.node({
     required Node node,
@@ -28,18 +23,6 @@ class MenuInfo {
       MenuInfo._(
         type: MenuType.node,
         node: node,
-        realPosition: realPosition,
-        gamePosition: gamePosition,
-      );
-
-  factory MenuInfo.empty({
-    required Patch? patch,
-    required Offset realPosition,
-    required Offset gamePosition,
-  }) =>
-      MenuInfo._(
-        type: MenuType.empty,
-        patch: patch,
         realPosition: realPosition,
         gamePosition: gamePosition,
       );
