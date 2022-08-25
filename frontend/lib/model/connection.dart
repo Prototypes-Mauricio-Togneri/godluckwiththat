@@ -54,31 +54,33 @@ class Connection {
   }
 
   void render(Renderer renderer) {
-    Offset middlePosition = _from.position;
+    if (_resourceType != null) {
+      Offset middlePosition = _from.position;
 
-    switch (direction) {
-      case Direction.up:
-        middlePosition = middlePosition.translate(0, -0.5);
-        break;
-      case Direction.down:
-        middlePosition = middlePosition.translate(0, 0.5);
-        break;
-      case Direction.left:
-        middlePosition = middlePosition.translate(-0.5, 0);
-        break;
-      case Direction.right:
-        middlePosition = middlePosition.translate(0.5, 0);
-        break;
+      switch (direction) {
+        case Direction.up:
+          middlePosition = middlePosition.translate(0, -0.5);
+          break;
+        case Direction.down:
+          middlePosition = middlePosition.translate(0, 0.5);
+          break;
+        case Direction.left:
+          middlePosition = middlePosition.translate(-0.5, 0);
+          break;
+        case Direction.right:
+          middlePosition = middlePosition.translate(0.5, 0);
+          break;
+      }
+
+      final String text = (_resourceType != null) ? (_resourceType!.index + 1).toString() : '0';
+
+      renderer.renderText(
+        text: text,
+        color: Colors.pink,
+        size: 5,
+        position: middlePosition,
+        weight: FontWeight.bold,
+      );
     }
-
-    final String text = (_resourceType != null) ? (_resourceType!.index + 1).toString() : '0';
-
-    renderer.renderText(
-      text: text,
-      color: Colors.pink,
-      size: 3,
-      position: middlePosition,
-      weight: FontWeight.bold,
-    );
   }
 }

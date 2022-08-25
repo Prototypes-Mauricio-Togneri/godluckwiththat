@@ -126,6 +126,10 @@
             "position": [
                 -9,
                 -5
+            ],
+            "right": [
+                -8,
+                -5
             ]
         },
         {
@@ -147,6 +151,10 @@
             "resource": "resource1",
             "position": [
                 -9,
+                -4
+            ],
+            "right": [
+                -8,
                 -4
             ]
         },
@@ -264,6 +272,66 @@
             "position": [
                 2,
                 -3
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                -8,
+                -5
+            ],
+            "bottom": [
+                -8,
+                -4
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                -8,
+                -4
+            ],
+            "bottom": [
+                -8,
+                -3
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                -8,
+                -3
+            ],
+            "bottom": [
+                -8,
+                -2
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                -8,
+                -2
+            ],
+            "bottom": [
+                -8,
+                -1
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                -8,
+                -1
+            ],
+            "bottom": [
+                -8,
+                0
             ]
         },
         {

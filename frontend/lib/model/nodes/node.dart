@@ -90,12 +90,15 @@ class Node {
   @mustCallSuper
   void render(Renderer renderer) {
     if (renderer.hasDebugMode) {
-      renderer.renderText(
-        text: '${accumulatedResources.length}',
-        color: Colors.yellow,
-        size: 3,
-        position: position,
-      );
+      if (accumulatedResources.isNotEmpty) {
+        renderer.renderText(
+          text: '${accumulatedResources.length}',
+          color: Colors.yellow,
+          size: 3,
+          position: position,
+          weight: FontWeight.bold,
+        );
+      }
 
       _renderConnection(top, renderer);
       _renderConnection(right, renderer);
