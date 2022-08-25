@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base href="/">
+
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="Tension Node">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="tension node">
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyA2A6WG6fxumwwrKxOKCYzKZ-bmTkfHuGc",
+            authDomain: "tensionnode.firebaseapp.com",
+            projectId: "tensionnode",
+            storageBucket: "tensionnode.appspot.com",
+            messagingSenderId: "376547971749",
+            appId: "1:376547971749:web:d0e30debf292547050f34c",
+            measurementId: "G-6PG181VGKW"
+        }
+
+        firebase.initializeApp(firebaseConfig)
+    </script>
+
+    <title>Tension Node</title>
+    <link rel="manifest" href="manifest.json">
+
+    <style>
+        html {
+            background-color: black;
+        }
+
+        .lds-dual-ring {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top: calc(50% - 20px);
+            left: calc(50% - 20px);
+        }
+
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 6px solid #fff;
+            border-color: #fff transparent #fff transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <script>
+        var serviceWorkerVersion = '494051994';
+    </script>
+    <script src="flutter.js" defer></script>
+
+</head>
+
+<body>
+
+    <div id="loading" class="lds-dual-ring"></div>
+
+    <script>
+        window.addEventListener('load', function (ev) {
+            _flutter.loader.loadEntrypoint({
+                serviceWorker: {
+                    serviceWorkerVersion: serviceWorkerVersion,
+                }
+            }).then(function (engineInitializer) {
+                return engineInitializer.initializeEngine();
+            }).then(function (appRunner) {
+                return appRunner.runApp();
+            });
+        });
+    </script>
+</body>
+
+</html>

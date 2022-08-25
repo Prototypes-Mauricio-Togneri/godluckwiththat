@@ -1,8 +1,11 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/build/build_version.dart';
 import 'package:tensionnode/dialog/base_dialog.dart';
 import 'package:tensionnode/extensions/raw_key_event_extension.dart';
 import 'package:tensionnode/services/navigation.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
 class MainMenu extends StatelessWidget {
@@ -73,6 +76,14 @@ class MainMenu extends StatelessWidget {
                   icon: Icons.settings,
                   color: Palette.blue,
                   onPressed: _onSettings,
+                ),
+                const VBox(10),
+                const Center(
+                  child: Label(
+                    text: 'v$BUILD_VERSION',
+                    color: Palette.white,
+                    size: 12,
+                  ),
                 ),
               ],
             ),

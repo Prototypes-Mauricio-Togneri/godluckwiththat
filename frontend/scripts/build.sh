@@ -6,11 +6,11 @@ flutter clean
 dart lib/build/generate_version.dart
 flutter build web -t lib/main/main.dart --web-renderer canvaskit
 
-OUTPUT="../tensionnode-website/public"
+OUTPUT="../website/public"
 rm -r ${OUTPUT}
 mkdir ${OUTPUT}
 cp -r build/web/** ${OUTPUT}
 
-cd ../tensionnode-website
+cd ../website
 firebase deploy --only hosting
-cd ../tensionnode
+cd ../frontend
