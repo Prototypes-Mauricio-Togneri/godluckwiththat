@@ -234,10 +234,6 @@ class GameState extends BaseState {
 
   void update(double dt) {
     if (running) {
-      headquarters.resource1 += dt * 10;
-      headquarters.resource2 += dt * 5;
-      headquarters.resource3 += dt * 2;
-
       nodes.update(dt);
 
       Delayed.post(notify);
