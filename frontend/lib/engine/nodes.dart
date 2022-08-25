@@ -4,6 +4,7 @@ import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
+import 'package:tensionnode/model/connection.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/heavy_turret.dart';
 import 'package:tensionnode/model/nodes/light_turret.dart';
@@ -117,20 +118,24 @@ class Nodes {
       final JsonNode? jsonNode = match.getNode(node.position);
 
       node.fillConnections(
-        topNode: (jsonNode != null) ? _at(jsonNode.top) : null,
-        bottomNode: (jsonNode != null) ? _at(jsonNode.bottom) : null,
-        leftNode: (jsonNode != null) ? _at(jsonNode.left) : null,
-        rightNode: (jsonNode != null) ? _at(jsonNode.right) : null,
+        topNode: (jsonNode != null) ? _connection(jsonNode.top) : null,
+        bottomNode: (jsonNode != null) ? _connection(jsonNode.bottom) : null,
+        leftNode: (jsonNode != null) ? _connection(jsonNode.left) : null,
+        rightNode: (jsonNode != null) ? _connection(jsonNode.right) : null,
       );
     }
   }
 
-  Node? _at(JsonPosition? position) {
+  Connection? _connection(JsonPosition? position) {
     if (position != null) {
-      return at(position.position);
-    } else {
-      return null;
+      final Node? node = at(position.position);
+
+      if (node != null) {
+        return Connection(to: node);
+      }
     }
+
+    return null;
   }
 
   Node? at(Offset position) {
