@@ -249,14 +249,18 @@ class GameState extends BaseState {
   }
 
   void renderBackground(Canvas canvas, Size size) {
-    for (int i = 1; i < map.dimensions.width; i++) {
-      final double x = (i * map.blockSize).toDouble();
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), Palette.gridPaint);
-    }
+    final zoom = transformationController.value.getMaxScaleOnAxis();
 
-    for (int i = 1; i < map.dimensions.height; i++) {
-      final double y = (i * map.blockSize).toDouble();
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), Palette.gridPaint);
+    if (zoom >= 3) {
+      for (int i = 1; i < map.dimensions.width; i++) {
+        final double x = (i * map.blockSize).toDouble();
+        canvas.drawLine(Offset(x, 0), Offset(x, size.height), Palette.gridPaint);
+      }
+
+      for (int i = 1; i < map.dimensions.height; i++) {
+        final double y = (i * map.blockSize).toDouble();
+        canvas.drawLine(Offset(0, y), Offset(size.width, y), Palette.gridPaint);
+      }
     }
   }
 
