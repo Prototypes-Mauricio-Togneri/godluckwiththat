@@ -98,6 +98,9 @@ class Nodes {
 
   void destroy(Node node) {
     _nodes.remove(node);
+
+    energyConsumed = getEnergyConsumed();
+    energyProduced = getEnergyProduced();
   }
 
   T add<T extends Node>(T element) {
