@@ -106,6 +106,7 @@ class MapContainer extends StatelessWidget {
                     minScale: 1,
                     maxScale: state.map.maxZoom,
                     constrained: false,
+                    onInteractionUpdate: state.onViewInteractionUpdate,
                     onInteractionStart: state.onViewerInteraction,
                     child: Listener(
                       onPointerHover: state.onPointerHover,

@@ -63,10 +63,16 @@ class GameState extends BaseState {
     notify();
   }
 
+  void onViewInteractionUpdate(ScaleUpdateDetails details) {
+    //final num x = transformationController.value.getRow(0)[3];
+    //final num y = transformationController.value.getRow(1)[3];
+    //print('$x, $y');
+  }
+
   void onViewerInteraction(ScaleStartDetails details) => closeMenu();
 
   void onKeyPressed(RawKeyEvent event) {
-    final double zoom = map.maxZoom - transformationController.value.getRow(0)[0] + 1;
+    final double zoom = map.maxZoom - transformationController.value.getMaxScaleOnAxis() + 1;
 
     if (event.isUp()) {
       transformationController.value.translate(0, zoom);
