@@ -271,12 +271,13 @@ class GameState extends BaseState {
     _pointerHighlight.render(renderer);
 
     final Matrix4 matrix = Matrix4.inverted(transformationController.value);
+    final zoom = transformationController.value.getMaxScaleOnAxis();
 
     final Rect rect = Rect.fromLTWH(
       matrix.row0[3],
       matrix.row1[3],
-      200,
-      100,
+      1670 / zoom,
+      930 / zoom,
     );
 
     final Paint paint = Paint();
