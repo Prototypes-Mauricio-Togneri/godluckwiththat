@@ -273,12 +273,5 @@ class GameState extends BaseState {
     patches.render(renderer);
     nodes.render(renderer);
     _pointerHighlight.render(renderer);
-
-    final Paint paint = Paint();
-    paint.color = Colors.red;
-    paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 2;
-
-    canvas.drawRect(map.viewport, paint);
   }
 }
