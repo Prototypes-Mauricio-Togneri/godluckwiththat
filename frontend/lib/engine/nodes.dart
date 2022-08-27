@@ -106,6 +106,7 @@ class Nodes {
   }) {
     if (resourceType != null) {
       final Mine mine = Mine(
+        headquarters: headquarters,
         resourceType: resourceType,
         position: position,
         hp: Constants.MINE_MAX_HP,

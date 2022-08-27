@@ -8,6 +8,7 @@ import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/json/json_resources.dart';
 import 'package:tensionnode/model/game_map.dart';
+import 'package:tensionnode/model/nodes/headquarters.dart';
 
 part 'json_match.g.dart';
 
@@ -56,11 +57,17 @@ class JsonMatch {
     return result;
   }
 
-  Nodes getNodes() {
+  Headquarters headquarters() {
+    final JsonNode? node = getNode(Offset.zero);
+
+    return node!.getNode(null) as Headquarters;
+  }
+
+  Nodes getNodes(Headquarters headquarters) {
     final Nodes result = Nodes();
 
     for (final JsonNode node in nodes) {
-      result.add(node.getNode());
+      result.add(node.getNode(headquarters));
     }
 
     return result;

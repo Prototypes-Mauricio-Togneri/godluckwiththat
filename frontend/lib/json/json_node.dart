@@ -51,7 +51,7 @@ class JsonNode {
     required this.right,
   });
 
-  Node getNode() {
+  Node getNode(Headquarters? headquarters) {
     switch (type) {
       case NodeType.headquarters:
         return Headquarters(
@@ -60,6 +60,7 @@ class JsonNode {
         );
       case NodeType.mine:
         return Mine(
+          headquarters: headquarters!,
           position: position.position,
           hp: hp,
           resourceType: resource!,

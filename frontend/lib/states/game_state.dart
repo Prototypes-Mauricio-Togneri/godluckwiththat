@@ -54,9 +54,9 @@ class GameState extends BaseState {
     final JsonMatch match = await Loader.match(Assets.MAPS_MAP1);
     map = match.getMap();
     patches = match.getPatches();
-    nodes = match.getNodes();
+    headquarters = match.headquarters();
+    nodes = match.getNodes(headquarters);
     nodes.fillConnections(match);
-    headquarters = nodes.headquarters;
     headquarters.resource1 = match.resources.resource1;
     headquarters.resource2 = match.resources.resource2;
     headquarters.resource3 = match.resources.resource3;

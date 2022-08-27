@@ -1,10 +1,12 @@
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/renderer.dart';
+import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Mine extends Node {
+  final Headquarters headquarters;
   final ResourceType resourceType;
   num accumulatedTime = 0;
 
@@ -14,6 +16,7 @@ class Mine extends Node {
   static const int ENERGY_COST = 10;
 
   Mine({
+    required this.headquarters,
     required this.resourceType,
     required super.position,
     required super.hp,
@@ -29,7 +32,8 @@ class Mine extends Node {
 
     if (accumulatedTime >= PRODUCTION_TIME) {
       accumulatedTime = 0;
-      accumulatedResources.add(resourceType);
+      //accumulatedResources.add(resourceType);
+      headquarters.addResource(resourceType);
     }
 
     super.update(dt);
