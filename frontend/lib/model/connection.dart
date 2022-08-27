@@ -36,6 +36,8 @@ class Connection {
     }
   }
 
+  bool goesTo(Node node) => _to == node;
+
   void send(ResourceType type) {
     _accumulatedTime = 0;
     _resourceType = type;

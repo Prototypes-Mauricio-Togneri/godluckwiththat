@@ -49,6 +49,18 @@ class Node {
 
   void addResource(ResourceType type) => accumulatedResources.add(type);
 
+  void removeConnectionTo(Node node) {
+    if ((top != null) && top!.goesTo(node)) {
+      top = null;
+    } else if ((bottom != null) && bottom!.goesTo(node)) {
+      bottom = null;
+    } else if ((right != null) && right!.goesTo(node)) {
+      right = null;
+    } else if ((left != null) && left!.goesTo(node)) {
+      left = null;
+    }
+  }
+
   void fillConnections({
     required Connection? topNode,
     required Connection? bottomNode,

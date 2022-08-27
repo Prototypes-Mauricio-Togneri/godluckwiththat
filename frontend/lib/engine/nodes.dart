@@ -100,6 +100,10 @@ class Nodes {
   void destroy(Node node) {
     _nodes.remove(node);
 
+    for (final Node current in _nodes) {
+      current.removeConnectionTo(node);
+    }
+
     energyConsumed = getEnergyConsumed();
     energyProduced = getEnergyProduced();
   }
