@@ -60,14 +60,10 @@ class Connection {
           break;
       }
 
-      final String text = (_resourceType != null) ? (_resourceType!.index + 1).toString() : '0';
-
-      renderer.renderText(
-        text: text,
-        color: Colors.pink,
-        size: 5,
+      renderer.diamondFilled(
         position: middlePosition,
-        weight: FontWeight.bold,
+        color: _resourceType!.color,
+        size: renderer.map.blockSize / 5,
       );
     }
   }
