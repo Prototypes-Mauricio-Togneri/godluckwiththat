@@ -63,7 +63,7 @@ class Connection {
       renderer.diamondFilled(
         position: middlePosition,
         color: _resourceType!.color,
-        size: renderer.map.blockSize / 5,
+        size: renderer.map.blockSize / 4,
       );
     }
   }

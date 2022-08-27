@@ -159,11 +159,11 @@ class Nodes {
   }
 
   void destroy(Node node) {
-    _nodes.remove(node);
-
     for (final Node current in _nodes) {
       current.removeConnectionTo(node);
     }
+
+    _nodes.remove(node);
 
     energyConsumed = getEnergyConsumed();
     energyProduced = getEnergyProduced();

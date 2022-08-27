@@ -63,6 +63,12 @@ class NodeMenu extends StatelessWidget {
           ),
           const VBox(10),
           Label(
+            text: 'Connected: ${node.connectionsTo}',
+            align: TextAlign.center,
+            size: 12,
+          ),
+          const VBox(10),
+          Label(
             text: 'HP: ${node.hp} / ${node.maxHp}',
             align: TextAlign.center,
             size: 12,

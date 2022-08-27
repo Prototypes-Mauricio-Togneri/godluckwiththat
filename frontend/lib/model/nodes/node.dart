@@ -51,6 +51,28 @@ class Node {
     }
   }
 
+  String get connectionsTo {
+    String text = '';
+
+    if (top != null) {
+      text += '\ntop: ${top!.position.dx},${top!.position.dy}';
+    }
+
+    if (bottom != null) {
+      text += '\nbottom: ${bottom!.position.dx},${bottom!.position.dy}';
+    }
+
+    if (right != null) {
+      text += '\nright: ${right!.position.dx},${right!.position.dy}';
+    }
+
+    if (left != null) {
+      text += '\nleft: ${left!.position.dx},${left!.position.dy}';
+    }
+
+    return text;
+  }
+
   void connectTo(Node node) {
     final Direction direction = position.directionTo(node.position);
 
