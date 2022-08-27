@@ -8,6 +8,7 @@ import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/model/connection.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/heavy_turret.dart';
+import 'package:tensionnode/model/nodes/intersection.dart';
 import 'package:tensionnode/model/nodes/light_turret.dart';
 import 'package:tensionnode/model/nodes/mine.dart';
 import 'package:tensionnode/model/nodes/node.dart';
@@ -53,10 +54,50 @@ class Nodes {
     required Offset to,
   }) {
     if (from.isAlignedWith(to)) {
+      Node? previousNode = at(Offset(from.dx, from.dy));
+
+      if (from.sameX(to)) {
+        final int increment = from.yIncrement(to);
+        final int steps = from.yDiff(to);
+        int distance = increment;
+
+        for (int i = 0; i < steps; i++) {
+          final Offset position = Offset(from.dx, from.dy + distance);
+          distance += increment;
+
+          final Node newNode = _addIntersection(position);
+          previousNode!.connectTo(newNode);
+          previousNode = newNode;
+        }
+      } else {
+        final int increment = from.xIncrement(to);
+        final int steps = from.xDiff(to);
+        int distance = increment;
+
+        for (int i = 0; i < steps; i++) {
+          final Offset position = Offset(from.dx + distance, from.dy);
+          distance += increment;
+
+          final Node newNode = _addIntersection(position);
+          previousNode!.connectTo(newNode);
+          previousNode = newNode;
+        }
+      }
+
       return true;
     } else {
       return false;
     }
+  }
+
+  Node _addIntersection(Offset position) {
+    final Intersection intersection = Intersection(
+      position: position,
+      hp: Constants.INTERSECTION_MAX_HP,
+    );
+    add(intersection);
+
+    return intersection;
   }
 
   bool _addMine({

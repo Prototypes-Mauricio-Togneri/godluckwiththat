@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/renderer.dart';
+import 'package:tensionnode/extensions/offset_extension.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -19,22 +20,7 @@ class Connection {
 
   bool get isBusy => _resourceType != null;
 
-  Direction get direction {
-    final num x = _from.position.dx - _to.position.dx;
-    final num y = _from.position.dy - _to.position.dy;
-
-    if ((x == 0) && (y > 0)) {
-      return Direction.up;
-    } else if ((x == 0) && (y < 0)) {
-      return Direction.down;
-    } else if ((x > 0) && (y == 0)) {
-      return Direction.left;
-    } else if ((x < 0) && (y == 0)) {
-      return Direction.right;
-    } else {
-      throw Error();
-    }
-  }
+  Direction get direction => _from.position.directionTo(_to.position);
 
   bool goesTo(Node node) => _to == node;
 

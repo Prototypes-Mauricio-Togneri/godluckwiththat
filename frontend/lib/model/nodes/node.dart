@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tensionnode/engine/renderer.dart';
+import 'package:tensionnode/extensions/offset_extension.dart';
 import 'package:tensionnode/model/connection.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -46,6 +48,25 @@ class Node {
       return left;
     } else {
       return null;
+    }
+  }
+
+  void connectTo(Node node) {
+    final Direction direction = position.directionTo(node.position);
+
+    switch (direction) {
+      case Direction.up:
+        top = Connection(this, node);
+        break;
+      case Direction.down:
+        bottom = Connection(this, node);
+        break;
+      case Direction.left:
+        left = Connection(this, node);
+        break;
+      case Direction.right:
+        right = Connection(this, node);
+        break;
     }
   }
 
