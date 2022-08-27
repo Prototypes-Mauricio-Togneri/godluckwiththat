@@ -2,6 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
+import 'package:tensionnode/extensions/offset_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/model/connection.dart';
@@ -22,36 +23,43 @@ class Nodes {
 
   Headquarters get headquarters => at(Offset.zero)! as Headquarters;
 
-  void create({
+  bool create({
     required NodeType type,
     required Offset position,
+    required Offset? positionFrom,
     required ResourceType? resourceType,
   }) {
     switch (type) {
       case NodeType.intersection:
-        // TODO(momo): implement
-        break;
+        return _addPath(from: positionFrom!, to: position);
       case NodeType.mine:
-        _addMine(position: position, resourceType: resourceType);
-        break;
+        return _addMine(position: position, resourceType: resourceType);
       case NodeType.power_plant:
-        _addPowerPlant(position);
-        break;
+        return _addPowerPlant(position);
       case NodeType.wall:
-        _addWall(position);
-        break;
+        return _addWall(position);
       case NodeType.light_turret:
-        _addLightTurret(position);
-        break;
+        return _addLightTurret(position);
       case NodeType.heavy_turret:
-        _addHeavyTurret(position);
-        break;
+        return _addHeavyTurret(position);
 
       default:
+        return false;
     }
   }
 
-  void _addMine({
+  bool _addPath({
+    required Offset from,
+    required Offset to,
+  }) {
+    if (from.isAlignedWith(to)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool _addMine({
     required Offset position,
     required ResourceType? resourceType,
   }) {
@@ -62,39 +70,51 @@ class Nodes {
         hp: Constants.MINE_MAX_HP,
       );
       add(mine);
+
+      return true;
+    } else {
+      return false;
     }
   }
 
-  void _addPowerPlant(Offset position) {
+  bool _addPowerPlant(Offset position) {
     final PowerPlant powerPlant = PowerPlant(
       position: position,
       hp: Constants.POWER_PLANT_MAX_HP,
     );
     add(powerPlant);
+
+    return true;
   }
 
-  void _addWall(Offset position) {
+  bool _addWall(Offset position) {
     final Wall wall = Wall(
       position: position,
       hp: Constants.WALL_MAX_HP,
     );
     add(wall);
+
+    return true;
   }
 
-  void _addLightTurret(Offset position) {
+  bool _addLightTurret(Offset position) {
     final LightTurret wall = LightTurret(
       position: position,
       hp: Constants.LIGHT_TURRET_MAX_HP,
     );
     add(wall);
+
+    return true;
   }
 
-  void _addHeavyTurret(Offset position) {
+  bool _addHeavyTurret(Offset position) {
     final HeavyTurret wall = HeavyTurret(
       position: position,
       hp: Constants.HEAVY_TURRET_MAX_HP,
     );
     add(wall);
+
+    return true;
   }
 
   void destroy(Node node) {

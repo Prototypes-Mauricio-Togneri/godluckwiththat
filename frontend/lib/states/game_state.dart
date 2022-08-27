@@ -41,6 +41,7 @@ class GameState extends BaseState {
   bool running = true;
   MenuInfo? menuInfo;
   NodeType? nodeToBuild;
+  Offset? positionFrom;
 
   num get energyProduced => nodes.energyProduced;
 
@@ -102,7 +103,8 @@ class GameState extends BaseState {
 
   void _updatePointerHover(Offset position) {
     _pointerHighlight.update(
-      newPosition: position,
+      newPositionTo: position,
+      newPositionFrom: positionFrom,
       newNodeType: nodeToBuild,
     );
     notify();
@@ -115,11 +117,16 @@ class GameState extends BaseState {
     if (nodeToBuild != null) {
       final Patch? patch = patches.at(position);
 
-      createNode(
+      final bool nodeCreated = createNode(
         type: nodeToBuild!,
         position: position,
+        positionFrom: positionFrom,
         resourceType: patch?.type,
       );
+
+      if (nodeCreated && (nodeToBuild == NodeType.intersection)) {
+        positionFrom = position;
+      }
     } else {
       if (nodeClicked != null) {
         menuInfo = MenuInfo.node(
@@ -176,6 +183,13 @@ class GameState extends BaseState {
     }
   }
 
+  void onStartConnection(Node node) {
+    closeMenu();
+    nodeToBuild = NodeType.intersection;
+    positionFrom = node.position;
+    notify();
+  }
+
   void onRepair(Node node) {
     node.repair();
     closeMenu();
@@ -195,16 +209,18 @@ class GameState extends BaseState {
     closeMenu();
   }
 
-  void createNode({
+  bool createNode({
     required NodeType type,
     required Offset position,
-    ResourceType? resourceType,
+    required Offset? positionFrom,
+    required ResourceType? resourceType,
   }) {
     closeMenu();
 
-    nodes.create(
+    return nodes.create(
       type: type,
       position: position,
+      positionFrom: positionFrom,
       resourceType: resourceType,
     );
   }

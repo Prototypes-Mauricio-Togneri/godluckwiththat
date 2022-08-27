@@ -147,6 +147,23 @@ class Renderer {
   }) =>
       canvas.drawCircle(position, size.toDouble(), paint);
 
+  void drawLine({
+    required Offset positionFrom,
+    required Offset positionTo,
+    required Color color,
+  }) {
+    final Paint paintLine = Palette.connectionBasicPaint;
+    paintLine.color = color;
+
+    final Path pathLine = newPath;
+    pathLine.line(
+      from: map.gameToReal(positionFrom),
+      to: map.gameToReal(positionTo),
+    );
+
+    canvas.drawPath(pathLine, paintLine);
+  }
+
   void connection({
     required Direction direction,
     required Offset from,

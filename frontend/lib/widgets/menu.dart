@@ -76,6 +76,13 @@ class NodeMenu extends StatelessWidget {
                 size: 12,
               ),
             ),
+          if (node.canHaveConnection)
+            MenuButton(
+              text: 'Connect',
+              icon: Icons.linear_scale_sharp,
+              color: Palette.blue,
+              onPressed: () => state.onStartConnection(node),
+            ),
           if (node.needsRepair)
             MenuButton(
               text: 'Repair',

@@ -29,6 +29,8 @@ class Node {
 
   bool get needsRepair => hp < maxHp;
 
+  bool get canHaveConnection => (type == NodeType.intersection) || (type == NodeType.mine);
+
   bool isAt(Offset testPosition) => position == testPosition;
 
   Connection? get nextConnection {
