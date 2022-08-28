@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/extensions/offset_extension.dart';
+import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/model/connection.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/direction.dart';
@@ -218,4 +219,17 @@ class Node {
       );
     }
   }
+
+  ResourceType? getResourceType() => null;
+
+  JsonNode get json => JsonNode(
+        type: type,
+        hp: hp,
+        resource: getResourceType(),
+        position: position.json,
+        top: top?.position.json,
+        bottom: bottom?.position.json,
+        left: left?.position.json,
+        right: right?.position.json,
+      );
 }

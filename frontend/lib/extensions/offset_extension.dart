@@ -1,7 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/types/direction.dart';
 
 extension OffsetExtension on Offset {
+  JsonPosition get json => [dx.toInt(), dy.toInt()];
+
   bool isAlignedWith(Offset offset) => (offset != this) && ((offset.dx == dx) || (offset.dy == dy));
 
   bool sameX(Offset offset) => offset.dx == dx;

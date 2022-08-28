@@ -1,5 +1,6 @@
 import 'package:flutter/rendering.dart';
 import 'package:tensionnode/engine/renderer.dart';
+import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/model/patch.dart';
 
 class Patches {
@@ -22,4 +23,6 @@ class Patches {
       patch.render(renderer);
     }
   }
+
+  List<JsonPatch> get json => _patches.map((patch) => patch.json).toList();
 }

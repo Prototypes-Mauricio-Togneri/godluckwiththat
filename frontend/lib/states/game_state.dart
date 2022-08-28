@@ -8,7 +8,9 @@ import 'package:tensionnode/engine/nodes.dart';
 import 'package:tensionnode/engine/patches.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/extensions/raw_key_event_extension.dart';
+import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_match.dart';
+import 'package:tensionnode/json/json_resources.dart';
 import 'package:tensionnode/model/game_map.dart';
 import 'package:tensionnode/model/menu_info.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
@@ -239,6 +241,26 @@ class GameState extends BaseState {
   void onSaveGame() {
     // TODO(momo): show toast
     onContinue();
+
+    final JsonMatch jsonMatch = JsonMatch(
+      version: 1,
+      id: 'map1',
+      map: const JsonMap(
+        numberOfBlocksHorizontal: 100,
+        numberOfBlocksVertical: 100,
+        blockSize: 10,
+      ),
+      resources: JsonResources(
+        resource1: headquarters.resource1.toInt(),
+        resource2: headquarters.resource2.toInt(),
+        resource3: headquarters.resource3.toInt(),
+      ),
+      patches: patches.json,
+      nodes: nodes.json,
+    );
+
+    final String json = jsonMatch.toJsonString();
+    print(json);
   }
 
   void onSettings() {

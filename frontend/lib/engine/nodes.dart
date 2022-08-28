@@ -258,4 +258,6 @@ class Nodes {
 
     return energy;
   }
+
+  List<JsonNode> get json => _nodes.map((node) => node.json).toList();
 }

@@ -50,4 +50,7 @@ class Mine extends Node {
   }
 
   static String cost() => 'Resource 1: $RESOURCE1_COST\nEnergy: $ENERGY_COST';
+
+  @override
+  ResourceType? getResourceType() => resourceType;
 }

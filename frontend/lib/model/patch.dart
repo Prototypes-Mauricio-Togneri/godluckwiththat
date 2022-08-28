@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/engine/renderer.dart';
+import 'package:tensionnode/extensions/offset_extension.dart';
+import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Patch {
@@ -20,4 +22,9 @@ class Patch {
       size: renderer.map.blockSize,
     );
   }
+
+  JsonPatch get json => JsonPatch(
+        resource: type,
+        position: position.json,
+      );
 }

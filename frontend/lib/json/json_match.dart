@@ -81,4 +81,6 @@ class JsonMatch {
   factory JsonMatch.fromJson(Map<String, dynamic> json) => _$JsonMatchFromJson(json);
 
   Map<String, dynamic> toJson() => _$JsonMatchToJson(this);
+
+  String toJsonString() => jsonEncode(toJson());
 }
