@@ -44,19 +44,20 @@ class Connection {
   void render(Renderer renderer) {
     if (_resourceType != null) {
       Offset middlePosition = _from.position;
+      final double percentage = _accumulatedTime / Constants.CONNECTION_PROCESS_TIME;
 
       switch (direction) {
         case Direction.up:
-          middlePosition = middlePosition.translate(0, -0.5);
+          middlePosition = middlePosition.translate(0, -percentage);
           break;
         case Direction.down:
-          middlePosition = middlePosition.translate(0, 0.5);
+          middlePosition = middlePosition.translate(0, percentage);
           break;
         case Direction.left:
-          middlePosition = middlePosition.translate(-0.5, 0);
+          middlePosition = middlePosition.translate(-percentage, 0);
           break;
         case Direction.right:
-          middlePosition = middlePosition.translate(0.5, 0);
+          middlePosition = middlePosition.translate(percentage, 0);
           break;
       }
 
