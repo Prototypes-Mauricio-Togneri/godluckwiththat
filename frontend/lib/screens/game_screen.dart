@@ -112,7 +112,7 @@ class MapLayout extends StatelessWidget {
         color: Palette.gridBackground,
         child: RawKeyboardListener(
           autofocus: true,
-          focusNode: FocusNode(),
+          focusNode: state.keyboardFocus,
           onKey: state.onKeyPressed,
           child: LayoutBuilder(builder: (context, constraints) {
             state.map.mapLayoutSize = Size(constraints.maxWidth, constraints.maxHeight);

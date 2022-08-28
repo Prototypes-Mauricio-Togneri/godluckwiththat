@@ -27,6 +27,7 @@ import 'package:tensionnode/types/resource_type.dart';
 class GameState extends BaseState {
   final PointerHighlight _pointerHighlight = PointerHighlight();
   final FPS fps = FPS();
+  final FocusNode keyboardFocus = FocusNode();
 
   final HudState hudState = HudState();
   final MapLoadedState mapLoadedState = MapLoadedState();
@@ -247,6 +248,7 @@ class GameState extends BaseState {
 
   void closeMenu() {
     menuInfo = null;
+    keyboardFocus.requestFocus();
     notify();
   }
 
