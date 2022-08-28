@@ -17,6 +17,7 @@ import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/patch.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
+import 'package:tensionnode/platform/clipboard_text.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/services/toast.dart';
@@ -260,7 +261,7 @@ class GameState extends BaseState {
     );
 
     final String json = jsonMatch.toJsonString();
-    print(json);
+    ClipboardText().copy(json);
   }
 
   void onSettings() {
