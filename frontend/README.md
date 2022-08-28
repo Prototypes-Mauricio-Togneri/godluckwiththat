@@ -1,9 +1,6 @@
 # Tension Node
 
 ## TODO
-Move resources through the paths
-Add functionality to add/remove paths
-
 Don't render elements outside of the viewport
 Use Firebase
     * Auth
