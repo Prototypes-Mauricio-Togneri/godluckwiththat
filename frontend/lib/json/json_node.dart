@@ -14,7 +14,7 @@ import 'package:tensionnode/types/resource_type.dart';
 
 part 'json_node.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class JsonNode {
   @JsonKey(name: 'type')
   final NodeType type;

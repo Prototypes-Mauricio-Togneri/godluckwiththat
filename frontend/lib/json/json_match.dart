@@ -11,7 +11,7 @@ import 'package:tensionnode/model/game_map.dart';
 
 part 'json_match.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class JsonMatch {
   @JsonKey(name: 'version')
   final int version;

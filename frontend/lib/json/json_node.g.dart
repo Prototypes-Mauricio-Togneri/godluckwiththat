@@ -17,16 +17,26 @@ JsonNode _$JsonNodeFromJson(Map<String, dynamic> json) => JsonNode(
       right: (json['right'] as List<dynamic>?)?.map((e) => e as int).toList(),
     );
 
-Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) => <String, dynamic>{
-      'type': _$NodeTypeEnumMap[instance.type]!,
-      'hp': instance.hp,
-      'resource': _$ResourceTypeEnumMap[instance.resource],
-      'position': instance.position,
-      'top': instance.top,
-      'bottom': instance.bottom,
-      'left': instance.left,
-      'right': instance.right,
-    };
+Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) {
+  final val = <String, dynamic>{
+    'type': _$NodeTypeEnumMap[instance.type]!,
+    'hp': instance.hp,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('resource', _$ResourceTypeEnumMap[instance.resource]);
+  val['position'] = instance.position;
+  writeNotNull('top', instance.top);
+  writeNotNull('bottom', instance.bottom);
+  writeNotNull('left', instance.left);
+  writeNotNull('right', instance.right);
+  return val;
+}
 
 const _$NodeTypeEnumMap = {
   NodeType.headquarters: 'headquarters',

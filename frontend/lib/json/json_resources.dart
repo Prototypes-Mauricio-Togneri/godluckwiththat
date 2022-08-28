@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'json_resources.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class JsonResources {
   @JsonKey(name: 'resource1')
   final int resource1;

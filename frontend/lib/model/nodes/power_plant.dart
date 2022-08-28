@@ -26,7 +26,7 @@ class PowerPlant extends Node {
     );
 
     drawHP(renderer);
-    
+
     super.render(renderer);
   }
 

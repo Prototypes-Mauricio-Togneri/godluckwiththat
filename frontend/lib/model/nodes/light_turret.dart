@@ -29,7 +29,7 @@ class LightTurret extends Node {
     );
 
     drawHP(renderer);
-    
+
     super.render(renderer);
   }
 

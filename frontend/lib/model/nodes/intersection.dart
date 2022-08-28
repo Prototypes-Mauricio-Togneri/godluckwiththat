@@ -24,7 +24,7 @@ class Intersection extends Node {
     );
 
     drawHP(renderer);
-    
+
     super.render(renderer);
   }
 }

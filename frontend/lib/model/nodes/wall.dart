@@ -24,7 +24,7 @@ class Wall extends Node {
     );
 
     drawHP(renderer);
-    
+
     super.render(renderer);
   }
 

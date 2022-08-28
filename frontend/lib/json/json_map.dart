@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'json_map.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class JsonMap {
   @JsonKey(name: 'number_of_blocks_horizontal')
   final int numberOfBlocksHorizontal;

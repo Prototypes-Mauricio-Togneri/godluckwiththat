@@ -29,7 +29,7 @@ class HeavyTurret extends Node {
     );
 
     drawHP(renderer);
-    
+
     super.render(renderer);
   }
 

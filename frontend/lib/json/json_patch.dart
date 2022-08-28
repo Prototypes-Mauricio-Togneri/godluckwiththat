@@ -6,7 +6,7 @@ import 'package:tensionnode/types/resource_type.dart';
 
 part 'json_patch.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class JsonPatch {
   @JsonKey(name: 'resource')
   final ResourceType resource;
