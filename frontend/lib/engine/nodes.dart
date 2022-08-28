@@ -54,7 +54,7 @@ class Nodes {
     required Offset to,
   }) {
     if (from.isAlignedWith(to)) {
-      Node? previousNode = at(Offset(from.dx, from.dy));
+      Node previousNode = at(Offset(from.dx, from.dy))!;
 
       if (from.sameX(to)) {
         final int increment = from.yIncrement(to);
@@ -65,11 +65,11 @@ class Nodes {
           final Offset position = Offset(from.dx, from.dy + distance);
           distance += increment;
 
-          final Node newNode = _addIntersection(position);
-          previousNode!.connectTo(newNode);
-          previousNode = newNode;
+          final Node nextNode = _nextStepNode(position);
+          previousNode.connectTo(nextNode);
+          previousNode = nextNode;
         }
-      } else {
+      } else if (from.sameY(to)) {
         final int increment = from.xIncrement(to);
         final int steps = from.xDiff(to);
         int distance = increment;
@@ -78,9 +78,9 @@ class Nodes {
           final Offset position = Offset(from.dx + distance, from.dy);
           distance += increment;
 
-          final Node newNode = _addIntersection(position);
-          previousNode!.connectTo(newNode);
-          previousNode = newNode;
+          final Node nextNode = _nextStepNode(position);
+          previousNode.connectTo(nextNode);
+          previousNode = nextNode;
         }
       }
 
@@ -88,6 +88,12 @@ class Nodes {
     } else {
       return false;
     }
+  }
+
+  Node _nextStepNode(Offset position) {
+    final Node? node = at(position);
+
+    return (node != null) ? node : _addIntersection(position);
   }
 
   Node _addIntersection(Offset position) {
@@ -106,7 +112,6 @@ class Nodes {
   }) {
     if (resourceType != null) {
       final Mine mine = Mine(
-        headquarters: headquarters,
         resourceType: resourceType,
         position: position,
         hp: Constants.MINE_MAX_HP,
