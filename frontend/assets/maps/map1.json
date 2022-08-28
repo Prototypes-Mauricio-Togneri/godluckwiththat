@@ -7,9 +7,9 @@
         "block_size": 10
     },
     "resources": {
-        "resource1": 517,
+        "resource1": 529,
         "resource2": 300,
-        "resource3": 120
+        "resource3": 137
     },
     "patches": [
         {
@@ -165,6 +165,10 @@
             "position": [
                 9,
                 -7
+            ],
+            "left": [
+                8,
+                -7
             ]
         },
         {
@@ -173,6 +177,10 @@
             "resource": "resource2",
             "position": [
                 10,
+                -7
+            ],
+            "right": [
+                11,
                 -7
             ]
         },
@@ -183,6 +191,10 @@
             "position": [
                 9,
                 -6
+            ],
+            "left": [
+                8,
+                -6
             ]
         },
         {
@@ -191,6 +203,10 @@
             "resource": "resource2",
             "position": [
                 10,
+                -6
+            ],
+            "right": [
+                11,
                 -6
             ]
         },
@@ -740,6 +756,270 @@
             "top": [
                 3,
                 6
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                8,
+                -7
+            ],
+            "bottom": [
+                8,
+                -6
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                8,
+                -6
+            ],
+            "bottom": [
+                8,
+                -5
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                8,
+                -5
+            ],
+            "bottom": [
+                8,
+                -4
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                8,
+                -4
+            ],
+            "bottom": [
+                8,
+                -3
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                8,
+                -3
+            ],
+            "bottom": [
+                8,
+                -2
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                8,
+                -2
+            ],
+            "bottom": [
+                8,
+                -1
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                8,
+                -1
+            ],
+            "bottom": [
+                8,
+                0
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                8,
+                0
+            ],
+            "left": [
+                7,
+                0
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                7,
+                0
+            ],
+            "left": [
+                6,
+                0
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                6,
+                0
+            ],
+            "left": [
+                5,
+                0
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                5,
+                0
+            ],
+            "left": [
+                4,
+                0
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                4,
+                0
+            ],
+            "left": [
+                3,
+                0
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                11,
+                -7
+            ],
+            "bottom": [
+                11,
+                -6
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                11,
+                -6
+            ],
+            "bottom": [
+                11,
+                -5
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                11,
+                -5
+            ],
+            "bottom": [
+                11,
+                -4
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                11,
+                -4
+            ],
+            "bottom": [
+                11,
+                -3
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                11,
+                -3
+            ],
+            "bottom": [
+                11,
+                -2
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                11,
+                -2
+            ],
+            "bottom": [
+                11,
+                -1
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                11,
+                -1
+            ],
+            "bottom": [
+                11,
+                0
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                11,
+                0
+            ],
+            "left": [
+                10,
+                0
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                10,
+                0
+            ],
+            "left": [
+                9,
+                0
+            ]
+        },
+        {
+            "type": "intersection",
+            "hp": 10,
+            "position": [
+                9,
+                0
+            ],
+            "left": [
+                8,
+                0
             ]
         }
     ]
