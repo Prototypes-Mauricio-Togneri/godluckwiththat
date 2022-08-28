@@ -4,18 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/engine/fps.dart';
 import 'package:tensionnode/engine/loader.dart';
-import 'package:tensionnode/engine/nodes.dart';
-import 'package:tensionnode/engine/patches.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/extensions/raw_key_event_extension.dart';
-import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_match.dart';
-import 'package:tensionnode/json/json_resources.dart';
 import 'package:tensionnode/model/game_map.dart';
+import 'package:tensionnode/model/match.dart';
 import 'package:tensionnode/model/menu_info.dart';
+import 'package:tensionnode/model/nodes.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/patch.dart';
+import 'package:tensionnode/model/patches.dart';
 import 'package:tensionnode/model/pointer_highlight.dart';
 import 'package:tensionnode/platform/clipboard_text.dart';
 import 'package:tensionnode/services/assets.dart';
@@ -36,6 +35,7 @@ class GameState extends BaseState {
   final MapLoadedState mapLoadedState = MapLoadedState();
   final MapLayoutState mapLayoutState = MapLayoutState();
 
+  late final Match match;
   late final GameMap map;
   late final Renderer renderer;
   late final Headquarters headquarters;
@@ -55,15 +55,16 @@ class GameState extends BaseState {
 
   @override
   Future onLoad() async {
-    final JsonMatch match = await Loader.match(Assets.MAPS_MAP1);
-    map = match.getMap();
-    patches = match.getPatches();
-    nodes = match.getNodes();
-    nodes.fillConnections(match);
+    final JsonMatch jsonMatch = await Loader.match(Assets.MAPS_MAP1);
+    match = jsonMatch.getMatch();
+    map = jsonMatch.getMap();
+    patches = jsonMatch.getPatches();
+    nodes = jsonMatch.getNodes();
+    nodes.fillConnections(jsonMatch);
     headquarters = nodes.headquarters;
-    headquarters.resource1 = match.resources.resource1;
-    headquarters.resource2 = match.resources.resource2;
-    headquarters.resource3 = match.resources.resource3;
+    headquarters.resource1 = jsonMatch.resources.resource1;
+    headquarters.resource2 = jsonMatch.resources.resource2;
+    headquarters.resource3 = jsonMatch.resources.resource3;
     renderer = Renderer(map);
     map.setCenter();
     mapLoadedState.setLoaded();
@@ -244,24 +245,15 @@ class GameState extends BaseState {
     onContinue();
 
     final JsonMatch jsonMatch = JsonMatch(
-      version: 1,
-      id: 'map1',
-      map: const JsonMap(
-        numberOfBlocksHorizontal: 100,
-        numberOfBlocksVertical: 100,
-        blockSize: 10,
-      ),
-      resources: JsonResources(
-        resource1: headquarters.resource1.toInt(),
-        resource2: headquarters.resource2.toInt(),
-        resource3: headquarters.resource3.toInt(),
-      ),
+      version: match.version,
+      id: match.id,
+      map: map.json,
+      resources: headquarters.jsonResources,
       patches: patches.json,
       nodes: nodes.json,
     );
 
-    final String json = jsonMatch.toJsonString();
-    ClipboardText().copy(json);
+    ClipboardText().copy(jsonMatch.toJsonString());
   }
 
   void onSettings() {

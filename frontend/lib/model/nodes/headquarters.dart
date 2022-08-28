@@ -1,5 +1,6 @@
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/renderer.dart';
+import 'package:tensionnode/json/json_resources.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
@@ -47,4 +48,10 @@ class Headquarters extends Node {
         break;
     }
   }
+
+  JsonResources get jsonResources => JsonResources(
+        resource1: resource1.toInt(),
+        resource2: resource2.toInt(),
+        resource3: resource3.toInt(),
+      );
 }

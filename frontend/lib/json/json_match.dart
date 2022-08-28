@@ -1,13 +1,15 @@
 import 'dart:convert';
+
 import 'package:flutter/widgets.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/engine/nodes.dart';
-import 'package:tensionnode/engine/patches.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/json/json_resources.dart';
 import 'package:tensionnode/model/game_map.dart';
+import 'package:tensionnode/model/match.dart';
+import 'package:tensionnode/model/nodes.dart';
+import 'package:tensionnode/model/patches.dart';
 
 part 'json_match.g.dart';
 
@@ -39,6 +41,8 @@ class JsonMatch {
     required this.patches,
     required this.nodes,
   });
+
+  Match getMatch() => Match(version: version, id: id);
 
   GameMap getMap() => GameMap(
         numberOfBlocksHorizontal: map.numberOfBlocksHorizontal,

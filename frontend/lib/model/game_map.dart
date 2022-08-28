@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tensionnode/json/json_map.dart';
 
 class GameMap {
   final TransformationController transformationController = TransformationController();
@@ -80,5 +81,11 @@ class GameMap {
   Offset realToGame(Offset position) => Offset(
         (position.dx / blockSize).round() - (dimensions.width / 2),
         (position.dy / blockSize).round() - (dimensions.height / 2),
+      );
+
+  JsonMap get json => JsonMap(
+        numberOfBlocksHorizontal: numberOfBlocksHorizontal,
+        numberOfBlocksVertical: numberOfBlocksVertical,
+        blockSize: blockSize,
       );
 }
