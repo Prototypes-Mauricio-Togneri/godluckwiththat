@@ -4,7 +4,16 @@
 Don't render elements outside of the viewport
 Use Firebase
     * Auth
-    * Firestore
+    * Firestore (to save matches)
+
+light turret (firearm magazine) = iron plate + copper plate + gear
+heavy turret (piercing rounds magazine) = steel beam + copper plate + gear
+cannon turret (cannon shell) = stone brick + steel beam + copper plate + gear + engine
+laser turret (no ammo but uses more power) = stone brick + steel beam + copper plate + gear + batteries
+plasma turret (no ammo but uses more power) = stone brick + steel beam + copper plate + gear + batteries + engine
+
+structures can be improved: the bigger the level, the more efficient/powerful but the more energy they require
+save automatically after X seconds
 
 ## Resources
 * Metal
