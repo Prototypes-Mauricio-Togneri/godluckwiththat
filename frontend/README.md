@@ -6,12 +6,6 @@ Use Firebase
     * Auth
     * Firestore (to save matches)
 
-light turret (firearm magazine) = iron plate + copper plate + gear
-heavy turret (piercing rounds magazine) = steel beam + copper plate + gear
-cannon turret (cannon shell) = stone brick + steel beam + copper plate + gear + engine
-laser turret (no ammo but uses more power) = stone brick + steel beam + copper plate + gear + batteries
-plasma turret (no ammo but uses more power) = stone brick + steel beam + copper plate + gear + batteries + engine
-
 structures can be improved: the bigger the level, the more efficient/powerful but the more energy they require
 save automatically after X seconds
 
@@ -24,11 +18,10 @@ save automatically after X seconds
 * Wall
 * Light turret
 * Heavy turret
-* Long range turret
-* Ion turret
-* Gauss turret
+* Cannon turret
+* Sniper turret
+* Laser turret
 * Plasma turret
-* Pulse turret
 
 ## Upgrades
 * Increase building hp
