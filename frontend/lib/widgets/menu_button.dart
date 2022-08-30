@@ -38,7 +38,7 @@ class MenuButton extends StatelessWidget {
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: color,
+            backgroundColor: color,
             minimumSize: const Size(0, 45),
           ),
           onPressed: onPressed,
