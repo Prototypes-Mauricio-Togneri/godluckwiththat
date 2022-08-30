@@ -1,8 +1,9 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/debug/fps.dart';
+import 'package:tensionnode/debug/render_tracker.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
-import 'package:tensionnode/engine/fps.dart';
 import 'package:tensionnode/engine/loader.dart';
 import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/extensions/raw_key_event_extension.dart';
@@ -284,17 +285,28 @@ class GameState extends BaseState {
   }
 
   void renderBackground(Canvas canvas, Size size) {
+    RenderTracker.reset();
+
+    final Rect viewport = map.viewport;
     final double zoom = map.currentZoom;
 
     if (zoom >= 3) {
       for (int i = 1; i < map.dimensions.width; i++) {
         final double x = (i * map.blockSize).toDouble();
-        canvas.drawLine(Offset(x, 0), Offset(x, size.height), Palette.gridPaint);
+
+        if ((x >= viewport.left) && (x <= viewport.right)) {
+          canvas.drawLine(Offset(x, 0), Offset(x, size.height), Palette.gridPaint);
+          RenderTracker.linesRendered++;
+        }
       }
 
       for (int i = 1; i < map.dimensions.height; i++) {
         final double y = (i * map.blockSize).toDouble();
-        canvas.drawLine(Offset(0, y), Offset(size.width, y), Palette.gridPaint);
+
+        if ((y >= viewport.top) && (y <= viewport.bottom)) {
+          canvas.drawLine(Offset(0, y), Offset(size.width, y), Palette.gridPaint);
+          RenderTracker.linesRendered++;
+        }
       }
     }
   }
@@ -304,5 +316,7 @@ class GameState extends BaseState {
     patches.render(renderer);
     nodes.render(renderer);
     _pointerHighlight.render(renderer);
+
+    RenderTracker.debug();
   }
 }

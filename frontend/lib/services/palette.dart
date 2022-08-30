@@ -51,6 +51,7 @@ class Palette {
   static final Paint connectionBasicPaint = Paint();
   static final Paint connectionAdvancePaint = Paint();
   static final Paint connectionArrowPaint = Paint();
+  static final Paint hpContainerPaint = Paint();
   static final Paint hpPaint = Paint();
 
   static void init() {
@@ -98,6 +99,9 @@ class Palette {
     connectionArrowPaint.style = PaintingStyle.fill;
     connectionArrowPaint.strokeCap = StrokeCap.square;
     connectionArrowPaint.strokeJoin = StrokeJoin.miter;
+
+    hpContainerPaint.style = PaintingStyle.fill;
+    hpContainerPaint.color = Palette.hpContainerBackground;
 
     hpPaint.style = PaintingStyle.stroke;
     hpPaint.strokeCap = StrokeCap.square;

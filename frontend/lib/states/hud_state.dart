@@ -1,5 +1,5 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionnode/engine/fps.dart';
+import 'package:tensionnode/debug/fps.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
 
 class HudState extends BaseState {

@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:tensionnode/debug/render_tracker.dart';
 import 'package:tensionnode/extensions/path_extension.dart';
 import 'package:tensionnode/model/game_map.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -64,6 +65,7 @@ class Renderer {
     );
 
     canvas.drawPath(path, paint);
+    RenderTracker.pathsRendered++;
   }
 
   void squareHollow({
@@ -108,6 +110,7 @@ class Renderer {
     );
 
     canvas.drawPath(path, paint);
+    RenderTracker.pathsRendered++;
   }
 
   void circleHollow({
@@ -144,8 +147,10 @@ class Renderer {
     required Offset position,
     required Paint paint,
     required num size,
-  }) =>
-      canvas.drawCircle(position, size.toDouble(), paint);
+  }) {
+    canvas.drawCircle(position, size.toDouble(), paint);
+    RenderTracker.circlesRendered++;
+  }
 
   void drawLine({
     required Offset positionFrom,
@@ -162,6 +167,7 @@ class Renderer {
     );
 
     canvas.drawPath(pathLine, paintLine);
+    RenderTracker.pathsRendered++;
   }
 
   void connection({
@@ -182,6 +188,7 @@ class Renderer {
       );
 
       canvas.drawPath(pathLine, paintLine);
+      RenderTracker.pathsRendered++;
 
       final Paint paintArrow = Palette.connectionArrowPaint;
       paintArrow.color = arrowColor;
@@ -219,6 +226,7 @@ class Renderer {
       }
 
       canvas.drawPath(pathArrow, paintArrow);
+      RenderTracker.pathsRendered++;
     } else {
       final Paint paintLine = Palette.connectionBasicPaint;
       paintLine.color = lineColor;
@@ -230,6 +238,7 @@ class Renderer {
       );
 
       canvas.drawPath(pathLine, paintLine);
+      RenderTracker.pathsRendered++;
     }
   }
 
@@ -239,16 +248,14 @@ class Renderer {
     required num max,
   }) {
     if (_advanceMode && (value < max)) {
-      final Paint paint = Paint();
-      paint.color = Palette.hpContainerBackground;
-      paint.style = PaintingStyle.fill;
       final Rect rect = Rect.fromCenter(
         center: map.gameToReal(position),
         width: map.blockSize.toDouble(),
         height: map.blockSize.toDouble(),
       );
 
-      canvas.drawRect(rect, paint);
+      canvas.drawRect(rect, Palette.hpContainerPaint);
+      RenderTracker.rectRendered++;
 
       final int percentage = value * 100 ~/ max;
 
