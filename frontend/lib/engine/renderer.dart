@@ -160,14 +160,12 @@ class Renderer {
     final Paint paintLine = Palette.connectionBasicPaint;
     paintLine.color = color;
 
-    final Path pathLine = newPath;
-    pathLine.line(
-      from: map.gameToReal(positionFrom),
-      to: map.gameToReal(positionTo),
+    canvas.drawLine(
+      map.gameToReal(positionFrom),
+      map.gameToReal(positionTo),
+      paintLine,
     );
-
-    canvas.drawPath(pathLine, paintLine);
-    RenderTracker.pathsRendered++;
+    RenderTracker.linesRendered++;
   }
 
   void connection({
@@ -181,14 +179,12 @@ class Renderer {
       final Paint paintLine = Palette.connectionAdvancePaint;
       paintLine.color = lineColor;
 
-      final Path pathLine = newPath;
-      pathLine.line(
-        from: map.gameToReal(from),
-        to: map.gameToReal(to),
+      canvas.drawLine(
+        map.gameToReal(from),
+        map.gameToReal(to),
+        paintLine,
       );
-
-      canvas.drawPath(pathLine, paintLine);
-      RenderTracker.pathsRendered++;
+      RenderTracker.linesRendered++;
 
       final Paint paintArrow = Palette.connectionArrowPaint;
       paintArrow.color = arrowColor;
@@ -231,14 +227,12 @@ class Renderer {
       final Paint paintLine = Palette.connectionBasicPaint;
       paintLine.color = lineColor;
 
-      final Path pathLine = newPath;
-      pathLine.line(
-        from: map.gameToReal(from),
-        to: map.gameToReal(to),
+      canvas.drawLine(
+        map.gameToReal(from),
+        map.gameToReal(to),
+        paintLine,
       );
-
-      canvas.drawPath(pathLine, paintLine);
-      RenderTracker.pathsRendered++;
+      RenderTracker.linesRendered++;
     }
   }
 
