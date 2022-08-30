@@ -2,12 +2,9 @@
 
 ## TODO
 Don't render elements outside of the viewport
-Use Firebase
-    * Auth
-    * Firestore (to save matches)
-
-structures can be improved: the bigger the level, the more efficient/powerful but the more energy they require
-save automatically after X seconds
+Save matches in Firebase
+    + Auth + Firestore
+    + Save automatically after X minutes
 
 ## Resources
 * Metal
@@ -30,6 +27,7 @@ save automatically after X seconds
 * Connections move more resources per second
 * Mines collect more resources per second
 * Turret properties improvements
+* Upgrades make buildings spend more energy
 
 ## Features
 * Campaign mode
