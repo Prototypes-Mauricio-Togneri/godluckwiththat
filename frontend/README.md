@@ -1,11 +1,5 @@
 # Tension Node
 
-## TODO
-Don't render elements outside of the viewport
-Save matches in Firebase
-    + Auth + Firestore
-    + Save automatically after X minutes
-
 ## Resources
 * Metal
 * Crystal
