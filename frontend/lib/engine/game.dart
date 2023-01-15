@@ -15,6 +15,7 @@ class MyGame extends Zoomable with HasTappables {
         add(Mine(
           i: x,
           j: y,
+          path: 'red_mine.png',
         ));
       }
     }
