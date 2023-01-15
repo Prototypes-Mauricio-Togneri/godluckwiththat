@@ -10,11 +10,10 @@ class MyGame extends FlameGame with ScrollDetector, ScaleDetector {
   final double ZOOM_STEP = 1;
 
   late double startZoom;
-  final Vector2 viewportResolution = Vector2(1000, 1000);
 
   @override
   Future<void> onLoad() async {
-    camera.viewport = FixedResolutionViewport(viewportResolution);
+    camera.viewport = FixedResolutionViewport(size);
     camera.setRelativeOffset(Anchor.center);
     camera.speed = 100;
 
