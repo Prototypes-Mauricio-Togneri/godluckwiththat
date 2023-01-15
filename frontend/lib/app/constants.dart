@@ -1,6 +1,8 @@
 class Constants {
   static const String FONT_NAME = 'BungeeHairline';
 
+  static const double CELL_SIZE = 32;
+
   static const int HEADQUARTERS_MAX_HP = 1000;
   static const int INTERSECTION_MAX_HP = 10;
   static const int MINE_MAX_HP = 200;
