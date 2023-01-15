@@ -32,9 +32,9 @@ class Palette {
   static const Color lightTurret = Colors.purple;
   static const Color heavyTurret = Colors.purple;
 
-  static const Color resource1 = Colors.red;
-  static const Color resource2 = Colors.green;
-  static const Color resource3 = Colors.blue;
+  static const Color resource_red = Colors.red;
+  static const Color resource_green = Colors.green;
+  static const Color resource_blue = Colors.blue;
   static const Color energy = Colors.amber;
 
   static const Color hudBackground = Color(0xee555555);

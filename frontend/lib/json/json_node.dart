@@ -5,7 +5,6 @@ import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/heavy_turret.dart';
 import 'package:tensionnode/model/nodes/intersection.dart';
 import 'package:tensionnode/model/nodes/light_turret.dart';
-import 'package:tensionnode/model/nodes/mine.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/nodes/power_plant.dart';
 import 'package:tensionnode/model/nodes/wall.dart';
@@ -59,10 +58,9 @@ class JsonNode {
           hp: hp,
         );
       case NodeType.mine:
-        return Mine(
+        return PowerPlant(
           position: position.position,
           hp: hp,
-          resourceType: resource!,
         );
       case NodeType.power_plant:
         return PowerPlant(
@@ -92,9 +90,11 @@ class JsonNode {
     }
   }
 
-  factory JsonNode.fromString(String json) => JsonNode.fromJson(jsonDecode(json));
+  factory JsonNode.fromString(String json) =>
+      JsonNode.fromJson(jsonDecode(json));
 
-  factory JsonNode.fromJson(Map<String, dynamic> json) => _$JsonNodeFromJson(json);
+  factory JsonNode.fromJson(Map<String, dynamic> json) =>
+      _$JsonNodeFromJson(json);
 
   Map<String, dynamic> toJson() => _$JsonNodeToJson(this);
 }

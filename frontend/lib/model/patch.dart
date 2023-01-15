@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/extensions/offset_extension.dart';
 import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -14,14 +13,6 @@ class Patch {
   });
 
   bool isAt(Offset testPosition) => position == testPosition;
-
-  void render(Renderer renderer) {
-    renderer.squareFilled(
-      position: position,
-      color: type.color.withAlpha(50),
-      size: renderer.map.blockSize,
-    );
-  }
 
   JsonPatch get json => JsonPatch(
         resource: type,

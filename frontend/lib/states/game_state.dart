@@ -1,11 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/debug/fps.dart';
-import 'package:tensionnode/debug/render_tracker.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/engine/loader.dart';
-import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/extensions/raw_key_event_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/model/game_map.dart';
@@ -16,7 +13,6 @@ import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/patch.dart';
 import 'package:tensionnode/model/patches.dart';
-import 'package:tensionnode/model/pointer_highlight.dart';
 import 'package:tensionnode/platform/clipboard_text.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -28,8 +24,6 @@ import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
-  final PointerHighlight _pointerHighlight = PointerHighlight();
-  final FPS fps = FPS();
   final FocusNode keyboardFocus = FocusNode();
 
   final HudState hudState = HudState();
@@ -38,7 +32,6 @@ class GameState extends BaseState {
 
   late final Match match;
   late final GameMap map;
-  late final Renderer renderer;
   late final Headquarters headquarters;
   late final Patches patches;
   late final Nodes nodes;
@@ -66,7 +59,6 @@ class GameState extends BaseState {
     headquarters.resource1 = jsonMatch.resources.resource1;
     headquarters.resource2 = jsonMatch.resources.resource2;
     headquarters.resource3 = jsonMatch.resources.resource3;
-    renderer = Renderer(map);
     map.setCenter();
     mapLoadedState.setLoaded();
     notify();
@@ -87,10 +79,6 @@ class GameState extends BaseState {
     } else if (event.isRight()) {
       map.moveRight();
       mapLayoutState.update();
-    } else if (event.isSpace()) {
-      renderer.toggleAdvanceMode();
-    } else if (event.isX()) {
-      renderer.toggleDebugMode();
     } else if (event.isEscape()) {
       if (nodeToBuild != null) {
         nodeToBuild = null;
@@ -108,11 +96,6 @@ class GameState extends BaseState {
   }
 
   void _updatePointerHover(Offset position) {
-    _pointerHighlight.update(
-      newPositionTo: position,
-      newPositionFrom: positionFrom,
-      newNodeType: nodeToBuild,
-    );
     notify();
   }
 
@@ -274,19 +257,15 @@ class GameState extends BaseState {
 
       Delayed.post(notify);
 
-      fps.update(dt);
       hudState.update(
         headquarters: headquarters,
         energyProduced: energyProduced,
         energyConsumed: energyConsumed,
-        fps: fps,
       );
     }
   }
 
   void renderBackground(Canvas canvas, Size size) {
-    RenderTracker.reset();
-
     final Rect viewport = map.viewport;
     final double zoom = map.currentZoom;
 
@@ -295,8 +274,8 @@ class GameState extends BaseState {
         final double x = (i * map.blockSize).toDouble();
 
         if ((x >= viewport.left) && (x <= viewport.right)) {
-          canvas.drawLine(Offset(x, 0), Offset(x, size.height), Palette.gridPaint);
-          RenderTracker.linesRendered++;
+          canvas.drawLine(
+              Offset(x, 0), Offset(x, size.height), Palette.gridPaint);
         }
       }
 
@@ -304,19 +283,12 @@ class GameState extends BaseState {
         final double y = (i * map.blockSize).toDouble();
 
         if ((y >= viewport.top) && (y <= viewport.bottom)) {
-          canvas.drawLine(Offset(0, y), Offset(size.width, y), Palette.gridPaint);
-          RenderTracker.linesRendered++;
+          canvas.drawLine(
+              Offset(0, y), Offset(size.width, y), Palette.gridPaint);
         }
       }
     }
   }
 
-  void renderForeground(Canvas canvas) {
-    renderer.setCanvas(canvas);
-    patches.render(renderer);
-    nodes.render(renderer);
-    _pointerHighlight.render(renderer);
-
-    RenderTracker.debug();
-  }
+  void renderForeground(Canvas canvas) {}
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/rendering.dart';
 import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/extensions/offset_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
@@ -10,7 +9,6 @@ import 'package:tensionnode/model/nodes/headquarters.dart';
 import 'package:tensionnode/model/nodes/heavy_turret.dart';
 import 'package:tensionnode/model/nodes/intersection.dart';
 import 'package:tensionnode/model/nodes/light_turret.dart';
-import 'package:tensionnode/model/nodes/mine.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/model/nodes/power_plant.dart';
 import 'package:tensionnode/model/nodes/wall.dart';
@@ -111,13 +109,6 @@ class Nodes {
     required ResourceType? resourceType,
   }) {
     if (resourceType != null) {
-      final Mine mine = Mine(
-        resourceType: resourceType,
-        position: position,
-        hp: Constants.MINE_MAX_HP,
-      );
-      add(mine);
-
       return true;
     } else {
       return false;
@@ -190,9 +181,11 @@ class Nodes {
 
       node.fillConnections(
         topNode: (jsonNode != null) ? _connection(node, jsonNode.top) : null,
-        bottomNode: (jsonNode != null) ? _connection(node, jsonNode.bottom) : null,
+        bottomNode:
+            (jsonNode != null) ? _connection(node, jsonNode.bottom) : null,
         leftNode: (jsonNode != null) ? _connection(node, jsonNode.left) : null,
-        rightNode: (jsonNode != null) ? _connection(node, jsonNode.right) : null,
+        rightNode:
+            (jsonNode != null) ? _connection(node, jsonNode.right) : null,
       );
     }
   }
@@ -222,12 +215,6 @@ class Nodes {
   void update(double dt) {
     for (final Node node in _nodes) {
       node.update(dt);
-    }
-  }
-
-  void render(Renderer renderer) {
-    for (final Node node in _nodes) {
-      node.render(renderer);
     }
   }
 

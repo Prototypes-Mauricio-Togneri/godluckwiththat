@@ -3,6 +3,7 @@ import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:tensionnode/engine/mine.dart';
 import 'package:tensionnode/engine/zoomable.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class MyGame extends Zoomable with HasTappables {
   @override
@@ -16,6 +17,7 @@ class MyGame extends Zoomable with HasTappables {
           i: x,
           j: y,
           path: 'red_mine.png',
+          resourceType: ResourceType.red,
         ));
       }
     }

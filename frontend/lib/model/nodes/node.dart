@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/extensions/offset_extension.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/model/connection.dart';
-import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -32,7 +30,8 @@ class Node {
 
   bool get needsRepair => hp < maxHp;
 
-  bool get canHaveConnection => (type == NodeType.intersection) || (type == NodeType.mine);
+  bool get canHaveConnection =>
+      (type == NodeType.intersection) || (type == NodeType.mine);
 
   bool isAt(Offset testPosition) => position == testPosition;
 
@@ -145,79 +144,8 @@ class Node {
     }
   }
 
-  @mustCallSuper
-  void render(Renderer renderer) {
-    if (renderer.hasDebugMode) {
-      if (accumulatedResources.isNotEmpty) {
-        renderer.renderText(
-          text: '${accumulatedResources.length}',
-          color: Colors.yellow,
-          size: 3,
-          position: position,
-          weight: FontWeight.bold,
-        );
-      }
-
-      _renderConnection(top, renderer);
-      _renderConnection(right, renderer);
-      _renderConnection(bottom, renderer);
-      _renderConnection(left, renderer);
-    }
-  }
-
-  void _renderConnection(Connection? connection, Renderer renderer) {
-    if (connection != null) {
-      connection.render(renderer);
-    }
-  }
-
   void repair() {
     hp = maxHp;
-  }
-
-  void drawHP(Renderer renderer) {
-    renderer.hp(
-      position: position,
-      value: hp,
-      max: maxHp,
-    );
-  }
-
-  void renderConnections(Renderer renderer) {
-    _renderConnectionTo(
-      renderer: renderer,
-      connection: top,
-    );
-
-    _renderConnectionTo(
-      renderer: renderer,
-      connection: bottom,
-    );
-
-    _renderConnectionTo(
-      renderer: renderer,
-      connection: left,
-    );
-
-    _renderConnectionTo(
-      renderer: renderer,
-      connection: right,
-    );
-  }
-
-  void _renderConnectionTo({
-    required Renderer renderer,
-    required Connection? connection,
-  }) {
-    if (connection != null) {
-      renderer.connection(
-        direction: connection.direction,
-        from: position,
-        to: connection.position,
-        lineColor: Palette.connectionLine,
-        arrowColor: Palette.connectionArrow,
-      );
-    }
   }
 
   ResourceType? getResourceType() => null;

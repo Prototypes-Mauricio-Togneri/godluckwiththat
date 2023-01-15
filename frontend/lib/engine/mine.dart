@@ -1,13 +1,33 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensionnode/engine/cell.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class Mine extends Cell with Tappable {
+  final ResourceType resourceType;
+  num accumulatedTime = 0;
+
+  static const double PRODUCTION_TIME = 5; // in seconds
+
+  static const int RESOURCE_RED_COST = 100;
+
   Mine({
     required super.i,
     required super.j,
     required super.path,
+    required this.resourceType,
   });
+
+  @override
+  void update(double dt) {
+    accumulatedTime += dt;
+
+    if (accumulatedTime >= PRODUCTION_TIME) {
+      accumulatedTime = 0;
+    }
+
+    super.update(dt);
+  }
 
   @override
   bool onTapUp(TapUpInfo info) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/extensions/offset_extension.dart';
 import 'package:tensionnode/model/nodes/node.dart';
 import 'package:tensionnode/types/direction.dart';
@@ -41,10 +40,11 @@ class Connection {
     }
   }
 
-  void render(Renderer renderer) {
+  void render() {
     if (_resourceType != null) {
       Offset middlePosition = _from.position;
-      final double percentage = _accumulatedTime / Constants.CONNECTION_PROCESS_TIME;
+      final double percentage =
+          _accumulatedTime / Constants.CONNECTION_PROCESS_TIME;
 
       switch (direction) {
         case Direction.up:
@@ -60,12 +60,6 @@ class Connection {
           middlePosition = middlePosition.translate(percentage, 0);
           break;
       }
-
-      renderer.diamondFilled(
-        position: middlePosition,
-        color: _resourceType!.color,
-        size: renderer.map.blockSize / 4,
-      );
     }
   }
 }

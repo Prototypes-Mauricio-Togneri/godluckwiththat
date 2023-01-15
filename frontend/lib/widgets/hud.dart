@@ -2,7 +2,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/model/nodes/heavy_turret.dart';
 import 'package:tensionnode/model/nodes/light_turret.dart';
-import 'package:tensionnode/model/nodes/mine.dart';
 import 'package:tensionnode/model/nodes/power_plant.dart';
 import 'package:tensionnode/model/nodes/wall.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -42,7 +41,7 @@ class VerticalHud extends StatelessWidget {
             icon: Icons.factory,
             color: Colors.blueGrey,
             onPressed: () => state.onBuild(NodeType.mine),
-            tooltip: Mine.cost(),
+            tooltip: '',
           ),
           const VBox(40),
           const Label(text: 'Energy'),
@@ -111,19 +110,19 @@ class HorizontalHud extends StatelessWidget {
           const Spacer(),
           ResourceIndicator(
             icon: Icons.square,
-            color: ResourceType.resource1.color,
+            color: ResourceType.red.color,
             value: state.resource1,
           ),
           const HBox(30),
           ResourceIndicator(
             icon: Icons.square,
-            color: ResourceType.resource2.color,
+            color: ResourceType.green.color,
             value: state.resource2,
           ),
           const HBox(30),
           ResourceIndicator(
             icon: Icons.square,
-            color: ResourceType.resource3.color,
+            color: ResourceType.blue.color,
             value: state.resource3,
           ),
           const HBox(30),
@@ -133,10 +132,10 @@ class HorizontalHud extends StatelessWidget {
             value: '${state.energyConsumed} / ${state.energyProduced}',
           ),
           const HBox(30),
-          ResourceIndicator(
+          const ResourceIndicator(
             icon: Icons.speed,
             color: Palette.energy,
-            value: state.fps,
+            value: '',
             width: 50,
           ),
           const Spacer(),

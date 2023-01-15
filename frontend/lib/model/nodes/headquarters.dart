@@ -1,8 +1,6 @@
 import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/engine/renderer.dart';
 import 'package:tensionnode/json/json_resources.dart';
 import 'package:tensionnode/model/nodes/node.dart';
-import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -21,29 +19,15 @@ class Headquarters extends Node {
         );
 
   @override
-  void render(Renderer renderer) {
-    renderConnections(renderer);
-
-    renderer.drawHeadquarters(
-      position: position,
-      color: Palette.hq,
-    );
-
-    drawHP(renderer);
-
-    super.render(renderer);
-  }
-
-  @override
   void addResource(ResourceType type) {
     switch (type) {
-      case ResourceType.resource1:
+      case ResourceType.red:
         resource1++;
         break;
-      case ResourceType.resource2:
+      case ResourceType.green:
         resource2++;
         break;
-      case ResourceType.resource3:
+      case ResourceType.blue:
         resource3++;
         break;
     }

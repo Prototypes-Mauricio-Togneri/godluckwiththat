@@ -8,7 +8,8 @@ part of 'json_patch.dart';
 
 JsonPatch _$JsonPatchFromJson(Map<String, dynamic> json) => JsonPatch(
       resource: $enumDecode(_$ResourceTypeEnumMap, json['resource']),
-      position: (json['position'] as List<dynamic>).map((e) => e as int).toList(),
+      position:
+          (json['position'] as List<dynamic>).map((e) => e as int).toList(),
     );
 
 Map<String, dynamic> _$JsonPatchToJson(JsonPatch instance) => <String, dynamic>{
@@ -17,7 +18,7 @@ Map<String, dynamic> _$JsonPatchToJson(JsonPatch instance) => <String, dynamic>{
     };
 
 const _$ResourceTypeEnumMap = {
-  ResourceType.resource1: 'resource1',
-  ResourceType.resource2: 'resource2',
-  ResourceType.resource3: 'resource3',
+  ResourceType.red: 'resource1',
+  ResourceType.green: 'resource2',
+  ResourceType.blue: 'resource3',
 };

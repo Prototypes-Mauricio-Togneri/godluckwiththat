@@ -1,5 +1,4 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionnode/debug/fps.dart';
 import 'package:tensionnode/model/nodes/headquarters.dart';
 
 class HudState extends BaseState {
@@ -8,7 +7,6 @@ class HudState extends BaseState {
   num _resource3 = 0;
   num _energyProduced = 0;
   num _energyConsumed = 0;
-  num _fps = 0;
 
   String get resource1 => _resource1.toInt().toString();
 
@@ -20,20 +18,16 @@ class HudState extends BaseState {
 
   String get energyConsumed => _energyConsumed.toString();
 
-  String get fps => _fps.toString();
-
   void update({
     required Headquarters headquarters,
     required num energyProduced,
     required num energyConsumed,
-    required FPS fps,
   }) {
     _resource1 = headquarters.resource1;
     _resource2 = headquarters.resource2;
     _resource3 = headquarters.resource3;
     _energyProduced = energyProduced;
     _energyConsumed = energyConsumed;
-    _fps = fps.fps();
     Delayed.post(notify);
   }
 }
