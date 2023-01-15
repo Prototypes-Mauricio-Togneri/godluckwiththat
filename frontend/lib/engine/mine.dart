@@ -10,7 +10,7 @@ class Mine extends SpriteComponent {
     width = 32;
     height = 32;
     anchor = Anchor.center;
-    x = 100;
-    y = 200;
+    x = 0;
+    y = 0;
   }
 }
