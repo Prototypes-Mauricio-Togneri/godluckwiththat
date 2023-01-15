@@ -10,8 +10,8 @@ class MyGame extends Zoomable with HasTappables {
     super.onLoad();
     add(FpsTextComponent(position: Vector2(10, 10)));
 
-    for (int x = 0; x < 25; x++) {
-      for (int y = 0; y < 25; y++) {
+    for (int x = 0; x < 20; x++) {
+      for (int y = 0; y < 20; y++) {
         add(Mine(
           i: x,
           j: y,
@@ -22,5 +22,5 @@ class MyGame extends Zoomable with HasTappables {
   }
 
   @override
-  Color backgroundColor() => const Color(0xffaaaaaa);
+  Color backgroundColor() => const Color(0xff333333);
 }
