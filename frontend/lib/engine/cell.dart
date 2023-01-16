@@ -23,8 +23,8 @@ class Cell extends SpriteComponent {
   Future<void> onLoad() async {
     final Image image = await Flame.images.load(path);
     sprite = Sprite(image);
-    width = Constants.CELL_SIZE;
-    height = Constants.CELL_SIZE;
+    width = Constants.SPRITE_SIZE;
+    height = Constants.SPRITE_SIZE;
     anchor = Anchor.center;
   }
 }
