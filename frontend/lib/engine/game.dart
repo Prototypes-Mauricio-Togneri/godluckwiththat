@@ -71,6 +71,52 @@ class MyGame extends Zoomable with HasTappables {
       gameState: gameState,
     ));
 
+    add(Patch(
+      i: 9,
+      j: -6,
+      resourceType: ResourceType.green,
+    ));
+    add(Patch(
+      i: 9,
+      j: -7,
+      resourceType: ResourceType.green,
+    ));
+    add(Patch(
+      i: 10,
+      j: -6,
+      resourceType: ResourceType.green,
+    ));
+    add(Patch(
+      i: 10,
+      j: -7,
+      resourceType: ResourceType.green,
+    ));
+
+    add(Mine(
+      i: 9,
+      j: -6,
+      resourceType: ResourceType.green,
+      gameState: gameState,
+    ));
+    add(Mine(
+      i: 9,
+      j: -7,
+      resourceType: ResourceType.green,
+      gameState: gameState,
+    ));
+    add(Mine(
+      i: 10,
+      j: -6,
+      resourceType: ResourceType.green,
+      gameState: gameState,
+    ));
+    add(Mine(
+      i: 10,
+      j: -7,
+      resourceType: ResourceType.green,
+      gameState: gameState,
+    ));
+
     return super.onLoad();
   }
 
