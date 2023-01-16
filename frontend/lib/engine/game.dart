@@ -1,13 +1,14 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
+import 'package:tensionnode/engine/hq.dart';
 import 'package:tensionnode/engine/mine.dart';
 import 'package:tensionnode/engine/zoomable.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class MyGame extends Zoomable with HasTappables {
   @override
-  Future<void> onLoad() async {
+  Future onLoad() async {
     super.onLoad();
     add(FpsTextComponent(position: Vector2(10, 10)));
 
@@ -21,6 +22,11 @@ class MyGame extends Zoomable with HasTappables {
         ));
       }
     }
+
+    add(Headquarters(
+      i: 0,
+      j: 0,
+    ));
   }
 
   @override
