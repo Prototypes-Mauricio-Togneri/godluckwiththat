@@ -13,7 +13,7 @@ class Zoomable extends FlameGame with ScrollDetector, ScaleDetector {
   Future onLoad() async {
     camera.viewport = FixedResolutionViewport(size);
     camera.setRelativeOffset(Anchor.center);
-    camera.speed = 100;
+    camera.speed = 100000000;
 
     return super.onLoad();
   }
@@ -24,8 +24,20 @@ class Zoomable extends FlameGame with ScrollDetector, ScaleDetector {
 
   @override
   void onScroll(PointerScrollInfo info) {
-    camera.zoom += -info.scrollDelta.game.y.sign * ZOOM_STEP;
-    clampZoom();
+    if ((info.scrollDelta.game.y.sign == -1) || (camera.zoom > 1)) {
+      final Vector2 offset = camera.position + (size / 2);
+      final Vector2 vector =
+          (info.eventPosition.game - offset) / (camera.zoom * 2);
+
+      if (info.scrollDelta.game.y.sign > 0) {
+        camera.translateBy(-vector);
+      } else if (info.scrollDelta.game.y.sign < 0) {
+        camera.translateBy(vector);
+      }
+
+      camera.zoom += -info.scrollDelta.game.y.sign * ZOOM_STEP;
+      clampZoom();
+    }
   }
 
   @override
