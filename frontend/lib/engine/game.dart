@@ -25,97 +25,53 @@ class MyGame extends Zoomable with HasTappables {
       j: 0,
     ));
 
-    add(Patch(
-      i: -8,
-      j: -5,
-      resourceType: ResourceType.red,
-    ));
-    add(Patch(
-      i: -8,
-      j: -4,
-      resourceType: ResourceType.red,
-    ));
-    add(Patch(
-      i: -9,
-      j: -5,
-      resourceType: ResourceType.red,
-    ));
-    add(Patch(
-      i: -9,
-      j: -4,
-      resourceType: ResourceType.red,
-    ));
+    for (int i = -9; i <= -8; i++) {
+      for (int j = -5; j <= -4; j++) {
+        add(Patch(
+          i: i,
+          j: j,
+          resourceType: ResourceType.red,
+        ));
+        add(Mine(
+          i: i,
+          j: j,
+          resourceType: ResourceType.red,
+          gameState: gameState,
+        ));
+      }
+    }
 
-    add(Mine(
-      i: -8,
-      j: -5,
-      resourceType: ResourceType.red,
-      gameState: gameState,
-    ));
-    add(Mine(
-      i: -8,
-      j: -4,
-      resourceType: ResourceType.red,
-      gameState: gameState,
-    ));
-    add(Mine(
-      i: -9,
-      j: -5,
-      resourceType: ResourceType.red,
-      gameState: gameState,
-    ));
-    add(Mine(
-      i: -9,
-      j: -4,
-      resourceType: ResourceType.red,
-      gameState: gameState,
-    ));
+    for (int i = 9; i <= 10; i++) {
+      for (int j = -7; j <= -6; j++) {
+        add(Patch(
+          i: i,
+          j: j,
+          resourceType: ResourceType.green,
+        ));
+        add(Mine(
+          i: i,
+          j: j,
+          resourceType: ResourceType.green,
+          gameState: gameState,
+        ));
+      }
+    }
 
-    add(Patch(
-      i: 9,
-      j: -6,
-      resourceType: ResourceType.green,
-    ));
-    add(Patch(
-      i: 9,
-      j: -7,
-      resourceType: ResourceType.green,
-    ));
-    add(Patch(
-      i: 10,
-      j: -6,
-      resourceType: ResourceType.green,
-    ));
-    add(Patch(
-      i: 10,
-      j: -7,
-      resourceType: ResourceType.green,
-    ));
-
-    add(Mine(
-      i: 9,
-      j: -6,
-      resourceType: ResourceType.green,
-      gameState: gameState,
-    ));
-    add(Mine(
-      i: 9,
-      j: -7,
-      resourceType: ResourceType.green,
-      gameState: gameState,
-    ));
-    add(Mine(
-      i: 10,
-      j: -6,
-      resourceType: ResourceType.green,
-      gameState: gameState,
-    ));
-    add(Mine(
-      i: 10,
-      j: -7,
-      resourceType: ResourceType.green,
-      gameState: gameState,
-    ));
+    for (int i = 1; i <= 2; i++) {
+      for (int j = 6; j <= 7; j++) {
+        add(Patch(
+          i: i,
+          j: j,
+          resourceType: ResourceType.blue,
+        ));
+        add(Mine(
+          i: i,
+          j: j,
+          resourceType: ResourceType.blue,
+          gameState: gameState,
+        ));
+      }
+    }
 
     return super.onLoad();
   }

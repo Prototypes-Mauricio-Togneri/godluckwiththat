@@ -9,8 +9,6 @@ class Mine extends Cell with Tappable {
   final GameState gameState;
   num accumulatedTime = 0;
 
-  static const double PRODUCTION_TIME = 1; // in seconds
-
   static const int RESOURCE_RED_COST = 100;
 
   Mine({
@@ -24,9 +22,9 @@ class Mine extends Cell with Tappable {
   void update(double dt) {
     accumulatedTime += dt;
 
-    if (accumulatedTime >= PRODUCTION_TIME) {
+    if (accumulatedTime >= resourceType.productionType) {
       accumulatedTime = 0;
-      gameState.red++;
+      gameState.addResource(resourceType);
     }
 
     super.update(dt);

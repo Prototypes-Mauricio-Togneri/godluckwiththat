@@ -2,13 +2,14 @@ import 'package:flutter/widgets.dart';
 import 'package:tensionnode/services/palette.dart';
 
 enum ResourceType {
-  red(Palette.resource_red),
-  green(Palette.resource_green),
-  blue(Palette.resource_blue);
+  red(Palette.resource_red, 1),
+  green(Palette.resource_green, 2),
+  blue(Palette.resource_blue, 3);
 
   final Color color;
+  final int productionType;
 
-  const ResourceType(this.color);
+  const ResourceType(this.color, this.productionType);
 
   String get pathMine {
     switch (this) {

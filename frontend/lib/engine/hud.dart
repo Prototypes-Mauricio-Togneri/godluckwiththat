@@ -24,7 +24,7 @@ class Hud extends SpriteComponent with Tappable {
     final Image image = await Flame.images.load('hud.png');
     sprite = Sprite(image);
     position = Vector2(xPosition, 25);
-    width = 200;
+    width = 500;
     height = 50;
     anchor = Anchor.center;
 
@@ -48,6 +48,7 @@ class Hud extends SpriteComponent with Tappable {
   void update(double dt) {
     super.update(dt);
 
-    redAmount.text = 'Red: ${gameState.red}';
+    redAmount.text =
+        'Red: ${gameState.red}   Green: ${gameState.green}   Blue: ${gameState.blue}';
   }
 }
