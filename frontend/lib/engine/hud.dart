@@ -1,11 +1,17 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
+import 'package:tensionnode/engine/game_state.dart';
 
 class Hud extends SpriteComponent with Tappable {
   final double xPosition;
+  final GameState gameState;
+  final TextComponent redAmount = TextComponent();
 
-  Hud(this.xPosition) {
+  Hud({
+    required this.xPosition,
+    required this.gameState,
+  }) {
     positionType = PositionType.viewport;
     priority = 1;
   }
@@ -19,9 +25,15 @@ class Hud extends SpriteComponent with Tappable {
     height = 50;
     anchor = Anchor.center;
 
-    final TextComponent redAmount = TextComponent(text: 'red: 0');
     add(redAmount);
 
     return super.onLoad();
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    redAmount.text = 'Red: ${gameState.red}';
   }
 }
