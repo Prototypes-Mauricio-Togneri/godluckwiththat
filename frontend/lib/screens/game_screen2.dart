@@ -15,12 +15,7 @@ class GameScreen2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Palette.black,
-      body: Stack(
-        children: [
-          GameWidget(game: MyGame()),
-          ScreenLayout(state),
-        ],
-      ),
+      body: GameWidget(game: MyGame()),
     );
   }
 }
