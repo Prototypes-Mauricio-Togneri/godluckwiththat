@@ -8,7 +8,6 @@ class Patch extends Cell with Tappable {
   Patch({
     required super.i,
     required super.j,
-    required super.path,
     required this.resourceType,
-  });
+  }) : super(path: resourceType.pathMine());
 }

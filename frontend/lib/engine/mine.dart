@@ -14,9 +14,8 @@ class Mine extends Cell with Tappable {
   Mine({
     required super.i,
     required super.j,
-    required super.path,
     required this.resourceType,
-  });
+  }) : super(path: resourceType.pathMine());
 
   @override
   void update(double dt) {

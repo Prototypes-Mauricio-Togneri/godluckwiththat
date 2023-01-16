@@ -22,50 +22,42 @@ class MyGame extends Zoomable with HasTappables {
     add(Patch(
       i: -8,
       j: -5,
-      path: 'patch_red.png',
       resourceType: ResourceType.red,
     ));
     add(Patch(
       i: -8,
       j: -4,
-      path: 'patch_red.png',
       resourceType: ResourceType.red,
     ));
     add(Patch(
       i: -9,
       j: -5,
-      path: 'patch_red.png',
       resourceType: ResourceType.red,
     ));
     add(Patch(
       i: -9,
       j: -4,
-      path: 'patch_red.png',
       resourceType: ResourceType.red,
     ));
 
     add(Mine(
       i: -8,
       j: -5,
-      path: 'mine_red.png',
       resourceType: ResourceType.red,
     ));
     add(Mine(
       i: -8,
       j: -4,
-      path: 'mine_red.png',
       resourceType: ResourceType.red,
     ));
     add(Mine(
       i: -9,
       j: -5,
-      path: 'mine_red.png',
       resourceType: ResourceType.red,
     ));
     add(Mine(
       i: -9,
       j: -4,
-      path: 'mine_red.png',
       resourceType: ResourceType.red,
     ));
 
