@@ -10,7 +10,7 @@ enum ResourceType {
 
   const ResourceType(this.color);
 
-  String pathMine() {
+  String get pathMine {
     switch (this) {
       case ResourceType.red:
         return 'mine_red.png';
@@ -21,7 +21,7 @@ enum ResourceType {
     }
   }
 
-  String pathPatch() {
+  String get pathPatch {
     switch (this) {
       case ResourceType.red:
         return 'patch_red.png';

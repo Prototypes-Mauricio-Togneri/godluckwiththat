@@ -9,5 +9,5 @@ class Patch extends Cell with Tappable {
     required super.i,
     required super.j,
     required this.resourceType,
-  }) : super(path: resourceType.pathMine());
+  }) : super(path: resourceType.pathMine);
 }
