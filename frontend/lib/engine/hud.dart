@@ -10,9 +10,9 @@ import 'package:tensionnode/types/resource_type.dart';
 class Hud extends SpriteComponent with Tappable {
   final double xPosition;
   final GameState gameState;
-  final TextComponent redAmount = TextComponent();
-  final TextComponent greenAmount = TextComponent();
-  final TextComponent blueAmount = TextComponent();
+  final TextComponent redAmount = TextResourceIndicator(x: 60);
+  final TextComponent greenAmount = TextResourceIndicator(x: 210);
+  final TextComponent blueAmount = TextResourceIndicator(x: 360);
 
   Hud({
     required this.xPosition,
@@ -31,44 +31,21 @@ class Hud extends SpriteComponent with Tappable {
     height = 50;
     anchor = Anchor.center;
 
-    final TextPaint textPaint = TextPaint(
-      style: const TextStyle(
-        fontSize: 24,
-        fontFamily: Constants.FONT_NAME,
-        color: Palette.white,
-      ),
-    );
-
-    redAmount.position = Vector2(60, 25);
-    redAmount.anchor = Anchor.centerLeft;
-    redAmount.textRenderer = textPaint;
     add(redAmount);
-
-    add(ResourceIndicator(
+    add(IconResourceIndicator(
       x: 40,
-      y: 25,
       type: ResourceType.red,
     ));
 
-    greenAmount.position = Vector2(210, 25);
-    greenAmount.anchor = Anchor.centerLeft;
-    greenAmount.textRenderer = textPaint;
     add(greenAmount);
-
-    add(ResourceIndicator(
+    add(IconResourceIndicator(
       x: 190,
-      y: 25,
       type: ResourceType.green,
     ));
 
-    blueAmount.position = Vector2(360, 25);
-    blueAmount.anchor = Anchor.centerLeft;
-    blueAmount.textRenderer = textPaint;
     add(blueAmount);
-
-    add(ResourceIndicator(
+    add(IconResourceIndicator(
       x: 340,
-      y: 25,
       type: ResourceType.blue,
     ));
 
@@ -85,15 +62,14 @@ class Hud extends SpriteComponent with Tappable {
   }
 }
 
-class ResourceIndicator extends SpriteComponent {
+class IconResourceIndicator extends SpriteComponent {
   final ResourceType type;
 
-  ResourceIndicator({
+  IconResourceIndicator({
     required double x,
-    required double y,
     required this.type,
   }) {
-    position = Vector2(x, y);
+    position = Vector2(x, 25);
   }
 
   @override
@@ -105,5 +81,23 @@ class ResourceIndicator extends SpriteComponent {
     anchor = Anchor.center;
 
     return super.onLoad();
+  }
+}
+
+class TextResourceIndicator extends TextComponent {
+  TextResourceIndicator({
+    required double x,
+  }) {
+    final TextPaint textPaint = TextPaint(
+      style: const TextStyle(
+        fontSize: 24,
+        fontFamily: Constants.FONT_NAME,
+        color: Palette.white,
+      ),
+    );
+
+    position = Vector2(x, 25);
+    anchor = Anchor.centerLeft;
+    textRenderer = textPaint;
   }
 }
