@@ -11,7 +11,6 @@ import 'package:tensionnode/types/resource_type.dart';
 class MyGame extends Zoomable with HasTappables {
   @override
   Future onLoad() async {
-    super.onLoad();
     add(FpsTextComponent(position: Vector2(10, 10)));
     add(Hud(size.x / 2));
 
@@ -69,6 +68,8 @@ class MyGame extends Zoomable with HasTappables {
       path: 'mine_red.png',
       resourceType: ResourceType.red,
     ));
+
+    return super.onLoad();
   }
 
   @override

@@ -20,11 +20,13 @@ class Cell extends SpriteComponent {
   }
 
   @override
-  Future<void> onLoad() async {
+  Future onLoad() async {
     final Image image = await Flame.images.load(path);
     sprite = Sprite(image);
     width = Constants.SPRITE_SIZE;
     height = Constants.SPRITE_SIZE;
     anchor = Anchor.center;
+
+    return super.onLoad();
   }
 }

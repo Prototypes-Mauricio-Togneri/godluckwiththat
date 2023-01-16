@@ -10,10 +10,12 @@ class Zoomable extends FlameGame with ScrollDetector, ScaleDetector {
   late double startZoom;
 
   @override
-  Future<void> onLoad() async {
+  Future onLoad() async {
     camera.viewport = FixedResolutionViewport(size);
     camera.setRelativeOffset(Anchor.center);
     camera.speed = 100;
+
+    return super.onLoad();
   }
 
   void clampZoom() {
