@@ -1,15 +1,9 @@
 import 'dart:convert';
-
-import 'package:flutter/widgets.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/json/json_resources.dart';
-import 'package:tensionnode/model/game_map.dart';
-import 'package:tensionnode/model/match.dart';
-import 'package:tensionnode/model/nodes.dart';
-import 'package:tensionnode/model/patches.dart';
 
 part 'json_match.g.dart';
 
@@ -41,44 +35,6 @@ class JsonMatch {
     required this.patches,
     required this.nodes,
   });
-
-  Match getMatch() => Match(version: version, id: id);
-
-  GameMap getMap() => GameMap(
-        numberOfBlocksHorizontal: map.numberOfBlocksHorizontal,
-        numberOfBlocksVertical: map.numberOfBlocksVertical,
-        blockSize: map.blockSize,
-      );
-
-  Patches getPatches() {
-    final Patches result = Patches();
-
-    for (final JsonPatch patch in patches) {
-      result.add(patch.getPatch());
-    }
-
-    return result;
-  }
-
-  Nodes getNodes() {
-    final Nodes result = Nodes();
-
-    for (final JsonNode node in nodes) {
-      result.add(node.getNode());
-    }
-
-    return result;
-  }
-
-  JsonNode? getNode(Offset position) {
-    for (final JsonNode node in nodes) {
-      if ((node.position[0] == position.dx) && (node.position[1] == position.dy)) {
-        return node;
-      }
-    }
-
-    return null;
-  }
 
   factory JsonMatch.fromString(String json) => JsonMatch.fromJson(jsonDecode(json));
 

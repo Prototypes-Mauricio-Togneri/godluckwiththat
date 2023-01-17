@@ -26,8 +26,7 @@ class Zoomable extends FlameGame with ScrollDetector, ScaleDetector {
   void onScroll(PointerScrollInfo info) {
     if ((info.scrollDelta.game.y.sign == -1) || (camera.zoom > 1)) {
       final Vector2 offset = camera.position + (size / 2);
-      final Vector2 vector =
-          (info.eventPosition.game - offset) / (camera.zoom * 2);
+      final Vector2 vector = (info.eventPosition.game - offset) / (camera.zoom * 2);
 
       if (info.scrollDelta.game.y.sign > 0) {
         camera.translateBy(-vector);

@@ -5,19 +5,19 @@ part 'json_resources.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonResources {
-  @JsonKey(name: 'resource1')
-  final int resource1;
+  @JsonKey(name: 'red')
+  final int red;
 
-  @JsonKey(name: 'resource2')
-  final int resource2;
+  @JsonKey(name: 'green')
+  final int green;
 
-  @JsonKey(name: 'resource3')
-  final int resource3;
+  @JsonKey(name: 'blue')
+  final int blue;
 
   const JsonResources({
-    required this.resource1,
-    required this.resource2,
-    required this.resource3,
+    required this.red,
+    required this.green,
+    required this.blue,
   });
 
   factory JsonResources.fromString(String json) => JsonResources.fromJson(jsonDecode(json));
