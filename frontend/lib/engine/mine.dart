@@ -22,7 +22,7 @@ class Mine extends Cell with Tappable {
   void update(double dt) {
     accumulatedTime += dt;
 
-    if (accumulatedTime >= resourceType.productionType) {
+    if (accumulatedTime >= resourceType.productionTime) {
       accumulatedTime = 0;
       gameState.addResource(resourceType);
     }

@@ -7,7 +7,7 @@ import 'package:url_strategy/url_strategy.dart';
 
 final GetIt locator = GetIt.instance;
 
-class Initializer {
+class Locator {
   static Future load() async {
     WidgetsFlutterBinding.ensureInitialized();
     setPathUrlStrategy();

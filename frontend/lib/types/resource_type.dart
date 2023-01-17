@@ -7,9 +7,9 @@ enum ResourceType {
   blue(Palette.resource_blue, 3);
 
   final Color color;
-  final int productionType;
+  final int productionTime;
 
-  const ResourceType(this.color, this.productionType);
+  const ResourceType(this.color, this.productionTime);
 
   String get pathMine {
     switch (this) {

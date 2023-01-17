@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tensionnode/app/tension_node.dart';
-import 'package:tensionnode/services/initializer.dart';
+import 'package:tensionnode/services/locator.dart';
 
 void main() async {
-  await Initializer.load();
+  await Locator.load();
   runApp(const TensionNode());
 }
