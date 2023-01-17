@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
-import 'package:flame/palette.dart';
+import 'package:flame/image_composition.dart';
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/game_state.dart';
 import 'package:tensionnode/engine/headquarters.dart';
 import 'package:tensionnode/engine/hud.dart';
@@ -13,6 +14,7 @@ import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/services/assets.dart';
+import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class MyGame extends Zoomable with HasTappables {
@@ -61,28 +63,43 @@ class MyGame extends Zoomable with HasTappables {
   @override
   Color backgroundColor() => const Color(0xff1a1a1a);
 
-  /*void renderBackground(Canvas canvas, Size size) {
-    final Rect viewport = map.viewport;
-    final double zoom = map.currentZoom;
+  @override
+  void render(Canvas canvas) {
+    final Rect viewport = Rect.fromCenter(
+      center: const Offset(0, 0),
+      width: camera.viewport.canvasSize!.x,
+      height: camera.viewport.canvasSize!.y,
+    );
+    //final double zoom = camera.zoom;
 
-    if (zoom >= 3) {
-      for (int i = 1; i < map.dimensions.width; i++) {
-        final double x = (i * map.blockSize).toDouble();
+    //if (zoom >= 3) {
+    for (int i = 1; i < 100; i++) {
+      final double x = (i * Constants.CELL_SIZE).toDouble();
 
-        if ((x >= viewport.left) && (x <= viewport.right)) {
-          canvas.drawLine(Offset(x, 0), Offset(x, size.height), Palette.gridPaint);
-        }
-      }
-
-      for (int i = 1; i < map.dimensions.height; i++) {
-        final double y = (i * map.blockSize).toDouble();
-
-        if ((y >= viewport.top) && (y <= viewport.bottom)) {
-          canvas.drawLine(Offset(0, y), Offset(size.width, y), Palette.gridPaint);
-        }
+      if ((x >= viewport.left) && (x <= viewport.right)) {
+        canvas.drawLine(
+          Offset(x, 0),
+          Offset(x, size.y),
+          Palette.gridPaint,
+        );
       }
     }
-  }*/
+
+    for (int i = 1; i < 100; i++) {
+      final double y = (i * Constants.CELL_SIZE).toDouble();
+
+      if ((y >= viewport.top) && (y <= viewport.bottom)) {
+        canvas.drawLine(
+          Offset(0, y),
+          Offset(size.x, y),
+          Palette.gridPaint,
+        );
+      }
+    }
+    //}
+
+    return super.render(canvas);
+  }
 
   void save() {
     /*final JsonMatch jsonMatch = JsonMatch(
