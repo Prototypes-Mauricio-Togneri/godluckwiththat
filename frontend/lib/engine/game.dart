@@ -65,27 +65,33 @@ class MyGame extends Zoomable with HasTappables {
 
   @override
   void render(Canvas canvas) {
-    final Rect viewport = Rect.fromCenter(
-      center: const Offset(0, 0),
-      width: camera.viewport.canvasSize!.x,
-      height: camera.viewport.canvasSize!.y,
+    final Rect viewport = Rect.fromLTWH(
+      -(camera.position.x + (camera.viewport.effectiveSize.x / 2)),
+      -(camera.position.y + (camera.viewport.effectiveSize.y / 2)),
+      camera.viewport.effectiveSize.x,
+      camera.viewport.effectiveSize.y,
     );
+    print(viewport);
+    //print(camera.position); // [-960,-490] -> [-1180,-710]
+    //print(camera.relativeOffset); // [0.5,0.5]
+    //print(camera.viewport.effectiveSize); // [1920,980]
+    //print('------------------------------------');
     //final double zoom = camera.zoom;
 
     //if (zoom >= 3) {
-    for (int i = 1; i < 100; i++) {
+    for (int i = 1; i < 1000; i++) {
       final double x = (i * Constants.CELL_SIZE).toDouble();
 
       if ((x >= viewport.left) && (x <= viewport.right)) {
         canvas.drawLine(
-          Offset(x, 0),
-          Offset(x, size.y),
+          Offset(x, viewport.top),
+          Offset(x, viewport.bottom),
           Palette.gridPaint,
         );
       }
     }
 
-    for (int i = 1; i < 100; i++) {
+    /*for (int i = 1; i < 1000; i++) {
       final double y = (i * Constants.CELL_SIZE).toDouble();
 
       if ((y >= viewport.top) && (y <= viewport.bottom)) {
@@ -95,10 +101,10 @@ class MyGame extends Zoomable with HasTappables {
           Palette.gridPaint,
         );
       }
-    }
+    }*/
     //}
 
-    return super.render(canvas);
+    super.render(canvas);
   }
 
   void save() {
