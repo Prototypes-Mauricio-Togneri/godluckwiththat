@@ -18,7 +18,10 @@ class Background extends Component {
       camera.viewport.effectiveSize.y,
     );
 
-    for (int i = -10000; i < 10000; i++) {
+    final int left = (viewport.left ~/ Constants.CELL_SIZE) - 1;
+    final int right = (viewport.right ~/ Constants.CELL_SIZE) + 1;
+
+    for (int i = left; i < right; i++) {
       final double x = (i * Constants.CELL_SIZE).toDouble();
 
       if ((x >= viewport.left) && (x <= viewport.right)) {
@@ -30,7 +33,10 @@ class Background extends Component {
       }
     }
 
-    for (int j = -10000; j < 10000; j++) {
+    final int top = (viewport.top ~/ Constants.CELL_SIZE) - 1;
+    final int bottom = (viewport.bottom ~/ Constants.CELL_SIZE) + 1;
+
+    for (int j = top; j < bottom; j++) {
       final double y = (j * Constants.CELL_SIZE).toDouble();
 
       if ((y >= viewport.top) && (y <= viewport.bottom)) {
