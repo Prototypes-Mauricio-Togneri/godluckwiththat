@@ -13,9 +13,11 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Palette.black,
-      body: GameWidget(game: MyGame()),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Palette.black,
+        body: GameWidget(game: MyGame()),
+      ),
     );
   }
 }
