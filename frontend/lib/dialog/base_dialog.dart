@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/services/navigation.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -12,7 +13,14 @@ class BaseDialog extends StatelessWidget {
     this.onKey,
   });
 
-  static void show(Widget widget) => Navigation.dialog(widget);
+  static void show({
+    required Widget widget,
+    required String name,
+  }) =>
+      Navigation.dialog(
+        widget: widget,
+        name: name,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +28,7 @@ class BaseDialog extends StatelessWidget {
       autofocus: true,
       focusNode: FocusNode(),
       onKey: onKey,
-      child: WillPopScope(
-        onWillPop: () async => false,
+      child: Unclosable(
         child: Container(
           color: Palette.screenBackground,
           child: SafeArea(

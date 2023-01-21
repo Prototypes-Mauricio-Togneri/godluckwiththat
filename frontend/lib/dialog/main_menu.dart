@@ -27,12 +27,13 @@ class MainMenu extends StatelessWidget {
     required VoidCallback onSettings,
   }) =>
       BaseDialog.show(
-        MainMenu._(
+        widget: MainMenu._(
           onContinue,
           onLoad,
           onSave,
           onSettings,
         ),
+        name: 'main_menu',
       );
 
   @override
