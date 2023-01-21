@@ -9,14 +9,14 @@ import 'package:tensionnode/types/resource_type.dart';
 
 class Hud extends SpriteComponent with Tappable {
   final double xPosition;
-  final GameState gameState;
+  final GameState state;
   final TextComponent redAmount = TextResourceIndicator(x: 60);
   final TextComponent greenAmount = TextResourceIndicator(x: 210);
   final TextComponent blueAmount = TextResourceIndicator(x: 360);
 
   Hud({
     required this.xPosition,
-    required this.gameState,
+    required this.state,
   }) {
     positionType = PositionType.viewport;
     priority = 1;
@@ -56,9 +56,9 @@ class Hud extends SpriteComponent with Tappable {
   void update(double dt) {
     super.update(dt);
 
-    redAmount.text = '${gameState.red}';
-    greenAmount.text = '${gameState.green}';
-    blueAmount.text = '${gameState.blue}';
+    redAmount.text = '${state.red}';
+    greenAmount.text = '${state.green}';
+    blueAmount.text = '${state.blue}';
   }
 }
 

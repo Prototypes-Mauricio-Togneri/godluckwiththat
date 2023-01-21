@@ -2,18 +2,21 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/build/build_version.dart';
 import 'package:tensionnode/dialog/base_dialog.dart';
+import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/services/navigation.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
 class MainMenu extends StatelessWidget {
+  final MyGame game;
   final VoidCallback onContinue;
   final VoidCallback onLoad;
   final VoidCallback onSave;
   final VoidCallback onSettings;
 
   const MainMenu._(
+    this.game,
     this.onContinue,
     this.onLoad,
     this.onSave,
@@ -21,24 +24,30 @@ class MainMenu extends StatelessWidget {
   );
 
   static void show({
+    required MyGame game,
     required VoidCallback onContinue,
     required VoidCallback onLoad,
     required VoidCallback onSave,
     required VoidCallback onSettings,
-  }) =>
-      BaseDialog.show(
-        widget: MainMenu._(
-          onContinue,
-          onLoad,
-          onSave,
-          onSettings,
-        ),
-        name: 'main_menu',
-      );
+  }) {
+    game.pauseEngine();
+
+    BaseDialog.show(
+      widget: MainMenu._(
+        game,
+        onContinue,
+        onLoad,
+        onSave,
+        onSettings,
+      ),
+      name: 'main_menu',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return BaseDialog(
+      game: game,
       child: Center(
         child: Container(
           padding: const EdgeInsets.all(12),
@@ -95,20 +104,24 @@ class MainMenu extends StatelessWidget {
   void _onContinue() {
     Navigation.pop();
     onContinue();
+    game.resumeEngine();
   }
 
   void _onLoad() {
     Navigation.pop();
     onLoad();
+    game.resumeEngine();
   }
 
   void _onSave() {
     Navigation.pop();
     onSave();
+    game.resumeEngine();
   }
 
   void _onSettings() {
     Navigation.pop();
     onSettings();
+    game.resumeEngine();
   }
 }

@@ -32,7 +32,7 @@ class MyGame extends Zoomable with HasTappables {
     add(Background(camera));
     add(Hud(
       xPosition: size.x / 2,
-      gameState: state,
+      state: state,
     ));
 
     final JsonMatch jsonMatch = await Loader.match(Assets.MAPS_MAP1);
