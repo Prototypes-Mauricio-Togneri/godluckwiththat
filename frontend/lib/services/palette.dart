@@ -4,6 +4,7 @@ class Palette {
   static const MaterialColor primary = Colors.blue;
   static const Color transparent = Colors.transparent;
   static const Color black = Colors.black;
+  static const Color grey = Color(0xff404040);
   static const Color white = Colors.white;
   static const Color blue = Colors.blue;
 
