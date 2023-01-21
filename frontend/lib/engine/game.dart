@@ -21,7 +21,12 @@ class MyGame extends Zoomable with HasTappables {
 
   @override
   Future onLoad() async {
-    add(FpsTextComponent(position: Vector2(10, size.y - 40)));
+    add(FpsTextComponent(
+      position: Vector2(
+        10,
+        size.y - 40,
+      ),
+    ));
     add(Background(camera));
     add(Hud(
       xPosition: size.x / 2,
