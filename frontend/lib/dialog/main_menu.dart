@@ -39,7 +39,6 @@ class MainMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseDialog(
-      onKey: _onKey,
       child: Center(
         child: Container(
           padding: const EdgeInsets.all(12),
@@ -111,12 +110,5 @@ class MainMenu extends StatelessWidget {
   void _onSettings() {
     Navigation.pop();
     onSettings();
-  }
-
-  void _onKey(RawKeyEvent event) {
-    // TODO(momo): implement
-    /*if (event.isEscape()) {
-      _onContinue();
-    }*/
   }
 }
