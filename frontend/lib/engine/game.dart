@@ -17,7 +17,9 @@ import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class MyGame extends Zoomable with HasTappables {
-  final GameState gameState = GameState();
+  final GameState state;
+
+  MyGame(this.state);
 
   @override
   Future onLoad() async {
@@ -30,13 +32,13 @@ class MyGame extends Zoomable with HasTappables {
     add(Background(camera));
     add(Hud(
       xPosition: size.x / 2,
-      gameState: gameState,
+      gameState: state,
     ));
 
     final JsonMatch jsonMatch = await Loader.match(Assets.MAPS_MAP1);
-    gameState.red = jsonMatch.resources.red;
-    gameState.green = jsonMatch.resources.green;
-    gameState.blue = jsonMatch.resources.blue;
+    state.red = jsonMatch.resources.red;
+    state.green = jsonMatch.resources.green;
+    state.blue = jsonMatch.resources.blue;
 
     for (final JsonPatch patch in jsonMatch.patches) {
       add(Patch(
@@ -52,7 +54,7 @@ class MyGame extends Zoomable with HasTappables {
           i: node.position.x,
           j: node.position.y,
           resourceType: node.resource!,
-          gameState: gameState,
+          state: state,
         ));
       } else if (node.type == NodeType.headquarters) {
         add(Headquarters(

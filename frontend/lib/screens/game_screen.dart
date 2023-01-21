@@ -21,7 +21,7 @@ class GameScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           body: GameWidget(
-            game: MyGame(),
+            game: MyGame(state),
           ),
         ),
       ),

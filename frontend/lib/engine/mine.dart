@@ -6,7 +6,7 @@ import 'package:tensionnode/types/resource_type.dart';
 
 class Mine extends Cell with Tappable {
   final ResourceType resourceType;
-  final GameState gameState;
+  final GameState state;
   num accumulatedTime = 0;
 
   static const int RESOURCE_RED_COST = 100;
@@ -15,7 +15,7 @@ class Mine extends Cell with Tappable {
     required super.i,
     required super.j,
     required this.resourceType,
-    required this.gameState,
+    required this.state,
   }) : super(path: resourceType.pathMine);
 
   @override
@@ -24,7 +24,7 @@ class Mine extends Cell with Tappable {
 
     if (accumulatedTime >= resourceType.productionTime) {
       accumulatedTime = 0;
-      gameState.addResource(resourceType);
+      state.addResource(resourceType);
     }
 
     super.update(dt);
