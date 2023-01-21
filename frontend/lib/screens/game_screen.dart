@@ -20,7 +20,9 @@ class GameScreen extends StatelessWidget {
       statusBarColor: Palette.grey,
       child: SafeArea(
         child: Scaffold(
-          body: GameWidget(game: MyGame()),
+          body: GameWidget(
+            game: MyGame(),
+          ),
         ),
       ),
     );
