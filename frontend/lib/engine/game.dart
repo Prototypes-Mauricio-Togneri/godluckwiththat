@@ -22,7 +22,7 @@ import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
 
-class MyGame extends Zoomable with HasTappables, KeyboardEvents {
+class MyGame extends Zoomable with HasTappables, HasHoverables, KeyboardEvents {
   final GameState state;
 
   MyGame(this.state);

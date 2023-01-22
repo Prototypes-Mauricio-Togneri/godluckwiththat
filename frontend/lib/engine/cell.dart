@@ -1,9 +1,10 @@
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 
-class Cell extends SpriteComponent with HasGameRef<MyGame> {
+class Cell extends SpriteComponent with HasGameRef<MyGame>, Hoverable {
   final int i;
   final int j;
   final String path;
@@ -27,5 +28,12 @@ class Cell extends SpriteComponent with HasGameRef<MyGame> {
     anchor = Anchor.center;
 
     return super.onLoad();
+  }
+
+  @override
+  void render(Canvas canvas) {
+    setOpacity(isHovered ? 0.5 : 1);
+
+    super.render(canvas);
   }
 }
