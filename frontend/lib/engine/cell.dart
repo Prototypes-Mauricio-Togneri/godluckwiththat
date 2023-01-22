@@ -1,10 +1,12 @@
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 
-class Cell extends SpriteComponent with HasGameRef<MyGame>, Hoverable {
+class Cell extends SpriteComponent
+    with HasGameRef<MyGame>, Tappable, Hoverable {
   final int i;
   final int j;
   final String path;
@@ -29,6 +31,12 @@ class Cell extends SpriteComponent with HasGameRef<MyGame>, Hoverable {
 
     return super.onLoad();
   }
+
+  @override
+  bool onTapUp(TapUpInfo info) => true;
+
+  @override
+  bool onTapDown(TapDownInfo info) => true;
 
   @override
   void render(Canvas canvas) {
