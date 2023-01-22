@@ -1,9 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
+import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 
-class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {
+class ButtonsHud extends SpriteComponent with HasGameRef<MyGame>, Tappable {
   ButtonsHud() {
     positionType = PositionType.viewport;
     priority = 1;
@@ -20,6 +21,16 @@ class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {
     add(ButtonComponent());
 
     return super.onLoad();
+  }
+
+  @override
+  bool onTapUp(TapUpInfo info) {
+    return true;
+  }
+
+  @override
+  bool onTapDown(TapDownInfo info) {
+    return true;
   }
 }
 
@@ -41,19 +52,19 @@ class ButtonComponent extends SpriteGroupComponent<ButtonState>
     return super.onLoad();
   }
 
-  /*@override
-  bool containsLocalPoint(Vector2 point) =>
-      const Rect.fromLTWH(0, 0, 60, 60).contains(point.toOffset());
-
   @override
-  void onTapUp(TapUpEvent event) {
+  bool onTapUp(TapUpInfo info) {
     current = ButtonState.up;
 
     MainMenu.show(game: game);
+
+    return true;
   }
 
   @override
-  void onTapDown(TapDownEvent event) {
+  bool onTapDown(TapDownInfo info) {
     current = ButtonState.down;
-  }*/
+
+    return true;
+  }
 }
