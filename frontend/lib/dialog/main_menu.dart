@@ -91,7 +91,7 @@ class _MainMenuState extends State<MainMenu> {
               child: Label(
                 text: version,
                 color: Palette.white,
-                size: 12,
+                size: 10,
               ),
             ),
           ],

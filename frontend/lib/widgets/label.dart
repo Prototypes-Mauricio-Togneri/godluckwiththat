@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/services/palette.dart';
 
 class Label extends StatelessWidget {
@@ -10,7 +11,6 @@ class Label extends StatelessWidget {
   final TextAlign? align;
   final TextOverflow? overflow;
   final GestureTapCallback? onTap;
-  final bool singleLine;
   final int? maxLines;
 
   const Label({
@@ -21,7 +21,6 @@ class Label extends StatelessWidget {
     this.decoration = TextDecoration.none,
     this.align,
     this.overflow,
-    this.singleLine = false,
     this.onTap,
     this.maxLines,
   });
@@ -33,14 +32,14 @@ class Label extends StatelessWidget {
       child: Text(
         text,
         textAlign: align,
-        overflow: singleLine ? TextOverflow.ellipsis : overflow,
         maxLines: maxLines,
         style: TextStyle(
           color: color,
           fontSize: size,
           fontWeight: weight,
+          fontFamily: Constants.FONT_NAME,
           decoration: decoration,
-          height: singleLine ? 1 : 1.5,
+          height: 1,
           letterSpacing: 0.3,
         ),
       ),
