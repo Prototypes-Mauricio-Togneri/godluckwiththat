@@ -1,8 +1,7 @@
 import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
-import 'package:flame/flame.dart';
 import 'package:flame/input.dart';
 import 'package:tensionnode/engine/game.dart';
+import 'package:tensionnode/extensions/component_extension.dart';
 
 class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {
   ButtonsHud() {
@@ -12,8 +11,7 @@ class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {
 
   @override
   Future onLoad() async {
-    final Image image = await Flame.images.load('hud.png');
-    sprite = Sprite(image);
+    sprite = await getSprite('hud.png');
     width = 450;
     height = 80;
     anchor = Anchor.center;
@@ -28,16 +26,13 @@ class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {
 class ButtonComponent extends SpriteGroupComponent<ButtonState> with Tappable {
   @override
   Future onLoad() async {
-    final Image downSprite = await Flame.images.load('button_menu_down.png');
-    final Image upSprite = await Flame.images.load('button_menu_up.png');
-
     position = Vector2(10, 10);
     width = 60;
     height = 60;
 
     sprites = {
-      ButtonState.down: Sprite(downSprite),
-      ButtonState.up: Sprite(upSprite),
+      ButtonState.down: await getSprite('button_menu_down.png'),
+      ButtonState.up: await getSprite('button_menu_up.png'),
     };
 
     current = ButtonState.up;

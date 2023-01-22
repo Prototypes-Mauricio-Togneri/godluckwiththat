@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
-import 'package:flame/flame.dart';
 import 'package:tensionnode/engine/game.dart';
+import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -17,8 +16,7 @@ class ResourcesHud extends SpriteComponent with HasGameRef<MyGame> {
 
   @override
   Future onLoad() async {
-    final Image image = await Flame.images.load('hud.png');
-    sprite = Sprite(image);
+    sprite = await getSprite('hud.png');
     width = 450;
     height = 50;
     anchor = Anchor.center;
@@ -67,8 +65,7 @@ class IconResourceIndicator extends SpriteComponent {
 
   @override
   Future onLoad() async {
-    final Image image = await Flame.images.load(type.pathPatch);
-    sprite = Sprite(image);
+    sprite = await getSprite(type.pathPatch);
     width = 25;
     height = 25;
     anchor = Anchor.center;
