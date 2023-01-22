@@ -1,14 +1,12 @@
-import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tensionnode/dialog/base_dialog.dart';
+import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/services/navigation.dart';
 import 'package:tensionnode/services/palette.dart';
-import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
-class MainMenu extends StatefulWidget {
+class MainMenu extends StatelessWidget {
   final MyGame game;
 
   const MainMenu._(this.game);
@@ -25,30 +23,9 @@ class MainMenu extends StatefulWidget {
   }
 
   @override
-  State<MainMenu> createState() => _MainMenuState();
-}
-
-class _MainMenuState extends State<MainMenu> {
-  String version = '';
-
-  @override
-  void initState() {
-    super.initState();
-    Delayed.post(_getVersion);
-  }
-
-  Future _getVersion() async {
-    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-    setState(() {
-      version = 'v ${packageInfo.version}';
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BaseDialog(
-      game: widget.game,
+      game: game,
       child: IntrinsicWidth(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -79,20 +56,11 @@ class _MainMenuState extends State<MainMenu> {
               color: Palette.blue,
               onPressed: _onSettings,
             ),
-            const VBox(30),
             MenuButton(
               text: 'Close',
               icon: Icons.close,
               color: Palette.lightGrey,
               onPressed: _onClose,
-            ),
-            const VBox(10),
-            Center(
-              child: Label(
-                text: version,
-                color: Palette.white,
-                size: 10,
-              ),
             ),
           ],
         ),
@@ -112,9 +80,7 @@ class _MainMenuState extends State<MainMenu> {
     _closeMenu();
   }
 
-  void _onSettings() {
-    _closeMenu();
-  }
+  void _onSettings() => SettingsMenu.show(game: game);
 
   void _onClose() {
     _closeMenu();
@@ -122,6 +88,6 @@ class _MainMenuState extends State<MainMenu> {
 
   void _closeMenu() {
     Navigation.pop();
-    widget.game.resumeEngine();
+    game.resumeEngine();
   }
 }
