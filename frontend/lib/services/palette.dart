@@ -5,6 +5,7 @@ class Palette {
   static const Color transparent = Colors.transparent;
   static const Color black = Colors.black;
   static const Color grey = Color(0xff404040);
+  static const Color lightGrey = Color(0xffa0a0a0);
   static const Color white = Colors.white;
   static const Color blue = Colors.blue;
 

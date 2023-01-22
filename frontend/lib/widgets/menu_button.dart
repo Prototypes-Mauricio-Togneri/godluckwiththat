@@ -29,7 +29,6 @@ class MenuButton extends StatelessWidget {
         waitDuration: const Duration(seconds: 1),
         textStyle: const TextStyle(
           color: Palette.white,
-          height: 1.5,
         ),
         padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
         decoration: BoxDecoration(
@@ -51,7 +50,10 @@ class MenuButton extends StatelessWidget {
               ),
               const HBox(15),
               const Spacer(),
-              Label(text: text.toUpperCase()),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Label(text: text.toUpperCase()),
+              ),
               const Spacer(),
             ],
           ),

@@ -86,6 +86,13 @@ class _MainMenuState extends State<MainMenu> {
                   color: Palette.blue,
                   onPressed: _onSettings,
                 ),
+                const VBox(30),
+                MenuButton(
+                  text: 'Close',
+                  icon: Icons.close,
+                  color: Palette.lightGrey,
+                  onPressed: _onClose,
+                ),
                 const VBox(10),
                 Center(
                   child: Label(
@@ -103,21 +110,26 @@ class _MainMenuState extends State<MainMenu> {
   }
 
   void _onContinue() {
-    Navigation.pop();
-    widget.game.resumeEngine();
+    _closeMenu();
   }
 
   void _onLoad() {
-    Navigation.pop();
-    widget.game.resumeEngine();
+    _closeMenu();
   }
 
   void _onSave() {
-    Navigation.pop();
-    widget.game.resumeEngine();
+    _closeMenu();
   }
 
   void _onSettings() {
+    _closeMenu();
+  }
+
+  void _onClose() {
+    _closeMenu();
+  }
+
+  void _closeMenu() {
     Navigation.pop();
     widget.game.resumeEngine();
   }
