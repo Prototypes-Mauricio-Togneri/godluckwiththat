@@ -32,13 +32,7 @@ class Mine extends Cell with Tappable {
   bool onTapUp(TapUpInfo info) {
     print('$i $j');
 
-    MainMenu.show(
-      game: game,
-      onContinue: () {},
-      onLoad: () {},
-      onSave: () {},
-      onSettings: () {},
-    );
+    MainMenu.show(game: game);
 
     return true;
   }

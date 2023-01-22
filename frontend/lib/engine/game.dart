@@ -1,6 +1,11 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame/image_composition.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/engine/background.dart';
 import 'package:tensionnode/engine/game_state.dart';
 import 'package:tensionnode/engine/headquarters.dart';
@@ -17,7 +22,7 @@ import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
 
-class MyGame extends Zoomable with HasTappables {
+class MyGame extends Zoomable with HasTappables, KeyboardEvents {
   final GameState state;
 
   MyGame(this.state);
@@ -82,5 +87,25 @@ class MyGame extends Zoomable with HasTappables {
     );
 
     ClipboardText().copy(jsonMatch.toJsonString());*/
+  }
+
+  @override
+  KeyEventResult onKeyEvent(
+    RawKeyEvent event,
+    Set<LogicalKeyboardKey> keysPressed,
+  ) {
+    final bool isKeyDown = event is RawKeyDownEvent;
+    final bool isSpace = keysPressed.contains(LogicalKeyboardKey.escape);
+
+    if (isSpace && isKeyDown) {
+      Future.delayed(
+        const Duration(milliseconds: 100),
+        () => Delayed.post(() => MainMenu.show(game: this)),
+      );
+
+      return KeyEventResult.handled;
+    } else {
+      return KeyEventResult.ignored;
+    }
   }
 }

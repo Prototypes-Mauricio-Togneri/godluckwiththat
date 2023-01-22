@@ -10,36 +10,16 @@ import 'package:tensionnode/widgets/menu_button.dart';
 
 class MainMenu extends StatefulWidget {
   final MyGame game;
-  final VoidCallback onContinue;
-  final VoidCallback onLoad;
-  final VoidCallback onSave;
-  final VoidCallback onSettings;
 
-  const MainMenu._(
-    this.game,
-    this.onContinue,
-    this.onLoad,
-    this.onSave,
-    this.onSettings,
-  );
+  const MainMenu._(this.game);
 
   static void show({
     required MyGame game,
-    required VoidCallback onContinue,
-    required VoidCallback onLoad,
-    required VoidCallback onSave,
-    required VoidCallback onSettings,
   }) {
     game.pauseEngine();
 
     BaseDialog.show(
-      widget: MainMenu._(
-        game,
-        onContinue,
-        onLoad,
-        onSave,
-        onSettings,
-      ),
+      widget: MainMenu._(game),
       name: 'main_menu',
     );
   }
@@ -124,25 +104,21 @@ class _MainMenuState extends State<MainMenu> {
 
   void _onContinue() {
     Navigation.pop();
-    widget.onContinue();
     widget.game.resumeEngine();
   }
 
   void _onLoad() {
     Navigation.pop();
-    widget.onLoad();
     widget.game.resumeEngine();
   }
 
   void _onSave() {
     Navigation.pop();
-    widget.onSave();
     widget.game.resumeEngine();
   }
 
   void _onSettings() {
     Navigation.pop();
-    widget.onSettings();
     widget.game.resumeEngine();
   }
 }
