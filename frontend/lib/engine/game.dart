@@ -54,7 +54,6 @@ class MyGame extends Zoomable with HasTappables {
           i: node.position.x,
           j: node.position.y,
           resourceType: node.resource!,
-          state: state,
         ));
       } else if (node.type == NodeType.headquarters) {
         add(Headquarters(

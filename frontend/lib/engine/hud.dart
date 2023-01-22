@@ -7,7 +7,7 @@ import 'package:tensionnode/engine/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class Hud extends SpriteComponent with Tappable {
+class Hud extends SpriteComponent {
   final double xPosition;
   final GameState state;
   final TextComponent redAmount = TextResourceIndicator(x: 60);

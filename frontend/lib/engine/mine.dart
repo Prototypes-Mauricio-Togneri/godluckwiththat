@@ -2,13 +2,10 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/engine/cell.dart';
-import 'package:tensionnode/engine/game.dart';
-import 'package:tensionnode/engine/game_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class Mine extends Cell with Tappable, HasGameRef<MyGame> {
+class Mine extends Cell with Tappable {
   final ResourceType resourceType;
-  final GameState state;
   num accumulatedTime = 0;
 
   static const int RESOURCE_RED_COST = 100;
@@ -17,7 +14,6 @@ class Mine extends Cell with Tappable, HasGameRef<MyGame> {
     required super.i,
     required super.j,
     required this.resourceType,
-    required this.state,
   }) : super(path: resourceType.pathMine);
 
   @override
@@ -26,7 +22,7 @@ class Mine extends Cell with Tappable, HasGameRef<MyGame> {
 
     if (accumulatedTime >= resourceType.productionTime) {
       accumulatedTime = 0;
-      state.addResource(resourceType);
+      game.state.addResource(resourceType);
     }
 
     super.update(dt);

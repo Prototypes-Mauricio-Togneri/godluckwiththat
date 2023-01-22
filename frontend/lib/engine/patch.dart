@@ -1,8 +1,7 @@
-import 'package:flame/components.dart';
 import 'package:tensionnode/engine/cell.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class Patch extends Cell with Tappable {
+class Patch extends Cell {
   final ResourceType resourceType;
 
   Patch({

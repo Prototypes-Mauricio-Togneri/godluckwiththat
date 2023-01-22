@@ -2,8 +2,9 @@ import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/image_composition.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/engine/game.dart';
 
-class Cell extends SpriteComponent {
+class Cell extends SpriteComponent with HasGameRef<MyGame> {
   final int i;
   final int j;
   final String path;

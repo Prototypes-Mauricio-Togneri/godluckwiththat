@@ -32,9 +32,9 @@ flutter:
   uses-material-design: true
 
   fonts:
-    - family: BungeeHairline
+    - family: Magnite
       fonts:
-        - asset: assets/fonts/BungeeHairlineRegular.ttf
+        - asset: assets/fonts/Magnite.otf
 
   assets:
     - assets/fonts/
