@@ -44,7 +44,16 @@ class BaseDialog extends StatelessWidget {
                 sigmaX: 2,
                 sigmaY: 2,
               ),
-              child: child,
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Palette.grey,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: child,
+                ),
+              ),
             ),
           ),
         ),

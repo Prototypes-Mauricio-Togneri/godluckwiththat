@@ -49,61 +49,52 @@ class _MainMenuState extends State<MainMenu> {
   Widget build(BuildContext context) {
     return BaseDialog(
       game: widget.game,
-      child: Center(
-        child: Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Palette.black,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: IntrinsicWidth(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                MenuButton(
-                  text: 'Continue',
-                  icon: Icons.play_arrow,
-                  color: Palette.blue,
-                  onPressed: _onContinue,
-                  topPadding: 0,
-                ),
-                MenuButton(
-                  text: 'Load game',
-                  icon: Icons.upload,
-                  color: Palette.blue,
-                  onPressed: _onLoad,
-                ),
-                MenuButton(
-                  text: 'Save game',
-                  icon: Icons.save,
-                  color: Palette.blue,
-                  onPressed: _onSave,
-                ),
-                MenuButton(
-                  text: 'Settings',
-                  icon: Icons.settings,
-                  color: Palette.blue,
-                  onPressed: _onSettings,
-                ),
-                const VBox(30),
-                MenuButton(
-                  text: 'Close',
-                  icon: Icons.close,
-                  color: Palette.lightGrey,
-                  onPressed: _onClose,
-                ),
-                const VBox(10),
-                Center(
-                  child: Label(
-                    text: version,
-                    color: Palette.white,
-                    size: 12,
-                  ),
-                ),
-              ],
+      child: IntrinsicWidth(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            MenuButton(
+              text: 'Continue',
+              icon: Icons.play_arrow,
+              color: Palette.blue,
+              onPressed: _onContinue,
+              topPadding: 0,
             ),
-          ),
+            MenuButton(
+              text: 'Load game',
+              icon: Icons.upload,
+              color: Palette.blue,
+              onPressed: _onLoad,
+            ),
+            MenuButton(
+              text: 'Save game',
+              icon: Icons.save,
+              color: Palette.blue,
+              onPressed: _onSave,
+            ),
+            MenuButton(
+              text: 'Settings',
+              icon: Icons.settings,
+              color: Palette.blue,
+              onPressed: _onSettings,
+            ),
+            const VBox(30),
+            MenuButton(
+              text: 'Close',
+              icon: Icons.close,
+              color: Palette.lightGrey,
+              onPressed: _onClose,
+            ),
+            const VBox(10),
+            Center(
+              child: Label(
+                text: version,
+                color: Palette.white,
+                size: 12,
+              ),
+            ),
+          ],
         ),
       ),
     );
