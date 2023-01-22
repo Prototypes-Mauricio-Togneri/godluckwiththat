@@ -36,7 +36,7 @@ class MenuButton extends StatelessWidget {
               icon,
               size: 20,
             ),
-            const HBox(15),
+            const HBox(10),
             const Spacer(),
             Label(text: text.toUpperCase()),
             const Spacer(),

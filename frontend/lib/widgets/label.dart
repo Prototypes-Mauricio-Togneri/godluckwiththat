@@ -10,7 +10,6 @@ class Label extends StatelessWidget {
   final TextDecoration decoration;
   final TextAlign? align;
   final TextOverflow? overflow;
-  final GestureTapCallback? onTap;
   final int? maxLines;
 
   const Label({
@@ -21,27 +20,21 @@ class Label extends StatelessWidget {
     this.decoration = TextDecoration.none,
     this.align,
     this.overflow,
-    this.onTap,
     this.maxLines,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Text(
-        text,
-        textAlign: align,
-        maxLines: maxLines,
-        style: TextStyle(
-          color: color,
-          fontSize: size,
-          fontWeight: weight,
-          fontFamily: Constants.FONT_NAME,
-          decoration: decoration,
-          height: 1,
-          letterSpacing: 0.3,
-        ),
+    return Text(
+      text,
+      textAlign: align,
+      maxLines: maxLines,
+      style: TextStyle(
+        color: color,
+        fontSize: size,
+        fontWeight: weight,
+        fontFamily: Constants.FONT_NAME,
+        decoration: decoration,
       ),
     );
   }
