@@ -3,7 +3,6 @@
 set -e
 
 flutter clean
-dart lib/build/generate_version.dart
 flutter build web -t lib/main/main.dart --web-renderer canvaskit
 
 OUTPUT="../website/public"

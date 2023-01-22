@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/build/build_version.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tensionnode/dialog/base_dialog.dart';
 import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/services/navigation.dart';
@@ -8,7 +8,7 @@ import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
-class MainMenu extends StatelessWidget {
+class MainMenu extends StatefulWidget {
   final MyGame game;
   final VoidCallback onContinue;
   final VoidCallback onLoad;
@@ -45,9 +45,30 @@ class MainMenu extends StatelessWidget {
   }
 
   @override
+  State<MainMenu> createState() => _MainMenuState();
+}
+
+class _MainMenuState extends State<MainMenu> {
+  String version = '';
+
+  @override
+  void initState() {
+    super.initState();
+    Delayed.post(_getVersion);
+  }
+
+  Future _getVersion() async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    setState(() {
+      version = 'v ${packageInfo.version}';
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BaseDialog(
-      game: game,
+      game: widget.game,
       child: Center(
         child: Container(
           padding: const EdgeInsets.all(12),
@@ -86,9 +107,9 @@ class MainMenu extends StatelessWidget {
                   onPressed: _onSettings,
                 ),
                 const VBox(10),
-                const Center(
+                Center(
                   child: Label(
-                    text: 'v$BUILD_VERSION',
+                    text: version,
                     color: Palette.white,
                     size: 12,
                   ),
@@ -103,25 +124,25 @@ class MainMenu extends StatelessWidget {
 
   void _onContinue() {
     Navigation.pop();
-    onContinue();
-    game.resumeEngine();
+    widget.onContinue();
+    widget.game.resumeEngine();
   }
 
   void _onLoad() {
     Navigation.pop();
-    onLoad();
-    game.resumeEngine();
+    widget.onLoad();
+    widget.game.resumeEngine();
   }
 
   void _onSave() {
     Navigation.pop();
-    onSave();
-    game.resumeEngine();
+    widget.onSave();
+    widget.game.resumeEngine();
   }
 
   void _onSettings() {
     Navigation.pop();
-    onSettings();
-    game.resumeEngine();
+    widget.onSettings();
+    widget.game.resumeEngine();
   }
 }
