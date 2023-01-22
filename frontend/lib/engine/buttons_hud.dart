@@ -36,6 +36,8 @@ class ButtonComponent extends SpriteGroupComponent<ButtonState> with Tappable {
     };
 
     current = ButtonState.up;
+
+    return super.onLoad();
   }
 
   @override
