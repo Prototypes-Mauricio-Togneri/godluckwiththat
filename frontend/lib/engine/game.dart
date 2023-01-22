@@ -14,6 +14,7 @@ import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/services/assets.dart';
+import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class MyGame extends Zoomable with HasTappables {
@@ -28,6 +29,7 @@ class MyGame extends Zoomable with HasTappables {
         10,
         size.y - 40,
       ),
+      textRenderer: Style.textRenderer(size: 20),
     ));
     add(Background(camera));
     add(Hud(

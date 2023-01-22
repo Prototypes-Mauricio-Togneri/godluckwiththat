@@ -1,10 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
-import 'package:flutter/painting.dart';
-import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/game_state.dart';
-import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Hud extends SpriteComponent {
@@ -88,16 +86,8 @@ class TextResourceIndicator extends TextComponent {
   TextResourceIndicator({
     required double x,
   }) {
-    final TextPaint textPaint = TextPaint(
-      style: const TextStyle(
-        fontSize: 24,
-        fontFamily: Constants.FONT_NAME,
-        color: Palette.white,
-      ),
-    );
-
     position = Vector2(x, 25);
     anchor = Anchor.centerLeft;
-    textRenderer = textPaint;
+    textRenderer = Style.textRenderer(size: 20);
   }
 }
