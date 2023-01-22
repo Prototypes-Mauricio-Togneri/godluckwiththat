@@ -1,7 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:flame/game.dart';
 import 'package:flame/image_composition.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';

@@ -23,7 +23,8 @@ class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {
   }
 }
 
-class ButtonComponent extends SpriteGroupComponent<ButtonState> with Tappable {
+class ButtonComponent extends SpriteGroupComponent<ButtonState>
+    with HasGameRef<MyGame>, Tappable {
   @override
   Future onLoad() async {
     position = Vector2(10, 10);
@@ -40,17 +41,19 @@ class ButtonComponent extends SpriteGroupComponent<ButtonState> with Tappable {
     return super.onLoad();
   }
 
+  /*@override
+  bool containsLocalPoint(Vector2 point) =>
+      const Rect.fromLTWH(0, 0, 60, 60).contains(point.toOffset());
+
   @override
-  bool onTapUp(TapUpInfo info) {
+  void onTapUp(TapUpEvent event) {
     current = ButtonState.up;
 
-    return true;
+    MainMenu.show(game: game);
   }
 
   @override
-  bool onTapDown(TapDownInfo info) {
+  void onTapDown(TapDownEvent event) {
     current = ButtonState.down;
-
-    return true;
-  }
+  }*/
 }
