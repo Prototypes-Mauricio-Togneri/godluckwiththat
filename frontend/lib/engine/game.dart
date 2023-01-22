@@ -96,10 +96,7 @@ class MyGame extends Zoomable with HasTappables, KeyboardEvents {
     final bool isSpace = keysPressed.contains(LogicalKeyboardKey.escape);
 
     if (isSpace && isKeyDown) {
-      Future.delayed(
-        const Duration(milliseconds: 100),
-        () => Delayed.post(() => MainMenu.show(game: this)),
-      );
+      Delayed.post(() => MainMenu.show(game: this));
 
       return KeyEventResult.handled;
     } else {
