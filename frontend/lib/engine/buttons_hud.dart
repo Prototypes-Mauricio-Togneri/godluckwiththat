@@ -25,20 +25,19 @@ class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {
   }
 }
 
-class ButtonComponent extends SpriteGroupComponent<ButtonState>
-    with HasGameRef<MyGame>, Tappable {
+class ButtonComponent extends SpriteGroupComponent<ButtonState> with Tappable {
   @override
   Future onLoad() async {
-    final Sprite downSprite = await gameRef.loadSprite('button_menu_down.png');
-    final Sprite upSprite = await gameRef.loadSprite('button_menu_up.png');
+    final Image downSprite = await Flame.images.load('button_menu_down.png');
+    final Image upSprite = await Flame.images.load('button_menu_up.png');
 
     position = Vector2(10, 10);
     width = 60;
     height = 60;
 
     sprites = {
-      ButtonState.down: downSprite,
-      ButtonState.up: upSprite,
+      ButtonState.down: Sprite(downSprite),
+      ButtonState.up: Sprite(upSprite),
     };
 
     current = ButtonState.up;
