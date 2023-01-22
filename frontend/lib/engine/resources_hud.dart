@@ -1,20 +1,18 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
-import 'package:tensionnode/engine/game_state.dart';
+import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class Hud extends SpriteComponent {
+class ResourcesHud extends SpriteComponent with HasGameRef<MyGame> {
   final double xPosition;
-  final GameState state;
   final TextComponent redAmount = TextResourceIndicator(x: 60);
   final TextComponent greenAmount = TextResourceIndicator(x: 210);
   final TextComponent blueAmount = TextResourceIndicator(x: 360);
 
-  Hud({
+  ResourcesHud({
     required this.xPosition,
-    required this.state,
   }) {
     positionType = PositionType.viewport;
     priority = 1;
@@ -54,9 +52,9 @@ class Hud extends SpriteComponent {
   void update(double dt) {
     super.update(dt);
 
-    redAmount.text = '${state.red}';
-    greenAmount.text = '${state.green}';
-    blueAmount.text = '${state.blue}';
+    redAmount.text = '${game.state.red}';
+    greenAmount.text = '${game.state.green}';
+    blueAmount.text = '${game.state.blue}';
   }
 }
 

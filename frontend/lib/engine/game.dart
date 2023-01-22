@@ -7,12 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/engine/background.dart';
+import 'package:tensionnode/engine/buttons_hud.dart';
 import 'package:tensionnode/engine/game_state.dart';
 import 'package:tensionnode/engine/headquarters.dart';
-import 'package:tensionnode/engine/hud.dart';
 import 'package:tensionnode/engine/loader.dart';
 import 'package:tensionnode/engine/mine.dart';
 import 'package:tensionnode/engine/patch.dart';
+import 'package:tensionnode/engine/resources_hud.dart';
 import 'package:tensionnode/engine/zoomable.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
@@ -29,6 +30,9 @@ class MyGame extends Zoomable with HasTappables, KeyboardEvents {
 
   @override
   Future onLoad() async {
+    final JsonMatch jsonMatch = await Loader.match(Assets.MAPS_MAP1);
+    state.load(jsonMatch);
+
     add(Background(camera));
     add(FpsTextComponent(
       position: Vector2(
@@ -37,13 +41,12 @@ class MyGame extends Zoomable with HasTappables, KeyboardEvents {
       ),
       textRenderer: Style.textRenderer(size: 20),
     ));
-    add(Hud(
+    add(ResourcesHud(
       xPosition: size.x / 2,
-      state: state,
     ));
-
-    final JsonMatch jsonMatch = await Loader.match(Assets.MAPS_MAP1);
-    state.load(jsonMatch);
+    add(ButtonsHud(
+      xPosition: size.x / 2,
+    ));
 
     for (final JsonPatch patch in jsonMatch.patches) {
       add(Patch(
