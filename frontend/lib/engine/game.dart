@@ -41,12 +41,8 @@ class MyGame extends Zoomable with HasTappables, KeyboardEvents {
       ),
       textRenderer: Style.textRenderer(size: 20),
     ));
-    add(ResourcesHud(
-      xPosition: size.x / 2,
-    ));
-    add(ButtonsHud(
-      xPosition: size.x / 2,
-    ));
+    add(ResourcesHud());
+    add(ButtonsHud());
 
     for (final JsonPatch patch in jsonMatch.patches) {
       add(Patch(

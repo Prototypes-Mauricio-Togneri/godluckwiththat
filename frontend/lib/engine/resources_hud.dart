@@ -6,14 +6,11 @@ import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class ResourcesHud extends SpriteComponent with HasGameRef<MyGame> {
-  final double xPosition;
   final TextComponent redAmount = TextResourceIndicator(x: 60);
   final TextComponent greenAmount = TextResourceIndicator(x: 210);
   final TextComponent blueAmount = TextResourceIndicator(x: 360);
 
-  ResourcesHud({
-    required this.xPosition,
-  }) {
+  ResourcesHud() {
     positionType = PositionType.viewport;
     priority = 1;
   }
@@ -22,10 +19,10 @@ class ResourcesHud extends SpriteComponent with HasGameRef<MyGame> {
   Future onLoad() async {
     final Image image = await Flame.images.load('hud.png');
     sprite = Sprite(image);
-    position = Vector2(xPosition, 25);
     width = 450;
     height = 50;
     anchor = Anchor.center;
+    position = Vector2(game.size.x / 2, height / 2);
 
     add(redAmount);
     add(IconResourceIndicator(

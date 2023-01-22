@@ -6,9 +6,7 @@ class Headquarters extends Cell with Tappable {
   Headquarters({
     required super.i,
     required super.j,
-  }) : super(
-          path: 'hq.png',
-        );
+  }) : super(path: 'hq.png');
 
   @override
   bool onTapUp(TapUpInfo info) {

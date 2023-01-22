@@ -31,9 +31,11 @@ class JsonMatch {
     required this.nodes,
   });
 
-  factory JsonMatch.fromString(String json) => JsonMatch.fromJson(jsonDecode(json));
+  factory JsonMatch.fromString(String json) =>
+      JsonMatch.fromJson(jsonDecode(json));
 
-  factory JsonMatch.fromJson(Map<String, dynamic> json) => _$JsonMatchFromJson(json);
+  factory JsonMatch.fromJson(Map<String, dynamic> json) =>
+      _$JsonMatchFromJson(json);
 
   Map<String, dynamic> toJson() => _$JsonMatchToJson(this);
 
