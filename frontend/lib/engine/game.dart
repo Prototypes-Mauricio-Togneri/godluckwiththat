@@ -29,6 +29,7 @@ class MyGame extends Zoomable with HasTappables, KeyboardEvents {
 
   @override
   Future onLoad() async {
+    add(Background(camera));
     add(FpsTextComponent(
       position: Vector2(
         10,
@@ -36,16 +37,13 @@ class MyGame extends Zoomable with HasTappables, KeyboardEvents {
       ),
       textRenderer: Style.textRenderer(size: 20),
     ));
-    add(Background(camera));
     add(Hud(
       xPosition: size.x / 2,
       state: state,
     ));
 
     final JsonMatch jsonMatch = await Loader.match(Assets.MAPS_MAP1);
-    state.red = jsonMatch.resources.red;
-    state.green = jsonMatch.resources.green;
-    state.blue = jsonMatch.resources.blue;
+    state.load(jsonMatch);
 
     for (final JsonPatch patch in jsonMatch.patches) {
       add(Patch(

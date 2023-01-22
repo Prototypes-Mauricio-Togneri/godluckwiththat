@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/json/json_resources.dart';
@@ -15,9 +14,6 @@ class JsonMatch {
   @JsonKey(name: 'id')
   final String id;
 
-  @JsonKey(name: 'map')
-  final JsonMap map;
-
   @JsonKey(name: 'resources')
   final JsonResources resources;
 
@@ -30,7 +26,6 @@ class JsonMatch {
   const JsonMatch({
     required this.version,
     required this.id,
-    required this.map,
     required this.resources,
     required this.patches,
     required this.nodes,
