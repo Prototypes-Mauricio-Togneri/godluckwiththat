@@ -4,7 +4,7 @@ import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 
-class ButtonsHud extends SpriteComponent with HasGameRef<MyGame>, Tappable {
+class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {
   ButtonsHud() {
     positionType = PositionType.viewport;
     priority = 1;
@@ -22,20 +22,15 @@ class ButtonsHud extends SpriteComponent with HasGameRef<MyGame>, Tappable {
 
     return super.onLoad();
   }
-
-  @override
-  bool onTapUp(TapUpInfo info) {
-    return true;
-  }
-
-  @override
-  bool onTapDown(TapDownInfo info) {
-    return true;
-  }
 }
 
 class ButtonComponent extends SpriteGroupComponent<ButtonState>
     with HasGameRef<MyGame>, Tappable {
+  ButtonComponent() {
+    positionType = PositionType.viewport;
+    priority = 1;
+  }
+
   @override
   Future onLoad() async {
     position = Vector2(10, 10);
