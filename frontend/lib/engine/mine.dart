@@ -34,9 +34,9 @@ class Mine extends Cell {
 
   @override
   bool onTapUp(TapUpInfo info) {
-    print('$i $j');
-
-    add(MineMenu());
+    if (children.query<MineMenu>().isEmpty) {
+      add(MineMenu());
+    }
 
     return true;
   }
