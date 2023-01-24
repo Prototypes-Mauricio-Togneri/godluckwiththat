@@ -2,5 +2,4 @@ class Constants {
   static const String FONT_NAME = 'Magnite';
 
   static const double CELL_SIZE = 32;
-  static const double SPRITE_SIZE = 32;
 }

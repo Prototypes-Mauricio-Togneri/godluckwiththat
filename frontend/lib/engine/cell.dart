@@ -25,8 +25,8 @@ class Cell extends SpriteComponent
   @override
   Future onLoad() async {
     sprite = await getSprite(path);
-    width = Constants.SPRITE_SIZE;
-    height = Constants.SPRITE_SIZE;
+    width = Constants.CELL_SIZE;
+    height = Constants.CELL_SIZE;
     anchor = Anchor.center;
 
     return super.onLoad();
