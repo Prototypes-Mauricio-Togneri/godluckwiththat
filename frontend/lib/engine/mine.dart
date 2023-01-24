@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/components/menu_button_component.dart';
 import 'package:tensionnode/engine/cell.dart';
 import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
@@ -52,51 +52,18 @@ class MineMenu extends SpriteComponent with HasGameRef<MyGame> {
     position = Vector2(Constants.CELL_SIZE, Constants.CELL_SIZE);
     anchor = Anchor.topLeft;
 
-    add(ButtonComponent(_onCloseMenu));
+    add(MenuButtonComponent(
+      width: 60,
+      height: 60,
+      positionType: PositionType.game,
+      position: Vector2(10, 10),
+      spriteDown: Assets.IMAGES_BUTTON_MENU_DOWN,
+      spriteUp: Assets.IMAGES_BUTTON_MENU_UP,
+      onClick: _onCloseMenu,
+    ));
 
     return super.onLoad();
   }
 
   void _onCloseMenu() => removeFromParent();
-}
-
-class ButtonComponent extends SpriteGroupComponent<ButtonState>
-    with HasGameRef<MyGame>, Tappable {
-  final VoidCallback onClick;
-
-  ButtonComponent(this.onClick);
-
-  @override
-  Future onLoad() async {
-    width = 60;
-    height = 60;
-    positionType = PositionType.game;
-    position = Vector2(10, 10);
-    anchor = Anchor.topLeft;
-
-    sprites = {
-      ButtonState.down: await getSprite(Assets.IMAGES_BUTTON_MENU_DOWN),
-      ButtonState.up: await getSprite(Assets.IMAGES_BUTTON_MENU_UP),
-    };
-
-    current = ButtonState.up;
-
-    return super.onLoad();
-  }
-
-  @override
-  bool onTapUp(TapUpInfo info) {
-    current = ButtonState.up;
-
-    onClick();
-
-    return true;
-  }
-
-  @override
-  bool onTapDown(TapDownInfo info) {
-    current = ButtonState.down;
-
-    return true;
-  }
 }

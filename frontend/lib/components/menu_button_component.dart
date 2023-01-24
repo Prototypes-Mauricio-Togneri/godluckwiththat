@@ -18,19 +18,17 @@ class MenuButtonComponent extends SpriteGroupComponent<ButtonState>
     required this.spriteDown,
     required this.spriteUp,
     required this.onClick,
+    Anchor anchor = Anchor.topLeft,
   }) {
     this.width = width;
     this.height = height;
-    positionType = positionType;
-    position = position;
-    anchor = Anchor.topLeft;
+    this.positionType = positionType;
+    this.position = position;
+    this.anchor = anchor;
   }
 
   @override
   Future onLoad() async {
-    positionType = PositionType.viewport;
-    position = Vector2(10, 10);
-
     sprites = {
       ButtonState.down: await getSprite(spriteDown),
       ButtonState.up: await getSprite(spriteUp),
