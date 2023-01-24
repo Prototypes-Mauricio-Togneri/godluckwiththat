@@ -16,7 +16,6 @@ class TensionNode extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Palette.primary,
         primarySwatch: Palette.primary,
-        backgroundColor: Palette.white,
         scaffoldBackgroundColor: Palette.black,
         fontFamily: Constants.FONT_NAME,
       ),
