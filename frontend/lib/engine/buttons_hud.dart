@@ -3,6 +3,7 @@ import 'package:flame/input.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
+import 'package:tensionnode/services/assets.dart';
 
 class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {
   ButtonsHud() {
@@ -12,7 +13,7 @@ class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {
 
   @override
   Future onLoad() async {
-    sprite = await getSprite('hud.png');
+    sprite = await getSprite(Assets.IMAGES_HUD);
     width = 450;
     height = 80;
     anchor = Anchor.center;
@@ -38,8 +39,8 @@ class ButtonComponent extends SpriteGroupComponent<ButtonState>
     height = 60;
 
     sprites = {
-      ButtonState.down: await getSprite('button_menu_down.png'),
-      ButtonState.up: await getSprite('button_menu_up.png'),
+      ButtonState.down: await getSprite(Assets.IMAGES_BUTTON_MENU_DOWN),
+      ButtonState.up: await getSprite(Assets.IMAGES_BUTTON_MENU_UP),
     };
 
     current = ButtonState.up;

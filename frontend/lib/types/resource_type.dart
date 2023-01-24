@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
 
 enum ResourceType {
@@ -14,22 +15,22 @@ enum ResourceType {
   String get pathMine {
     switch (this) {
       case ResourceType.red:
-        return 'mine_red.png';
+        return Assets.IMAGES_MINE_RED;
       case ResourceType.green:
-        return 'mine_green.png';
+        return Assets.IMAGES_MINE_GREEN;
       case ResourceType.blue:
-        return 'mine_blue.png';
+        return Assets.IMAGES_MINE_BLUE;
     }
   }
 
   String get pathPatch {
     switch (this) {
       case ResourceType.red:
-        return 'patch_red.png';
+        return Assets.IMAGES_PATCH_RED;
       case ResourceType.green:
-        return 'patch_green.png';
+        return Assets.IMAGES_PATCH_GREEN;
       case ResourceType.blue:
-        return 'patch_blue.png';
+        return Assets.IMAGES_PATCH_BLUE;
     }
   }
 }
