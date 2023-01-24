@@ -27,16 +27,12 @@ class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {
 
 class ButtonComponent extends SpriteGroupComponent<ButtonState>
     with HasGameRef<MyGame>, Tappable {
-  ButtonComponent() {
-    positionType = PositionType.viewport;
-    priority = 1;
-  }
-
   @override
   Future onLoad() async {
-    position = Vector2(10, 10);
     width = 60;
     height = 60;
+    positionType = PositionType.viewport;
+    position = Vector2(10, 10);
 
     sprites = {
       ButtonState.down: await getSprite(Assets.IMAGES_BUTTON_MENU_DOWN),

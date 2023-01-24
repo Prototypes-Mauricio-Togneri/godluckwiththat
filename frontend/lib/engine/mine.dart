@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
+import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/engine/cell.dart';
 import 'package:tensionnode/engine/game.dart';
@@ -51,14 +52,20 @@ class MineMenu extends SpriteComponent with HasGameRef<MyGame> {
     position = Vector2(Constants.CELL_SIZE, Constants.CELL_SIZE);
     anchor = Anchor.topLeft;
 
-    add(ButtonComponent());
+    add(ButtonComponent(_onCloseMenu));
 
     return super.onLoad();
   }
+
+  void _onCloseMenu() => removeFromParent();
 }
 
 class ButtonComponent extends SpriteGroupComponent<ButtonState>
     with HasGameRef<MyGame>, Tappable {
+  final VoidCallback onClick;
+
+  ButtonComponent(this.onClick);
+
   @override
   Future onLoad() async {
     width = 60;
@@ -80,6 +87,8 @@ class ButtonComponent extends SpriteGroupComponent<ButtonState>
   @override
   bool onTapUp(TapUpInfo info) {
     current = ButtonState.up;
+
+    onClick();
 
     return true;
   }
