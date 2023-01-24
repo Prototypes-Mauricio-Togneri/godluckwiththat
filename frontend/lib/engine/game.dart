@@ -101,6 +101,12 @@ class MyGame extends Zoomable with HasTappables, HasHoverables, KeyboardEvents {
     }
   }
 
+  void removeComponents(Type type) => removeWhere((c) {
+        c.removeWhere((c) => c.runtimeType == type);
+
+        return c.runtimeType == type;
+      });
+
   void openMenu(String name, [bool pauseGame = false]) {
     if (!overlays.isActive(name)) {
       if (pauseGame) {

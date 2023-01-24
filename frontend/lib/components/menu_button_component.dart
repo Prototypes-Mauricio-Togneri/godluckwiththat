@@ -19,12 +19,14 @@ class MenuButtonComponent extends SpriteGroupComponent<ButtonState>
     required this.spriteUp,
     required this.onClick,
     Anchor anchor = Anchor.topLeft,
+    int priority = 0,
   }) {
     this.width = width;
     this.height = height;
     this.positionType = positionType;
     this.position = position;
     this.anchor = anchor;
+    this.priority = priority;
   }
 
   @override

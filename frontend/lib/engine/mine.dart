@@ -35,6 +35,7 @@ class Mine extends Cell {
   @override
   bool onTapUp(TapUpInfo info) {
     if (children.query<MineMenu>().isEmpty) {
+      game.removeComponents(MineMenu);
       add(MineMenu());
     }
 
