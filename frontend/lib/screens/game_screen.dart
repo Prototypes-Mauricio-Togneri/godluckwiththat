@@ -2,16 +2,18 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tensionnode/dialog/main_menu.dart';
+import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/engine/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
 
 class GameScreen extends StatelessWidget {
-  final GameState state;
+  final MyGame game;
 
-  const GameScreen(this.state);
+  const GameScreen(this.game);
 
-  factory GameScreen.instance() => GameScreen(GameState());
+  factory GameScreen.instance() => GameScreen(MyGame(GameState()));
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,11 @@ class GameScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           body: GameWidget(
-            game: MyGame(state),
+            game: game,
+            overlayBuilderMap: {
+              'main_menu': (context, object) => MainMenu(game),
+              'settings_menu': (context, object) => SettingsMenu(game),
+            },
           ),
         ),
       ),

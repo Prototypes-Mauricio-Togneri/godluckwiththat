@@ -1,31 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:tensionnode/dialog/base_dialog.dart';
-import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/engine/game.dart';
-import 'package:tensionnode/services/navigation.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
 class MainMenu extends StatelessWidget {
   final MyGame game;
 
-  const MainMenu._(this.game);
-
-  static void show({
-    required MyGame game,
-  }) {
-    game.pauseEngine();
-
-    BaseDialog.show(
-      widget: MainMenu._(game),
-      name: 'main_menu',
-    );
-  }
+  const MainMenu(this.game);
 
   @override
   Widget build(BuildContext context) {
     return BaseDialog(
-      game: game,
       child: IntrinsicWidth(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -80,14 +66,20 @@ class MainMenu extends StatelessWidget {
     _closeMenu();
   }
 
-  void _onSettings() => SettingsMenu.show(game: game);
+  void _onSettings() {
+    if (!game.overlays.isActive('settings_menu')) {
+      game.overlays.add('settings_menu');
+    }
+  }
 
   void _onClose() {
     _closeMenu();
   }
 
   void _closeMenu() {
-    Navigation.pop();
-    game.resumeEngine();
+    if (game.overlays.isActive('main_menu')) {
+      game.overlays.remove('main_menu');
+      game.resumeEngine();
+    }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flame/events.dart';
-import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/engine/cell.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -31,7 +30,10 @@ class Mine extends Cell {
   bool onTapUp(TapUpInfo info) {
     print('$i $j');
 
-    MainMenu.show(game: game);
+    if (!game.overlays.isActive('main_menu')) {
+      game.pauseEngine();
+      game.overlays.add('main_menu');
+    }
 
     return true;
   }

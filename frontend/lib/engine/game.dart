@@ -1,10 +1,8 @@
-import 'package:dafluta/dafluta.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/image_composition.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/engine/background.dart';
 import 'package:tensionnode/engine/buttons_hud.dart';
 import 'package:tensionnode/engine/game_state.dart';
@@ -94,7 +92,7 @@ class MyGame extends Zoomable with HasTappables, HasHoverables, KeyboardEvents {
     final bool isSpace = keysPressed.contains(LogicalKeyboardKey.escape);
 
     if (isSpace && isKeyDown) {
-      Delayed.post(() => MainMenu.show(game: this));
+      //Delayed.post(() => MainMenu.show(game: this));
 
       return KeyEventResult.handled;
     } else {

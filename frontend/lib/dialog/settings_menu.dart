@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tensionnode/dialog/base_dialog.dart';
 import 'package:tensionnode/engine/game.dart';
-import 'package:tensionnode/services/navigation.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
@@ -11,15 +10,7 @@ import 'package:tensionnode/widgets/menu_button.dart';
 class SettingsMenu extends StatefulWidget {
   final MyGame game;
 
-  const SettingsMenu._(this.game);
-
-  static void show({
-    required MyGame game,
-  }) =>
-      BaseDialog.show(
-        widget: SettingsMenu._(game),
-        name: 'settings_menu',
-      );
+  const SettingsMenu(this.game);
 
   @override
   State<SettingsMenu> createState() => _SettingsMenuState();
@@ -45,7 +36,6 @@ class _SettingsMenuState extends State<SettingsMenu> {
   @override
   Widget build(BuildContext context) {
     return BaseDialog(
-      game: widget.game,
       child: IntrinsicWidth(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -87,6 +77,8 @@ class _SettingsMenuState extends State<SettingsMenu> {
   }
 
   void _closeMenu() {
-    Navigation.pop();
+    if (widget.game.overlays.isActive('settings_menu')) {
+      widget.game.overlays.remove('settings_menu');
+    }
   }
 }
