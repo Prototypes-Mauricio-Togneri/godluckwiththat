@@ -1,0 +1,59 @@
+import 'package:flame/components.dart';
+import 'package:flame/input.dart';
+import 'package:flutter/widgets.dart';
+import 'package:tensionnode/engine/game.dart';
+import 'package:tensionnode/extensions/component_extension.dart';
+
+class MenuButtonComponent extends SpriteGroupComponent<ButtonState>
+    with HasGameRef<MyGame>, Tappable {
+  final String spriteDown;
+  final String spriteUp;
+  final VoidCallback onClick;
+
+  MenuButtonComponent({
+    required double width,
+    required double height,
+    required PositionType positionType,
+    required Vector2 position,
+    required this.spriteDown,
+    required this.spriteUp,
+    required this.onClick,
+  }) {
+    this.width = width;
+    this.height = height;
+    positionType = positionType;
+    position = position;
+    anchor = Anchor.topLeft;
+  }
+
+  @override
+  Future onLoad() async {
+    positionType = PositionType.viewport;
+    position = Vector2(10, 10);
+
+    sprites = {
+      ButtonState.down: await getSprite(spriteDown),
+      ButtonState.up: await getSprite(spriteUp),
+    };
+
+    current = ButtonState.up;
+
+    return super.onLoad();
+  }
+
+  @override
+  bool onTapUp(TapUpInfo info) {
+    current = ButtonState.up;
+
+    onClick();
+
+    return true;
+  }
+
+  @override
+  bool onTapDown(TapDownInfo info) {
+    current = ButtonState.down;
+
+    return true;
+  }
+}

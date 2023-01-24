@@ -1,5 +1,5 @@
 import 'package:flame/components.dart';
-import 'package:flame/input.dart';
+import 'package:tensionnode/components/menu_button_component.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
@@ -19,44 +19,18 @@ class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {
     anchor = Anchor.center;
     position = Vector2(game.size.x / 2, game.size.y - (height / 2));
 
-    add(ButtonComponent());
-
-    return super.onLoad();
-  }
-}
-
-class ButtonComponent extends SpriteGroupComponent<ButtonState>
-    with HasGameRef<MyGame>, Tappable {
-  @override
-  Future onLoad() async {
-    width = 60;
-    height = 60;
-    positionType = PositionType.viewport;
-    position = Vector2(10, 10);
-
-    sprites = {
-      ButtonState.down: await getSprite(Assets.IMAGES_BUTTON_MENU_DOWN),
-      ButtonState.up: await getSprite(Assets.IMAGES_BUTTON_MENU_UP),
-    };
-
-    current = ButtonState.up;
+    add(MenuButtonComponent(
+      width: 60,
+      height: 60,
+      positionType: PositionType.viewport,
+      position: Vector2(10, 10),
+      spriteDown: Assets.IMAGES_BUTTON_MENU_DOWN,
+      spriteUp: Assets.IMAGES_BUTTON_MENU_UP,
+      onClick: _onOpenMainMenu,
+    ));
 
     return super.onLoad();
   }
 
-  @override
-  bool onTapUp(TapUpInfo info) {
-    current = ButtonState.up;
-
-    game.openMenu(MainMenu.NAME, true);
-
-    return true;
-  }
-
-  @override
-  bool onTapDown(TapDownInfo info) {
-    current = ButtonState.down;
-
-    return true;
-  }
+  void _onOpenMainMenu() => game.openMenu(MainMenu.NAME, true);
 }
