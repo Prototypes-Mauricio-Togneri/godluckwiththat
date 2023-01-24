@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
+import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/services/assets.dart';
@@ -51,7 +52,7 @@ class ButtonComponent extends SpriteGroupComponent<ButtonState>
   bool onTapUp(TapUpInfo info) {
     current = ButtonState.up;
 
-    //MainMenu.show(game: game);
+    game.openMenu(MainMenu.NAME, true);
 
     return true;
   }

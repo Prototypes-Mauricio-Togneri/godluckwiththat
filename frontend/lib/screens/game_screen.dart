@@ -24,9 +24,9 @@ class GameScreen extends StatelessWidget {
         child: Scaffold(
           body: GameWidget(
             game: game,
-            overlayBuilderMap: {
-              'main_menu': (context, object) => MainMenu(game),
-              'settings_menu': (context, object) => SettingsMenu(game),
+            overlayBuilderMap: const {
+              MainMenu.NAME: MainMenu.builder,
+              SettingsMenu.NAME: SettingsMenu.builder,
             },
           ),
         ),

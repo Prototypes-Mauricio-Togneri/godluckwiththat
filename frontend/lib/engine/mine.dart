@@ -30,11 +30,6 @@ class Mine extends Cell {
   bool onTapUp(TapUpInfo info) {
     print('$i $j');
 
-    if (!game.overlays.isActive('main_menu')) {
-      game.pauseEngine();
-      game.overlays.add('main_menu');
-    }
-
     return true;
   }
 }

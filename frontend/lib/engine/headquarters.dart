@@ -12,8 +12,6 @@ class Headquarters extends Cell {
   bool onTapUp(TapUpInfo info) {
     print('$i $j');
 
-    //MainMenu.show(game: game);
-
     return true;
   }
 }

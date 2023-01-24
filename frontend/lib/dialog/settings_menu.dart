@@ -10,7 +10,12 @@ import 'package:tensionnode/widgets/menu_button.dart';
 class SettingsMenu extends StatefulWidget {
   final MyGame game;
 
+  static const String NAME = 'settings_menu';
+
   const SettingsMenu(this.game);
+
+  factory SettingsMenu.builder(BuildContext _, MyGame game) =>
+      SettingsMenu(game);
 
   @override
   State<SettingsMenu> createState() => _SettingsMenuState();
@@ -77,8 +82,6 @@ class _SettingsMenuState extends State<SettingsMenu> {
   }
 
   void _closeMenu() {
-    if (widget.game.overlays.isActive('settings_menu')) {
-      widget.game.overlays.remove('settings_menu');
-    }
+    widget.game.closeMenu(SettingsMenu.NAME);
   }
 }

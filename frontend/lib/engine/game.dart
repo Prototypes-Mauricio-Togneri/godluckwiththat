@@ -99,4 +99,23 @@ class MyGame extends Zoomable with HasTappables, HasHoverables, KeyboardEvents {
       return KeyEventResult.ignored;
     }
   }
+
+  void openMenu(String name, [bool pauseGame = false]) {
+    if (!overlays.isActive(name)) {
+      if (pauseGame) {
+        pauseEngine();
+      }
+      overlays.add(name);
+    }
+  }
+
+  void closeMenu(String name, [bool resumeGame = false]) {
+    if (overlays.isActive(name)) {
+      overlays.remove(name);
+
+      if (resumeGame) {
+        resumeEngine();
+      }
+    }
+  }
 }

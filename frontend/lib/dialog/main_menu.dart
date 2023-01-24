@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tensionnode/dialog/base_dialog.dart';
+import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
@@ -7,7 +8,11 @@ import 'package:tensionnode/widgets/menu_button.dart';
 class MainMenu extends StatelessWidget {
   final MyGame game;
 
+  static const String NAME = 'main_menu';
+
   const MainMenu(this.game);
+
+  factory MainMenu.builder(BuildContext _, MyGame game) => MainMenu(game);
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +72,7 @@ class MainMenu extends StatelessWidget {
   }
 
   void _onSettings() {
-    if (!game.overlays.isActive('settings_menu')) {
-      game.overlays.add('settings_menu');
-    }
+    game.openMenu(SettingsMenu.NAME);
   }
 
   void _onClose() {
@@ -77,9 +80,6 @@ class MainMenu extends StatelessWidget {
   }
 
   void _closeMenu() {
-    if (game.overlays.isActive('main_menu')) {
-      game.overlays.remove('main_menu');
-      game.resumeEngine();
-    }
+    game.closeMenu(MainMenu.NAME, true);
   }
 }
