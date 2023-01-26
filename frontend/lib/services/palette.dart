@@ -24,6 +24,6 @@ class Palette {
   static void init() {
     gridPaint.color = Palette.gridLine;
     gridPaint.style = PaintingStyle.stroke;
-    gridPaint.strokeWidth = 1;
+    gridPaint.strokeWidth = 0.2;
   }
 }
