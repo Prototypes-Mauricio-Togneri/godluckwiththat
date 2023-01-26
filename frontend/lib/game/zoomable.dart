@@ -43,7 +43,10 @@ class Zoomable extends FlameGame with ScrollDetector, ScaleDetector {
   @override
   void onScaleStart(ScaleStartInfo info) {
     startZoom = camera.zoom;
+    onScrollEvent();
   }
+
+  void onScrollEvent() {}
 
   @override
   void onScaleUpdate(ScaleUpdateInfo info) {

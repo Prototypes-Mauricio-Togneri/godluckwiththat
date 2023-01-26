@@ -107,6 +107,11 @@ class GameComponent extends Zoomable
     }
   }
 
+  @override
+  void onScrollEvent() {
+    removeComponents(MineMenu);
+  }
+
   void removeComponents(Type type) => removeWhere((c) {
         c.removeWhere((c) => c.runtimeType == type);
 
