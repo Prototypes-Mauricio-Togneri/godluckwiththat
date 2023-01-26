@@ -1,10 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/components/cell.dart';
 import 'package:tensionnode/components/menu_button_component.dart';
-import 'package:tensionnode/engine/cell.dart';
-import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
+import 'package:tensionnode/game/game.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/resource_type.dart';
 

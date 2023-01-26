@@ -1,8 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:tensionnode/components/menu_button_component.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
-import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
+import 'package:tensionnode/game/game.dart';
 import 'package:tensionnode/services/assets.dart';
 
 class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {

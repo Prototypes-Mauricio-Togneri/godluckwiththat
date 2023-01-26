@@ -1,8 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
+import 'package:tensionnode/game/game.dart';
 
 class MenuButtonComponent extends SpriteGroupComponent<ButtonState>
     with HasGameRef<MyGame>, Tappable {

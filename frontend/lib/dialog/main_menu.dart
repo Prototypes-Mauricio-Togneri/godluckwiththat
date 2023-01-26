@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tensionnode/dialog/base_dialog.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
-import 'package:tensionnode/engine/game.dart';
+import 'package:tensionnode/game/game.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 

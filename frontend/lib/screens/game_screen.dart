@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
-import 'package:tensionnode/engine/game.dart';
-import 'package:tensionnode/engine/game_state.dart';
+import 'package:tensionnode/game/game.dart';
+import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
 
 class GameScreen extends StatelessWidget {

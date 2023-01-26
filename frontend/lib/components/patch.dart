@@ -1,4 +1,4 @@
-import 'package:tensionnode/engine/cell.dart';
+import 'package:tensionnode/components/cell.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Patch extends Cell {

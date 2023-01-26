@@ -2,8 +2,8 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/engine/game.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
+import 'package:tensionnode/game/game.dart';
 
 class Cell extends SpriteComponent
     with HasGameRef<MyGame>, Tappable, Hoverable {

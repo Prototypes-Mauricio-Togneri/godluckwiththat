@@ -1,5 +1,5 @@
 import 'package:flame/events.dart';
-import 'package:tensionnode/engine/cell.dart';
+import 'package:tensionnode/components/cell.dart';
 import 'package:tensionnode/services/assets.dart';
 
 class Headquarters extends Cell {
