@@ -43,7 +43,7 @@ class Mine extends Cell {
   }
 }
 
-class MineMenu extends SpriteComponent with HasGameRef<MyGame> {
+class MineMenu extends SpriteComponent with HasGameRef<Game> {
   @override
   Future onLoad() async {
     sprite = await getSprite(Assets.IMAGES_HUD);

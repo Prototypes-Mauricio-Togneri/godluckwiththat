@@ -21,10 +21,11 @@ import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
 
-class MyGame extends Zoomable with HasTappables, HasHoverables, KeyboardEvents {
+class GameComponent extends Zoomable
+    with HasTappables, HasHoverables, KeyboardEvents {
   final GameState state;
 
-  MyGame(this.state);
+  GameComponent(this.state);
 
   @override
   Future onLoad() async {
@@ -71,34 +72,30 @@ class MyGame extends Zoomable with HasTappables, HasHoverables, KeyboardEvents {
   @override
   Color backgroundColor() => const Color(0xff1a1a1a);
 
-  void save() {
-    /*final JsonMatch jsonMatch = JsonMatch(
-      version: match.version,
-      id: match.id,
-      map: map.json,
-      resources: headquarters.jsonResources,
-      patches: patches.json,
-      nodes: nodes.json,
-    );
-
-    ClipboardText().copy(jsonMatch.toJsonString());*/
-  }
-
   @override
   KeyEventResult onKeyEvent(
     RawKeyEvent event,
     Set<LogicalKeyboardKey> keysPressed,
   ) {
     final bool isKeyDown = event is RawKeyDownEvent;
-    final bool isSpace = keysPressed.contains(LogicalKeyboardKey.escape);
+    final bool isEscape = keysPressed.contains(LogicalKeyboardKey.escape);
+    final bool isSpace = keysPressed.contains(LogicalKeyboardKey.space);
 
-    if (isSpace && isKeyDown) {
+    if (isEscape && isKeyDown) {
       openMenu(MainMenu.NAME, true);
+
+      return KeyEventResult.handled;
+    } else if (isSpace && isKeyDown) {
+      _createTestObjects();
 
       return KeyEventResult.handled;
     } else {
       return KeyEventResult.ignored;
     }
+  }
+
+  void _createTestObjects() {
+    
   }
 
   void removeComponents(Type type) => removeWhere((c) {

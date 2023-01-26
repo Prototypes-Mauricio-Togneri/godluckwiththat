@@ -6,13 +6,14 @@ import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
 class MainMenu extends StatelessWidget {
-  final MyGame game;
+  final GameComponent game;
 
   static const String NAME = 'main_menu';
 
   const MainMenu(this.game);
 
-  factory MainMenu.builder(BuildContext _, MyGame game) => MainMenu(game);
+  factory MainMenu.builder(BuildContext _, GameComponent game) =>
+      MainMenu(game);
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +69,17 @@ class MainMenu extends StatelessWidget {
   }
 
   void _onSave() {
+    /*final JsonMatch jsonMatch = JsonMatch(
+      version: match.version,
+      id: match.id,
+      map: map.json,
+      resources: headquarters.jsonResources,
+      patches: patches.json,
+      nodes: nodes.json,
+    );
+
+    ClipboardText().copy(jsonMatch.toJsonString());*/
+
     _closeMenu();
   }
 

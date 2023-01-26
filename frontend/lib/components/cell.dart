@@ -5,8 +5,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game.dart';
 
-class Cell extends SpriteComponent
-    with HasGameRef<MyGame>, Tappable, Hoverable {
+class Cell extends SpriteComponent with HasGameRef<GameComponent>, Tappable, Hoverable {
   final int i;
   final int j;
   final String path;

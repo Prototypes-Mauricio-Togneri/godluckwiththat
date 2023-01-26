@@ -5,7 +5,7 @@ import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game.dart';
 
 class MenuButtonComponent extends SpriteGroupComponent<ButtonState>
-    with HasGameRef<MyGame>, Tappable {
+    with HasGameRef<GameComponent>, Tappable {
   final String spriteDown;
   final String spriteUp;
   final VoidCallback onClick;

@@ -5,7 +5,7 @@ import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game.dart';
 import 'package:tensionnode/services/assets.dart';
 
-class ButtonsHud extends SpriteComponent with HasGameRef<MyGame> {
+class ButtonsHud extends SpriteComponent with HasGameRef<GameComponent> {
   ButtonsHud() {
     positionType = PositionType.viewport;
     priority = 1;

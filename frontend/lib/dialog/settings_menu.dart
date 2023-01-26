@@ -8,13 +8,13 @@ import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
 class SettingsMenu extends StatefulWidget {
-  final MyGame game;
+  final GameComponent game;
 
   static const String NAME = 'settings_menu';
 
   const SettingsMenu(this.game);
 
-  factory SettingsMenu.builder(BuildContext _, MyGame game) =>
+  factory SettingsMenu.builder(BuildContext _, GameComponent game) =>
       SettingsMenu(game);
 
   @override

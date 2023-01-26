@@ -9,11 +9,11 @@ import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
 
 class GameScreen extends StatelessWidget {
-  final MyGame game;
+  final GameComponent game;
 
   const GameScreen(this.game);
 
-  factory GameScreen.instance() => GameScreen(MyGame(GameState()));
+  factory GameScreen.instance() => GameScreen(GameComponent(GameState()));
 
   @override
   Widget build(BuildContext context) {
