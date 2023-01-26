@@ -20,8 +20,8 @@ class ButtonsHud extends SpriteComponent with HasGameRef<GameComponent> {
     position = Vector2(game.size.x / 2, game.size.y - (height / 2));
 
     add(MenuButtonComponent(
-      width: 60,
-      height: 60,
+      originalWidth: 60,
+      originalHeight: 60,
       positionType: PositionType.viewport,
       position: Vector2(10, 10),
       spriteDown: Assets.IMAGES_BUTTON_MENU_DOWN,

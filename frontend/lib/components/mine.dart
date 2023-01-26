@@ -47,24 +47,33 @@ class MineMenu extends SpriteComponent with HasGameRef<GameComponent> {
   @override
   Future onLoad() async {
     sprite = await getSprite(Assets.IMAGES_HUD);
-    width = 100;
-    height = 100;
+    width = 100 / game.camera.zoom;
+    height = 100 / game.camera.zoom;
     positionType = PositionType.game;
     position = Vector2(Constants.CELL_SIZE, Constants.CELL_SIZE);
     anchor = Anchor.topLeft;
 
     add(MenuButtonComponent(
-      width: 60,
-      height: 60,
+      originalWidth: 60,
+      originalHeight: 60,
       positionType: PositionType.game,
       position: Vector2(10, 10),
       spriteDown: Assets.IMAGES_BUTTON_MENU_DOWN,
       spriteUp: Assets.IMAGES_BUTTON_MENU_UP,
       onClick: _onCloseMenu,
+      resizeWithZoom: true,
     ));
 
     return super.onLoad();
   }
 
   void _onCloseMenu() => removeFromParent();
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    width = 100 / game.camera.zoom;
+    height = 100 / game.camera.zoom;
+  }
 }
