@@ -136,4 +136,11 @@ class GameComponent extends Zoomable
       }
     }
   }
+
+  @override
+  void onTapUp(int pointerId, TapUpInfo info) {
+    removeComponents(MineMenu);
+
+    super.onTapUp(pointerId, info);
+  }
 }
