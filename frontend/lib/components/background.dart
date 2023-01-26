@@ -11,6 +11,7 @@ class Background extends Component {
 
   @override
   void render(Canvas canvas) {
+    // TODO(momo): improvement: draw one single path instead of individual lines
     final Rect viewport = Rect.fromLTWH(
       camera.position.x,
       camera.position.y,
