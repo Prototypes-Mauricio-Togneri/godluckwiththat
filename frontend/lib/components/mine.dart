@@ -46,18 +46,17 @@ class Mine extends Cell {
 class MineMenu extends SpriteComponent with HasGameRef<GameComponent> {
   @override
   Future onLoad() async {
+    _updateSizeAndPosition();
     sprite = await getSprite(Assets.IMAGES_HUD);
-    width = 100 / game.camera.zoom;
-    height = 100 / game.camera.zoom;
     positionType = PositionType.game;
-    position = Vector2(Constants.CELL_SIZE, Constants.CELL_SIZE);
+    position.x = Constants.CELL_SIZE;
+    position.y = Constants.CELL_SIZE;
     anchor = Anchor.topLeft;
 
     add(MenuButtonComponent(
-      originalWidth: 60,
-      originalHeight: 60,
+      originalSize: Vector2(60, 60),
+      originalPosition: Vector2(10, 10),
       positionType: PositionType.game,
-      position: Vector2(10, 10),
       spriteDown: Assets.IMAGES_BUTTON_MENU_DOWN,
       spriteUp: Assets.IMAGES_BUTTON_MENU_UP,
       onClick: _onCloseMenu,
@@ -73,6 +72,10 @@ class MineMenu extends SpriteComponent with HasGameRef<GameComponent> {
   void update(double dt) {
     super.update(dt);
 
+    _updateSizeAndPosition();
+  }
+
+  void _updateSizeAndPosition() {
     width = 100 / game.camera.zoom;
     height = 100 / game.camera.zoom;
   }

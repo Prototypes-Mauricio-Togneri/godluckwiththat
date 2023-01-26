@@ -6,18 +6,17 @@ import 'package:tensionnode/game/game.dart';
 
 class MenuButtonComponent extends SpriteGroupComponent<ButtonState>
     with HasGameRef<GameComponent>, Tappable {
-  final double originalWidth;
-  final double originalHeight;
+  final Vector2 originalSize;
+  final Vector2 originalPosition;
   final String spriteDown;
   final String spriteUp;
   final VoidCallback onClick;
   final bool resizeWithZoom;
 
   MenuButtonComponent({
-    required this.originalWidth,
-    required this.originalHeight,
+    required this.originalSize,
+    required this.originalPosition,
     required PositionType positionType,
-    required Vector2 position,
     required this.spriteDown,
     required this.spriteUp,
     required this.onClick,
@@ -26,15 +25,13 @@ class MenuButtonComponent extends SpriteGroupComponent<ButtonState>
     this.resizeWithZoom = false,
   }) {
     this.positionType = positionType;
-    this.position = position;
     this.anchor = anchor;
     this.priority = priority;
   }
 
   @override
   Future onLoad() async {
-    width = originalWidth / game.camera.zoom;
-    height = originalHeight / game.camera.zoom;
+    _updateSizeAndPosition();
 
     sprites = {
       ButtonState.down: await getSprite(spriteDown),
@@ -51,9 +48,16 @@ class MenuButtonComponent extends SpriteGroupComponent<ButtonState>
     super.update(dt);
 
     if (resizeWithZoom) {
-      width = originalWidth / game.camera.zoom;
-      height = originalHeight / game.camera.zoom;
+      _updateSizeAndPosition();
     }
+  }
+
+  void _updateSizeAndPosition() {
+    width = originalSize.x / game.camera.zoom;
+    height = originalSize.y / game.camera.zoom;
+
+    position.x = originalPosition.x / game.camera.zoom;
+    position.y = originalPosition.y / game.camera.zoom;
   }
 
   @override
