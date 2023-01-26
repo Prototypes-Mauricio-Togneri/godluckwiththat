@@ -36,7 +36,13 @@ class Mine extends Cell {
   bool onTapUp(TapUpInfo info) {
     if (children.query<MineMenu>().isEmpty) {
       game.removeComponents(MineMenu);
-      add(MineMenu());
+      game.add(MineMenu(
+        position: position +
+            Vector2(
+              Constants.CELL_SIZE / 2,
+              Constants.CELL_SIZE / 2,
+            ),
+      ));
     }
 
     return true;
@@ -44,14 +50,17 @@ class Mine extends Cell {
 }
 
 class MineMenu extends SpriteComponent with HasGameRef<GameComponent> {
+  MineMenu({
+    super.position,
+  });
+
   @override
   Future onLoad() async {
     _updateSizeAndPosition();
     sprite = await getSprite(Assets.IMAGES_HUD);
     positionType = PositionType.game;
-    position.x = Constants.CELL_SIZE;
-    position.y = Constants.CELL_SIZE;
     anchor = Anchor.topLeft;
+    priority = 1;
 
     add(MenuButtonComponent(
       originalSize: Vector2(60, 60),
