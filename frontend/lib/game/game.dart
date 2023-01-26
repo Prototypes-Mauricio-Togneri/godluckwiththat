@@ -8,6 +8,7 @@ import 'package:tensionnode/components/buttons_hud.dart';
 import 'package:tensionnode/components/headquarters.dart';
 import 'package:tensionnode/components/mine.dart';
 import 'package:tensionnode/components/patch.dart';
+import 'package:tensionnode/components/resource.dart';
 import 'package:tensionnode/components/resources_hud.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
@@ -95,7 +96,15 @@ class GameComponent extends Zoomable
   }
 
   void _createTestObjects() {
-    
+    for (int i = -15; i < 15; i++) {
+      for (int j = -15; j < 15; j++) {
+        add(Resource(
+          i: i,
+          j: j,
+          path: Assets.IMAGES_PATCH_RED,
+        ));
+      }
+    }
   }
 
   void removeComponents(Type type) => removeWhere((c) {

@@ -22,8 +22,8 @@ class Resource extends SpriteComponent with HasGameRef<GameComponent> {
   @override
   Future onLoad() async {
     sprite = await getSprite(path);
-    width = Constants.CELL_SIZE / 2;
-    height = Constants.CELL_SIZE / 2;
+    width = Constants.CELL_SIZE / 3;
+    height = Constants.CELL_SIZE / 3;
     anchor = Anchor.center;
 
     return super.onLoad();
