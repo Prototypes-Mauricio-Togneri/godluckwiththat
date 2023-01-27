@@ -167,7 +167,6 @@ class GameComponent extends BaseGameComponent {
 
     if (hasComponent(BuildingNode)) {
       final BuildingNode node = getComponent(BuildingNode);
-      remove(node);
       buildMine(
         i: position.x.toInt(),
         j: position.y.toInt(),
