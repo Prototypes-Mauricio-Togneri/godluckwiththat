@@ -123,10 +123,4 @@ class BaseGameComponent extends FlameGame
     final double y = position.y - (position.y % Constants.NODE_SIZE);
     mousePosition = Vector2(x, y);
   }
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-    print(mousePosition);
-  }
 }
