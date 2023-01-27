@@ -44,7 +44,6 @@ class GameComponent extends Zoomable
       textRenderer: Style.textRenderer(size: 20),
     ));
     add(ResourcesHud());
-    //add(ButtonsHud());
 
     for (final JsonPatch patch in jsonMatch.patches) {
       add(Patch(
