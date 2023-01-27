@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/components/mine.dart';
 import 'package:tensionnode/dialog/base_contextual_menu.dart';
@@ -27,9 +28,15 @@ class MineMenu extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Label(
+              text: '${mine.resourceType.name} mine',
+              align: TextAlign.center,
+            ),
+            const VBox(10),
+            Label(
               text: '${mine.i}, ${mine.j}',
               align: TextAlign.center,
             ),
+            const VBox(10),
             MenuButton(
               text: 'Destroy',
               icon: Icons.delete,
