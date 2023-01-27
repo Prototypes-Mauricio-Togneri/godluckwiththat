@@ -4,4 +4,4 @@ set -e
 
 flutter pub upgrade
 flutter pub run build_runner build --delete-conflicting-outputs
-dart format lib --line-length=150
+dart format lib

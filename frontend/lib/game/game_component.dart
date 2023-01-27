@@ -51,7 +51,7 @@ class GameComponent extends BaseGameComponent {
     }
 
     for (final JsonNode node in jsonMatch.nodes) {
-      if (node.type == NodeType.mine) {
+      if (node.type.isMine) {
         add(Mine(
           i: node.position.x,
           j: node.position.y,
