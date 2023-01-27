@@ -52,7 +52,7 @@ class MainMenu extends StatelessWidget {
               text: 'Close',
               icon: Icons.close,
               color: Palette.lightGrey,
-              onPressed: _onClose,
+              onPressed: _closeMenu,
             ),
           ],
         ),
@@ -87,14 +87,8 @@ class MainMenu extends StatelessWidget {
     game.openMenu(name: SettingsMenu.NAME);
   }
 
-  void _onClose() {
-    _closeMenu();
-  }
-
-  void _closeMenu() {
-    game.closeMenu(
-      name: MainMenu.NAME,
-      resumeGame: true,
-    );
-  }
+  void _closeMenu() => game.closeMenu(
+        name: MainMenu.NAME,
+        resumeGame: true,
+      );
 }

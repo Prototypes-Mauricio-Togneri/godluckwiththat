@@ -57,7 +57,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
               text: 'Close',
               icon: Icons.close,
               color: Palette.lightGrey,
-              onPressed: _onClose,
+              onPressed: _closeMenu,
             ),
             const VBox(10),
             Center(
@@ -77,11 +77,5 @@ class _SettingsMenuState extends State<SettingsMenu> {
     _closeMenu();
   }
 
-  void _onClose() {
-    _closeMenu();
-  }
-
-  void _closeMenu() {
-    widget.game.closeMenu(name: SettingsMenu.NAME);
-  }
+  void _closeMenu() => widget.game.closeMenu(name: SettingsMenu.NAME);
 }

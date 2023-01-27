@@ -47,7 +47,7 @@ class MineMenu extends StatelessWidget {
               text: 'Close',
               icon: Icons.close,
               color: Palette.lightGrey,
-              onPressed: _onClose,
+              onPressed: _closeMenu,
             ),
           ],
         ),
@@ -60,11 +60,5 @@ class MineMenu extends StatelessWidget {
     _closeMenu();
   }
 
-  void _onClose() {
-    _closeMenu();
-  }
-
-  void _closeMenu() {
-    game.closeMenu(name: MineMenu.NAME);
-  }
+  void _closeMenu() => game.closeMenu(name: MineMenu.NAME);
 }
