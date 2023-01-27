@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/node.dart';
+import 'package:tensionnode/components/static_element.dart';
 
 class BaseGameComponent extends FlameGame
     with
@@ -45,6 +46,18 @@ class BaseGameComponent extends FlameGame
   Node? getNode(int i, int j) {
     for (final Component component in children) {
       if ((component is Node) && (component.i == i) && (component.j == j)) {
+        return component;
+      }
+    }
+
+    return null;
+  }
+
+  StaticElement? getStaticElement(int i, int j) {
+    for (final Component component in children) {
+      if ((component is StaticElement) &&
+          (component.i == i) &&
+          (component.j == j)) {
         return component;
       }
     }

@@ -10,8 +10,6 @@ class Headquarters extends Node {
 
   @override
   bool onTapUp(TapUpInfo info) {
-    print('$i $j');
-
     return true;
   }
 }

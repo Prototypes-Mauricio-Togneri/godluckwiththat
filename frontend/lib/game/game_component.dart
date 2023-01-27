@@ -8,6 +8,7 @@ import 'package:tensionnode/components/node.dart';
 import 'package:tensionnode/components/patch.dart';
 import 'package:tensionnode/components/resource.dart';
 import 'package:tensionnode/components/resources_hud.dart';
+import 'package:tensionnode/components/static_element.dart';
 import 'package:tensionnode/dialog/build_menu.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/mine_menu.dart';
@@ -173,12 +174,15 @@ class GameComponent extends BaseGameComponent {
         final int i = position.x.toInt();
         final int j = position.y.toInt();
         final Node? node = getNode(i, j);
+        final StaticElement? staticElement = getStaticElement(i, j);
 
-        if (node == null) {
+        if ((node == null) &&
+            (staticElement != null) &&
+            (staticElement is Patch)) {
           buildMine(
             i: i,
             j: j,
-            resourceType: ResourceType.red,
+            resourceType: staticElement.resourceType,
           );
         }
       }
