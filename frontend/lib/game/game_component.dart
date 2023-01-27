@@ -10,6 +10,7 @@ import 'package:tensionnode/components/node.dart';
 import 'package:tensionnode/components/patch.dart';
 import 'package:tensionnode/components/resource.dart';
 import 'package:tensionnode/components/resources_hud.dart';
+import 'package:tensionnode/dialog/build_menu.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/mine_menu.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
@@ -131,7 +132,7 @@ class GameComponent extends Zoomable
         pauseGame: true,
       );
 
-  void openBuildMenu() {}
+  void openBuildMenu() => openMenu(name: BuildMenu.NAME);
 
   void openMenu({
     required String name,
@@ -172,5 +173,6 @@ class GameComponent extends Zoomable
 
   void _closeContextualMenus() {
     closeMenu(name: MineMenu.NAME);
+    closeMenu(name: BuildMenu.NAME);
   }
 }
