@@ -83,6 +83,12 @@ class GameComponent extends BaseGameComponent {
     }
   }
 
+  @override
+  void onMapInteraction() {
+    closeMenu(name: MineMenu.NAME);
+    closeMenu(name: BuildMenu.NAME);
+  }
+
   void _createTestObjects() {
     for (int i = -15; i < 15; i++) {
       for (int j = -15; j < 15; j++) {
@@ -94,12 +100,6 @@ class GameComponent extends BaseGameComponent {
       }
     }
   }
-
-  void removeComponents(Type type) => removeWhere((c) {
-        c.removeWhere((c) => c.runtimeType == type);
-
-        return c.runtimeType == type;
-      });
 
   void openMainMenu() => openMenu(
         name: MainMenu.NAME,
@@ -136,11 +136,5 @@ class GameComponent extends BaseGameComponent {
         resumeEngine();
       }
     }
-  }
-
-  @override
-  void onMapInteraction() {
-    closeMenu(name: MineMenu.NAME);
-    closeMenu(name: BuildMenu.NAME);
   }
 }

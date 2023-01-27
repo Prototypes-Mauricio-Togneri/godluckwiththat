@@ -26,6 +26,12 @@ class BaseGameComponent extends FlameGame
     return super.onLoad();
   }
 
+  void removeComponents(Type type) => removeWhere((c) {
+        c.removeWhere((c) => c.runtimeType == type);
+
+        return c.runtimeType == type;
+      });
+
   void clampZoom() {
     camera.zoom = camera.zoom.clamp(MIN_ZOOM, MAX_ZOOM);
   }
