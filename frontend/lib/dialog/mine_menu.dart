@@ -31,6 +31,12 @@ class MineMenu extends StatelessWidget {
               align: TextAlign.center,
             ),
             MenuButton(
+              text: 'Destroy',
+              icon: Icons.delete,
+              color: Palette.red,
+              onPressed: _onDestroy,
+            ),
+            MenuButton(
               text: 'Close',
               icon: Icons.close,
               color: Palette.lightGrey,
@@ -40,6 +46,11 @@ class MineMenu extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onDestroy() {
+    game.removeNode(game.state.selectedNode);
+    _closeMenu();
   }
 
   void _onClose() {

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/components/background.dart';
 import 'package:tensionnode/components/buttons_hud.dart';
+import 'package:tensionnode/components/cell.dart';
 import 'package:tensionnode/components/headquarters.dart';
 import 'package:tensionnode/components/mine.dart';
 import 'package:tensionnode/components/patch.dart';
@@ -69,6 +70,10 @@ class GameComponent extends Zoomable
     }
 
     return super.onLoad();
+  }
+
+  void removeNode(Cell cell) {
+    
   }
 
   @override

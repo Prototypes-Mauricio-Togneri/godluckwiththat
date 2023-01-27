@@ -8,6 +8,7 @@ class Palette {
   static const Color lightGrey = Color(0xffa0a0a0);
   static const Color white = Colors.white;
   static const Color blue = Colors.blue;
+  static const Color red = Colors.red;
 
   static const Color screenBackground = Color(0x80000000);
 
