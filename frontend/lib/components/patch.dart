@@ -8,5 +8,5 @@ class Patch extends Node {
     required super.i,
     required super.j,
     required this.resourceType,
-  }) : super(path: resourceType.pathMine);
+  }) : super(path: resourceType.pathPatch);
 }

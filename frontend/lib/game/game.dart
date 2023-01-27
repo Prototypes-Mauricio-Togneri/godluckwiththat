@@ -73,7 +73,7 @@ class GameComponent extends Zoomable
   }
 
   void removeNode(Node node) {
-    
+    remove(node);
   }
 
   @override
