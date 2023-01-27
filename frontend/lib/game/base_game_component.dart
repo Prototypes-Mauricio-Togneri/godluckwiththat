@@ -1,8 +1,11 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
-class Zoomable extends FlameGame with ScrollDetector, ScaleDetector {
+class BaseGameComponent extends FlameGame
+    with ScrollDetector, ScaleDetector, KeyboardEvents {
   final double MIN_ZOOM = 1;
   final double MAX_ZOOM = 10;
   final double ZOOM_STEP = 1;
@@ -58,6 +61,30 @@ class Zoomable extends FlameGame with ScrollDetector, ScaleDetector {
     } else {
       camera.translateBy(-info.delta.game);
       camera.snap();
+    }
+  }
+
+  void onKeyPressed(LogicalKeyboardKey key) {}
+
+  @override
+  KeyEventResult onKeyEvent(
+    RawKeyEvent event,
+    Set<LogicalKeyboardKey> keysPressed,
+  ) {
+    final bool isKeyDown = event is RawKeyDownEvent;
+    final bool isEscape = keysPressed.contains(LogicalKeyboardKey.escape);
+    final bool isSpace = keysPressed.contains(LogicalKeyboardKey.space);
+
+    if (isEscape && isKeyDown) {
+      onKeyPressed(LogicalKeyboardKey.escape);
+
+      return KeyEventResult.handled;
+    } else if (isSpace && isKeyDown) {
+      onKeyPressed(LogicalKeyboardKey.space);
+
+      return KeyEventResult.handled;
+    } else {
+      return KeyEventResult.ignored;
     }
   }
 }

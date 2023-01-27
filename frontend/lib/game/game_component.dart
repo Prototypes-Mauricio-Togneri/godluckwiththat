@@ -2,7 +2,6 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/image_composition.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tensionnode/components/background.dart';
 import 'package:tensionnode/components/headquarters.dart';
 import 'package:tensionnode/components/mine.dart';
@@ -14,8 +13,8 @@ import 'package:tensionnode/dialog/build_menu.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/mine_menu.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
+import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
-import 'package:tensionnode/game/zoomable.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
@@ -24,8 +23,7 @@ import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
 
-class GameComponent extends Zoomable
-    with HasTappables, HasHoverables, KeyboardEvents {
+class GameComponent extends BaseGameComponent with HasTappables, HasHoverables {
   final GameState state;
 
   GameComponent(this.state);
@@ -79,27 +77,14 @@ class GameComponent extends Zoomable
   Color backgroundColor() => const Color(0xff1a1a1a);
 
   @override
-  KeyEventResult onKeyEvent(
-    RawKeyEvent event,
-    Set<LogicalKeyboardKey> keysPressed,
-  ) {
-    final bool isKeyDown = event is RawKeyDownEvent;
-    final bool isEscape = keysPressed.contains(LogicalKeyboardKey.escape);
-    final bool isSpace = keysPressed.contains(LogicalKeyboardKey.space);
-
-    if (isEscape && isKeyDown) {
+  void onKeyPressed(LogicalKeyboardKey key) {
+    if (key == LogicalKeyboardKey.escape) {
       openMenu(
         name: MainMenu.NAME,
         pauseGame: true,
       );
-
-      return KeyEventResult.handled;
-    } else if (isSpace && isKeyDown) {
+    } else if (key == LogicalKeyboardKey.space) {
       _createTestObjects();
-
-      return KeyEventResult.handled;
-    } else {
-      return KeyEventResult.ignored;
     }
   }
 
