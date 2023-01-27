@@ -3,6 +3,7 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tensionnode/app/constants.dart';
 
 class BaseGameComponent extends FlameGame
     with
@@ -10,12 +11,14 @@ class BaseGameComponent extends FlameGame
         ScaleDetector,
         KeyboardEvents,
         HasTappables,
-        HasHoverables {
+        HasHoverables,
+        MouseMovementDetector {
   final double MIN_ZOOM = 1;
   final double MAX_ZOOM = 10;
   final double ZOOM_STEP = 1;
 
   late double startZoom;
+  Vector2? mousePosition;
 
   @override
   Future onLoad() async {
@@ -107,4 +110,23 @@ class BaseGameComponent extends FlameGame
 
   @override
   Color backgroundColor() => const Color(0xff1a1a1a);
+
+  @override
+  void onMouseMove(PointerHoverInfo info) {
+    super.onMouseMove(info);
+
+    final Vector2 position = Vector2(
+      info.eventPosition.game.x.toInt() + (Constants.NODE_SIZE / 2),
+      info.eventPosition.game.y.toInt() + (Constants.NODE_SIZE / 2),
+    );
+    final double x = position.x - (position.x % Constants.NODE_SIZE);
+    final double y = position.y - (position.y % Constants.NODE_SIZE);
+    mousePosition = Vector2(x, y);
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    print(mousePosition);
+  }
 }

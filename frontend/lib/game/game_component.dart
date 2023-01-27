@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/components/background.dart';
+import 'package:tensionnode/components/building_node.dart';
 import 'package:tensionnode/components/headquarters.dart';
 import 'package:tensionnode/components/mine.dart';
 import 'package:tensionnode/components/node.dart';
@@ -63,6 +64,8 @@ class GameComponent extends BaseGameComponent {
         ));
       }
     }
+
+    add(BuildingNode(path: Assets.IMAGES_MINE_RED));
 
     return super.onLoad();
   }
