@@ -1,12 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:flame/extensions.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 
-class Node extends SpriteComponent
-    with HasGameRef<GameComponent>, Tappable, Hoverable {
+class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final int i;
   final int j;
   final String path;
@@ -33,15 +31,8 @@ class Node extends SpriteComponent
   }
 
   @override
-  bool onTapUp(TapUpInfo info) => true;
+  bool onTapUp(TapUpInfo info) => false;
 
   @override
-  bool onTapDown(TapDownInfo info) => true;
-
-  @override
-  void render(Canvas canvas) {
-    setOpacity(isHovered ? 0.5 : 1);
-
-    super.render(canvas);
-  }
+  bool onTapDown(TapDownInfo info) => false;
 }

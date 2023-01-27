@@ -85,7 +85,11 @@ class GameComponent extends BaseGameComponent {
   }
 
   @override
-  void onMapInteraction() {
+  void onMapMoved() {
+    _closeContextualMenus();
+  }
+
+  void _closeContextualMenus() {
     closeMenu(name: MineMenu.NAME);
     closeMenu(name: BuildMenu.NAME);
   }
@@ -145,7 +149,9 @@ class GameComponent extends BaseGameComponent {
   }
 
   @override
-  void onCancelOperation() {
+  void onMapClicked(Vector2 position) {
+    _closeContextualMenus();
+
     if (hasComponent(BuildingNode)) {
       removeComponents(BuildingNode);
     }

@@ -61,24 +61,19 @@ class BaseGameComponent extends FlameGame
 
   @override
   void onTapUp(int pointerId, TapUpInfo info) {
-    onMapInteraction();
-
-    if (pointerId == 2) {
-      onCancelOperation();
-    }
-
+    onMapClicked(info.eventPosition.game);
     super.onTapUp(pointerId, info);
   }
 
   @override
   void onScaleStart(ScaleStartInfo info) {
     startZoom = camera.zoom;
-    onMapInteraction();
+    onMapMoved();
   }
 
-  void onMapInteraction() {}
+  void onMapMoved() {}
 
-  void onCancelOperation() {}
+  void onMapClicked(Vector2 position) {}
 
   @override
   void onScaleUpdate(ScaleUpdateInfo info) {
