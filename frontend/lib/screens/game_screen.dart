@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/mine_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
-import 'package:tensionnode/game/game.dart';
+import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
 
@@ -23,13 +23,77 @@ class GameScreen extends StatelessWidget {
       statusBarColor: Palette.grey,
       child: SafeArea(
         child: Scaffold(
-          body: GameWidget(
-            game: game,
-            overlayBuilderMap: const {
-              MainMenu.NAME: MainMenu.builder,
-              SettingsMenu.NAME: SettingsMenu.builder,
-              MineMenu.NAME: MineMenu.builder,
-            },
+          body: Stack(
+            children: [
+              GameWidget(
+                game: game,
+                overlayBuilderMap: const {
+                  MainMenu.NAME: MainMenu.builder,
+                  SettingsMenu.NAME: SettingsMenu.builder,
+                  MineMenu.NAME: MineMenu.builder,
+                },
+              ),
+              BottomMenu(game),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BottomMenu extends StatelessWidget {
+  final GameComponent game;
+
+  const BottomMenu(this.game);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        color: Palette.grey,
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            BottomMenuButton(
+              icon: Icons.menu,
+              color: Palette.lightGrey,
+              onClick: game.openMainMenu,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BottomMenuButton extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final VoidCallback onClick;
+
+  const BottomMenuButton({
+    required this.icon,
+    required this.color,
+    required this.onClick,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: color,
+      child: InkWell(
+        onTap: onClick,
+        child: SizedBox(
+          width: 50,
+          height: 50,
+          child: Center(
+            child: Icon(
+              icon,
+              color: Palette.white,
+            ),
           ),
         ),
       ),

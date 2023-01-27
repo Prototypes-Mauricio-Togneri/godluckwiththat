@@ -4,7 +4,6 @@ import 'package:flame/image_composition.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/components/background.dart';
-import 'package:tensionnode/components/buttons_hud.dart';
 import 'package:tensionnode/components/headquarters.dart';
 import 'package:tensionnode/components/mine.dart';
 import 'package:tensionnode/components/node.dart';
@@ -44,7 +43,7 @@ class GameComponent extends Zoomable
       textRenderer: Style.textRenderer(size: 20),
     ));
     add(ResourcesHud());
-    add(ButtonsHud());
+    //add(ButtonsHud());
 
     for (final JsonPatch patch in jsonMatch.patches) {
       add(Patch(
@@ -126,6 +125,11 @@ class GameComponent extends Zoomable
 
         return c.runtimeType == type;
       });
+
+  void openMainMenu() => openMenu(
+        name: MainMenu.NAME,
+        pauseGame: true,
+      );
 
   void openMenu({
     required String name,
