@@ -62,9 +62,7 @@ class BaseGameComponent extends FlameGame
 
   @override
   void onTapUp(int pointerId, TapUpInfo info) {
-    print(_toGridSnapPosition(info.eventPosition.game));
-
-    onMapClicked(info.eventPosition.game);
+    onMapClicked(_toGridPosition(info.eventPosition.game));
     super.onTapUp(pointerId, info);
   }
 
@@ -121,10 +119,10 @@ class BaseGameComponent extends FlameGame
   @override
   void onMouseMove(PointerHoverInfo info) {
     super.onMouseMove(info);
-    mousePosition = _toGridSnapPosition(info.eventPosition.game);
+    mousePosition = _toSnapPosition(info.eventPosition.game);
   }
 
-  Vector2 _toGridSnapPosition(Vector2 point) {
+  Vector2 _toSnapPosition(Vector2 point) {
     final Vector2 position = Vector2(
       point.x.toInt() + (Constants.NODE_SIZE / 2),
       point.y.toInt() + (Constants.NODE_SIZE / 2),
@@ -133,5 +131,14 @@ class BaseGameComponent extends FlameGame
     final double y = position.y - (position.y % Constants.NODE_SIZE);
 
     return Vector2(x, y);
+  }
+
+  Vector2 _toGridPosition(Vector2 point) {
+    final pointSnapped = _toSnapPosition(point);
+
+    return Vector2(
+      (pointSnapped.x ~/ Constants.NODE_SIZE).toDouble(),
+      (pointSnapped.y ~/ Constants.NODE_SIZE).toDouble(),
+    );
   }
 }

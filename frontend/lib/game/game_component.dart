@@ -153,6 +153,8 @@ class GameComponent extends BaseGameComponent {
     _closeContextualMenus();
 
     if (hasComponent(BuildingNode)) {
+      print(position);
+
       removeComponents(BuildingNode);
     }
   }
