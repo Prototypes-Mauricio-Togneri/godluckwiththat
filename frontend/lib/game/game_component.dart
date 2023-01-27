@@ -131,6 +131,8 @@ class GameComponent extends Zoomable
         pauseGame: true,
       );
 
+  void openBuildMenu() {}
+
   void openMenu({
     required String name,
     bool pauseGame = false,

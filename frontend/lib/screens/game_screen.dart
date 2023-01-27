@@ -62,6 +62,12 @@ class BottomMenu extends StatelessWidget {
               color: Palette.lightGrey,
               onClick: game.openMainMenu,
             ),
+            const HBox(10),
+            BottomMenuButton(
+              icon: Icons.construction,
+              color: Palette.lightGrey,
+              onClick: game.openBuildMenu,
+            ),
           ],
         ),
       ),
