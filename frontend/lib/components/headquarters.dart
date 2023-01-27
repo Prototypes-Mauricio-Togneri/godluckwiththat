@@ -1,8 +1,8 @@
 import 'package:flame/events.dart';
-import 'package:tensionnode/components/cell.dart';
+import 'package:tensionnode/components/node.dart';
 import 'package:tensionnode/services/assets.dart';
 
-class Headquarters extends Cell {
+class Headquarters extends Node {
   Headquarters({
     required super.i,
     required super.j,

@@ -14,16 +14,16 @@ class Resource extends SpriteComponent with HasGameRef<GameComponent> {
     required this.path,
   }) {
     position = Vector2(
-      i * Constants.CELL_SIZE,
-      j * Constants.CELL_SIZE,
+      i * Constants.NODE_SIZE,
+      j * Constants.NODE_SIZE,
     );
   }
 
   @override
   Future onLoad() async {
     sprite = await getSprite(path);
-    width = Constants.CELL_SIZE / 3;
-    height = Constants.CELL_SIZE / 3;
+    width = Constants.NODE_SIZE / 3;
+    height = Constants.NODE_SIZE / 3;
     anchor = Anchor.center;
 
     return super.onLoad();

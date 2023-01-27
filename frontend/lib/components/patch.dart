@@ -1,7 +1,7 @@
-import 'package:tensionnode/components/cell.dart';
+import 'package:tensionnode/components/node.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class Patch extends Cell {
+class Patch extends Node {
   final ResourceType resourceType;
 
   Patch({

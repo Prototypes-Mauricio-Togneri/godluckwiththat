@@ -5,27 +5,28 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game.dart';
 
-class Cell extends SpriteComponent with HasGameRef<GameComponent>, Tappable, Hoverable {
+class Node extends SpriteComponent
+    with HasGameRef<GameComponent>, Tappable, Hoverable {
   final int i;
   final int j;
   final String path;
 
-  Cell({
+  Node({
     required this.i,
     required this.j,
     required this.path,
   }) {
     position = Vector2(
-      i * Constants.CELL_SIZE,
-      j * Constants.CELL_SIZE,
+      i * Constants.NODE_SIZE,
+      j * Constants.NODE_SIZE,
     );
   }
 
   @override
   Future onLoad() async {
     sprite = await getSprite(path);
-    width = Constants.CELL_SIZE;
-    height = Constants.CELL_SIZE;
+    width = Constants.NODE_SIZE;
+    height = Constants.NODE_SIZE;
     anchor = Anchor.center;
 
     return super.onLoad();

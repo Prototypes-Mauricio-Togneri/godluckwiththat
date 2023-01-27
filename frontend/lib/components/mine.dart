@@ -1,9 +1,9 @@
 import 'package:flame/input.dart';
-import 'package:tensionnode/components/cell.dart';
+import 'package:tensionnode/components/node.dart';
 import 'package:tensionnode/dialog/mine_menu.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class Mine extends Cell {
+class Mine extends Node {
   final ResourceType resourceType;
   num accumulatedTime = 0;
 
