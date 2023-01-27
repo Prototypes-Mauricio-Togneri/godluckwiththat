@@ -153,9 +153,14 @@ class GameComponent extends BaseGameComponent {
     _closeContextualMenus();
 
     if (hasComponent(BuildingNode)) {
-      print(position);
+      final BuildingNode node = getComponent(BuildingNode);
 
       removeComponents(BuildingNode);
+      add(Mine(
+        i: position.x.toInt(),
+        j: position.y.toInt(),
+        resourceType: node.type.resource!,
+      ));
     }
   }
 }

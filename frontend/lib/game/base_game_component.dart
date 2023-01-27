@@ -38,6 +38,9 @@ class BaseGameComponent extends FlameGame
 
   bool hasComponent(Type type) => children.any((c) => c.runtimeType == type);
 
+  T getComponent<T extends Component>(Type type) =>
+      children.singleWhere((c) => c.runtimeType == type) as T;
+
   void clampZoom() {
     camera.zoom = camera.zoom.clamp(MIN_ZOOM, MAX_ZOOM);
   }
