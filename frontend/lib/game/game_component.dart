@@ -157,6 +157,7 @@ class GameComponent extends BaseGameComponent {
   }
 
   void enableBuildMode(NodeType type) {
+    _closeContextualMenus();
     removeComponents(BuildingNode);
     add(BuildingNode(type: type));
   }
