@@ -1,6 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
-import 'package:flame/image_composition.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/components/background.dart';
 import 'package:tensionnode/components/headquarters.dart';
@@ -23,7 +21,7 @@ import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
 
-class GameComponent extends BaseGameComponent with HasTappables, HasHoverables {
+class GameComponent extends BaseGameComponent {
   final GameState state;
 
   GameComponent(this.state);
@@ -74,9 +72,6 @@ class GameComponent extends BaseGameComponent with HasTappables, HasHoverables {
   }
 
   @override
-  Color backgroundColor() => const Color(0xff1a1a1a);
-
-  @override
   void onKeyPressed(LogicalKeyboardKey key) {
     if (key == LogicalKeyboardKey.escape) {
       openMenu(
@@ -98,11 +93,6 @@ class GameComponent extends BaseGameComponent with HasTappables, HasHoverables {
         ));
       }
     }
-  }
-
-  @override
-  void onScrollEvent() {
-    _closeContextualMenus();
   }
 
   void removeComponents(Type type) => removeWhere((c) {
@@ -149,13 +139,7 @@ class GameComponent extends BaseGameComponent with HasTappables, HasHoverables {
   }
 
   @override
-  void onTapUp(int pointerId, TapUpInfo info) {
-    _closeContextualMenus();
-
-    super.onTapUp(pointerId, info);
-  }
-
-  void _closeContextualMenus() {
+  void onMapInteraction() {
     closeMenu(name: MineMenu.NAME);
     closeMenu(name: BuildMenu.NAME);
   }

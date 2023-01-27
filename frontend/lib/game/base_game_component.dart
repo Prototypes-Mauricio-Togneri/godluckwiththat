@@ -5,7 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 class BaseGameComponent extends FlameGame
-    with ScrollDetector, ScaleDetector, KeyboardEvents {
+    with
+        ScrollDetector,
+        ScaleDetector,
+        KeyboardEvents,
+        HasTappables,
+        HasHoverables {
   final double MIN_ZOOM = 1;
   final double MAX_ZOOM = 10;
   final double ZOOM_STEP = 1;
@@ -44,12 +49,18 @@ class BaseGameComponent extends FlameGame
   }
 
   @override
-  void onScaleStart(ScaleStartInfo info) {
-    startZoom = camera.zoom;
-    onScrollEvent();
+  void onTapUp(int pointerId, TapUpInfo info) {
+    onMapInteraction();
+    super.onTapUp(pointerId, info);
   }
 
-  void onScrollEvent() {}
+  @override
+  void onScaleStart(ScaleStartInfo info) {
+    startZoom = camera.zoom;
+    onMapInteraction();
+  }
+
+  void onMapInteraction() {}
 
   @override
   void onScaleUpdate(ScaleUpdateInfo info) {
@@ -87,4 +98,7 @@ class BaseGameComponent extends FlameGame
       return KeyEventResult.ignored;
     }
   }
+
+  @override
+  Color backgroundColor() => const Color(0xff1a1a1a);
 }
