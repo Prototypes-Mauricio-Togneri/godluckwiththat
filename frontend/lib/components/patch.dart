@@ -1,7 +1,7 @@
-import 'package:tensionnode/components/node.dart';
+import 'package:tensionnode/components/static_element.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class Patch extends Node {
+class Patch extends StaticElement {
   final ResourceType resourceType;
 
   Patch({

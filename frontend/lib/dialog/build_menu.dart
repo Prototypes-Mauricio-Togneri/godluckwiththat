@@ -31,22 +31,10 @@ class BuildMenu extends StatelessWidget {
             ),
             const VBox(5),
             MenuButton(
-              text: 'Red Mine',
+              text: 'Mine',
               icon: Icons.square_outlined,
-              color: Palette.resource_red,
-              onPressed: () => _onBuildMine(NodeType.mine_red),
-            ),
-            MenuButton(
-              text: 'Green Mine',
-              icon: Icons.square_outlined,
-              color: Palette.resource_green,
-              onPressed: () => _onBuildMine(NodeType.mine_green),
-            ),
-            MenuButton(
-              text: 'Blue Mine',
-              icon: Icons.square_outlined,
-              color: Palette.resource_blue,
-              onPressed: () => _onBuildMine(NodeType.mine_blue),
+              color: Palette.primary,
+              onPressed: () => _onBuild(NodeType.mine),
             ),
             MenuButton(
               text: 'Close',
@@ -60,7 +48,7 @@ class BuildMenu extends StatelessWidget {
     );
   }
 
-  void _onBuildMine(NodeType type) {
+  void _onBuild(NodeType type) {
     game.enableBuildMode(type);
     _closeMenu();
   }

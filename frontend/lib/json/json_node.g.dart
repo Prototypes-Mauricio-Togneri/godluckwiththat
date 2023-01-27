@@ -31,9 +31,7 @@ Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) {
 
 const _$NodeTypeEnumMap = {
   NodeType.headquarters: 'headquarters',
-  NodeType.mine_red: 'mine_red',
-  NodeType.mine_green: 'mine_green',
-  NodeType.mine_blue: 'mine_blue',
+  NodeType.mine: 'mine',
 };
 
 const _$ResourceTypeEnumMap = {

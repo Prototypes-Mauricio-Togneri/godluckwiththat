@@ -5,6 +5,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/components/node.dart';
 
 class BaseGameComponent extends FlameGame
     with
@@ -40,6 +41,16 @@ class BaseGameComponent extends FlameGame
 
   T getComponent<T extends Component>(Type type) =>
       children.singleWhere((c) => c.runtimeType == type) as T;
+
+  Node? getNode(int i, int j) {
+    for (final Component component in children) {
+      if ((component is Node) && (component.i == i) && (component.j == j)) {
+        return component;
+      }
+    }
+
+    return null;
+  }
 
   void clampZoom() {
     camera.zoom = camera.zoom.clamp(MIN_ZOOM, MAX_ZOOM);

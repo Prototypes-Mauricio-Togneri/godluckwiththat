@@ -52,7 +52,7 @@ class GameComponent extends BaseGameComponent {
     }
 
     for (final JsonNode node in jsonMatch.nodes) {
-      if (node.type.isMine) {
+      if (node.type == NodeType.mine) {
         buildMine(
           i: node.position.x,
           j: node.position.y,
@@ -167,14 +167,20 @@ class GameComponent extends BaseGameComponent {
     _closeContextualMenus();
 
     if (hasComponent(BuildingNode)) {
-      final BuildingNode node = getComponent(BuildingNode);
+      final BuildingNode buildingNode = getComponent(BuildingNode);
 
-      if (node.type.isMine) {
-        buildMine(
-          i: position.x.toInt(),
-          j: position.y.toInt(),
-          resourceType: node.type.resource!,
-        );
+      if (buildingNode.type == NodeType.mine) {
+        final int i = position.x.toInt();
+        final int j = position.y.toInt();
+        final Node? node = getNode(i, j);
+
+        if (node == null) {
+          buildMine(
+            i: i,
+            j: j,
+            resourceType: ResourceType.red,
+          );
+        }
       }
     }
   }
