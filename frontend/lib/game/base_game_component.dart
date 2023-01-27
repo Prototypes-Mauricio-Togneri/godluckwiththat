@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -61,6 +62,8 @@ class BaseGameComponent extends FlameGame
 
   @override
   void onTapUp(int pointerId, TapUpInfo info) {
+    print(_toGridSnapPosition(info.eventPosition.game));
+
     onMapClicked(info.eventPosition.game);
     super.onTapUp(pointerId, info);
   }
@@ -118,13 +121,17 @@ class BaseGameComponent extends FlameGame
   @override
   void onMouseMove(PointerHoverInfo info) {
     super.onMouseMove(info);
+    mousePosition = _toGridSnapPosition(info.eventPosition.game);
+  }
 
+  Vector2 _toGridSnapPosition(Vector2 point) {
     final Vector2 position = Vector2(
-      info.eventPosition.game.x.toInt() + (Constants.NODE_SIZE / 2),
-      info.eventPosition.game.y.toInt() + (Constants.NODE_SIZE / 2),
+      point.x.toInt() + (Constants.NODE_SIZE / 2),
+      point.y.toInt() + (Constants.NODE_SIZE / 2),
     );
     final double x = position.x - (position.x % Constants.NODE_SIZE);
     final double y = position.y - (position.y % Constants.NODE_SIZE);
-    mousePosition = Vector2(x, y);
+
+    return Vector2(x, y);
   }
 }
