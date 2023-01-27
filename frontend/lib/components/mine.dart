@@ -29,8 +29,10 @@ class Mine extends Cell {
 
   @override
   bool onTapUp(TapUpInfo info) {
-    game.state.selectedNode = this;
-    game.openMenu(MineMenu.NAME);
+    game.openMenu(
+      name: MineMenu.NAME,
+      node: this,
+    );
 
     return true;
   }

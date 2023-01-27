@@ -84,7 +84,7 @@ class MainMenu extends StatelessWidget {
   }
 
   void _onSettings() {
-    game.openMenu(SettingsMenu.NAME);
+    game.openMenu(name: SettingsMenu.NAME);
   }
 
   void _onClose() {
@@ -92,6 +92,9 @@ class MainMenu extends StatelessWidget {
   }
 
   void _closeMenu() {
-    game.closeMenu(MainMenu.NAME, true);
+    game.closeMenu(
+      name: MainMenu.NAME,
+      resumeGame: true,
+    );
   }
 }

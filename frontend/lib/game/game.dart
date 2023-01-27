@@ -84,7 +84,10 @@ class GameComponent extends Zoomable
     final bool isSpace = keysPressed.contains(LogicalKeyboardKey.space);
 
     if (isEscape && isKeyDown) {
-      openMenu(MainMenu.NAME, true);
+      openMenu(
+        name: MainMenu.NAME,
+        pauseGame: true,
+      );
 
       return KeyEventResult.handled;
     } else if (isSpace && isKeyDown) {
@@ -119,7 +122,15 @@ class GameComponent extends Zoomable
         return c.runtimeType == type;
       });
 
-  void openMenu(String name, [bool pauseGame = false]) {
+  void openMenu({
+    required String name,
+    bool pauseGame = false,
+    dynamic node,
+  }) {
+    if (node != null) {
+      state.selectedNode = node;
+    }
+
     if (!overlays.isActive(name)) {
       if (pauseGame) {
         pauseEngine();
@@ -128,7 +139,10 @@ class GameComponent extends Zoomable
     }
   }
 
-  void closeMenu(String name, [bool resumeGame = false]) {
+  void closeMenu({
+    required String name,
+    bool resumeGame = false,
+  }) {
     if (overlays.isActive(name)) {
       overlays.remove(name);
 
@@ -146,6 +160,6 @@ class GameComponent extends Zoomable
   }
 
   void _closeContextualMenus() {
-    closeMenu(MineMenu.NAME);
+    closeMenu(name: MineMenu.NAME);
   }
 }

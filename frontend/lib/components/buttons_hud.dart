@@ -31,5 +31,8 @@ class ButtonsHud extends SpriteComponent with HasGameRef<GameComponent> {
     return super.onLoad();
   }
 
-  void _onOpenMainMenu() => game.openMenu(MainMenu.NAME, true);
+  void _onOpenMainMenu() => game.openMenu(
+        name: MainMenu.NAME,
+        pauseGame: true,
+      );
 }

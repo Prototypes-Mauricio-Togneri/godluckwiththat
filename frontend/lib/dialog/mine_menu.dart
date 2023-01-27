@@ -44,6 +44,6 @@ class MineMenu extends StatelessWidget {
   }
 
   void _closeMenu() {
-    game.closeMenu(MineMenu.NAME, true);
+    game.closeMenu(name: MineMenu.NAME);
   }
 }

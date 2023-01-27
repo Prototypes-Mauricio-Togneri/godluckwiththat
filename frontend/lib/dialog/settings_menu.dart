@@ -82,6 +82,6 @@ class _SettingsMenuState extends State<SettingsMenu> {
   }
 
   void _closeMenu() {
-    widget.game.closeMenu(SettingsMenu.NAME);
+    widget.game.closeMenu(name: SettingsMenu.NAME);
   }
 }
