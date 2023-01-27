@@ -168,11 +168,14 @@ class GameComponent extends BaseGameComponent {
 
     if (hasComponent(BuildingNode)) {
       final BuildingNode node = getComponent(BuildingNode);
-      buildMine(
-        i: position.x.toInt(),
-        j: position.y.toInt(),
-        resourceType: node.type.resource!,
-      );
+
+      if (node.type.isMine) {
+        buildMine(
+          i: position.x.toInt(),
+          j: position.y.toInt(),
+          resourceType: node.type.resource!,
+        );
+      }
     }
   }
 }
