@@ -21,6 +21,7 @@ import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class GameComponent extends BaseGameComponent {
   final GameState state;
@@ -52,11 +53,11 @@ class GameComponent extends BaseGameComponent {
 
     for (final JsonNode node in jsonMatch.nodes) {
       if (node.type.isMine) {
-        add(Mine(
+        buildMine(
           i: node.position.x,
           j: node.position.y,
           resourceType: node.resource!,
-        ));
+        );
       } else if (node.type == NodeType.headquarters) {
         add(Headquarters(
           i: node.position.x,
@@ -66,6 +67,18 @@ class GameComponent extends BaseGameComponent {
     }
 
     return super.onLoad();
+  }
+
+  void buildMine({
+    required int i,
+    required int j,
+    required ResourceType resourceType,
+  }) {
+    add(Mine(
+      i: i,
+      j: j,
+      resourceType: resourceType,
+    ));
   }
 
   void removeNode(Node node) {
@@ -154,13 +167,12 @@ class GameComponent extends BaseGameComponent {
 
     if (hasComponent(BuildingNode)) {
       final BuildingNode node = getComponent(BuildingNode);
-
-      removeComponents(BuildingNode);
-      add(Mine(
+      remove(node);
+      buildMine(
         i: position.x.toInt(),
         j: position.y.toInt(),
         resourceType: node.type.resource!,
-      ));
+      );
     }
   }
 }
