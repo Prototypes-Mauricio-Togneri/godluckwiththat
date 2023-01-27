@@ -35,6 +35,8 @@ class BaseGameComponent extends FlameGame
         return c.runtimeType == type;
       });
 
+  bool hasComponent(Type type) => children.any((c) => c.runtimeType == type);
+
   void clampZoom() {
     camera.zoom = camera.zoom.clamp(MIN_ZOOM, MAX_ZOOM);
   }
@@ -60,6 +62,11 @@ class BaseGameComponent extends FlameGame
   @override
   void onTapUp(int pointerId, TapUpInfo info) {
     onMapInteraction();
+
+    if (pointerId == 2) {
+      onCancelOperation();
+    }
+
     super.onTapUp(pointerId, info);
   }
 
@@ -70,6 +77,8 @@ class BaseGameComponent extends FlameGame
   }
 
   void onMapInteraction() {}
+
+  void onCancelOperation() {}
 
   @override
   void onScaleUpdate(ScaleUpdateInfo info) {

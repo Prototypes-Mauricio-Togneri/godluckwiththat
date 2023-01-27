@@ -143,4 +143,11 @@ class GameComponent extends BaseGameComponent {
     removeComponents(BuildingNode);
     add(BuildingNode(type: type));
   }
+
+  @override
+  void onCancelOperation() {
+    if (hasComponent(BuildingNode)) {
+      removeComponents(BuildingNode);
+    }
+  }
 }
