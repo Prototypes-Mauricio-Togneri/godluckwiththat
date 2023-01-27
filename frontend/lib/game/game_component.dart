@@ -65,8 +65,6 @@ class GameComponent extends BaseGameComponent {
       }
     }
 
-    add(BuildingNode(path: Assets.IMAGES_MINE_RED));
-
     return super.onLoad();
   }
 
@@ -139,5 +137,10 @@ class GameComponent extends BaseGameComponent {
         resumeEngine();
       }
     }
+  }
+
+  void enableBuildMode(NodeType type) {
+    removeComponents(BuildingNode);
+    add(BuildingNode(type: type));
   }
 }

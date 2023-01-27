@@ -3,17 +3,18 @@ import 'package:flame/rendering.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
+import 'package:tensionnode/types/node_type.dart';
 
 class BuildingNode extends SpriteComponent with HasGameRef<GameComponent> {
-  final String path;
+  final NodeType type;
 
   BuildingNode({
-    required this.path,
+    required this.type,
   });
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(path);
+    sprite = await getSprite(type.path);
     width = Constants.NODE_SIZE;
     height = Constants.NODE_SIZE;
     anchor = Anchor.center;

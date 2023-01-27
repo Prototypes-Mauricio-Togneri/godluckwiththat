@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionnode/dialog/base_contextual_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
-import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
@@ -34,19 +34,19 @@ class BuildMenu extends StatelessWidget {
               text: 'Red Mine',
               icon: Icons.square_outlined,
               color: Palette.resource_red,
-              onPressed: () => _onBuildMine(ResourceType.red),
+              onPressed: () => _onBuildMine(NodeType.mine_red),
             ),
             MenuButton(
               text: 'Green Mine',
               icon: Icons.square_outlined,
               color: Palette.resource_green,
-              onPressed: () => _onBuildMine(ResourceType.green),
+              onPressed: () => _onBuildMine(NodeType.mine_green),
             ),
             MenuButton(
               text: 'Blue Mine',
               icon: Icons.square_outlined,
               color: Palette.resource_blue,
-              onPressed: () => _onBuildMine(ResourceType.blue),
+              onPressed: () => _onBuildMine(NodeType.mine_blue),
             ),
             MenuButton(
               text: 'Close',
@@ -60,7 +60,8 @@ class BuildMenu extends StatelessWidget {
     );
   }
 
-  void _onBuildMine(ResourceType type) {
+  void _onBuildMine(NodeType type) {
+    game.enableBuildMode(type);
     _closeMenu();
   }
 
