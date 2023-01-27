@@ -11,6 +11,7 @@ import 'package:tensionnode/components/patch.dart';
 import 'package:tensionnode/components/resource.dart';
 import 'package:tensionnode/components/resources_hud.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
+import 'package:tensionnode/dialog/mine_menu.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/game/zoomable.dart';
@@ -109,7 +110,7 @@ class GameComponent extends Zoomable
 
   @override
   void onScrollEvent() {
-    removeComponents(MineMenu);
+    _closeContextualMenus();
   }
 
   void removeComponents(Type type) => removeWhere((c) {
@@ -139,8 +140,12 @@ class GameComponent extends Zoomable
 
   @override
   void onTapUp(int pointerId, TapUpInfo info) {
-    removeComponents(MineMenu);
+    _closeContextualMenus();
 
     super.onTapUp(pointerId, info);
+  }
+
+  void _closeContextualMenus() {
+    closeMenu(MineMenu.NAME);
   }
 }

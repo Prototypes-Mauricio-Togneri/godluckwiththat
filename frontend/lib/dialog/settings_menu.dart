@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:tensionnode/dialog/base_dialog.dart';
+import 'package:tensionnode/dialog/base_global_menu.dart';
 import 'package:tensionnode/game/game.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
@@ -40,7 +40,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseDialog(
+    return BaseGlobalMenu(
       child: IntrinsicWidth(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

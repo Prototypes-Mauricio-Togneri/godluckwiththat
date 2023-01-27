@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tensionnode/dialog/base_dialog.dart';
+import 'package:tensionnode/dialog/base_global_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/game/game.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -17,7 +17,7 @@ class MainMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseDialog(
+    return BaseGlobalMenu(
       child: IntrinsicWidth(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

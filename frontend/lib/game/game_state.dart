@@ -8,6 +8,8 @@ class GameState {
   int green = 0;
   int blue = 0;
 
+  dynamic selectedNode;
+
   void load(JsonMatch jsonMatch) {
     version = jsonMatch.version;
     id = jsonMatch.id;
