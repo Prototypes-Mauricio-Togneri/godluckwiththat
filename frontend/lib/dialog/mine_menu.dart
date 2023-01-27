@@ -26,7 +26,10 @@ class MineMenu extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Label(text: '${mine.i}, ${mine.j}'),
+            Label(
+              text: '${mine.i}, ${mine.j}',
+              align: TextAlign.center,
+            ),
             MenuButton(
               text: 'Close',
               icon: Icons.close,
