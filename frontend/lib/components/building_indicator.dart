@@ -5,10 +5,10 @@ import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/types/node_type.dart';
 
-class BuildingNode extends SpriteComponent with HasGameRef<GameComponent> {
+class BuildingIndicator extends SpriteComponent with HasGameRef<GameComponent> {
   final NodeType type;
 
-  BuildingNode({
+  BuildingIndicator({
     required this.type,
   });
 

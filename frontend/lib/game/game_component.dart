@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/components/background.dart';
-import 'package:tensionnode/components/building_node.dart';
+import 'package:tensionnode/components/building_indicator.dart';
 import 'package:tensionnode/components/headquarters.dart';
 import 'package:tensionnode/components/mine.dart';
 import 'package:tensionnode/components/node.dart';
@@ -9,6 +9,7 @@ import 'package:tensionnode/components/patch.dart';
 import 'package:tensionnode/components/resource.dart';
 import 'package:tensionnode/components/resources_hud.dart';
 import 'package:tensionnode/components/static_element.dart';
+import 'package:tensionnode/components/turret.dart';
 import 'package:tensionnode/dialog/build_menu.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/mine_menu.dart';
@@ -88,12 +89,11 @@ class GameComponent extends BaseGameComponent {
     required int j,
     required TurretType type,
   }) {
-    print('aaaa');
-    /*add(Mine(
+    add(Turret(
       i: i,
       j: j,
-      resourceType: resourceType,
-    ));*/
+      type: type,
+    ));
   }
 
   void removeNode(Node node) {
@@ -173,14 +173,14 @@ class GameComponent extends BaseGameComponent {
 
   void enableBuildMode(NodeType type) {
     _closeContextualMenus();
-    removeComponents(BuildingNode);
-    add(BuildingNode(type: type));
+    removeComponents(BuildingIndicator);
+    add(BuildingIndicator(type: type));
     state.enableCancel();
   }
 
   void disableBuildMode() {
     _closeContextualMenus();
-    removeComponents(BuildingNode);
+    removeComponents(BuildingIndicator);
     state.disableCancel();
   }
 
@@ -188,15 +188,16 @@ class GameComponent extends BaseGameComponent {
   void onMapClicked(Vector2 position) {
     _closeContextualMenus();
 
-    if (hasComponent(BuildingNode)) {
-      final BuildingNode buildingNode = getComponent(BuildingNode);
+    if (hasComponent(BuildingIndicator)) {
+      final BuildingIndicator buildingIndicator =
+          getComponent(BuildingIndicator);
       final int i = position.x.toInt();
       final int j = position.y.toInt();
       final Node? node = getNode(i, j);
       final StaticElement? staticElement = getStaticElement(i, j);
 
       _build(
-        nodeType: buildingNode.type,
+        nodeType: buildingIndicator.type,
         i: i,
         j: j,
         node: node,

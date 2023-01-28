@@ -7,6 +7,7 @@ import 'package:tensionnode/dialog/info_menu.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/mine_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
+import 'package:tensionnode/dialog/turret_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -40,6 +41,7 @@ class GameScreen extends StatelessWidget {
                   SettingsMenu.NAME: SettingsMenu.builder,
                   InfoMenu.NAME: InfoMenu.builder,
                   MineMenu.NAME: MineMenu.builder,
+                  TurretMenu.NAME: TurretMenu.builder,
                   BuildMenu.NAME: BuildMenu.builder,
                 },
               ),
