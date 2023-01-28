@@ -183,6 +183,13 @@
                 2,
                 7
             ]
+        },
+        {
+            "type": "turret_light",
+            "position": [
+                -8,
+                4
+            ]
         }
     ]
 }

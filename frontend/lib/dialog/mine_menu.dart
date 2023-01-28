@@ -40,7 +40,7 @@ class MineMenu extends StatelessWidget {
             MenuButton(
               text: 'Destroy',
               icon: Icons.delete,
-              color: Palette.red,
+              color: Palette.error,
               onPressed: _onDestroy,
             ),
             MenuButton(

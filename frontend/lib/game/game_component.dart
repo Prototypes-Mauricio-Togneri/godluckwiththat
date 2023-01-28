@@ -62,11 +62,11 @@ class GameComponent extends BaseGameComponent {
           type: node.type.resource!,
         );
       } else if (node.type.isTurret) {
-        /*addTurret(
+        addTurret(
           i: node.position.x,
           j: node.position.y,
-          type: node.resource!,
-        );*/
+          type: node.type.turret!,
+        );
       } else if (node.type.isHeadquarters) {
         add(Headquarters(
           i: node.position.x,

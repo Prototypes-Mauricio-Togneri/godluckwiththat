@@ -72,7 +72,7 @@ class CancelButton extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 90),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Palette.red,
+            backgroundColor: Palette.error,
             minimumSize: const Size(0, 45),
           ),
           onPressed: _onClose,

@@ -27,32 +27,32 @@ class MainMenu extends StatelessWidget {
             MenuButton(
               text: 'Continue',
               icon: Icons.play_arrow,
-              color: Palette.blue,
+              color: Palette.primary,
               onPressed: _onContinue,
               topPadding: 0,
             ),
             MenuButton(
               text: 'Load game',
               icon: Icons.upload,
-              color: Palette.blue,
+              color: Palette.primary,
               onPressed: _onLoad,
             ),
             MenuButton(
               text: 'Save game',
               icon: Icons.save,
-              color: Palette.blue,
+              color: Palette.primary,
               onPressed: _onSave,
             ),
             MenuButton(
               text: 'Settings',
               icon: Icons.settings,
-              color: Palette.blue,
+              color: Palette.primary,
               onPressed: _onSettings,
             ),
             MenuButton(
               text: 'Info',
               icon: Icons.info,
-              color: Palette.blue,
+              color: Palette.primary,
               onPressed: _onInfo,
             ),
             MenuButton(

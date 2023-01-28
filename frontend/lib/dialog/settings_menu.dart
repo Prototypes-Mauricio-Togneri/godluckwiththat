@@ -25,14 +25,14 @@ class SettingsMenu extends StatelessWidget {
             MenuButton(
               text: 'Audio',
               icon: Icons.volume_down,
-              color: Palette.blue,
+              color: Palette.primary,
               onPressed: _onAudio,
               topPadding: 0,
             ),
             MenuButton(
               text: 'Auto save',
               icon: Icons.save,
-              color: Palette.blue,
+              color: Palette.primary,
               onPressed: _onAutosave,
             ),
             MenuButton(

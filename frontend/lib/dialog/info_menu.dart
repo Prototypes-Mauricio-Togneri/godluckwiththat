@@ -49,32 +49,32 @@ class _InfoMenuState extends State<InfoMenu> {
             MenuButton(
               text: 'Changelog',
               icon: Icons.article,
-              color: Palette.blue,
+              color: Palette.primary,
               onPressed: _onChangelog,
               topPadding: 0,
             ),
             MenuButton(
               text: 'Help',
               icon: Icons.help,
-              color: Palette.blue,
+              color: Palette.primary,
               onPressed: _onHelp,
             ),
             MenuButton(
               text: 'Suggestions',
               icon: Icons.tips_and_updates,
-              color: Palette.blue,
+              color: Palette.primary,
               onPressed: _onSuggestions,
             ),
             MenuButton(
               text: 'Report Bug',
               icon: Icons.bug_report,
-              color: Palette.blue,
+              color: Palette.primary,
               onPressed: _onReportBug,
             ),
             MenuButton(
               text: 'Credits',
               icon: Icons.auto_awesome,
-              color: Palette.blue,
+              color: Palette.primary,
               onPressed: _onCredits,
             ),
             MenuButton(

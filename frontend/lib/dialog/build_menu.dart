@@ -33,25 +33,25 @@ class BuildMenu extends StatelessWidget {
             MenuButton(
               text: 'Red Mine',
               icon: Icons.square_outlined,
-              color: Palette.primary,
+              color: Palette.resource_red,
               onPressed: () => _onBuild(NodeType.mine_red),
             ),
             MenuButton(
               text: 'Green Mine',
               icon: Icons.square_outlined,
-              color: Palette.primary,
+              color: Palette.resource_green,
               onPressed: () => _onBuild(NodeType.mine_green),
             ),
             MenuButton(
               text: 'Blue Mine',
               icon: Icons.square_outlined,
-              color: Palette.primary,
+              color: Palette.resource_blue,
               onPressed: () => _onBuild(NodeType.mine_blue),
             ),
             MenuButton(
               text: 'Light turret',
               icon: Icons.radio_button_unchecked,
-              color: Palette.primary,
+              color: Palette.turret_light,
               onPressed: () => _onBuild(NodeType.turret_light),
             ),
             MenuButton(
