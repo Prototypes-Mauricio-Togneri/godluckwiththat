@@ -1,5 +1,6 @@
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionnode/types/turret_type.dart';
 
 enum NodeType {
   headquarters(Assets.IMAGES_HQ),
@@ -24,6 +25,14 @@ enum NodeType {
       return ResourceType.green;
     } else if (this == mine_blue) {
       return ResourceType.blue;
+    } else {
+      return null;
+    }
+  }
+
+  TurretType? get turret {
+    if (this == turret_light) {
+      return TurretType.light;
     } else {
       return null;
     }

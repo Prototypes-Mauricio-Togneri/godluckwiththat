@@ -248,6 +248,7 @@ class GameComponent extends BaseGameComponent {
       );
     } else if (nodeType.isTurret) {
       _buildTurret(
+        type: nodeType,
         i: i,
         j: j,
         staticElement: staticElement,
@@ -274,6 +275,7 @@ class GameComponent extends BaseGameComponent {
   }
 
   void _buildTurret({
+    required NodeType type,
     required int i,
     required int j,
     required StaticElement? staticElement,
@@ -282,7 +284,7 @@ class GameComponent extends BaseGameComponent {
       addTurret(
         i: i,
         j: j,
-        type: TurretType.light,
+        type: type.turret!,
       );
     }
   }
