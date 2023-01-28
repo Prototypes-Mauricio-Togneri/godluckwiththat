@@ -1,6 +1,7 @@
 class Assets {
   static const String FONTS_MAGNITE = 'assets/fonts/Magnite.otf';
   static const String IMAGES_MINE_RED = 'mine_red.png';
+  static const String IMAGES_ENEMY = 'enemy.png';
   static const String IMAGES_PATCH_BLUE = 'patch_blue.png';
   static const String IMAGES_PATCH_RED = 'patch_red.png';
   static const String IMAGES_MINE_BLUE = 'mine_blue.png';

@@ -2,11 +2,11 @@ import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/components/background.dart';
 import 'package:tensionnode/components/building_indicator.dart';
+import 'package:tensionnode/components/enemy.dart';
 import 'package:tensionnode/components/headquarters.dart';
 import 'package:tensionnode/components/mine.dart';
 import 'package:tensionnode/components/node.dart';
 import 'package:tensionnode/components/patch.dart';
-import 'package:tensionnode/components/resource.dart';
 import 'package:tensionnode/components/resources_hud.dart';
 import 'package:tensionnode/components/static_element.dart';
 import 'package:tensionnode/components/turret.dart';
@@ -22,6 +22,7 @@ import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
+import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/types/turret_type.dart';
@@ -114,21 +115,21 @@ class GameComponent extends BaseGameComponent {
         pauseGame: true,
       );
     } else if (key == LogicalKeyboardKey.space) {
-      _createTestObjects();
+      //_createTestObjects();
+      _spawnEnemy();
     }
   }
 
-  @override
-  void onMapMoved() {
-    _closeContextualMenus();
+  void _spawnEnemy() {
+    add(Enemy(
+      i: -15,
+      j: 4,
+      direction: Direction.right,
+      speed: 50,
+    ));
   }
 
-  void _closeContextualMenus() {
-    closeMenu(name: MineMenu.NAME);
-    closeMenu(name: BuildMenu.NAME);
-  }
-
-  void _createTestObjects() {
+  /*void _createTestObjects() {
     for (int i = -15; i < 15; i++) {
       for (int j = -15; j < 15; j++) {
         add(Resource(
@@ -138,6 +139,16 @@ class GameComponent extends BaseGameComponent {
         ));
       }
     }
+  }*/
+
+  @override
+  void onMapMoved() {
+    _closeContextualMenus();
+  }
+
+  void _closeContextualMenus() {
+    closeMenu(name: MineMenu.NAME);
+    closeMenu(name: BuildMenu.NAME);
   }
 
   void openMainMenu() => openMenu(
