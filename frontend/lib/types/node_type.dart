@@ -1,15 +1,44 @@
+import 'package:tensionnode/models/resources.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/types/turret_type.dart';
 
 enum NodeType {
-  headquarters(Assets.IMAGES_HQ),
-  mine_red(Assets.IMAGES_MINE_RED),
-  mine_green(Assets.IMAGES_MINE_GREEN),
-  mine_blue(Assets.IMAGES_MINE_BLUE),
-  turret_light(Assets.IMAGES_TURRET_LIGHT);
+  headquarters(
+    path: Assets.IMAGES_HQ,
+    costRed: 0,
+    costGreen: 0,
+    costBlue: 0,
+  ),
+  mine_red(
+    path: Assets.IMAGES_MINE_RED,
+    costRed: 0,
+    costGreen: 0,
+    costBlue: 0,
+  ),
+  mine_green(
+    path: Assets.IMAGES_MINE_GREEN,
+    costRed: 0,
+    costGreen: 0,
+    costBlue: 0,
+  ),
+  mine_blue(
+    path: Assets.IMAGES_MINE_BLUE,
+    costRed: 0,
+    costGreen: 0,
+    costBlue: 0,
+  ),
+  turret_light(
+    path: Assets.IMAGES_TURRET_LIGHT,
+    costRed: 0,
+    costGreen: 0,
+    costBlue: 0,
+  );
 
   final String path;
+  final int costRed;
+  final int costGreen;
+  final int costBlue;
 
   bool get isHeadquarters => this == headquarters;
 
@@ -17,6 +46,12 @@ enum NodeType {
       (this == mine_red) || (this == mine_green) || (this == mine_blue);
 
   bool get isTurret => this == turret_light;
+
+  Resources get cost => Resources(
+        red: costRed,
+        green: costGreen,
+        blue: costBlue,
+      );
 
   ResourceType? get resource {
     if (this == mine_red) {
@@ -38,5 +73,10 @@ enum NodeType {
     }
   }
 
-  const NodeType(this.path);
+  const NodeType({
+    required this.path,
+    required this.costRed,
+    required this.costGreen,
+    required this.costBlue,
+  });
 }

@@ -132,10 +132,11 @@ class GameComponent extends BaseGameComponent {
   /*void _createTestObjects() {
     for (int i = -15; i < 15; i++) {
       for (int j = -15; j < 15; j++) {
-        add(Resource(
+        add(Enemy(
           i: i,
           j: j,
-          path: Assets.IMAGES_PATCH_RED,
+          direction: Direction.right,
+          speed: 50,
         ));
       }
     }
