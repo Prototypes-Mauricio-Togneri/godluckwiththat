@@ -37,6 +37,12 @@ class BuildMenu extends StatelessWidget {
               onPressed: () => _onBuild(NodeType.mine),
             ),
             MenuButton(
+              text: 'Light turret',
+              icon: Icons.radio_button_checked,
+              color: Palette.primary,
+              onPressed: () => _onBuild(NodeType.turret),
+            ),
+            MenuButton(
               text: 'Close',
               icon: Icons.close,
               color: Palette.lightGrey,

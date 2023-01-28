@@ -4,7 +4,7 @@ import 'package:tensionnode/dialog/mine_menu.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Mine extends Node {
-  final ResourceType resourceType;
+  final ResourceType type;
   num accumulatedTime = 0;
 
   static const int RESOURCE_RED_COST = 100;
@@ -12,16 +12,16 @@ class Mine extends Node {
   Mine({
     required super.i,
     required super.j,
-    required this.resourceType,
-  }) : super(path: resourceType.pathMine);
+    required this.type,
+  }) : super(path: type.pathMine);
 
   @override
   void update(double dt) {
     accumulatedTime += dt;
 
-    if (accumulatedTime >= resourceType.productionTime) {
+    if (accumulatedTime >= type.productionTime) {
       accumulatedTime = 0;
-      game.state.addResource(resourceType);
+      game.state.addResource(type);
     }
 
     super.update(dt);

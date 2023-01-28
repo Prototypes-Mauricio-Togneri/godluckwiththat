@@ -28,7 +28,7 @@ class MineMenu extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Label(
-              text: '${mine.resourceType.name} mine',
+              text: '${mine.type.name} mine',
               align: TextAlign.center,
             ),
             const VBox(10),

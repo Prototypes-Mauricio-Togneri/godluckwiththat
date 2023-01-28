@@ -23,6 +23,7 @@ import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionnode/types/turret_type.dart';
 
 class GameComponent extends BaseGameComponent {
   final GameState state;
@@ -54,10 +55,10 @@ class GameComponent extends BaseGameComponent {
 
     for (final JsonNode node in jsonMatch.nodes) {
       if (node.type == NodeType.mine) {
-        buildMine(
+        addMine(
           i: node.position.x,
           j: node.position.y,
-          resourceType: node.resource!,
+          type: node.resource!,
         );
       } else if (node.type == NodeType.headquarters) {
         add(Headquarters(
@@ -70,16 +71,29 @@ class GameComponent extends BaseGameComponent {
     return super.onLoad();
   }
 
-  void buildMine({
+  void addMine({
     required int i,
     required int j,
-    required ResourceType resourceType,
+    required ResourceType type,
   }) {
     add(Mine(
       i: i,
       j: j,
-      resourceType: resourceType,
+      type: type,
     ));
+  }
+
+  void addTurret({
+    required int i,
+    required int j,
+    required TurretType type,
+  }) {
+    print('aaaa');
+    /*add(Mine(
+      i: i,
+      j: j,
+      resourceType: resourceType,
+    ));*/
   }
 
   void removeNode(Node node) {
@@ -176,23 +190,72 @@ class GameComponent extends BaseGameComponent {
 
     if (hasComponent(BuildingNode)) {
       final BuildingNode buildingNode = getComponent(BuildingNode);
+      final int i = position.x.toInt();
+      final int j = position.y.toInt();
+      final Node? node = getNode(i, j);
+      final StaticElement? staticElement = getStaticElement(i, j);
 
-      if (buildingNode.type == NodeType.mine) {
-        final int i = position.x.toInt();
-        final int j = position.y.toInt();
-        final Node? node = getNode(i, j);
-        final StaticElement? staticElement = getStaticElement(i, j);
+      _build(
+        nodeType: buildingNode.type,
+        i: i,
+        j: j,
+        node: node,
+        staticElement: staticElement,
+      );
+    }
+  }
 
-        if ((node == null) &&
-            (staticElement != null) &&
-            (staticElement is Patch)) {
-          buildMine(
-            i: i,
-            j: j,
-            resourceType: staticElement.resourceType,
-          );
-        }
-      }
+  void _build({
+    required NodeType nodeType,
+    required int i,
+    required int j,
+    required Node? node,
+    required StaticElement? staticElement,
+  }) {
+    if (nodeType == NodeType.mine) {
+      _buildMine(
+        i: i,
+        j: j,
+        node: node,
+        staticElement: staticElement,
+      );
+    } else if (nodeType == NodeType.turret) {
+      _buildTurret(
+        i: i,
+        j: j,
+        node: node,
+        staticElement: staticElement,
+      );
+    }
+  }
+
+  void _buildMine({
+    required int i,
+    required int j,
+    required Node? node,
+    required StaticElement? staticElement,
+  }) {
+    if ((node == null) && (staticElement != null) && (staticElement is Patch)) {
+      addMine(
+        i: i,
+        j: j,
+        type: staticElement.resourceType,
+      );
+    }
+  }
+
+  void _buildTurret({
+    required int i,
+    required int j,
+    required Node? node,
+    required StaticElement? staticElement,
+  }) {
+    if ((node == null) && (staticElement == null)) {
+      addTurret(
+        i: i,
+        j: j,
+        type: TurretType.light,
+      );
     }
   }
 }
