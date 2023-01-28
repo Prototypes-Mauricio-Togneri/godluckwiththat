@@ -5,7 +5,7 @@ import 'package:tensionnode/types/resource_type.dart';
 
 class Mine extends Node {
   final ResourceType type;
-  num accumulatedTime = 0;
+  double _accumulatedTime = 0;
 
   static const int RESOURCE_RED_COST = 100;
 
@@ -17,10 +17,10 @@ class Mine extends Node {
 
   @override
   void update(double dt) {
-    accumulatedTime += dt;
+    _accumulatedTime += dt;
 
-    if (accumulatedTime >= type.productionTime) {
-      accumulatedTime = 0;
+    if (_accumulatedTime >= type.productionTime) {
+      _accumulatedTime = 0;
       game.state.addResource(type);
     }
 
