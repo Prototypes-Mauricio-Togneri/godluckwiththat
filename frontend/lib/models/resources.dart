@@ -24,4 +24,15 @@ class Resources {
         break;
     }
   }
+
+  void remove(Resources resources) {
+    red -= resources.red;
+    green -= resources.green;
+    blue -= resources.blue;
+  }
+
+  bool has(Resources resources) =>
+      (red >= resources.red) &&
+      (green >= resources.green) &&
+      (blue >= resources.blue);
 }

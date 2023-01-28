@@ -9,25 +9,25 @@ enum NodeType {
   ),
   mine_red(
     path: Assets.IMAGES_MINE_RED,
-    costRed: 100,
+    costRed: 10,
     costGreen: 0,
     costBlue: 0,
   ),
   mine_green(
     path: Assets.IMAGES_MINE_GREEN,
-    costRed: 200,
+    costRed: 20,
     costGreen: 0,
     costBlue: 0,
   ),
   mine_blue(
     path: Assets.IMAGES_MINE_BLUE,
-    costRed: 300,
+    costRed: 30,
     costGreen: 0,
     costBlue: 0,
   ),
   turret_light(
     path: Assets.IMAGES_TURRET_LIGHT,
-    costRed: 500,
+    costRed: 50,
     costGreen: 0,
     costBlue: 0,
   );

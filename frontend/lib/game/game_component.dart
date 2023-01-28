@@ -233,10 +233,11 @@ class GameComponent extends BaseGameComponent {
       final int j = position.y.toInt();
       final Node? node = getNode(i, j);
       final StaticElement? staticElement = getStaticElement(i, j);
+      final NodeType nodeType = buildingIndicator.type;
 
-      if (node == null) {
+      if ((node == null) && state.resources.has(nodeType.cost)) {
         _build(
-          nodeType: buildingIndicator.type,
+          nodeType: nodeType,
           i: i,
           j: j,
           staticElement: staticElement,
@@ -283,6 +284,7 @@ class GameComponent extends BaseGameComponent {
         j: j,
         type: resourceType,
       );
+      state.resources.remove(type.cost);
     }
   }
 
@@ -298,6 +300,7 @@ class GameComponent extends BaseGameComponent {
         j: j,
         type: type.turret!,
       );
+      state.resources.remove(type.cost);
     }
   }
 }
