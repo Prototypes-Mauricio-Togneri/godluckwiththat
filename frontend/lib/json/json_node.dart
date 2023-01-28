@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/types/resource_type.dart';
 
 part 'json_node.g.dart';
 
@@ -11,15 +10,11 @@ class JsonNode {
   @JsonKey(name: 'type')
   final NodeType type;
 
-  @JsonKey(name: 'resource')
-  final ResourceType? resource;
-
   @JsonKey(name: 'position')
   final JsonPosition position;
 
   const JsonNode({
     required this.type,
-    required this.resource,
     required this.position,
   });
 

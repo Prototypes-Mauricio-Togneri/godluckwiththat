@@ -6,8 +6,8 @@ class Assets {
   static const String IMAGES_MINE_BLUE = 'mine_blue.png';
   static const String IMAGES_MINE_GREEN = 'mine_green.png';
   static const String IMAGES_PATCH_GREEN = 'patch_green.png';
-  static const String IMAGES_TURRET = 'turret.png';
   static const String IMAGES_HUD = 'hud.png';
+  static const String IMAGES_TURRET_LIGHT = 'turret_light.png';
   static const String IMAGES_HQ = 'hq.png';
   static const String MAPS_MAP1 = 'assets/maps/map1.json';
 }

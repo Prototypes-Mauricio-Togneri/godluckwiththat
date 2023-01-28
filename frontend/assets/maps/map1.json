@@ -101,96 +101,84 @@
             ]
         },
         {
-            "type": "mine",
-            "resource": "red",
+            "type": "mine_red",
             "position": [
                 -10,
                 -5
             ]
         },
         {
-            "type": "mine",
-            "resource": "red",
+            "type": "mine_red",
             "position": [
                 -9,
                 -5
             ]
         },
         {
-            "type": "mine",
-            "resource": "red",
+            "type": "mine_red",
             "position": [
                 -10,
                 -4
             ]
         },
         {
-            "type": "mine",
-            "resource": "red",
+            "type": "mine_red",
             "position": [
                 -9,
                 -4
             ]
         },
         {
-            "type": "mine",
-            "resource": "green",
+            "type": "mine_green",
             "position": [
                 9,
                 -7
             ]
         },
         {
-            "type": "mine",
-            "resource": "green",
+            "type": "mine_green",
             "position": [
                 10,
                 -7
             ]
         },
         {
-            "type": "mine",
-            "resource": "green",
+            "type": "mine_green",
             "position": [
                 9,
                 -6
             ]
         },
         {
-            "type": "mine",
-            "resource": "green",
+            "type": "mine_green",
             "position": [
                 10,
                 -6
             ]
         },
         {
-            "type": "mine",
-            "resource": "blue",
+            "type": "mine_blue",
             "position": [
                 1,
                 6
             ]
         },
         {
-            "type": "mine",
-            "resource": "blue",
+            "type": "mine_blue",
             "position": [
                 2,
                 6
             ]
         },
         {
-            "type": "mine",
-            "resource": "blue",
+            "type": "mine_blue",
             "position": [
                 1,
                 7
             ]
         },
         {
-            "type": "mine",
-            "resource": "blue",
+            "type": "mine_blue",
             "position": [
                 2,
                 7

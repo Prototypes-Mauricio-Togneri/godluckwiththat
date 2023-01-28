@@ -55,13 +55,19 @@ class GameComponent extends BaseGameComponent {
     }
 
     for (final JsonNode node in jsonMatch.nodes) {
-      if (node.type == NodeType.mine) {
+      if (node.type.isMine) {
         addMine(
           i: node.position.x,
           j: node.position.y,
-          type: node.resource!,
+          type: node.type.resource!,
         );
-      } else if (node.type == NodeType.headquarters) {
+      } else if (node.type.isTurret) {
+        /*addTurret(
+          i: node.position.x,
+          j: node.position.y,
+          type: node.resource!,
+        );*/
+      } else if (node.type.isHeadquarters) {
         add(Headquarters(
           i: node.position.x,
           j: node.position.y,
@@ -233,14 +239,14 @@ class GameComponent extends BaseGameComponent {
     required Node? node,
     required StaticElement? staticElement,
   }) {
-    if (nodeType == NodeType.mine) {
+    if (nodeType.isMine) {
       _buildMine(
         i: i,
         j: j,
         node: node,
         staticElement: staticElement,
       );
-    } else if (nodeType == NodeType.turret) {
+    } else if (nodeType.isTurret) {
       _buildTurret(
         i: i,
         j: j,
