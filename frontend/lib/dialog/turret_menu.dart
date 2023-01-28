@@ -19,7 +19,7 @@ class TurretMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Turret turret = game.state.selectedNode;
+    final Turret turret = game.state.selectedNode();
 
     return BaseContextualMenu(
       child: IntrinsicWidth(
@@ -56,7 +56,7 @@ class TurretMenu extends StatelessWidget {
   }
 
   void _onDestroy() {
-    game.removeNode(game.state.selectedNode);
+    game.removeNode(game.state.selectedNode());
     _closeMenu();
   }
 

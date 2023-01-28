@@ -1,4 +1,5 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:tensionnode/components/node.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -9,7 +10,7 @@ class GameState extends BaseState {
   int green = 0;
   int blue = 0;
 
-  dynamic selectedNode;
+  Node? _selectedNode;
   bool _buildMode = false;
   bool _deleteMode = false;
 
@@ -26,6 +27,10 @@ class GameState extends BaseState {
     green = jsonMatch.resources.green;
     blue = jsonMatch.resources.blue;
   }
+
+  T selectedNode<T>() => _selectedNode as T;
+
+  void selectNode(Node node) => _selectedNode = node;
 
   void enableBuildMode() {
     _buildMode = true;

@@ -144,10 +144,10 @@ class GameComponent extends BaseGameComponent {
   void openMenu({
     required String name,
     bool pauseGame = false,
-    dynamic node,
+    Node? node,
   }) {
     if (node != null) {
-      state.selectedNode = node;
+      state.selectNode(node);
     }
 
     if (!overlays.isActive(name)) {

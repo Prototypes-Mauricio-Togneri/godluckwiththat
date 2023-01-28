@@ -19,7 +19,7 @@ class MineMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Mine mine = game.state.selectedNode;
+    final Mine mine = game.state.selectedNode();
 
     return BaseContextualMenu(
       child: IntrinsicWidth(
@@ -56,7 +56,7 @@ class MineMenu extends StatelessWidget {
   }
 
   void _onDestroy() {
-    game.removeNode(game.state.selectedNode);
+    game.removeNode(game.state.selectedNode());
     _closeMenu();
   }
 
