@@ -48,9 +48,9 @@ class ResourcesHud extends SpriteComponent with HasGameRef<GameComponent> {
   void update(double dt) {
     super.update(dt);
 
-    redAmount.text = '${game.state.red}';
-    greenAmount.text = '${game.state.green}';
-    blueAmount.text = '${game.state.blue}';
+    redAmount.text = '${game.state.resources.red}';
+    greenAmount.text = '${game.state.resources.green}';
+    blueAmount.text = '${game.state.resources.blue}';
   }
 }
 

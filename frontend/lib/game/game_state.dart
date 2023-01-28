@@ -1,14 +1,13 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionnode/components/node.dart';
 import 'package:tensionnode/json/json_match.dart';
+import 'package:tensionnode/models/resources.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
   int version = 0;
   String id = '';
-  int red = 0;
-  int green = 0;
-  int blue = 0;
+  Resources resources = Resources();
 
   Node? _selectedNode;
   bool _buildMode = false;
@@ -23,9 +22,11 @@ class GameState extends BaseState {
   void load(JsonMatch jsonMatch) {
     version = jsonMatch.version;
     id = jsonMatch.id;
-    red = jsonMatch.resources.red;
-    green = jsonMatch.resources.green;
-    blue = jsonMatch.resources.blue;
+    resources = Resources(
+      red: jsonMatch.resources.red,
+      green: jsonMatch.resources.green,
+      blue: jsonMatch.resources.blue,
+    );
   }
 
   T selectedNode<T>() => _selectedNode as T;
@@ -52,17 +53,5 @@ class GameState extends BaseState {
     notify();
   }
 
-  void addResource(ResourceType type) {
-    switch (type) {
-      case ResourceType.red:
-        red++;
-        break;
-      case ResourceType.green:
-        green++;
-        break;
-      case ResourceType.blue:
-        blue++;
-        break;
-    }
-  }
+  void addResource(ResourceType type) => resources.add(type);
 }
