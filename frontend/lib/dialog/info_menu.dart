@@ -1,10 +1,13 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tensionnode/dialog/base_global_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
-class InfoMenu extends StatelessWidget {
+class InfoMenu extends StatefulWidget {
   final GameComponent game;
 
   static const String NAME = 'info_menu';
@@ -13,6 +16,27 @@ class InfoMenu extends StatelessWidget {
 
   factory InfoMenu.builder(BuildContext _, GameComponent game) =>
       InfoMenu(game);
+
+  @override
+  State<InfoMenu> createState() => _InfoMenuState();
+}
+
+class _InfoMenuState extends State<InfoMenu> {
+  String version = '';
+
+  @override
+  void initState() {
+    super.initState();
+    Delayed.post(_getVersion);
+  }
+
+  Future _getVersion() async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    setState(() {
+      version = 'v ${packageInfo.version}';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +83,14 @@ class InfoMenu extends StatelessWidget {
               color: Palette.lightGrey,
               onPressed: _closeMenu,
             ),
+            const VBox(10),
+            Center(
+              child: Label(
+                text: version,
+                color: Palette.white,
+                size: 10,
+              ),
+            ),
           ],
         ),
       ),
@@ -75,5 +107,5 @@ class InfoMenu extends StatelessWidget {
 
   void _onCredits() {}
 
-  void _closeMenu() => game.closeMenu(name: InfoMenu.NAME);
+  void _closeMenu() => widget.game.closeMenu(name: InfoMenu.NAME);
 }

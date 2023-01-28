@@ -1,13 +1,10 @@
-import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tensionnode/dialog/base_global_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
-import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
-class SettingsMenu extends StatefulWidget {
+class SettingsMenu extends StatelessWidget {
   final GameComponent game;
 
   static const String NAME = 'settings_menu';
@@ -16,27 +13,6 @@ class SettingsMenu extends StatefulWidget {
 
   factory SettingsMenu.builder(BuildContext _, GameComponent game) =>
       SettingsMenu(game);
-
-  @override
-  State<SettingsMenu> createState() => _SettingsMenuState();
-}
-
-class _SettingsMenuState extends State<SettingsMenu> {
-  String version = '';
-
-  @override
-  void initState() {
-    super.initState();
-    Delayed.post(_getVersion);
-  }
-
-  Future _getVersion() async {
-    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-    setState(() {
-      version = 'v ${packageInfo.version}';
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +41,6 @@ class _SettingsMenuState extends State<SettingsMenu> {
               color: Palette.lightGrey,
               onPressed: _closeMenu,
             ),
-            const VBox(10),
-            Center(
-              child: Label(
-                text: version,
-                color: Palette.white,
-                size: 10,
-              ),
-            ),
           ],
         ),
       ),
@@ -83,5 +51,5 @@ class _SettingsMenuState extends State<SettingsMenu> {
 
   void _onAutosave() {}
 
-  void _closeMenu() => widget.game.closeMenu(name: SettingsMenu.NAME);
+  void _closeMenu() => game.closeMenu(name: SettingsMenu.NAME);
 }
