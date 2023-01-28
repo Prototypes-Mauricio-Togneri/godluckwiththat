@@ -222,13 +222,14 @@ class GameComponent extends BaseGameComponent {
       final Node? node = getNode(i, j);
       final StaticElement? staticElement = getStaticElement(i, j);
 
-      _build(
-        nodeType: buildingIndicator.type,
-        i: i,
-        j: j,
-        node: node,
-        staticElement: staticElement,
-      );
+      if (node == null) {
+        _build(
+          nodeType: buildingIndicator.type,
+          i: i,
+          j: j,
+          staticElement: staticElement,
+        );
+      }
     }
   }
 
@@ -236,37 +237,38 @@ class GameComponent extends BaseGameComponent {
     required NodeType nodeType,
     required int i,
     required int j,
-    required Node? node,
     required StaticElement? staticElement,
   }) {
     if (nodeType.isMine) {
       _buildMine(
+        type: nodeType,
         i: i,
         j: j,
-        node: node,
         staticElement: staticElement,
       );
     } else if (nodeType.isTurret) {
       _buildTurret(
         i: i,
         j: j,
-        node: node,
         staticElement: staticElement,
       );
     }
   }
 
   void _buildMine({
+    required NodeType type,
     required int i,
     required int j,
-    required Node? node,
     required StaticElement? staticElement,
   }) {
-    if ((node == null) && (staticElement != null) && (staticElement is Patch)) {
+    final ResourceType resourceType = type.resource!;
+
+    if ((staticElement is Patch) &&
+        staticElement.resourceType == resourceType) {
       addMine(
         i: i,
         j: j,
-        type: staticElement.resourceType,
+        type: resourceType,
       );
     }
   }
@@ -274,10 +276,9 @@ class GameComponent extends BaseGameComponent {
   void _buildTurret({
     required int i,
     required int j,
-    required Node? node,
     required StaticElement? staticElement,
   }) {
-    if ((node == null) && (staticElement == null)) {
+    if (staticElement == null) {
       addTurret(
         i: i,
         j: j,
