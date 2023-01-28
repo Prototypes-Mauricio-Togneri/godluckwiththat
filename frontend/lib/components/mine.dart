@@ -29,10 +29,14 @@ class Mine extends Node {
 
   @override
   bool onTapUp(TapUpInfo info) {
-    game.openMenu(
-      name: MineMenu.NAME,
-      node: this,
-    );
+    if (game.state.deleteMode) {
+      game.removeNode(this);
+    } else {
+      game.openMenu(
+        name: MineMenu.NAME,
+        node: this,
+      );
+    }
 
     return true;
   }

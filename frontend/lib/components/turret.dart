@@ -14,10 +14,14 @@ class Turret extends Node {
 
   @override
   bool onTapUp(TapUpInfo info) {
-    game.openMenu(
-      name: TurretMenu.NAME,
-      node: this,
-    );
+    if (game.state.deleteMode) {
+      game.removeNode(this);
+    } else {
+      game.openMenu(
+        name: TurretMenu.NAME,
+        node: this,
+      );
+    }
 
     return true;
   }

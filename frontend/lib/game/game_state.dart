@@ -10,9 +10,14 @@ class GameState extends BaseState {
   int blue = 0;
 
   dynamic selectedNode;
-  bool _showCancel = false;
+  bool _buildMode = false;
+  bool _deleteMode = false;
 
-  bool get showCancel => _showCancel;
+  bool get showCancel => _buildMode || _deleteMode;
+
+  bool get buildMode => _buildMode;
+
+  bool get deleteMode => _deleteMode;
 
   void load(JsonMatch jsonMatch) {
     version = jsonMatch.version;
@@ -22,13 +27,23 @@ class GameState extends BaseState {
     blue = jsonMatch.resources.blue;
   }
 
-  void enableCancel() {
-    _showCancel = true;
+  void enableBuildMode() {
+    _buildMode = true;
     notify();
   }
 
-  void disableCancel() {
-    _showCancel = false;
+  void disableBuildMode() {
+    _buildMode = false;
+    notify();
+  }
+
+  void enableDeleteMode() {
+    _deleteMode = true;
+    notify();
+  }
+
+  void disableDeleteMode() {
+    _deleteMode = false;
     notify();
   }
 

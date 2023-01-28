@@ -172,16 +172,36 @@ class GameComponent extends BaseGameComponent {
   }
 
   void enableBuildMode(NodeType type) {
+    _disableBuildMode();
     _closeContextualMenus();
     removeComponents(BuildingIndicator);
     add(BuildingIndicator(type: type));
-    state.enableCancel();
+    state.enableBuildMode();
   }
 
-  void disableBuildMode() {
+  void _disableBuildMode() {
     _closeContextualMenus();
     removeComponents(BuildingIndicator);
-    state.disableCancel();
+    state.disableBuildMode();
+  }
+
+  void enableDeleteMode() {
+    _disableDeleteMode();
+    _closeContextualMenus();
+    state.enableDeleteMode();
+  }
+
+  void _disableDeleteMode() {
+    _closeContextualMenus();
+    state.disableDeleteMode();
+  }
+
+  void onCancelOperation() {
+    if (state.buildMode) {
+      _disableBuildMode();
+    } else if (state.deleteMode) {
+      _disableDeleteMode();
+    }
   }
 
   @override

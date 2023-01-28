@@ -92,7 +92,7 @@ class CancelButton extends StatelessWidget {
     );
   }
 
-  void _onClose() => game.disableBuildMode();
+  void _onClose() => game.onCancelOperation();
 }
 
 class BottomMenu extends StatelessWidget {
@@ -120,6 +120,12 @@ class BottomMenu extends StatelessWidget {
               icon: Icons.construction,
               color: Palette.lightGrey,
               onClick: game.openBuildMenu,
+            ),
+            const HBox(10),
+            BottomMenuButton(
+              icon: Icons.delete,
+              color: Palette.lightGrey,
+              onClick: game.enableDeleteMode,
             ),
           ],
         ),
