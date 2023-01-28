@@ -161,6 +161,13 @@ class GameComponent extends BaseGameComponent {
     _closeContextualMenus();
     removeComponents(BuildingNode);
     add(BuildingNode(type: type));
+    state.enableCancel();
+  }
+
+  void disableBuildMode() {
+    _closeContextualMenus();
+    removeComponents(BuildingNode);
+    state.disableCancel();
   }
 
   @override

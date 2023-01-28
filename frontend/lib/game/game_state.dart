@@ -1,7 +1,8 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class GameState {
+class GameState extends BaseState {
   int version = 0;
   String id = '';
   int red = 0;
@@ -9,6 +10,9 @@ class GameState {
   int blue = 0;
 
   dynamic selectedNode;
+  bool _showCancel = false;
+
+  bool get showCancel => _showCancel;
 
   void load(JsonMatch jsonMatch) {
     version = jsonMatch.version;
@@ -16,6 +20,16 @@ class GameState {
     red = jsonMatch.resources.red;
     green = jsonMatch.resources.green;
     blue = jsonMatch.resources.blue;
+  }
+
+  void enableCancel() {
+    _showCancel = true;
+    notify();
+  }
+
+  void disableCancel() {
+    _showCancel = false;
+    notify();
   }
 
   void addResource(ResourceType type) {

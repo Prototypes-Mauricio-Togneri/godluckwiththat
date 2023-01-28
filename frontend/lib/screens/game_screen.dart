@@ -10,13 +10,19 @@ import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/widgets/label.dart';
 
 class GameScreen extends StatelessWidget {
+  final GameState state;
   final GameComponent game;
 
-  const GameScreen(this.game);
+  const GameScreen(this.state, this.game);
 
-  factory GameScreen.instance() => GameScreen(GameComponent(GameState()));
+  factory GameScreen.instance() {
+    final GameState state = GameState();
+
+    return GameScreen(state, GameComponent(state));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +44,53 @@ class GameScreen extends StatelessWidget {
                 },
               ),
               BottomMenu(game),
+              StateProvider<GameState>(
+                state: state,
+                builder: (context, state) =>
+                    state.showCancel ? CancelButton(game) : const Empty(),
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+class CancelButton extends StatelessWidget {
+  final GameComponent game;
+
+  const CancelButton(this.game);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 90),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Palette.red,
+            minimumSize: const Size(0, 45),
+          ),
+          onPressed: _onClose,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.close,
+                size: 20,
+              ),
+              const HBox(10),
+              Label(text: 'Cancel'.toUpperCase()),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _onClose() => game.disableBuildMode();
 }
 
 class BottomMenu extends StatelessWidget {
