@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tensionnode/dialog/base_global_menu.dart';
+import 'package:tensionnode/dialog/info_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -49,6 +50,12 @@ class MainMenu extends StatelessWidget {
               onPressed: _onSettings,
             ),
             MenuButton(
+              text: 'Info',
+              icon: Icons.info,
+              color: Palette.blue,
+              onPressed: _onInfo,
+            ),
+            MenuButton(
               text: 'Close',
               icon: Icons.close,
               color: Palette.lightGrey,
@@ -85,6 +92,10 @@ class MainMenu extends StatelessWidget {
 
   void _onSettings() {
     game.openMenu(name: SettingsMenu.NAME);
+  }
+
+  void _onInfo() {
+    game.openMenu(name: InfoMenu.NAME);
   }
 
   void _closeMenu() => game.closeMenu(

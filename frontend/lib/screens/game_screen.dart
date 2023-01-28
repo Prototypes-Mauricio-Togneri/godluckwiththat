@@ -3,6 +3,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/dialog/build_menu.dart';
+import 'package:tensionnode/dialog/info_menu.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/mine_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
@@ -31,6 +32,7 @@ class GameScreen extends StatelessWidget {
                 overlayBuilderMap: const {
                   MainMenu.NAME: MainMenu.builder,
                   SettingsMenu.NAME: SettingsMenu.builder,
+                  InfoMenu.NAME: InfoMenu.builder,
                   MineMenu.NAME: MineMenu.builder,
                   BuildMenu.NAME: BuildMenu.builder,
                 },

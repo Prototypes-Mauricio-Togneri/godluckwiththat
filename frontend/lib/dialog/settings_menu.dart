@@ -50,7 +50,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
               text: 'Audio',
               icon: Icons.volume_down,
               color: Palette.blue,
-              onPressed: _onVolume,
+              onPressed: _onAudio,
               topPadding: 0,
             ),
             MenuButton(
@@ -73,7 +73,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
     );
   }
 
-  void _onVolume() {
+  void _onAudio() {
     _closeMenu();
   }
 
