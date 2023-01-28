@@ -54,6 +54,12 @@ class _SettingsMenuState extends State<SettingsMenu> {
               topPadding: 0,
             ),
             MenuButton(
+              text: 'Auto save',
+              icon: Icons.save,
+              color: Palette.blue,
+              onPressed: _onAutosave,
+            ),
+            MenuButton(
               text: 'Close',
               icon: Icons.close,
               color: Palette.lightGrey,
@@ -73,9 +79,9 @@ class _SettingsMenuState extends State<SettingsMenu> {
     );
   }
 
-  void _onAudio() {
-    _closeMenu();
-  }
+  void _onAudio() {}
+
+  void _onAutosave() {}
 
   void _closeMenu() => widget.game.closeMenu(name: SettingsMenu.NAME);
 }
