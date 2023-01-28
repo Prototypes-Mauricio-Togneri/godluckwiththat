@@ -69,9 +69,16 @@ class BaseGameComponent extends FlameGame
     camera.zoom = camera.zoom.clamp(MIN_ZOOM, MAX_ZOOM);
   }
 
+  bool zoomingIn(PointerScrollInfo info) => info.scrollDelta.game.y.sign == -1;
+
+  bool zoomingOut(PointerScrollInfo info) => info.scrollDelta.game.y.sign == 1;
+
   @override
   void onScroll(PointerScrollInfo info) {
-    if ((info.scrollDelta.game.y.sign == -1) || (camera.zoom > 1)) {
+    final bool canZoomIn = zoomingIn(info) && camera.zoom < MAX_ZOOM;
+    final bool canZoomOut = zoomingOut(info) && camera.zoom > MIN_ZOOM;
+
+    if (canZoomIn || canZoomOut) {
       final Vector2 offset = camera.position + (size / 2);
       final Vector2 vector =
           (info.eventPosition.game - offset) / (camera.zoom * 2);
