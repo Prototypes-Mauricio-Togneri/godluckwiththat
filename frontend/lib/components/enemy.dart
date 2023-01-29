@@ -53,6 +53,7 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
 
     if (target == null) {
       _moveForward(dt);
+      // TODO(momo): if passed the outer most node, remove the enemy
     } else if (shooting.canShoot(dt)) {
       final Vector2 direction = (target!.position - position).normalized();
       final Vector2 originalPosition =
