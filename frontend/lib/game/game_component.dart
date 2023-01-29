@@ -26,6 +26,7 @@ import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/direction.dart';
+import 'package:tensionnode/types/enemy_type.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/types/turret_type.dart';
@@ -109,13 +110,13 @@ class GameComponent extends BaseGameComponent {
   void addEnemy({
     required int i,
     required int j,
+    required EnemyType type,
+    required Direction direction,
   }) {
     add(Enemy(
+      type: type,
+      direction: direction,
       position: Position.fromGrid(i, j),
-      direction: Direction.right,
-      speed: 50,
-      range: 50,
-      damage: 30,
     ));
   }
 
@@ -158,7 +159,9 @@ class GameComponent extends BaseGameComponent {
   void _spawnEnemy() {
     addEnemy(
       i: -15,
-      j: 7,
+      j: 6,
+      type: EnemyType.basic,
+      direction: Direction.right,
     );
   }
 

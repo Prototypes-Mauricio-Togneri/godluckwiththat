@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
@@ -7,22 +6,20 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/models/shooting.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/direction.dart';
+import 'package:tensionnode/types/enemy_type.dart';
 
 class Enemy extends MovableNode {
+  final EnemyType type;
   final Direction direction;
-  final double speed;
-  final double range;
-  final double damage;
-  final Shooting shooting = Shooting(1); // TODO(momo): change fire rate
+  final Shooting shooting;
   Node? target;
 
   Enemy({
     required super.position,
+    required this.type,
     required this.direction,
-    required this.speed,
-    required this.range,
-    required this.damage,
-  }) : super(path: Assets.IMAGES_ENEMY);
+  })  : shooting = Shooting(type.fireRate),
+        super(path: Assets.IMAGES_ENEMY);
 
   @override
   void update(double dt) {
@@ -32,7 +29,7 @@ class Enemy extends MovableNode {
       target = null;
     }
 
-    target ??= game.closestNodeInRange<FixedNode>(this, range);
+    target ??= game.closestNodeInRange<FixedNode>(this, type.range);
 
     if (target == null) {
       _moveForward(dt);
@@ -41,12 +38,12 @@ class Enemy extends MovableNode {
       // TODO(momo): fix
       // https://www.geogebra.org/m/bAnquQpH
       // https://onlinemschool.com/math/assistance/vector/angl/
-      final Vector2 vector = target!.position - position;
+      /*final Vector2 vector = target!.position - position;
       angle = -atan2(vector.y, vector.x) * 180 / pi;
       print(position);
       print(target!.position);
       print(angle);
-      print('---------');
+      print('---------');*/
 
       if (shooting.canShoot(dt)) {
         final Vector2 direction = (target!.position - position).normalized();
@@ -56,8 +53,8 @@ class Enemy extends MovableNode {
         game.addBullet(
           position: originalPosition,
           direction: direction,
-          range: range * 1.5,
-          damage: damage,
+          range: type.range * 1.5,
+          damage: type.damage,
         );
       }
     }
@@ -68,16 +65,16 @@ class Enemy extends MovableNode {
 
     switch (direction) {
       case Direction.up:
-        y -= dt * speed;
+        y -= dt * type.speed;
         break;
       case Direction.down:
-        y += dt * speed;
+        y += dt * type.speed;
         break;
       case Direction.left:
-        x -= dt * speed;
+        x -= dt * type.speed;
         break;
       case Direction.right:
-        x += dt * speed;
+        x += dt * type.speed;
         break;
     }
   }
