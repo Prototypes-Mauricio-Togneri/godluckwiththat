@@ -8,23 +8,15 @@ import 'package:tensionnode/services/style.dart';
 
 class Node extends SpriteComponent
     with HasGameRef<GameComponent>, CollisionCallbacks {
-  final int i;
-  final int j;
   final String path;
   final double armor = 10;
   double _shield = Constants.SHIELD_MAX; // TODO(momo): pass as parameter
   final DebugText debugText = DebugText();
 
   Node({
-    required this.i,
-    required this.j,
+    required super.position,
     required this.path,
-  }) {
-    position = Vector2(
-      i * Constants.NODE_SIZE,
-      j * Constants.NODE_SIZE,
-    );
-  }
+  });
 
   bool get isAlive => _shield > Constants.SHIELD_MIN;
 

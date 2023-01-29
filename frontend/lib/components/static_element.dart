@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
+import 'package:tensionnode/models/position.dart';
 
 class StaticElement extends SpriteComponent {
   final int i;
@@ -12,10 +13,7 @@ class StaticElement extends SpriteComponent {
     required this.j,
     required this.path,
   }) {
-    position = Vector2(
-      i * Constants.NODE_SIZE,
-      j * Constants.NODE_SIZE,
-    );
+    position = Position.fromGrid(i, j);
   }
 
   @override

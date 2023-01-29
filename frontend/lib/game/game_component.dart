@@ -21,6 +21,7 @@ import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
+import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
@@ -105,6 +106,19 @@ class GameComponent extends BaseGameComponent {
     ));
   }
 
+  void addEnemy({
+    required int i,
+    required int j,
+  }) {
+    add(Enemy(
+      position: Position.fromGrid(i, j),
+      direction: Direction.right,
+      speed: 50,
+      range: 50,
+      damage: 30,
+    ));
+  }
+
   void addBullet({
     required Vector2 position,
     required Vector2 direction,
@@ -138,14 +152,10 @@ class GameComponent extends BaseGameComponent {
   }
 
   void _spawnEnemy() {
-    add(Enemy(
+    addEnemy(
       i: -15,
       j: 7,
-      direction: Direction.right,
-      speed: 50,
-      range: 50,
-      damage: 30,
-    ));
+    );
   }
 
   /*void _createTestObjects() {
@@ -250,7 +260,7 @@ class GameComponent extends BaseGameComponent {
           getComponent(BuildingIndicator);
       final int i = position.x.toInt();
       final int j = position.y.toInt();
-      final Node? node = getNode(i, j);
+      final Node? node = getFixedNode(i, j);
       final StaticElement? staticElement = getStaticElement(i, j);
       final NodeType nodeType = buildingIndicator.type;
 

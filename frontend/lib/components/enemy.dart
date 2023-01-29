@@ -17,8 +17,7 @@ class Enemy extends MovableNode {
   Node? target;
 
   Enemy({
-    required super.i,
-    required super.j,
+    required super.position,
     required this.direction,
     required this.speed,
     required this.range,
