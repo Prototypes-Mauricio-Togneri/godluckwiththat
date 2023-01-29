@@ -75,14 +75,17 @@ enum TurretType {
 
   // freezer?
   // accuracy?
+  // homing?
   // pierces
   //    1 means that the bullet is destroyed after hitting 1 enemy
   //    3 means that it needs to hit 3 enemies before getting destroyed
+  // artillery (throws bombs that detonate upon impact and damage nearby enemies)
 
   // type of bullet
   // shape (laser is a beam)
   // size (cannon is bigger)
   // speed
+  // range (piercers should have bigger range)
 
   const TurretType({
     required this.path,
