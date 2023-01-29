@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/components/node.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/assets.dart';
@@ -11,12 +12,15 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
   final int j;
   final Direction direction;
   final double speed;
+  final double range;
+  Node? target;
 
   Enemy({
     required this.i,
     required this.j,
     required this.direction,
     required this.speed,
+    required this.range,
   });
 
   @override
@@ -37,19 +41,23 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
   void update(double dt) {
     super.update(dt);
 
-    switch (direction) {
-      case Direction.up:
-        y -= dt * speed;
-        break;
-      case Direction.down:
-        y += dt * speed;
-        break;
-      case Direction.left:
-        x -= dt * speed;
-        break;
-      case Direction.right:
-        x += dt * speed;
-        break;
+    target ??= game.closestNodeInRange(this, range);
+
+    if (target == null) {
+      switch (direction) {
+        case Direction.up:
+          y -= dt * speed;
+          break;
+        case Direction.down:
+          y += dt * speed;
+          break;
+        case Direction.left:
+          x -= dt * speed;
+          break;
+        case Direction.right:
+          x += dt * speed;
+          break;
+      }
     }
   }
 }
