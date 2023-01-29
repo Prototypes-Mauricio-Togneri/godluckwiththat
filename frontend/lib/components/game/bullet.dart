@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
@@ -30,6 +31,7 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
     anchor = Anchor.center;
 
     add(CircleHitbox());
+    FlameAudio.play(Assets.AUDIO_SFX_BULLET);
 
     return super.onLoad();
   }

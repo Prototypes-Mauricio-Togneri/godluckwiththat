@@ -1,7 +1,9 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/models/resources.dart';
+import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
@@ -18,6 +20,11 @@ class GameState extends BaseState {
   bool get buildMode => _buildMode;
 
   bool get deleteMode => _deleteMode;
+
+  @override
+  void onLoad() {
+    FlameAudio.audioCache.load(Assets.AUDIO_SFX_BULLET);
+  }
 
   void load(JsonMatch jsonMatch) {
     version = jsonMatch.version;

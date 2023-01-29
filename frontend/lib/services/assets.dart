@@ -1,4 +1,5 @@
 class Assets {
+  static const String AUDIO_SFX_BULLET = 'sfx/bullet.mp3';
   static const String FONTS_MAGNITE = 'assets/fonts/Magnite.otf';
   static const String IMAGES_MINE_RED = 'mine_red.png';
   static const String IMAGES_ENEMY = 'enemy.png';
