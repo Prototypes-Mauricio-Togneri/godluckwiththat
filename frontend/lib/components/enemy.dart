@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/node.dart';
@@ -54,22 +55,32 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
     if (target == null) {
       _moveForward(dt);
       // TODO(momo): if passed the outer most node, remove the enemy
-    } else if (shooting.canShoot(dt)) {
-      final Vector2 direction = (target!.position - position).normalized();
-      final Vector2 originalPosition =
-          position + (direction * (Constants.NODE_SIZE / 2));
+    } else {
+      angle = (-position.angleTo(target!.position)) - (pi / 4);
+      print(position);
+      print(target!.position);
+      print(angle);
+      print('---------');
 
-      game.addBullet(
-        position: originalPosition,
-        direction: direction,
-        speed: 100,
-        range: range * 1.5,
-        damage: damage,
-      );
+      if (shooting.canShoot(dt)) {
+        final Vector2 direction = (target!.position - position).normalized();
+        final Vector2 originalPosition =
+            position + (direction * (Constants.NODE_SIZE / 2));
+
+        game.addBullet(
+          position: originalPosition,
+          direction: direction,
+          speed: 100,
+          range: range * 1.5,
+          damage: damage,
+        );
+      }
     }
   }
 
   void _moveForward(double dt) {
+    angle = 0;
+
     switch (direction) {
       case Direction.up:
         y -= dt * speed;
