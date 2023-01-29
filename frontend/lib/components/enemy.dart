@@ -56,7 +56,8 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
       _moveForward(dt);
       // TODO(momo): if passed the outer most node, remove the enemy
     } else {
-      angle = (-position.angleTo(target!.position)) - (pi / 4);
+      final Vector2 vector = target!.position - position;
+      angle = -atan2(vector.y, vector.x) * 180 / pi;
       print(position);
       print(target!.position);
       print(angle);
