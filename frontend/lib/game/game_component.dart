@@ -139,7 +139,7 @@ class GameComponent extends BaseGameComponent {
 
   void _spawnEnemy() {
     add(Enemy(
-      i: -20,
+      i: -15,
       j: 4,
       direction: Direction.right,
       speed: 50,

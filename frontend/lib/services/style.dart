@@ -15,4 +15,15 @@ class Style {
           color: color,
         ),
       );
+
+  static TextRenderer debugTextRenderer({
+    required double size,
+    Color color = Palette.white,
+  }) =>
+      TextPaint(
+        style: TextStyle(
+          fontSize: size,
+          color: color,
+        ),
+      );
 }

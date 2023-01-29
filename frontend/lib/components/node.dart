@@ -5,6 +5,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/bullet.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
+import 'package:tensionnode/services/style.dart';
 
 class Node extends SpriteComponent
     with HasGameRef<GameComponent>, Tappable, CollisionCallbacks {
@@ -13,6 +14,7 @@ class Node extends SpriteComponent
   final String path;
   final double armor = 10;
   double _shield = Constants.SHIELD_MAX; // TODO(momo): pass as parameter
+  final DebugText debugText = DebugText();
 
   Node({
     required this.i,
@@ -35,6 +37,7 @@ class Node extends SpriteComponent
     anchor = Anchor.center;
 
     add(CircleHitbox());
+    add(debugText);
 
     return super.onLoad();
   }
@@ -65,9 +68,11 @@ class Node extends SpriteComponent
     super.update(dt);
 
     if ((_shield > Constants.SHIELD_MIN) && (_shield < Constants.SHIELD_MAX)) {
-      _shield += dt / (100 / armor);
+      _shield += dt * armor;
       _shield = _shield.clamp(Constants.SHIELD_MIN, Constants.SHIELD_MAX);
     }
+
+    debugText.text = '${_shield.toInt()}';
   }
 
   @override
@@ -75,4 +80,12 @@ class Node extends SpriteComponent
 
   @override
   bool onTapDown(TapDownInfo info) => false;
+}
+
+class DebugText extends TextComponent {
+  DebugText() {
+    position = Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);
+    anchor = Anchor.center;
+    textRenderer = Style.debugTextRenderer(size: 5);
+  }
 }
