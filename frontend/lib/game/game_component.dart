@@ -106,13 +106,13 @@ class GameComponent extends BaseGameComponent {
 
   void addBullet({
     required Vector2 position,
-    required Vector2 target,
+    required Vector2 direction,
     required double speed,
     required double range,
   }) {
     add(Bullet(
       originalPosition: position,
-      direction: (target - position).normalized(),
+      direction: direction,
       speed: speed,
       range: range,
     ));

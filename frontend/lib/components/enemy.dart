@@ -52,9 +52,13 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
     if (target == null) {
       _moveForward(dt);
     } else if (shooting.canShoot(dt)) {
+      final Vector2 direction = (target!.position - position).normalized();
+      final Vector2 originalPosition =
+          position + (direction * (Constants.NODE_SIZE / 2));
+
       game.addBullet(
-        position: position,
-        target: target!.position,
+        position: originalPosition,
+        direction: direction,
         speed: 100,
         range: range * 1.5,
       );
