@@ -221,8 +221,11 @@ class GameComponent extends BaseGameComponent {
   void enableBuildMode(NodeType type) {
     _disableBuildMode();
     _closeContextualMenus();
+
+    // TODO(momo): don't add it for mobile
     removeComponents(BuildingIndicator);
     add(BuildingIndicator(type: type));
+
     state.enableBuildMode();
   }
 
