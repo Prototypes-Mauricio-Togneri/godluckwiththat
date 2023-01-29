@@ -1,6 +1,7 @@
 import 'package:flame/input.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/dialog/contextual/mine_menu.dart';
+import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Mine extends FixedNode {
@@ -12,8 +13,13 @@ class Mine extends FixedNode {
   Mine({
     required super.i,
     required super.j,
-    required this.type,
-  }) : super(path: type.pathMine);
+    required super.shield,
+    required NodeType nodeType,
+  })  : type = nodeType.resource!,
+        super(
+          path: nodeType.path,
+          armor: nodeType.armor,
+        );
 
   @override
   void update(double dt) {

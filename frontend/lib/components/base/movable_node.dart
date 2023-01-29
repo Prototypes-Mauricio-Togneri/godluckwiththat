@@ -4,5 +4,7 @@ class MovableNode extends Node {
   MovableNode({
     required super.position,
     required super.path,
+    required super.armor,
+    required super.shield,
   });
 }

@@ -13,9 +13,13 @@ class JsonNode {
   @JsonKey(name: 'position')
   final JsonPosition position;
 
+  @JsonKey(name: 'shield')
+  final double shield;
+
   const JsonNode({
     required this.type,
     required this.position,
+    required this.shield,
   });
 
   factory JsonNode.fromString(String json) =>

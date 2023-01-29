@@ -3,14 +3,16 @@ import 'package:tensionnode/services/assets.dart';
 enum TurretType {
   light(
     path: Assets.IMAGES_TURRET_LIGHT,
+    armor: 50,
     range: 75,
-    damage: 20,
+    damage: 50,
     fireRate: 2,
     bullets: 1,
     spread: 0,
   ),
   heavy(
     path: Assets.IMAGES_TURRET_LIGHT, // TODO(momo): update
+    armor: 50,
     range: 75,
     damage: 20,
     fireRate: 2,
@@ -19,6 +21,7 @@ enum TurretType {
   ),
   shotgun(
     path: Assets.IMAGES_TURRET_LIGHT, // TODO(momo): update
+    armor: 50,
     range: 75,
     damage: 20,
     fireRate: 2,
@@ -27,6 +30,7 @@ enum TurretType {
   ),
   sniper(
     path: Assets.IMAGES_TURRET_LIGHT, // TODO(momo): update
+    armor: 50,
     range: 120,
     damage: 20,
     fireRate: 2,
@@ -35,6 +39,7 @@ enum TurretType {
   ),
   machine_gun(
     path: Assets.IMAGES_TURRET_LIGHT, // TODO(momo): update
+    armor: 50,
     range: 75,
     damage: 20,
     fireRate: 10,
@@ -43,6 +48,7 @@ enum TurretType {
   ),
   laser(
     path: Assets.IMAGES_TURRET_LIGHT, // TODO(momo): update
+    armor: 50,
     range: 75,
     damage: 20,
     fireRate: 2,
@@ -51,6 +57,7 @@ enum TurretType {
   ),
   cannon(
     path: Assets.IMAGES_TURRET_LIGHT, // TODO(momo): update
+    armor: 50,
     range: 75,
     damage: 20,
     fireRate: 2,
@@ -59,6 +66,7 @@ enum TurretType {
   ),
   plasma(
     path: Assets.IMAGES_TURRET_LIGHT, // TODO(momo): update
+    armor: 50,
     range: 75,
     damage: 20,
     fireRate: 2,
@@ -67,6 +75,7 @@ enum TurretType {
   );
 
   final String path;
+  final double armor;
   final double range;
   final double damage;
   final double fireRate;
@@ -90,6 +99,7 @@ enum TurretType {
 
   const TurretType({
     required this.path,
+    required this.armor,
     required this.range,
     required this.damage,
     required this.fireRate,

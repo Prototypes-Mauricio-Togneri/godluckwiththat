@@ -18,10 +18,14 @@ class Enemy extends MovableNode {
 
   Enemy({
     required super.position,
+    required super.shield,
     required this.type,
     required this.direction,
   })  : shooting = Shooting(type.fireRate),
-        super(path: Assets.IMAGES_ENEMY);
+        super(
+          path: Assets.IMAGES_ENEMY,
+          armor: type.armor,
+        );
 
   @override
   Future onLoad() {

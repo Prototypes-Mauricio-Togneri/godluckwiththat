@@ -95,6 +95,7 @@
     "nodes": [
         {
             "type": "headquarters",
+            "shield": 100,
             "position": [
                 0,
                 0
@@ -102,6 +103,7 @@
         },
         {
             "type": "mine_red",
+            "shield": 100,
             "position": [
                 -10,
                 -5
@@ -109,6 +111,7 @@
         },
         {
             "type": "mine_red",
+            "shield": 100,
             "position": [
                 -9,
                 -5
@@ -116,6 +119,7 @@
         },
         {
             "type": "mine_red",
+            "shield": 100,
             "position": [
                 -10,
                 -4
@@ -123,6 +127,7 @@
         },
         {
             "type": "mine_red",
+            "shield": 100,
             "position": [
                 -9,
                 -4
@@ -130,6 +135,7 @@
         },
         {
             "type": "mine_green",
+            "shield": 100,
             "position": [
                 9,
                 -7
@@ -137,6 +143,7 @@
         },
         {
             "type": "mine_green",
+            "shield": 100,
             "position": [
                 10,
                 -7
@@ -144,6 +151,7 @@
         },
         {
             "type": "mine_green",
+            "shield": 100,
             "position": [
                 9,
                 -6
@@ -151,6 +159,7 @@
         },
         {
             "type": "mine_green",
+            "shield": 100,
             "position": [
                 10,
                 -6
@@ -158,6 +167,7 @@
         },
         {
             "type": "mine_blue",
+            "shield": 100,
             "position": [
                 1,
                 6
@@ -165,6 +175,7 @@
         },
         {
             "type": "mine_blue",
+            "shield": 100,
             "position": [
                 2,
                 6
@@ -172,6 +183,7 @@
         },
         {
             "type": "mine_blue",
+            "shield": 100,
             "position": [
                 1,
                 7
@@ -179,6 +191,7 @@
         },
         {
             "type": "mine_blue",
+            "shield": 100,
             "position": [
                 2,
                 7
@@ -186,6 +199,7 @@
         },
         {
             "type": "turret_light",
+            "shield": 50,
             "position": [
                 -8,
                 4

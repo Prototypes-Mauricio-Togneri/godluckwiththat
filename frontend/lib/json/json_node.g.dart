@@ -10,11 +10,13 @@ JsonNode _$JsonNodeFromJson(Map<String, dynamic> json) => JsonNode(
       type: $enumDecode(_$NodeTypeEnumMap, json['type']),
       position:
           (json['position'] as List<dynamic>).map((e) => e as int).toList(),
+      shield: (json['shield'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$JsonNodeToJson(JsonNode instance) => <String, dynamic>{
       'type': _$NodeTypeEnumMap[instance.type]!,
       'position': instance.position,
+      'shield': instance.shield,
     };
 
 const _$NodeTypeEnumMap = {

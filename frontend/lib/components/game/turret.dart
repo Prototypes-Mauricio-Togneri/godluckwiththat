@@ -15,9 +15,13 @@ class Turret extends FixedNode {
   Turret({
     required super.i,
     required super.j,
+    required super.shield,
     required this.type,
   })  : shooting = Shooting(type.fireRate),
-        super(path: type.path);
+        super(
+          path: type.path,
+          armor: type.armor,
+        );
 
   @override
   void update(double dt) {

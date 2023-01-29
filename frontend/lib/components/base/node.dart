@@ -9,14 +9,18 @@ import 'package:tensionnode/services/style.dart';
 class Node extends SpriteComponent
     with HasGameRef<GameComponent>, CollisionCallbacks {
   final String path;
-  final double armor = 10; // TODO(momo): pass as parameter
-  double _shield = Constants.SHIELD_MAX; // TODO(momo): pass as parameter
+  final double armor;
+  double _shield = Constants.SHIELD_MAX;
   final DebugText debugText = DebugText();
 
   Node({
     required super.position,
     required this.path,
-  });
+    required this.armor,
+    required double shield,
+  }) {
+    _shield = shield;
+  }
 
   bool get isAlive => _shield > Constants.SHIELD_MIN;
 

@@ -64,18 +64,21 @@ class GameComponent extends BaseGameComponent {
         addMine(
           i: node.position.x,
           j: node.position.y,
-          type: node.type.resource!,
+          type: node.type,
+          shield: node.shield,
         );
       } else if (node.type.isTurret) {
         addTurret(
           i: node.position.x,
           j: node.position.y,
           type: node.type.turret!,
+          shield: node.shield,
         );
       } else if (node.type.isHeadquarters) {
         add(Headquarters(
           i: node.position.x,
           j: node.position.y,
+          shield: node.shield,
         ));
       }
     }
@@ -86,12 +89,14 @@ class GameComponent extends BaseGameComponent {
   void addMine({
     required int i,
     required int j,
-    required ResourceType type,
+    required NodeType type,
+    required double shield,
   }) {
     add(Mine(
       i: i,
       j: j,
-      type: type,
+      nodeType: type,
+      shield: shield,
     ));
   }
 
@@ -99,11 +104,13 @@ class GameComponent extends BaseGameComponent {
     required int i,
     required int j,
     required TurretType type,
+    required double shield,
   }) {
     add(Turret(
       i: i,
       j: j,
       type: type,
+      shield: shield,
     ));
   }
 
@@ -112,11 +119,13 @@ class GameComponent extends BaseGameComponent {
     required int j,
     required EnemyType type,
     required Direction direction,
+    required double shield,
   }) {
     add(Enemy(
       type: type,
       direction: direction,
       position: Position.fromGrid(i, j),
+      shield: shield,
     ));
   }
 
@@ -162,6 +171,7 @@ class GameComponent extends BaseGameComponent {
       j: 6,
       type: EnemyType.basic,
       direction: Direction.right,
+      shield: Constants.SHIELD_MAX,
     );
   }
 
@@ -320,7 +330,8 @@ class GameComponent extends BaseGameComponent {
       addMine(
         i: i,
         j: j,
-        type: resourceType,
+        type: type,
+        shield: Constants.SHIELD_MAX,
       );
       state.resources.remove(type.cost);
     }
@@ -337,6 +348,7 @@ class GameComponent extends BaseGameComponent {
         i: i,
         j: j,
         type: type.turret!,
+        shield: Constants.SHIELD_MAX,
       );
       state.resources.remove(type.cost);
     }
