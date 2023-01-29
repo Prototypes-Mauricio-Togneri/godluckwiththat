@@ -6,4 +6,6 @@ class Constants {
 
   static const double SHIELD_MIN = 0;
   static const double SHIELD_MAX = 100;
+
+  static const double BULLET_SPEED = 100;
 }

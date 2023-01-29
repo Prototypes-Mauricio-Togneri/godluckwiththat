@@ -41,6 +41,23 @@ class Node extends SpriteComponent
     return super.onLoad();
   }
 
+  void shoot({
+    required Node target,
+    required double range,
+    required double damage,
+  }) {
+    final Vector2 direction = (target.position - position).normalized();
+    final Vector2 originalPosition =
+        position + (direction * (Constants.NODE_SIZE / 2));
+
+    game.addBullet(
+      position: originalPosition,
+      direction: direction,
+      range: range * 1.5,
+      damage: damage,
+    );
+  }
+
   @override
   void onCollisionStart(
     Set<Vector2> intersectionPoints,

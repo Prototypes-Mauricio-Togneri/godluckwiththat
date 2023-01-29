@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/background.dart';
 import 'package:tensionnode/components/building_indicator.dart';
 import 'package:tensionnode/components/bullet.dart';
@@ -107,14 +108,13 @@ class GameComponent extends BaseGameComponent {
   void addBullet({
     required Vector2 position,
     required Vector2 direction,
-    required double speed,
     required double range,
     required double damage,
   }) {
     add(Bullet(
       originalPosition: position,
       direction: direction,
-      speed: speed,
+      speed: Constants.BULLET_SPEED,
       range: range,
       damage: damage,
     ));

@@ -1,16 +1,48 @@
 import 'package:flame/input.dart';
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/fixed_node.dart';
+import 'package:tensionnode/components/movable_node.dart';
+import 'package:tensionnode/components/node.dart';
 import 'package:tensionnode/dialog/turret_menu.dart';
+import 'package:tensionnode/models/shooting.dart';
 import 'package:tensionnode/types/turret_type.dart';
 
 class Turret extends FixedNode {
   final TurretType type;
+  final Shooting shooting = Shooting(2); // TODO(momo): change fire rate
+  Node? target;
 
   Turret({
     required super.i,
     required super.j,
     required this.type,
   }) : super(path: type.path);
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    if ((target != null) && (!target!.isAlive)) {
+      target = null;
+    }
+
+    target ??= game.closestNodeInRange<MovableNode>(this, type.range);
+
+    if (target != null) {
+      if (shooting.canShoot(dt)) {
+        final Vector2 direction = (target!.position - position).normalized();
+        final Vector2 originalPosition =
+            position + (direction * (Constants.NODE_SIZE / 2));
+
+        game.addBullet(
+          position: originalPosition,
+          direction: direction,
+          range: type.range * 1.5,
+          damage: type.damage,
+        );
+      }
+    }
+  }
 
   @override
   bool onTapUp(TapUpInfo info) {

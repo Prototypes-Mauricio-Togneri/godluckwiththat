@@ -13,7 +13,7 @@ class Enemy extends MovableNode {
   final double speed;
   final double range;
   final double damage;
-  final Shooting shooting = Shooting(1);
+  final Shooting shooting = Shooting(1); // TODO(momo): change fire rate
   Node? target;
 
   Enemy({
@@ -54,7 +54,6 @@ class Enemy extends MovableNode {
         game.addBullet(
           position: originalPosition,
           direction: direction,
-          speed: 100,
           range: range * 1.5,
           damage: damage,
         );
