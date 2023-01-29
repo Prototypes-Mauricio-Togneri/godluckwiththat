@@ -66,7 +66,9 @@ class BaseGameComponent extends FlameGame
 
   FixedNode? getFixedNode(int i, int j) {
     for (final Component component in children) {
-      if ((component is FixedNode) && (component.i == i) && (component.j == j)) {
+      if ((component is FixedNode) &&
+          (component.i == i) &&
+          (component.j == j)) {
         return component;
       }
     }
@@ -112,6 +114,7 @@ class BaseGameComponent extends FlameGame
 
       camera.zoom += -info.scrollDelta.game.y.sign * ZOOM_STEP;
       clampZoom();
+      onMapMoved();
     }
   }
 
