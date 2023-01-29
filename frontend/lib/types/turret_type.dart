@@ -76,6 +76,7 @@ enum TurretType {
   // freezer?
   // accuracy?
   // homing?
+  // shatter? (upon impact, it releases smaller bullets in all directions)
   // pierces
   //    1 means that the bullet is destroyed after hitting 1 enemy
   //    3 means that it needs to hit 3 enemies before getting destroyed
