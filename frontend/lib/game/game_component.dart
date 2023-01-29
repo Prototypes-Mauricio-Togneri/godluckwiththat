@@ -135,7 +135,11 @@ class GameComponent extends BaseGameComponent {
   }
 
   void removeNode(Node node) {
-    remove(node);
+    try {
+      remove(node);
+    } catch (e) {
+      // ignore
+    }
   }
 
   @override
