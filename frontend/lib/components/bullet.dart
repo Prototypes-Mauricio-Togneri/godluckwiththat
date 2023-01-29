@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
@@ -27,6 +28,8 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
     width = Constants.BULLET_SIZE;
     height = Constants.BULLET_SIZE;
     anchor = Anchor.center;
+
+    add(CircleHitbox());
 
     return super.onLoad();
   }

@@ -34,21 +34,26 @@ class Node extends SpriteComponent
     height = Constants.NODE_SIZE;
     anchor = Anchor.center;
 
+    add(CircleHitbox());
+
     return super.onLoad();
   }
 
   @override
   void onCollisionStart(
-      Set<Vector2> intersectionPoints, PositionComponent other) {
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) {
     super.onCollisionStart(intersectionPoints, other);
 
     if (other is Bullet) {
-      _hit(other.damage);
+      _hit(other);
     }
   }
 
-  void _hit(double amount) {
-    _shield -= amount;
+  void _hit(Bullet bullet) {
+    game.remove(bullet);
+    _shield -= bullet.damage;
 
     if (_shield <= Constants.SHIELD_MIN) {
       game.removeNode(this);
