@@ -38,6 +38,9 @@ class Enemy extends MovableNode {
       _moveForward(dt);
       // TODO(momo): if passed the outer most node, remove the enemy
     } else {
+      // TODO(momo): fix
+      // https://www.geogebra.org/m/bAnquQpH
+      // https://onlinemschool.com/math/assistance/vector/angl/
       final Vector2 vector = target!.position - position;
       angle = -atan2(vector.y, vector.x) * 180 / pi;
       print(position);
