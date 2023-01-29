@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
@@ -22,6 +24,13 @@ class Enemy extends MovableNode {
         super(path: Assets.IMAGES_ENEMY);
 
   @override
+  Future onLoad() {
+    nativeAngle = pi / 2;
+
+    return super.onLoad();
+  }
+
+  @override
   void update(double dt) {
     super.update(dt);
 
@@ -35,15 +44,7 @@ class Enemy extends MovableNode {
       _moveForward(dt);
       // TODO(momo): if passed the outer most node, remove the enemy
     } else {
-      // TODO(momo): fix
-      // https://www.geogebra.org/m/bAnquQpH
-      // https://onlinemschool.com/math/assistance/vector/angl/
-      /*final Vector2 vector = target!.position - position;
-      angle = -atan2(vector.y, vector.x) * 180 / pi;
-      print(position);
-      print(target!.position);
-      print(angle);
-      print('---------');*/
+      _rotateTo(target!);
 
       if (shooting.canShoot(dt)) {
         final Vector2 direction = (target!.position - position).normalized();
@@ -60,8 +61,39 @@ class Enemy extends MovableNode {
     }
   }
 
+  void _rotateTo(Node target) {
+    // TODO(momo): fix
+    // https://www.geogebra.org/m/bAnquQpH
+    // https://onlinemschool.com/math/assistance/vector/angl/
+    /*
+    final Vector2 vector = target!.position - position;
+    angle = -atan2(vector.y, vector.x) * 180 / pi;
+    angle = position.angleTo(target!.position);
+    angle = angleTo(target!.position);
+    print(position);
+    print(target!.position);
+    print(angle);
+    print('---------');
+    */
+
+    /*if (!_isRotating && (angle != newAngle)) {
+      _isRotating = true;
+      print('START ROTATING $angle $newAngle');
+      add(
+        RotateEffect.by(
+          newAngle,
+          LinearEffectController(0.5),
+          onComplete: () {
+            _isRotating = false;
+            print('ROTATION ENDED $angle');
+          },
+        ),
+      );
+    }*/
+  }
+
   void _moveForward(double dt) {
-    angle = 0;
+    //_rotateTo(0);
 
     switch (direction) {
       case Direction.up:
