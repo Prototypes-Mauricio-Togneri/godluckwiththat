@@ -1,17 +1,14 @@
-import 'dart:async';
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/components/fixed_node.dart';
+import 'package:tensionnode/components/movable_node.dart';
 import 'package:tensionnode/components/node.dart';
-import 'package:tensionnode/extensions/component_extension.dart';
-import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/shooting.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/direction.dart';
 
-class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
-  final int i;
-  final int j;
+class Enemy extends MovableNode {
   final Direction direction;
   final double speed;
   final double range;
@@ -20,27 +17,13 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
   Node? target;
 
   Enemy({
-    required this.i,
-    required this.j,
+    required super.i,
+    required super.j,
     required this.direction,
     required this.speed,
     required this.range,
     required this.damage,
-  });
-
-  @override
-  FutureOr onLoad() async {
-    position = Vector2(
-      i * Constants.NODE_SIZE,
-      j * Constants.NODE_SIZE,
-    );
-    sprite = await getSprite(Assets.IMAGES_ENEMY);
-    width = Constants.NODE_SIZE;
-    height = Constants.NODE_SIZE;
-    anchor = Anchor.center;
-
-    return super.onLoad();
-  }
+  }) : super(path: Assets.IMAGES_ENEMY);
 
   @override
   void update(double dt) {
@@ -50,7 +33,7 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
       target = null;
     }
 
-    target ??= game.closestNodeInRange(this, range);
+    target ??= game.closestNodeInRange<FixedNode>(this, range);
 
     if (target == null) {
       _moveForward(dt);

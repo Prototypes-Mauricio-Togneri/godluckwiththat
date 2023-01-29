@@ -1,9 +1,9 @@
 import 'package:flame/input.dart';
-import 'package:tensionnode/components/node.dart';
+import 'package:tensionnode/components/fixed_node.dart';
 import 'package:tensionnode/dialog/turret_menu.dart';
 import 'package:tensionnode/types/turret_type.dart';
 
-class Turret extends Node {
+class Turret extends FixedNode {
   final TurretType type;
 
   Turret({

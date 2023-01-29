@@ -1,9 +1,9 @@
 import 'package:flame/input.dart';
-import 'package:tensionnode/components/node.dart';
+import 'package:tensionnode/components/fixed_node.dart';
 import 'package:tensionnode/dialog/mine_menu.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class Mine extends Node {
+class Mine extends FixedNode {
   final ResourceType type;
   double _accumulatedTime = 0;
 

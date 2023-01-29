@@ -1,8 +1,8 @@
 import 'package:flame/events.dart';
-import 'package:tensionnode/components/node.dart';
+import 'package:tensionnode/components/fixed_node.dart';
 import 'package:tensionnode/services/assets.dart';
 
-class Headquarters extends Node {
+class Headquarters extends FixedNode {
   Headquarters({
     required super.i,
     required super.j,

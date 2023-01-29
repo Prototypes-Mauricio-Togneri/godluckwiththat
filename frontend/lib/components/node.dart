@@ -1,6 +1,5 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/events.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/bullet.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
@@ -8,7 +7,7 @@ import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/style.dart';
 
 class Node extends SpriteComponent
-    with HasGameRef<GameComponent>, Tappable, CollisionCallbacks {
+    with HasGameRef<GameComponent>, CollisionCallbacks {
   final int i;
   final int j;
   final String path;
@@ -74,12 +73,6 @@ class Node extends SpriteComponent
 
     debugText.text = '${_shield.toInt()}';
   }
-
-  @override
-  bool onTapUp(TapUpInfo info) => false;
-
-  @override
-  bool onTapDown(TapDownInfo info) => false;
 }
 
 class DebugText extends TextComponent {

@@ -44,12 +44,13 @@ class BaseGameComponent extends FlameGame
   T getComponent<T extends Component>(Type type) =>
       children.singleWhere((c) => c.runtimeType == type) as T;
 
-  Node? closestNodeInRange(PositionComponent origin, double range) {
-    Node? result;
+  T? closestNodeInRange<T extends Node>(
+      PositionComponent origin, double range) {
+    T? result;
     double minDistance = double.maxFinite;
 
     for (final Component component in children) {
-      if ((component is Node) && (component.isAlive)) {
+      if ((component is T) && (component.isAlive)) {
         final double distance = origin.distance(component);
 
         if ((distance <= range) && (distance < minDistance)) {
