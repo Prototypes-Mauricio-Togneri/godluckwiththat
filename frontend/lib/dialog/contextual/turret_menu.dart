@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/dialog/contextual/base_contextual_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
@@ -56,7 +57,8 @@ class TurretMenu extends StatelessWidget {
   }
 
   void _onDestroy() {
-    game.removeNode(game.state.selectedNode());
+    final Node node = game.state.selectedNode();
+    node.kill();
     _closeMenu();
   }
 

@@ -47,7 +47,7 @@ class Turret extends FixedNode {
   @override
   bool onTapUp(TapUpInfo info) {
     if (game.state.deleteMode) {
-      game.removeNode(this);
+      kill();
     } else {
       game.openMenu(
         name: TurretMenu.NAME,

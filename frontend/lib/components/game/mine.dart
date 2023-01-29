@@ -30,7 +30,7 @@ class Mine extends FixedNode {
   @override
   bool onTapUp(TapUpInfo info) {
     if (game.state.deleteMode) {
-      game.removeNode(this);
+      kill();
     } else {
       game.openMenu(
         name: MineMenu.NAME,

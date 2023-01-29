@@ -67,8 +67,13 @@ class Node extends SpriteComponent
     _shield -= bullet.damage;
 
     if (_shield <= Constants.SHIELD_MIN) {
-      game.removeNode(this);
+      kill();
     }
+  }
+
+  void kill() {
+    _shield = 0;
+    game.removeNode(this);
   }
 
   @override

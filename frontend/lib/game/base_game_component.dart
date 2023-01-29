@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
-import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/map_element.dart';
+import 'package:tensionnode/components/base/node.dart';
 
 class BaseGameComponent extends FlameGame
     with
