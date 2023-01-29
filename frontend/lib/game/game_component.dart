@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/components/background.dart';
 import 'package:tensionnode/components/building_indicator.dart';
+import 'package:tensionnode/components/bullet.dart';
 import 'package:tensionnode/components/enemy.dart';
 import 'package:tensionnode/components/headquarters.dart';
 import 'package:tensionnode/components/mine.dart';
@@ -100,6 +101,18 @@ class GameComponent extends BaseGameComponent {
       i: i,
       j: j,
       type: type,
+    ));
+  }
+
+  void addBullet({
+    required Vector2 position,
+    required Vector2 target,
+    required double speed,
+  }) {
+    add(Bullet(
+      position: position,
+      target: target,
+      speed: speed,
     ));
   }
 

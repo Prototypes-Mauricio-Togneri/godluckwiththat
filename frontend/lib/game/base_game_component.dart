@@ -48,7 +48,7 @@ class BaseGameComponent extends FlameGame
     double minDistance = double.maxFinite;
 
     for (final Component component in children) {
-      if (component is Node) {
+      if ((component is Node) && (component.isAlive)) {
         final double distance = origin.distance(component);
 
         if ((distance <= range) && (distance < minDistance)) {

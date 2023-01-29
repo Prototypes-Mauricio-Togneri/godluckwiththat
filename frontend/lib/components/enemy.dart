@@ -4,6 +4,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/node.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
+import 'package:tensionnode/models/shooting.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/direction.dart';
 
@@ -13,6 +14,7 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
   final Direction direction;
   final double speed;
   final double range;
+  final Shooting shooting = Shooting(1);
   Node? target;
 
   Enemy({
@@ -41,10 +43,20 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
   void update(double dt) {
     super.update(dt);
 
+    if ((target != null) && (!target!.isAlive)) {
+      target = null;
+    }
+
     target ??= game.closestNodeInRange(this, range);
 
     if (target == null) {
       _moveForward(dt);
+    } else if (shooting.canShoot(dt)) {
+      game.addBullet(
+        position: position,
+        target: target!.position,
+        speed: 100,
+      );
     }
   }
 
