@@ -1,5 +1,5 @@
 import 'package:flame/input.dart';
-import 'package:tensionnode/components/fixed_node.dart';
+import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/dialog/mine_menu.dart';
 import 'package:tensionnode/types/resource_type.dart';
 

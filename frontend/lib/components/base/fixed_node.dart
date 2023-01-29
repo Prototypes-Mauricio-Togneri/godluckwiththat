@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:tensionnode/components/node.dart';
+import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/models/position.dart';
 
 class FixedNode extends Node with Tappable {

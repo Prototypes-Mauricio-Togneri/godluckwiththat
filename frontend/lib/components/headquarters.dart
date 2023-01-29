@@ -1,5 +1,5 @@
 import 'package:flame/events.dart';
-import 'package:tensionnode/components/fixed_node.dart';
+import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/services/assets.dart';
 
 class Headquarters extends FixedNode {

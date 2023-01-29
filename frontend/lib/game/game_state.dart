@@ -1,5 +1,5 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionnode/components/node.dart';
+import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/models/resources.dart';
 import 'package:tensionnode/types/resource_type.dart';

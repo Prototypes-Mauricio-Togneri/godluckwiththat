@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/components/fixed_node.dart';
-import 'package:tensionnode/components/movable_node.dart';
-import 'package:tensionnode/components/node.dart';
+import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/components/base/movable_node.dart';
+import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/models/shooting.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/direction.dart';

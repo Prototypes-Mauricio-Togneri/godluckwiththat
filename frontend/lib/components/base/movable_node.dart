@@ -1,4 +1,4 @@
-import 'package:tensionnode/components/node.dart';
+import 'package:tensionnode/components/base/node.dart';
 
 class MovableNode extends Node {
   MovableNode({
