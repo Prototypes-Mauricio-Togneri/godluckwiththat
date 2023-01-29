@@ -2,12 +2,12 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tensionnode/dialog/build_menu.dart';
-import 'package:tensionnode/dialog/info_menu.dart';
-import 'package:tensionnode/dialog/main_menu.dart';
-import 'package:tensionnode/dialog/mine_menu.dart';
-import 'package:tensionnode/dialog/settings_menu.dart';
-import 'package:tensionnode/dialog/turret_menu.dart';
+import 'package:tensionnode/dialog/contextual/build_menu.dart';
+import 'package:tensionnode/dialog/contextual/mine_menu.dart';
+import 'package:tensionnode/dialog/contextual/turret_menu.dart';
+import 'package:tensionnode/dialog/global/info_menu.dart';
+import 'package:tensionnode/dialog/global/main_menu.dart';
+import 'package:tensionnode/dialog/global/settings_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -37,12 +37,14 @@ class GameScreen extends StatelessWidget {
               GameWidget(
                 game: game,
                 overlayBuilderMap: const {
+                  // global
                   MainMenu.NAME: MainMenu.builder,
                   SettingsMenu.NAME: SettingsMenu.builder,
                   InfoMenu.NAME: InfoMenu.builder,
+                  // contextual
+                  BuildMenu.NAME: BuildMenu.builder,
                   MineMenu.NAME: MineMenu.builder,
                   TurretMenu.NAME: TurretMenu.builder,
-                  BuildMenu.NAME: BuildMenu.builder,
                 },
               ),
               BottomMenu(game),

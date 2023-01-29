@@ -1,6 +1,6 @@
 import 'package:flame/input.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
-import 'package:tensionnode/dialog/mine_menu.dart';
+import 'package:tensionnode/dialog/contextual/mine_menu.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Mine extends FixedNode {

@@ -3,7 +3,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/dialog/turret_menu.dart';
+import 'package:tensionnode/dialog/contextual/turret_menu.dart';
 import 'package:tensionnode/models/shooting.dart';
 import 'package:tensionnode/types/turret_type.dart';
 
