@@ -1,10 +1,13 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/components/bullet.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 
-class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
+class Node extends SpriteComponent
+    with HasGameRef<GameComponent>, Tappable, CollisionCallbacks {
   final int i;
   final int j;
   final String path;
@@ -34,7 +37,17 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     return super.onLoad();
   }
 
-  void hit(double amount) {
+  @override
+  void onCollisionStart(
+      Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollisionStart(intersectionPoints, other);
+
+    if (other is Bullet) {
+      _hit(other.damage);
+    }
+  }
+
+  void _hit(double amount) {
     _shield -= amount;
 
     if (_shield <= Constants.SHIELD_MIN) {

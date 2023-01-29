@@ -10,12 +10,13 @@ import 'package:tensionnode/components/static_element.dart';
 
 class BaseGameComponent extends FlameGame
     with
-        ScrollDetector,
-        ScaleDetector,
-        KeyboardEvents,
         HasTappables,
         HasHoverables,
-        MouseMovementDetector {
+        ScaleDetector,
+        ScrollDetector,
+        KeyboardEvents,
+        MouseMovementDetector,
+        HasCollisionDetection {
   final double MIN_ZOOM = 1;
   final double MAX_ZOOM = 10;
   final double ZOOM_STEP = 1;

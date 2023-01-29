@@ -14,6 +14,7 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
   final Direction direction;
   final double speed;
   final double range;
+  final double damage;
   final Shooting shooting = Shooting(1);
   Node? target;
 
@@ -23,6 +24,7 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
     required this.direction,
     required this.speed,
     required this.range,
+    required this.damage,
   });
 
   @override
@@ -61,6 +63,7 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
         direction: direction,
         speed: 100,
         range: range * 1.5,
+        damage: damage,
       );
     }
   }

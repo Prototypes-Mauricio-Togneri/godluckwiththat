@@ -109,12 +109,14 @@ class GameComponent extends BaseGameComponent {
     required Vector2 direction,
     required double speed,
     required double range,
+    required double damage,
   }) {
     add(Bullet(
       originalPosition: position,
       direction: direction,
       speed: speed,
       range: range,
+      damage: damage,
     ));
   }
 
@@ -142,6 +144,7 @@ class GameComponent extends BaseGameComponent {
       direction: Direction.right,
       speed: 50,
       range: 50,
+      damage: 30,
     ));
   }
 

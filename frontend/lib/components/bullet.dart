@@ -10,12 +10,14 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   final Vector2 direction;
   final double speed;
   final double range;
+  final double damage;
 
   Bullet({
     required this.originalPosition,
     required this.direction,
     required this.speed,
     required this.range,
+    required this.damage,
   });
 
   @override
