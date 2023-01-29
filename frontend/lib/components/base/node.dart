@@ -1,7 +1,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/components/bullet.dart';
+import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/style.dart';

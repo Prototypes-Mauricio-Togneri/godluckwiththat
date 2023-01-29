@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/components/mine.dart';
+import 'package:tensionnode/components/game/mine.dart';
 import 'package:tensionnode/dialog/base_contextual_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
