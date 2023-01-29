@@ -14,6 +14,8 @@ enum EnemyType {
   final double range;
   final double damage;
   final double fireRate;
+  //final int bullets;
+  //final int spread; // in angles
 
   const EnemyType({
     required this.path,

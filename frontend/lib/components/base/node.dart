@@ -9,7 +9,7 @@ import 'package:tensionnode/services/style.dart';
 class Node extends SpriteComponent
     with HasGameRef<GameComponent>, CollisionCallbacks {
   final String path;
-  final double armor = 10;
+  final double armor = 10; // TODO(momo): pass as parameter
   double _shield = Constants.SHIELD_MAX; // TODO(momo): pass as parameter
   final DebugText debugText = DebugText();
 
