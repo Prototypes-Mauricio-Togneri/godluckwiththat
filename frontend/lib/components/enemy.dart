@@ -44,20 +44,24 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
     target ??= game.closestNodeInRange(this, range);
 
     if (target == null) {
-      switch (direction) {
-        case Direction.up:
-          y -= dt * speed;
-          break;
-        case Direction.down:
-          y += dt * speed;
-          break;
-        case Direction.left:
-          x -= dt * speed;
-          break;
-        case Direction.right:
-          x += dt * speed;
-          break;
-      }
+      _moveForward(dt);
+    }
+  }
+
+  void _moveForward(double dt) {
+    switch (direction) {
+      case Direction.up:
+        y -= dt * speed;
+        break;
+      case Direction.down:
+        y += dt * speed;
+        break;
+      case Direction.left:
+        x -= dt * speed;
+        break;
+      case Direction.right:
+        x += dt * speed;
+        break;
     }
   }
 }
