@@ -6,11 +6,14 @@ class Shooting {
     accumulatedTime = timeToShoot;
   }
 
-  bool canShoot(double dt) {
+  void update(double dt) {
     accumulatedTime += dt;
+    accumulatedTime = accumulatedTime.clamp(0, timeToShoot);
+  }
 
-    if (accumulatedTime > timeToShoot) {
-      accumulatedTime -= timeToShoot;
+  bool canShoot(double dt) {
+    if (accumulatedTime >= timeToShoot) {
+      accumulatedTime = 0;
 
       return true;
     } else {

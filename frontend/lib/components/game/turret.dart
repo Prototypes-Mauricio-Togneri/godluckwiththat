@@ -21,6 +21,7 @@ class Turret extends FixedNode {
   @override
   void update(double dt) {
     super.update(dt);
+    shooting.update(dt);
 
     if ((target != null) && (!target!.isAlive)) {
       target = null;
@@ -28,19 +29,17 @@ class Turret extends FixedNode {
 
     target ??= game.closestNodeInRange<MovableNode>(this, type.range);
 
-    if (target != null) {
-      /*if (shooting.canShoot(dt)) {
-        final Vector2 direction = (target!.position - position).normalized();
-        final Vector2 originalPosition =
-            position + (direction * (Constants.NODE_SIZE / 2));
+    if ((target != null) && shooting.canShoot(dt)) {
+      /*final Vector2 direction = (target!.position - position).normalized();
+      final Vector2 originalPosition =
+          position + (direction * (Constants.NODE_SIZE / 2));
 
-        game.addBullet(
-          position: originalPosition,
-          direction: direction,
-          range: type.range * 1.5,
-          damage: type.damage,
-        );
-      }*/
+      game.addBullet(
+        position: originalPosition,
+        direction: direction,
+        range: type.range * 1.5,
+        damage: type.damage,
+      );*/
     }
   }
 

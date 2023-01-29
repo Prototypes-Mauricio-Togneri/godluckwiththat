@@ -33,6 +33,7 @@ class Enemy extends MovableNode {
   @override
   void update(double dt) {
     super.update(dt);
+    shooting.update(dt);
 
     if ((target != null) && (!target!.isAlive)) {
       target = null;
