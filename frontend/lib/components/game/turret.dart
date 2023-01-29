@@ -9,14 +9,15 @@ import 'package:tensionnode/types/turret_type.dart';
 
 class Turret extends FixedNode {
   final TurretType type;
-  final Shooting shooting = Shooting(2); // TODO(momo): change fire rate
+  final Shooting shooting;
   Node? target;
 
   Turret({
     required super.i,
     required super.j,
     required this.type,
-  }) : super(path: type.path);
+  })  : shooting = Shooting(type.fireRate),
+        super(path: type.path);
 
   @override
   void update(double dt) {
