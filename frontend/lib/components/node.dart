@@ -8,6 +8,8 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final int i;
   final int j;
   final String path;
+  final double armor = 10;
+  double _shield = Constants.SHIELD_MAX; // TODO(momo): pass as parameter
 
   Node({
     required this.i,
@@ -20,6 +22,8 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     );
   }
 
+  bool get isAlive => _shield > Constants.SHIELD_MIN;
+
   @override
   Future onLoad() async {
     sprite = await getSprite(path);
@@ -28,6 +32,24 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     anchor = Anchor.center;
 
     return super.onLoad();
+  }
+
+  void hit(double amount) {
+    _shield -= amount;
+
+    if (_shield <= Constants.SHIELD_MIN) {
+      game.removeNode(this);
+    }
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    if ((_shield > Constants.SHIELD_MIN) && (_shield < Constants.SHIELD_MAX)) {
+      _shield += dt / (100 / armor);
+      _shield = _shield.clamp(Constants.SHIELD_MIN, Constants.SHIELD_MAX);
+    }
   }
 
   @override

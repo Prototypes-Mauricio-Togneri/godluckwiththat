@@ -5,21 +5,12 @@ import 'package:tensionnode/types/turret_type.dart';
 
 class Turret extends Node {
   final TurretType type;
-  double _shield = 100;
 
   Turret({
     required super.i,
     required super.j,
     required this.type,
   }) : super(path: type.path);
-
-  void hit(double amount) {
-    _shield -= amount;
-
-    if (_shield <= 0) {
-      game.removeNode(this);
-    }
-  }
 
   @override
   bool onTapUp(TapUpInfo info) {
