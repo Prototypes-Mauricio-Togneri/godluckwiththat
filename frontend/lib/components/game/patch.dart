@@ -1,7 +1,7 @@
-import 'package:tensionnode/components/base/static_element.dart';
+import 'package:tensionnode/components/base/map_element.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class Patch extends StaticElement {
+class Patch extends MapElement {
   final ResourceType resourceType;
 
   Patch({

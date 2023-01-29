@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/background.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
+import 'package:tensionnode/components/base/map_element.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
-import 'package:tensionnode/components/base/static_element.dart';
 import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/components/game/enemy.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
@@ -264,7 +264,7 @@ class GameComponent extends BaseGameComponent {
       final int i = position.x.toInt();
       final int j = position.y.toInt();
       final Node? node = getFixedNode(i, j);
-      final StaticElement? staticElement = getStaticElement(i, j);
+      final MapElement? mapElement = getMapElement(i, j);
       final NodeType nodeType = buildingIndicator.type;
 
       if ((node == null) && state.resources.has(nodeType.cost)) {
@@ -272,7 +272,7 @@ class GameComponent extends BaseGameComponent {
           nodeType: nodeType,
           i: i,
           j: j,
-          staticElement: staticElement,
+          mapElement: mapElement,
         );
       }
     }
@@ -282,21 +282,21 @@ class GameComponent extends BaseGameComponent {
     required NodeType nodeType,
     required int i,
     required int j,
-    required StaticElement? staticElement,
+    required MapElement? mapElement,
   }) {
     if (nodeType.isMine) {
       _buildMine(
         type: nodeType,
         i: i,
         j: j,
-        staticElement: staticElement,
+        mapElement: mapElement,
       );
     } else if (nodeType.isTurret) {
       _buildTurret(
         type: nodeType,
         i: i,
         j: j,
-        staticElement: staticElement,
+        mapElement: mapElement,
       );
     }
   }
@@ -305,12 +305,11 @@ class GameComponent extends BaseGameComponent {
     required NodeType type,
     required int i,
     required int j,
-    required StaticElement? staticElement,
+    required MapElement? mapElement,
   }) {
     final ResourceType resourceType = type.resource!;
 
-    if ((staticElement is Patch) &&
-        staticElement.resourceType == resourceType) {
+    if ((mapElement is Patch) && mapElement.resourceType == resourceType) {
       addMine(
         i: i,
         j: j,
@@ -324,9 +323,9 @@ class GameComponent extends BaseGameComponent {
     required NodeType type,
     required int i,
     required int j,
-    required StaticElement? staticElement,
+    required MapElement? mapElement,
   }) {
-    if (staticElement == null) {
+    if (mapElement == null) {
       addTurret(
         i: i,
         j: j,

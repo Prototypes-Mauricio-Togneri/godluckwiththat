@@ -3,12 +3,12 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/models/position.dart';
 
-class StaticElement extends SpriteComponent {
+class MapElement extends SpriteComponent {
   final int i;
   final int j;
   final String path;
 
-  StaticElement({
+  MapElement({
     required this.i,
     required this.j,
     required this.path,
