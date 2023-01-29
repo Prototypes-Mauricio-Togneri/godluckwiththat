@@ -56,6 +56,7 @@ class Enemy extends SpriteComponent with HasGameRef<GameComponent> {
         position: position,
         target: target!.position,
         speed: 100,
+        range: range * 1.5,
       );
     }
   }

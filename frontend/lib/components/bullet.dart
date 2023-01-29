@@ -6,17 +6,21 @@ import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/assets.dart';
 
 class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
-  final Vector2 target;
+  final Vector2 originalPosition;
+  final Vector2 direction;
   final double speed;
+  final double range;
 
   Bullet({
-    required super.position,
-    required this.target,
+    required this.originalPosition,
+    required this.direction,
     required this.speed,
+    required this.range,
   });
 
   @override
   FutureOr onLoad() async {
+    position = originalPosition;
     sprite = await getSprite(Assets.IMAGES_BULLET);
     width = Constants.BULLET_SIZE;
     height = Constants.BULLET_SIZE;
@@ -28,24 +32,16 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   @override
   void update(double dt) {
     super.update(dt);
-
     _moveForward(dt);
   }
 
   void _moveForward(double dt) {
-    /*switch (direction) {
-      case Direction.up:
-        y -= dt * speed;
-        break;
-      case Direction.down:
-        y += dt * speed;
-        break;
-      case Direction.left:
-        x -= dt * speed;
-        break;
-      case Direction.right:
-        x += dt * speed;
-        break;
-    }*/
+    position += direction * speed * dt;
+
+    final double distanceFromOrigin = position.distanceTo(originalPosition);
+
+    if (distanceFromOrigin >= range) {
+      game.remove(this);
+    }
   }
 }
