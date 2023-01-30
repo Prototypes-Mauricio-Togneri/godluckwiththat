@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flame/components.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
@@ -59,9 +60,10 @@ class Enemy extends MovableNode {
   }
 
   void _rotateTo(Node target) {
+    final Vector2 direction = position - target.position;
+    angle = direction.screenAngle() + (pi / 2);
+
     // TODO(momo): fix
-    // https://www.geogebra.org/m/bAnquQpH
-    // https://onlinemschool.com/math/assistance/vector/angl/
     /*
     final Vector2 vector = target!.position - position;
     angle = -atan2(vector.y, vector.x) * 180 / pi;
