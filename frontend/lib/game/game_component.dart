@@ -31,7 +31,6 @@ import 'package:tensionnode/spec/node_spec.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
 import 'package:tensionnode/types/bullet_type.dart';
 import 'package:tensionnode/types/direction.dart';
-import 'package:tensionnode/types/resource_type.dart';
 
 class GameComponent extends BaseGameComponent {
   final GameState state;
@@ -302,18 +301,18 @@ class GameComponent extends BaseGameComponent {
     required NodeSpec spec,
     required MapElement? mapElement,
   }) {
-    if (spec.type.isMine) {
+    if (spec is MineSpec) {
       _buildMine(
         i: i,
         j: j,
-        spec: spec as MineSpec,
+        spec: spec,
         mapElement: mapElement,
       );
-    } else if (spec.type.isTurret) {
+    } else if (spec is TurretSpec) {
       _buildTurret(
         i: i,
         j: j,
-        spec: spec as TurretSpec,
+        spec: spec,
         mapElement: mapElement,
       );
     }
@@ -325,9 +324,7 @@ class GameComponent extends BaseGameComponent {
     required MineSpec spec,
     required MapElement? mapElement,
   }) {
-    final ResourceType resourceType = spec.resource;
-
-    if ((mapElement is Patch) && (mapElement.resourceType == resourceType)) {
+    if ((mapElement is Patch) && (mapElement.resourceType == spec.resource)) {
       addMine(
         i: i,
         j: j,
