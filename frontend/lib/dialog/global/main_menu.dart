@@ -80,7 +80,7 @@ class MainMenu extends StatelessWidget {
       version: match.version,
       id: match.id,
       map: map.json,
-      resources: headquarters.jsonResources,
+      resources: kernel.jsonResources,
       patches: patches.json,
       nodes: nodes.json,
     );

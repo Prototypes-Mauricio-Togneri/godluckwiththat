@@ -94,7 +94,7 @@
     ],
     "nodes": [
         {
-            "type": "headquarters",
+            "type": "kernel",
             "shield": 100,
             "position": [
                 0,

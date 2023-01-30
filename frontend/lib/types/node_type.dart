@@ -4,8 +4,8 @@ import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/types/turret_type.dart';
 
 enum NodeType {
-  headquarters(
-    path: Assets.IMAGES_HQ,
+  kernel(
+    path: Assets.IMAGES_KERNEL,
     armor: 50,
   ),
   mine_red(
@@ -43,7 +43,7 @@ enum NodeType {
   final int costGreen;
   final int costBlue;
 
-  bool get isHeadquarters => this == headquarters;
+  bool get isKernel => this == kernel;
 
   bool get isMine =>
       (this == mine_red) || (this == mine_green) || (this == mine_blue);

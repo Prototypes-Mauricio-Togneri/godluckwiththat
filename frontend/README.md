@@ -5,7 +5,7 @@ Mindustry
     https://mindustry.fandom.com/wiki/Mindustry_Wiki
     https://mindustry-unofficial.fandom.com/wiki/Mindustry_Unofficial_Wiki
 
-Click on Kernel (previous HQ) or warehouse shows the amount of resources in them
+Click on Kernel or warehouse shows the amount of resources in them
 
 Click on a turret and show:
 * Shoots fired

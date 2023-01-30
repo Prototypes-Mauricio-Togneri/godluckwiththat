@@ -8,7 +8,7 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
 import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/components/game/enemy.dart';
-import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/components/game/mine.dart';
 import 'package:tensionnode/components/game/patch.dart';
 import 'package:tensionnode/components/game/turret.dart';
@@ -74,8 +74,8 @@ class GameComponent extends BaseGameComponent {
           type: node.type.turret!,
           shield: node.shield,
         );
-      } else if (node.type.isHeadquarters) {
-        add(Headquarters(
+      } else if (node.type.isKernel) {
+        add(Kernel(
           i: node.position.x,
           j: node.position.y,
           shield: node.shield,
