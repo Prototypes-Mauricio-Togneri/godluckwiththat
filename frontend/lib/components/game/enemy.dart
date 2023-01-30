@@ -6,7 +6,6 @@ import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/models/shooting.dart';
-import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/enemy_type.dart';
 
@@ -24,7 +23,7 @@ class Enemy extends MovableNode {
     required this.direction,
   })  : shooting = Shooting(type.weapon.fireRate),
         super(
-          image: Assets.IMAGES_ENEMY,
+          image: type.image,
           armor: type.armor,
         );
 
