@@ -4,7 +4,8 @@ enum BulletType {
   type1(
     path: Assets.IMAGES_LASER,
     damage: 50,
-    size: 3,
+    width: 6,
+    height: 2,
     speed: 100,
     range: 100,
     piercing: 1,
@@ -12,7 +13,8 @@ enum BulletType {
   type2(
     path: Assets.IMAGES_BULLET,
     damage: 30,
-    size: 3,
+    width: 3,
+    height: 3,
     speed: 100,
     range: 100,
     piercing: 1,
@@ -20,7 +22,8 @@ enum BulletType {
 
   final String path;
   final double damage;
-  final double size;
+  final double width;
+  final double height;
   final double speed;
   final double range;
   final int piercing;
@@ -28,7 +31,8 @@ enum BulletType {
   const BulletType({
     required this.path,
     required this.damage,
-    required this.size,
+    required this.width,
+    required this.height,
     required this.speed,
     required this.range,
     required this.piercing,

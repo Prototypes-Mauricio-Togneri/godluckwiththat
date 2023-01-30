@@ -20,8 +20,8 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   FutureOr onLoad() async {
     position = startPosition;
     sprite = await getSprite(type.path);
-    width = type.size;
-    height = type.size;
+    width = type.width;
+    height = type.height;
     anchor = Anchor.center;
 
     add(CircleHitbox());
