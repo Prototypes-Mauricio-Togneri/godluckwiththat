@@ -70,7 +70,7 @@ class Enemy extends MovableNode {
       if (angleDiff > 0.01) {
         _isRotating = true;
         add(
-          RotateEffect.by(
+          RotateEffect.to(
             newAngle,
             LinearEffectController(0.2),
             onComplete: () {
@@ -83,8 +83,7 @@ class Enemy extends MovableNode {
   }
 
   void _moveForward(double dt) {
-    final Vector2 aaa = position + direction.vector;
-    _rotateTo(aaa);
+    _rotateTo(position + direction.vector);
 
     switch (direction) {
       case Direction.up:
