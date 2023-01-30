@@ -7,7 +7,7 @@ enum WeaponType {
     fireRate: 2,
     bullets: 1,
     spread: 0,
-    sound: Assets.AUDIO_SFX_BULLET,
+    sound: Assets.AUDIO_SFX_LASER,
     bullet: BulletType.type1,
   ),
   enemy(
