@@ -8,6 +8,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/map_element.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/types/direction.dart';
 
 class BaseGameComponent extends FlameGame
     with
@@ -157,18 +158,45 @@ class BaseGameComponent extends FlameGame
     final bool isKeyDown = event is RawKeyDownEvent;
     final bool isEscape = keysPressed.contains(LogicalKeyboardKey.escape);
     final bool isSpace = keysPressed.contains(LogicalKeyboardKey.space);
+    final bool isUp = keysPressed.contains(LogicalKeyboardKey.keyW);
+    final bool isDown = keysPressed.contains(LogicalKeyboardKey.keyS);
+    final bool isLeft = keysPressed.contains(LogicalKeyboardKey.keyA);
+    final bool isRight = keysPressed.contains(LogicalKeyboardKey.keyD);
+
+    if (isUp && isKeyDown) {
+      _moveMap(Direction.up);
+    } else if (isDown && isKeyDown) {
+      _moveMap(Direction.down);
+    } else if (isLeft && isKeyDown) {
+      _moveMap(Direction.left);
+    } else if (isRight && isKeyDown) {
+      _moveMap(Direction.right);
+    }
 
     if (isEscape && isKeyDown) {
       onKeyPressed(LogicalKeyboardKey.escape);
-
       return KeyEventResult.handled;
     } else if (isSpace && isKeyDown) {
       onKeyPressed(LogicalKeyboardKey.space);
-
       return KeyEventResult.handled;
     } else {
       return KeyEventResult.ignored;
     }
+  }
+
+  void _moveMap(Direction direction) {
+    final double x = (direction == Direction.left)
+        ? Constants.MAP_MOVEMENT
+        : ((direction == Direction.right) ? -Constants.MAP_MOVEMENT : 0);
+
+    final double y = (direction == Direction.up)
+        ? Constants.MAP_MOVEMENT
+        : ((direction == Direction.down) ? -Constants.MAP_MOVEMENT : 0);
+
+    final Vector2 offset = Vector2(x, y);
+    final Vector2 vector = offset;
+
+    camera.translateBy(-vector);
   }
 
   @override
