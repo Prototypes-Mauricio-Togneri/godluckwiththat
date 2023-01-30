@@ -1,7 +1,7 @@
 # Tension Node
 
 Mindustry
-    https://mindustrygame.github.io/wiki/
+    https://mindustrygame.github.io/wiki/units/0-dagger/ 
     https://mindustry.fandom.com/wiki/Mindustry_Wiki
     https://mindustry-unofficial.fandom.com/wiki/Mindustry_Unofficial_Wiki
 
@@ -18,3 +18,4 @@ Enable/disable bug view:
 Enemies shadow
 Show amount of enemies currently spawned in the map
 Show shield by color when node is attacked
+Hovering a turret shows its range
