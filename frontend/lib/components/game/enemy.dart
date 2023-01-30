@@ -19,7 +19,7 @@ class Enemy extends MovableNode {
     required super.shield,
     required this.type,
     required this.direction,
-  })  : shooting = Shooting(type.fireRate),
+  })  : shooting = Shooting(type.weapon.fireRate),
         super(
           path: Assets.IMAGES_ENEMY,
           armor: type.armor,
@@ -41,7 +41,7 @@ class Enemy extends MovableNode {
       target = null;
     }
 
-    target ??= game.closestNodeInRange<FixedNode>(this, type.range);
+    target ??= game.closestNodeInRange<FixedNode>(this, type.weapon.range);
 
     if (target == null) {
       _moveForward(dt);
@@ -51,7 +51,7 @@ class Enemy extends MovableNode {
 
       if (shooting.canShoot(dt)) {
         shoot(
-          type: type.bullet,
+          type: type.weapon.bullet,
           target: target!,
         );
       }

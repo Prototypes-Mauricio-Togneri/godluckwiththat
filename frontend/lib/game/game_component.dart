@@ -167,7 +167,7 @@ class GameComponent extends BaseGameComponent {
     addEnemy(
       i: -15,
       j: 6,
-      type: EnemyType.basic,
+      type: EnemyType.enemy,
       direction: Direction.right,
       shield: Constants.SHIELD_MAX,
     );

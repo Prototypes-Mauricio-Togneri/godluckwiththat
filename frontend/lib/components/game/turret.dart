@@ -16,7 +16,7 @@ class Turret extends FixedNode {
     required super.j,
     required super.shield,
     required this.type,
-  })  : shooting = Shooting(type.fireRate),
+  })  : shooting = Shooting(type.weapon.fireRate),
         super(
           path: type.path,
           armor: type.armor,
@@ -31,11 +31,11 @@ class Turret extends FixedNode {
       target = null;
     }
 
-    target ??= game.closestNodeInRange<MovableNode>(this, type.range);
+    target ??= game.closestNodeInRange<MovableNode>(this, type.weapon.range);
 
     if ((target != null) && shooting.canShoot(dt)) {
       shoot(
-        type: type.bullet,
+        type: type.weapon.bullet,
         target: target!,
       );
     }
