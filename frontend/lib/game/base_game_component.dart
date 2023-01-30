@@ -8,7 +8,6 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/map_element.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/types/direction.dart';
 
 class BaseGameComponent extends FlameGame
     with
@@ -163,17 +162,10 @@ class BaseGameComponent extends FlameGame
     final bool isLeft = keysPressed.contains(LogicalKeyboardKey.keyA);
     final bool isRight = keysPressed.contains(LogicalKeyboardKey.keyD);
 
-    if (isUp && isKeyDown) {
-      _moveMap(Direction.up);
-    } else if (isDown && isKeyDown) {
-      _moveMap(Direction.down);
-    } else if (isLeft && isKeyDown) {
-      _moveMap(Direction.left);
-    } else if (isRight && isKeyDown) {
-      _moveMap(Direction.right);
-    }
-
-    if (isEscape && isKeyDown) {
+    if (isUp || isDown || isLeft || isRight) {
+      camera.translateBy(-_mapMovement(keysPressed));
+      return KeyEventResult.handled;
+    } else if (isEscape && isKeyDown) {
       onKeyPressed(LogicalKeyboardKey.escape);
       return KeyEventResult.handled;
     } else if (isSpace && isKeyDown) {
@@ -184,19 +176,20 @@ class BaseGameComponent extends FlameGame
     }
   }
 
-  void _moveMap(Direction direction) {
-    final double x = (direction == Direction.left)
+  Vector2 _mapMovement(Set<LogicalKeyboardKey> keysPressed) {
+    final bool isUp = keysPressed.contains(LogicalKeyboardKey.keyW);
+    final bool isDown = keysPressed.contains(LogicalKeyboardKey.keyS);
+    final bool isLeft = keysPressed.contains(LogicalKeyboardKey.keyA);
+    final bool isRight = keysPressed.contains(LogicalKeyboardKey.keyD);
+
+    final double x = isLeft
         ? Constants.MAP_MOVEMENT
-        : ((direction == Direction.right) ? -Constants.MAP_MOVEMENT : 0);
+        : (isRight ? -Constants.MAP_MOVEMENT : 0);
 
-    final double y = (direction == Direction.up)
-        ? Constants.MAP_MOVEMENT
-        : ((direction == Direction.down) ? -Constants.MAP_MOVEMENT : 0);
+    final double y =
+        isUp ? Constants.MAP_MOVEMENT : (isDown ? -Constants.MAP_MOVEMENT : 0);
 
-    final Vector2 offset = Vector2(x, y);
-    final Vector2 vector = offset;
-
-    camera.translateBy(-vector);
+    return Vector2(x, y);
   }
 
   @override

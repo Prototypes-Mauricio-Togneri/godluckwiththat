@@ -1,7 +1,5 @@
 # Tension Node
 
-Move map with keys
-
 Mindustry
     https://mindustrygame.github.io/wiki/
     https://mindustry.fandom.com/wiki/Mindustry_Wiki
