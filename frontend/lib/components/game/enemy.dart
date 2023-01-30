@@ -65,7 +65,7 @@ class Enemy extends MovableNode {
     if (!_isRotating) {
       final Vector2 direction = position - targetPosition;
       final double newAngle = direction.screenAngle() + (pi / 2);
-      final double angleDiff = angle - newAngle;
+      final double angleDiff = (angle - newAngle).abs();
 
       if (angleDiff > 0.01) {
         _isRotating = true;
