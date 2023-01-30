@@ -1,5 +1,7 @@
 import 'package:tensionnode/services/assets.dart';
+import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
+import 'package:tensionnode/spec/node_spec.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
 
 enum NodeType {
@@ -23,23 +25,20 @@ enum NodeType {
 
   bool get isTurret => this == turret_light;
 
-  MineSpec get mine {
-    if (this == NodeType.mine_red) {
-      return MineSpec.mine_red;
-    } else if (this == NodeType.mine_green) {
-      return MineSpec.mine_green;
-    } else if (this == NodeType.mine_blue) {
-      return MineSpec.mine_blue;
-    } else {
-      throw Error();
-    }
-  }
-
-  TurretSpec get turret {
-    if (this == turret_light) {
-      return TurretSpec.turret_light;
-    } else {
-      throw Error();
+  NodeSpec get spec {
+    switch (this) {
+      case NodeType.kernel:
+        return NodeSpec.kernel;
+      case NodeType.mine_red:
+        return MineSpec.mine_red;
+      case NodeType.mine_green:
+        return MineSpec.mine_green;
+      case NodeType.mine_blue:
+        return MineSpec.mine_blue;
+      case NodeType.turret_light:
+        return TurretSpec.turret_light;
+      case NodeType.enemy:
+        return EnemySpec.enemy;
     }
   }
 }
