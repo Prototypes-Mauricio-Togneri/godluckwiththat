@@ -1,5 +1,4 @@
 import 'package:flame/input.dart';
-import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
@@ -35,15 +34,9 @@ class Turret extends FixedNode {
     target ??= game.closestNodeInRange<MovableNode>(this, type.range);
 
     if ((target != null) && shooting.canShoot(dt)) {
-      final Vector2 direction = (target!.position - position).normalized();
-      final Vector2 originalPosition =
-          position + (direction * (Constants.NODE_SIZE / 2));
-
-      game.addBullet(
-        position: originalPosition,
-        direction: direction,
-        range: type.range * 1.5,
-        damage: type.damage,
+      shoot(
+        type: type.bullet,
+        target: target!,
       );
     }
   }

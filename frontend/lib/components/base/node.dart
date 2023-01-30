@@ -5,6 +5,7 @@ import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/style.dart';
+import 'package:tensionnode/types/bullet_type.dart';
 
 class Node extends SpriteComponent
     with HasGameRef<GameComponent>, CollisionCallbacks {
@@ -38,19 +39,17 @@ class Node extends SpriteComponent
   }
 
   void shoot({
+    required BulletType type,
     required Node target,
-    required double range,
-    required double damage,
   }) {
     final Vector2 direction = (target.position - position).normalized();
     final Vector2 originalPosition =
         position + (direction * (Constants.NODE_SIZE / 2));
 
     game.addBullet(
+      type: type,
       position: originalPosition,
       direction: direction,
-      range: range * 1.5,
-      damage: damage,
     );
   }
 
@@ -68,7 +67,7 @@ class Node extends SpriteComponent
 
   void _hit(Bullet bullet) {
     game.remove(bullet);
-    _shield -= bullet.damage;
+    _shield -= bullet.type.damage;
 
     if (_shield <= Constants.SHIELD_MIN) {
       kill();

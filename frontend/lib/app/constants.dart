@@ -4,10 +4,7 @@ class Constants {
   static const double MAP_MOVEMENT = 20;
 
   static const double NODE_SIZE = 16;
-  static const double BULLET_SIZE = 3;
 
   static const double SHIELD_MIN = 0;
   static const double SHIELD_MAX = 100;
-
-  static const double BULLET_SPEED = 100;
 }

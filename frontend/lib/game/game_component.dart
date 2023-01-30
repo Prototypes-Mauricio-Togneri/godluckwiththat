@@ -25,6 +25,7 @@ import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
+import 'package:tensionnode/types/bullet_type.dart';
 import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/enemy_type.dart';
 import 'package:tensionnode/types/node_type.dart';
@@ -130,17 +131,14 @@ class GameComponent extends BaseGameComponent {
   }
 
   void addBullet({
+    required BulletType type,
     required Vector2 position,
     required Vector2 direction,
-    required double range,
-    required double damage,
   }) {
     add(Bullet(
+      type: type,
       originalPosition: position,
       direction: direction,
-      speed: Constants.BULLET_SPEED,
-      range: range,
-      damage: damage,
     ));
   }
 
