@@ -8,5 +8,5 @@ class Patch extends MapElement {
     required super.i,
     required super.j,
     required this.resourceType,
-  }) : super(path: resourceType.path);
+  }) : super(image: resourceType.image);
 }

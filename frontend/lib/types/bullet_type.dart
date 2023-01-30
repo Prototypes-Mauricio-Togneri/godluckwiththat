@@ -2,7 +2,7 @@ import 'package:tensionnode/services/assets.dart';
 
 enum BulletType {
   type1(
-    path: Assets.IMAGES_LASER,
+    image: Assets.IMAGES_LASER,
     damage: 50,
     width: 6,
     height: 2,
@@ -11,7 +11,7 @@ enum BulletType {
     piercing: 1,
   ),
   type2(
-    path: Assets.IMAGES_BULLET,
+    image: Assets.IMAGES_BULLET,
     damage: 30,
     width: 3,
     height: 3,
@@ -20,7 +20,7 @@ enum BulletType {
     piercing: 1,
   );
 
-  final String path;
+  final String image;
   final double damage;
   final double width;
   final double height;
@@ -29,7 +29,7 @@ enum BulletType {
   final int piercing;
 
   const BulletType({
-    required this.path,
+    required this.image,
     required this.damage,
     required this.width,
     required this.height,

@@ -10,14 +10,14 @@ import 'package:tensionnode/types/weapon_type.dart';
 
 class Node extends SpriteComponent
     with HasGameRef<GameComponent>, CollisionCallbacks {
-  final String path;
+  final String image;
   final double armor;
   double _shield = Constants.SHIELD_MAX;
   final DebugText debugText = DebugText();
 
   Node({
     required super.position,
-    required this.path,
+    required this.image,
     required this.armor,
     required double shield,
   }) {
@@ -28,7 +28,7 @@ class Node extends SpriteComponent
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(path);
+    sprite = await getSprite(image);
     width = Constants.NODE_SIZE;
     height = Constants.NODE_SIZE;
     anchor = Anchor.center;

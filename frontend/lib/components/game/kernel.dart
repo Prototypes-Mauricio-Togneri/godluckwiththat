@@ -9,7 +9,7 @@ class Kernel extends FixedNode {
     required super.j,
     required super.shield,
   }) : super(
-          path: Assets.IMAGES_KERNEL,
+          image: Assets.IMAGES_KERNEL,
           armor: NodeType.kernel.armor,
         );
 

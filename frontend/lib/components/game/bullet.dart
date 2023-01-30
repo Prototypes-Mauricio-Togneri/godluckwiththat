@@ -20,7 +20,7 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   @override
   FutureOr onLoad() async {
     position = startPosition;
-    sprite = await getSprite(type.path);
+    sprite = await getSprite(type.image);
     width = type.width;
     height = type.height;
     anchor = Anchor.center;

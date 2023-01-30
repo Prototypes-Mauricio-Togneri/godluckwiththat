@@ -24,7 +24,7 @@ class Enemy extends MovableNode {
     required this.direction,
   })  : shooting = Shooting(type.weapon.fireRate),
         super(
-          path: Assets.IMAGES_ENEMY,
+          image: Assets.IMAGES_ENEMY,
           armor: type.armor,
         );
 

@@ -6,19 +6,19 @@ import 'package:tensionnode/models/position.dart';
 class MapElement extends SpriteComponent {
   final int i;
   final int j;
-  final String path;
+  final String image;
 
   MapElement({
     required this.i,
     required this.j,
-    required this.path,
+    required this.image,
   }) {
     position = Position.fromGrid(i, j);
   }
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(path);
+    sprite = await getSprite(image);
     width = Constants.NODE_SIZE;
     height = Constants.NODE_SIZE;
     anchor = Anchor.center;

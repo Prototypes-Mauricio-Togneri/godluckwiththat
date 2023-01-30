@@ -5,39 +5,39 @@ import 'package:tensionnode/types/turret_type.dart';
 
 enum NodeType {
   kernel(
-    path: Assets.IMAGES_KERNEL,
+    image: Assets.IMAGES_KERNEL,
     armor: 50,
   ),
   mine_red(
-    path: Assets.IMAGES_MINE_RED,
+    image: Assets.IMAGES_MINE_RED,
     armor: 20,
     costRed: 10,
     costGreen: 0,
     costBlue: 0,
   ),
   mine_green(
-    path: Assets.IMAGES_MINE_GREEN,
+    image: Assets.IMAGES_MINE_GREEN,
     armor: 20,
     costRed: 20,
     costGreen: 0,
     costBlue: 0,
   ),
   mine_blue(
-    path: Assets.IMAGES_MINE_BLUE,
+    image: Assets.IMAGES_MINE_BLUE,
     armor: 20,
     costRed: 30,
     costGreen: 0,
     costBlue: 0,
   ),
   turret_light(
-    path: Assets.IMAGES_TURRET_LIGHT,
+    image: Assets.IMAGES_TURRET_LIGHT,
     armor: 50,
     costRed: 50,
     costGreen: 0,
     costBlue: 0,
   );
 
-  final String path;
+  final String image;
   final double armor;
   final int costRed;
   final int costGreen;
@@ -76,7 +76,7 @@ enum NodeType {
   }
 
   const NodeType({
-    required this.path,
+    required this.image,
     required this.armor,
     this.costRed = 0,
     this.costGreen = 0,
