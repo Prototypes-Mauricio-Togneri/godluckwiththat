@@ -29,7 +29,7 @@ class TurretMenu extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Label(
-              text: '${turret.spec} turret',
+              text: turret.spec.type.name,
               align: TextAlign.center,
             ),
             const VBox(10),
