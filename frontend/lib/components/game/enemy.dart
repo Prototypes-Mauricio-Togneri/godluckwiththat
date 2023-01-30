@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
@@ -14,6 +15,7 @@ class Enemy extends MovableNode {
   final Direction direction;
   final Shooting shooting;
   Node? target;
+  bool _isRotating = false;
 
   Enemy({
     required super.position,
@@ -60,39 +62,28 @@ class Enemy extends MovableNode {
   }
 
   void _rotateTo(Node target) {
-    final Vector2 direction = position - target.position;
-    angle = direction.screenAngle() + (pi / 2);
+    if (!_isRotating) {
+      final Vector2 direction = position - target.position;
+      final double newAngle = direction.screenAngle() + (pi / 2);
+      final double angleDiff = angle - newAngle;
 
-    // TODO(momo): fix
-    /*
-    final Vector2 vector = target!.position - position;
-    angle = -atan2(vector.y, vector.x) * 180 / pi;
-    angle = position.angleTo(target!.position);
-    angle = angleTo(target!.position);
-    print(position);
-    print(target!.position);
-    print(angle);
-    print('---------');
-    */
-
-    /*if (!_isRotating && (angle != newAngle)) {
-      _isRotating = true;
-      print('START ROTATING $angle $newAngle');
-      add(
-        RotateEffect.by(
-          newAngle,
-          LinearEffectController(0.5),
-          onComplete: () {
-            _isRotating = false;
-            print('ROTATION ENDED $angle');
-          },
-        ),
-      );
-    }*/
+      if (angleDiff > 0.01) {
+        _isRotating = true;
+        add(
+          RotateEffect.by(
+            newAngle,
+            LinearEffectController(0.2),
+            onComplete: () {
+              _isRotating = false;
+            },
+          ),
+        );
+      }
+    }
   }
 
   void _moveForward(double dt) {
-    //_rotateTo(0);
+    _rotateTo(this);
 
     switch (direction) {
       case Direction.up:
