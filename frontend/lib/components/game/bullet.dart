@@ -4,15 +4,15 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/types/bullet_type.dart';
+import 'package:tensionnode/spec/bullet_spec.dart';
 
 class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
-  final BulletType type;
+  final BulletSpec spec;
   final Vector2 startPosition;
   final Vector2 direction;
 
   Bullet({
-    required this.type,
+    required this.spec,
     required this.startPosition,
     required this.direction,
   });
@@ -20,9 +20,9 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   @override
   FutureOr onLoad() async {
     position = startPosition;
-    sprite = await getSprite(type.image);
-    width = type.width;
-    height = type.height;
+    sprite = await getSprite(spec.image);
+    width = spec.width;
+    height = spec.height;
     anchor = Anchor.center;
     angle = direction.screenAngle() + (pi / 2);
 
@@ -38,11 +38,11 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   }
 
   void _moveForward(double dt) {
-    position += direction * type.speed * dt;
+    position += direction * spec.speed * dt;
 
     final double distanceFromOrigin = position.distanceTo(startPosition);
 
-    if (distanceFromOrigin >= type.range) {
+    if (distanceFromOrigin >= spec.range) {
       game.remove(this);
     }
   }

@@ -25,11 +25,11 @@ import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
+import 'package:tensionnode/spec/bullet_spec.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
 import 'package:tensionnode/spec/node_spec.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
-import 'package:tensionnode/types/bullet_type.dart';
 import 'package:tensionnode/types/direction.dart';
 
 class GameComponent extends BaseGameComponent {
@@ -133,12 +133,12 @@ class GameComponent extends BaseGameComponent {
   }
 
   void addBullet({
-    required BulletType type,
+    required BulletSpec spec,
     required Vector2 startPosition,
     required Vector2 direction,
   }) {
     add(Bullet(
-      type: type,
+      spec: spec,
       startPosition: startPosition,
       direction: direction,
     ));

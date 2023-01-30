@@ -1,52 +1,66 @@
 import 'package:tensionnode/models/resources.dart';
 import 'package:tensionnode/spec/node_spec.dart';
+import 'package:tensionnode/spec/weapon_spec.dart';
 import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/types/weapon_type.dart';
 
 class TurretSpec extends NodeSpec {
-  final WeaponType weapon;
+  final WeaponSpec weapon;
 
   static TurretSpec turret_light = TurretSpec(
     type: NodeType.turret_light,
     armor: 50,
-    weapon: WeaponType.turret_light,
+    weapon: WeaponSpec.turret_light,
     cost: Resources(),
   );
-  /*heavy(
-    image: Assets.IMAGES_TURRET_LIGHT,
+
+  static TurretSpec turret_heavy = TurretSpec(
+    type: NodeType.turret_light,
     armor: 50,
-    weapon: WeaponType.turret_light,
-  ),
-  shotgun(
-    image: Assets.IMAGES_TURRET_LIGHT,
+    weapon: WeaponSpec.turret_light,
+    cost: Resources(),
+  );
+
+  static TurretSpec turret_shotgun = TurretSpec(
+    type: NodeType.turret_light,
     armor: 50,
-    weapon: WeaponType.turret_light,
-  ),
-  sniper(
-    image: Assets.IMAGES_TURRET_LIGHT,
+    weapon: WeaponSpec.turret_light,
+    cost: Resources(),
+  );
+
+  static TurretSpec turret_sniper = TurretSpec(
+    type: NodeType.turret_light,
     armor: 50,
-    weapon: WeaponType.turret_light,
-  ),
-  machine_gun(
-    image: Assets.IMAGES_TURRET_LIGHT,
+    weapon: WeaponSpec.turret_light,
+    cost: Resources(),
+  );
+
+  static TurretSpec turret_machine_gun = TurretSpec(
+    type: NodeType.turret_light,
     armor: 50,
-    weapon: WeaponType.turret_light,
-  ),
-  laser(
-    image: Assets.IMAGES_TURRET_LIGHT,
+    weapon: WeaponSpec.turret_light,
+    cost: Resources(),
+  );
+
+  static TurretSpec turret_laser = TurretSpec(
+    type: NodeType.turret_light,
     armor: 50,
-    weapon: WeaponType.turret_light,
-  ),
-  cannon(
-    image: Assets.IMAGES_TURRET_LIGHT,
+    weapon: WeaponSpec.turret_light,
+    cost: Resources(),
+  );
+
+  static TurretSpec turret_cannon = TurretSpec(
+    type: NodeType.turret_light,
     armor: 50,
-    weapon: WeaponType.turret_light,
-  ),
-  plasma(
-    image: Assets.IMAGES_TURRET_LIGHT,
+    weapon: WeaponSpec.turret_light,
+    cost: Resources(),
+  );
+
+  static TurretSpec turret_plasma = TurretSpec(
+    type: NodeType.turret_light,
     armor: 50,
-    weapon: WeaponType.turret_light,
-  );*/
+    weapon: WeaponSpec.turret_light,
+    cost: Resources(),
+  );
 
   const TurretSpec({
     required super.type,

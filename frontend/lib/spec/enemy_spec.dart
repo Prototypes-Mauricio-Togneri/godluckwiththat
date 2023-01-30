@@ -1,7 +1,7 @@
 import 'package:tensionnode/models/resources.dart';
 import 'package:tensionnode/spec/node_spec.dart';
+import 'package:tensionnode/spec/weapon_spec.dart';
 import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/types/weapon_type.dart';
 
 class EnemySpec extends NodeSpec {
   static EnemySpec enemy = EnemySpec(
@@ -9,11 +9,11 @@ class EnemySpec extends NodeSpec {
     cost: Resources(),
     armor: 50,
     speed: 50,
-    weapon: WeaponType.enemy,
+    weapon: WeaponSpec.enemy,
   );
 
   final double speed;
-  final WeaponType weapon;
+  final WeaponSpec weapon;
 
   const EnemySpec({
     required super.type,
