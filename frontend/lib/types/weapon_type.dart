@@ -1,3 +1,4 @@
+import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/bullet_type.dart';
 
 enum WeaponType {
@@ -6,6 +7,7 @@ enum WeaponType {
     fireRate: 2,
     bullets: 1,
     spread: 0,
+    sound: Assets.AUDIO_SFX_BULLET,
     bullet: BulletType.type1,
   ),
   enemy(
@@ -13,6 +15,7 @@ enum WeaponType {
     fireRate: 1,
     bullets: 1,
     spread: 0,
+    sound: Assets.AUDIO_SFX_BULLET,
     bullet: BulletType.type2,
   );
 
@@ -20,6 +23,7 @@ enum WeaponType {
   final double fireRate;
   final int bullets;
   final int spread; // in angles
+  final String sound;
   final BulletType bullet;
 
   const WeaponType({
@@ -27,6 +31,7 @@ enum WeaponType {
     required this.fireRate,
     required this.bullets,
     required this.spread,
+    required this.sound,
     required this.bullet,
   });
 }

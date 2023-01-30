@@ -1,11 +1,12 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/style.dart';
-import 'package:tensionnode/types/bullet_type.dart';
+import 'package:tensionnode/types/weapon_type.dart';
 
 class Node extends SpriteComponent
     with HasGameRef<GameComponent>, CollisionCallbacks {
@@ -39,16 +40,18 @@ class Node extends SpriteComponent
   }
 
   void shoot({
-    required BulletType type,
+    required WeaponType type,
     required Node target,
   }) {
     final Vector2 direction = (target.position - position).normalized();
-    final Vector2 originalPosition =
+    final Vector2 startPosition =
         position + (direction * (Constants.NODE_SIZE / 2));
 
+    FlameAudio.play(type.sound);
+
     game.addBullet(
-      type: type,
-      position: originalPosition,
+      type: type.bullet,
+      startPosition: startPosition,
       direction: direction,
     );
   }

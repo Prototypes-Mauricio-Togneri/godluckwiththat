@@ -35,7 +35,7 @@ class Turret extends FixedNode {
 
     if ((target != null) && shooting.canShoot(dt)) {
       shoot(
-        type: type.weapon.bullet,
+        type: type.weapon,
         target: target!,
       );
     }

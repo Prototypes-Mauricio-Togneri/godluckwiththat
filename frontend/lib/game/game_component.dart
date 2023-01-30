@@ -132,12 +132,12 @@ class GameComponent extends BaseGameComponent {
 
   void addBullet({
     required BulletType type,
-    required Vector2 position,
+    required Vector2 startPosition,
     required Vector2 direction,
   }) {
     add(Bullet(
       type: type,
-      originalPosition: position,
+      startPosition: startPosition,
       direction: direction,
     ));
   }

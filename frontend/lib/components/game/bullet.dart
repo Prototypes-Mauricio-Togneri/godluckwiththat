@@ -1,33 +1,30 @@
 import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame_audio/flame_audio.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/bullet_type.dart';
 
 class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   final BulletType type;
-  final Vector2 originalPosition;
+  final Vector2 startPosition;
   final Vector2 direction;
 
   Bullet({
     required this.type,
-    required this.originalPosition,
+    required this.startPosition,
     required this.direction,
   });
 
   @override
   FutureOr onLoad() async {
-    position = originalPosition;
+    position = startPosition;
     sprite = await getSprite(type.path);
     width = type.size;
     height = type.size;
     anchor = Anchor.center;
 
     add(CircleHitbox());
-    FlameAudio.play(Assets.AUDIO_SFX_BULLET);
 
     return super.onLoad();
   }
@@ -41,7 +38,7 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   void _moveForward(double dt) {
     position += direction * type.speed * dt;
 
-    final double distanceFromOrigin = position.distanceTo(originalPosition);
+    final double distanceFromOrigin = position.distanceTo(startPosition);
 
     if (distanceFromOrigin >= type.range) {
       game.remove(this);

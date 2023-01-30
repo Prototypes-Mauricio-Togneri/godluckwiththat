@@ -9,6 +9,7 @@ class Assets {
   static const String IMAGES_BULLET = 'bullet.png';
   static const String IMAGES_MINE_GREEN = 'mine_green.png';
   static const String IMAGES_PATCH_GREEN = 'patch_green.png';
+  static const String IMAGES_LASER = 'laser.png';
   static const String IMAGES_HUD = 'hud.png';
   static const String IMAGES_TURRET_LIGHT = 'turret_light.png';
   static const String IMAGES_KERNEL = 'kernel.png';

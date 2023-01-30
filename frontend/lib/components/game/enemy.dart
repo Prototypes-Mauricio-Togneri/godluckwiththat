@@ -51,7 +51,7 @@ class Enemy extends MovableNode {
 
       if (shooting.canShoot(dt)) {
         shoot(
-          type: type.weapon.bullet,
+          type: type.weapon,
           target: target!,
         );
       }

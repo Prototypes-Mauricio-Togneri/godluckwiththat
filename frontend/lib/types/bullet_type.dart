@@ -2,7 +2,7 @@ import 'package:tensionnode/services/assets.dart';
 
 enum BulletType {
   type1(
-    path: Assets.IMAGES_BULLET,
+    path: Assets.IMAGES_LASER,
     damage: 50,
     size: 3,
     speed: 100,
