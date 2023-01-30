@@ -1,6 +1,6 @@
 import 'package:tensionnode/models/resources.dart';
 import 'package:tensionnode/services/assets.dart';
-import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionnode/types/mine_type.dart';
 import 'package:tensionnode/types/turret_type.dart';
 
 enum NodeType {
@@ -45,10 +45,9 @@ enum NodeType {
 
   bool get isKernel => this == kernel;
 
-  bool get isMine =>
-      (this == mine_red) || (this == mine_green) || (this == mine_blue);
+  bool get isMine => mine != null;
 
-  bool get isTurret => this == turret_light;
+  bool get isTurret => turret != null;
 
   Resources get cost => Resources(
         red: costRed,
@@ -56,13 +55,13 @@ enum NodeType {
         blue: costBlue,
       );
 
-  ResourceType? get resource {
+  MineType? get mine {
     if (this == mine_red) {
-      return ResourceType.red;
+      return MineType.red;
     } else if (this == mine_green) {
-      return ResourceType.green;
+      return MineType.green;
     } else if (this == mine_blue) {
-      return ResourceType.blue;
+      return MineType.blue;
     } else {
       return null;
     }

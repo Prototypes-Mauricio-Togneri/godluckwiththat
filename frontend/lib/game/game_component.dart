@@ -28,6 +28,7 @@ import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/bullet_type.dart';
 import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/enemy_type.dart';
+import 'package:tensionnode/types/mine_type.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/types/turret_type.dart';
@@ -65,7 +66,7 @@ class GameComponent extends BaseGameComponent {
         addMine(
           i: node.position.x,
           j: node.position.y,
-          type: node.type,
+          type: node.type.mine!,
           shield: node.shield,
         );
       } else if (node.type.isTurret) {
@@ -90,13 +91,13 @@ class GameComponent extends BaseGameComponent {
   void addMine({
     required int i,
     required int j,
-    required NodeType type,
+    required MineType type,
     required double shield,
   }) {
     add(Mine(
+      type: type,
       i: i,
       j: j,
-      nodeType: type,
       shield: shield,
     ));
   }
@@ -322,13 +323,13 @@ class GameComponent extends BaseGameComponent {
     required int j,
     required MapElement? mapElement,
   }) {
-    final ResourceType resourceType = type.resource!;
+    final ResourceType resourceType = type.mine!.resource;
 
-    if ((mapElement is Patch) && mapElement.resourceType == resourceType) {
+    if ((mapElement is Patch) && (mapElement.resourceType == resourceType)) {
       addMine(
         i: i,
         j: j,
-        type: type,
+        type: type.mine!,
         shield: Constants.SHIELD_MAX,
       );
       state.resources.remove(type.cost);

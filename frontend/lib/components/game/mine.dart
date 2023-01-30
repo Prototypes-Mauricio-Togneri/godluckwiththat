@@ -1,24 +1,22 @@
 import 'package:flame/input.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/dialog/contextual/mine_menu.dart';
-import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionnode/types/mine_type.dart';
 
 class Mine extends FixedNode {
-  final ResourceType type;
+  final MineType type;
   double _accumulatedTime = 0;
 
   static const int RESOURCE_RED_COST = 100;
 
   Mine({
+    required this.type,
     required super.i,
     required super.j,
     required super.shield,
-    required NodeType nodeType,
-  })  : type = nodeType.resource!,
-        super(
-          path: nodeType.path,
-          armor: nodeType.armor,
+  }) : super(
+          path: type.sprite,
+          armor: type.armor,
         );
 
   @override
@@ -27,7 +25,7 @@ class Mine extends FixedNode {
 
     if (_accumulatedTime >= type.productionTime) {
       _accumulatedTime = 0;
-      game.state.addResource(type);
+      game.state.addResource(type.resource);
     }
 
     super.update(dt);
