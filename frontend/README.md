@@ -2,7 +2,6 @@
 
 Mindustry
     https://mindustrygame.github.io/wiki/units/0-dagger/ 
-    https://mindustry.fandom.com/wiki/Mindustry_Wiki
     https://mindustry-unofficial.fandom.com/wiki/Mindustry_Unofficial_Wiki
 
 Click on Kernel or warehouse shows the amount of resources in them
