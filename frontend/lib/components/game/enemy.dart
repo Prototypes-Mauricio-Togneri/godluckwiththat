@@ -50,7 +50,7 @@ class Enemy extends MovableNode {
       _moveForward(dt);
       // TODO(momo): if passed the outer most node, remove the enemy
     } else {
-      _rotateTo(target!);
+      _rotateTo(target!.position);
 
       if (shooting.canShoot(dt)) {
         shoot(
@@ -61,9 +61,9 @@ class Enemy extends MovableNode {
     }
   }
 
-  void _rotateTo(Node target) {
+  void _rotateTo(Vector2 targetPosition) {
     if (!_isRotating) {
-      final Vector2 direction = position - target.position;
+      final Vector2 direction = position - targetPosition;
       final double newAngle = direction.screenAngle() + (pi / 2);
       final double angleDiff = angle - newAngle;
 
@@ -83,7 +83,7 @@ class Enemy extends MovableNode {
   }
 
   void _moveForward(double dt) {
-    _rotateTo(this);
+    //_rotateTo(direction.vector);
 
     switch (direction) {
       case Direction.up:
