@@ -1,13 +1,18 @@
-import 'package:tensionnode/services/assets.dart';
+import 'package:tensionnode/models/resources.dart';
+import 'package:tensionnode/spec/node_spec.dart';
+import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/weapon_type.dart';
 
-enum TurretType {
-  light(
-    image: Assets.IMAGES_TURRET_LIGHT,
+class TurretSpec extends NodeSpec {
+  final WeaponType weapon;
+
+  static TurretSpec turret_light = TurretSpec(
+    type: NodeType.turret_light,
     armor: 50,
     weapon: WeaponType.turret_light,
-  ),
-  heavy(
+    cost: Resources(),
+  );
+  /*heavy(
     image: Assets.IMAGES_TURRET_LIGHT,
     armor: 50,
     weapon: WeaponType.turret_light,
@@ -41,15 +46,12 @@ enum TurretType {
     image: Assets.IMAGES_TURRET_LIGHT,
     armor: 50,
     weapon: WeaponType.turret_light,
-  );
+  );*/
 
-  final String image;
-  final double armor;
-  final WeaponType weapon;
-
-  const TurretType({
-    required this.image,
-    required this.armor,
+  const TurretSpec({
+    required super.type,
+    required super.cost,
+    required super.armor,
     required this.weapon,
   });
 }

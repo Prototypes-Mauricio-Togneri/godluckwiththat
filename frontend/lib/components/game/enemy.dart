@@ -6,11 +6,11 @@ import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/models/shooting.dart';
+import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/types/direction.dart';
-import 'package:tensionnode/types/enemy_type.dart';
 
 class Enemy extends MovableNode {
-  final EnemyType type;
+  final EnemySpec spec;
   final Direction direction;
   final Shooting shooting;
   Node? target;
@@ -19,12 +19,12 @@ class Enemy extends MovableNode {
   Enemy({
     required super.position,
     required super.shield,
-    required this.type,
+    required this.spec,
     required this.direction,
-  })  : shooting = Shooting(type.weapon.fireRate),
+  })  : shooting = Shooting(spec.weapon.fireRate),
         super(
-          image: type.image,
-          armor: type.armor,
+          image: spec.type.image,
+          armor: spec.armor,
         );
 
   @override
@@ -43,7 +43,7 @@ class Enemy extends MovableNode {
       target = null;
     }
 
-    target ??= game.closestNodeInRange<FixedNode>(this, type.weapon.range);
+    target ??= game.closestNodeInRange<FixedNode>(this, spec.weapon.range);
 
     if (target == null) {
       _moveForward(dt);
@@ -53,7 +53,7 @@ class Enemy extends MovableNode {
 
       if (shooting.canShoot(dt)) {
         shoot(
-          type: type.weapon,
+          type: spec.weapon,
           target: target!,
         );
       }
@@ -86,16 +86,16 @@ class Enemy extends MovableNode {
 
     switch (direction) {
       case Direction.up:
-        y -= dt * type.speed;
+        y -= dt * spec.speed;
         break;
       case Direction.down:
-        y += dt * type.speed;
+        y += dt * spec.speed;
         break;
       case Direction.left:
-        x -= dt * type.speed;
+        x -= dt * spec.speed;
         break;
       case Direction.right:
-        x += dt * type.speed;
+        x += dt * spec.speed;
         break;
     }
   }

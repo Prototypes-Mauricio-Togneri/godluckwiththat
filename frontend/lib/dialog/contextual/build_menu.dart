@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:tensionnode/dialog/contextual/base_contextual_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
-import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/spec/mine_spec.dart';
+import 'package:tensionnode/spec/node_spec.dart';
+import 'package:tensionnode/spec/turret_spec.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
@@ -34,25 +36,25 @@ class BuildMenu extends StatelessWidget {
               text: 'Red Mine',
               icon: Icons.square_outlined,
               color: Palette.resource_red,
-              onPressed: () => _onBuild(NodeType.mine_red),
+              onPressed: () => _onBuild(MineSpec.mine_red),
             ),
             MenuButton(
               text: 'Green Mine',
               icon: Icons.square_outlined,
               color: Palette.resource_green,
-              onPressed: () => _onBuild(NodeType.mine_green),
+              onPressed: () => _onBuild(MineSpec.mine_green),
             ),
             MenuButton(
               text: 'Blue Mine',
               icon: Icons.square_outlined,
               color: Palette.resource_blue,
-              onPressed: () => _onBuild(NodeType.mine_blue),
+              onPressed: () => _onBuild(MineSpec.mine_blue),
             ),
             MenuButton(
               text: 'Light turret',
               icon: Icons.radio_button_unchecked,
               color: Palette.turret_light,
-              onPressed: () => _onBuild(NodeType.turret_light),
+              onPressed: () => _onBuild(TurretSpec.turret_light),
             ),
             MenuButton(
               text: 'Close',
@@ -66,8 +68,8 @@ class BuildMenu extends StatelessWidget {
     );
   }
 
-  void _onBuild(NodeType type) {
-    game.enableBuildMode(type);
+  void _onBuild(NodeSpec spec) {
+    game.enableBuildMode(spec);
     _closeMenu();
   }
 

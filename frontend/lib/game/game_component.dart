@@ -25,13 +25,13 @@ import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
+import 'package:tensionnode/spec/enemy_spec.dart';
+import 'package:tensionnode/spec/mine_spec.dart';
+import 'package:tensionnode/spec/node_spec.dart';
+import 'package:tensionnode/spec/turret_spec.dart';
 import 'package:tensionnode/types/bullet_type.dart';
 import 'package:tensionnode/types/direction.dart';
-import 'package:tensionnode/types/enemy_type.dart';
-import 'package:tensionnode/types/mine_type.dart';
-import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
-import 'package:tensionnode/types/turret_type.dart';
 
 class GameComponent extends BaseGameComponent {
   final GameState state;
@@ -66,14 +66,14 @@ class GameComponent extends BaseGameComponent {
         addMine(
           i: node.position.x,
           j: node.position.y,
-          type: node.type.mine!,
+          spec: node.type.mine,
           shield: node.shield,
         );
       } else if (node.type.isTurret) {
         addTurret(
           i: node.position.x,
           j: node.position.y,
-          type: node.type.turret!,
+          spec: node.type.turret,
           shield: node.shield,
         );
       } else if (node.type.isKernel) {
@@ -91,13 +91,13 @@ class GameComponent extends BaseGameComponent {
   void addMine({
     required int i,
     required int j,
-    required MineType type,
+    required MineSpec spec,
     required double shield,
   }) {
     add(Mine(
-      type: type,
       i: i,
       j: j,
+      spec: spec,
       shield: shield,
     ));
   }
@@ -105,13 +105,13 @@ class GameComponent extends BaseGameComponent {
   void addTurret({
     required int i,
     required int j,
-    required TurretType type,
+    required TurretSpec spec,
     required double shield,
   }) {
     add(Turret(
       i: i,
       j: j,
-      type: type,
+      spec: spec,
       shield: shield,
     ));
   }
@@ -119,12 +119,12 @@ class GameComponent extends BaseGameComponent {
   void addEnemy({
     required int i,
     required int j,
-    required EnemyType type,
+    required EnemySpec spec,
     required Direction direction,
     required double shield,
   }) {
     add(Enemy(
-      type: type,
+      spec: spec,
       direction: direction,
       position: Position.fromGrid(i, j),
       shield: shield,
@@ -168,7 +168,7 @@ class GameComponent extends BaseGameComponent {
     addEnemy(
       i: -15,
       j: 6,
-      type: EnemyType.enemy,
+      spec: EnemySpec.enemy,
       direction: Direction.right,
       shield: Constants.SHIELD_MAX,
     );
@@ -234,13 +234,13 @@ class GameComponent extends BaseGameComponent {
     }
   }
 
-  void enableBuildMode(NodeType type) {
+  void enableBuildMode(NodeSpec spec) {
     _disableBuildMode();
     _closeContextualMenus();
 
     // TODO(momo): don't add it for mobile
     removeComponents(BuildingIndicator);
-    add(BuildingIndicator(type: type));
+    add(BuildingIndicator(spec: spec));
 
     state.enableBuildMode();
   }
@@ -281,13 +281,13 @@ class GameComponent extends BaseGameComponent {
       final int j = position.y.toInt();
       final Node? node = getFixedNode(i, j);
       final MapElement? mapElement = getMapElement(i, j);
-      final NodeType nodeType = buildingIndicator.type;
+      final NodeSpec spec = buildingIndicator.spec;
 
-      if ((node == null) && state.resources.has(nodeType.cost)) {
+      if ((node == null) && state.resources.has(spec.cost)) {
         _build(
-          nodeType: nodeType,
           i: i,
           j: j,
+          spec: spec,
           mapElement: mapElement,
         );
       }
@@ -295,61 +295,61 @@ class GameComponent extends BaseGameComponent {
   }
 
   void _build({
-    required NodeType nodeType,
     required int i,
     required int j,
+    required NodeSpec spec,
     required MapElement? mapElement,
   }) {
-    if (nodeType.isMine) {
+    if (spec.type.isMine) {
       _buildMine(
-        type: nodeType,
         i: i,
         j: j,
+        spec: spec as MineSpec,
         mapElement: mapElement,
       );
-    } else if (nodeType.isTurret) {
+    } else if (spec.type.isTurret) {
       _buildTurret(
-        type: nodeType,
         i: i,
         j: j,
+        spec: spec as TurretSpec,
         mapElement: mapElement,
       );
     }
   }
 
   void _buildMine({
-    required NodeType type,
     required int i,
     required int j,
+    required MineSpec spec,
     required MapElement? mapElement,
   }) {
-    final ResourceType resourceType = type.mine!.resource;
+    final ResourceType resourceType = spec.resource;
 
     if ((mapElement is Patch) && (mapElement.resourceType == resourceType)) {
       addMine(
         i: i,
         j: j,
-        type: type.mine!,
+        spec: spec,
         shield: Constants.SHIELD_MAX,
       );
-      state.resources.remove(type.cost);
+      state.resources.remove(spec.cost);
     }
   }
 
   void _buildTurret({
-    required NodeType type,
     required int i,
     required int j,
+    required TurretSpec spec,
     required MapElement? mapElement,
   }) {
     if (mapElement == null) {
       addTurret(
         i: i,
         j: j,
-        type: type.turret!,
+        spec: spec,
         shield: Constants.SHIELD_MAX,
       );
-      state.resources.remove(type.cost);
+      state.resources.remove(spec.cost);
     }
   }
 }

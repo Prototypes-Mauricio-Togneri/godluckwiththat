@@ -4,10 +4,10 @@ import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/dialog/contextual/turret_menu.dart';
 import 'package:tensionnode/models/shooting.dart';
-import 'package:tensionnode/types/turret_type.dart';
+import 'package:tensionnode/spec/turret_spec.dart';
 
 class Turret extends FixedNode {
-  final TurretType type;
+  final TurretSpec spec;
   final Shooting shooting;
   Node? target;
 
@@ -15,11 +15,11 @@ class Turret extends FixedNode {
     required super.i,
     required super.j,
     required super.shield,
-    required this.type,
-  })  : shooting = Shooting(type.weapon.fireRate),
+    required this.spec,
+  })  : shooting = Shooting(spec.weapon.fireRate),
         super(
-          image: type.image,
-          armor: type.armor,
+          image: spec.type.image,
+          armor: spec.armor,
         );
 
   @override
@@ -31,11 +31,11 @@ class Turret extends FixedNode {
       target = null;
     }
 
-    target ??= game.closestNodeInRange<MovableNode>(this, type.weapon.range);
+    target ??= game.closestNodeInRange<MovableNode>(this, spec.weapon.range);
 
     if ((target != null) && shooting.canShoot(dt)) {
       shoot(
-        type: type.weapon,
+        type: spec.weapon,
         target: target!,
       );
     }
