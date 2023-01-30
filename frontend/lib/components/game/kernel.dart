@@ -1,6 +1,5 @@
 import 'package:flame/events.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
-import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class Kernel extends FixedNode {
@@ -9,7 +8,7 @@ class Kernel extends FixedNode {
     required super.j,
     required super.shield,
   }) : super(
-          image: Assets.IMAGES_KERNEL,
+          image: NodeType.kernel.image,
           armor: NodeType.kernel.armor,
         );
 
