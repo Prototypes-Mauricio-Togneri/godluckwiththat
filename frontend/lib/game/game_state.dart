@@ -24,6 +24,7 @@ class GameState extends BaseState {
   @override
   void onLoad() {
     FlameAudio.audioCache.load(Assets.AUDIO_SFX_BULLET);
+    FlameAudio.audioCache.load(Assets.AUDIO_SFX_LASER);
   }
 
   void load(JsonMatch jsonMatch) {
