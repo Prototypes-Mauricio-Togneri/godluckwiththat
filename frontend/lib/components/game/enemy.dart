@@ -83,7 +83,8 @@ class Enemy extends MovableNode {
   }
 
   void _moveForward(double dt) {
-    //_rotateTo(direction.vector);
+    final Vector2 aaa = position + direction.vector;
+    _rotateTo(aaa);
 
     switch (direction) {
       case Direction.up:

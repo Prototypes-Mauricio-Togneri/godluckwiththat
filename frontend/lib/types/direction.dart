@@ -13,9 +13,9 @@ enum Direction {
       case Direction.down:
         return Vector2(0, 1);
       case Direction.left:
-        return Vector2(0, -1);
+        return Vector2(-1, 0);
       case Direction.right:
-        return Vector2(0, 1);
+        return Vector2(1, 0);
     }
   }
 }
