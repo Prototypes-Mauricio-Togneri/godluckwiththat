@@ -1,7 +1,5 @@
 # Tension Node
 
-Make all sprites pointing north
-
 Mindustry
     https://mindustrygame.github.io/wiki/units/0-dagger/ 
     https://mindustry-unofficial.fandom.com/wiki/Mindustry_Unofficial_Wiki
