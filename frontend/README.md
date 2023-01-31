@@ -1,6 +1,5 @@
 # Tension Node
 
-Contextual menu aligned to bottom
 Make all sprites pointing north
 
 Mindustry

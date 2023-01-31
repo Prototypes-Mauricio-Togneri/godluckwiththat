@@ -10,9 +10,11 @@ class BaseContextualMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Align(
+      alignment: Alignment.bottomCenter,
       child: Container(
         padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.only(bottom: 100),
         decoration: BoxDecoration(
           color: Palette.grey,
           borderRadius: BorderRadius.circular(5),

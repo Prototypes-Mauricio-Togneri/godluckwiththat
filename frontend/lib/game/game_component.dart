@@ -14,6 +14,7 @@ import 'package:tensionnode/components/game/patch.dart';
 import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/dialog/contextual/build_menu.dart';
 import 'package:tensionnode/dialog/contextual/mine_menu.dart';
+import 'package:tensionnode/dialog/contextual/turret_menu.dart';
 import 'package:tensionnode/dialog/global/main_menu.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
@@ -195,6 +196,7 @@ class GameComponent extends BaseGameComponent {
 
   void _closeContextualMenus() {
     closeMenu(name: MineMenu.NAME);
+    closeMenu(name: TurretMenu.NAME);
     closeMenu(name: BuildMenu.NAME);
   }
 
