@@ -1,5 +1,8 @@
 # Tension Node
 
+Contextual menu aligned to bottom
+Rename image to sprite in spec
+
 Mindustry
     https://mindustrygame.github.io/wiki/units/0-dagger/ 
     https://mindustry-unofficial.fandom.com/wiki/Mindustry_Unofficial_Wiki
