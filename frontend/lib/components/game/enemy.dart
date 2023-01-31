@@ -28,13 +28,6 @@ class Enemy extends MovableNode {
         );
 
   @override
-  Future onLoad() {
-    nativeAngle = pi / 2;
-
-    return super.onLoad();
-  }
-
-  @override
   void update(double dt) {
     super.update(dt);
     shooting.update(dt);
@@ -63,7 +56,7 @@ class Enemy extends MovableNode {
   void _rotateTo(Vector2 targetPosition) {
     if (!_isRotating) {
       final Vector2 direction = position - targetPosition;
-      final double newAngle = direction.screenAngle() + (pi / 2);
+      final double newAngle = direction.screenAngle() + pi;
       final double angleDiff = (angle - newAngle).abs();
 
       if (angleDiff > 0.01) {

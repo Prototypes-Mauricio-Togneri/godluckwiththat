@@ -12,8 +12,8 @@ class BulletSpec {
   static BulletSpec type1 = const BulletSpec(
     image: Assets.IMAGES_LASER,
     damage: 50,
-    width: 6,
-    height: 2,
+    width: 2,
+    height: 6,
     speed: 100,
     range: 100,
     piercing: 1,
