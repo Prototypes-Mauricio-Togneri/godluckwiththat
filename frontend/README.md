@@ -2,6 +2,7 @@
 
 Contextual menu aligned to bottom
 Rename image to sprite in spec
+Make all sprites pointing north
 
 Mindustry
     https://mindustrygame.github.io/wiki/units/0-dagger/ 
