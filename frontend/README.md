@@ -13,8 +13,8 @@ Click on a turret and show:
 * Kills
 
 Enable/disable bug view:
-* shield value
-* range circle
+* Shield value
+* Range circle
 
 Enemies shadow
 Show amount of enemies currently spawned in the map
