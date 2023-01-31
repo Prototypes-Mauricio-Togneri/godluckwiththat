@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';

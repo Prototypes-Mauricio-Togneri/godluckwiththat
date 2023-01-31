@@ -50,6 +50,7 @@ class Node extends SpriteComponent
     FlameAudio.play(spec.sound);
 
     game.addBullet(
+      shooter: this,
       spec: spec.bullet,
       startPosition: startPosition,
       direction: direction,
@@ -63,7 +64,7 @@ class Node extends SpriteComponent
   ) {
     super.onCollisionStart(intersectionPoints, other);
 
-    if (other is Bullet) {
+    if ((other is Bullet) && (other.shooter != this)) {
       _hit(other);
     }
   }

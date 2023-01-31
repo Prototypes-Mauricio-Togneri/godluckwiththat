@@ -1,16 +1,19 @@
 import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/spec/bullet_spec.dart';
 
 class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
+  final Node shooter;
   final BulletSpec spec;
   final Vector2 startPosition;
   final Vector2 direction;
 
   Bullet({
+    required this.shooter,
     required this.spec,
     required this.startPosition,
     required this.direction,
