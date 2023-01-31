@@ -15,7 +15,7 @@ class Mine extends FixedNode {
     required this.spec,
     required super.shield,
   }) : super(
-          image: spec.type.image,
+          image: spec.type.sprite,
           armor: spec.armor,
         );
 

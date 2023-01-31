@@ -18,7 +18,7 @@ class Turret extends FixedNode {
     required this.spec,
   })  : shooting = Shooting(spec.weapon.fireRate),
         super(
-          image: spec.type.image,
+          image: spec.type.sprite,
           armor: spec.armor,
         );
 

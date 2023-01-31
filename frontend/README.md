@@ -1,7 +1,6 @@
 # Tension Node
 
 Contextual menu aligned to bottom
-Rename image to sprite in spec
 Make all sprites pointing north
 
 Mindustry
