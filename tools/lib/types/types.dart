@@ -1,1 +1,1 @@
-typedef Vertex = List<num>;
+typedef JsonPosition = List<num>;

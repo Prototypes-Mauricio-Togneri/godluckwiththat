@@ -2,9 +2,9 @@
   "version": 1,
   "id": "match1",
   "resources": {
-    "red": 10,
-    "green": 20,
-    "blue": 30
+    "red": 300,
+    "green": 200,
+    "blue": 100
   },
   "patches": [
     {
