@@ -183,11 +183,14 @@ class GameComponent extends BaseGameComponent {
   }
 
   void _spawnEnemy() {
+    final Direction direction = Direction.random();
+    final Vector2 position = direction.randomStartPoint;
+
     addEnemy(
-      i: -15,
-      j: 6,
+      i: position.x.toInt(),
+      j: position.y.toInt(),
       spec: EnemySpec.enemy,
-      direction: Direction.right,
+      direction: direction,
       shield: Constants.SHIELD_MAX,
     );
   }
@@ -378,6 +381,17 @@ class GameComponent extends BaseGameComponent {
         shield: Constants.SHIELD_MAX,
       );
       state.resources.remove(spec.cost);
+    }
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    final bool spawnEnemy = state.update(dt);
+
+    if (spawnEnemy) {
+      _spawnEnemy();
     }
   }
 }

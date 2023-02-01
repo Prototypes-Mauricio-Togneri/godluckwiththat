@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame_audio/flame_audio.dart';
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_match.dart';
@@ -12,6 +13,8 @@ class GameState extends BaseState {
   String id = '';
   Resources resources = Resources();
   int heat = 0;
+  double timeElapsed = 0;
+  double timeSpawn = 0;
 
   Node? _selectedNode;
   bool _buildMode = false;
@@ -44,6 +47,20 @@ class GameState extends BaseState {
   void selectNode(Node node) => _selectedNode = node;
 
   void unselectNode(Node node) => _selectedNode = null;
+
+  bool update(double dt) {
+    bool spawnEnemy = false;
+
+    timeElapsed += dt;
+    timeSpawn += dt;
+
+    if (timeSpawn > Constants.TIME_SPAWN) {
+      timeSpawn -= Constants.TIME_SPAWN;
+      spawnEnemy = true;
+    }
+
+    return spawnEnemy;
+  }
 
   void addHeat(FixedNode node) {
     heat += node.heat;

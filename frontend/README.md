@@ -1,5 +1,6 @@
 # Tension Node
 
+- Press "k" to center in kernel
 - Create script to create map from Inkscape
 - Spawn enemies depending on heat
 - Save and load matches
