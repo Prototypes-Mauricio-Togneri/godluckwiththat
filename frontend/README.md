@@ -19,4 +19,4 @@ Click on Kernel or warehouse shows the amount of resources in them
 Enemies shadow
 Show amount of enemies currently spawned in the map
 Show shield by color when node is attacked
-Hovering a turret shows its range
+Selecting a turret shows its range
