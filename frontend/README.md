@@ -1,7 +1,6 @@
 # Tension Node
 
 - Create script to create map from Inkscape
-- Spawn enemies depending on heat
 - Save and load matches
 
 Mindustry
