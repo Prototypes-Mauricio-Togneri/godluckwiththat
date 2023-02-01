@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:tension_node_tools/extensions/xml_element_extension.dart';
 import 'package:tension_node_tools/generators/base_generator.dart';
 import 'package:tension_node_tools/json/json_match.dart';
 import 'package:tension_node_tools/json/json_resources.dart';
@@ -11,8 +12,6 @@ class MatchGenerator extends BaseGenerator {
     final List<FileSystemEntity> entries = getFiles();
 
     for (final FileSystemEntity entry in entries) {
-      //final String fileName = entry.uri.pathSegments.last.split('.')[0];
-
       final XmlDocument xml = document(entry);
       final JsonMatch level = getMatch(xml);
       write(entry, level);
@@ -20,8 +19,10 @@ class MatchGenerator extends BaseGenerator {
   }
 
   JsonMatch getMatch(XmlDocument document) {
-    //final String resourcesRed = document.getAttribute('resourcesRed')!;
-    //print(resourcesRed);
+    final XmlElement svg = document.getElement('svg')!;
+    final num resourcesRed = svg.getNumAttribute('resourcesRed');
+    final num resourcesGreen = svg.getNumAttribute('resourcesGreen');
+    final num resourcesBlue = svg.getNumAttribute('resourcesBlue');
 
     /*final List<JsonGameObject> enemies = [];
     final List<JsonGameObject> portal = [];
@@ -52,10 +53,14 @@ class MatchGenerator extends BaseGenerator {
       }
     }*/
 
-    return const JsonMatch(
+    return JsonMatch(
       version: 13,
       id: 'foo',
-      resources: JsonResources(red: 10, green: 20, blue: 30),
+      resources: JsonResources(
+        red: resourcesRed,
+        green: resourcesGreen,
+        blue: resourcesBlue,
+      ),
       patches: [],
       nodes: [],
     );

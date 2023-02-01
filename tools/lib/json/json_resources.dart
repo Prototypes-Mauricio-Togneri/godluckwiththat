@@ -6,13 +6,13 @@ part 'json_resources.g.dart';
 @JsonSerializable(includeIfNull: false)
 class JsonResources {
   @JsonKey(name: 'red')
-  final int red;
+  final num red;
 
   @JsonKey(name: 'green')
-  final int green;
+  final num green;
 
   @JsonKey(name: 'blue')
-  final int blue;
+  final num blue;
 
   const JsonResources({
     required this.red,

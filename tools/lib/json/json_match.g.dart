@@ -7,7 +7,7 @@ part of 'json_match.dart';
 // **************************************************************************
 
 JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
-      version: json['version'] as int,
+      version: json['version'] as num,
       id: json['id'] as String,
       resources: JsonResources.fromJson(json['resources'] as Map<String, dynamic>),
       patches: (json['patches'] as List<dynamic>).map((e) => JsonPatch.fromJson(e as Map<String, dynamic>)).toList(),
