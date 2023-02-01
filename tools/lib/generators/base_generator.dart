@@ -1,26 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:tension_node_tools/extensions/num_extension.dart';
-import 'package:tension_node_tools/extensions/string_extension.dart';
-import 'package:tension_node_tools/extensions/xml_element_extension.dart';
-import 'package:tension_node_tools/json/json_behavior.dart';
-import 'package:tension_node_tools/json/json_body.dart';
-import 'package:tension_node_tools/json/json_display.dart';
-import 'package:tension_node_tools/json/json_game_object.dart';
-import 'package:tension_node_tools/json/json_game_text.dart';
-import 'package:tension_node_tools/json/json_icon.dart';
-import 'package:tension_node_tools/json/json_layer.dart';
-import 'package:tension_node_tools/json/json_layer_circle.dart';
-import 'package:tension_node_tools/json/json_layer_polygon.dart';
-import 'package:tension_node_tools/json/json_model.dart';
-import 'package:tension_node_tools/json/json_stars.dart';
-import 'package:tension_node_tools/json/json_style.dart';
-import 'package:tension_node_tools/types/behavior_type.dart';
-import 'package:tension_node_tools/types/body_type.dart';
-import 'package:tension_node_tools/types/intermittent_state.dart';
-import 'package:tension_node_tools/types/model_type.dart';
-import 'package:tension_node_tools/types/power_up_type.dart';
-import 'package:tension_node_tools/types/types.dart';
 import 'package:xml/xml.dart';
 
 class BaseGenerator {
@@ -43,7 +22,6 @@ class BaseGenerator {
     final String json = encoder.convert(object);
 
     writeJson(entry, json);
-    writeDart(entry, json);
   }
 
   void writeJson(FileSystemEntity entry, String json) {
@@ -52,37 +30,7 @@ class BaseGenerator {
     output.writeAsStringSync(json);
   }
 
-  void writeDart(FileSystemEntity entry, String json) {
-    final String fileName = entry.uri.pathSegments.last.split('.')[0];
-    final String className = 'Models${folder.capitalize}${fileName.capitalize}';
-
-    final String content = '''
-class $className {
-  static const String JSON = \'\'\'
-$json
-\'\'\';
-}
-''';
-
-    final File outputDart = File('../frontend/lib/assets/$folder/$fileName.dart');
-    outputDart.writeAsStringSync(content);
-  }
-
-  List<JsonStars> getStars(XmlElement xml) => [getStar(xml)];
-
-  JsonStars getStar(XmlElement element) {
-    final int star1 = element.getNumAttribute('star1').toInt();
-    final int star2 = element.getNumAttribute('star2').toInt();
-    final int star3 = element.getNumAttribute('star3').toInt();
-
-    return JsonStars(
-      star1: star1,
-      star2: star2,
-      star3: star3,
-    );
-  }
-
-  List<JsonGameObject> getGameObjects(XmlElement xml) {
+  /*List<JsonGameObject> getGameObjects(XmlElement xml) {
     final List<JsonGameObject> result = [];
 
     for (final XmlElement element in xml.childElements) {
@@ -204,10 +152,10 @@ $json
   }
 
   JsonBehavior getBehavior(XmlElement element, num x, num y) {
-    final BehaviorType type = element.getEnumAttribute(
+    final NodeType type = element.getEnumAttribute(
       'type',
-      BehaviorType.values,
-      BehaviorType.rotating,
+      NodeType.values,
+      NodeType.rotating,
     );
 
     num? trigger;
@@ -554,5 +502,5 @@ $json
         open: open,
       ),
     );
-  }
+  }*/
 }

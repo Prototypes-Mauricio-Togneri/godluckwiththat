@@ -79,7 +79,7 @@ class MainMenu extends StatelessWidget {
     /*final JsonMatch jsonMatch = JsonMatch(
       version: match.version,
       id: match.id,
-      map: map.json,
+      map: match1.json,
       resources: kernel.jsonResources,
       patches: patches.json,
       nodes: nodes.json,

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+     width="0.001mm"
+     height="0.001mm"
+     viewBox="0 0 0.001 0.001"
+     version="1.1"
+     id="svg5"
+     inkscape:version="1.2.2 (732a01da63, 2022-12-09, custom)"
+     sodipodi:docname="map1.svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:svg="http://www.w3.org/2000/svg">
+    <sodipodi:namedview
+         id="namedview7"
+         pagecolor="#ffffff"
+         bordercolor="#666666"
+         borderopacity="1.0"
+         inkscape:showpageshadow="false"
+         inkscape:pageopacity="0"
+         inkscape:pagecheckerboard="0"
+         inkscape:deskcolor="#191919"
+         inkscape:document-units="mm"
+         showgrid="true"
+         showborder="false"
+         inkscape:zoom="26.911"
+         inkscape:cx="-1.8208"
+         inkscape:cy="0.39018"
+         inkscape:window-width="1920"
+         inkscape:window-height="1016"
+         inkscape:window-x="0"
+         inkscape:window-y="0"
+         inkscape:window-maximized="1"
+         inkscape:current-layer="layer1"
+         borderlayer="false">
+        <inkscape:grid
+             type="xygrid"
+             id="grid132"
+             empspacing="1"
+             spacingx="1"
+             spacingy="1"
+             originx="0"
+             originy="0"
+             units="mm"
+             color="#888888"
+             opacity="0.50196"
+             empcolor="#323232"
+             empopacity="0.50196" />
+    </sodipodi:namedview>
+    <defs
+         id="defs2" />
+    <g
+         inkscape:label="Layer 1"
+         inkscape:groupmode="layer"
+         id="layer1">
+        <rect
+             style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.195125;stroke-linecap:round;paint-order:stroke markers fill"
+             id="rect236"
+             width="1"
+             height="1"
+             x="-2"
+             y="-2" />
+        <rect
+             style="fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:0.195125;stroke-linecap:round;paint-order:stroke markers fill"
+             id="rect236-3"
+             width="1"
+             height="1"
+             x="1"
+             y="-2" />
+        <rect
+             style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.195125;stroke-linecap:round;paint-order:stroke markers fill"
+             id="rect236-6"
+             width="1"
+             height="1"
+             x="-2"
+             y="1" />
+        <rect
+             style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.195125;stroke-linecap:round;paint-order:stroke markers fill"
+             id="rect236-7"
+             width="1"
+             height="1"
+             x="1"
+             y="1" />
+    </g>
+</svg>

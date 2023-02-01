@@ -1,13 +1,9 @@
 import 'dart:io';
 import 'package:tension_node_tools/generators/base_generator.dart';
-import 'package:tension_node_tools/json/json_game_object.dart';
-import 'package:tension_node_tools/json/json_game_text.dart';
-import 'package:tension_node_tools/json/json_level.dart';
-import 'package:tension_node_tools/json/json_stars.dart';
 import 'package:xml/xml.dart';
 
-class LevelGenerator extends BaseGenerator {
-  const LevelGenerator() : super('levels');
+class MapGenerator extends BaseGenerator {
+  const MapGenerator() : super('maps');
 
   void run() {
     final List<FileSystemEntity> entries = getFiles();
@@ -19,7 +15,7 @@ class LevelGenerator extends BaseGenerator {
       ids.add(id);
 
       final XmlDocument xml = document(entry);
-      final JsonLevel level = getLevel(xml, id);
+      final JsonMap level = getLevel(xml, id);
       write(entry, level);
     }
 
@@ -27,7 +23,7 @@ class LevelGenerator extends BaseGenerator {
     _generateMapper(ids);
   }
 
-  JsonLevel getLevel(XmlDocument document, int id) {
+  JsonMap getLevel(XmlDocument document, int id) {
     final List<JsonGameObject> enemies = [];
     final List<JsonGameObject> portal = [];
     final List<JsonGameObject> spikes = [];
@@ -57,7 +53,7 @@ class LevelGenerator extends BaseGenerator {
       }
     }
 
-    return JsonLevel(
+    return JsonMap(
       id: id,
       portal: portal[0],
       spikes: spikes[0],
@@ -74,7 +70,8 @@ class LevelGenerator extends BaseGenerator {
     String mapperContent = '';
 
     for (final int id in ids) {
-      imports.add("import 'package:tension_tunnel/assets/levels/level_$id.dart';");
+      imports
+          .add("import 'package:tension_tunnel/assets/levels/level_$id.dart';");
 
       if (mapperContent.isEmpty) {
         mapperContent += '''
@@ -106,7 +103,8 @@ class LevelMapper {
 }
 ''';
 
-    final File outputDart = File('../frontend/lib/assets/$folder/level_mapper.dart');
+    final File outputDart =
+        File('../frontend/lib/assets/$folder/level_mapper.dart');
     outputDart.writeAsStringSync(content);
   }
 }

@@ -42,7 +42,7 @@ class GameComponent extends BaseGameComponent {
 
   @override
   Future onLoad() async {
-    final JsonMatch jsonMatch = await Loader.match(Assets.MAPS_MAP1);
+    final JsonMatch jsonMatch = await Loader.match(Assets.MATCHES_MATCH1);
     state.load(jsonMatch);
 
     add(Background(camera));

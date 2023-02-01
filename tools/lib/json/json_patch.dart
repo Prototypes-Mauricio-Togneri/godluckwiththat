@@ -1,0 +1,26 @@
+import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:tension_node_tools/extensions/json_position_extension.dart';
+import 'package:tension_node_tools/types/resource_type.dart';
+
+part 'json_patch.g.dart';
+
+@JsonSerializable(includeIfNull: false)
+class JsonPatch {
+  @JsonKey(name: 'resource')
+  final ResourceType resource;
+
+  @JsonKey(name: 'position')
+  final JsonPosition position;
+
+  const JsonPatch({
+    required this.resource,
+    required this.position,
+  });
+
+  factory JsonPatch.fromString(String json) => JsonPatch.fromJson(jsonDecode(json));
+
+  factory JsonPatch.fromJson(Map<String, dynamic> json) => _$JsonPatchFromJson(json);
+
+  Map<String, dynamic> toJson() => _$JsonPatchToJson(this);
+}
