@@ -165,6 +165,9 @@ class BaseGameComponent extends FlameGame
     } else if (keysPressed.isSpace && isKeyDown) {
       onKeyPressed(LogicalKeyboardKey.space);
       return KeyEventResult.handled;
+    } else if (keysPressed.isK && isKeyDown) {
+      camera.moveTo(Vector2(0, 0));
+      return KeyEventResult.handled;
     } else {
       return KeyEventResult.ignored;
     }
@@ -218,6 +221,8 @@ extension TestExtension on Set<LogicalKeyboardKey> {
   bool get isEscape => _isKey(LogicalKeyboardKey.escape);
 
   bool get isSpace => _isKey(LogicalKeyboardKey.space);
+
+  bool get isK => _isKey(LogicalKeyboardKey.keyK);
 
   bool get isUp =>
       _isKey(LogicalKeyboardKey.keyW) || _isKey(LogicalKeyboardKey.arrowUp);
