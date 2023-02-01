@@ -56,7 +56,7 @@ class GameState extends BaseState {
 
     if (timeSpawn > Constants.TIME_SPAWN) {
       timeSpawn -= Constants.TIME_SPAWN;
-      spawnEnemy = true;
+      spawnEnemy = false;
     }
 
     return spawnEnemy;

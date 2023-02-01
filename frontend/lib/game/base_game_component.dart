@@ -155,20 +155,14 @@ class BaseGameComponent extends FlameGame
     Set<LogicalKeyboardKey> keysPressed,
   ) {
     final bool isKeyDown = event is RawKeyDownEvent;
-    final bool isEscape = keysPressed.contains(LogicalKeyboardKey.escape);
-    final bool isSpace = keysPressed.contains(LogicalKeyboardKey.space);
-    final bool isUp = keysPressed.contains(LogicalKeyboardKey.keyW);
-    final bool isDown = keysPressed.contains(LogicalKeyboardKey.keyS);
-    final bool isLeft = keysPressed.contains(LogicalKeyboardKey.keyA);
-    final bool isRight = keysPressed.contains(LogicalKeyboardKey.keyD);
 
-    if (isUp || isDown || isLeft || isRight) {
+    if (keysPressed.isDirectional) {
       camera.translateBy(-_mapMovement(keysPressed));
       return KeyEventResult.handled;
-    } else if (isEscape && isKeyDown) {
+    } else if (keysPressed.isEscape && isKeyDown) {
       onKeyPressed(LogicalKeyboardKey.escape);
       return KeyEventResult.handled;
-    } else if (isSpace && isKeyDown) {
+    } else if (keysPressed.isSpace && isKeyDown) {
       onKeyPressed(LogicalKeyboardKey.space);
       return KeyEventResult.handled;
     } else {
@@ -177,17 +171,13 @@ class BaseGameComponent extends FlameGame
   }
 
   Vector2 _mapMovement(Set<LogicalKeyboardKey> keysPressed) {
-    final bool isUp = keysPressed.contains(LogicalKeyboardKey.keyW);
-    final bool isDown = keysPressed.contains(LogicalKeyboardKey.keyS);
-    final bool isLeft = keysPressed.contains(LogicalKeyboardKey.keyA);
-    final bool isRight = keysPressed.contains(LogicalKeyboardKey.keyD);
-
-    final double x = isLeft
+    final double x = keysPressed.isLeft
         ? Constants.MAP_MOVEMENT
-        : (isRight ? -Constants.MAP_MOVEMENT : 0);
+        : (keysPressed.isRight ? -Constants.MAP_MOVEMENT : 0);
 
-    final double y =
-        isUp ? Constants.MAP_MOVEMENT : (isDown ? -Constants.MAP_MOVEMENT : 0);
+    final double y = keysPressed.isUp
+        ? Constants.MAP_MOVEMENT
+        : (keysPressed.isDown ? -Constants.MAP_MOVEMENT : 0);
 
     return Vector2(x, y);
   }
@@ -220,4 +210,26 @@ class BaseGameComponent extends FlameGame
       (pointSnapped.y ~/ Constants.NODE_SIZE).toDouble(),
     );
   }
+}
+
+extension TestExtension on Set<LogicalKeyboardKey> {
+  bool _isKey(LogicalKeyboardKey key) => contains(key);
+
+  bool get isEscape => _isKey(LogicalKeyboardKey.escape);
+
+  bool get isSpace => _isKey(LogicalKeyboardKey.space);
+
+  bool get isUp =>
+      _isKey(LogicalKeyboardKey.keyW) || _isKey(LogicalKeyboardKey.arrowUp);
+
+  bool get isDown =>
+      _isKey(LogicalKeyboardKey.keyS) || _isKey(LogicalKeyboardKey.arrowDown);
+
+  bool get isLeft =>
+      _isKey(LogicalKeyboardKey.keyA) || _isKey(LogicalKeyboardKey.arrowLeft);
+
+  bool get isRight =>
+      _isKey(LogicalKeyboardKey.keyD) || _isKey(LogicalKeyboardKey.arrowRight);
+
+  bool get isDirectional => isUp || isDown || isLeft || isRight;
 }
