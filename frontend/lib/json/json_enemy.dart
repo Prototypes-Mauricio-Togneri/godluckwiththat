@@ -15,7 +15,7 @@ class JsonEnemy {
   final JsonPosition position;
 
   @JsonKey(name: 'shield')
-  final double shield;
+  final num shield;
 
   @JsonKey(name: 'direction')
   final Direction direction;

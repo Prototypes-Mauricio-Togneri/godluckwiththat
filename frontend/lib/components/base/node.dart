@@ -11,15 +11,15 @@ import 'package:tensionnode/spec/weapon_spec.dart';
 class Node extends SpriteComponent
     with HasGameRef<GameComponent>, CollisionCallbacks {
   final String image;
-  final double armor;
-  double _shield = Constants.SHIELD_MAX;
+  final num armor;
+  num _shield = Constants.SHIELD_MAX;
   final DebugText debugText = DebugText();
 
   Node({
     required super.position,
     required this.image,
     required this.armor,
-    required double shield,
+    required num shield,
   }) {
     _shield = shield;
   }

@@ -9,8 +9,8 @@ part of 'json_enemy.dart';
 JsonEnemy _$JsonEnemyFromJson(Map<String, dynamic> json) => JsonEnemy(
       type: $enumDecode(_$NodeTypeEnumMap, json['type']),
       position:
-          (json['position'] as List<dynamic>).map((e) => e as int).toList(),
-      shield: (json['shield'] as num).toDouble(),
+          (json['position'] as List<dynamic>).map((e) => e as num).toList(),
+      shield: json['shield'] as num,
       direction: $enumDecode(_$DirectionEnumMap, json['direction']),
     );
 

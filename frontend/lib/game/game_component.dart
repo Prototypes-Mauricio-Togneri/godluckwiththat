@@ -96,7 +96,7 @@ class GameComponent extends BaseGameComponent {
     required num i,
     required num j,
     required MineSpec spec,
-    required double shield,
+    required num shield,
   }) {
     addNode(Mine(
       i: i,
@@ -110,7 +110,7 @@ class GameComponent extends BaseGameComponent {
     required num i,
     required num j,
     required TurretSpec spec,
-    required double shield,
+    required num shield,
   }) {
     addNode(Turret(
       i: i,
@@ -125,7 +125,7 @@ class GameComponent extends BaseGameComponent {
     required num j,
     required EnemySpec spec,
     required Direction direction,
-    required double shield,
+    required num shield,
   }) {
     addNode(Enemy(
       spec: spec,

@@ -1,9 +1,9 @@
 import 'package:tensionnode/types/resource_type.dart';
 
 class Resources {
-  int red = 0;
-  int green = 0;
-  int blue = 0;
+  num red = 0;
+  num green = 0;
+  num blue = 0;
 
   Resources({
     this.red = 0,

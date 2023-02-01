@@ -9,12 +9,12 @@ import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
-  int version = 0;
+  num version = 0;
   String id = '';
   Resources resources = Resources();
-  int heat = 0;
-  double timeElapsed = 0;
-  double timeSpawn = 0;
+  num heat = 0;
+  num timeElapsed = 0;
+  num timeSpawn = 0;
 
   Node? _selectedNode;
   bool _buildMode = false;

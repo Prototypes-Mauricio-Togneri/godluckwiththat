@@ -212,6 +212,7 @@
         {
             "type": "enemy",
             "shield": 100,
+            "direction": "right",
             "position": [
                 -15,
                 6

@@ -6,7 +6,7 @@ import 'package:tensionnode/models/position.dart';
 class FixedNode extends Node with Tappable {
   final num i;
   final num j;
-  final int heat;
+  final num heat;
 
   FixedNode({
     required this.i,

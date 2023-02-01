@@ -14,7 +14,7 @@ class JsonNode {
   final JsonPosition position;
 
   @JsonKey(name: 'shield')
-  final double shield;
+  final num shield;
 
   const JsonNode({
     required this.type,

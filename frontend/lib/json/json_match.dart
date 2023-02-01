@@ -10,7 +10,7 @@ part 'json_match.g.dart';
 @JsonSerializable(includeIfNull: false)
 class JsonMatch {
   @JsonKey(name: 'version')
-  final int version;
+  final num version;
 
   @JsonKey(name: 'id')
   final String id;
