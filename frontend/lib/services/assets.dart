@@ -14,5 +14,6 @@ class Assets {
   static const String IMAGES_HUD = 'hud.png';
   static const String IMAGES_TURRET_LIGHT = 'turret_light.png';
   static const String IMAGES_KERNEL = 'kernel.png';
+  static const String IMAGES_SELECTED = 'selected.png';
   static const String MAPS_MAP1 = 'assets/maps/map1.json';
 }

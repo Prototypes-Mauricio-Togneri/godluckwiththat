@@ -1,6 +1,5 @@
 # Tension Node
 
-- Add selected node component
 - Create script to create map from Inkscape
 - Spawn enemies depending on heat
 - Save and load matches

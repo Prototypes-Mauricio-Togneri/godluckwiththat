@@ -43,6 +43,8 @@ class GameState extends BaseState {
 
   void selectNode(Node node) => _selectedNode = node;
 
+  void unselectNode(Node node) => _selectedNode = null;
+
   void addHeat(FixedNode node) {
     heat += node.heat;
   }

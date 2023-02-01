@@ -6,6 +6,7 @@ import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/map_element.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/base/node_selected.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
 import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/components/game/enemy.dart';
@@ -213,6 +214,7 @@ class GameComponent extends BaseGameComponent {
     closeMenu(name: MineMenu.NAME);
     closeMenu(name: TurretMenu.NAME);
     closeMenu(name: BuildMenu.NAME);
+    removeComponents(NodeSelected);
   }
 
   void openMainMenu() => openMenu(
@@ -229,6 +231,11 @@ class GameComponent extends BaseGameComponent {
   }) {
     if (node != null) {
       state.selectNode(node);
+
+      if (node is FixedNode) {
+        removeComponents(NodeSelected);
+        add(NodeSelected(node: node));
+      }
     }
 
     if (!overlays.isActive(name)) {
@@ -242,9 +249,14 @@ class GameComponent extends BaseGameComponent {
   void closeMenu({
     required String name,
     bool resumeGame = false,
+    bool unselectNode = false,
   }) {
     if (overlays.isActive(name)) {
       overlays.remove(name);
+
+      if (unselectNode) {
+        removeComponents(NodeSelected);
+      }
 
       if (resumeGame) {
         resumeEngine();

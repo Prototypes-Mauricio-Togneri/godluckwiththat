@@ -62,5 +62,8 @@ class TurretMenu extends StatelessWidget {
     _closeMenu();
   }
 
-  void _closeMenu() => game.closeMenu(name: TurretMenu.NAME);
+  void _closeMenu() => game.closeMenu(
+        name: TurretMenu.NAME,
+        unselectNode: true,
+      );
 }
