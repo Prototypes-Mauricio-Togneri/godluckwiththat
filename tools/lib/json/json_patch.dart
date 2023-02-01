@@ -18,9 +18,11 @@ class JsonPatch {
     required this.position,
   });
 
-  factory JsonPatch.fromString(String json) => JsonPatch.fromJson(jsonDecode(json));
+  factory JsonPatch.fromString(String json) =>
+      JsonPatch.fromJson(jsonDecode(json));
 
-  factory JsonPatch.fromJson(Map<String, dynamic> json) => _$JsonPatchFromJson(json);
+  factory JsonPatch.fromJson(Map<String, dynamic> json) =>
+      _$JsonPatchFromJson(json);
 
   Map<String, dynamic> toJson() => _$JsonPatchToJson(this);
 }

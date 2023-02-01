@@ -20,9 +20,11 @@ class JsonResources {
     required this.blue,
   });
 
-  factory JsonResources.fromString(String json) => JsonResources.fromJson(jsonDecode(json));
+  factory JsonResources.fromString(String json) =>
+      JsonResources.fromJson(jsonDecode(json));
 
-  factory JsonResources.fromJson(Map<String, dynamic> json) => _$JsonResourcesFromJson(json);
+  factory JsonResources.fromJson(Map<String, dynamic> json) =>
+      _$JsonResourcesFromJson(json);
 
   Map<String, dynamic> toJson() => _$JsonResourcesToJson(this);
 }

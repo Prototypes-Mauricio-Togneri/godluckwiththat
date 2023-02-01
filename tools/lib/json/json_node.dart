@@ -22,9 +22,11 @@ class JsonNode {
     required this.shield,
   });
 
-  factory JsonNode.fromString(String json) => JsonNode.fromJson(jsonDecode(json));
+  factory JsonNode.fromString(String json) =>
+      JsonNode.fromJson(jsonDecode(json));
 
-  factory JsonNode.fromJson(Map<String, dynamic> json) => _$JsonNodeFromJson(json);
+  factory JsonNode.fromJson(Map<String, dynamic> json) =>
+      _$JsonNodeFromJson(json);
 
   Map<String, dynamic> toJson() => _$JsonNodeToJson(this);
 }
