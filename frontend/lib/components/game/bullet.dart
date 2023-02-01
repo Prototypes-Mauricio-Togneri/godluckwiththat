@@ -42,7 +42,7 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   void _moveForward(double dt) {
     position += direction * spec.speed * dt;
 
-    final double distanceFromOrigin = position.distanceTo(startPosition);
+    final num distanceFromOrigin = position.distanceTo(startPosition);
 
     if (distanceFromOrigin >= spec.range) {
       game.remove(this);

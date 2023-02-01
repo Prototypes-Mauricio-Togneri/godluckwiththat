@@ -6,8 +6,8 @@ class Constants {
   static const double NODE_SIZE = 16;
   static const double SELECTED_SIZE = 20;
 
-  static const double SHIELD_MIN = 0;
-  static const double SHIELD_MAX = 100;
+  static const num SHIELD_MIN = 0;
+  static const num SHIELD_MAX = 100;
 
-  static const double TIME_SPAWN = 5; // in seconds
+  static const num TIME_SPAWN = 5; // in seconds
 }

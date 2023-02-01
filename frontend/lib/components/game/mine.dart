@@ -5,7 +5,7 @@ import 'package:tensionnode/spec/mine_spec.dart';
 
 class Mine extends FixedNode {
   final MineSpec spec;
-  double _accumulatedTime = 0;
+  num _accumulatedTime = 0;
 
   static const int RESOURCE_RED_COST = 100;
 
