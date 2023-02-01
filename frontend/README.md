@@ -2,12 +2,8 @@
 
 - Add selected node component
 - Create script to create map from Inkscape
-- Calculate current heat
 - Spawn enemies depending on heat
 - Save and load matches
-
-
-
 
 Mindustry
     https://mindustrygame.github.io/wiki/units/0-dagger/ 
