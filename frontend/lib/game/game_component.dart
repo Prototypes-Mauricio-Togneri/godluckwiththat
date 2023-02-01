@@ -63,17 +63,19 @@ class GameComponent extends BaseGameComponent {
       ));
     }
 
+    for (final JsonNode node in jsonMatch.mines) {
+      addMine(
+        i: node.position.x,
+        j: node.position.y,
+        spec: node.type.spec as MineSpec,
+        shield: node.shield,
+      );
+    }
+
     for (final JsonNode node in jsonMatch.nodes) {
       final NodeSpec spec = node.type.spec;
 
-      if (spec is MineSpec) {
-        addMine(
-          i: node.position.x,
-          j: node.position.y,
-          spec: spec,
-          shield: node.shield,
-        );
-      } else if (spec is TurretSpec) {
+      if (spec is TurretSpec) {
         addTurret(
           i: node.position.x,
           j: node.position.y,

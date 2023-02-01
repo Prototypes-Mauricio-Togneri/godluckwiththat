@@ -20,6 +20,9 @@ class JsonMatch {
   @JsonKey(name: 'patches')
   final List<JsonPatch> patches;
 
+  @JsonKey(name: 'mines')
+  final List<JsonNode> mines;
+
   @JsonKey(name: 'nodes')
   final List<JsonNode> nodes;
 
@@ -28,6 +31,7 @@ class JsonMatch {
     required this.id,
     required this.resources,
     required this.patches,
+    required this.mines,
     required this.nodes,
   });
 
