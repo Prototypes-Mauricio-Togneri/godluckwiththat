@@ -79,7 +79,7 @@ class GameComponent extends BaseGameComponent {
           shield: node.shield,
         );
       } else if (node.type.isKernel) {
-        add(Kernel(
+        addNode(Kernel(
           i: node.position.x,
           j: node.position.y,
           shield: node.shield,
@@ -96,7 +96,7 @@ class GameComponent extends BaseGameComponent {
     required MineSpec spec,
     required double shield,
   }) {
-    add(Mine(
+    addNode(Mine(
       i: i,
       j: j,
       spec: spec,
@@ -110,7 +110,7 @@ class GameComponent extends BaseGameComponent {
     required TurretSpec spec,
     required double shield,
   }) {
-    add(Turret(
+    addNode(Turret(
       i: i,
       j: j,
       spec: spec,
@@ -125,7 +125,7 @@ class GameComponent extends BaseGameComponent {
     required Direction direction,
     required double shield,
   }) {
-    add(Enemy(
+    addNode(Enemy(
       spec: spec,
       direction: direction,
       position: Position.fromGrid(i, j),
@@ -139,12 +139,16 @@ class GameComponent extends BaseGameComponent {
     required Vector2 startPosition,
     required Vector2 direction,
   }) {
-    add(Bullet(
+    addNode(Bullet(
       shooter: shooter,
       spec: spec,
       startPosition: startPosition,
       direction: direction,
     ));
+  }
+
+  void addNode(Component node) {
+    add(node);
   }
 
   void removeNode(Node node) {
@@ -181,7 +185,7 @@ class GameComponent extends BaseGameComponent {
   /*void _createTestObjects() {
     for (int i = -15; i < 15; i++) {
       for (int j = -15; j < 15; j++) {
-        add(Enemy(
+        addNode(Enemy(
           i: i,
           j: j,
           direction: Direction.right,
