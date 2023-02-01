@@ -1,0 +1,11 @@
+{
+  "version": 13,
+  "id": "foo",
+  "resources": {
+    "red": 10,
+    "green": 20,
+    "blue": 30
+  },
+  "patches": [],
+  "nodes": []
+}

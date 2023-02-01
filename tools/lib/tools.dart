@@ -1,5 +1,5 @@
-import 'package:tension_node_tools/generators/map_generator.dart';
+import 'package:tension_node_tools/generators/match_generator.dart';
 
 void main() {
-  const MapGenerator().run();
+  const MatchGenerator().run();
 }
