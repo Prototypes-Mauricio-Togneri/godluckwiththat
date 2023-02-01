@@ -1,11 +1,33 @@
 {
-  "version": 13,
-  "id": "foo",
+  "version": 1,
+  "id": "match1",
   "resources": {
     "red": 10,
     "green": 20,
     "blue": 30
   },
-  "patches": [],
+  "patches": [
+    {
+      "resource": "red",
+      "position": [
+        -2,
+        -2
+      ]
+    },
+    {
+      "resource": "green",
+      "position": [
+        1,
+        -2
+      ]
+    },
+    {
+      "resource": "blue",
+      "position": [
+        -2,
+        1
+      ]
+    }
+  ],
   "nodes": []
 }

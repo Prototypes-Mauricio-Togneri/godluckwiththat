@@ -8,6 +8,7 @@
      resourcesRed="10"
      resourcesGreen="20"
      resourcesBlue="30"
+     matchVersion="1"
      inkscape:version="1.2.2 (732a01da63, 2022-12-09, custom)"
      sodipodi:docname="match1.svg"
      xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -51,10 +52,11 @@
              empopacity="0.50196" />
     </sodipodi:namedview>
     <g
-         inkscape:label="match"
+         inkscape:label="patches"
          inkscape:groupmode="layer"
-         id="match">
+         id="patches">
         <rect
+             resource="red"
              style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.195125;stroke-linecap:round;paint-order:stroke markers fill"
              id="rect236"
              width="1"
@@ -62,6 +64,7 @@
              x="-2"
              y="-2" />
         <rect
+             resource="green"
              style="fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:0.195125;stroke-linecap:round;paint-order:stroke markers fill"
              id="rect236-3"
              width="1"
@@ -69,18 +72,12 @@
              x="1"
              y="-2" />
         <rect
+             resource="blue"
              style="fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.195125;stroke-linecap:round;paint-order:stroke markers fill"
              id="rect236-6"
              width="1"
              height="1"
              x="-2"
-             y="1" />
-        <rect
-             style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.195125;stroke-linecap:round;paint-order:stroke markers fill"
-             id="rect236-7"
-             width="1"
-             height="1"
-             x="1"
              y="1" />
     </g>
 </svg>

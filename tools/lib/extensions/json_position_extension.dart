@@ -1,7 +1,7 @@
-typedef JsonPosition = List<int>;
+typedef JsonPosition = List<num>;
 
 extension JsonPositionExtension on JsonPosition {
-  int get x => this[0];
+  num get x => this[0];
 
-  int get y => this[1];
+  num get y => this[1];
 }
