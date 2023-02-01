@@ -28,7 +28,11 @@ class Turret extends FixedNode {
     super.update(dt);
     shooting.update(dt);
 
-    if ((target != null) && (!target!.isAlive)) {
+    final bool isTargetDestroyed = (target != null) && (!target!.isAlive);
+    final bool isTargetOutOfRange =
+        (target != null) && target!.distance(this) > spec.weapon.range;
+
+    if (isTargetDestroyed || isTargetOutOfRange) {
       target = null;
     }
 
