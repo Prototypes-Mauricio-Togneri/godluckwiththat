@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
      width="0.001mm"
      height="0.001mm"
      viewBox="0 0 0.001 0.001"
      version="1.1"
-     id="svg5"
+     id="match1"
+     resourcesRed="10"
+     resourcesGreen="20"
+     resourcesBlue="30"
      inkscape:version="1.2.2 (732a01da63, 2022-12-09, custom)"
-     sodipodi:docname="map1.svg"
+     sodipodi:docname="match1.svg"
      xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
      xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
      xmlns="http://www.w3.org/2000/svg"
@@ -49,12 +50,10 @@
              empcolor="#323232"
              empopacity="0.50196" />
     </sodipodi:namedview>
-    <defs
-         id="defs2" />
     <g
-         inkscape:label="Layer 1"
+         inkscape:label="match"
          inkscape:groupmode="layer"
-         id="layer1">
+         id="match">
         <rect
              style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.195125;stroke-linecap:round;paint-order:stroke markers fill"
              id="rect236"

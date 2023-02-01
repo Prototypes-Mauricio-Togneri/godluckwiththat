@@ -20,6 +20,9 @@ class MatchGenerator extends BaseGenerator {
   }
 
   JsonMatch getMatch(XmlDocument document) {
+    //final String resourcesRed = document.getAttribute('resourcesRed')!;
+    //print(resourcesRed);
+
     /*final List<JsonGameObject> enemies = [];
     final List<JsonGameObject> portal = [];
     final List<JsonGameObject> spikes = [];
