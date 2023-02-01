@@ -1,6 +1,7 @@
 # Tension Node
 
 - Save and load matches
+- Release mobile build in Firebase
 
 Click on a turret and show:
 * Shoots fired
