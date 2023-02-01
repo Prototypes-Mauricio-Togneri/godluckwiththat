@@ -4,8 +4,8 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/models/position.dart';
 
 class FixedNode extends Node with Tappable {
-  final int i;
-  final int j;
+  final num i;
+  final num j;
   final int heat;
 
   FixedNode({

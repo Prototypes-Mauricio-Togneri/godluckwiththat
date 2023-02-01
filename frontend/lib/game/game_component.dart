@@ -93,8 +93,8 @@ class GameComponent extends BaseGameComponent {
   }
 
   void addMine({
-    required int i,
-    required int j,
+    required num i,
+    required num j,
     required MineSpec spec,
     required double shield,
   }) {
@@ -107,8 +107,8 @@ class GameComponent extends BaseGameComponent {
   }
 
   void addTurret({
-    required int i,
-    required int j,
+    required num i,
+    required num j,
     required TurretSpec spec,
     required double shield,
   }) {
@@ -121,8 +121,8 @@ class GameComponent extends BaseGameComponent {
   }
 
   void addEnemy({
-    required int i,
-    required int j,
+    required num i,
+    required num j,
     required EnemySpec spec,
     required Direction direction,
     required double shield,

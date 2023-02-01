@@ -29,6 +29,9 @@ class JsonMatch {
   @JsonKey(name: 'turrets')
   final List<JsonNode> turrets;
 
+  @JsonKey(name: 'enemies')
+  final List<JsonNode> enemies;
+
   const JsonMatch({
     required this.version,
     required this.id,
@@ -37,6 +40,7 @@ class JsonMatch {
     required this.kernel,
     required this.mines,
     required this.turrets,
+    required this.enemies,
   });
 
   factory JsonMatch.fromString(String json) =>

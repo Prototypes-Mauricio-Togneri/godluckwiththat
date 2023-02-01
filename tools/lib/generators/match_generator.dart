@@ -57,6 +57,7 @@ class MatchGenerator extends BaseGenerator {
       ),
       mines: [],
       turrets: [],
+      enemies: [],
     );
   }
 

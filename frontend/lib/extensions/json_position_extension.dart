@@ -1,11 +1,7 @@
-import 'package:flutter/widgets.dart';
-
-typedef JsonPosition = List<int>;
+typedef JsonPosition = List<num>;
 
 extension JsonPositionExtension on JsonPosition {
-  int get x => this[0];
+  num get x => this[0];
 
-  int get y => this[1];
-
-  Offset get position => Offset(this[0].toDouble(), this[1].toDouble());
+  num get y => this[1];
 }

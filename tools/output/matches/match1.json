@@ -38,5 +38,6 @@
     "shield": 100
   },
   "mines": [],
-  "turrets": []
+  "turrets": [],
+  "enemies": []
 }

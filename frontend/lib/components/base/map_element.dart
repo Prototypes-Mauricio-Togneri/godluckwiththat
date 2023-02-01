@@ -4,8 +4,8 @@ import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/models/position.dart';
 
 class MapElement extends SpriteComponent {
-  final int i;
-  final int j;
+  final num i;
+  final num j;
   final String image;
 
   MapElement({
