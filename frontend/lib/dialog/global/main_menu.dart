@@ -55,12 +55,6 @@ class MainMenu extends StatelessWidget {
               color: Palette.primary,
               onPressed: _onInfo,
             ),
-            MenuButton(
-              text: 'Close',
-              icon: Icons.close,
-              color: Palette.lightGrey,
-              onPressed: _closeMenu,
-            ),
           ],
         ),
       ),
