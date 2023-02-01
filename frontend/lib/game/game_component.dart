@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/background.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
+import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/map_element.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
@@ -149,11 +150,19 @@ class GameComponent extends BaseGameComponent {
 
   void addNode(Component node) {
     add(node);
+
+    if (node is FixedNode) {
+      state.addHeat(node);
+    }
   }
 
   void removeNode(Node node) {
     try {
       remove(node);
+
+      if (node is FixedNode) {
+        state.removeHeat(node);
+      }
     } catch (e) {
       // ignore
     }

@@ -11,6 +11,7 @@ class MineSpec extends NodeSpec {
     type: NodeType.mine_red,
     cost: Resources(red: 10, green: 0, blue: 0),
     armor: 20,
+    heat: 10,
     productionTime: 1,
     resource: ResourceType.red,
   );
@@ -19,6 +20,7 @@ class MineSpec extends NodeSpec {
     type: NodeType.mine_green,
     cost: Resources(red: 20, green: 0, blue: 0),
     armor: 20,
+    heat: 10,
     productionTime: 2,
     resource: ResourceType.green,
   );
@@ -27,6 +29,7 @@ class MineSpec extends NodeSpec {
     type: NodeType.mine_blue,
     cost: Resources(red: 30, green: 0, blue: 0),
     armor: 20,
+    heat: 10,
     productionTime: 3,
     resource: ResourceType.blue,
   );
@@ -35,6 +38,7 @@ class MineSpec extends NodeSpec {
     required super.type,
     required super.cost,
     required super.armor,
+    required super.heat,
     required this.productionTime,
     required this.resource,
   });

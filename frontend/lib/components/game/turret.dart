@@ -20,6 +20,7 @@ class Turret extends FixedNode {
         super(
           image: spec.type.sprite,
           armor: spec.armor,
+          heat: spec.heat,
         );
 
   @override
@@ -44,7 +45,7 @@ class Turret extends FixedNode {
   @override
   bool onTapUp(TapUpInfo info) {
     if (game.state.deleteMode) {
-      kill();
+      destroy();
     } else {
       game.openMenu(
         name: TurretMenu.NAME,

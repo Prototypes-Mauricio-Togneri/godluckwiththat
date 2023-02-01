@@ -17,6 +17,7 @@ class Mine extends FixedNode {
   }) : super(
           image: spec.type.sprite,
           armor: spec.armor,
+          heat: spec.heat,
         );
 
   @override
@@ -34,7 +35,7 @@ class Mine extends FixedNode {
   @override
   bool onTapUp(TapUpInfo info) {
     if (game.state.deleteMode) {
-      kill();
+      destroy();
     } else {
       game.openMenu(
         name: MineMenu.NAME,

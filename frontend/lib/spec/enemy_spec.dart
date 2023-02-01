@@ -8,6 +8,7 @@ class EnemySpec extends NodeSpec {
     type: NodeType.enemy,
     cost: Resources(),
     armor: 50,
+    heat: 0,
     speed: 50,
     weapon: WeaponSpec.enemy,
   );
@@ -19,6 +20,7 @@ class EnemySpec extends NodeSpec {
     required super.type,
     required super.cost,
     required super.armor,
+    required super.heat,
     required this.speed,
     required this.weapon,
   });

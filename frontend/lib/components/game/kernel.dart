@@ -10,6 +10,7 @@ class Kernel extends FixedNode {
   }) : super(
           image: NodeSpec.kernel.type.sprite,
           armor: NodeSpec.kernel.armor,
+          heat: NodeSpec.kernel.heat,
         );
 
   @override

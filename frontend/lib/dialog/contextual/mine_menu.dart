@@ -58,7 +58,7 @@ class MineMenu extends StatelessWidget {
 
   void _onDestroy() {
     final Node node = game.state.selectedNode();
-    node.kill();
+    node.destroy();
     _closeMenu();
   }
 
