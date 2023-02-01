@@ -21,6 +21,7 @@ import 'package:tensionnode/dialog/global/main_menu.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
+import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
@@ -86,6 +87,16 @@ class GameComponent extends BaseGameComponent {
         j: node.position.y,
         spec: node.type.spec as TurretSpec,
         shield: node.shield,
+      );
+    }
+
+    for (final JsonEnemy node in jsonMatch.enemies) {
+      addEnemy(
+        i: node.position.x,
+        j: node.position.y,
+        spec: node.type.spec as EnemySpec,
+        shield: node.shield,
+        direction: node.direction,
       );
     }
 
