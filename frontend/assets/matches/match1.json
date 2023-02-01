@@ -92,6 +92,14 @@
             ]
         }
     ],
+    "kernel": {
+        "type": "kernel",
+        "shield": 100,
+        "position": [
+            0,
+            0
+        ]
+    },
     "mines": [
         {
             "type": "mine_red",
@@ -190,15 +198,7 @@
             ]
         }
     ],
-    "nodes": [
-        {
-            "type": "kernel",
-            "shield": 100,
-            "position": [
-                0,
-                0
-            ]
-        },
+    "turrets": [
         {
             "type": "turret_light",
             "shield": 50,

@@ -63,6 +63,14 @@ class GameComponent extends BaseGameComponent {
       ));
     }
 
+    final JsonNode kernelNode = jsonMatch.kernel;
+
+    addNode(Kernel(
+      i: kernelNode.position.x,
+      j: kernelNode.position.y,
+      shield: kernelNode.shield,
+    ));
+
     for (final JsonNode node in jsonMatch.mines) {
       addMine(
         i: node.position.x,
@@ -72,23 +80,13 @@ class GameComponent extends BaseGameComponent {
       );
     }
 
-    for (final JsonNode node in jsonMatch.nodes) {
-      final NodeSpec spec = node.type.spec;
-
-      if (spec is TurretSpec) {
-        addTurret(
-          i: node.position.x,
-          j: node.position.y,
-          spec: spec,
-          shield: node.shield,
-        );
-      } else if (node.type.isKernel) {
-        addNode(Kernel(
-          i: node.position.x,
-          j: node.position.y,
-          shield: node.shield,
-        ));
-      }
+    for (final JsonNode node in jsonMatch.turrets) {
+      addTurret(
+        i: node.position.x,
+        j: node.position.y,
+        spec: node.type.spec as TurretSpec,
+        shield: node.shield,
+      );
     }
 
     return super.onLoad();

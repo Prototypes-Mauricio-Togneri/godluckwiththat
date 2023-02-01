@@ -14,7 +14,11 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       patches: (json['patches'] as List<dynamic>)
           .map((e) => JsonPatch.fromJson(e as Map<String, dynamic>))
           .toList(),
-      nodes: (json['nodes'] as List<dynamic>)
+      kernel: JsonNode.fromJson(json['kernel'] as Map<String, dynamic>),
+      mines: (json['mines'] as List<dynamic>)
+          .map((e) => JsonNode.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      turrets: (json['turrets'] as List<dynamic>)
           .map((e) => JsonNode.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -24,5 +28,7 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'id': instance.id,
       'resources': instance.resources,
       'patches': instance.patches,
-      'nodes': instance.nodes,
+      'kernel': instance.kernel,
+      'mines': instance.mines,
+      'turrets': instance.turrets,
     };

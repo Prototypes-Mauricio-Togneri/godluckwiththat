@@ -20,15 +20,23 @@ class JsonMatch {
   @JsonKey(name: 'patches')
   final List<JsonPatch> patches;
 
-  @JsonKey(name: 'nodes')
-  final List<JsonNode> nodes;
+  @JsonKey(name: 'kernel')
+  final JsonNode kernel;
+
+  @JsonKey(name: 'mines')
+  final List<JsonNode> mines;
+
+  @JsonKey(name: 'turrets')
+  final List<JsonNode> turrets;
 
   const JsonMatch({
     required this.version,
     required this.id,
     required this.resources,
     required this.patches,
-    required this.nodes,
+    required this.kernel,
+    required this.mines,
+    required this.turrets,
   });
 
   factory JsonMatch.fromString(String json) =>
