@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/json/json_resources.dart';
@@ -29,6 +30,9 @@ class JsonMatch {
   @JsonKey(name: 'turrets')
   final List<JsonNode> turrets;
 
+  @JsonKey(name: 'enemies')
+  final List<JsonEnemy> enemies;
+
   const JsonMatch({
     required this.version,
     required this.id,
@@ -37,6 +41,7 @@ class JsonMatch {
     required this.kernel,
     required this.mines,
     required this.turrets,
+    required this.enemies,
   });
 
   factory JsonMatch.fromString(String json) =>

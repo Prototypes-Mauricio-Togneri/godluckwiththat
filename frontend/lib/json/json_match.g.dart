@@ -21,6 +21,9 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       turrets: (json['turrets'] as List<dynamic>)
           .map((e) => JsonNode.fromJson(e as Map<String, dynamic>))
           .toList(),
+      enemies: (json['enemies'] as List<dynamic>)
+          .map((e) => JsonEnemy.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
@@ -31,4 +34,5 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'kernel': instance.kernel,
       'mines': instance.mines,
       'turrets': instance.turrets,
+      'enemies': instance.enemies,
     };
