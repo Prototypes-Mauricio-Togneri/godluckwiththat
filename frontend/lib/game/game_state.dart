@@ -48,18 +48,18 @@ class GameState extends BaseState {
 
   void unselectNode(Node node) => _selectedNode = null;
 
-  bool update(double dt) {
-    bool spawnEnemy = false;
+  int update(double dt) {
+    int enemiesToSpawn = 0;
 
     timeElapsed += dt;
     timeSpawn += dt;
 
     if (timeSpawn > Constants.TIME_SPAWN) {
       timeSpawn -= Constants.TIME_SPAWN;
-      spawnEnemy = false;
+      enemiesToSpawn = 0; // TODO(momo): heat
     }
 
-    return spawnEnemy;
+    return enemiesToSpawn;
   }
 
   void addHeat(FixedNode node) {

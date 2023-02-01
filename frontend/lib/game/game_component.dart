@@ -388,9 +388,9 @@ class GameComponent extends BaseGameComponent {
   void update(double dt) {
     super.update(dt);
 
-    final bool spawnEnemy = state.update(dt);
+    final int enemiesToSpawn = state.update(dt);
 
-    if (spawnEnemy) {
+    for (int i = 0; i < enemiesToSpawn; i++) {
       _spawnEnemy();
     }
   }

@@ -9,7 +9,7 @@ class TurretSpec extends NodeSpec {
   static TurretSpec turret_light = TurretSpec(
     type: NodeType.turret_light,
     armor: 50,
-    heat: 20,
+    heat: 1,
     weapon: WeaponSpec.turret_light,
     cost: Resources(),
   );
@@ -17,7 +17,7 @@ class TurretSpec extends NodeSpec {
   static TurretSpec turret_heavy = TurretSpec(
     type: NodeType.turret_light,
     armor: 50,
-    heat: 20,
+    heat: 2,
     weapon: WeaponSpec.turret_light,
     cost: Resources(),
   );
@@ -25,7 +25,7 @@ class TurretSpec extends NodeSpec {
   static TurretSpec turret_shotgun = TurretSpec(
     type: NodeType.turret_light,
     armor: 50,
-    heat: 20,
+    heat: 2,
     weapon: WeaponSpec.turret_light,
     cost: Resources(),
   );
@@ -33,7 +33,7 @@ class TurretSpec extends NodeSpec {
   static TurretSpec turret_sniper = TurretSpec(
     type: NodeType.turret_light,
     armor: 50,
-    heat: 20,
+    heat: 2,
     weapon: WeaponSpec.turret_light,
     cost: Resources(),
   );
@@ -41,7 +41,7 @@ class TurretSpec extends NodeSpec {
   static TurretSpec turret_machine_gun = TurretSpec(
     type: NodeType.turret_light,
     armor: 50,
-    heat: 20,
+    heat: 2,
     weapon: WeaponSpec.turret_light,
     cost: Resources(),
   );
@@ -49,7 +49,7 @@ class TurretSpec extends NodeSpec {
   static TurretSpec turret_laser = TurretSpec(
     type: NodeType.turret_light,
     armor: 50,
-    heat: 20,
+    heat: 2,
     weapon: WeaponSpec.turret_light,
     cost: Resources(),
   );
@@ -57,7 +57,7 @@ class TurretSpec extends NodeSpec {
   static TurretSpec turret_cannon = TurretSpec(
     type: NodeType.turret_light,
     armor: 50,
-    heat: 20,
+    heat: 2,
     weapon: WeaponSpec.turret_light,
     cost: Resources(),
   );
@@ -65,7 +65,7 @@ class TurretSpec extends NodeSpec {
   static TurretSpec turret_plasma = TurretSpec(
     type: NodeType.turret_light,
     armor: 50,
-    heat: 20,
+    heat: 2,
     weapon: WeaponSpec.turret_light,
     cost: Resources(),
   );

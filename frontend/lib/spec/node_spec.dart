@@ -11,7 +11,7 @@ class NodeSpec {
     type: NodeType.kernel,
     cost: Resources(),
     armor: 50,
-    heat: 100,
+    heat: 5,
   );
 
   const NodeSpec({
