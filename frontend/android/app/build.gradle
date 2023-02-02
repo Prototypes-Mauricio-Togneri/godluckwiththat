@@ -23,40 +23,82 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.appdistribution'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
-android {
+android
+{
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
-    compileOptions {
+    compileOptions
+    {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    kotlinOptions {
+    kotlinOptions
+    {
         jvmTarget = '1.8'
     }
 
-    sourceSets {
+    sourceSets
+    {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    defaultConfig {
-        applicationId 'com.atomicinstinct.tensionnode'
+    defaultConfig
+    {
         minSdkVersion 19
+        targetSdkVersion flutter.compileSdkVersion
+        applicationId 'com.atomicinstinct.tensionnode'
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
     }
 
-    buildTypes {
-        release {
-            signingConfig signingConfigs.debug
+    signingConfigs
+    {
+        debug
+        {
+            storeFile file('debug.keystore')
+        }
 
-            ndk {
+        release
+        {
+            keyAlias project.hasProperty('RELEASE_KEY_ALIAS') ? RELEASE_KEY_ALIAS : ''
+            keyPassword project.hasProperty('RELEASE_KEY_PASSWORD') ? RELEASE_KEY_PASSWORD : ''
+            storePassword project.hasProperty('RELEASE_STORE_PASSWORD') ? RELEASE_STORE_PASSWORD : ''
+            storeFile project.hasProperty('RELEASE_STORE_FILE') ? file(RELEASE_STORE_FILE) : file('.')
+        }
+    }
+
+    buildTypes
+    {
+        debug
+        {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+        }
+
+        release
+        {
+            debuggable false
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.release
+
+            firebaseAppDistribution
+            {
+                artifactType='APK'
+                groups='android'
+            }
+            
+            ndk
+            {
                 abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64'
             }
         }
@@ -67,7 +109,8 @@ flutter {
     source '../..'
 }
 
-dependencies {
+dependencies
+{
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
