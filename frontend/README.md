@@ -2,6 +2,9 @@
 
 - Save and load matches
 - Release mobile build in Firebase
+- Use tiles
+- Limit map movement
+- Add new type of floor
 
 Click on a turret and show:
 * Shoots fired
