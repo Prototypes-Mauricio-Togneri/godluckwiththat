@@ -89,7 +89,7 @@ android
             debuggable false
             minifyEnabled false
             shrinkResources false
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
 
             firebaseAppDistribution
             {
