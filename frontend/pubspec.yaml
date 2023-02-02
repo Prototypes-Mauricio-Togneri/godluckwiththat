@@ -15,6 +15,7 @@ dependencies:
 
   flame: ^1.6.0
   flame_audio: ^1.4.0
+  flame_tiled: ^1.9.1
 
   flutter:
     sdk: flutter
@@ -44,3 +45,4 @@ flutter:
     - assets/fonts/
     - assets/images/
     - assets/matches/
+    - assets/tiles/
