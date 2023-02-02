@@ -129,6 +129,12 @@ class BottomMenu extends StatelessWidget {
               color: Palette.lightGrey,
               onClick: game.enableDeleteMode,
             ),
+            const HBox(10),
+            BottomMenuButton(
+              icon: Icons.explore_rounded,
+              color: Palette.lightGrey,
+              onClick: game.spawnEnemy,
+            ),
           ],
         ),
       ),

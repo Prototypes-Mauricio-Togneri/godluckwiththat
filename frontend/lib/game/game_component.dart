@@ -189,11 +189,11 @@ class GameComponent extends BaseGameComponent {
       );
     } else if (key == LogicalKeyboardKey.space) {
       //_createTestObjects();
-      _spawnEnemy();
+      spawnEnemy();
     }
   }
 
-  void _spawnEnemy() {
+  void spawnEnemy() {
     final Direction direction = Direction.random();
     final Vector2 position = direction.randomStartPoint;
 
@@ -407,7 +407,7 @@ class GameComponent extends BaseGameComponent {
     final int enemiesToSpawn = state.update(dt);
 
     for (int i = 0; i < enemiesToSpawn; i++) {
-      _spawnEnemy();
+      spawnEnemy();
     }
   }
 }
