@@ -231,6 +231,11 @@ class GameComponent extends BaseGameComponent {
     removeComponents(NodeSelected);
   }
 
+  void _closeModeMenus() {
+    _disableBuildMode();
+    _disableDeleteMode();
+  }
+
   void openMainMenu() => openMenu(
         name: MainMenu.NAME,
         pauseGame: true,
@@ -279,8 +284,8 @@ class GameComponent extends BaseGameComponent {
   }
 
   void enableBuildMode(NodeSpec spec) {
-    _disableBuildMode();
     _closeContextualMenus();
+    _closeModeMenus();
 
     // TODO(momo): don't add it for mobile
     removeComponents(BuildingIndicator);
@@ -296,8 +301,8 @@ class GameComponent extends BaseGameComponent {
   }
 
   void enableDeleteMode() {
-    _disableDeleteMode();
     _closeContextualMenus();
+    _closeModeMenus();
     state.enableDeleteMode();
   }
 
