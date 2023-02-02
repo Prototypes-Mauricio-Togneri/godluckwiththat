@@ -27,6 +27,7 @@ import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/services/assets.dart';
+import 'package:tensionnode/services/environment.dart';
 import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/spec/bullet_spec.dart';
@@ -248,6 +249,9 @@ class GameComponent extends BaseGameComponent {
     bool pauseGame = false,
     Node? node,
   }) {
+    _closeContextualMenus();
+    _closeModeMenus();
+
     if (node != null) {
       state.selectNode(node);
 
@@ -287,9 +291,10 @@ class GameComponent extends BaseGameComponent {
     _closeContextualMenus();
     _closeModeMenus();
 
-    // TODO(momo): don't add it for mobile
-    removeComponents(BuildingIndicator);
-    add(BuildingIndicator(spec: spec));
+    if (Environment.canShowBuildingIndicator) {
+      removeComponents(BuildingIndicator);
+      add(BuildingIndicator(spec: spec));
+    }
 
     state.enableBuildMode();
   }
