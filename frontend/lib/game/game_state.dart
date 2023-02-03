@@ -11,7 +11,7 @@ import 'package:tensionnode/types/resource_type.dart';
 class GameState extends BaseState {
   num version = 0;
   String id = '';
-  Resources resources = Resources();
+  Resources resources = Resources.empty();
   num heat = 0;
   num timeElapsed = 0;
   num timeSpawn = 0;

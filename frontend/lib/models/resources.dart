@@ -6,10 +6,12 @@ class Resources {
   num blue = 0;
 
   Resources({
-    this.red = 0,
-    this.green = 0,
-    this.blue = 0,
+    required this.red,
+    required this.green,
+    required this.blue,
   });
+
+  factory Resources.empty() => Resources(red: 0, green: 0, blue: 0);
 
   void add(ResourceType type) {
     switch (type) {

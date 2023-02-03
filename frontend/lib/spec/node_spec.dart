@@ -9,7 +9,7 @@ class NodeSpec {
 
   static NodeSpec kernel = NodeSpec(
     type: NodeType.kernel,
-    cost: Resources(),
+    cost: Resources.empty(),
     armor: 50,
     heat: 5,
   );

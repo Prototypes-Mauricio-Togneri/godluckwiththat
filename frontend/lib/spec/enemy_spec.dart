@@ -6,7 +6,7 @@ import 'package:tensionnode/types/node_type.dart';
 class EnemySpec extends NodeSpec {
   static EnemySpec enemy = EnemySpec(
     type: NodeType.enemy,
-    cost: Resources(),
+    cost: Resources.empty(),
     armor: 50,
     heat: 0,
     speed: 50,
