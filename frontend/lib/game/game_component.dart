@@ -22,7 +22,7 @@ import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
-import 'package:tensionnode/models/map_element.dart';
+import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/loader.dart';
