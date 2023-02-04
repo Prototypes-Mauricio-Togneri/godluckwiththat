@@ -10,7 +10,7 @@ class Palette {
   static const Color error = Colors.red;
 
   static const Color screenBackground = Color(0x80000000);
-  static const Color mapBackground = Color(0xff252525);
+  static const Color mapBackground = Color(0xff303030);
 
   static const Color gridLine = Color(0x11888888);
   static const Color gridBackground = Color(0xff1a1a1a);
