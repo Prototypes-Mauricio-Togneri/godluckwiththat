@@ -10,6 +10,13 @@
         {
             "resource": "red",
             "position": [
+                -9,
+                -4
+            ]
+        },
+        {
+            "resource": "red",
+            "position": [
                 -10,
                 -5
             ]
@@ -29,10 +36,10 @@
             ]
         },
         {
-            "resource": "red",
+            "resource": "green",
             "position": [
-                -9,
-                -4
+                9,
+                -6
             ]
         },
         {
@@ -40,6 +47,34 @@
             "position": [
                 10,
                 -7
+            ]
+        },
+        {
+            "resource": "blue",
+            "position": [
+                1,
+                7
+            ]
+        },
+        {
+            "resource": "blue",
+            "position": [
+                1,
+                6
+            ]
+        },
+        {
+            "resource": "blue",
+            "position": [
+                2,
+                7
+            ]
+        },
+        {
+            "resource": "blue",
+            "position": [
+                2,
+                6
             ]
         },
         {
@@ -55,40 +90,61 @@
                 10,
                 -6
             ]
+        }
+    ],
+    "holes": [
+        {
+            "position": [
+                -16,
+                -8
+            ]
         },
         {
-            "resource": "green",
             "position": [
-                9,
+                -16,
+                -7
+            ]
+        },
+        {
+            "position": [
+                -17,
+                -8
+            ]
+        },
+        {
+            "position": [
+                -18,
+                -8
+            ]
+        },
+        {
+            "position": [
+                -18,
+                -7
+            ]
+        },
+        {
+            "position": [
+                -17,
+                -7
+            ]
+        },
+        {
+            "position": [
+                -16,
                 -6
             ]
         },
         {
-            "resource": "blue",
             "position": [
-                1,
-                6
+                -17,
+                -6
             ]
         },
         {
-            "resource": "blue",
             "position": [
-                2,
-                6
-            ]
-        },
-        {
-            "resource": "blue",
-            "position": [
-                1,
-                7
-            ]
-        },
-        {
-            "resource": "blue",
-            "position": [
-                2,
-                7
+                -18,
+                -6
             ]
         }
     ],
