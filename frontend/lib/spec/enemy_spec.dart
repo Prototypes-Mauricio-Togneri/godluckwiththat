@@ -9,7 +9,7 @@ class EnemySpec extends NodeSpec {
     cost: Resources.empty(),
     armor: 50,
     heat: 0,
-    speed: 50,
+    speed: 25,
     weapon: WeaponSpec.enemy,
   );
 
