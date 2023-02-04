@@ -29,6 +29,7 @@ import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/spec/bullet_spec.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
+import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
 import 'package:tensionnode/spec/node_spec.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
@@ -277,7 +278,7 @@ class GameComponent extends BaseGameComponent {
     }
   }
 
-  void enableBuildMode(NodeSpec spec) {
+  void enableBuildMode(FixedNodeSpec spec) {
     _closeContextualMenus();
     _closeModeMenus();
 
@@ -326,7 +327,7 @@ class GameComponent extends BaseGameComponent {
         i: i,
         j: j,
       );
-      final NodeSpec spec = buildingIndicator.spec;
+      final FixedNodeSpec spec = buildingIndicator.spec;
 
       if ((node == null) && state.resources.has(spec.cost)) {
         _build(

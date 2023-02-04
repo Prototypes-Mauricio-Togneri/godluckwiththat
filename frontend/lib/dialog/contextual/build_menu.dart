@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:tensionnode/dialog/contextual/base_contextual_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
-import 'package:tensionnode/spec/node_spec.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
@@ -68,7 +68,7 @@ class BuildMenu extends StatelessWidget {
     );
   }
 
-  void _onBuild(NodeSpec spec) {
+  void _onBuild(FixedNodeSpec spec) {
     game.enableBuildMode(spec);
     _closeMenu();
   }

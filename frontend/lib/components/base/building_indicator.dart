@@ -3,10 +3,10 @@ import 'package:flame/rendering.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/environment.dart';
-import 'package:tensionnode/spec/node_spec.dart';
+import 'package:tensionnode/spec/fixed_node_spec.dart';
 
 class BuildingIndicator extends SpriteComponent with HasGameRef<GameComponent> {
-  final NodeSpec spec;
+  final FixedNodeSpec spec;
 
   BuildingIndicator({
     required this.spec,
