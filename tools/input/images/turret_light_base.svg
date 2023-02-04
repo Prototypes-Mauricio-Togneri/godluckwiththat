@@ -2,14 +2,14 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-     width="3"
-     height="3"
-     viewBox="0 0 0.79374 0.7938"
+     width="100"
+     height="100"
+     viewBox="0 0 26.458 26.459"
      version="1.1"
      id="svg421"
-     inkscape:version="1.2.2 (b0a8486541, 2022-12-01, custom)"
-     sodipodi:docname="bullet.svg"
-     inkscape:export-filename="../73d3be90/bullet.png"
+     inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
+     sodipodi:docname="turret_base.svg"
+     inkscape:export-filename="../d7d40f7c/turret.png"
      inkscape:export-xdpi="245.76"
      inkscape:export-ydpi="245.76"
      xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -27,9 +27,9 @@
          inkscape:deskcolor="#d1d1d1"
          inkscape:document-units="px"
          showgrid="false"
-         inkscape:zoom="9.5144"
-         inkscape:cx="9.3017"
-         inkscape:cy="4.4669"
+         inkscape:zoom="4.7572"
+         inkscape:cx="47.822"
+         inkscape:cy="55.18"
          inkscape:window-width="1920"
          inkscape:window-height="1016"
          inkscape:window-x="0"
@@ -44,10 +44,16 @@
          inkscape:groupmode="layer"
          id="layer1">
         <circle
-             style="fill:#00ffff;stroke-width:1.31745;stroke-linecap:round;paint-order:stroke markers fill"
-             id="path363"
-             cx="0.39687"
-             cy="0.3969"
-             r="0.3969" />
+             style="opacity:1;fill:none;stroke:#ffffff;stroke-width:2.64515;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             id="path370"
+             cx="13.229"
+             cy="13.229"
+             r="11.907" />
+        <circle
+             style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.1167;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             id="path370-3"
+             cx="13.229"
+             cy="13.229"
+             r="5.2918" />
     </g>
 </svg>

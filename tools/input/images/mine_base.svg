@@ -7,9 +7,9 @@
      viewBox="0 0 26.458 26.459"
      version="1.1"
      id="svg421"
-     inkscape:version="1.2.2 (b0a8486541, 2022-12-01, custom)"
-     sodipodi:docname="enemy.svg"
-     inkscape:export-filename="../bb658709/enemy.png"
+     inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
+     sodipodi:docname="mine_base.svg"
+     inkscape:export-filename="../eec9848b/mine_red.png"
      inkscape:export-xdpi="245.76"
      inkscape:export-ydpi="245.76"
      xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -27,9 +27,9 @@
          inkscape:deskcolor="#d1d1d1"
          inkscape:document-units="px"
          showgrid="false"
-         inkscape:zoom="4.7572"
-         inkscape:cx="54.969"
-         inkscape:cy="49.924"
+         inkscape:zoom="2.3786"
+         inkscape:cx="27.537"
+         inkscape:cy="37.627"
          inkscape:window-width="1920"
          inkscape:window-height="1016"
          inkscape:window-x="0"
@@ -43,10 +43,22 @@
          inkscape:label="Layer 1"
          inkscape:groupmode="layer"
          id="layer1">
-        <path
+        <rect
+             style="fill:none;stroke:#ffffff;stroke-width:2.54418;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
              id="rect1334"
-             style="opacity:1;fill:#f44336;stroke-width:1.68923;stroke-linecap:round;paint-order:stroke markers fill"
-             d="M -4.9982e-4,1.8311e-7 L 26.458,13.23 L -4.9982e-4,26.459 L 7.9372,13.23 Z"
-             sodipodi:nodetypes="ccccc" />
+             width="23.915"
+             height="23.915"
+             x="1.2715"
+             y="1.272"
+             inkscape:export-filename="../ac428c73/mine_blue_blur.png"
+             inkscape:export-xdpi="245.76"
+             inkscape:export-ydpi="245.76" />
+        <rect
+             style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.59536;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             id="rect1414"
+             width="10.584"
+             height="10.584"
+             x="7.937"
+             y="7.9375" />
     </g>
 </svg>

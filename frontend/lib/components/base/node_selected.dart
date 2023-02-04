@@ -13,7 +13,7 @@ class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(Assets.IMAGES_SELECTED);
+    sprite = await getSprite(Assets.IMAGES_NODE_SELECTED);
     width = Constants.SELECTED_SIZE;
     height = Constants.SELECTED_SIZE;
     anchor = Anchor.center;

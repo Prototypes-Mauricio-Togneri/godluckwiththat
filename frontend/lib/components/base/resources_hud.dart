@@ -1,11 +1,11 @@
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class ResourcesHud extends SpriteComponent with HasGameRef<GameComponent> {
+class ResourcesHud extends PositionComponent with HasGameRef<GameComponent> {
   final TextComponent redAmount = TextResourceIndicator(x: 60);
   final TextComponent greenAmount = TextResourceIndicator(x: 210);
   final TextComponent blueAmount = TextResourceIndicator(x: 360);
@@ -17,9 +17,6 @@ class ResourcesHud extends SpriteComponent with HasGameRef<GameComponent> {
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(Assets.IMAGES_HUD);
-    width = 450;
-    height = 50;
     anchor = Anchor.center;
     position = Vector2(game.size.x / 2, height / 2);
 
@@ -51,6 +48,19 @@ class ResourcesHud extends SpriteComponent with HasGameRef<GameComponent> {
     redAmount.text = '${game.state.resources.red}';
     greenAmount.text = '${game.state.resources.green}';
     blueAmount.text = '${game.state.resources.blue}';
+  }
+
+  @override
+  void render(Canvas canvas) {
+    // TODO(momo): improvement: draw one single path instead of individual lines
+    /*final Rect viewport = Rect.fromLTWH(
+      camera.position.x,
+      camera.position.y,
+      camera.viewport.effectiveSize.x,
+      camera.viewport.effectiveSize.y,
+    );*/
+
+    super.render(canvas);
   }
 }
 

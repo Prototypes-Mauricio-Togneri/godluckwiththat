@@ -10,7 +10,7 @@ class BulletSpec {
   final int piercing;
 
   static BulletSpec type1 = const BulletSpec(
-    image: Assets.IMAGES_LASER,
+    image: Assets.IMAGES_LASER_BASE,
     damage: 50,
     width: 2,
     height: 6,
@@ -20,7 +20,7 @@ class BulletSpec {
   );
 
   static BulletSpec type2 = const BulletSpec(
-    image: Assets.IMAGES_BULLET,
+    image: Assets.IMAGES_BULLET_BASE,
     damage: 30,
     width: 3,
     height: 3,

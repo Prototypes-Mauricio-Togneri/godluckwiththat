@@ -6,8 +6,8 @@ import 'package:tensionnode/spec/turret_spec.dart';
 
 enum NodeType {
   kernel(
-    spriteBase: Assets.IMAGES_KERNEL,
-    spriteBlur: Assets.IMAGES_KERNEL,
+    spriteBase: Assets.IMAGES_KERNEL_BASE,
+    spriteBlur: Assets.IMAGES_KERNEL_BLUR,
   ),
   mine_red(
     spriteBase: Assets.IMAGES_MINE_BASE,
@@ -22,12 +22,12 @@ enum NodeType {
     spriteBlur: Assets.IMAGES_MINE_BLUE_BLUR,
   ),
   turret_light(
-    spriteBase: Assets.IMAGES_TURRET_LIGHT,
-    spriteBlur: Assets.IMAGES_TURRET_LIGHT,
+    spriteBase: Assets.IMAGES_TURRET_LIGHT_BASE,
+    spriteBlur: Assets.IMAGES_TURRET_LIGHT_BLUR,
   ),
   enemy(
-    spriteBase: Assets.IMAGES_ENEMY,
-    spriteBlur: Assets.IMAGES_ENEMY,
+    spriteBase: Assets.IMAGES_ENEMY_BASE,
+    spriteBlur: Assets.IMAGES_ENEMY_BLUR,
   );
 
   final String spriteBase;

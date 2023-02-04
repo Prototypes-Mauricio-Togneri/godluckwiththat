@@ -56,11 +56,6 @@ class GameComponent extends BaseGameComponent {
     ));
     add(ResourcesHud());
 
-    /*final TiledComponent map = await TiledComponent.load(
-        'dungeon.tmx', Vector2.all(Constants.NODE_SIZE));
-    map.position = Vector2(-5 * Constants.NODE_SIZE, -5 * Constants.NODE_SIZE);
-    add(map);*/
-
     for (final JsonPatch patch in jsonMatch.patches) {
       add(Patch(
         i: patch.position.x,

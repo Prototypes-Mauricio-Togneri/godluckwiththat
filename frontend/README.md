@@ -1,5 +1,6 @@
 # Tension Node
 
+- POINT ALL SPRITES NORTH
 - Try neon composition
 - Save and load matches
 - Use tiles
