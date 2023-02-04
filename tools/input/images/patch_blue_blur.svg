@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+     width="100"
+     height="100"
+     viewBox="0 0 26.458 26.459"
+     version="1.1"
+     id="svg421"
+     inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
+     sodipodi:docname="patch_blue_blur.svg"
+     inkscape:export-filename="../2dd889ac/patch_red.png"
+     inkscape:export-xdpi="245.76"
+     inkscape:export-ydpi="245.76"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:svg="http://www.w3.org/2000/svg">
+    <sodipodi:namedview
+         id="namedview423"
+         pagecolor="#ffffff"
+         bordercolor="#666666"
+         borderopacity="1.0"
+         inkscape:showpageshadow="2"
+         inkscape:pageopacity="0.0"
+         inkscape:pagecheckerboard="0"
+         inkscape:deskcolor="#d1d1d1"
+         inkscape:document-units="px"
+         showgrid="false"
+         inkscape:zoom="4.7572"
+         inkscape:cx="37.102"
+         inkscape:cy="53.708"
+         inkscape:window-width="1920"
+         inkscape:window-height="1016"
+         inkscape:window-x="0"
+         inkscape:window-y="0"
+         inkscape:window-maximized="1"
+         inkscape:current-layer="layer1"
+         showborder="false" />
+    <defs
+         id="defs418">
+        <filter
+             inkscape:collect="always"
+             style="color-interpolation-filters:sRGB"
+             id="filter842"
+             x="-0.075"
+             y="-0.075"
+             width="1.15"
+             height="1.15">
+            <feGaussianBlur
+                 inkscape:collect="always"
+                 stdDeviation="0.82684"
+                 id="feGaussianBlur844" />
+        </filter>
+    </defs>
+    <g
+         inkscape:label="Layer 1"
+         inkscape:groupmode="layer"
+         id="layer1">
+        <rect
+             style="opacity:0.5;fill:#2196f3;fill-opacity:1;stroke:none;stroke-width:1.68923;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;filter:url(#filter842)"
+             id="rect1334"
+             width="26.459"
+             height="26.459"
+             x="-0.00049982"
+             y="1.8311e-07"
+             inkscape:export-filename="../b8aa041/patch.png"
+             inkscape:export-xdpi="153.61"
+             inkscape:export-ydpi="153.61" />
+    </g>
+</svg>

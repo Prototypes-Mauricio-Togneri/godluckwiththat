@@ -3,6 +3,8 @@ class Constants {
 
   static const double MAP_MOVEMENT = 20;
 
+  static const double BASE_IMAGE_SIZE = 256;
+
   static const double NODE_SIZE = 16;
   static const double SELECTED_SIZE = 20;
 

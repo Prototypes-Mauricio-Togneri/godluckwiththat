@@ -5,20 +5,23 @@ class Assets {
   static const String IMAGES_ENEMY_BASE = 'enemy_base.png';
   static const String IMAGES_BULLET_BASE = 'bullet_base.png';
   static const String IMAGES_MINE_RED_BLUR = 'mine_red_blur.png';
+  static const String IMAGES_PATCH_BLUE_BLUR = 'patch_blue_blur.png';
   static const String IMAGES_KERNEL_BASE = 'kernel_base.png';
   static const String IMAGES_LASER_BLUR = 'laser_blur.png';
-  static const String IMAGES_PATCH_BLUE = 'patch_blue.png';
   static const String IMAGES_ENEMY_BLUR = 'enemy_blur.png';
-  static const String IMAGES_PATCH_RED = 'patch_red.png';
+  static const String IMAGES_PATCH_RED_BASE = 'patch_red_base.png';
   static const String IMAGES_MINE_GREEN_BLUR = 'mine_green_blur.png';
   static const String IMAGES_NODE_SELECTED = 'node_selected.png';
   static const String IMAGES_KERNEL_BLUR = 'kernel_blur.png';
   static const String IMAGES_TURRET_LIGHT_BLUR = 'turret_light_blur.png';
   static const String IMAGES_MINE_BASE = 'mine_base.png';
+  static const String IMAGES_PATCH_GREEN_BASE = 'patch_green_base.png';
   static const String IMAGES_MINE_BLUE_BLUR = 'mine_blue_blur.png';
-  static const String IMAGES_PATCH_GREEN = 'patch_green.png';
+  static const String IMAGES_PATCH_GREEN_BLUR = 'patch_green_blur.png';
   static const String IMAGES_TURRET_LIGHT_BASE = 'turret_light_base.png';
   static const String IMAGES_LASER_BASE = 'laser_base.png';
   static const String IMAGES_BULLET_BLUR = 'bullet_blur.png';
+  static const String IMAGES_PATCH_RED_BLUR = 'patch_red_blur.png';
+  static const String IMAGES_PATCH_BLUE_BASE = 'patch_blue_base.png';
   static const String MATCHES_MATCH1 = 'assets/matches/match1.json';
 }

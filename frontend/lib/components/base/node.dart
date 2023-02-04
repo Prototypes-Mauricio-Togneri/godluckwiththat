@@ -2,6 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/components/base/blur_sprite.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/game/bullet.dart';
@@ -37,7 +38,7 @@ class Node extends SpriteComponent
     anchor = Anchor.center;
 
     add(CircleHitbox());
-    add(NodeBlur(image: type.spriteBlur));
+    add(BlurSprite(image: type.spriteBlur));
     add(debugText);
 
     return super.onLoad();
@@ -113,24 +114,5 @@ class DebugText extends TextComponent {
     position = Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);
     anchor = Anchor.center;
     textRenderer = Style.debugTextRenderer(size: 5);
-  }
-}
-
-class NodeBlur extends SpriteComponent {
-  final String image;
-
-  NodeBlur({
-    required this.image,
-  });
-
-  @override
-  Future onLoad() async {
-    sprite = await getSprite(image);
-    position = Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);
-    width = Constants.NODE_SIZE * (sprite!.image.width / 256);
-    height = Constants.NODE_SIZE * (sprite!.image.height / 256);
-    anchor = Anchor.center;
-
-    return super.onLoad();
   }
 }

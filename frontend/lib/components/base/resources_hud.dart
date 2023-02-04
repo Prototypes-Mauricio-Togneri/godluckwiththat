@@ -79,7 +79,7 @@ class IconResourceIndicator extends SpriteComponent {
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(type.image);
+    sprite = await getSprite(type.spriteBase);
     width = 25;
     height = 25;
     anchor = Anchor.center;

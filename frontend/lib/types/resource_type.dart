@@ -5,22 +5,27 @@ import 'package:tensionnode/services/palette.dart';
 enum ResourceType {
   red(
     color: Palette.resource_red,
-    image: Assets.IMAGES_PATCH_RED,
+    spriteBase: Assets.IMAGES_PATCH_RED_BASE,
+    spriteBlur: Assets.IMAGES_PATCH_RED_BLUR,
   ),
   green(
     color: Palette.resource_green,
-    image: Assets.IMAGES_PATCH_GREEN,
+    spriteBase: Assets.IMAGES_PATCH_GREEN_BASE,
+    spriteBlur: Assets.IMAGES_PATCH_GREEN_BLUR,
   ),
   blue(
     color: Palette.resource_blue,
-    image: Assets.IMAGES_PATCH_BLUE,
+    spriteBase: Assets.IMAGES_PATCH_BLUE_BASE,
+    spriteBlur: Assets.IMAGES_PATCH_BLUE_BLUR,
   );
 
   final Color color;
-  final String image;
+  final String spriteBase;
+  final String spriteBlur;
 
   const ResourceType({
     required this.color,
-    required this.image,
+    required this.spriteBase,
+    required this.spriteBlur,
   });
 }

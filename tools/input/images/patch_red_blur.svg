@@ -8,7 +8,7 @@
      version="1.1"
      id="svg421"
      inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
-     sodipodi:docname="patch_blue.svg"
+     sodipodi:docname="patch_red_blur.svg"
      inkscape:export-filename="../2dd889ac/patch_red.png"
      inkscape:export-xdpi="245.76"
      inkscape:export-ydpi="245.76"
@@ -38,13 +38,27 @@
          inkscape:current-layer="layer1"
          showborder="false" />
     <defs
-         id="defs418" />
+         id="defs418">
+        <filter
+             inkscape:collect="always"
+             style="color-interpolation-filters:sRGB"
+             id="filter842"
+             x="-0.075"
+             y="-0.075"
+             width="1.15"
+             height="1.15">
+            <feGaussianBlur
+                 inkscape:collect="always"
+                 stdDeviation="0.82684"
+                 id="feGaussianBlur844" />
+        </filter>
+    </defs>
     <g
          inkscape:label="Layer 1"
          inkscape:groupmode="layer"
          id="layer1">
         <rect
-             style="opacity:0.5;fill:#2196f3;fill-opacity:1;stroke:none;stroke-width:1.68923;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             style="opacity:0.5;fill:#f44336;fill-opacity:1;stroke:none;stroke-width:1.68923;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;filter:url(#filter842)"
              id="rect1334"
              width="26.459"
              height="26.459"
