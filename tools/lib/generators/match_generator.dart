@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'package:tension_node_tools/extensions/xml_element_extension.dart';
 import 'package:tension_node_tools/generators/base_generator.dart';
+import 'package:tension_node_tools/json/json_hole.dart';
 import 'package:tension_node_tools/json/json_match.dart';
 import 'package:tension_node_tools/json/json_node.dart';
 import 'package:tension_node_tools/json/json_patch.dart';
 import 'package:tension_node_tools/json/json_resources.dart';
 import 'package:tension_node_tools/types/node_type.dart';
 import 'package:tension_node_tools/types/resource_type.dart';
+import 'package:tension_node_tools/types/types.dart';
 import 'package:xml/xml.dart';
 
 class MatchGenerator extends BaseGenerator {
@@ -31,6 +33,7 @@ class MatchGenerator extends BaseGenerator {
     final num resourcesBlue = svg.getNumAttribute('resourcesBlue');
 
     final List<JsonPatch> patches = [];
+    final List<JsonHole> holes = [];
     final Iterable<XmlElement> layers = document.findAllElements('g');
 
     for (final XmlElement layer in layers) {
@@ -38,6 +41,8 @@ class MatchGenerator extends BaseGenerator {
 
       if (id == 'patches') {
         patches.addAll(getPatches(layer));
+      } else if (id == 'holes') {
+        holes.addAll(getHoles(layer));
       }
     }
 
@@ -50,6 +55,7 @@ class MatchGenerator extends BaseGenerator {
         blue: resourcesBlue,
       ),
       patches: patches,
+      holes: holes,
       kernel: const JsonNode(
         type: NodeType.kernel,
         position: [0, 0],
@@ -76,12 +82,33 @@ class MatchGenerator extends BaseGenerator {
       'resource',
       ResourceType.values,
     )!;
-    final num x = element.getNumAttribute('x');
-    final num y = element.getNumAttribute('y');
 
     return JsonPatch(
       resource: resource,
-      position: [x, y],
+      position: getPosition(element),
     );
+  }
+
+  List<JsonHole> getHoles(XmlElement xml) {
+    final List<JsonHole> result = [];
+
+    for (final XmlElement element in xml.childElements) {
+      result.add(getHole(element));
+    }
+
+    return result;
+  }
+
+  JsonHole getHole(XmlElement element) {
+    return JsonHole(
+      position: getPosition(element),
+    );
+  }
+
+  JsonPosition getPosition(XmlElement element) {
+    final num x = element.getNumAttribute('x');
+    final num y = element.getNumAttribute('y');
+
+    return [x.round(), y.round()];
   }
 }

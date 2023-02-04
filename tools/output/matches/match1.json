@@ -10,22 +10,141 @@
     {
       "resource": "red",
       "position": [
-        -2,
-        -2
+        -9,
+        -4
+      ]
+    },
+    {
+      "resource": "red",
+      "position": [
+        -10,
+        -5
+      ]
+    },
+    {
+      "resource": "red",
+      "position": [
+        -9,
+        -5
+      ]
+    },
+    {
+      "resource": "red",
+      "position": [
+        -10,
+        -4
       ]
     },
     {
       "resource": "green",
       "position": [
-        1,
-        -2
+        9,
+        -6
+      ]
+    },
+    {
+      "resource": "green",
+      "position": [
+        10,
+        -7
       ]
     },
     {
       "resource": "blue",
       "position": [
-        -2,
-        1
+        1,
+        7
+      ]
+    },
+    {
+      "resource": "blue",
+      "position": [
+        1,
+        6
+      ]
+    },
+    {
+      "resource": "blue",
+      "position": [
+        2,
+        7
+      ]
+    },
+    {
+      "resource": "blue",
+      "position": [
+        2,
+        6
+      ]
+    },
+    {
+      "resource": "green",
+      "position": [
+        9,
+        -7
+      ]
+    },
+    {
+      "resource": "green",
+      "position": [
+        10,
+        -6
+      ]
+    }
+  ],
+  "holes": [
+    {
+      "position": [
+        -16,
+        -8
+      ]
+    },
+    {
+      "position": [
+        -16,
+        -7
+      ]
+    },
+    {
+      "position": [
+        -17,
+        -8
+      ]
+    },
+    {
+      "position": [
+        -18,
+        -8
+      ]
+    },
+    {
+      "position": [
+        -18,
+        -7
+      ]
+    },
+    {
+      "position": [
+        -17,
+        -7
+      ]
+    },
+    {
+      "position": [
+        -16,
+        -6
+      ]
+    },
+    {
+      "position": [
+        -17,
+        -6
+      ]
+    },
+    {
+      "position": [
+        -18,
+        -6
       ]
     }
   ],
