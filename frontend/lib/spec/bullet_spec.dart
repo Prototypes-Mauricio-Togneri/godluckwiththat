@@ -11,10 +11,10 @@ class BulletSpec {
 
   static BulletSpec type1 = const BulletSpec(
     sprite: Assets.IMAGES_LASER_BASE,
-    damage: 50,
+    damage: 60,
     width: 1,
     height: 3,
-    speed: 8,
+    speed: 6,
     range: 100,
     piercing: 1,
   );
@@ -24,7 +24,7 @@ class BulletSpec {
     damage: 30,
     width: 1.5,
     height: 1.5,
-    speed: 8,
+    speed: 6,
     range: 100,
     piercing: 1,
   );

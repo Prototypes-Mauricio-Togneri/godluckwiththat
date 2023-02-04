@@ -13,13 +13,15 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   final Vector2 startPosition;
   final Vector2 direction;
   final double speed;
+  final double range;
 
   Bullet({
     required this.shooter,
     required this.spec,
     required this.startPosition,
     required this.direction,
-  }) : speed = spec.speed * Constants.NODE_SIZE;
+  })  : speed = spec.speed * Constants.NODE_SIZE,
+        range = spec.range * Constants.NODE_SIZE;
 
   @override
   Future onLoad() async {
@@ -46,7 +48,7 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
 
     final num distanceFromOrigin = position.distanceTo(startPosition);
 
-    if (distanceFromOrigin >= spec.range) {
+    if (distanceFromOrigin >= range) {
       game.remove(this);
     }
   }
