@@ -1,11 +1,15 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
+import 'package:flutter/painting.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
+import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class ResourcesHud extends PositionComponent with HasGameRef<GameComponent> {
+  final Rect rect = const Rect.fromLTWH(0, 0, 450, 50);
+  final Paint paint = Paint();
   final TextComponent redAmount = TextResourceIndicator(x: 60);
   final TextComponent greenAmount = TextResourceIndicator(x: 210);
   final TextComponent blueAmount = TextResourceIndicator(x: 360);
@@ -13,10 +17,15 @@ class ResourcesHud extends PositionComponent with HasGameRef<GameComponent> {
   ResourcesHud() {
     positionType = PositionType.viewport;
     priority = 1;
+
+    paint.color = Palette.grey;
+    paint.style = PaintingStyle.fill;
   }
 
   @override
   Future onLoad() async {
+    width = 450;
+    height = 50;
     anchor = Anchor.center;
     position = Vector2(game.size.x / 2, height / 2);
 
@@ -52,13 +61,7 @@ class ResourcesHud extends PositionComponent with HasGameRef<GameComponent> {
 
   @override
   void render(Canvas canvas) {
-    // TODO(momo): improvement: draw one single path instead of individual lines
-    /*final Rect viewport = Rect.fromLTWH(
-      camera.position.x,
-      camera.position.y,
-      camera.viewport.effectiveSize.x,
-      camera.viewport.effectiveSize.y,
-    );*/
+    canvas.drawRect(rect, paint);
 
     super.render(canvas);
   }
