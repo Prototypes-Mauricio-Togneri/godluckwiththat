@@ -245,13 +245,10 @@ class GameComponent extends BaseGameComponent {
     _closeContextualMenus();
     _closeModeMenus();
 
-    if (node != null) {
+    if (node is FixedNode) {
       state.selectNode(node);
-
-      if (node is FixedNode) {
-        removeComponents(NodeSelected);
-        add(NodeSelected(node: node));
-      }
+      removeComponents(NodeSelected);
+      add(NodeSelected(node: node));
     }
 
     if (!overlays.isActive(name)) {
