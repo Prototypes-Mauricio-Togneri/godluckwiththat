@@ -10,7 +10,7 @@ class WeaponSpec {
   final BulletSpec bullet;
 
   static WeaponSpec turret_light = WeaponSpec(
-    range: 50,
+    range: 5,
     fireRate: 2,
     bullets: 1,
     spread: 0,
@@ -19,7 +19,7 @@ class WeaponSpec {
   );
 
   static WeaponSpec enemy = WeaponSpec(
-    range: 40,
+    range: 4,
     fireRate: 1,
     bullets: 1,
     spread: 0,

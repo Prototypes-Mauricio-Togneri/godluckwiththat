@@ -14,6 +14,7 @@ class Enemy extends MovableNode {
   final Direction direction;
   final Shooting shooting;
   final num speed;
+  final double range;
   Node? target;
   bool _isRotating = false;
 
@@ -24,6 +25,7 @@ class Enemy extends MovableNode {
     required this.direction,
   })  : shooting = Shooting(spec.weapon.fireRate),
         speed = spec.speed * Constants.NODE_SIZE,
+        range = spec.weapon.range * Constants.NODE_SIZE,
         super(
           type: spec.type,
           armor: spec.armor,
@@ -38,7 +40,7 @@ class Enemy extends MovableNode {
       target = null;
     }
 
-    target ??= game.closestNodeInRange<FixedNode>(this, spec.weapon.range);
+    target ??= game.closestNodeInRange<FixedNode>(this, range);
 
     if (target == null) {
       _moveForward(dt);
