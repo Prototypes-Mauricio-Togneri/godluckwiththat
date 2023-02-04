@@ -19,7 +19,7 @@ class WeaponSpec {
   );
 
   static WeaponSpec enemy = WeaponSpec(
-    range: 30,
+    range: 40,
     fireRate: 1,
     bullets: 1,
     spread: 0,

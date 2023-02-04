@@ -13,6 +13,7 @@ class Enemy extends MovableNode {
   final EnemySpec spec;
   final Direction direction;
   final Shooting shooting;
+  final num speed;
   Node? target;
   bool _isRotating = false;
 
@@ -22,6 +23,7 @@ class Enemy extends MovableNode {
     required this.spec,
     required this.direction,
   })  : shooting = Shooting(spec.weapon.fireRate),
+        speed = spec.speed * Constants.NODE_SIZE,
         super(
           type: spec.type,
           armor: spec.armor,
@@ -76,7 +78,6 @@ class Enemy extends MovableNode {
 
   void _moveForward(double dt) {
     _rotateTo(position + direction.vector);
-    final num speed = spec.speed * Constants.NODE_SIZE;
 
     switch (direction) {
       case Direction.up:

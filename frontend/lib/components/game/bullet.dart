@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
@@ -11,13 +12,14 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   final BulletSpec spec;
   final Vector2 startPosition;
   final Vector2 direction;
+  final double speed;
 
   Bullet({
     required this.shooter,
     required this.spec,
     required this.startPosition,
     required this.direction,
-  });
+  }) : speed = spec.speed * Constants.NODE_SIZE;
 
   @override
   Future onLoad() async {
@@ -40,7 +42,7 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   }
 
   void _moveForward(double dt) {
-    position += direction * spec.speed * dt;
+    position += direction * speed * dt;
 
     final num distanceFromOrigin = position.distanceTo(startPosition);
 
