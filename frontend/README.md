@@ -3,7 +3,6 @@
 - Save and load matches
 - Limit map movement
 - Add new type of floor
-- Prevent enemies to be hit by bullets from other enemies
 
 Click on a turret and show:
 * Shoots fired
