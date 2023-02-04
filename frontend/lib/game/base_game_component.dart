@@ -1,6 +1,5 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -8,7 +7,6 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/map_element.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/services/palette.dart';
 
 class BaseGameComponent extends FlameGame
     with
@@ -185,9 +183,6 @@ class BaseGameComponent extends FlameGame
 
     return Vector2(x, y);
   }
-
-  @override
-  Color backgroundColor() => Palette.mapBackground;
 
   @override
   void onMouseMove(PointerHoverInfo info) {
