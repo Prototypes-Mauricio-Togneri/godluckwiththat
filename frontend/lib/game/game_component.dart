@@ -12,7 +12,6 @@ import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/components/game/enemy.dart';
 import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/components/game/mine.dart';
-import 'package:tensionnode/components/game/patch.dart';
 import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/dialog/contextual/build_menu.dart';
 import 'package:tensionnode/dialog/contextual/mine_menu.dart';
@@ -77,13 +76,6 @@ class GameComponent extends BaseGameComponent {
         i: patch.position.x,
         j: patch.position.y,
         resourceType: patch.resource,
-      ));
-    }
-
-    for (final JsonHole hole in jsonMatch.holes) {
-      add(Hole(
-        i: hole.position.x,
-        j: hole.position.y,
       ));
     }*/
 
@@ -397,7 +389,7 @@ class GameComponent extends BaseGameComponent {
     required MineSpec spec,
     required MapElement? mapElement,
   }) {
-    if ((mapElement is Patch) && (mapElement.resourceType == spec.resource)) {
+    /*if ((mapElement is Patch) && (mapElement.resourceType == spec.resource)) {
       addMine(
         i: i,
         j: j,
@@ -405,7 +397,7 @@ class GameComponent extends BaseGameComponent {
         shield: Constants.SHIELD_MAX,
       );
       state.resources.remove(spec.cost);
-    }
+    }*/
   }
 
   void _buildTurret({

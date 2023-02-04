@@ -12,12 +12,6 @@ generate () {
     inkscape --export-type="png" --export-filename="${OUTPUT}/${1}.png" --export-area-drawing --export-width=$2 --export-height=$3 ${INPUT}/${1}.svg
 }
 
-generate patch_red 295 295
-generate patch_green 295 295
-generate patch_blue 295 295
-
-generate hole 256 256
-
 generate mine_base 256 256
 generate mine_red_blur 395 395
 generate mine_green_blur 395 395

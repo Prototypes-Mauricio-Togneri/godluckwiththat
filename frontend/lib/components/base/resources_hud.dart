@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/painting.dart';
-import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/services/style.dart';
@@ -67,24 +66,28 @@ class ResourcesHud extends PositionComponent with HasGameRef<GameComponent> {
   }
 }
 
-class IconResourceIndicator extends SpriteComponent {
+class IconResourceIndicator extends PositionComponent {
+  final Rect rect = const Rect.fromLTWH(0, 0, 20, 20);
+  final Paint paint = Paint();
   final ResourceType type;
 
   IconResourceIndicator({
     required double x,
     required this.type,
   }) {
+    width = 20;
+    height = 20;
+    anchor = Anchor.center;
     position = Vector2(x, 25);
+    paint.color = type.color;
+    paint.style = PaintingStyle.fill;
   }
 
   @override
-  Future onLoad() async {
-    sprite = await getSprite(type.sprite);
-    width = 25;
-    height = 25;
-    anchor = Anchor.center;
+  void render(Canvas canvas) {
+    canvas.drawRect(rect, paint);
 
-    return super.onLoad();
+    super.render(canvas);
   }
 }
 
