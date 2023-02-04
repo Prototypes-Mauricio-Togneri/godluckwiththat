@@ -52,6 +52,7 @@ class Enemy extends MovableNode {
         shoot(
           spec: spec.weapon,
           target: target!,
+          weaponRange: range,
         );
       }
     }

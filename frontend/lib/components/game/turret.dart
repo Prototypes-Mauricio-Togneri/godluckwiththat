@@ -45,6 +45,7 @@ class Turret extends FixedNode {
       shoot(
         spec: spec.weapon,
         target: target!,
+        weaponRange: range,
       );
     }
   }

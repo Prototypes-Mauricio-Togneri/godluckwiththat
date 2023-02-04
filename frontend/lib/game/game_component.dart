@@ -144,12 +144,14 @@ class GameComponent extends BaseGameComponent {
   void addBullet({
     required Node shooter,
     required BulletSpec spec,
+    required num weaponRange,
     required Vector2 startPosition,
     required Vector2 direction,
   }) {
     addNode(Bullet(
       shooter: shooter,
       spec: spec,
+      weaponRange: weaponRange,
       startPosition: startPosition,
       direction: direction,
     ));

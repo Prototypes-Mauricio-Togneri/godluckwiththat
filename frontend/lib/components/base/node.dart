@@ -45,6 +45,7 @@ class Node extends SpriteComponent
   void shoot({
     required WeaponSpec spec,
     required Node target,
+    required num weaponRange,
   }) {
     final Vector2 direction = (target.position - position).normalized();
     final Vector2 startPosition =
@@ -55,6 +56,7 @@ class Node extends SpriteComponent
     game.addBullet(
       shooter: this,
       spec: spec.bullet,
+      weaponRange: weaponRange,
       startPosition: startPosition,
       direction: direction,
     );
