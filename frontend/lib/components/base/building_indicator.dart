@@ -15,7 +15,7 @@ class BuildingIndicator extends SpriteComponent with HasGameRef<GameComponent> {
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(spec.type.sprite);
+    sprite = await getSprite(spec.type.spriteBase);
     width = Constants.NODE_SIZE;
     height = Constants.NODE_SIZE;
     anchor = Anchor.center;

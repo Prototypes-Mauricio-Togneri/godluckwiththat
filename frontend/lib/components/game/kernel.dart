@@ -8,7 +8,7 @@ class Kernel extends FixedNode {
     required super.j,
     required super.shield,
   }) : super(
-          image: NodeSpec.kernel.type.sprite,
+          type: NodeSpec.kernel.type,
           armor: NodeSpec.kernel.armor,
           heat: NodeSpec.kernel.heat,
         );

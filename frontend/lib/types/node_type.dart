@@ -5,17 +5,37 @@ import 'package:tensionnode/spec/node_spec.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
 
 enum NodeType {
-  kernel(sprite: Assets.IMAGES_KERNEL),
-  mine_red(sprite: Assets.IMAGES_MINE_RED),
-  mine_green(sprite: Assets.IMAGES_MINE_GREEN),
-  mine_blue(sprite: Assets.IMAGES_MINE_BLUE),
-  turret_light(sprite: Assets.IMAGES_TURRET_LIGHT),
-  enemy(sprite: Assets.IMAGES_ENEMY);
+  kernel(
+    spriteBase: Assets.IMAGES_KERNEL,
+    spriteBlur: Assets.IMAGES_KERNEL,
+  ),
+  mine_red(
+    spriteBase: Assets.IMAGES_MINE_BASE,
+    spriteBlur: Assets.IMAGES_MINE_RED_BLUR,
+  ),
+  mine_green(
+    spriteBase: Assets.IMAGES_MINE_BASE,
+    spriteBlur: Assets.IMAGES_MINE_GREEN_BLUR,
+  ),
+  mine_blue(
+    spriteBase: Assets.IMAGES_MINE_BASE,
+    spriteBlur: Assets.IMAGES_MINE_BLUE_BLUR,
+  ),
+  turret_light(
+    spriteBase: Assets.IMAGES_TURRET_LIGHT,
+    spriteBlur: Assets.IMAGES_TURRET_LIGHT,
+  ),
+  enemy(
+    spriteBase: Assets.IMAGES_ENEMY,
+    spriteBlur: Assets.IMAGES_ENEMY,
+  );
 
-  final String sprite;
+  final String spriteBase;
+  final String spriteBlur;
 
   const NodeType({
-    required this.sprite,
+    required this.spriteBase,
+    required this.spriteBlur,
   });
 
   bool get isKernel => this == kernel;

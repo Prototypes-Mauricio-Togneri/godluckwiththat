@@ -22,7 +22,7 @@ class Enemy extends MovableNode {
     required this.direction,
   })  : shooting = Shooting(spec.weapon.fireRate),
         super(
-          image: spec.type.sprite,
+          type: spec.type,
           armor: spec.armor,
         );
 

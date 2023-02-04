@@ -15,7 +15,8 @@ class Platform {
 
   static final bool isMobile = isAndroid || isIOS;
 
-  static final bool isDesktop = !isAndroid && !isIOS && (isWindows || isLinux || isMac);
+  static final bool isDesktop =
+      !isAndroid && !isIOS && (isWindows || isLinux || isMac);
 
   static final bool isDesktopWeb = isDesktop && isWeb;
 

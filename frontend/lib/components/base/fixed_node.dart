@@ -12,7 +12,7 @@ class FixedNode extends Node with Tappable {
     required this.i,
     required this.j,
     required this.heat,
-    required super.image,
+    required super.type,
     required super.armor,
     required super.shield,
   }) : super(position: Position.fromGrid(i, j));

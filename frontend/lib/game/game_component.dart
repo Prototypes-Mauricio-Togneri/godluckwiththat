@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
-import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/components/base/background.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/map_element.dart';
@@ -46,7 +46,7 @@ class GameComponent extends BaseGameComponent {
     final JsonMatch jsonMatch = await Loader.match(Assets.MATCHES_MATCH1);
     state.load(jsonMatch);
 
-    //add(Background(camera));
+    add(Background(camera));
     add(FpsTextComponent(
       position: Vector2(
         10,
@@ -56,10 +56,10 @@ class GameComponent extends BaseGameComponent {
     ));
     add(ResourcesHud());
 
-    final TiledComponent map = await TiledComponent.load(
+    /*final TiledComponent map = await TiledComponent.load(
         'dungeon.tmx', Vector2.all(Constants.NODE_SIZE));
     map.position = Vector2(-5 * Constants.NODE_SIZE, -5 * Constants.NODE_SIZE);
-    add(map);
+    add(map);*/
 
     for (final JsonPatch patch in jsonMatch.patches) {
       add(Patch(

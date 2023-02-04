@@ -7,17 +7,18 @@ import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/spec/weapon_spec.dart';
+import 'package:tensionnode/types/node_type.dart';
 
 class Node extends SpriteComponent
     with HasGameRef<GameComponent>, CollisionCallbacks {
-  final String image;
+  final NodeType type;
   final num armor;
   num _shield = Constants.SHIELD_MAX;
   final DebugText debugText = DebugText();
 
   Node({
     required super.position,
-    required this.image,
+    required this.type,
     required this.armor,
     required num shield,
   }) {
@@ -28,13 +29,14 @@ class Node extends SpriteComponent
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(image);
+    sprite = await getSprite(type.spriteBase);
     width = Constants.NODE_SIZE;
     height = Constants.NODE_SIZE;
     anchor = Anchor.center;
 
     add(CircleHitbox());
-    add(debugText);
+    add(NodeBlur(image: type.spriteBlur));
+    //add(debugText);
 
     return super.onLoad();
   }
@@ -101,5 +103,24 @@ class DebugText extends TextComponent {
     position = Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);
     anchor = Anchor.center;
     textRenderer = Style.debugTextRenderer(size: 5);
+  }
+}
+
+class NodeBlur extends SpriteComponent {
+  final String image;
+
+  NodeBlur({
+    required this.image,
+  });
+
+  @override
+  Future onLoad() async {
+    sprite = await getSprite(image);
+    position = Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);
+    width = Constants.NODE_SIZE * (sprite!.image.width / 256);
+    height = Constants.NODE_SIZE * (sprite!.image.height / 256);
+    anchor = Anchor.center;
+
+    return super.onLoad();
   }
 }
