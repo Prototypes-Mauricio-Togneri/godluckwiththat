@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
-import 'package:tensionnode/components/base/map_element.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/node_selected.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
@@ -23,6 +22,7 @@ import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
+import 'package:tensionnode/models/map_element.dart';
 import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/loader.dart';
@@ -35,6 +35,7 @@ import 'package:tensionnode/spec/turret_spec.dart';
 import 'package:tensionnode/types/direction.dart';
 
 class GameComponent extends BaseGameComponent {
+  late TiledComponent map;
   final GameState state;
 
   GameComponent(this.state);
@@ -54,7 +55,8 @@ class GameComponent extends BaseGameComponent {
     ));
     add(ResourcesHud());
 
-    final TiledComponent map = await TiledComponent.load(
+    // TODO(momo): create MapComponent
+    map = await TiledComponent.load(
         Assets.TILES_MAP, Vector2.all(Constants.NODE_SIZE));
     final int mapWidth = map.tileMap.map.width;
     final int mapHeight = map.tileMap.map.height;
@@ -63,21 +65,7 @@ class GameComponent extends BaseGameComponent {
     final double offsetY =
         -((mapHeight / 2) * Constants.NODE_SIZE) + (Constants.NODE_SIZE / 2);
     map.position = Vector2(offsetX, offsetY);
-    final Gid? gid = map.tileMap.getTileData(
-      layerId: 0,
-      x: 10,
-      y: 10,
-    );
-    print(gid);
     add(map);
-
-    /*for (final JsonPatch patch in jsonMatch.patches) {
-      add(Patch(
-        i: patch.position.x,
-        j: patch.position.y,
-        resourceType: patch.resource,
-      ));
-    }*/
 
     final JsonNode kernelNode = jsonMatch.kernel;
 
@@ -346,7 +334,11 @@ class GameComponent extends BaseGameComponent {
       final int i = position.x.toInt();
       final int j = position.y.toInt();
       final Node? node = getFixedNode(i, j);
-      final MapElement? mapElement = getMapElement(i, j);
+      final MapElement mapElement = MapElement.load(
+        map: map,
+        i: i,
+        j: j,
+      );
       final NodeSpec spec = buildingIndicator.spec;
 
       if ((node == null) && state.resources.has(spec.cost)) {
@@ -364,7 +356,7 @@ class GameComponent extends BaseGameComponent {
     required int i,
     required int j,
     required NodeSpec spec,
-    required MapElement? mapElement,
+    required MapElement mapElement,
   }) {
     if (spec is MineSpec) {
       _buildMine(
@@ -387,9 +379,9 @@ class GameComponent extends BaseGameComponent {
     required int i,
     required int j,
     required MineSpec spec,
-    required MapElement? mapElement,
+    required MapElement mapElement,
   }) {
-    /*if ((mapElement is Patch) && (mapElement.resourceType == spec.resource)) {
+    if (mapElement.isPatch(spec.resource)) {
       addMine(
         i: i,
         j: j,
@@ -397,7 +389,7 @@ class GameComponent extends BaseGameComponent {
         shield: Constants.SHIELD_MAX,
       );
       state.resources.remove(spec.cost);
-    }*/
+    }
   }
 
   void _buildTurret({
