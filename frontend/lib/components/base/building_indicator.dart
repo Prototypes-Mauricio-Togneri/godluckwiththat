@@ -1,6 +1,5 @@
 import 'package:flame/components.dart';
 import 'package:flame/rendering.dart';
-import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/environment.dart';
@@ -16,8 +15,7 @@ class BuildingIndicator extends SpriteComponent with HasGameRef<GameComponent> {
   @override
   Future onLoad() async {
     sprite = await getSprite(spec.type.spriteBase);
-    width = Constants.NODE_SIZE;
-    height = Constants.NODE_SIZE;
+    size = getSize();
     anchor = Anchor.center;
 
     final double opacity = Environment.canShowBuildingIndicator ? 0.5 : 0;
