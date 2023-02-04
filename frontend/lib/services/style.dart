@@ -24,6 +24,7 @@ class Style {
         style: TextStyle(
           fontSize: size,
           color: color,
+          height: 1.5,
         ),
       );
 }
