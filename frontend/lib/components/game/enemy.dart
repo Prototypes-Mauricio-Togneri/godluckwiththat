@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
@@ -75,19 +76,20 @@ class Enemy extends MovableNode {
 
   void _moveForward(double dt) {
     _rotateTo(position + direction.vector);
+    final num speed = spec.speed * Constants.NODE_SIZE;
 
     switch (direction) {
       case Direction.up:
-        y -= dt * spec.speed;
+        y -= dt * speed;
         break;
       case Direction.down:
-        y += dt * spec.speed;
+        y += dt * speed;
         break;
       case Direction.left:
-        x -= dt * spec.speed;
+        x -= dt * speed;
         break;
       case Direction.right:
-        x += dt * spec.speed;
+        x += dt * speed;
         break;
     }
   }
