@@ -1,6 +1,5 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame_audio/flame_audio.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/blur_sprite.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
@@ -51,7 +50,7 @@ class Node extends SpriteComponent
     final Vector2 startPosition =
         position + (direction * (Constants.NODE_SIZE / 2));
 
-    FlameAudio.play(spec.sound);
+    //FlameAudio.play(spec.sound);
 
     game.addBullet(
       shooter: this,

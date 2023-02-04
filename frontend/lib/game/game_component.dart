@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
+import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/components/base/background.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/map_element.dart';
@@ -10,7 +10,6 @@ import 'package:tensionnode/components/base/node_selected.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
 import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/components/game/enemy.dart';
-import 'package:tensionnode/components/game/hole.dart';
 import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/components/game/mine.dart';
 import 'package:tensionnode/components/game/patch.dart';
@@ -23,10 +22,8 @@ import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/json/json_enemy.dart';
-import 'package:tensionnode/json/json_hole.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
-import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/loader.dart';
@@ -48,7 +45,7 @@ class GameComponent extends BaseGameComponent {
     final JsonMatch jsonMatch = await Loader.match(Assets.MATCHES_MATCH1);
     state.load(jsonMatch);
 
-    add(Background(camera));
+    //add(Background(camera));
     add(FpsTextComponent(
       position: Vector2(
         10,
@@ -58,7 +55,24 @@ class GameComponent extends BaseGameComponent {
     ));
     add(ResourcesHud());
 
-    for (final JsonPatch patch in jsonMatch.patches) {
+    final TiledComponent map =
+        await TiledComponent.load('map.tmx', Vector2.all(Constants.NODE_SIZE));
+    final int mapWidth = map.tileMap.map.width;
+    final int mapHeight = map.tileMap.map.height;
+    final double offsetX =
+        -((mapWidth / 2) * Constants.NODE_SIZE) + (Constants.NODE_SIZE / 2);
+    final double offsetY =
+        -((mapHeight / 2) * Constants.NODE_SIZE) + (Constants.NODE_SIZE / 2);
+    map.position = Vector2(offsetX, offsetY);
+    final Gid? gid = map.tileMap.getTileData(
+      layerId: 0,
+      x: 10,
+      y: 10,
+    );
+    print(gid);
+    add(map);
+
+    /*for (final JsonPatch patch in jsonMatch.patches) {
       add(Patch(
         i: patch.position.x,
         j: patch.position.y,
@@ -71,7 +85,7 @@ class GameComponent extends BaseGameComponent {
         i: hole.position.x,
         j: hole.position.y,
       ));
-    }
+    }*/
 
     final JsonNode kernelNode = jsonMatch.kernel;
 
