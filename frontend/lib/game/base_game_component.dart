@@ -152,12 +152,14 @@ class BaseGameComponent extends FlameGame
       onKeyPressed(LogicalKeyboardKey.space);
       return KeyEventResult.handled;
     } else if (keysPressed.isK && isKeyDown) {
-      camera.moveTo(Vector2(0, 0));
+      centerMap(Vector2(0, 0));
       return KeyEventResult.handled;
     } else {
       return KeyEventResult.ignored;
     }
   }
+
+  void centerMap(Vector2 position) => camera.moveTo(position);
 
   Vector2 _mapMovement(Set<LogicalKeyboardKey> keysPressed) {
     final double x = keysPressed.isLeft
