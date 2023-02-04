@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+     width="100"
+     height="100"
+     viewBox="0 0 26.458 26.459"
+     version="1.1"
+     id="svg421"
+     inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
+     sodipodi:docname="mine_green_blur.svg"
+     inkscape:export-filename="../eec9848b/mine_red.png"
+     inkscape:export-xdpi="245.76"
+     inkscape:export-ydpi="245.76"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:svg="http://www.w3.org/2000/svg">
+    <sodipodi:namedview
+         id="namedview423"
+         pagecolor="#ffffff"
+         bordercolor="#666666"
+         borderopacity="1.0"
+         inkscape:showpageshadow="2"
+         inkscape:pageopacity="0.0"
+         inkscape:pagecheckerboard="0"
+         inkscape:deskcolor="#d1d1d1"
+         inkscape:document-units="px"
+         showgrid="false"
+         inkscape:zoom="2.3786"
+         inkscape:cx="27.537"
+         inkscape:cy="37.627"
+         inkscape:window-width="1920"
+         inkscape:window-height="1016"
+         inkscape:window-x="0"
+         inkscape:window-y="0"
+         inkscape:window-maximized="1"
+         inkscape:current-layer="layer1"
+         showborder="false" />
+    <defs
+         id="defs418">
+        <filter
+             inkscape:collect="always"
+             style="color-interpolation-filters:sRGB"
+             id="filter874"
+             x="-0.35319"
+             y="-0.35319"
+             width="1.7064"
+             height="1.7064">
+            <feGaussianBlur
+                 inkscape:collect="always"
+                 stdDeviation="2.9894"
+                 id="feGaussianBlur876" />
+        </filter>
+        <filter
+             inkscape:collect="always"
+             style="color-interpolation-filters:sRGB"
+             id="filter878"
+             x="-0.3"
+             y="-0.3"
+             width="1.6"
+             height="1.6">
+            <feGaussianBlur
+                 inkscape:collect="always"
+                 stdDeviation="1.323"
+                 id="feGaussianBlur880" />
+        </filter>
+    </defs>
+    <g
+         inkscape:label="Layer 1"
+         inkscape:groupmode="layer"
+         id="layer1">
+        <rect
+             style="fill:none;stroke:#4caf50;stroke-width:2.54418;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;filter:url(#filter874)"
+             id="rect1334"
+             width="23.915"
+             height="23.915"
+             x="1.2715"
+             y="1.272"
+             inkscape:export-filename="../ac428c73/mine_blue_blur.png"
+             inkscape:export-xdpi="245.76"
+             inkscape:export-ydpi="245.76" />
+        <rect
+             style="fill:#4caf50;fill-opacity:1;stroke:none;stroke-width:1.59536;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;filter:url(#filter878)"
+             id="rect1414"
+             width="10.584"
+             height="10.584"
+             x="7.937"
+             y="7.9375" />
+    </g>
+</svg>
