@@ -8,8 +8,5 @@ class Patch extends MapElement {
     required super.i,
     required super.j,
     required this.resourceType,
-  }) : super(
-          spriteBase: resourceType.spriteBlur,
-          spriteBlur: resourceType.spriteBlur,
-        );
+  }) : super(spritePath: resourceType.sprite);
 }
