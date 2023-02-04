@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+     width="1024"
+     height="256"
+     viewBox="0 0 270.93 67.735"
+     version="1.1"
+     id="svg421"
+     inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
+     sodipodi:docname="tiles.svg"
+     inkscape:export-filename="../eec9848b/mine_red.png"
+     inkscape:export-xdpi="245.76"
+     inkscape:export-ydpi="245.76"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:svg="http://www.w3.org/2000/svg">
+    <sodipodi:namedview
+         id="namedview423"
+         pagecolor="#ffffff"
+         bordercolor="#666666"
+         borderopacity="1.0"
+         inkscape:showpageshadow="2"
+         inkscape:pageopacity="0.0"
+         inkscape:pagecheckerboard="0"
+         inkscape:deskcolor="#d1d1d1"
+         inkscape:document-units="px"
+         showgrid="false"
+         inkscape:zoom="1.1893"
+         inkscape:cx="500.29"
+         inkscape:cy="73.573"
+         inkscape:window-width="1920"
+         inkscape:window-height="1016"
+         inkscape:window-x="0"
+         inkscape:window-y="0"
+         inkscape:window-maximized="1"
+         inkscape:current-layer="layer1"
+         showborder="false" />
+    <defs
+         id="defs418" />
+    <g
+         inkscape:label="Layer 1"
+         inkscape:groupmode="layer"
+         id="layer1">
+        <rect
+             style="fill:#4caf50;fill-opacity:1;stroke:none;stroke-width:10.2099;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             id="rect1414"
+             width="67.735"
+             height="67.735"
+             x="67.73"
+             y="0" />
+        <rect
+             style="fill:#191919;fill-opacity:1;stroke:none;stroke-width:10.21;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             id="rect1414-6"
+             width="67.735"
+             height="67.735"
+             x="203.2"
+             y="0" />
+        <rect
+             style="fill:#2196f3;fill-opacity:1;stroke:none;stroke-width:10.21;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             id="rect1414-7"
+             width="67.735"
+             height="67.735"
+             x="135.46"
+             y="0" />
+        <rect
+             style="fill:#f44336;fill-opacity:1;stroke:none;stroke-width:10.21;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             id="rect1414-3"
+             width="67.735"
+             height="67.735"
+             x="-0.005"
+             y="0" />
+    </g>
+</svg>

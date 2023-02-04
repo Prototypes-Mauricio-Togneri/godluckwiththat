@@ -15,5 +15,6 @@ flutter pub pub run daassets:daassets.dart ./pubspec.yaml ./lib/services/assets.
 sed -i'.original' -e 's/\.\/assets/assets/' "./lib/services/assets.dart"
 sed -i'.original' -e 's/assets\/images\///' "./lib/services/assets.dart"
 sed -i'.original' -e 's/assets\/audio\///' "./lib/services/assets.dart"
+sed -i'.original' -e 's/assets\/tiles\///' "./lib/services/assets.dart"
 rm "./lib/services/assets.dart.original"
 dart format lib

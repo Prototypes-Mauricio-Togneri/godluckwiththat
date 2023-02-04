@@ -54,8 +54,8 @@ class GameComponent extends BaseGameComponent {
     ));
     add(ResourcesHud());
 
-    final TiledComponent map =
-        await TiledComponent.load('map.tmx', Vector2.all(Constants.NODE_SIZE));
+    final TiledComponent map = await TiledComponent.load(
+        Assets.TILES_MAP, Vector2.all(Constants.NODE_SIZE));
     final int mapWidth = map.tileMap.map.width;
     final int mapHeight = map.tileMap.map.height;
     final double offsetX =

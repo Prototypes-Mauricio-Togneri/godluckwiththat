@@ -5,6 +5,7 @@ class Assets {
   static const String IMAGES_ENEMY_BASE = 'enemy_base.png';
   static const String IMAGES_BULLET_BASE = 'bullet_base.png';
   static const String IMAGES_MINE_RED_BLUR = 'mine_red_blur.png';
+  static const String IMAGES_TILES = 'tiles.png';
   static const String IMAGES_KERNEL_BASE = 'kernel_base.png';
   static const String IMAGES_LASER_BLUR = 'laser_blur.png';
   static const String IMAGES_ENEMY_BLUR = 'enemy_blur.png';
@@ -18,5 +19,5 @@ class Assets {
   static const String IMAGES_LASER_BASE = 'laser_base.png';
   static const String IMAGES_BULLET_BLUR = 'bullet_blur.png';
   static const String MATCHES_MATCH1 = 'assets/matches/match1.json';
-  static const String TILES_MAP = 'assets/tiles/map.tmx';
+  static const String TILES_MAP = 'map.tmx';
 }
