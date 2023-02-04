@@ -1,9 +1,9 @@
 import 'package:tensionnode/models/resources.dart';
-import 'package:tensionnode/spec/node_spec.dart';
+import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/spec/weapon_spec.dart';
 import 'package:tensionnode/types/node_type.dart';
 
-class TurretSpec extends NodeSpec {
+class TurretSpec extends FixedNodeSpec {
   final WeaponSpec weapon;
 
   static TurretSpec turret_light = TurretSpec(

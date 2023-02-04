@@ -1,5 +1,6 @@
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
+import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
 import 'package:tensionnode/spec/node_spec.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
@@ -48,7 +49,7 @@ enum NodeType {
   NodeSpec get spec {
     switch (this) {
       case NodeType.kernel:
-        return NodeSpec.kernel;
+        return FixedNodeSpec.kernel;
       case NodeType.mine_red:
         return MineSpec.mine_red;
       case NodeType.mine_green:

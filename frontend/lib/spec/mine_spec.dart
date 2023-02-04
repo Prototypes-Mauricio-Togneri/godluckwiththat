@@ -1,9 +1,9 @@
 import 'package:tensionnode/models/resources.dart';
-import 'package:tensionnode/spec/node_spec.dart';
+import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class MineSpec extends NodeSpec {
+class MineSpec extends FixedNodeSpec {
   final int productionTime;
   final ResourceType resource;
 
