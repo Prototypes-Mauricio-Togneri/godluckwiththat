@@ -6,7 +6,6 @@ class Constants {
   static const double BASE_IMAGE_SIZE = 256;
 
   static const double NODE_SIZE = 16;
-  static const double SELECTED_SIZE = 20;
 
   static const num SHIELD_MIN = 0;
   static const num SHIELD_MAX = 100;
