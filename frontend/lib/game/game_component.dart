@@ -386,9 +386,9 @@ class GameComponent extends BaseGameComponent {
     required int i,
     required int j,
     required TurretSpec spec,
-    required MapTile? tile,
+    required MapTile tile,
   }) {
-    if (tile == null) {
+    if (tile.isGround) {
       addTurret(
         i: i,
         j: j,
