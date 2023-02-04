@@ -1,7 +1,7 @@
 import 'package:tensionnode/services/assets.dart';
 
 class BulletSpec {
-  final String image;
+  final String sprite;
   final double damage;
   final double width;
   final double height;
@@ -10,7 +10,7 @@ class BulletSpec {
   final int piercing;
 
   static BulletSpec type1 = const BulletSpec(
-    image: Assets.IMAGES_LASER_BASE,
+    sprite: Assets.IMAGES_LASER_BASE,
     damage: 50,
     width: 1,
     height: 3,
@@ -20,7 +20,7 @@ class BulletSpec {
   );
 
   static BulletSpec type2 = const BulletSpec(
-    image: Assets.IMAGES_BULLET_BASE,
+    sprite: Assets.IMAGES_BULLET_BASE,
     damage: 30,
     width: 1.5,
     height: 1.5,
@@ -30,7 +30,7 @@ class BulletSpec {
   );
 
   const BulletSpec({
-    required this.image,
+    required this.sprite,
     required this.damage,
     required this.width,
     required this.height,
