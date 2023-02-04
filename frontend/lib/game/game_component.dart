@@ -1,9 +1,9 @@
 import 'package:flame/components.dart';
-import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/components/base/map_component.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/node_selected.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
@@ -35,7 +35,7 @@ import 'package:tensionnode/spec/turret_spec.dart';
 import 'package:tensionnode/types/direction.dart';
 
 class GameComponent extends BaseGameComponent {
-  late TiledComponent map;
+  late MapComponent map;
   final GameState state;
 
   GameComponent(this.state);
@@ -55,16 +55,7 @@ class GameComponent extends BaseGameComponent {
     ));
     add(ResourcesHud());
 
-    // TODO(momo): create MapComponent
-    map = await TiledComponent.load(
-        Assets.TILES_MAP, Vector2.all(Constants.NODE_SIZE));
-    final int mapWidth = map.tileMap.map.width;
-    final int mapHeight = map.tileMap.map.height;
-    final double offsetX =
-        -((mapWidth / 2) * Constants.NODE_SIZE) + (Constants.NODE_SIZE / 2);
-    final double offsetY =
-        -((mapHeight / 2) * Constants.NODE_SIZE) + (Constants.NODE_SIZE / 2);
-    map.position = Vector2(offsetX, offsetY);
+    map = await MapComponent.load(Assets.TILES_MAP);
     add(map);
 
     final JsonNode kernelNode = jsonMatch.kernel;
@@ -334,8 +325,7 @@ class GameComponent extends BaseGameComponent {
       final int i = position.x.toInt();
       final int j = position.y.toInt();
       final Node? node = getFixedNode(i, j);
-      final MapElement mapElement = MapElement.load(
-        map: map,
+      final MapTile tile = map.tile(
         i: i,
         j: j,
       );
@@ -346,7 +336,7 @@ class GameComponent extends BaseGameComponent {
           i: i,
           j: j,
           spec: spec,
-          mapElement: mapElement,
+          tile: tile,
         );
       }
     }
@@ -356,21 +346,21 @@ class GameComponent extends BaseGameComponent {
     required int i,
     required int j,
     required NodeSpec spec,
-    required MapElement mapElement,
+    required MapTile tile,
   }) {
     if (spec is MineSpec) {
       _buildMine(
         i: i,
         j: j,
         spec: spec,
-        mapElement: mapElement,
+        tile: tile,
       );
     } else if (spec is TurretSpec) {
       _buildTurret(
         i: i,
         j: j,
         spec: spec,
-        mapElement: mapElement,
+        tile: tile,
       );
     }
   }
@@ -379,9 +369,9 @@ class GameComponent extends BaseGameComponent {
     required int i,
     required int j,
     required MineSpec spec,
-    required MapElement mapElement,
+    required MapTile tile,
   }) {
-    if (mapElement.isPatch(spec.resource)) {
+    if (tile.isPatch(spec.resource)) {
       addMine(
         i: i,
         j: j,
@@ -396,9 +386,9 @@ class GameComponent extends BaseGameComponent {
     required int i,
     required int j,
     required TurretSpec spec,
-    required MapElement? mapElement,
+    required MapTile? tile,
   }) {
-    if (mapElement == null) {
+    if (tile == null) {
       addTurret(
         i: i,
         j: j,
