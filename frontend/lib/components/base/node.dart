@@ -2,6 +2,8 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
@@ -36,7 +38,7 @@ class Node extends SpriteComponent
 
     add(CircleHitbox());
     add(NodeBlur(image: type.spriteBlur));
-    //add(debugText);
+    add(debugText);
 
     return super.onLoad();
   }
@@ -66,8 +68,16 @@ class Node extends SpriteComponent
   ) {
     super.onCollisionStart(intersectionPoints, other);
 
-    if ((other is Bullet) && (other.shooter != this)) {
-      _hit(other);
+    if (other is Bullet) {
+      final movableShootingFixed =
+          (other.shooter is MovableNode) && (this is FixedNode);
+      final fixedShootingMovable =
+          (other.shooter is FixedNode) && (this is MovableNode);
+
+      if ((other.shooter != this) &&
+          (movableShootingFixed || fixedShootingMovable)) {
+        _hit(other);
+      }
     }
   }
 

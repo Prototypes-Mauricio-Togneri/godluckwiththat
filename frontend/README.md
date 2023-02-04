@@ -1,7 +1,6 @@
 # Tension Node
 
 - Save and load matches
-- Use tiles
 - Limit map movement
 - Add new type of floor
 - Prevent enemies to be hit by bullets from other enemies
