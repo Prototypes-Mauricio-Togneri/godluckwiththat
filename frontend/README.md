@@ -1,7 +1,6 @@
 # Tension Node
 
 - Save and load matches
-- Limit map movement
 - Show node selected menu attached to bottom menu
 
 Click on a turret and show:
