@@ -19,6 +19,7 @@ class Assets {
   static const String IMAGES_PATCH_GREEN = 'patch_green.png';
   static const String IMAGES_TURRET_LIGHT_BASE = 'turret_light_base.png';
   static const String IMAGES_LASER_BASE = 'laser_base.png';
+  static const String IMAGES_HOLE = 'hole.png';
   static const String IMAGES_BULLET_BLUR = 'bullet_blur.png';
   static const String MATCHES_MATCH1 = 'assets/matches/match1.json';
 }

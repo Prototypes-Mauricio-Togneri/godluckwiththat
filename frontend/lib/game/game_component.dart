@@ -10,6 +10,7 @@ import 'package:tensionnode/components/base/node_selected.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
 import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/components/game/enemy.dart';
+import 'package:tensionnode/components/game/hole.dart';
 import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/components/game/mine.dart';
 import 'package:tensionnode/components/game/patch.dart';
@@ -22,6 +23,7 @@ import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/json/json_enemy.dart';
+import 'package:tensionnode/json/json_hole.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
@@ -61,6 +63,13 @@ class GameComponent extends BaseGameComponent {
         i: patch.position.x,
         j: patch.position.y,
         resourceType: patch.resource,
+      ));
+    }
+
+    for (final JsonHole hole in jsonMatch.holes) {
+      add(Hole(
+        i: hole.position.x,
+        j: hole.position.y,
       ));
     }
 

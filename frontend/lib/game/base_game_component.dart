@@ -8,6 +8,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/map_element.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/services/palette.dart';
 
 class BaseGameComponent extends FlameGame
     with
@@ -186,7 +187,7 @@ class BaseGameComponent extends FlameGame
   }
 
   @override
-  Color backgroundColor() => const Color(0xff1a1a1a);
+  Color backgroundColor() => Palette.mapBackground;
 
   @override
   void onMouseMove(PointerHoverInfo info) {

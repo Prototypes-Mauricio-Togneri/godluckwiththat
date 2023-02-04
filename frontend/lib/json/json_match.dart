@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/json/json_enemy.dart';
+import 'package:tensionnode/json/json_hole.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_patch.dart';
 import 'package:tensionnode/json/json_resources.dart';
@@ -21,6 +22,9 @@ class JsonMatch {
   @JsonKey(name: 'patches')
   final List<JsonPatch> patches;
 
+  @JsonKey(name: 'holes')
+  final List<JsonHole> holes;
+
   @JsonKey(name: 'kernel')
   final JsonNode kernel;
 
@@ -38,6 +42,7 @@ class JsonMatch {
     required this.id,
     required this.resources,
     required this.patches,
+    required this.holes,
     required this.kernel,
     required this.mines,
     required this.turrets,

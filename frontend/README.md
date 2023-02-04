@@ -2,7 +2,6 @@
 
 - Save and load matches
 - Limit map movement
-- Add new type of floor
 - Show node selected menu attached to bottom menu
 
 Click on a turret and show:
