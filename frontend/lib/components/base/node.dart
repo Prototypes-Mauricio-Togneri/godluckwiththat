@@ -33,8 +33,7 @@ class Node extends SpriteComponent
   @override
   Future onLoad() async {
     sprite = await getSprite(type.spriteBase);
-    width = Constants.NODE_SIZE;
-    height = Constants.NODE_SIZE;
+    size = getSize();
     anchor = Anchor.center;
 
     add(CircleHitbox());
