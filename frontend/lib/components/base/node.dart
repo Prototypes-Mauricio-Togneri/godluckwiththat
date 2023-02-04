@@ -112,6 +112,6 @@ class DebugText extends TextComponent {
   DebugText() {
     position = Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);
     anchor = Anchor.center;
-    textRenderer = Style.debugTextRenderer(size: Constants.NODE_SIZE / 3);
+    textRenderer = Style.debugTextRenderer(size: Constants.NODE_SIZE / 4);
   }
 }
