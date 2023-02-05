@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:tensionnode/dialog/global/base_global_menu.dart';
+import 'package:tensionnode/dialog/base_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
@@ -40,7 +40,7 @@ class _InfoMenuState extends State<InfoMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseGlobalMenu(
+    return BaseMenu(
       child: IntrinsicWidth(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

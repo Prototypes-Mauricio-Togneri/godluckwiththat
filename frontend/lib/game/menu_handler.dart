@@ -2,7 +2,7 @@ import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/node_selected.dart';
 import 'package:tensionnode/components/game/kernel.dart';
-import 'package:tensionnode/dialog/global/main_menu.dart';
+import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
 

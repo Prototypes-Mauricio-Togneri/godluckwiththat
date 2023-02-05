@@ -3,10 +3,10 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/services/palette.dart';
 
-class BaseGlobalMenu extends StatelessWidget {
+class BaseMenu extends StatelessWidget {
   final Widget child;
 
-  const BaseGlobalMenu({
+  const BaseMenu({
     required this.child,
   });
 

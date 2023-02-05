@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tensionnode/dialog/global/base_global_menu.dart';
-import 'package:tensionnode/dialog/global/info_menu.dart';
-import 'package:tensionnode/dialog/global/settings_menu.dart';
+import 'package:tensionnode/dialog/base_menu.dart';
+import 'package:tensionnode/dialog/info_menu.dart';
+import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/platform/clipboard_text.dart';
@@ -20,7 +20,7 @@ class MainMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseGlobalMenu(
+    return BaseMenu(
       child: IntrinsicWidth(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
