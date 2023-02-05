@@ -40,7 +40,6 @@ class GameComponent extends BaseGameComponent with MenuHandler {
     final JsonMatch jsonMatch = await Loader.match(Assets.MATCHES_MATCH1);
     state.load(jsonMatch);
 
-    //add(Background(camera));
     add(FpsTextComponent(
       position: Vector2(
         10,
