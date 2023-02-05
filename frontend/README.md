@@ -4,6 +4,7 @@
 - Attach multiple weapons to a node
 
 - Save and load matches
+- Add game mode to json
 - Show node selected menu attached to bottom menu
 
 Click on a turret and show:
