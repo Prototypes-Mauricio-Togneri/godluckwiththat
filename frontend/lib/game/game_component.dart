@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
-import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/menu_handler.dart';
@@ -105,7 +105,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
           getComponent(BuildingIndicator);
       final int i = position.x.toInt();
       final int j = position.y.toInt();
-      final Node? node = getFixedNode(i, j);
+      final FixedNode? node = getFixedNode(i, j);
       final MapTile tile = map.tile(
         i: i,
         j: j,
