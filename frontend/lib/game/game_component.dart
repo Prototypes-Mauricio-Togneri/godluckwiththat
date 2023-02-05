@@ -13,8 +13,6 @@ import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/components/game/mine.dart';
 import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/dialog/contextual/build_menu.dart';
-import 'package:tensionnode/dialog/contextual/mine_menu.dart';
-import 'package:tensionnode/dialog/contextual/turret_menu.dart';
 import 'package:tensionnode/dialog/global/main_menu.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
@@ -180,10 +178,7 @@ class GameComponent extends BaseGameComponent {
   @override
   void onKeyPressed(LogicalKeyboardKey key) {
     if (key == LogicalKeyboardKey.escape) {
-      openMenu(
-        name: MainMenu.NAME,
-        pauseGame: true,
-      );
+      openMainMenu();
     } else if (key == LogicalKeyboardKey.space) {
       //_createTestObjects();
       spawnEnemy();
@@ -217,8 +212,7 @@ class GameComponent extends BaseGameComponent {
   }*/
 
   void _closeContextualMenus() {
-    closeMenu(name: MineMenu.NAME);
-    closeMenu(name: TurretMenu.NAME);
+    state.unselectNode();
     closeMenu(name: BuildMenu.NAME);
     removeComponents(NodeSelected);
   }
@@ -238,16 +232,9 @@ class GameComponent extends BaseGameComponent {
   void openMenu({
     required String name,
     bool pauseGame = false,
-    Node? node,
   }) {
     _closeContextualMenus();
     _closeModeMenus();
-
-    if (node is FixedNode) {
-      state.selectNode(node);
-      removeComponents(NodeSelected);
-      add(NodeSelected(node: node));
-    }
 
     if (!overlays.isActive(name)) {
       if (pauseGame) {
@@ -279,17 +266,9 @@ class GameComponent extends BaseGameComponent {
     if (state.deleteMode) {
       node.destroy();
     } else if (!state.isInSpecialMode) {
-      if (node is Mine) {
-        openMenu(
-          name: MineMenu.NAME,
-          node: node,
-        );
-      } else if (node is Turret) {
-        openMenu(
-          name: TurretMenu.NAME,
-          node: node,
-        );
-      }
+      state.selectNode(node);
+      removeComponents(NodeSelected);
+      add(NodeSelected(node: node));
     }
 
     return true;
@@ -331,6 +310,7 @@ class GameComponent extends BaseGameComponent {
   }
 
   void onOpenResearch() {
+    spawnEnemy();
     // TODO(momo): implement
   }
 

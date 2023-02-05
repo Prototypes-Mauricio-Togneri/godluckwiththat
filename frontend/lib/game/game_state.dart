@@ -46,9 +46,17 @@ class GameState extends BaseState {
 
   T selectedNode<T>() => _selectedNode as T;
 
-  void selectNode(Node node) => _selectedNode = node;
+  bool isSelected(Type type) => _selectedNode.runtimeType == type;
 
-  void unselectNode(Node node) => _selectedNode = null;
+  void selectNode(Node node) {
+    _selectedNode = node;
+    notify();
+  }
+
+  void unselectNode() {
+    _selectedNode = null;
+    notify();
+  }
 
   int update(double dt) {
     int enemiesToSpawn = 0;
