@@ -6,6 +6,7 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/models/resources.dart';
 import 'package:tensionnode/services/assets.dart';
+import 'package:tensionnode/types/menu_mode.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
@@ -17,16 +18,16 @@ class GameState extends BaseState {
   num timeSpawn = 0;
 
   Node? _selectedNode;
-  bool _buildMode = false;
-  bool _deleteMode = false;
+  MenuMode mode = MenuMode.none;
 
-  bool get showCancel => _buildMode || _deleteMode;
+  bool get constructMode => mode == MenuMode.construct;
 
-  bool get buildMode => _buildMode;
+  bool get buildingMode => mode == MenuMode.building;
 
-  bool get deleteMode => _deleteMode;
+  bool get destroyingMode => mode == MenuMode.destroying;
 
-  bool get isInSpecialMode => buildMode || deleteMode;
+  bool get isInSpecialMode =>
+      (mode == MenuMode.building) || (mode == MenuMode.destroying);
 
   @override
   void onLoad() {
@@ -50,11 +51,33 @@ class GameState extends BaseState {
 
   void selectNode(Node node) {
     _selectedNode = node;
-    notify();
+    _enableMode(MenuMode.node_selected);
   }
 
   void unselectNode() {
     _selectedNode = null;
+    _disableMode();
+  }
+
+  void enableConstructMode() => _enableMode(MenuMode.construct);
+
+  void disableConstructMode() => _disableMode();
+
+  void enableBuildingMode() => _enableMode(MenuMode.building);
+
+  void disableBuildingMode() => _disableMode();
+
+  void enableDestroyingMode() => _enableMode(MenuMode.destroying);
+
+  void disableDestroyingMode() => _disableMode();
+
+  void _enableMode(MenuMode newMode) {
+    mode = newMode;
+    notify();
+  }
+
+  void _disableMode() {
+    mode = MenuMode.none;
     notify();
   }
 
@@ -78,26 +101,6 @@ class GameState extends BaseState {
 
   void removeHeat(FixedNode node) {
     heat -= node.heat;
-  }
-
-  void enableBuildMode() {
-    _buildMode = true;
-    notify();
-  }
-
-  void disableBuildMode() {
-    _buildMode = false;
-    notify();
-  }
-
-  void enableDeleteMode() {
-    _deleteMode = true;
-    notify();
-  }
-
-  void disableDeleteMode() {
-    _deleteMode = false;
-    notify();
   }
 
   void addResource(ResourceType type) => resources.add(type);

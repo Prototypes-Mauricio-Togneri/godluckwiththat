@@ -12,7 +12,6 @@ import 'package:tensionnode/components/game/enemy.dart';
 import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/components/game/mine.dart';
 import 'package:tensionnode/components/game/turret.dart';
-import 'package:tensionnode/dialog/contextual/build_menu.dart';
 import 'package:tensionnode/dialog/global/main_menu.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
@@ -180,7 +179,6 @@ class GameComponent extends BaseGameComponent {
     if (key == LogicalKeyboardKey.escape) {
       openMainMenu();
     } else if (key == LogicalKeyboardKey.space) {
-      //_createTestObjects();
       spawnEnemy();
     }
   }
@@ -198,26 +196,9 @@ class GameComponent extends BaseGameComponent {
     );
   }
 
-  /*void _createTestObjects() {
-    for (int i = -15; i < 15; i++) {
-      for (int j = -15; j < 15; j++) {
-        addNode(Enemy(
-          i: i,
-          j: j,
-          direction: Direction.right,
-          speed: 50,
-        ));
-      }
-    }
-  }*/
-
-  void _closeContextualMenus() {
-    closeMenu(name: BuildMenu.NAME);
-  }
-
   void _closeModeMenus() {
-    _disableBuildMode();
-    _disableDeleteMode();
+    removeComponents(BuildingIndicator);
+    removeComponents(NodeSelected);
   }
 
   void openMainMenu() => openMenu(
@@ -225,15 +206,10 @@ class GameComponent extends BaseGameComponent {
         pauseGame: true,
       );
 
-  void openBuildMenu() => openMenu(name: BuildMenu.NAME);
-
   void openMenu({
     required String name,
     bool pauseGame = false,
   }) {
-    _closeContextualMenus();
-    _closeModeMenus();
-
     if (!overlays.isActive(name)) {
       if (pauseGame) {
         pauseEngine();
@@ -245,14 +221,9 @@ class GameComponent extends BaseGameComponent {
   void closeMenu({
     required String name,
     bool resumeGame = false,
-    bool unselectNode = false,
   }) {
     if (overlays.isActive(name)) {
       overlays.remove(name);
-
-      if (unselectNode) {
-        removeComponents(NodeSelected);
-      }
 
       if (resumeGame) {
         resumeEngine();
@@ -261,7 +232,7 @@ class GameComponent extends BaseGameComponent {
   }
 
   bool selectNode(FixedNode node) {
-    if (state.deleteMode) {
+    if (state.destroyingMode) {
       node.destroy();
     } else if (!state.isInSpecialMode) {
       state.selectNode(node);
@@ -277,38 +248,40 @@ class GameComponent extends BaseGameComponent {
     removeComponents(NodeSelected);
   }
 
-  void enableBuildMode(FixedNodeSpec spec) {
-    _closeContextualMenus();
+  void enableConstructMode() {
+    _closeModeMenus();
+    state.enableConstructMode();
+  }
+
+  void disableConstructMode() => state.disableConstructMode();
+
+  void enableBuildingMode(FixedNodeSpec spec) {
     _closeModeMenus();
 
+    state.enableBuildingMode();
     removeComponents(BuildingIndicator);
     add(BuildingIndicator(spec: spec));
-
-    state.enableBuildMode();
   }
 
-  void _disableBuildMode() {
-    _closeContextualMenus();
+  void _disableBuildingMode() {
     removeComponents(BuildingIndicator);
-    state.disableBuildMode();
+    state.disableBuildingMode();
   }
 
-  void enableDeleteMode() {
-    _closeContextualMenus();
+  void enableDestroyingMode() {
     _closeModeMenus();
-    state.enableDeleteMode();
+    state.enableDestroyingMode();
   }
 
-  void _disableDeleteMode() {
-    _closeContextualMenus();
-    state.disableDeleteMode();
+  void _disableDestroyingMode() {
+    state.disableDestroyingMode();
   }
 
   void onCancelOperation() {
-    if (state.buildMode) {
-      _disableBuildMode();
-    } else if (state.deleteMode) {
-      _disableDeleteMode();
+    if (state.buildingMode) {
+      _disableBuildingMode();
+    } else if (state.destroyingMode) {
+      _disableDestroyingMode();
     }
   }
 
@@ -319,7 +292,7 @@ class GameComponent extends BaseGameComponent {
 
   @override
   void onMapClicked(Vector2 position) {
-    _closeContextualMenus();
+    _closeModeMenus();
 
     if (hasComponent(BuildingIndicator)) {
       final BuildingIndicator buildingIndicator =
