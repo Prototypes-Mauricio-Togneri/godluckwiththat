@@ -3,6 +3,8 @@ import 'package:tensionnode/dialog/global/base_global_menu.dart';
 import 'package:tensionnode/dialog/global/info_menu.dart';
 import 'package:tensionnode/dialog/global/settings_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
+import 'package:tensionnode/json/json_match.dart';
+import 'package:tensionnode/platform/clipboard_text.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
@@ -70,17 +72,8 @@ class MainMenu extends StatelessWidget {
   }
 
   void _onSave() {
-    /*final JsonMatch jsonMatch = JsonMatch(
-      version: match.version,
-      id: match.id,
-      map: match1.json,
-      resources: kernel.jsonResources,
-      patches: patches.json,
-      nodes: nodes.json,
-    );
-
-    ClipboardText().copy(jsonMatch.toJsonString());*/
-
+    final JsonMatch jsonMatch = game.getMatch();
+    ClipboardText().copy(jsonMatch.toJsonString());
     _closeMenu();
   }
 

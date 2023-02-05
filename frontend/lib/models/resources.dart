@@ -1,3 +1,4 @@
+import 'package:tensionnode/json/json_resources.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Resources {
@@ -37,4 +38,6 @@ class Resources {
       (red >= resources.red) &&
       (green >= resources.green) &&
       (blue >= resources.blue);
+
+  JsonResources get json => JsonResources(red: red, green: green, blue: blue);
 }

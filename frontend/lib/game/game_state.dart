@@ -12,6 +12,7 @@ import 'package:tensionnode/types/resource_type.dart';
 class GameState extends BaseState {
   num version = 0;
   String id = '';
+  String map = '';
   Resources resources = Resources.empty();
   num heat = 0;
   num timeElapsed = 0;
@@ -41,6 +42,7 @@ class GameState extends BaseState {
   void load(JsonMatch jsonMatch) {
     version = jsonMatch.version;
     id = jsonMatch.id;
+    map = jsonMatch.map;
     resources = Resources(
       red: jsonMatch.resources.red,
       green: jsonMatch.resources.green,

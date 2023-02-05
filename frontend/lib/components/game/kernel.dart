@@ -1,5 +1,6 @@
 import 'package:flame/events.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
 
 class Kernel extends FixedNode {
@@ -17,4 +18,10 @@ class Kernel extends FixedNode {
   bool onTapUp(TapUpInfo info) {
     return true;
   }
+
+  JsonNode get json => JsonNode(
+        type: type,
+        position: [i, j],
+        shield: shield,
+      );
 }

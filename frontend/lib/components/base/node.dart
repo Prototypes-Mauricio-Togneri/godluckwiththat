@@ -27,6 +27,8 @@ class Node extends SpriteComponent
     _shield = shield;
   }
 
+  num get shield => _shield;
+
   bool get isAlive => _shield > Constants.SHIELD_MIN;
 
   @override
