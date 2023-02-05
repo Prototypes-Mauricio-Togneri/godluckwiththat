@@ -19,7 +19,7 @@ class Constants {
 	"map": {
 		"name": "level1",
 		"xml": "",
-		"position": [-2.08, -119.61],
+		"position": [100, -70],
 		"zoom": 10
 	},
 	"resources": {
