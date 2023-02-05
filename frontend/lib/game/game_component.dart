@@ -2,35 +2,28 @@ import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
-import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/map_component.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
-import 'package:tensionnode/components/game/bullet.dart';
-import 'package:tensionnode/components/game/enemy.dart';
 import 'package:tensionnode/components/game/kernel.dart';
-import 'package:tensionnode/components/game/mine.dart';
-import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/menu_handler.dart';
+import 'package:tensionnode/game/node_handler.dart';
 import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/models/map_tile.dart';
-import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/services/style.dart';
-import 'package:tensionnode/spec/bullet_spec.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
-import 'package:tensionnode/spec/node_spec.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
 import 'package:tensionnode/types/direction.dart';
 
-class GameComponent extends BaseGameComponent with MenuHandler {
+class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
   late MapComponent map;
 
   GameComponent(super.state);
@@ -91,85 +84,6 @@ class GameComponent extends BaseGameComponent with MenuHandler {
     return super.onLoad();
   }
 
-  void addMine({
-    required num i,
-    required num j,
-    required MineSpec spec,
-    required num shield,
-  }) {
-    addNode(Mine(
-      i: i,
-      j: j,
-      spec: spec,
-      shield: shield,
-    ));
-  }
-
-  void addTurret({
-    required num i,
-    required num j,
-    required TurretSpec spec,
-    required num shield,
-  }) {
-    addNode(Turret(
-      i: i,
-      j: j,
-      spec: spec,
-      shield: shield,
-    ));
-  }
-
-  void addEnemy({
-    required num i,
-    required num j,
-    required EnemySpec spec,
-    required Direction direction,
-    required num shield,
-  }) {
-    addNode(Enemy(
-      spec: spec,
-      direction: direction,
-      position: Position.fromGrid(i, j),
-      shield: shield,
-    ));
-  }
-
-  void addBullet({
-    required Node shooter,
-    required BulletSpec spec,
-    required num weaponRange,
-    required Vector2 startPosition,
-    required Vector2 direction,
-  }) {
-    addNode(Bullet(
-      shooter: shooter,
-      spec: spec,
-      weaponRange: weaponRange,
-      startPosition: startPosition,
-      direction: direction,
-    ));
-  }
-
-  void addNode(Component node) {
-    add(node);
-
-    if (node is FixedNode) {
-      state.addHeat(node);
-    }
-  }
-
-  void removeNode(Node node) {
-    try {
-      remove(node);
-
-      if (node is FixedNode) {
-        state.removeHeat(node);
-      }
-    } catch (e) {
-      // ignore
-    }
-  }
-
   @override
   void onKeyPressed(LogicalKeyboardKey key) {
     if (key == LogicalKeyboardKey.escape) {
@@ -217,70 +131,13 @@ class GameComponent extends BaseGameComponent with MenuHandler {
       final FixedNodeSpec spec = buildingIndicator.spec;
 
       if ((node == null) && state.resources.has(spec.cost)) {
-        _build(
+        build(
           i: i,
           j: j,
           spec: spec,
           tile: tile,
         );
       }
-    }
-  }
-
-  void _build({
-    required int i,
-    required int j,
-    required NodeSpec spec,
-    required MapTile tile,
-  }) {
-    if (spec is MineSpec) {
-      _buildMine(
-        i: i,
-        j: j,
-        spec: spec,
-        tile: tile,
-      );
-    } else if (spec is TurretSpec) {
-      _buildTurret(
-        i: i,
-        j: j,
-        spec: spec,
-        tile: tile,
-      );
-    }
-  }
-
-  void _buildMine({
-    required int i,
-    required int j,
-    required MineSpec spec,
-    required MapTile tile,
-  }) {
-    if (tile.isPatch(spec.resource)) {
-      addMine(
-        i: i,
-        j: j,
-        spec: spec,
-        shield: Constants.SHIELD_MAX,
-      );
-      state.resources.remove(spec.cost);
-    }
-  }
-
-  void _buildTurret({
-    required int i,
-    required int j,
-    required TurretSpec spec,
-    required MapTile tile,
-  }) {
-    if (tile.isGround) {
-      addTurret(
-        i: i,
-        j: j,
-        spec: spec,
-        shield: Constants.SHIELD_MAX,
-      );
-      state.resources.remove(spec.cost);
     }
   }
 
