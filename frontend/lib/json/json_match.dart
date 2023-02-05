@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/json/json_enemy.dart';
+import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_resources.dart';
 
@@ -15,7 +16,7 @@ class JsonMatch {
   final String id;
 
   @JsonKey(name: 'map')
-  final String map;
+  final JsonMap map;
 
   @JsonKey(name: 'resources')
   final JsonResources resources;

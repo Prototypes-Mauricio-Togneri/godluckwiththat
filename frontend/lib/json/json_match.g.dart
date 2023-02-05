@@ -9,7 +9,7 @@ part of 'json_match.dart';
 JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       version: json['version'] as num,
       id: json['id'] as String,
-      map: json['map'] as String,
+      map: JsonMap.fromJson(json['map'] as Map<String, dynamic>),
       resources:
           JsonResources.fromJson(json['resources'] as Map<String, dynamic>),
       kernel: JsonNode.fromJson(json['kernel'] as Map<String, dynamic>),

@@ -14,141 +14,175 @@ class Constants {
 
   static String TEST_MATCH = '''
 {
-    "version": 1,
-    "id": "map1",
-    "map": "",
-    "resources": {
-        "red": 300,
-        "green": 200,
-        "blue": 100
-    },
-    "kernel": {
-        "type": "kernel",
-        "shield": 100,
-        "position": [
-            0,
-            0
-        ]
-    },
-    "mines": [
-        {
-            "type": "mine_red",
-            "shield": 100,
-            "position": [
-                -10,
-                -5
-            ]
-        },
-        {
-            "type": "mine_red",
-            "shield": 100,
-            "position": [
-                -9,
-                -5
-            ]
-        },
-        {
-            "type": "mine_red",
-            "shield": 100,
-            "position": [
-                -10,
-                -4
-            ]
-        },
-        {
-            "type": "mine_red",
-            "shield": 100,
-            "position": [
-                -9,
-                -4
-            ]
-        },
-        {
-            "type": "mine_green",
-            "shield": 100,
-            "position": [
-                9,
-                -7
-            ]
-        },
-        {
-            "type": "mine_green",
-            "shield": 100,
-            "position": [
-                10,
-                -7
-            ]
-        },
-        {
-            "type": "mine_green",
-            "shield": 100,
-            "position": [
-                9,
-                -6
-            ]
-        },
-        {
-            "type": "mine_green",
-            "shield": 100,
-            "position": [
-                10,
-                -6
-            ]
-        },
-        {
-            "type": "mine_blue",
-            "shield": 100,
-            "position": [
-                1,
-                6
-            ]
-        },
-        {
-            "type": "mine_blue",
-            "shield": 100,
-            "position": [
-                2,
-                6
-            ]
-        },
-        {
-            "type": "mine_blue",
-            "shield": 100,
-            "position": [
-                1,
-                7
-            ]
-        },
-        {
-            "type": "mine_blue",
-            "shield": 100,
-            "position": [
-                2,
-                7
-            ]
-        }
-    ],
-    "turrets": [
-        {
-            "type": "turret_light",
-            "shield": 50,
-            "position": [
-                -8,
-                4
-            ]
-        }
-    ],
-    "enemies": [
-        {
-            "type": "enemy",
-            "shield": 100,
-            "direction": "right",
-            "position": [
-                -20,
-                6
-            ]
-        }
-    ]
+	"version": 1,
+	"id": "map1",
+	"map": {
+    "name": "level1",
+    "xml": "",
+    "position": [0, 0],
+    "zoom": 1
+  },
+	"resources": {
+		"red": 340,
+		"green": 108,
+		"blue": 276
+	},
+	"kernel": {
+		"type": "kernel",
+		"position": [0, 0],
+		"shield": 100
+	},
+	"mines": [{
+		"type": "mine_red",
+		"position": [-10, -5],
+		"shield": 100
+	}, {
+		"type": "mine_red",
+		"position": [-9, -5],
+		"shield": 100
+	}, {
+		"type": "mine_red",
+		"position": [-10, -4],
+		"shield": 100
+	}, {
+		"type": "mine_red",
+		"position": [-9, -4],
+		"shield": 100
+	}, {
+		"type": "mine_green",
+		"position": [9, -7],
+		"shield": 100
+	}, {
+		"type": "mine_green",
+		"position": [10, -7],
+		"shield": 100
+	}, {
+		"type": "mine_green",
+		"position": [9, -6],
+		"shield": 100
+	}, {
+		"type": "mine_green",
+		"position": [10, -6],
+		"shield": 100
+	}, {
+		"type": "mine_blue",
+		"position": [1, 6],
+		"shield": 100
+	}, {
+		"type": "mine_blue",
+		"position": [2, 6],
+		"shield": 100
+	}, {
+		"type": "mine_blue",
+		"position": [1, 7],
+		"shield": 100
+	}, {
+		"type": "mine_blue",
+		"position": [2, 7],
+		"shield": 100
+	}],
+	"turrets": [{
+		"type": "turret_light",
+		"position": [-8, 4],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [-4, 9],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [3, 10],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [10, 7],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [16, -2],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [1, -12],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [-11, -9],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [-12, -1],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [13, -10],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [12, 4],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [15, 1],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [16, -7],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [9, -12],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [5, -12],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [-4, -12],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [-8, -10],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [-13, -5],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [7, 9],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [0, 10],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [-7, 7],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [-11, 2],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [-3, -7],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [3, -7],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [8, 0],
+		"shield": 100
+	}, {
+		"type": "turret_light",
+		"position": [-6, -1],
+		"shield": 100
+	}],
+	"enemies": []
 }
 ''';
 

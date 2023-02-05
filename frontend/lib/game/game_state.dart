@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/components.dart';
+import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
@@ -15,9 +16,6 @@ import 'package:tensionnode/types/menu_mode.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
-  num version = 0;
-  String id = '';
-  String map = '';
   Resources resources = Resources.empty();
   num heat = 0;
   num timeElapsed = 0;
@@ -26,6 +24,7 @@ class GameState extends BaseState {
   Node? _selectedNode;
   MenuMode mode = MenuMode.none;
 
+  late final JsonMatch jsonMatch;
   late final Kernel kernel;
   final List<Mine> mines = [];
   final List<Turret> turrets = [];
@@ -49,14 +48,12 @@ class GameState extends BaseState {
     FlameAudio.audioCache.load(Assets.AUDIO_SFX_LASER);
   }
 
-  void load(JsonMatch jsonMatch) {
-    version = jsonMatch.version;
-    id = jsonMatch.id;
-    map = jsonMatch.map;
+  void load(JsonMatch json) {
+    jsonMatch = json;
     resources = Resources(
-      red: jsonMatch.resources.red,
-      green: jsonMatch.resources.green,
-      blue: jsonMatch.resources.blue,
+      red: json.resources.red,
+      green: json.resources.green,
+      blue: json.resources.blue,
     );
   }
 
@@ -141,11 +138,11 @@ class GameState extends BaseState {
     }
   }
 
-  JsonMatch getMatch() {
+  JsonMatch getMatch(Camera camera) {
     return JsonMatch(
-      version: version,
-      id: id,
-      map: map,
+      version: jsonMatch.version,
+      id: jsonMatch.id,
+      map: jsonMatch.map.withCamera(camera),
       resources: resources.json,
       kernel: kernel.json,
       mines: mines.map((e) => e.json).toList(),

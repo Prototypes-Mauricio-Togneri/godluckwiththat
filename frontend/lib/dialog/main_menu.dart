@@ -72,7 +72,7 @@ class MainMenu extends StatelessWidget {
   }
 
   void _onSave() {
-    final JsonMatch jsonMatch = game.state.getMatch();
+    final JsonMatch jsonMatch = game.state.getMatch(game.camera);
     ClipboardText().copy(jsonMatch.toJsonString());
     _closeMenu();
   }
