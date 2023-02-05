@@ -280,6 +280,26 @@ class GameComponent extends BaseGameComponent {
     }
   }
 
+  bool onNodeSelected(FixedNode node) {
+    if (state.deleteMode) {
+      node.destroy();
+    } else if (!state.isInSpecialMode) {
+      if (node is Mine) {
+        openMenu(
+          name: MineMenu.NAME,
+          node: node,
+        );
+      } else if (node is Turret) {
+        openMenu(
+          name: TurretMenu.NAME,
+          node: node,
+        );
+      }
+    }
+
+    return true;
+  }
+
   void enableBuildMode(FixedNodeSpec spec) {
     _closeContextualMenus();
     _closeModeMenus();

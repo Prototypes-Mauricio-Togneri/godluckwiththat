@@ -3,7 +3,6 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/dialog/contextual/turret_menu.dart';
 import 'package:tensionnode/models/shooting.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
 
@@ -51,16 +50,5 @@ class Turret extends FixedNode {
   }
 
   @override
-  bool onTapUp(TapUpInfo info) {
-    if (game.state.deleteMode) {
-      destroy();
-    } else if (!game.state.isInSpecialMode) {
-      game.openMenu(
-        name: TurretMenu.NAME,
-        node: this,
-      );
-    }
-
-    return true;
-  }
+  bool onTapUp(TapUpInfo info) => game.onNodeSelected(this);
 }
