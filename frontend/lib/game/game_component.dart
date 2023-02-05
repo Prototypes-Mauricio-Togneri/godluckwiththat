@@ -100,7 +100,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       state.disableMode();
     }
 
-    if (hasComponent(BuildingIndicator)) {
+    if (state.buildingMode) {
       final BuildingIndicator buildingIndicator =
           getComponent(BuildingIndicator);
       final int i = position.x.toInt();
