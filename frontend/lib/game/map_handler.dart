@@ -22,7 +22,7 @@ mixin MapHandler on FlameGame {
   Future onLoad() async {
     camera.viewport = FixedResolutionViewport(size);
     camera.setRelativeOffset(Anchor.center);
-    camera.speed = 100000000;
+    camera.speed = double.maxFinite;
 
     return super.onLoad();
   }
