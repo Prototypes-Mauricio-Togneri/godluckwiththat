@@ -1,8 +1,12 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/game/kernel.dart';
+import 'package:tensionnode/components/game/mine.dart';
+import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/models/resources.dart';
 import 'package:tensionnode/services/assets.dart';
@@ -20,6 +24,10 @@ class GameState extends BaseState {
 
   Node? _selectedNode;
   MenuMode mode = MenuMode.none;
+
+  late final Kernel kernel;
+  final List<Mine> mines = [];
+  final List<Turret> turrets = [];
 
   bool get constructMode => mode == MenuMode.construct;
 
@@ -99,13 +107,44 @@ class GameState extends BaseState {
     return enemiesToSpawn;
   }
 
-  void addHeat(FixedNode node) {
-    heat += node.heat;
-  }
-
-  void removeHeat(FixedNode node) {
-    heat -= node.heat;
-  }
-
   void addResource(ResourceType type) => resources.add(type);
+
+  void addNode(Component node) {
+    if (node is Kernel) {
+      kernel = node;
+    } else if (node is Mine) {
+      mines.add(node);
+    } else if (node is Turret) {
+      turrets.add(node);
+    }
+
+    if (node is FixedNode) {
+      heat += node.heat;
+    }
+  }
+
+  void removeNode(Component node) {
+    if (node is Mine) {
+      mines.remove(node);
+    } else if (node is Turret) {
+      turrets.remove(node);
+    }
+
+    if (node is FixedNode) {
+      heat -= node.heat;
+    }
+  }
+
+  JsonMatch getMatch() {
+    return JsonMatch(
+      version: version,
+      id: id,
+      map: map,
+      resources: resources.json,
+      kernel: kernel.json,
+      mines: mines.map((e) => e.json).toList(),
+      turrets: turrets.map((e) => e.json).toList(),
+      enemies: [],
+    );
+  }
 }

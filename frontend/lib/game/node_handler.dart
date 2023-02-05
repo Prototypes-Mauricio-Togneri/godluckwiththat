@@ -1,6 +1,5 @@
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/components/game/enemy.dart';
@@ -8,7 +7,6 @@ import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/components/game/mine.dart';
 import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/game/base_game_component.dart';
-import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/spec/bullet_spec.dart';
@@ -92,19 +90,13 @@ mixin NodeHandler on BaseGameComponent {
 
   void addNode(Component node) {
     add(node);
-
-    if (node is FixedNode) {
-      state.addHeat(node);
-    }
+    state.addNode(node);
   }
 
-  void removeNode(Node node) {
+  void removeNode(Component node) {
     try {
       remove(node);
-
-      if (node is FixedNode) {
-        state.removeHeat(node);
-      }
+      state.removeNode(node);
     } catch (e) {
       // ignore
     }
@@ -165,22 +157,5 @@ mixin NodeHandler on BaseGameComponent {
       );
       state.resources.remove(spec.cost);
     }
-  }
-
-  JsonMatch getMatch() {
-    final Kernel kernel = getComponent(Kernel);
-    final List<Mine> mines = getComponents(Mine);
-    final List<Turret> turrets = getComponents(Turret);
-
-    return JsonMatch(
-      version: state.version,
-      id: state.id,
-      map: state.map,
-      resources: state.resources.json,
-      kernel: kernel.json,
-      mines: mines.map((e) => e.json).toList(),
-      turrets: turrets.map((e) => e.json).toList(),
-      enemies: [],
-    );
   }
 }
