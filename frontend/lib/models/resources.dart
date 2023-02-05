@@ -14,6 +14,16 @@ class Resources {
 
   factory Resources.empty() => Resources(red: 0, green: 0, blue: 0);
 
+  void set({
+    required num red,
+    required num green,
+    required num blue,
+  }) {
+    this.red = red;
+    this.green = green;
+    this.blue = blue;
+  }
+
   void add(ResourceType type) {
     switch (type) {
       case ResourceType.red:

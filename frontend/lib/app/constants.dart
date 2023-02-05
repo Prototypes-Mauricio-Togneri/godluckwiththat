@@ -17,15 +17,15 @@ class Constants {
 	"version": 1,
 	"id": "map1",
 	"map": {
-    "name": "level1",
-    "xml": "",
-    "position": [0, 0],
-    "zoom": 1
-  },
+		"name": "level1",
+		"xml": "",
+		"position": [-2.08, -119.61],
+		"zoom": 10
+	},
 	"resources": {
-		"red": 340,
-		"green": 108,
-		"blue": 276
+		"red": 360,
+		"green": 116,
+		"blue": 280
 	},
 	"kernel": {
 		"type": "kernel",

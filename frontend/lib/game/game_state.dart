@@ -16,7 +16,6 @@ import 'package:tensionnode/types/menu_mode.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
-  Resources resources = Resources.empty();
   num heat = 0;
   num timeElapsed = 0;
   num timeSpawn = 0;
@@ -24,6 +23,7 @@ class GameState extends BaseState {
   Node? _selectedNode;
   MenuMode mode = MenuMode.none;
 
+  late Resources resources = Resources.empty();
   late final JsonMatch jsonMatch;
   late final Kernel kernel;
   final List<Mine> mines = [];
@@ -50,7 +50,7 @@ class GameState extends BaseState {
 
   void load(JsonMatch json) {
     jsonMatch = json;
-    resources = Resources(
+    resources.set(
       red: json.resources.red,
       green: json.resources.green,
       blue: json.resources.blue,
