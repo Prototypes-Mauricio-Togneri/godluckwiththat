@@ -3,17 +3,18 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/map_component.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
 import 'package:tensionnode/game/game_state.dart';
+import 'package:tensionnode/game/map_handler.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/style.dart';
 
 class BaseGameComponent extends FlameGame
     with
+        MapHandler,
         HasTappables,
         HasHoverables,
         ScaleDetector,
@@ -21,25 +22,10 @@ class BaseGameComponent extends FlameGame
         KeyboardEvents,
         MouseMovementDetector,
         HasCollisionDetection {
-  final double MIN_ZOOM = 1;
-  final double MAX_ZOOM = 10;
-  final double ZOOM_STEP = 1;
-
   final GameState state;
-  late double startZoom;
   late MapComponent map;
-  Vector2? mousePosition;
 
   BaseGameComponent(this.state);
-
-  @override
-  Future onLoad() async {
-    camera.viewport = FixedResolutionViewport(size);
-    camera.setRelativeOffset(Anchor.center);
-    camera.speed = 100000000;
-
-    return super.onLoad();
-  }
 
   Future addBaseComponents() async {
     add(FpsTextComponent(
@@ -97,152 +83,31 @@ class BaseGameComponent extends FlameGame
     return null;
   }
 
-  void clampZoom() {
-    camera.zoom = camera.zoom.clamp(MIN_ZOOM, MAX_ZOOM);
-  }
-
-  bool zoomingIn(PointerScrollInfo info) => info.scrollDelta.game.y.sign == -1;
-
-  bool zoomingOut(PointerScrollInfo info) => info.scrollDelta.game.y.sign == 1;
+  @override
+  void onScroll(PointerScrollInfo info) => handleOnScroll(info);
 
   @override
-  void onScroll(PointerScrollInfo info) {
-    final bool canZoomIn = zoomingIn(info) && camera.zoom < MAX_ZOOM;
-    final bool canZoomOut = zoomingOut(info) && camera.zoom > MIN_ZOOM;
+  void onScaleStart(ScaleStartInfo info) => handleOnScaleStart(info);
 
-    if (canZoomIn || canZoomOut) {
-      final Vector2 offset = camera.position + (size / 2);
-      final Vector2 vector =
-          (info.eventPosition.game - offset) / (camera.zoom * 2);
-
-      if (info.scrollDelta.game.y.sign > 0) {
-        camera.translateBy(-vector);
-      } else if (info.scrollDelta.game.y.sign < 0) {
-        camera.translateBy(vector);
-      }
-
-      camera.zoom += -info.scrollDelta.game.y.sign * ZOOM_STEP;
-      clampZoom();
-      onMapMoved();
-    }
-  }
+  @override
+  void onScaleUpdate(ScaleUpdateInfo info) => handleOnScaleUpdate(info);
 
   @override
   void onTapUp(int pointerId, TapUpInfo info) {
-    onMapClicked(_toGridPosition(info.eventPosition.game));
+    onMapClicked(toGridPosition(info.eventPosition.game));
     super.onTapUp(pointerId, info);
-  }
-
-  @override
-  void onScaleStart(ScaleStartInfo info) {
-    startZoom = camera.zoom;
-    onMapMoved();
-  }
-
-  void onMapMoved() {}
-
-  void onMapClicked(Vector2 position) {}
-
-  @override
-  void onScaleUpdate(ScaleUpdateInfo info) {
-    final Vector2 currentScale = info.scale.global;
-
-    if (!currentScale.isIdentity()) {
-      camera.zoom = startZoom * currentScale.y;
-      clampZoom();
-    } else {
-      camera.translateBy(-info.delta.game);
-      camera.snap();
-    }
-  }
-
-  void onKeyPressed(LogicalKeyboardKey key) {}
-
-  @override
-  KeyEventResult onKeyEvent(
-    RawKeyEvent event,
-    Set<LogicalKeyboardKey> keysPressed,
-  ) {
-    final bool isKeyDown = event is RawKeyDownEvent;
-
-    if (keysPressed.isDirectional) {
-      camera.translateBy(-_mapMovement(keysPressed));
-      return KeyEventResult.handled;
-    } else if (keysPressed.isEscape && isKeyDown) {
-      onKeyPressed(LogicalKeyboardKey.escape);
-      return KeyEventResult.handled;
-    } else if (keysPressed.isSpace && isKeyDown) {
-      onKeyPressed(LogicalKeyboardKey.space);
-      return KeyEventResult.handled;
-    } else if (keysPressed.isK && isKeyDown) {
-      centerMap(Vector2(0, 0));
-      return KeyEventResult.handled;
-    } else {
-      return KeyEventResult.ignored;
-    }
-  }
-
-  void centerMap(Vector2 position) => camera.moveTo(position);
-
-  Vector2 _mapMovement(Set<LogicalKeyboardKey> keysPressed) {
-    final double x = keysPressed.isLeft
-        ? Constants.MAP_MOVEMENT
-        : (keysPressed.isRight ? -Constants.MAP_MOVEMENT : 0);
-
-    final double y = keysPressed.isUp
-        ? Constants.MAP_MOVEMENT
-        : (keysPressed.isDown ? -Constants.MAP_MOVEMENT : 0);
-
-    return Vector2(x, y);
   }
 
   @override
   void onMouseMove(PointerHoverInfo info) {
     super.onMouseMove(info);
-    mousePosition = _toSnapPosition(info.eventPosition.game);
+    handleOnMouseMove(info);
   }
 
-  Vector2 _toSnapPosition(Vector2 point) {
-    final Vector2 position = Vector2(
-      point.x.toInt() + (Constants.NODE_SIZE / 2),
-      point.y.toInt() + (Constants.NODE_SIZE / 2),
-    );
-    final double x = position.x - (position.x % Constants.NODE_SIZE);
-    final double y = position.y - (position.y % Constants.NODE_SIZE);
-
-    return Vector2(x, y);
-  }
-
-  Vector2 _toGridPosition(Vector2 point) {
-    final pointSnapped = _toSnapPosition(point);
-
-    return Vector2(
-      (pointSnapped.x ~/ Constants.NODE_SIZE).toDouble(),
-      (pointSnapped.y ~/ Constants.NODE_SIZE).toDouble(),
-    );
-  }
-}
-
-extension TestExtension on Set<LogicalKeyboardKey> {
-  bool _isKey(LogicalKeyboardKey key) => contains(key);
-
-  bool get isEscape => _isKey(LogicalKeyboardKey.escape);
-
-  bool get isSpace => _isKey(LogicalKeyboardKey.space);
-
-  bool get isK => _isKey(LogicalKeyboardKey.keyK);
-
-  bool get isUp =>
-      _isKey(LogicalKeyboardKey.keyW) || _isKey(LogicalKeyboardKey.arrowUp);
-
-  bool get isDown =>
-      _isKey(LogicalKeyboardKey.keyS) || _isKey(LogicalKeyboardKey.arrowDown);
-
-  bool get isLeft =>
-      _isKey(LogicalKeyboardKey.keyA) || _isKey(LogicalKeyboardKey.arrowLeft);
-
-  bool get isRight =>
-      _isKey(LogicalKeyboardKey.keyD) || _isKey(LogicalKeyboardKey.arrowRight);
-
-  bool get isDirectional => isUp || isDown || isLeft || isRight;
+  @override
+  KeyEventResult onKeyEvent(
+    RawKeyEvent event,
+    Set<LogicalKeyboardKey> keysPressed,
+  ) =>
+      handleOnKeyEvent(event, keysPressed);
 }
