@@ -73,7 +73,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     }
   }
 
-  void onOpenResearch() {
+  void onShowDetails() {
     // TODO(momo): implement
     spawnEnemy();
   }

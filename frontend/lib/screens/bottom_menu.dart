@@ -79,9 +79,9 @@ class FixedButtons extends StatelessWidget {
         ),
         const HBox(10),
         BottomMenuButton(
-          icon: Icons.science,
+          icon: Icons.remove_red_eye,
           color: Palette.lightGrey,
-          onClick: game.onOpenResearch,
+          onClick: game.onShowDetails,
         ),
       ],
     );
