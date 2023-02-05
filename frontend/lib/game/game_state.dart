@@ -50,14 +50,11 @@ class GameState extends BaseState {
   bool isSelected(Type type) => _selectedNode.runtimeType == type;
 
   void selectNode(Node node) {
-    _selectedNode = node;
     _enableMode(MenuMode.node_selected);
+    _selectedNode = node;
   }
 
-  void unselectNode() {
-    _selectedNode = null;
-    _disableMode();
-  }
+  void unselectNode() => _disableMode();
 
   void enableConstructMode() => _enableMode(MenuMode.construct);
 
@@ -72,11 +69,13 @@ class GameState extends BaseState {
   void disableDestroyingMode() => _disableMode();
 
   void _enableMode(MenuMode newMode) {
+    _selectedNode = null;
     mode = newMode;
     notify();
   }
 
   void _disableMode() {
+    _selectedNode = null;
     mode = MenuMode.none;
     notify();
   }
