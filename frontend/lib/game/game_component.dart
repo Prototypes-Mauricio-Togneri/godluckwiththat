@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/menu_handler.dart';
@@ -30,13 +29,11 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
     await addBaseComponents();
 
-    final JsonNode kernelNode = jsonMatch.kernel;
-
-    addNode(Kernel(
-      i: kernelNode.position.x,
-      j: kernelNode.position.y,
-      shield: kernelNode.shield,
-    ));
+    addKernel(
+      i: jsonMatch.kernel.position.x,
+      j: jsonMatch.kernel.position.y,
+      shield: jsonMatch.kernel.shield,
+    );
 
     for (final JsonNode node in jsonMatch.mines) {
       addMine(

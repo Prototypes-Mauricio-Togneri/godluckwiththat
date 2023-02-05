@@ -4,6 +4,7 @@ import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/components/game/enemy.dart';
+import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/components/game/mine.dart';
 import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/game/base_game_component.dart';
@@ -17,6 +18,18 @@ import 'package:tensionnode/spec/turret_spec.dart';
 import 'package:tensionnode/types/direction.dart';
 
 mixin NodeHandler on BaseGameComponent {
+  void addKernel({
+    required num i,
+    required num j,
+    required num shield,
+  }) {
+    addNode(Kernel(
+      i: i,
+      j: j,
+      shield: shield,
+    ));
+  }
+
   void addMine({
     required num i,
     required num j,
