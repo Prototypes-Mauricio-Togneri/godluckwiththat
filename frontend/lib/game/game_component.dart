@@ -25,7 +25,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     final JsonMatch jsonMatch = JsonMatch.fromString(Constants.TEST_MATCH);
     state.load(jsonMatch);
 
-    await addBaseComponents(Constants.TEST_MAP_TILE_XML);
+    await addBaseComponents(jsonMatch);
 
     addKernel(
       i: jsonMatch.kernel.position.x,

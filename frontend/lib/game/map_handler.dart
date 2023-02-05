@@ -1,4 +1,3 @@
-import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
@@ -16,15 +15,6 @@ mixin MapHandler on FlameGame {
   late double _startZoom;
   late MapComponent _map;
   Vector2? _mousePosition;
-
-  @override
-  Future onLoad() async {
-    camera.viewport = FixedResolutionViewport(size);
-    camera.setRelativeOffset(Anchor.center);
-    camera.speed = double.maxFinite;
-
-    return super.onLoad();
-  }
 
   bool get hasMousePosition => _mousePosition != null;
 

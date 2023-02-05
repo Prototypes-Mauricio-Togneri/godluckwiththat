@@ -3,10 +3,13 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
+import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/component_handler.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/game/map_handler.dart';
+import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/services/style.dart';
 
 class BaseGameComponent extends FlameGame
@@ -24,7 +27,11 @@ class BaseGameComponent extends FlameGame
 
   BaseGameComponent(this.state);
 
-  Future addBaseComponents(String mapContent) async {
+  Future addBaseComponents(JsonMatch jsonMatch) async {
+    camera.viewport = FixedResolutionViewport(size);
+    camera.setRelativeOffset(Anchor.center);
+    camera.speed = double.maxFinite;
+
     add(FpsTextComponent(
       position: Vector2(
         10,
@@ -33,7 +40,10 @@ class BaseGameComponent extends FlameGame
       textRenderer: Style.textRenderer(size: 20),
     ));
     add(ResourcesHud());
-    add(await getMap(mapContent));
+    add(await getMap(Constants.TEST_MAP_TILE_XML));
+
+    camera.moveTo(jsonMatch.map.position.vector);
+    camera.zoom = jsonMatch.map.zoom.toDouble();
   }
 
   @override
