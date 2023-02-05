@@ -4,6 +4,7 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/game/enemy.dart';
 import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/components/game/mine.dart';
 import 'package:tensionnode/components/game/turret.dart';
@@ -28,6 +29,7 @@ class GameState extends BaseState {
   late final Kernel kernel;
   final List<Mine> mines = [];
   final List<Turret> turrets = [];
+  final List<Enemy> enemies = [];
 
   bool get constructMode => mode == MenuMode.construct;
 
@@ -116,6 +118,8 @@ class GameState extends BaseState {
       mines.add(node);
     } else if (node is Turret) {
       turrets.add(node);
+    } else if (node is Enemy) {
+      enemies.add(node);
     }
 
     if (node is FixedNode) {
@@ -128,6 +132,8 @@ class GameState extends BaseState {
       mines.remove(node);
     } else if (node is Turret) {
       turrets.remove(node);
+    } else if (node is Enemy) {
+      enemies.remove(node);
     }
 
     if (node is FixedNode) {
@@ -144,7 +150,7 @@ class GameState extends BaseState {
       kernel: kernel.json,
       mines: mines.map((e) => e.json).toList(),
       turrets: turrets.map((e) => e.json).toList(),
-      enemies: [],
+      enemies: enemies.map((e) => e.json).toList(),
     );
   }
 }

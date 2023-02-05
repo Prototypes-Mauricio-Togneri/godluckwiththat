@@ -5,6 +5,8 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/json/json_enemy.dart';
+import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/models/shooting.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/types/direction.dart';
@@ -97,4 +99,11 @@ class Enemy extends MovableNode {
         break;
     }
   }
+
+  JsonEnemy get json => JsonEnemy(
+        type: type,
+        position: Position.json(position),
+        shield: shield.toInt(),
+        direction: direction,
+      );
 }
