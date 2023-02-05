@@ -39,6 +39,12 @@ class TurretMenu extends StatelessWidget {
             ),
             const VBox(10),
             MenuButton(
+              text: 'Center',
+              icon: Icons.filter_tilt_shift,
+              color: Palette.primary,
+              onPressed: () => _onCenter(turret),
+            ),
+            MenuButton(
               text: 'Destroy',
               icon: Icons.delete,
               color: Palette.error,
@@ -55,6 +61,8 @@ class TurretMenu extends StatelessWidget {
       ),
     );
   }
+
+  void _onCenter(Node node) => game.centerMap(node.position);
 
   void _onDestroy() {
     final Node node = game.state.selectedNode();

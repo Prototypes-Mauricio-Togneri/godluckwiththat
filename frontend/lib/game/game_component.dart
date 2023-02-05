@@ -216,11 +216,6 @@ class GameComponent extends BaseGameComponent {
     }
   }*/
 
-  @override
-  void onMapMoved() {
-    _closeContextualMenus();
-  }
-
   void _closeContextualMenus() {
     closeMenu(name: MineMenu.NAME);
     closeMenu(name: TurretMenu.NAME);
