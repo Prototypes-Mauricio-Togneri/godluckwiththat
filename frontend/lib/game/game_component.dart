@@ -180,8 +180,8 @@ class GameComponent extends BaseGameComponent with MenuHandler {
     }
   }
 
-  @override
   void onOpenResearch() {
+    // TODO(momo): implement
     spawnEnemy();
   }
 

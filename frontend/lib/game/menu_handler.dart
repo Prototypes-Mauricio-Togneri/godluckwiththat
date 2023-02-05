@@ -6,11 +6,6 @@ import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
 
 mixin MenuHandler on BaseGameComponent {
-  void removeMenuComponents() {
-    removeComponents(BuildingIndicator);
-    removeComponents(NodeSelected);
-  }
-
   void openMainMenu() => openMenu(
         name: MainMenu.NAME,
         pauseGame: true,
@@ -39,6 +34,11 @@ mixin MenuHandler on BaseGameComponent {
         resumeEngine();
       }
     }
+  }
+
+  void removeMenuComponents() {
+    removeComponents(BuildingIndicator);
+    removeComponents(NodeSelected);
   }
 
   bool selectNode(FixedNode node) {
@@ -91,9 +91,5 @@ mixin MenuHandler on BaseGameComponent {
     } else if (state.destroyingMode) {
       _disableDestroyingMode();
     }
-  }
-
-  void onOpenResearch() {
-    // TODO(momo): implement
   }
 }
