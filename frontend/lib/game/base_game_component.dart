@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/game/game_state.dart';
 
 class BaseGameComponent extends FlameGame
     with
@@ -20,8 +21,11 @@ class BaseGameComponent extends FlameGame
   final double MAX_ZOOM = 10;
   final double ZOOM_STEP = 1;
 
+  final GameState state;
   late double startZoom;
   Vector2? mousePosition;
+
+  BaseGameComponent(this.state);
 
   @override
   Future onLoad() async {

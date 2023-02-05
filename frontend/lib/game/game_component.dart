@@ -5,17 +5,15 @@ import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/map_component.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/base/node_selected.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
 import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/components/game/enemy.dart';
 import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/components/game/mine.dart';
 import 'package:tensionnode/components/game/turret.dart';
-import 'package:tensionnode/dialog/global/main_menu.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
-import 'package:tensionnode/game/game_state.dart';
+import 'package:tensionnode/game/menu_handler.dart';
 import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
@@ -32,11 +30,10 @@ import 'package:tensionnode/spec/node_spec.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
 import 'package:tensionnode/types/direction.dart';
 
-class GameComponent extends BaseGameComponent {
+class GameComponent extends BaseGameComponent with MenuHandler {
   late MapComponent map;
-  final GameState state;
 
-  GameComponent(this.state);
+  GameComponent(super.state);
 
   @override
   Future onLoad() async {
@@ -183,6 +180,11 @@ class GameComponent extends BaseGameComponent {
     }
   }
 
+  @override
+  void onOpenResearch() {
+    spawnEnemy();
+  }
+
   void spawnEnemy() {
     final Direction direction = Direction.random();
     final Vector2 position = direction.randomStartPoint;
@@ -196,102 +198,10 @@ class GameComponent extends BaseGameComponent {
     );
   }
 
-  void _removeMenuComponents() {
-    removeComponents(BuildingIndicator);
-    removeComponents(NodeSelected);
-  }
-
-  void openMainMenu() => openMenu(
-        name: MainMenu.NAME,
-        pauseGame: true,
-      );
-
-  void openMenu({
-    required String name,
-    bool pauseGame = false,
-  }) {
-    if (!overlays.isActive(name)) {
-      if (pauseGame) {
-        pauseEngine();
-      }
-      overlays.add(name);
-    }
-  }
-
-  void closeMenu({
-    required String name,
-    bool resumeGame = false,
-  }) {
-    if (overlays.isActive(name)) {
-      overlays.remove(name);
-
-      if (resumeGame) {
-        resumeEngine();
-      }
-    }
-  }
-
-  bool selectNode(FixedNode node) {
-    if (state.destroyingMode) {
-      node.destroy();
-    } else if (!state.isInSpecialMode) {
-      state.selectNode(node);
-      _removeMenuComponents();
-      add(NodeSelected(node: node));
-    }
-
-    return true;
-  }
-
-  void unselectNode() {
-    state.unselectNode();
-    _removeMenuComponents();
-  }
-
-  void enableConstructMode() {
-    state.enableConstructMode();
-    _removeMenuComponents();
-  }
-
-  void disableConstructMode() => state.disableConstructMode();
-
-  void enableBuildingMode(FixedNodeSpec spec) {
-    state.enableBuildingMode();
-    _removeMenuComponents();
-    add(BuildingIndicator(spec: spec));
-  }
-
-  void _disableBuildingMode() {
-    state.disableBuildingMode();
-    _removeMenuComponents();
-  }
-
-  void enableDestroyingMode() {
-    state.enableDestroyingMode();
-    _removeMenuComponents();
-  }
-
-  void _disableDestroyingMode() {
-    state.disableDestroyingMode();
-  }
-
-  void onCancelOperation() {
-    if (state.buildingMode) {
-      _disableBuildingMode();
-    } else if (state.destroyingMode) {
-      _disableDestroyingMode();
-    }
-  }
-
-  void onOpenResearch() {
-    spawnEnemy();
-    // TODO(momo): implement
-  }
-
   @override
   void onMapClicked(Vector2 position) {
     if (state.isDetailsMode) {
-      _removeMenuComponents();
+      removeMenuComponents();
       state.disableMode();
     }
 
