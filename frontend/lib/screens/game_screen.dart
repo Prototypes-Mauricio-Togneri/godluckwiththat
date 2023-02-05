@@ -131,6 +131,12 @@ class BottomMenu extends StatelessWidget {
             ),
             const HBox(10),
             BottomMenuButton(
+              icon: Icons.science,
+              color: Palette.lightGrey,
+              onClick: game.onOpenResearch,
+            ),
+            const HBox(10),
+            BottomMenuButton(
               icon: Icons.explore_rounded,
               color: Palette.lightGrey,
               onClick: game.spawnEnemy,

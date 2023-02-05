@@ -335,6 +335,10 @@ class GameComponent extends BaseGameComponent {
     }
   }
 
+  void onOpenResearch() {
+    // TODO(momo): implement
+  }
+
   @override
   void onMapClicked(Vector2 position) {
     _closeContextualMenus();
