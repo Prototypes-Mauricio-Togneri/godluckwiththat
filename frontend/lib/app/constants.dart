@@ -19,13 +19,13 @@ class Constants {
 	"map": {
 		"name": "level1",
 		"xml": "",
-		"position": [-133.41, 135.39],
-		"zoom": 6
+		"position": [0, 0],
+		"zoom": 3
 	},
 	"resources": {
-		"red": 392,
-		"green": 132,
-		"blue": 288
+		"red": 456,
+		"green": 164,
+		"blue": 308
 	},
 	"kernel": {
 		"type": "kernel",
@@ -88,11 +88,11 @@ class Constants {
 	}, {
 		"type": "turret_light",
 		"position": [-4, 9],
-		"shield": 100
+		"shield": 85
 	}, {
 		"type": "turret_light",
 		"position": [3, 10],
-		"shield": 100
+		"shield": 69
 	}, {
 		"type": "turret_light",
 		"position": [10, 7],
@@ -116,7 +116,7 @@ class Constants {
 	}, {
 		"type": "turret_light",
 		"position": [13, -10],
-		"shield": 100
+		"shield": 84
 	}, {
 		"type": "turret_light",
 		"position": [12, 4],
@@ -131,16 +131,12 @@ class Constants {
 		"shield": 100
 	}, {
 		"type": "turret_light",
-		"position": [9, -12],
-		"shield": 100
-	}, {
-		"type": "turret_light",
 		"position": [5, -12],
 		"shield": 100
 	}, {
 		"type": "turret_light",
 		"position": [-4, -12],
-		"shield": 100
+		"shield": 93
 	}, {
 		"type": "turret_light",
 		"position": [-8, -10],
@@ -182,7 +178,52 @@ class Constants {
 		"position": [-6, -1],
 		"shield": 100
 	}],
-	"enemies": []
+	"enemies": [{
+		"type": "enemy",
+		"position": [84.53, -140],
+		"shield": 89,
+		"direction": "left"
+	}, {
+		"type": "enemy",
+		"position": [84.59, -140],
+		"shield": 89,
+		"direction": "left"
+	}, {
+		"type": "enemy",
+		"position": [-71.96, 140],
+		"shield": 100,
+		"direction": "right"
+	}, {
+		"type": "enemy",
+		"position": [-60, 124.5],
+		"shield": 60,
+		"direction": "up"
+	}, {
+		"type": "enemy",
+		"position": [99.5, -140],
+		"shield": 69,
+		"direction": "left"
+	}, {
+		"type": "enemy",
+		"position": [150, -120],
+		"shield": 100,
+		"direction": "left"
+	}, {
+		"type": "enemy",
+		"position": [122.5, 130],
+		"shield": 100,
+		"direction": "left"
+	}, {
+		"type": "enemy",
+		"position": [120, 127.5],
+		"shield": 54,
+		"direction": "up"
+	}, {
+		"type": "enemy",
+		"position": [150, -90],
+		"shield": 60,
+		"direction": "left"
+	}]
 }
 ''';
 

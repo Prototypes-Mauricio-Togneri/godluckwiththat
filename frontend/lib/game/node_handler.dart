@@ -8,7 +8,6 @@ import 'package:tensionnode/components/game/mine.dart';
 import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/models/map_tile.dart';
-import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/spec/bullet_spec.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
@@ -58,16 +57,15 @@ mixin NodeHandler on BaseGameComponent {
   }
 
   void addEnemy({
-    required num i,
-    required num j,
     required EnemySpec spec,
     required Direction direction,
     required num shield,
+    required Vector2 position,
   }) {
     addNode(Enemy(
       spec: spec,
       direction: direction,
-      position: Position.fromGrid(i, j),
+      position: position,
       shield: shield,
     ));
   }

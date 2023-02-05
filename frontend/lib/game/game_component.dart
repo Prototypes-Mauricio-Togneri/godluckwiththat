@@ -11,6 +11,7 @@ import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/models/map_tile.dart';
+import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
@@ -53,11 +54,10 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
     for (final JsonEnemy node in jsonMatch.enemies) {
       addEnemy(
-        i: node.position.x,
-        j: node.position.y,
         spec: node.type.spec as EnemySpec,
         shield: node.shield,
         direction: node.direction,
+        position: node.position.vector,
       );
     }
 
@@ -83,11 +83,13 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     final Vector2 position = direction.randomStartPoint;
 
     addEnemy(
-      i: position.x.toInt(),
-      j: position.y.toInt(),
       spec: EnemySpec.enemy,
       direction: direction,
       shield: Constants.SHIELD_MAX,
+      position: Position.fromGrid(
+        position.x.toInt(),
+        position.y.toInt(),
+      ),
     );
   }
 
