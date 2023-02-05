@@ -11,8 +11,6 @@ import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/models/map_tile.dart';
-import 'package:tensionnode/services/assets.dart';
-import 'package:tensionnode/services/loader.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
@@ -24,10 +22,10 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
   @override
   Future onLoad() async {
-    final JsonMatch jsonMatch = await Loader.match(Assets.MATCHES_MATCH1);
+    final JsonMatch jsonMatch = JsonMatch.fromString(Constants.TEST_MATCH);
     state.load(jsonMatch);
 
-    await addBaseComponents();
+    await addBaseComponents(Constants.TEST_MAP_TILE_XML);
 
     addKernel(
       i: jsonMatch.kernel.position.x,

@@ -7,7 +7,6 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/map_component.dart';
 import 'package:tensionnode/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionnode/models/map_tile.dart';
-import 'package:tensionnode/services/assets.dart';
 
 mixin MapHandler on FlameGame {
   final double MIN_ZOOM = 1;
@@ -31,8 +30,8 @@ mixin MapHandler on FlameGame {
 
   Vector2 get mousePosition => _mousePosition!;
 
-  Future<MapComponent> getMap() async {
-    return _map = await MapComponent.load(Assets.TILES_MAP);
+  Future<MapComponent> getMap(String content) async {
+    return _map = await MapComponent.load(content);
   }
 
   MapTile getTile({

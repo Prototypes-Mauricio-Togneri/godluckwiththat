@@ -14,6 +14,9 @@ class JsonMatch {
   @JsonKey(name: 'id')
   final String id;
 
+  @JsonKey(name: 'map')
+  final String map;
+
   @JsonKey(name: 'resources')
   final JsonResources resources;
 
@@ -32,6 +35,7 @@ class JsonMatch {
   const JsonMatch({
     required this.version,
     required this.id,
+    required this.map,
     required this.resources,
     required this.kernel,
     required this.mines,

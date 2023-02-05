@@ -30,10 +30,10 @@ class MapComponent extends TiledComponent {
     return MapTile((gid != null) ? gid.tile : 0);
   }
 
-  static Future<MapComponent> load(String fileName) async {
+  static Future<MapComponent> load(String contents) async {
     return MapComponent(
-      await RenderableTiledMap.fromFile(
-        fileName,
+      await RenderableTiledMap.fromString(
+        contents,
         Vector2.all(Constants.NODE_SIZE),
       ),
     );

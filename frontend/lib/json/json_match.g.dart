@@ -9,6 +9,7 @@ part of 'json_match.dart';
 JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       version: json['version'] as num,
       id: json['id'] as String,
+      map: json['map'] as String,
       resources:
           JsonResources.fromJson(json['resources'] as Map<String, dynamic>),
       kernel: JsonNode.fromJson(json['kernel'] as Map<String, dynamic>),
@@ -26,6 +27,7 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
 Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'version': instance.version,
       'id': instance.id,
+      'map': instance.map,
       'resources': instance.resources,
       'kernel': instance.kernel,
       'mines': instance.mines,

@@ -24,7 +24,7 @@ class BaseGameComponent extends FlameGame
 
   BaseGameComponent(this.state);
 
-  Future addBaseComponents() async {
+  Future addBaseComponents(String mapContent) async {
     add(FpsTextComponent(
       position: Vector2(
         10,
@@ -33,7 +33,7 @@ class BaseGameComponent extends FlameGame
       textRenderer: Style.textRenderer(size: 20),
     ));
     add(ResourcesHud());
-    add(await getMap());
+    add(await getMap(mapContent));
   }
 
   @override
