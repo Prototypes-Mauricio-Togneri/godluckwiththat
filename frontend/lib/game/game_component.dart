@@ -196,7 +196,7 @@ class GameComponent extends BaseGameComponent {
     );
   }
 
-  void _closeModeMenus() {
+  void _removeMenuComponents() {
     removeComponents(BuildingIndicator);
     removeComponents(NodeSelected);
   }
@@ -236,7 +236,7 @@ class GameComponent extends BaseGameComponent {
       node.destroy();
     } else if (!state.isInSpecialMode) {
       state.selectNode(node);
-      removeComponents(NodeSelected);
+      _removeMenuComponents();
       add(NodeSelected(node: node));
     }
 
@@ -245,32 +245,30 @@ class GameComponent extends BaseGameComponent {
 
   void unselectNode() {
     state.unselectNode();
-    removeComponents(NodeSelected);
+    _removeMenuComponents();
   }
 
   void enableConstructMode() {
-    _closeModeMenus();
     state.enableConstructMode();
+    _removeMenuComponents();
   }
 
   void disableConstructMode() => state.disableConstructMode();
 
   void enableBuildingMode(FixedNodeSpec spec) {
-    _closeModeMenus();
-
     state.enableBuildingMode();
-    removeComponents(BuildingIndicator);
+    _removeMenuComponents();
     add(BuildingIndicator(spec: spec));
   }
 
   void _disableBuildingMode() {
-    removeComponents(BuildingIndicator);
     state.disableBuildingMode();
+    _removeMenuComponents();
   }
 
   void enableDestroyingMode() {
-    _closeModeMenus();
     state.enableDestroyingMode();
+    _removeMenuComponents();
   }
 
   void _disableDestroyingMode() {
@@ -292,7 +290,7 @@ class GameComponent extends BaseGameComponent {
 
   @override
   void onMapClicked(Vector2 position) {
-    _closeModeMenus();
+    //_closeModeMenus();
 
     if (hasComponent(BuildingIndicator)) {
       final BuildingIndicator buildingIndicator =

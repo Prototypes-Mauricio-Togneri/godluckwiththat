@@ -145,7 +145,6 @@ class ConstructMenu extends StatelessWidget {
 
   void _onBuild(FixedNodeSpec spec) {
     game.enableBuildingMode(spec);
-    _closeMenu();
   }
 
   void _closeMenu() => game.disableConstructMode();
