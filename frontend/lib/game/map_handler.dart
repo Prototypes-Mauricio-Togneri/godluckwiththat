@@ -4,6 +4,7 @@ import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/components/base/map_component.dart';
 import 'package:tensionnode/extensions/logical_keyboard_key_extension.dart';
 
 mixin MapHandler on FlameGame {
@@ -11,8 +12,9 @@ mixin MapHandler on FlameGame {
   final double MAX_ZOOM = 10;
   final double ZOOM_STEP = 1;
 
-  late double startZoom;
-  Vector2? mousePosition;
+  late double _startZoom;
+  late MapComponent map;
+  Vector2? _mousePosition;
 
   @override
   Future onLoad() async {
@@ -22,6 +24,10 @@ mixin MapHandler on FlameGame {
 
     return super.onLoad();
   }
+
+  bool get hasMousePosition => _mousePosition != null;
+
+  Vector2 get mousePosition => _mousePosition!;
 
   void clampZoom() {
     camera.zoom = camera.zoom.clamp(MIN_ZOOM, MAX_ZOOM);
@@ -93,7 +99,7 @@ mixin MapHandler on FlameGame {
   }
 
   void handleOnScaleStart(ScaleStartInfo info) {
-    startZoom = camera.zoom;
+    _startZoom = camera.zoom;
     onMapMoved();
   }
 
@@ -101,7 +107,7 @@ mixin MapHandler on FlameGame {
     final Vector2 currentScale = info.scale.global;
 
     if (!currentScale.isIdentity()) {
-      camera.zoom = startZoom * currentScale.y;
+      camera.zoom = _startZoom * currentScale.y;
       clampZoom();
     } else {
       camera.translateBy(-info.delta.game);
@@ -110,7 +116,7 @@ mixin MapHandler on FlameGame {
   }
 
   void handleOnMouseMove(PointerHoverInfo info) {
-    mousePosition = toSnapPosition(info.eventPosition.game);
+    _mousePosition = toSnapPosition(info.eventPosition.game);
   }
 
   KeyEventResult handleOnKeyEvent(

@@ -23,7 +23,6 @@ class BaseGameComponent extends FlameGame
         MouseMovementDetector,
         HasCollisionDetection {
   final GameState state;
-  late MapComponent map;
 
   BaseGameComponent(this.state);
 

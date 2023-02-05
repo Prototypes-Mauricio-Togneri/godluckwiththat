@@ -26,8 +26,8 @@ class BuildingIndicator extends SpriteComponent with HasGameRef<GameComponent> {
 
   @override
   void update(double dt) {
-    if (game.mousePosition != null) {
-      position = game.mousePosition!;
+    if (game.hasMousePosition) {
+      position = game.mousePosition;
     }
 
     super.update(dt);
