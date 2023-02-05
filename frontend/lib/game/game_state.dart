@@ -26,6 +26,9 @@ class GameState extends BaseState {
 
   bool get destroyingMode => mode == MenuMode.destroying;
 
+  bool get isDetailsMode =>
+      (mode == MenuMode.construct) || (mode == MenuMode.node_selected);
+
   bool get isInSpecialMode =>
       (mode == MenuMode.building) || (mode == MenuMode.destroying);
 
@@ -54,19 +57,19 @@ class GameState extends BaseState {
     _selectedNode = node;
   }
 
-  void unselectNode() => _disableMode();
+  void unselectNode() => disableMode();
 
   void enableConstructMode() => _enableMode(MenuMode.construct);
 
-  void disableConstructMode() => _disableMode();
+  void disableConstructMode() => disableMode();
 
   void enableBuildingMode() => _enableMode(MenuMode.building);
 
-  void disableBuildingMode() => _disableMode();
+  void disableBuildingMode() => disableMode();
 
   void enableDestroyingMode() => _enableMode(MenuMode.destroying);
 
-  void disableDestroyingMode() => _disableMode();
+  void disableDestroyingMode() => disableMode();
 
   void _enableMode(MenuMode newMode) {
     _selectedNode = null;
@@ -74,7 +77,7 @@ class GameState extends BaseState {
     notify();
   }
 
-  void _disableMode() {
+  void disableMode() {
     _selectedNode = null;
     mode = MenuMode.none;
     notify();

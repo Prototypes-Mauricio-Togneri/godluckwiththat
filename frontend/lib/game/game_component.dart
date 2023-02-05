@@ -290,7 +290,10 @@ class GameComponent extends BaseGameComponent {
 
   @override
   void onMapClicked(Vector2 position) {
-    //_closeModeMenus();
+    if (state.isDetailsMode) {
+      _removeMenuComponents();
+      state.disableMode();
+    }
 
     if (hasComponent(BuildingIndicator)) {
       final BuildingIndicator buildingIndicator =
