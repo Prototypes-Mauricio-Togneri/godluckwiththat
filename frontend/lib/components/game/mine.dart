@@ -32,5 +32,5 @@ class Mine extends FixedNode {
   }
 
   @override
-  bool onTapUp(TapUpInfo info) => game.onNodeSelected(this);
+  bool onTapUp(TapUpInfo info) => game.selectNode(this);
 }

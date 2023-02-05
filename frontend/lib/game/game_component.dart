@@ -212,9 +212,7 @@ class GameComponent extends BaseGameComponent {
   }*/
 
   void _closeContextualMenus() {
-    state.unselectNode();
     closeMenu(name: BuildMenu.NAME);
-    removeComponents(NodeSelected);
   }
 
   void _closeModeMenus() {
@@ -262,7 +260,7 @@ class GameComponent extends BaseGameComponent {
     }
   }
 
-  bool onNodeSelected(FixedNode node) {
+  bool selectNode(FixedNode node) {
     if (state.deleteMode) {
       node.destroy();
     } else if (!state.isInSpecialMode) {
@@ -272,6 +270,11 @@ class GameComponent extends BaseGameComponent {
     }
 
     return true;
+  }
+
+  void unselectNode() {
+    state.unselectNode();
+    removeComponents(NodeSelected);
   }
 
   void enableBuildMode(FixedNodeSpec spec) {

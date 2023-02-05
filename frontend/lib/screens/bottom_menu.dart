@@ -30,13 +30,11 @@ class BottomMenu extends StatelessWidget {
             else if (state.isSelected(Mine))
               MineDetails(
                 game,
-                state,
                 state.selectedNode(),
               )
             else if (state.isSelected(Turret))
               TurretDetails(
                 game,
-                state,
                 state.selectedNode(),
               ),
             FixedButtons(game),
@@ -87,10 +85,9 @@ class FixedButtons extends StatelessWidget {
 
 class MineDetails extends StatelessWidget {
   final GameComponent game;
-  final GameState state;
   final Mine mine;
 
-  const MineDetails(this.game, this.state, this.mine);
+  const MineDetails(this.game, this.mine);
 
   @override
   Widget build(BuildContext context) {
@@ -142,15 +139,14 @@ class MineDetails extends StatelessWidget {
     _closeMenu();
   }
 
-  void _closeMenu() => state.unselectNode();
+  void _closeMenu() => game.unselectNode();
 }
 
 class TurretDetails extends StatelessWidget {
   final GameComponent game;
-  final GameState state;
   final Turret turret;
 
-  const TurretDetails(this.game, this.state, this.turret);
+  const TurretDetails(this.game, this.turret);
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +199,7 @@ class TurretDetails extends StatelessWidget {
     _closeMenu();
   }
 
-  void _closeMenu() => state.unselectNode();
+  void _closeMenu() => game.unselectNode();
 }
 
 class BottomMenuButton extends StatelessWidget {
