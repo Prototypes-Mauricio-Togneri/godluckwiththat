@@ -26,6 +26,8 @@ class GameState extends BaseState {
 
   bool get deleteMode => _deleteMode;
 
+  bool get isInSpecialMode => buildMode || deleteMode;
+
   @override
   void onLoad() {
     FlameAudio.audioCache.load(Assets.AUDIO_SFX_BULLET);

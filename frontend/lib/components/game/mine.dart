@@ -36,7 +36,7 @@ class Mine extends FixedNode {
   bool onTapUp(TapUpInfo info) {
     if (game.state.deleteMode) {
       destroy();
-    } else {
+    } else if (!game.state.isInSpecialMode) {
       game.openMenu(
         name: MineMenu.NAME,
         node: this,

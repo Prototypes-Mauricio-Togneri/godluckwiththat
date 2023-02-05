@@ -1,7 +1,6 @@
 # Tension Node
 
 - Infinite map tile
-- Don't select node when building
 - Attach multiple weapons to a node
 
 - Save and load matches
