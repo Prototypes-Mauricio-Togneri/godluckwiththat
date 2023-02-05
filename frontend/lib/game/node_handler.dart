@@ -169,6 +169,8 @@ mixin NodeHandler on BaseGameComponent {
 
   JsonMatch getMatch() {
     final Kernel kernel = getComponent(Kernel);
+    final List<Mine> mines = getComponents(Mine);
+    final List<Turret> turrets = getComponents(Turret);
 
     return JsonMatch(
       version: state.version,
@@ -176,8 +178,8 @@ mixin NodeHandler on BaseGameComponent {
       map: state.map,
       resources: state.resources.json,
       kernel: kernel.json,
-      mines: [],
-      turrets: [],
+      mines: mines.map((e) => e.json).toList(),
+      turrets: turrets.map((e) => e.json).toList(),
       enemies: [],
     );
   }

@@ -3,6 +3,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/models/shooting.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
 
@@ -51,4 +52,10 @@ class Turret extends FixedNode {
 
   @override
   bool onTapUp(TapUpInfo info) => game.selectNode(this);
+
+  JsonNode get json => JsonNode(
+        type: type,
+        position: [i, j],
+        shield: shield.toInt(),
+      );
 }

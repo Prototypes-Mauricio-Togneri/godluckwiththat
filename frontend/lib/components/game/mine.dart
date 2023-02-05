@@ -1,5 +1,6 @@
 import 'package:flame/input.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
 
 class Mine extends FixedNode {
@@ -33,4 +34,10 @@ class Mine extends FixedNode {
 
   @override
   bool onTapUp(TapUpInfo info) => game.selectNode(this);
+
+  JsonNode get json => JsonNode(
+        type: type,
+        position: [i, j],
+        shield: shield.toInt(),
+      );
 }

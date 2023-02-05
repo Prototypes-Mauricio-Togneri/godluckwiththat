@@ -15,6 +15,9 @@ mixin ComponentHandler on FlameGame {
   T getComponent<T extends Component>(Type type) =>
       children.singleWhere((c) => c.runtimeType == type) as T;
 
+  List<T> getComponents<T extends Component>(Type type) =>
+      children.where((c) => c.runtimeType == type).map((e) => e as T).toList();
+
   T? closestNodeInRange<T extends Node>(
       PositionComponent origin, double range) {
     T? result;

@@ -22,6 +22,6 @@ class Kernel extends FixedNode {
   JsonNode get json => JsonNode(
         type: type,
         position: [i, j],
-        shield: shield,
+        shield: shield.toInt(),
       );
 }
