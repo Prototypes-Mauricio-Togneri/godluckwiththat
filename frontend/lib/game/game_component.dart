@@ -2,9 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
-import 'package:tensionnode/components/base/map_component.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/base/resources_hud.dart';
 import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
@@ -16,7 +14,6 @@ import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/loader.dart';
-import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
@@ -24,8 +21,6 @@ import 'package:tensionnode/spec/turret_spec.dart';
 import 'package:tensionnode/types/direction.dart';
 
 class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
-  late MapComponent map;
-
   GameComponent(super.state);
 
   @override
@@ -33,17 +28,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     final JsonMatch jsonMatch = await Loader.match(Assets.MATCHES_MATCH1);
     state.load(jsonMatch);
 
-    add(FpsTextComponent(
-      position: Vector2(
-        10,
-        size.y - 40,
-      ),
-      textRenderer: Style.textRenderer(size: 20),
-    ));
-    add(ResourcesHud());
-
-    map = await MapComponent.load(Assets.TILES_MAP);
-    add(map);
+    await addBaseComponents();
 
     final JsonNode kernelNode = jsonMatch.kernel;
 

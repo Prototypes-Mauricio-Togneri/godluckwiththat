@@ -5,8 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/components/base/map_component.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/base/resources_hud.dart';
 import 'package:tensionnode/game/game_state.dart';
+import 'package:tensionnode/services/assets.dart';
+import 'package:tensionnode/services/style.dart';
 
 class BaseGameComponent extends FlameGame
     with
@@ -23,6 +27,7 @@ class BaseGameComponent extends FlameGame
 
   final GameState state;
   late double startZoom;
+  late MapComponent map;
   Vector2? mousePosition;
 
   BaseGameComponent(this.state);
@@ -34,6 +39,20 @@ class BaseGameComponent extends FlameGame
     camera.speed = 100000000;
 
     return super.onLoad();
+  }
+
+  Future addBaseComponents() async {
+    add(FpsTextComponent(
+      position: Vector2(
+        10,
+        size.y - 40,
+      ),
+      textRenderer: Style.textRenderer(size: 20),
+    ));
+    add(ResourcesHud());
+
+    map = await MapComponent.load(Assets.TILES_MAP);
+    add(map);
   }
 
   void removeComponents(Type type) => removeWhere((c) {
