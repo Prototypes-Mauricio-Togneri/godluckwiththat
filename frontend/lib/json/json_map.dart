@@ -30,7 +30,7 @@ class JsonMap {
   JsonMap withCamera(Camera camera) => JsonMap(
         name: name,
         xml: xml,
-        position: Position.json(camera.position),
+        position: Position.json(camera.absoluteTarget()),
         zoom: camera.zoom,
       );
 

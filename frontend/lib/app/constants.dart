@@ -19,13 +19,13 @@ class Constants {
 	"map": {
 		"name": "level1",
 		"xml": "",
-		"position": [100, -70],
-		"zoom": 10
+		"position": [-133.41, 135.39],
+		"zoom": 6
 	},
 	"resources": {
-		"red": 360,
-		"green": 116,
-		"blue": 280
+		"red": 392,
+		"green": 132,
+		"blue": 288
 	},
 	"kernel": {
 		"type": "kernel",
