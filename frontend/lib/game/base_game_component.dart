@@ -35,7 +35,7 @@ class BaseGameComponent extends FlameGame
     add(FpsTextComponent(
       position: Vector2(
         10,
-        size.y - 40,
+        size.y - 30,
       ),
       textRenderer: Style.textRenderer(size: 20),
     ));

@@ -178,52 +178,7 @@ class Constants {
 		"position": [-6, -1],
 		"shield": 100
 	}],
-	"enemies": [{
-		"type": "enemy",
-		"position": [84.53, -140],
-		"shield": 89,
-		"direction": "left"
-	}, {
-		"type": "enemy",
-		"position": [84.59, -140],
-		"shield": 89,
-		"direction": "left"
-	}, {
-		"type": "enemy",
-		"position": [-71.96, 140],
-		"shield": 100,
-		"direction": "right"
-	}, {
-		"type": "enemy",
-		"position": [-60, 124.5],
-		"shield": 60,
-		"direction": "up"
-	}, {
-		"type": "enemy",
-		"position": [99.5, -140],
-		"shield": 69,
-		"direction": "left"
-	}, {
-		"type": "enemy",
-		"position": [150, -120],
-		"shield": 100,
-		"direction": "left"
-	}, {
-		"type": "enemy",
-		"position": [122.5, 130],
-		"shield": 100,
-		"direction": "left"
-	}, {
-		"type": "enemy",
-		"position": [120, 127.5],
-		"shield": 54,
-		"direction": "up"
-	}, {
-		"type": "enemy",
-		"position": [150, -90],
-		"shield": 60,
-		"direction": "left"
-	}]
+	"enemies": []
 }
 ''';
 
