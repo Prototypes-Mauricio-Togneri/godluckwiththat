@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/map_component.dart';
 import 'package:tensionnode/extensions/logical_keyboard_key_extension.dart';
+import 'package:tensionnode/models/map_tile.dart';
+import 'package:tensionnode/services/assets.dart';
 
 mixin MapHandler on FlameGame {
   final double MIN_ZOOM = 1;
@@ -13,7 +15,7 @@ mixin MapHandler on FlameGame {
   final double ZOOM_STEP = 1;
 
   late double _startZoom;
-  late MapComponent map;
+  late MapComponent _map;
   Vector2? _mousePosition;
 
   @override
@@ -28,6 +30,19 @@ mixin MapHandler on FlameGame {
   bool get hasMousePosition => _mousePosition != null;
 
   Vector2 get mousePosition => _mousePosition!;
+
+  Future<MapComponent> getMap() async {
+    return _map = await MapComponent.load(Assets.TILES_MAP);
+  }
+
+  MapTile getTile({
+    required int i,
+    required int j,
+  }) =>
+      _map.tile(
+        i: i,
+        j: j,
+      );
 
   void clampZoom() {
     camera.zoom = camera.zoom.clamp(MIN_ZOOM, MAX_ZOOM);

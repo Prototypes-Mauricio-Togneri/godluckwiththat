@@ -106,7 +106,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       final int i = position.x.toInt();
       final int j = position.y.toInt();
       final FixedNode? node = getFixedNode(i, j);
-      final MapTile tile = map.tile(
+      final MapTile tile = getTile(
         i: i,
         j: j,
       );
