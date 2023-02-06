@@ -2,8 +2,6 @@
 
 - Make new turrets
 - Press back on game screen opens main menu
-- Implement splash screen
-- Implement home screen
 - Implement game over overlay
 - Enemies aim to center
 - Change hit circle
