@@ -100,7 +100,8 @@ class GameState extends BaseState {
 
     if (timeSpawn > Constants.TIME_SPAWN) {
       timeSpawn -= Constants.TIME_SPAWN;
-      enemiesToSpawn = 0; // TODO(momo): heat
+      enemiesToSpawn = heat ~/ 60;
+      enemiesToSpawn = (enemiesToSpawn == 0) ? 1 : enemiesToSpawn;
     }
 
     return enemiesToSpawn;

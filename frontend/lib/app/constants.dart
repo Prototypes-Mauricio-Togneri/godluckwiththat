@@ -10,7 +10,7 @@ class Constants {
   static const num SHIELD_MIN = 0;
   static const num SHIELD_MAX = 100;
 
-  static const num TIME_SPAWN = 5; // in seconds
+  static const num TIME_SPAWN = 1; // in seconds
 
   static String TEST_MATCH = '''
 {
