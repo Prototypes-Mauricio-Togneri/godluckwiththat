@@ -7,8 +7,8 @@ import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
-import 'package:tensionnode/screens/bottom_menu.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/widgets/bottom_menu.dart';
 
 class GameScreen extends StatelessWidget {
   final GameState state;
