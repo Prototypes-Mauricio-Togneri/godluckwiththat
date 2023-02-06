@@ -11,14 +11,12 @@ JsonEnemy _$JsonEnemyFromJson(Map<String, dynamic> json) => JsonEnemy(
       position:
           (json['position'] as List<dynamic>).map((e) => e as num).toList(),
       shield: json['shield'] as num,
-      direction: $enumDecode(_$DirectionEnumMap, json['direction']),
     );
 
 Map<String, dynamic> _$JsonEnemyToJson(JsonEnemy instance) => <String, dynamic>{
       'type': _$NodeTypeEnumMap[instance.type]!,
       'position': instance.position,
       'shield': instance.shield,
-      'direction': _$DirectionEnumMap[instance.direction]!,
     };
 
 const _$NodeTypeEnumMap = {
@@ -28,11 +26,4 @@ const _$NodeTypeEnumMap = {
   NodeType.mine_blue: 'mine_blue',
   NodeType.turret_light: 'turret_light',
   NodeType.enemy: 'enemy',
-};
-
-const _$DirectionEnumMap = {
-  Direction.up: 'up',
-  Direction.down: 'down',
-  Direction.left: 'left',
-  Direction.right: 'right',
 };

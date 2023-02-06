@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
-import 'package:tensionnode/types/direction.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 part 'json_enemy.g.dart';
@@ -17,14 +16,10 @@ class JsonEnemy {
   @JsonKey(name: 'shield')
   final num shield;
 
-  @JsonKey(name: 'direction')
-  final Direction direction;
-
   const JsonEnemy({
     required this.type,
     required this.position,
     required this.shield,
-    required this.direction,
   });
 
   factory JsonEnemy.fromString(String json) =>

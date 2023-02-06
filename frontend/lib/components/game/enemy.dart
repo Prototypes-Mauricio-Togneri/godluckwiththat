@@ -9,14 +9,13 @@ import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/models/shooting.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
-import 'package:tensionnode/types/direction.dart';
 
 class Enemy extends MovableNode {
   final EnemySpec spec;
-  final Direction direction;
   final Shooting shooting;
-  final num speed;
+  final double speed;
   final double range;
+  final Vector2 kernelPosition;
   Node? target;
   bool _isRotating = false;
 
@@ -24,7 +23,7 @@ class Enemy extends MovableNode {
     required super.position,
     required super.shield,
     required this.spec,
-    required this.direction,
+    required this.kernelPosition,
   })  : shooting = Shooting(spec.weapon.fireRate),
         speed = spec.speed * Constants.NODE_SIZE,
         range = spec.weapon.range * Constants.NODE_SIZE,
@@ -82,28 +81,15 @@ class Enemy extends MovableNode {
   }
 
   void _moveForward(double dt) {
-    _rotateTo(position + direction.vector);
+    final Vector2 direction = (kernelPosition - position).normalized();
+    position += direction * speed * dt;
 
-    switch (direction) {
-      case Direction.up:
-        y -= dt * speed;
-        break;
-      case Direction.down:
-        y += dt * speed;
-        break;
-      case Direction.left:
-        x -= dt * speed;
-        break;
-      case Direction.right:
-        x += dt * speed;
-        break;
-    }
+    _rotateTo(direction);
   }
 
   JsonEnemy get json => JsonEnemy(
         type: type,
         position: Position.json(position),
         shield: shield.toInt(),
-        direction: direction,
       );
 }

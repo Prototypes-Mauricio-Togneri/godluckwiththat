@@ -56,8 +56,8 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       addEnemy(
         spec: node.type.spec as EnemySpec,
         shield: node.shield,
-        direction: node.direction,
         position: node.position.vector,
+        kernelPosition: state.kernel.position,
       );
     }
 
@@ -84,12 +84,12 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
     addEnemy(
       spec: EnemySpec.enemy,
-      direction: direction,
       shield: Constants.SHIELD_MAX,
       position: Position.fromGrid(
         position.x.toInt(),
         position.y.toInt(),
       ),
+      kernelPosition: state.kernel.position,
     );
   }
 

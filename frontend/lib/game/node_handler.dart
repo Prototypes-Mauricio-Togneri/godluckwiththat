@@ -13,7 +13,6 @@ import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
 import 'package:tensionnode/spec/node_spec.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
-import 'package:tensionnode/types/direction.dart';
 
 mixin NodeHandler on BaseGameComponent {
   void addKernel({
@@ -58,15 +57,15 @@ mixin NodeHandler on BaseGameComponent {
 
   void addEnemy({
     required EnemySpec spec,
-    required Direction direction,
     required num shield,
     required Vector2 position,
+    required Vector2 kernelPosition,
   }) {
     addNode(Enemy(
       spec: spec,
-      direction: direction,
       position: position,
       shield: shield,
+      kernelPosition: kernelPosition,
     ));
   }
 
