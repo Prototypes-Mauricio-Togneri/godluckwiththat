@@ -24,26 +24,32 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomStatusBar(
-      style: SystemUiOverlayStyle.light,
-      statusBarColor: Palette.grey,
-      child: SafeArea(
-        child: Scaffold(
-          body: Stack(
-            children: [
-              GameWidget(
-                game: game,
-                overlayBuilderMap: const {
-                  MainMenu.NAME: MainMenu.builder,
-                  SettingsMenu.NAME: SettingsMenu.builder,
-                  InfoMenu.NAME: InfoMenu.builder,
-                },
-              ),
-              StateProvider<GameState>(
-                state: state,
-                builder: (context, state) => BottomMenu(game, state),
-              ),
-            ],
+    return WillPopScope(
+      onWillPop: () async {
+        game.openMainMenu();
+        return false;
+      },
+      child: CustomStatusBar(
+        style: SystemUiOverlayStyle.light,
+        statusBarColor: Palette.grey,
+        child: SafeArea(
+          child: Scaffold(
+            body: Stack(
+              children: [
+                GameWidget(
+                  game: game,
+                  overlayBuilderMap: const {
+                    MainMenu.NAME: MainMenu.builder,
+                    SettingsMenu.NAME: SettingsMenu.builder,
+                    InfoMenu.NAME: InfoMenu.builder,
+                  },
+                ),
+                StateProvider<GameState>(
+                  state: state,
+                  builder: (context, state) => BottomMenu(game, state),
+                ),
+              ],
+            ),
           ),
         ),
       ),
