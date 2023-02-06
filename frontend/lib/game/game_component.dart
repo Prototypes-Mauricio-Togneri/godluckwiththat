@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/dialog/game_over_menu.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/extensions/random_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
@@ -124,6 +125,12 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       }
     }
   }
+
+  @override
+  void onGameOver() => openMenu(
+        name: GameOverMenu.NAME,
+        pauseGame: true,
+      );
 
   @override
   void update(double dt) {

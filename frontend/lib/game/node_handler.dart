@@ -94,10 +94,16 @@ mixin NodeHandler on BaseGameComponent {
     try {
       remove(node);
       state.removeNode(node);
+
+      if (node is Kernel) {
+        onGameOver();
+      }
     } catch (e) {
       // ignore
     }
   }
+
+  void onGameOver() {}
 
   void build({
     required int i,

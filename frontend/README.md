@@ -1,7 +1,6 @@
 # Tension Node
 
 - Make new turrets
-- Implement game over overlay
 - Change hit circle
 
 3 ways of moving resources:
