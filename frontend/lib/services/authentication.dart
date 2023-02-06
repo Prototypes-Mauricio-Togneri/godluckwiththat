@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tensionnode/services/error_handler.dart';
 
@@ -37,7 +38,13 @@ class Authentication {
 
   static Future<bool> signUp() async {
     try {
-      await FirebaseAuth.instance.signInAnonymously();
+      final UserCredential user =
+          await FirebaseAuth.instance.signInAnonymously();
+
+      final DocumentReference doc =
+          FirebaseFirestore.instance.collection('accounts').doc(user.user!.uid);
+      doc.set({'foo': 'bar'});
+
       return true;
     } catch (e) {
       return false;
