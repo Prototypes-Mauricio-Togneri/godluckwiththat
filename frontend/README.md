@@ -1,5 +1,14 @@
 # Tension Node
 
+- Make new turrets
+- Press back on game screen opens main menu
+- Implement splash screen
+- Implement home screen
+- Implement game over overlay
+- Enemies aim to center
+- Change hit circle
+- Random tile map for floor
+
 - Save and load matches
 - Add game mode to json
 - Attach multiple weapons to a node
