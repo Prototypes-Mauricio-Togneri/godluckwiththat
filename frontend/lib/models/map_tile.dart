@@ -7,11 +7,16 @@ class MapTile {
   static const int TILE_PATCH_RED = 1;
   static const int TILE_PATCH_GREEN = 2;
   static const int TILE_PATCH_BLUE = 3;
-  static const int TILE_GROUND = 4;
+  static const int TILE_GROUND_1 = 4;
+  static const int TILE_GROUND_2 = 5;
+  static const int TILE_GROUND_3 = 6;
 
   const MapTile(this._tile);
 
-  bool get isGround => _tile == TILE_GROUND;
+  bool get isGround =>
+      (_tile == TILE_GROUND_1) ||
+      (_tile == TILE_GROUND_2) ||
+      (_tile == TILE_GROUND_3);
 
   bool get isHole => _tile == TILE_HOLE;
 

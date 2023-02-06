@@ -4,7 +4,6 @@
 - Implement game over overlay
 - Enemies aim to center
 - Change hit circle
-- Random tile map for floor
 
 3 ways of moving resources:
     * Point to point direct
