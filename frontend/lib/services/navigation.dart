@@ -49,10 +49,10 @@ class Navigation {
         ),
       );
 
-  static void gameScreen() => pushAlone(
+  static void matchScreen() => push(
         FadeRoute(
           GameScreen.instance(),
-          name: 'game',
+          name: 'match',
         ),
       );
 }

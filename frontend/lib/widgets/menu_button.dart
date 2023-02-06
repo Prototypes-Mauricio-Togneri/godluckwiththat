@@ -8,7 +8,6 @@ class MenuButton extends StatelessWidget {
   final Color color;
   final VoidCallback onPressed;
   final double topPadding;
-  final String tooltip;
 
   const MenuButton({
     required this.text,
@@ -16,7 +15,6 @@ class MenuButton extends StatelessWidget {
     required this.color,
     required this.onPressed,
     this.topPadding = 10,
-    this.tooltip = '',
   });
 
   @override
