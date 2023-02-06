@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
+import 'package:tensionnode/extensions/random_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/menu_handler.dart';
 import 'package:tensionnode/game/node_handler.dart';
@@ -11,12 +14,10 @@ import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/models/map_tile.dart';
-import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
-import 'package:tensionnode/types/direction.dart';
 
 class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
   GameComponent(super.state);
@@ -79,16 +80,17 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
   }
 
   void spawnEnemy() {
-    final Direction direction = Direction.random();
-    final Vector2 position = direction.randomStartPoint;
+    const double distance = 30 * Constants.NODE_SIZE;
+    final int angle = Random().between(0, 359);
+    final Vector2 position = Vector2(
+      distance * sin(angle),
+      distance * cos(angle),
+    );
 
     addEnemy(
       spec: EnemySpec.enemy,
       shield: Constants.SHIELD_MAX,
-      position: Position.fromGrid(
-        position.x.toInt(),
-        position.y.toInt(),
-      ),
+      position: position,
       kernelPosition: state.kernel.position,
     );
   }

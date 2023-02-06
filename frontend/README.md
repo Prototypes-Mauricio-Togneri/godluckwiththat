@@ -2,7 +2,6 @@
 
 - Make new turrets
 - Implement game over overlay
-- Enemies aim to center
 - Change hit circle
 
 3 ways of moving resources:
