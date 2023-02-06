@@ -37,6 +37,15 @@ class Node extends SpriteComponent
     size = getSize();
     anchor = Anchor.center;
 
+    /*PolygonHitbox.relative(
+      [
+        Vector2(1, 0),
+        Vector2(0, -1),
+        Vector2(-1, 0),
+        Vector2(0, 1),
+      ],
+      parentSize: size,
+    )*/
     add(CircleHitbox());
     add(BlurSprite(image: type.spriteBlur));
     add(debugText);
