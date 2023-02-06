@@ -45,7 +45,6 @@ class Enemy extends MovableNode {
 
     if (target == null) {
       _moveForward(dt);
-      // TODO(momo): if passed the outer most node, remove the enemy
     } else {
       _rotateTo(target!.position);
 
