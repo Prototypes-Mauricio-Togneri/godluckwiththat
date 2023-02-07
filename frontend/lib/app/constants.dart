@@ -19,13 +19,13 @@ class Constants {
 	"map": {
 		"name": "level1",
 		"xml": "",
-		"position": [0, 0],
+		"position": [28.67, -11],
 		"zoom": 3
 	},
 	"resources": {
-		"red": 456,
-		"green": 164,
-		"blue": 308
+		"red": 688,
+		"green": 280,
+		"blue": 384
 	},
 	"kernel": {
 		"type": "kernel",
@@ -85,148 +85,172 @@ class Constants {
 		"type": "turret_light",
 		"position": [-8, 4],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 2,
+		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [-4, 9],
-		"shield": 85,
-    "shotsFired": 0,
-    "kills": 0
+		"shield": 100,
+		"shotsFired": 18,
+		"kills": 7
 	}, {
 		"type": "turret_light",
 		"position": [3, 10],
-		"shield": 69,
-    "shotsFired": 0,
-    "kills": 0
+		"shield": 100,
+		"shotsFired": 6,
+		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [10, 7],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 16,
+		"kills": 4
 	}, {
 		"type": "turret_light",
 		"position": [16, -2],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 6,
+		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [1, -12],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 7,
+		"kills": 3
 	}, {
 		"type": "turret_light",
 		"position": [-11, -9],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 10,
+		"kills": 3
 	}, {
 		"type": "turret_light",
 		"position": [-12, -1],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 9,
+		"kills": 2
 	}, {
 		"type": "turret_light",
 		"position": [13, -10],
-		"shield": 84,
-    "shotsFired": 0,
-    "kills": 0
+		"shield": 100,
+		"shotsFired": 16,
+		"kills": 4
 	}, {
 		"type": "turret_light",
 		"position": [12, 4],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 11,
+		"kills": 2
 	}, {
 		"type": "turret_light",
 		"position": [15, 1],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 6,
+		"kills": 2
 	}, {
 		"type": "turret_light",
 		"position": [16, -7],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 15,
+		"kills": 6
 	}, {
 		"type": "turret_light",
 		"position": [5, -12],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 23,
+		"kills": 4
 	}, {
 		"type": "turret_light",
 		"position": [-4, -12],
-		"shield": 93,
-    "shotsFired": 0,
-    "kills": 0
+		"shield": 100,
+		"shotsFired": 4,
+		"kills": 1
 	}, {
 		"type": "turret_light",
 		"position": [-8, -10],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 2,
+		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [-13, -5],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 4,
+		"kills": 1
 	}, {
 		"type": "turret_light",
 		"position": [7, 9],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 17,
+		"kills": 6
 	}, {
 		"type": "turret_light",
 		"position": [0, 10],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 14,
+		"kills": 3
 	}, {
 		"type": "turret_light",
 		"position": [-7, 7],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 14,
+		"kills": 2
 	}, {
 		"type": "turret_light",
 		"position": [-11, 2],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 8,
+		"kills": 3
 	}, {
 		"type": "turret_light",
 		"position": [-3, -7],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 0,
+		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [3, -7],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 0,
+		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [8, 0],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 0,
+		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [-6, -1],
 		"shield": 100,
-    "shotsFired": 0,
-    "kills": 0
+		"shotsFired": 0,
+		"kills": 0
 	}],
-	"enemies": []
+	"enemies": [{
+		"type": "enemy",
+		"position": [-83.17, 114.48],
+		"shield": 100
+	}, {
+		"type": "enemy",
+		"position": [-169.45, -26.45],
+		"shield": 100
+	}, {
+		"type": "enemy",
+		"position": [47.69, -195.78],
+		"shield": 100
+	}, {
+		"type": "enemy",
+		"position": [-102.81, 207.42],
+		"shield": 100
+	}, {
+		"type": "enemy",
+		"position": [-6.94, -261.41],
+		"shield": 100
+	}, {
+		"type": "enemy",
+		"position": [-291.43, 6.45],
+		"shield": 100
+	}]
 }
 ''';
 
