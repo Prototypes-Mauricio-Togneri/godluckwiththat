@@ -8,6 +8,7 @@ import 'package:tensionnode/components/game/bullet.dart';
 import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
+import 'package:tensionnode/services/audio.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/spec/weapon_spec.dart';
 import 'package:tensionnode/types/node_type.dart';
@@ -63,7 +64,7 @@ class Node extends SpriteComponent
     final Vector2 startPosition =
         position + (direction * (Constants.NODE_SIZE / 2));
 
-    //FlameAudio.play(spec.sound);
+    Audio.play(spec.sound);
 
     game.addBullet(
       shooter: this,
