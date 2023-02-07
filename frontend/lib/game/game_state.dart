@@ -12,9 +12,9 @@ import 'package:tensionnode/models/resources.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
-  num heat = 0;
-  num timeElapsed = 0;
-  num timeSpawn = 0;
+  num _heat = 0;
+  num _timeElapsed = 0;
+  num _timeSpawn = 0;
 
   final Resources resources = Resources.empty();
   late final Kernel kernel;
@@ -34,12 +34,12 @@ class GameState extends BaseState {
   int update(double dt) {
     int enemiesToSpawn = 0;
 
-    timeElapsed += dt;
-    timeSpawn += dt;
+    _timeElapsed += dt;
+    _timeSpawn += dt;
 
-    if (timeSpawn > Constants.TIME_SPAWN) {
-      timeSpawn -= Constants.TIME_SPAWN;
-      enemiesToSpawn = heat ~/ 60;
+    if (_timeSpawn > Constants.TIME_SPAWN) {
+      _timeSpawn -= Constants.TIME_SPAWN;
+      enemiesToSpawn = _heat ~/ 60;
       enemiesToSpawn = (enemiesToSpawn == 0) ? 1 : enemiesToSpawn;
     }
 
@@ -60,7 +60,7 @@ class GameState extends BaseState {
     }
 
     if (node is FixedNode) {
-      heat += node.heat;
+      _heat += node.heat;
     }
   }
 
@@ -74,7 +74,7 @@ class GameState extends BaseState {
     }
 
     if (node is FixedNode) {
-      heat -= node.heat;
+      _heat -= node.heat;
     }
   }
 
@@ -82,7 +82,7 @@ class GameState extends BaseState {
     return JsonMatch(
       version: jsonMatch.version,
       id: jsonMatch.id,
-      timeElapsed: jsonMatch.timeElapsed,
+      timeElapsed: _timeElapsed.toInt(),
       map: jsonMatch.map.withCamera(camera),
       mode: jsonMatch.mode,
       resources: resources.json,
