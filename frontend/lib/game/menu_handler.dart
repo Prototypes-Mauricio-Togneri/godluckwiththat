@@ -1,5 +1,6 @@
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/components/base/node_range.dart';
 import 'package:tensionnode/components/base/node_selected.dart';
 import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
@@ -42,6 +43,7 @@ mixin MenuHandler on BaseGameComponent {
   void removeMenuComponents() {
     removeComponents(BuildingIndicator);
     removeComponents(NodeSelected);
+    removeComponents(NodeRange);
   }
 
   bool selectNode(FixedNode node) {
@@ -51,6 +53,7 @@ mixin MenuHandler on BaseGameComponent {
       state.selectNode(node);
       removeMenuComponents();
       add(NodeSelected(node: node));
+      add(NodeRange(node: node));
     }
 
     return true;

@@ -2,9 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:tensionnode/services/palette.dart';
 
 enum ResourceType {
-  red(color: Palette.resource_red),
-  green(color: Palette.resource_green),
-  blue(color: Palette.resource_blue);
+  red(color: Palette.resourceRed),
+  green(color: Palette.resourceGreen),
+  blue(color: Palette.resourceBlue);
 
   final Color color;
 

@@ -10,7 +10,6 @@
 
 - Save and load matches
 - Attach multiple weapons to a node
-- Selecting a turret shows its range
 
 Problems:
     - Frame rate
