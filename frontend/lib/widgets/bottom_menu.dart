@@ -26,6 +26,7 @@ class BottomMenu extends StatelessWidget {
       return Align(
         alignment: Alignment.bottomCenter,
         child: Container(
+          width: 250,
           color: Palette.grey,
           padding: const EdgeInsets.all(10),
           child: Column(
@@ -61,33 +62,36 @@ class FixedButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        BottomMenuButton(
-          icon: Icons.menu,
-          color: Palette.lightGrey,
-          onClick: game.openMainMenu,
-        ),
-        const HBox(10),
-        BottomMenuButton(
-          icon: Icons.construction,
-          color: Palette.lightGrey,
-          onClick: game.enableConstructMode,
-        ),
-        const HBox(10),
-        BottomMenuButton(
-          icon: Icons.delete,
-          color: Palette.lightGrey,
-          onClick: game.enableDestroyingMode,
-        ),
-        const HBox(10),
-        BottomMenuButton(
-          icon: Icons.remove_red_eye,
-          color: Palette.lightGrey,
-          onClick: game.onShowDetails,
-        ),
-      ],
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BottomMenuButton(
+            icon: Icons.menu,
+            color: Palette.lightGrey,
+            onClick: game.openMainMenu,
+          ),
+          const HBox(10),
+          BottomMenuButton(
+            icon: Icons.construction,
+            color: Palette.lightGrey,
+            onClick: game.enableConstructMode,
+          ),
+          const HBox(10),
+          BottomMenuButton(
+            icon: Icons.delete,
+            color: Palette.lightGrey,
+            onClick: game.enableDestroyingMode,
+          ),
+          const HBox(10),
+          BottomMenuButton(
+            icon: Icons.remove_red_eye,
+            color: Palette.lightGrey,
+            onClick: game.onShowDetails,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -101,48 +105,46 @@ class ConstructMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
-      child: IntrinsicWidth(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Label(
-              text: 'Build'.toUpperCase(),
-              align: TextAlign.center,
-            ),
-            const VBox(5),
-            MenuButton(
-              text: 'Red Mine',
-              icon: Icons.center_focus_strong,
-              color: Palette.resourceRed,
-              onPressed: () => _onBuild(MineSpec.mine_red),
-            ),
-            MenuButton(
-              text: 'Green Mine',
-              icon: Icons.center_focus_strong,
-              color: Palette.resourceGreen,
-              onPressed: () => _onBuild(MineSpec.mine_green),
-            ),
-            MenuButton(
-              text: 'Blue Mine',
-              icon: Icons.center_focus_strong,
-              color: Palette.resourceBlue,
-              onPressed: () => _onBuild(MineSpec.mine_blue),
-            ),
-            MenuButton(
-              text: 'Light turret',
-              icon: Icons.radio_button_checked,
-              color: Palette.turretLight,
-              onPressed: () => _onBuild(TurretSpec.turret_light),
-            ),
-            MenuButton(
-              text: 'Close',
-              icon: Icons.close,
-              color: Palette.lightGrey,
-              onPressed: _closeMenu,
-            ),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Label(
+            text: 'Build'.toUpperCase(),
+            align: TextAlign.center,
+          ),
+          const VBox(5),
+          MenuButton(
+            text: 'Red Mine',
+            icon: Icons.center_focus_strong,
+            color: Palette.resourceRed,
+            onPressed: () => _onBuild(MineSpec.mine_red),
+          ),
+          MenuButton(
+            text: 'Green Mine',
+            icon: Icons.center_focus_strong,
+            color: Palette.resourceGreen,
+            onPressed: () => _onBuild(MineSpec.mine_green),
+          ),
+          MenuButton(
+            text: 'Blue Mine',
+            icon: Icons.center_focus_strong,
+            color: Palette.resourceBlue,
+            onPressed: () => _onBuild(MineSpec.mine_blue),
+          ),
+          MenuButton(
+            text: 'Light turret',
+            icon: Icons.radio_button_checked,
+            color: Palette.turretLight,
+            onPressed: () => _onBuild(TurretSpec.turret_light),
+          ),
+          MenuButton(
+            text: 'Close',
+            icon: Icons.close,
+            color: Palette.lightGrey,
+            onPressed: _closeMenu,
+          ),
+        ],
       ),
     );
   }
@@ -164,40 +166,38 @@ class MineMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
-      child: IntrinsicWidth(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Label(
-              text: mine.spec.type.name,
-              align: TextAlign.center,
-            ),
-            const VBox(10),
-            Label(
-              text: '${mine.i}, ${mine.j}',
-              align: TextAlign.center,
-            ),
-            const VBox(10),
-            MenuButton(
-              text: 'Center',
-              icon: Icons.filter_tilt_shift,
-              color: Palette.primary,
-              onPressed: () => _onCenter(mine),
-            ),
-            MenuButton(
-              text: 'Destroy',
-              icon: Icons.delete,
-              color: Palette.error,
-              onPressed: _onDestroy,
-            ),
-            MenuButton(
-              text: 'Close',
-              icon: Icons.close,
-              color: Palette.lightGrey,
-              onPressed: _closeMenu,
-            ),
-          ],
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Label(
+            text: mine.spec.type.name,
+            align: TextAlign.center,
+          ),
+          const VBox(10),
+          Label(
+            text: '${mine.i}, ${mine.j}',
+            align: TextAlign.center,
+          ),
+          const VBox(10),
+          MenuButton(
+            text: 'Center',
+            icon: Icons.filter_tilt_shift,
+            color: Palette.primary,
+            onPressed: () => _onCenter(mine),
+          ),
+          MenuButton(
+            text: 'Destroy',
+            icon: Icons.delete,
+            color: Palette.error,
+            onPressed: _onDestroy,
+          ),
+          MenuButton(
+            text: 'Close',
+            icon: Icons.close,
+            color: Palette.lightGrey,
+            onPressed: _closeMenu,
+          ),
+        ],
       ),
     );
   }
@@ -223,51 +223,49 @@ class TurretMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
-      child: IntrinsicWidth(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Label(
-              text: turret.spec.type.name,
-              align: TextAlign.center,
-            ),
-            const VBox(10),
-            Label(
-              text: '${turret.i}, ${turret.j}',
-              align: TextAlign.center,
-            ),
-            const VBox(10),
-            Label(
-              text: 'Shots fired: ${turret.shotsFired}',
-              align: TextAlign.center,
-            ),
-            const VBox(10),
-            Label(
-              text: 'Kills: ${turret.kills}',
-              align: TextAlign.center,
-            ),
-            const VBox(10),
-            MenuButton(
-              text: 'Center',
-              icon: Icons.filter_tilt_shift,
-              color: Palette.primary,
-              onPressed: () => _onCenter(turret),
-            ),
-            MenuButton(
-              text: 'Destroy',
-              icon: Icons.delete,
-              color: Palette.error,
-              onPressed: _onDestroy,
-            ),
-            MenuButton(
-              text: 'Close',
-              icon: Icons.close,
-              color: Palette.lightGrey,
-              onPressed: _closeMenu,
-            ),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Label(
+            text: turret.spec.type.name,
+            align: TextAlign.center,
+          ),
+          const VBox(10),
+          Label(
+            text: '${turret.i}, ${turret.j}',
+            align: TextAlign.center,
+          ),
+          const VBox(10),
+          Label(
+            text: 'Shots fired: ${turret.shotsFired}',
+            align: TextAlign.center,
+          ),
+          const VBox(10),
+          Label(
+            text: 'Kills: ${turret.kills}',
+            align: TextAlign.center,
+          ),
+          const VBox(10),
+          MenuButton(
+            text: 'Center',
+            icon: Icons.filter_tilt_shift,
+            color: Palette.primary,
+            onPressed: () => _onCenter(turret),
+          ),
+          MenuButton(
+            text: 'Destroy',
+            icon: Icons.delete,
+            color: Palette.error,
+            onPressed: _onDestroy,
+          ),
+          MenuButton(
+            text: 'Close',
+            icon: Icons.close,
+            color: Palette.lightGrey,
+            onPressed: _closeMenu,
+          ),
+        ],
       ),
     );
   }
@@ -290,26 +288,24 @@ class CancelMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IntrinsicWidth(
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 20),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Palette.error,
-            minimumSize: const Size(0, 45),
-          ),
-          onPressed: game.onCancelOperation,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.close,
-                size: 20,
-              ),
-              const HBox(10),
-              Label(text: 'Cancel'.toUpperCase()),
-            ],
-          ),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Palette.error,
+          minimumSize: const Size(0, 45),
+        ),
+        onPressed: game.onCancelOperation,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.close,
+              size: 20,
+            ),
+            const HBox(10),
+            Label(text: 'Cancel'.toUpperCase()),
+          ],
         ),
       ),
     );
