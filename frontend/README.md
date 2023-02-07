@@ -1,15 +1,14 @@
 # Tension Node
 
+- Save and load matches
 - Make new turrets
 - Change hit circle
+- Attach multiple weapons to a node
 
 3 ways of moving resources:
     * Point to point direct
     * Invisible path with 1 flag per node
     * Manual paths with custom flags
-
-- Save and load matches
-- Attach multiple weapons to a node
 
 Problems:
     - Frame rate
