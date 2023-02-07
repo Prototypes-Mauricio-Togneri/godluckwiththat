@@ -10,29 +10,29 @@ import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/types/menu_mode.dart';
 
 mixin MenuHandler on BaseGameComponent {
-  MenuMode mode = MenuMode.none;
+  MenuMode _mode = MenuMode.none;
   Node? _selectedNode;
 
-  bool get constructMode => mode == MenuMode.construct;
+  bool get constructMode => _mode == MenuMode.construct;
 
-  bool get buildingMode => mode == MenuMode.building;
+  bool get buildingMode => _mode == MenuMode.building;
 
-  bool get destroyingMode => mode == MenuMode.destroying;
+  bool get destroyingMode => _mode == MenuMode.destroying;
 
   bool get isDetailsMode =>
-      (mode == MenuMode.construct) || (mode == MenuMode.node_selected);
+      (_mode == MenuMode.construct) || (_mode == MenuMode.node_selected);
 
   bool get isInSpecialMode =>
-      (mode == MenuMode.building) || (mode == MenuMode.destroying);
+      (_mode == MenuMode.building) || (_mode == MenuMode.destroying);
   void _enableMode(MenuMode newMode) {
     _selectedNode = null;
-    mode = newMode;
+    _mode = newMode;
     state.notify();
   }
 
   void disableMode() {
     _selectedNode = null;
-    mode = MenuMode.none;
+    _mode = MenuMode.none;
     state.notify();
   }
 
