@@ -1,19 +1,19 @@
 class Shooting {
-  num accumulatedTime = 0;
-  final num timeToShoot;
+  num _accumulatedTime = 0;
+  final num _timeToShoot;
 
-  Shooting(num fireRate) : timeToShoot = 1 / fireRate {
-    accumulatedTime = timeToShoot;
+  Shooting(num fireRate) : _timeToShoot = 1 / fireRate {
+    _accumulatedTime = _timeToShoot;
   }
 
   void update(num dt) {
-    accumulatedTime += dt;
-    accumulatedTime = accumulatedTime.clamp(0, timeToShoot);
+    _accumulatedTime += dt;
+    _accumulatedTime = _accumulatedTime.clamp(0, _timeToShoot);
   }
 
   bool canShoot(num dt) {
-    if (accumulatedTime >= timeToShoot) {
-      accumulatedTime = 0;
+    if (_accumulatedTime >= _timeToShoot) {
+      _accumulatedTime = 0;
 
       return true;
     } else {
