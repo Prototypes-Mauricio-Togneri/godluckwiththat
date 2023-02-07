@@ -1,6 +1,7 @@
 # Tension Node
 
 * Make new turrets
+* Make new enemies
 * Change hit circle
 * Attach multiple weapons to a node
 
