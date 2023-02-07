@@ -290,23 +290,11 @@ class CancelMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Palette.error,
-          minimumSize: const Size(0, 45),
-        ),
+      child: MenuButton(
+        text: 'Cancel',
+        icon: Icons.close,
+        color: Palette.resourceRed,
         onPressed: game.onCancelOperation,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.close,
-              size: 20,
-            ),
-            const HBox(10),
-            Label(text: 'Cancel'.toUpperCase()),
-          ],
-        ),
       ),
     );
   }
