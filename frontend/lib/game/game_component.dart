@@ -14,6 +14,7 @@ import 'package:tensionnode/game/node_handler.dart';
 import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
+import 'package:tensionnode/json/json_turret.dart';
 import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
@@ -45,20 +46,22 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       );
     }
 
-    for (final JsonNode node in jsonMatch.turrets) {
+    for (final JsonTurret turret in jsonMatch.turrets) {
       addTurret(
-        i: node.position.x,
-        j: node.position.y,
-        spec: node.type.spec as TurretSpec,
-        shield: node.shield,
+        i: turret.position.x.toInt(),
+        j: turret.position.y.toInt(),
+        shield: turret.shield,
+        shotsFired: turret.shotsFired,
+        kills: turret.kills,
+        spec: turret.type.spec as TurretSpec,
       );
     }
 
-    for (final JsonEnemy node in jsonMatch.enemies) {
+    for (final JsonEnemy enemy in jsonMatch.enemies) {
       addEnemy(
-        spec: node.type.spec as EnemySpec,
-        shield: node.shield,
-        position: node.position.vector,
+        spec: enemy.type.spec as EnemySpec,
+        shield: enemy.shield,
+        position: enemy.position.vector,
         kernelPosition: state.kernel.position,
       );
     }

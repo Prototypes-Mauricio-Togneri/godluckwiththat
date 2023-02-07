@@ -2,9 +2,9 @@ import 'package:tensionnode/json/json_resources.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Resources {
-  num red = 0;
-  num green = 0;
-  num blue = 0;
+  int red = 0;
+  int green = 0;
+  int blue = 0;
 
   Resources({
     required this.red,
@@ -15,9 +15,9 @@ class Resources {
   factory Resources.empty() => Resources(red: 0, green: 0, blue: 0);
 
   void set({
-    required num red,
-    required num green,
-    required num blue,
+    required int red,
+    required int green,
+    required int blue,
   }) {
     this.red = red;
     this.green = green;

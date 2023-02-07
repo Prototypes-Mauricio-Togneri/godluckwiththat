@@ -42,16 +42,20 @@ mixin NodeHandler on BaseGameComponent {
   }
 
   void addTurret({
-    required num i,
-    required num j,
-    required TurretSpec spec,
+    required int i,
+    required int j,
     required num shield,
+    required int shotsFired,
+    required int kills,
+    required TurretSpec spec,
   }) {
     addNode(Turret(
       i: i,
       j: j,
-      spec: spec,
       shield: shield,
+      shotsFired: shotsFired,
+      kills: kills,
+      spec: spec,
     ));
   }
 
@@ -155,8 +159,10 @@ mixin NodeHandler on BaseGameComponent {
       addTurret(
         i: i,
         j: j,
-        spec: spec,
         shield: Constants.SHIELD_MAX,
+        shotsFired: 0,
+        kills: 0,
+        spec: spec,
       );
       state.resources.remove(spec.cost);
     }

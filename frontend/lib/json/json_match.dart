@@ -4,13 +4,14 @@ import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_resources.dart';
+import 'package:tensionnode/json/json_turret.dart';
 
 part 'json_match.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonMatch {
   @JsonKey(name: 'version')
-  final num version;
+  final int version;
 
   @JsonKey(name: 'id')
   final String id;
@@ -28,7 +29,7 @@ class JsonMatch {
   final List<JsonNode> mines;
 
   @JsonKey(name: 'turrets')
-  final List<JsonNode> turrets;
+  final List<JsonTurret> turrets;
 
   @JsonKey(name: 'enemies')
   final List<JsonEnemy> enemies;

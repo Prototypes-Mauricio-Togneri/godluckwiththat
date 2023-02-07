@@ -7,7 +7,7 @@ part of 'json_match.dart';
 // **************************************************************************
 
 JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
-      version: json['version'] as num,
+      version: json['version'] as int,
       id: json['id'] as String,
       map: JsonMap.fromJson(json['map'] as Map<String, dynamic>),
       resources:
@@ -17,7 +17,7 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
           .map((e) => JsonNode.fromJson(e as Map<String, dynamic>))
           .toList(),
       turrets: (json['turrets'] as List<dynamic>)
-          .map((e) => JsonNode.fromJson(e as Map<String, dynamic>))
+          .map((e) => JsonTurret.fromJson(e as Map<String, dynamic>))
           .toList(),
       enemies: (json['enemies'] as List<dynamic>)
           .map((e) => JsonEnemy.fromJson(e as Map<String, dynamic>))

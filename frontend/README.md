@@ -13,7 +13,7 @@
 - Attach multiple weapons to a node
 
 Click on a turret and show:
-- Shoots fired
+- Shots fired
 - Kills
 
 Enable/disable bug view:

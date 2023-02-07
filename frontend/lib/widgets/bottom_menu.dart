@@ -102,8 +102,8 @@ class ConstructMenu extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Label(
-              text: 'BUILD',
+            Label(
+              text: 'Build'.toUpperCase(),
               align: TextAlign.center,
             ),
             const VBox(5),
@@ -231,6 +231,16 @@ class TurretMenu extends StatelessWidget {
             const VBox(10),
             Label(
               text: '${turret.i}, ${turret.j}',
+              align: TextAlign.center,
+            ),
+            const VBox(10),
+            Label(
+              text: 'Shots fired: ${turret.shotsFired}',
+              align: TextAlign.center,
+            ),
+            const VBox(10),
+            Label(
+              text: 'Kills: ${turret.kills}',
               align: TextAlign.center,
             ),
             const VBox(10),

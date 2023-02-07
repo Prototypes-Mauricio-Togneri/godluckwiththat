@@ -5,6 +5,7 @@ import 'package:tensionnode/components/base/blur_sprite.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/game/bullet.dart';
+import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/style.dart';
@@ -98,6 +99,12 @@ class Node extends SpriteComponent
     _shield -= bullet.spec.damage;
 
     if (_shield <= Constants.SHIELD_MIN) {
+      final Node shooter = bullet.shooter;
+
+      if (shooter is Turret) {
+        shooter.kills++;
+      }
+
       destroy();
     }
   }

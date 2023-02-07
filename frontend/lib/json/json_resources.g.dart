@@ -8,9 +8,9 @@ part of 'json_resources.dart';
 
 JsonResources _$JsonResourcesFromJson(Map<String, dynamic> json) =>
     JsonResources(
-      red: json['red'] as num,
-      green: json['green'] as num,
-      blue: json['blue'] as num,
+      red: json['red'] as int,
+      green: json['green'] as int,
+      blue: json['blue'] as int,
     );
 
 Map<String, dynamic> _$JsonResourcesToJson(JsonResources instance) =>

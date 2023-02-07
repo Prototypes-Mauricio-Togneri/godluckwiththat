@@ -3,7 +3,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/json/json_node.dart';
+import 'package:tensionnode/json/json_turret.dart';
 import 'package:tensionnode/models/shooting.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
 
@@ -11,12 +11,16 @@ class Turret extends FixedNode {
   final TurretSpec spec;
   final Shooting shooting;
   final double range;
+  int shotsFired;
+  int kills;
   Node? target;
 
   Turret({
     required super.i,
     required super.j,
     required super.shield,
+    required this.shotsFired,
+    required this.kills,
     required this.spec,
   })  : shooting = Shooting(spec.weapon.fireRate),
         range = spec.weapon.range * Constants.NODE_SIZE,
@@ -42,6 +46,7 @@ class Turret extends FixedNode {
     target ??= game.closestNodeInRange<MovableNode>(this, range);
 
     if ((target != null) && shooting.canShoot(dt)) {
+      shotsFired++;
       shoot(
         spec: spec.weapon,
         target: target!,
@@ -53,9 +58,11 @@ class Turret extends FixedNode {
   @override
   bool onTapUp(TapUpInfo info) => game.selectNode(this);
 
-  JsonNode get json => JsonNode(
+  JsonTurret get json => JsonTurret(
         type: type,
         position: [i, j],
         shield: shield.toInt(),
+        shotsFired: shotsFired,
+        kills: kills,
       );
 }
