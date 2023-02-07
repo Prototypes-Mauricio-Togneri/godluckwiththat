@@ -4,6 +4,7 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/node_range.dart';
 import 'package:tensionnode/components/base/node_selected.dart';
 import 'package:tensionnode/components/game/kernel.dart';
+import 'package:tensionnode/dialog/game_over_menu.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
@@ -24,6 +25,7 @@ mixin MenuHandler on BaseGameComponent {
 
   bool get isInSpecialMode =>
       (_mode == MenuMode.building) || (_mode == MenuMode.destroying);
+
   void _enableMode(MenuMode newMode) {
     _selectedNode = null;
     _mode = newMode;
@@ -36,12 +38,17 @@ mixin MenuHandler on BaseGameComponent {
     state.notify();
   }
 
-  void openMainMenu() => openMenu(
+  void openMainMenu() => _openMenu(
         name: MainMenu.NAME,
         pauseGame: true,
       );
 
-  void openMenu({
+  void openGameOverMenu() => _openMenu(
+        name: GameOverMenu.NAME,
+        pauseGame: true,
+      );
+
+  void _openMenu({
     required String name,
     bool pauseGame = false,
   }) {
