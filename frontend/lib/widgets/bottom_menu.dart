@@ -20,33 +20,37 @@ class BottomMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        color: Palette.grey,
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (state.constructMode)
-              ConstructMenu(game)
-            else if (state.isSelected(Mine))
-              MineMenu(
-                game,
-                state.selectedNode(),
-              )
-            else if (state.isSelected(Turret))
-              TurretMenu(
-                game,
-                state.selectedNode(),
-              )
-            else if (state.isInSpecialMode)
-              CancelMenu(game),
-            FixedButtons(game),
-          ],
+    if (game.paused) {
+      return const Empty();
+    } else {
+      return Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          color: Palette.grey,
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (state.constructMode)
+                ConstructMenu(game)
+              else if (state.isSelected(Mine))
+                MineMenu(
+                  game,
+                  state.selectedNode(),
+                )
+              else if (state.isSelected(Turret))
+                TurretMenu(
+                  game,
+                  state.selectedNode(),
+                )
+              else if (state.isInSpecialMode)
+                CancelMenu(game),
+              FixedButtons(game),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
 

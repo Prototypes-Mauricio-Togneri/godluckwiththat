@@ -19,6 +19,7 @@ mixin MenuHandler on BaseGameComponent {
     if (!overlays.isActive(name)) {
       if (pauseGame) {
         pauseEngine();
+        state.notify();
       }
       overlays.add(name);
     }
@@ -33,6 +34,7 @@ mixin MenuHandler on BaseGameComponent {
 
       if (resumeGame) {
         resumeEngine();
+        state.notify();
       }
     }
   }
