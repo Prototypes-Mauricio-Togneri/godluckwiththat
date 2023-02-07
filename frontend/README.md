@@ -1,6 +1,5 @@
 # Tension Node
 
-- Save and load matches
 - Make new turrets
 - Change hit circle
 - Attach multiple weapons to a node
