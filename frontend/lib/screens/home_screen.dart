@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     MenuButton(
                       text: 'Continue',
-                      icon: Icons.upload,
+                      icon: Icons.play_arrow,
                       color: Palette.primary,
                       onPressed: state.onLoadMatch,
                       topPadding: 0,

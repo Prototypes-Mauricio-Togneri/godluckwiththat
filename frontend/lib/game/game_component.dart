@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
@@ -12,7 +11,6 @@ import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/menu_handler.dart';
 import 'package:tensionnode/game/node_handler.dart';
 import 'package:tensionnode/json/json_enemy.dart';
-import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_turret.dart';
 import 'package:tensionnode/models/map_tile.dart';
@@ -26,18 +24,15 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
   @override
   Future onLoad() async {
-    final JsonMatch jsonMatch = JsonMatch.fromString(Constants.TEST_MATCH);
-    state.load(jsonMatch);
-
-    await addBaseComponents(jsonMatch);
+    await addBaseComponents(state.jsonMatch);
 
     addKernel(
-      i: jsonMatch.kernel.position.x,
-      j: jsonMatch.kernel.position.y,
-      shield: jsonMatch.kernel.shield,
+      i: state.jsonMatch.kernel.position.x,
+      j: state.jsonMatch.kernel.position.y,
+      shield: state.jsonMatch.kernel.shield,
     );
 
-    for (final JsonNode node in jsonMatch.mines) {
+    for (final JsonNode node in state.jsonMatch.mines) {
       addMine(
         i: node.position.x,
         j: node.position.y,
@@ -46,7 +41,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       );
     }
 
-    for (final JsonTurret turret in jsonMatch.turrets) {
+    for (final JsonTurret turret in state.jsonMatch.turrets) {
       addTurret(
         i: turret.position.x.toInt(),
         j: turret.position.y.toInt(),
@@ -57,7 +52,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       );
     }
 
-    for (final JsonEnemy enemy in jsonMatch.enemies) {
+    for (final JsonEnemy enemy in state.jsonMatch.enemies) {
       addEnemy(
         spec: enemy.type.spec as EnemySpec,
         shield: enemy.shield,

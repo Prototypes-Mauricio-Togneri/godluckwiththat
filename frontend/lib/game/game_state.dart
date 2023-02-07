@@ -24,11 +24,19 @@ class GameState extends BaseState {
   MenuMode mode = MenuMode.none;
 
   late Resources resources = Resources.empty();
-  late final JsonMatch jsonMatch;
   late final Kernel kernel;
   final List<Mine> mines = [];
   final List<Turret> turrets = [];
   final List<Enemy> enemies = [];
+  final JsonMatch jsonMatch;
+
+  GameState(this.jsonMatch) {
+    resources.set(
+      red: jsonMatch.resources.red,
+      green: jsonMatch.resources.green,
+      blue: jsonMatch.resources.blue,
+    );
+  }
 
   bool get constructMode => mode == MenuMode.construct;
 
@@ -46,15 +54,6 @@ class GameState extends BaseState {
   void onLoad() {
     FlameAudio.audioCache.load(Assets.AUDIO_SFX_BULLET);
     FlameAudio.audioCache.load(Assets.AUDIO_SFX_LASER);
-  }
-
-  void load(JsonMatch json) {
-    jsonMatch = json;
-    resources.set(
-      red: json.resources.red,
-      green: json.resources.green,
-      blue: json.resources.blue,
-    );
   }
 
   T selectedNode<T>() => _selectedNode as T;

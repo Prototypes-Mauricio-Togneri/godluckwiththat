@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/screens/game_screen.dart';
 import 'package:tensionnode/screens/home_screen.dart';
 import 'package:tensionnode/services/locator.dart';
@@ -49,9 +50,9 @@ class Navigation {
         ),
       );
 
-  static void matchScreen() => push(
+  static void matchScreen(JsonMatch jsonMatch) => push(
         FadeRoute(
-          GameScreen.instance(),
+          GameScreen.instance(jsonMatch),
           name: 'match',
         ),
       );

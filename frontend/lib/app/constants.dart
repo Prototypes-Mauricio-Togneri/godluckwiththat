@@ -257,6 +257,35 @@ class Constants {
 }
 ''';
 
+  static String EMPTY_MATCH = '''
+{
+	"version": 1,
+	"id": "map1",
+	"map": {
+		"name": "level1",
+		"xml": "",
+		"position": [0, 0],
+		"zoom": 1
+	},
+  "mode": {
+    "mode": "survival"
+  },
+	"resources": {
+		"red": 900,
+		"green": 600,
+		"blue": 300
+	},
+	"kernel": {
+		"type": "kernel",
+		"position": [0, 0],
+		"shield": 100
+	},
+	"mines": [],
+	"turrets": [],
+	"enemies": []
+}
+''';
+
   static const String TEST_MAP_TILE_XML = '''
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="256" tileheight="256" infinite="0" backgroundcolor="#141414" nextlayerid="2" nextobjectid="1">

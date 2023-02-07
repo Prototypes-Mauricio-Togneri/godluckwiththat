@@ -8,6 +8,7 @@ import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
+import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/bottom_menu.dart';
 
@@ -17,8 +18,8 @@ class GameScreen extends StatelessWidget {
 
   const GameScreen(this.state, this.game);
 
-  factory GameScreen.instance() {
-    final GameState state = GameState();
+  factory GameScreen.instance(JsonMatch jsonMatch) {
+    final GameState state = GameState(jsonMatch);
 
     return GameScreen(state, GameComponent(state));
   }
