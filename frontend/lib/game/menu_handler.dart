@@ -1,13 +1,41 @@
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/node_range.dart';
 import 'package:tensionnode/components/base/node_selected.dart';
 import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
+import 'package:tensionnode/types/menu_mode.dart';
 
 mixin MenuHandler on BaseGameComponent {
+  MenuMode mode = MenuMode.none;
+  Node? _selectedNode;
+
+  bool get constructMode => mode == MenuMode.construct;
+
+  bool get buildingMode => mode == MenuMode.building;
+
+  bool get destroyingMode => mode == MenuMode.destroying;
+
+  bool get isDetailsMode =>
+      (mode == MenuMode.construct) || (mode == MenuMode.node_selected);
+
+  bool get isInSpecialMode =>
+      (mode == MenuMode.building) || (mode == MenuMode.destroying);
+  void _enableMode(MenuMode newMode) {
+    _selectedNode = null;
+    mode = newMode;
+    state.notify();
+  }
+
+  void disableMode() {
+    _selectedNode = null;
+    mode = MenuMode.none;
+    state.notify();
+  }
+
   void openMainMenu() => openMenu(
         name: MainMenu.NAME,
         pauseGame: true,
@@ -46,11 +74,17 @@ mixin MenuHandler on BaseGameComponent {
     removeComponents(NodeRange);
   }
 
+  T selectedNode<T>() => _selectedNode as T;
+
+  bool isSelected(Type type) => _selectedNode.runtimeType == type;
+
   bool selectNode(FixedNode node) {
-    if (state.destroyingMode && !(node is Kernel)) {
+    if (destroyingMode && !(node is Kernel)) {
       node.destroy();
-    } else if (!state.isInSpecialMode) {
-      state.selectNode(node);
+    } else if (!isInSpecialMode) {
+      _enableMode(MenuMode.node_selected);
+      _selectedNode = node;
+
       removeMenuComponents();
       add(NodeSelected(node: node));
       add(NodeRange(node: node));
@@ -60,41 +94,39 @@ mixin MenuHandler on BaseGameComponent {
   }
 
   void unselectNode() {
-    state.unselectNode();
+    disableMode();
     removeMenuComponents();
   }
 
   void enableConstructMode() {
-    state.enableConstructMode();
+    _enableMode(MenuMode.construct);
     removeMenuComponents();
   }
 
-  void disableConstructMode() => state.disableConstructMode();
+  void disableConstructMode() => disableMode();
 
   void enableBuildingMode(FixedNodeSpec spec) {
-    state.enableBuildingMode();
+    _enableMode(MenuMode.building);
     removeMenuComponents();
     add(BuildingIndicator(spec: spec));
   }
 
   void _disableBuildingMode() {
-    state.disableBuildingMode();
+    disableMode();
     removeMenuComponents();
   }
 
   void enableDestroyingMode() {
-    state.enableDestroyingMode();
+    _enableMode(MenuMode.destroying);
     removeMenuComponents();
   }
 
-  void _disableDestroyingMode() {
-    state.disableDestroyingMode();
-  }
+  void _disableDestroyingMode() => disableMode();
 
   void onCancelOperation() {
-    if (state.buildingMode) {
+    if (buildingMode) {
       _disableBuildingMode();
-    } else if (state.destroyingMode) {
+    } else if (destroyingMode) {
       _disableDestroyingMode();
     }
   }

@@ -13,7 +13,7 @@ class HomeState extends BaseState {
       final JsonMatch jsonMatch = JsonMatch.fromString(json);
       Navigation.matchScreen(jsonMatch);
     } else {
-      final JsonMatch jsonMatch = JsonMatch.fromString(Constants.EMPTY_MATCH);
+      final JsonMatch jsonMatch = JsonMatch.fromString(Constants.TEST_MATCH);
       Navigation.matchScreen(jsonMatch);
     }
   }

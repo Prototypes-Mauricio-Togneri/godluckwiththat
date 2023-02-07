@@ -31,19 +31,19 @@ class BottomMenu extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (state.constructMode)
+              if (game.constructMode)
                 ConstructMenu(game)
-              else if (state.isSelected(Mine))
+              else if (game.isSelected(Mine))
                 MineMenu(
                   game,
-                  state.selectedNode(),
+                  game.selectedNode(),
                 )
-              else if (state.isSelected(Turret))
+              else if (game.isSelected(Turret))
                 TurretMenu(
                   game,
-                  state.selectedNode(),
+                  game.selectedNode(),
                 )
-              else if (state.isInSpecialMode)
+              else if (game.isInSpecialMode)
                 CancelMenu(game),
               FixedButtons(game),
             ],
@@ -205,7 +205,7 @@ class MineMenu extends StatelessWidget {
   void _onCenter(Node node) => game.centerMap(node.position);
 
   void _onDestroy() {
-    final Node node = game.state.selectedNode();
+    final Node node = game.selectedNode();
     node.destroy();
     _closeMenu();
   }
@@ -275,7 +275,7 @@ class TurretMenu extends StatelessWidget {
   void _onCenter(Node node) => game.centerMap(node.position);
 
   void _onDestroy() {
-    final Node node = game.state.selectedNode();
+    final Node node = game.selectedNode();
     node.destroy();
     _closeMenu();
   }

@@ -95,12 +95,12 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
   @override
   void onMapClicked(Vector2 position) {
-    if (state.isDetailsMode) {
+    if (isDetailsMode) {
       removeMenuComponents();
-      state.disableMode();
+      disableMode();
     }
 
-    if (state.buildingMode) {
+    if (buildingMode) {
       final BuildingIndicator buildingIndicator =
           getComponent(BuildingIndicator);
       final int i = position.x.toInt();

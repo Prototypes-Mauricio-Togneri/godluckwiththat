@@ -1,11 +1,13 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tensionnode/services/audio.dart';
 import 'package:tensionnode/services/authentication.dart';
 import 'package:tensionnode/services/navigation.dart';
 
 class SplashState extends BaseState {
   @override
   void onLoad() {
+    Audio.load();
     Authentication.checkIfAuthenticated(
       onSuccess: _onUserAuthenticated,
       onError: _onUserNotAuthenticated,
