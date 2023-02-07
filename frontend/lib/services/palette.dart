@@ -23,11 +23,8 @@ class Palette {
 
   static const Color turretLight = Color(0xff8000ff);
 
-  static final Paint gridPaint = Paint();
-
-  static void init() {
-    gridPaint.color = Palette.gridLine;
-    gridPaint.style = PaintingStyle.stroke;
-    gridPaint.strokeWidth = 0.1;
-  }
+  static final Paint gridPaint = Paint()
+    ..color = Palette.gridLine
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 0.1;
 }

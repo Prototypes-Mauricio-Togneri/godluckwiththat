@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tensionnode/platform/platform_initializer.dart';
 import 'package:tensionnode/services/navigation.dart';
-import 'package:tensionnode/services/palette.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -30,7 +29,6 @@ class Locator {
     );
 
     locator.registerSingleton<Navigation>(Navigation());
-    Palette.init();
     PlatformInitializer.init();
   }
 }
