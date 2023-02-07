@@ -25,3 +25,8 @@ Enemies shadow
 Show amount of enemies currently spawned in the map
 Show shield by color when node is attacked
 Selecting a turret shows its range
+
+Problems:
+    - Frame rate
+    - Road logic
+    - Collision shape 
