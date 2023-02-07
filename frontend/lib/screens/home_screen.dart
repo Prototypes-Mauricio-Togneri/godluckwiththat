@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     MenuButton(
-                      text: 'Load game',
+                      text: 'Continue',
                       icon: Icons.upload,
                       color: Palette.primary,
                       onPressed: state.onLoadMatch,
