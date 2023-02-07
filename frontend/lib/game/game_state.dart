@@ -144,6 +144,7 @@ class GameState extends BaseState {
       version: jsonMatch.version,
       id: jsonMatch.id,
       map: jsonMatch.map.withCamera(camera),
+      mode: jsonMatch.mode,
       resources: resources.json,
       kernel: kernel.json,
       mines: mines.map((e) => e.json).toList(),

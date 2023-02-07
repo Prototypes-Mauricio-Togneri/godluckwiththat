@@ -9,20 +9,17 @@
     * Manual paths with custom flags
 
 - Save and load matches
-- Add game mode to json
 - Attach multiple weapons to a node
-
-Enable/disable bug view:
-- Shield value
-- Range circle
-
-Click on Kernel or warehouse shows the amount of resources in them
-Enemies shadow
-Show amount of enemies currently spawned in the map
-Show shield by color when node is attacked
-Selecting a turret shows its range
+- Selecting a turret shows its range
+- Show amount of enemies currently spawned in the map
 
 Problems:
     - Frame rate
     - Road logic
-    - Collision shape 
+    - Collision shape
+
+## ########################################################################## ##
+
+* Enemies shadow
+* Click on Kernel or warehouse shows the amount of resources in them
+* Show shield by color when node is attacked (blue, yellow, orange, red)

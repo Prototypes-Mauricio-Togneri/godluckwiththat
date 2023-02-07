@@ -10,6 +10,7 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       version: json['version'] as int,
       id: json['id'] as String,
       map: JsonMap.fromJson(json['map'] as Map<String, dynamic>),
+      mode: JsonMode.fromJson(json['mode'] as Map<String, dynamic>),
       resources:
           JsonResources.fromJson(json['resources'] as Map<String, dynamic>),
       kernel: JsonNode.fromJson(json['kernel'] as Map<String, dynamic>),
@@ -28,6 +29,7 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'version': instance.version,
       'id': instance.id,
       'map': instance.map,
+      'mode': instance.mode,
       'resources': instance.resources,
       'kernel': instance.kernel,
       'mines': instance.mines,

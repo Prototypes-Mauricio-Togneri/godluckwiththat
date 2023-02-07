@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_map.dart';
+import 'package:tensionnode/json/json_mode.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/json/json_resources.dart';
 import 'package:tensionnode/json/json_turret.dart';
@@ -18,6 +19,9 @@ class JsonMatch {
 
   @JsonKey(name: 'map')
   final JsonMap map;
+
+  @JsonKey(name: 'mode')
+  final JsonMode mode;
 
   @JsonKey(name: 'resources')
   final JsonResources resources;
@@ -38,6 +42,7 @@ class JsonMatch {
     required this.version,
     required this.id,
     required this.map,
+    required this.mode,
     required this.resources,
     required this.kernel,
     required this.mines,

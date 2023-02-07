@@ -22,6 +22,9 @@ class Constants {
 		"position": [28.67, -11],
 		"zoom": 3
 	},
+  "mode": {
+    "mode": "survival"
+  },
 	"resources": {
 		"red": 688,
 		"green": 280,
