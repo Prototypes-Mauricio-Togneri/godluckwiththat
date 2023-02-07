@@ -9,22 +9,22 @@ import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/services/palette.dart';
 
 class NodeRange extends PositionComponent with HasGameRef<GameComponent> {
-  final Paint paint = Paint();
-  double range = 0;
+  final Paint _paint = Paint();
+  double _range = 0;
 
   NodeRange({
     required FixedNode node,
   }) : super(position: Position.fromGrid(node.i, node.j)) {
     if (node is Turret) {
-      range = node.range;
+      _range = node.range;
     }
   }
 
   @override
   FutureOr<void> onLoad() {
-    paint.color = Palette.rangeIndicator;
-    paint.strokeWidth = 3 / Constants.NODE_SIZE;
-    paint.style = PaintingStyle.stroke;
+    _paint.color = Palette.rangeIndicator;
+    _paint.strokeWidth = 3 / Constants.NODE_SIZE;
+    _paint.style = PaintingStyle.stroke;
 
     return super.onLoad();
   }
@@ -33,6 +33,6 @@ class NodeRange extends PositionComponent with HasGameRef<GameComponent> {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    canvas.drawCircle(Offset.zero, range, paint);
+    canvas.drawCircle(Offset.zero, _range, _paint);
   }
 }

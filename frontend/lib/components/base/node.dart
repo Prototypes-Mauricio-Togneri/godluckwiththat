@@ -17,7 +17,7 @@ class Node extends SpriteComponent
   final NodeType type;
   final num armor;
   num _shield = Constants.SHIELD_MAX;
-  final DebugText debugText = DebugText();
+  final DebugText _debugText = DebugText();
 
   Node({
     required super.position,
@@ -49,7 +49,7 @@ class Node extends SpriteComponent
     )*/
     add(CircleHitbox());
     add(BlurSprite(image: type.spriteBlur));
-    add(debugText);
+    add(_debugText);
 
     return super.onLoad();
   }
@@ -123,7 +123,7 @@ class Node extends SpriteComponent
       _shield = _shield.clamp(Constants.SHIELD_MIN, Constants.SHIELD_MAX);
     }
 
-    debugText.text = '${_shield.toInt()}';
+    _debugText.text = '${_shield.toInt()}';
   }
 }
 

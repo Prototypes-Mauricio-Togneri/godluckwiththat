@@ -7,18 +7,18 @@ import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class ResourcesHud extends PositionComponent with HasGameRef<GameComponent> {
-  final Rect rect = const Rect.fromLTWH(0, 0, 450, 50);
-  final Paint paint = Paint();
-  final TextComponent redAmount = TextResourceIndicator(x: 60);
-  final TextComponent greenAmount = TextResourceIndicator(x: 210);
-  final TextComponent blueAmount = TextResourceIndicator(x: 360);
+  final Rect _rect = const Rect.fromLTWH(0, 0, 450, 50);
+  final Paint _paint = Paint();
+  final TextComponent _redAmount = TextResourceIndicator(x: 60);
+  final TextComponent _greenAmount = TextResourceIndicator(x: 210);
+  final TextComponent _blueAmount = TextResourceIndicator(x: 360);
 
   ResourcesHud() {
     positionType = PositionType.viewport;
     priority = 1;
 
-    paint.color = Palette.grey;
-    paint.style = PaintingStyle.fill;
+    _paint.color = Palette.grey;
+    _paint.style = PaintingStyle.fill;
   }
 
   @override
@@ -28,19 +28,19 @@ class ResourcesHud extends PositionComponent with HasGameRef<GameComponent> {
     anchor = Anchor.center;
     position = Vector2(game.size.x / 2, height / 2);
 
-    add(redAmount);
+    add(_redAmount);
     add(IconResourceIndicator(
       x: 40,
       type: ResourceType.red,
     ));
 
-    add(greenAmount);
+    add(_greenAmount);
     add(IconResourceIndicator(
       x: 190,
       type: ResourceType.green,
     ));
 
-    add(blueAmount);
+    add(_blueAmount);
     add(IconResourceIndicator(
       x: 340,
       type: ResourceType.blue,
@@ -53,14 +53,14 @@ class ResourcesHud extends PositionComponent with HasGameRef<GameComponent> {
   void update(double dt) {
     super.update(dt);
 
-    redAmount.text = '${game.state.resources.red}';
-    greenAmount.text = '${game.state.resources.green}';
-    blueAmount.text = '${game.state.resources.blue}';
+    _redAmount.text = '${game.state.resources.red}';
+    _greenAmount.text = '${game.state.resources.green}';
+    _blueAmount.text = '${game.state.resources.blue}';
   }
 
   @override
   void render(Canvas canvas) {
-    canvas.drawRect(rect, paint);
+    canvas.drawRect(_rect, _paint);
 
     super.render(canvas);
   }
