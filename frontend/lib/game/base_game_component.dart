@@ -7,6 +7,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/component_handler.dart';
+import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/game/map_handler.dart';
 import 'package:tensionnode/json/json_match.dart';
@@ -24,6 +25,7 @@ class BaseGameComponent extends FlameGame
         MouseMovementDetector,
         HasCollisionDetection {
   final GameState state;
+  final DebugText debugText = DebugText();
 
   BaseGameComponent(this.state);
 
@@ -32,6 +34,11 @@ class BaseGameComponent extends FlameGame
     camera.setRelativeOffset(Anchor.center);
     camera.speed = double.maxFinite;
 
+    debugText.position = Vector2(
+      size.x - 10,
+      size.y - 20,
+    );
+
     add(FpsTextComponent(
       position: Vector2(
         10,
@@ -39,6 +46,7 @@ class BaseGameComponent extends FlameGame
       ),
       textRenderer: Style.textRenderer(size: 20),
     ));
+    add(debugText);
     add(ResourcesHud());
     add(await getMap(Constants.TEST_MAP_TILE_XML));
 
@@ -73,4 +81,20 @@ class BaseGameComponent extends FlameGame
     Set<LogicalKeyboardKey> keysPressed,
   ) =>
       handleOnKeyEvent(event, keysPressed);
+}
+
+class DebugText extends TextComponent with HasGameRef<GameComponent> {
+  DebugText() {
+    positionType = PositionType.viewport;
+    anchor = Anchor.centerRight;
+    priority = double.maxFinite.toInt();
+    textRenderer = Style.textRenderer(size: 20);
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    text = 'ENEMIES: ${game.state.enemies.length}';
+  }
 }
