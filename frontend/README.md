@@ -1,8 +1,8 @@
 # Tension Node
 
-- Make new turrets
-- Change hit circle
-- Attach multiple weapons to a node
+* Make new turrets
+* Change hit circle
+* Attach multiple weapons to a node
 
 3 ways of moving resources:
     * Point to point direct
@@ -10,9 +10,9 @@
     * Manual paths with custom flags
 
 Problems:
-    - Frame rate
-    - Road logic
-    - Collision shape
+    * Frame rate
+    * Road logic
+    * Collision shape
 
 ## ########################################################################## ##
 
