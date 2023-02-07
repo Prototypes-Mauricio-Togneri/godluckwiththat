@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tensionnode/dialog/base_menu.dart';
-import 'package:tensionnode/dialog/info_menu.dart';
-import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/platform/clipboard_text.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/storage/saved_matches_storage.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
 class MainMenu extends StatelessWidget {
@@ -33,19 +32,19 @@ class MainMenu extends StatelessWidget {
               onPressed: _onContinue,
               topPadding: 0,
             ),
-            MenuButton(
-              text: 'Load game',
+            /*MenuButton(
+              text: 'Load',
               icon: Icons.upload,
               color: Palette.primary,
               onPressed: _onLoad,
-            ),
+            ),*/
             MenuButton(
-              text: 'Save game',
+              text: 'Save',
               icon: Icons.save,
               color: Palette.primary,
               onPressed: _onSave,
             ),
-            MenuButton(
+            /*MenuButton(
               text: 'Settings',
               icon: Icons.settings,
               color: Palette.primary,
@@ -56,7 +55,7 @@ class MainMenu extends StatelessWidget {
               icon: Icons.info,
               color: Palette.primary,
               onPressed: _onInfo,
-            ),
+            ),*/
           ],
         ),
       ),
@@ -67,23 +66,24 @@ class MainMenu extends StatelessWidget {
     _closeMenu();
   }
 
-  void _onLoad() {
+  /*void _onLoad() {
     _closeMenu();
-  }
+  }*/
 
   void _onSave() {
     final JsonMatch jsonMatch = game.state.getMatch(game.camera);
+    SavedMatchesStorage.save(jsonMatch.toJsonString());
     ClipboardText().copy(jsonMatch.toJsonString());
     _closeMenu();
   }
 
-  void _onSettings() {
+  /*void _onSettings() {
     game.openMenu(name: SettingsMenu.NAME);
-  }
+  }*/
 
-  void _onInfo() {
+  /*void _onInfo() {
     game.openMenu(name: InfoMenu.NAME);
-  }
+  }*/
 
   void _closeMenu() => game.closeMenu(
         name: MainMenu.NAME,
