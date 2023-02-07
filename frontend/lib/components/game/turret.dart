@@ -13,7 +13,7 @@ class Turret extends FixedNode {
   final double range;
   int shotsFired;
   int kills;
-  Node? target;
+  Node? _target;
 
   Turret({
     required super.i,
@@ -35,21 +35,21 @@ class Turret extends FixedNode {
     super.update(dt);
     shooting.update(dt);
 
-    final bool isTargetDestroyed = (target != null) && (!target!.isAlive);
+    final bool isTargetDestroyed = (_target != null) && (!_target!.isAlive);
     final bool isTargetOutOfRange =
-        (target != null) && target!.distance(this) > range;
+        (_target != null) && _target!.distance(this) > range;
 
     if (isTargetDestroyed || isTargetOutOfRange) {
-      target = null;
+      _target = null;
     }
 
-    target ??= game.closestNodeInRange<MovableNode>(this, range);
+    _target ??= game.closestNodeInRange<MovableNode>(this, range);
 
-    if ((target != null) && shooting.canShoot(dt)) {
+    if ((_target != null) && shooting.canShoot(dt)) {
       shotsFired++;
       shoot(
         spec: spec.weapon,
-        target: target!,
+        target: _target!,
         weaponRange: range,
       );
     }

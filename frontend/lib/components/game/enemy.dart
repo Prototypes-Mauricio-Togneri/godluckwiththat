@@ -16,7 +16,7 @@ class Enemy extends MovableNode {
   final double speed;
   final double range;
   final Vector2 kernelPosition;
-  Node? target;
+  Node? _target;
   bool _isRotating = false;
 
   Enemy({
@@ -37,21 +37,21 @@ class Enemy extends MovableNode {
     super.update(dt);
     shooting.update(dt);
 
-    if ((target != null) && (!target!.isAlive)) {
-      target = null;
+    if ((_target != null) && (!_target!.isAlive)) {
+      _target = null;
     }
 
-    target ??= game.closestNodeInRange<FixedNode>(this, range);
+    _target ??= game.closestNodeInRange<FixedNode>(this, range);
 
-    if (target == null) {
+    if (_target == null) {
       _moveForward(dt);
     } else {
-      _rotateTo(target!.position);
+      _rotateTo(_target!.position);
 
       if (shooting.canShoot(dt)) {
         shoot(
           spec: spec.weapon,
-          target: target!,
+          target: _target!,
           weaponRange: range,
         );
       }
