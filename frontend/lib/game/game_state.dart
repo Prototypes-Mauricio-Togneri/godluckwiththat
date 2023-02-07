@@ -23,7 +23,7 @@ class GameState extends BaseState {
   Node? _selectedNode;
   MenuMode mode = MenuMode.none;
 
-  late Resources resources = Resources.empty();
+  final Resources resources = Resources.empty();
   late final Kernel kernel;
   final List<Mine> mines = [];
   final List<Turret> turrets = [];
