@@ -16,6 +16,7 @@ class Constants {
 {
 	"version": 1,
 	"id": "map1",
+	"timeElapsed": 0,
 	"map": {
 		"name": "level1",
 		"xml": "",
@@ -261,6 +262,7 @@ class Constants {
 {
 	"version": 1,
 	"id": "map1",
+	"timeElapsed": 0,
 	"map": {
 		"name": "level1",
 		"xml": "",

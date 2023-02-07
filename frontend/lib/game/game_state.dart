@@ -142,6 +142,7 @@ class GameState extends BaseState {
     return JsonMatch(
       version: jsonMatch.version,
       id: jsonMatch.id,
+      timeElapsed: jsonMatch.timeElapsed,
       map: jsonMatch.map.withCamera(camera),
       mode: jsonMatch.mode,
       resources: resources.json,
