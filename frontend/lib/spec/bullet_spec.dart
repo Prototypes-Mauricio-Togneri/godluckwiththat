@@ -6,7 +6,6 @@ class BulletSpec {
   final double width;
   final double height;
   final double speed;
-  final double range;
   final int piercing;
 
   static BulletSpec type1 = const BulletSpec(
@@ -15,7 +14,6 @@ class BulletSpec {
     width: 1,
     height: 3,
     speed: 6,
-    range: 2,
     piercing: 1,
   );
 
@@ -25,7 +23,6 @@ class BulletSpec {
     width: 1.5,
     height: 1.5,
     speed: 6,
-    range: 2,
     piercing: 1,
   );
 
@@ -35,7 +32,6 @@ class BulletSpec {
     required this.width,
     required this.height,
     required this.speed,
-    required this.range,
     required this.piercing,
   });
 }

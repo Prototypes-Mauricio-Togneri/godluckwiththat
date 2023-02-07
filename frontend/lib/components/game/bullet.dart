@@ -18,11 +18,11 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   Bullet({
     required this.shooter,
     required this.spec,
-    required num weaponRange,
+    required double weaponRange,
     required this.startPosition,
     required this.direction,
   })  : speed = spec.speed * Constants.NODE_SIZE,
-        range = weaponRange * spec.range;
+        range = weaponRange * spec.piercing;
 
   @override
   Future onLoad() async {

@@ -58,7 +58,7 @@ class Node extends SpriteComponent
   void shoot({
     required WeaponSpec spec,
     required Node target,
-    required num weaponRange,
+    required double weaponRange,
   }) {
     final Vector2 direction = (target.position - position).normalized();
     final Vector2 startPosition =

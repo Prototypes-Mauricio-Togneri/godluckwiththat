@@ -76,7 +76,7 @@ mixin NodeHandler on BaseGameComponent {
   void addBullet({
     required Node shooter,
     required BulletSpec spec,
-    required num weaponRange,
+    required double weaponRange,
     required Vector2 startPosition,
     required Vector2 direction,
   }) {
