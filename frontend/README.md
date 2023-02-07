@@ -12,10 +12,6 @@
 - Add game mode to json
 - Attach multiple weapons to a node
 
-Click on a turret and show:
-- Shots fired
-- Kills
-
 Enable/disable bug view:
 - Shield value
 - Range circle
