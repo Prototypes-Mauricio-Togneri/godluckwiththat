@@ -14,7 +14,7 @@ class BulletSpec {
     damage: 60,
     width: 1,
     height: 3,
-    speed: 6,
+    speed: 15,
     piercing: 1,
   );
 
@@ -23,7 +23,7 @@ class BulletSpec {
     damage: 30,
     width: 1.5,
     height: 1.5,
-    speed: 6,
+    speed: 10,
     piercing: 1,
   );
 
