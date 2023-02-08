@@ -39,7 +39,7 @@ class Node extends SpriteComponent
     size = getSize();
     anchor = Anchor.center;
 
-    add(type.hitbox);
+    add(type.hitbox(size));
     add(BlurSprite(image: type.spriteBlur));
     add(_debugText);
 
