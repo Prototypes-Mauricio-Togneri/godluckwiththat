@@ -69,15 +69,21 @@ enum NodeType {
   ShapeHitbox hitbox(Vector2 parentSize) {
     switch (this) {
       case NodeType.kernel:
-        return CircleHitbox(isSolid: true);
+        return Collisionable.polygon(
+          parentSize: parentSize,
+          points: [
+            Vector2(1, 0),
+            Vector2(0, -1),
+            Vector2(-1, 0),
+            Vector2(0, 1),
+          ],
+        );
       case NodeType.mine_red:
-        return CircleHitbox(isSolid: true);
       case NodeType.mine_green:
-        return CircleHitbox(isSolid: true);
       case NodeType.mine_blue:
-        return CircleHitbox(isSolid: true);
+        return Collisionable.square(parentSize);
       case NodeType.turret_light:
-        return CircleHitbox(isSolid: true);
+        return Collisionable.circle(parentSize);
       case NodeType.enemy:
         return Collisionable.polygon(
           parentSize: parentSize,
