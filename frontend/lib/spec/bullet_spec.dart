@@ -1,3 +1,4 @@
+import 'package:flame/collisions.dart';
 import 'package:tensionnode/services/assets.dart';
 
 class BulletSpec {
@@ -34,4 +35,14 @@ class BulletSpec {
     required this.speed,
     required this.piercing,
   });
+
+  ShapeHitbox get hitbox {
+    if (this == type1) {
+      return CircleHitbox(isSolid: true);
+    } else if (this == type2) {
+      return CircleHitbox(isSolid: true);
+    } else {
+      throw Error();
+    }
+  }
 }

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
@@ -33,7 +32,7 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
     anchor = Anchor.center;
     angle = direction.screenAngle();
 
-    add(CircleHitbox());
+    add(spec.hitbox);
 
     return super.onLoad();
   }

@@ -1,3 +1,4 @@
+import 'package:flame/collisions.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
@@ -60,6 +61,32 @@ enum NodeType {
         return TurretSpec.turret_light;
       case NodeType.enemy:
         return EnemySpec.enemy;
+    }
+  }
+
+  /*PolygonHitbox.relative(
+    [
+      Vector2(1, 0),
+      Vector2(0, -1),
+      Vector2(-1, 0),
+      Vector2(0, 1),
+    ],
+    parentSize: size,
+  )*/
+  ShapeHitbox get hitbox {
+    switch (this) {
+      case NodeType.kernel:
+        return CircleHitbox(isSolid: true);
+      case NodeType.mine_red:
+        return CircleHitbox(isSolid: true);
+      case NodeType.mine_green:
+        return CircleHitbox(isSolid: true);
+      case NodeType.mine_blue:
+        return CircleHitbox(isSolid: true);
+      case NodeType.turret_light:
+        return CircleHitbox(isSolid: true);
+      case NodeType.enemy:
+        return CircleHitbox(isSolid: true);
     }
   }
 }
