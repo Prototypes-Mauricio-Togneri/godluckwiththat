@@ -2,7 +2,6 @@
 
 * Make new turrets
 * Make new enemies
-* Change hit circle
 * Attach multiple weapons to a node
 
 3 ways of moving resources:
@@ -13,10 +12,10 @@
 Problems:
     * Frame rate
     * Road logic
-    * Collision shape
 
 ## ########################################################################## ##
 
 * Enemies shadow
+* Enemy explosion
 * Click on Kernel or warehouse shows the amount of resources in them
 * Show shield by color when node is attacked (blue, yellow, orange, red)

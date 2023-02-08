@@ -3,7 +3,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
 class Collisionable {
-  static const bool render = true;
+  static const bool render = false;
 
   static ShapeHitbox polygon({
     required Vector2 parentSize,

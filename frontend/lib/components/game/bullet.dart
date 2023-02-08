@@ -32,7 +32,7 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
     anchor = Anchor.center;
     angle = direction.screenAngle();
 
-    add(spec.hitbox);
+    add(spec.hitbox(size));
 
     return super.onLoad();
   }
