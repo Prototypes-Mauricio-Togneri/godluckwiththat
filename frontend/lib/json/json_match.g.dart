@@ -9,7 +9,9 @@ part of 'json_match.dart';
 JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       version: json['version'] as int,
       id: json['id'] as String,
-      timeElapsed: json['timeElapsed'] as int,
+      totalTimeElapsed: json['totalTimeElapsed'] as num,
+      nextWave: json['nextWave'] as int,
+      timeToNextWave: json['timeToNextWave'] as num,
       map: JsonMap.fromJson(json['map'] as Map<String, dynamic>),
       mode: JsonMode.fromJson(json['mode'] as Map<String, dynamic>),
       resources:
@@ -29,7 +31,9 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
 Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'version': instance.version,
       'id': instance.id,
-      'timeElapsed': instance.timeElapsed,
+      'totalTimeElapsed': instance.totalTimeElapsed,
+      'nextWave': instance.nextWave,
+      'timeToNextWave': instance.timeToNextWave,
       'map': instance.map,
       'mode': instance.mode,
       'resources': instance.resources,

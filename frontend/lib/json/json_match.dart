@@ -17,8 +17,14 @@ class JsonMatch {
   @JsonKey(name: 'id')
   final String id;
 
-  @JsonKey(name: 'timeElapsed')
-  final int timeElapsed;
+  @JsonKey(name: 'totalTimeElapsed')
+  final num totalTimeElapsed;
+
+  @JsonKey(name: 'nextWave')
+  final int nextWave;
+
+  @JsonKey(name: 'timeToNextWave')
+  final num timeToNextWave;
 
   @JsonKey(name: 'map')
   final JsonMap map;
@@ -44,7 +50,9 @@ class JsonMatch {
   const JsonMatch({
     required this.version,
     required this.id,
-    required this.timeElapsed,
+    required this.totalTimeElapsed,
+    required this.nextWave,
+    required this.timeToNextWave,
     required this.map,
     required this.mode,
     required this.resources,

@@ -1,6 +1,7 @@
 # Tension Node
 
 * Implement waves
+* Improve map
 * Make new turrets
 * Make new enemies
 

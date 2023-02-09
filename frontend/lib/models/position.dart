@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
+import 'package:tensionnode/extensions/num_extension.dart';
 
 class Position {
   static Vector2 fromGrid(num i, num j) => Vector2(
@@ -10,7 +11,7 @@ class Position {
       );
 
   static JsonPosition json(Vector2 position) => [
-        num.parse(position.x.toStringAsFixed(2)),
-        num.parse(position.y.toStringAsFixed(2)),
+        position.x.decimal(),
+        position.y.decimal(),
       ];
 }

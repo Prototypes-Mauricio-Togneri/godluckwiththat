@@ -5,6 +5,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/models/shooting.dart';
@@ -89,6 +90,6 @@ class Enemy extends MovableNode {
   JsonEnemy get json => JsonEnemy(
         type: type,
         position: Position.json(position),
-        shield: shield.toInt(),
+        shield: shield.decimal(),
       );
 }

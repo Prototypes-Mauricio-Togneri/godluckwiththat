@@ -1,5 +1,6 @@
 import 'package:flame/events.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
 
@@ -22,6 +23,6 @@ class Kernel extends FixedNode {
   JsonNode get json => JsonNode(
         type: type,
         position: [i, j],
-        shield: shield.toInt(),
+        shield: shield.decimal(),
       );
 }

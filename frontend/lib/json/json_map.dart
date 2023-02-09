@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flame/game.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
+import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/models/position.dart';
 
 part 'json_map.g.dart';
@@ -31,7 +32,7 @@ class JsonMap {
         name: name,
         xml: xml,
         position: Position.json(camera.absoluteTarget()),
-        zoom: camera.zoom,
+        zoom: camera.zoom.decimal(),
       );
 
   factory JsonMap.fromString(String json) => JsonMap.fromJson(jsonDecode(json));

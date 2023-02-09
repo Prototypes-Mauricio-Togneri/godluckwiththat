@@ -3,6 +3,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_turret.dart';
 import 'package:tensionnode/models/shooting.dart';
 import 'package:tensionnode/spec/turret_spec.dart';
@@ -61,7 +62,7 @@ class Turret extends FixedNode {
   JsonTurret get json => JsonTurret(
         type: type,
         position: [i, j],
-        shield: shield.toInt(),
+        shield: shield.decimal(),
         shotsFired: shotsFired,
         kills: kills,
       );

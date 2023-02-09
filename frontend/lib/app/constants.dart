@@ -10,13 +10,15 @@ class Constants {
   static const num SHIELD_MIN = 0;
   static const num SHIELD_MAX = 100;
 
-  static const num TIME_SPAWN = 1; // in seconds
+  static const num TIME_TO_NEXT_WAVE = 60; // in seconds
 
   static String TEST_MATCH = '''
 {
 	"version": 1,
 	"id": "map1",
-	"timeElapsed": 0,
+	"totalTimeElapsed": 0,
+	"nextWave": 1,
+  "timeToNextWave": 60,
 	"map": {
 		"name": "level1",
 		"xml": "",
@@ -262,7 +264,9 @@ class Constants {
 {
 	"version": 1,
 	"id": "map1",
-	"timeElapsed": 0,
+	"totalTimeElapsed": 0,
+	"nextWave": 1,
+  "timeToNextWave": 60,
 	"map": {
 		"name": "level1",
 		"xml": "",
