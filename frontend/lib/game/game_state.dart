@@ -23,6 +23,8 @@ class GameState extends BaseState {
   final List<Enemy> enemies = [];
   final JsonMatch jsonMatch;
 
+  int get nextWave => _nextWave;
+
   int get timeToNextWave => _timeToNextWave.toInt();
 
   GameState(this.jsonMatch) {

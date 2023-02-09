@@ -10,7 +10,7 @@ class Constants {
   static const num SHIELD_MIN = 0;
   static const num SHIELD_MAX = 100;
 
-  static const num TIME_TO_NEXT_WAVE = 60; // in seconds
+  static const num TIME_TO_NEXT_WAVE = 10; // in seconds
 
   static String TEST_MATCH = '''
 {
@@ -232,31 +232,7 @@ class Constants {
 		"shotsFired": 0,
 		"kills": 0
 	}],
-	"enemies": [{
-		"type": "enemy",
-		"position": [-83.17, 114.48],
-		"shield": 100
-	}, {
-		"type": "enemy",
-		"position": [-169.45, -26.45],
-		"shield": 100
-	}, {
-		"type": "enemy",
-		"position": [47.69, -195.78],
-		"shield": 100
-	}, {
-		"type": "enemy",
-		"position": [-102.81, 207.42],
-		"shield": 100
-	}, {
-		"type": "enemy",
-		"position": [-6.94, -261.41],
-		"shield": 100
-	}, {
-		"type": "enemy",
-		"position": [-291.43, 6.45],
-		"shield": 100
-	}]
+	"enemies": []
 }
 ''';
 

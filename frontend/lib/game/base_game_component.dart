@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
+import 'package:tensionnode/components/base/wave_hud.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/game/component_handler.dart';
 import 'package:tensionnode/game/game_component.dart';
@@ -47,6 +48,7 @@ class BaseGameComponent extends FlameGame
       textRenderer: Style.textRenderer(size: 20),
     ));
     add(debugText);
+    add(WaveHud());
     add(ResourcesHud());
     add(await getMap(Constants.TEST_MAP_TILE_XML));
 
