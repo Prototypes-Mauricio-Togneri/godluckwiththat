@@ -2,7 +2,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/game/enemy.dart';
 import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/components/game/mine.dart';
@@ -13,7 +12,6 @@ import 'package:tensionnode/models/resources.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
-  num _heat = 0;
   num _totalTimeElapsed = 0;
   int _nextWave = 0;
   num _timeToNextWave = 0;
@@ -45,9 +43,9 @@ class GameState extends BaseState {
     _timeToNextWave -= dt;
 
     if (_timeToNextWave <= 0) {
+      _nextWave++;
       _timeToNextWave = Constants.TIME_TO_NEXT_WAVE;
-      enemiesToSpawn = _heat ~/ 60;
-      enemiesToSpawn = (enemiesToSpawn == 0) ? 1 : enemiesToSpawn;
+      enemiesToSpawn = _nextWave * 10;
     }
 
     return enemiesToSpawn;
@@ -66,9 +64,9 @@ class GameState extends BaseState {
       enemies.add(node);
     }
 
-    if (node is FixedNode) {
+    /*if (node is FixedNode) {
       _heat += node.heat;
-    }
+    }*/
   }
 
   void removeNode(Component node) {
@@ -80,9 +78,9 @@ class GameState extends BaseState {
       enemies.remove(node);
     }
 
-    if (node is FixedNode) {
+    /*if (node is FixedNode) {
       _heat -= node.heat;
-    }
+    }*/
   }
 
   JsonMatch getMatch(Camera camera) {
