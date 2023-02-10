@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                       onPressed: state.onLoadMatch,
                       topPadding: 0,
                     ),
-                    MenuButton(
+                    /*MenuButton(
                       text: 'Settings',
                       icon: Icons.settings,
                       color: Palette.primary,
@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                       icon: Icons.info,
                       color: Palette.primary,
                       onPressed: state.onInfo,
-                    ),
+                    ),*/
                   ],
                 ),
               ),

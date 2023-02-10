@@ -5,7 +5,7 @@ import 'package:tensionnode/services/assets.dart';
 
 class Audio {
   static final Map<String, AudioPool> pool = {};
-  static const bool enabled = false;
+  static bool enabled = false;
 
   static Future load() async {
     FlameAudio.audioCache.load(Assets.AUDIO_SFX_BULLET);

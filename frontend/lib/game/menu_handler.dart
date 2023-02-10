@@ -6,6 +6,7 @@ import 'package:tensionnode/components/base/node_selected.dart';
 import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/dialog/game_over_menu.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
+import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/types/menu_mode.dart';
@@ -46,6 +47,10 @@ mixin MenuHandler on BaseGameComponent {
   void openGameOverMenu() => _openMenu(
         name: GameOverMenu.NAME,
         pauseGame: true,
+      );
+
+  void openSettingsMenu() => _openMenu(
+        name: SettingsMenu.NAME,
       );
 
   void _openMenu({

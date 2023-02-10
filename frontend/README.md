@@ -1,5 +1,6 @@
 # Tension Node
 
+* Improve menus
 * Improve map
 * Make new turrets
 * Make new enemies

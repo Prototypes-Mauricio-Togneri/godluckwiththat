@@ -44,13 +44,13 @@ class MainMenu extends StatelessWidget {
               color: Palette.primary,
               onPressed: _onSave,
             ),
-            /*MenuButton(
+            MenuButton(
               text: 'Settings',
               icon: Icons.settings,
               color: Palette.primary,
               onPressed: _onSettings,
             ),
-            MenuButton(
+            /*MenuButton(
               text: 'Info',
               icon: Icons.info,
               color: Palette.primary,
@@ -77,9 +77,7 @@ class MainMenu extends StatelessWidget {
     _closeMenu();
   }
 
-  /*void _onSettings() {
-    game.openMenu(name: SettingsMenu.NAME);
-  }*/
+  void _onSettings() => game.openSettingsMenu();
 
   /*void _onInfo() {
     game.openMenu(name: InfoMenu.NAME);
