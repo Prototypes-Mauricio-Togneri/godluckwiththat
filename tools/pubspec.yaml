@@ -7,8 +7,6 @@ environment:
 
 dependencies:
   xml: ^6.2.2
-  image: ^3.3.0
-  recase: ^4.1.0
   enum_to_string: ^2.0.1
   json_annotation: ^4.8.0
 
@@ -16,4 +14,4 @@ dev_dependencies:
   dapublock: ^1.0.1
   build_runner: ^2.3.3
   flutter_lints: ^2.0.1
-  json_serializable: ^6.6.0
+  json_serializable: ^6.6.1
