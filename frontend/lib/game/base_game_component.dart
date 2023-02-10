@@ -30,9 +30,6 @@ class BaseGameComponent extends FlameGame
 
   BaseGameComponent(this.state);
 
-  //https://pub.dev/packages/flame_tiled_utils/install
-  //https://asgalex.medium.com/flutter-flame-simplest-optimization-techniques-372dbe6815f
-  //https://asgalex.medium.com
   Future addBaseComponents(JsonMatch jsonMatch) async {
     camera.viewport = FixedResolutionViewport(size);
     camera.setRelativeOffset(Anchor.center);

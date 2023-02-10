@@ -9,6 +9,7 @@ import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/audio.dart';
+import 'package:tensionnode/services/environment.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/spec/weapon_spec.dart';
 import 'package:tensionnode/types/node_type.dart';
@@ -41,7 +42,10 @@ class Node extends SpriteComponent
 
     add(type.hitbox(size));
     add(BlurSprite(image: type.spriteBlur));
-    add(_debugText);
+
+    if (Environment.isDebug) {
+      add(_debugText);
+    }
 
     return super.onLoad();
   }
