@@ -18,6 +18,15 @@ class WeaponSpec {
     bullet: BulletSpec.type1,
   );
 
+  static WeaponSpec turret_heavy = WeaponSpec(
+    range: 6,
+    fireRate: 2.2,
+    bullets: 1,
+    spread: 0,
+    sound: Assets.AUDIO_SFX_LASER,
+    bullet: BulletSpec.type1,
+  );
+
   static WeaponSpec enemy = WeaponSpec(
     range: 4,
     fireRate: 1,

@@ -29,6 +29,10 @@ enum NodeType {
     spriteBase: Assets.IMAGES_TURRET_LIGHT_BASE,
     spriteBlur: Assets.IMAGES_TURRET_LIGHT_BLUR,
   ),
+  turret_heavy(
+    spriteBase: Assets.IMAGES_TURRET_HEAVY_BASE,
+    spriteBlur: Assets.IMAGES_TURRET_HEAVY_BLUR,
+  ),
   enemy(
     spriteBase: Assets.IMAGES_ENEMY_BASE,
     spriteBlur: Assets.IMAGES_ENEMY_BLUR,
@@ -61,6 +65,8 @@ enum NodeType {
         return MineSpec.mine_blue;
       case NodeType.turret_light:
         return TurretSpec.turret_light;
+      case NodeType.turret_heavy:
+        return TurretSpec.turret_heavy;
       case NodeType.enemy:
         return EnemySpec.enemy;
     }
@@ -83,6 +89,7 @@ enum NodeType {
       case NodeType.mine_blue:
         return Collisionable.square(parentSize);
       case NodeType.turret_light:
+      case NodeType.turret_heavy:
         return Collisionable.circle(parentSize);
       case NodeType.enemy:
         return Collisionable.polygon(

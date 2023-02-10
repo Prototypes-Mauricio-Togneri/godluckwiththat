@@ -11,15 +11,15 @@ class TurretSpec extends FixedNodeSpec {
     armor: 50,
     heat: 1,
     weapon: WeaponSpec.turret_light,
-    cost: Resources(red: 50, green: 30, blue: 10),
+    cost: Resources(red: 30, green: 0, blue: 0),
   );
 
   static TurretSpec turret_heavy = TurretSpec(
-    type: NodeType.turret_light,
-    armor: 50,
+    type: NodeType.turret_heavy,
+    armor: 60,
     heat: 2,
-    weapon: WeaponSpec.turret_light,
-    cost: Resources(red: 50, green: 30, blue: 10),
+    weapon: WeaponSpec.turret_heavy,
+    cost: Resources(red: 20, green: 10, blue: 0),
   );
 
   static TurretSpec turret_shotgun = TurretSpec(
