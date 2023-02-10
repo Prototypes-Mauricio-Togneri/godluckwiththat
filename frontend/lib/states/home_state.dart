@@ -6,7 +6,8 @@ import 'package:tensionnode/services/navigation.dart';
 import 'package:tensionnode/storage/saved_matches_storage.dart';
 
 class HomeState extends BaseState {
-  Future onLoadMatch() async {
+  @override
+  Future onLoad() async {
     final bool hasSavedMatch = await SavedMatchesStorage.hasSavedMatch();
 
     if (hasSavedMatch) {
@@ -20,6 +21,8 @@ class HomeState extends BaseState {
       Navigation.matchScreen(jsonMatch);
     }
   }
+
+  void onContinue() {}
 
   void onSettings() {}
 

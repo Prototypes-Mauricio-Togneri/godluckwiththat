@@ -14,47 +14,58 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomStatusBar(
+    return const CustomStatusBar(
       style: SystemUiOverlayStyle.light,
       statusBarColor: Palette.grey,
       child: SafeArea(
         child: Scaffold(
           body: Center(
-            child: Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Palette.grey,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: IntrinsicWidth(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    MenuButton(
-                      text: 'Continue',
-                      icon: Icons.play_arrow,
-                      color: Palette.primary,
-                      onPressed: state.onLoadMatch,
-                      topPadding: 0,
-                    ),
-                    /*MenuButton(
-                      text: 'Settings',
-                      icon: Icons.settings,
-                      color: Palette.primary,
-                      onPressed: state.onSettings,
-                    ),
-                    MenuButton(
-                      text: 'Info',
-                      icon: Icons.info,
-                      color: Palette.primary,
-                      onPressed: state.onInfo,
-                    ),*/
-                  ],
-                ),
-              ),
-            ),
+            child: CircularProgressIndicator(),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class Content extends StatelessWidget {
+  final HomeState state;
+
+  const Content(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Palette.grey,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: IntrinsicWidth(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            MenuButton(
+              text: 'Continue',
+              icon: Icons.play_arrow,
+              color: Palette.primary,
+              onPressed: state.onContinue,
+              topPadding: 0,
+            ),
+            MenuButton(
+              text: 'Settings',
+              icon: Icons.settings,
+              color: Palette.primary,
+              onPressed: state.onSettings,
+            ),
+            MenuButton(
+              text: 'Info',
+              icon: Icons.info,
+              color: Palette.primary,
+              onPressed: state.onInfo,
+            ),
+          ],
         ),
       ),
     );
