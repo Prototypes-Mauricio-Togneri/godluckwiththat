@@ -36,9 +36,9 @@ generate enemy_base 256 256
 generate enemy_blur 400 400
 
 generate bullet_base 8 8
-generate bullet_blur 12 12
+generate bullet_blur 18 18
 
 generate laser_base 5 15
-generate laser_blur 11 22
+generate laser_blur 19 29
 
 generate node_selected 358 358
