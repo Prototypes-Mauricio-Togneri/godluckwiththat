@@ -4,7 +4,8 @@ import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/collisionable.dart';
 
 class BulletSpec {
-  final String sprite;
+  final String spriteBase;
+  final String spriteBlur;
   final double damage;
   final double width;
   final double height;
@@ -12,7 +13,8 @@ class BulletSpec {
   final int piercing;
 
   static BulletSpec type1 = const BulletSpec(
-    sprite: Assets.IMAGES_LASER_BASE,
+    spriteBase: Assets.IMAGES_LASER_BASE,
+    spriteBlur: Assets.IMAGES_LASER_BLUR,
     damage: 60,
     width: 1,
     height: 3,
@@ -21,7 +23,8 @@ class BulletSpec {
   );
 
   static BulletSpec type2 = const BulletSpec(
-    sprite: Assets.IMAGES_BULLET_BASE,
+    spriteBase: Assets.IMAGES_BULLET_BASE,
+    spriteBlur: Assets.IMAGES_BULLET_BLUR,
     damage: 50,
     width: 1.5,
     height: 1.5,
@@ -30,7 +33,8 @@ class BulletSpec {
   );
 
   static BulletSpec type3 = const BulletSpec(
-    sprite: Assets.IMAGES_BULLET_BASE,
+    spriteBase: Assets.IMAGES_BULLET_BASE,
+    spriteBlur: Assets.IMAGES_BULLET_BLUR,
     damage: 30,
     width: 1.5,
     height: 1.5,
@@ -39,7 +43,8 @@ class BulletSpec {
   );
 
   const BulletSpec({
-    required this.sprite,
+    required this.spriteBase,
+    required this.spriteBlur,
     required this.damage,
     required this.width,
     required this.height,
