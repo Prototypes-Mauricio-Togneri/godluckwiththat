@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/screens/splash_screen.dart';
+import 'package:tensionnode/screens/web_initial_screen.dart';
 import 'package:tensionnode/services/navigation.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/services/platform.dart';
 
 class TensionNode extends StatelessWidget {
   const TensionNode();
@@ -19,7 +21,10 @@ class TensionNode extends StatelessWidget {
         scaffoldBackgroundColor: Palette.black,
         fontFamily: Constants.FONT_NAME,
       ),
-      home: SplashScreen.instance(),
+      home: _home(),
     );
   }
+
+  Widget _home() =>
+      Platform.isWeb ? WebInitialScreen.instance() : SplashScreen.instance();
 }
