@@ -13,7 +13,6 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
   final Vector2 direction;
   final double speed;
   final double range;
-  double spriteRatio = 1;
 
   Bullet({
     required this.shooter,
@@ -31,11 +30,14 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
     width = spec.width;
     height = spec.height;
     anchor = Anchor.center;
-    spriteRatio = width / sprite!.image.width;
     angle = direction.screenAngle();
 
     add(spec.hitbox(size));
-    add(BlurBulletSprite(this));
+    add(BlurBulletSprite(
+      image: spec.spriteBlur,
+      parentImageRatio: width / sprite!.image.width,
+      parentSize: size,
+    ));
 
     return super.onLoad();
   }
@@ -58,16 +60,22 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
 }
 
 class BlurBulletSprite extends SpriteComponent {
-  final Bullet bullet;
+  final String image;
+  final double parentImageRatio;
+  final Vector2 parentSize;
 
-  BlurBulletSprite(this.bullet);
+  BlurBulletSprite({
+    required this.image,
+    required this.parentImageRatio,
+    required this.parentSize,
+  });
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(bullet.spec.spriteBlur);
-    position = bullet.size / 2;
-    width = sprite!.image.width * bullet.spriteRatio;
-    height = sprite!.image.height * bullet.spriteRatio;
+    sprite = await getSprite(image);
+    position = parentSize / 2;
+    width = sprite!.image.width * parentImageRatio;
+    height = sprite!.image.height * parentImageRatio;
     anchor = Anchor.center;
 
     return super.onLoad();
