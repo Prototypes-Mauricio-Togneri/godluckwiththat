@@ -44,7 +44,10 @@ class Node extends SpriteComponent
     anchor = Anchor.center;
 
     add(type.hitbox(size));
-    add(BlurSprite(image: type.spriteBlur));
+    add(BlurSprite(
+      image: type.spriteBlur,
+      parentSprite: this,
+    ));
 
     /*if (Environment.isDebug) {
       add(_debugText);

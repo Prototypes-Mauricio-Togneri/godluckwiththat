@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/components/base/blur_sprite.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
@@ -33,10 +34,9 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
     angle = direction.screenAngle();
 
     add(spec.hitbox(size));
-    add(BlurBulletSprite(
+    add(BlurSprite(
       image: spec.spriteBlur,
-      parentImageRatio: width / sprite!.image.width,
-      parentSize: size,
+      parentSprite: this,
     ));
 
     return super.onLoad();
@@ -56,28 +56,5 @@ class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
     if (distanceFromOrigin >= range) {
       game.remove(this);
     }
-  }
-}
-
-class BlurBulletSprite extends SpriteComponent {
-  final String image;
-  final double parentImageRatio;
-  final Vector2 parentSize;
-
-  BlurBulletSprite({
-    required this.image,
-    required this.parentImageRatio,
-    required this.parentSize,
-  });
-
-  @override
-  Future onLoad() async {
-    sprite = await getSprite(image);
-    position = parentSize / 2;
-    width = sprite!.image.width * parentImageRatio;
-    height = sprite!.image.height * parentImageRatio;
-    anchor = Anchor.center;
-
-    return super.onLoad();
   }
 }

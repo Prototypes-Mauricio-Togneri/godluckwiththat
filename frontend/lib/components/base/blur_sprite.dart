@@ -1,22 +1,23 @@
 import 'package:flame/components.dart';
-import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 
 class BlurSprite extends SpriteComponent {
   final String image;
+  final SpriteComponent parentSprite;
 
   BlurSprite({
     required this.image,
+    required this.parentSprite,
   });
 
   @override
   Future onLoad() async {
+    final double parentSpriteRatio =
+        parentSprite.width / parentSprite.sprite!.image.width;
     sprite = await getSprite(image);
-    position = Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);
-    width =
-        Constants.NODE_SIZE * (sprite!.image.width / Constants.BASE_IMAGE_SIZE);
-    height = Constants.NODE_SIZE *
-        (sprite!.image.height / Constants.BASE_IMAGE_SIZE);
+    position = parentSprite.size / 2;
+    width = sprite!.image.width * parentSpriteRatio;
+    height = sprite!.image.height * parentSpriteRatio;
     anchor = Anchor.center;
 
     return super.onLoad();
