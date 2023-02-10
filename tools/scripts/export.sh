@@ -9,6 +9,7 @@ OUTPUT="${BASE_DIR}/../output/images"
 rm -r ${OUTPUT}/*
 
 generate () {
+    echo ${1}
     inkscape --export-type="png" --export-filename="${OUTPUT}/${1}.png" --export-area-drawing --export-width=$2 --export-height=$3 ${INPUT}/${1}.svg
 }
 

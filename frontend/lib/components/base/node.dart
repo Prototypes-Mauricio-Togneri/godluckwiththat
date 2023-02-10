@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/blur_sprite.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
@@ -9,7 +12,6 @@ import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/audio.dart';
-import 'package:tensionnode/services/environment.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/spec/weapon_spec.dart';
 import 'package:tensionnode/types/node_type.dart';
@@ -19,6 +21,7 @@ class Node extends SpriteComponent
   final NodeType type;
   final num armor;
   num _shield = Constants.SHIELD_MAX;
+  bool _isRotating = false;
   final DebugText _debugText = DebugText();
 
   Node({
@@ -43,9 +46,9 @@ class Node extends SpriteComponent
     add(type.hitbox(size));
     add(BlurSprite(image: type.spriteBlur));
 
-    if (Environment.isDebug) {
+    /*if (Environment.isDebug) {
       add(_debugText);
-    }
+    }*/
 
     return super.onLoad();
   }
@@ -102,6 +105,27 @@ class Node extends SpriteComponent
       }
 
       destroy();
+    }
+  }
+
+  void rotateTo(Vector2 targetPosition) {
+    if (!_isRotating) {
+      final Vector2 direction = position - targetPosition;
+      final double newAngle = direction.screenAngle() + pi;
+      final double angleDiff = (angle - newAngle).abs();
+
+      if (angleDiff > 0.01) {
+        _isRotating = true;
+        add(
+          RotateEffect.to(
+            newAngle,
+            LinearEffectController(0.2),
+            onComplete: () {
+              _isRotating = false;
+            },
+          ),
+        );
+      }
     }
   }
 

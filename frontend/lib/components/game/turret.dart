@@ -48,6 +48,8 @@ class Turret extends FixedNode {
 
     if ((_target != null) && shooting.canShoot(dt)) {
       shotsFired++;
+
+      rotateTo(_target!.position);
       shoot(
         spec: spec.weapon,
         target: _target!,
