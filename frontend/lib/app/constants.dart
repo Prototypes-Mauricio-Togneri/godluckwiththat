@@ -10,7 +10,7 @@ class Constants {
   static const num SHIELD_MIN = 0;
   static const num SHIELD_MAX = 100;
 
-  static const num TIME_TO_NEXT_WAVE = 60; // in seconds
+  static const num TIME_TO_NEXT_WAVE = 10; // in seconds
 
   static String TEST_MATCH = '''
 {

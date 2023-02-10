@@ -2,12 +2,15 @@
 import 'package:flame_audio/audio_pool.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:tensionnode/services/assets.dart';
+import 'package:tensionnode/storage/audio_storage.dart';
 
 class Audio {
   static final Map<String, AudioPool> pool = {};
   static bool enabled = false;
 
   static Future load() async {
+    enabled = await AudioStorage.load();
+
     FlameAudio.audioCache.load(Assets.AUDIO_SFX_BULLET);
     FlameAudio.audioCache.load(Assets.AUDIO_SFX_LASER);
 
