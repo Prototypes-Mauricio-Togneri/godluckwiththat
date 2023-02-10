@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+     width="100"
+     height="100"
+     viewBox="0 0 26.458 26.459"
+     version="1.1"
+     id="svg421"
+     inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
+     sodipodi:docname="turret_machine_gun_blur.svg"
+     inkscape:export-filename="../d7d40f7c/turret.png"
+     inkscape:export-xdpi="245.76"
+     inkscape:export-ydpi="245.76"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:svg="http://www.w3.org/2000/svg">
+    <sodipodi:namedview
+         id="namedview423"
+         pagecolor="#ffffff"
+         bordercolor="#666666"
+         borderopacity="1.0"
+         inkscape:showpageshadow="2"
+         inkscape:pageopacity="0.0"
+         inkscape:pagecheckerboard="0"
+         inkscape:deskcolor="#d1d1d1"
+         inkscape:document-units="px"
+         showgrid="false"
+         inkscape:zoom="4.7571"
+         inkscape:cx="67.163"
+         inkscape:cy="33.739"
+         inkscape:window-width="1920"
+         inkscape:window-height="1016"
+         inkscape:window-x="0"
+         inkscape:window-y="27"
+         inkscape:window-maximized="1"
+         inkscape:current-layer="layer1"
+         showborder="false" />
+    <defs
+         id="defs418">
+        <filter
+             inkscape:collect="always"
+             style="color-interpolation-filters:sRGB"
+             id="filter847"
+             x="-0.35553"
+             y="-0.35553"
+             width="1.7111"
+             height="1.7111">
+            <feGaussianBlur
+                 inkscape:collect="always"
+                 stdDeviation="2.9767"
+                 id="feGaussianBlur849" />
+        </filter>
+        <filter
+             inkscape:collect="always"
+             style="color-interpolation-filters:sRGB"
+             id="filter1803"
+             x="-1.5188"
+             y="-0.43394"
+             width="4.0376"
+             height="1.8679">
+            <feGaussianBlur
+                 inkscape:collect="always"
+                 stdDeviation="1.6744"
+                 id="feGaussianBlur1805" />
+        </filter>
+        <filter
+             inkscape:collect="always"
+             style="color-interpolation-filters:sRGB"
+             id="filter1803-3"
+             x="-1.5188"
+             y="-0.43394"
+             width="4.0376"
+             height="1.8679">
+            <feGaussianBlur
+                 inkscape:collect="always"
+                 stdDeviation="1.6744"
+                 id="feGaussianBlur1805-6" />
+        </filter>
+        <filter
+             inkscape:collect="always"
+             style="color-interpolation-filters:sRGB"
+             id="filter1803-5"
+             x="-1.5188"
+             y="-0.43394"
+             width="4.0376"
+             height="1.8679">
+            <feGaussianBlur
+                 inkscape:collect="always"
+                 stdDeviation="1.6744"
+                 id="feGaussianBlur1805-3" />
+        </filter>
+    </defs>
+    <g
+         inkscape:label="Layer 1"
+         inkscape:groupmode="layer"
+         id="layer1">
+        <circle
+             style="opacity:1;fill:none;stroke:#8000ff;stroke-width:2.64515;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;filter:url(#filter847)"
+             id="path370"
+             cx="13.229"
+             cy="13.229"
+             r="11.907" />
+        <g
+             id="g352"
+             transform="translate(-4.0187)">
+            <rect
+                 style="mix-blend-mode:normal;fill:#8000ff;fill-opacity:1;stroke:none;stroke-width:2.19016;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke markers fill;filter:url(#filter1803)"
+                 id="rect1801"
+                 width="2.6459"
+                 height="9.2606"
+                 x="11.956"
+                 y="8.5991" />
+            <rect
+                 style="mix-blend-mode:normal;fill:#8000ff;fill-opacity:1;stroke:none;stroke-width:2.19016;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke markers fill;filter:url(#filter1803-3)"
+                 id="rect1801-7"
+                 width="2.6459"
+                 height="9.2606"
+                 x="11.906"
+                 y="8.5991"
+                 transform="matrix(0.99999,0,0,0.99999,4.0187,1.3941e-4)" />
+            <rect
+                 style="mix-blend-mode:normal;fill:#8000ff;fill-opacity:1;stroke:none;stroke-width:2.19016;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke markers fill;filter:url(#filter1803-5)"
+                 id="rect1801-5"
+                 width="2.6459"
+                 height="9.2606"
+                 x="11.906"
+                 y="8.5991"
+                 transform="matrix(0.99999,0,0,0.99999,7.9876,1.3941e-4)" />
+        </g>
+    </g>
+</svg>

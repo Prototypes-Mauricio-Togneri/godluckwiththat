@@ -29,6 +29,9 @@ generate turret_light_blur 395 395
 generate turret_heavy_base 256 256
 generate turret_heavy_blur 395 395
 
+generate turret_machine_gun_base 256 256
+generate turret_machine_gun_blur 395 395
+
 generate enemy_base 256 256
 generate enemy_blur 400 400
 

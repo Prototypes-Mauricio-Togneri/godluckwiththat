@@ -27,13 +27,22 @@ class WeaponSpec {
     bullet: BulletSpec.type1,
   );
 
+  static WeaponSpec turret_machine_gun = WeaponSpec(
+    range: 5,
+    fireRate: 8,
+    bullets: 1,
+    spread: 0,
+    sound: Assets.AUDIO_SFX_LASER,
+    bullet: BulletSpec.type2,
+  );
+
   static WeaponSpec enemy = WeaponSpec(
     range: 4,
     fireRate: 1,
     bullets: 1,
     spread: 0,
     sound: Assets.AUDIO_SFX_BULLET,
-    bullet: BulletSpec.type2,
+    bullet: BulletSpec.type3,
   );
 
   const WeaponSpec({

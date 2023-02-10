@@ -22,6 +22,15 @@ class BulletSpec {
 
   static BulletSpec type2 = const BulletSpec(
     sprite: Assets.IMAGES_BULLET_BASE,
+    damage: 50,
+    width: 1.5,
+    height: 1.5,
+    speed: 12,
+    piercing: 1,
+  );
+
+  static BulletSpec type3 = const BulletSpec(
+    sprite: Assets.IMAGES_BULLET_BASE,
     damage: 30,
     width: 1.5,
     height: 1.5,
@@ -42,6 +51,8 @@ class BulletSpec {
     if (this == type1) {
       return Collisionable.square(parentSize);
     } else if (this == type2) {
+      return Collisionable.circle(parentSize);
+    } else if (this == type3) {
       return Collisionable.circle(parentSize);
     } else {
       throw Error();
