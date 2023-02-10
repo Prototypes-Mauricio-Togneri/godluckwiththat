@@ -8,6 +8,7 @@ class MenuButton extends StatelessWidget {
   final Color color;
   final VoidCallback onPressed;
   final double topPadding;
+  final double size;
 
   const MenuButton({
     required this.text,
@@ -15,6 +16,7 @@ class MenuButton extends StatelessWidget {
     required this.color,
     required this.onPressed,
     this.topPadding = 10,
+    this.size = 14,
   });
 
   @override
@@ -36,7 +38,10 @@ class MenuButton extends StatelessWidget {
             ),
             const HBox(10),
             const Spacer(),
-            Label(text: text.toUpperCase()),
+            Label(
+              text: text.toUpperCase(),
+              size: size,
+            ),
             const Spacer(),
           ],
         ),

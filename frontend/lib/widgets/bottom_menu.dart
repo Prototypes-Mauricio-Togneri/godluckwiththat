@@ -26,7 +26,7 @@ class BottomMenu extends StatelessWidget {
       return Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-          width: 250,
+          width: game.constructMode ? 350 : 250,
           color: Palette.grey,
           padding: const EdgeInsets.all(10),
           child: Column(
@@ -114,29 +114,69 @@ class ConstructMenu extends StatelessWidget {
             align: TextAlign.center,
           ),
           const VBox(5),
-          MenuButton(
-            text: 'Red Mine',
-            icon: Icons.center_focus_strong,
-            color: Palette.resourceRed,
-            onPressed: () => _onBuild(MineSpec.mine_red),
-          ),
-          MenuButton(
-            text: 'Green Mine',
-            icon: Icons.center_focus_strong,
-            color: Palette.resourceGreen,
-            onPressed: () => _onBuild(MineSpec.mine_green),
-          ),
-          MenuButton(
-            text: 'Blue Mine',
-            icon: Icons.center_focus_strong,
-            color: Palette.resourceBlue,
-            onPressed: () => _onBuild(MineSpec.mine_blue),
-          ),
-          MenuButton(
-            text: 'Light turret',
-            icon: Icons.radio_button_checked,
-            color: Palette.turretLight,
-            onPressed: () => _onBuild(TurretSpec.turret_light),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    MenuButton(
+                      text: 'Red Mine',
+                      icon: Icons.center_focus_strong,
+                      color: Palette.resourceRed,
+                      size: 9,
+                      onPressed: () => _onBuild(MineSpec.mine_red),
+                    ),
+                    MenuButton(
+                      text: 'Green Mine',
+                      icon: Icons.center_focus_strong,
+                      color: Palette.resourceGreen,
+                      size: 9,
+                      onPressed: () => _onBuild(MineSpec.mine_green),
+                    ),
+                    MenuButton(
+                      text: 'Blue Mine',
+                      icon: Icons.center_focus_strong,
+                      color: Palette.resourceBlue,
+                      size: 9,
+                      onPressed: () => _onBuild(MineSpec.mine_blue),
+                    ),
+                  ],
+                ),
+              ),
+              const HBox(10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    MenuButton(
+                      text: 'Light turret',
+                      icon: Icons.radio_button_checked,
+                      color: Palette.turretLight,
+                      size: 9,
+                      onPressed: () => _onBuild(TurretSpec.turret_light),
+                    ),
+                    MenuButton(
+                      text: 'Heavy turret',
+                      icon: Icons.radio_button_checked,
+                      color: Palette.turretLight,
+                      size: 9,
+                      onPressed: () => _onBuild(TurretSpec.turret_heavy),
+                    ),
+                    MenuButton(
+                      text: 'Machine gun',
+                      icon: Icons.radio_button_checked,
+                      color: Palette.turretLight,
+                      size: 9,
+                      onPressed: () => _onBuild(TurretSpec.turret_machine_gun),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           MenuButton(
             text: 'Close',
