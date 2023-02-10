@@ -22,52 +22,12 @@ class TurretSpec extends FixedNodeSpec {
     cost: Resources(red: 20, green: 10, blue: 0),
   );
 
-  static TurretSpec turret_shotgun = TurretSpec(
-    type: NodeType.turret_light,
-    armor: 50,
-    heat: 2,
-    weapon: WeaponSpec.turret_light,
-    cost: Resources(red: 50, green: 30, blue: 10),
-  );
-
-  static TurretSpec turret_sniper = TurretSpec(
-    type: NodeType.turret_light,
-    armor: 50,
-    heat: 2,
-    weapon: WeaponSpec.turret_light,
-    cost: Resources(red: 50, green: 30, blue: 10),
-  );
-
   static TurretSpec turret_machine_gun = TurretSpec(
     type: NodeType.turret_machine_gun,
     armor: 80,
     heat: 2,
     weapon: WeaponSpec.turret_machine_gun,
     cost: Resources(red: 40, green: 20, blue: 10),
-  );
-
-  static TurretSpec turret_laser = TurretSpec(
-    type: NodeType.turret_light,
-    armor: 50,
-    heat: 2,
-    weapon: WeaponSpec.turret_light,
-    cost: Resources(red: 50, green: 30, blue: 10),
-  );
-
-  static TurretSpec turret_cannon = TurretSpec(
-    type: NodeType.turret_light,
-    armor: 50,
-    heat: 2,
-    weapon: WeaponSpec.turret_light,
-    cost: Resources(red: 50, green: 30, blue: 10),
-  );
-
-  static TurretSpec turret_plasma = TurretSpec(
-    type: NodeType.turret_light,
-    armor: 50,
-    heat: 2,
-    weapon: WeaponSpec.turret_light,
-    cost: Resources(red: 50, green: 30, blue: 10),
   );
 
   const TurretSpec({
