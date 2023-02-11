@@ -96,10 +96,10 @@ enum NodeType {
         return Collisionable.polygon(
           parentSize: parentSize,
           points: [
-            Vector2(1, 0),
             Vector2(0, -1),
-            Vector2(-1, 0),
+            Vector2(1, 0),
             Vector2(0, 1),
+            Vector2(-1, 0),
           ],
         );
       case NodeType.mine_red:
@@ -119,13 +119,14 @@ enum NodeType {
             Vector2(-1, 1),
           ],
         );
-      case NodeType.enemy2: // TODO(momo): adjust
+      case NodeType.enemy2:
         return Collisionable.polygon(
           parentSize: parentSize,
           points: [
             Vector2(0, -1),
-            Vector2(1, 1),
-            Vector2(-1, 1),
+            Vector2(1, 0.35),
+            Vector2(0, 1),
+            Vector2(-1, 0.35),
           ],
         );
       case NodeType.enemy3: // TODO(momo): adjust
