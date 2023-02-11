@@ -69,7 +69,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     if (key == LogicalKeyboardKey.escape) {
       openMainMenu();
     } else if (key == LogicalKeyboardKey.space) {
-      // TODO(momo): implement
+      onShowDetails();
     }
   }
 
