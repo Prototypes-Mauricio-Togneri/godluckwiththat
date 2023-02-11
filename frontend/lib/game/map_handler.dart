@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,8 @@ mixin MapHandler on FlameGame {
   Future<MapComponent> getMap(String content) async {
     return _map = await MapComponent.load(content);
   }
+
+  int get mapSize => max(_map.mapWidth, _map.mapHeight);
 
   MapTile getTile({
     required int i,

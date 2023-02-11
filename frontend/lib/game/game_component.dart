@@ -78,7 +78,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
   }
 
   void _spawnEnemy(EnemySpec spec) {
-    const double distance = 30 * Constants.NODE_SIZE;
+    final double distance = mapSize * 0.7 * Constants.NODE_SIZE;
     final int angle = Random().between(0, 359);
     final Vector2 position = Vector2(
       distance * sin(angle),
