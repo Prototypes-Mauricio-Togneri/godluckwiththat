@@ -6,21 +6,21 @@ class EnemySpec extends NodeSpec {
   static EnemySpec enemy1 = EnemySpec(
     type: NodeType.enemy1,
     armor: 50,
-    speed: 3,
+    speed: 6,
     weapon: WeaponSpec.enemy1,
   );
 
   static EnemySpec enemy2 = EnemySpec(
     type: NodeType.enemy2,
     armor: 70,
-    speed: 4,
+    speed: 6,
     weapon: WeaponSpec.enemy2,
   );
 
   static EnemySpec enemy3 = EnemySpec(
     type: NodeType.enemy3,
     armor: 90,
-    speed: 3,
+    speed: 6,
     weapon: WeaponSpec.enemy3,
   );
 
