@@ -8,6 +8,7 @@ OUTPUT="./assets"
 ../tools/scripts/export.sh
 rm -r ${OUTPUT}/images/*
 cp -a ${INPUT} ${OUTPUT}
+cp "${INPUT}/../../input/map/terrain.tsx" "${OUTPUT}/tiles"
 
 flutter clean
 flutter pub upgrade

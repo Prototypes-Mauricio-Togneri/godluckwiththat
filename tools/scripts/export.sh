@@ -49,4 +49,4 @@ generate ammo_2_blur 19 29
 
 generate node_selected 358 358
 
-#cp "${BASE_DIR}/../output/images/"
+cp "${BASE_DIR}/../output/images/tiles_terrain.png" "${BASE_DIR}/../input/map"
