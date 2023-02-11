@@ -1,7 +1,5 @@
 # Tension Node
 
-* Improve map
-
 Ways of moving resources:
     * Global (current)
     * Point to point
