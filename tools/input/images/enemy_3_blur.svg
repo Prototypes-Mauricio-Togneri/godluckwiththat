@@ -2,14 +2,14 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-     width="100"
-     height="100"
-     viewBox="0 0 26.458 26.459"
+     width="140"
+     height="140"
+     viewBox="0 0 37.042 37.043"
      version="1.1"
      id="svg421"
      inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
-     sodipodi:docname="hole.svg"
-     inkscape:export-filename="../2dd889ac/patch_red.png"
+     sodipodi:docname="enemy_3_blur.svg"
+     inkscape:export-filename="../bb658709/enemy.png"
      inkscape:export-xdpi="245.76"
      inkscape:export-ydpi="245.76"
      xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -27,31 +27,40 @@
          inkscape:deskcolor="#d1d1d1"
          inkscape:document-units="px"
          showgrid="false"
-         inkscape:zoom="4.7572"
-         inkscape:cx="62.642"
-         inkscape:cy="44.459"
+         inkscape:zoom="3.3638"
+         inkscape:cx="52.322"
+         inkscape:cy="71.199"
          inkscape:window-width="1920"
          inkscape:window-height="1016"
          inkscape:window-x="0"
-         inkscape:window-y="0"
+         inkscape:window-y="27"
          inkscape:window-maximized="1"
          inkscape:current-layer="layer1"
          showborder="false" />
     <defs
-         id="defs418" />
+         id="defs418">
+        <filter
+             inkscape:collect="always"
+             style="color-interpolation-filters:sRGB"
+             id="filter788"
+             x="-0.32239"
+             y="-0.32239"
+             width="1.6448"
+             height="1.6448">
+            <feGaussianBlur
+                 inkscape:collect="always"
+                 stdDeviation="4.4319"
+                 id="feGaussianBlur790" />
+        </filter>
+    </defs>
     <g
          inkscape:label="Layer 1"
          inkscape:groupmode="layer"
          id="layer1">
-        <rect
-             style="opacity:1;fill:#191919;fill-opacity:1;stroke:none;stroke-width:1.68923;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+        <path
              id="rect1334"
-             width="26.459"
-             height="26.459"
-             x="-0.00049982"
-             y="1.8311e-07"
-             inkscape:export-filename="../b8aa041/patch.png"
-             inkscape:export-xdpi="153.61"
-             inkscape:export-ydpi="153.61" />
+             style="opacity:1;fill:none;fill-opacity:1;stroke:#ff0000;stroke-width:1.58782;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;filter:url(#filter788)"
+             d="M 13.229,36.249 L 0.79328,23.813 L 13.229,0.79378 V 19.844 H 23.813 V 0.79378 L 36.249,23.813 L 23.813,36.249 V 28.84 H 13.229 Z"
+             sodipodi:nodetypes="ccccccccccc" />
     </g>
 </svg>

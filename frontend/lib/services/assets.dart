@@ -17,7 +17,9 @@ class Assets {
   static const String IMAGES_NODE_SELECTED = 'node_selected.png';
   static const String IMAGES_KERNEL_BLUR = 'kernel_blur.png';
   static const String IMAGES_TURRET_LIGHT_BLUR = 'turret_light_blur.png';
+  static const String IMAGES_ENEMY_3_BLUR = 'enemy_3_blur.png';
   static const String IMAGES_MINE_BASE = 'mine_base.png';
+  static const String IMAGES_ENEMY_3_BASE = 'enemy_3_base.png';
   static const String IMAGES_MINE_BLUE_BLUR = 'mine_blue_blur.png';
   static const String IMAGES_ENEMY_1_BASE = 'enemy_1_base.png';
   static const String IMAGES_TURRET_LIGHT_BASE = 'turret_light_base.png';

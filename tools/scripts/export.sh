@@ -35,8 +35,11 @@ generate turret_machine_gun_blur 395 395
 generate enemy_1_base 256 256
 generate enemy_1_blur 400 400
 
-generate enemy_2_base 256 256
-generate enemy_2_blur 400 400
+generate enemy_2_base 307 307
+generate enemy_2_blur 482 482
+
+generate enemy_3_base 358 358
+generate enemy_3_blur 564 564
 
 generate bullet_base 8 8
 generate bullet_blur 18 18

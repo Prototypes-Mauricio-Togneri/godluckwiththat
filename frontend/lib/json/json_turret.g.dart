@@ -34,4 +34,5 @@ const _$NodeTypeEnumMap = {
   NodeType.turret_machine_gun: 'turret_machine_gun',
   NodeType.enemy1: 'enemy1',
   NodeType.enemy2: 'enemy2',
+  NodeType.enemy3: 'enemy3',
 };

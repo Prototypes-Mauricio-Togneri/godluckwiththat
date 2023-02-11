@@ -134,6 +134,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     final List<EnemySpec> specs = [
       EnemySpec.enemy1,
       EnemySpec.enemy2,
+      EnemySpec.enemy3,
     ];
 
     for (int i = 0; i < enemiesToSpawn; i++) {
