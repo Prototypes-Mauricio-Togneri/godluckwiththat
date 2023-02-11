@@ -7,7 +7,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/blur_sprite.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
-import 'package:tensionnode/components/game/bullet.dart';
+import 'package:tensionnode/components/game/ammo.dart';
 import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
@@ -67,9 +67,9 @@ class Node extends SpriteComponent
 
     Audio.play(spec.sound);
 
-    game.addBullet(
+    game.addAmmo(
       shooter: this,
-      spec: spec.bullet,
+      spec: spec.ammo,
       weaponRange: weaponRange,
       startPosition: startPosition,
       direction: direction,
@@ -83,7 +83,7 @@ class Node extends SpriteComponent
   ) {
     super.onCollisionStart(intersectionPoints, other);
 
-    if (other is Bullet) {
+    if (other is Ammo) {
       final movableShootingFixed =
           (other.shooter is MovableNode) && (this is FixedNode);
       final fixedShootingMovable =
@@ -96,12 +96,12 @@ class Node extends SpriteComponent
     }
   }
 
-  void _hit(Bullet bullet) {
-    game.remove(bullet);
-    _shield -= bullet.spec.damage;
+  void _hit(Ammo ammo) {
+    game.remove(ammo);
+    _shield -= ammo.spec.damage;
 
     if (_shield <= Constants.SHIELD_MIN) {
-      final Node shooter = bullet.shooter;
+      final Node shooter = ammo.shooter;
 
       if (shooter is Turret) {
         shooter.kills++;

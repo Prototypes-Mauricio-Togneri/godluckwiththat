@@ -1,14 +1,14 @@
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/bullet.dart';
+import 'package:tensionnode/components/game/ammo.dart';
 import 'package:tensionnode/components/game/enemy.dart';
 import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/components/game/mine.dart';
 import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/models/map_tile.dart';
-import 'package:tensionnode/spec/bullet_spec.dart';
+import 'package:tensionnode/spec/ammo_spec.dart';
 import 'package:tensionnode/spec/enemy_spec.dart';
 import 'package:tensionnode/spec/mine_spec.dart';
 import 'package:tensionnode/spec/node_spec.dart';
@@ -73,14 +73,14 @@ mixin NodeHandler on BaseGameComponent {
     ));
   }
 
-  void addBullet({
+  void addAmmo({
     required Node shooter,
-    required BulletSpec spec,
+    required AmmoSpec spec,
     required double weaponRange,
     required Vector2 startPosition,
     required Vector2 direction,
   }) {
-    addNode(Bullet(
+    addNode(Ammo(
       shooter: shooter,
       spec: spec,
       weaponRange: weaponRange,

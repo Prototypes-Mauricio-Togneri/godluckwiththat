@@ -5,17 +5,17 @@ import 'package:tensionnode/components/base/blur_sprite.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/spec/bullet_spec.dart';
+import 'package:tensionnode/spec/ammo_spec.dart';
 
-class Bullet extends SpriteComponent with HasGameRef<GameComponent> {
+class Ammo extends SpriteComponent with HasGameRef<GameComponent> {
   final Node shooter;
-  final BulletSpec spec;
+  final AmmoSpec spec;
   final Vector2 startPosition;
   final Vector2 direction;
   final double speed;
   final double range;
 
-  Bullet({
+  Ammo({
     required this.shooter,
     required this.spec,
     required double weaponRange,

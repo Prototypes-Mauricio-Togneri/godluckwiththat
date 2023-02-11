@@ -11,18 +11,18 @@ class Audio {
   static Future load() async {
     enabled = await AudioStorage.load();
 
-    FlameAudio.audioCache.load(Assets.AUDIO_SFX_BULLET);
-    FlameAudio.audioCache.load(Assets.AUDIO_SFX_LASER);
-
-    pool[Assets.AUDIO_SFX_BULLET] = await _createPool(Assets.AUDIO_SFX_BULLET);
-    pool[Assets.AUDIO_SFX_LASER] = await _createPool(Assets.AUDIO_SFX_LASER);
+    _loadSound(Assets.AUDIO_SFX_AMMO1);
+    _loadSound(Assets.AUDIO_SFX_AMMO2);
   }
 
-  static Future<AudioPool> _createPool(String path) => FlameAudio.createPool(
-        path,
-        minPlayers: 5,
-        maxPlayers: 10,
-      );
+  static Future _loadSound(String path) async {
+    await FlameAudio.audioCache.load(path);
+    pool[path] = await FlameAudio.createPool(
+      path,
+      minPlayers: 5,
+      maxPlayers: 10,
+    );
+  }
 
   static void play(String path) {
     if (enabled) {

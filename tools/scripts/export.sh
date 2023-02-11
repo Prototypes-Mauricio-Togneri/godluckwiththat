@@ -13,7 +13,7 @@ generate () {
     inkscape --export-type="png" --export-filename="${OUTPUT}/${1}.png" --export-area-drawing --export-width=$2 --export-height=$3 ${INPUT}/${1}.svg
 }
 
-generate tiles 1024 256
+generate tiles 1536 256
 
 generate mine_base 256 256
 generate mine_red_blur 395 395
@@ -41,10 +41,10 @@ generate enemy_2_blur 482 482
 generate enemy_3_base 358 358
 generate enemy_3_blur 564 564
 
-generate bullet_base 8 8
-generate bullet_blur 18 18
+generate ammo_1_base 8 8
+generate ammo_1_blur 18 18
 
-generate laser_base 5 15
-generate laser_blur 19 29
+generate ammo_2_base 5 15
+generate ammo_2_blur 19 29
 
 generate node_selected 358 358

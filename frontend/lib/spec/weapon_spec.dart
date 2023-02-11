@@ -1,5 +1,5 @@
 import 'package:tensionnode/services/assets.dart';
-import 'package:tensionnode/spec/bullet_spec.dart';
+import 'package:tensionnode/spec/ammo_spec.dart';
 
 class WeaponSpec {
   final double range;
@@ -7,15 +7,15 @@ class WeaponSpec {
   final int bullets;
   final int spread; // in angles
   final String sound;
-  final BulletSpec bullet;
+  final AmmoSpec ammo;
 
   static WeaponSpec turret_light = WeaponSpec(
     range: 5,
     fireRate: 2,
     bullets: 1,
     spread: 0,
-    sound: Assets.AUDIO_SFX_LASER,
-    bullet: BulletSpec.type1,
+    sound: Assets.AUDIO_SFX_AMMO2,
+    ammo: AmmoSpec.type3,
   );
 
   static WeaponSpec turret_heavy = WeaponSpec(
@@ -23,8 +23,8 @@ class WeaponSpec {
     fireRate: 2.2,
     bullets: 1,
     spread: 0,
-    sound: Assets.AUDIO_SFX_LASER,
-    bullet: BulletSpec.type1,
+    sound: Assets.AUDIO_SFX_AMMO2,
+    ammo: AmmoSpec.type3,
   );
 
   static WeaponSpec turret_machine_gun = WeaponSpec(
@@ -32,8 +32,8 @@ class WeaponSpec {
     fireRate: 8,
     bullets: 1,
     spread: 0,
-    sound: Assets.AUDIO_SFX_LASER,
-    bullet: BulletSpec.type2,
+    sound: Assets.AUDIO_SFX_AMMO1,
+    ammo: AmmoSpec.type1,
   );
 
   static WeaponSpec enemy1 = WeaponSpec(
@@ -41,8 +41,8 @@ class WeaponSpec {
     fireRate: 1,
     bullets: 1,
     spread: 0,
-    sound: Assets.AUDIO_SFX_BULLET,
-    bullet: BulletSpec.type3,
+    sound: Assets.AUDIO_SFX_AMMO1,
+    ammo: AmmoSpec.type2,
   );
 
   static WeaponSpec enemy2 = WeaponSpec(
@@ -50,8 +50,8 @@ class WeaponSpec {
     fireRate: 1.2,
     bullets: 1,
     spread: 0,
-    sound: Assets.AUDIO_SFX_BULLET,
-    bullet: BulletSpec.type3,
+    sound: Assets.AUDIO_SFX_AMMO1,
+    ammo: AmmoSpec.type2,
   );
 
   static WeaponSpec enemy3 = WeaponSpec(
@@ -59,8 +59,8 @@ class WeaponSpec {
     fireRate: 0.8,
     bullets: 1,
     spread: 0,
-    sound: Assets.AUDIO_SFX_BULLET,
-    bullet: BulletSpec.type3,
+    sound: Assets.AUDIO_SFX_AMMO1,
+    ammo: AmmoSpec.type2,
   );
 
   const WeaponSpec({
@@ -69,6 +69,6 @@ class WeaponSpec {
     required this.bullets,
     required this.spread,
     required this.sound,
-    required this.bullet,
+    required this.ammo,
   });
 }
