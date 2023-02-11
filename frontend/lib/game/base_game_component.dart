@@ -5,6 +5,7 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
 import 'package:tensionnode/components/base/wave_hud.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
@@ -51,10 +52,9 @@ class BaseGameComponent extends FlameGame
     add(debugText);
     add(WaveHud());
     add(ResourcesHud());
-    //add(await getMap(Constants.TEST_MAP_TILE_XML));
 
     final TiledComponent tiledComponent =
-        await TiledComponent.load('map.tmx', Vector2.all(8));
+        await getMap(Constants.TEST_MAP_TILE_XML);
     final ImageBatchCompiler imageCompiler = ImageBatchCompiler();
     final PositionComponent ground = imageCompiler.compileMapLayer(
       tileMap: tiledComponent.tileMap,
