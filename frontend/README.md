@@ -1,7 +1,6 @@
 # Tension Node
 
 * Improve map
-* Make new enemies
 
 Ways of moving resources:
     * Global (current)
