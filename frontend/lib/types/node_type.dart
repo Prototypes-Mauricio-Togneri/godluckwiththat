@@ -37,9 +37,13 @@ enum NodeType {
     spriteBase: Assets.IMAGES_TURRET_MACHINE_GUN_BASE,
     spriteBlur: Assets.IMAGES_TURRET_MACHINE_GUN_BLUR,
   ),
-  enemy(
-    spriteBase: Assets.IMAGES_ENEMY_BASE,
-    spriteBlur: Assets.IMAGES_ENEMY_BLUR,
+  enemy1(
+    spriteBase: Assets.IMAGES_ENEMY_1_BASE,
+    spriteBlur: Assets.IMAGES_ENEMY_1_BLUR,
+  ),
+  enemy2(
+    spriteBase: Assets.IMAGES_ENEMY_2_BASE,
+    spriteBlur: Assets.IMAGES_ENEMY_2_BLUR,
   );
 
   final String spriteBase;
@@ -73,8 +77,10 @@ enum NodeType {
         return TurretSpec.turret_heavy;
       case NodeType.turret_machine_gun:
         return TurretSpec.turret_machine_gun;
-      case NodeType.enemy:
-        return EnemySpec.enemy;
+      case NodeType.enemy1:
+        return EnemySpec.enemy1;
+      case NodeType.enemy2:
+        return EnemySpec.enemy2;
     }
   }
 
@@ -98,7 +104,16 @@ enum NodeType {
       case NodeType.turret_heavy:
       case NodeType.turret_machine_gun:
         return Collisionable.circle(parentSize);
-      case NodeType.enemy:
+      case NodeType.enemy1:
+        return Collisionable.polygon(
+          parentSize: parentSize,
+          points: [
+            Vector2(0, -1),
+            Vector2(1, 1),
+            Vector2(-1, 1),
+          ],
+        );
+      case NodeType.enemy2:
         return Collisionable.polygon(
           parentSize: parentSize,
           points: [

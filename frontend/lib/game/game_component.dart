@@ -5,6 +5,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
+import 'package:tensionnode/extensions/list_extension.dart';
 import 'package:tensionnode/extensions/random_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/menu_handler.dart';
@@ -76,7 +77,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     // TODO(momo): implement
   }
 
-  void spawnEnemy() {
+  void _spawnEnemy(EnemySpec spec) {
     const double distance = 30 * Constants.NODE_SIZE;
     final int angle = Random().between(0, 359);
     final Vector2 position = Vector2(
@@ -85,7 +86,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     );
 
     addEnemy(
-      spec: EnemySpec.enemy,
+      spec: spec,
       shield: Constants.SHIELD_MAX,
       position: position,
       kernelPosition: state.kernel.position,
@@ -130,9 +131,13 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     super.update(dt);
 
     final int enemiesToSpawn = state.update(dt);
+    final List<EnemySpec> specs = [
+      EnemySpec.enemy1,
+      EnemySpec.enemy2,
+    ];
 
     for (int i = 0; i < enemiesToSpawn; i++) {
-      spawnEnemy();
+      _spawnEnemy(specs.random);
     }
   }
 }

@@ -36,9 +36,18 @@ class WeaponSpec {
     bullet: BulletSpec.type2,
   );
 
-  static WeaponSpec enemy = WeaponSpec(
+  static WeaponSpec enemy1 = WeaponSpec(
     range: 4,
     fireRate: 1,
+    bullets: 1,
+    spread: 0,
+    sound: Assets.AUDIO_SFX_BULLET,
+    bullet: BulletSpec.type3,
+  );
+
+  static WeaponSpec enemy2 = WeaponSpec(
+    range: 5,
+    fireRate: 1.2,
     bullets: 1,
     spread: 0,
     sound: Assets.AUDIO_SFX_BULLET,

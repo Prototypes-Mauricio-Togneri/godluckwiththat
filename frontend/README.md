@@ -9,6 +9,7 @@ Ways of moving resources:
     * Invisible path with 1 flag per node
     * Manual paths with custom flags
 
+* Create left side menu
 * Enemies shadow
 * Enemy explosion
 * Click on Kernel or warehouse shows the amount of resources in them

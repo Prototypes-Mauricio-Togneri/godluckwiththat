@@ -30,5 +30,8 @@ const _$NodeTypeEnumMap = {
   NodeType.mine_green: 'mine_green',
   NodeType.mine_blue: 'mine_blue',
   NodeType.turret_light: 'turret_light',
-  NodeType.enemy: 'enemy',
+  NodeType.turret_heavy: 'turret_heavy',
+  NodeType.turret_machine_gun: 'turret_machine_gun',
+  NodeType.enemy1: 'enemy1',
+  NodeType.enemy2: 'enemy2',
 };

@@ -3,11 +3,18 @@ import 'package:tensionnode/spec/weapon_spec.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class EnemySpec extends NodeSpec {
-  static EnemySpec enemy = EnemySpec(
-    type: NodeType.enemy,
+  static EnemySpec enemy1 = EnemySpec(
+    type: NodeType.enemy1,
     armor: 50,
     speed: 3,
-    weapon: WeaponSpec.enemy,
+    weapon: WeaponSpec.enemy1,
+  );
+
+  static EnemySpec enemy2 = EnemySpec(
+    type: NodeType.enemy2,
+    armor: 70,
+    speed: 4,
+    weapon: WeaponSpec.enemy2,
   );
 
   final double speed;
