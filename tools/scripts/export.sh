@@ -13,7 +13,7 @@ generate () {
     inkscape --export-type="png" --export-filename="${OUTPUT}/${1}.png" --export-area-drawing --export-width=$2 --export-height=$3 ${INPUT}/${1}.svg
 }
 
-generate tiles_terrain 24 8
+generate tiles_terrain 48 8
 
 generate mine_base 256 256
 generate mine_red_blur 395 395
@@ -48,3 +48,5 @@ generate ammo_2_base 5 15
 generate ammo_2_blur 19 29
 
 generate node_selected 358 358
+
+#cp "${BASE_DIR}/../output/images/"
