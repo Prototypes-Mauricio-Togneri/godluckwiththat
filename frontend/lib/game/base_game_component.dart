@@ -1,11 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flame_tiled/flame_tiled.dart';
-import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/components/base/map_component.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
 import 'package:tensionnode/components/base/wave_hud.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
@@ -53,15 +52,8 @@ class BaseGameComponent extends FlameGame
     add(WaveHud());
     add(ResourcesHud());
 
-    final TiledComponent tiledComponent =
-        await getMap(Constants.TEST_MAP_TILE_XML);
-    final ImageBatchCompiler imageCompiler = ImageBatchCompiler();
-    final PositionComponent ground = imageCompiler.compileMapLayer(
-      tileMap: tiledComponent.tileMap,
-      layerNames: ['ground'],
-    );
-    ground.priority = 0;
-    add(ground);
+    final MapComponent map = await getMap(Constants.TEST_MAP_TILE_XML);
+    add(map.compile());
 
     camera.moveTo(jsonMatch.map.position.vector);
     camera.zoom = jsonMatch.map.zoom.toDouble();

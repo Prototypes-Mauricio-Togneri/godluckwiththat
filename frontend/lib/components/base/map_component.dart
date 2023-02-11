@@ -1,5 +1,6 @@
-import 'package:flame/game.dart';
+import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/models/map_tile.dart';
 
@@ -15,6 +16,19 @@ class MapComponent extends TiledComponent {
     final double offsetY =
         -((mapHeight / 2) * Constants.NODE_SIZE) + (Constants.NODE_SIZE / 2);
     position = Vector2(offsetX, offsetY);
+  }
+
+  PositionComponent compile() {
+    final ImageBatchCompiler imageCompiler = ImageBatchCompiler();
+    final PositionComponent terrain = imageCompiler.compileMapLayer(
+      tileMap: tileMap,
+      layerNames: ['terrain'],
+    );
+    terrain.position = position;
+    terrain.anchor = Anchor.center;
+    terrain.priority = 0;
+
+    return terrain;
   }
 
   MapTile tile({
