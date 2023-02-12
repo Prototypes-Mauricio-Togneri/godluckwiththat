@@ -13,22 +13,22 @@ class Constants {
 {
 	"version": 1,
 	"id": "map1",
-	"totalTimeElapsed": 0,
-	"nextWave": 1,
-  "timeToNextWave": 10,
+	"totalTimeElapsed": 188.84,
+	"nextWave": 4,
+	"timeToNextWave": 5,
 	"map": {
 		"name": "level1",
 		"xml": "",
-		"position": [28.67, -11],
-		"zoom": 3
+		"position": [25.36, -13.73],
+		"zoom": 4
 	},
-  "mode": {
-    "mode": "survival"
-  },
+	"mode": {
+		"mode": "survival"
+	},
 	"resources": {
-		"red": 688,
-		"green": 280,
-		"blue": 384
+		"red": 1492,
+		"green": 724,
+		"blue": 0
 	},
 	"kernel": {
 		"type": "kernel",
@@ -37,199 +37,587 @@ class Constants {
 	},
 	"mines": [{
 		"type": "mine_red",
-		"position": [-10, -5],
-		"health": 100
+		"position": [-10, -9],
+		"health": 20
 	}, {
 		"type": "mine_red",
-		"position": [-9, -5],
-		"health": 100
+		"position": [-11, -10],
+		"health": 20
 	}, {
 		"type": "mine_red",
-		"position": [-10, -4],
-		"health": 100
+		"position": [-12, -10],
+		"health": 20
 	}, {
 		"type": "mine_red",
-		"position": [-9, -4],
-		"health": 100
+		"position": [-12, -9],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-11, -9],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-13, -9],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-13, -8],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-12, -8],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-11, -8],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-10, -8],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-10, -7],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-11, -7],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-13, -7],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-12, -7],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-13, -6],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-12, -6],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-11, -6],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-10, -6],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-12, -5],
+		"health": 20
+	}, {
+		"type": "mine_red",
+		"position": [-11, -5],
+		"health": 20
 	}, {
 		"type": "mine_green",
-		"position": [9, -7],
-		"health": 100
+		"position": [12, 10],
+		"health": 20
 	}, {
 		"type": "mine_green",
-		"position": [10, -7],
-		"health": 100
+		"position": [11, 10],
+		"health": 20
 	}, {
 		"type": "mine_green",
-		"position": [9, -6],
-		"health": 100
+		"position": [11, 11],
+		"health": 20
 	}, {
 		"type": "mine_green",
-		"position": [10, -6],
-		"health": 100
+		"position": [10, 11],
+		"health": 20
 	}, {
-		"type": "mine_blue",
-		"position": [1, 6],
-		"health": 100
+		"type": "mine_green",
+		"position": [12, 11],
+		"health": 20
 	}, {
-		"type": "mine_blue",
-		"position": [2, 6],
-		"health": 100
+		"type": "mine_green",
+		"position": [13, 11],
+		"health": 20
 	}, {
-		"type": "mine_blue",
-		"position": [1, 7],
-		"health": 100
+		"type": "mine_green",
+		"position": [13, 12],
+		"health": 20
 	}, {
-		"type": "mine_blue",
-		"position": [2, 7],
-		"health": 100
+		"type": "mine_green",
+		"position": [12, 13],
+		"health": 20
+	}, {
+		"type": "mine_green",
+		"position": [13, 13],
+		"health": 20
+	}, {
+		"type": "mine_green",
+		"position": [12, 12],
+		"health": 20
+	}, {
+		"type": "mine_green",
+		"position": [11, 12],
+		"health": 20
+	}, {
+		"type": "mine_green",
+		"position": [14, 13],
+		"health": 20
+	}, {
+		"type": "mine_green",
+		"position": [14, 12],
+		"health": 20
 	}],
 	"turrets": [{
+		"type": "turret_heavy",
+		"position": [13, 6],
+		"health": 60,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [16, 9],
+		"health": 60,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [17, 13],
+		"health": 60,
+		"shotsFired": 2,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [13, 17],
+		"health": 60,
+		"shotsFired": 2,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [15, 16],
+		"health": 60,
+		"shotsFired": 2,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [9, 16],
+		"health": 60,
+		"shotsFired": 5,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [6, 13],
+		"health": 60,
+		"shotsFired": 3,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [0, -4],
+		"health": 60,
+		"shotsFired": 2,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [0, 4],
+		"health": 60,
+		"shotsFired": 4,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [5, 0],
+		"health": 60,
+		"shotsFired": 4,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [-4, 0],
+		"health": 60,
+		"shotsFired": 1,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [-3, -2],
+		"health": 60,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [4, -2],
+		"health": 60,
+		"shotsFired": 4,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [3, -3],
+		"health": 60,
+		"shotsFired": 4,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [-2, -3],
+		"health": 60,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [-3, 2],
+		"health": 60,
+		"shotsFired": 4,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [-2, 3],
+		"health": 60,
+		"shotsFired": 4,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [2, 3],
+		"health": 60,
+		"shotsFired": 1,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [4, 2],
+		"health": 60,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [-8, -12],
+		"health": 60,
+		"shotsFired": 3,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [-10, -13],
+		"health": 60,
+		"shotsFired": 5,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [-13, -13],
+		"health": 60,
+		"shotsFired": 6,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [-15, -11],
+		"health": 60,
+		"shotsFired": 3,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [-16, -9],
+		"health": 60,
+		"shotsFired": 3,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [-16, -7],
+		"health": 60,
+		"shotsFired": 3,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [-15, -4],
+		"health": 60,
+		"shotsFired": 2,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [-13, -2],
+		"health": 60,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [-9, -2],
+		"health": 60,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
 		"type": "turret_light",
-		"position": [-8, 4],
-		"health": 100,
+		"position": [-14, -12],
+		"health": 50,
+		"shotsFired": 1,
+		"kills": 1
+	}, {
+		"type": "turret_light",
+		"position": [-15, -10],
+		"health": 50,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [-16, -8],
+		"health": 50,
+		"shotsFired": 1,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [-16, -6],
+		"health": 50,
+		"shotsFired": 2,
+		"kills": 1
+	}, {
+		"type": "turret_light",
+		"position": [-16, -5],
+		"health": 50,
+		"shotsFired": 1,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [-14, -3],
+		"health": 50,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [-12, -2],
+		"health": 50,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [-10, -2],
+		"health": 50,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [-12, -13],
+		"health": 50,
+		"shotsFired": 4,
+		"kills": 2
+	}, {
+		"type": "turret_light",
+		"position": [2, -4],
+		"health": 50,
+		"shotsFired": 3,
+		"kills": 1
+	}, {
+		"type": "turret_light",
+		"position": [-1, -4],
+		"health": 50,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [2, 4],
+		"health": 50,
+		"shotsFired": 1,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [14, 7],
+		"health": 50,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [17, 10],
+		"health": 50,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [17, 14],
+		"health": 50,
 		"shotsFired": 2,
 		"kills": 0
 	}, {
 		"type": "turret_light",
-		"position": [-4, 9],
-		"health": 100,
-		"shotsFired": 18,
-		"kills": 7
-	}, {
-		"type": "turret_light",
-		"position": [3, 10],
-		"health": 100,
-		"shotsFired": 6,
-		"kills": 0
-	}, {
-		"type": "turret_light",
-		"position": [10, 7],
-		"health": 100,
-		"shotsFired": 16,
-		"kills": 4
-	}, {
-		"type": "turret_light",
-		"position": [16, -2],
-		"health": 100,
-		"shotsFired": 6,
-		"kills": 0
-	}, {
-		"type": "turret_light",
-		"position": [1, -12],
-		"health": 100,
-		"shotsFired": 7,
-		"kills": 3
-	}, {
-		"type": "turret_light",
-		"position": [-11, -9],
-		"health": 100,
-		"shotsFired": 10,
-		"kills": 3
-	}, {
-		"type": "turret_light",
-		"position": [-12, -1],
-		"health": 100,
-		"shotsFired": 9,
-		"kills": 2
-	}, {
-		"type": "turret_light",
-		"position": [13, -10],
-		"health": 100,
-		"shotsFired": 16,
-		"kills": 4
-	}, {
-		"type": "turret_light",
-		"position": [12, 4],
-		"health": 100,
-		"shotsFired": 11,
-		"kills": 2
-	}, {
-		"type": "turret_light",
-		"position": [15, 1],
-		"health": 100,
-		"shotsFired": 6,
-		"kills": 2
-	}, {
-		"type": "turret_light",
-		"position": [16, -7],
-		"health": 100,
-		"shotsFired": 15,
-		"kills": 6
-	}, {
-		"type": "turret_light",
-		"position": [5, -12],
-		"health": 100,
-		"shotsFired": 23,
-		"kills": 4
-	}, {
-		"type": "turret_light",
-		"position": [-4, -12],
-		"health": 100,
-		"shotsFired": 4,
+		"position": [8, 15],
+		"health": 50,
+		"shotsFired": 2,
 		"kills": 1
 	}, {
 		"type": "turret_light",
-		"position": [-8, -10],
-		"health": 100,
+		"position": [11, 17],
+		"health": 50,
 		"shotsFired": 2,
 		"kills": 0
 	}, {
 		"type": "turret_light",
-		"position": [-13, -5],
-		"health": 100,
-		"shotsFired": 4,
+		"position": [18, 12],
+		"health": 50,
+		"shotsFired": 2,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [16, 15],
+		"health": 50,
+		"shotsFired": 2,
 		"kills": 1
 	}, {
 		"type": "turret_light",
-		"position": [7, 9],
-		"health": 100,
-		"shotsFired": 17,
-		"kills": 6
-	}, {
-		"type": "turret_light",
-		"position": [0, 10],
-		"health": 100,
-		"shotsFired": 14,
-		"kills": 3
-	}, {
-		"type": "turret_light",
-		"position": [-7, 7],
-		"health": 100,
-		"shotsFired": 14,
-		"kills": 2
-	}, {
-		"type": "turret_light",
-		"position": [-11, 2],
-		"health": 100,
-		"shotsFired": 8,
-		"kills": 3
-	}, {
-		"type": "turret_light",
-		"position": [-3, -7],
-		"health": 100,
+		"position": [11, 6],
+		"health": 50,
 		"shotsFired": 0,
 		"kills": 0
 	}, {
 		"type": "turret_light",
-		"position": [3, -7],
-		"health": 100,
+		"position": [5, 12],
+		"health": 50,
+		"shotsFired": 2,
+		"kills": 1
+	}, {
+		"type": "turret_light",
+		"position": [7, 14],
+		"health": 50,
 		"shotsFired": 0,
 		"kills": 0
 	}, {
 		"type": "turret_light",
-		"position": [8, 0],
-		"health": 100,
+		"position": [15, 8],
+		"health": 50,
 		"shotsFired": 0,
 		"kills": 0
 	}, {
 		"type": "turret_light",
-		"position": [-6, -1],
-		"health": 100,
+		"position": [18, 11],
+		"health": 50,
+		"shotsFired": 1,
+		"kills": 1
+	}, {
+		"type": "turret_light",
+		"position": [12, 17],
+		"health": 50,
 		"shotsFired": 0,
 		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [15, 17],
+		"health": 50,
+		"shotsFired": 2,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [14, 17],
+		"health": 50,
+		"shotsFired": 2,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [10, 17],
+		"health": 50,
+		"shotsFired": 4,
+		"kills": 0
+	}, {
+		"type": "turret_light",
+		"position": [-4, -1],
+		"health": 50,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [-1, 4],
+		"health": 60,
+		"shotsFired": 4,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [-4, 1],
+		"health": 60,
+		"shotsFired": 3,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [4, 3],
+		"health": 60,
+		"shotsFired": 0,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [5, 2],
+		"health": 60,
+		"shotsFired": 1,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [1, 4],
+		"health": 60,
+		"shotsFired": 3,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [5, 1],
+		"health": 60,
+		"shotsFired": 3,
+		"kills": 1
+	}, {
+		"type": "turret_heavy",
+		"position": [3, 3],
+		"health": 60,
+		"shotsFired": 1,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [5, -1],
+		"health": 60,
+		"shotsFired": 4,
+		"kills": 0
+	}, {
+		"type": "turret_heavy",
+		"position": [1, -4],
+		"health": 60,
+		"shotsFired": 3,
+		"kills": 1
 	}],
-	"enemies": []
+	"enemies": [{
+		"type": "enemy1",
+		"position": [954.92, 1115.5],
+		"health": 150
+	}, {
+		"type": "enemy1",
+		"position": [663.75, 1309.82],
+		"health": 150
+	}, {
+		"type": "enemy2",
+		"position": [-232.92, -1449.81],
+		"health": 200
+	}, {
+		"type": "enemy2",
+		"position": [1463.21, -123.33],
+		"health": 200
+	}, {
+		"type": "enemy1",
+		"position": [-743.59, -1266.21],
+		"health": 150
+	}, {
+		"type": "enemy2",
+		"position": [-1102.78, -969.58],
+		"health": 200
+	}, {
+		"type": "enemy2",
+		"position": [1396.54, 453.73],
+		"health": 200
+	}, {
+		"type": "enemy3",
+		"position": [-1191.76, 857.85],
+		"health": 250
+	}, {
+		"type": "enemy1",
+		"position": [-698.3, -1291.74],
+		"health": 150
+	}, {
+		"type": "enemy2",
+		"position": [581.38, -1348.41],
+		"health": 200
+	}, {
+		"type": "enemy2",
+		"position": [1288.65, 703.97],
+		"health": 200
+	}, {
+		"type": "enemy1",
+		"position": [-496.77, 1381.82],
+		"health": 150
+	}, {
+		"type": "enemy1",
+		"position": [1360.92, -551.44],
+		"health": 150
+	}]
 }
 ''';
 

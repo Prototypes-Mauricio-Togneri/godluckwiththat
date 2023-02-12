@@ -133,14 +133,17 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     super.update(dt);
 
     final int enemiesToSpawn = state.update(dt);
-    final List<EnemySpec> specs = [
-      EnemySpec.enemy1,
-      EnemySpec.enemy2,
-      EnemySpec.enemy3,
-    ];
 
-    for (int i = 0; i < enemiesToSpawn; i++) {
-      _spawnEnemy(specs.random);
+    if (enemiesToSpawn > 0) {
+      final List<EnemySpec> specs = [
+        EnemySpec.enemy1,
+        EnemySpec.enemy2,
+        EnemySpec.enemy3,
+      ];
+
+      for (int i = 0; i < enemiesToSpawn; i++) {
+        _spawnEnemy(specs.random);
+      }
     }
   }
 }
