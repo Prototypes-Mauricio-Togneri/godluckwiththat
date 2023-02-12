@@ -28,7 +28,7 @@
          inkscape:document-units="px"
          showgrid="false"
          inkscape:zoom="4.7572"
-         inkscape:cx="39.939"
+         inkscape:cx="23.964"
          inkscape:cy="51.816"
          inkscape:window-width="1920"
          inkscape:window-height="1016"
@@ -44,7 +44,7 @@
          inkscape:groupmode="layer"
          id="layer1">
         <circle
-             style="fill:none;stroke:#ffffff;stroke-width:1.88478;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke markers fill"
+             style="fill:none;stroke:#ff0000;stroke-width:1.88478;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke markers fill"
              id="path786"
              cx="13.229"
              cy="13.229"

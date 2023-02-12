@@ -41,8 +41,8 @@ class BaseGameComponent extends FlameGame
     camera.speed = double.maxFinite;
 
     debugText.position = Vector2(
-      size.x - 10,
-      size.y - 20,
+      size.x - 30,
+      size.y - 30,
     );
 
     final MapComponent map = await getMap(Constants.TEST_MAP_TILE_XML);
@@ -128,6 +128,9 @@ class DebugText extends TextComponent with HasGameRef<GameComponent> {
   void update(double dt) {
     super.update(dt);
 
-    text = 'ENEMIES: ${game.state.enemies.length}';
+    final int buildings =
+        game.state.turrets.length + game.state.mines.length + 1;
+
+    text = 'ENEMIES: ${game.state.enemies.length}\nBUILDINGS: $buildings\n';
   }
 }
