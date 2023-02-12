@@ -49,7 +49,13 @@ class GameScreen extends StatelessWidget {
                 ),
                 StateProvider<GameState>(
                   state: state,
-                  builder: (context, state) => BottomMenu(game, state),
+                  builder: (context, state) => state.loaded
+                      ? BottomMenu(game, state)
+                      : const Center(
+                          child: CircularProgressIndicator(
+                            color: Palette.white,
+                          ),
+                        ),
                 ),
               ],
             ),

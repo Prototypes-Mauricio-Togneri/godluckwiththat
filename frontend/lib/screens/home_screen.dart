@@ -20,7 +20,9 @@ class HomeScreen extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           body: Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Palette.white,
+            ),
           ),
         ),
       ),

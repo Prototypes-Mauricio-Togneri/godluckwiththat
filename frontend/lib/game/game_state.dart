@@ -15,6 +15,7 @@ class GameState extends BaseState {
   num _totalTimeElapsed = 0;
   int _nextWave = 0;
   num _timeToNextWave = 0;
+  bool loaded = false;
 
   final Resources resources = Resources.empty();
   late final Kernel kernel;
@@ -36,6 +37,11 @@ class GameState extends BaseState {
       green: jsonMatch.resources.green,
       blue: jsonMatch.resources.blue,
     );
+  }
+
+  void setLoaded() {
+    loaded = true;
+    notify();
   }
 
   Enemy? closestEnemyInRange(

@@ -70,6 +70,8 @@ class BaseGameComponent extends FlameGame
 
     camera.moveTo(jsonMatch.map.position.vector);
     camera.zoom = jsonMatch.map.zoom.toDouble();
+
+    state.setLoaded();
   }
 
   void addToBackgroundLayer(Component component) =>
