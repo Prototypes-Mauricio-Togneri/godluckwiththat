@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
@@ -17,7 +18,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent> {
   final NodeType type;
   num _health = 0;
   bool _isRotating = false;
-  final DebugText _debugText = DebugText();
+  late final DebugText _debugText = DebugText();
 
   Node({
     required super.position,
@@ -120,18 +121,24 @@ class Node extends SpriteComponent with HasGameRef<GameComponent> {
     _health = 0;
     game.removeNode(this);
   }
+}
+
+class DebugText extends TextComponent {
+  late Node node;
+
+  @override
+  FutureOr onLoad() {
+    node = parent as Node;
+    position = node.size / 2;
+    anchor = Anchor.center;
+    textRenderer = Style.debugTextRenderer(size: Constants.NODE_SIZE / 4);
+
+    return super.onLoad();
+  }
 
   @override
   void update(double dt) {
     super.update(dt);
-    _debugText.text = '${_health.toInt()}';
-  }
-}
-
-class DebugText extends TextComponent {
-  DebugText() {
-    position = Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);
-    anchor = Anchor.center;
-    textRenderer = Style.debugTextRenderer(size: Constants.NODE_SIZE / 4);
+    text = '${node.health.toInt()}';
   }
 }
