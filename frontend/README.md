@@ -15,6 +15,7 @@ Ways of moving resources:
 
 * Shields? (they remove armor from the enemy but they get destroyed. They consume energy while alive. Small shield, plasma shield, etc)
 * Repairer (it fixes nodes using resources in its radius)
+* Waves have a big boss (huge enemy like a kraken)
 * Create left side menu
 * Enemies shadow
 * Enemy explosion
