@@ -4,24 +4,24 @@ import 'package:tensionnode/types/node_type.dart';
 class EnemySpec extends NodeSpec {
   static EnemySpec enemy1 = const EnemySpec(
     type: NodeType.enemy1,
-    health: 50,
-    speed: 3,
+    health: 100,
+    speed: 4,
     damage: 100,
     size: 1,
   );
 
   static EnemySpec enemy2 = const EnemySpec(
     type: NodeType.enemy2,
-    health: 70,
-    speed: 3,
+    health: 100,
+    speed: 4,
     damage: 200,
     size: 2,
   );
 
   static EnemySpec enemy3 = const EnemySpec(
     type: NodeType.enemy3,
-    health: 90,
-    speed: 3,
+    health: 100,
+    speed: 4,
     damage: 300,
     size: 3,
   );
