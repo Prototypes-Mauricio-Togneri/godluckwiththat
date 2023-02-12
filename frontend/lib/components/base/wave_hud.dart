@@ -11,9 +11,6 @@ class WaveHud extends PositionComponent with HasGameRef<GameComponent> {
   final TextComponent _text = TextComponent();
 
   WaveHud() {
-    positionType = PositionType.viewport;
-    priority = 1;
-
     _text.position = Vector2(15, 25);
     _text.anchor = Anchor.centerLeft;
     _text.textRenderer = Style.textRenderer(size: 20);

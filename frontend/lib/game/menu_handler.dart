@@ -98,8 +98,8 @@ mixin MenuHandler on BaseGameComponent {
       _selectedNode = node;
 
       removeMenuComponents();
-      add(NodeSelected(node: node));
-      add(NodeRange(node: node));
+      addToBackgroundLayer(NodeSelected(node: node));
+      addToBackgroundLayer(NodeRange(node: node));
     }
 
     return true;
@@ -120,7 +120,7 @@ mixin MenuHandler on BaseGameComponent {
   void enableBuildingMode(FixedNodeSpec spec) {
     _enableMode(MenuMode.building);
     removeMenuComponents();
-    add(BuildingIndicator(spec: spec));
+    addToBackgroundLayer(BuildingIndicator(spec: spec));
   }
 
   void _disableBuildingMode() {

@@ -54,7 +54,7 @@ class Ammo extends SpriteComponent with HasGameRef<GameComponent> {
     final num distanceFromOrigin = position.distanceTo(startPosition);
 
     if (distanceFromOrigin >= range) {
-      game.remove(this);
+      game.removeFromNodesLayer(this);
     }
   }
 }

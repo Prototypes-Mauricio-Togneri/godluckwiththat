@@ -26,7 +26,6 @@ class MapComponent extends TiledComponent {
     );
     terrain.position = position;
     terrain.anchor = Anchor.center;
-    terrain.priority = 0;
 
     return terrain;
   }

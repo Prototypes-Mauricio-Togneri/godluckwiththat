@@ -13,10 +13,7 @@ class ResourcesHud extends PositionComponent with HasGameRef<GameComponent> {
   final TextComponent _greenAmount = TextResourceIndicator(x: 210);
   final TextComponent _blueAmount = TextResourceIndicator(x: 360);
 
-  ResourcesHud() {
-    positionType = PositionType.viewport;
-    priority = 1;
-
+  ResourcesHud({super.position}) {
     _paint.color = Palette.grey;
     _paint.style = PaintingStyle.fill;
   }
@@ -26,7 +23,6 @@ class ResourcesHud extends PositionComponent with HasGameRef<GameComponent> {
     width = 450;
     height = 50;
     anchor = Anchor.center;
-    position = Vector2(game.size.x / 2, height / 2);
 
     add(_redAmount);
     add(IconResourceIndicator(

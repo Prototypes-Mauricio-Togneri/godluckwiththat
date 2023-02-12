@@ -28,6 +28,10 @@ class BaseGameComponent extends FlameGame
         HasCollisionDetection {
   final GameState state;
   final DebugText debugText = DebugText();
+  final Component _layerBackground = Component(priority: 0);
+  final Component _layerNodes = Component(priority: 1);
+  final Component _layerHud = Component(priority: 2)
+    ..positionType = PositionType.viewport;
 
   BaseGameComponent(this.state);
 
@@ -41,23 +45,47 @@ class BaseGameComponent extends FlameGame
       size.y - 20,
     );
 
-    add(FpsTextComponent(
+    final MapComponent map = await getMap(Constants.TEST_MAP_TILE_XML);
+    addToBackgroundLayer(map.compile());
+
+    addToHudLayer(WaveHud());
+    addToHudLayer(ResourcesHud(
+      position: Vector2(
+        size.x / 2,
+        25,
+      ),
+    ));
+    addToHudLayer(debugText);
+    addToHudLayer(FpsTextComponent(
       position: Vector2(
         10,
         size.y - 30,
       ),
       textRenderer: Style.textRenderer(size: 20),
     ));
-    add(debugText);
-    add(WaveHud());
-    add(ResourcesHud());
 
-    final MapComponent map = await getMap(Constants.TEST_MAP_TILE_XML);
-    add(map.compile());
+    add(_layerBackground);
+    add(_layerNodes);
+    add(_layerHud);
 
     camera.moveTo(jsonMatch.map.position.vector);
     camera.zoom = jsonMatch.map.zoom.toDouble();
   }
+
+  void addToBackgroundLayer(Component component) =>
+      _layerBackground.add(component);
+
+  void addToNodesLayer(Component component) => _layerNodes.add(component);
+
+  void addToHudLayer(Component component) => _layerHud.add(component);
+
+  void removeFromBackgroundLayer(Component component) =>
+      _layerBackground.remove(component);
+
+  void removeFromNodesLayer(Component component) =>
+      _layerNodes.remove(component);
+
+  void removeFromHudLayer(Component component) => _layerHud.remove(component);
 
   @override
   void onScroll(PointerScrollInfo info) => handleOnScroll(info);
@@ -90,9 +118,7 @@ class BaseGameComponent extends FlameGame
 
 class DebugText extends TextComponent with HasGameRef<GameComponent> {
   DebugText() {
-    positionType = PositionType.viewport;
     anchor = Anchor.centerRight;
-    priority = double.maxFinite.toInt();
     textRenderer = Style.textRenderer(size: 20);
   }
 

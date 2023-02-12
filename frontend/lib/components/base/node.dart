@@ -97,7 +97,7 @@ class Node extends SpriteComponent
   }
 
   void _hit(Ammo ammo) {
-    game.remove(ammo);
+    game.removeFromNodesLayer(ammo);
     _shield -= ammo.spec.damage;
 
     if (_shield <= Constants.SHIELD_MIN) {

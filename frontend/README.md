@@ -1,10 +1,7 @@
 # Tension Node
 
-* IMPLEMENT LAYERS (test limits before and after)
 * TRY FIREBALL ENEMIES
 * ADD POWER PLANTS (WITH RADIUS)
-* FORGE2D
-https://docs.flame-engine.org/1.6.0/bridge_packages/flame_forge2d/forge2d.html
 
 Ways of moving resources:
     * Global (current)

@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
-import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/models/position.dart';
@@ -14,7 +13,7 @@ class Enemy extends MovableNode {
   final double speed;
   final double range;
   final Vector2 kernelPosition;
-  Node? _target;
+  //Node? _target;
 
   Enemy({
     required super.position,
@@ -29,7 +28,7 @@ class Enemy extends MovableNode {
           armor: spec.armor,
         );
 
-  @override
+  /*@override
   void update(double dt) {
     super.update(dt);
     shooting.update(dt);
@@ -53,14 +52,14 @@ class Enemy extends MovableNode {
         );
       }
     }
-  }
+  }*/
 
-  void _moveForward(double dt) {
+  /*void _moveForward(double dt) {
     final Vector2 direction = (kernelPosition - position).normalized();
     position += direction * speed * dt;
 
     rotateTo(direction);
-  }
+  }*/
 
   JsonEnemy get json => JsonEnemy(
         type: type,

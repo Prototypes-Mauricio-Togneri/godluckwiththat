@@ -90,13 +90,13 @@ mixin NodeHandler on BaseGameComponent {
   }
 
   void addNode(Component node) {
-    add(node);
+    addToNodesLayer(node);
     state.addNode(node);
   }
 
   void removeNode(Component node) {
     try {
-      remove(node);
+      removeFromNodesLayer(node);
       state.removeNode(node);
 
       if (node is Kernel) {
