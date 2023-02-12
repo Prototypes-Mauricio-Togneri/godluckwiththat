@@ -1,6 +1,7 @@
 # Tension Node
 
-* TRY FIREBALL ENEMIES
+* SHOW SPINNER WHEN LOADING MAP
+* REMOVE BLUR
 * ADD POWER PLANTS (WITH RADIUS)
 
 Ways of moving resources:

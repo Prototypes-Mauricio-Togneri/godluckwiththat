@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-     width="140"
-     height="140"
-     viewBox="0 0 37.042 37.043"
+     width="100"
+     height="100"
+     viewBox="0 0 26.458 26.459"
      version="1.1"
      id="svg421"
      inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
-     sodipodi:docname="enemy_3_blur.svg"
+     sodipodi:docname="enemy_blur.svg"
      inkscape:export-filename="../bb658709/enemy.png"
      inkscape:export-xdpi="245.76"
      inkscape:export-ydpi="245.76"
@@ -27,9 +27,9 @@
          inkscape:deskcolor="#d1d1d1"
          inkscape:document-units="px"
          showgrid="false"
-         inkscape:zoom="3.3638"
-         inkscape:cx="52.322"
-         inkscape:cy="71.199"
+         inkscape:zoom="2.3786"
+         inkscape:cx="1.2612"
+         inkscape:cy="47.717"
          inkscape:window-width="1920"
          inkscape:window-height="1016"
          inkscape:window-x="0"
@@ -42,25 +42,31 @@
         <filter
              inkscape:collect="always"
              style="color-interpolation-filters:sRGB"
-             id="filter788"
-             x="-0.32239"
-             y="-0.32239"
-             width="1.6448"
-             height="1.6448">
+             id="filter851"
+             x="-0.33834"
+             y="-0.33834"
+             width="1.6767"
+             height="1.6767">
             <feGaussianBlur
                  inkscape:collect="always"
-                 stdDeviation="4.4319"
-                 id="feGaussianBlur790" />
+                 stdDeviation="3.0717"
+                 id="feGaussianBlur853" />
         </filter>
     </defs>
     <g
          inkscape:label="Layer 1"
          inkscape:groupmode="layer"
          id="layer1">
-        <path
-             id="rect1334"
-             style="opacity:1;fill:none;fill-opacity:1;stroke:#ff0000;stroke-width:1.58782;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill;filter:url(#filter788)"
-             d="M 13.229,36.249 L 0.79328,23.813 L 13.229,0.79378 V 19.844 H 23.813 V 0.79378 L 36.249,23.813 L 23.813,36.249 V 28.84 H 13.229 Z"
-             sodipodi:nodetypes="ccccccccccc" />
+        <g
+             id="g902"
+             transform="matrix(0.99999,0,0,0.99999,1.322e-4,6.322e-4)"
+             style="stroke:#ff0000;stroke-opacity:1;filter:url(#filter851)">
+            <circle
+                 style="fill:none;stroke:#ff0000;stroke-width:1.88478;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke markers fill"
+                 id="path786"
+                 cx="13.229"
+                 cy="13.229"
+                 r="12.287" />
+        </g>
     </g>
 </svg>

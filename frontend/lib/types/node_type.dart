@@ -38,16 +38,16 @@ enum NodeType {
     spriteBlur: Assets.IMAGES_TURRET_MACHINE_GUN_BLUR,
   ),
   enemy1(
-    spriteBase: Assets.IMAGES_ENEMY_1_BASE,
-    spriteBlur: Assets.IMAGES_ENEMY_1_BLUR,
+    spriteBase: Assets.IMAGES_ENEMY_BASE,
+    spriteBlur: Assets.IMAGES_ENEMY_BLUR,
   ),
   enemy2(
-    spriteBase: Assets.IMAGES_ENEMY_2_BASE,
-    spriteBlur: Assets.IMAGES_ENEMY_2_BLUR,
+    spriteBase: Assets.IMAGES_ENEMY_BASE,
+    spriteBlur: Assets.IMAGES_ENEMY_BLUR,
   ),
   enemy3(
-    spriteBase: Assets.IMAGES_ENEMY_3_BASE,
-    spriteBlur: Assets.IMAGES_ENEMY_3_BLUR,
+    spriteBase: Assets.IMAGES_ENEMY_BASE,
+    spriteBlur: Assets.IMAGES_ENEMY_BLUR,
   );
 
   final String spriteBase;
@@ -111,36 +111,9 @@ enum NodeType {
       case NodeType.turret_machine_gun:
         return Collisionable.circle(parentSize);
       case NodeType.enemy1:
-        return Collisionable.polygon(
-          parentSize: parentSize,
-          points: [
-            Vector2(0, -1),
-            Vector2(1, 1),
-            Vector2(-1, 1),
-          ],
-        );
       case NodeType.enemy2:
-        return Collisionable.polygon(
-          parentSize: parentSize,
-          points: [
-            Vector2(0, -1),
-            Vector2(1, 0.35),
-            Vector2(0, 1),
-            Vector2(-1, 0.35),
-          ],
-        );
       case NodeType.enemy3:
-        return Collisionable.polygon(
-          parentSize: parentSize,
-          points: [
-            Vector2(0.3, -1),
-            Vector2(1, 0.3),
-            Vector2(0.3, 1),
-            Vector2(-0.3, 1),
-            Vector2(-1, 0.3),
-            Vector2(-0.3, -1),
-          ],
-        );
+        return Collisionable.circle(parentSize);
     }
   }
 }

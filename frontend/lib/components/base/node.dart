@@ -1,23 +1,20 @@
 import 'dart:math';
 
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/blur_sprite.dart';
-import 'package:tensionnode/components/base/fixed_node.dart';
-import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/game/ammo.dart';
 import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/audio.dart';
+import 'package:tensionnode/services/environment.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/spec/weapon_spec.dart';
 import 'package:tensionnode/types/node_type.dart';
 
-class Node extends SpriteComponent
-    with HasGameRef<GameComponent>, CollisionCallbacks {
+class Node extends SpriteComponent with HasGameRef<GameComponent> {
   final NodeType type;
   final num armor;
   num _shield = Constants.SHIELD_MAX;
@@ -40,7 +37,7 @@ class Node extends SpriteComponent
   @override
   Future onLoad() async {
     sprite = await getSprite(type.spriteBase);
-    size = getSize();
+    size = getSize() * sizeMultiplier;
     anchor = Anchor.center;
 
     add(type.hitbox(size));
@@ -49,12 +46,14 @@ class Node extends SpriteComponent
       parentSprite: this,
     ));
 
-    /*if (Environment.isDebug) {
+    if (Environment.isDebug) {
       add(_debugText);
-    }*/
+    }
 
     return super.onLoad();
   }
+
+  double get sizeMultiplier => 1;
 
   void shoot({
     required WeaponSpec spec,
@@ -76,27 +75,15 @@ class Node extends SpriteComponent
     );
   }
 
-  @override
-  void onCollisionStart(
-    Set<Vector2> intersectionPoints,
-    PositionComponent other,
-  ) {
-    super.onCollisionStart(intersectionPoints, other);
+  void contactHit(double damage) {
+    _shield -= damage;
 
-    if (other is Ammo) {
-      final movableShootingFixed =
-          (other.shooter is MovableNode) && (this is FixedNode);
-      final fixedShootingMovable =
-          (other.shooter is FixedNode) && (this is MovableNode);
-
-      if ((other.shooter != this) &&
-          (movableShootingFixed || fixedShootingMovable)) {
-        _hit(other);
-      }
+    if (_shield <= Constants.SHIELD_MIN) {
+      destroy();
     }
   }
 
-  void _hit(Ammo ammo) {
+  void ammoHit(Ammo ammo) {
     game.removeFromNodesLayer(ammo);
     _shield -= ammo.spec.damage;
 

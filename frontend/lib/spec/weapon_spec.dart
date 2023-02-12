@@ -36,33 +36,6 @@ class WeaponSpec {
     ammo: AmmoSpec.type1,
   );
 
-  static WeaponSpec enemy1 = WeaponSpec(
-    range: 4,
-    fireRate: 1,
-    bullets: 1,
-    spread: 0,
-    sound: Assets.AUDIO_SFX_AMMO1,
-    ammo: AmmoSpec.type2,
-  );
-
-  static WeaponSpec enemy2 = WeaponSpec(
-    range: 4.5,
-    fireRate: 1.2,
-    bullets: 1,
-    spread: 0,
-    sound: Assets.AUDIO_SFX_AMMO1,
-    ammo: AmmoSpec.type2,
-  );
-
-  static WeaponSpec enemy3 = WeaponSpec(
-    range: 5,
-    fireRate: 0.8,
-    bullets: 1,
-    spread: 0,
-    sound: Assets.AUDIO_SFX_AMMO1,
-    ammo: AmmoSpec.type2,
-  );
-
   const WeaponSpec({
     required this.range,
     required this.fireRate,
