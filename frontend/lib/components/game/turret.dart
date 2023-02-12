@@ -1,7 +1,6 @@
 import 'package:flame/input.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
-import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_turret.dart';
@@ -44,7 +43,7 @@ class Turret extends FixedNode {
       _target = null;
     }
 
-    _target ??= game.closestNodeInRange<MovableNode>(this, range);
+    _target ??= game.state.closestEnemyInRange(this, range);
 
     if ((_target != null) && shooting.canShoot(dt)) {
       shotsFired++;

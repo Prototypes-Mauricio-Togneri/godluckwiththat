@@ -18,7 +18,7 @@ class Constants {
 	"id": "map1",
 	"totalTimeElapsed": 0,
 	"nextWave": 1,
-  "timeToNextWave": $TIME_TO_NEXT_WAVE,
+  "timeToNextWave": 10,
 	"map": {
 		"name": "level1",
 		"xml": "",

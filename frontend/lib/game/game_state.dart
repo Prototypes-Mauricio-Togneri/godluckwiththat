@@ -38,6 +38,48 @@ class GameState extends BaseState {
     );
   }
 
+  Enemy? closestEnemyInRange(
+    PositionComponent origin,
+    double range,
+  ) {
+    Enemy? result;
+    double minDistance = double.maxFinite;
+
+    for (final Enemy enemy in enemies) {
+      if (enemy.isAlive) {
+        final double distance = origin.distance(enemy);
+
+        if ((distance <= range) && (distance < minDistance)) {
+          result = enemy;
+          minDistance = distance;
+        }
+      }
+    }
+
+    return result;
+  }
+
+  Turret? closestTurretInRange(
+    PositionComponent origin,
+    double range,
+  ) {
+    Turret? result;
+    double minDistance = double.maxFinite;
+
+    for (final Turret turret in turrets) {
+      if (turret.isAlive) {
+        final double distance = origin.distance(turret);
+
+        if ((distance <= range) && (distance < minDistance)) {
+          result = turret;
+          minDistance = distance;
+        }
+      }
+    }
+
+    return result;
+  }
+
   int update(double dt) {
     int enemiesToSpawn = 0;
 

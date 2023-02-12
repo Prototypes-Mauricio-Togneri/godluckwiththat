@@ -1,6 +1,5 @@
 # Tension Node
 
-* IMPROVE FIND A TARGET (test limits before and after)
 * IMPLEMENT LAYERS (test limits before and after)
 * TRY FIREBALL ENEMIES
 * ADD POWER PLANTS (WITH RADIUS)

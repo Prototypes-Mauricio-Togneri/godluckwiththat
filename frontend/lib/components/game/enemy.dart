@@ -1,6 +1,5 @@
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/movable_node.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
@@ -39,7 +38,7 @@ class Enemy extends MovableNode {
       _target = null;
     }
 
-    _target ??= game.closestNodeInRange<FixedNode>(this, range);
+    _target ??= game.state.closestTurretInRange(this, range);
 
     if (_target == null) {
       _moveForward(dt);
