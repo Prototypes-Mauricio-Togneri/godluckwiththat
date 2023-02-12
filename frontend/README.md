@@ -1,5 +1,12 @@
 # Tension Node
 
+* IMPLEMENT LAYERS
+* TRY FIREBALL ENEMIES
+* IMPROVE FIND A TARGET
+* ADD POWER PLANTS (WITH RADIUS)
+* FORGE2D
+https://docs.flame-engine.org/1.6.0/bridge_packages/flame_forge2d/forge2d.html
+
 Ways of moving resources:
     * Global (current)
     * Point to point
