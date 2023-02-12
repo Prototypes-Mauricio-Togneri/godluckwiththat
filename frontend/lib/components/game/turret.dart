@@ -1,6 +1,7 @@
 import 'package:flame/input.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_turret.dart';
 import 'package:tensionnode/models/shooting.dart';
@@ -12,24 +13,20 @@ class Turret extends FixedNode {
   final double range;
   int shotsFired;
   int kills;
-  //Node? _target;
+  Node? _target;
 
   Turret({
     required super.i,
     required super.j,
-    required super.shield,
+    required super.health,
     required this.shotsFired,
     required this.kills,
     required this.spec,
   })  : shooting = Shooting(spec.weapon.fireRate),
         range = spec.weapon.range * Constants.NODE_SIZE,
-        super(
-          type: spec.type,
-          armor: spec.armor,
-          heat: spec.heat,
-        );
+        super(type: spec.type);
 
-  /*@override
+  @override
   void update(double dt) {
     super.update(dt);
     shooting.update(dt);
@@ -54,7 +51,7 @@ class Turret extends FixedNode {
         weaponRange: range,
       );
     }
-  }*/
+  }
 
   @override
   bool onTapUp(TapUpInfo info) => game.selectNode(this);
@@ -62,7 +59,7 @@ class Turret extends FixedNode {
   JsonTurret get json => JsonTurret(
         type: type,
         position: [i, j],
-        shield: shield.decimal(),
+        health: health.decimal(),
         shotsFired: shotsFired,
         kills: kills,
       );

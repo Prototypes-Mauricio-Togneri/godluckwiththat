@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:tensionnode/app/constants.dart';
@@ -16,23 +15,21 @@ import 'package:tensionnode/types/node_type.dart';
 
 class Node extends SpriteComponent with HasGameRef<GameComponent> {
   final NodeType type;
-  final num armor;
-  num _shield = Constants.SHIELD_MAX;
+  num _health = 0;
   bool _isRotating = false;
   final DebugText _debugText = DebugText();
 
   Node({
     required super.position,
     required this.type,
-    required this.armor,
-    required num shield,
+    required num health,
   }) {
-    _shield = shield;
+    _health = health;
   }
 
-  num get shield => _shield;
+  num get health => _health;
 
-  bool get isAlive => _shield > Constants.SHIELD_MIN;
+  bool get isAlive => _health > 0;
 
   @override
   Future onLoad() async {
@@ -76,18 +73,18 @@ class Node extends SpriteComponent with HasGameRef<GameComponent> {
   }
 
   void contactHit(double damage) {
-    _shield -= damage;
+    _health -= damage;
 
-    if (_shield <= Constants.SHIELD_MIN) {
+    if (_health <= 0) {
       destroy();
     }
   }
 
   void ammoHit(Ammo ammo) {
     game.removeFromNodesLayer(ammo);
-    _shield -= ammo.spec.damage;
+    _health -= ammo.spec.damage;
 
-    if (_shield <= Constants.SHIELD_MIN) {
+    if (_health <= 0) {
       final Node shooter = ammo.shooter;
 
       if (shooter is Turret) {
@@ -120,20 +117,14 @@ class Node extends SpriteComponent with HasGameRef<GameComponent> {
   }
 
   void destroy() {
-    _shield = 0;
+    _health = 0;
     game.removeNode(this);
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-
-    if ((_shield > Constants.SHIELD_MIN) && (_shield < Constants.SHIELD_MAX)) {
-      _shield += dt * armor;
-      _shield = _shield.clamp(Constants.SHIELD_MIN, Constants.SHIELD_MAX);
-    }
-
-    _debugText.text = '${_shield.toInt()}';
+    _debugText.text = '${_health.toInt()}';
   }
 }
 

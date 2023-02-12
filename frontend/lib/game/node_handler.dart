@@ -1,5 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/ammo.dart';
 import 'package:tensionnode/components/game/enemy.dart';
@@ -18,12 +17,12 @@ mixin NodeHandler on BaseGameComponent {
   void addKernel({
     required num i,
     required num j,
-    required num shield,
+    required num health,
   }) {
     addNode(Kernel(
       i: i,
       j: j,
-      shield: shield,
+      health: health,
     ));
   }
 
@@ -31,20 +30,20 @@ mixin NodeHandler on BaseGameComponent {
     required num i,
     required num j,
     required MineSpec spec,
-    required num shield,
+    required num health,
   }) {
     addNode(Mine(
       i: i,
       j: j,
       spec: spec,
-      shield: shield,
+      health: health,
     ));
   }
 
   void addTurret({
     required int i,
     required int j,
-    required num shield,
+    required num health,
     required int shotsFired,
     required int kills,
     required TurretSpec spec,
@@ -52,7 +51,7 @@ mixin NodeHandler on BaseGameComponent {
     addNode(Turret(
       i: i,
       j: j,
-      shield: shield,
+      health: health,
       shotsFired: shotsFired,
       kills: kills,
       spec: spec,
@@ -61,14 +60,14 @@ mixin NodeHandler on BaseGameComponent {
 
   void addEnemy({
     required EnemySpec spec,
-    required num shield,
+    required num health,
     required Vector2 position,
     required Vector2 kernelPosition,
   }) {
     addNode(Enemy(
       spec: spec,
       position: position,
-      shield: shield,
+      health: health,
       kernelPosition: kernelPosition,
     ));
   }
@@ -143,7 +142,7 @@ mixin NodeHandler on BaseGameComponent {
         i: i,
         j: j,
         spec: spec,
-        shield: Constants.SHIELD_MAX,
+        health: spec.health,
       );
       state.resources.remove(spec.cost);
     }
@@ -159,7 +158,7 @@ mixin NodeHandler on BaseGameComponent {
       addTurret(
         i: i,
         j: j,
-        shield: Constants.SHIELD_MAX,
+        health: spec.health,
         shotsFired: 0,
         kills: 0,
         spec: spec,

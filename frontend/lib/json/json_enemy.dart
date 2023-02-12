@@ -13,13 +13,13 @@ class JsonEnemy {
   @JsonKey(name: 'position')
   final JsonPosition position;
 
-  @JsonKey(name: 'shield')
-  final num shield;
+  @JsonKey(name: 'health')
+  final num health;
 
   const JsonEnemy({
     required this.type,
     required this.position,
-    required this.shield,
+    required this.health,
   });
 
   factory JsonEnemy.fromString(String json) =>

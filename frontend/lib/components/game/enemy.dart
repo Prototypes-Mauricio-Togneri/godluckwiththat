@@ -16,13 +16,12 @@ class Enemy extends MovableNode with CollisionCallbacks {
 
   Enemy({
     required super.position,
-    required super.shield,
+    required super.health,
     required this.spec,
     required this.kernelPosition,
   })  : speed = spec.speed * Constants.NODE_SIZE,
         super(
           type: spec.type,
-          armor: spec.armor,
         );
 
   @override
@@ -64,6 +63,6 @@ class Enemy extends MovableNode with CollisionCallbacks {
   JsonEnemy get json => JsonEnemy(
         type: type,
         position: Position.json(position),
-        shield: shield.decimal(),
+        health: health.decimal(),
       );
 }

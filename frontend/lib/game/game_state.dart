@@ -108,10 +108,6 @@ class GameState extends BaseState {
     } else if (node is Enemy) {
       enemies.add(node);
     }
-
-    /*if (node is FixedNode) {
-      _heat += node.heat;
-    }*/
   }
 
   void removeNode(Component node) {
@@ -122,10 +118,6 @@ class GameState extends BaseState {
     } else if (node is Enemy) {
       enemies.remove(node);
     }
-
-    /*if (node is FixedNode) {
-      _heat -= node.heat;
-    }*/
   }
 
   JsonMatch getMatch(Camera camera) {

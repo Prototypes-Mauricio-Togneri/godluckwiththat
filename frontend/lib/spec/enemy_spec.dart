@@ -4,7 +4,7 @@ import 'package:tensionnode/types/node_type.dart';
 class EnemySpec extends NodeSpec {
   static EnemySpec enemy1 = const EnemySpec(
     type: NodeType.enemy1,
-    armor: 50,
+    health: 50,
     speed: 3,
     damage: 100,
     size: 1,
@@ -12,7 +12,7 @@ class EnemySpec extends NodeSpec {
 
   static EnemySpec enemy2 = const EnemySpec(
     type: NodeType.enemy2,
-    armor: 70,
+    health: 70,
     speed: 3,
     damage: 200,
     size: 2,
@@ -20,7 +20,7 @@ class EnemySpec extends NodeSpec {
 
   static EnemySpec enemy3 = const EnemySpec(
     type: NodeType.enemy3,
-    armor: 90,
+    health: 90,
     speed: 3,
     damage: 300,
     size: 3,
@@ -32,7 +32,7 @@ class EnemySpec extends NodeSpec {
 
   const EnemySpec({
     required super.type,
-    required super.armor,
+    required super.health,
     required this.speed,
     required this.damage,
     required this.size,

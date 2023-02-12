@@ -6,15 +6,12 @@ import 'package:tensionnode/models/position.dart';
 class FixedNode extends Node with Tappable {
   final num i;
   final num j;
-  final num heat;
 
   FixedNode({
     required this.i,
     required this.j,
-    required this.heat,
     required super.type,
-    required super.armor,
-    required super.shield,
+    required super.health,
   }) : super(position: Position.fromGrid(i, j));
 
   @override

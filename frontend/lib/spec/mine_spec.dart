@@ -10,8 +10,7 @@ class MineSpec extends FixedNodeSpec {
   static MineSpec mine_red = MineSpec(
     type: NodeType.mine_red,
     cost: Resources(red: 10, green: 0, blue: 0),
-    armor: 20,
-    heat: 1,
+    health: 20,
     productionTime: 1,
     resource: ResourceType.red,
   );
@@ -19,8 +18,7 @@ class MineSpec extends FixedNodeSpec {
   static MineSpec mine_green = MineSpec(
     type: NodeType.mine_green,
     cost: Resources(red: 20, green: 0, blue: 0),
-    armor: 20,
-    heat: 2,
+    health: 20,
     productionTime: 2,
     resource: ResourceType.green,
   );
@@ -28,8 +26,7 @@ class MineSpec extends FixedNodeSpec {
   static MineSpec mine_blue = MineSpec(
     type: NodeType.mine_blue,
     cost: Resources(red: 30, green: 0, blue: 0),
-    armor: 20,
-    heat: 3,
+    health: 20,
     productionTime: 3,
     resource: ResourceType.blue,
   );
@@ -37,8 +34,7 @@ class MineSpec extends FixedNodeSpec {
   const MineSpec({
     required super.type,
     required super.cost,
-    required super.armor,
-    required super.heat,
+    required super.health,
     required this.productionTime,
     required this.resource,
   });

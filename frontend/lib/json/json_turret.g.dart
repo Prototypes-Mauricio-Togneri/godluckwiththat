@@ -10,7 +10,7 @@ JsonTurret _$JsonTurretFromJson(Map<String, dynamic> json) => JsonTurret(
       type: $enumDecode(_$NodeTypeEnumMap, json['type']),
       position:
           (json['position'] as List<dynamic>).map((e) => e as num).toList(),
-      shield: json['shield'] as num,
+      health: json['health'] as num,
       shotsFired: json['shotsFired'] as int,
       kills: json['kills'] as int,
     );
@@ -19,7 +19,7 @@ Map<String, dynamic> _$JsonTurretToJson(JsonTurret instance) =>
     <String, dynamic>{
       'type': _$NodeTypeEnumMap[instance.type]!,
       'position': instance.position,
-      'shield': instance.shield,
+      'health': instance.health,
       'shotsFired': instance.shotsFired,
       'kills': instance.kills,
     };

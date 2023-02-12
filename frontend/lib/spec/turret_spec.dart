@@ -8,24 +8,21 @@ class TurretSpec extends FixedNodeSpec {
 
   static TurretSpec turret_light = TurretSpec(
     type: NodeType.turret_light,
-    armor: 50,
-    heat: 1,
+    health: 50,
     weapon: WeaponSpec.turret_light,
     cost: Resources(red: 30, green: 0, blue: 0),
   );
 
   static TurretSpec turret_heavy = TurretSpec(
     type: NodeType.turret_heavy,
-    armor: 60,
-    heat: 2,
+    health: 60,
     weapon: WeaponSpec.turret_heavy,
     cost: Resources(red: 20, green: 10, blue: 0),
   );
 
   static TurretSpec turret_machine_gun = TurretSpec(
     type: NodeType.turret_machine_gun,
-    armor: 80,
-    heat: 2,
+    health: 80,
     weapon: WeaponSpec.turret_machine_gun,
     cost: Resources(red: 40, green: 20, blue: 10),
   );
@@ -33,8 +30,7 @@ class TurretSpec extends FixedNodeSpec {
   const TurretSpec({
     required super.type,
     required super.cost,
-    required super.armor,
-    required super.heat,
+    required super.health,
     required this.weapon,
   });
 }

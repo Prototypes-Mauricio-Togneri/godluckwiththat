@@ -14,12 +14,8 @@ class Mine extends FixedNode {
     required super.i,
     required super.j,
     required this.spec,
-    required super.shield,
-  }) : super(
-          type: spec.type,
-          armor: spec.armor,
-          heat: spec.heat,
-        );
+    required super.health,
+  }) : super(type: spec.type);
 
   @override
   void update(double dt) {
@@ -39,6 +35,6 @@ class Mine extends FixedNode {
   JsonNode get json => JsonNode(
         type: type,
         position: [i, j],
-        shield: shield.decimal(),
+        health: health.decimal(),
       );
 }

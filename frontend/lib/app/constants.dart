@@ -7,9 +7,6 @@ class Constants {
 
   static const double NODE_SIZE = 8;
 
-  static const num SHIELD_MIN = 0;
-  static const num SHIELD_MAX = 100;
-
   static const num TIME_TO_NEXT_WAVE = 60; // in seconds
 
   static String TEST_MATCH = '''
@@ -36,199 +33,199 @@ class Constants {
 	"kernel": {
 		"type": "kernel",
 		"position": [0, 0],
-		"shield": 100
+		"health": 100
 	},
 	"mines": [{
 		"type": "mine_red",
 		"position": [-10, -5],
-		"shield": 100
+		"health": 100
 	}, {
 		"type": "mine_red",
 		"position": [-9, -5],
-		"shield": 100
+		"health": 100
 	}, {
 		"type": "mine_red",
 		"position": [-10, -4],
-		"shield": 100
+		"health": 100
 	}, {
 		"type": "mine_red",
 		"position": [-9, -4],
-		"shield": 100
+		"health": 100
 	}, {
 		"type": "mine_green",
 		"position": [9, -7],
-		"shield": 100
+		"health": 100
 	}, {
 		"type": "mine_green",
 		"position": [10, -7],
-		"shield": 100
+		"health": 100
 	}, {
 		"type": "mine_green",
 		"position": [9, -6],
-		"shield": 100
+		"health": 100
 	}, {
 		"type": "mine_green",
 		"position": [10, -6],
-		"shield": 100
+		"health": 100
 	}, {
 		"type": "mine_blue",
 		"position": [1, 6],
-		"shield": 100
+		"health": 100
 	}, {
 		"type": "mine_blue",
 		"position": [2, 6],
-		"shield": 100
+		"health": 100
 	}, {
 		"type": "mine_blue",
 		"position": [1, 7],
-		"shield": 100
+		"health": 100
 	}, {
 		"type": "mine_blue",
 		"position": [2, 7],
-		"shield": 100
+		"health": 100
 	}],
 	"turrets": [{
 		"type": "turret_light",
 		"position": [-8, 4],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 2,
 		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [-4, 9],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 18,
 		"kills": 7
 	}, {
 		"type": "turret_light",
 		"position": [3, 10],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 6,
 		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [10, 7],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 16,
 		"kills": 4
 	}, {
 		"type": "turret_light",
 		"position": [16, -2],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 6,
 		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [1, -12],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 7,
 		"kills": 3
 	}, {
 		"type": "turret_light",
 		"position": [-11, -9],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 10,
 		"kills": 3
 	}, {
 		"type": "turret_light",
 		"position": [-12, -1],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 9,
 		"kills": 2
 	}, {
 		"type": "turret_light",
 		"position": [13, -10],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 16,
 		"kills": 4
 	}, {
 		"type": "turret_light",
 		"position": [12, 4],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 11,
 		"kills": 2
 	}, {
 		"type": "turret_light",
 		"position": [15, 1],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 6,
 		"kills": 2
 	}, {
 		"type": "turret_light",
 		"position": [16, -7],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 15,
 		"kills": 6
 	}, {
 		"type": "turret_light",
 		"position": [5, -12],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 23,
 		"kills": 4
 	}, {
 		"type": "turret_light",
 		"position": [-4, -12],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 4,
 		"kills": 1
 	}, {
 		"type": "turret_light",
 		"position": [-8, -10],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 2,
 		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [-13, -5],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 4,
 		"kills": 1
 	}, {
 		"type": "turret_light",
 		"position": [7, 9],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 17,
 		"kills": 6
 	}, {
 		"type": "turret_light",
 		"position": [0, 10],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 14,
 		"kills": 3
 	}, {
 		"type": "turret_light",
 		"position": [-7, 7],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 14,
 		"kills": 2
 	}, {
 		"type": "turret_light",
 		"position": [-11, 2],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 8,
 		"kills": 3
 	}, {
 		"type": "turret_light",
 		"position": [-3, -7],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 0,
 		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [3, -7],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 0,
 		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [8, 0],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 0,
 		"kills": 0
 	}, {
 		"type": "turret_light",
 		"position": [-6, -1],
-		"shield": 100,
+		"health": 100,
 		"shotsFired": 0,
 		"kills": 0
 	}],
@@ -260,7 +257,7 @@ class Constants {
 	"kernel": {
 		"type": "kernel",
 		"position": [0, 0],
-		"shield": 100
+		"health": 100
 	},
 	"mines": [],
 	"turrets": [],

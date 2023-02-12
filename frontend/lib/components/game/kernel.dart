@@ -8,12 +8,8 @@ class Kernel extends FixedNode {
   Kernel({
     required super.i,
     required super.j,
-    required super.shield,
-  }) : super(
-          type: FixedNodeSpec.kernel.type,
-          armor: FixedNodeSpec.kernel.armor,
-          heat: FixedNodeSpec.kernel.heat,
-        );
+    required super.health,
+  }) : super(type: FixedNodeSpec.kernel.type);
 
   @override
   bool onTapUp(TapUpInfo info) {
@@ -23,6 +19,6 @@ class Kernel extends FixedNode {
   JsonNode get json => JsonNode(
         type: type,
         position: [i, j],
-        shield: shield.decimal(),
+        health: health.decimal(),
       );
 }

@@ -29,7 +29,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     addKernel(
       i: state.jsonMatch.kernel.position.x,
       j: state.jsonMatch.kernel.position.y,
-      shield: state.jsonMatch.kernel.shield,
+      health: state.jsonMatch.kernel.health,
     );
 
     for (final JsonNode node in state.jsonMatch.mines) {
@@ -37,7 +37,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
         i: node.position.x,
         j: node.position.y,
         spec: node.type.spec as MineSpec,
-        shield: node.shield,
+        health: node.health,
       );
     }
 
@@ -45,7 +45,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       addTurret(
         i: turret.position.x.toInt(),
         j: turret.position.y.toInt(),
-        shield: turret.shield,
+        health: turret.health,
         shotsFired: turret.shotsFired,
         kills: turret.kills,
         spec: turret.type.spec as TurretSpec,
@@ -55,7 +55,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     for (final JsonEnemy enemy in state.jsonMatch.enemies) {
       addEnemy(
         spec: enemy.type.spec as EnemySpec,
-        shield: enemy.shield,
+        health: enemy.health,
         position: enemy.position.vector,
         kernelPosition: state.kernel.position,
       );
@@ -87,7 +87,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
     addEnemy(
       spec: spec,
-      shield: Constants.SHIELD_MAX,
+      health: spec.health,
       position: position,
       kernelPosition: state.kernel.position,
     );

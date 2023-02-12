@@ -10,13 +10,13 @@ JsonEnemy _$JsonEnemyFromJson(Map<String, dynamic> json) => JsonEnemy(
       type: $enumDecode(_$NodeTypeEnumMap, json['type']),
       position:
           (json['position'] as List<dynamic>).map((e) => e as num).toList(),
-      shield: json['shield'] as num,
+      health: json['health'] as num,
     );
 
 Map<String, dynamic> _$JsonEnemyToJson(JsonEnemy instance) => <String, dynamic>{
       'type': _$NodeTypeEnumMap[instance.type]!,
       'position': instance.position,
-      'shield': instance.shield,
+      'health': instance.health,
     };
 
 const _$NodeTypeEnumMap = {

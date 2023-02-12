@@ -13,8 +13,8 @@ class JsonTurret {
   @JsonKey(name: 'position')
   final JsonPosition position;
 
-  @JsonKey(name: 'shield')
-  final num shield;
+  @JsonKey(name: 'health')
+  final num health;
 
   @JsonKey(name: 'shotsFired')
   final int shotsFired;
@@ -25,7 +25,7 @@ class JsonTurret {
   const JsonTurret({
     required this.type,
     required this.position,
-    required this.shield,
+    required this.health,
     required this.shotsFired,
     required this.kills,
   });
