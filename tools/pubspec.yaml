@@ -3,7 +3,7 @@ description: Tension Node Tools
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.0 <3.0.0'
+  sdk: '>=2.19.2 <3.0.0'
 
 dependencies:
   xml: ^6.2.2

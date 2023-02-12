@@ -8,7 +8,7 @@
      version="1.1"
      id="svg421"
      inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
-     sodipodi:docname="mine_base.svg"
+     sodipodi:docname="mine.svg"
      inkscape:export-filename="../eec9848b/mine_red.png"
      inkscape:export-xdpi="245.76"
      inkscape:export-ydpi="245.76"
@@ -28,12 +28,12 @@
          inkscape:document-units="px"
          showgrid="false"
          inkscape:zoom="2.3786"
-         inkscape:cx="27.537"
-         inkscape:cy="37.627"
+         inkscape:cx="69.789"
+         inkscape:cy="21.231"
          inkscape:window-width="1920"
          inkscape:window-height="1016"
          inkscape:window-x="0"
-         inkscape:window-y="0"
+         inkscape:window-y="27"
          inkscape:window-maximized="1"
          inkscape:current-layer="layer1"
          showborder="false" />
@@ -54,7 +54,7 @@
              inkscape:export-xdpi="245.76"
              inkscape:export-ydpi="245.76" />
         <rect
-             style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.59536;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             style="fill:#fffffd;fill-opacity:1;stroke:none;stroke-width:1.59536;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
              id="rect1414"
              width="10.584"
              height="10.584"

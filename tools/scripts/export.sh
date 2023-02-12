@@ -15,31 +15,19 @@ generate () {
 
 generate tiles_terrain 48 8
 
-generate mine_base 256 256
-generate mine_red_blur 395 395
-generate mine_green_blur 395 395
-generate mine_blue_blur 395 395
+generate mine 256 256
 
-generate kernel_base 256 256
-generate kernel_blur 445 445
+generate kernel 256 256
 
-generate turret_light_base 256 256
-generate turret_light_blur 395 395
+generate turret_light 256 256
+generate turret_heavy 256 256
+generate turret_machine_gun 256 256
 
-generate turret_heavy_base 256 256
-generate turret_heavy_blur 395 395
+generate enemy 256 256
 
-generate turret_machine_gun_base 256 256
-generate turret_machine_gun_blur 395 395
+generate ammo_1 8 8
 
-generate enemy_base 256 256
-generate enemy_blur 400 400
-
-generate ammo_1_base 8 8
-generate ammo_1_blur 18 18
-
-generate ammo_2_base 5 15
-generate ammo_2_blur 19 29
+generate ammo_2 5 15
 
 generate node_selected 358 358
 

@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/components/base/blur_sprite.dart';
 import 'package:tensionnode/components/game/ammo.dart';
 import 'package:tensionnode/components/game/turret.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
@@ -34,15 +33,11 @@ class Node extends SpriteComponent with HasGameRef<GameComponent> {
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(type.spriteBase);
+    sprite = await getSprite(type.sprite);
     size = getSize() * sizeMultiplier;
     anchor = Anchor.center;
 
     add(type.hitbox(size));
-    add(BlurSprite(
-      image: type.spriteBlur,
-      parentSprite: this,
-    ));
 
     if (Environment.isDebug) {
       add(_debugText);

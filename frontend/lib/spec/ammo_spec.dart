@@ -4,8 +4,7 @@ import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/collisionable.dart';
 
 class AmmoSpec {
-  final String spriteBase;
-  final String spriteBlur;
+  final String sprite;
   final double damage;
   final double width;
   final double height;
@@ -13,8 +12,7 @@ class AmmoSpec {
   final int piercing;
 
   static AmmoSpec type1 = const AmmoSpec(
-    spriteBase: Assets.IMAGES_AMMO_1_BASE,
-    spriteBlur: Assets.IMAGES_AMMO_1_BLUR,
+    sprite: Assets.IMAGES_AMMO_1,
     damage: 50,
     width: 1.5,
     height: 1.5,
@@ -23,8 +21,7 @@ class AmmoSpec {
   );
 
   static AmmoSpec type2 = const AmmoSpec(
-    spriteBase: Assets.IMAGES_AMMO_1_BASE,
-    spriteBlur: Assets.IMAGES_AMMO_1_BLUR,
+    sprite: Assets.IMAGES_AMMO_1,
     damage: 30,
     width: 1.5,
     height: 1.5,
@@ -33,8 +30,7 @@ class AmmoSpec {
   );
 
   static AmmoSpec type3 = const AmmoSpec(
-    spriteBase: Assets.IMAGES_AMMO_2_BASE,
-    spriteBlur: Assets.IMAGES_AMMO_2_BLUR,
+    sprite: Assets.IMAGES_AMMO_2,
     damage: 60,
     width: 1,
     height: 3,
@@ -43,8 +39,7 @@ class AmmoSpec {
   );
 
   const AmmoSpec({
-    required this.spriteBase,
-    required this.spriteBlur,
+    required this.sprite,
     required this.damage,
     required this.width,
     required this.height,

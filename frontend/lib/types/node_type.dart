@@ -10,52 +10,40 @@ import 'package:tensionnode/spec/turret_spec.dart';
 
 enum NodeType {
   kernel(
-    spriteBase: Assets.IMAGES_KERNEL_BASE,
-    spriteBlur: Assets.IMAGES_KERNEL_BLUR,
+    sprite: Assets.IMAGES_KERNEL,
   ),
   mine_red(
-    spriteBase: Assets.IMAGES_MINE_BASE,
-    spriteBlur: Assets.IMAGES_MINE_RED_BLUR,
+    sprite: Assets.IMAGES_MINE,
   ),
   mine_green(
-    spriteBase: Assets.IMAGES_MINE_BASE,
-    spriteBlur: Assets.IMAGES_MINE_GREEN_BLUR,
+    sprite: Assets.IMAGES_MINE,
   ),
   mine_blue(
-    spriteBase: Assets.IMAGES_MINE_BASE,
-    spriteBlur: Assets.IMAGES_MINE_BLUE_BLUR,
+    sprite: Assets.IMAGES_MINE,
   ),
   turret_light(
-    spriteBase: Assets.IMAGES_TURRET_LIGHT_BASE,
-    spriteBlur: Assets.IMAGES_TURRET_LIGHT_BLUR,
+    sprite: Assets.IMAGES_TURRET_LIGHT,
   ),
   turret_heavy(
-    spriteBase: Assets.IMAGES_TURRET_HEAVY_BASE,
-    spriteBlur: Assets.IMAGES_TURRET_HEAVY_BLUR,
+    sprite: Assets.IMAGES_TURRET_HEAVY,
   ),
   turret_machine_gun(
-    spriteBase: Assets.IMAGES_TURRET_MACHINE_GUN_BASE,
-    spriteBlur: Assets.IMAGES_TURRET_MACHINE_GUN_BLUR,
+    sprite: Assets.IMAGES_TURRET_MACHINE_GUN,
   ),
   enemy1(
-    spriteBase: Assets.IMAGES_ENEMY_BASE,
-    spriteBlur: Assets.IMAGES_ENEMY_BLUR,
+    sprite: Assets.IMAGES_ENEMY,
   ),
   enemy2(
-    spriteBase: Assets.IMAGES_ENEMY_BASE,
-    spriteBlur: Assets.IMAGES_ENEMY_BLUR,
+    sprite: Assets.IMAGES_ENEMY,
   ),
   enemy3(
-    spriteBase: Assets.IMAGES_ENEMY_BASE,
-    spriteBlur: Assets.IMAGES_ENEMY_BLUR,
+    sprite: Assets.IMAGES_ENEMY,
   );
 
-  final String spriteBase;
-  final String spriteBlur;
+  final String sprite;
 
   const NodeType({
-    required this.spriteBase,
-    required this.spriteBlur,
+    required this.sprite,
   });
 
   bool get isKernel => this == kernel;

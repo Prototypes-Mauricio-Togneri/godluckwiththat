@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/components/base/blur_sprite.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
@@ -27,17 +26,13 @@ class Ammo extends SpriteComponent with HasGameRef<GameComponent> {
   @override
   Future onLoad() async {
     position = startPosition;
-    sprite = await getSprite(spec.spriteBase);
+    sprite = await getSprite(spec.sprite);
     width = spec.width;
     height = spec.height;
     anchor = Anchor.center;
     angle = direction.screenAngle();
 
     add(spec.hitbox(size));
-    add(BlurSprite(
-      image: spec.spriteBlur,
-      parentSprite: this,
-    ));
 
     return super.onLoad();
   }

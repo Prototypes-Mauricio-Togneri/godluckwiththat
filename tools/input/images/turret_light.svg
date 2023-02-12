@@ -8,8 +8,8 @@
      version="1.1"
      id="svg421"
      inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
-     sodipodi:docname="enemy_blur.svg"
-     inkscape:export-filename="../bb658709/enemy.png"
+     sodipodi:docname="turret_light.svg"
+     inkscape:export-filename="../d7d40f7c/turret.png"
      inkscape:export-xdpi="245.76"
      inkscape:export-ydpi="245.76"
      xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -27,9 +27,9 @@
          inkscape:deskcolor="#d1d1d1"
          inkscape:document-units="px"
          showgrid="false"
-         inkscape:zoom="2.3786"
-         inkscape:cx="1.2612"
-         inkscape:cy="47.717"
+         inkscape:zoom="4.7572"
+         inkscape:cx="29.639"
+         inkscape:cy="46.981"
          inkscape:window-width="1920"
          inkscape:window-height="1016"
          inkscape:window-x="0"
@@ -38,35 +38,20 @@
          inkscape:current-layer="layer1"
          showborder="false" />
     <defs
-         id="defs418">
-        <filter
-             inkscape:collect="always"
-             style="color-interpolation-filters:sRGB"
-             id="filter851"
-             x="-0.33834"
-             y="-0.33834"
-             width="1.6767"
-             height="1.6767">
-            <feGaussianBlur
-                 inkscape:collect="always"
-                 stdDeviation="3.0717"
-                 id="feGaussianBlur853" />
-        </filter>
-    </defs>
+         id="defs418" />
     <g
          inkscape:label="Layer 1"
          inkscape:groupmode="layer"
          id="layer1">
-        <g
-             id="g902"
-             transform="matrix(0.99999,0,0,0.99999,1.322e-4,6.322e-4)"
-             style="stroke:#ff0000;stroke-opacity:1;filter:url(#filter851)">
-            <circle
-                 style="fill:none;stroke:#ff0000;stroke-width:1.88478;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke markers fill"
-                 id="path786"
-                 cx="13.229"
-                 cy="13.229"
-                 r="12.287" />
-        </g>
+        <circle
+             style="opacity:1;fill:none;stroke:#ffffff;stroke-width:2.64515;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             id="path370"
+             cx="13.229"
+             cy="13.229"
+             r="11.907" />
+        <path
+             style="fill:none;stroke:#ffffff;stroke-width:2.6459;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+             d="M 13.229,8.5991 V 17.86"
+             id="path937" />
     </g>
 </svg>

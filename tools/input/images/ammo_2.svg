@@ -8,7 +8,7 @@
      version="1.1"
      id="svg421"
      inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
-     sodipodi:docname="laser_blur.svg"
+     sodipodi:docname="ammo2.svg"
      inkscape:export-filename="../347ab48/laser.png"
      inkscape:export-xdpi="245.76"
      inkscape:export-ydpi="245.76"
@@ -27,38 +27,24 @@
          inkscape:deskcolor="#d1d1d1"
          inkscape:document-units="px"
          showgrid="false"
-         inkscape:zoom="53.82"
-         inkscape:cx="-0.57599"
-         inkscape:cy="2.2761"
+         inkscape:zoom="107.64"
+         inkscape:cx="0.88722"
+         inkscape:cy="2.801"
          inkscape:window-width="1920"
          inkscape:window-height="1016"
          inkscape:window-x="0"
-         inkscape:window-y="27"
+         inkscape:window-y="0"
          inkscape:window-maximized="1"
          inkscape:current-layer="layer1"
          showborder="false" />
     <defs
-         id="defs418">
-        <filter
-             inkscape:collect="always"
-             style="color-interpolation-filters:sRGB"
-             id="filter1329"
-             x="-0.45001"
-             y="-1.35"
-             width="1.9"
-             height="3.7">
-            <feGaussianBlur
-                 inkscape:collect="always"
-                 stdDeviation="0.29768"
-                 id="feGaussianBlur1331" />
-        </filter>
-    </defs>
+         id="defs418" />
     <g
          inkscape:label="Layer 1"
          inkscape:groupmode="layer"
          id="layer1">
         <rect
-             style="fill:#ffff00;stroke-width:3.59135;stroke-linecap:round;paint-order:stroke markers fill;fill-opacity:1;filter:url(#filter1329)"
+             style="fill:#ffffff;stroke-width:3.59135;stroke-linecap:round;paint-order:stroke markers fill;fill-opacity:1"
              id="rect309"
              width="1.5876"
              height="0.5292"
