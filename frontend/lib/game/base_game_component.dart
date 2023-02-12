@@ -8,7 +8,6 @@ import 'package:tensionnode/components/base/map_component.dart';
 import 'package:tensionnode/components/base/resources_hud.dart';
 import 'package:tensionnode/components/base/wave_hud.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
-import 'package:tensionnode/game/component_handler.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/game/map_handler.dart';
@@ -18,7 +17,6 @@ import 'package:tensionnode/services/style.dart';
 class BaseGameComponent extends FlameGame
     with
         MapHandler,
-        ComponentHandler,
         HasTappables,
         HasHoverables,
         ScaleDetector,
@@ -34,6 +32,8 @@ class BaseGameComponent extends FlameGame
     ..positionType = PositionType.viewport;
 
   BaseGameComponent(this.state);
+
+  Component get layerNodes => _layerNodes;
 
   Future addBaseComponents(JsonMatch jsonMatch) async {
     camera.viewport = FixedResolutionViewport(size);

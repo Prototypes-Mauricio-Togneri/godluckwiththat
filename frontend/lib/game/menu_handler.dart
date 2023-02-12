@@ -7,6 +7,7 @@ import 'package:tensionnode/components/game/kernel.dart';
 import 'package:tensionnode/dialog/game_over_menu.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
+import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/types/menu_mode.dart';
@@ -81,9 +82,9 @@ mixin MenuHandler on BaseGameComponent {
   }
 
   void removeMenuComponents() {
-    removeComponents(BuildingIndicator);
-    removeComponents(NodeSelected);
-    removeComponents(NodeRange);
+    layerNodes.removeComponents(BuildingIndicator);
+    layerNodes.removeComponents(NodeSelected);
+    layerNodes.removeComponents(NodeRange);
   }
 
   T selectedNode<T>() => _selectedNode as T;
@@ -98,8 +99,8 @@ mixin MenuHandler on BaseGameComponent {
       _selectedNode = node;
 
       removeMenuComponents();
-      addToBackgroundLayer(NodeSelected(node: node));
-      addToBackgroundLayer(NodeRange(node: node));
+      addToNodesLayer(NodeSelected(node: node));
+      addToNodesLayer(NodeRange(node: node));
     }
 
     return true;
@@ -120,7 +121,7 @@ mixin MenuHandler on BaseGameComponent {
   void enableBuildingMode(FixedNodeSpec spec) {
     _enableMode(MenuMode.building);
     removeMenuComponents();
-    addToBackgroundLayer(BuildingIndicator(spec: spec));
+    addToNodesLayer(BuildingIndicator(spec: spec));
   }
 
   void _disableBuildingMode() {

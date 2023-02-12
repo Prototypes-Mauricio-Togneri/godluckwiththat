@@ -5,7 +5,7 @@ import 'package:flame/effects.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/game/ammo.dart';
 import 'package:tensionnode/components/game/turret.dart';
-import 'package:tensionnode/extensions/component_extension.dart';
+import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/audio.dart';
 import 'package:tensionnode/services/environment.dart';

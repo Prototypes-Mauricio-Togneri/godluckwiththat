@@ -10,4 +10,7 @@ class Log {
 
   static void error(dynamic message, [dynamic error, StackTrace? stackTrace]) =>
       logger.e(message, error, stackTrace);
+
+  static void uncaughtError(Object error, StackTrace stackTrace) =>
+      logger.e('Uncaught Error', error, stackTrace);
 }

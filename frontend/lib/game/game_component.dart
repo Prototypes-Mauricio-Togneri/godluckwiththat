@@ -1,9 +1,11 @@
 import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/extensions/json_position_extension.dart';
 import 'package:tensionnode/extensions/list_extension.dart';
 import 'package:tensionnode/extensions/random_extension.dart';
@@ -102,10 +104,10 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
     if (buildingMode) {
       final BuildingIndicator buildingIndicator =
-          getComponent(BuildingIndicator);
+          layerNodes.getComponent(BuildingIndicator);
       final int i = position.x.toInt();
       final int j = position.y.toInt();
-      final FixedNode? node = getFixedNode(i, j);
+      final FixedNode? node = layerNodes.getFixedNode(i, j);
       final MapTile tile = getTile(
         i: i,
         j: j,

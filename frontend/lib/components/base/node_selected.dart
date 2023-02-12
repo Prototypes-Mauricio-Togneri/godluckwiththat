@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:tensionnode/components/base/fixed_node.dart';
-import 'package:tensionnode/extensions/component_extension.dart';
+import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/position.dart';
 import 'package:tensionnode/services/assets.dart';

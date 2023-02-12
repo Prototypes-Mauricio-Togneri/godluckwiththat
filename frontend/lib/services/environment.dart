@@ -8,6 +8,8 @@ class Environment {
 
   static final bool canShowBuildingIndicator = Platform.isDesktop;
 
+  static final bool hasCrashReports = Platform.isMobileNative;
+
   static String environment() => isDebug ? 'dev' : 'prod';
 
   static String platform() => defaultTargetPlatform.name;
