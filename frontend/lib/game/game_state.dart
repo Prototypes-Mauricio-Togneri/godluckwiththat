@@ -93,8 +93,7 @@ class GameState extends BaseState {
     _timeToNextWave -= dt;
 
     if (_timeToNextWave <= 0) {
-      enemiesToSpawn = 20;
-      //_nextWave + 10;
+      enemiesToSpawn = _nextWave + 10;
       _nextWave++;
       _timeToNextWave = Constants.TIME_TO_NEXT_WAVE;
     }

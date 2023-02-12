@@ -25,9 +25,9 @@ generate turret_machine_gun 256 256
 
 generate enemy 256 256
 
-generate ammo_1 8 8
+generate ammo_1 64 64
 
-generate ammo_2 5 15
+generate ammo_2 80 240
 
 generate node_selected 358 358
 
