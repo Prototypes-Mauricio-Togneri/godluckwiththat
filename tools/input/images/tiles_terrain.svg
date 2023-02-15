@@ -2,16 +2,16 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-     width="48"
+     width="32"
      height="8"
-     viewBox="0 0 12.7 2.1167"
+     viewBox="0 0 8.4667 2.1167"
      version="1.1"
      id="svg421"
      inkscape:version="1.2.2 (1:1.2.2+202212051552+b0a8486541)"
      sodipodi:docname="tiles_terrain.svg"
-     inkscape:export-filename="../eec9848b/mine_red.png"
-     inkscape:export-xdpi="245.76"
-     inkscape:export-ydpi="245.76"
+     inkscape:export-filename="../../../../../../../tiles_terrain2.png"
+     inkscape:export-xdpi="96"
+     inkscape:export-ydpi="96"
      xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
      xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
      xmlns="http://www.w3.org/2000/svg"
@@ -28,8 +28,8 @@
          inkscape:document-units="px"
          showgrid="false"
          inkscape:zoom="13.455"
-         inkscape:cx="20.661"
-         inkscape:cy="0.63174"
+         inkscape:cx="13.527"
+         inkscape:cy="5.4627"
          inkscape:window-width="1920"
          inkscape:window-height="1016"
          inkscape:window-x="0"
@@ -44,42 +44,28 @@
          inkscape:groupmode="layer"
          id="layer1">
         <rect
-             style="fill:#191919;fill-opacity:1;stroke:none;stroke-width:0.31906;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             style="fill:#2f6eff;fill-opacity:1;stroke:none;stroke-width:0.31906;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
              id="rect1414-6"
              width="2.1167"
              height="2.1167"
              x="6.35"
              y="-1.7347e-18" />
         <rect
-             style="fill:#1b1b1b;fill-opacity:1;stroke:none;stroke-width:0.31906;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
-             id="rect1414-36"
-             width="2.1167"
-             height="2.1167"
-             x="10.583"
-             y="-1.7347e-18" />
-        <rect
-             style="fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:0.319063;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
-             id="rect1414-3-7"
-             width="2.1167"
-             height="2.1167"
-             x="8.4667"
-             y="-1.7347e-18" />
-        <rect
-             style="fill:#f44336;fill-opacity:1;stroke:none;stroke-width:0.31906;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             style="fill:#00d600;fill-opacity:1;stroke:none;stroke-width:0.31906;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
              id="rect1414-6-3"
              width="2.1167"
              height="2.1167"
              x="-0.0001"
              y="-1.7347e-18" />
         <rect
-             style="fill:#2196f3;fill-opacity:1;stroke:none;stroke-width:0.31906;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             style="fill:#a5a5a5;fill-opacity:1;stroke:none;stroke-width:0.31906;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
              id="rect1414-36-6"
              width="2.1167"
              height="2.1167"
              x="4.2333"
              y="-1.7347e-18" />
         <rect
-             style="fill:#4caf50;fill-opacity:1;stroke:none;stroke-width:0.319063;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+             style="fill:#007c00;fill-opacity:1;stroke:none;stroke-width:0.319063;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
              id="rect1414-3-7-7"
              width="2.1167"
              height="2.1167"
