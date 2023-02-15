@@ -32,7 +32,7 @@ class Constants {
 		"location": [5, -3]
 	}],
 	"flags": [{
-		"location": [5, -2],
+		"location": [5, 0],
     "inventory": {
 			"timber": 0,
 			"stone": 0,
