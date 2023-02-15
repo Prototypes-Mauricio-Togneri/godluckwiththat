@@ -1,24 +1,31 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionnode/models/resources.dart';
 
 part 'json_resources.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonResources {
-  @JsonKey(name: 'red')
-  final int red;
+  @JsonKey(name: 'timber')
+  final int timber;
 
-  @JsonKey(name: 'green')
-  final int green;
+  @JsonKey(name: 'stone')
+  final int stone;
 
-  @JsonKey(name: 'blue')
-  final int blue;
+  @JsonKey(name: 'wood')
+  final int wood;
 
   const JsonResources({
-    required this.red,
-    required this.green,
-    required this.blue,
+    required this.timber,
+    required this.stone,
+    required this.wood,
   });
+
+  Resources get resources => Resources(
+        timber: timber,
+        stone: stone,
+        wood: wood,
+      );
 
   factory JsonResources.fromString(String json) =>
       JsonResources.fromJson(jsonDecode(json));

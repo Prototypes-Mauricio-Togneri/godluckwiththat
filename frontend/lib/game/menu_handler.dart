@@ -1,16 +1,14 @@
 import 'package:tensionnode/components/base/building_indicator.dart';
-import 'package:tensionnode/components/base/fixed_node.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/base/node_range.dart';
 import 'package:tensionnode/components/base/node_selected.dart';
-import 'package:tensionnode/components/game/kernel.dart';
+import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/dialog/game_over_menu.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
-import 'package:tensionnode/spec/fixed_node_spec.dart';
 import 'package:tensionnode/types/menu_mode.dart';
+import 'package:tensionnode/types/node_type.dart';
 
 mixin MenuHandler on BaseGameComponent {
   MenuMode _mode = MenuMode.none;
@@ -84,23 +82,21 @@ mixin MenuHandler on BaseGameComponent {
   void removeMenuComponents() {
     layerNodes.removeComponents(BuildingIndicator);
     layerNodes.removeComponents(NodeSelected);
-    layerNodes.removeComponents(NodeRange);
   }
 
   T selectedNode<T>() => _selectedNode as T;
 
   bool isSelected(Type type) => _selectedNode.runtimeType == type;
 
-  bool selectNode(FixedNode node) {
-    if (destroyingMode && !(node is Kernel)) {
+  bool selectNode(Node node) {
+    if (destroyingMode && !(node is Headquarters)) {
       node.destroy();
     } else if (!isInSpecialMode) {
       _enableMode(MenuMode.node_selected);
       _selectedNode = node;
 
       removeMenuComponents();
-      addToNodesLayer(NodeSelected(node: node));
-      addToNodesLayer(NodeRange(node: node));
+      addToNodesLayer(NodeSelected(node));
     }
 
     return true;
@@ -118,10 +114,10 @@ mixin MenuHandler on BaseGameComponent {
 
   void disableConstructMode() => disableMode();
 
-  void enableBuildingMode(FixedNodeSpec spec) {
+  void enableBuildingMode(NodeType type) {
     _enableMode(MenuMode.building);
     removeMenuComponents();
-    addToNodesLayer(BuildingIndicator(spec: spec));
+    addToNodesLayer(BuildingIndicator(type: type));
   }
 
   void _disableBuildingMode() {

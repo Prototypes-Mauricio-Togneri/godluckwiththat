@@ -5,10 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/map_component.dart';
-import 'package:tensionnode/components/base/resources_hud.dart';
-import 'package:tensionnode/components/base/wave_hud.dart';
-import 'package:tensionnode/extensions/json_position_extension.dart';
-import 'package:tensionnode/game/game_component.dart';
+import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/game/map_handler.dart';
 import 'package:tensionnode/json/json_match.dart';
@@ -25,7 +22,6 @@ class BaseGameComponent extends FlameGame
         MouseMovementDetector,
         HasCollisionDetection {
   final GameState state;
-  final DebugText debugText = DebugText();
   final Component _layerBackground = Component(priority: 0);
   final Component _layerNodes = Component(priority: 1);
   final Component _layerHud = Component(priority: 2)
@@ -40,22 +36,9 @@ class BaseGameComponent extends FlameGame
     camera.setRelativeOffset(Anchor.center);
     camera.speed = double.maxFinite;
 
-    debugText.position = Vector2(
-      size.x - 30,
-      size.y - 30,
-    );
-
     final MapComponent map = await getMap(Constants.TEST_MAP_TILE_XML);
     addToBackgroundLayer(map.compile());
 
-    addToHudLayer(WaveHud());
-    addToHudLayer(ResourcesHud(
-      position: Vector2(
-        size.x / 2,
-        25,
-      ),
-    ));
-    addToHudLayer(debugText);
     addToHudLayer(FpsTextComponent(
       position: Vector2(
         10,
@@ -68,7 +51,7 @@ class BaseGameComponent extends FlameGame
     add(_layerNodes);
     add(_layerHud);
 
-    camera.moveTo(jsonMatch.map.position.vector);
+    camera.moveTo(jsonMatch.map.location.location.vector);
     camera.zoom = jsonMatch.map.zoom.toDouble();
 
     state.setLoaded();
@@ -116,21 +99,4 @@ class BaseGameComponent extends FlameGame
     Set<LogicalKeyboardKey> keysPressed,
   ) =>
       handleOnKeyEvent(event, keysPressed);
-}
-
-class DebugText extends TextComponent with HasGameRef<GameComponent> {
-  DebugText() {
-    anchor = Anchor.centerRight;
-    textRenderer = Style.textRenderer(size: 20);
-  }
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-
-    final int buildings =
-        game.state.turrets.length + game.state.mines.length + 1;
-
-    text = 'ENEMIES: ${game.state.enemies.length}\nBUILDINGS: $buildings\n';
-  }
 }

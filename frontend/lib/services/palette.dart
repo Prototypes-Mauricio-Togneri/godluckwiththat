@@ -14,17 +14,4 @@ class Palette {
   static const Color gridLine = Color(0x11888888);
   static const Color gridBackground = Color(0xff1a1a1a);
   static const Color highlightNode = Color(0xaa444444);
-
-  static const Color resourceRed = Color(0xfff44336);
-  static const Color resourceGreen = Color(0xff4cAf50);
-  static const Color resourceBlue = Color(0xff2196f3);
-
-  static const Color rangeIndicator = Color(0x80ffffff);
-
-  static const Color turretLight = Color(0xff8000ff);
-
-  static final Paint gridPaint = Paint()
-    ..color = Palette.gridLine
-    ..style = PaintingStyle.stroke
-    ..strokeWidth = 0.1;
 }

@@ -1,32 +1,19 @@
-import 'package:tensionnode/types/resource_type.dart';
-
 class MapTile {
   final int _tile;
 
-  static const int TILE_HOLE = 0;
-  static const int TILE_PATCH_RED = 1;
-  static const int TILE_PATCH_GREEN = 2;
-  static const int TILE_PATCH_BLUE = 3;
-  static const int TILE_GROUND_1 = 4;
-  static const int TILE_GROUND_2 = 5;
-  static const int TILE_GROUND_3 = 6;
+  static const int TILE_NONE = 0;
+  static const int TILE_GRASS = 1;
+  static const int TILE_FOREST = 2;
+  static const int TILE_STONE = 3;
+  static const int TILE_WATER = 4;
 
   const MapTile(this._tile);
 
-  bool get isGround =>
-      (_tile == TILE_GROUND_1) ||
-      (_tile == TILE_GROUND_2) ||
-      (_tile == TILE_GROUND_3);
+  bool get isGrass => _tile == TILE_GRASS;
 
-  bool get isHole => _tile == TILE_HOLE;
+  bool get isForest => _tile == TILE_FOREST;
 
-  bool isPatch(ResourceType type) {
-    final bool isRed = (_tile == TILE_PATCH_RED) && (type == ResourceType.red);
-    final bool isGreen =
-        (_tile == TILE_PATCH_GREEN) && (type == ResourceType.green);
-    final bool isBlue =
-        (_tile == TILE_PATCH_BLUE) && (type == ResourceType.blue);
+  bool get isStone => _tile == TILE_STONE;
 
-    return isRed || isGreen || isBlue;
-  }
+  bool get isWater => _tile == TILE_WATER;
 }

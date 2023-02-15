@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
 
 class MapComponent extends TiledComponent {
@@ -30,14 +31,11 @@ class MapComponent extends TiledComponent {
     return terrain;
   }
 
-  MapTile tile({
-    required int i,
-    required int j,
-  }) {
+  MapTile tile(Location location) {
     final Gid? gid = tileMap.getTileData(
       layerId: 0,
-      x: i + (mapWidth ~/ 2) - 1,
-      y: j + (mapHeight ~/ 2) - 1,
+      x: location.i + (mapWidth ~/ 2) - 1,
+      y: location.j + (mapHeight ~/ 2) - 1,
     );
 
     return MapTile((gid != null) ? gid.tile : 0);

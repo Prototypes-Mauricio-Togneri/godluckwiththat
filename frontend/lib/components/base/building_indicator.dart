@@ -3,18 +3,18 @@ import 'package:flame/rendering.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/environment.dart';
-import 'package:tensionnode/spec/fixed_node_spec.dart';
+import 'package:tensionnode/types/node_type.dart';
 
 class BuildingIndicator extends SpriteComponent with HasGameRef<GameComponent> {
-  final FixedNodeSpec spec;
+  final NodeType type;
 
   BuildingIndicator({
-    required this.spec,
+    required this.type,
   });
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(spec.type.sprite);
+    sprite = await getSprite(type.sprite);
     size = getSize();
     anchor = Anchor.center;
 

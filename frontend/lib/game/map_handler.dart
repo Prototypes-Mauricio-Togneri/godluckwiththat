@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/map_component.dart';
 import 'package:tensionnode/extensions/logical_keyboard_key_extension.dart';
+import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
 
 mixin MapHandler on FlameGame {
@@ -27,14 +28,7 @@ mixin MapHandler on FlameGame {
 
   int get mapSize => max(_map.mapWidth, _map.mapHeight);
 
-  MapTile getTile({
-    required int i,
-    required int j,
-  }) =>
-      _map.tile(
-        i: i,
-        j: j,
-      );
+  MapTile getTile(Location location) => _map.tile(location);
 
   void clampZoom() {
     camera.zoom = camera.zoom.clamp(MIN_ZOOM, MAX_ZOOM);
@@ -46,7 +40,7 @@ mixin MapHandler on FlameGame {
 
   void onMapMoved() {}
 
-  void onMapClicked(Vector2 position) {}
+  void onMapClicked(Location location) {}
 
   void onKeyPressed(LogicalKeyboardKey key) {}
 
@@ -75,12 +69,12 @@ mixin MapHandler on FlameGame {
     return Vector2(x, y);
   }
 
-  Vector2 toGridPosition(Vector2 point) {
+  Location toGridPosition(Vector2 point) {
     final pointSnapped = toSnapPosition(point);
 
-    return Vector2(
-      (pointSnapped.x ~/ Constants.NODE_SIZE).toDouble(),
-      (pointSnapped.y ~/ Constants.NODE_SIZE).toDouble(),
+    return Location(
+      pointSnapped.x ~/ Constants.NODE_SIZE,
+      pointSnapped.y ~/ Constants.NODE_SIZE,
     );
   }
 

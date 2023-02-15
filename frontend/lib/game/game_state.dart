@@ -1,42 +1,21 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
-import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/components/game/enemy.dart';
-import 'package:tensionnode/components/game/kernel.dart';
-import 'package:tensionnode/components/game/mine.dart';
-import 'package:tensionnode/components/game/turret.dart';
+import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
-import 'package:tensionnode/models/resources.dart';
-import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
   num _totalTimeElapsed = 0;
-  int _nextWave = 0;
-  num _timeToNextWave = 0;
   bool loaded = false;
 
-  final Resources resources = Resources.empty();
-  late final Kernel kernel;
-  final List<Mine> mines = [];
-  final List<Turret> turrets = [];
-  final List<Enemy> enemies = [];
+  late final Headquarters headquarters;
+  final List<Woodcutter> woodcutters = [];
   final JsonMatch jsonMatch;
-
-  int get nextWave => _nextWave;
-
-  int get timeToNextWave => _timeToNextWave.toInt();
 
   GameState(this.jsonMatch) {
     _totalTimeElapsed = jsonMatch.totalTimeElapsed;
-    _nextWave = jsonMatch.nextWave;
-    _timeToNextWave = jsonMatch.timeToNextWave;
-    resources.set(
-      red: jsonMatch.resources.red,
-      green: jsonMatch.resources.green,
-      blue: jsonMatch.resources.blue,
-    );
   }
 
   void setLoaded() {
@@ -44,84 +23,21 @@ class GameState extends BaseState {
     notify();
   }
 
-  Enemy? closestEnemyInRange(
-    PositionComponent origin,
-    double range,
-  ) {
-    Enemy? result;
-    double minDistance = double.maxFinite;
-
-    for (final Enemy enemy in enemies) {
-      if (enemy.isAlive) {
-        final double distance = origin.distance(enemy);
-
-        if ((distance <= range) && (distance < minDistance)) {
-          result = enemy;
-          minDistance = distance;
-        }
-      }
-    }
-
-    return result;
-  }
-
-  Turret? closestTurretInRange(
-    PositionComponent origin,
-    double range,
-  ) {
-    Turret? result;
-    double minDistance = double.maxFinite;
-
-    for (final Turret turret in turrets) {
-      if (turret.isAlive) {
-        final double distance = origin.distance(turret);
-
-        if ((distance <= range) && (distance < minDistance)) {
-          result = turret;
-          minDistance = distance;
-        }
-      }
-    }
-
-    return result;
-  }
-
-  int update(double dt) {
-    int enemiesToSpawn = 0;
-
+  void update(double dt) {
     _totalTimeElapsed += dt;
-    _timeToNextWave -= dt;
-
-    if (_timeToNextWave <= 0) {
-      enemiesToSpawn = _nextWave + 10;
-      _nextWave++;
-      _timeToNextWave = Constants.TIME_TO_NEXT_WAVE;
-    }
-
-    return enemiesToSpawn;
   }
-
-  void addResource(ResourceType type) => resources.add(type);
 
   void addNode(Component node) {
-    if (node is Kernel) {
-      kernel = node;
-    } else if (node is Mine) {
-      mines.add(node);
-    } else if (node is Turret) {
-      turrets.add(node);
-    } else if (node is Enemy) {
-      enemies.add(node);
+    if (node is Headquarters) {
+      headquarters = node;
+    } else if (node is Woodcutter) {
+      woodcutters.add(node);
     }
   }
 
   void removeNode(Component node) {
-    if (node is Mine) {
-      mines.remove(node);
-    } else if (node is Turret) {
-      turrets.remove(node);
-    } else if (node is Enemy) {
-      enemies.remove(node);
+    if (node is Woodcutter) {
+      woodcutters.remove(node);
     }
   }
 
@@ -130,15 +46,9 @@ class GameState extends BaseState {
       version: jsonMatch.version,
       id: jsonMatch.id,
       totalTimeElapsed: _totalTimeElapsed.decimal(),
-      nextWave: _nextWave,
-      timeToNextWave: _timeToNextWave.decimal(),
       map: jsonMatch.map.withCamera(camera),
-      mode: jsonMatch.mode,
-      resources: resources.json,
-      kernel: kernel.json,
-      mines: mines.map((e) => e.json).toList(),
-      turrets: turrets.map((e) => e.json).toList(),
-      enemies: enemies.map((e) => e.json).toList(),
+      headquarters: headquarters.json,
+      woodcutters: woodcutters.map((e) => e.json).toList(),
     );
   }
 }

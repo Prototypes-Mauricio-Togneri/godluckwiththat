@@ -1,11 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_map.dart';
-import 'package:tensionnode/json/json_mode.dart';
 import 'package:tensionnode/json/json_node.dart';
-import 'package:tensionnode/json/json_resources.dart';
-import 'package:tensionnode/json/json_turret.dart';
 
 part 'json_match.g.dart';
 
@@ -20,46 +16,22 @@ class JsonMatch {
   @JsonKey(name: 'totalTimeElapsed')
   final num totalTimeElapsed;
 
-  @JsonKey(name: 'nextWave')
-  final int nextWave;
-
-  @JsonKey(name: 'timeToNextWave')
-  final num timeToNextWave;
-
   @JsonKey(name: 'map')
   final JsonMap map;
 
-  @JsonKey(name: 'mode')
-  final JsonMode mode;
+  @JsonKey(name: 'headquarters')
+  final JsonNode headquarters;
 
-  @JsonKey(name: 'resources')
-  final JsonResources resources;
-
-  @JsonKey(name: 'kernel')
-  final JsonNode kernel;
-
-  @JsonKey(name: 'mines')
-  final List<JsonNode> mines;
-
-  @JsonKey(name: 'turrets')
-  final List<JsonTurret> turrets;
-
-  @JsonKey(name: 'enemies')
-  final List<JsonEnemy> enemies;
+  @JsonKey(name: 'woodcutters')
+  final List<JsonNode> woodcutters;
 
   const JsonMatch({
     required this.version,
     required this.id,
     required this.totalTimeElapsed,
-    required this.nextWave,
-    required this.timeToNextWave,
     required this.map,
-    required this.mode,
-    required this.resources,
-    required this.kernel,
-    required this.mines,
-    required this.turrets,
-    required this.enemies,
+    required this.headquarters,
+    required this.woodcutters,
   });
 
   factory JsonMatch.fromString(String json) =>

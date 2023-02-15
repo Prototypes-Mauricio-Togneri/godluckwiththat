@@ -2,52 +2,56 @@ import 'package:tensionnode/json/json_resources.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Resources {
-  int red = 0;
-  int green = 0;
-  int blue = 0;
+  int timber = 0;
+  int stone = 0;
+  int wood = 0;
 
   Resources({
-    required this.red,
-    required this.green,
-    required this.blue,
+    this.timber = 0,
+    this.stone = 0,
+    this.wood = 0,
   });
 
-  factory Resources.empty() => Resources(red: 0, green: 0, blue: 0);
+  factory Resources.empty() => Resources();
 
   void set({
-    required int red,
-    required int green,
-    required int blue,
+    int? timber,
+    int? stone,
+    int? wood,
   }) {
-    this.red = red;
-    this.green = green;
-    this.blue = blue;
+    this.timber = timber ?? this.timber;
+    this.stone = stone ?? this.stone;
+    this.wood = wood ?? this.wood;
   }
 
   void add(ResourceType type) {
     switch (type) {
-      case ResourceType.red:
-        red++;
+      case ResourceType.timber:
+        timber++;
         break;
-      case ResourceType.green:
-        green++;
+      case ResourceType.stone:
+        stone++;
         break;
-      case ResourceType.blue:
-        blue++;
+      case ResourceType.wood:
+        wood++;
         break;
     }
   }
 
   void remove(Resources resources) {
-    red -= resources.red;
-    green -= resources.green;
-    blue -= resources.blue;
+    timber -= resources.timber;
+    stone -= resources.stone;
+    wood -= resources.wood;
   }
 
   bool has(Resources resources) =>
-      (red >= resources.red) &&
-      (green >= resources.green) &&
-      (blue >= resources.blue);
+      (timber >= resources.timber) &&
+      (stone >= resources.stone) &&
+      (wood >= resources.wood);
 
-  JsonResources get json => JsonResources(red: red, green: green, blue: blue);
+  JsonResources get json => JsonResources(
+        timber: timber,
+        stone: stone,
+        wood: wood,
+      );
 }

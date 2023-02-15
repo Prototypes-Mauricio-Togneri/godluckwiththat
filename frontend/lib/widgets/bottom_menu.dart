@@ -1,14 +1,11 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/mine.dart';
-import 'package:tensionnode/components/game/turret.dart';
+import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
-import 'package:tensionnode/spec/fixed_node_spec.dart';
-import 'package:tensionnode/spec/mine_spec.dart';
-import 'package:tensionnode/spec/turret_spec.dart';
+import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
@@ -34,13 +31,8 @@ class BottomMenu extends StatelessWidget {
             children: [
               if (game.constructMode)
                 ConstructMenu(game)
-              else if (game.isSelected(Mine))
-                MineMenu(
-                  game,
-                  game.selectedNode(),
-                )
-              else if (game.isSelected(Turret))
-                TurretMenu(
+              else if (game.isSelected(Woodcutter))
+                WoodcutterMenu(
                   game,
                   game.selectedNode(),
                 )
@@ -123,25 +115,18 @@ class ConstructMenu extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     MenuButton(
-                      text: 'Red Mine',
+                      text: 'Woodcutter',
                       icon: Icons.center_focus_strong,
-                      color: Palette.resourceRed,
+                      color: Palette.primary,
                       size: 9,
-                      onPressed: () => _onBuild(MineSpec.mine_red),
+                      onPressed: () => _onBuild(NodeType.woodcutter),
                     ),
                     MenuButton(
-                      text: 'Green Mine',
+                      text: 'Quarry',
                       icon: Icons.center_focus_strong,
-                      color: Palette.resourceGreen,
+                      color: Palette.primary,
                       size: 9,
-                      onPressed: () => _onBuild(MineSpec.mine_green),
-                    ),
-                    MenuButton(
-                      text: 'Blue Mine',
-                      icon: Icons.center_focus_strong,
-                      color: Palette.resourceBlue,
-                      size: 9,
-                      onPressed: () => _onBuild(MineSpec.mine_blue),
+                      onPressed: () => _onBuild(NodeType.quarry),
                     ),
                   ],
                 ),
@@ -153,25 +138,18 @@ class ConstructMenu extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     MenuButton(
-                      text: 'Light turret',
+                      text: 'Sawmill',
                       icon: Icons.radio_button_checked,
-                      color: Palette.turretLight,
+                      color: Palette.primary,
                       size: 9,
-                      onPressed: () => _onBuild(TurretSpec.turret_light),
+                      onPressed: () => _onBuild(NodeType.sawmill),
                     ),
                     MenuButton(
-                      text: 'Heavy turret',
+                      text: 'Sawmill',
                       icon: Icons.radio_button_checked,
-                      color: Palette.turretLight,
+                      color: Palette.primary,
                       size: 9,
-                      onPressed: () => _onBuild(TurretSpec.turret_heavy),
-                    ),
-                    MenuButton(
-                      text: 'Machine gun',
-                      icon: Icons.radio_button_checked,
-                      color: Palette.turretLight,
-                      size: 9,
-                      onPressed: () => _onBuild(TurretSpec.turret_machine_gun),
+                      onPressed: () => _onBuild(NodeType.sawmill),
                     ),
                   ],
                 ),
@@ -189,18 +167,18 @@ class ConstructMenu extends StatelessWidget {
     );
   }
 
-  void _onBuild(FixedNodeSpec spec) {
-    game.enableBuildingMode(spec);
+  void _onBuild(NodeType type) {
+    game.enableBuildingMode(type);
   }
 
   void _closeMenu() => game.disableConstructMode();
 }
 
-class MineMenu extends StatelessWidget {
+class WoodcutterMenu extends StatelessWidget {
   final GameComponent game;
-  final Mine mine;
+  final Woodcutter woodcutter;
 
-  const MineMenu(this.game, this.mine);
+  const WoodcutterMenu(this.game, this.woodcutter);
 
   @override
   Widget build(BuildContext context) {
@@ -210,12 +188,12 @@ class MineMenu extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Label(
-            text: mine.spec.type.name,
+            text: woodcutter.type.name,
             align: TextAlign.center,
           ),
           const VBox(10),
           Label(
-            text: '${mine.i}, ${mine.j}',
+            text: '${woodcutter.location.i}, ${woodcutter.location.j}',
             align: TextAlign.center,
           ),
           const VBox(10),
@@ -223,75 +201,7 @@ class MineMenu extends StatelessWidget {
             text: 'Center',
             icon: Icons.filter_tilt_shift,
             color: Palette.primary,
-            onPressed: () => _onCenter(mine),
-          ),
-          MenuButton(
-            text: 'Destroy',
-            icon: Icons.delete,
-            color: Palette.error,
-            onPressed: _onDestroy,
-          ),
-          MenuButton(
-            text: 'Close',
-            icon: Icons.close,
-            color: Palette.lightGrey,
-            onPressed: _closeMenu,
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _onCenter(Node node) => game.centerMap(node.position);
-
-  void _onDestroy() {
-    final Node node = game.selectedNode();
-    node.destroy();
-    _closeMenu();
-  }
-
-  void _closeMenu() => game.unselectNode();
-}
-
-class TurretMenu extends StatelessWidget {
-  final GameComponent game;
-  final Turret turret;
-
-  const TurretMenu(this.game, this.turret);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Label(
-            text: turret.spec.type.name,
-            align: TextAlign.center,
-          ),
-          const VBox(10),
-          Label(
-            text: '${turret.i}, ${turret.j}',
-            align: TextAlign.center,
-          ),
-          const VBox(10),
-          Label(
-            text: 'Shots fired: ${turret.shotsFired}',
-            align: TextAlign.center,
-          ),
-          const VBox(10),
-          Label(
-            text: 'Kills: ${turret.kills}',
-            align: TextAlign.center,
-          ),
-          const VBox(10),
-          MenuButton(
-            text: 'Center',
-            icon: Icons.filter_tilt_shift,
-            color: Palette.primary,
-            onPressed: () => _onCenter(turret),
+            onPressed: () => _onCenter(woodcutter),
           ),
           MenuButton(
             text: 'Destroy',
@@ -333,7 +243,7 @@ class CancelMenu extends StatelessWidget {
       child: MenuButton(
         text: 'Cancel',
         icon: Icons.close,
-        color: Palette.resourceRed,
+        color: Palette.error,
         onPressed: game.onCancelOperation,
       ),
     );

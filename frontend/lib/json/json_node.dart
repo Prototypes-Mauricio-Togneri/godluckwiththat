@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/extensions/json_position_extension.dart';
+import 'package:tensionnode/extensions/json_location_extension.dart';
+import 'package:tensionnode/json/json_resources.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 part 'json_node.g.dart';
@@ -10,16 +11,16 @@ class JsonNode {
   @JsonKey(name: 'type')
   final NodeType type;
 
-  @JsonKey(name: 'position')
-  final JsonPosition position;
+  @JsonKey(name: 'location')
+  final JsonLocation location;
 
-  @JsonKey(name: 'health')
-  final num health;
+  @JsonKey(name: 'resources')
+  final JsonResources resources;
 
   const JsonNode({
     required this.type,
-    required this.position,
-    required this.health,
+    required this.location,
+    required this.resources,
   });
 
   factory JsonNode.fromString(String json) =>

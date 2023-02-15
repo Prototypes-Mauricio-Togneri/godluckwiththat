@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
-import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/models/location.dart';
 
 extension ComponentExtension on Component {
   void removeComponents(Type type) => removeWhere((c) {
@@ -11,11 +12,9 @@ extension ComponentExtension on Component {
   T getComponent<T extends Component>(Type type) =>
       children.singleWhere((c) => c.runtimeType == type) as T;
 
-  FixedNode? getFixedNode(int i, int j) {
+  Node? getNode(Location location) {
     for (final Component component in children) {
-      if ((component is FixedNode) &&
-          (component.i == i) &&
-          (component.j == j)) {
+      if ((component is Node) && (component.location == location)) {
         return component;
       }
     }

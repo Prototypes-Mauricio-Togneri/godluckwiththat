@@ -1,25 +1,15 @@
-import 'dart:math';
-
-import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
-import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
-import 'package:tensionnode/components/base/fixed_node.dart';
+import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
-import 'package:tensionnode/extensions/json_position_extension.dart';
-import 'package:tensionnode/extensions/list_extension.dart';
-import 'package:tensionnode/extensions/random_extension.dart';
+import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/menu_handler.dart';
 import 'package:tensionnode/game/node_handler.dart';
-import 'package:tensionnode/json/json_enemy.dart';
 import 'package:tensionnode/json/json_node.dart';
-import 'package:tensionnode/json/json_turret.dart';
+import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
-import 'package:tensionnode/spec/enemy_spec.dart';
-import 'package:tensionnode/spec/fixed_node_spec.dart';
-import 'package:tensionnode/spec/mine_spec.dart';
-import 'package:tensionnode/spec/turret_spec.dart';
+import 'package:tensionnode/types/node_type.dart';
 
 class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
   GameComponent(super.state);
@@ -28,38 +18,15 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
   Future onLoad() async {
     await addBaseComponents(state.jsonMatch);
 
-    addKernel(
-      i: state.jsonMatch.kernel.position.x,
-      j: state.jsonMatch.kernel.position.y,
-      health: state.jsonMatch.kernel.health,
+    addHeadquarters(
+      location: state.jsonMatch.headquarters.location.location,
+      resources: state.jsonMatch.headquarters.resources.resources,
     );
 
-    for (final JsonNode node in state.jsonMatch.mines) {
-      addMine(
-        i: node.position.x,
-        j: node.position.y,
-        spec: node.type.spec as MineSpec,
-        health: node.health,
-      );
-    }
-
-    for (final JsonTurret turret in state.jsonMatch.turrets) {
-      addTurret(
-        i: turret.position.x.toInt(),
-        j: turret.position.y.toInt(),
-        health: turret.health,
-        shotsFired: turret.shotsFired,
-        kills: turret.kills,
-        spec: turret.type.spec as TurretSpec,
-      );
-    }
-
-    for (final JsonEnemy enemy in state.jsonMatch.enemies) {
-      addEnemy(
-        spec: enemy.type.spec as EnemySpec,
-        health: enemy.health,
-        position: enemy.position.vector,
-        kernelPosition: state.kernel.position,
+    for (final JsonNode node in state.jsonMatch.woodcutters) {
+      addWoodcutter(
+        location: node.location.location,
+        resources: node.resources.resources,
       );
     }
 
@@ -79,24 +46,8 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     // TODO(momo): implement
   }
 
-  void _spawnEnemy(EnemySpec spec) {
-    final double distance = mapSize * 0.7 * Constants.NODE_SIZE;
-    final int angle = Random().between(0, 359);
-    final Vector2 position = Vector2(
-      distance * sin(angle),
-      distance * cos(angle),
-    );
-
-    addEnemy(
-      spec: spec,
-      health: spec.health,
-      position: position,
-      kernelPosition: state.kernel.position,
-    );
-  }
-
   @override
-  void onMapClicked(Vector2 position) {
+  void onMapClicked(Location location) {
     if (isDetailsMode) {
       removeMenuComponents();
       disableMode();
@@ -105,44 +56,16 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     if (buildingMode) {
       final BuildingIndicator buildingIndicator =
           layerNodes.getComponent(BuildingIndicator);
-      final int i = position.x.toInt();
-      final int j = position.y.toInt();
-      final FixedNode? node = layerNodes.getFixedNode(i, j);
-      final MapTile tile = getTile(
-        i: i,
-        j: j,
-      );
-      final FixedNodeSpec spec = buildingIndicator.spec;
+      final Node? node = layerNodes.getNode(location);
+      final MapTile tile = getTile(location);
+      final NodeType type = buildingIndicator.type;
 
-      if ((node == null) && state.resources.has(spec.cost)) {
+      if (node == null) {
         build(
-          i: i,
-          j: j,
-          spec: spec,
+          location: location,
+          type: type,
           tile: tile,
         );
-      }
-    }
-  }
-
-  @override
-  void onGameOver() => openGameOverMenu();
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-
-    final int enemiesToSpawn = state.update(dt);
-
-    if (enemiesToSpawn > 0) {
-      final List<EnemySpec> specs = [
-        EnemySpec.enemy1,
-        EnemySpec.enemy2,
-        EnemySpec.enemy3,
-      ];
-
-      for (int i = 0; i < enemiesToSpawn; i++) {
-        _spawnEnemy(specs.random);
       }
     }
   }
