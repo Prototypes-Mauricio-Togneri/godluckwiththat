@@ -21,7 +21,6 @@ class Constants {
 		"zoom": 8
 	},
 	"headquarters": {
-		"type": "headquarters",
 		"location": [0, 0],
     "inventory": {
 			"timber": 0,
@@ -30,8 +29,15 @@ class Constants {
 		}
 	},
 	"woodcutters": [{
-		"type": "woodcutter",
 		"location": [5, -3]
+	}],
+	"flags": [{
+		"location": [5, -2],
+    "inventory": {
+			"timber": 0,
+			"stone": 0,
+			"wood": 0
+		}
 	}]
 }
 ''';
@@ -48,11 +54,11 @@ class Constants {
 		"zoom": 1
 	},
 	"headquarters": {
-		"type": "headquarters",
 		"location": [0, 0],
     "inventory": {}
 	},
-	"woodcutters": []
+	"woodcutters": [],
+	"flags": []
 }
 ''';
 

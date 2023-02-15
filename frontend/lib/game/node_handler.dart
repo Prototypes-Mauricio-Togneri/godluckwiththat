@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/game/base_game_component.dart';
@@ -23,6 +24,16 @@ mixin NodeHandler on BaseGameComponent {
   }) {
     addNode(Woodcutter(
       location: location,
+    ));
+  }
+
+  void addFlag({
+    required Location location,
+    required Inventory inventory,
+  }) {
+    addNode(Flag(
+      location: location,
+      inventory: inventory,
     ));
   }
 

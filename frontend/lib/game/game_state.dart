@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
@@ -12,6 +13,7 @@ class GameState extends BaseState {
 
   late final Headquarters headquarters;
   final List<Woodcutter> woodcutters = [];
+  final List<Flag> flags = [];
   final JsonMatch jsonMatch;
 
   GameState(this.jsonMatch) {
@@ -32,12 +34,16 @@ class GameState extends BaseState {
       headquarters = node;
     } else if (node is Woodcutter) {
       woodcutters.add(node);
+    } else if (node is Flag) {
+      flags.add(node);
     }
   }
 
   void removeNode(Component node) {
     if (node is Woodcutter) {
       woodcutters.remove(node);
+    } else if (node is Flag) {
+      flags.remove(node);
     }
   }
 
@@ -49,6 +55,7 @@ class GameState extends BaseState {
       map: jsonMatch.map.withCamera(camera),
       headquarters: headquarters.json,
       woodcutters: woodcutters.map((e) => e.json).toList(),
+      flags: flags.map((e) => e.json).toList(),
     );
   }
 }

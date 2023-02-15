@@ -1,6 +1,12 @@
 import 'package:tensionnode/services/assets.dart';
 
 enum NodeType {
+  flag(
+    sprite: Assets.IMAGES_FLAG,
+    productionTime: 0,
+    costWood: 0,
+    costStone: 0,
+  ),
   headquarters(
     sprite: Assets.IMAGES_HEADQUARTERS,
     productionTime: 0,

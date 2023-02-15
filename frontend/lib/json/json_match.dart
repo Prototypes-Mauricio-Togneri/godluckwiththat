@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_woodcutter.dart';
@@ -27,6 +28,9 @@ class JsonMatch {
   @JsonKey(name: 'woodcutters')
   final List<JsonWoodcutter> woodcutters;
 
+  @JsonKey(name: 'flags')
+  final List<JsonFlag> flags;
+
   const JsonMatch({
     required this.version,
     required this.id,
@@ -34,6 +38,7 @@ class JsonMatch {
     required this.map,
     required this.headquarters,
     required this.woodcutters,
+    required this.flags,
   });
 
   factory JsonMatch.fromString(String json) =>
