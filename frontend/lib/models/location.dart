@@ -11,11 +11,6 @@ class Location {
 
   JsonLocation get json => [i, j];
 
-  Vector2 get vector => Vector2(
-        i.toDouble(),
-        j.toDouble(),
-      );
-
   Vector2 get position => Vector2(
         i * Constants.NODE_SIZE,
         j * Constants.NODE_SIZE,

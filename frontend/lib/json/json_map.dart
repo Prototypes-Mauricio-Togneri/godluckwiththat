@@ -27,12 +27,19 @@ class JsonMap {
     required this.zoom,
   });
 
-  JsonMap withCamera(Camera camera) => JsonMap(
-        name: name,
-        xml: xml,
-        location: JsonLocationExtension.fromPosition(camera.absoluteTarget()),
-        zoom: camera.zoom.decimal(),
-      );
+  JsonMap withCamera(Camera camera) {
+    final Vector2 cameraPosition = camera.absoluteTarget();
+
+    return JsonMap(
+      name: name,
+      xml: xml,
+      location: [
+        cameraPosition.x.toInt(),
+        cameraPosition.y.toInt(),
+      ],
+      zoom: camera.zoom.decimal(),
+    );
+  }
 
   factory JsonMap.fromString(String json) => JsonMap.fromJson(jsonDecode(json));
 

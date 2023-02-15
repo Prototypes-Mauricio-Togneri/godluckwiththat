@@ -51,7 +51,12 @@ class BaseGameComponent extends FlameGame
     add(_layerNodes);
     add(_layerHud);
 
-    camera.moveTo(jsonMatch.map.location.location.vector);
+    final JsonLocation cameraLocation = jsonMatch.map.location;
+
+    camera.moveTo(Vector2(
+      cameraLocation[0].toDouble(),
+      cameraLocation[1].toDouble(),
+    ));
     camera.zoom = jsonMatch.map.zoom.toDouble();
 
     state.setLoaded();
