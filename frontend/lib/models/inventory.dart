@@ -1,18 +1,18 @@
-import 'package:tensionnode/json/json_resources.dart';
+import 'package:tensionnode/json/json_inventory.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class Resources {
+class Inventory {
   int timber = 0;
   int stone = 0;
   int wood = 0;
 
-  Resources({
+  Inventory({
     this.timber = 0,
     this.stone = 0,
     this.wood = 0,
   });
 
-  factory Resources.empty() => Resources();
+  factory Inventory.empty() => Inventory();
 
   bool get isEmpty => (timber == 0) && (stone == 0) && (wood == 0);
 
@@ -40,18 +40,18 @@ class Resources {
     }
   }
 
-  void remove(Resources resources) {
-    timber -= resources.timber;
-    stone -= resources.stone;
-    wood -= resources.wood;
+  void remove(Inventory inventory) {
+    timber -= inventory.timber;
+    stone -= inventory.stone;
+    wood -= inventory.wood;
   }
 
-  bool has(Resources resources) =>
+  bool has(Inventory resources) =>
       (timber >= resources.timber) &&
       (stone >= resources.stone) &&
       (wood >= resources.wood);
 
-  JsonResources get json => JsonResources(
+  JsonInventory get json => JsonInventory(
         timber: timber,
         stone: stone,
         wood: wood,

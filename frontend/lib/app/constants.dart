@@ -13,7 +13,7 @@ class Constants {
 {
 	"version": 1,
 	"id": "map1",
-	"totalTimeElapsed": 188.84,
+	"totalTimeElapsed": 60,
 	"map": {
 		"name": "level1",
 		"xml": "",
@@ -23,12 +23,11 @@ class Constants {
 	"headquarters": {
 		"type": "headquarters",
 		"location": [0, 0],
-    "resources": {}
+    "inventory": {}
 	},
 	"woodcutters": [{
 		"type": "woodcutter",
-		"location": [5, -3],
-    "resources": {}
+		"location": [5, -3]
 	}]
 }
 ''';
@@ -47,7 +46,7 @@ class Constants {
 	"headquarters": {
 		"type": "headquarters",
 		"location": [0, 0],
-    "resources": {}
+    "inventory": {}
 	},
 	"woodcutters": []
 }

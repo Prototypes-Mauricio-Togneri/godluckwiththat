@@ -2,13 +2,6 @@
 
 set -e
 
-#INPUT="../tools/output/images"
-#OUTPUT="./assets"
-#../tools/scripts/export.sh
-#rm -r ${OUTPUT}/images/*
-#cp -a ${INPUT} ${OUTPUT}
-#cp "${INPUT}/../../input/map/terrain.tsx" "${OUTPUT}/tiles"
-
 flutter clean
 flutter pub upgrade
 flutter pub pub run daassets:daassets.dart ./pubspec.yaml ./lib/services/assets.dart

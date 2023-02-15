@@ -2,29 +2,27 @@ import 'package:flame/components.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/game/base_game_component.dart';
+import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
-import 'package:tensionnode/models/resources.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 mixin NodeHandler on BaseGameComponent {
   void addHeadquarters({
     required Location location,
-    required Resources resources,
+    required Inventory inventory,
   }) {
     addNode(Headquarters(
       location: location,
-      resources: resources,
+      inventory: inventory,
     ));
   }
 
   void addWoodcutter({
     required Location location,
-    required Resources resources,
   }) {
     addNode(Woodcutter(
       location: location,
-      resources: resources,
     ));
   }
 
@@ -66,7 +64,6 @@ mixin NodeHandler on BaseGameComponent {
     if (tile.isForest) {
       addWoodcutter(
         location: location,
-        resources: Resources(),
       );
     }
   }

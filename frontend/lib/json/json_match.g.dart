@@ -11,10 +11,10 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       id: json['id'] as String,
       totalTimeElapsed: json['totalTimeElapsed'] as num,
       map: JsonMap.fromJson(json['map'] as Map<String, dynamic>),
-      headquarters:
-          JsonNode.fromJson(json['headquarters'] as Map<String, dynamic>),
+      headquarters: JsonHeadquarters.fromJson(
+          json['headquarters'] as Map<String, dynamic>),
       woodcutters: (json['woodcutters'] as List<dynamic>)
-          .map((e) => JsonNode.fromJson(e as Map<String, dynamic>))
+          .map((e) => JsonWoodcutter.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

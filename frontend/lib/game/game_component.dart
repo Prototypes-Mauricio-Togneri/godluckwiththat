@@ -6,7 +6,7 @@ import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/menu_handler.dart';
 import 'package:tensionnode/game/node_handler.dart';
-import 'package:tensionnode/json/json_node.dart';
+import 'package:tensionnode/json/json_woodcutter.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/types/node_type.dart';
@@ -20,13 +20,12 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
     addHeadquarters(
       location: state.jsonMatch.headquarters.location.location,
-      resources: state.jsonMatch.headquarters.resources.resources,
+      inventory: state.jsonMatch.headquarters.inventory.inventory,
     );
 
-    for (final JsonNode node in state.jsonMatch.woodcutters) {
+    for (final JsonWoodcutter node in state.jsonMatch.woodcutters) {
       addWoodcutter(
         location: node.location.location,
-        resources: node.resources.resources,
       );
     }
 

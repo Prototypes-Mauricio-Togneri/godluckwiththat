@@ -1,16 +1,18 @@
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/json/json_node.dart';
+import 'package:tensionnode/json/json_headquarters.dart';
+import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class Headquarters extends Node {
+  final Inventory inventory;
+
   Headquarters({
     required super.location,
-    required super.resources,
+    required this.inventory,
   }) : super(type: NodeType.headquarters);
 
-  JsonNode get json => JsonNode(
-        type: type,
+  JsonHeadquarters get json => JsonHeadquarters(
         location: location.json,
-        resources: resources.json,
+        inventory: inventory.json,
       );
 }

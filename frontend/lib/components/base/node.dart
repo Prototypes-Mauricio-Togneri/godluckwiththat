@@ -4,18 +4,15 @@ import 'package:flame/events.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/location.dart';
-import 'package:tensionnode/models/resources.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final Location location;
   final NodeType type;
-  final Resources resources;
 
   Node({
     required this.type,
     required this.location,
-    required this.resources,
   });
 
   double get sizeMultiplier => 1;
