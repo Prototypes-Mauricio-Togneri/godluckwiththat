@@ -18,12 +18,16 @@ class Constants {
 		"name": "level1",
 		"xml": "",
 		"location": [0, 0],
-		"zoom": 4
+		"zoom": 8
 	},
 	"headquarters": {
 		"type": "headquarters",
 		"location": [0, 0],
-    "inventory": {}
+    "inventory": {
+			"timber": 0,
+			"stone": 0,
+			"wood": 0
+		}
 	},
 	"woodcutters": [{
 		"type": "woodcutter",

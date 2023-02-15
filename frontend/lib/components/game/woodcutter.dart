@@ -20,7 +20,6 @@ class Woodcutter extends Node {
       if (_accumulatedTime >= type.productionTime) {
         _accumulatedTime = 0;
         resource = ResourceType.timber;
-        print('DONE');
       }
     }
 
@@ -32,5 +31,6 @@ class Woodcutter extends Node {
 
   JsonWoodcutter get json => JsonWoodcutter(
         location: location.json,
+        resource: resource,
       );
 }
