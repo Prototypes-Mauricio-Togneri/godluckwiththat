@@ -6,7 +6,7 @@ import 'package:tensionnode/types/resource_type.dart';
 
 class Woodcutter extends Node {
   num _accumulatedTime = 0;
-  ResourceType? resource;
+  ResourceType? _resource;
 
   Woodcutter({
     required super.location,
@@ -14,12 +14,12 @@ class Woodcutter extends Node {
 
   @override
   void update(double dt) {
-    if (resource == null) {
+    if (_resource == null) {
       _accumulatedTime += dt;
 
       if (_accumulatedTime >= type.productionTime) {
         _accumulatedTime = 0;
-        resource = ResourceType.timber;
+        _resource = ResourceType.timber;
       }
     }
 
@@ -31,6 +31,6 @@ class Woodcutter extends Node {
 
   JsonWoodcutter get json => JsonWoodcutter(
         location: location.json,
-        resource: resource,
+        resource: _resource,
       );
 }

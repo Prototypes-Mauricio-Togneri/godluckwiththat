@@ -15,12 +15,10 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     required this.location,
   });
 
-  double get sizeMultiplier => 1;
-
   @override
   Future onLoad() async {
     sprite = await getSprite(type.sprite);
-    size = getSize() * sizeMultiplier;
+    size = getSize();
     anchor = Anchor.center;
     position = location.position;
 
