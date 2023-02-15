@@ -38,6 +38,10 @@ class Constants {
 			"stone": 0,
 			"wood": 0
 		}
+	}],
+  "roads": [{
+		"locationA": [5, -3],
+		"locationB": [5, 0]
 	}]
 }
 ''';

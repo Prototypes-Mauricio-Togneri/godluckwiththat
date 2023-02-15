@@ -7,6 +7,7 @@ import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/menu_handler.dart';
 import 'package:tensionnode/game/node_handler.dart';
 import 'package:tensionnode/json/json_flag.dart';
+import 'package:tensionnode/json/json_road.dart';
 import 'package:tensionnode/json/json_woodcutter.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
@@ -35,6 +36,18 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
         location: node.location.location,
         inventory: node.inventory.inventory,
       );
+    }
+
+    for (final JsonRoad node in state.jsonMatch.roads) {
+      final Node? nodeA = state.nodeAt(node.locationA.location);
+      final Node? nodeB = state.nodeAt(node.locationB.location);
+
+      if ((nodeA != null) && (nodeB != null)) {
+        addRoad(
+          nodeA: nodeA,
+          nodeB: nodeB,
+        );
+      }
     }
 
     return super.onLoad();

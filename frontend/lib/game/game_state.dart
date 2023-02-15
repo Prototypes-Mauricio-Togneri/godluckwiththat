@@ -1,11 +1,14 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/road.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
+import 'package:tensionnode/models/location.dart';
 
 class GameState extends BaseState {
   num _totalTimeElapsed = 0;
@@ -14,6 +17,7 @@ class GameState extends BaseState {
   late final Headquarters headquarters;
   final List<Woodcutter> woodcutters = [];
   final List<Flag> flags = [];
+  final List<Road> roads = [];
   final JsonMatch jsonMatch;
 
   GameState(this.jsonMatch) {
@@ -29,6 +33,26 @@ class GameState extends BaseState {
     _totalTimeElapsed += dt;
   }
 
+  Node? nodeAt(Location location) {
+    if (headquarters.isAt(location)) {
+      return headquarters;
+    }
+
+    for (final Woodcutter woodcutter in woodcutters) {
+      if (woodcutter.isAt(location)) {
+        return woodcutter;
+      }
+    }
+
+    for (final Flag flag in flags) {
+      if (flag.isAt(location)) {
+        return flag;
+      }
+    }
+
+    return null;
+  }
+
   void addNode(Component node) {
     if (node is Headquarters) {
       headquarters = node;
@@ -36,6 +60,8 @@ class GameState extends BaseState {
       woodcutters.add(node);
     } else if (node is Flag) {
       flags.add(node);
+    } else if (node is Road) {
+      roads.add(node);
     }
   }
 
@@ -44,6 +70,8 @@ class GameState extends BaseState {
       woodcutters.remove(node);
     } else if (node is Flag) {
       flags.remove(node);
+    } else if (node is Road) {
+      roads.remove(node);
     }
   }
 
@@ -56,6 +84,7 @@ class GameState extends BaseState {
       headquarters: headquarters.json,
       woodcutters: woodcutters.map((e) => e.json).toList(),
       flags: flags.map((e) => e.json).toList(),
+      roads: roads.map((e) => e.json).toList(),
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flame/components.dart';
+import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/road.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/models/inventory.dart';
@@ -34,6 +36,16 @@ mixin NodeHandler on BaseGameComponent {
     addNode(Flag(
       location: location,
       inventory: inventory,
+    ));
+  }
+
+  void addRoad({
+    required Node nodeA,
+    required Node nodeB,
+  }) {
+    addNode(Road(
+      nodeA: nodeA,
+      nodeB: nodeB,
     ));
   }
 

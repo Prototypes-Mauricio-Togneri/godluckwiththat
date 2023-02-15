@@ -25,6 +25,8 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     return super.onLoad();
   }
 
+  bool isAt(Location location) => this.location == location;
+
   @override
   bool onTapUp(TapUpInfo info) => false;
 
