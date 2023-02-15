@@ -14,6 +14,8 @@ class Resources {
 
   factory Resources.empty() => Resources();
 
+  bool get isEmpty => (timber == 0) && (stone == 0) && (wood == 0);
+
   void set({
     int? timber,
     int? stone,
@@ -54,4 +56,7 @@ class Resources {
         stone: stone,
         wood: wood,
       );
+
+  @override
+  String toString() => json.toJson().toString();
 }

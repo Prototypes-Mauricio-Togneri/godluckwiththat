@@ -2,6 +2,7 @@ import 'package:flame/input.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_node.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class Woodcutter extends Node {
   num _accumulatedTime = 0;
@@ -13,10 +14,14 @@ class Woodcutter extends Node {
 
   @override
   void update(double dt) {
-    _accumulatedTime += dt;
+    if (resources.isEmpty) {
+      _accumulatedTime += dt;
 
-    if (_accumulatedTime >= type.productionTime) {
-      _accumulatedTime = 0;
+      if (_accumulatedTime >= type.productionTime) {
+        _accumulatedTime = 0;
+        resources.add(ResourceType.timber);
+        print(resources.toString());
+      }
     }
 
     super.update(dt);

@@ -9,19 +9,19 @@ enum NodeType {
   ),
   woodcutter(
     sprite: Assets.IMAGES_WOODCUTTER,
-    productionTime: 0,
+    productionTime: 5,
     costWood: 2,
     costStone: 0,
   ),
   quarry(
     sprite: Assets.IMAGES_QUARRY,
-    productionTime: 0,
+    productionTime: 10,
     costWood: 2,
     costStone: 0,
   ),
   sawmill(
     sprite: Assets.IMAGES_SAWMILL,
-    productionTime: 0,
+    productionTime: 15,
     costWood: 2,
     costStone: 2,
   );
