@@ -9,6 +9,7 @@ import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/game/map_handler.dart';
 import 'package:tensionnode/json/json_match.dart';
+import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/services/style.dart';
 
 class BaseGameComponent extends FlameGame
@@ -61,6 +62,9 @@ class BaseGameComponent extends FlameGame
 
     state.setLoaded();
   }
+
+  @override
+  Color backgroundColor() => Palette.gameBackground;
 
   void addToBackgroundLayer(Component component) =>
       _layerBackground.add(component);

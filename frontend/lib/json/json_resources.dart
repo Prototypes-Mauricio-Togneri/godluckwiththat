@@ -16,9 +16,9 @@ class JsonResources {
   final int wood;
 
   const JsonResources({
-    required this.timber,
-    required this.stone,
-    required this.wood,
+    this.timber = 0,
+    this.stone = 0,
+    this.wood = 0,
   });
 
   Resources get resources => Resources(

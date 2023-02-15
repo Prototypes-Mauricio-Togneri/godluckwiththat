@@ -8,9 +8,9 @@ part of 'json_resources.dart';
 
 JsonResources _$JsonResourcesFromJson(Map<String, dynamic> json) =>
     JsonResources(
-      timber: json['timber'] as int,
-      stone: json['stone'] as int,
-      wood: json['wood'] as int,
+      timber: json['timber'] as int? ?? 0,
+      stone: json['stone'] as int? ?? 0,
+      wood: json['wood'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$JsonResourcesToJson(JsonResources instance) =>
