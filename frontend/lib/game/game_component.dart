@@ -62,10 +62,10 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
     for (final MapEntry<Node, Map<String, Location>> entry
         in nodeConnections.entries) {
-      final Road? roadNorth = _roadTo(entry.value['north']);
-      final Road? roadEast = _roadTo(entry.value['east']);
-      final Road? roadSouth = _roadTo(entry.value['south']);
-      final Road? roadWest = _roadTo(entry.value['west']);
+      final Road? roadNorth = _roadTo(entry.key, entry.value['north']);
+      final Road? roadEast = _roadTo(entry.key, entry.value['east']);
+      final Road? roadSouth = _roadTo(entry.key, entry.value['south']);
+      final Road? roadWest = _roadTo(entry.key, entry.value['west']);
 
       entry.key.connect(
         north: roadNorth,
@@ -78,8 +78,8 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     return super.onLoad();
   }
 
-  Road? _roadTo(Location? location) =>
-      (location != null) ? Road(state.nodeAt(location)!) : null;
+  Road? _roadTo(Node origin, Location? location) =>
+      (location != null) ? Road(origin, state.nodeAt(location)!) : null;
 
   @override
   void onKeyPressed(LogicalKeyboardKey key) {

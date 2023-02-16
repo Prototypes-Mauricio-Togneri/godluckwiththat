@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:tensionnode/app/constants.dart';
@@ -10,6 +12,9 @@ class Location {
   const Location(this.i, this.j);
 
   JsonLocation get json => [i, j];
+
+  double distanceTo(Location location) =>
+      sqrt(pow(location.i - i, 2) + pow(location.j - j, 2));
 
   Vector2 get position => Vector2(
         i * Constants.NODE_SIZE,

@@ -1,9 +1,12 @@
 import 'package:tensionnode/components/base/node.dart';
 
 class Road {
+  final Node origin;
   final Node target;
+  final num distance;
 
-  const Road(this.target);
+  Road(this.origin, this.target)
+      : distance = origin.location.distanceTo(target.location);
 
   void update(double dt) {}
 }
