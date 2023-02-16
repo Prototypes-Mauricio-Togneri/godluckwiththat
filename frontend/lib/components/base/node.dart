@@ -6,6 +6,7 @@ import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final Location location;
@@ -46,6 +47,22 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     roadWest = west;
   }
 
+  void receive(ResourceType resource) {}
+
+  Road? get availableRoad {
+    if ((roadNorth != null) && (roadNorth!.isAvailable)) {
+      return roadNorth;
+    } else if ((roadEast != null) && (roadEast!.isAvailable)) {
+      return roadEast;
+    } else if ((roadSouth != null) && (roadSouth!.isAvailable)) {
+      return roadSouth;
+    } else if ((roadWest != null) && (roadWest!.isAvailable)) {
+      return roadWest;
+    } else {
+      return null;
+    }
+  }
+
   bool isAt(Location location) => this.location == location;
 
   @override
@@ -56,5 +73,15 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
   void destroy() {
     game.removeNode(this);
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    roadNorth?.update(dt);
+    roadEast?.update(dt);
+    roadSouth?.update(dt);
+    roadWest?.update(dt);
   }
 }

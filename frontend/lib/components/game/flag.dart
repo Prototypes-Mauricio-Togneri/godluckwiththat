@@ -3,6 +3,7 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class Flag extends Node {
   final Inventory inventory;
@@ -17,9 +18,9 @@ class Flag extends Node {
   }) : super(type: NodeType.flag);
 
   @override
-  void update(double dt) {
-    print('');
-    super.update(dt);
+  void receive(ResourceType resource) {
+    inventory.add(resource);
+    print('flag received: $resource');
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flame/input.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_woodcutter.dart';
+import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -24,10 +25,24 @@ class Woodcutter extends Node {
       if (_accumulatedTime >= type.productionTime) {
         _accumulatedTime = 0;
         _resource = ResourceType.timber;
+        _sendResource();
       }
+    } else {
+      _sendResource();
     }
 
     super.update(dt);
+  }
+
+  void _sendResource() {
+    if (_resource != null) {
+      final Road? road = availableRoad;
+
+      if (road != null) {
+        road.send(_resource!);
+        _resource = null;
+      }
+    }
   }
 
   @override
