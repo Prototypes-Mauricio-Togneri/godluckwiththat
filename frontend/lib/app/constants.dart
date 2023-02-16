@@ -29,7 +29,8 @@ class Constants {
 		}
 	},
 	"woodcutters": [{
-		"location": [5, -3]
+		"location": [5, -3],
+    "roadSouth": [5, 0],
 	}],
 	"flags": [{
 		"location": [5, 0],
@@ -37,11 +38,8 @@ class Constants {
 			"timber": 0,
 			"stone": 0,
 			"wood": 0
-		}
-	}],
-  "roads": [{
-		"locationA": [5, -3],
-		"locationB": [5, 0]
+		},
+    "roadNorth": [5, -3],
 	}]
 }
 ''';

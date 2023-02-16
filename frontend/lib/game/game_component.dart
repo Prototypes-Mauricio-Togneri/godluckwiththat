@@ -7,6 +7,7 @@ import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/menu_handler.dart';
 import 'package:tensionnode/game/node_handler.dart';
 import 'package:tensionnode/json/json_flag.dart';
+import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/json/json_woodcutter.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
@@ -20,19 +21,21 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
   Future onLoad() async {
     await addBaseComponents(state.jsonMatch);
 
+    final JsonHeadquarters json = state.jsonMatch.headquarters;
+
     addHeadquarters(
-      location: state.jsonMatch.headquarters.location.location,
-      inventory: state.jsonMatch.headquarters.inventory.inventory,
+      location: json.location.location,
+      inventory: json.inventory.inventory,
     );
 
-    for (final JsonWoodcutter node in state.jsonMatch.woodcutters) {
-      final Road? roadNorth = roadTo(node.roadNorth);
-      final Road? roadEast = roadTo(node.roadEast);
-      final Road? roadSouth = roadTo(node.roadSouth);
-      final Road? roadWest = roadTo(node.roadWest);
+    for (final JsonWoodcutter json in state.jsonMatch.woodcutters) {
+      final Road? roadNorth = roadTo(json.roadNorth);
+      final Road? roadEast = roadTo(json.roadEast);
+      final Road? roadSouth = roadTo(json.roadSouth);
+      final Road? roadWest = roadTo(json.roadWest);
 
       addWoodcutter(
-        location: node.location.location,
+        location: json.location.location,
         roadNorth: roadNorth,
         roadEast: roadEast,
         roadSouth: roadSouth,
@@ -40,10 +43,10 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       );
     }
 
-    for (final JsonFlag node in state.jsonMatch.flags) {
+    for (final JsonFlag json in state.jsonMatch.flags) {
       addFlag(
-        location: node.location.location,
-        inventory: node.inventory.inventory,
+        location: json.location.location,
+        inventory: json.inventory.inventory,
       );
     }
 
