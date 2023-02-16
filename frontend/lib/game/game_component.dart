@@ -24,11 +24,16 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     final Map<Node, Map<String, Location>> nodeConnections = {};
 
     final JsonHeadquarters json = state.jsonMatch.headquarters;
+    final Map<String, Location> locations = json.locations;
 
-    addHeadquarters(
+    final Node node = addHeadquarters(
       location: json.location.location,
       inventory: json.inventory.inventory,
     );
+
+    if (locations.isNotEmpty) {
+      nodeConnections[node] = locations;
+    }
 
     for (final JsonWoodcutter json in state.jsonMatch.woodcutters) {
       final Map<String, Location> locations = json.locations;
@@ -43,10 +48,16 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     }
 
     for (final JsonFlag json in state.jsonMatch.flags) {
-      addFlag(
+      final Map<String, Location> locations = json.locations;
+
+      final Node node = addFlag(
         location: json.location.location,
         inventory: json.inventory.inventory,
       );
+
+      if (locations.isNotEmpty) {
+        nodeConnections[node] = locations;
+      }
     }
 
     for (final MapEntry<Node, Map<String, Location>> entry

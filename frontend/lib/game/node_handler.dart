@@ -11,23 +11,22 @@ import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 mixin NodeHandler on BaseGameComponent {
-  void addHeadquarters({
+  Node addHeadquarters({
     required Location location,
     required Inventory inventory,
     Road? roadNorth,
     Road? roadEast,
     Road? roadSouth,
     Road? roadWest,
-  }) {
-    addNode(Headquarters(
-      location: location,
-      inventory: inventory,
-      roadNorth: roadNorth,
-      roadEast: roadEast,
-      roadSouth: roadSouth,
-      roadWest: roadWest,
-    ));
-  }
+  }) =>
+      addNode(Headquarters(
+        location: location,
+        inventory: inventory,
+        roadNorth: roadNorth,
+        roadEast: roadEast,
+        roadSouth: roadSouth,
+        roadWest: roadWest,
+      ));
 
   Node addWoodcutter({
     required Location location,
@@ -35,41 +34,37 @@ mixin NodeHandler on BaseGameComponent {
     Road? roadEast,
     Road? roadSouth,
     Road? roadWest,
-  }) {
-    final Node node = Woodcutter(
-      location: location,
-      roadNorth: roadNorth,
-      roadEast: roadEast,
-      roadSouth: roadSouth,
-      roadWest: roadWest,
-    );
+  }) =>
+      addNode(Woodcutter(
+        location: location,
+        roadNorth: roadNorth,
+        roadEast: roadEast,
+        roadSouth: roadSouth,
+        roadWest: roadWest,
+      ));
 
-    addNode(node);
-
-    return node;
-  }
-
-  void addFlag({
+  Node addFlag({
     required Location location,
     required Inventory inventory,
     Road? roadNorth,
     Road? roadEast,
     Road? roadSouth,
     Road? roadWest,
-  }) {
-    addNode(Flag(
-      location: location,
-      inventory: inventory,
-      roadNorth: roadNorth,
-      roadEast: roadEast,
-      roadSouth: roadSouth,
-      roadWest: roadWest,
-    ));
-  }
+  }) =>
+      addNode(Flag(
+        location: location,
+        inventory: inventory,
+        roadNorth: roadNorth,
+        roadEast: roadEast,
+        roadSouth: roadSouth,
+        roadWest: roadWest,
+      ));
 
-  void addNode(Component node) {
+  Node addNode(Node node) {
     addToNodesLayer(node);
     state.addNode(node);
+
+    return node;
   }
 
   void removeNode(Component node) {
