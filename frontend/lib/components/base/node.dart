@@ -34,6 +34,18 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     return super.onLoad();
   }
 
+  void connect({
+    Road? north,
+    Road? east,
+    Road? south,
+    Road? west,
+  }) {
+    roadNorth = north;
+    roadEast = east;
+    roadSouth = south;
+    roadWest = west;
+  }
+
   bool isAt(Location location) => this.location == location;
 
   @override

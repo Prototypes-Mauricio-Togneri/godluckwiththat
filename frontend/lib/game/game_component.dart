@@ -21,6 +21,8 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
   Future onLoad() async {
     await addBaseComponents(state.jsonMatch);
 
+    final Map<Node, Map<String, Location>> nodeConnections = {};
+
     final JsonHeadquarters json = state.jsonMatch.headquarters;
 
     addHeadquarters(
@@ -29,18 +31,15 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
     );
 
     for (final JsonWoodcutter json in state.jsonMatch.woodcutters) {
-      final Road? roadNorth = roadTo(json.roadNorth);
-      final Road? roadEast = roadTo(json.roadEast);
-      final Road? roadSouth = roadTo(json.roadSouth);
-      final Road? roadWest = roadTo(json.roadWest);
+      final Map<String, Location> locations = json.locations;
 
-      addWoodcutter(
+      final Node node = addWoodcutter(
         location: json.location.location,
-        roadNorth: roadNorth,
-        roadEast: roadEast,
-        roadSouth: roadSouth,
-        roadWest: roadWest,
       );
+
+      if (locations.isNotEmpty) {
+        nodeConnections[node] = locations;
+      }
     }
 
     for (final JsonFlag json in state.jsonMatch.flags) {
@@ -50,11 +49,26 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       );
     }
 
+    for (final MapEntry<Node, Map<String, Location>> entry
+        in nodeConnections.entries) {
+      final Road? roadNorth = _roadTo(entry.value['north']);
+      final Road? roadEast = _roadTo(entry.value['east']);
+      final Road? roadSouth = _roadTo(entry.value['south']);
+      final Road? roadWest = _roadTo(entry.value['west']);
+
+      entry.key.connect(
+        north: roadNorth,
+        east: roadEast,
+        south: roadSouth,
+        west: roadWest,
+      );
+    }
+
     return super.onLoad();
   }
 
-  Road? roadTo(JsonLocation? location) =>
-      (location != null) ? Road(state.nodeAt(location.location)!) : null;
+  Road? _roadTo(Location? location) =>
+      (location != null) ? Road(state.nodeAt(location)!) : null;
 
   @override
   void onKeyPressed(LogicalKeyboardKey key) {

@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
@@ -28,20 +29,24 @@ mixin NodeHandler on BaseGameComponent {
     ));
   }
 
-  void addWoodcutter({
+  Node addWoodcutter({
     required Location location,
     Road? roadNorth,
     Road? roadEast,
     Road? roadSouth,
     Road? roadWest,
   }) {
-    addNode(Woodcutter(
+    final Node node = Woodcutter(
       location: location,
       roadNorth: roadNorth,
       roadEast: roadEast,
       roadSouth: roadSouth,
       roadWest: roadWest,
-    ));
+    );
+
+    addNode(node);
+
+    return node;
   }
 
   void addFlag({
