@@ -269,10 +269,10 @@ packages:
     dependency: "direct main"
     description:
       name: dafluta
-      sha256: c3f3dcca422b24bbacf4cc3c6b60d32cb828b09acdc806a9b6561a84560a95b9
+      sha256: "5dcab55b71f275c73fd8f54db6c0fdd786e1456f39f7549e4eeb6b82ed51a2f4"
       url: "https://pub.dev"
     source: hosted
-    version: "4.9.1"
+    version: "4.9.2"
   dalocale:
     dependency: "direct dev"
     description:

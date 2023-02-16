@@ -9,6 +9,10 @@ class Headquarters extends Node {
   Headquarters({
     required super.location,
     required this.inventory,
+    super.roadNorth,
+    super.roadEast,
+    super.roadSouth,
+    super.roadWest,
   }) : super(type: NodeType.headquarters);
 
   JsonHeadquarters get json => JsonHeadquarters(

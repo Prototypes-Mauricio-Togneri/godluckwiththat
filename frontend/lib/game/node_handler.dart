@@ -1,51 +1,64 @@
 import 'package:flame/components.dart';
-import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
-import 'package:tensionnode/components/game/road.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
+import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 mixin NodeHandler on BaseGameComponent {
   void addHeadquarters({
     required Location location,
     required Inventory inventory,
+    Road? roadNorth,
+    Road? roadEast,
+    Road? roadSouth,
+    Road? roadWest,
   }) {
     addNode(Headquarters(
       location: location,
       inventory: inventory,
+      roadNorth: roadNorth,
+      roadEast: roadEast,
+      roadSouth: roadSouth,
+      roadWest: roadWest,
     ));
   }
 
   void addWoodcutter({
     required Location location,
+    Road? roadNorth,
+    Road? roadEast,
+    Road? roadSouth,
+    Road? roadWest,
   }) {
     addNode(Woodcutter(
       location: location,
+      roadNorth: roadNorth,
+      roadEast: roadEast,
+      roadSouth: roadSouth,
+      roadWest: roadWest,
     ));
   }
 
   void addFlag({
     required Location location,
     required Inventory inventory,
+    Road? roadNorth,
+    Road? roadEast,
+    Road? roadSouth,
+    Road? roadWest,
   }) {
     addNode(Flag(
       location: location,
       inventory: inventory,
-    ));
-  }
-
-  void addRoad({
-    required Node nodeA,
-    required Node nodeB,
-  }) {
-    addNode(Road(
-      nodeA: nodeA,
-      nodeB: nodeB,
+      roadNorth: roadNorth,
+      roadEast: roadEast,
+      roadSouth: roadSouth,
+      roadWest: roadWest,
     ));
   }
 

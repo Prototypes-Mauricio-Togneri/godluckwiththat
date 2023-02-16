@@ -4,7 +4,6 @@ import 'package:flame/game.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
-import 'package:tensionnode/components/game/road.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
@@ -17,7 +16,6 @@ class GameState extends BaseState {
   late final Headquarters headquarters;
   final List<Woodcutter> woodcutters = [];
   final List<Flag> flags = [];
-  final List<Road> roads = [];
   final JsonMatch jsonMatch;
 
   GameState(this.jsonMatch) {
@@ -60,8 +58,6 @@ class GameState extends BaseState {
       woodcutters.add(node);
     } else if (node is Flag) {
       flags.add(node);
-    } else if (node is Road) {
-      roads.add(node);
     }
   }
 
@@ -70,8 +66,6 @@ class GameState extends BaseState {
       woodcutters.remove(node);
     } else if (node is Flag) {
       flags.remove(node);
-    } else if (node is Road) {
-      roads.remove(node);
     }
   }
 
@@ -84,7 +78,6 @@ class GameState extends BaseState {
       headquarters: headquarters.json,
       woodcutters: woodcutters.map((e) => e.json).toList(),
       flags: flags.map((e) => e.json).toList(),
-      roads: roads.map((e) => e.json).toList(),
     );
   }
 }

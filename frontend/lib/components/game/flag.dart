@@ -10,6 +10,10 @@ class Flag extends Node {
   Flag({
     required super.location,
     required this.inventory,
+    super.roadNorth,
+    super.roadEast,
+    super.roadSouth,
+    super.roadWest,
   }) : super(type: NodeType.flag);
 
   @override

@@ -13,9 +13,25 @@ class JsonWoodcutter {
   @JsonKey(name: 'resource')
   final ResourceType? resource;
 
+  @JsonKey(name: 'roadNorth')
+  final JsonLocation? roadNorth;
+
+  @JsonKey(name: 'roadEast')
+  final JsonLocation? roadEast;
+
+  @JsonKey(name: 'roadSouth')
+  final JsonLocation? roadSouth;
+
+  @JsonKey(name: 'roadWest')
+  final JsonLocation? roadWest;
+
   const JsonWoodcutter({
     required this.location,
     this.resource,
+    this.roadNorth,
+    this.roadEast,
+    this.roadSouth,
+    this.roadWest,
   });
 
   factory JsonWoodcutter.fromString(String json) =>
