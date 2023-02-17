@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
-import 'package:tensionnode/models/location.dart';
+import 'package:tensionnode/json/json_connections.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 part 'json_flag.g.dart';
@@ -14,48 +14,14 @@ class JsonFlag {
   @JsonKey(name: 'queue')
   final List<ResourceType> queue;
 
-  @JsonKey(name: 'roadNorth')
-  final JsonLocation? roadNorth;
-
-  @JsonKey(name: 'roadEast')
-  final JsonLocation? roadEast;
-
-  @JsonKey(name: 'roadSouth')
-  final JsonLocation? roadSouth;
-
-  @JsonKey(name: 'roadWest')
-  final JsonLocation? roadWest;
+  @JsonKey(name: 'connections')
+  final JsonConnections connections;
 
   const JsonFlag({
     required this.location,
     required this.queue,
-    this.roadNorth,
-    this.roadEast,
-    this.roadSouth,
-    this.roadWest,
+    required this.connections,
   });
-
-  Map<String, Location> get locations {
-    final Map<String, Location> result = {};
-
-    if (roadNorth != null) {
-      result['north'] = roadNorth!.location;
-    }
-
-    if (roadEast != null) {
-      result['east'] = roadEast!.location;
-    }
-
-    if (roadSouth != null) {
-      result['south'] = roadSouth!.location;
-    }
-
-    if (roadWest != null) {
-      result['west'] = roadWest!.location;
-    }
-
-    return result;
-  }
 
   factory JsonFlag.fromString(String json) =>
       JsonFlag.fromJson(jsonDecode(json));

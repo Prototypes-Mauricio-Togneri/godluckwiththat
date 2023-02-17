@@ -12,34 +12,15 @@ JsonFlag _$JsonFlagFromJson(Map<String, dynamic> json) => JsonFlag(
       queue: (json['queue'] as List<dynamic>)
           .map((e) => $enumDecode(_$ResourceTypeEnumMap, e))
           .toList(),
-      roadNorth:
-          (json['roadNorth'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      roadEast:
-          (json['roadEast'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      roadSouth:
-          (json['roadSouth'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      roadWest:
-          (json['roadWest'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      connections:
+          JsonConnections.fromJson(json['connections'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$JsonFlagToJson(JsonFlag instance) {
-  final val = <String, dynamic>{
-    'location': instance.location,
-    'queue': instance.queue.map((e) => _$ResourceTypeEnumMap[e]!).toList(),
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('roadNorth', instance.roadNorth);
-  writeNotNull('roadEast', instance.roadEast);
-  writeNotNull('roadSouth', instance.roadSouth);
-  writeNotNull('roadWest', instance.roadWest);
-  return val;
-}
+Map<String, dynamic> _$JsonFlagToJson(JsonFlag instance) => <String, dynamic>{
+      'location': instance.location,
+      'queue': instance.queue.map((e) => _$ResourceTypeEnumMap[e]!).toList(),
+      'connections': instance.connections,
+    };
 
 const _$ResourceTypeEnumMap = {
   ResourceType.timber: 'timber',

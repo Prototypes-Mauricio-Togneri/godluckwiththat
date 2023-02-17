@@ -11,10 +11,6 @@ class Flag extends Node {
   Flag({
     required super.location,
     required this.queue,
-    super.roadNorth,
-    super.roadEast,
-    super.roadSouth,
-    super.roadWest,
   }) : super(type: NodeType.flag);
 
   @override
@@ -39,6 +35,7 @@ class Flag extends Node {
   JsonFlag get json => JsonFlag(
         location: location.json,
         queue: queue,
+        connections: roads.json,
       );
 
   @override

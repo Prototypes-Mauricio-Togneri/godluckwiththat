@@ -22,6 +22,7 @@ class Constants {
 	},
 	"headquarters": {
 		"location": [0, 0],
+    "connections": {},
     "inventory": {
 			"timber": 0,
 			"stone": 0,
@@ -30,13 +31,17 @@ class Constants {
 	},
 	"woodcutters": [{
 		"location": [5, -3],
-    "roadSouth": [5, 0]
+    "connections": {
+      "south": [5, 0]
+    }
 	}],
 	"flags": [{
 		"location": [5, 0],
     "queue": [],
-    "roadNorth": [5, -3],
-    "roadWest": [0, 0]
+    "connections": {
+      "north": [5, -3],
+      "west": [0, 0]
+    }
 	}]
 }
 ''';

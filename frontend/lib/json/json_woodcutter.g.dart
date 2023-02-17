@@ -10,20 +10,15 @@ JsonWoodcutter _$JsonWoodcutterFromJson(Map<String, dynamic> json) =>
     JsonWoodcutter(
       location:
           (json['location'] as List<dynamic>).map((e) => e as int).toList(),
+      connections:
+          JsonConnections.fromJson(json['connections'] as Map<String, dynamic>),
       resource: $enumDecodeNullable(_$ResourceTypeEnumMap, json['resource']),
-      roadNorth:
-          (json['roadNorth'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      roadEast:
-          (json['roadEast'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      roadSouth:
-          (json['roadSouth'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      roadWest:
-          (json['roadWest'] as List<dynamic>?)?.map((e) => e as int).toList(),
     );
 
 Map<String, dynamic> _$JsonWoodcutterToJson(JsonWoodcutter instance) {
   final val = <String, dynamic>{
     'location': instance.location,
+    'connections': instance.connections,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -33,10 +28,6 @@ Map<String, dynamic> _$JsonWoodcutterToJson(JsonWoodcutter instance) {
   }
 
   writeNotNull('resource', _$ResourceTypeEnumMap[instance.resource]);
-  writeNotNull('roadNorth', instance.roadNorth);
-  writeNotNull('roadEast', instance.roadEast);
-  writeNotNull('roadSouth', instance.roadSouth);
-  writeNotNull('roadWest', instance.roadWest);
   return val;
 }
 

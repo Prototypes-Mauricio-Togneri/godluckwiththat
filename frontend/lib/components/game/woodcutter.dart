@@ -11,10 +11,6 @@ class Woodcutter extends Node {
 
   Woodcutter({
     required super.location,
-    super.roadNorth,
-    super.roadEast,
-    super.roadSouth,
-    super.roadWest,
   }) : super(type: NodeType.woodcutter);
 
   @override
@@ -54,5 +50,6 @@ class Woodcutter extends Node {
   JsonWoodcutter get json => JsonWoodcutter(
         location: location.json,
         resource: _resource,
+        connections: roads.json,
       );
 }

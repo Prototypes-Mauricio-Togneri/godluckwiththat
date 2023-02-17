@@ -1,6 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/routed_resource.dart';
+import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Road {
@@ -16,6 +17,8 @@ class Road {
       : distance = origin.location.distanceTo(target.location);
 
   bool get isAvailable => _routedResource == null;
+
+  JsonLocation get json => target.location.json;
 
   void send(ResourceType resource) {
     _progress = 0;

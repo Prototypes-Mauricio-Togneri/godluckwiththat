@@ -5,6 +5,7 @@ import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/road.dart';
+import 'package:tensionnode/models/roads.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
@@ -13,20 +14,13 @@ import 'package:tensionnode/types/resource_type.dart';
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final Location location;
   final NodeType type;
-  Road? roadNorth;
-  Road? roadEast;
-  Road? roadSouth;
-  Road? roadWest;
+  final Roads roads = Roads();
 
   late final DebugText debugText = DebugText();
 
   Node({
     required this.type,
     required this.location,
-    this.roadNorth,
-    this.roadEast,
-    this.roadSouth,
-    this.roadWest,
   });
 
   @override
@@ -41,29 +35,21 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     return super.onLoad();
   }
 
-  void connect({
-    Road? north,
-    Road? east,
-    Road? south,
-    Road? west,
-  }) {
-    roadNorth = north;
-    roadEast = east;
-    roadSouth = south;
-    roadWest = west;
+  void connect(Roads roads) {
+    this.roads.connect(roads);
   }
 
   void receive(ResourceType resource) {}
 
   Road? get availableRoad {
-    if ((roadSouth != null) && (roadSouth!.isAvailable)) {
-      return roadSouth;
-    } else if ((roadWest != null) && (roadWest!.isAvailable)) {
-      return roadWest;
-    } else if ((roadNorth != null) && (roadNorth!.isAvailable)) {
-      return roadNorth;
-    } else if ((roadEast != null) && (roadEast!.isAvailable)) {
-      return roadEast;
+    if ((roads.south != null) && (roads.south!.isAvailable)) {
+      return roads.south;
+    } else if ((roads.west != null) && (roads.west!.isAvailable)) {
+      return roads.west;
+    } else if ((roads.north != null) && (roads.north!.isAvailable)) {
+      return roads.north;
+    } else if ((roads.east != null) && (roads.east!.isAvailable)) {
+      return roads.east;
     } else {
       return null;
     }
@@ -85,10 +71,10 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   void update(double dt) {
     super.update(dt);
 
-    roadNorth?.update(dt);
-    roadEast?.update(dt);
-    roadSouth?.update(dt);
-    roadWest?.update(dt);
+    roads.north?.update(dt);
+    roads.east?.update(dt);
+    roads.south?.update(dt);
+    roads.west?.update(dt);
   }
 }
 

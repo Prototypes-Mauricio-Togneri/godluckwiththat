@@ -7,7 +7,6 @@ import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
-import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -15,50 +14,26 @@ mixin NodeHandler on BaseGameComponent {
   Node addHeadquarters({
     required Location location,
     required Inventory inventory,
-    Road? roadNorth,
-    Road? roadEast,
-    Road? roadSouth,
-    Road? roadWest,
   }) =>
       addNode(Headquarters(
         location: location,
         inventory: inventory,
-        roadNorth: roadNorth,
-        roadEast: roadEast,
-        roadSouth: roadSouth,
-        roadWest: roadWest,
       ));
 
   Node addWoodcutter({
     required Location location,
-    Road? roadNorth,
-    Road? roadEast,
-    Road? roadSouth,
-    Road? roadWest,
   }) =>
       addNode(Woodcutter(
         location: location,
-        roadNorth: roadNorth,
-        roadEast: roadEast,
-        roadSouth: roadSouth,
-        roadWest: roadWest,
       ));
 
   Node addFlag({
     required Location location,
     required List<ResourceType> queue,
-    Road? roadNorth,
-    Road? roadEast,
-    Road? roadSouth,
-    Road? roadWest,
   }) =>
       addNode(Flag(
         location: location,
         queue: queue,
-        roadNorth: roadNorth,
-        roadEast: roadEast,
-        roadSouth: roadSouth,
-        roadWest: roadWest,
       ));
 
   Node addNode(Node node) {

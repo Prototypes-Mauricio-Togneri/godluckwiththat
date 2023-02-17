@@ -11,10 +11,6 @@ class Headquarters extends Node {
   Headquarters({
     required super.location,
     required this.inventory,
-    super.roadNorth,
-    super.roadEast,
-    super.roadSouth,
-    super.roadWest,
   }) : super(type: NodeType.headquarters);
 
   @override
@@ -23,6 +19,7 @@ class Headquarters extends Node {
   JsonHeadquarters get json => JsonHeadquarters(
         location: location.json,
         inventory: inventory.json,
+        connections: roads.json,
       );
 
   @override
