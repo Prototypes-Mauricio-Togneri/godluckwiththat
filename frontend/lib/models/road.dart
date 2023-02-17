@@ -1,4 +1,5 @@
 import 'package:flame/game.dart';
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/routed_resource.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
@@ -10,6 +11,7 @@ class Road {
   final num distance;
 
   Vector2 _direction = Vector2.zero();
+  double _distance = 0;
   double _progress = 0;
   RoutedResource? _routedResource;
 
@@ -24,12 +26,13 @@ class Road {
     _progress = 0;
     _routedResource = RoutedResource(type: resource);
     _direction = target.position - origin.position;
+    _distance = _direction.length / Constants.NODE_SIZE;
     origin.game.addToResourcesLayer(_routedResource!);
   }
 
   void update(double dt) {
     if (_routedResource != null) {
-      _progress += dt / 3;
+      _progress += (dt / _distance) * Constants.ROAD_SPEED;
       _routedResource!.position = origin.position + (_direction * _progress);
 
       if (_progress >= 1) {

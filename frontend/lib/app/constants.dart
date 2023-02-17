@@ -7,6 +7,8 @@ class Constants {
 
   static const double NODE_SIZE = 8;
 
+  static const double ROAD_SPEED = 1; // 1 tile per second
+
   static const num TIME_TO_NEXT_WAVE = 60; // in seconds
 
   static String TEST_MATCH = '''
