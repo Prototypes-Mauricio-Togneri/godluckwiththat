@@ -25,7 +25,8 @@ class BaseGameComponent extends FlameGame
   final GameState state;
   final Component _layerBackground = Component(priority: 0);
   final Component _layerNodes = Component(priority: 1);
-  final Component _layerHud = Component(priority: 2)
+  final Component _resourcesNodes = Component(priority: 2);
+  final Component _layerHud = Component(priority: 3)
     ..positionType = PositionType.viewport;
 
   BaseGameComponent(this.state);
@@ -50,6 +51,7 @@ class BaseGameComponent extends FlameGame
 
     add(_layerBackground);
     add(_layerNodes);
+    add(_resourcesNodes);
     add(_layerHud);
 
     final JsonLocation cameraLocation = jsonMatch.map.location;
@@ -71,6 +73,9 @@ class BaseGameComponent extends FlameGame
 
   void addToNodesLayer(Component component) => _layerNodes.add(component);
 
+  void addToResourcesLayer(Component component) =>
+      _resourcesNodes.add(component);
+
   void addToHudLayer(Component component) => _layerHud.add(component);
 
   void removeFromBackgroundLayer(Component component) =>
@@ -78,6 +83,9 @@ class BaseGameComponent extends FlameGame
 
   void removeFromNodesLayer(Component component) =>
       _layerNodes.remove(component);
+
+  void removeFromResourcesLayer(Component component) =>
+      _resourcesNodes.remove(component);
 
   void removeFromHudLayer(Component component) => _layerHud.remove(component);
 

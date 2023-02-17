@@ -19,7 +19,7 @@ class Road {
     _progress = 0;
 
     _routedResource = RoutedResource(type: resource);
-    origin.add(_routedResource!);
+    origin.game.addToResourcesLayer(_routedResource!);
   }
 
   void update(double dt) {
@@ -30,7 +30,7 @@ class Road {
 
       if (_progress >= 1) {
         target.receive(_routedResource!.type);
-        origin.remove(_routedResource!);
+        origin.game.removeFromResourcesLayer(_routedResource!);
         _routedResource = null;
         _progress = 0;
       }
