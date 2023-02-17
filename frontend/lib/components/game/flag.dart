@@ -20,7 +20,6 @@ class Flag extends Node {
   @override
   void receive(ResourceType resource) {
     inventory.add(resource);
-    print('flag received: $resource');
   }
 
   @override
