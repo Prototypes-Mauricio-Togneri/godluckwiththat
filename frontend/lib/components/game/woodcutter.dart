@@ -19,6 +19,8 @@ class Woodcutter extends Node {
 
   @override
   void update(double dt) {
+    super.update(dt);
+
     if (_resource == null) {
       _accumulatedTime += dt;
 
@@ -31,7 +33,7 @@ class Woodcutter extends Node {
       _sendResource();
     }
 
-    super.update(dt);
+    debugText.text = '$_resource';
   }
 
   void _sendResource() {

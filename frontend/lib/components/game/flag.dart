@@ -30,4 +30,11 @@ class Flag extends Node {
         location: location.json,
         inventory: inventory.json,
       );
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    debugText.text = inventory.toString();
+  }
 }

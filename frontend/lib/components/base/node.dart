@@ -5,6 +5,8 @@ import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/road.dart';
+import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -15,6 +17,8 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   Road? roadEast;
   Road? roadSouth;
   Road? roadWest;
+
+  late final DebugText debugText = DebugText();
 
   Node({
     required this.type,
@@ -31,6 +35,8 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     size = getSize();
     anchor = Anchor.center;
     position = location.position;
+
+    add(debugText);
 
     return super.onLoad();
   }
@@ -83,5 +89,22 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     roadEast?.update(dt);
     roadSouth?.update(dt);
     roadWest?.update(dt);
+  }
+}
+
+class DebugText extends TextComponent {
+  late Node node;
+
+  @override
+  FutureOr onLoad() {
+    node = parent as Node;
+    position = node.size / 2;
+    anchor = Anchor.center;
+    textRenderer = Style.debugTextRenderer(
+      size: 2,
+      color: Palette.error,
+    );
+
+    return super.onLoad();
   }
 }
