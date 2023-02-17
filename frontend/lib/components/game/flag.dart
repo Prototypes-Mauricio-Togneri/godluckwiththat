@@ -20,7 +20,6 @@ class Flag extends Node {
   @override
   void receive(ResourceType resource) {
     queue.add(resource);
-    _sendResource();
   }
 
   void _sendResource() {
@@ -46,6 +45,7 @@ class Flag extends Node {
   void update(double dt) {
     super.update(dt);
 
+    _sendResource();
     debugText.text = queue.toString();
   }
 }
