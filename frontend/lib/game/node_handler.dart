@@ -9,6 +9,7 @@ import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 mixin NodeHandler on BaseGameComponent {
   Node addHeadquarters({
@@ -45,7 +46,7 @@ mixin NodeHandler on BaseGameComponent {
 
   Node addFlag({
     required Location location,
-    required Inventory inventory,
+    required List<ResourceType> queue,
     Road? roadNorth,
     Road? roadEast,
     Road? roadSouth,
@@ -53,7 +54,7 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       addNode(Flag(
         location: location,
-        inventory: inventory,
+        queue: queue,
         roadNorth: roadNorth,
         roadEast: roadEast,
         roadSouth: roadSouth,

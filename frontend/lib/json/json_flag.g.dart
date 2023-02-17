@@ -9,8 +9,9 @@ part of 'json_flag.dart';
 JsonFlag _$JsonFlagFromJson(Map<String, dynamic> json) => JsonFlag(
       location:
           (json['location'] as List<dynamic>).map((e) => e as int).toList(),
-      inventory:
-          JsonInventory.fromJson(json['inventory'] as Map<String, dynamic>),
+      queue: (json['queue'] as List<dynamic>)
+          .map((e) => $enumDecode(_$ResourceTypeEnumMap, e))
+          .toList(),
       roadNorth:
           (json['roadNorth'] as List<dynamic>?)?.map((e) => e as int).toList(),
       roadEast:
@@ -24,7 +25,7 @@ JsonFlag _$JsonFlagFromJson(Map<String, dynamic> json) => JsonFlag(
 Map<String, dynamic> _$JsonFlagToJson(JsonFlag instance) {
   final val = <String, dynamic>{
     'location': instance.location,
-    'inventory': instance.inventory,
+    'queue': instance.queue.map((e) => _$ResourceTypeEnumMap[e]!).toList(),
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -39,3 +40,9 @@ Map<String, dynamic> _$JsonFlagToJson(JsonFlag instance) {
   writeNotNull('roadWest', instance.roadWest);
   return val;
 }
+
+const _$ResourceTypeEnumMap = {
+  ResourceType.timber: 'timber',
+  ResourceType.stone: 'stone',
+  ResourceType.wood: 'wood',
+};

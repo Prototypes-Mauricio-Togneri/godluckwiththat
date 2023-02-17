@@ -3,6 +3,7 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class Headquarters extends Node {
   final Inventory inventory;
@@ -23,6 +24,11 @@ class Headquarters extends Node {
         location: location.json,
         inventory: inventory.json,
       );
+
+  @override
+  void receive(ResourceType resource) {
+    inventory.add(resource);
+  }
 
   @override
   void update(double dt) {

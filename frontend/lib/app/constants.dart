@@ -34,12 +34,9 @@ class Constants {
 	}],
 	"flags": [{
 		"location": [5, 0],
-    "inventory": {
-			"timber": 0,
-			"stone": 0,
-			"wood": 0
-		},
-    "roadNorth": [5, -3]
+    "queue": [],
+    "roadNorth": [5, -3],
+    "roadWest": [0, 0]
 	}]
 }
 ''';

@@ -52,7 +52,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
       final Node node = addFlag(
         location: json.location.location,
-        inventory: json.inventory.inventory,
+        queue: json.queue,
       );
 
       if (locations.isNotEmpty) {

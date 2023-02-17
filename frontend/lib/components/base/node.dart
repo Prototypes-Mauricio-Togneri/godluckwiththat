@@ -56,14 +56,14 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   void receive(ResourceType resource) {}
 
   Road? get availableRoad {
-    if ((roadNorth != null) && (roadNorth!.isAvailable)) {
-      return roadNorth;
-    } else if ((roadEast != null) && (roadEast!.isAvailable)) {
-      return roadEast;
-    } else if ((roadSouth != null) && (roadSouth!.isAvailable)) {
+    if ((roadSouth != null) && (roadSouth!.isAvailable)) {
       return roadSouth;
     } else if ((roadWest != null) && (roadWest!.isAvailable)) {
       return roadWest;
+    } else if ((roadNorth != null) && (roadNorth!.isAvailable)) {
+      return roadNorth;
+    } else if ((roadEast != null) && (roadEast!.isAvailable)) {
+      return roadEast;
     } else {
       return null;
     }

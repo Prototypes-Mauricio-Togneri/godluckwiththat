@@ -1,16 +1,16 @@
 import 'package:flame/input.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_flag.dart';
-import 'package:tensionnode/models/inventory.dart';
+import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Flag extends Node {
-  final Inventory inventory;
+  final List<ResourceType> queue;
 
   Flag({
     required super.location,
-    required this.inventory,
+    required this.queue,
     super.roadNorth,
     super.roadEast,
     super.roadSouth,
@@ -19,7 +19,19 @@ class Flag extends Node {
 
   @override
   void receive(ResourceType resource) {
-    inventory.add(resource);
+    queue.add(resource);
+    _sendResource();
+  }
+
+  void _sendResource() {
+    if (queue.isNotEmpty) {
+      final Road? road = availableRoad;
+
+      if (road != null) {
+        final ResourceType resource = queue.removeAt(0);
+        road.send(resource);
+      }
+    }
   }
 
   @override
@@ -27,13 +39,13 @@ class Flag extends Node {
 
   JsonFlag get json => JsonFlag(
         location: location.json,
-        inventory: inventory.json,
+        queue: queue,
       );
 
   @override
   void update(double dt) {
     super.update(dt);
 
-    debugText.text = inventory.toString();
+    debugText.text = queue.toString();
   }
 }

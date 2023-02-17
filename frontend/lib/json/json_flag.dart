@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
-import 'package:tensionnode/json/json_inventory.dart';
 import 'package:tensionnode/models/location.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 part 'json_flag.g.dart';
 
@@ -11,8 +11,8 @@ class JsonFlag {
   @JsonKey(name: 'location')
   final JsonLocation location;
 
-  @JsonKey(name: 'inventory')
-  final JsonInventory inventory;
+  @JsonKey(name: 'queue')
+  final List<ResourceType> queue;
 
   @JsonKey(name: 'roadNorth')
   final JsonLocation? roadNorth;
@@ -28,7 +28,7 @@ class JsonFlag {
 
   const JsonFlag({
     required this.location,
-    required this.inventory,
+    required this.queue,
     this.roadNorth,
     this.roadEast,
     this.roadSouth,
