@@ -1,6 +1,5 @@
 import 'package:flame/input.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_woodcutter.dart';
 import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/types/node_type.dart';
@@ -34,7 +33,8 @@ class Woodcutter extends Node {
       _sendResource();
     }
 
-    debugText.text = '${_accumulatedTime.decimal()}';
+    debugText.text =
+        '${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
   }
 
   void _sendResource() {

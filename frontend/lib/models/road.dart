@@ -7,6 +7,8 @@ class Road {
   final Node origin;
   final Node target;
   final num distance;
+
+  Vector2 _direction = Vector2.zero();
   double _progress = 0;
   RoutedResource? _routedResource;
 
@@ -17,16 +19,15 @@ class Road {
 
   void send(ResourceType resource) {
     _progress = 0;
-
     _routedResource = RoutedResource(type: resource);
+    _direction = target.position - origin.position;
     origin.game.addToResourcesLayer(_routedResource!);
   }
 
   void update(double dt) {
     if (_routedResource != null) {
       _progress += dt / 3;
-      final Vector2 direction = target.position - origin.position;
-      _routedResource!.position = origin.position + (direction * _progress);
+      _routedResource!.position = origin.position + (_direction * _progress);
 
       if (_progress >= 1) {
         target.receive(_routedResource!.type);
