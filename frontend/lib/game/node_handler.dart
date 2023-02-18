@@ -16,6 +16,7 @@ mixin NodeHandler on BaseGameComponent {
     required Inventory inventory,
   }) =>
       addNode(Headquarters(
+        type: NodeType.headquarters,
         location: location,
         inventory: inventory,
       ));
@@ -24,6 +25,7 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       addNode(Woodcutter(
+        type: NodeType.woodcutter,
         location: location,
       ));
 
@@ -31,6 +33,7 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       addNode(Sawmill(
+        type: NodeType.sawmill,
         location: location,
       ));
 
@@ -38,6 +41,7 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       addNode(Flag(
+        type: NodeType.flag,
         location: location,
       ));
 

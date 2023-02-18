@@ -4,7 +4,6 @@ import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/route.dart';
 import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/building_state.dart';
-import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Woodcutter extends Node {
@@ -12,8 +11,9 @@ class Woodcutter extends Node {
   BuildingState _state = BuildingState.idle; // TODO(momo): receive as parameter
 
   Woodcutter({
+    required super.type,
     required super.location,
-  }) : super(type: NodeType.woodcutter);
+  });
 
   @override
   Future onLoad() {

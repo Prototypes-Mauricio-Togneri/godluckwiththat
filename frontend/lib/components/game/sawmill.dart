@@ -5,7 +5,6 @@ import 'package:tensionnode/models/resource_manager.dart';
 import 'package:tensionnode/models/route.dart';
 import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/building_state.dart';
-import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Sawmill extends Node {
@@ -16,8 +15,9 @@ class Sawmill extends Node {
   static const int QUEUE_LIMIT = 6;
 
   Sawmill({
+    required super.type,
     required super.location,
-  }) : super(type: NodeType.sawmill);
+  });
 
   @override
   Future onLoad() {

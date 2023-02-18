@@ -1,14 +1,14 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/models/routed_resource.dart';
-import 'package:tensionnode/types/node_type.dart';
 
 class Flag extends Node {
   final List<RoutedResource> queue = [];
 
   Flag({
+    required super.type,
     required super.location,
-  }) : super(type: NodeType.flag);
+  });
 
   @override
   void receive(RoutedResource routedResource) {
