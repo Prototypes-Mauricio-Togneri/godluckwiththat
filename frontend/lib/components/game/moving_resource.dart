@@ -2,16 +2,16 @@ import 'package:flame/components.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class RoutedResource extends SpriteComponent {
-  final ResourceType type;
+class MovingResource extends SpriteComponent {
+  final ResourceType resource;
 
-  RoutedResource({
-    required this.type,
+  MovingResource({
+    required this.resource,
   });
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(type.sprite);
+    sprite = await getSprite(resource.sprite);
     size = getSize();
     anchor = Anchor.center;
 
