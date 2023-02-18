@@ -8,4 +8,9 @@ class Route {
   bool get isEmpty => _waypoints.isEmpty;
 
   Location? get first => isEmpty ? null : _waypoints[0];
+
+  void pop() => _waypoints.removeAt(0);
+
+  @override
+  String toString() => _waypoints.toString();
 }

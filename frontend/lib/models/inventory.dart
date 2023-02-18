@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:tensionnode/json/json_inventory.dart';
+import 'package:tensionnode/services/json.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Inventory {
@@ -60,9 +59,5 @@ class Inventory {
       );
 
   @override
-  String toString() {
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-
-    return encoder.convert(json.toJson());
-  }
+  String toString() => Json.encode(json.toJson());
 }

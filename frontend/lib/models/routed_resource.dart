@@ -1,4 +1,5 @@
 import 'package:tensionnode/models/route.dart';
+import 'package:tensionnode/services/json.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class RoutedResource {
@@ -13,4 +14,12 @@ class RoutedResource {
   bool get isDestination => route.isEmpty;
 
   bool has(ResourceType resource) => this.resource == resource;
+
+  void pop() => route.pop();
+
+  @override
+  String toString() => Json.encode({
+        route: route.toString(),
+        resource: resource,
+      });
 }

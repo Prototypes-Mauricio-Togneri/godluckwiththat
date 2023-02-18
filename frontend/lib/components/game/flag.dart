@@ -12,10 +12,16 @@ class Flag extends Node {
 
   @override
   void receive(RoutedResource routedResource) {
-    queue.add(routedResource);
+    if (routedResource.isDestination) {
+      throw Exception(
+          'Routed resource $routedResource arrived to flag $this as destination');
+    } else {
+      routedResource.pop();
+      queue.add(routedResource);
+    }
   }
 
-  void _sendResource() {
+  void _sendResources() {
     final List<RoutedResource> removeFromQueue = [];
 
     for (final RoutedResource routedResource in queue) {
@@ -35,7 +41,7 @@ class Flag extends Node {
   void update(double dt) {
     super.update(dt);
 
-    _sendResource();
+    _sendResources();
     debugText.text = queue.toString();
   }
 

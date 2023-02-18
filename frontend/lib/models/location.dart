@@ -30,4 +30,7 @@ class Location {
 
   @override
   int get hashCode => i.hashCode + j.hashCode;
+
+  @override
+  String toString() => '[$i, $j]';
 }
