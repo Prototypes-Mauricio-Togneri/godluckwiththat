@@ -3,6 +3,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/moving_resource.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
+import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Road {
@@ -22,9 +23,9 @@ class Road {
 
   JsonLocation get json => target.location.json;
 
-  void send(ResourceType resource) {
+  void send(RoutedResource routedResource) {
     _progress = 0;
-    _movingResource = MovingResource(resource: resource);
+    _movingResource = MovingResource(routedResource: routedResource);
     _direction = target.position - origin.position;
     _distance = _direction.length / Constants.NODE_SIZE;
     origin.game.addComponent(_movingResource!);
@@ -36,10 +37,9 @@ class Road {
       _movingResource!.position = origin.position + (_direction * _progress);
 
       if (_progress >= 1) {
-        target.receive(_movingResource!.resource);
+        target.receive(_movingResource!.routedResource);
         origin.game.removeComponent(_movingResource!);
         _movingResource = null;
-        _progress = 0;
       }
     }
   }

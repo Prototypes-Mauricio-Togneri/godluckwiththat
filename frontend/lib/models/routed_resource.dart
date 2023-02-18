@@ -9,4 +9,8 @@ class RoutedResource {
     required this.route,
     required this.resource,
   });
+
+  bool get isDestination => route.isEmpty;
+
+  bool has(ResourceType resource) => this.resource == resource;
 }

@@ -52,8 +52,9 @@ class Sawmill extends Node {
   }
 
   @override
-  void receive(ResourceType resource) {
-    if (resource == ResourceType.timber) {
+  void receive(RoutedResource routedResource) {
+    if ((routedResource.isDestination) &&
+        (routedResource.has(ResourceType.timber))) {
       _timbers++;
       _startProducing();
     }

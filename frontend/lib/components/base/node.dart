@@ -10,7 +10,6 @@ import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/types/resource_type.dart';
 
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final Location location;
@@ -40,9 +39,9 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     this.roads.connect(roads);
   }
 
-  void receive(ResourceType resource) {}
+  void receive(RoutedResource routedResource) {}
 
-  Road? get availableRoad {
+  /*Road? get availableRoad {
     if ((roads.south != null) && (roads.south!.isAvailable)) {
       return roads.south;
     } else if ((roads.west != null) && (roads.west!.isAvailable)) {
@@ -54,17 +53,32 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     } else {
       return null;
     }
+  }*/
+
+  Road? _roadTo(Location? location) {
+    if (location != null) {
+      if (roads.south?.target.location == location) {
+        return roads.south;
+      } else if (roads.west?.target.location == location) {
+        return roads.west;
+      } else if (roads.north?.target.location == location) {
+        return roads.north;
+      } else if (roads.east?.target.location == location) {
+        return roads.east;
+      }
+    }
+
+    return null;
   }
 
   bool send(RoutedResource? routedResource) {
     bool sent = false;
 
     if (routedResource != null) {
-      final Road? road = availableRoad;
+      final Road? road = _roadTo(routedResource.route.first);
 
-      if (road != null) {
-        road.send(_resource!);
-        _resource = null;
+      if ((road != null) && (road.isAvailable)) {
+        road.send(routedResource);
         sent = true;
       }
     }
