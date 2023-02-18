@@ -24,8 +24,10 @@ class Constants {
 	},
 	"headquarters": {
 		"location": [0, 0],
-    "connections": {},
-    "inventory": {
+		"connections": {
+			"east": [2, 0]
+		},
+		"inventory": {
 			"timber": 0,
 			"stone": 0,
 			"wood": 0
@@ -33,22 +35,31 @@ class Constants {
 	},
 	"woodcutters": [{
 		"location": [5, -3],
-    "connections": {
-      "south": [5, 0]
-    }
+		"connections": {
+			"south": [5, 0]
+		}
 	}],
 	"sawmills": [{
-		"location": [3, -2],
-    "connections": {}
+		"location": [2, -2],
+		"connections": {
+			"south": [2, 0]
+		}
 	}],
 	"flags": [{
+		"location": [2, 0],
+		"connections": {
+			"north": [2, -2],
+			"west": [0, 0],
+			"east": [5, 0]
+		}
+	}, {
 		"location": [5, 0],
-    "connections": {
-      "north": [5, -3],
-      "west": [0, 0]
-    }
+		"connections": {
+			"north": [5, -3],
+			"west": [2, 0]
+		}
 	}]
-}
+}x
 ''';
 
   static String EMPTY_MATCH = '''

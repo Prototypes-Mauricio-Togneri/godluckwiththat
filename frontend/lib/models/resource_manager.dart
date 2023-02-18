@@ -17,6 +17,7 @@ class ResourceManager {
   RoutedResource? query({
     required Node origin,
     required ResourceType resource,
+    required Route route, // TODO(momo): remove parameter
   }) {
     // TODO(momo): sort by resource, order by priority and select the closest
     // TODO(momo): check that the resource can be routed from the origin to the target
@@ -34,7 +35,7 @@ class ResourceManager {
       _requests.remove(result);
 
       return RoutedResource(
-        route: const Route([]),
+        route: route,
         resource: resource,
       );
     } else {

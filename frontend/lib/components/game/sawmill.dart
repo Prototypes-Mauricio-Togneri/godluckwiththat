@@ -1,6 +1,8 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_sawmill.dart';
+import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/resource_manager.dart';
+import 'package:tensionnode/models/route.dart';
 import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/node_type.dart';
@@ -64,6 +66,10 @@ class Sawmill extends Node {
     final RoutedResource? routedResource = game.state.resourceManager.query(
       origin: this,
       resource: ResourceType.wood,
+      route: const Route([
+        Location(2, 0),
+        Location(0, 0),
+      ]),
     );
 
     final bool sent = send(routedResource);
