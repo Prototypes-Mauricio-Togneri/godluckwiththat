@@ -5,6 +5,11 @@ import 'package:tensionnode/types/resource_type.dart';
 
 class ResourceManager {
   final List<ResourceRequest> _requests = [];
+  final List<Node> _warehouses = [];
+
+  void addWarehouse(Node node) {
+    _warehouses.add(node);
+  }
 
   void addRequest(ResourceRequest request) {
     _requests.add(request);
@@ -23,16 +28,25 @@ class ResourceManager {
     // TODO(momo): check that the resource can be routed from the origin to the target
 
     ResourceRequest? result;
+    Route? calculatedRoute;
 
     for (final ResourceRequest request in _requests) {
       if (request.resource == resource) {
         result = request;
+        calculatedRoute = route;
         break;
       }
     }
 
-    if (result != null) {
+    if ((result != null) && (calculatedRoute != null)) {
       _requests.remove(result);
+
+      return RoutedResource(
+        route: calculatedRoute,
+        resource: resource,
+      );
+    } else if (_warehouses.isNotEmpty) {
+      // TODO(momo): get closest warehouse and calculate route
 
       return RoutedResource(
         route: route,

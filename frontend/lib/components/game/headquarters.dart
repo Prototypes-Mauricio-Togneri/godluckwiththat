@@ -1,10 +1,8 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/models/inventory.dart';
-import 'package:tensionnode/models/resource_manager.dart';
 import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/types/resource_type.dart';
 
 class Headquarters extends Node {
   final Inventory inventory;
@@ -16,7 +14,7 @@ class Headquarters extends Node {
 
   @override
   Future onLoad() {
-    _requestResources();
+    game.state.resourceManager.addWarehouse(this);
 
     return super.onLoad();
   }
@@ -25,19 +23,6 @@ class Headquarters extends Node {
   void receive(RoutedResource routedResource) {
     if (routedResource.isDestination(this)) {
       inventory.add(routedResource.resource);
-    }
-  }
-
-  void _requestResources() {
-    // TODO(momo): create variable "needs"=QUEUE_MAX and reduce it and increase it
-    for (int i = 0; i < 5; i++) {
-      game.state.resourceManager.addRequest(
-        ResourceRequest(
-          requester: this,
-          resource: ResourceType.wood,
-          priority: 1,
-        ),
-      );
     }
   }
 
