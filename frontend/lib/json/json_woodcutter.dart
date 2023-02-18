@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/json/json_connections.dart';
-import 'package:tensionnode/types/resource_type.dart';
 
 part 'json_woodcutter.g.dart';
 
@@ -14,13 +13,9 @@ class JsonWoodcutter {
   @JsonKey(name: 'connections')
   final JsonConnections connections;
 
-  @JsonKey(name: 'resource')
-  final ResourceType? resource;
-
   const JsonWoodcutter({
     required this.location,
     required this.connections,
-    this.resource,
   });
 
   factory JsonWoodcutter.fromString(String json) =>

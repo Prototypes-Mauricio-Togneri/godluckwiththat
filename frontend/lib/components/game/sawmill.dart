@@ -48,7 +48,7 @@ class Sawmill extends Node {
     }
 
     debugText.text =
-        '${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
+        '$_state: ${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
   }
 
   @override
@@ -75,6 +75,7 @@ class Sawmill extends Node {
   }
 
   void _requestResources() {
+    // TODO(momo): create variable "needs"=QUEUE_MAX and reduce it and increase it
     for (int i = _timbers; i < QUEUE_LIMIT; i++) {
       game.state.resourceManager.addRequest(
         ResourceRequest(

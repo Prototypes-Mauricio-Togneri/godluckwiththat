@@ -1,38 +1,35 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_flag.dart';
-import 'package:tensionnode/models/road.dart';
+import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/types/resource_type.dart';
 
 class Flag extends Node {
-  final List<ResourceType> queue;
+  final List<RoutedResource> queue = [];
 
   Flag({
     required super.location,
-    required this.queue,
   }) : super(type: NodeType.flag);
 
   @override
-  void receive(ResourceType resource) {
-    queue.add(resource);
+  void receive(RoutedResource routedResource) {
+    queue.add(routedResource);
   }
 
   void _sendResource() {
-    if (queue.isNotEmpty) {
-      final Road? road = availableRoad;
+    final List<RoutedResource> removeFromQueue = [];
 
-      if (road != null) {
-        final ResourceType resource = queue.removeAt(0);
-        road.send(resource);
+    for (final RoutedResource routedResource in queue) {
+      final bool sent = send(routedResource);
+
+      if (sent) {
+        removeFromQueue.add(routedResource);
       }
     }
-  }
 
-  JsonFlag get json => JsonFlag(
-        location: location.json,
-        queue: queue,
-        connections: roads.json,
-      );
+    for (final RoutedResource routedResource in removeFromQueue) {
+      queue.remove(routedResource);
+    }
+  }
 
   @override
   void update(double dt) {
@@ -41,4 +38,9 @@ class Flag extends Node {
     _sendResource();
     debugText.text = queue.toString();
   }
+
+  JsonFlag get json => JsonFlag(
+        location: location.json,
+        connections: roads.json,
+      );
 }

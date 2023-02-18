@@ -12,27 +12,10 @@ JsonWoodcutter _$JsonWoodcutterFromJson(Map<String, dynamic> json) =>
           (json['location'] as List<dynamic>).map((e) => e as int).toList(),
       connections:
           JsonConnections.fromJson(json['connections'] as Map<String, dynamic>),
-      resource: $enumDecodeNullable(_$ResourceTypeEnumMap, json['resource']),
     );
 
-Map<String, dynamic> _$JsonWoodcutterToJson(JsonWoodcutter instance) {
-  final val = <String, dynamic>{
-    'location': instance.location,
-    'connections': instance.connections,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('resource', _$ResourceTypeEnumMap[instance.resource]);
-  return val;
-}
-
-const _$ResourceTypeEnumMap = {
-  ResourceType.timber: 'timber',
-  ResourceType.stone: 'stone',
-  ResourceType.wood: 'wood',
-};
+Map<String, dynamic> _$JsonWoodcutterToJson(JsonWoodcutter instance) =>
+    <String, dynamic>{
+      'location': instance.location,
+      'connections': instance.connections,
+    };

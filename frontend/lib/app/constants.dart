@@ -43,7 +43,6 @@ class Constants {
 	}],
 	"flags": [{
 		"location": [5, 0],
-    "queue": [],
     "connections": {
       "north": [5, -3],
       "west": [0, 0]

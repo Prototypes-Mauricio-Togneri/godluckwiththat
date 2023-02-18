@@ -4,7 +4,6 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/moving_resource.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/models/routed_resource.dart';
-import 'package:tensionnode/types/resource_type.dart';
 
 class Road {
   final Node origin;

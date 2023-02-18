@@ -9,7 +9,6 @@ import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/types/resource_type.dart';
 
 mixin NodeHandler on BaseGameComponent {
   Node addHeadquarters({
@@ -37,11 +36,9 @@ mixin NodeHandler on BaseGameComponent {
 
   Node addFlag({
     required Location location,
-    required List<ResourceType> queue,
   }) =>
       addNode(Flag(
         location: location,
-        queue: queue,
       ));
 
   Node addNode(Node node) {
