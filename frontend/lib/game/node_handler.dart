@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/sawmill.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/models/inventory.dart';
@@ -24,6 +25,13 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       addNode(Woodcutter(
+        location: location,
+      ));
+
+  Node addSawmill({
+    required Location location,
+  }) =>
+      addNode(Sawmill(
         location: location,
       ));
 

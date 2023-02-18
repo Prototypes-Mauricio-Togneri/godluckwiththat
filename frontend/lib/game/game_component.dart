@@ -8,6 +8,7 @@ import 'package:tensionnode/game/menu_handler.dart';
 import 'package:tensionnode/game/node_handler.dart';
 import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
+import 'package:tensionnode/json/json_sawmill.dart';
 import 'package:tensionnode/json/json_woodcutter.dart';
 import 'package:tensionnode/models/connections.dart';
 import 'package:tensionnode/models/location.dart';
@@ -41,6 +42,18 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       final Connections locations = json.connections.connections;
 
       final Node node = addWoodcutter(
+        location: json.location.location,
+      );
+
+      if (locations.isNotEmpty) {
+        nodeConnections[node] = locations;
+      }
+    }
+
+    for (final JsonSawmill json in state.jsonMatch.sawmills) {
+      final Connections locations = json.connections.connections;
+
+      final Node node = addSawmill(
         location: json.location.location,
       );
 

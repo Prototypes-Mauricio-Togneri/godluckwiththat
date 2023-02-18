@@ -4,10 +4,12 @@ import 'package:flame/game.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/sawmill.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/models/location.dart';
+import 'package:tensionnode/models/resource_manager.dart';
 
 class GameState extends BaseState {
   num _totalTimeElapsed = 0;
@@ -15,8 +17,10 @@ class GameState extends BaseState {
 
   late final Headquarters headquarters;
   final List<Woodcutter> woodcutters = [];
+  final List<Sawmill> sawmills = [];
   final List<Flag> flags = [];
   final JsonMatch jsonMatch;
+  final ResourceManager resourceManager = ResourceManager();
 
   GameState(this.jsonMatch) {
     _totalTimeElapsed = jsonMatch.totalTimeElapsed;
@@ -42,6 +46,12 @@ class GameState extends BaseState {
       }
     }
 
+    for (final Sawmill sawmill in sawmills) {
+      if (sawmill.isAt(location)) {
+        return sawmill;
+      }
+    }
+
     for (final Flag flag in flags) {
       if (flag.isAt(location)) {
         return flag;
@@ -56,6 +66,8 @@ class GameState extends BaseState {
       headquarters = node;
     } else if (node is Woodcutter) {
       woodcutters.add(node);
+    } else if (node is Sawmill) {
+      sawmills.add(node);
     } else if (node is Flag) {
       flags.add(node);
     }
@@ -64,6 +76,8 @@ class GameState extends BaseState {
   void removeNode(Component node) {
     if (node is Woodcutter) {
       woodcutters.remove(node);
+    } else if (node is Sawmill) {
+      sawmills.remove(node);
     } else if (node is Flag) {
       flags.remove(node);
     }
@@ -77,6 +91,7 @@ class GameState extends BaseState {
       map: jsonMatch.map.withCamera(camera),
       headquarters: headquarters.json,
       woodcutters: woodcutters.map((e) => e.json).toList(),
+      sawmills: sawmills.map((e) => e.json).toList(),
       flags: flags.map((e) => e.json).toList(),
     );
   }

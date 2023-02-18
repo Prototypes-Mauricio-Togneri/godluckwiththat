@@ -37,6 +37,10 @@ class Constants {
       "south": [5, 0]
     }
 	}],
+	"sawmills": [{
+		"location": [3, -2],
+    "connections": {}
+	}],
 	"flags": [{
 		"location": [5, 0],
     "queue": [],
