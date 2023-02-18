@@ -1,25 +1,45 @@
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/models/route.dart';
+import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class ResourceManager {
-  final List<ResourceRequest> requests = [];
+  final List<ResourceRequest> _requests = [];
 
   void addRequest(ResourceRequest request) {
-    requests.add(request);
+    _requests.add(request);
   }
 
   void removeRequest(ResourceRequest request) {
-    requests.remove(request);
+    _requests.remove(request);
   }
 
-  ResourceRequest? query(ResourceType resource) {
-    for (final ResourceRequest request in requests) {
+  RoutedResource? query({
+    required Node origin,
+    required ResourceType resource,
+  }) {
+    // TODO(momo): sort by resource, order by priority and select the closest
+    // TODO(momo): check that the resource can be routed from the origin to the target
+
+    ResourceRequest? result;
+
+    for (final ResourceRequest request in _requests) {
       if (request.resource == resource) {
-        return request;
+        result = request;
+        break;
       }
     }
 
-    return null;
+    if (result != null) {
+      _requests.remove(result);
+
+      return RoutedResource(
+        route: const Route([]),
+        resource: resource,
+      );
+    } else {
+      return null;
+    }
   }
 }
 

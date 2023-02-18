@@ -1,4 +1,3 @@
-import 'package:flame/input.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_woodcutter.dart';
 import 'package:tensionnode/models/road.dart';
@@ -43,9 +42,6 @@ class Woodcutter extends Node {
       }
     }
   }
-
-  @override
-  bool onTapUp(TapUpInfo info) => game.selectNode(this);
 
   JsonWoodcutter get json => JsonWoodcutter(
         location: location.json,

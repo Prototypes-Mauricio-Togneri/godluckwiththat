@@ -27,7 +27,7 @@ enum NodeType {
   ),
   sawmill(
     sprite: Assets.IMAGES_BUILDINGS_SAWMILL,
-    productionTime: 15,
+    productionTime: 10,
     costWood: 2,
     costStone: 2,
   );

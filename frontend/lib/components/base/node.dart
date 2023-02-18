@@ -6,6 +6,7 @@ import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/models/roads.dart';
+import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
@@ -55,10 +56,26 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     }
   }
 
+  bool send(RoutedResource? routedResource) {
+    bool sent = false;
+
+    if (routedResource != null) {
+      final Road? road = availableRoad;
+
+      if (road != null) {
+        road.send(_resource!);
+        _resource = null;
+        sent = true;
+      }
+    }
+
+    return sent;
+  }
+
   bool isAt(Location location) => this.location == location;
 
   @override
-  bool onTapUp(TapUpInfo info) => false;
+  bool onTapUp(TapUpInfo info) => game.selectNode(this);
 
   @override
   bool onTapDown(TapDownInfo info) => false;

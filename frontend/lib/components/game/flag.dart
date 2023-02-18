@@ -1,4 +1,3 @@
-import 'package:flame/input.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/models/road.dart';
@@ -28,9 +27,6 @@ class Flag extends Node {
       }
     }
   }
-
-  @override
-  bool onTapUp(TapUpInfo info) => game.selectNode(this);
 
   JsonFlag get json => JsonFlag(
         location: location.json,
