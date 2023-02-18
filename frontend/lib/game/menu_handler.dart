@@ -96,7 +96,7 @@ mixin MenuHandler on BaseGameComponent {
       _selectedNode = node;
 
       removeMenuComponents();
-      addToNodesLayer(NodeSelected(node));
+      addComponent(NodeSelected(node));
     }
 
     return true;
@@ -117,7 +117,7 @@ mixin MenuHandler on BaseGameComponent {
   void enableBuildingMode(NodeType type) {
     _enableMode(MenuMode.building);
     removeMenuComponents();
-    addToNodesLayer(BuildingIndicator(type: type));
+    addComponent(BuildingIndicator(type: type));
   }
 
   void _disableBuildingMode() {

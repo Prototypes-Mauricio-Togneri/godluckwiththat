@@ -37,7 +37,7 @@ mixin NodeHandler on BaseGameComponent {
       ));
 
   Node addNode(Node node) {
-    addToNodesLayer(node);
+    addComponent(node);
     state.addNode(node);
 
     return node;
@@ -45,7 +45,7 @@ mixin NodeHandler on BaseGameComponent {
 
   void removeNode(Component node) {
     try {
-      removeFromNodesLayer(node);
+      removeComponent(node);
       state.removeNode(node);
     } catch (e) {
       // ignore

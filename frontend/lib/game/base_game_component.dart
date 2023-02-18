@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/map_component.dart';
+import 'package:tensionnode/components/game/moving_resource.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/game/map_handler.dart';
@@ -39,9 +40,9 @@ class BaseGameComponent extends FlameGame
     camera.speed = double.maxFinite;
 
     final MapComponent map = await getMap(Constants.TEST_MAP_TILE_XML);
-    addToBackgroundLayer(map.compile());
+    _addToBackgroundLayer(map.compile());
 
-    addToHudLayer(FpsTextComponent(
+    _addToHudLayer(FpsTextComponent(
       position: Vector2(
         10,
         size.y - 30,
@@ -68,26 +69,26 @@ class BaseGameComponent extends FlameGame
   @override
   Color backgroundColor() => Palette.gameBackground;
 
-  void addToBackgroundLayer(Component component) =>
+  void addComponent(Component component) {
+    if (component is MovingResource) {
+      _resourcesNodes.add(component);
+    } else {
+      _layerNodes.add(component);
+    }
+  }
+
+  void removeComponent(Component component) {
+    if (component is MovingResource) {
+      _resourcesNodes.remove(component);
+    } else {
+      _layerNodes.remove(component);
+    }
+  }
+
+  void _addToBackgroundLayer(Component component) =>
       _layerBackground.add(component);
 
-  void addToNodesLayer(Component component) => _layerNodes.add(component);
-
-  void addToResourcesLayer(Component component) =>
-      _resourcesNodes.add(component);
-
-  void addToHudLayer(Component component) => _layerHud.add(component);
-
-  void removeFromBackgroundLayer(Component component) =>
-      _layerBackground.remove(component);
-
-  void removeFromNodesLayer(Component component) =>
-      _layerNodes.remove(component);
-
-  void removeFromResourcesLayer(Component component) =>
-      _resourcesNodes.remove(component);
-
-  void removeFromHudLayer(Component component) => _layerHud.remove(component);
+  void _addToHudLayer(Component component) => _layerHud.add(component);
 
   @override
   void onScroll(PointerScrollInfo info) => handleOnScroll(info);

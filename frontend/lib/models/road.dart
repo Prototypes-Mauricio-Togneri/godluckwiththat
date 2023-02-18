@@ -27,7 +27,7 @@ class Road {
     _movingResource = MovingResource(resource: resource);
     _direction = target.position - origin.position;
     _distance = _direction.length / Constants.NODE_SIZE;
-    origin.game.addToResourcesLayer(_movingResource!);
+    origin.game.addComponent(_movingResource!);
   }
 
   void update(double dt) {
@@ -37,7 +37,7 @@ class Road {
 
       if (_progress >= 1) {
         target.receive(_movingResource!.resource);
-        origin.game.removeFromResourcesLayer(_movingResource!);
+        origin.game.removeComponent(_movingResource!);
         _movingResource = null;
         _progress = 0;
       }
