@@ -1,3 +1,4 @@
+import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/models/route.dart';
 import 'package:tensionnode/services/json.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -11,7 +12,7 @@ class RoutedResource {
     required this.resource,
   });
 
-  bool get isDestination => route.isEmpty;
+  bool isDestination(Node node) => route.isDestination(node);
 
   bool has(ResourceType resource) => this.resource == resource;
 

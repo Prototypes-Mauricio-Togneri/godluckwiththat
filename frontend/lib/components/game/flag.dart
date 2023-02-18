@@ -12,7 +12,7 @@ class Flag extends Node {
 
   @override
   void receive(RoutedResource routedResource) {
-    if (routedResource.isDestination) {
+    if (routedResource.isDestination(this)) {
       throw Exception(
           'Routed resource $routedResource arrived to flag $this as destination');
     } else {

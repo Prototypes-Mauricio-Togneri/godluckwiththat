@@ -24,13 +24,13 @@ class Constants {
 	},
 	"headquarters": {
 		"location": [0, 0],
-		"connections": {
-			"east": [2, 0]
-		},
 		"inventory": {
 			"timber": 0,
 			"stone": 0,
 			"wood": 0
+		},
+		"connections": {
+			"east": [2, 0]
 		}
 	},
 	"woodcutters": [{
@@ -59,7 +59,7 @@ class Constants {
 			"west": [2, 0]
 		}
 	}]
-}x
+}
 ''';
 
   static String EMPTY_MATCH = '''

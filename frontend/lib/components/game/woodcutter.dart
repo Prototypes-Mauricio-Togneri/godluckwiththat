@@ -13,8 +13,13 @@ class Woodcutter extends Node {
 
   Woodcutter({
     required super.location,
-  }) : super(type: NodeType.woodcutter) {
+  }) : super(type: NodeType.woodcutter);
+
+  @override
+  Future onLoad() {
     _startProducing();
+
+    return super.onLoad();
   }
 
   @override
@@ -26,6 +31,9 @@ class Woodcutter extends Node {
     } else if (_state.isFinished) {
       _sendResource();
     }
+
+    debugText.text =
+        '${_state.name}: ${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
   }
 
   void _startProducing() {
@@ -41,20 +49,18 @@ class Woodcutter extends Node {
       _accumulatedTime = 0;
       _state = BuildingState.finished;
     }
-
-    debugText.text =
-        '$_state: ${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
   }
 
   void _sendResource() {
+    final List<Location> waypoints = [];
+    waypoints.add(const Location(5, 0));
+    waypoints.add(const Location(2, 0));
+    waypoints.add(const Location(2, -2));
+
     final RoutedResource? routedResource = game.state.resourceManager.query(
       origin: this,
-      resource: ResourceType.wood,
-      route: const Route([
-        Location(5, 0),
-        Location(2, 0),
-        Location(2, -2),
-      ]),
+      resource: ResourceType.timber,
+      route: Route(waypoints),
     );
 
     final bool sent = send(routedResource);

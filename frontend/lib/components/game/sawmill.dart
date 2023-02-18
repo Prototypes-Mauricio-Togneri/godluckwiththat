@@ -17,9 +17,14 @@ class Sawmill extends Node {
 
   Sawmill({
     required super.location,
-  }) : super(type: NodeType.sawmill) {
+  }) : super(type: NodeType.sawmill);
+
+  @override
+  Future onLoad() {
     _requestResources();
     _startProducing();
+
+    return super.onLoad();
   }
 
   @override
@@ -31,6 +36,9 @@ class Sawmill extends Node {
     } else if (_state.isFinished) {
       _sendResource();
     }
+
+    debugText.text =
+        '${_state.name}: ${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
   }
 
   void _startProducing() {
@@ -48,14 +56,11 @@ class Sawmill extends Node {
       _accumulatedTime = 0;
       _state = BuildingState.finished;
     }
-
-    debugText.text =
-        '$_state: ${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
   }
 
   @override
   void receive(RoutedResource routedResource) {
-    if ((routedResource.isDestination) &&
+    if ((routedResource.isDestination(this)) &&
         (routedResource.has(ResourceType.timber))) {
       _timbers++;
       _startProducing();
@@ -63,13 +68,14 @@ class Sawmill extends Node {
   }
 
   void _sendResource() {
+    final List<Location> waypoints = [];
+    waypoints.add(const Location(2, 0));
+    waypoints.add(const Location(0, 0));
+
     final RoutedResource? routedResource = game.state.resourceManager.query(
       origin: this,
       resource: ResourceType.wood,
-      route: const Route([
-        Location(2, 0),
-        Location(0, 0),
-      ]),
+      route: Route(waypoints),
     );
 
     final bool sent = send(routedResource);

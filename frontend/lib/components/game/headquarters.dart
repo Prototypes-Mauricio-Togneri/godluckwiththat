@@ -20,7 +20,7 @@ class Headquarters extends Node {
 
   @override
   void receive(RoutedResource routedResource) {
-    if (routedResource.isDestination) {
+    if (routedResource.isDestination(this)) {
       inventory.add(routedResource.resource);
     }
   }
