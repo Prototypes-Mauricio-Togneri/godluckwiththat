@@ -20,7 +20,7 @@ class RoutedResource {
 
   @override
   String toString() => Json.encode({
-        route: route.toString(),
-        resource: resource,
+        'route': route.toString(),
+        'resource': resource.name,
       });
 }
