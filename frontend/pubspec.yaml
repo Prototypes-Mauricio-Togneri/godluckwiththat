@@ -44,13 +44,12 @@ flutter:
   uses-material-design: true
 
   fonts:
-    - family: Magnite
+    - family: CustomFont
       fonts:
-        - asset: assets/fonts/Magnite.otf
+        - asset: assets/fonts/Pixel.ttf
 
   assets:
     - assets/audio/sfx/
-    - assets/fonts/
     - assets/images/
     - assets/images/buildings/
     - assets/images/resources/

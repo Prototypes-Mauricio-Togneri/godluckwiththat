@@ -1,5 +1,5 @@
 class Constants {
-  static const String FONT_NAME = 'Magnite';
+  static const String FONT_NAME = 'CustomFont';
 
   static const double MAP_MOVEMENT = 20;
 
