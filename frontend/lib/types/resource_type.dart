@@ -10,4 +10,7 @@ enum ResourceType {
   const ResourceType({
     required this.sprite,
   });
+
+  @override
+  String toString() => name;
 }

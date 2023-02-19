@@ -4,15 +4,21 @@ import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class ResourceManager {
-  final List<ResourceRequest> _requests = [];
+  final Map<ResourceType, List<ResourceRequest>> _requests = {};
   final List<Node> _warehouses = [];
+
+  List<ResourceRequest> requestsFor(ResourceType resource) =>
+      _requests[resource] ?? [];
 
   void addWarehouse(Node node) {
     _warehouses.add(node);
   }
 
   void addRequest(ResourceRequest request) {
-    _requests.add(request);
+    final List<ResourceRequest> requests = requestsFor(request.resource);
+    requests.add(request);
+
+    _requests[request.resource] = requests;
   }
 
   void removeRequest(ResourceRequest request) {
@@ -29,8 +35,9 @@ class ResourceManager {
 
     ResourceRequest? result;
     Route? calculatedRoute;
+    final List<ResourceRequest> requests = requestsFor(resource);
 
-    for (final ResourceRequest request in _requests) {
+    for (final ResourceRequest request in requests) {
       if (request.resource == resource) {
         result = request;
         calculatedRoute = route;
@@ -56,6 +63,9 @@ class ResourceManager {
       return null;
     }
   }
+
+  @override
+  String toString() => _requests.toString();
 }
 
 class ResourceRequest {
@@ -68,4 +78,7 @@ class ResourceRequest {
     required this.resource,
     required this.priority,
   });
+
+  @override
+  String toString() => '${requester.runtimeType}';
 }
