@@ -1,12 +1,14 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/quarry.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/widgets/buildings/headquarters_menu.dart';
+import 'package:tensionnode/widgets/buildings/quarry_menu.dart';
 import 'package:tensionnode/widgets/buildings/woodcutter_menu.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
@@ -34,6 +36,11 @@ class SideMenu extends StatelessWidget {
             )
           else if (game.isSelected(Woodcutter))
             WoodcutterMenu(
+              game,
+              game.selectedNode(),
+            )
+          else if (game.isSelected(Quarry))
+            QuarryMenu(
               game,
               game.selectedNode(),
             )

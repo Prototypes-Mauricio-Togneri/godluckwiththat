@@ -4,6 +4,7 @@ import 'package:flame/game.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/quarry.dart';
 import 'package:tensionnode/components/game/sawmill.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
@@ -17,6 +18,7 @@ class GameState extends BaseState {
 
   late final Headquarters headquarters;
   final List<Woodcutter> woodcutters = [];
+  final List<Quarry> quarries = [];
   final List<Sawmill> sawmills = [];
   final List<Flag> flags = [];
   final JsonMatch jsonMatch;
@@ -35,7 +37,7 @@ class GameState extends BaseState {
     _totalTimeElapsed += dt;
   }
 
-  Node? nodeAt(Location location) {
+  Node nodeAt(Location location) {
     if (headquarters.isAt(location)) {
       return headquarters;
     }
@@ -43,6 +45,12 @@ class GameState extends BaseState {
     for (final Woodcutter woodcutter in woodcutters) {
       if (woodcutter.isAt(location)) {
         return woodcutter;
+      }
+    }
+
+    for (final Quarry quarry in quarries) {
+      if (quarry.isAt(location)) {
+        return quarry;
       }
     }
 
@@ -58,7 +66,7 @@ class GameState extends BaseState {
       }
     }
 
-    return null;
+    throw Exception('Node at $location cannot be found');
   }
 
   void addNode(Component node) {
@@ -66,6 +74,8 @@ class GameState extends BaseState {
       headquarters = node;
     } else if (node is Woodcutter) {
       woodcutters.add(node);
+    } else if (node is Quarry) {
+      quarries.add(node);
     } else if (node is Sawmill) {
       sawmills.add(node);
     } else if (node is Flag) {
@@ -75,6 +85,8 @@ class GameState extends BaseState {
 
   void removeNode(Component node) {
     if (node is Woodcutter) {
+      woodcutters.remove(node);
+    } else if (node is Woodcutter) {
       woodcutters.remove(node);
     } else if (node is Sawmill) {
       sawmills.remove(node);
@@ -91,6 +103,7 @@ class GameState extends BaseState {
       map: jsonMatch.map.withCamera(camera),
       headquarters: headquarters.json,
       woodcutters: woodcutters.map((e) => e.json).toList(),
+      quarries: quarries.map((e) => e.json).toList(),
       sawmills: sawmills.map((e) => e.json).toList(),
       flags: flags.map((e) => e.json).toList(),
     );

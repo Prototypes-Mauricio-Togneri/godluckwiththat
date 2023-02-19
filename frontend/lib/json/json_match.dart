@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/json/json_map.dart';
+import 'package:tensionnode/json/json_quarry.dart';
 import 'package:tensionnode/json/json_sawmill.dart';
 import 'package:tensionnode/json/json_woodcutter.dart';
 
@@ -28,6 +29,9 @@ class JsonMatch {
   @JsonKey(name: 'woodcutters')
   final List<JsonWoodcutter> woodcutters;
 
+  @JsonKey(name: 'quarries')
+  final List<JsonQuarry> quarries;
+
   @JsonKey(name: 'sawmills')
   final List<JsonSawmill> sawmills;
 
@@ -41,6 +45,7 @@ class JsonMatch {
     required this.map,
     required this.headquarters,
     required this.woodcutters,
+    required this.quarries,
     required this.sawmills,
     required this.flags,
   });

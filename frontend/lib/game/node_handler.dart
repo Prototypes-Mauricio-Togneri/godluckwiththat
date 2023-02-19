@@ -2,12 +2,14 @@ import 'package:flame/components.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/quarry.dart';
 import 'package:tensionnode/components/game/sawmill.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
+import 'package:tensionnode/json/json_quarry.dart';
 import 'package:tensionnode/json/json_sawmill.dart';
 import 'package:tensionnode/json/json_woodcutter.dart';
 import 'package:tensionnode/models/connections.dart';
@@ -39,6 +41,19 @@ mixin NodeHandler on BaseGameComponent {
       final Connections locations = json.connections.connections;
 
       final Node node = addWoodcutter(
+        location: json.location.location,
+      );
+      state.resourceManager.graph.addNode(node);
+
+      if (locations.isNotEmpty) {
+        nodeConnections[node] = locations;
+      }
+    }
+
+    for (final JsonQuarry json in state.jsonMatch.quarries) {
+      final Connections locations = json.connections.connections;
+
+      final Node node = addQuarry(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
@@ -110,7 +125,7 @@ mixin NodeHandler on BaseGameComponent {
   }
 
   Road? _roadTo(Node origin, Location? location) =>
-      (location != null) ? Road(origin, state.nodeAt(location)!) : null;
+      (location != null) ? Road(origin, state.nodeAt(location)) : null;
 
   Node addHeadquarters({
     required Location location,
@@ -127,6 +142,14 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       addNode(Woodcutter(
         type: NodeType.woodcutter,
+        location: location,
+      ));
+
+  Node addQuarry({
+    required Location location,
+  }) =>
+      addNode(Quarry(
+        type: NodeType.quarry,
         location: location,
       ));
 

@@ -1,6 +1,5 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_woodcutter.dart';
-import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -51,11 +50,6 @@ class Woodcutter extends Node {
   }
 
   void _sendResource() {
-    final List<Location> waypoints = [];
-    waypoints.add(const Location(5, 0));
-    waypoints.add(const Location(2, 0));
-    waypoints.add(const Location(2, -2));
-
     final RoutedResource? routedResource = game.state.resourceManager.search(
       origin: this,
       resource: ResourceType.timber,

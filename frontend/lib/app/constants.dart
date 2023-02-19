@@ -39,6 +39,12 @@ class Constants {
 			"south": [5, 0]
 		}
 	}],
+	"quarries": [{
+		"location": [-3, 3],
+		"connections": {
+			"east": [0, 3]
+		}
+	}],
 	"sawmills": [{
 		"location": [2, -2],
 		"connections": {
@@ -57,6 +63,12 @@ class Constants {
 		"connections": {
 			"north": [5, -3],
 			"west": [2, 0]
+		}
+	}, {
+		"location": [0, 3],
+		"connections": {
+			"north": [0, 0],
+			"west": [-3, 3]
 		}
 	}]
 }
