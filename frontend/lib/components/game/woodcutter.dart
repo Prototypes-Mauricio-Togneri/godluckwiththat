@@ -56,7 +56,7 @@ class Woodcutter extends Node {
     waypoints.add(const Location(2, 0));
     waypoints.add(const Location(2, -2));
 
-    final RoutedResource? routedResource = game.state.resourceManager.query(
+    final RoutedResource? routedResource = game.state.resourceManager.search(
       origin: this,
       resource: ResourceType.timber,
     );
