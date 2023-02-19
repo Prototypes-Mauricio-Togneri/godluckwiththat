@@ -30,7 +30,7 @@ class ResourceManager {
   RoutedResource? query({
     required Node origin,
     required ResourceType resource,
-    required Route route, // TODO(momo): remove parameter
+    // TODO(momo): required Route route, // TODO(momo): remove parameter
   }) {
     // TODO(momo): sort by resource, order by priority and select the closest
     // TODO(momo): check that the resource can be routed from the origin to the target
@@ -42,12 +42,11 @@ class ResourceManager {
     for (final ResourceRequest request in requests) {
       if (request.resource == resource) {
         result = request;
-        calculatedRoute = route;
+        calculatedRoute = graph.search(origin, request.requester);
 
-        final Route? aa = graph.search(origin, request.requester);
-        print(aa);
-
-        break;
+        if (calculatedRoute != null) {
+          break;
+        }
       }
     }
 
@@ -59,15 +58,19 @@ class ResourceManager {
         resource: resource,
       );
     } else if (_warehouses.isNotEmpty) {
+      //_warehouses.sort((a, b) => a.location.distanceTo(origin.location));
       // TODO(momo): get closest warehouse and calculate route
+      calculatedRoute = graph.search(origin, _warehouses[0]);
 
-      return RoutedResource(
-        route: route,
-        resource: resource,
-      );
-    } else {
-      return null;
+      if (calculatedRoute != null) {
+        return RoutedResource(
+          route: calculatedRoute,
+          resource: resource,
+        );
+      }
     }
+
+    return null;
   }
 
   @override

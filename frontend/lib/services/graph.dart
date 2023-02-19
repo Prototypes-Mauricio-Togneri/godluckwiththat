@@ -29,76 +29,113 @@ class Graph {
   }
 
   Route? search(Node origin, Node target) {
-    final List<Location> locations = [];
-    final Waypoint? start = _getWaypoint(origin);
+    final Waypoint? from = _getWaypoint(origin);
+    final Waypoint? to = _getWaypoint(target);
 
-    if (start != null) {
-      final List<Waypoint> queue = [start];
-      Waypoint current = start; //queue.removeAt(0);
+    if ((from != null) && (to != null)) {
+      final Map<Waypoint, RouteWaypoint> allNodes = {};
+      final List<RouteWaypoint> openSet = [];
 
-      //while (current.node != target) {
-      while (queue.isNotEmpty) {
-        current = queue.removeAt(0);
-        current.visited = true;
-        print('Exploring: ${current.node.runtimeType}');
+      final RouteWaypoint start = RouteWaypoint.fromScores(
+        waypoint: from,
+        routeScore: 0,
+        estimatedScore: to.distanceTo(from),
+      );
+      allNodes[from] = start;
+      openSet.add(start);
 
-        for (final Waypoint waypoint in current.connections) {
-          if (!waypoint.visited) {
-            queue.add(waypoint);
-            waypoint.visited = true;
+      while (openSet.isNotEmpty) {
+        final RouteWaypoint next = openSet.removeAt(0);
+
+        if (next.current == to) {
+          final List<Waypoint> list = [];
+          RouteWaypoint? current = next;
+
+          while (current != null) {
+            list.add(current.current);
+            current = allNodes[current.previous];
+          }
+
+          final List<Waypoint> reversed = list.reversed.toList();
+          final List<Location> locations = [];
+
+          for (int i = 1; i < reversed.length; i++) {
+            locations.add(reversed[i].node.location);
+          }
+
+          return Route(locations);
+        }
+
+        for (final Waypoint waypoint in next.current.connections) {
+          final double newScore =
+              next.routeScore + next.current.distanceTo(waypoint);
+          final RouteWaypoint nextNode =
+              allNodes[waypoint] ?? RouteWaypoint.fromWaypoint(waypoint);
+          allNodes[waypoint] = nextNode;
+
+          if (nextNode.routeScore > newScore) {
+            nextNode.previous = next.current;
+            nextNode.routeScore = newScore;
+            nextNode.estimatedScore = newScore + waypoint.distanceTo(to);
+            openSet.add(nextNode);
           }
         }
       }
     }
 
-    // TODO(momo): clean up waypoints
-
-    return locations.isNotEmpty ? Route(locations) : null;
+    return null;
   }
 }
 
 class Waypoint {
   final Node node;
   final List<Waypoint> connections = [];
-  bool visited = false;
 
   Waypoint(this.node);
 
   bool isNode(Node node) => this.node == node;
+
+  double distanceTo(Waypoint waypoint) => node.distanceTo(waypoint.node);
 
   void addConnection(Waypoint waypoint) {
     connections.add(waypoint);
   }
 }
 
-class RouteNode implements Comparable<RouteNode> {
+class RouteWaypoint implements Comparable<RouteWaypoint> {
   final Waypoint current;
   Waypoint? previous;
   double routeScore = double.infinity;
   double estimatedScore = double.infinity;
 
-  RouteNode._(
-      {required this.current,
-      required this.previous,
-      required this.routeScore,
-      required this.estimatedScore});
+  RouteWaypoint._({
+    required this.current,
+    required this.previous,
+    required this.routeScore,
+    required this.estimatedScore,
+  });
 
-  factory RouteNode.f1(Waypoint waypoint) => RouteNode._(
+  factory RouteWaypoint.fromWaypoint(Waypoint waypoint) => RouteWaypoint._(
         current: waypoint,
         previous: null,
         routeScore: double.infinity,
         estimatedScore: double.infinity,
       );
 
-  factory RouteNode.f2(Waypoint waypoint, double score) => RouteNode._(
+  factory RouteWaypoint.fromScores({
+    required Waypoint waypoint,
+    required double routeScore,
+    required double estimatedScore,
+  }) =>
+      RouteWaypoint._(
         current: waypoint,
         previous: null,
-        routeScore: double.infinity,
-        estimatedScore: score,
+        routeScore: routeScore,
+        estimatedScore: estimatedScore,
       );
 
   @override
-  int compareTo(RouteNode other) {
+  int compareTo(RouteWaypoint other) {
     if (estimatedScore > other.estimatedScore) {
       return 1;
     } else if (estimatedScore < other.estimatedScore) {

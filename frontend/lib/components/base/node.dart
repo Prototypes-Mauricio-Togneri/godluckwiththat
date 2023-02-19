@@ -41,20 +41,6 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
   void receive(RoutedResource routedResource) {}
 
-  /*Road? get availableRoad {
-    if ((roads.south != null) && (roads.south!.isAvailable)) {
-      return roads.south;
-    } else if ((roads.west != null) && (roads.west!.isAvailable)) {
-      return roads.west;
-    } else if ((roads.north != null) && (roads.north!.isAvailable)) {
-      return roads.north;
-    } else if ((roads.east != null) && (roads.east!.isAvailable)) {
-      return roads.east;
-    } else {
-      return null;
-    }
-  }*/
-
   Road? _roadTo(Location? location) {
     if (location != null) {
       if (roads.south?.target.location == location) {
@@ -70,6 +56,8 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
     return null;
   }
+
+  double distanceTo(Node node) => location.distanceTo(node.location);
 
   bool send(RoutedResource? routedResource) {
     bool sent = false;
