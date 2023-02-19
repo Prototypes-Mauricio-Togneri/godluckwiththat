@@ -1,4 +1,5 @@
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/route.dart';
 
 class Graph {
@@ -9,28 +10,61 @@ class Graph {
   }
 
   void addConnection(Node origin, Node target) {
-    for (final Waypoint waypoint in _waypoints) {
-      if (waypoint.isNode(origin)) {
-        waypoint.addConnection(target);
-      }
+    final Waypoint? waypointOrigin = _getWaypoint(origin);
+    final Waypoint? waypointTarget = _getWaypoint(target);
+
+    if (waypointTarget != null) {
+      waypointOrigin?.addConnection(waypointTarget);
     }
   }
 
+  Waypoint? _getWaypoint(Node node) {
+    for (final Waypoint waypoint in _waypoints) {
+      if (waypoint.isNode(node)) {
+        return waypoint;
+      }
+    }
+
+    return null;
+  }
+
   Route? search(Node origin, Node target) {
-    // TODO(momo): implement
-    return const Route([]);
+    final List<Location> locations = [];
+    final Waypoint? start = _getWaypoint(origin);
+
+    if (start != null) {
+      final List<Waypoint> queue = [start];
+      Waypoint current = queue.removeAt(0);
+      current.visited = true;
+
+      while (current.node != target) {
+        for (final Waypoint waypoint in current.connections) {
+          if (!waypoint.visited) {
+            queue.add(waypoint);
+            waypoint.visited = true;
+          }
+        }
+
+        current = queue.removeAt(0);
+      }
+    }
+
+    // TODO(momo): clean up waypoints
+
+    return locations.isNotEmpty ? Route(locations) : null;
   }
 }
 
 class Waypoint {
   final Node node;
-  final List<Node> connections = [];
+  final List<Waypoint> connections = [];
+  bool visited = false;
 
   Waypoint(this.node);
 
   bool isNode(Node node) => this.node == node;
 
-  void addConnection(Node node) {
-    connections.add(node);
+  void addConnection(Waypoint waypoint) {
+    connections.add(waypoint);
   }
 }
