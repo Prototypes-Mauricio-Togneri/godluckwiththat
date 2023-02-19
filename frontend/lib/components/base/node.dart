@@ -39,6 +39,14 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     this.roads.connect(roads);
   }
 
+  void receiveResource(RoutedResource routedResource) {
+    receive(routedResource);
+
+    if (game.isNodeSelected(this)) {
+      game.state.notify();
+    }
+  }
+
   void receive(RoutedResource routedResource) {}
 
   Road? _roadTo(Location? location) {

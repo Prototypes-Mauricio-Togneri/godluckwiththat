@@ -36,7 +36,7 @@ class Road {
       _movingResource!.position = origin.position + (_direction * _progress);
 
       if (_progress >= 1) {
-        target.receive(_movingResource!.routedResource);
+        target.receiveResource(_movingResource!.routedResource);
         origin.game.removeComponent(_movingResource!);
         _movingResource = null;
       }

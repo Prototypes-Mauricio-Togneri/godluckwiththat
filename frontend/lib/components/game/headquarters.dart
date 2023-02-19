@@ -30,7 +30,7 @@ class Headquarters extends Node {
   void update(double dt) {
     super.update(dt);
 
-    debugText.text = '${inventory.toString()}\n\n${game.state.resourceManager}';
+    debugText.text = '${game.state.resourceManager}';
   }
 
   JsonHeadquarters get json => JsonHeadquarters(
