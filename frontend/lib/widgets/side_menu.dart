@@ -1,12 +1,13 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/widgets/label.dart';
+import 'package:tensionnode/widgets/buildings/headquarters_menu.dart';
+import 'package:tensionnode/widgets/buildings/woodcutter_menu.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
 class SideMenu extends StatelessWidget {
@@ -18,7 +19,7 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
+      width: 260,
       color: Palette.grey,
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -26,6 +27,11 @@ class SideMenu extends StatelessWidget {
           FixedButtons(game),
           if (game.constructMode)
             ConstructMenu(game)
+          else if (game.isSelected(Headquarters))
+            HeadquartersMenu(
+              game,
+              game.selectedNode(),
+            )
           else if (game.isSelected(Woodcutter))
             WoodcutterMenu(
               game,
@@ -112,66 +118,6 @@ class ConstructMenu extends StatelessWidget {
   void _onBuild(NodeType type) {
     game.enableBuildingMode(type);
   }
-}
-
-class WoodcutterMenu extends StatelessWidget {
-  final GameComponent game;
-  final Woodcutter woodcutter;
-
-  const WoodcutterMenu(this.game, this.woodcutter);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 20,
-        bottom: 20,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Label(
-            text: woodcutter.type.name.toUpperCase(),
-            align: TextAlign.center,
-          ),
-          const VBox(10),
-          Label(
-            text: '${woodcutter.location.i}, ${woodcutter.location.j}',
-            align: TextAlign.center,
-          ),
-          const VBox(10),
-          MenuButton(
-            text: 'Center',
-            icon: Icons.filter_tilt_shift,
-            color: Palette.primary,
-            onPressed: () => _onCenter(woodcutter),
-          ),
-          MenuButton(
-            text: 'Destroy',
-            icon: Icons.delete,
-            color: Palette.error,
-            onPressed: _onDestroy,
-          ),
-          MenuButton(
-            text: 'Close',
-            icon: Icons.close,
-            color: Palette.lightGrey,
-            onPressed: _closeMenu,
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _onCenter(Node node) => game.centerMap(node.position);
-
-  void _onDestroy() {
-    final Node node = game.selectedNode();
-    node.destroy();
-    _closeMenu();
-  }
-
-  void _closeMenu() => game.unselectNode();
 }
 
 class CancelMenu extends StatelessWidget {

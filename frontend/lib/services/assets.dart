@@ -10,6 +10,7 @@ class Assets {
   static const String IMAGES_BUILDINGS_SAWMILL = 'buildings/sawmill.png';
   static const String IMAGES_BUILDINGS_WOODCUTTER = 'buildings/woodcutter.png';
   static const String IMAGES_RESOURCES_TIMBER = 'resources/timber.png';
+  static const String IMAGES_RESOURCES_STONE = 'resources/stone.png';
   static const String IMAGES_RESOURCES_WOOD = 'resources/wood.png';
   static const String TILES_TERRAIN = 'terrain.tsx';
 }
