@@ -107,12 +107,14 @@ mixin MenuHandler on BaseGameComponent {
     removeMenuComponents();
   }
 
-  void enableConstructMode() {
-    _enableMode(MenuMode.construct);
-    removeMenuComponents();
+  void toggleConstructMode() {
+    if (_mode != MenuMode.construct) {
+      _enableMode(MenuMode.construct);
+      removeMenuComponents();
+    } else {
+      disableMode();
+    }
   }
-
-  void disableConstructMode() => disableMode();
 
   void enableBuildingMode(NodeType type) {
     _enableMode(MenuMode.building);

@@ -10,7 +10,7 @@ import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/services/palette.dart';
-import 'package:tensionnode/widgets/bottom_menu.dart';
+import 'package:tensionnode/widgets/side_menu.dart';
 
 class GameScreen extends StatelessWidget {
   final GameState state;
@@ -36,26 +36,24 @@ class GameScreen extends StatelessWidget {
         statusBarColor: Palette.grey,
         child: SafeArea(
           child: Scaffold(
-            body: Stack(
+            body: Row(
               children: [
-                GameWidget(
-                  game: game,
-                  overlayBuilderMap: const {
-                    MainMenu.NAME: MainMenu.builder,
-                    SettingsMenu.NAME: SettingsMenu.builder,
-                    InfoMenu.NAME: InfoMenu.builder,
-                    GameOverMenu.NAME: GameOverMenu.builder,
-                  },
-                ),
                 StateProvider<GameState>(
                   state: state,
-                  builder: (context, state) => state.loaded
-                      ? BottomMenu(game, state)
-                      : const Center(
-                          child: CircularProgressIndicator(
-                            color: Palette.white,
-                          ),
-                        ),
+                  builder: (context, state) => SideMenu(game, state),
+                ),
+                Expanded(
+                  child: SizedBox(
+                    child: GameWidget(
+                      game: game,
+                      overlayBuilderMap: const {
+                        MainMenu.NAME: MainMenu.builder,
+                        SettingsMenu.NAME: SettingsMenu.builder,
+                        InfoMenu.NAME: InfoMenu.builder,
+                        GameOverMenu.NAME: GameOverMenu.builder,
+                      },
+                    ),
+                  ),
                 ),
               ],
             ),
