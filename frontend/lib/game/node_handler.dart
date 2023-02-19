@@ -80,6 +80,22 @@ mixin NodeHandler on BaseGameComponent {
       final Road? roadSouth = _roadTo(entry.key, entry.value.south);
       final Road? roadWest = _roadTo(entry.key, entry.value.west);
 
+      if (roadNorth != null) {
+        state.graph.addConnection(roadNorth.origin, roadNorth.target);
+      }
+
+      if (roadEast != null) {
+        state.graph.addConnection(roadEast.origin, roadEast.target);
+      }
+
+      if (roadSouth != null) {
+        state.graph.addConnection(roadSouth.origin, roadSouth.target);
+      }
+
+      if (roadWest != null) {
+        state.graph.addConnection(roadWest.origin, roadWest.target);
+      }
+
       entry.key.connect(Roads(
         north: roadNorth,
         east: roadEast,
