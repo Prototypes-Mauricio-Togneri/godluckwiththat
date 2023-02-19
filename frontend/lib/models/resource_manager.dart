@@ -1,9 +1,11 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/models/route.dart';
 import 'package:tensionnode/models/routed_resource.dart';
+import 'package:tensionnode/services/graph.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class ResourceManager {
+  final Graph graph = Graph();
   final Map<ResourceType, List<ResourceRequest>> _requests = {};
   final List<Node> _warehouses = [];
 
@@ -41,6 +43,10 @@ class ResourceManager {
       if (request.resource == resource) {
         result = request;
         calculatedRoute = route;
+
+        final Route? aa = graph.search(origin, request.requester);
+        print(aa);
+
         break;
       }
     }

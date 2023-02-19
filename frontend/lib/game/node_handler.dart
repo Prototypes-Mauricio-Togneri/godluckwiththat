@@ -29,7 +29,7 @@ mixin NodeHandler on BaseGameComponent {
       location: json.location.location,
       inventory: json.inventory.inventory,
     );
-    state.graph.addNode(node);
+    state.resourceManager.graph.addNode(node);
 
     if (connections.isNotEmpty) {
       nodeConnections[node] = connections;
@@ -41,7 +41,7 @@ mixin NodeHandler on BaseGameComponent {
       final Node node = addWoodcutter(
         location: json.location.location,
       );
-      state.graph.addNode(node);
+      state.resourceManager.graph.addNode(node);
 
       if (locations.isNotEmpty) {
         nodeConnections[node] = locations;
@@ -54,7 +54,7 @@ mixin NodeHandler on BaseGameComponent {
       final Node node = addSawmill(
         location: json.location.location,
       );
-      state.graph.addNode(node);
+      state.resourceManager.graph.addNode(node);
 
       if (locations.isNotEmpty) {
         nodeConnections[node] = locations;
@@ -67,7 +67,7 @@ mixin NodeHandler on BaseGameComponent {
       final Node node = addFlag(
         location: json.location.location,
       );
-      state.graph.addNode(node);
+      state.resourceManager.graph.addNode(node);
 
       if (locations.isNotEmpty) {
         nodeConnections[node] = locations;
@@ -81,19 +81,23 @@ mixin NodeHandler on BaseGameComponent {
       final Road? roadWest = _roadTo(entry.key, entry.value.west);
 
       if (roadNorth != null) {
-        state.graph.addConnection(roadNorth.origin, roadNorth.target);
+        state.resourceManager.graph
+            .addConnection(roadNorth.origin, roadNorth.target);
       }
 
       if (roadEast != null) {
-        state.graph.addConnection(roadEast.origin, roadEast.target);
+        state.resourceManager.graph
+            .addConnection(roadEast.origin, roadEast.target);
       }
 
       if (roadSouth != null) {
-        state.graph.addConnection(roadSouth.origin, roadSouth.target);
+        state.resourceManager.graph
+            .addConnection(roadSouth.origin, roadSouth.target);
       }
 
       if (roadWest != null) {
-        state.graph.addConnection(roadWest.origin, roadWest.target);
+        state.resourceManager.graph
+            .addConnection(roadWest.origin, roadWest.target);
       }
 
       entry.key.connect(Roads(
@@ -103,8 +107,6 @@ mixin NodeHandler on BaseGameComponent {
         west: roadWest,
       ));
     }
-
-    print(state.graph);
   }
 
   Road? _roadTo(Node origin, Location? location) =>
