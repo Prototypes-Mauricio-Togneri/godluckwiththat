@@ -58,6 +58,7 @@ class Quarry extends Node {
     final bool sent = send(routedResource);
 
     if (sent) {
+      removeRequest(routedResource);
       _state = BuildingState.idle;
       _startProducing();
     }

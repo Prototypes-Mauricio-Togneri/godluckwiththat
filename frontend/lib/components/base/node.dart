@@ -82,6 +82,12 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     return sent;
   }
 
+  void removeRequest(RoutedResource? routedResource) {
+    if (routedResource != null) {
+      game.state.resourceManager.removeRequest(routedResource.request);
+    }
+  }
+
   bool isAt(Location location) => this.location == location;
 
   @override

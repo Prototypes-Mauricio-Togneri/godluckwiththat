@@ -23,6 +23,12 @@ class ResourceManager {
     _requests[request.resource] = requests;
   }
 
+  void removeRequest(ResourceRequest? request) {
+    if (request != null) {
+      _requests[request.resource]?.remove(request);
+    }
+  }
+
   void removeRequests(Node node) {
     // TODO(momo): remove all requests from a node when it gests destroyed
   }
@@ -47,9 +53,8 @@ class ResourceManager {
     }
 
     if ((result != null) && (calculatedRoute != null)) {
-      _requests[resource]?.remove(result);
-
       return RoutedResource(
+        request: result,
         route: calculatedRoute,
         resource: resource,
       );
@@ -60,6 +65,7 @@ class ResourceManager {
 
       if (calculatedRoute != null) {
         return RoutedResource(
+          request: null,
           route: calculatedRoute,
           resource: resource,
         );

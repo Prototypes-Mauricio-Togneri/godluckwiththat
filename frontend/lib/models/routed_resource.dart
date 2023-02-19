@@ -1,13 +1,16 @@
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/models/resource_manager.dart';
 import 'package:tensionnode/models/route.dart';
 import 'package:tensionnode/services/json.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class RoutedResource {
+  final ResourceRequest? request;
   final Route route;
   final ResourceType resource;
 
   const RoutedResource({
+    required this.request,
     required this.route,
     required this.resource,
   });
