@@ -21,7 +21,7 @@ class Sawmill extends Node {
 
   @override
   Future onLoad() {
-    _requestResources();
+    _requestResources(QUEUE_LIMIT - _timbers);
     _startProducing();
 
     return super.onLoad();
@@ -45,7 +45,7 @@ class Sawmill extends Node {
     if (_state.isIdle && (_timbers > 0)) {
       _timbers--;
       _state = BuildingState.producing;
-      _requestResources();
+      _requestResources(1);
     }
   }
 
@@ -86,9 +86,8 @@ class Sawmill extends Node {
     }
   }
 
-  void _requestResources() {
-    // TODO(momo): create variable "needs"=QUEUE_MAX and reduce it and increase it
-    for (int i = _timbers; i < QUEUE_LIMIT; i++) {
+  void _requestResources(int amount) {
+    for (int i = 0; i < amount; i++) {
       game.state.resourceManager.addRequest(
         ResourceRequest(
           requester: this,
