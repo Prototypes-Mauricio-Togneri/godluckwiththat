@@ -46,7 +46,7 @@ class ResourceManager {
     }
 
     if ((result != null) && (calculatedRoute != null)) {
-      _requests.remove(result);
+      _requests[resource]?.remove(result);
 
       return RoutedResource(
         route: calculatedRoute,
