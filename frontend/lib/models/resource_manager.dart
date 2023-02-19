@@ -23,8 +23,8 @@ class ResourceManager {
     _requests[request.resource] = requests;
   }
 
-  void removeRequest(ResourceRequest request) {
-    _requests.remove(request);
+  void removeRequests(Node node) {
+    // TODO(momo): remove all requests from a node when it gests destroyed
   }
 
   RoutedResource? search({
