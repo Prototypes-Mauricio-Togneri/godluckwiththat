@@ -59,11 +59,18 @@ class Sawmill extends Node {
 
   @override
   void receive(RoutedResource routedResource) {
-    if ((routedResource.isDestination(this)) &&
-        (routedResource.has(ResourceType.timber))) {
-      _timbers++;
-      _startProducing();
+    if (!routedResource.isDestination(this)) {
+      throw Exception(
+          'Routed resource $routedResource arrived to sawmill $this without being the destination');
     }
+
+    if (!routedResource.has(ResourceType.timber)) {
+      throw Exception(
+          'Routed resource $routedResource arrived to sawmill $this without being timber');
+    }
+
+    _timbers++;
+    _startProducing();
   }
 
   void _sendResource() {

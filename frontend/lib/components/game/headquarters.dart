@@ -23,6 +23,9 @@ class Headquarters extends Node {
   void receive(RoutedResource routedResource) {
     if (routedResource.isDestination(this)) {
       inventory.add(routedResource.resource);
+    } else {
+      throw Exception(
+          'Routed resource $routedResource arrived to headquarters without being the destination');
     }
   }
 
