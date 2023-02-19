@@ -1,10 +1,5 @@
 # Tension Node
 
-Ways of moving resources:
-    * Global (current)
-    * Point to point
-    * Invisible path with 1 flag per node
-    * Manual paths with custom flags
-
 * Create left side menu
+* Show when a building can't send out a resource
 * Click on headquarters or warehouse shows the amount of resources in them
