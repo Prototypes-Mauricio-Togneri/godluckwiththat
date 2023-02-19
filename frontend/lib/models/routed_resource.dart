@@ -1,7 +1,6 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/models/resource_manager.dart';
 import 'package:tensionnode/models/route.dart';
-import 'package:tensionnode/services/json.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class RoutedResource {
@@ -22,8 +21,5 @@ class RoutedResource {
   void pop() => route.pop();
 
   @override
-  String toString() => Json.encode({
-        'route': route.toString(),
-        'resource': resource.name,
-      });
+  String toString() => '${resource.name}: $route';
 }

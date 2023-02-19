@@ -26,12 +26,14 @@ class Quarry extends Node {
 
     if (_state.isProducing) {
       _produce(dt);
+      debugText.text =
+          '${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
     } else if (_state.isFinished) {
       _sendResource();
+      debugText.text = 'finished';
+    } else if (_state.isIdle) {
+      debugText.text = 'idle';
     }
-
-    debugText.text =
-        '${_state.name}: ${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
   }
 
   void _startProducing() {
