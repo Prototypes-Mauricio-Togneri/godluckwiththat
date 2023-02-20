@@ -1,4 +1,5 @@
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/json/json_producer.dart';
 import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -66,4 +67,9 @@ class ProducerNode extends Node {
       _startProducing();
     }
   }
+
+  JsonProducer get json => JsonProducer(
+        location: location.json,
+        connections: roads.json,
+      );
 }

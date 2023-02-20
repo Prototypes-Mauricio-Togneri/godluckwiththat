@@ -1,17 +1,17 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/woodcutter.dart';
+import 'package:tensionnode/components/base/producer_node.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
-class WoodcutterMenu extends StatelessWidget {
+class ProducerMenu extends StatelessWidget {
   final GameComponent game;
-  final Woodcutter woodcutter;
+  final ProducerNode node;
 
-  const WoodcutterMenu(this.game, this.woodcutter);
+  const ProducerMenu(this.game, this.node);
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,12 @@ class WoodcutterMenu extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Label(
-            text: woodcutter.type.name.toUpperCase(),
+            text: node.type.name.toUpperCase(),
             align: TextAlign.center,
           ),
           const VBox(10),
           Label(
-            text: '${woodcutter.location.i}, ${woodcutter.location.j}',
+            text: '${node.location.i}, ${node.location.j}',
             align: TextAlign.center,
           ),
           const VBox(10),
@@ -37,7 +37,7 @@ class WoodcutterMenu extends StatelessWidget {
             text: 'Center',
             icon: Icons.filter_tilt_shift,
             color: Palette.primary,
-            onPressed: () => _onCenter(woodcutter),
+            onPressed: () => _onCenter(node),
           ),
           MenuButton(
             text: 'Destroy',

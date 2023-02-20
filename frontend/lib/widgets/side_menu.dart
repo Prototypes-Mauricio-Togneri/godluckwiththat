@@ -9,9 +9,8 @@ import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/widgets/buildings/headquarters_menu.dart';
-import 'package:tensionnode/widgets/buildings/quarry_menu.dart';
+import 'package:tensionnode/widgets/buildings/producer_menu.dart';
 import 'package:tensionnode/widgets/buildings/sawmill_menu.dart';
-import 'package:tensionnode/widgets/buildings/woodcutter_menu.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
 class SideMenu extends StatelessWidget {
@@ -46,13 +45,8 @@ class SideMenu extends StatelessWidget {
         game,
         game.selectedNode(),
       );
-    } else if (game.isSelected(Woodcutter)) {
-      return WoodcutterMenu(
-        game,
-        game.selectedNode(),
-      );
-    } else if (game.isSelected(Quarry)) {
-      return QuarryMenu(
+    } else if (game.isSelected(Woodcutter) || game.isSelected(Quarry)) {
+      return ProducerMenu(
         game,
         game.selectedNode(),
       );

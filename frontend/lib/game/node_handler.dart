@@ -1,17 +1,19 @@
 import 'package:flame/components.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/game/fisher.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/hunter.dart';
 import 'package:tensionnode/components/game/quarry.dart';
 import 'package:tensionnode/components/game/sawmill.dart';
+import 'package:tensionnode/components/game/well.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
-import 'package:tensionnode/json/json_quarry.dart';
+import 'package:tensionnode/json/json_producer.dart';
 import 'package:tensionnode/json/json_sawmill.dart';
-import 'package:tensionnode/json/json_woodcutter.dart';
 import 'package:tensionnode/models/connections.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
@@ -37,7 +39,7 @@ mixin NodeHandler on BaseGameComponent {
       nodeConnections[node] = connections;
     }
 
-    for (final JsonWoodcutter json in state.jsonMatch.woodcutters) {
+    for (final JsonProducer json in state.jsonMatch.woodcutters) {
       final Connections locations = json.connections.connections;
 
       final Node node = addWoodcutter(
@@ -50,10 +52,49 @@ mixin NodeHandler on BaseGameComponent {
       }
     }
 
-    for (final JsonQuarry json in state.jsonMatch.quarries) {
+    for (final JsonProducer json in state.jsonMatch.quarries) {
       final Connections locations = json.connections.connections;
 
       final Node node = addQuarry(
+        location: json.location.location,
+      );
+      state.resourceManager.graph.addNode(node);
+
+      if (locations.isNotEmpty) {
+        nodeConnections[node] = locations;
+      }
+    }
+
+    for (final JsonProducer json in state.jsonMatch.wells) {
+      final Connections locations = json.connections.connections;
+
+      final Node node = addWell(
+        location: json.location.location,
+      );
+      state.resourceManager.graph.addNode(node);
+
+      if (locations.isNotEmpty) {
+        nodeConnections[node] = locations;
+      }
+    }
+
+    for (final JsonProducer json in state.jsonMatch.fishers) {
+      final Connections locations = json.connections.connections;
+
+      final Node node = addFisher(
+        location: json.location.location,
+      );
+      state.resourceManager.graph.addNode(node);
+
+      if (locations.isNotEmpty) {
+        nodeConnections[node] = locations;
+      }
+    }
+
+    for (final JsonProducer json in state.jsonMatch.hunters) {
+      final Connections locations = json.connections.connections;
+
+      final Node node = addHunter(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
@@ -150,6 +191,30 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       addNode(Quarry(
         type: NodeType.quarry,
+        location: location,
+      ));
+
+  Node addWell({
+    required Location location,
+  }) =>
+      addNode(Well(
+        type: NodeType.well,
+        location: location,
+      ));
+
+  Node addFisher({
+    required Location location,
+  }) =>
+      addNode(Fisher(
+        type: NodeType.fisher,
+        location: location,
+      ));
+
+  Node addHunter({
+    required Location location,
+  }) =>
+      addNode(Hunter(
+        type: NodeType.hunter,
         location: location,
       ));
 

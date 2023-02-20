@@ -2,10 +2,13 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/game/fisher.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/hunter.dart';
 import 'package:tensionnode/components/game/quarry.dart';
 import 'package:tensionnode/components/game/sawmill.dart';
+import 'package:tensionnode/components/game/well.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
@@ -19,6 +22,9 @@ class GameState extends BaseState {
   late final Headquarters headquarters;
   final List<Woodcutter> woodcutters = [];
   final List<Quarry> quarries = [];
+  final List<Well> wells = [];
+  final List<Fisher> fishers = [];
+  final List<Hunter> hunters = [];
   final List<Sawmill> sawmills = [];
   final List<Flag> flags = [];
   final JsonMatch jsonMatch;
@@ -54,6 +60,24 @@ class GameState extends BaseState {
       }
     }
 
+    for (final Well well in wells) {
+      if (well.isAt(location)) {
+        return well;
+      }
+    }
+
+    for (final Fisher fisher in fishers) {
+      if (fisher.isAt(location)) {
+        return fisher;
+      }
+    }
+
+    for (final Hunter hunter in hunters) {
+      if (hunter.isAt(location)) {
+        return hunter;
+      }
+    }
+
     for (final Sawmill sawmill in sawmills) {
       if (sawmill.isAt(location)) {
         return sawmill;
@@ -76,6 +100,12 @@ class GameState extends BaseState {
       woodcutters.add(node);
     } else if (node is Quarry) {
       quarries.add(node);
+    } else if (node is Well) {
+      wells.add(node);
+    } else if (node is Fisher) {
+      fishers.add(node);
+    } else if (node is Hunter) {
+      hunters.add(node);
     } else if (node is Sawmill) {
       sawmills.add(node);
     } else if (node is Flag) {
@@ -86,8 +116,14 @@ class GameState extends BaseState {
   void removeNode(Component node) {
     if (node is Woodcutter) {
       woodcutters.remove(node);
-    } else if (node is Woodcutter) {
-      woodcutters.remove(node);
+    } else if (node is Quarry) {
+      quarries.remove(node);
+    } else if (node is Well) {
+      wells.remove(node);
+    } else if (node is Fisher) {
+      fishers.remove(node);
+    } else if (node is Hunter) {
+      hunters.remove(node);
     } else if (node is Sawmill) {
       sawmills.remove(node);
     } else if (node is Flag) {
@@ -104,6 +140,9 @@ class GameState extends BaseState {
       headquarters: headquarters.json,
       woodcutters: woodcutters.map((e) => e.json).toList(),
       quarries: quarries.map((e) => e.json).toList(),
+      wells: wells.map((e) => e.json).toList(),
+      fishers: fishers.map((e) => e.json).toList(),
+      hunters: hunters.map((e) => e.json).toList(),
       sawmills: sawmills.map((e) => e.json).toList(),
       flags: flags.map((e) => e.json).toList(),
     );

@@ -14,10 +14,19 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       headquarters: JsonHeadquarters.fromJson(
           json['headquarters'] as Map<String, dynamic>),
       woodcutters: (json['woodcutters'] as List<dynamic>)
-          .map((e) => JsonWoodcutter.fromJson(e as Map<String, dynamic>))
+          .map((e) => JsonProducer.fromJson(e as Map<String, dynamic>))
           .toList(),
       quarries: (json['quarries'] as List<dynamic>)
-          .map((e) => JsonQuarry.fromJson(e as Map<String, dynamic>))
+          .map((e) => JsonProducer.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      wells: (json['wells'] as List<dynamic>)
+          .map((e) => JsonProducer.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      fishers: (json['fishers'] as List<dynamic>)
+          .map((e) => JsonProducer.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      hunters: (json['hunters'] as List<dynamic>)
+          .map((e) => JsonProducer.fromJson(e as Map<String, dynamic>))
           .toList(),
       sawmills: (json['sawmills'] as List<dynamic>)
           .map((e) => JsonSawmill.fromJson(e as Map<String, dynamic>))
@@ -35,6 +44,9 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'headquarters': instance.headquarters,
       'woodcutters': instance.woodcutters,
       'quarries': instance.quarries,
+      'wells': instance.wells,
+      'fishers': instance.fishers,
+      'hunters': instance.hunters,
       'sawmills': instance.sawmills,
       'flags': instance.flags,
     };
