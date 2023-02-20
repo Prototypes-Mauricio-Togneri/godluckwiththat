@@ -52,6 +52,7 @@ class HeadquartersMenu extends StatelessWidget {
               ),
             ],
           ),
+          const VBox(10),
           Row(
             children: [
               ResourceIndicator(
