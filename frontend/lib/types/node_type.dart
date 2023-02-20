@@ -43,6 +43,24 @@ enum NodeType {
     costWood: 2,
     costStone: 0,
   ),
+  crop_farm(
+    sprite: Assets.IMAGES_BUILDINGS_CROP_FARM,
+    productionTime: 10,
+    costWood: 3,
+    costStone: 3,
+  ),
+  mill(
+    sprite: Assets.IMAGES_BUILDINGS_MILL,
+    productionTime: 10,
+    costWood: 2,
+    costStone: 2,
+  ),
+  bakery(
+    sprite: Assets.IMAGES_BUILDINGS_BAKERY,
+    productionTime: 10,
+    costWood: 2,
+    costStone: 2,
+  ),
   sawmill(
     sprite: Assets.IMAGES_BUILDINGS_SAWMILL,
     productionTime: 10,

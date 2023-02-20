@@ -40,6 +40,9 @@ class JsonMatch {
   @JsonKey(name: 'hunters')
   final List<JsonProducer> hunters;
 
+  @JsonKey(name: 'cropFarms')
+  final List<JsonProducer> cropFarms;
+
   @JsonKey(name: 'sawmills')
   final List<JsonSawmill> sawmills;
 
@@ -57,6 +60,7 @@ class JsonMatch {
     required this.wells,
     required this.fishers,
     required this.hunters,
+    required this.cropFarms,
     required this.sawmills,
     required this.flags,
   });

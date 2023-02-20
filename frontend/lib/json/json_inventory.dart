@@ -24,6 +24,15 @@ class JsonInventory {
   @JsonKey(name: 'meat')
   final int meat;
 
+  @JsonKey(name: 'grain')
+  final int grain;
+
+  @JsonKey(name: 'flour')
+  final int flour;
+
+  @JsonKey(name: 'bread')
+  final int bread;
+
   const JsonInventory({
     this.timber = 0,
     this.stone = 0,
@@ -31,6 +40,9 @@ class JsonInventory {
     this.water = 0,
     this.fish = 0,
     this.meat = 0,
+    this.grain = 0,
+    this.flour = 0,
+    this.bread = 0,
   });
 
   Inventory get inventory => Inventory(
@@ -40,6 +52,9 @@ class JsonInventory {
         water: water,
         fish: fish,
         meat: meat,
+        grain: grain,
+        flour: flour,
+        bread: bread,
       );
 
   factory JsonInventory.fromString(String json) =>

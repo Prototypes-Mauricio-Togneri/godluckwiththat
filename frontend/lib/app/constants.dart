@@ -63,6 +63,12 @@ class Constants {
 			"south": [7, 0]
 		}
 	}],
+	"cropFarms": [{
+		"location": [-2, -2],
+		"connections": {
+			"south": [-2, 0]
+		}
+	}],
 	"sawmills": [{
 		"location": [2, -2],
 		"connections": {
@@ -95,6 +101,12 @@ class Constants {
 		"connections": {
 			"north": [7, -3],
 			"west": [5, 0]
+		}
+	}, {
+		"location": [-2, 0],
+		"connections": {
+			"north": [-2, -2],
+			"east": [0, 0]
 		}
 	}]
 }

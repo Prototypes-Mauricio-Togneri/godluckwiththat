@@ -10,6 +10,9 @@ class Inventory {
   int water = 0;
   int fish = 0;
   int meat = 0;
+  int grain = 0;
+  int flour = 0;
+  int bread = 0;
 
   Inventory({
     this.timber = 0,
@@ -18,6 +21,9 @@ class Inventory {
     this.water = 0,
     this.fish = 0,
     this.meat = 0,
+    this.grain = 0,
+    this.flour = 0,
+    this.bread = 0,
   });
 
   factory Inventory.empty() => Inventory();
@@ -28,7 +34,10 @@ class Inventory {
       (wood == 0) &&
       (water == 0) &&
       (fish == 0) &&
-      (meat == 0);
+      (meat == 0) &&
+      (grain == 0) &&
+      (flour == 0) &&
+      (bread == 0);
 
   void set({
     int? timber,
@@ -37,6 +46,9 @@ class Inventory {
     int? water,
     int? fish,
     int? meat,
+    int? grain,
+    int? flour,
+    int? bread,
   }) {
     this.timber = timber ?? this.timber;
     this.stone = stone ?? this.stone;
@@ -44,6 +56,9 @@ class Inventory {
     this.water = water ?? this.water;
     this.fish = fish ?? this.fish;
     this.meat = meat ?? this.meat;
+    this.grain = grain ?? this.grain;
+    this.flour = flour ?? this.flour;
+    this.bread = meat ?? this.bread;
   }
 
   void add(ResourceType type) {
@@ -66,6 +81,15 @@ class Inventory {
       case ResourceType.meat:
         meat++;
         break;
+      case ResourceType.grain:
+        grain++;
+        break;
+      case ResourceType.flour:
+        flour++;
+        break;
+      case ResourceType.bread:
+        bread++;
+        break;
     }
   }
 
@@ -76,6 +100,9 @@ class Inventory {
     water -= inventory.water;
     fish -= inventory.fish;
     meat -= inventory.meat;
+    grain -= inventory.grain;
+    flour -= inventory.flour;
+    bread -= inventory.bread;
   }
 
   bool has(Inventory resources) =>
@@ -84,7 +111,10 @@ class Inventory {
       (wood >= resources.wood) &&
       (water >= resources.water) &&
       (fish >= resources.fish) &&
-      (meat >= resources.meat);
+      (meat >= resources.meat) &&
+      (grain >= resources.grain) &&
+      (flour >= resources.flour) &&
+      (bread >= resources.bread);
 
   JsonInventory get json => JsonInventory(
         timber: timber,
@@ -93,6 +123,9 @@ class Inventory {
         water: water,
         fish: fish,
         meat: meat,
+        grain: grain,
+        flour: flour,
+        bread: bread,
       );
 
   @override

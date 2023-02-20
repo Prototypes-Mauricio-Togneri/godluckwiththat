@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/producers/crop_farm.dart';
 import 'package:tensionnode/components/game/producers/fisher.dart';
 import 'package:tensionnode/components/game/producers/hunter.dart';
 import 'package:tensionnode/components/game/producers/quarry.dart';
@@ -95,6 +96,19 @@ mixin NodeHandler on BaseGameComponent {
       final Connections locations = json.connections.connections;
 
       final Node node = addHunter(
+        location: json.location.location,
+      );
+      state.resourceManager.graph.addNode(node);
+
+      if (locations.isNotEmpty) {
+        nodeConnections[node] = locations;
+      }
+    }
+
+    for (final JsonProducer json in state.jsonMatch.cropFarms) {
+      final Connections locations = json.connections.connections;
+
+      final Node node = addCropFarms(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
@@ -215,6 +229,14 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       addNode(Hunter(
         type: NodeType.hunter,
+        location: location,
+      ));
+
+  Node addCropFarms({
+    required Location location,
+  }) =>
+      addNode(CropFarm(
+        type: NodeType.crop_farm,
         location: location,
       ));
 

@@ -14,6 +14,9 @@ JsonInventory _$JsonInventoryFromJson(Map<String, dynamic> json) =>
       water: json['water'] as int? ?? 0,
       fish: json['fish'] as int? ?? 0,
       meat: json['meat'] as int? ?? 0,
+      grain: json['grain'] as int? ?? 0,
+      flour: json['flour'] as int? ?? 0,
+      bread: json['bread'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$JsonInventoryToJson(JsonInventory instance) =>
@@ -24,4 +27,7 @@ Map<String, dynamic> _$JsonInventoryToJson(JsonInventory instance) =>
       'water': instance.water,
       'fish': instance.fish,
       'meat': instance.meat,
+      'grain': instance.grain,
+      'flour': instance.flour,
+      'bread': instance.bread,
     };

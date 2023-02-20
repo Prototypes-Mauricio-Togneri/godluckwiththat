@@ -4,6 +4,7 @@ import 'package:flame/game.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/producers/crop_farm.dart';
 import 'package:tensionnode/components/game/producers/fisher.dart';
 import 'package:tensionnode/components/game/producers/hunter.dart';
 import 'package:tensionnode/components/game/producers/quarry.dart';
@@ -25,6 +26,7 @@ class GameState extends BaseState {
   final List<Well> wells = [];
   final List<Fisher> fishers = [];
   final List<Hunter> hunters = [];
+  final List<CropFarm> cropFarms = [];
   final List<Sawmill> sawmills = [];
   final List<Flag> flags = [];
   final JsonMatch jsonMatch;
@@ -78,6 +80,12 @@ class GameState extends BaseState {
       }
     }
 
+    for (final CropFarm cropFarm in cropFarms) {
+      if (cropFarm.isAt(location)) {
+        return cropFarm;
+      }
+    }
+
     for (final Sawmill sawmill in sawmills) {
       if (sawmill.isAt(location)) {
         return sawmill;
@@ -106,6 +114,8 @@ class GameState extends BaseState {
       fishers.add(node);
     } else if (node is Hunter) {
       hunters.add(node);
+    } else if (node is CropFarm) {
+      cropFarms.add(node);
     } else if (node is Sawmill) {
       sawmills.add(node);
     } else if (node is Flag) {
@@ -124,6 +134,8 @@ class GameState extends BaseState {
       fishers.remove(node);
     } else if (node is Hunter) {
       hunters.remove(node);
+    } else if (node is CropFarm) {
+      cropFarms.remove(node);
     } else if (node is Sawmill) {
       sawmills.remove(node);
     } else if (node is Flag) {
@@ -143,6 +155,7 @@ class GameState extends BaseState {
       wells: wells.map((e) => e.json).toList(),
       fishers: fishers.map((e) => e.json).toList(),
       hunters: hunters.map((e) => e.json).toList(),
+      cropFarms: cropFarms.map((e) => e.json).toList(),
       sawmills: sawmills.map((e) => e.json).toList(),
       flags: flags.map((e) => e.json).toList(),
     );
