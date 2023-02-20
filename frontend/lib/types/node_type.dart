@@ -61,8 +61,8 @@ enum NodeType {
     costWood: 2,
     costStone: 2,
   ),
-  sawmill(
-    sprite: Assets.IMAGES_BUILDINGS_SAWMILL,
+  sawery(
+    sprite: Assets.IMAGES_BUILDINGS_SAWERY,
     productionTime: 10,
     costWood: 2,
     costStone: 2,

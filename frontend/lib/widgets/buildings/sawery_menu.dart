@@ -1,17 +1,17 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/transformers/sawmill.dart';
+import 'package:tensionnode/components/game/transformers/sawery.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
-class SawmillMenu extends StatelessWidget {
+class SaweryMenu extends StatelessWidget {
   final GameComponent game;
-  final Sawmill sawmill;
+  final Sawery sawery;
 
-  const SawmillMenu(this.game, this.sawmill);
+  const SaweryMenu(this.game, this.sawery);
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,12 @@ class SawmillMenu extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Label(
-            text: sawmill.type.name.toUpperCase(),
+            text: sawery.type.name.toUpperCase(),
             align: TextAlign.center,
           ),
           const VBox(10),
           Label(
-            text: '${sawmill.location.i}, ${sawmill.location.j}',
+            text: '${sawery.location.i}, ${sawery.location.j}',
             align: TextAlign.center,
           ),
           const VBox(10),
@@ -37,7 +37,7 @@ class SawmillMenu extends StatelessWidget {
             text: 'Center',
             icon: Icons.filter_tilt_shift,
             color: Palette.primary,
-            onPressed: () => _onCenter(sawmill),
+            onPressed: () => _onCenter(sawery),
           ),
           MenuButton(
             text: 'Destroy',

@@ -11,7 +11,7 @@ import 'package:tensionnode/components/game/producers/quarry.dart';
 import 'package:tensionnode/components/game/producers/well.dart';
 import 'package:tensionnode/components/game/producers/woodcutter.dart';
 import 'package:tensionnode/components/game/transformers/mill.dart';
-import 'package:tensionnode/components/game/transformers/sawmill.dart';
+import 'package:tensionnode/components/game/transformers/sawery.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/models/location.dart';
@@ -28,7 +28,7 @@ class GameState extends BaseState {
   final List<Fisher> fishers = [];
   final List<Hunter> hunters = [];
   final List<CropFarm> cropFarms = [];
-  final List<Sawmill> sawmills = [];
+  final List<Sawery> saweries = [];
   final List<Mill> mills = [];
   final List<Flag> flags = [];
   final JsonMatch jsonMatch;
@@ -88,9 +88,9 @@ class GameState extends BaseState {
       }
     }
 
-    for (final Sawmill sawmill in sawmills) {
-      if (sawmill.isAt(location)) {
-        return sawmill;
+    for (final Sawery sawery in saweries) {
+      if (sawery.isAt(location)) {
+        return sawery;
       }
     }
 
@@ -124,8 +124,8 @@ class GameState extends BaseState {
       hunters.add(node);
     } else if (node is CropFarm) {
       cropFarms.add(node);
-    } else if (node is Sawmill) {
-      sawmills.add(node);
+    } else if (node is Sawery) {
+      saweries.add(node);
     } else if (node is Mill) {
       mills.add(node);
     } else if (node is Flag) {
@@ -146,8 +146,8 @@ class GameState extends BaseState {
       hunters.remove(node);
     } else if (node is CropFarm) {
       cropFarms.remove(node);
-    } else if (node is Sawmill) {
-      sawmills.remove(node);
+    } else if (node is Sawery) {
+      saweries.remove(node);
     } else if (node is Mill) {
       mills.remove(node);
     } else if (node is Flag) {
@@ -168,7 +168,7 @@ class GameState extends BaseState {
       fishers: fishers.map((e) => e.json).toList(),
       hunters: hunters.map((e) => e.json).toList(),
       cropFarms: cropFarms.map((e) => e.json).toList(),
-      sawmills: sawmills.map((e) => e.json).toList(),
+      saweries: saweries.map((e) => e.json).toList(),
       mills: mills.map((e) => e.json).toList(),
       flags: flags.map((e) => e.json).toList(),
     );

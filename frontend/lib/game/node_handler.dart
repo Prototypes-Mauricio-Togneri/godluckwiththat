@@ -9,14 +9,14 @@ import 'package:tensionnode/components/game/producers/quarry.dart';
 import 'package:tensionnode/components/game/producers/well.dart';
 import 'package:tensionnode/components/game/producers/woodcutter.dart';
 import 'package:tensionnode/components/game/transformers/mill.dart';
-import 'package:tensionnode/components/game/transformers/sawmill.dart';
+import 'package:tensionnode/components/game/transformers/sawery.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/json/json_mill.dart';
 import 'package:tensionnode/json/json_producer.dart';
-import 'package:tensionnode/json/json_sawmill.dart';
+import 'package:tensionnode/json/json_sawery.dart';
 import 'package:tensionnode/models/connections.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
@@ -120,10 +120,10 @@ mixin NodeHandler on BaseGameComponent {
       }
     }
 
-    for (final JsonSawmill json in state.jsonMatch.sawmills) {
+    for (final JsonSawery json in state.jsonMatch.saweries) {
       final Connections locations = json.connections.connections;
 
-      final Node node = addSawmill(
+      final Node node = addSawery(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
@@ -255,11 +255,11 @@ mixin NodeHandler on BaseGameComponent {
         location: location,
       ));
 
-  Node addSawmill({
+  Node addSawery({
     required Location location,
   }) =>
-      addNode(Sawmill(
-        type: NodeType.sawmill,
+      addNode(Sawery(
+        type: NodeType.sawery,
         location: location,
       ));
 

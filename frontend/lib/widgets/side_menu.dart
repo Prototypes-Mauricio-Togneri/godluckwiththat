@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionnode/components/base/producer_node.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/components/game/transformers/mill.dart';
-import 'package:tensionnode/components/game/transformers/sawmill.dart';
+import 'package:tensionnode/components/game/transformers/sawery.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -11,7 +11,7 @@ import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/widgets/buildings/headquarters_menu.dart';
 import 'package:tensionnode/widgets/buildings/mill_menu.dart';
 import 'package:tensionnode/widgets/buildings/producer_menu.dart';
-import 'package:tensionnode/widgets/buildings/sawmill_menu.dart';
+import 'package:tensionnode/widgets/buildings/sawery_menu.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
 class SideMenu extends StatelessWidget {
@@ -51,8 +51,8 @@ class SideMenu extends StatelessWidget {
         game,
         game.selectedNode(),
       );
-    } else if (game.isNodeSelectedType(Sawmill)) {
-      return SawmillMenu(
+    } else if (game.isNodeSelectedType(Sawery)) {
+      return SaweryMenu(
         game,
         game.selectedNode(),
       );

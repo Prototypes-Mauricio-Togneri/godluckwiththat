@@ -5,7 +5,7 @@ import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_mill.dart';
 import 'package:tensionnode/json/json_producer.dart';
-import 'package:tensionnode/json/json_sawmill.dart';
+import 'package:tensionnode/json/json_sawery.dart';
 
 part 'json_match.g.dart';
 
@@ -44,8 +44,8 @@ class JsonMatch {
   @JsonKey(name: 'cropFarms')
   final List<JsonProducer> cropFarms;
 
-  @JsonKey(name: 'sawmills')
-  final List<JsonSawmill> sawmills;
+  @JsonKey(name: 'saweries')
+  final List<JsonSawery> saweries;
 
   @JsonKey(name: 'mills')
   final List<JsonMill> mills;
@@ -65,7 +65,7 @@ class JsonMatch {
     required this.fishers,
     required this.hunters,
     required this.cropFarms,
-    required this.sawmills,
+    required this.saweries,
     required this.mills,
     required this.flags,
   });

@@ -1,18 +1,18 @@
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/json/json_sawmill.dart';
+import 'package:tensionnode/json/json_sawery.dart';
 import 'package:tensionnode/models/resource_manager.dart';
 import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class Sawmill extends Node {
+class Sawery extends Node {
   int _timbers = 0; // TODO(momo): receive as parameter
   num _accumulatedTime = 0; // TODO(momo): receive as parameter
   BuildingState _state = BuildingState.idle; // TODO(momo): receive as parameter
 
   static const int QUEUE_LIMIT = 6;
 
-  Sawmill({
+  Sawery({
     required super.type,
     required super.location,
   });
@@ -62,12 +62,12 @@ class Sawmill extends Node {
   void receive(RoutedResource routedResource) {
     if (!routedResource.isDestination(this)) {
       throw Exception(
-          'Routed resource $routedResource arrived to sawmill $this without being the destination');
+          'Routed resource $routedResource arrived to sawery $this without being the destination');
     }
 
     if (!routedResource.has(ResourceType.timber)) {
       throw Exception(
-          'Routed resource $routedResource arrived to sawmill $this without being timber');
+          'Routed resource $routedResource arrived to sawery $this without being timber');
     }
 
     _timbers++;
@@ -101,7 +101,7 @@ class Sawmill extends Node {
     }
   }
 
-  JsonSawmill get json => JsonSawmill(
+  JsonSawery get json => JsonSawery(
         location: location.json,
         connections: roads.json,
       );

@@ -31,8 +31,8 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       cropFarms: (json['cropFarms'] as List<dynamic>)
           .map((e) => JsonProducer.fromJson(e as Map<String, dynamic>))
           .toList(),
-      sawmills: (json['sawmills'] as List<dynamic>)
-          .map((e) => JsonSawmill.fromJson(e as Map<String, dynamic>))
+      saweries: (json['saweries'] as List<dynamic>)
+          .map((e) => JsonSawery.fromJson(e as Map<String, dynamic>))
           .toList(),
       mills: (json['mills'] as List<dynamic>)
           .map((e) => JsonMill.fromJson(e as Map<String, dynamic>))
@@ -54,7 +54,7 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'fishers': instance.fishers,
       'hunters': instance.hunters,
       'cropFarms': instance.cropFarms,
-      'sawmills': instance.sawmills,
+      'saweries': instance.saweries,
       'mills': instance.mills,
       'flags': instance.flags,
     };

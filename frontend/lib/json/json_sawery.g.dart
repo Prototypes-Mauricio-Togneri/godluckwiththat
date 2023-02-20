@@ -1,19 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'json_sawmill.dart';
+part of 'json_sawery.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonSawmill _$JsonSawmillFromJson(Map<String, dynamic> json) => JsonSawmill(
+JsonSawery _$JsonSaweryFromJson(Map<String, dynamic> json) => JsonSawery(
       location:
           (json['location'] as List<dynamic>).map((e) => e as int).toList(),
       connections:
           JsonConnections.fromJson(json['connections'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$JsonSawmillToJson(JsonSawmill instance) =>
+Map<String, dynamic> _$JsonSaweryToJson(JsonSawery instance) =>
     <String, dynamic>{
       'location': instance.location,
       'connections': instance.connections,

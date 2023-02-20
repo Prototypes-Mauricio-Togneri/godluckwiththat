@@ -69,7 +69,7 @@ class Constants {
 			"south": [-6, 0]
 		}
 	}],
-	"sawmills": [{
+	"saweries": [{
 		"location": [2, -2],
 		"connections": {
 			"south": [2, 0]
