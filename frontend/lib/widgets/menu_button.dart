@@ -1,10 +1,9 @@
-import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/widgets/label.dart';
 
 class MenuButton extends StatelessWidget {
   final String text;
-  final IconData icon;
+  final IconData? icon;
   final Color color;
   final VoidCallback onPressed;
   final double topPadding;
@@ -12,9 +11,9 @@ class MenuButton extends StatelessWidget {
 
   const MenuButton({
     required this.text,
-    required this.icon,
     required this.color,
     required this.onPressed,
+    this.icon,
     this.topPadding = 10,
     this.size = 14,
   });
@@ -32,11 +31,14 @@ class MenuButton extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon,
-              size: 20,
-            ),
-            const HBox(10),
+            if (icon != null)
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(
+                  icon,
+                  size: 20,
+                ),
+              ),
             const Spacer(),
             Label(
               text: text.toUpperCase(),

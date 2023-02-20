@@ -120,16 +120,12 @@ class ConstructMenu extends StatelessWidget {
         children: [
           MenuButton(
             text: 'Woodcutter',
-            icon: Icons.center_focus_strong,
             color: Palette.primary,
-            size: 9,
             onPressed: () => _onBuild(NodeType.woodcutter),
           ),
           MenuButton(
             text: 'Quarry',
-            icon: Icons.center_focus_strong,
             color: Palette.primary,
-            size: 9,
             onPressed: () => _onBuild(NodeType.quarry),
           ),
         ],
