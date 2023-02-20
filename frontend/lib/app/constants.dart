@@ -40,11 +40,14 @@ class Constants {
 		}
 	}],
 	"quarries": [{
-		"location": [-3, 3],
+		"location": [-6, 4],
 		"connections": {
-			"east": [0, 3]
+			"east": [0, 4]
 		}
 	}],
+	"wells": [],
+	"fishers": [],
+	"hunters": [],
 	"sawmills": [{
 		"location": [2, -2],
 		"connections": {
@@ -65,10 +68,10 @@ class Constants {
 			"west": [2, 0]
 		}
 	}, {
-		"location": [0, 3],
+		"location": [0, 4],
 		"connections": {
 			"north": [0, 0],
-			"west": [-3, 3]
+			"west": [-6, 4]
 		}
 	}]
 }
