@@ -45,7 +45,12 @@ class Constants {
 			"east": [0, 4]
 		}
 	}],
-	"wells": [],
+	"wells": [{
+		"location": [2, 2],
+		"connections": {
+			"north": [2, 0]
+		}
+	}],
 	"fishers": [],
 	"hunters": [],
 	"sawmills": [{
@@ -59,7 +64,8 @@ class Constants {
 		"connections": {
 			"north": [2, -2],
 			"west": [0, 0],
-			"east": [5, 0]
+			"east": [5, 0],
+			"south": [2, 2]
 		}
 	}, {
 		"location": [5, 0],
