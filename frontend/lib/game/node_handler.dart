@@ -8,11 +8,13 @@ import 'package:tensionnode/components/game/producers/hunter.dart';
 import 'package:tensionnode/components/game/producers/quarry.dart';
 import 'package:tensionnode/components/game/producers/well.dart';
 import 'package:tensionnode/components/game/producers/woodcutter.dart';
+import 'package:tensionnode/components/game/transformers/mill.dart';
 import 'package:tensionnode/components/game/transformers/sawmill.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
+import 'package:tensionnode/json/json_mill.dart';
 import 'package:tensionnode/json/json_producer.dart';
 import 'package:tensionnode/json/json_sawmill.dart';
 import 'package:tensionnode/models/connections.dart';
@@ -122,6 +124,19 @@ mixin NodeHandler on BaseGameComponent {
       final Connections locations = json.connections.connections;
 
       final Node node = addSawmill(
+        location: json.location.location,
+      );
+      state.resourceManager.graph.addNode(node);
+
+      if (locations.isNotEmpty) {
+        nodeConnections[node] = locations;
+      }
+    }
+
+    for (final JsonMill json in state.jsonMatch.mills) {
+      final Connections locations = json.connections.connections;
+
+      final Node node = addMill(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
@@ -245,6 +260,14 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       addNode(Sawmill(
         type: NodeType.sawmill,
+        location: location,
+      ));
+
+  Node addMill({
+    required Location location,
+  }) =>
+      addNode(Mill(
+        type: NodeType.mill,
         location: location,
       ));
 

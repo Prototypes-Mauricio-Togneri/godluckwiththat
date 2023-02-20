@@ -10,6 +10,7 @@ import 'package:tensionnode/components/game/producers/hunter.dart';
 import 'package:tensionnode/components/game/producers/quarry.dart';
 import 'package:tensionnode/components/game/producers/well.dart';
 import 'package:tensionnode/components/game/producers/woodcutter.dart';
+import 'package:tensionnode/components/game/transformers/mill.dart';
 import 'package:tensionnode/components/game/transformers/sawmill.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
@@ -28,6 +29,7 @@ class GameState extends BaseState {
   final List<Hunter> hunters = [];
   final List<CropFarm> cropFarms = [];
   final List<Sawmill> sawmills = [];
+  final List<Mill> mills = [];
   final List<Flag> flags = [];
   final JsonMatch jsonMatch;
   final ResourceManager resourceManager = ResourceManager();
@@ -92,6 +94,12 @@ class GameState extends BaseState {
       }
     }
 
+    for (final Mill mill in mills) {
+      if (mill.isAt(location)) {
+        return mill;
+      }
+    }
+
     for (final Flag flag in flags) {
       if (flag.isAt(location)) {
         return flag;
@@ -118,6 +126,8 @@ class GameState extends BaseState {
       cropFarms.add(node);
     } else if (node is Sawmill) {
       sawmills.add(node);
+    } else if (node is Mill) {
+      mills.add(node);
     } else if (node is Flag) {
       flags.add(node);
     }
@@ -138,6 +148,8 @@ class GameState extends BaseState {
       cropFarms.remove(node);
     } else if (node is Sawmill) {
       sawmills.remove(node);
+    } else if (node is Mill) {
+      mills.remove(node);
     } else if (node is Flag) {
       flags.remove(node);
     }
@@ -157,6 +169,7 @@ class GameState extends BaseState {
       hunters: hunters.map((e) => e.json).toList(),
       cropFarms: cropFarms.map((e) => e.json).toList(),
       sawmills: sawmills.map((e) => e.json).toList(),
+      mills: mills.map((e) => e.json).toList(),
       flags: flags.map((e) => e.json).toList(),
     );
   }

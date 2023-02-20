@@ -75,6 +75,12 @@ class Constants {
 			"south": [2, 0]
 		}
 	}],
+	"mills": [{
+		"location": [-4, -2],
+		"connections": {
+			"south": [-4, 0]
+		}
+	}],
 	"flags": [{
 		"location": [2, 0],
 		"connections": {
@@ -111,7 +117,8 @@ class Constants {
 	}, {
 		"location": [-4, 0],
 		"connections": {
-			"west": [-6, 0],
+			"north": [-4, -2],
+      "west": [-6, 0],
 			"east": [-2, 0]
 		}
 	}, {

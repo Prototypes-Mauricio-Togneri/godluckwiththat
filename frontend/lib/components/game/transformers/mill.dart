@@ -1,5 +1,5 @@
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/json/json_sawmill.dart';
+import 'package:tensionnode/json/json_mill.dart';
 import 'package:tensionnode/models/resource_manager.dart';
 import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/building_state.dart';
@@ -62,19 +62,19 @@ class Mill extends Node {
   void receive(RoutedResource routedResource) {
     if (!routedResource.isDestination(this)) {
       throw Exception(
-          'Routed resource $routedResource arrived to sawmill $this without being the destination');
+          'Routed resource $routedResource arrived to mill $this without being the destination');
     }
 
     if (!routedResource.has(ResourceType.grain)) {
       throw Exception(
-          'Routed resource $routedResource arrived to sawmill $this without being grain');
+          'Routed resource $routedResource arrived to mill $this without being grain');
     }
 
     _grains++;
     _startProducing();
   }
-  void _sendResource() {
 
+  void _sendResource() {
     final RoutedResource? routedResource = game.state.resourceManager.search(
       origin: this,
       resource: ResourceType.flour,
@@ -101,7 +101,7 @@ class Mill extends Node {
     }
   }
 
-  JsonSawmill get json => JsonSawmill(
+  JsonMill get json => JsonMill(
         location: location.json,
         connections: roads.json,
       );
