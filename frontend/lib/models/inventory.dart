@@ -2,6 +2,7 @@ import 'package:tensionnode/json/json_inventory.dart';
 import 'package:tensionnode/services/json.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
+// TODO(momo): use Map<ResourceType, int>
 class Inventory {
   int timber = 0;
   int stone = 0;
