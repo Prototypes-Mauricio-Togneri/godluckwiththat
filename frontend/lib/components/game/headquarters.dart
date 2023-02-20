@@ -29,12 +29,12 @@ class Headquarters extends Node {
     }
   }
 
-  @override
+  /*@override
   void update(double dt) {
     super.update(dt);
 
     debugText.text = '${game.state.resourceManager}';
-  }
+  }*/
 
   JsonHeadquarters get json => JsonHeadquarters(
         location: location.json,

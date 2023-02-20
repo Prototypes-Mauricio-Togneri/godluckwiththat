@@ -30,6 +30,7 @@ class Constants {
 			"wood": 0
 		},
 		"connections": {
+      "west": [-2, 0],
 			"east": [2, 0]
 		}
 	},
@@ -81,6 +82,12 @@ class Constants {
 			"south": [-4, 0]
 		}
 	}],
+	"bakeries": [{
+		"location": [-2, -2],
+		"connections": {
+			"south": [-2, 0]
+		}
+	}],
 	"flags": [{
 		"location": [2, 0],
 		"connections": {
@@ -124,6 +131,8 @@ class Constants {
 	}, {
 		"location": [-2, 0],
 		"connections": {
+      "north": [-2, -2],
+      "west": [-4, 0],
 			"east": [0, 0]
 		}
 	}]

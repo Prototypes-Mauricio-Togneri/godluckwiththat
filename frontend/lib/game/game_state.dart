@@ -10,6 +10,7 @@ import 'package:tensionnode/components/game/producers/hunter.dart';
 import 'package:tensionnode/components/game/producers/quarry.dart';
 import 'package:tensionnode/components/game/producers/well.dart';
 import 'package:tensionnode/components/game/producers/woodcutter.dart';
+import 'package:tensionnode/components/game/transformers/bakery.dart';
 import 'package:tensionnode/components/game/transformers/mill.dart';
 import 'package:tensionnode/components/game/transformers/sawery.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
@@ -30,6 +31,7 @@ class GameState extends BaseState {
   final List<CropFarm> cropFarms = [];
   final List<Sawery> saweries = [];
   final List<Mill> mills = [];
+  final List<Bakery> bakeries = [];
   final List<Flag> flags = [];
   final JsonMatch jsonMatch;
   final ResourceManager resourceManager = ResourceManager();
@@ -100,6 +102,12 @@ class GameState extends BaseState {
       }
     }
 
+    for (final Bakery bakery in bakeries) {
+      if (bakery.isAt(location)) {
+        return bakery;
+      }
+    }
+
     for (final Flag flag in flags) {
       if (flag.isAt(location)) {
         return flag;
@@ -128,6 +136,8 @@ class GameState extends BaseState {
       saweries.add(node);
     } else if (node is Mill) {
       mills.add(node);
+    } else if (node is Bakery) {
+      bakeries.add(node);
     } else if (node is Flag) {
       flags.add(node);
     }
@@ -150,6 +160,8 @@ class GameState extends BaseState {
       saweries.remove(node);
     } else if (node is Mill) {
       mills.remove(node);
+    } else if (node is Bakery) {
+      bakeries.remove(node);
     } else if (node is Flag) {
       flags.remove(node);
     }
@@ -170,6 +182,7 @@ class GameState extends BaseState {
       cropFarms: cropFarms.map((e) => e.json).toList(),
       saweries: saweries.map((e) => e.json).toList(),
       mills: mills.map((e) => e.json).toList(),
+      bakeries: bakeries.map((e) => e.json).toList(),
       flags: flags.map((e) => e.json).toList(),
     );
   }

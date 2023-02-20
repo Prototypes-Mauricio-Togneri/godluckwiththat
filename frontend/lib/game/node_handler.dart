@@ -8,10 +8,12 @@ import 'package:tensionnode/components/game/producers/hunter.dart';
 import 'package:tensionnode/components/game/producers/quarry.dart';
 import 'package:tensionnode/components/game/producers/well.dart';
 import 'package:tensionnode/components/game/producers/woodcutter.dart';
+import 'package:tensionnode/components/game/transformers/bakery.dart';
 import 'package:tensionnode/components/game/transformers/mill.dart';
 import 'package:tensionnode/components/game/transformers/sawery.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
+import 'package:tensionnode/json/json_bakery.dart';
 import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/json/json_mill.dart';
@@ -146,6 +148,19 @@ mixin NodeHandler on BaseGameComponent {
       }
     }
 
+    for (final JsonBakery json in state.jsonMatch.bakeries) {
+      final Connections locations = json.connections.connections;
+
+      final Node node = addBakery(
+        location: json.location.location,
+      );
+      state.resourceManager.graph.addNode(node);
+
+      if (locations.isNotEmpty) {
+        nodeConnections[node] = locations;
+      }
+    }
+
     for (final JsonFlag json in state.jsonMatch.flags) {
       final Connections locations = json.connections.connections;
 
@@ -270,6 +285,15 @@ mixin NodeHandler on BaseGameComponent {
         type: NodeType.mill,
         location: location,
       ));
+
+  Node addBakery({
+    required Location location,
+  }) =>
+      addNode(Bakery(
+        type: NodeType.bakery,
+        location: location,
+      ));
+
 
   Node addFlag({
     required Location location,

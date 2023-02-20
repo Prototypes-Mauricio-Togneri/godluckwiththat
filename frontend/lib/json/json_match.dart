@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionnode/json/json_bakery.dart';
 import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/json/json_map.dart';
@@ -50,6 +51,9 @@ class JsonMatch {
   @JsonKey(name: 'mills')
   final List<JsonMill> mills;
 
+  @JsonKey(name: 'bakeries')
+  final List<JsonBakery> bakeries;
+
   @JsonKey(name: 'flags')
   final List<JsonFlag> flags;
 
@@ -67,6 +71,7 @@ class JsonMatch {
     required this.cropFarms,
     required this.saweries,
     required this.mills,
+    required this.bakeries,
     required this.flags,
   });
 
