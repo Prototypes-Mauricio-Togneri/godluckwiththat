@@ -26,8 +26,6 @@ mixin MenuHandler on BaseGameComponent {
   bool get isInSpecialMode =>
       (_mode == MenuMode.building) || (_mode == MenuMode.destroying);
 
-  bool isNodeSelected(Node node) => _selectedNode == node;
-
   void _enableMode(MenuMode newMode) {
     _selectedNode = null;
     _mode = newMode;
@@ -90,7 +88,9 @@ mixin MenuHandler on BaseGameComponent {
 
   bool get hasNodeSelected => _selectedNode != null;
 
-  bool isSelected(Type type) => _selectedNode.runtimeType == type;
+  bool isNodeSelectedType(Type type) => _selectedNode.runtimeType == type;
+
+  bool isNodeSelected(Node node) => _selectedNode == node;
 
   bool selectNode(Node node) {
     if (destroyingMode && !(node is Headquarters)) {

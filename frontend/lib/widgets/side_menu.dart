@@ -1,9 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/components/base/producer_node.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
-import 'package:tensionnode/components/game/quarry.dart';
 import 'package:tensionnode/components/game/sawmill.dart';
-import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
@@ -40,17 +39,17 @@ class SideMenu extends StatelessWidget {
   }
 
   Widget _showSelectedNode() {
-    if (game.isSelected(Headquarters)) {
+    if (game.isNodeSelectedType(Headquarters)) {
       return HeadquartersMenu(
         game,
         game.selectedNode(),
       );
-    } else if (game.isSelected(Woodcutter) || game.isSelected(Quarry)) {
+    } else if (game.selectedNode() is ProducerNode) {
       return ProducerMenu(
         game,
         game.selectedNode(),
       );
-    } else if (game.isSelected(Sawmill)) {
+    } else if (game.isNodeSelectedType(Sawmill)) {
       return SawmillMenu(
         game,
         game.selectedNode(),
