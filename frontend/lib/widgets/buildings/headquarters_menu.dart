@@ -52,6 +52,24 @@ class HeadquartersMenu extends StatelessWidget {
               ),
             ],
           ),
+          Row(
+            children: [
+              ResourceIndicator(
+                image: Assets.IMAGES_RESOURCES_WATER,
+                amount: headquarters.inventory.water,
+              ),
+              const HBox(15),
+              ResourceIndicator(
+                image: Assets.IMAGES_RESOURCES_FISH,
+                amount: headquarters.inventory.fish,
+              ),
+              const HBox(15),
+              ResourceIndicator(
+                image: Assets.IMAGES_RESOURCES_MEAT,
+                amount: headquarters.inventory.meat,
+              ),
+            ],
+          ),
           const VBox(10),
           MenuButton(
             text: 'Center',
