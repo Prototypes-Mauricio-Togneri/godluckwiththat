@@ -88,6 +88,8 @@ mixin MenuHandler on BaseGameComponent {
 
   T selectedNode<T>() => _selectedNode as T;
 
+  bool get hasNodeSelected => _selectedNode != null;
+
   bool isSelected(Type type) => _selectedNode.runtimeType == type;
 
   bool selectNode(Node node) {

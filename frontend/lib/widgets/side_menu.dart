@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/components/game/quarry.dart';
+import 'package:tensionnode/components/game/sawmill.dart';
 import 'package:tensionnode/components/game/woodcutter.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
@@ -9,6 +10,7 @@ import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/widgets/buildings/headquarters_menu.dart';
 import 'package:tensionnode/widgets/buildings/quarry_menu.dart';
+import 'package:tensionnode/widgets/buildings/sawmill_menu.dart';
 import 'package:tensionnode/widgets/buildings/woodcutter_menu.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
@@ -29,26 +31,39 @@ class SideMenu extends StatelessWidget {
           FixedButtons(game),
           if (game.constructMode)
             ConstructMenu(game)
-          else if (game.isSelected(Headquarters))
-            HeadquartersMenu(
-              game,
-              game.selectedNode(),
-            )
-          else if (game.isSelected(Woodcutter))
-            WoodcutterMenu(
-              game,
-              game.selectedNode(),
-            )
-          else if (game.isSelected(Quarry))
-            QuarryMenu(
-              game,
-              game.selectedNode(),
-            )
+          else if (game.hasNodeSelected)
+            _showSelectedNode()
           else if (game.isInSpecialMode)
             CancelMenu(game),
         ],
       ),
     );
+  }
+
+  Widget _showSelectedNode() {
+    if (game.isSelected(Headquarters)) {
+      return HeadquartersMenu(
+        game,
+        game.selectedNode(),
+      );
+    } else if (game.isSelected(Woodcutter)) {
+      return WoodcutterMenu(
+        game,
+        game.selectedNode(),
+      );
+    } else if (game.isSelected(Quarry)) {
+      return QuarryMenu(
+        game,
+        game.selectedNode(),
+      );
+    } else if (game.isSelected(Sawmill)) {
+      return SawmillMenu(
+        game,
+        game.selectedNode(),
+      );
+    } else {
+      throw Exception('No valid node is selected');
+    }
   }
 }
 

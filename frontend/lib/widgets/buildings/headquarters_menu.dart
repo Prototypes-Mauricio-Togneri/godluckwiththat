@@ -60,12 +60,6 @@ class HeadquartersMenu extends StatelessWidget {
             onPressed: () => _onCenter(headquarters),
           ),
           MenuButton(
-            text: 'Destroy',
-            icon: Icons.delete,
-            color: Palette.error,
-            onPressed: _onDestroy,
-          ),
-          MenuButton(
             text: 'Close',
             icon: Icons.close,
             color: Palette.lightGrey,
@@ -77,12 +71,6 @@ class HeadquartersMenu extends StatelessWidget {
   }
 
   void _onCenter(Node node) => game.centerMap(node.position);
-
-  void _onDestroy() {
-    final Node node = game.selectedNode();
-    node.destroy();
-    _closeMenu();
-  }
 
   void _closeMenu() => game.unselectNode();
 }
