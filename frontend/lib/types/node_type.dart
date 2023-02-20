@@ -43,4 +43,6 @@ enum NodeType {
     required this.costWood,
     required this.costStone,
   });
+
+  bool get canBeBuilt => (this != flag) && (this != headquarters);
 }

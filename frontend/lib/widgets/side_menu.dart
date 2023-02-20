@@ -118,16 +118,13 @@ class ConstructMenu extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          MenuButton(
-            text: 'Woodcutter',
-            color: Palette.primary,
-            onPressed: () => _onBuild(NodeType.woodcutter),
-          ),
-          MenuButton(
-            text: 'Quarry',
-            color: Palette.primary,
-            onPressed: () => _onBuild(NodeType.quarry),
-          ),
+          for (final NodeType type in NodeType.values)
+            if (type.canBeBuilt)
+              MenuButton(
+                text: type.name.toUpperCase(),
+                color: Palette.primary,
+                onPressed: () => _onBuild(type),
+              ),
         ],
       ),
     );
