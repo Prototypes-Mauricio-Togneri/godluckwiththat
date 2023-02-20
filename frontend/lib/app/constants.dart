@@ -64,9 +64,9 @@ class Constants {
 		}
 	}],
 	"cropFarms": [{
-		"location": [-2, -2],
+		"location": [-6, -2],
 		"connections": {
-			"south": [-2, 0]
+			"south": [-6, 0]
 		}
 	}],
 	"sawmills": [{
@@ -103,9 +103,20 @@ class Constants {
 			"west": [5, 0]
 		}
 	}, {
+		"location": [-6, 0],
+		"connections": {
+			"north": [-6, -2],
+			"east": [-4, 0]
+		}
+	}, {
+		"location": [-4, 0],
+		"connections": {
+			"west": [-6, 0],
+			"east": [-2, 0]
+		}
+	}, {
 		"location": [-2, 0],
 		"connections": {
-			"north": [-2, -2],
 			"east": [0, 0]
 		}
 	}]
