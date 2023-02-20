@@ -73,8 +73,8 @@ class Mill extends Node {
     _grains++;
     _startProducing();
   }
-
   void _sendResource() {
+
     final RoutedResource? routedResource = game.state.resourceManager.search(
       origin: this,
       resource: ResourceType.flour,

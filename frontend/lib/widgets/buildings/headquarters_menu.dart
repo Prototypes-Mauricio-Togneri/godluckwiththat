@@ -72,6 +72,25 @@ class HeadquartersMenu extends StatelessWidget {
             ],
           ),
           const VBox(10),
+          Row(
+            children: [
+              ResourceIndicator(
+                image: Assets.IMAGES_RESOURCES_GRAIN,
+                amount: headquarters.inventory.grain,
+              ),
+              const HBox(15),
+              ResourceIndicator(
+                image: Assets.IMAGES_RESOURCES_FLOUR,
+                amount: headquarters.inventory.flour,
+              ),
+              const HBox(15),
+              ResourceIndicator(
+                image: Assets.IMAGES_RESOURCES_BREAD,
+                amount: headquarters.inventory.bread,
+              ),
+            ],
+          ),
+          const VBox(10),
           MenuButton(
             text: 'Center',
             icon: Icons.filter_tilt_shift,
@@ -116,7 +135,10 @@ class ResourceIndicator extends StatelessWidget {
             child: Image.asset('images/$image'),
           ),
           const Spacer(),
-          Label(text: '$amount'),
+          Label(
+            text: '$amount',
+            size: 12,
+          ),
         ],
       ),
     );
