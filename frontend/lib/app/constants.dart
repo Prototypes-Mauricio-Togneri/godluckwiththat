@@ -11,6 +11,8 @@ class Constants {
 
   static const num TIME_TO_NEXT_WAVE = 60; // in seconds
 
+  static const int TRANSFORMER_RESOURCE_QUEUE_LIMIT = 6;
+
   static String TEST_MATCH = '''
 {
 	"version": 1,

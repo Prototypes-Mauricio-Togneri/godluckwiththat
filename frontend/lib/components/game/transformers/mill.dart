@@ -1,3 +1,4 @@
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_mill.dart';
 import 'package:tensionnode/models/resource_manager.dart';
@@ -10,8 +11,6 @@ class Mill extends Node {
   num _accumulatedTime = 0; // TODO(momo): receive as parameter
   BuildingState _state = BuildingState.idle; // TODO(momo): receive as parameter
 
-  static const int QUEUE_LIMIT = 6;
-
   Mill({
     required super.type,
     required super.location,
@@ -19,7 +18,7 @@ class Mill extends Node {
 
   @override
   Future onLoad() {
-    _requestResources(QUEUE_LIMIT - _grains);
+    _requestResources(Constants.TRANSFORMER_RESOURCE_QUEUE_LIMIT - _grains);
     _startProducing();
 
     return super.onLoad();
