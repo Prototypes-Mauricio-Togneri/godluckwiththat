@@ -17,6 +17,7 @@ class ResourceManager {
   }
 
   void addRequest(ResourceRequest request) {
+    // TODO(momo): only add a request to the list if a warehouse cannot fulfil the request
     final List<ResourceRequest> requests = requestsFor(request.resource);
     requests.add(request);
 

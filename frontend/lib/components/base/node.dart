@@ -12,8 +12,8 @@ import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
-  final Location location;
   final NodeType type;
+  final Location location;
   final Roads roads = Roads();
 
   late final DebugText debugText = DebugText();
