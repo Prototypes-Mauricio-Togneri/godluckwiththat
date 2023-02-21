@@ -23,6 +23,9 @@ class Headquarters extends Node {
   void receive(RoutedResource routedResource) {
     if (routedResource.isDestination(this)) {
       inventory.add(routedResource.resource);
+    } else {
+      routedResource.pop();
+      send(routedResource);
     }
 
     // TODO(momo): uncomment after routing is fixed (only passing through flags)
