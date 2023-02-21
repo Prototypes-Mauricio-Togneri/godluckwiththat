@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/json/json_bakery.dart';
 import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/json/json_map.dart';
-import 'package:tensionnode/json/json_mill.dart';
 import 'package:tensionnode/json/json_producer.dart';
-import 'package:tensionnode/json/json_sawery.dart';
+import 'package:tensionnode/json/json_transformer.dart';
 
 part 'json_match.g.dart';
 
@@ -46,13 +44,13 @@ class JsonMatch {
   final List<JsonProducer> cropFarms;
 
   @JsonKey(name: 'saweries')
-  final List<JsonSawery> saweries;
+  final List<JsonTransformer> saweries;
 
   @JsonKey(name: 'mills')
-  final List<JsonMill> mills;
+  final List<JsonTransformer> mills;
 
   @JsonKey(name: 'bakeries')
-  final List<JsonBakery> bakeries;
+  final List<JsonTransformer> bakeries;
 
   @JsonKey(name: 'flags')
   final List<JsonFlag> flags;

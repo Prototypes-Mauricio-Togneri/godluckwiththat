@@ -13,12 +13,10 @@ import 'package:tensionnode/components/game/transformers/mill.dart';
 import 'package:tensionnode/components/game/transformers/sawery.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
-import 'package:tensionnode/json/json_bakery.dart';
 import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
-import 'package:tensionnode/json/json_mill.dart';
 import 'package:tensionnode/json/json_producer.dart';
-import 'package:tensionnode/json/json_sawery.dart';
+import 'package:tensionnode/json/json_transformer.dart';
 import 'package:tensionnode/models/connections.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
@@ -123,7 +121,7 @@ mixin NodeHandler on BaseGameComponent {
       }
     }
 
-    for (final JsonSawery json in state.jsonMatch.saweries) {
+    for (final JsonTransformer json in state.jsonMatch.saweries) {
       final Connections locations = json.connections.connections;
 
       final Node node = addSawery(
@@ -136,7 +134,7 @@ mixin NodeHandler on BaseGameComponent {
       }
     }
 
-    for (final JsonMill json in state.jsonMatch.mills) {
+    for (final JsonTransformer json in state.jsonMatch.mills) {
       final Connections locations = json.connections.connections;
 
       final Node node = addMill(
@@ -149,7 +147,7 @@ mixin NodeHandler on BaseGameComponent {
       }
     }
 
-    for (final JsonBakery json in state.jsonMatch.bakeries) {
+    for (final JsonTransformer json in state.jsonMatch.bakeries) {
       final Connections locations = json.connections.connections;
 
       final Node node = addBakery(
@@ -227,7 +225,6 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       addNode(Woodcutter(
-        type: NodeType.woodcutter,
         location: location,
       ));
 
@@ -235,7 +232,6 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       addNode(Quarry(
-        type: NodeType.quarry,
         location: location,
       ));
 
@@ -243,7 +239,6 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       addNode(Well(
-        type: NodeType.well,
         location: location,
       ));
 
@@ -251,7 +246,6 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       addNode(Fisher(
-        type: NodeType.fisher,
         location: location,
       ));
 
@@ -259,7 +253,6 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       addNode(Hunter(
-        type: NodeType.hunter,
         location: location,
       ));
 
@@ -267,7 +260,6 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       addNode(CropFarm(
-        type: NodeType.crop_farm,
         location: location,
       ));
 
@@ -275,25 +267,27 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       addNode(Sawery(
-        type: NodeType.sawery,
         location: location,
+        resourcesRequired: [
+          ResourceType.timber,
+        ],
       ));
 
   Node addMill({
     required Location location,
   }) =>
       addNode(Mill(
-        type: NodeType.mill,
         location: location,
+        resourcesRequired: [
+          ResourceType.grain,
+        ],
       ));
 
   Node addBakery({
     required Location location,
   }) =>
       addNode(Bakery(
-        type: NodeType.bakery,
         location: location,
-        resourceProduced: ResourceType.bread,
         resourcesRequired: [
           ResourceType.flour,
           ResourceType.water,

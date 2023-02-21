@@ -32,13 +32,13 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
           .map((e) => JsonProducer.fromJson(e as Map<String, dynamic>))
           .toList(),
       saweries: (json['saweries'] as List<dynamic>)
-          .map((e) => JsonSawery.fromJson(e as Map<String, dynamic>))
+          .map((e) => JsonTransformer.fromJson(e as Map<String, dynamic>))
           .toList(),
       mills: (json['mills'] as List<dynamic>)
-          .map((e) => JsonMill.fromJson(e as Map<String, dynamic>))
+          .map((e) => JsonTransformer.fromJson(e as Map<String, dynamic>))
           .toList(),
       bakeries: (json['bakeries'] as List<dynamic>)
-          .map((e) => JsonBakery.fromJson(e as Map<String, dynamic>))
+          .map((e) => JsonTransformer.fromJson(e as Map<String, dynamic>))
           .toList(),
       flags: (json['flags'] as List<dynamic>)
           .map((e) => JsonFlag.fromJson(e as Map<String, dynamic>))

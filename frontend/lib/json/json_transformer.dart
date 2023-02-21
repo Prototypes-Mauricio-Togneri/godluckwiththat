@@ -3,26 +3,26 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/json/json_connections.dart';
 
-part 'json_sawery.g.dart';
+part 'json_transformer.g.dart';
 
 @JsonSerializable(includeIfNull: false)
-class JsonSawery {
+class JsonTransformer {
   @JsonKey(name: 'location')
   final JsonLocation location;
 
   @JsonKey(name: 'connections')
   final JsonConnections connections;
 
-  const JsonSawery({
+  const JsonTransformer({
     required this.location,
     required this.connections,
   });
 
-  factory JsonSawery.fromString(String json) =>
-      JsonSawery.fromJson(jsonDecode(json));
+  factory JsonTransformer.fromString(String json) =>
+      JsonTransformer.fromJson(jsonDecode(json));
 
-  factory JsonSawery.fromJson(Map<String, dynamic> json) =>
-      _$JsonSaweryFromJson(json);
+  factory JsonTransformer.fromJson(Map<String, dynamic> json) =>
+      _$JsonTransformerFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JsonSaweryToJson(this);
+  Map<String, dynamic> toJson() => _$JsonTransformerToJson(this);
 }
