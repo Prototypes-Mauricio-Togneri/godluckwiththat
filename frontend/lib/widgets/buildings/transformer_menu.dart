@@ -1,17 +1,17 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/transformers/mill.dart';
+import 'package:tensionnode/components/base/transformer_node.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
-class MillMenu extends StatelessWidget {
+class TransformerMenu extends StatelessWidget {
   final GameComponent game;
-  final Mill mill;
+  final TransformerNode node;
 
-  const MillMenu(this.game, this.mill);
+  const TransformerMenu(this.game, this.node);
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,12 @@ class MillMenu extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Label(
-            text: mill.type.name.toUpperCase(),
+            text: node.type.name.toUpperCase(),
             align: TextAlign.center,
           ),
           const VBox(10),
           Label(
-            text: '${mill.location.i}, ${mill.location.j}',
+            text: '${node.location.i}, ${node.location.j}',
             align: TextAlign.center,
           ),
           const VBox(10),
@@ -37,7 +37,7 @@ class MillMenu extends StatelessWidget {
             text: 'Center',
             icon: Icons.filter_tilt_shift,
             color: Palette.primary,
-            onPressed: () => _onCenter(mill),
+            onPressed: () => _onCenter(node),
           ),
           MenuButton(
             text: 'Destroy',
