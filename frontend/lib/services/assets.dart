@@ -4,13 +4,13 @@ class Assets {
   static const String IMAGES_NODE_SELECTED = 'node_selected.png';
   static const String IMAGES_TILES_TERRAIN = 'tiles_terrain.png';
   static const String IMAGES_BUILDINGS_BAKERY = 'buildings/bakery.png';
+  static const String IMAGES_BUILDINGS_FISHER = 'buildings/fisher.png';
   static const String IMAGES_BUILDINGS_HEADQUARTERS =
       'buildings/headquarters.png';
   static const String IMAGES_BUILDINGS_FLAG = 'buildings/flag.png';
   static const String IMAGES_BUILDINGS_SAWERY = 'buildings/sawery.png';
   static const String IMAGES_BUILDINGS_WELL = 'buildings/well.png';
   static const String IMAGES_BUILDINGS_QUARRY = 'buildings/quarry.png';
-  static const String IMAGES_BUILDINGS_FICHER = 'buildings/ficher.png';
   static const String IMAGES_BUILDINGS_CROP_FARM = 'buildings/crop_farm.png';
   static const String IMAGES_BUILDINGS_HUNTER = 'buildings/hunter.png';
   static const String IMAGES_BUILDINGS_WOODCUTTER = 'buildings/woodcutter.png';

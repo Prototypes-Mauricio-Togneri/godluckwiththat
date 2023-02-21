@@ -32,7 +32,7 @@ enum NodeType {
     costStone: 0,
   ),
   fisher(
-    sprite: Assets.IMAGES_BUILDINGS_FICHER,
+    sprite: Assets.IMAGES_BUILDINGS_FISHER,
     productionTime: 10,
     costWood: 2,
     costStone: 0,
