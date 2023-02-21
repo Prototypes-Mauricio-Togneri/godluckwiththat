@@ -24,5 +24,6 @@ class Assets {
   static const String IMAGES_RESOURCES_FLOUR = 'resources/flour.png';
   static const String IMAGES_RESOURCES_WOOD = 'resources/wood.png';
   static const String IMAGES_RESOURCES_WATER = 'resources/water.png';
+  static const String IMAGES_WARNING = 'warning.png';
   static const String TILES_TERRAIN = 'terrain.tsx';
 }

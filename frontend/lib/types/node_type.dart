@@ -15,7 +15,7 @@ enum NodeType {
   ),
   woodcutter(
     sprite: Assets.IMAGES_BUILDINGS_WOODCUTTER,
-    productionTime: 10,
+    productionTime: 1,
     costWood: 2,
     costStone: 0,
   ),

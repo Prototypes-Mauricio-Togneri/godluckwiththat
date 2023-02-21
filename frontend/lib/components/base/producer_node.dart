@@ -1,4 +1,6 @@
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/game/warning_sign.dart';
+import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/json/json_producer.dart';
 import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/building_state.dart';
@@ -32,9 +34,7 @@ class ProducerNode extends Node {
           '${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
     } else if (_state.isFinished) {
       _sendResource();
-      debugText.text = 'finished';
-    } else if (_state.isIdle) {
-      debugText.text = 'idle';
+      debugText.text = '';
     }
   }
 
@@ -61,10 +61,14 @@ class ProducerNode extends Node {
 
     final bool sent = send(routedResource);
 
+    removeComponents(WarningSign);
+
     if (sent) {
       removeRequest(routedResource);
       _state = BuildingState.idle;
       _startProducing();
+    } else {
+      add(WarningSign(this));
     }
   }
 
