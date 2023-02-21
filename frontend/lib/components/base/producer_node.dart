@@ -68,7 +68,7 @@ class ProducerNode extends Node {
       _state = BuildingState.idle;
       _startProducing();
     } else {
-      add(WarningSign(this));
+      add(WarningSign());
     }
   }
 

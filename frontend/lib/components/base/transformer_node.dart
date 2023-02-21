@@ -1,5 +1,6 @@
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/game/idle_sign.dart';
 import 'package:tensionnode/components/game/warning_sign.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/json/json_transformer.dart';
@@ -53,12 +54,10 @@ class TransformerNode extends Node {
     } else if (_state.isFinished) {
       _sendResource();
       debugText.text = '';
-    } else if (_state.isIdle) {
-      debugText.text = 'idle';
     }
   }
 
-  bool _hasEnoughResources() {
+  bool get _hasEnoughResources {
     for (final int amount in _resourcesRequired.values) {
       if (amount == 0) {
         return false;
@@ -69,13 +68,17 @@ class TransformerNode extends Node {
   }
 
   void _startProducing() {
-    if (_state.isIdle && _hasEnoughResources()) {
+    if (_state.isIdle && _hasEnoughResources) {
       for (final ResourceType key in _resourcesRequired.keys) {
         _resourcesRequired[key] = _resourcesRequired[key]! - 1;
         _requestResources(1, key);
       }
 
       _state = BuildingState.producing;
+      removeComponents(IdleSign);
+    } else {
+      removeComponents(IdleSign);
+      add(IdleSign());
     }
   }
 
@@ -127,7 +130,7 @@ class TransformerNode extends Node {
       _state = BuildingState.idle;
       _startProducing();
     } else {
-      add(WarningSign(this));
+      add(WarningSign());
     }
   }
 
