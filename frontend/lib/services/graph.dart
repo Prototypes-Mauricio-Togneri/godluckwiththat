@@ -1,4 +1,5 @@
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/route.dart';
 
@@ -67,17 +68,19 @@ class Graph {
         }
 
         for (final Waypoint waypoint in next.current.connections) {
-          final double newScore =
-              next.routeScore + next.current.distanceTo(waypoint);
-          final RouteWaypoint nextNode =
-              allNodes[waypoint] ?? RouteWaypoint.fromWaypoint(waypoint);
-          allNodes[waypoint] = nextNode;
+          if (waypoint.isFlag || waypoint.isNode(target)) {
+            final double newScore =
+                next.routeScore + next.current.distanceTo(waypoint);
+            final RouteWaypoint nextNode =
+                allNodes[waypoint] ?? RouteWaypoint.fromWaypoint(waypoint);
+            allNodes[waypoint] = nextNode;
 
-          if (nextNode.routeScore > newScore) {
-            nextNode.previous = next.current;
-            nextNode.routeScore = newScore;
-            nextNode.estimatedScore = newScore + waypoint.distanceTo(to);
-            openSet.add(nextNode);
+            if (nextNode.routeScore > newScore) {
+              nextNode.previous = next.current;
+              nextNode.routeScore = newScore;
+              nextNode.estimatedScore = newScore + waypoint.distanceTo(to);
+              openSet.add(nextNode);
+            }
           }
         }
       }
@@ -94,6 +97,8 @@ class Waypoint {
   Waypoint(this.node);
 
   bool isNode(Node node) => this.node == node;
+
+  bool get isFlag => node is Flag;
 
   double distanceTo(Waypoint waypoint) => node.distanceTo(waypoint.node);
 

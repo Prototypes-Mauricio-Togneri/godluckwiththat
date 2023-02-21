@@ -24,15 +24,9 @@ class Headquarters extends Node {
     if (routedResource.isDestination(this)) {
       inventory.add(routedResource.resource);
     } else {
-      routedResource.pop();
-      send(routedResource);
-    }
-
-    // TODO(momo): uncomment after routing is fixed (only passing through flags)
-    /*else {
       throw Exception(
           'Routed resource $routedResource arrived to headquarters without being the destination');
-    }*/
+    }
   }
 
   /*@override
