@@ -24,6 +24,8 @@ class TransformerNode extends Node {
     }
   }
 
+  Map<ResourceType, int> get resourcesRequired => _resourcesRequired;
+
   @override
   Future onLoad() {
     for (final MapEntry<ResourceType, int> entry

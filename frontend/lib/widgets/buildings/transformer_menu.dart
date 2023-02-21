@@ -1,9 +1,11 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/transformer_node.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
@@ -33,6 +35,34 @@ class TransformerMenu extends StatelessWidget {
             align: TextAlign.center,
           ),
           const VBox(10),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (final MapEntry<ResourceType, int> entry
+                  in node.resourcesRequired.entries)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      for (int i = 1;
+                          i <= Constants.TRANSFORMER_RESOURCE_QUEUE_LIMIT;
+                          i++)
+                        SizedBox(
+                          width: 30,
+                          height: 30,
+                          child: Image.asset(
+                            'images/${entry.key.sprite}',
+                            color: Colors.white
+                                .withOpacity(entry.value >= i ? 1 : 0.2),
+                            colorBlendMode: BlendMode.modulate,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
           MenuButton(
             text: 'Center',
             icon: Icons.filter_tilt_shift,
