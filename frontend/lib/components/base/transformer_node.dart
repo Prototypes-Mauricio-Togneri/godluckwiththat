@@ -68,17 +68,19 @@ class TransformerNode extends Node {
   }
 
   void _startProducing() {
-    if (_state.isIdle && _hasEnoughResources) {
-      for (final ResourceType key in _resourcesRequired.keys) {
-        _resourcesRequired[key] = _resourcesRequired[key]! - 1;
-        _requestResources(1, key);
-      }
+    if (_state.isIdle) {
+      if (_hasEnoughResources) {
+        for (final ResourceType key in _resourcesRequired.keys) {
+          _resourcesRequired[key] = _resourcesRequired[key]! - 1;
+          _requestResources(1, key);
+        }
 
-      _state = BuildingState.producing;
-      removeComponents(IdleSign);
-    } else {
-      removeComponents(IdleSign);
-      add(IdleSign());
+        _state = BuildingState.producing;
+        removeComponents(IdleSign);
+      } else {
+        removeComponents(IdleSign);
+        add(IdleSign());
+      }
     }
   }
 
