@@ -15,6 +15,7 @@ class Assets {
   static const String IMAGES_BUILDINGS_HUNTER = 'buildings/hunter.png';
   static const String IMAGES_BUILDINGS_WOODCUTTER = 'buildings/woodcutter.png';
   static const String IMAGES_BUILDINGS_MILL = 'buildings/mill.png';
+  static const String IMAGES_WARNING_SIGN = 'warning_sign.png';
   static const String IMAGES_RESOURCES_MEAT = 'resources/meat.png';
   static const String IMAGES_RESOURCES_BREAD = 'resources/bread.png';
   static const String IMAGES_RESOURCES_GRAIN = 'resources/grain.png';
@@ -24,6 +25,6 @@ class Assets {
   static const String IMAGES_RESOURCES_FLOUR = 'resources/flour.png';
   static const String IMAGES_RESOURCES_WOOD = 'resources/wood.png';
   static const String IMAGES_RESOURCES_WATER = 'resources/water.png';
-  static const String IMAGES_WARNING = 'warning.png';
+  static const String IMAGES_IDLE_SIGN = 'idle_sign.png';
   static const String TILES_TERRAIN = 'terrain.tsx';
 }

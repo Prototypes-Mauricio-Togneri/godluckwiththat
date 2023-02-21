@@ -10,7 +10,7 @@ class WarningSign extends SpriteComponent {
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(Assets.IMAGES_WARNING);
+    sprite = await getSprite(Assets.IMAGES_WARNING_SIGN);
     size = getSize();
     anchor = Anchor.center;
     position = node.size / 2;

@@ -1,5 +1,7 @@
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/game/warning_sign.dart';
+import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/json/json_transformer.dart';
 import 'package:tensionnode/models/resource_manager.dart';
 import 'package:tensionnode/models/routed_resource.dart';
@@ -50,7 +52,7 @@ class TransformerNode extends Node {
           '${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
     } else if (_state.isFinished) {
       _sendResource();
-      debugText.text = 'finished';
+      debugText.text = '';
     } else if (_state.isIdle) {
       debugText.text = 'idle';
     }
@@ -118,10 +120,14 @@ class TransformerNode extends Node {
 
     final bool sent = send(routedResource);
 
+    removeComponents(WarningSign);
+
     if (sent) {
       removeRequest(routedResource);
       _state = BuildingState.idle;
       _startProducing();
+    } else {
+      add(WarningSign(this));
     }
   }
 

@@ -1,6 +1,6 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/warning_sign.dart';
-import 'package:tensionnode/extensions/sprite_component_extension.dart';
+import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/json/json_producer.dart';
 import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/building_state.dart';
