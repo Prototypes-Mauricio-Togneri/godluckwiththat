@@ -26,6 +26,7 @@ import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/models/roads.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 mixin NodeHandler on BaseGameComponent {
   void loadNodes() {
@@ -292,8 +293,12 @@ mixin NodeHandler on BaseGameComponent {
       addNode(Bakery(
         type: NodeType.bakery,
         location: location,
+        resourceProduced: ResourceType.bread,
+        resourcesRequired: [
+          ResourceType.flour,
+          ResourceType.water,
+        ],
       ));
-
 
   Node addFlag({
     required Location location,

@@ -7,22 +7,32 @@ import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Bakery extends Node {
-  int _flour = 0; // TODO(momo): receive as parameter
-  int _water = 0; // TODO(momo): receive as parameter
   num _accumulatedTime = 0; // TODO(momo): receive as parameter
   BuildingState _state = BuildingState.idle; // TODO(momo): receive as parameter
+  final Map<ResourceType, int> _resourcesRequired =
+      {}; // TODO(momo): receive as parameter
+  final ResourceType resourceProduced;
 
   Bakery({
     required super.type,
     required super.location,
-  });
+    required this.resourceProduced,
+    required List<ResourceType> resourcesRequired,
+  }) {
+    for (final ResourceType resource in resourcesRequired) {
+      _resourcesRequired[resource] = 0;
+    }
+  }
 
   @override
   Future onLoad() {
-    _requestResources(Constants.TRANSFORMER_RESOURCE_QUEUE_LIMIT - _flour,
-        ResourceType.flour);
-    _requestResources(Constants.TRANSFORMER_RESOURCE_QUEUE_LIMIT - _water,
-        ResourceType.water);
+    for (final MapEntry<ResourceType, int> entry
+        in _resourcesRequired.entries) {
+      _requestResources(
+        Constants.TRANSFORMER_RESOURCE_QUEUE_LIMIT - entry.value,
+        entry.key,
+      );
+    }
     _startProducing();
 
     return super.onLoad();
@@ -44,13 +54,24 @@ class Bakery extends Node {
     }
   }
 
+  bool _hasEnoughResources() {
+    for (final int amount in _resourcesRequired.values) {
+      if (amount == 0) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   void _startProducing() {
-    if (_state.isIdle && (_flour > 0) && (_water > 0)) {
-      _flour--;
-      _water--;
+    if (_state.isIdle && _hasEnoughResources()) {
+      for (final ResourceType key in _resourcesRequired.keys) {
+        _resourcesRequired[key] = _resourcesRequired[key]! - 1;
+        _requestResources(1, key);
+      }
+
       _state = BuildingState.producing;
-      _requestResources(1, ResourceType.flour);
-      _requestResources(1, ResourceType.water);
     }
   }
 
@@ -67,16 +88,21 @@ class Bakery extends Node {
   void receive(RoutedResource routedResource) {
     if (!routedResource.isDestination(this)) {
       throw Exception(
-          'Routed resource $routedResource arrived to bakery $this without being the destination');
+          'Routed resource $routedResource arrived to $runtimeType $this without being the destination');
     }
 
-    if (routedResource.has(ResourceType.flour)) {
-      _flour++;
-    } else if (routedResource.has(ResourceType.water)) {
-      _water++;
-    } else {
+    bool resourceFound = false;
+
+    for (final ResourceType key in _resourcesRequired.keys) {
+      if (routedResource.has(key)) {
+        _resourcesRequired[key] = _resourcesRequired[key]! + 1;
+        resourceFound = true;
+      }
+    }
+
+    if (!resourceFound) {
       throw Exception(
-          'Routed resource $routedResource arrived to bakery $this without being flour or water');
+          'Routed resource $routedResource arrived to $runtimeType $this without being flour or water');
     }
 
     _startProducing();
@@ -85,7 +111,7 @@ class Bakery extends Node {
   void _sendResource() {
     final RoutedResource? routedResource = game.state.resourceManager.search(
       origin: this,
-      resource: ResourceType.bread,
+      resource: resourceProduced,
     );
 
     final bool sent = send(routedResource);
