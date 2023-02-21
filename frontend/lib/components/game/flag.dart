@@ -42,7 +42,8 @@ class Flag extends Node {
     super.update(dt);
 
     _sendResources();
-    debugText.text = queue.toString();
+
+    debugText.text = queue.isEmpty ? '' : '(${queue.length})';
   }
 
   JsonFlag get json => JsonFlag(
