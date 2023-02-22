@@ -242,7 +242,189 @@ mixin NodeHandler on BaseGameComponent {
       locations.addAll(_pathLocations(node.roads));
     }
 
-    spriteGroups[Assets.IMAGES_PATHS_PATH5A]!.load(locations.toList());
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH1A,
+      north: false,
+      south: true,
+      east: false,
+      west: false,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH1B,
+      north: false,
+      south: false,
+      east: false,
+      west: true,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH1C,
+      north: true,
+      south: false,
+      east: false,
+      west: false,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH1D,
+      north: false,
+      south: false,
+      east: true,
+      west: false,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH2A,
+      north: true,
+      south: true,
+      east: false,
+      west: false,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH2B,
+      north: false,
+      south: false,
+      east: true,
+      west: true,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH3A,
+      north: false,
+      south: true,
+      east: false,
+      west: true,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH3B,
+      north: true,
+      south: false,
+      east: false,
+      west: true,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH3C,
+      north: true,
+      south: false,
+      east: true,
+      west: false,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH3D,
+      north: false,
+      south: true,
+      east: true,
+      west: false,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH4A,
+      north: true,
+      south: false,
+      east: true,
+      west: true,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH4B,
+      north: true,
+      south: true,
+      east: true,
+      west: false,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH4C,
+      north: false,
+      south: true,
+      east: true,
+      west: true,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH4D,
+      north: true,
+      south: true,
+      east: false,
+      west: true,
+    );
+
+    _fillPaths(
+      locations: locations,
+      sprite: Assets.IMAGES_PATHS_PATH5A,
+      north: true,
+      south: true,
+      east: true,
+      west: true,
+    );
+  }
+
+  void _fillPaths({
+    required Set<Location> locations,
+    required String sprite,
+    required bool north,
+    required bool south,
+    required bool east,
+    required bool west,
+  }) {
+    final Set<Location> list = _pathMatches(
+      locations: locations,
+      north: north,
+      south: south,
+      east: east,
+      west: west,
+    );
+
+    spriteGroups[sprite]!.load(list.toList());
+  }
+
+  Set<Location> _pathMatches({
+    required Set<Location> locations,
+    required bool north,
+    required bool south,
+    required bool east,
+    required bool west,
+  }) {
+    final Set<Location> result = {};
+
+    for (final Location location in locations) {
+      final bool hasNorth =
+          locations.contains(Location(location.i, location.j - 1));
+      final bool hasSouth =
+          locations.contains(Location(location.i, location.j + 1));
+      final bool hasEast =
+          locations.contains(Location(location.i + 1, location.j));
+      final bool hasWest =
+          locations.contains(Location(location.i - 1, location.j));
+
+      if ((hasNorth == north) &&
+          (hasSouth == south) &&
+          (hasEast == east) &&
+          (hasWest == west)) {
+        result.add(location);
+      }
+    }
+
+    return result;
   }
 
   Set<Location> _pathLocations(Roads roads) {
