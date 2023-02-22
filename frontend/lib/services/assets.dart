@@ -1,6 +1,21 @@
 class Assets {
   static const String AUDIO_SFX_AMMO1 = 'sfx/ammo1.mp3';
   static const String AUDIO_SFX_AMMO2 = 'sfx/ammo2.mp3';
+  static const String IMAGES_PATHS_PATH4A = 'paths/path4a.png';
+  static const String IMAGES_PATHS_PATH1B = 'paths/path1b.png';
+  static const String IMAGES_PATHS_PATH4C = 'paths/path4c.png';
+  static const String IMAGES_PATHS_PATH1A = 'paths/path1a.png';
+  static const String IMAGES_PATHS_PATH5A = 'paths/path5a.png';
+  static const String IMAGES_PATHS_PATH3C = 'paths/path3c.png';
+  static const String IMAGES_PATHS_PATH2A = 'paths/path2a.png';
+  static const String IMAGES_PATHS_PATH4D = 'paths/path4d.png';
+  static const String IMAGES_PATHS_PATH3A = 'paths/path3a.png';
+  static const String IMAGES_PATHS_PATH3B = 'paths/path3b.png';
+  static const String IMAGES_PATHS_PATH1C = 'paths/path1c.png';
+  static const String IMAGES_PATHS_PATH3D = 'paths/path3d.png';
+  static const String IMAGES_PATHS_PATH4B = 'paths/path4b.png';
+  static const String IMAGES_PATHS_PATH2B = 'paths/path2b.png';
+  static const String IMAGES_PATHS_PATH1D = 'paths/path1d.png';
   static const String IMAGES_NODE_SELECTED = 'node_selected.png';
   static const String IMAGES_TILES_TERRAIN = 'tiles_terrain.png';
   static const String IMAGES_BUILDINGS_BAKERY = 'buildings/bakery.png';
