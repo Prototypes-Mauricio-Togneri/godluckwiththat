@@ -242,7 +242,7 @@ mixin NodeHandler on BaseGameComponent {
       locations.addAll(_pathLocations(node.roads));
     }
 
-    print(locations.length);
+    spriteGroups[Assets.IMAGES_PATHS_PATH5A]!.load(locations.toList());
   }
 
   Set<Location> _pathLocations(Roads roads) {
@@ -251,6 +251,24 @@ mixin NodeHandler on BaseGameComponent {
     if (roads.north != null) {
       final Location origin = roads.north!.origin.location;
       final Location target = roads.north!.target.location;
+      result.addAll(_intermediateLocations(origin, target));
+    }
+
+    if (roads.south != null) {
+      final Location origin = roads.south!.origin.location;
+      final Location target = roads.south!.target.location;
+      result.addAll(_intermediateLocations(origin, target));
+    }
+
+    if (roads.east != null) {
+      final Location origin = roads.east!.origin.location;
+      final Location target = roads.east!.target.location;
+      result.addAll(_intermediateLocations(origin, target));
+    }
+
+    if (roads.west != null) {
+      final Location origin = roads.west!.origin.location;
+      final Location target = roads.west!.target.location;
       result.addAll(_intermediateLocations(origin, target));
     }
 
