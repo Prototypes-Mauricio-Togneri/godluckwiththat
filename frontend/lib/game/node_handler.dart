@@ -1,5 +1,5 @@
-import 'package:flame/components.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/base/sprite_group.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/components/game/producers/crop_farm.dart';
@@ -23,10 +23,13 @@ import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/models/roads.dart';
+import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 mixin NodeHandler on BaseGameComponent {
+  final Map<String, SpriteGroup> spriteGroups = {};
+
   void loadNodes() {
     final Map<Node, Connections> nodeConnections = {};
 
@@ -206,6 +209,83 @@ mixin NodeHandler on BaseGameComponent {
         west: roadWest,
       ));
     }
+
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH1A);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH1B);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH1C);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH1D);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH2A);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH2B);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH3A);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH3B);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH3C);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH3D);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH4A);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH4B);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH4C);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH4D);
+    _addSpriteGroup(Assets.IMAGES_PATHS_PATH5A);
+
+    reloadPaths();
+  }
+
+  void _addSpriteGroup(String sprite) {
+    final SpriteGroup spriteGroup = SpriteGroup(sprite);
+    spriteGroups[sprite] = spriteGroup;
+    addComponent(spriteGroup);
+  }
+
+  void reloadPaths() {
+    final Set<Location> locations = {};
+
+    for (final Node node in state.allNodes) {
+      locations.addAll(_pathLocations(node.roads));
+    }
+
+    print(locations.length);
+  }
+
+  Set<Location> _pathLocations(Roads roads) {
+    final Set<Location> result = {};
+
+    if (roads.north != null) {
+      final Location origin = roads.north!.origin.location;
+      final Location target = roads.north!.target.location;
+      result.addAll(_intermediateLocations(origin, target));
+    }
+
+    return result;
+  }
+
+  Set<Location> _intermediateLocations(Location origin, Location target) {
+    final Set<Location> result = {};
+
+    if (origin.i == target.i) {
+      if (origin.j > target.j) {
+        for (int j = target.j; j <= origin.j; j++) {
+          result.add(Location(origin.i, j));
+        }
+      } else {
+        for (int j = origin.j; j <= target.j; j++) {
+          result.add(Location(origin.i, j));
+        }
+      }
+    } else if (origin.j == target.j) {
+      if (origin.i > target.i) {
+        for (int i = target.i; i <= origin.i; i++) {
+          result.add(Location(i, origin.j));
+        }
+      } else {
+        for (int i = origin.i; i <= target.i; i++) {
+          result.add(Location(i, origin.j));
+        }
+      }
+    } else {
+      throw Exception(
+          'Path extremes are not aligned. Origin: $origin. Target: $target');
+    }
+
+    return result;
   }
 
   Road? _roadTo(Node origin, Location? location) =>
@@ -309,7 +389,7 @@ mixin NodeHandler on BaseGameComponent {
     return node;
   }
 
-  void removeNode(Component node) {
+  void removeNode(Node node) {
     try {
       removeComponent(node);
       state.removeNode(node);

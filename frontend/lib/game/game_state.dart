@@ -1,5 +1,4 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/flag.dart';
@@ -33,6 +32,7 @@ class GameState extends BaseState {
   final List<Mill> mills = [];
   final List<Bakery> bakeries = [];
   final List<Flag> flags = [];
+  final List<Node> allNodes = [];
   final JsonMatch jsonMatch;
   final ResourceManager resourceManager = ResourceManager();
 
@@ -50,74 +50,16 @@ class GameState extends BaseState {
   }
 
   Node nodeAt(Location location) {
-    if (headquarters.isAt(location)) {
-      return headquarters;
-    }
-
-    for (final Woodcutter woodcutter in woodcutters) {
-      if (woodcutter.isAt(location)) {
-        return woodcutter;
-      }
-    }
-
-    for (final Quarry quarry in quarries) {
-      if (quarry.isAt(location)) {
-        return quarry;
-      }
-    }
-
-    for (final Well well in wells) {
-      if (well.isAt(location)) {
-        return well;
-      }
-    }
-
-    for (final Fisher fisher in fishers) {
-      if (fisher.isAt(location)) {
-        return fisher;
-      }
-    }
-
-    for (final Hunter hunter in hunters) {
-      if (hunter.isAt(location)) {
-        return hunter;
-      }
-    }
-
-    for (final CropFarm cropFarm in cropFarms) {
-      if (cropFarm.isAt(location)) {
-        return cropFarm;
-      }
-    }
-
-    for (final Sawery sawery in saweries) {
-      if (sawery.isAt(location)) {
-        return sawery;
-      }
-    }
-
-    for (final Mill mill in mills) {
-      if (mill.isAt(location)) {
-        return mill;
-      }
-    }
-
-    for (final Bakery bakery in bakeries) {
-      if (bakery.isAt(location)) {
-        return bakery;
-      }
-    }
-
-    for (final Flag flag in flags) {
-      if (flag.isAt(location)) {
-        return flag;
+    for (final Node node in allNodes) {
+      if (node.isAt(location)) {
+        return node;
       }
     }
 
     throw Exception('Node at $location cannot be found');
   }
 
-  void addNode(Component node) {
+  void addNode(Node node) {
     if (node is Headquarters) {
       headquarters = node;
     } else if (node is Woodcutter) {
@@ -141,9 +83,11 @@ class GameState extends BaseState {
     } else if (node is Flag) {
       flags.add(node);
     }
+
+    allNodes.add(node);
   }
 
-  void removeNode(Component node) {
+  void removeNode(Node node) {
     if (node is Woodcutter) {
       woodcutters.remove(node);
     } else if (node is Quarry) {
@@ -165,6 +109,8 @@ class GameState extends BaseState {
     } else if (node is Flag) {
       flags.remove(node);
     }
+
+    allNodes.remove(node);
   }
 
   JsonMatch getMatch(Camera camera) {
