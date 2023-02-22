@@ -75,6 +75,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
       if ((road != null) && (road.isAvailable)) {
         road.send(routedResource);
+        game.state.notify();
         sent = true;
       }
     }

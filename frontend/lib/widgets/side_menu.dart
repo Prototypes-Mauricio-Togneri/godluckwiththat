@@ -2,12 +2,14 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/components/base/producer_node.dart';
 import 'package:tensionnode/components/base/transformer_node.dart';
+import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/components/game/transformers/bakery.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/widgets/buildings/flag_menu.dart';
 import 'package:tensionnode/widgets/buildings/headquarters_menu.dart';
 import 'package:tensionnode/widgets/buildings/producer_menu.dart';
 import 'package:tensionnode/widgets/buildings/transformer_menu.dart';
@@ -42,6 +44,11 @@ class SideMenu extends StatelessWidget {
   Widget _showSelectedNode() {
     if (game.isNodeSelectedType(Headquarters)) {
       return HeadquartersMenu(
+        game,
+        game.selectedNode(),
+      );
+    } else if (game.isNodeSelectedType(Flag)) {
+      return FlagMenu(
         game,
         game.selectedNode(),
       );
