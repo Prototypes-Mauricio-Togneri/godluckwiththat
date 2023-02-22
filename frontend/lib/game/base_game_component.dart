@@ -25,9 +25,10 @@ class BaseGameComponent extends FlameGame
         HasCollisionDetection {
   final GameState state;
   final Component _layerBackground = Component(priority: 0);
-  final Component _layerNodes = Component(priority: 1);
-  final Component _resourcesNodes = Component(priority: 2);
-  final Component _layerHud = Component(priority: 3)
+  final Component _layerPaths = Component(priority: 1);
+  final Component _layerNodes = Component(priority: 2);
+  final Component _resourcesNodes = Component(priority: 3);
+  final Component _layerHud = Component(priority: 4)
     ..positionType = PositionType.viewport;
 
   BaseGameComponent(this.state);
@@ -52,6 +53,7 @@ class BaseGameComponent extends FlameGame
 
     add(_layerBackground);
     add(_layerNodes);
+    add(_layerPaths);
     add(_resourcesNodes);
     add(_layerHud);
 
@@ -84,6 +86,8 @@ class BaseGameComponent extends FlameGame
       _layerNodes.remove(component);
     }
   }
+
+  void addToPathsLayer(Component component) => _layerPaths.add(component);
 
   void _addToBackgroundLayer(Component component) =>
       _layerBackground.add(component);

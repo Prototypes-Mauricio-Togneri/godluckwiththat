@@ -232,7 +232,7 @@ mixin NodeHandler on BaseGameComponent {
   void _addSpriteGroup(String sprite) {
     final SpriteGroup spriteGroup = SpriteGroup(sprite);
     spriteGroups[sprite] = spriteGroup;
-    addComponent(spriteGroup);
+    addToPathsLayer(spriteGroup);
   }
 
   void reloadPaths() {
