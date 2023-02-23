@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:tensionnode/app/constants.dart';

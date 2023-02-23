@@ -145,8 +145,9 @@ mixin NodeHandler on BaseGameComponent {
 
     for (final MapEntry<Node, List<Location>> entry
         in nodeConnections.entries) {
+      final Node originNode = entry.key;
+
       for (final Location location in entry.value) {
-        final Node originNode = entry.key;
         final Node targetNode = state.nodeAt(location);
         final Road road = Road(originNode, targetNode);
         originNode.addRoad(road);
