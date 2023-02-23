@@ -44,122 +44,102 @@ mixin NodeHandler on BaseGameComponent {
     }
 
     for (final JsonProducer json in state.jsonMatch.woodcutters) {
-      final List<Location> connections = Location.fromList(json.connections);
-
       final Node node = addWoodcutter(
         location: json.location.location,
       );
 
-      if (connections.isNotEmpty) {
-        nodeConnections[node] = connections;
+      if (json.connections.isNotEmpty) {
+        nodeConnections[node] = Location.fromList(json.connections);
       }
     }
 
     for (final JsonProducer json in state.jsonMatch.quarries) {
-      final List<Location> connections = Location.fromList(json.connections);
-
       final Node node = addQuarry(
         location: json.location.location,
       );
 
-      if (connections.isNotEmpty) {
-        nodeConnections[node] = connections;
+      if (json.connections.isNotEmpty) {
+        nodeConnections[node] = Location.fromList(json.connections);
       }
     }
 
     for (final JsonProducer json in state.jsonMatch.wells) {
-      final List<Location> connections = Location.fromList(json.connections);
-
       final Node node = addWell(
         location: json.location.location,
       );
 
-      if (connections.isNotEmpty) {
-        nodeConnections[node] = connections;
+      if (json.connections.isNotEmpty) {
+        nodeConnections[node] = Location.fromList(json.connections);
       }
     }
 
     for (final JsonProducer json in state.jsonMatch.fishers) {
-      final List<Location> connections = Location.fromList(json.connections);
-
       final Node node = addFisher(
         location: json.location.location,
       );
 
-      if (connections.isNotEmpty) {
-        nodeConnections[node] = connections;
+      if (json.connections.isNotEmpty) {
+        nodeConnections[node] = Location.fromList(json.connections);
       }
     }
 
     for (final JsonProducer json in state.jsonMatch.hunters) {
-      final List<Location> connections = Location.fromList(json.connections);
-
       final Node node = addHunter(
         location: json.location.location,
       );
 
-      if (connections.isNotEmpty) {
-        nodeConnections[node] = connections;
+      if (json.connections.isNotEmpty) {
+        nodeConnections[node] = Location.fromList(json.connections);
       }
     }
 
     for (final JsonProducer json in state.jsonMatch.cropFarms) {
-      final List<Location> connections = Location.fromList(json.connections);
-
       final Node node = addCropFarm(
         location: json.location.location,
       );
 
-      if (connections.isNotEmpty) {
-        nodeConnections[node] = connections;
+      if (json.connections.isNotEmpty) {
+        nodeConnections[node] = Location.fromList(json.connections);
       }
     }
 
     for (final JsonTransformer json in state.jsonMatch.saweries) {
-      final List<Location> connections = Location.fromList(json.connections);
-
       final Node node = addSawery(
         location: json.location.location,
       );
 
-      if (connections.isNotEmpty) {
-        nodeConnections[node] = connections;
+      if (json.connections.isNotEmpty) {
+        nodeConnections[node] = Location.fromList(json.connections);
       }
     }
 
     for (final JsonTransformer json in state.jsonMatch.mills) {
-      final List<Location> connections = Location.fromList(json.connections);
-
       final Node node = addMill(
         location: json.location.location,
       );
 
-      if (connections.isNotEmpty) {
-        nodeConnections[node] = connections;
+      if (json.connections.isNotEmpty) {
+        nodeConnections[node] = Location.fromList(json.connections);
       }
     }
 
     for (final JsonTransformer json in state.jsonMatch.bakeries) {
-      final List<Location> connections = Location.fromList(json.connections);
-
       final Node node = addBakery(
         location: json.location.location,
       );
 
-      if (connections.isNotEmpty) {
-        nodeConnections[node] = connections;
+      if (json.connections.isNotEmpty) {
+        nodeConnections[node] = Location.fromList(json.connections);
       }
     }
 
     for (final JsonFlag json in state.jsonMatch.flags) {
-      final List<Location> connections = Location.fromList(json.connections);
-
       final Node node = addFlag(
         location: json.location.location,
       );
 
-      if (connections.isNotEmpty) {
-        nodeConnections[node] = connections;
+      if (json.connections.isNotEmpty) {
+        nodeConnections[node] = Location.fromList(json.connections);
       }
     }
 
