@@ -145,18 +145,27 @@ class Constants {
 {
 	"version": 1,
 	"id": "map1",
-	"totalTimeElapsed": 0,
+	"totalTimeElapsed": 60,
 	"map": {
 		"name": "level1",
 		"xml": "",
 		"location": [0, 0],
-		"zoom": 1
+		"zoom": 8
 	},
 	"headquarters": {
 		"location": [0, 0],
-    "inventory": {}
+		"inventory": {},
+		"connections": {}
 	},
 	"woodcutters": [],
+	"quarries": [],
+	"wells": [],
+	"fishers": [],
+	"hunters": [],
+	"cropFarms": [],
+	"saweries": [],
+	"mills": [],
+	"bakeries": [],
 	"flags": []
 }
 ''';
