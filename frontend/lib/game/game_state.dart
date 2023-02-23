@@ -61,10 +61,10 @@ class GameState extends BaseState {
   }
 
   bool isValidPath(NewPath newPath) {
-    final List<Location> locations = newPath.intermediateLocations.toList();
+    final Set<Location> locations = newPath.intermediateLocations;
+    locations.remove(newPath.origin);
 
-    for (int i = 1; i < locations.length; i++) {
-      final Location location = locations[i];
+    for (final Location location in locations) {
       final Node? node = nodeAt(location);
 
       if (node != null) {

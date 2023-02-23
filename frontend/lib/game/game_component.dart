@@ -62,8 +62,14 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
           layerNodes.getComponent(ConnectionIndicator);
       final NewPath newPath = connectingIndicator.newPath;
 
+      // TODO(momo): check that all the tiles in the path are grass or valid for a path
       if ((newPath.isAligned) && state.isValidPath(newPath)) {
-        print('aaa');
+        build(
+          location: newPath.target,
+          type: NodeType.flag,
+          tile: getTile(newPath.target),
+        );
+        connectingIndicator.updateOrigin(connectingIndicator.target);
       }
     }
   }

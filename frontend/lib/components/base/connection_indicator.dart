@@ -9,7 +9,7 @@ import 'package:tensionnode/services/environment.dart';
 
 class ConnectionIndicator extends SpriteComponent
     with HasGameRef<GameComponent> {
-  final Location origin;
+  Location origin;
 
   ConnectionIndicator({
     required this.origin,
@@ -18,6 +18,10 @@ class ConnectionIndicator extends SpriteComponent
   Location get target => Location.fromPosition(position);
 
   NewPath get newPath => NewPath(origin, target);
+
+  void updateOrigin(Location newOrigin) {
+    origin = newOrigin;
+  }
 
   @override
   Future onLoad() async {

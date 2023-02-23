@@ -115,7 +115,7 @@ mixin NodeHandler on BaseGameComponent {
     for (final JsonProducer json in state.jsonMatch.cropFarms) {
       final Connections locations = json.connections.connections;
 
-      final Node node = addCropFarms(
+      final Node node = addCropFarm(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
@@ -521,7 +521,7 @@ mixin NodeHandler on BaseGameComponent {
         location: location,
       ));
 
-  Node addCropFarms({
+  Node addCropFarm({
     required Location location,
   }) =>
       addNode(CropFarm(
@@ -590,24 +590,58 @@ mixin NodeHandler on BaseGameComponent {
     required NodeType type,
     required MapTile tile,
   }) {
-    if (type == NodeType.woodcutter) {
-      _buildWoodcutter(
-        location: location,
-        type: type,
-        tile: tile,
-      );
-    }
-  }
-
-  void _buildWoodcutter({
-    required Location location,
-    required NodeType type,
-    required MapTile tile,
-  }) {
-    if (tile.isForest) {
-      addWoodcutter(
-        location: location,
-      );
+    switch (type) {
+      case NodeType.flag:
+        addFlag(location: location);
+        // TODO(momo): create connections and re-render
+        break;
+      case NodeType.headquarters:
+        break;
+      case NodeType.woodcutter:
+        if (tile.isForest) {
+          addWoodcutter(location: location);
+        }
+        break;
+      case NodeType.quarry:
+        if (tile.isStone) {
+          addQuarry(location: location);
+        }
+        break;
+      case NodeType.well:
+        if (tile.isGrass) {
+          addWell(location: location);
+        }
+        break;
+      case NodeType.fisher:
+        if (tile.isGrass) {
+          addFisher(location: location);
+        }
+        break;
+      case NodeType.hunter:
+        if (tile.isForest) {
+          addHunter(location: location);
+        }
+        break;
+      case NodeType.crop_farm:
+        if (tile.isGrass) {
+          addCropFarm(location: location);
+        }
+        break;
+      case NodeType.mill:
+        if (tile.isGrass) {
+          addMill(location: location);
+        }
+        break;
+      case NodeType.bakery:
+        if (tile.isGrass) {
+          addBakery(location: location);
+        }
+        break;
+      case NodeType.sawery:
+        if (tile.isGrass) {
+          addSawery(location: location);
+        }
+        break;
     }
   }
 }
