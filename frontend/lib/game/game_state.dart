@@ -17,6 +17,7 @@ import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/new_path.dart';
 import 'package:tensionnode/models/resource_manager.dart';
+import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class GameState extends BaseState {
@@ -51,24 +52,33 @@ class GameState extends BaseState {
     _totalTimeElapsed += dt;
   }
 
-  Node? nodeAt(Location location) {
+  Node nodeAt(Location location) {
     for (final Node node in allNodes) {
       if (node.isAt(location)) {
         return node;
       }
     }
 
-    return null;
+    throw Exception('Node at $location cannot be found');
+  }
+
+  bool _hasNodeAt(Location location) {
+    for (final Node node in allNodes) {
+      if (node.isAt(location)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   bool isValidPath(NewPath newPath) {
     final Set<Location> locations = newPath.intermediateLocations;
     locations.remove(newPath.origin);
+    // TODO(momo): remove target path if it belongs to an existing node
 
     for (final Location location in locations) {
-      final Node? node = nodeAt(location);
-
-      if (node != null) {
+      if (_hasNodeAt(location)) {
         return false;
       }
     }
@@ -140,11 +150,13 @@ class GameState extends BaseState {
 
     addNode(node);
 
-    final Node? nodeOrigin = nodeAt(newPath.origin);
-    final Node? nodeTarget = nodeAt(newPath.target);
+    final Node nodeOrigin = nodeAt(newPath.origin);
+    final Node nodeTarget = nodeAt(newPath.target);
 
-    if ((nodeOrigin != null) && (nodeTarget != null)) {
-      /*final Road road = Road(nodeOrigin, nodeTarget);
+    final Road road = Road(nodeOrigin, nodeTarget);
+    resourceManager.graph.addConnection(road);
+
+    /*final Road road = Road(nodeOrigin, nodeTarget);
       resourceManager.graph.addConnection(nodeOrigin, nodeTarget);
 
       nodeOrigin.connect(Roads(
@@ -153,7 +165,6 @@ class GameState extends BaseState {
         south: roadSouth,
         west: roadWest,
       ));*/
-    }
   }
 
   JsonMatch getMatch(Camera camera) {

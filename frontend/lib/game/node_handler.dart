@@ -145,21 +145,13 @@ mixin NodeHandler on BaseGameComponent {
 
     for (final MapEntry<Node, List<Location>> entry
         in nodeConnections.entries) {
-      final List<Road> roads = [];
-
       for (final Location location in entry.value) {
-        final Node? node = state.nodeAt(location);
-
-        if (node == null) {
-          throw Exception('Node at $location cannot be found');
-        }
-
-        final Road road = Road(entry.key, node);
-        roads.add(road);
-        state.resourceManager.graph.addConnection(road.origin, road.target);
+        final Node originNode = entry.key;
+        final Node targetNode = state.nodeAt(location);
+        final Road road = Road(originNode, targetNode);
+        originNode.addRoad(road);
+        state.resourceManager.graph.addConnection(road);
       }
-
-      entry.key.connect(roads);
     }
 
     _addSpriteGroup(Assets.IMAGES_PATHS_PATH1A);

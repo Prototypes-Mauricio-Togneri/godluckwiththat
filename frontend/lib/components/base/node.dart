@@ -34,8 +34,8 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     return super.onLoad();
   }
 
-  void connect(List<Road> roads) {
-    this.roads.addAll(roads);
+  void addRoad(Road road) {
+    roads.add(road);
   }
 
   void receiveResource(RoutedResource routedResource) {

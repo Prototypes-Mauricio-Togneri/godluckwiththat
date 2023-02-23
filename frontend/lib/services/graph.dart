@@ -1,6 +1,7 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/flag.dart';
 import 'package:tensionnode/models/location.dart';
+import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/models/route.dart';
 
 class Graph {
@@ -26,9 +27,9 @@ class Graph {
     }
   }
 
-  void addConnection(Node origin, Node target) {
-    final Waypoint? waypointOrigin = _getWaypoint(origin);
-    final Waypoint? waypointTarget = _getWaypoint(target);
+  void addConnection(Road road) {
+    final Waypoint? waypointOrigin = _getWaypoint(road.origin);
+    final Waypoint? waypointTarget = _getWaypoint(road.target);
 
     if ((waypointOrigin != null) && (waypointTarget != null)) {
       waypointOrigin.addConnection(waypointTarget);
