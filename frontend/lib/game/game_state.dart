@@ -17,6 +17,7 @@ import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/new_path.dart';
 import 'package:tensionnode/models/resource_manager.dart';
+import 'package:tensionnode/types/node_type.dart';
 
 class GameState extends BaseState {
   num _totalTimeElapsed = 0;
@@ -101,6 +102,31 @@ class GameState extends BaseState {
     }
 
     allNodes.add(node);
+  }
+
+  void addPath(NewPath newPath) {
+    final Node node = Flag(
+      type: NodeType.flag,
+      location: newPath.target,
+    );
+
+    addNode(node);
+    resourceManager.graph.addNode(node);
+
+    final Node? nodeOrigin = nodeAt(newPath.origin);
+    final Node? nodeTarget = nodeAt(newPath.target);
+
+    if ((nodeOrigin != null) && (nodeTarget != null)) {
+      /*final Road road = Road(nodeOrigin, nodeTarget);
+      resourceManager.graph.addConnection(nodeOrigin, nodeTarget);
+
+      nodeOrigin.connect(Roads(
+        north: roadNorth,
+        east: roadEast,
+        south: roadSouth,
+        west: roadWest,
+      ));*/
+    }
   }
 
   void removeNode(Node node) {

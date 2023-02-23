@@ -14,8 +14,11 @@ class Graph {
     final Waypoint? waypointOrigin = _getWaypoint(origin);
     final Waypoint? waypointTarget = _getWaypoint(target);
 
-    if (waypointTarget != null) {
-      waypointOrigin?.addConnection(waypointTarget);
+    if ((waypointOrigin != null) && (waypointTarget != null)) {
+      waypointOrigin.addConnection(waypointTarget);
+    } else {
+      throw Exception(
+          'Waypoint does not exist. Origin: $waypointOrigin. Target: $waypointTarget');
     }
   }
 

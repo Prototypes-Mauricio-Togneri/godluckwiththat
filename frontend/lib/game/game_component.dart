@@ -51,7 +51,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       final NodeType type = buildingIndicator.type;
 
       if (node == null) {
-        build(
+        buildNode(
           location: location,
           type: type,
           tile: tile,
@@ -64,11 +64,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
       // TODO(momo): check that all the tiles in the path are grass or valid for a path
       if ((newPath.isAligned) && state.isValidPath(newPath)) {
-        build(
-          location: newPath.target,
-          type: NodeType.flag,
-          tile: getTile(newPath.target),
-        );
+        buildPath(newPath);
         connectingIndicator.updateOrigin(connectingIndicator.target);
       }
     }

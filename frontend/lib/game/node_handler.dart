@@ -585,16 +585,13 @@ mixin NodeHandler on BaseGameComponent {
 
   void onGameOver() {}
 
-  void build({
+  void buildNode({
     required Location location,
     required NodeType type,
     required MapTile tile,
   }) {
     switch (type) {
       case NodeType.flag:
-        addFlag(location: location);
-        // TODO(momo): create connections and re-render
-        break;
       case NodeType.headquarters:
         break;
       case NodeType.woodcutter:
@@ -643,5 +640,9 @@ mixin NodeHandler on BaseGameComponent {
         }
         break;
     }
+  }
+
+  void buildPath(NewPath newPath) {
+    state.addPath(newPath);
   }
 }
