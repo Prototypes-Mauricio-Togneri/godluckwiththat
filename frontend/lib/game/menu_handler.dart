@@ -1,4 +1,5 @@
 import 'package:tensionnode/components/base/building_indicator.dart';
+import 'package:tensionnode/components/base/connection_indicator.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/node_selected.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
@@ -7,6 +8,7 @@ import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
+import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/types/menu_mode.dart';
 import 'package:tensionnode/types/node_type.dart';
 
@@ -18,13 +20,14 @@ mixin MenuHandler on BaseGameComponent {
 
   bool get buildingMode => _mode == MenuMode.building;
 
+  bool get connectingMode => _mode == MenuMode.connecting;
+
   bool get destroyingMode => _mode == MenuMode.destroying;
 
   bool get isDetailsMode =>
       (_mode == MenuMode.construct) || (_mode == MenuMode.node_selected);
 
-  bool get isInSpecialMode =>
-      (_mode == MenuMode.building) || (_mode == MenuMode.destroying);
+  bool get isInSpecialMode => buildingMode || connectingMode || destroyingMode;
 
   void _enableMode(MenuMode newMode) {
     _selectedNode = null;
@@ -81,6 +84,7 @@ mixin MenuHandler on BaseGameComponent {
 
   void removeMenuComponents() {
     layerNodes.removeComponents(BuildingIndicator);
+    layerNodes.removeComponents(ConnectionIndicator);
     layerNodes.removeComponents(NodeSelected);
   }
 
@@ -131,6 +135,17 @@ mixin MenuHandler on BaseGameComponent {
     removeMenuComponents();
   }
 
+  void enableConnectMode(Location origin) {
+    _enableMode(MenuMode.connecting);
+    removeMenuComponents();
+    addComponent(ConnectionIndicator(origin: origin));
+  }
+
+  void _disableConnectMode() {
+    disableMode();
+    removeMenuComponents();
+  }
+
   void enableDestroyingMode() {
     _enableMode(MenuMode.destroying);
     removeMenuComponents();
@@ -141,6 +156,8 @@ mixin MenuHandler on BaseGameComponent {
   void onCancelOperation() {
     if (buildingMode) {
       _disableBuildingMode();
+    } else if (connectingMode) {
+      _disableConnectMode();
     } else if (destroyingMode) {
       _disableDestroyingMode();
     }

@@ -21,6 +21,7 @@ import 'package:tensionnode/models/connections.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
+import 'package:tensionnode/models/new_path.dart';
 import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/models/roads.dart';
 import 'package:tensionnode/services/assets.dart';
@@ -433,63 +434,47 @@ mixin NodeHandler on BaseGameComponent {
     if (roads.north != null) {
       final Location origin = roads.north!.origin.location;
       final Location target = roads.north!.target.location;
-      result.addAll(_intermediateLocations(origin, target));
+      final NewPath newPath = NewPath(origin, target);
+      result.addAll(newPath.intermediateLocations);
     }
 
     if (roads.south != null) {
       final Location origin = roads.south!.origin.location;
       final Location target = roads.south!.target.location;
-      result.addAll(_intermediateLocations(origin, target));
+      final NewPath newPath = NewPath(origin, target);
+      result.addAll(newPath.intermediateLocations);
     }
 
     if (roads.east != null) {
       final Location origin = roads.east!.origin.location;
       final Location target = roads.east!.target.location;
-      result.addAll(_intermediateLocations(origin, target));
+      final NewPath newPath = NewPath(origin, target);
+      result.addAll(newPath.intermediateLocations);
     }
 
     if (roads.west != null) {
       final Location origin = roads.west!.origin.location;
       final Location target = roads.west!.target.location;
-      result.addAll(_intermediateLocations(origin, target));
+      final NewPath newPath = NewPath(origin, target);
+      result.addAll(newPath.intermediateLocations);
     }
 
     return result;
   }
 
-  Set<Location> _intermediateLocations(Location origin, Location target) {
-    final Set<Location> result = {};
+  Road? _roadTo(Node origin, Location? location) {
+    if (location != null) {
+      final Node? node = state.nodeAt(location);
 
-    if (origin.i == target.i) {
-      if (origin.j > target.j) {
-        for (int j = target.j; j <= origin.j; j++) {
-          result.add(Location(origin.i, j));
-        }
+      if (node != null) {
+        return Road(origin, node);
       } else {
-        for (int j = origin.j; j <= target.j; j++) {
-          result.add(Location(origin.i, j));
-        }
-      }
-    } else if (origin.j == target.j) {
-      if (origin.i > target.i) {
-        for (int i = target.i; i <= origin.i; i++) {
-          result.add(Location(i, origin.j));
-        }
-      } else {
-        for (int i = origin.i; i <= target.i; i++) {
-          result.add(Location(i, origin.j));
-        }
+        throw Exception('Node at $location cannot be found');
       }
     } else {
-      throw Exception(
-          'Path extremes are not aligned. Origin: $origin. Target: $target');
+      return null;
     }
-
-    return result;
   }
-
-  Road? _roadTo(Node origin, Location? location) =>
-      (location != null) ? Road(origin, state.nodeAt(location)) : null;
 
   Node addHeadquarters({
     required Location location,

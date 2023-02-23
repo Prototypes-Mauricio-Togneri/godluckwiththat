@@ -136,9 +136,7 @@ class ConstructMenu extends StatelessWidget {
     );
   }
 
-  void _onBuild(NodeType type) {
-    game.enableBuildingMode(type);
-  }
+  void _onBuild(NodeType type) => game.enableBuildingMode(type);
 }
 
 class CancelMenu extends StatelessWidget {

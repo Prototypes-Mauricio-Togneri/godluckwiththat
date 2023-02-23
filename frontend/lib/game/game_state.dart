@@ -15,6 +15,7 @@ import 'package:tensionnode/components/game/transformers/sawery.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/models/location.dart';
+import 'package:tensionnode/models/new_path.dart';
 import 'package:tensionnode/models/resource_manager.dart';
 
 class GameState extends BaseState {
@@ -49,14 +50,29 @@ class GameState extends BaseState {
     _totalTimeElapsed += dt;
   }
 
-  Node nodeAt(Location location) {
+  Node? nodeAt(Location location) {
     for (final Node node in allNodes) {
       if (node.isAt(location)) {
         return node;
       }
     }
 
-    throw Exception('Node at $location cannot be found');
+    return null;
+  }
+
+  bool isValidPath(NewPath newPath) {
+    final List<Location> locations = newPath.intermediateLocations.toList();
+
+    for (int i = 1; i < locations.length; i++) {
+      final Location location = locations[i];
+      final Node? node = nodeAt(location);
+
+      if (node != null) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   void addNode(Node node) {

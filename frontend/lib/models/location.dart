@@ -11,7 +11,16 @@ class Location {
 
   const Location(this.i, this.j);
 
+  factory Location.fromPosition(Vector2 position) => Location(
+        position.x ~/ Constants.NODE_SIZE,
+        position.y ~/ Constants.NODE_SIZE,
+      );
+
   JsonLocation get json => [i, j];
+
+  bool isAligned(Location location) =>
+      ((location.i == i) && (location.j != j)) ||
+      ((location.j == j) && (location.i != i));
 
   double distanceTo(Location location) =>
       sqrt(pow(location.i - i, 2) + pow(location.j - j, 2));

@@ -92,6 +92,12 @@ class HeadquartersMenu extends StatelessWidget {
           ),
           const VBox(10),
           MenuButton(
+            text: 'Connect',
+            icon: Icons.route,
+            color: Palette.primary,
+            onPressed: () => _onConnect(headquarters),
+          ),
+          MenuButton(
             text: 'Center',
             icon: Icons.filter_tilt_shift,
             color: Palette.primary,
@@ -109,6 +115,8 @@ class HeadquartersMenu extends StatelessWidget {
   }
 
   void _onCenter(Node node) => game.centerMap(node.position);
+
+  void _onConnect(Node node) => game.enableConnectMode(node.location);
 
   void _closeMenu() => game.unselectNode();
 }
