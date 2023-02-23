@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
-import 'package:tensionnode/json/json_connections.dart';
 
 part 'json_producer.g.dart';
 
@@ -11,7 +10,7 @@ class JsonProducer {
   final JsonLocation location;
 
   @JsonKey(name: 'connections')
-  final JsonConnections connections;
+  final List<JsonLocation> connections;
 
   const JsonProducer({
     required this.location,

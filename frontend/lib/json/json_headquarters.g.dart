@@ -12,8 +12,9 @@ JsonHeadquarters _$JsonHeadquartersFromJson(Map<String, dynamic> json) =>
           (json['location'] as List<dynamic>).map((e) => e as int).toList(),
       inventory:
           JsonInventory.fromJson(json['inventory'] as Map<String, dynamic>),
-      connections:
-          JsonConnections.fromJson(json['connections'] as Map<String, dynamic>),
+      connections: (json['connections'] as List<dynamic>)
+          .map((e) => (e as List<dynamic>).map((e) => e as int).toList())
+          .toList(),
     );
 
 Map<String, dynamic> _$JsonHeadquartersToJson(JsonHeadquarters instance) =>

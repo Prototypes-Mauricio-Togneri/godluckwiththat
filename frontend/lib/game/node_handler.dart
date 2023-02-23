@@ -17,13 +17,11 @@ import 'package:tensionnode/json/json_flag.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/json/json_producer.dart';
 import 'package:tensionnode/json/json_transformer.dart';
-import 'package:tensionnode/models/connections.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/models/new_path.dart';
 import 'package:tensionnode/models/road.dart';
-import 'package:tensionnode/models/roads.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -32,10 +30,10 @@ mixin NodeHandler on BaseGameComponent {
   final Map<String, SpriteGroup> spriteGroups = {};
 
   void loadNodes() {
-    final Map<Node, Connections> nodeConnections = {};
+    final Map<Node, List<Location>> nodeConnections = {};
 
     final JsonHeadquarters json = state.jsonMatch.headquarters;
-    final Connections connections = json.connections.connections;
+    final List<Location> connections = Location.fromList(json.connections);
 
     final Node node = addHeadquarters(
       location: json.location.location,
@@ -48,167 +46,152 @@ mixin NodeHandler on BaseGameComponent {
     }
 
     for (final JsonProducer json in state.jsonMatch.woodcutters) {
-      final Connections locations = json.connections.connections;
+      final List<Location> connections = Location.fromList(json.connections);
 
       final Node node = addWoodcutter(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
 
-      if (locations.isNotEmpty) {
-        nodeConnections[node] = locations;
+      if (connections.isNotEmpty) {
+        nodeConnections[node] = connections;
       }
     }
 
     for (final JsonProducer json in state.jsonMatch.quarries) {
-      final Connections locations = json.connections.connections;
+      final List<Location> connections = Location.fromList(json.connections);
 
       final Node node = addQuarry(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
 
-      if (locations.isNotEmpty) {
-        nodeConnections[node] = locations;
+      if (connections.isNotEmpty) {
+        nodeConnections[node] = connections;
       }
     }
 
     for (final JsonProducer json in state.jsonMatch.wells) {
-      final Connections locations = json.connections.connections;
+      final List<Location> connections = Location.fromList(json.connections);
 
       final Node node = addWell(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
 
-      if (locations.isNotEmpty) {
-        nodeConnections[node] = locations;
+      if (connections.isNotEmpty) {
+        nodeConnections[node] = connections;
       }
     }
 
     for (final JsonProducer json in state.jsonMatch.fishers) {
-      final Connections locations = json.connections.connections;
+      final List<Location> connections = Location.fromList(json.connections);
 
       final Node node = addFisher(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
 
-      if (locations.isNotEmpty) {
-        nodeConnections[node] = locations;
+      if (connections.isNotEmpty) {
+        nodeConnections[node] = connections;
       }
     }
 
     for (final JsonProducer json in state.jsonMatch.hunters) {
-      final Connections locations = json.connections.connections;
+      final List<Location> connections = Location.fromList(json.connections);
 
       final Node node = addHunter(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
 
-      if (locations.isNotEmpty) {
-        nodeConnections[node] = locations;
+      if (connections.isNotEmpty) {
+        nodeConnections[node] = connections;
       }
     }
 
     for (final JsonProducer json in state.jsonMatch.cropFarms) {
-      final Connections locations = json.connections.connections;
+      final List<Location> connections = Location.fromList(json.connections);
 
       final Node node = addCropFarm(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
 
-      if (locations.isNotEmpty) {
-        nodeConnections[node] = locations;
+      if (connections.isNotEmpty) {
+        nodeConnections[node] = connections;
       }
     }
 
     for (final JsonTransformer json in state.jsonMatch.saweries) {
-      final Connections locations = json.connections.connections;
+      final List<Location> connections = Location.fromList(json.connections);
 
       final Node node = addSawery(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
 
-      if (locations.isNotEmpty) {
-        nodeConnections[node] = locations;
+      if (connections.isNotEmpty) {
+        nodeConnections[node] = connections;
       }
     }
 
     for (final JsonTransformer json in state.jsonMatch.mills) {
-      final Connections locations = json.connections.connections;
+      final List<Location> connections = Location.fromList(json.connections);
 
       final Node node = addMill(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
 
-      if (locations.isNotEmpty) {
-        nodeConnections[node] = locations;
+      if (connections.isNotEmpty) {
+        nodeConnections[node] = connections;
       }
     }
 
     for (final JsonTransformer json in state.jsonMatch.bakeries) {
-      final Connections locations = json.connections.connections;
+      final List<Location> connections = Location.fromList(json.connections);
 
       final Node node = addBakery(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
 
-      if (locations.isNotEmpty) {
-        nodeConnections[node] = locations;
+      if (connections.isNotEmpty) {
+        nodeConnections[node] = connections;
       }
     }
 
     for (final JsonFlag json in state.jsonMatch.flags) {
-      final Connections locations = json.connections.connections;
+      final List<Location> connections = Location.fromList(json.connections);
 
       final Node node = addFlag(
         location: json.location.location,
       );
       state.resourceManager.graph.addNode(node);
 
-      if (locations.isNotEmpty) {
-        nodeConnections[node] = locations;
+      if (connections.isNotEmpty) {
+        nodeConnections[node] = connections;
       }
     }
 
-    for (final MapEntry<Node, Connections> entry in nodeConnections.entries) {
-      final Road? roadNorth = _roadTo(entry.key, entry.value.north);
-      final Road? roadEast = _roadTo(entry.key, entry.value.east);
-      final Road? roadSouth = _roadTo(entry.key, entry.value.south);
-      final Road? roadWest = _roadTo(entry.key, entry.value.west);
+    for (final MapEntry<Node, List<Location>> entry
+        in nodeConnections.entries) {
+      final List<Road> roads = [];
 
-      if (roadNorth != null) {
-        state.resourceManager.graph
-            .addConnection(roadNorth.origin, roadNorth.target);
+      for (final Location location in entry.value) {
+        final Node? node = state.nodeAt(location);
+
+        if (node == null) {
+          throw Exception('Node at $location cannot be found');
+        }
+
+        final Road road = Road(entry.key, node);
+        roads.add(road);
+        state.resourceManager.graph.addConnection(road.origin, road.target);
       }
 
-      if (roadEast != null) {
-        state.resourceManager.graph
-            .addConnection(roadEast.origin, roadEast.target);
-      }
-
-      if (roadSouth != null) {
-        state.resourceManager.graph
-            .addConnection(roadSouth.origin, roadSouth.target);
-      }
-
-      if (roadWest != null) {
-        state.resourceManager.graph
-            .addConnection(roadWest.origin, roadWest.target);
-      }
-
-      entry.key.connect(Roads(
-        north: roadNorth,
-        east: roadEast,
-        south: roadSouth,
-        west: roadWest,
-      ));
+      entry.key.connect(roads);
     }
 
     _addSpriteGroup(Assets.IMAGES_PATHS_PATH1A);
@@ -428,52 +411,17 @@ mixin NodeHandler on BaseGameComponent {
     return result;
   }
 
-  Set<Location> _pathLocations(Roads roads) {
+  Set<Location> _pathLocations(List<Road> roads) {
     final Set<Location> result = {};
 
-    if (roads.north != null) {
-      final Location origin = roads.north!.origin.location;
-      final Location target = roads.north!.target.location;
-      final NewPath newPath = NewPath(origin, target);
-      result.addAll(newPath.intermediateLocations);
-    }
-
-    if (roads.south != null) {
-      final Location origin = roads.south!.origin.location;
-      final Location target = roads.south!.target.location;
-      final NewPath newPath = NewPath(origin, target);
-      result.addAll(newPath.intermediateLocations);
-    }
-
-    if (roads.east != null) {
-      final Location origin = roads.east!.origin.location;
-      final Location target = roads.east!.target.location;
-      final NewPath newPath = NewPath(origin, target);
-      result.addAll(newPath.intermediateLocations);
-    }
-
-    if (roads.west != null) {
-      final Location origin = roads.west!.origin.location;
-      final Location target = roads.west!.target.location;
+    for (final Road road in roads) {
+      final Location origin = road.origin.location;
+      final Location target = road.target.location;
       final NewPath newPath = NewPath(origin, target);
       result.addAll(newPath.intermediateLocations);
     }
 
     return result;
-  }
-
-  Road? _roadTo(Node origin, Location? location) {
-    if (location != null) {
-      final Node? node = state.nodeAt(location);
-
-      if (node != null) {
-        return Road(origin, node);
-      } else {
-        throw Exception('Node at $location cannot be found');
-      }
-    } else {
-      return null;
-    }
   }
 
   Node addHeadquarters({

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
-import 'package:tensionnode/json/json_connections.dart';
 import 'package:tensionnode/json/json_inventory.dart';
 
 part 'json_headquarters.g.dart';
@@ -15,7 +14,7 @@ class JsonHeadquarters {
   final JsonInventory inventory;
 
   @JsonKey(name: 'connections')
-  final JsonConnections connections;
+  final List<JsonLocation> connections;
 
   const JsonHeadquarters({
     required this.location,

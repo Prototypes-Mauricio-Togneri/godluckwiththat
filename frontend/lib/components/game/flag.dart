@@ -48,6 +48,6 @@ class Flag extends Node {
 
   JsonFlag get json => JsonFlag(
         location: location.json,
-        connections: roads.json,
+        connections: roads.map((e) => e.json).toList(),
       );
 }

@@ -150,6 +150,6 @@ class TransformerNode extends Node {
 
   JsonTransformer get json => JsonTransformer(
         location: location.json,
-        connections: roads.json,
+        connections: roads.map((e) => e.json).toList(),
       );
 }

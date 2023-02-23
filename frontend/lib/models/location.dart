@@ -16,6 +16,9 @@ class Location {
         position.y ~/ Constants.NODE_SIZE,
       );
 
+  static List<Location> fromList(List<JsonLocation> json) =>
+      json.map((e) => e.location).toList();
+
   JsonLocation get json => [i, j];
 
   bool isAligned(Location location) =>

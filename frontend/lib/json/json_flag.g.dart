@@ -9,8 +9,9 @@ part of 'json_flag.dart';
 JsonFlag _$JsonFlagFromJson(Map<String, dynamic> json) => JsonFlag(
       location:
           (json['location'] as List<dynamic>).map((e) => e as int).toList(),
-      connections:
-          JsonConnections.fromJson(json['connections'] as Map<String, dynamic>),
+      connections: (json['connections'] as List<dynamic>)
+          .map((e) => (e as List<dynamic>).map((e) => e as int).toList())
+          .toList(),
     );
 
 Map<String, dynamic> _$JsonFlagToJson(JsonFlag instance) => <String, dynamic>{

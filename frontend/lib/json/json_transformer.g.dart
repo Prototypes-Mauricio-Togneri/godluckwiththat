@@ -10,8 +10,9 @@ JsonTransformer _$JsonTransformerFromJson(Map<String, dynamic> json) =>
     JsonTransformer(
       location:
           (json['location'] as List<dynamic>).map((e) => e as int).toList(),
-      connections:
-          JsonConnections.fromJson(json['connections'] as Map<String, dynamic>),
+      connections: (json['connections'] as List<dynamic>)
+          .map((e) => (e as List<dynamic>).map((e) => e as int).toList())
+          .toList(),
     );
 
 Map<String, dynamic> _$JsonTransformerToJson(JsonTransformer instance) =>

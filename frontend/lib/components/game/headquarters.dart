@@ -54,6 +54,6 @@ class Headquarters extends Node {
   JsonHeadquarters get json => JsonHeadquarters(
         location: location.json,
         inventory: inventory.json,
-        connections: roads.json,
+        connections: roads.map((e) => e.json).toList(),
       );
 }

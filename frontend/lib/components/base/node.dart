@@ -5,7 +5,6 @@ import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/road.dart';
-import 'package:tensionnode/models/roads.dart';
 import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/services/style.dart';
@@ -14,7 +13,7 @@ import 'package:tensionnode/types/node_type.dart';
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final NodeType type;
   final Location location;
-  final Roads roads = Roads();
+  final List<Road> roads = [];
 
   late final DebugText debugText = DebugText();
 
@@ -35,8 +34,8 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     return super.onLoad();
   }
 
-  void connect(Roads roads) {
-    this.roads.connect(roads);
+  void connect(List<Road> roads) {
+    this.roads.addAll(roads);
   }
 
   void receiveResource(RoutedResource routedResource) {
@@ -51,14 +50,10 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
   Road? _roadTo(Location? location) {
     if (location != null) {
-      if (roads.south?.target.location == location) {
-        return roads.south;
-      } else if (roads.west?.target.location == location) {
-        return roads.west;
-      } else if (roads.north?.target.location == location) {
-        return roads.north;
-      } else if (roads.east?.target.location == location) {
-        return roads.east;
+      for (final Road road in roads) {
+        if (road.target.location == location) {
+          return road;
+        }
       }
     }
 
@@ -105,10 +100,9 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   void update(double dt) {
     super.update(dt);
 
-    roads.north?.update(dt);
-    roads.east?.update(dt);
-    roads.south?.update(dt);
-    roads.west?.update(dt);
+    for (final Road road in roads) {
+      road.update(dt);
+    }
   }
 }
 
