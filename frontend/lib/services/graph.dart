@@ -11,7 +11,19 @@ class Graph {
   }
 
   void removeNode(Node node) {
-    // TODO(momo): find the waypoint and remove it
+    Waypoint? found;
+
+    for (final Waypoint waypoint in _waypoints) {
+      if (waypoint.isNode(node)) {
+        found = waypoint;
+      }
+    }
+
+    if (found != null) {
+      _waypoints.remove(found);
+    } else {
+      throw Exception('Waypoint for node $node not found');
+    }
   }
 
   void addConnection(Node origin, Node target) {
