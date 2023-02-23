@@ -10,6 +10,10 @@ class Graph {
     _waypoints.add(Waypoint(node));
   }
 
+  void removeNode(Node node) {
+    // TODO(momo): find the waypoint and remove it
+  }
+
   void addConnection(Node origin, Node target) {
     final Waypoint? waypointOrigin = _getWaypoint(origin);
     final Waypoint? waypointTarget = _getWaypoint(target);

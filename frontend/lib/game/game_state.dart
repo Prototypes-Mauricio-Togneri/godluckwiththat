@@ -102,31 +102,7 @@ class GameState extends BaseState {
     }
 
     allNodes.add(node);
-  }
-
-  void addPath(NewPath newPath) {
-    final Node node = Flag(
-      type: NodeType.flag,
-      location: newPath.target,
-    );
-
-    addNode(node);
     resourceManager.graph.addNode(node);
-
-    final Node? nodeOrigin = nodeAt(newPath.origin);
-    final Node? nodeTarget = nodeAt(newPath.target);
-
-    if ((nodeOrigin != null) && (nodeTarget != null)) {
-      /*final Road road = Road(nodeOrigin, nodeTarget);
-      resourceManager.graph.addConnection(nodeOrigin, nodeTarget);
-
-      nodeOrigin.connect(Roads(
-        north: roadNorth,
-        east: roadEast,
-        south: roadSouth,
-        west: roadWest,
-      ));*/
-    }
   }
 
   void removeNode(Node node) {
@@ -153,6 +129,31 @@ class GameState extends BaseState {
     }
 
     allNodes.remove(node);
+    resourceManager.graph.removeNode(node);
+  }
+
+  void addPath(NewPath newPath) {
+    final Node node = Flag(
+      type: NodeType.flag,
+      location: newPath.target,
+    );
+
+    addNode(node);
+
+    final Node? nodeOrigin = nodeAt(newPath.origin);
+    final Node? nodeTarget = nodeAt(newPath.target);
+
+    if ((nodeOrigin != null) && (nodeTarget != null)) {
+      /*final Road road = Road(nodeOrigin, nodeTarget);
+      resourceManager.graph.addConnection(nodeOrigin, nodeTarget);
+
+      nodeOrigin.connect(Roads(
+        north: roadNorth,
+        east: roadEast,
+        south: roadSouth,
+        west: roadWest,
+      ));*/
+    }
   }
 
   JsonMatch getMatch(Camera camera) {

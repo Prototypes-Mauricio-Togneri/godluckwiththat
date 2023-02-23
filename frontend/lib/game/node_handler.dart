@@ -33,16 +33,14 @@ mixin NodeHandler on BaseGameComponent {
     final Map<Node, List<Location>> nodeConnections = {};
 
     final JsonHeadquarters json = state.jsonMatch.headquarters;
-    final List<Location> connections = Location.fromList(json.connections);
 
     final Node node = addHeadquarters(
       location: json.location.location,
       inventory: json.inventory.inventory,
     );
-    state.resourceManager.graph.addNode(node);
 
-    if (connections.isNotEmpty) {
-      nodeConnections[node] = connections;
+    if (json.connections.isNotEmpty) {
+      nodeConnections[node] = Location.fromList(json.connections);
     }
 
     for (final JsonProducer json in state.jsonMatch.woodcutters) {
@@ -51,7 +49,6 @@ mixin NodeHandler on BaseGameComponent {
       final Node node = addWoodcutter(
         location: json.location.location,
       );
-      state.resourceManager.graph.addNode(node);
 
       if (connections.isNotEmpty) {
         nodeConnections[node] = connections;
@@ -64,7 +61,6 @@ mixin NodeHandler on BaseGameComponent {
       final Node node = addQuarry(
         location: json.location.location,
       );
-      state.resourceManager.graph.addNode(node);
 
       if (connections.isNotEmpty) {
         nodeConnections[node] = connections;
@@ -77,7 +73,6 @@ mixin NodeHandler on BaseGameComponent {
       final Node node = addWell(
         location: json.location.location,
       );
-      state.resourceManager.graph.addNode(node);
 
       if (connections.isNotEmpty) {
         nodeConnections[node] = connections;
@@ -90,7 +85,6 @@ mixin NodeHandler on BaseGameComponent {
       final Node node = addFisher(
         location: json.location.location,
       );
-      state.resourceManager.graph.addNode(node);
 
       if (connections.isNotEmpty) {
         nodeConnections[node] = connections;
@@ -103,7 +97,6 @@ mixin NodeHandler on BaseGameComponent {
       final Node node = addHunter(
         location: json.location.location,
       );
-      state.resourceManager.graph.addNode(node);
 
       if (connections.isNotEmpty) {
         nodeConnections[node] = connections;
@@ -116,7 +109,6 @@ mixin NodeHandler on BaseGameComponent {
       final Node node = addCropFarm(
         location: json.location.location,
       );
-      state.resourceManager.graph.addNode(node);
 
       if (connections.isNotEmpty) {
         nodeConnections[node] = connections;
@@ -129,7 +121,6 @@ mixin NodeHandler on BaseGameComponent {
       final Node node = addSawery(
         location: json.location.location,
       );
-      state.resourceManager.graph.addNode(node);
 
       if (connections.isNotEmpty) {
         nodeConnections[node] = connections;
@@ -142,7 +133,6 @@ mixin NodeHandler on BaseGameComponent {
       final Node node = addMill(
         location: json.location.location,
       );
-      state.resourceManager.graph.addNode(node);
 
       if (connections.isNotEmpty) {
         nodeConnections[node] = connections;
@@ -155,7 +145,6 @@ mixin NodeHandler on BaseGameComponent {
       final Node node = addBakery(
         location: json.location.location,
       );
-      state.resourceManager.graph.addNode(node);
 
       if (connections.isNotEmpty) {
         nodeConnections[node] = connections;
@@ -168,7 +157,6 @@ mixin NodeHandler on BaseGameComponent {
       final Node node = addFlag(
         location: json.location.location,
       );
-      state.resourceManager.graph.addNode(node);
 
       if (connections.isNotEmpty) {
         nodeConnections[node] = connections;
