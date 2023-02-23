@@ -30,7 +30,7 @@ mixin NodeHandler on BaseGameComponent {
   final Map<String, SpriteGroup> spriteGroups = {};
 
   void loadNodes() {
-    final Map<Node, List<Location>> nodeConnections = {};
+    final Map<Node, Locations> nodeConnections = {};
 
     final JsonHeadquarters json = state.jsonMatch.headquarters;
 
@@ -143,7 +143,7 @@ mixin NodeHandler on BaseGameComponent {
       }
     }
 
-    for (final MapEntry<Node, List<Location>> entry
+    for (final MapEntry<Node, Locations> entry
         in nodeConnections.entries) {
       final Node originNode = entry.key;
 
@@ -372,7 +372,7 @@ mixin NodeHandler on BaseGameComponent {
     return result;
   }
 
-  Set<Location> _pathLocations(List<Road> roads) {
+  Set<Location> _pathLocations(Roads roads) {
     final Set<Location> result = {};
 
     for (final Road road in roads) {

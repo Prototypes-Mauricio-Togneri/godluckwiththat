@@ -5,7 +5,7 @@ import 'package:tensionnode/models/road.dart';
 import 'package:tensionnode/models/route.dart';
 
 class Graph {
-  final List<Waypoint> _waypoints = [];
+  final Waypoints _waypoints = [];
 
   void addNode(Node node) {
     _waypoints.add(Waypoint(node));
@@ -69,7 +69,7 @@ class Graph {
         final RouteWaypoint next = openSet.removeAt(0);
 
         if (next.current == to) {
-          final List<Waypoint> list = [];
+          final Waypoints list = [];
           RouteWaypoint? current = next;
 
           while (current != null) {
@@ -77,8 +77,8 @@ class Graph {
             current = allNodes[current.previous];
           }
 
-          final List<Waypoint> reversed = list.reversed.toList();
-          final List<Location> locations = [];
+          final Waypoints reversed = list.reversed.toList();
+          final Locations locations = [];
 
           for (int i = 1; i < reversed.length; i++) {
             locations.add(reversed[i].node.location);
@@ -110,9 +110,11 @@ class Graph {
   }
 }
 
+typedef Waypoints = List<Waypoint>;
+
 class Waypoint {
   final Node node;
-  final List<Waypoint> connections = [];
+  final Waypoints connections = [];
 
   Waypoint(this.node);
 

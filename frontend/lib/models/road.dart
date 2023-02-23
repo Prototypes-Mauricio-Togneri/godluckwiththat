@@ -5,6 +5,8 @@ import 'package:tensionnode/components/game/moving_resource.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/models/routed_resource.dart';
 
+typedef Roads = List<Road>;
+
 class Road {
   final Node origin;
   final Node target;

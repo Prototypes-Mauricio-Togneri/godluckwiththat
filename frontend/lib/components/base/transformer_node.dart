@@ -20,7 +20,7 @@ class TransformerNode extends Node {
     required super.type,
     required super.location,
     required this.resourceProduced,
-    required List<ResourceType> resourcesRequired,
+    required Resources resourcesRequired,
   }) {
     for (final ResourceType resource in resourcesRequired) {
       _resourcesRequired[resource] = 0;

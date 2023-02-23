@@ -4,6 +4,8 @@ import 'package:flame/extensions.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 
+typedef Locations = List<Location>;
+
 class Location {
   final int i;
   final int j;
@@ -15,7 +17,7 @@ class Location {
         position.y ~/ Constants.NODE_SIZE,
       );
 
-  static List<Location> fromList(List<JsonLocation> json) =>
+  static Locations fromList(List<JsonLocation> json) =>
       json.map((e) => e.location).toList();
 
   JsonLocation get json => [i, j];

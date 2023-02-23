@@ -16,7 +16,7 @@ class SpriteGroup extends Component {
     add(component!);
   }
 
-  Future load(List<Location> locations) async {
+  Future load(Locations locations) async {
     if (component == null) {
       await setup();
     }

@@ -2,7 +2,7 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/models/location.dart';
 
 class Route {
-  final List<Location> _waypoints;
+  final Locations _waypoints;
 
   const Route(this._waypoints);
 

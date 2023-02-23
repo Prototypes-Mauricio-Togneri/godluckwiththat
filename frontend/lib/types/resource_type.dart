@@ -1,5 +1,7 @@
 import 'package:tensionnode/services/assets.dart';
 
+typedef Resources = List<ResourceType>;
+
 enum ResourceType {
   timber(sprite: Assets.IMAGES_RESOURCES_TIMBER),
   wood(sprite: Assets.IMAGES_RESOURCES_WOOD),
