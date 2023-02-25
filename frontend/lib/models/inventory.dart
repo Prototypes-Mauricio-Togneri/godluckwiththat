@@ -29,14 +29,19 @@ class Inventory {
 
   void set(Map<ResourceType, int> resources) {
     for (final MapEntry<ResourceType, int> entry in resources.entries) {
-      final int current = _resources[entry.key] ?? 0;
-      _resources[entry.key] = current + entry.value;
+      add(
+        type: entry.key,
+        amount: entry.value,
+      );
     }
   }
 
-  void add(ResourceType type) {
+  void add({
+    required ResourceType type,
+    required int amount,
+  }) {
     final int current = _resources[type] ?? 0;
-    _resources[type] = current + 1;
+    _resources[type] = current + amount;
   }
 
   void remove(Inventory inventory) {

@@ -46,7 +46,7 @@ class TransformerMenu extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       for (int i = 1;
-                          i <= Constants.TRANSFORMER_RESOURCE_QUEUE_LIMIT;
+                          i <= Constants.OUTPUT_QUEUE_LIMIT;
                           i++)
                         SizedBox(
                           width: 30,

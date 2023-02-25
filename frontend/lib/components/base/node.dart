@@ -48,12 +48,22 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     //game.state.notify();
   }
 
+  void specialSelect() {}
+
   bool isAt(Location location) => this.location == location;
 
   double distanceTo(Node node) => location.distanceTo(node.location);
 
   @override
-  bool onTapUp(TapUpInfo info) => game.selectNode(this);
+  bool onTapUp(TapUpInfo info) {
+    if (game.isControlPressed) {
+      specialSelect();
+    } else {
+      game.selectNode(this);
+    }
+
+    return true;
+  }
 
   @override
   bool onTapDown(TapDownInfo info) => false;

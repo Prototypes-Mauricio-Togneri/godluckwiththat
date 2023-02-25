@@ -8,6 +8,7 @@ import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_buildings.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_patches.dart';
+import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/patch.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -21,6 +22,7 @@ class GameState extends BaseState {
   final List<CooperFurnace> cooperFurnaces = [];
   final List<Node> allNodes = [];
   final Map<ResourceType, List<Patch>> patches = {};
+  final Inventory inventory = Inventory();
   final JsonMatch jsonMatch;
 
   GameState(this.jsonMatch) {
@@ -28,6 +30,18 @@ class GameState extends BaseState {
 
     patches[ResourceType.coal_ore] = [];
     patches[ResourceType.cooper_ore] = [];
+  }
+
+  void addToInventory({
+    required ResourceType resourceType,
+    required int amount,
+  }) {
+    inventory.add(
+      type: resourceType,
+      amount: amount,
+    );
+
+    print(inventory);
   }
 
   List<Location> patchLocations(ResourceType type) =>
