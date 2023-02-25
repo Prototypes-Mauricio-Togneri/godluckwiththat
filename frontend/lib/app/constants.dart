@@ -22,18 +22,42 @@ class Constants {
 		"location": [0, 0],
 		"zoom": 8
 	},
-	"coal_mines": [{
-		"location": [5, -3],
-		"connections": []
-	}],
-	"cooper_mines": [{
-		"location": [-5, 5],
-		"connections": []
-	}],
-	"cooper_furnaces": [{
-		"location": [0, 0],
-		"connections": []
-	}]
+	"patches": {
+		"coal": [{
+			"location": [0, 0],
+			"amount": 1000
+		}, {
+			"location": [0, 0],
+			"amount": 1000
+		}, {
+			"location": [0, 0],
+			"amount": 1000
+		}],
+		"cooper": [{
+			"location": [0, 0],
+			"amount": 1000
+		}, {
+			"location": [0, 0],
+			"amount": 1000
+		}, {
+			"location": [0, 0],
+			"amount": 1000
+		}]
+	},
+	"buildings": {
+		"coal_mines": [{
+			"location": [5, -3],
+			"connections": []
+		}],
+		"cooper_mines": [{
+			"location": [-5, 5],
+			"connections": []
+		}],
+		"cooper_furnaces": [{
+			"location": [0, 0],
+			"connections": []
+		}]
+	}
 }
 ''';
 

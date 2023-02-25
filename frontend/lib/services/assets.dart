@@ -14,5 +14,8 @@ class Assets {
       'resources/cooper_block.png';
   static const String IMAGES_RESOURCES_COAL_ORE = 'resources/coal_ore.png';
   static const String IMAGES_RESOURCES_COOPER_ORE = 'resources/cooper_ore.png';
+  static const String IMAGES_PATCHES_COAL_PATCH = 'patches/coal_patch.png';
+  static const String IMAGES_PATCHES_STONE_PATCH = 'patches/stone_patch.png';
+  static const String IMAGES_PATCHES_COOPER_PATCH = 'patches/cooper_patch.png';
   static const String TILES_TERRAIN = 'terrain.tsx';
 }

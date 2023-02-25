@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionnode/json/json_buildings.dart';
 import 'package:tensionnode/json/json_map.dart';
-import 'package:tensionnode/json/json_producer.dart';
-import 'package:tensionnode/json/json_transformer.dart';
+import 'package:tensionnode/json/json_patches.dart';
 
 part 'json_match.g.dart';
 
@@ -20,23 +20,19 @@ class JsonMatch {
   @JsonKey(name: 'map')
   final JsonMap map;
 
-  @JsonKey(name: 'coal_mines')
-  final List<JsonProducer> coalMines;
+  @JsonKey(name: 'buildings')
+  final JsonBuildings buildings;
 
-  @JsonKey(name: 'cooper_mines')
-  final List<JsonProducer> cooperMines;
-
-  @JsonKey(name: 'cooper_furnaces')
-  final List<JsonTransformer> cooperFurnaces;
+  @JsonKey(name: 'patches')
+  final JsonPatches patches;
 
   const JsonMatch({
     required this.version,
     required this.id,
     required this.totalTimeElapsed,
     required this.map,
-    required this.coalMines,
-    required this.cooperMines,
-    required this.cooperFurnaces,
+    required this.buildings,
+    required this.patches,
   });
 
   factory JsonMatch.fromString(String json) =>

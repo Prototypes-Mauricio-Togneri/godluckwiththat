@@ -16,19 +16,20 @@ mixin NodeHandler on BaseGameComponent {
   final Map<String, SpriteGroup> spriteGroups = {};
 
   void loadNodes() {
-    for (final JsonProducer json in state.jsonMatch.coalMines) {
+    for (final JsonProducer json in state.jsonMatch.buildings.coalMines) {
       addCoalMine(
         location: json.location.location,
       );
     }
 
-    for (final JsonProducer json in state.jsonMatch.cooperMines) {
+    for (final JsonProducer json in state.jsonMatch.buildings.cooperMines) {
       addCooperMine(
         location: json.location.location,
       );
     }
 
-    for (final JsonTransformer json in state.jsonMatch.cooperFurnaces) {
+    for (final JsonTransformer json
+        in state.jsonMatch.buildings.cooperFurnaces) {
       addCooperFurnace(
         location: json.location.location,
       );

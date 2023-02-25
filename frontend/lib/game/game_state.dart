@@ -5,8 +5,12 @@ import 'package:tensionnode/components/game/producers/coal_mine.dart';
 import 'package:tensionnode/components/game/producers/cooper_mine.dart';
 import 'package:tensionnode/components/game/transformers/cooper_furnace.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
+import 'package:tensionnode/json/json_buildings.dart';
 import 'package:tensionnode/json/json_match.dart';
+import 'package:tensionnode/json/json_patches.dart';
 import 'package:tensionnode/models/location.dart';
+import 'package:tensionnode/models/patch.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
   num _totalTimeElapsed = 0;
@@ -16,6 +20,7 @@ class GameState extends BaseState {
   final List<CooperMine> cooperMines = [];
   final List<CooperFurnace> cooperFurnaces = [];
   final List<Node> allNodes = [];
+  final Map<ResourceType, List<Patch>> patches = {};
   final JsonMatch jsonMatch;
 
   GameState(this.jsonMatch) {
@@ -81,9 +86,15 @@ class GameState extends BaseState {
       id: jsonMatch.id,
       totalTimeElapsed: _totalTimeElapsed.decimal(),
       map: jsonMatch.map.withCamera(camera),
-      coalMines: coalMines.map((e) => e.json).toList(),
-      cooperMines: cooperMines.map((e) => e.json).toList(),
-      cooperFurnaces: cooperFurnaces.map((e) => e.json).toList(),
+      buildings: JsonBuildings(
+        coalMines: coalMines.map((e) => e.json).toList(),
+        cooperMines: cooperMines.map((e) => e.json).toList(),
+        cooperFurnaces: cooperFurnaces.map((e) => e.json).toList(),
+      ),
+      patches: JsonPatches(
+        coal: patches[ResourceType.coal_ore]!.map((e) => e.json).toList(),
+        cooper: patches[ResourceType.cooper_ore]!.map((e) => e.json).toList(),
+      ),
     );
   }
 }
