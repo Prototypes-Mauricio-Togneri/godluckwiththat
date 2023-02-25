@@ -12,13 +12,13 @@ class JsonBuildings {
   @JsonKey(name: 'copper_mines')
   final List<JsonBuilding> copperMines;
 
-  @JsonKey(name: 'copper_furnaces')
-  final List<JsonBuilding> copperFurnaces;
+  @JsonKey(name: 'copper_smelters')
+  final List<JsonBuilding> copperSmelters;
 
   const JsonBuildings({
     required this.coalMines,
     required this.copperMines,
-    required this.copperFurnaces,
+    required this.copperSmelters,
   });
 
   factory JsonBuildings.fromString(String json) =>

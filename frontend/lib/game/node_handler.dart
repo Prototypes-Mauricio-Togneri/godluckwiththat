@@ -2,7 +2,7 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/sprite_group.dart';
 import 'package:tensionnode/components/game/producers/coal_mine.dart';
 import 'package:tensionnode/components/game/producers/copper_mine.dart';
-import 'package:tensionnode/components/game/transformers/copper_furnace.dart';
+import 'package:tensionnode/components/game/transformers/copper_smelter.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/json/json_building.dart';
@@ -30,8 +30,8 @@ mixin NodeHandler on BaseGameComponent {
       );
     }
 
-    for (final JsonBuilding json in state.jsonMatch.buildings.copperFurnaces) {
-      addCopperFurnace(
+    for (final JsonBuilding json in state.jsonMatch.buildings.copperSmelters) {
+      addCopperSmelter(
         location: json.location.location,
       );
     }
@@ -91,10 +91,10 @@ mixin NodeHandler on BaseGameComponent {
         location: location,
       ));
 
-  Node addCopperFurnace({
+  Node addCopperSmelter({
     required Location location,
   }) =>
-      _addNode(CopperFurnace(
+      _addNode(CopperSmelter(
         location: location,
         resourcesRequired: [
           ResourceType.coal_ore,
@@ -134,9 +134,9 @@ mixin NodeHandler on BaseGameComponent {
           addCoalMine(location: location);
         }
         break;
-      case NodeType.copper_furnace:
+      case NodeType.copper_smelter:
         if (tile.isSoil) {
-          addCopperFurnace(location: location);
+          addCopperSmelter(location: location);
         }
         break;
     }

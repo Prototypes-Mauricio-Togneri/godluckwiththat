@@ -66,7 +66,7 @@ class Constants {
 			"location": [-5, 5],
 			"connections": []
 		}],
-		"copper_furnaces": [{
+		"copper_smelters": [{
 			"location": [0, 0],
 			"connections": []
 		}]

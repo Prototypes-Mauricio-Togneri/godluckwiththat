@@ -3,7 +3,7 @@ import 'package:flame/game.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/producers/coal_mine.dart';
 import 'package:tensionnode/components/game/producers/copper_mine.dart';
-import 'package:tensionnode/components/game/transformers/copper_furnace.dart';
+import 'package:tensionnode/components/game/transformers/copper_smelter.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_buildings.dart';
 import 'package:tensionnode/json/json_match.dart';
@@ -19,7 +19,7 @@ class GameState extends BaseState {
 
   final List<CoalMine> coalMines = [];
   final List<CopperMine> copperMines = [];
-  final List<CopperFurnace> copperFurnaces = [];
+  final List<CopperSmelter> copperSmelters = [];
   final List<Node> allNodes = [];
   final Map<ResourceType, List<Patch>> patches = {};
   final Inventory inventory = Inventory();
@@ -81,8 +81,8 @@ class GameState extends BaseState {
       coalMines.add(node);
     } else if (node is CopperMine) {
       copperMines.add(node);
-    } else if (node is CopperFurnace) {
-      copperFurnaces.add(node);
+    } else if (node is CopperSmelter) {
+      copperSmelters.add(node);
     }
 
     allNodes.add(node);
@@ -93,8 +93,8 @@ class GameState extends BaseState {
       coalMines.remove(node);
     } else if (node is CopperMine) {
       copperMines.remove(node);
-    } else if (node is CopperFurnace) {
-      copperFurnaces.remove(node);
+    } else if (node is CopperSmelter) {
+      copperSmelters.remove(node);
     }
 
     allNodes.remove(node);
@@ -109,7 +109,7 @@ class GameState extends BaseState {
       buildings: JsonBuildings(
         coalMines: coalMines.map((e) => e.json).toList(),
         copperMines: copperMines.map((e) => e.json).toList(),
-        copperFurnaces: copperFurnaces.map((e) => e.json).toList(),
+        copperSmelters: copperSmelters.map((e) => e.json).toList(),
       ),
       patches: JsonPatches(
         coal: patches[ResourceType.coal_ore]!.map((e) => e.json).toList(),

@@ -13,8 +13,8 @@ enum NodeType {
     costWood: 2,
     costStone: 0,
   ),
-  copper_furnace(
-    sprite: Assets.IMAGES_BUILDINGS_COPPER_FURNACE,
+  copper_smelter(
+    sprite: Assets.IMAGES_BUILDINGS_COPPER_SMELTER,
     productionTime: 10,
     costWood: 2,
     costStone: 2,
