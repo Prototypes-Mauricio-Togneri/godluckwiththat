@@ -9,16 +9,16 @@ class JsonBuildings {
   @JsonKey(name: 'coal_mines')
   final List<JsonBuilding> coalMines;
 
-  @JsonKey(name: 'cooper_mines')
-  final List<JsonBuilding> cooperMines;
+  @JsonKey(name: 'copper_mines')
+  final List<JsonBuilding> copperMines;
 
-  @JsonKey(name: 'cooper_furnaces')
-  final List<JsonBuilding> cooperFurnaces;
+  @JsonKey(name: 'copper_furnaces')
+  final List<JsonBuilding> copperFurnaces;
 
   const JsonBuildings({
     required this.coalMines,
-    required this.cooperMines,
-    required this.cooperFurnaces,
+    required this.copperMines,
+    required this.copperFurnaces,
   });
 
   factory JsonBuildings.fromString(String json) =>

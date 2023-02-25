@@ -9,22 +9,22 @@ class JsonInventory {
   @JsonKey(name: 'coal_ore')
   final int coalOre;
 
-  @JsonKey(name: 'cooper_ore')
-  final int cooperOre;
+  @JsonKey(name: 'copper_ore')
+  final int copperOre;
 
-  @JsonKey(name: 'cooper_block')
-  final int cooperBlock;
+  @JsonKey(name: 'copper_block')
+  final int copperBlock;
 
   const JsonInventory({
     this.coalOre = 0,
-    this.cooperOre = 0,
-    this.cooperBlock = 0,
+    this.copperOre = 0,
+    this.copperBlock = 0,
   });
 
   Inventory get inventory => Inventory.fromList(
         coalOre: coalOre,
-        cooperOre: cooperOre,
-        cooperBlock: cooperBlock,
+        copperOre: copperOre,
+        copperBlock: copperBlock,
       );
 
   factory JsonInventory.fromString(String json) =>

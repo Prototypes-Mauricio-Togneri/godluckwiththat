@@ -1,8 +1,8 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/sprite_group.dart';
 import 'package:tensionnode/components/game/producers/coal_mine.dart';
-import 'package:tensionnode/components/game/producers/cooper_mine.dart';
-import 'package:tensionnode/components/game/transformers/cooper_furnace.dart';
+import 'package:tensionnode/components/game/producers/copper_mine.dart';
+import 'package:tensionnode/components/game/transformers/copper_furnace.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/json/json_building.dart';
@@ -24,14 +24,14 @@ mixin NodeHandler on BaseGameComponent {
       );
     }
 
-    for (final JsonBuilding json in state.jsonMatch.buildings.cooperMines) {
-      addCooperMine(
+    for (final JsonBuilding json in state.jsonMatch.buildings.copperMines) {
+      addCopperMine(
         location: json.location.location,
       );
     }
 
-    for (final JsonBuilding json in state.jsonMatch.buildings.cooperFurnaces) {
-      addCooperFurnace(
+    for (final JsonBuilding json in state.jsonMatch.buildings.copperFurnaces) {
+      addCopperFurnace(
         location: json.location.location,
       );
     }
@@ -41,13 +41,13 @@ mixin NodeHandler on BaseGameComponent {
       state.jsonMatch.patches.coal,
     );
 
-    state.patches[ResourceType.cooper_ore] = _patches(
-      ResourceType.cooper_ore,
-      state.jsonMatch.patches.cooper,
+    state.patches[ResourceType.copper_ore] = _patches(
+      ResourceType.copper_ore,
+      state.jsonMatch.patches.copper,
     );
 
     _addSpriteGroup(Assets.IMAGES_RESOURCES_COAL_ORE);
-    _addSpriteGroup(Assets.IMAGES_RESOURCES_COOPER_ORE);
+    _addSpriteGroup(Assets.IMAGES_RESOURCES_COPPER_ORE);
 
     reloadPatches();
   }
@@ -70,7 +70,7 @@ mixin NodeHandler on BaseGameComponent {
 
   void reloadPatches() {
     _reloadPatch(ResourceType.coal_ore);
-    _reloadPatch(ResourceType.cooper_ore);
+    _reloadPatch(ResourceType.copper_ore);
   }
 
   void _reloadPatch(ResourceType resourceType) {
@@ -84,21 +84,21 @@ mixin NodeHandler on BaseGameComponent {
         location: location,
       ));
 
-  Node addCooperMine({
+  Node addCopperMine({
     required Location location,
   }) =>
-      _addNode(CooperMine(
+      _addNode(CopperMine(
         location: location,
       ));
 
-  Node addCooperFurnace({
+  Node addCopperFurnace({
     required Location location,
   }) =>
-      _addNode(CooperFurnace(
+      _addNode(CopperFurnace(
         location: location,
         resourcesRequired: [
           ResourceType.coal_ore,
-          ResourceType.cooper_ore,
+          ResourceType.copper_ore,
         ],
       ));
 
@@ -129,14 +129,14 @@ mixin NodeHandler on BaseGameComponent {
           addCoalMine(location: location);
         }
         break;
-      case NodeType.cooper_mine:
-        if (tile.isCooper) {
+      case NodeType.copper_mine:
+        if (tile.isCopper) {
           addCoalMine(location: location);
         }
         break;
-      case NodeType.cooper_furnace:
+      case NodeType.copper_furnace:
         if (tile.isSoil) {
-          addCooperFurnace(location: location);
+          addCopperFurnace(location: location);
         }
         break;
     }

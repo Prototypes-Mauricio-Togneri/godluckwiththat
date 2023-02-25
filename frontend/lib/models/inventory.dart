@@ -13,14 +13,14 @@ class Inventory {
 
   factory Inventory.fromList({
     required int coalOre,
-    required int cooperOre,
-    required int cooperBlock,
+    required int copperOre,
+    required int copperBlock,
   }) {
     final Inventory inventory = Inventory();
 
     inventory._resources[ResourceType.coal_ore] = coalOre;
-    inventory._resources[ResourceType.cooper_ore] = cooperOre;
-    inventory._resources[ResourceType.cooper_block] = cooperBlock;
+    inventory._resources[ResourceType.copper_ore] = copperOre;
+    inventory._resources[ResourceType.copper_block] = copperBlock;
 
     return inventory;
   }
@@ -57,8 +57,8 @@ class Inventory {
 
   JsonInventory get json => JsonInventory(
         coalOre: _resources[ResourceType.coal_ore] ?? 0,
-        cooperOre: _resources[ResourceType.cooper_ore] ?? 0,
-        cooperBlock: _resources[ResourceType.cooper_block] ?? 0,
+        copperOre: _resources[ResourceType.copper_ore] ?? 0,
+        copperBlock: _resources[ResourceType.copper_block] ?? 0,
       );
 
   @override

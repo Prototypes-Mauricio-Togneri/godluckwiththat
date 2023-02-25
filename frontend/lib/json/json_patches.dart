@@ -9,12 +9,12 @@ class JsonPatches {
   @JsonKey(name: 'coal')
   final List<JsonPatch> coal;
 
-  @JsonKey(name: 'cooper')
-  final List<JsonPatch> cooper;
+  @JsonKey(name: 'copper')
+  final List<JsonPatch> copper;
 
   const JsonPatches({
     required this.coal,
-    required this.cooper,
+    required this.copper,
   });
 
   factory JsonPatches.fromString(String json) =>

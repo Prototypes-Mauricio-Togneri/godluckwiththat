@@ -4,7 +4,7 @@ class MapTile {
   static const int TILE_NONE = 0;
   static const int TILE_SOIL = 1;
   static const int TILE_COAL = 2;
-  static const int TILE_COOPER = 3;
+  static const int TILE_COPPER = 3;
   static const int TILE_STONE = 4;
   static const int TILE_WATER = 5;
 
@@ -14,7 +14,7 @@ class MapTile {
 
   bool get isCoal => _tile == TILE_COAL;
 
-  bool get isCooper => _tile == TILE_COOPER;
+  bool get isCopper => _tile == TILE_COPPER;
 
   bool get isStone => _tile == TILE_STONE;
 

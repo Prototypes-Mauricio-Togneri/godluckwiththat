@@ -7,14 +7,14 @@ enum NodeType {
     costWood: 2,
     costStone: 0,
   ),
-  cooper_mine(
-    sprite: Assets.IMAGES_BUILDINGS_COOPER_MINE,
+  copper_mine(
+    sprite: Assets.IMAGES_BUILDINGS_COPPER_MINE,
     productionTime: 3,
     costWood: 2,
     costStone: 0,
   ),
-  cooper_furnace(
-    sprite: Assets.IMAGES_BUILDINGS_COOPER_FURNACE,
+  copper_furnace(
+    sprite: Assets.IMAGES_BUILDINGS_COPPER_FURNACE,
     productionTime: 10,
     costWood: 2,
     costStone: 2,

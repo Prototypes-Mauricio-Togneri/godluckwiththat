@@ -5,17 +5,17 @@ class Assets {
   static const String IMAGES_SIGNS_IDLE_SIGN = 'signs/idle_sign.png';
   static const String IMAGES_NODE_SELECTED = 'node_selected.png';
   static const String IMAGES_TILES_TERRAIN = 'tiles_terrain.png';
-  static const String IMAGES_BUILDINGS_COOPER_FURNACE =
-      'buildings/cooper_furnace.png';
-  static const String IMAGES_BUILDINGS_COOPER_MINE =
-      'buildings/cooper_mine.png';
+  static const String IMAGES_BUILDINGS_COPPER_MINE =
+      'buildings/copper_mine.png';
   static const String IMAGES_BUILDINGS_COAL_MINE = 'buildings/coal_mine.png';
-  static const String IMAGES_RESOURCES_COOPER_BLOCK =
-      'resources/cooper_block.png';
+  static const String IMAGES_BUILDINGS_COPPER_FURNACE =
+      'buildings/copper_furnace.png';
+  static const String IMAGES_RESOURCES_COPPER_ORE = 'resources/copper_ore.png';
   static const String IMAGES_RESOURCES_COAL_ORE = 'resources/coal_ore.png';
-  static const String IMAGES_RESOURCES_COOPER_ORE = 'resources/cooper_ore.png';
+  static const String IMAGES_RESOURCES_COPPER_BLOCK =
+      'resources/copper_block.png';
   static const String IMAGES_PATCHES_COAL_PATCH = 'patches/coal_patch.png';
   static const String IMAGES_PATCHES_STONE_PATCH = 'patches/stone_patch.png';
-  static const String IMAGES_PATCHES_COOPER_PATCH = 'patches/cooper_patch.png';
+  static const String IMAGES_PATCHES_COPPER_PATCH = 'patches/copper_patch.png';
   static const String TILES_TERRAIN = 'terrain.tsx';
 }

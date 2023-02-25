@@ -2,8 +2,8 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/producers/coal_mine.dart';
-import 'package:tensionnode/components/game/producers/cooper_mine.dart';
-import 'package:tensionnode/components/game/transformers/cooper_furnace.dart';
+import 'package:tensionnode/components/game/producers/copper_mine.dart';
+import 'package:tensionnode/components/game/transformers/copper_furnace.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_buildings.dart';
 import 'package:tensionnode/json/json_match.dart';
@@ -18,8 +18,8 @@ class GameState extends BaseState {
   bool loaded = false;
 
   final List<CoalMine> coalMines = [];
-  final List<CooperMine> cooperMines = [];
-  final List<CooperFurnace> cooperFurnaces = [];
+  final List<CopperMine> copperMines = [];
+  final List<CopperFurnace> copperFurnaces = [];
   final List<Node> allNodes = [];
   final Map<ResourceType, List<Patch>> patches = {};
   final Inventory inventory = Inventory();
@@ -29,7 +29,7 @@ class GameState extends BaseState {
     _totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
     patches[ResourceType.coal_ore] = [];
-    patches[ResourceType.cooper_ore] = [];
+    patches[ResourceType.copper_ore] = [];
   }
 
   void addToInventory({
@@ -79,10 +79,10 @@ class GameState extends BaseState {
   void addNode(Node node) {
     if (node is CoalMine) {
       coalMines.add(node);
-    } else if (node is CooperMine) {
-      cooperMines.add(node);
-    } else if (node is CooperFurnace) {
-      cooperFurnaces.add(node);
+    } else if (node is CopperMine) {
+      copperMines.add(node);
+    } else if (node is CopperFurnace) {
+      copperFurnaces.add(node);
     }
 
     allNodes.add(node);
@@ -91,10 +91,10 @@ class GameState extends BaseState {
   void removeNode(Node node) {
     if (node is CoalMine) {
       coalMines.remove(node);
-    } else if (node is CooperMine) {
-      cooperMines.remove(node);
-    } else if (node is CooperFurnace) {
-      cooperFurnaces.remove(node);
+    } else if (node is CopperMine) {
+      copperMines.remove(node);
+    } else if (node is CopperFurnace) {
+      copperFurnaces.remove(node);
     }
 
     allNodes.remove(node);
@@ -108,12 +108,12 @@ class GameState extends BaseState {
       map: jsonMatch.map.withCamera(camera),
       buildings: JsonBuildings(
         coalMines: coalMines.map((e) => e.json).toList(),
-        cooperMines: cooperMines.map((e) => e.json).toList(),
-        cooperFurnaces: cooperFurnaces.map((e) => e.json).toList(),
+        copperMines: copperMines.map((e) => e.json).toList(),
+        copperFurnaces: copperFurnaces.map((e) => e.json).toList(),
       ),
       patches: JsonPatches(
         coal: patches[ResourceType.coal_ore]!.map((e) => e.json).toList(),
-        cooper: patches[ResourceType.cooper_ore]!.map((e) => e.json).toList(),
+        copper: patches[ResourceType.copper_ore]!.map((e) => e.json).toList(),
       ),
     );
   }

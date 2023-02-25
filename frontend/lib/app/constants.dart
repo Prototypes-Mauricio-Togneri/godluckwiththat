@@ -40,7 +40,7 @@ class Constants {
 			"location": [4, -4],
 			"amount": 1000
 		}],
-		"cooper": [{
+		"copper": [{
 			"location": [-5, 5],
 			"amount": 1000
 		}, {
@@ -62,11 +62,11 @@ class Constants {
 			"location": [5, -3],
 			"connections": []
 		}],
-		"cooper_mines": [{
+		"copper_mines": [{
 			"location": [-5, 5],
 			"connections": []
 		}],
-		"cooper_furnaces": [{
+		"copper_furnaces": [{
 			"location": [0, 0],
 			"connections": []
 		}]
@@ -85,9 +85,6 @@ class Constants {
 		"location": [0, 0],
 		"zoom": 8
 	},
-	"coal_mines": [],
-	"cooper_mines": [],
-	"cooper_furnaces": [],
 }
 ''';
 
