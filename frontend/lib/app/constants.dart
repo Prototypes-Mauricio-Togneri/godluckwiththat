@@ -7,11 +7,9 @@ class Constants {
 
   static const double NODE_SIZE = 8;
 
-  static const double ROAD_SPEED = 1; // 1 tile per second
+  static const double ROBOT_SPEED = 1; // 1 tile per second
 
-  static const num TIME_TO_NEXT_WAVE = 60; // in seconds
-
-  static const int TRANSFORMER_RESOURCE_QUEUE_LIMIT = 6;
+  static const int TRANSFORMER_RESOURCE_QUEUE_LIMIT = 10;
 
   static String TEST_MATCH = '''
 {
@@ -24,120 +22,13 @@ class Constants {
 		"location": [0, 0],
 		"zoom": 8
 	},
-	"headquarters": {
-		"location": [0, 0],
-		"inventory": {
-			"timber": 0,
-			"stone": 0,
-			"wood": 0
-		},
-		"connections": [
-			[-2, 0],
-			[2, 0]
-		]
-	},
-	"woodcutters": [{
+	"coal_mines": [{
 		"location": [5, -3],
-		"connections": [
-			[5, 0]
-		]
+		"connections": []
 	}],
-	"quarries": [{
-		"location": [-6, 4],
-		"connections": [
-			[0, 4]
-		]
-	}],
-	"wells": [{
-		"location": [2, 2],
-		"connections": [
-			[2, 0]
-		]
-	}],
-	"fishers": [{
-		"location": [5, 5],
-		"connections": [
-			[5, 0]
-		]
-	}],
-	"hunters": [{
-		"location": [7, -3],
-		"connections": [
-			[7, 0]
-		]
-	}],
-	"cropFarms": [{
-		"location": [-6, -2],
-		"connections": [
-			[-6, 0]
-		]
-	}],
-	"saweries": [{
+	"cooper_furnaces": [{
 		"location": [2, -2],
-		"connections": [
-			[2, 0]
-
-		]
-	}],
-	"mills": [{
-		"location": [-4, -2],
-		"connections": [
-			[-4, 0]
-		]
-	}],
-	"bakeries": [{
-		"location": [-2, -2],
-		"connections": [
-			[-2, 0]
-		]
-	}],
-	"flags": [{
-		"location": [2, 0],
-		"connections": [
-			[2, -2],
-			[0, 0],
-			[5, 0],
-			[2, 2]
-		]
-	}, {
-		"location": [5, 0],
-		"connections": [
-			[5, -3],
-			[2, 0],
-			[5, 5]
-		]
-	}, {
-		"location": [0, 4],
-		"connections": [
-			[0, 0],
-			[-6, 4]
-		]
-	}, {
-		"location": [7, 0],
-		"connections": [
-			[7, -3],
-			[5, 0]
-		]
-	}, {
-		"location": [-6, 0],
-		"connections": [
-			[-6, -2],
-			[-4, 0]
-		]
-	}, {
-		"location": [-4, 0],
-		"connections": [
-			[-4, -2],
-			[-6, 0],
-			[-2, 0]
-		]
-	}, {
-		"location": [-2, 0],
-		"connections": [
-			[-2, -2],
-			[-4, 0],
-			[0, 0]
-		]
+		"connections": []
 	}]
 }
 ''';
@@ -153,21 +44,8 @@ class Constants {
 		"location": [0, 0],
 		"zoom": 8
 	},
-	"headquarters": {
-		"location": [0, 0],
-		"inventory": {},
-		"connections": {}
-	},
-	"woodcutters": [],
-	"quarries": [],
-	"wells": [],
-	"fishers": [],
-	"hunters": [],
-	"cropFarms": [],
-	"saweries": [],
-	"mills": [],
-	"bakeries": [],
-	"flags": []
+	"coal_mine": [],
+	"cooper_furnace": [],
 }
 ''';
 

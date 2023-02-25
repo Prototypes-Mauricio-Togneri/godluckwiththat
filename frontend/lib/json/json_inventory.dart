@@ -6,55 +6,25 @@ part 'json_inventory.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonInventory {
-  @JsonKey(name: 'timber')
-  final int timber;
+  @JsonKey(name: 'coal_ore')
+  final int coalOre;
 
-  @JsonKey(name: 'stone')
-  final int stone;
+  @JsonKey(name: 'cooper_ore')
+  final int cooperOre;
 
-  @JsonKey(name: 'wood')
-  final int wood;
-
-  @JsonKey(name: 'water')
-  final int water;
-
-  @JsonKey(name: 'fish')
-  final int fish;
-
-  @JsonKey(name: 'meat')
-  final int meat;
-
-  @JsonKey(name: 'grain')
-  final int grain;
-
-  @JsonKey(name: 'flour')
-  final int flour;
-
-  @JsonKey(name: 'bread')
-  final int bread;
+  @JsonKey(name: 'bronze')
+  final int bronze;
 
   const JsonInventory({
-    this.timber = 0,
-    this.stone = 0,
-    this.wood = 0,
-    this.water = 0,
-    this.fish = 0,
-    this.meat = 0,
-    this.grain = 0,
-    this.flour = 0,
-    this.bread = 0,
+    this.coalOre = 0,
+    this.cooperOre = 0,
+    this.bronze = 0,
   });
 
-  Inventory get inventory => Inventory(
-        timber: timber,
-        stone: stone,
-        wood: wood,
-        water: water,
-        fish: fish,
-        meat: meat,
-        grain: grain,
-        flour: flour,
-        bread: bread,
+  Inventory get inventory => Inventory.fromList(
+        coalOre: coalOre,
+        cooperOre: cooperOre,
+        bronze: bronze,
       );
 
   factory JsonInventory.fromString(String json) =>

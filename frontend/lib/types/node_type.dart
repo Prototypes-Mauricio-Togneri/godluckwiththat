@@ -1,67 +1,13 @@
 import 'package:tensionnode/services/assets.dart';
 
 enum NodeType {
-  flag(
-    sprite: Assets.IMAGES_BUILDINGS_FLAG,
-    productionTime: 0,
-    costWood: 0,
-    costStone: 0,
-  ),
-  headquarters(
-    sprite: Assets.IMAGES_BUILDINGS_HEADQUARTERS,
-    productionTime: 0,
-    costWood: 0,
-    costStone: 0,
-  ),
-  woodcutter(
+  coal_mine(
     sprite: Assets.IMAGES_BUILDINGS_WOODCUTTER,
     productionTime: 10,
     costWood: 2,
     costStone: 0,
   ),
-  quarry(
-    sprite: Assets.IMAGES_BUILDINGS_QUARRY,
-    productionTime: 10,
-    costWood: 2,
-    costStone: 0,
-  ),
-  well(
-    sprite: Assets.IMAGES_BUILDINGS_WELL,
-    productionTime: 10,
-    costWood: 2,
-    costStone: 0,
-  ),
-  fisher(
-    sprite: Assets.IMAGES_BUILDINGS_FISHER,
-    productionTime: 10,
-    costWood: 2,
-    costStone: 0,
-  ),
-  hunter(
-    sprite: Assets.IMAGES_BUILDINGS_HUNTER,
-    productionTime: 10,
-    costWood: 2,
-    costStone: 0,
-  ),
-  crop_farm(
-    sprite: Assets.IMAGES_BUILDINGS_CROP_FARM,
-    productionTime: 10,
-    costWood: 3,
-    costStone: 3,
-  ),
-  mill(
-    sprite: Assets.IMAGES_BUILDINGS_MILL,
-    productionTime: 10,
-    costWood: 2,
-    costStone: 2,
-  ),
-  bakery(
-    sprite: Assets.IMAGES_BUILDINGS_BAKERY,
-    productionTime: 10,
-    costWood: 2,
-    costStone: 2,
-  ),
-  sawery(
+  cooper_furnace(
     sprite: Assets.IMAGES_BUILDINGS_SAWERY,
     productionTime: 10,
     costWood: 2,
@@ -79,6 +25,4 @@ enum NodeType {
     required this.costWood,
     required this.costStone,
   });
-
-  bool get canBeBuilt => (this != flag) && (this != headquarters);
 }

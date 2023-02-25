@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/json/json_flag.dart';
-import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_producer.dart';
 import 'package:tensionnode/json/json_transformer.dart';
@@ -22,55 +20,19 @@ class JsonMatch {
   @JsonKey(name: 'map')
   final JsonMap map;
 
-  @JsonKey(name: 'headquarters')
-  final JsonHeadquarters headquarters;
+  @JsonKey(name: 'coal_mines')
+  final List<JsonProducer> coalMines;
 
-  @JsonKey(name: 'woodcutters')
-  final List<JsonProducer> woodcutters;
-
-  @JsonKey(name: 'quarries')
-  final List<JsonProducer> quarries;
-
-  @JsonKey(name: 'wells')
-  final List<JsonProducer> wells;
-
-  @JsonKey(name: 'fishers')
-  final List<JsonProducer> fishers;
-
-  @JsonKey(name: 'hunters')
-  final List<JsonProducer> hunters;
-
-  @JsonKey(name: 'cropFarms')
-  final List<JsonProducer> cropFarms;
-
-  @JsonKey(name: 'saweries')
-  final List<JsonTransformer> saweries;
-
-  @JsonKey(name: 'mills')
-  final List<JsonTransformer> mills;
-
-  @JsonKey(name: 'bakeries')
-  final List<JsonTransformer> bakeries;
-
-  @JsonKey(name: 'flags')
-  final List<JsonFlag> flags;
+  @JsonKey(name: 'cooper_furnaces')
+  final List<JsonTransformer> cooperFurnaces;
 
   const JsonMatch({
     required this.version,
     required this.id,
     required this.totalTimeElapsed,
     required this.map,
-    required this.headquarters,
-    required this.woodcutters,
-    required this.quarries,
-    required this.wells,
-    required this.fishers,
-    required this.hunters,
-    required this.cropFarms,
-    required this.saweries,
-    required this.mills,
-    required this.bakeries,
-    required this.flags,
+    required this.coalMines,
+    required this.cooperFurnaces,
   });
 
   factory JsonMatch.fromString(String json) =>

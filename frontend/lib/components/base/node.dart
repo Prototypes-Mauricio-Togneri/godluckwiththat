@@ -4,8 +4,7 @@ import 'package:flame/events.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/location.dart';
-import 'package:tensionnode/models/road.dart';
-import 'package:tensionnode/models/routed_resource.dart';
+import 'package:tensionnode/models/routed_robot.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
@@ -13,7 +12,6 @@ import 'package:tensionnode/types/node_type.dart';
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final NodeType type;
   final Location location;
-  final Roads roads = [];
 
   late final DebugText debugText = DebugText();
 
@@ -34,57 +32,25 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     return super.onLoad();
   }
 
-  void addRoad(Road road) {
-    roads.add(road);
-  }
-
-  void receiveResource(RoutedResource routedResource) {
-    receive(routedResource);
+  void receiveResource(RoutedRobot routedRobot) {
+    receive(routedRobot);
 
     if (game.isNodeSelected(this)) {
       game.state.notify();
     }
   }
 
-  void receive(RoutedResource routedResource) {}
+  void receive(RoutedRobot routedRobot) {}
 
-  Road? _roadTo(Location? location) {
-    if (location != null) {
-      for (final Road road in roads) {
-        if (road.target.location == location) {
-          return road;
-        }
-      }
-    }
-
-    return null;
-  }
-
-  double distanceTo(Node node) => location.distanceTo(node.location);
-
-  bool send(RoutedResource? routedResource) {
-    bool sent = false;
-
-    if (routedResource != null) {
-      final Road? road = _roadTo(routedResource.route.first);
-
-      if ((road != null) && (road.isAvailable)) {
-        road.send(routedResource);
-        game.state.notify();
-        sent = true;
-      }
-    }
-
-    return sent;
-  }
-
-  void removeRequest(RoutedResource? routedResource) {
-    if (routedResource != null) {
-      game.state.resourceManager.removeRequest(routedResource.request);
-    }
+  void send(RoutedRobot routedRobot) {
+    // TODO(momo): implement
+    //road.send(routedResource);
+    //game.state.notify();
   }
 
   bool isAt(Location location) => this.location == location;
+
+  double distanceTo(Node node) => location.distanceTo(node.location);
 
   @override
   bool onTapUp(TapUpInfo info) => game.selectNode(this);
@@ -94,15 +60,6 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
   void destroy() {
     game.removeNode(this);
-  }
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-
-    for (final Road road in roads) {
-      road.update(dt);
-    }
   }
 }
 

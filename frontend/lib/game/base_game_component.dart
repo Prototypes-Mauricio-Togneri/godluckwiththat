@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/map_component.dart';
-import 'package:tensionnode/components/game/moving_resource.dart';
+import 'package:tensionnode/components/game/moving_robot.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/game/map_handler.dart';
@@ -25,10 +25,9 @@ class BaseGameComponent extends FlameGame
         HasCollisionDetection {
   final GameState state;
   final Component _layerBackground = Component(priority: 0);
-  final Component _layerPaths = Component(priority: 1);
-  final Component _layerNodes = Component(priority: 2);
-  final Component _resourcesNodes = Component(priority: 3);
-  final Component _layerHud = Component(priority: 4)
+  final Component _layerNodes = Component(priority: 1);
+  final Component _layerRobots = Component(priority: 2);
+  final Component _layerHud = Component(priority: 3)
     ..positionType = PositionType.viewport;
 
   BaseGameComponent(this.state);
@@ -53,8 +52,7 @@ class BaseGameComponent extends FlameGame
 
     add(_layerBackground);
     add(_layerNodes);
-    add(_layerPaths);
-    add(_resourcesNodes);
+    add(_layerRobots);
     add(_layerHud);
 
     final JsonLocation cameraLocation = jsonMatch.map.location;
@@ -72,22 +70,20 @@ class BaseGameComponent extends FlameGame
   Color backgroundColor() => Palette.gameBackground;
 
   void addComponent(Component component) {
-    if (component is MovingResource) {
-      _resourcesNodes.add(component);
+    if (component is MovingRobot) {
+      _layerRobots.add(component);
     } else {
       _layerNodes.add(component);
     }
   }
 
   void removeComponent(Component component) {
-    if (component is MovingResource) {
-      _resourcesNodes.remove(component);
+    if (component is MovingRobot) {
+      _layerRobots.remove(component);
     } else {
       _layerNodes.remove(component);
     }
   }
-
-  void addToPathsLayer(Component component) => _layerPaths.add(component);
 
   void _addToBackgroundLayer(Component component) =>
       _layerBackground.add(component);

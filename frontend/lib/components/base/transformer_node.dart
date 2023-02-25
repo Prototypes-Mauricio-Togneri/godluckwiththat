@@ -1,11 +1,6 @@
-import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/idle_sign.dart';
-import 'package:tensionnode/components/game/warning_sign.dart';
-import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/json/json_transformer.dart';
-import 'package:tensionnode/models/resource_manager.dart';
-import 'package:tensionnode/models/routed_resource.dart';
+import 'package:tensionnode/models/routed_robot.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -31,13 +26,14 @@ class TransformerNode extends Node {
 
   @override
   Future onLoad() {
-    for (final MapEntry<ResourceType, int> entry
+    /*for (final MapEntry<ResourceType, int> entry
         in _resourcesRequired.entries) {
       _requestResources(
         Constants.TRANSFORMER_RESOURCE_QUEUE_LIMIT - entry.value,
         entry.key,
       );
-    }
+    }*/
+
     _startProducing();
 
     return super.onLoad();
@@ -57,7 +53,7 @@ class TransformerNode extends Node {
     }
   }
 
-  bool get _hasEnoughResources {
+  /*bool get _hasEnoughResources {
     for (final int amount in _resourcesRequired.values) {
       if (amount == 0) {
         return false;
@@ -65,11 +61,11 @@ class TransformerNode extends Node {
     }
 
     return true;
-  }
+  }*/
 
   void _startProducing() {
     if (_state.isIdle) {
-      if (_hasEnoughResources) {
+      /*if (_hasEnoughResources) {
         for (final ResourceType key in _resourcesRequired.keys) {
           _resourcesRequired[key] = _resourcesRequired[key]! - 1;
           _requestResources(1, key);
@@ -80,7 +76,7 @@ class TransformerNode extends Node {
       } else {
         removeComponents(IdleSign);
         add(IdleSign());
-      }
+      }*/
     }
   }
 
@@ -94,16 +90,16 @@ class TransformerNode extends Node {
   }
 
   @override
-  void receive(RoutedResource routedResource) {
-    if (!routedResource.isDestination(this)) {
+  void receive(RoutedRobot routedRobot) {
+    /*if (!routedRobot.isDestination(this)) {
       throw Exception(
-          'Routed resource $routedResource arrived to $runtimeType $this without being the destination');
+          'Routed resource $routedRobot arrived to $runtimeType $this without being the destination');
     }
 
     bool resourceFound = false;
 
     for (final ResourceType key in _resourcesRequired.keys) {
-      if (routedResource.has(key)) {
+      if (routedRobot.has(key)) {
         _resourcesRequired[key] = _resourcesRequired[key]! + 1;
         resourceFound = true;
       }
@@ -111,14 +107,14 @@ class TransformerNode extends Node {
 
     if (!resourceFound) {
       throw Exception(
-          'Routed resource $routedResource arrived to $runtimeType $this without being flour or water');
-    }
+          'Routed resource $routedRobot arrived to $runtimeType $this without being flour or water');
+    }*/
 
     _startProducing();
   }
 
   void _sendResource() {
-    final RoutedResource? routedResource = game.state.resourceManager.search(
+    /*final RoutedRobot routedResource = game.state.resourceManager.search(
       origin: this,
       resource: resourceProduced,
     );
@@ -133,23 +129,11 @@ class TransformerNode extends Node {
       _startProducing();
     } else {
       add(WarningSign());
-    }
-  }
-
-  void _requestResources(int amount, ResourceType resource) {
-    for (int i = 0; i < amount; i++) {
-      game.state.resourceManager.addRequest(
-        ResourceRequest(
-          requester: this,
-          resource: resource,
-          priority: 1,
-        ),
-      );
-    }
+    }*/
   }
 
   JsonTransformer get json => JsonTransformer(
         location: location.json,
-        connections: roads.map((e) => e.json).toList(),
+        connections: [],
       );
 }

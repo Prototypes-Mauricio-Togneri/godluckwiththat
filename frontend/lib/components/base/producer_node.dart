@@ -1,8 +1,5 @@
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/warning_sign.dart';
-import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/json/json_producer.dart';
-import 'package:tensionnode/models/routed_resource.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -54,26 +51,25 @@ class ProducerNode extends Node {
   }
 
   void _sendResource() {
-    final RoutedResource? routedResource = game.state.resourceManager.search(
+    // TODO(momo): implement
+    /*final RoutedRobot routedRobot = game.state.resourceManager.search(
       origin: this,
       resource: resourceType,
     );
 
-    final bool sent = send(routedResource);
-
-    removeComponents(WarningSign);
+    final bool sent = send(routedRobot);
 
     if (sent) {
-      removeRequest(routedResource);
+      removeRequest(routedRobot);
       _state = BuildingState.idle;
       _startProducing();
     } else {
       add(WarningSign());
-    }
+    }*/
   }
 
   JsonProducer get json => JsonProducer(
         location: location.json,
-        connections: roads.map((e) => e.json).toList(),
+        connections: [],
       );
 }

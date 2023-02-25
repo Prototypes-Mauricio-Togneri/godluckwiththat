@@ -1,28 +1,13 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/sprite_group.dart';
-import 'package:tensionnode/components/game/flag.dart';
-import 'package:tensionnode/components/game/headquarters.dart';
-import 'package:tensionnode/components/game/producers/crop_farm.dart';
-import 'package:tensionnode/components/game/producers/fisher.dart';
-import 'package:tensionnode/components/game/producers/hunter.dart';
-import 'package:tensionnode/components/game/producers/quarry.dart';
-import 'package:tensionnode/components/game/producers/well.dart';
-import 'package:tensionnode/components/game/producers/woodcutter.dart';
-import 'package:tensionnode/components/game/transformers/bakery.dart';
-import 'package:tensionnode/components/game/transformers/mill.dart';
-import 'package:tensionnode/components/game/transformers/sawery.dart';
+import 'package:tensionnode/components/game/producers/coal_mine.dart';
+import 'package:tensionnode/components/game/transformers/cooper_furnace.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
-import 'package:tensionnode/json/json_flag.dart';
-import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/json/json_producer.dart';
 import 'package:tensionnode/json/json_transformer.dart';
-import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
-import 'package:tensionnode/models/new_path.dart';
-import 'package:tensionnode/models/road.dart';
-import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -30,450 +15,41 @@ mixin NodeHandler on BaseGameComponent {
   final Map<String, SpriteGroup> spriteGroups = {};
 
   void loadNodes() {
-    final Map<Node, Locations> nodeConnections = {};
-
-    final JsonHeadquarters json = state.jsonMatch.headquarters;
-
-    final Node node = addHeadquarters(
-      location: json.location.location,
-      inventory: json.inventory.inventory,
-    );
-
-    if (json.connections.isNotEmpty) {
-      nodeConnections[node] = Location.fromList(json.connections);
-    }
-
-    for (final JsonProducer json in state.jsonMatch.woodcutters) {
-      final Node node = addWoodcutter(
+    for (final JsonProducer json in state.jsonMatch.coalMines) {
+      addCoalMine(
         location: json.location.location,
       );
-
-      if (json.connections.isNotEmpty) {
-        nodeConnections[node] = Location.fromList(json.connections);
-      }
     }
 
-    for (final JsonProducer json in state.jsonMatch.quarries) {
-      final Node node = addQuarry(
+    for (final JsonTransformer json in state.jsonMatch.cooperFurnaces) {
+      addCooperFurnace(
         location: json.location.location,
       );
-
-      if (json.connections.isNotEmpty) {
-        nodeConnections[node] = Location.fromList(json.connections);
-      }
     }
-
-    for (final JsonProducer json in state.jsonMatch.wells) {
-      final Node node = addWell(
-        location: json.location.location,
-      );
-
-      if (json.connections.isNotEmpty) {
-        nodeConnections[node] = Location.fromList(json.connections);
-      }
-    }
-
-    for (final JsonProducer json in state.jsonMatch.fishers) {
-      final Node node = addFisher(
-        location: json.location.location,
-      );
-
-      if (json.connections.isNotEmpty) {
-        nodeConnections[node] = Location.fromList(json.connections);
-      }
-    }
-
-    for (final JsonProducer json in state.jsonMatch.hunters) {
-      final Node node = addHunter(
-        location: json.location.location,
-      );
-
-      if (json.connections.isNotEmpty) {
-        nodeConnections[node] = Location.fromList(json.connections);
-      }
-    }
-
-    for (final JsonProducer json in state.jsonMatch.cropFarms) {
-      final Node node = addCropFarm(
-        location: json.location.location,
-      );
-
-      if (json.connections.isNotEmpty) {
-        nodeConnections[node] = Location.fromList(json.connections);
-      }
-    }
-
-    for (final JsonTransformer json in state.jsonMatch.saweries) {
-      final Node node = addSawery(
-        location: json.location.location,
-      );
-
-      if (json.connections.isNotEmpty) {
-        nodeConnections[node] = Location.fromList(json.connections);
-      }
-    }
-
-    for (final JsonTransformer json in state.jsonMatch.mills) {
-      final Node node = addMill(
-        location: json.location.location,
-      );
-
-      if (json.connections.isNotEmpty) {
-        nodeConnections[node] = Location.fromList(json.connections);
-      }
-    }
-
-    for (final JsonTransformer json in state.jsonMatch.bakeries) {
-      final Node node = addBakery(
-        location: json.location.location,
-      );
-
-      if (json.connections.isNotEmpty) {
-        nodeConnections[node] = Location.fromList(json.connections);
-      }
-    }
-
-    for (final JsonFlag json in state.jsonMatch.flags) {
-      final Node node = addFlag(
-        location: json.location.location,
-      );
-
-      if (json.connections.isNotEmpty) {
-        nodeConnections[node] = Location.fromList(json.connections);
-      }
-    }
-
-    for (final MapEntry<Node, Locations> entry
-        in nodeConnections.entries) {
-      final Node originNode = entry.key;
-
-      for (final Location location in entry.value) {
-        final Node targetNode = state.nodeAt(location);
-        final Road road = Road(originNode, targetNode);
-        originNode.addRoad(road);
-        state.resourceManager.graph.addConnection(road);
-      }
-    }
-
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH1A);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH1B);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH1C);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH1D);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH2A);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH2B);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH3A);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH3B);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH3C);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH3D);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH4A);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH4B);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH4C);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH4D);
-    _addSpriteGroup(Assets.IMAGES_PATHS_PATH5A);
-
-    reloadPaths();
   }
 
-  void _addSpriteGroup(String sprite) {
+  /*void _addSpriteGroup(String sprite) {
     final SpriteGroup spriteGroup = SpriteGroup(sprite);
     spriteGroups[sprite] = spriteGroup;
     addToPathsLayer(spriteGroup);
-  }
+  }*/
 
-  void reloadPaths() {
-    final Set<Location> locations = {};
-
-    for (final Node node in state.allNodes) {
-      locations.addAll(_pathLocations(node.roads));
-    }
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH1A,
-      north: false,
-      south: true,
-      east: false,
-      west: false,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH1B,
-      north: false,
-      south: false,
-      east: false,
-      west: true,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH1C,
-      north: true,
-      south: false,
-      east: false,
-      west: false,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH1D,
-      north: false,
-      south: false,
-      east: true,
-      west: false,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH2A,
-      north: true,
-      south: true,
-      east: false,
-      west: false,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH2B,
-      north: false,
-      south: false,
-      east: true,
-      west: true,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH3A,
-      north: false,
-      south: true,
-      east: false,
-      west: true,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH3B,
-      north: true,
-      south: false,
-      east: false,
-      west: true,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH3C,
-      north: true,
-      south: false,
-      east: true,
-      west: false,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH3D,
-      north: false,
-      south: true,
-      east: true,
-      west: false,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH4A,
-      north: true,
-      south: false,
-      east: true,
-      west: true,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH4B,
-      north: true,
-      south: true,
-      east: true,
-      west: false,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH4C,
-      north: false,
-      south: true,
-      east: true,
-      west: true,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH4D,
-      north: true,
-      south: true,
-      east: false,
-      west: true,
-    );
-
-    _fillPaths(
-      locations: locations,
-      sprite: Assets.IMAGES_PATHS_PATH5A,
-      north: true,
-      south: true,
-      east: true,
-      west: true,
-    );
-  }
-
-  void _fillPaths({
-    required Set<Location> locations,
-    required String sprite,
-    required bool north,
-    required bool south,
-    required bool east,
-    required bool west,
-  }) {
-    final Set<Location> list = _pathMatches(
-      locations: locations,
-      north: north,
-      south: south,
-      east: east,
-      west: west,
-    );
-
-    spriteGroups[sprite]!.load(list.toList());
-  }
-
-  Set<Location> _pathMatches({
-    required Set<Location> locations,
-    required bool north,
-    required bool south,
-    required bool east,
-    required bool west,
-  }) {
-    final Set<Location> result = {};
-
-    for (final Location location in locations) {
-      final bool hasNorth =
-          locations.contains(Location(location.i, location.j - 1));
-      final bool hasSouth =
-          locations.contains(Location(location.i, location.j + 1));
-      final bool hasEast =
-          locations.contains(Location(location.i + 1, location.j));
-      final bool hasWest =
-          locations.contains(Location(location.i - 1, location.j));
-
-      if ((hasNorth == north) &&
-          (hasSouth == south) &&
-          (hasEast == east) &&
-          (hasWest == west)) {
-        result.add(location);
-      }
-    }
-
-    return result;
-  }
-
-  Set<Location> _pathLocations(Roads roads) {
-    final Set<Location> result = {};
-
-    for (final Road road in roads) {
-      final Location origin = road.origin.location;
-      final Location target = road.target.location;
-      final NewPath newPath = NewPath(origin, target);
-      result.addAll(newPath.intermediateLocations);
-    }
-
-    return result;
-  }
-
-  Node addHeadquarters({
-    required Location location,
-    required Inventory inventory,
-  }) =>
-      addNode(Headquarters(
-        type: NodeType.headquarters,
-        location: location,
-        inventory: inventory,
-      ));
-
-  Node addWoodcutter({
+  Node addCoalMine({
     required Location location,
   }) =>
-      addNode(Woodcutter(
+      addNode(CoalMine(
         location: location,
       ));
 
-  Node addQuarry({
+  Node addCooperFurnace({
     required Location location,
   }) =>
-      addNode(Quarry(
-        location: location,
-      ));
-
-  Node addWell({
-    required Location location,
-  }) =>
-      addNode(Well(
-        location: location,
-      ));
-
-  Node addFisher({
-    required Location location,
-  }) =>
-      addNode(Fisher(
-        location: location,
-      ));
-
-  Node addHunter({
-    required Location location,
-  }) =>
-      addNode(Hunter(
-        location: location,
-      ));
-
-  Node addCropFarm({
-    required Location location,
-  }) =>
-      addNode(CropFarm(
-        location: location,
-      ));
-
-  Node addSawery({
-    required Location location,
-  }) =>
-      addNode(Sawery(
+      addNode(CooperFurnace(
         location: location,
         resourcesRequired: [
-          ResourceType.timber,
+          ResourceType.coal_ore,
+          ResourceType.cooper_ore,
         ],
-      ));
-
-  Node addMill({
-    required Location location,
-  }) =>
-      addNode(Mill(
-        location: location,
-        resourcesRequired: [
-          ResourceType.grain,
-        ],
-      ));
-
-  Node addBakery({
-    required Location location,
-  }) =>
-      addNode(Bakery(
-        location: location,
-        resourcesRequired: [
-          ResourceType.flour,
-          ResourceType.water,
-        ],
-      ));
-
-  Node addFlag({
-    required Location location,
-  }) =>
-      addNode(Flag(
-        type: NodeType.flag,
-        location: location,
       ));
 
   Node addNode(Node node) {
@@ -492,66 +68,22 @@ mixin NodeHandler on BaseGameComponent {
     }
   }
 
-  void onGameOver() {}
-
   void buildNode({
     required Location location,
     required NodeType type,
     required MapTile tile,
   }) {
     switch (type) {
-      case NodeType.flag:
-      case NodeType.headquarters:
-        break;
-      case NodeType.woodcutter:
+      case NodeType.coal_mine:
         if (tile.isForest) {
-          addWoodcutter(location: location);
+          addCoalMine(location: location);
         }
         break;
-      case NodeType.quarry:
-        if (tile.isStone) {
-          addQuarry(location: location);
-        }
-        break;
-      case NodeType.well:
+      case NodeType.cooper_furnace:
         if (tile.isGrass) {
-          addWell(location: location);
-        }
-        break;
-      case NodeType.fisher:
-        if (tile.isGrass) {
-          addFisher(location: location);
-        }
-        break;
-      case NodeType.hunter:
-        if (tile.isForest) {
-          addHunter(location: location);
-        }
-        break;
-      case NodeType.crop_farm:
-        if (tile.isGrass) {
-          addCropFarm(location: location);
-        }
-        break;
-      case NodeType.mill:
-        if (tile.isGrass) {
-          addMill(location: location);
-        }
-        break;
-      case NodeType.bakery:
-        if (tile.isGrass) {
-          addBakery(location: location);
-        }
-        break;
-      case NodeType.sawery:
-        if (tile.isGrass) {
-          addSawery(location: location);
+          addCooperFurnace(location: location);
         }
         break;
     }
-  }
-
-  void buildPath(NewPath newPath) {
-    state.addPath(newPath);
   }
 }
