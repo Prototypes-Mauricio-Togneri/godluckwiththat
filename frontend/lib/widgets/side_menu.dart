@@ -1,13 +1,11 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/components/base/producer_node.dart';
-import 'package:tensionnode/components/base/transformer_node.dart';
+import 'package:tensionnode/components/base/building.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/widgets/buildings/producer_menu.dart';
-import 'package:tensionnode/widgets/buildings/transformer_menu.dart';
+import 'package:tensionnode/widgets/buildings/building_menu.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
 class SideMenu extends StatelessWidget {
@@ -37,13 +35,8 @@ class SideMenu extends StatelessWidget {
   }
 
   Widget _showSelectedNode() {
-    if (game.selectedNode() is ProducerNode) {
-      return ProducerMenu(
-        game,
-        game.selectedNode(),
-      );
-    } else if (game.selectedNode() is TransformerNode) {
-      return TransformerMenu(
+    if (game.selectedNode() is Building) {
+      return BuildingMenu(
         game,
         game.selectedNode(),
       );

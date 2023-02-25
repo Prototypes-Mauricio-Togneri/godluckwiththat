@@ -1,20 +1,19 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/json/json_producer.dart';
-import 'package:tensionnode/json/json_transformer.dart';
+import 'package:tensionnode/json/json_building.dart';
 
 part 'json_buildings.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonBuildings {
   @JsonKey(name: 'coal_mines')
-  final List<JsonProducer> coalMines;
+  final List<JsonBuilding> coalMines;
 
   @JsonKey(name: 'cooper_mines')
-  final List<JsonProducer> cooperMines;
+  final List<JsonBuilding> cooperMines;
 
   @JsonKey(name: 'cooper_furnaces')
-  final List<JsonTransformer> cooperFurnaces;
+  final List<JsonBuilding> cooperFurnaces;
 
   const JsonBuildings({
     required this.coalMines,

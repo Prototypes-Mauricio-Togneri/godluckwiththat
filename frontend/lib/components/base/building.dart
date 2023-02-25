@@ -1,19 +1,18 @@
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/json/json_transformer.dart';
+import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/models/routed_robot.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class TransformerNode extends Node {
+class Building extends Node {
   num _accumulatedTime = 0; // TODO(momo): receive as parameter
   BuildingState _state = BuildingState.idle; // TODO(momo): receive as parameter
-  final Map<ResourceType, int> _input =
-      {}; // TODO(momo): receive as parameter
-  int _output = 0;
+  final Map<ResourceType, int> _input = {}; // TODO(momo): receive as parameter
+  int _output = 0; // TODO(momo): receive as parameter
   final ResourceType resourceProduced;
 
-  TransformerNode({
+  Building({
     required super.type,
     required super.location,
     required this.resourceProduced,
@@ -59,7 +58,9 @@ class TransformerNode extends Node {
   }
 
   void _startProducing() {
-    if (_state.isIdle && _hasEnoughResources && (_output < Constants.OUTPUT_QUEUE_LIMIT)) {
+    if (_state.isIdle &&
+        _hasEnoughResources &&
+        (_output < Constants.OUTPUT_QUEUE_LIMIT)) {
       for (final ResourceType key in _input.keys) {
         _input[key] = _input[key]! - 1;
       }
@@ -135,7 +136,7 @@ class TransformerNode extends Node {
     }
   }
 
-  JsonTransformer get json => JsonTransformer(
+  JsonBuilding get json => JsonBuilding(
         location: location.json,
         connections: [],
       );

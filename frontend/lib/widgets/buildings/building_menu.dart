@@ -1,19 +1,19 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/app/constants.dart';
+import 'package:tensionnode/components/base/building.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/base/transformer_node.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
-class TransformerMenu extends StatelessWidget {
+class BuildingMenu extends StatelessWidget {
   final GameComponent game;
-  final TransformerNode node;
+  final Building node;
 
-  const TransformerMenu(this.game, this.node);
+  const BuildingMenu(this.game, this.node);
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +45,7 @@ class TransformerMenu extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      for (int i = 1;
-                          i <= Constants.OUTPUT_QUEUE_LIMIT;
-                          i++)
+                      for (int i = 1; i <= Constants.OUTPUT_QUEUE_LIMIT; i++)
                         SizedBox(
                           width: 30,
                           height: 30,

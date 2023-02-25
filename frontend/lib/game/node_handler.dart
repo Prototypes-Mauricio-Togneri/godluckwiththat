@@ -5,9 +5,8 @@ import 'package:tensionnode/components/game/producers/cooper_mine.dart';
 import 'package:tensionnode/components/game/transformers/cooper_furnace.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
+import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/json/json_patch.dart';
-import 'package:tensionnode/json/json_producer.dart';
-import 'package:tensionnode/json/json_transformer.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/models/patch.dart';
@@ -19,20 +18,19 @@ mixin NodeHandler on BaseGameComponent {
   final Map<String, SpriteGroup> spriteGroups = {};
 
   void loadNodes() {
-    for (final JsonProducer json in state.jsonMatch.buildings.coalMines) {
+    for (final JsonBuilding json in state.jsonMatch.buildings.coalMines) {
       addCoalMine(
         location: json.location.location,
       );
     }
 
-    for (final JsonProducer json in state.jsonMatch.buildings.cooperMines) {
+    for (final JsonBuilding json in state.jsonMatch.buildings.cooperMines) {
       addCooperMine(
         location: json.location.location,
       );
     }
 
-    for (final JsonTransformer json
-        in state.jsonMatch.buildings.cooperFurnaces) {
+    for (final JsonBuilding json in state.jsonMatch.buildings.cooperFurnaces) {
       addCooperFurnace(
         location: json.location.location,
       );

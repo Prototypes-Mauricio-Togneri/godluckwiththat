@@ -2,26 +2,26 @@ import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 
-part 'json_producer.g.dart';
+part 'json_building.g.dart';
 
 @JsonSerializable(includeIfNull: false)
-class JsonProducer {
+class JsonBuilding {
   @JsonKey(name: 'location')
   final JsonLocation location;
 
   @JsonKey(name: 'connections')
   final List<JsonLocation> connections;
 
-  const JsonProducer({
+  const JsonBuilding({
     required this.location,
     required this.connections,
   });
 
-  factory JsonProducer.fromString(String json) =>
-      JsonProducer.fromJson(jsonDecode(json));
+  factory JsonBuilding.fromString(String json) =>
+      JsonBuilding.fromJson(jsonDecode(json));
 
-  factory JsonProducer.fromJson(Map<String, dynamic> json) =>
-      _$JsonProducerFromJson(json);
+  factory JsonBuilding.fromJson(Map<String, dynamic> json) =>
+      _$JsonBuildingFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JsonProducerToJson(this);
+  Map<String, dynamic> toJson() => _$JsonBuildingToJson(this);
 }

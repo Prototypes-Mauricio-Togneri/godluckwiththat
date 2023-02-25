@@ -9,13 +9,13 @@ part of 'json_buildings.dart';
 JsonBuildings _$JsonBuildingsFromJson(Map<String, dynamic> json) =>
     JsonBuildings(
       coalMines: (json['coal_mines'] as List<dynamic>)
-          .map((e) => JsonProducer.fromJson(e as Map<String, dynamic>))
+          .map((e) => JsonBuilding.fromJson(e as Map<String, dynamic>))
           .toList(),
       cooperMines: (json['cooper_mines'] as List<dynamic>)
-          .map((e) => JsonProducer.fromJson(e as Map<String, dynamic>))
+          .map((e) => JsonBuilding.fromJson(e as Map<String, dynamic>))
           .toList(),
       cooperFurnaces: (json['cooper_furnaces'] as List<dynamic>)
-          .map((e) => JsonTransformer.fromJson(e as Map<String, dynamic>))
+          .map((e) => JsonBuilding.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
