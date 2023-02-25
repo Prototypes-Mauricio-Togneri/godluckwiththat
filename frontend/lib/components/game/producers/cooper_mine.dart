@@ -7,6 +7,6 @@ class CooperMine extends ProducerNode {
     required super.location,
   }) : super(
           type: NodeType.cooper_mine,
-          resourceType: ResourceType.cooper_ore,
+          resourceProduced: ResourceType.cooper_ore,
         );
 }

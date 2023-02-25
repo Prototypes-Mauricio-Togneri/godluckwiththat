@@ -8,12 +8,12 @@ class ProducerNode extends Node {
   num _accumulatedTime = 0; // TODO(momo): receive as parameter
   BuildingState _state = BuildingState.idle; // TODO(momo): receive as parameter
   int _output = 0; // TODO(momo): receive as parameter
-  final ResourceType resourceType;
+  final ResourceType resourceProduced;
 
   ProducerNode({
     required super.type,
     required super.location,
-    required this.resourceType,
+    required this.resourceProduced,
   });
 
   @override
@@ -27,7 +27,7 @@ class ProducerNode extends Node {
   void update(double dt) {
     super.update(dt);
 
-    if (_state.isProducing) {
+    if (_state.isWorking) {
       _produce(dt);
       debugText.text =
           '${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
@@ -38,7 +38,7 @@ class ProducerNode extends Node {
 
   void _startProducing() {
     if (_state.isIdle && (_output < Constants.OUTPUT_QUEUE_LIMIT)) {
-      _state = BuildingState.producing;
+      _state = BuildingState.working;
     }
   }
 
@@ -77,7 +77,7 @@ class ProducerNode extends Node {
   void specialSelect() {
     if (_output > 0) {
       game.state.addToInventory(
-        resourceType: resourceType,
+        resourceType: resourceProduced,
         amount: _output,
       );
       _output = 0;

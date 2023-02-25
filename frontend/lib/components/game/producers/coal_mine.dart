@@ -7,6 +7,6 @@ class CoalMine extends ProducerNode {
     required super.location,
   }) : super(
           type: NodeType.coal_mine,
-          resourceType: ResourceType.coal_ore,
+          resourceProduced: ResourceType.coal_ore,
         );
 }

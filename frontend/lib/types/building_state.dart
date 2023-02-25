@@ -1,11 +1,8 @@
 enum BuildingState {
   idle,
-  producing,
-  finished;
+  working;
 
   bool get isIdle => this == idle;
 
-  bool get isProducing => this == producing;
-
-  bool get isFinished => this == finished;
+  bool get isWorking => this == working;
 }

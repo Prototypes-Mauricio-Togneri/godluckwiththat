@@ -1,3 +1,4 @@
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_transformer.dart';
 import 'package:tensionnode/models/routed_robot.dart';
@@ -7,8 +8,9 @@ import 'package:tensionnode/types/resource_type.dart';
 class TransformerNode extends Node {
   num _accumulatedTime = 0; // TODO(momo): receive as parameter
   BuildingState _state = BuildingState.idle; // TODO(momo): receive as parameter
-  final Map<ResourceType, int> _resourcesRequired =
+  final Map<ResourceType, int> _input =
       {}; // TODO(momo): receive as parameter
+  int _output = 0;
   final ResourceType resourceProduced;
 
   TransformerNode({
@@ -18,22 +20,14 @@ class TransformerNode extends Node {
     required Resources resourcesRequired,
   }) {
     for (final ResourceType resource in resourcesRequired) {
-      _resourcesRequired[resource] = 0;
+      _input[resource] = 0;
     }
   }
 
-  Map<ResourceType, int> get resourcesRequired => _resourcesRequired;
+  Map<ResourceType, int> get resourcesRequired => _input;
 
   @override
   Future onLoad() {
-    /*for (final MapEntry<ResourceType, int> entry
-        in _resourcesRequired.entries) {
-      _requestResources(
-        Constants.TRANSFORMER_RESOURCE_QUEUE_LIMIT - entry.value,
-        entry.key,
-      );
-    }*/
-
     _startProducing();
 
     return super.onLoad();
@@ -43,40 +37,34 @@ class TransformerNode extends Node {
   void update(double dt) {
     super.update(dt);
 
-    if (_state.isProducing) {
+    if (_state.isWorking) {
       _produce(dt);
       debugText.text =
           '${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
-    } else if (_state.isFinished) {
-      _sendResource();
+    } else {
       debugText.text = '';
     }
   }
 
-  /*bool get _hasEnoughResources {
-    for (final int amount in _resourcesRequired.values) {
-      if (amount == 0) {
-        return false;
+  bool get _hasEnoughResources {
+    if (_input.isNotEmpty) {
+      for (final int amount in _input.values) {
+        if (amount == 0) {
+          return false;
+        }
       }
     }
 
     return true;
-  }*/
+  }
 
   void _startProducing() {
-    if (_state.isIdle) {
-      /*if (_hasEnoughResources) {
-        for (final ResourceType key in _resourcesRequired.keys) {
-          _resourcesRequired[key] = _resourcesRequired[key]! - 1;
-          _requestResources(1, key);
-        }
+    if (_state.isIdle && _hasEnoughResources && (_output < Constants.OUTPUT_QUEUE_LIMIT)) {
+      for (final ResourceType key in _input.keys) {
+        _input[key] = _input[key]! - 1;
+      }
 
-        _state = BuildingState.producing;
-        removeComponents(IdleSign);
-      } else {
-        removeComponents(IdleSign);
-        add(IdleSign());
-      }*/
+      _state = BuildingState.working;
     }
   }
 
@@ -85,7 +73,10 @@ class TransformerNode extends Node {
 
     if (_accumulatedTime >= type.productionTime) {
       _accumulatedTime = 0;
-      _state = BuildingState.finished;
+      _output++;
+      _state = BuildingState.idle;
+      _sendResource();
+      _startProducing();
     }
   }
 
@@ -130,6 +121,18 @@ class TransformerNode extends Node {
     } else {
       add(WarningSign());
     }*/
+  }
+
+  @override
+  void specialSelect() {
+    if (_output > 0) {
+      game.state.addToInventory(
+        resourceType: resourceProduced,
+        amount: _output,
+      );
+      _output = 0;
+      _startProducing();
+    }
   }
 
   JsonTransformer get json => JsonTransformer(
