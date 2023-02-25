@@ -25,7 +25,13 @@ class GameState extends BaseState {
 
   GameState(this.jsonMatch) {
     _totalTimeElapsed = jsonMatch.totalTimeElapsed;
+
+    patches[ResourceType.coal_ore] = [];
+    patches[ResourceType.cooper_ore] = [];
   }
+
+  List<Location> patchLocations(ResourceType type) =>
+      patches[type]!.map((e) => e.location).toList();
 
   void setLoaded() {
     loaded = true;

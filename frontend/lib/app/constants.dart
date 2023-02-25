@@ -24,23 +24,35 @@ class Constants {
 	},
 	"patches": {
 		"coal": [{
-			"location": [0, 0],
+			"location": [5, -3],
 			"amount": 1000
 		}, {
-			"location": [0, 0],
+			"location": [5, -4],
 			"amount": 1000
 		}, {
-			"location": [0, 0],
+			"location": [5, -5],
+			"amount": 1000
+		}, {
+			"location": [6, -4],
+			"amount": 1000
+		}, {
+			"location": [4, -4],
 			"amount": 1000
 		}],
 		"cooper": [{
-			"location": [0, 0],
+			"location": [-5, 5],
 			"amount": 1000
 		}, {
-			"location": [0, 0],
+			"location": [-5, 4],
 			"amount": 1000
 		}, {
-			"location": [0, 0],
+			"location": [-5, 6],
+			"amount": 1000
+		}, {
+			"location": [-4, 5],
+			"amount": 1000
+		}, {
+			"location": [-6, 5],
 			"amount": 1000
 		}]
 	},

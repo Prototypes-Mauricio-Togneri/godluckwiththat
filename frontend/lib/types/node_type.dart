@@ -3,13 +3,13 @@ import 'package:tensionnode/services/assets.dart';
 enum NodeType {
   coal_mine(
     sprite: Assets.IMAGES_BUILDINGS_COAL_MINE,
-    productionTime: 10,
+    productionTime: 3,
     costWood: 2,
     costStone: 0,
   ),
   cooper_mine(
     sprite: Assets.IMAGES_BUILDINGS_COOPER_MINE,
-    productionTime: 10,
+    productionTime: 3,
     costWood: 2,
     costStone: 0,
   ),
