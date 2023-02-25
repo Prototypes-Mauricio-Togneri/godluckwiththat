@@ -6,7 +6,7 @@ import 'package:tensionnode/services/assets.dart';
 class IdleSign extends SpriteComponent {
   @override
   Future onLoad() async {
-    sprite = await getSprite(Assets.IMAGES_IDLE_SIGN);
+    sprite = await getSprite(Assets.IMAGES_SIGNS_IDLE_SIGN);
     size = getSize();
     anchor = Anchor.center;
     position = Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);

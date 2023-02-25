@@ -1,45 +1,18 @@
 class Assets {
   static const String AUDIO_SFX_AMMO1 = 'sfx/ammo1.mp3';
   static const String AUDIO_SFX_AMMO2 = 'sfx/ammo2.mp3';
-  static const String IMAGES_PATHS_PATH4A = 'paths/path4a.png';
-  static const String IMAGES_PATHS_PATH1B = 'paths/path1b.png';
-  static const String IMAGES_PATHS_PATH4C = 'paths/path4c.png';
-  static const String IMAGES_PATHS_PATH1A = 'paths/path1a.png';
-  static const String IMAGES_PATHS_PATH5A = 'paths/path5a.png';
-  static const String IMAGES_PATHS_PATH3C = 'paths/path3c.png';
-  static const String IMAGES_PATHS_PATH2A = 'paths/path2a.png';
-  static const String IMAGES_PATHS_PATH4D = 'paths/path4d.png';
-  static const String IMAGES_PATHS_PATH3A = 'paths/path3a.png';
-  static const String IMAGES_PATHS_PATH3B = 'paths/path3b.png';
-  static const String IMAGES_PATHS_PATH1C = 'paths/path1c.png';
-  static const String IMAGES_PATHS_PATH3D = 'paths/path3d.png';
-  static const String IMAGES_PATHS_PATH4B = 'paths/path4b.png';
-  static const String IMAGES_PATHS_PATH2B = 'paths/path2b.png';
-  static const String IMAGES_PATHS_PATH1D = 'paths/path1d.png';
+  static const String IMAGES_SIGNS_WARNING_SIGN = 'signs/warning_sign.png';
+  static const String IMAGES_SIGNS_IDLE_SIGN = 'signs/idle_sign.png';
   static const String IMAGES_NODE_SELECTED = 'node_selected.png';
   static const String IMAGES_TILES_TERRAIN = 'tiles_terrain.png';
-  static const String IMAGES_BUILDINGS_BAKERY = 'buildings/bakery.png';
-  static const String IMAGES_BUILDINGS_FISHER = 'buildings/fisher.png';
-  static const String IMAGES_BUILDINGS_HEADQUARTERS =
-      'buildings/headquarters.png';
-  static const String IMAGES_BUILDINGS_FLAG = 'buildings/flag.png';
-  static const String IMAGES_BUILDINGS_SAWERY = 'buildings/sawery.png';
-  static const String IMAGES_BUILDINGS_WELL = 'buildings/well.png';
-  static const String IMAGES_BUILDINGS_QUARRY = 'buildings/quarry.png';
-  static const String IMAGES_BUILDINGS_CROP_FARM = 'buildings/crop_farm.png';
-  static const String IMAGES_BUILDINGS_HUNTER = 'buildings/hunter.png';
-  static const String IMAGES_BUILDINGS_WOODCUTTER = 'buildings/woodcutter.png';
-  static const String IMAGES_BUILDINGS_MILL = 'buildings/mill.png';
-  static const String IMAGES_WARNING_SIGN = 'warning_sign.png';
-  static const String IMAGES_RESOURCES_MEAT = 'resources/meat.png';
-  static const String IMAGES_RESOURCES_BREAD = 'resources/bread.png';
-  static const String IMAGES_RESOURCES_GRAIN = 'resources/grain.png';
-  static const String IMAGES_RESOURCES_TIMBER = 'resources/timber.png';
-  static const String IMAGES_RESOURCES_FISH = 'resources/fish.png';
-  static const String IMAGES_RESOURCES_STONE = 'resources/stone.png';
-  static const String IMAGES_RESOURCES_FLOUR = 'resources/flour.png';
-  static const String IMAGES_RESOURCES_WOOD = 'resources/wood.png';
-  static const String IMAGES_RESOURCES_WATER = 'resources/water.png';
-  static const String IMAGES_IDLE_SIGN = 'idle_sign.png';
+  static const String IMAGES_BUILDINGS_COOPER_FURNACE =
+      'buildings/cooper_furnace.png';
+  static const String IMAGES_BUILDINGS_COOPER_MINE =
+      'buildings/cooper_mine.png';
+  static const String IMAGES_BUILDINGS_COAL_MINE = 'buildings/coal_mine.png';
+  static const String IMAGES_RESOURCES_COOPER_BLOCK =
+      'resources/cooper_block.png';
+  static const String IMAGES_RESOURCES_COAL_ORE = 'resources/coal_ore.png';
+  static const String IMAGES_RESOURCES_COOPER_ORE = 'resources/cooper_ore.png';
   static const String TILES_TERRAIN = 'terrain.tsx';
 }

@@ -75,12 +75,17 @@ mixin NodeHandler on BaseGameComponent {
   }) {
     switch (type) {
       case NodeType.coal_mine:
-        if (tile.isForest) {
+        if (tile.isCoal) {
+          addCoalMine(location: location);
+        }
+        break;
+      case NodeType.cooper_mine:
+        if (tile.isCooper) {
           addCoalMine(location: location);
         }
         break;
       case NodeType.cooper_furnace:
-        if (tile.isGrass) {
+        if (tile.isSoil) {
           addCooperFurnace(location: location);
         }
         break;

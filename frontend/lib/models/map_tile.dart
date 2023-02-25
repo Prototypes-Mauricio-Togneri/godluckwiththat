@@ -2,16 +2,19 @@ class MapTile {
   final int _tile;
 
   static const int TILE_NONE = 0;
-  static const int TILE_GRASS = 1;
-  static const int TILE_FOREST = 2;
-  static const int TILE_STONE = 3;
-  static const int TILE_WATER = 4;
+  static const int TILE_SOIL = 1;
+  static const int TILE_COAL = 2;
+  static const int TILE_COOPER = 3;
+  static const int TILE_STONE = 4;
+  static const int TILE_WATER = 5;
 
   const MapTile(this._tile);
 
-  bool get isGrass => _tile == TILE_GRASS;
+  bool get isSoil => _tile == TILE_SOIL;
 
-  bool get isForest => _tile == TILE_FOREST;
+  bool get isCoal => _tile == TILE_COAL;
+
+  bool get isCooper => _tile == TILE_COOPER;
 
   bool get isStone => _tile == TILE_STONE;
 

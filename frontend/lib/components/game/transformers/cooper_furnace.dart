@@ -8,6 +8,6 @@ class CooperFurnace extends TransformerNode {
     required super.resourcesRequired,
   }) : super(
           type: NodeType.cooper_furnace,
-          resourceProduced: ResourceType.bronze,
+          resourceProduced: ResourceType.cooper_block,
         );
 }
