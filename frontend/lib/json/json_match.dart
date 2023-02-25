@@ -23,6 +23,9 @@ class JsonMatch {
   @JsonKey(name: 'coal_mines')
   final List<JsonProducer> coalMines;
 
+  @JsonKey(name: 'cooper_mines')
+  final List<JsonProducer> cooperMines;
+
   @JsonKey(name: 'cooper_furnaces')
   final List<JsonTransformer> cooperFurnaces;
 
@@ -32,6 +35,7 @@ class JsonMatch {
     required this.totalTimeElapsed,
     required this.map,
     required this.coalMines,
+    required this.cooperMines,
     required this.cooperFurnaces,
   });
 

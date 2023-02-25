@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/producers/coal_mine.dart';
+import 'package:tensionnode/components/game/producers/cooper_mine.dart';
 import 'package:tensionnode/components/game/transformers/cooper_furnace.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_match.dart';
@@ -12,6 +13,7 @@ class GameState extends BaseState {
   bool loaded = false;
 
   final List<CoalMine> coalMines = [];
+  final List<CooperMine> cooperMines = [];
   final List<CooperFurnace> cooperFurnaces = [];
   final List<Node> allNodes = [];
   final JsonMatch jsonMatch;
@@ -52,6 +54,8 @@ class GameState extends BaseState {
   void addNode(Node node) {
     if (node is CoalMine) {
       coalMines.add(node);
+    } else if (node is CooperMine) {
+      cooperMines.add(node);
     } else if (node is CooperFurnace) {
       cooperFurnaces.add(node);
     }
@@ -62,6 +66,8 @@ class GameState extends BaseState {
   void removeNode(Node node) {
     if (node is CoalMine) {
       coalMines.remove(node);
+    } else if (node is CooperMine) {
+      cooperMines.remove(node);
     } else if (node is CooperFurnace) {
       cooperFurnaces.remove(node);
     }
@@ -76,6 +82,7 @@ class GameState extends BaseState {
       totalTimeElapsed: _totalTimeElapsed.decimal(),
       map: jsonMatch.map.withCamera(camera),
       coalMines: coalMines.map((e) => e.json).toList(),
+      cooperMines: cooperMines.map((e) => e.json).toList(),
       cooperFurnaces: cooperFurnaces.map((e) => e.json).toList(),
     );
   }

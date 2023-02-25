@@ -14,6 +14,9 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       coalMines: (json['coal_mines'] as List<dynamic>)
           .map((e) => JsonProducer.fromJson(e as Map<String, dynamic>))
           .toList(),
+      cooperMines: (json['cooper_mines'] as List<dynamic>)
+          .map((e) => JsonProducer.fromJson(e as Map<String, dynamic>))
+          .toList(),
       cooperFurnaces: (json['cooper_furnaces'] as List<dynamic>)
           .map((e) => JsonTransformer.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -25,5 +28,6 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'totalTimeElapsed': instance.totalTimeElapsed,
       'map': instance.map,
       'coal_mines': instance.coalMines,
+      'cooper_mines': instance.cooperMines,
       'cooper_furnaces': instance.cooperFurnaces,
     };

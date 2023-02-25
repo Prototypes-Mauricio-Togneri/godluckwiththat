@@ -1,6 +1,7 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/sprite_group.dart';
 import 'package:tensionnode/components/game/producers/coal_mine.dart';
+import 'package:tensionnode/components/game/producers/cooper_mine.dart';
 import 'package:tensionnode/components/game/transformers/cooper_furnace.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
@@ -17,6 +18,12 @@ mixin NodeHandler on BaseGameComponent {
   void loadNodes() {
     for (final JsonProducer json in state.jsonMatch.coalMines) {
       addCoalMine(
+        location: json.location.location,
+      );
+    }
+
+    for (final JsonProducer json in state.jsonMatch.cooperMines) {
+      addCooperMine(
         location: json.location.location,
       );
     }
@@ -38,6 +45,13 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       addNode(CoalMine(
+        location: location,
+      ));
+
+  Node addCooperMine({
+    required Location location,
+  }) =>
+      addNode(CooperMine(
         location: location,
       ));
 
