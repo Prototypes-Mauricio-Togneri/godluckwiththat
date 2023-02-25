@@ -75,12 +75,14 @@ class ProducerNode extends Node {
 
   @override
   void specialSelect() {
-    game.state.addToInventory(
-      resourceType: resourceType,
-      amount: _output,
-    );
-    _output = 0;
-    _startProducing();
+    if (_output > 0) {
+      game.state.addToInventory(
+        resourceType: resourceType,
+        amount: _output,
+      );
+      _output = 0;
+      _startProducing();
+    }
   }
 
   JsonProducer get json => JsonProducer(
