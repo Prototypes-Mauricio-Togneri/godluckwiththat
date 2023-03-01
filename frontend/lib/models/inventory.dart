@@ -1,22 +1,25 @@
+import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/services/json.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 typedef JsonInventory = Map<ResourceType, int>;
 
-class Inventory {
-  final Map<ResourceType, int> _resources = {};
+typedef ResourceMap = Map<ResourceType, int>;
 
-  Iterable<MapEntry<ResourceType, int>> get entries => _resources.entries;
+class Inventory {
+  final ResourceMap _resources = {};
+
+  List<Resource> get list => _resources.entries.map((e) => Resource(e.key, e.value)).toList();
 
   bool get isEmpty => _resources.isEmpty;
 
-  void load(Map<ResourceType, int> map) {
+  int get(ResourceType type) => _resources[type] ?? 0;
+
+  void load(JsonInventory map) {
     for (final MapEntry<ResourceType, int> entry in map.entries) {
       _resources[entry.key] = entry.value;
     }
   }
-
-  int get(ResourceType type) => _resources[type] ?? 0;
 
   void addResource({
     required ResourceType type,

@@ -1,6 +1,7 @@
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_building.dart';
+import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/routed_robot.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -8,7 +9,7 @@ import 'package:tensionnode/types/resource_type.dart';
 class Building extends Node {
   num _accumulatedTime = 0; // TODO(momo): receive as parameter
   BuildingState _state = BuildingState.idle; // TODO(momo): receive as parameter
-  final Map<ResourceType, int> _input = {}; // TODO(momo): receive as parameter
+  final ResourceMap _input = {}; // TODO(momo): receive as parameter
   int _output = 0; // TODO(momo): receive as parameter
   final ResourceType resourceProduced;
 
@@ -16,14 +17,14 @@ class Building extends Node {
     required super.type,
     required super.location,
     required this.resourceProduced,
-    required Resources resourcesRequired,
+    required List<ResourceType> resourcesRequired,
   }) {
     for (final ResourceType resource in resourcesRequired) {
       _input[resource] = 0;
     }
   }
 
-  Map<ResourceType, int> get resourcesRequired => _input;
+  ResourceMap get resourcesRequired => _input;
 
   int get output => _output;
 
@@ -134,6 +135,7 @@ class Building extends Node {
         resourceType: resourceProduced,
         amount: _output,
       );
+
       _output = 0;
       updateMenu();
       _startProducing();
@@ -142,7 +144,7 @@ class Building extends Node {
 
   @override
   void moveResourcesFromInventory() {
-    final Map<ResourceType, int> map = game.state.removeFromInventory(_input);
+    final ResourceMap map = game.state.removeFromInventory(_input);
 
     if (map.isNotEmpty) {
       for (final ResourceType key in map.keys) {

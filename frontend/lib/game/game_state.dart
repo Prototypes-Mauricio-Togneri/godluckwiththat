@@ -52,9 +52,8 @@ class GameState extends BaseState {
     notify();
   }
 
-  // TODO(momo): use inventory?
-  Map<ResourceType, int> removeFromInventory(Map<ResourceType, int> input) {
-    final Map<ResourceType, int> result = {};
+  ResourceMap removeFromInventory(ResourceMap input) {
+    final ResourceMap result = {};
 
     for (final ResourceType type in input.keys) {
       final int current = inventory.get(type);
