@@ -1,8 +1,9 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/producers/coal_mine.dart';
-import 'package:tensionnode/components/game/producers/copper_mine.dart';
+import 'package:tensionnode/components/game/producers/solar_panel.dart';
+import 'package:tensionnode/components/game/transformers/coal_mine.dart';
+import 'package:tensionnode/components/game/transformers/copper_mine.dart';
 import 'package:tensionnode/components/game/transformers/copper_smelter.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_buildings.dart';
@@ -17,6 +18,7 @@ class GameState extends BaseState {
   num _totalTimeElapsed = 0;
   bool loaded = false;
 
+  final List<SolarPanel> solarPanels = [];
   final List<CoalMine> coalMines = [];
   final List<CopperMine> copperMines = [];
   final List<CopperSmelter> copperSmelters = [];
@@ -77,7 +79,9 @@ class GameState extends BaseState {
   }*/
 
   void addNode(Node node) {
-    if (node is CoalMine) {
+    if (node is SolarPanel) {
+      solarPanels.add(node);
+    } else if (node is CoalMine) {
       coalMines.add(node);
     } else if (node is CopperMine) {
       copperMines.add(node);
@@ -89,7 +93,9 @@ class GameState extends BaseState {
   }
 
   void removeNode(Node node) {
-    if (node is CoalMine) {
+    if (node is SolarPanel) {
+      solarPanels.remove(node);
+    } else if (node is CoalMine) {
       coalMines.remove(node);
     } else if (node is CopperMine) {
       copperMines.remove(node);
@@ -107,6 +113,7 @@ class GameState extends BaseState {
       totalTimeElapsed: _totalTimeElapsed.decimal(),
       map: jsonMatch.map.withCamera(camera),
       buildings: JsonBuildings(
+        solarPanels: solarPanels.map((e) => e.json).toList(),
         coalMines: coalMines.map((e) => e.json).toList(),
         copperMines: copperMines.map((e) => e.json).toList(),
         copperSmelters: copperSmelters.map((e) => e.json).toList(),

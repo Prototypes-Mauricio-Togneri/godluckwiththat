@@ -1,7 +1,8 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/sprite_group.dart';
-import 'package:tensionnode/components/game/producers/coal_mine.dart';
-import 'package:tensionnode/components/game/producers/copper_mine.dart';
+import 'package:tensionnode/components/game/producers/solar_panel.dart';
+import 'package:tensionnode/components/game/transformers/coal_mine.dart';
+import 'package:tensionnode/components/game/transformers/copper_mine.dart';
 import 'package:tensionnode/components/game/transformers/copper_smelter.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
@@ -18,6 +19,12 @@ mixin NodeHandler on BaseGameComponent {
   final Map<String, SpriteGroup> spriteGroups = {};
 
   void loadNodes() {
+    for (final JsonBuilding json in state.jsonMatch.buildings.solarPanels) {
+      addSolarPanel(
+        location: json.location.location,
+      );
+    }
+
     for (final JsonBuilding json in state.jsonMatch.buildings.coalMines) {
       addCoalMine(
         location: json.location.location,
@@ -77,6 +84,13 @@ mixin NodeHandler on BaseGameComponent {
     spriteGroups[resourceType.sprite]!.load(state.patchLocations(resourceType));
   }
 
+  Node addSolarPanel({
+    required Location location,
+  }) =>
+      _addNode(SolarPanel(
+        location: location,
+      ));
+
   Node addCoalMine({
     required Location location,
   }) =>
@@ -124,6 +138,11 @@ mixin NodeHandler on BaseGameComponent {
     required MapTile tile,
   }) {
     switch (type) {
+      case NodeType.solar_panel:
+        if (tile.isSoil) {
+          addSolarPanel(location: location);
+        }
+        break;
       case NodeType.coal_mine:
         if (tile.isCoal) {
           addCoalMine(location: location);

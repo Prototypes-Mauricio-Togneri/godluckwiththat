@@ -58,6 +58,10 @@ class Constants {
 		}]
 	},
 	"buildings": {
+		"solar_panels": [{
+			"location": [2, 2],
+			"connections": []
+		}],
 		"coal_mines": [{
 			"location": [5, -3],
 			"connections": []

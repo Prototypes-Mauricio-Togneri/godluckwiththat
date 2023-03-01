@@ -8,6 +8,9 @@ part of 'json_buildings.dart';
 
 JsonBuildings _$JsonBuildingsFromJson(Map<String, dynamic> json) =>
     JsonBuildings(
+      solarPanels: (json['solar_panels'] as List<dynamic>)
+          .map((e) => JsonBuilding.fromJson(e as Map<String, dynamic>))
+          .toList(),
       coalMines: (json['coal_mines'] as List<dynamic>)
           .map((e) => JsonBuilding.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -21,6 +24,7 @@ JsonBuildings _$JsonBuildingsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$JsonBuildingsToJson(JsonBuildings instance) =>
     <String, dynamic>{
+      'solar_panels': instance.solarPanels,
       'coal_mines': instance.coalMines,
       'copper_mines': instance.copperMines,
       'copper_smelters': instance.copperSmelters,

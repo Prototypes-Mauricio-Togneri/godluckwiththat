@@ -12,12 +12,14 @@ class Inventory {
   }
 
   factory Inventory.fromList({
+    required int energy,
     required int coalOre,
     required int copperOre,
     required int copperBlock,
   }) {
     final Inventory inventory = Inventory();
 
+    inventory._resources[ResourceType.energy] = energy;
     inventory._resources[ResourceType.coal_ore] = coalOre;
     inventory._resources[ResourceType.copper_ore] = copperOre;
     inventory._resources[ResourceType.copper_block] = copperBlock;

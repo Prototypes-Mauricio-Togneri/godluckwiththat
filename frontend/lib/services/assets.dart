@@ -8,8 +8,11 @@ class Assets {
   static const String IMAGES_BUILDINGS_COPPER_MINE =
       'buildings/copper_mine.png';
   static const String IMAGES_BUILDINGS_COAL_MINE = 'buildings/coal_mine.png';
+  static const String IMAGES_BUILDINGS_SOLAR_PANEL =
+      'buildings/solar_panel.png';
   static const String IMAGES_BUILDINGS_COPPER_SMELTER =
       'buildings/copper_smelter.png';
+  static const String IMAGES_RESOURCES_ENERGY = 'resources/energy.png';
   static const String IMAGES_RESOURCES_COPPER_ORE = 'resources/copper_ore.png';
   static const String IMAGES_RESOURCES_COAL_ORE = 'resources/coal_ore.png';
   static const String IMAGES_RESOURCES_COPPER_BLOCK =

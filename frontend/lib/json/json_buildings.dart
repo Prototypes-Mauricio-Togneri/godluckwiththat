@@ -6,6 +6,9 @@ part 'json_buildings.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonBuildings {
+  @JsonKey(name: 'solar_panels')
+  final List<JsonBuilding> solarPanels;
+
   @JsonKey(name: 'coal_mines')
   final List<JsonBuilding> coalMines;
 
@@ -16,6 +19,7 @@ class JsonBuildings {
   final List<JsonBuilding> copperSmelters;
 
   const JsonBuildings({
+    required this.solarPanels,
     required this.coalMines,
     required this.copperMines,
     required this.copperSmelters,

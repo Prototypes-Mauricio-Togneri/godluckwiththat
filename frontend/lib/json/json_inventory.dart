@@ -6,6 +6,9 @@ part 'json_inventory.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonInventory {
+  @JsonKey(name: 'energy')
+  final int energy;
+
   @JsonKey(name: 'coal_ore')
   final int coalOre;
 
@@ -16,12 +19,14 @@ class JsonInventory {
   final int copperBlock;
 
   const JsonInventory({
+    this.energy = 0,
     this.coalOre = 0,
     this.copperOre = 0,
     this.copperBlock = 0,
   });
 
   Inventory get inventory => Inventory.fromList(
+        energy: energy,
         coalOre: coalOre,
         copperOre: copperOre,
         copperBlock: copperBlock,
