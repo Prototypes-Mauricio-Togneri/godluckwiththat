@@ -8,8 +8,8 @@ class CopperMine extends Building {
   }) : super(
           type: NodeType.copper_mine,
           resourceProduced: ResourceType.copper_ore,
-          resourcesRequired: [
-            ResourceType.energy,
-          ],
+          resourcesRequired: {
+            ResourceType.energy: 0,
+          },
         );
 }

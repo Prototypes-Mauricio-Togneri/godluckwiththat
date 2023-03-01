@@ -10,22 +10,22 @@ import 'package:tensionnode/types/resource_type.dart';
 class Building extends Node {
   num _accumulatedTime = 0; // TODO(momo): receive as parameter
   BuildingState _state = BuildingState.idle; // TODO(momo): receive as parameter
-  final ResourceMap _input = {}; // TODO(momo): receive as parameter
   int _output = 0; // TODO(momo): receive as parameter
+  final Inventory _input = Inventory();
   final ResourceType resourceProduced;
 
   Building({
     required super.type,
     required super.location,
     required this.resourceProduced,
-    required List<ResourceType> resourcesRequired,
+    required ResourceMap resourcesRequired,
   }) {
-    for (final ResourceType resource in resourcesRequired) {
-      _input[resource] = 0;
+    for (final MapEntry<ResourceType, int> entry in resourcesRequired.entries) {
+      _input.addResource(Resource(entry.key, entry.value));
     }
   }
 
-  ResourceMap get resourcesRequired => _input;
+  Inventory get resourcesRequired => _input;
 
   int get output => _output;
 
@@ -51,8 +51,8 @@ class Building extends Node {
 
   bool get _hasEnoughResources {
     if (_input.isNotEmpty) {
-      for (final int amount in _input.values) {
-        if (amount == 0) {
+      for (final Resource resource in _input.list) {
+        if (resource.amount == 0) {
           return false;
         }
       }
@@ -65,8 +65,8 @@ class Building extends Node {
     if (_state.isIdle &&
         _hasEnoughResources &&
         (_output < Constants.OUTPUT_QUEUE_LIMIT)) {
-      for (final ResourceType key in _input.keys) {
-        _input[key] = _input[key]! - 1;
+      for (final ResourceType type in _input.types) {
+        _input.removeResource(Resource(type, 1));
       }
 
       _state = BuildingState.working;
@@ -145,11 +145,11 @@ class Building extends Node {
 
   @override
   void moveResourcesFromInventory() {
-    final ResourceMap map = game.state.removeFromInventory(_input);
+    final Inventory map = game.state.removeFromInventory(_input);
 
     if (map.isNotEmpty) {
-      for (final ResourceType key in map.keys) {
-        _input[key] = _input[key]! + map[key]!;
+      for (final ResourceType type in map.types) {
+        _input.addResource(Resource(type, map.get(type)));
       }
 
       updateMenu();

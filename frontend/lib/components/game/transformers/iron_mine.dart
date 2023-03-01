@@ -8,8 +8,8 @@ class IronMine extends Building {
   }) : super(
           type: NodeType.iron_mine,
           resourceProduced: ResourceType.iron_ore,
-          resourcesRequired: [
-            ResourceType.energy,
-          ],
+          resourcesRequired: {
+            ResourceType.energy: 0,
+          },
         );
 }

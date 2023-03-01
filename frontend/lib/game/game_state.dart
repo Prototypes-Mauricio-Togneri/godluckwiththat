@@ -47,16 +47,16 @@ class GameState extends BaseState {
     notify();
   }
 
-  ResourceMap removeFromInventory(ResourceMap input) {
-    final ResourceMap result = {};
+  Inventory removeFromInventory(Inventory input) {
+    final Inventory result = Inventory();
 
-    for (final ResourceType type in input.keys) {
+    for (final ResourceType type in input.types) {
       final int current = inventory.get(type);
-      final int expected = Constants.INPUT_QUEUE_LIMIT - input[type]!;
+      final int expected = Constants.INPUT_QUEUE_LIMIT - input.get(type);
       final int amount = min(current, expected);
 
       if (amount > 0) {
-        result[type] = amount;
+        result.addResource(Resource(type, amount));
         inventory.removeResource(Resource(type, amount));
       }
     }

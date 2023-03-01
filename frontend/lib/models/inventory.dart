@@ -12,7 +12,11 @@ class Inventory {
   List<Resource> get list =>
       _resources.entries.map((e) => Resource(e.key, e.value)).toList();
 
+  List<ResourceType> get types => _resources.keys.toList();
+
   bool get isEmpty => _resources.isEmpty;
+
+  bool get isNotEmpty => _resources.isNotEmpty;
 
   int get(ResourceType type) => _resources[type] ?? 0;
 
