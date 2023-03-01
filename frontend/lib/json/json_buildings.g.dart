@@ -11,10 +11,16 @@ JsonBuildings _$JsonBuildingsFromJson(Map<String, dynamic> json) =>
       solarPanels: (json['solar_panels'] as List<dynamic>)
           .map((e) => JsonBuilding.fromJson(e as Map<String, dynamic>))
           .toList(),
-      coalMines: (json['coal_mines'] as List<dynamic>)
+      ironMines: (json['iron_mines'] as List<dynamic>)
           .map((e) => JsonBuilding.fromJson(e as Map<String, dynamic>))
           .toList(),
       copperMines: (json['copper_mines'] as List<dynamic>)
+          .map((e) => JsonBuilding.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      coalMines: (json['coal_mines'] as List<dynamic>)
+          .map((e) => JsonBuilding.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      stoneMines: (json['stone_mines'] as List<dynamic>)
           .map((e) => JsonBuilding.fromJson(e as Map<String, dynamic>))
           .toList(),
       copperSmelters: (json['copper_smelters'] as List<dynamic>)
@@ -25,7 +31,9 @@ JsonBuildings _$JsonBuildingsFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$JsonBuildingsToJson(JsonBuildings instance) =>
     <String, dynamic>{
       'solar_panels': instance.solarPanels,
-      'coal_mines': instance.coalMines,
+      'iron_mines': instance.ironMines,
       'copper_mines': instance.copperMines,
+      'coal_mines': instance.coalMines,
+      'stone_mines': instance.stoneMines,
       'copper_smelters': instance.copperSmelters,
     };

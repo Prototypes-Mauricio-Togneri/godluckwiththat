@@ -96,12 +96,20 @@ class Constants {
 			"location": [-2, -2],
 			"connections": []
 		}],
-		"coal_mines": [{
-			"location": [5, -3],
+		"iron_mines": [{
+			"location": [6, 3],
 			"connections": []
 		}],
 		"copper_mines": [{
 			"location": [-5, 5],
+			"connections": []
+		}],
+		"coal_mines": [{
+			"location": [5, -3],
+			"connections": []
+		}],
+		"stone_mines": [{
+			"location": [1, 5],
 			"connections": []
 		}],
 		"copper_smelters": [{

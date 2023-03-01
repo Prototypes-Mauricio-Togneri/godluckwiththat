@@ -9,19 +9,27 @@ class JsonBuildings {
   @JsonKey(name: 'solar_panels')
   final List<JsonBuilding> solarPanels;
 
-  @JsonKey(name: 'coal_mines')
-  final List<JsonBuilding> coalMines;
+  @JsonKey(name: 'iron_mines')
+  final List<JsonBuilding> ironMines;
 
   @JsonKey(name: 'copper_mines')
   final List<JsonBuilding> copperMines;
+
+  @JsonKey(name: 'coal_mines')
+  final List<JsonBuilding> coalMines;
+
+  @JsonKey(name: 'stone_mines')
+  final List<JsonBuilding> stoneMines;
 
   @JsonKey(name: 'copper_smelters')
   final List<JsonBuilding> copperSmelters;
 
   const JsonBuildings({
     required this.solarPanels,
-    required this.coalMines,
+    required this.ironMines,
     required this.copperMines,
+    required this.coalMines,
+    required this.stoneMines,
     required this.copperSmelters,
   });
 

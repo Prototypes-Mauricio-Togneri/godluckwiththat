@@ -4,6 +4,8 @@ import 'package:tensionnode/components/game/producers/solar_panel.dart';
 import 'package:tensionnode/components/game/transformers/coal_mine.dart';
 import 'package:tensionnode/components/game/transformers/copper_mine.dart';
 import 'package:tensionnode/components/game/transformers/copper_smelter.dart';
+import 'package:tensionnode/components/game/transformers/iron_mine.dart';
+import 'package:tensionnode/components/game/transformers/stone_mine.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/json/json_building.dart';
@@ -25,14 +27,26 @@ mixin NodeHandler on BaseGameComponent {
       );
     }
 
-    for (final JsonBuilding json in state.jsonMatch.buildings.coalMines) {
-      addCoalMine(
+    for (final JsonBuilding json in state.jsonMatch.buildings.ironMines) {
+      addIronMine(
         location: json.location.location,
       );
     }
 
     for (final JsonBuilding json in state.jsonMatch.buildings.copperMines) {
       addCopperMine(
+        location: json.location.location,
+      );
+    }
+
+    for (final JsonBuilding json in state.jsonMatch.buildings.coalMines) {
+      addCoalMine(
+        location: json.location.location,
+      );
+    }
+
+    for (final JsonBuilding json in state.jsonMatch.buildings.stoneMines) {
+      addStoneMine(
         location: json.location.location,
       );
     }
@@ -105,10 +119,10 @@ mixin NodeHandler on BaseGameComponent {
         location: location,
       ));
 
-  Node addCoalMine({
+  Node addIronMine({
     required Location location,
   }) =>
-      _addNode(CoalMine(
+      _addNode(IronMine(
         location: location,
       ));
 
@@ -116,6 +130,20 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       _addNode(CopperMine(
+        location: location,
+      ));
+
+  Node addCoalMine({
+    required Location location,
+  }) =>
+      _addNode(CoalMine(
+        location: location,
+      ));
+
+  Node addStoneMine({
+    required Location location,
+  }) =>
+      _addNode(StoneMine(
         location: location,
       ));
 
@@ -157,15 +185,17 @@ mixin NodeHandler on BaseGameComponent {
           addSolarPanel(location: location);
         }
         break;
+      case NodeType.iron_mine:
+        addIronMine(location: location);
+        break;
       case NodeType.coal_mine:
-        if (tile.isCoal) {
-          addCoalMine(location: location);
-        }
+        addCoalMine(location: location);
         break;
       case NodeType.copper_mine:
-        if (tile.isCopper) {
-          addCoalMine(location: location);
-        }
+        addCopperMine(location: location);
+        break;
+      case NodeType.stone_mine:
+        addStoneMine(location: location);
         break;
       case NodeType.copper_smelter:
         if (tile.isSoil) {

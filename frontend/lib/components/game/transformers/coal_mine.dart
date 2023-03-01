@@ -8,6 +8,8 @@ class CoalMine extends Building {
   }) : super(
           type: NodeType.coal_mine,
           resourceProduced: ResourceType.coal_ore,
-          resourcesRequired: [],
+          resourcesRequired: [
+            ResourceType.energy,
+          ],
         );
 }

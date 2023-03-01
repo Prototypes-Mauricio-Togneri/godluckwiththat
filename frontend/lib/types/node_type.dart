@@ -9,8 +9,8 @@ enum NodeType {
     steel: 0,
     concrete: 0,
   ),
-  coal_mine(
-    sprite: Assets.IMAGES_BUILDINGS_COAL_MINE,
+  iron_mine(
+    sprite: Assets.IMAGES_BUILDINGS_IRON_MINE,
     productionTime: 3,
     iron: 0,
     copper: 0,
@@ -19,6 +19,22 @@ enum NodeType {
   ),
   copper_mine(
     sprite: Assets.IMAGES_BUILDINGS_COPPER_MINE,
+    productionTime: 3,
+    iron: 0,
+    copper: 0,
+    steel: 0,
+    concrete: 0,
+  ),
+  coal_mine(
+    sprite: Assets.IMAGES_BUILDINGS_COAL_MINE,
+    productionTime: 3,
+    iron: 0,
+    copper: 0,
+    steel: 0,
+    concrete: 0,
+  ),
+  stone_mine(
+    sprite: Assets.IMAGES_BUILDINGS_STONE_MINE,
     productionTime: 3,
     iron: 0,
     copper: 0,

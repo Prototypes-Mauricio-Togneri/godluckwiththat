@@ -5,6 +5,8 @@ import 'package:tensionnode/components/game/producers/solar_panel.dart';
 import 'package:tensionnode/components/game/transformers/coal_mine.dart';
 import 'package:tensionnode/components/game/transformers/copper_mine.dart';
 import 'package:tensionnode/components/game/transformers/copper_smelter.dart';
+import 'package:tensionnode/components/game/transformers/iron_mine.dart';
+import 'package:tensionnode/components/game/transformers/stone_mine.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_buildings.dart';
 import 'package:tensionnode/json/json_match.dart';
@@ -19,8 +21,10 @@ class GameState extends BaseState {
   bool loaded = false;
 
   final List<SolarPanel> solarPanels = [];
-  final List<CoalMine> coalMines = [];
+  final List<IronMine> ironMines = [];
   final List<CopperMine> copperMines = [];
+  final List<CoalMine> coalMines = [];
+  final List<StoneMine> stoneMines = [];
   final List<CopperSmelter> copperSmelters = [];
   final List<Node> allNodes = [];
   final Map<ResourceType, List<Patch>> patches = {};
@@ -81,10 +85,14 @@ class GameState extends BaseState {
   void addNode(Node node) {
     if (node is SolarPanel) {
       solarPanels.add(node);
-    } else if (node is CoalMine) {
-      coalMines.add(node);
+    } else if (node is IronMine) {
+      ironMines.add(node);
     } else if (node is CopperMine) {
       copperMines.add(node);
+    } else if (node is CoalMine) {
+      coalMines.add(node);
+    } else if (node is StoneMine) {
+      stoneMines.add(node);
     } else if (node is CopperSmelter) {
       copperSmelters.add(node);
     }
@@ -95,10 +103,14 @@ class GameState extends BaseState {
   void removeNode(Node node) {
     if (node is SolarPanel) {
       solarPanels.remove(node);
-    } else if (node is CoalMine) {
-      coalMines.remove(node);
+    } else if (node is IronMine) {
+      ironMines.remove(node);
     } else if (node is CopperMine) {
       copperMines.remove(node);
+    } else if (node is CoalMine) {
+      coalMines.remove(node);
+    } else if (node is StoneMine) {
+      stoneMines.remove(node);
     } else if (node is CopperSmelter) {
       copperSmelters.remove(node);
     }
@@ -115,8 +127,10 @@ class GameState extends BaseState {
       inventory: inventory.json,
       buildings: JsonBuildings(
         solarPanels: solarPanels.map((e) => e.json).toList(),
-        coalMines: coalMines.map((e) => e.json).toList(),
+        ironMines: ironMines.map((e) => e.json).toList(),
         copperMines: copperMines.map((e) => e.json).toList(),
+        coalMines: coalMines.map((e) => e.json).toList(),
+        stoneMines: stoneMines.map((e) => e.json).toList(),
         copperSmelters: copperSmelters.map((e) => e.json).toList(),
       ),
       patches: JsonPatches(
