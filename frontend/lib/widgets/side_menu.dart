@@ -5,7 +5,9 @@ import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/widgets/buildings/building_menu.dart';
+import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
 class SideMenu extends StatelessWidget {
@@ -29,6 +31,8 @@ class SideMenu extends StatelessWidget {
             _showSelectedNode()
           else if (game.isInSpecialMode)
             CancelMenu(game),
+          const Spacer(),
+          InventorySummary(game),
         ],
       ),
     );
@@ -126,6 +130,41 @@ class CancelMenu extends StatelessWidget {
         color: Palette.error,
         onPressed: game.onCancelOperation,
       ),
+    );
+  }
+}
+
+class InventorySummary extends StatelessWidget {
+  final GameComponent game;
+
+  const InventorySummary(this.game);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        for (final MapEntry<ResourceType, int> entry
+            in game.state.inventory.entries)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Image.asset(
+                    'images/${entry.key.sprite}',
+                  ),
+                ),
+                const HBox(10),
+                Label(
+                  text: '${entry.value}',
+                  align: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+      ],
     );
   }
 }

@@ -43,8 +43,7 @@ class GameState extends BaseState {
       type: resourceType,
       amount: amount,
     );
-
-    print(inventory);
+    notify();
   }
 
   List<Location> patchLocations(ResourceType type) =>

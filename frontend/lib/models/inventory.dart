@@ -6,20 +6,13 @@ typedef JsonInventory = Map<ResourceType, int>;
 class Inventory {
   final Map<ResourceType, int> _resources = {};
 
+  Iterable<MapEntry<ResourceType, int>> get entries => _resources.entries;
+  
+  bool get isEmpty => _resources.isEmpty;
+
   void load(Map<ResourceType, int> map) {
     for (final MapEntry<ResourceType, int> entry in map.entries) {
       _resources[entry.key] = entry.value;
-    }
-  }
-
-  bool get isEmpty => _resources.isEmpty;
-
-  void set(Map<ResourceType, int> resources) {
-    for (final MapEntry<ResourceType, int> entry in resources.entries) {
-      add(
-        type: entry.key,
-        amount: entry.value,
-      );
     }
   }
 
