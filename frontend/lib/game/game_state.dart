@@ -29,6 +29,7 @@ class GameState extends BaseState {
 
   GameState(this.jsonMatch) {
     _totalTimeElapsed = jsonMatch.totalTimeElapsed;
+    inventory.load(jsonMatch.inventory);
 
     patches[ResourceType.coal_ore] = [];
     patches[ResourceType.copper_ore] = [];
@@ -112,6 +113,7 @@ class GameState extends BaseState {
       id: jsonMatch.id,
       totalTimeElapsed: _totalTimeElapsed.decimal(),
       map: jsonMatch.map.withCamera(camera),
+      inventory: inventory.json,
       buildings: JsonBuildings(
         solarPanels: solarPanels.map((e) => e.json).toList(),
         coalMines: coalMines.map((e) => e.json).toList(),

@@ -3,6 +3,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/json/json_buildings.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_patches.dart';
+import 'package:tensionnode/models/inventory.dart';
+import 'package:tensionnode/types/resource_type.dart';
 
 part 'json_match.g.dart';
 
@@ -20,19 +22,23 @@ class JsonMatch {
   @JsonKey(name: 'map')
   final JsonMap map;
 
-  @JsonKey(name: 'buildings')
-  final JsonBuildings buildings;
+  @JsonKey(name: 'inventory')
+  final JsonInventory inventory;
 
   @JsonKey(name: 'patches')
   final JsonPatches patches;
+
+  @JsonKey(name: 'buildings')
+  final JsonBuildings buildings;
 
   const JsonMatch({
     required this.version,
     required this.id,
     required this.totalTimeElapsed,
     required this.map,
-    required this.buildings,
+    required this.inventory,
     required this.patches,
+    required this.buildings,
   });
 
   factory JsonMatch.fromString(String json) =>

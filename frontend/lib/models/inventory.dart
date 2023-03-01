@@ -1,30 +1,15 @@
-import 'package:tensionnode/json/json_inventory.dart';
 import 'package:tensionnode/services/json.dart';
 import 'package:tensionnode/types/resource_type.dart';
+
+typedef JsonInventory = Map<ResourceType, int>;
 
 class Inventory {
   final Map<ResourceType, int> _resources = {};
 
-  Inventory() {
-    for (final ResourceType resource in ResourceType.values) {
-      _resources[resource] = 0;
+  void load(Map<ResourceType, int> map) {
+    for (final MapEntry<ResourceType, int> entry in map.entries) {
+      _resources[entry.key] = entry.value;
     }
-  }
-
-  factory Inventory.fromList({
-    required int energy,
-    required int coalOre,
-    required int copperOre,
-    required int copperBlock,
-  }) {
-    final Inventory inventory = Inventory();
-
-    inventory._resources[ResourceType.energy] = energy;
-    inventory._resources[ResourceType.coal_ore] = coalOre;
-    inventory._resources[ResourceType.copper_ore] = copperOre;
-    inventory._resources[ResourceType.copper_block] = copperBlock;
-
-    return inventory;
   }
 
   bool get isEmpty => _resources.isEmpty;
@@ -57,12 +42,8 @@ class Inventory {
   // TODO(momo): implement
   bool has(Inventory inventory) => true;
 
-  JsonInventory get json => JsonInventory(
-        coalOre: _resources[ResourceType.coal_ore] ?? 0,
-        copperOre: _resources[ResourceType.copper_ore] ?? 0,
-        copperBlock: _resources[ResourceType.copper_block] ?? 0,
-      );
+  JsonInventory get json => _resources;
 
   @override
-  String toString() => Json.encode(json.toJson());
+  String toString() => Json.encode(_resources);
 }

@@ -23,6 +23,11 @@ class Constants {
 		"location": [0, 0],
 		"zoom": 8
 	},
+  "inventory": {
+    "energy": 10,
+    "coal_ore": 5,
+    "copper_ore": 3
+  },
 	"patches": {
 		"coal": [{
 			"location": [5, -3],
