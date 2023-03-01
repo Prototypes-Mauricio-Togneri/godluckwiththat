@@ -2,6 +2,7 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/models/inventory.dart';
+import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/models/routed_robot.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -131,10 +132,10 @@ class Building extends Node {
   @override
   void moveResourcesToInventory() {
     if (_output > 0) {
-      game.state.addToInventory(
-        resourceType: resourceProduced,
-        amount: _output,
-      );
+      game.state.addToInventory(Resource(
+        resourceProduced,
+        _output,
+      ));
 
       _output = 0;
       updateMenu();

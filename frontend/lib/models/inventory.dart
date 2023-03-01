@@ -9,7 +9,8 @@ typedef ResourceMap = Map<ResourceType, int>;
 class Inventory {
   final ResourceMap _resources = {};
 
-  List<Resource> get list => _resources.entries.map((e) => Resource(e.key, e.value)).toList();
+  List<Resource> get list =>
+      _resources.entries.map((e) => Resource(e.key, e.value)).toList();
 
   bool get isEmpty => _resources.isEmpty;
 
@@ -21,29 +22,19 @@ class Inventory {
     }
   }
 
-  void addResource({
-    required ResourceType type,
-    required int amount,
-  }) {
-    final int current = get(type);
-    _resources[type] = current + amount;
+  void addResource(Resource resource) {
+    final int current = get(resource.type);
+    _resources[resource.type] = current + resource.amount;
   }
 
-  void removeResource({
-    required ResourceType type,
-    required int amount,
-  }) {
-    final int current = get(type);
-    _resources[type] = current - amount;
+  void removeResource(Resource resource) {
+    final int current = get(resource.type);
+    _resources[resource.type] = current - resource.amount;
   }
 
   void remove(Inventory inventory) {
-    for (final MapEntry<ResourceType, int> entry
-        in inventory._resources.entries) {
-      removeResource(
-        type: entry.key,
-        amount: entry.value,
-      );
+    for (final Resource resource in inventory.list) {
+      removeResource(resource);
     }
   }
 

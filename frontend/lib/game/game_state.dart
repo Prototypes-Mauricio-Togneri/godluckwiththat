@@ -16,6 +16,7 @@ import 'package:tensionnode/json/json_patches.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/patch.dart';
+import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
@@ -41,14 +42,8 @@ class GameState extends BaseState {
     patches[ResourceType.copper_ore] = [];
   }
 
-  void addToInventory({
-    required ResourceType resourceType,
-    required int amount,
-  }) {
-    inventory.addResource(
-      type: resourceType,
-      amount: amount,
-    );
+  void addToInventory(Resource resource) {
+    inventory.addResource(resource);
     notify();
   }
 
@@ -62,10 +57,7 @@ class GameState extends BaseState {
 
       if (amount > 0) {
         result[type] = amount;
-        inventory.removeResource(
-          type: type,
-          amount: amount,
-        );
+        inventory.removeResource(Resource(type, amount));
       }
     }
     notify();
