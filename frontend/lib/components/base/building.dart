@@ -25,6 +25,8 @@ class Building extends Node {
 
   Map<ResourceType, int> get resourcesRequired => _input;
 
+  int get output => _output;
+
   @override
   Future onLoad() {
     _startProducing();
@@ -75,6 +77,7 @@ class Building extends Node {
     if (_accumulatedTime >= type.productionTime) {
       _accumulatedTime = 0;
       _output++;
+      updateMenu();
       _state = BuildingState.idle;
       _sendResource();
       _startProducing();
@@ -132,6 +135,7 @@ class Building extends Node {
         amount: _output,
       );
       _output = 0;
+      updateMenu();
       _startProducing();
     }
   }

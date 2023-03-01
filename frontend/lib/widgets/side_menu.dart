@@ -6,7 +6,7 @@ import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
-import 'package:tensionnode/widgets/buildings/building_menu.dart';
+import 'package:tensionnode/widgets/building_menu.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 

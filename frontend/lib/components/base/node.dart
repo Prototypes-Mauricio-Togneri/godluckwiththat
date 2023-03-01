@@ -32,12 +32,15 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     return super.onLoad();
   }
 
-  void receiveResource(RoutedRobot routedRobot) {
-    receive(routedRobot);
-
+  void updateMenu() {
     if (game.isNodeSelected(this)) {
       game.state.notify();
     }
+  }
+
+  void receiveResource(RoutedRobot routedRobot) {
+    receive(routedRobot);
+    updateMenu();
   }
 
   void receive(RoutedRobot routedRobot) {}
