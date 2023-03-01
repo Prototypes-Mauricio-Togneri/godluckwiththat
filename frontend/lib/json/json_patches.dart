@@ -6,15 +6,23 @@ part 'json_patches.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonPatches {
-  @JsonKey(name: 'coal')
-  final List<JsonPatch> coal;
+  @JsonKey(name: 'iron')
+  final List<JsonPatch> iron;
 
   @JsonKey(name: 'copper')
   final List<JsonPatch> copper;
 
+  @JsonKey(name: 'coal')
+  final List<JsonPatch> coal;
+
+  @JsonKey(name: 'stone')
+  final List<JsonPatch> stone;
+
   const JsonPatches({
-    required this.coal,
+    required this.iron,
     required this.copper,
+    required this.coal,
+    required this.stone,
   });
 
   factory JsonPatches.fromString(String json) =>

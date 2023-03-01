@@ -7,7 +7,7 @@ class Inventory {
   final Map<ResourceType, int> _resources = {};
 
   Iterable<MapEntry<ResourceType, int>> get entries => _resources.entries;
-  
+
   bool get isEmpty => _resources.isEmpty;
 
   void load(Map<ResourceType, int> map) {

@@ -120,8 +120,10 @@ class GameState extends BaseState {
         copperSmelters: copperSmelters.map((e) => e.json).toList(),
       ),
       patches: JsonPatches(
-        coal: patches[ResourceType.coal_ore]!.map((e) => e.json).toList(),
+        iron: patches[ResourceType.iron_ore]!.map((e) => e.json).toList(),
         copper: patches[ResourceType.copper_ore]!.map((e) => e.json).toList(),
+        coal: patches[ResourceType.coal_ore]!.map((e) => e.json).toList(),
+        stone: patches[ResourceType.stone_ore]!.map((e) => e.json).toList(),
       ),
     );
   }

@@ -29,20 +29,20 @@ class Constants {
     "copper_ore": 3
   },
 	"patches": {
-		"coal": [{
-			"location": [5, -3],
+		"iron": [{
+			"location": [7, 2],
 			"amount": 1000
 		}, {
-			"location": [5, -4],
+			"location": [6, 3],
 			"amount": 1000
 		}, {
-			"location": [5, -5],
+			"location": [7, 3],
 			"amount": 1000
 		}, {
-			"location": [6, -4],
+			"location": [8, 3],
 			"amount": 1000
 		}, {
-			"location": [4, -4],
+			"location": [7, 4],
 			"amount": 1000
 		}],
 		"copper": [{
@@ -60,11 +60,40 @@ class Constants {
 		}, {
 			"location": [-6, 5],
 			"amount": 1000
+		}],
+		"coal": [{
+			"location": [5, -3],
+			"amount": 1000
+		}, {
+			"location": [5, -4],
+			"amount": 1000
+		}, {
+			"location": [5, -5],
+			"amount": 1000
+		}, {
+			"location": [6, -4],
+			"amount": 1000
+		}, {
+			"location": [4, -4],
+			"amount": 1000
+		}],
+		"stone": [{
+			"location": [1, 5],
+			"amount": 1000
+		}, {
+			"location": [2, 5],
+			"amount": 1000
+		}, {
+			"location": [1, 6],
+			"amount": 1000
+		}, {
+			"location": [2, 6],
+			"amount": 1000
 		}]
 	},
 	"buildings": {
 		"solar_panels": [{
-			"location": [2, 2],
+			"location": [-2, -2],
 			"connections": []
 		}],
 		"coal_mines": [{

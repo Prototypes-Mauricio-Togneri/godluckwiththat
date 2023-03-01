@@ -43,9 +43,9 @@ mixin NodeHandler on BaseGameComponent {
       );
     }
 
-    state.patches[ResourceType.coal_ore] = _patches(
-      ResourceType.coal_ore,
-      state.jsonMatch.patches.coal,
+    state.patches[ResourceType.iron_ore] = _patches(
+      ResourceType.iron_ore,
+      state.jsonMatch.patches.iron,
     );
 
     state.patches[ResourceType.copper_ore] = _patches(
@@ -53,8 +53,20 @@ mixin NodeHandler on BaseGameComponent {
       state.jsonMatch.patches.copper,
     );
 
-    _addSpriteGroup(Assets.IMAGES_RESOURCES_COAL_ORE);
+    state.patches[ResourceType.coal_ore] = _patches(
+      ResourceType.coal_ore,
+      state.jsonMatch.patches.coal,
+    );
+
+    state.patches[ResourceType.stone_ore] = _patches(
+      ResourceType.stone_ore,
+      state.jsonMatch.patches.stone,
+    );
+
+    _addSpriteGroup(Assets.IMAGES_RESOURCES_IRON_ORE);
     _addSpriteGroup(Assets.IMAGES_RESOURCES_COPPER_ORE);
+    _addSpriteGroup(Assets.IMAGES_RESOURCES_COAL_ORE);
+    _addSpriteGroup(Assets.IMAGES_RESOURCES_STONE_ORE);
 
     reloadPatches();
   }
@@ -76,8 +88,10 @@ mixin NodeHandler on BaseGameComponent {
   }
 
   void reloadPatches() {
-    _reloadPatch(ResourceType.coal_ore);
+    _reloadPatch(ResourceType.iron_ore);
     _reloadPatch(ResourceType.copper_ore);
+    _reloadPatch(ResourceType.coal_ore);
+    _reloadPatch(ResourceType.stone_ore);
   }
 
   void _reloadPatch(ResourceType resourceType) {

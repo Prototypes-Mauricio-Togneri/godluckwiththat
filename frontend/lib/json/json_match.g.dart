@@ -32,7 +32,9 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
 
 const _$ResourceTypeEnumMap = {
   ResourceType.energy: 'energy',
-  ResourceType.coal_ore: 'coal_ore',
+  ResourceType.iron_ore: 'iron_ore',
   ResourceType.copper_ore: 'copper_ore',
+  ResourceType.coal_ore: 'coal_ore',
+  ResourceType.stone_ore: 'stone_ore',
   ResourceType.copper_block: 'copper_block',
 };

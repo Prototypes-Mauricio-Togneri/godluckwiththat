@@ -4,8 +4,10 @@ typedef Resources = List<ResourceType>;
 
 enum ResourceType {
   energy(sprite: Assets.IMAGES_RESOURCES_ENERGY),
-  coal_ore(sprite: Assets.IMAGES_RESOURCES_COAL_ORE),
+  iron_ore(sprite: Assets.IMAGES_RESOURCES_IRON_ORE),
   copper_ore(sprite: Assets.IMAGES_RESOURCES_COPPER_ORE),
+  coal_ore(sprite: Assets.IMAGES_RESOURCES_COAL_ORE),
+  stone_ore(sprite: Assets.IMAGES_RESOURCES_STONE_ORE),
   copper_block(sprite: Assets.IMAGES_RESOURCES_COPPER_BLOCK);
 
   final String sprite;

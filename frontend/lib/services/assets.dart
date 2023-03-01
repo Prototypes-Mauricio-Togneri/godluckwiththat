@@ -14,10 +14,13 @@ class Assets {
       'buildings/copper_smelter.png';
   static const String IMAGES_RESOURCES_ENERGY = 'resources/energy.png';
   static const String IMAGES_RESOURCES_COPPER_ORE = 'resources/copper_ore.png';
+  static const String IMAGES_RESOURCES_IRON_ORE = 'resources/iron_ore.png';
   static const String IMAGES_RESOURCES_COAL_ORE = 'resources/coal_ore.png';
   static const String IMAGES_RESOURCES_COPPER_BLOCK =
       'resources/copper_block.png';
+  static const String IMAGES_RESOURCES_STONE_ORE = 'resources/stone_ore.png';
   static const String IMAGES_PATCHES_COAL_PATCH = 'patches/coal_patch.png';
+  static const String IMAGES_PATCHES_IRON_PATCH = 'patches/iron_patch.png';
   static const String IMAGES_PATCHES_STONE_PATCH = 'patches/stone_patch.png';
   static const String IMAGES_PATCHES_COPPER_PATCH = 'patches/copper_patch.png';
   static const String TILES_TERRAIN = 'terrain.tsx';
