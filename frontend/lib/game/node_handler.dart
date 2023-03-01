@@ -153,7 +153,7 @@ mixin NodeHandler on BaseGameComponent {
       _addNode(CopperSmelter(
         location: location,
         resourcesRequired: [
-          ResourceType.coal_ore,
+          ResourceType.energy,
           ResourceType.copper_ore,
         ],
       ));

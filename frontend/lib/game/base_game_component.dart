@@ -105,7 +105,7 @@ class BaseGameComponent extends FlameGame
 
   @override
   void onTapUp(int pointerId, TapUpInfo info) {
-    onMapClicked(toGridPosition(info.eventPosition.game), isControlPressed);
+    onMapClicked(toGridPosition(info.eventPosition.game));
     super.onTapUp(pointerId, info);
   }
 

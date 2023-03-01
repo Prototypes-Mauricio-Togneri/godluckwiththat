@@ -1,5 +1,7 @@
+import 'dart:math';
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
+import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/producers/solar_panel.dart';
 import 'package:tensionnode/components/game/transformers/coal_mine.dart';
@@ -43,11 +45,33 @@ class GameState extends BaseState {
     required ResourceType resourceType,
     required int amount,
   }) {
-    inventory.add(
+    inventory.addResource(
       type: resourceType,
       amount: amount,
     );
     notify();
+  }
+
+  // TODO(momo): use inventory?
+  Map<ResourceType, int> removeFromInventory(Map<ResourceType, int> input) {
+    final Map<ResourceType, int> result = {};
+
+    for (final ResourceType type in input.keys) {
+      final int current = inventory.get(type);
+      final int expected = Constants.INPUT_QUEUE_LIMIT - input[type]!;
+      final int amount = min(current, expected);
+
+      if (amount > 0) {
+        result[type] = amount;
+        inventory.removeResource(
+          type: type,
+          amount: amount,
+        );
+      }
+    }
+    notify();
+
+    return result;
   }
 
   List<Location> patchLocations(ResourceType type) =>

@@ -51,7 +51,9 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     //game.state.notify();
   }
 
-  void specialSelect() {}
+  void moveResourcesToInventory() {}
+
+  void moveResourcesFromInventory() {}
 
   bool isAt(Location location) => this.location == location;
 
@@ -60,7 +62,9 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   @override
   bool onTapUp(TapUpInfo info) {
     if (game.isControlPressed) {
-      specialSelect();
+      moveResourcesToInventory();
+    } else if (game.isShiftPressed) {
+      moveResourcesFromInventory();
     } else {
       game.selectNode(this);
     }

@@ -128,13 +128,27 @@ class Building extends Node {
   }
 
   @override
-  void specialSelect() {
+  void moveResourcesToInventory() {
     if (_output > 0) {
       game.state.addToInventory(
         resourceType: resourceProduced,
         amount: _output,
       );
       _output = 0;
+      updateMenu();
+      _startProducing();
+    }
+  }
+
+  @override
+  void moveResourcesFromInventory() {
+    final Map<ResourceType, int> map = game.state.removeFromInventory(_input);
+
+    if (map.isNotEmpty) {
+      for (final ResourceType key in map.keys) {
+        _input[key] = _input[key]! + map[key]!;
+      }
+
       updateMenu();
       _startProducing();
     }

@@ -24,7 +24,7 @@ class Constants {
 		"zoom": 8
 	},
   "inventory": {
-    "energy": 10,
+    "energy": 0,
     "coal_ore": 5,
     "copper_ore": 3
   },

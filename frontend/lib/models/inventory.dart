@@ -16,19 +16,31 @@ class Inventory {
     }
   }
 
-  void add({
+  int get(ResourceType type) => _resources[type] ?? 0;
+
+  void addResource({
     required ResourceType type,
     required int amount,
   }) {
-    final int current = _resources[type] ?? 0;
+    final int current = get(type);
     _resources[type] = current + amount;
+  }
+
+  void removeResource({
+    required ResourceType type,
+    required int amount,
+  }) {
+    final int current = get(type);
+    _resources[type] = current - amount;
   }
 
   void remove(Inventory inventory) {
     for (final MapEntry<ResourceType, int> entry
         in inventory._resources.entries) {
-      final int current = _resources[entry.key] ?? 0;
-      _resources[entry.key] = current - entry.value;
+      removeResource(
+        type: entry.key,
+        amount: entry.value,
+      );
     }
   }
 

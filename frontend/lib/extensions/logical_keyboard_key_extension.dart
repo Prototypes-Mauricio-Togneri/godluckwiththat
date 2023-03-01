@@ -11,6 +11,8 @@ extension LogicalKeyboardKeyExtension on Set<LogicalKeyboardKey> {
 
   bool get isControl => _isKey(LogicalKeyboardKey.controlLeft);
 
+  bool get isShift => _isKey(LogicalKeyboardKey.shiftLeft);
+
   bool get isUp =>
       _isKey(LogicalKeyboardKey.keyW) || _isKey(LogicalKeyboardKey.arrowUp);
 
