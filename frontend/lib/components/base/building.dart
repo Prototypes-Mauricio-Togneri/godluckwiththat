@@ -1,6 +1,5 @@
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/moving_drone.dart';
 import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
@@ -81,52 +80,8 @@ class Building extends Node {
       _output++;
       updateMenu();
       _state = BuildingState.idle;
-      _sendResource();
       _startProducing();
     }
-  }
-
-  @override
-  void receive(MovingDrone movingDrone) {
-    /*if (!routedRobot.isDestination(this)) {
-      throw Exception(
-          'Routed resource $routedRobot arrived to $runtimeType $this without being the destination');
-    }
-
-    bool resourceFound = false;
-
-    for (final ResourceType key in _resourcesRequired.keys) {
-      if (routedRobot.has(key)) {
-        _resourcesRequired[key] = _resourcesRequired[key]! + 1;
-        resourceFound = true;
-      }
-    }
-
-    if (!resourceFound) {
-      throw Exception(
-          'Routed resource $routedRobot arrived to $runtimeType $this without being flour or water');
-    }*/
-
-    _startProducing();
-  }
-
-  void _sendResource() {
-    /*final RoutedRobot routedResource = game.state.resourceManager.search(
-      origin: this,
-      resource: resourceProduced,
-    );
-
-    final bool sent = send(routedResource);
-
-    removeComponents(WarningSign);
-
-    if (sent) {
-      removeRequest(routedResource);
-      _state = BuildingState.idle;
-      _startProducing();
-    } else {
-      add(WarningSign());
-    }*/
   }
 
   JsonBuilding get json => JsonBuilding(

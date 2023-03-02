@@ -28,7 +28,7 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(Assets.IMAGES_RESOURCES_ENERGY);
+    sprite = await getSprite(Assets.IMAGES_CONSTRUCTION_DRONE);
     size = getSize();
     anchor = Anchor.center;
 

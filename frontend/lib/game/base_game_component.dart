@@ -27,7 +27,7 @@ class BaseGameComponent extends FlameGame
   final Component _layerBackground = Component(priority: 0);
   final Component _layerPatches = Component(priority: 1);
   final Component _layerNodes = Component(priority: 2);
-  final Component _layerRobots = Component(priority: 3);
+  final Component _layerDrones = Component(priority: 3);
   final Component _layerHud = Component(priority: 4)
     ..positionType = PositionType.viewport;
 
@@ -54,7 +54,7 @@ class BaseGameComponent extends FlameGame
     add(_layerBackground);
     add(_layerPatches);
     add(_layerNodes);
-    add(_layerRobots);
+    add(_layerDrones);
     add(_layerHud);
 
     final JsonLocation cameraLocation = jsonMatch.map.location;
@@ -73,7 +73,7 @@ class BaseGameComponent extends FlameGame
 
   void addComponent(Component component) {
     if (component is MovingDrone) {
-      _layerRobots.add(component);
+      _layerDrones.add(component);
     } else {
       _layerNodes.add(component);
     }
@@ -81,7 +81,7 @@ class BaseGameComponent extends FlameGame
 
   void removeComponent(Component component) {
     if (component is MovingDrone) {
-      _layerRobots.remove(component);
+      _layerDrones.remove(component);
     } else {
       _layerNodes.remove(component);
     }
