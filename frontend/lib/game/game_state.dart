@@ -5,6 +5,7 @@ import 'package:tensionnode/components/game/buildings/coal_mine.dart';
 import 'package:tensionnode/components/game/buildings/copper_mine.dart';
 import 'package:tensionnode/components/game/buildings/copper_smelter.dart';
 import 'package:tensionnode/components/game/buildings/iron_mine.dart';
+import 'package:tensionnode/components/game/buildings/iron_smelter.dart';
 import 'package:tensionnode/components/game/buildings/solar_panel.dart';
 import 'package:tensionnode/components/game/buildings/stone_mine.dart';
 import 'package:tensionnode/components/game/construction.dart';
@@ -28,6 +29,7 @@ class GameState extends BaseState {
   final List<CopperMine> copperMines = [];
   final List<CoalMine> coalMines = [];
   final List<StoneMine> stoneMines = [];
+  final List<IronSmelter> ironSmelters = [];
   final List<CopperSmelter> copperSmelters = [];
   final List<Node> allNodes = [];
   final Map<ResourceType, List<Patch>> patches = {};
@@ -87,6 +89,8 @@ class GameState extends BaseState {
       coalMines.add(node);
     } else if (node is StoneMine) {
       stoneMines.add(node);
+    } else if (node is IronSmelter) {
+      ironSmelters.add(node);
     } else if (node is CopperSmelter) {
       copperSmelters.add(node);
     }
@@ -107,6 +111,8 @@ class GameState extends BaseState {
       coalMines.remove(node);
     } else if (node is StoneMine) {
       stoneMines.remove(node);
+    } else if (node is IronSmelter) {
+      ironSmelters.remove(node);
     } else if (node is CopperSmelter) {
       copperSmelters.remove(node);
     }
@@ -133,6 +139,7 @@ class GameState extends BaseState {
         copperMines: copperMines.map((e) => e.json).toList(),
         coalMines: coalMines.map((e) => e.json).toList(),
         stoneMines: stoneMines.map((e) => e.json).toList(),
+        ironSmelters: ironSmelters.map((e) => e.json).toList(),
         copperSmelters: copperSmelters.map((e) => e.json).toList(),
       ),
     );

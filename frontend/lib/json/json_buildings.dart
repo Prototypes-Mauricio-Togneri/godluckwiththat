@@ -21,6 +21,9 @@ class JsonBuildings {
   @JsonKey(name: 'stone_mines')
   final List<JsonBuilding> stoneMines;
 
+  @JsonKey(name: 'iron_smelters')
+  final List<JsonBuilding> ironSmelters;
+
   @JsonKey(name: 'copper_smelters')
   final List<JsonBuilding> copperSmelters;
 
@@ -30,6 +33,7 @@ class JsonBuildings {
     required this.copperMines,
     required this.coalMines,
     required this.stoneMines,
+    required this.ironSmelters,
     required this.copperSmelters,
   });
 

@@ -4,6 +4,7 @@ import 'package:tensionnode/components/game/buildings/coal_mine.dart';
 import 'package:tensionnode/components/game/buildings/copper_mine.dart';
 import 'package:tensionnode/components/game/buildings/copper_smelter.dart';
 import 'package:tensionnode/components/game/buildings/iron_mine.dart';
+import 'package:tensionnode/components/game/buildings/iron_smelter.dart';
 import 'package:tensionnode/components/game/buildings/solar_panel.dart';
 import 'package:tensionnode/components/game/buildings/stone_mine.dart';
 import 'package:tensionnode/components/game/construction.dart';
@@ -58,6 +59,12 @@ mixin NodeHandler on BaseGameComponent {
 
     for (final JsonBuilding json in state.jsonMatch.buildings.stoneMines) {
       addStoneMine(
+        location: json.location.location,
+      );
+    }
+
+    for (final JsonBuilding json in state.jsonMatch.buildings.ironSmelters) {
+      addIronSmelter(
         location: json.location.location,
       );
     }
@@ -176,6 +183,17 @@ mixin NodeHandler on BaseGameComponent {
         location: location,
       ));
 
+  Node addIronSmelter({
+    required Location location,
+  }) =>
+      _addNode(IronSmelter(
+        location: location,
+        resourcesRequired: {
+          ResourceType.energy: 0,
+          ResourceType.iron_ore: 0,
+        },
+      ));
+
   Node addCopperSmelter({
     required Location location,
   }) =>
@@ -213,11 +231,12 @@ mixin NodeHandler on BaseGameComponent {
       case NodeType.headquarters:
         break;
       case NodeType.solar_panel:
-      case NodeType.copper_smelter:
       case NodeType.iron_mine:
-      case NodeType.coal_mine:
       case NodeType.copper_mine:
+      case NodeType.coal_mine:
       case NodeType.stone_mine:
+      case NodeType.iron_smelter:
+      case NodeType.copper_smelter:
         addConstruction(
           location: location,
           type: type,
@@ -241,6 +260,8 @@ mixin NodeHandler on BaseGameComponent {
         return addCoalMine(location: location);
       case NodeType.stone_mine:
         return addStoneMine(location: location);
+      case NodeType.iron_smelter:
+        return addIronSmelter(location: location);
       case NodeType.copper_smelter:
         return addCopperSmelter(location: location);
       case NodeType.headquarters:

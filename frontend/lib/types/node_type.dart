@@ -49,6 +49,14 @@ enum NodeType {
     steel: 0,
     concrete: 0,
   ),
+  iron_smelter(
+    sprite: Assets.IMAGES_BUILDINGS_IRON_SMELTER,
+    productionTime: 10,
+    iron: 2,
+    copper: 0,
+    steel: 0,
+    concrete: 0,
+  ),
   copper_smelter(
     sprite: Assets.IMAGES_BUILDINGS_COPPER_SMELTER,
     productionTime: 10,

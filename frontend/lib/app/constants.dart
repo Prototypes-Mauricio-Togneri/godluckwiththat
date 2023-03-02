@@ -98,6 +98,7 @@ class Constants {
 		"copper_mines": [],
 		"coal_mines": [],
 		"stone_mines": [],
+		"iron_smelters": [],
 		"copper_smelters": []
 	}
 }

@@ -10,6 +10,8 @@ class Assets {
   static const String IMAGES_BUILDINGS_COAL_MINE = 'buildings/coal_mine.png';
   static const String IMAGES_BUILDINGS_HEADQUARTERS =
       'buildings/headquarters.png';
+  static const String IMAGES_BUILDINGS_IRON_SMELTER =
+      'buildings/iron_smelter.png';
   static const String IMAGES_BUILDINGS_STONE_MINE = 'buildings/stone_mine.png';
   static const String IMAGES_BUILDINGS_IRON_MINE = 'buildings/iron_mine.png';
   static const String IMAGES_BUILDINGS_SOLAR_PANEL =
