@@ -112,11 +112,12 @@ class ConstructMenu extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           for (final NodeType type in NodeType.values)
-            MenuButton(
-              text: type.name.toUpperCase(),
-              color: Palette.primary,
-              onPressed: () => _onBuild(type),
-            ),
+            if (type != NodeType.headquarters)
+              MenuButton(
+                text: type.name.toUpperCase(),
+                color: Palette.primary,
+                onPressed: () => _onBuild(type),
+              ),
         ],
       ),
     );
