@@ -81,4 +81,7 @@ enum NodeType {
     required this.steel,
     required this.concrete,
   });
+
+  @override
+  String toString() => name.replaceAll('_', ' ');
 }

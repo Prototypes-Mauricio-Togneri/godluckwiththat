@@ -23,14 +23,18 @@ class Headquarters extends Node {
 
     if (game.state.constructions.isNotEmpty && (constructionDrones > 0)) {
       for (final Construction construction in game.state.constructions) {
-        const Resource resource = Resource(ResourceType.iron_block, 1);
+        const Resource resourceIronBlock = Resource(ResourceType.iron_block, 1);
 
         if ((construction.remainingIronBlock > 0) &&
-            inventory.hasResource(resource)) {
+            inventory.hasResource(resourceIronBlock)) {
           _sendConstructionDrone(
             construction: construction,
-            resource: resource,
+            resource: resourceIronBlock,
           );
+        }
+
+        if (constructionDrones == 0) {
+          break;
         }
       }
     }

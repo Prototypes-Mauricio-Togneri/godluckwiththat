@@ -114,7 +114,7 @@ class ConstructMenu extends StatelessWidget {
           for (final NodeType type in NodeType.values)
             if (type != NodeType.headquarters)
               MenuButton(
-                text: type.name.toUpperCase(),
+                text: type.toString().toUpperCase(),
                 color: Palette.primary,
                 onPressed: () => _onBuild(type),
               ),
