@@ -1,14 +1,16 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/components/base/building.dart';
+import 'package:tensionnode/components/game/construction.dart';
+import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
-import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/widgets/building_menu.dart';
-import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
+import 'package:tensionnode/widgets/menus/building_menu.dart';
+import 'package:tensionnode/widgets/menus/construction_menu.dart';
+import 'package:tensionnode/widgets/menus/headquarters_menu.dart';
 
 class SideMenu extends StatelessWidget {
   final GameComponent game;
@@ -31,15 +33,23 @@ class SideMenu extends StatelessWidget {
             _showSelectedNode()
           else if (game.isInSpecialMode)
             CancelMenu(game),
-          const Spacer(),
-          InventorySummary(game),
         ],
       ),
     );
   }
 
   Widget _showSelectedNode() {
-    if (game.selectedNode() is Building) {
+    if (game.selectedNode() is Headquarters) {
+      return HeadquartersMenu(
+        game,
+        game.selectedNode(),
+      );
+    } else if (game.selectedNode() is Construction) {
+      return ConstructionMenu(
+        game,
+        game.selectedNode(),
+      );
+    } else if (game.selectedNode() is Building) {
       return BuildingMenu(
         game,
         game.selectedNode(),
@@ -130,40 +140,6 @@ class CancelMenu extends StatelessWidget {
         color: Palette.error,
         onPressed: game.onCancelOperation,
       ),
-    );
-  }
-}
-
-class InventorySummary extends StatelessWidget {
-  final GameComponent game;
-
-  const InventorySummary(this.game);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        for (final Resource resource in game.state.inventory.list)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: Image.asset(
-                    'images/${resource.type.sprite}',
-                  ),
-                ),
-                const HBox(10),
-                Label(
-                  text: '${resource.amount}',
-                  align: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
-      ],
     );
   }
 }

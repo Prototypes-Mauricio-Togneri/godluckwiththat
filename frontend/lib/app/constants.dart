@@ -7,7 +7,7 @@ class Constants {
 
   static const double NODE_SIZE = 8;
 
-  static const double ROBOT_SPEED = 1; // 1 tile per second
+  static const double CONSTRUCTION_DRONE_SPEED = 1; // 1 tile per second
 
   static const int INPUT_QUEUE_LIMIT = 10;
   static const int OUTPUT_QUEUE_LIMIT = 10;
@@ -23,11 +23,6 @@ class Constants {
 		"location": [0, 0],
 		"zoom": 8
 	},
-  "inventory": {
-    "energy": 0,
-    "coal_ore": 5,
-    "copper_ore": 3
-  },
 	"patches": {
 		"iron": [{
 			"location": [7, 2],
@@ -92,6 +87,13 @@ class Constants {
 		}]
 	},
 	"buildings": {
+		"headquarters": {
+			"location": [0, 0],
+			"resources": {
+				"coal_ore": 5,
+				"copper_ore": 3
+			}
+		},
 		"solar_panels": [{
 			"location": [-2, -2],
 			"connections": []
@@ -113,7 +115,7 @@ class Constants {
 			"connections": []
 		}],
 		"copper_smelters": [{
-			"location": [0, 0],
+			"location": [2, 2],
 			"connections": []
 		}]
 	}

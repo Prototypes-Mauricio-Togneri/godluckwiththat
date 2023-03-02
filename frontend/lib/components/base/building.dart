@@ -1,9 +1,9 @@
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/game/moving_drone.dart';
 import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
-import 'package:tensionnode/models/routed_robot.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -87,7 +87,7 @@ class Building extends Node {
   }
 
   @override
-  void receive(RoutedRobot routedRobot) {
+  void receive(MovingDrone movingDrone) {
     /*if (!routedRobot.isDestination(this)) {
       throw Exception(
           'Routed resource $routedRobot arrived to $runtimeType $this without being the destination');
@@ -127,34 +127,6 @@ class Building extends Node {
     } else {
       add(WarningSign());
     }*/
-  }
-
-  @override
-  void moveResourcesToInventory() {
-    if (_output > 0) {
-      game.state.addToInventory(Resource(
-        resourceProduced,
-        _output,
-      ));
-
-      _output = 0;
-      updateMenu();
-      _startProducing();
-    }
-  }
-
-  @override
-  void moveResourcesFromInventory() {
-    final Inventory map = game.state.removeFromInventory(_input);
-
-    if (map.isNotEmpty) {
-      for (final ResourceType type in map.types) {
-        _input.addResource(Resource(type, map.get(type)));
-      }
-
-      updateMenu();
-      _startProducing();
-    }
   }
 
   JsonBuilding get json => JsonBuilding(

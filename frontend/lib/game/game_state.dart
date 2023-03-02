@@ -1,8 +1,8 @@
-import 'dart:math';
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
-import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/game/construction.dart';
+import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/components/game/producers/solar_panel.dart';
 import 'package:tensionnode/components/game/transformers/coal_mine.dart';
 import 'package:tensionnode/components/game/transformers/copper_mine.dart';
@@ -13,16 +13,16 @@ import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_buildings.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/json/json_patches.dart';
-import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/patch.dart';
-import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class GameState extends BaseState {
   num _totalTimeElapsed = 0;
   bool loaded = false;
 
+  Headquarters? headquarters;
+  final List<Construction> constructions = [];
   final List<SolarPanel> solarPanels = [];
   final List<IronMine> ironMines = [];
   final List<CopperMine> copperMines = [];
@@ -31,38 +31,13 @@ class GameState extends BaseState {
   final List<CopperSmelter> copperSmelters = [];
   final List<Node> allNodes = [];
   final Map<ResourceType, List<Patch>> patches = {};
-  final Inventory inventory = Inventory();
   final JsonMatch jsonMatch;
 
   GameState(this.jsonMatch) {
     _totalTimeElapsed = jsonMatch.totalTimeElapsed;
-    inventory.load(jsonMatch.inventory);
 
     patches[ResourceType.coal_ore] = [];
     patches[ResourceType.copper_ore] = [];
-  }
-
-  void addToInventory(Resource resource) {
-    inventory.addResource(resource);
-    notify();
-  }
-
-  Inventory removeFromInventory(Inventory input) {
-    final Inventory result = Inventory();
-
-    for (final ResourceType type in input.types) {
-      final int current = inventory.get(type);
-      final int expected = Constants.INPUT_QUEUE_LIMIT - input.get(type);
-      final int amount = min(current, expected);
-
-      if (amount > 0) {
-        result.addResource(Resource(type, amount));
-        inventory.removeResource(Resource(type, amount));
-      }
-    }
-    notify();
-
-    return result;
   }
 
   List<Location> patchLocations(ResourceType type) =>
@@ -98,7 +73,11 @@ class GameState extends BaseState {
   }*/
 
   void addNode(Node node) {
-    if (node is SolarPanel) {
+    if (node is Headquarters) {
+      headquarters = node;
+    } else if (node is Construction) {
+      constructions.add(node);
+    } else if (node is SolarPanel) {
       solarPanels.add(node);
     } else if (node is IronMine) {
       ironMines.add(node);
@@ -116,7 +95,9 @@ class GameState extends BaseState {
   }
 
   void removeNode(Node node) {
-    if (node is SolarPanel) {
+    if (node is Construction) {
+      constructions.remove(node);
+    } else if (node is SolarPanel) {
       solarPanels.remove(node);
     } else if (node is IronMine) {
       ironMines.remove(node);
@@ -139,7 +120,6 @@ class GameState extends BaseState {
       id: jsonMatch.id,
       totalTimeElapsed: _totalTimeElapsed.decimal(),
       map: jsonMatch.map.withCamera(camera),
-      inventory: inventory.json,
       buildings: JsonBuildings(
         solarPanels: solarPanels.map((e) => e.json).toList(),
         ironMines: ironMines.map((e) => e.json).toList(),

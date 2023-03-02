@@ -45,6 +45,8 @@ class Inventory {
   // TODO(momo): implement
   bool has(Inventory inventory) => true;
 
+  bool hasResource(Resource resource) => get(resource.type) >= resource.amount;
+
   JsonInventory get json => _resources;
 
   @override

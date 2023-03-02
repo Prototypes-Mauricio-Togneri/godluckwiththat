@@ -49,7 +49,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       final NodeType type = buildingIndicator.type;
 
       if (node == null) {
-        buildNode(
+        buildConstructionNode(
           location: location,
           type: type,
           tile: tile,

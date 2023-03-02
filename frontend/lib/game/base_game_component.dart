@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/map_component.dart';
-import 'package:tensionnode/components/game/moving_robot.dart';
+import 'package:tensionnode/components/game/moving_drone.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/game/map_handler.dart';
@@ -72,7 +72,7 @@ class BaseGameComponent extends FlameGame
   Color backgroundColor() => Palette.gameBackground;
 
   void addComponent(Component component) {
-    if (component is MovingRobot) {
+    if (component is MovingDrone) {
       _layerRobots.add(component);
     } else {
       _layerNodes.add(component);
@@ -80,7 +80,7 @@ class BaseGameComponent extends FlameGame
   }
 
   void removeComponent(Component component) {
-    if (component is MovingRobot) {
+    if (component is MovingDrone) {
       _layerRobots.remove(component);
     } else {
       _layerNodes.remove(component);
