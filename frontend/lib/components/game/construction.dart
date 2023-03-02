@@ -1,5 +1,5 @@
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/moving_drone.dart';
+import 'package:tensionnode/components/game/drone.dart';
 import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -28,8 +28,8 @@ class Construction extends Node {
   }
 
   @override
-  void receive(MovingDrone movingDrone) {
-    final Resource resource = movingDrone.resource;
+  void receive(Drone drone) {
+    final Resource resource = drone.resource;
 
     if (resource.type == ResourceType.iron_block) {
       remainingIronBlock -= resource.amount;

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:tensionnode/components/game/moving_drone.dart';
+import 'package:tensionnode/components/game/drone.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/location.dart';
@@ -38,14 +38,14 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     }
   }
 
-  void receiveDrone(MovingDrone movingDrone) {
-    receive(movingDrone);
+  void receiveDrone(Drone drone) {
+    receive(drone);
     updateMenu();
   }
 
-  void receive(MovingDrone movingDrone) {}
+  void receive(Drone drone) {}
 
-  void send(MovingDrone movingDrone) {
+  void send(Drone drone) {
     // TODO(momo): implement
     //road.send(routedResource);
     //game.state.notify();

@@ -7,7 +7,7 @@ import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/drone_type.dart';
 
-class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
+class Drone extends SpriteComponent with HasGameRef<GameComponent> {
   final DroneType droneType;
   Resource resource;
   Node origin;
@@ -17,7 +17,7 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
   double progress = 0;
   final List<Node> destinations;
 
-  MovingDrone({
+  Drone({
     required this.droneType,
     required this.resource,
     required this.origin,
