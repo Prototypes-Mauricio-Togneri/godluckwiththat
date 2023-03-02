@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/game/game_component.dart';
+import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
@@ -32,6 +33,9 @@ class HeadquartersMenu extends StatelessWidget {
             text: '${node.location.i}, ${node.location.j}',
             align: TextAlign.center,
           ),
+          const VBox(10),
+          InventorySummary(game),
+          const VBox(10),
           MenuButton(
             text: 'Center',
             icon: Icons.filter_tilt_shift,
@@ -64,4 +68,38 @@ class HeadquartersMenu extends StatelessWidget {
   }
 
   void _closeMenu() => game.unselectNode();
+}
+
+class InventorySummary extends StatelessWidget {
+  final GameComponent game;
+
+  const InventorySummary(this.game);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        for (final Resource resource in game.state.headquarters!.inventory.list)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Image.asset(
+                    'images/${resource.type.sprite}',
+                  ),
+                ),
+                const HBox(10),
+                Label(
+                  text: '${resource.amount}',
+                  align: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
 }

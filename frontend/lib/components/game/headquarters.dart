@@ -53,6 +53,7 @@ class Headquarters extends Node {
       destinations: [construction, this],
     );
     add(movingDrone);
+    updateMenu();
   }
 
   JsonHeadquarters get json => JsonHeadquarters(

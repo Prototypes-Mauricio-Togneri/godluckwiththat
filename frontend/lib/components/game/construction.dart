@@ -46,10 +46,11 @@ class Construction extends Node {
         (remainingSteel <= 0) &&
         (remainingConcrete <= 0)) {
       destroy();
-      game.buildNode(
+      final Node node = game.buildNode(
         location: location,
         type: type,
       );
+      game.selectNode(node);
     }
   }
 

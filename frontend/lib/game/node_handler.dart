@@ -123,7 +123,7 @@ mixin NodeHandler on BaseGameComponent {
     spriteGroups[resourceType.sprite]!.load(state.patchLocations(resourceType));
   }
 
-  void addHeadquarters({
+  Node addHeadquarters({
     required Location location,
     required Inventory inventory,
   }) =>
@@ -132,7 +132,7 @@ mixin NodeHandler on BaseGameComponent {
         inventory: inventory,
       ));
 
-  void addConstruction({
+  Node addConstruction({
     required Location location,
     required NodeType type,
   }) =>
@@ -141,42 +141,42 @@ mixin NodeHandler on BaseGameComponent {
         type: type,
       ));
 
-  void addSolarPanel({
+  Node addSolarPanel({
     required Location location,
   }) =>
       _addNode(SolarPanel(
         location: location,
       ));
 
-  void addIronMine({
+  Node addIronMine({
     required Location location,
   }) =>
       _addNode(IronMine(
         location: location,
       ));
 
-  void addCopperMine({
+  Node addCopperMine({
     required Location location,
   }) =>
       _addNode(CopperMine(
         location: location,
       ));
 
-  void addCoalMine({
+  Node addCoalMine({
     required Location location,
   }) =>
       _addNode(CoalMine(
         location: location,
       ));
 
-  void addStoneMine({
+  Node addStoneMine({
     required Location location,
   }) =>
       _addNode(StoneMine(
         location: location,
       ));
 
-  void addCopperSmelter({
+  Node addCopperSmelter({
     required Location location,
   }) =>
       _addNode(CopperSmelter(
@@ -187,9 +187,11 @@ mixin NodeHandler on BaseGameComponent {
         },
       ));
 
-  void _addNode(Node node) {
+  Node _addNode(Node node) {
     addComponent(node);
     state.addNode(node);
+
+    return node;
   }
 
   void removeNode(Node node) {
@@ -224,31 +226,25 @@ mixin NodeHandler on BaseGameComponent {
     }
   }
 
-  void buildNode({
+  Node buildNode({
     required Location location,
     required NodeType type,
   }) {
     switch (type) {
-      case NodeType.headquarters:
-        break;
       case NodeType.solar_panel:
-        addSolarPanel(location: location);
-        break;
+        return addSolarPanel(location: location);
       case NodeType.iron_mine:
-        addIronMine(location: location);
-        break;
+        return addIronMine(location: location);
       case NodeType.copper_mine:
-        addCoalMine(location: location);
-        break;
+        return addCoalMine(location: location);
       case NodeType.coal_mine:
-        addCoalMine(location: location);
-        break;
+        return addCoalMine(location: location);
       case NodeType.stone_mine:
-        addStoneMine(location: location);
-        break;
+        return addStoneMine(location: location);
       case NodeType.copper_smelter:
-        addCopperSmelter(location: location);
-        break;
+        return addCopperSmelter(location: location);
+      case NodeType.headquarters:
+        throw Exception('Headquarters cannot be built');
     }
   }
 }
