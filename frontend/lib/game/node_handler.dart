@@ -16,7 +16,6 @@ import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/models/patch.dart';
-import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -26,7 +25,7 @@ mixin NodeHandler on BaseGameComponent {
 
   void loadNodes() {
     final Inventory inventory = Inventory();
-    inventory.addResource(const Resource(ResourceType.iron_block, 10));
+    inventory.load(state.jsonMatch.headquarters.inventory);
 
     addHeadquarters(
       location: const Location(0, 0),

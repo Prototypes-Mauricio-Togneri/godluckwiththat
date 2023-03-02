@@ -6,16 +6,10 @@ enum ResourceType {
   copper_ore(sprite: Assets.IMAGES_RESOURCES_COPPER_ORE),
   coal_ore(sprite: Assets.IMAGES_RESOURCES_COAL_ORE),
   stone_ore(sprite: Assets.IMAGES_RESOURCES_STONE_ORE),
-  iron_block(
-      sprite:
-          Assets.IMAGES_RESOURCES_COPPER_BLOCK), // TODO(momo): replace sprite
+  iron_block(sprite: Assets.IMAGES_RESOURCES_IRON_BLOCK),
   copper_block(sprite: Assets.IMAGES_RESOURCES_COPPER_BLOCK),
-  steel(
-      sprite:
-          Assets.IMAGES_RESOURCES_COPPER_BLOCK), // TODO(momo): replace sprite
-  concrete(
-      sprite:
-          Assets.IMAGES_RESOURCES_COPPER_BLOCK); // TODO(momo): replace sprite
+  steel(sprite: Assets.IMAGES_RESOURCES_STEEL),
+  concrete(sprite: Assets.IMAGES_RESOURCES_CONCRETE);
 
   final String sprite;
 

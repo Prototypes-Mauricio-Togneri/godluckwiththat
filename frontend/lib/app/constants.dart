@@ -86,38 +86,19 @@ class Constants {
 			"amount": 1000
 		}]
 	},
+  "headquarters": {
+    "location": [0, 0],
+    "inventory": {
+      "iron_block": 10
+    }
+  },
 	"buildings": {
-		"headquarters": {
-			"location": [0, 0],
-			"resources": {
-				"coal_ore": 5,
-				"copper_ore": 3
-			}
-		},
-		"solar_panels": [{
-			"location": [-2, -2],
-			"connections": []
-		}],
-		"iron_mines": [{
-			"location": [6, 3],
-			"connections": []
-		}],
-		"copper_mines": [{
-			"location": [-5, 5],
-			"connections": []
-		}],
-		"coal_mines": [{
-			"location": [5, -3],
-			"connections": []
-		}],
-		"stone_mines": [{
-			"location": [1, 5],
-			"connections": []
-		}],
-		"copper_smelters": [{
-			"location": [2, 2],
-			"connections": []
-		}]
+		"solar_panels": [],
+		"iron_mines": [],
+		"copper_mines": [],
+		"coal_mines": [],
+		"stone_mines": [],
+		"copper_smelters": []
 	}
 }
 ''';

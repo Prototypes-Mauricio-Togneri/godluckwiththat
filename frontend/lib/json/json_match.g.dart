@@ -12,6 +12,8 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       totalTimeElapsed: json['totalTimeElapsed'] as num,
       map: JsonMap.fromJson(json['map'] as Map<String, dynamic>),
       patches: JsonPatches.fromJson(json['patches'] as Map<String, dynamic>),
+      headquarters: JsonHeadquarters.fromJson(
+          json['headquarters'] as Map<String, dynamic>),
       buildings:
           JsonBuildings.fromJson(json['buildings'] as Map<String, dynamic>),
     );
@@ -22,5 +24,6 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'totalTimeElapsed': instance.totalTimeElapsed,
       'map': instance.map,
       'patches': instance.patches,
+      'headquarters': instance.headquarters,
       'buildings': instance.buildings,
     };

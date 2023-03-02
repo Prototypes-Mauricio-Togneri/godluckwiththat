@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionnode/json/json_buildings.dart';
+import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_patches.dart';
 
@@ -23,6 +24,9 @@ class JsonMatch {
   @JsonKey(name: 'patches')
   final JsonPatches patches;
 
+  @JsonKey(name: 'headquarters')
+  final JsonHeadquarters headquarters;
+
   @JsonKey(name: 'buildings')
   final JsonBuildings buildings;
 
@@ -32,6 +36,7 @@ class JsonMatch {
     required this.totalTimeElapsed,
     required this.map,
     required this.patches,
+    required this.headquarters,
     required this.buildings,
   });
 

@@ -1,6 +1,7 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/construction.dart';
 import 'package:tensionnode/components/game/moving_drone.dart';
+import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/node_type.dart';
@@ -53,4 +54,9 @@ class Headquarters extends Node {
     );
     add(movingDrone);
   }
+
+  JsonHeadquarters get json => JsonHeadquarters(
+        location: location.json,
+        inventory: inventory.json,
+      );
 }

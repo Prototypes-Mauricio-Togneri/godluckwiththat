@@ -2,7 +2,7 @@ import 'package:tensionnode/services/assets.dart';
 
 enum NodeType {
   headquarters(
-    sprite: Assets.IMAGES_BUILDINGS_SOLAR_PANEL, // TODO(momo): replace sprite
+    sprite: Assets.IMAGES_BUILDINGS_HEADQUARTERS,
     productionTime: 0,
     iron: 0,
     copper: 0,

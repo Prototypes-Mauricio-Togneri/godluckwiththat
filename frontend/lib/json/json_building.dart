@@ -9,12 +9,8 @@ class JsonBuilding {
   @JsonKey(name: 'location')
   final JsonLocation location;
 
-  @JsonKey(name: 'connections')
-  final List<JsonLocation> connections;
-
   const JsonBuilding({
     required this.location,
-    required this.connections,
   });
 
   factory JsonBuilding.fromString(String json) =>

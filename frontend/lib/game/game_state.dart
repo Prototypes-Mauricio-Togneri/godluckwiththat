@@ -120,6 +120,13 @@ class GameState extends BaseState {
       id: jsonMatch.id,
       totalTimeElapsed: _totalTimeElapsed.decimal(),
       map: jsonMatch.map.withCamera(camera),
+      patches: JsonPatches(
+        iron: patches[ResourceType.iron_ore]!.map((e) => e.json).toList(),
+        copper: patches[ResourceType.copper_ore]!.map((e) => e.json).toList(),
+        coal: patches[ResourceType.coal_ore]!.map((e) => e.json).toList(),
+        stone: patches[ResourceType.stone_ore]!.map((e) => e.json).toList(),
+      ),
+      headquarters: headquarters!.json,
       buildings: JsonBuildings(
         solarPanels: solarPanels.map((e) => e.json).toList(),
         ironMines: ironMines.map((e) => e.json).toList(),
@@ -127,12 +134,6 @@ class GameState extends BaseState {
         coalMines: coalMines.map((e) => e.json).toList(),
         stoneMines: stoneMines.map((e) => e.json).toList(),
         copperSmelters: copperSmelters.map((e) => e.json).toList(),
-      ),
-      patches: JsonPatches(
-        iron: patches[ResourceType.iron_ore]!.map((e) => e.json).toList(),
-        copper: patches[ResourceType.copper_ore]!.map((e) => e.json).toList(),
-        coal: patches[ResourceType.coal_ore]!.map((e) => e.json).toList(),
-        stone: patches[ResourceType.stone_ore]!.map((e) => e.json).toList(),
       ),
     );
   }
