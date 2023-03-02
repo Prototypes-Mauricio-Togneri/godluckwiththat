@@ -1,0 +1,4 @@
+enum DroneType {
+  construction,
+  logistic,
+}
