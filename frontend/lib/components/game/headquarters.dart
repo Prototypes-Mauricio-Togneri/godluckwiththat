@@ -23,15 +23,37 @@ class Headquarters extends Node {
 
     if (game.state.constructions.isNotEmpty && (constructionDrones > 0)) {
       for (final Construction construction in game.state.constructions) {
-        const Resource resourceIronBlock = Resource(ResourceType.iron_block, 1);
+        _checkConstruction(
+          construction: construction,
+          resource: const Resource(ResourceType.iron_block, 1),
+        );
 
-        if ((construction.remainingIronBlock > 0) &&
-            inventory.hasResource(resourceIronBlock)) {
-          _sendConstructionDrone(
-            construction: construction,
-            resource: resourceIronBlock,
-          );
+        if (constructionDrones == 0) {
+          break;
         }
+
+        _checkConstruction(
+          construction: construction,
+          resource: const Resource(ResourceType.copper_block, 1),
+        );
+
+        if (constructionDrones == 0) {
+          break;
+        }
+
+        _checkConstruction(
+          construction: construction,
+          resource: const Resource(ResourceType.steel, 1),
+        );
+
+        if (constructionDrones == 0) {
+          break;
+        }
+
+        _checkConstruction(
+          construction: construction,
+          resource: const Resource(ResourceType.concrete, 1),
+        );
 
         if (constructionDrones == 0) {
           break;
@@ -44,6 +66,20 @@ class Headquarters extends Node {
   void receive(Drone drone) {
     if (drone.droneType == DroneType.construction) {
       constructionDrones++;
+    }
+  }
+
+  void _checkConstruction({
+    required Construction construction,
+    required Resource resource,
+  }) {
+    if ((constructionDrones > 0) &&
+        (construction.remainingResources.hasResource(resource)) &&
+        inventory.hasResource(resource)) {
+      _sendConstructionDrone(
+        construction: construction,
+        resource: resource,
+      );
     }
   }
 

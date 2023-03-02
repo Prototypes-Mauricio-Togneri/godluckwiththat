@@ -49,11 +49,9 @@ class Building extends Node {
   }
 
   bool get _hasEnoughResources {
-    if (_input.isNotEmpty) {
-      for (final Resource resource in _input.list) {
-        if (resource.amount == 0) {
-          return false;
-        }
+    for (final Resource resource in _input.list) {
+      if (resource.amount == 0) {
+        return false;
       }
     }
 

@@ -14,9 +14,25 @@ class Inventory {
 
   List<ResourceType> get types => _resources.keys.toList();
 
-  bool get isEmpty => _resources.isEmpty;
+  bool get isEmpty {
+    for (final Resource resource in list) {
+      if (resource.amount != 0) {
+        return false;
+      }
+    }
 
-  bool get isNotEmpty => _resources.isNotEmpty;
+    return true;
+  }
+
+  bool get isNotEmpty {
+    for (final Resource resource in list) {
+      if (resource.amount == 0) {
+        return false;
+      }
+    }
+
+    return _resources.isNotEmpty;
+  }
 
   int get(ResourceType type) => _resources[type] ?? 0;
 

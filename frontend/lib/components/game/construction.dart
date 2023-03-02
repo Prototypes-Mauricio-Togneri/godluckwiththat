@@ -1,14 +1,12 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/drone.dart';
 import 'package:tensionnode/json/json_building.dart';
+import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Construction extends Node {
-  int remainingIronBlock = 0;
-  int remainingCopperBlock = 0;
-  int remainingSteel = 0;
-  int remainingConcrete = 0;
+  final Inventory remainingResources = Inventory();
 
   Construction({
     required super.type,
@@ -19,10 +17,12 @@ class Construction extends Node {
   Future onLoad() {
     opacity = 0.5;
 
-    remainingIronBlock = type.iron;
-    remainingCopperBlock = type.copper;
-    remainingSteel = type.steel;
-    remainingConcrete = type.concrete;
+    for (final MapEntry<ResourceType, int> entry in type.cost.entries) {
+      remainingResources.addResource(Resource(
+        entry.key,
+        entry.value,
+      ));
+    }
 
     return super.onLoad();
   }
@@ -31,20 +31,12 @@ class Construction extends Node {
   void receive(Drone drone) {
     final Resource resource = drone.resource;
 
-    if (resource.type == ResourceType.iron_block) {
-      remainingIronBlock -= resource.amount;
-    } else if (resource.type == ResourceType.copper_block) {
-      remainingCopperBlock -= resource.amount;
-    } else if (resource.type == ResourceType.steel) {
-      remainingSteel -= resource.amount;
-    } else if (resource.type == ResourceType.concrete) {
-      remainingConcrete -= resource.amount;
-    }
+    remainingResources.removeResource(Resource(
+      resource.type,
+      resource.amount,
+    ));
 
-    if ((remainingIronBlock <= 0) &&
-        (remainingCopperBlock <= 0) &&
-        (remainingSteel <= 0) &&
-        (remainingConcrete <= 0)) {
+    if (remainingResources.isEmpty) {
       destroy();
       final Node node = game.buildNode(
         location: location,

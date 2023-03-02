@@ -80,28 +80,29 @@ class ResourcesSection extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 30,
-                height: 30,
-                child: Image.asset(
-                  'images/${ResourceType.iron_block.sprite}',
+        for (final MapEntry<ResourceType, int> entry in node.type.cost.entries)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: Image.asset(
+                    'images/${entry.key.sprite}',
+                  ),
                 ),
-              ),
-              const HBox(10),
-              Label(
-                text:
-                    '${node.type.iron - node.remainingIronBlock}/${node.type.iron}',
-                align: TextAlign.center,
-              ),
-            ],
+                const HBox(10),
+                Label(
+                  text:
+                      '${entry.value - node.remainingResources.get(entry.key)}/${entry.value}',
+                  align: TextAlign.center,
+                ),
+              ],
+            ),
           ),
-        ),
       ],
     );
   }
