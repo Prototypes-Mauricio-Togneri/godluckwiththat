@@ -36,7 +36,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
   @override
   void onMapClicked(Location location) {
-    if (isDetailsMode) {
+    if (hasNodeSelected) {
       removeMenuComponents();
       disableMode();
     }

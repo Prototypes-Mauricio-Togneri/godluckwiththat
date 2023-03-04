@@ -17,8 +17,6 @@ mixin MenuHandler on BaseGameComponent {
 
   bool get isDestroyingMode => _mode == MenuMode.destroying;
 
-  bool get isDetailsMode => _mode == MenuMode.node_selected;
-
   bool get isAddConnectionMode => _mode == MenuMode.add_connection;
 
   bool get isRemoveConnectionMode => _mode == MenuMode.remove_connection;
@@ -96,11 +94,10 @@ mixin MenuHandler on BaseGameComponent {
     if (isDestroyingMode) {
       node.destroy();
     } else if (!isInSpecialMode) {
-      _enableMode(MenuMode.node_selected);
       _selectedNode = node;
-
       removeMenuComponents();
       addComponent(NodeSelected(node));
+      state.notify();
     }
 
     return true;
