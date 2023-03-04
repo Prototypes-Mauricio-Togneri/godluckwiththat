@@ -18,6 +18,8 @@ class Building extends Node {
     required super.location,
     required this.resourceProduced,
     required this.input,
+    super.constructionDrones,
+    super.logisticDrones,
   });
 
   int get output => _output;

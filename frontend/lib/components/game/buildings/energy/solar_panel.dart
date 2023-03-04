@@ -9,5 +9,6 @@ class SolarPanel extends Building {
   }) : super(
           type: NodeType.solar_panel,
           resourceProduced: ResourceType.energy,
+          logisticDrones: 1,
         );
 }
