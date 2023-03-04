@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class Palette {
   static const MaterialColor primary = Colors.blue;
   static const Color transparent = Colors.transparent;
+  static const Color white = Colors.white;
   static const Color black = Colors.black;
   static const Color grey = Color(0xff404040);
   static const Color lightGrey = Color(0xffa0a0a0);
-  static const Color white = Colors.white;
   static const Color error = Colors.red;
 
   static const Color buildTypeEnergy = Colors.yellow;
