@@ -3,4 +3,6 @@ enum MenuMode {
   building,
   destroying,
   node_selected,
+  add_connection,
+  remove_connection,
 }

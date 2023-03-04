@@ -13,13 +13,21 @@ mixin MenuHandler on BaseGameComponent {
   MenuMode _mode = MenuMode.none;
   Node? _selectedNode;
 
-  bool get buildingMode => _mode == MenuMode.building;
+  bool get isBuildingMode => _mode == MenuMode.building;
 
-  bool get destroyingMode => _mode == MenuMode.destroying;
+  bool get isDestroyingMode => _mode == MenuMode.destroying;
 
   bool get isDetailsMode => _mode == MenuMode.node_selected;
 
-  bool get isInSpecialMode => buildingMode || destroyingMode;
+  bool get isAddConnectionMode => _mode == MenuMode.add_connection;
+
+  bool get isRemoveConnectionMode => _mode == MenuMode.remove_connection;
+
+  bool get isInSpecialMode =>
+      isBuildingMode ||
+      isDestroyingMode ||
+      isAddConnectionMode ||
+      isRemoveConnectionMode;
 
   void _enableMode(MenuMode newMode) {
     _selectedNode = null;
@@ -85,7 +93,7 @@ mixin MenuHandler on BaseGameComponent {
   bool isNodeSelected(Node node) => _selectedNode == node;
 
   bool selectNode(Node node) {
-    if (destroyingMode) {
+    if (isDestroyingMode) {
       node.destroy();
     } else if (!isInSpecialMode) {
       _enableMode(MenuMode.node_selected);
@@ -125,13 +133,23 @@ mixin MenuHandler on BaseGameComponent {
     removeMenuComponents();
   }
 
-  void _disableDestroyingMode() => disableMode();
+  void enableAddConnectionMode() {
+    _enableMode(MenuMode.add_connection);
+    removeMenuComponents();
+  }
+
+  void enableRemoveConnectionMode() {
+    _enableMode(MenuMode.remove_connection);
+    removeMenuComponents();
+  }
 
   void onCancelOperation() {
-    if (buildingMode) {
+    if (isBuildingMode) {
       _disableBuildingMode();
-    } else if (destroyingMode) {
-      _disableDestroyingMode();
+    } else if (isDestroyingMode ||
+        isAddConnectionMode ||
+        isRemoveConnectionMode) {
+      disableMode();
     }
   }
 }

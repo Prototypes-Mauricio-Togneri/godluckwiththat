@@ -67,9 +67,9 @@ class BuildingMenu extends StatelessWidget {
     );
   }
 
-  void _onAddConnection() {}
+  void _onAddConnection() => game.enableAddConnectionMode();
 
-  void _onRemoveConnection() {}
+  void _onRemoveConnection() => game.enableRemoveConnectionMode();
 
   void _onCenter() => game.centerMap(node.position);
 

@@ -41,7 +41,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       disableMode();
     }
 
-    if (buildingMode) {
+    if (isBuildingMode) {
       final BuildingIndicator buildingIndicator =
           layerNodes.getComponent(BuildingIndicator);
       final Node? node = layerNodes.getNode(location);
