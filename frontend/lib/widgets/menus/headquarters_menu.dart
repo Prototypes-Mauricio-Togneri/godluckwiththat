@@ -4,6 +4,7 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/resource.dart';
+import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
@@ -29,7 +30,7 @@ class HeadquartersMenu extends StatelessWidget {
           align: TextAlign.center,
         ),
         const VBox(10),
-        InventorySummary(game),
+        InventorySummary(node),
         const VBox(10),
         MenuButton(
           text: 'Center',
@@ -65,35 +66,61 @@ class HeadquartersMenu extends StatelessWidget {
 }
 
 class InventorySummary extends StatelessWidget {
-  final GameComponent game;
+  final Headquarters node;
 
-  const InventorySummary(this.game);
+  const InventorySummary(this.node);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        for (final Resource resource in game.state.headquarters!.inventory.list)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: Image.asset(
-                    'images/${resource.type.sprite}',
-                  ),
-                ),
-                const HBox(10),
-                Label(
-                  text: '${resource.amount}',
-                  align: TextAlign.center,
-                ),
-              ],
+        for (final Resource resource in node.inventory.list)
+          ItemRow(
+            sprite: resource.type.sprite,
+            amount: resource.amount,
+          ),
+        ItemRow(
+          sprite: Assets.IMAGES_CONSTRUCTION_DRONE,
+          amount: node.constructionDrones,
+        ),
+        ItemRow(
+          sprite: Assets.IMAGES_CONSTRUCTION_DRONE,
+          amount: node.logisticDrones,
+        ),
+      ],
+    );
+  }
+}
+
+class ItemRow extends StatelessWidget {
+  final String sprite;
+  final int amount;
+
+  const ItemRow({
+    required this.sprite,
+    required this.amount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 30,
+            height: 30,
+            child: Image.asset(
+              'images/$sprite',
             ),
           ),
-      ],
+          const HBox(10),
+          Label(
+            text: '$amount',
+            align: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }
