@@ -15,6 +15,8 @@ class Drone {
 
   Resource get resource => _resource!;
 
+  bool get hasResource => _resource != null;
+
   bool get isConstruction => type == DroneType.construction;
 
   bool get isLogistic => type == DroneType.logistic;
