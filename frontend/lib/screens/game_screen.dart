@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tensionnode/dialog/construct_menu.dart';
 import 'package:tensionnode/dialog/info_menu.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
@@ -41,6 +42,7 @@ class GameScreen extends StatelessWidget {
                 GameWidget(
                   game: game,
                   overlayBuilderMap: const {
+                    ConstructMenu.NAME: ConstructMenu.builder,
                     MainMenu.NAME: MainMenu.builder,
                     SettingsMenu.NAME: SettingsMenu.builder,
                     InfoMenu.NAME: InfoMenu.builder,

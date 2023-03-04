@@ -1,6 +1,7 @@
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/node_selected.dart';
+import 'package:tensionnode/dialog/construct_menu.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
@@ -12,14 +13,11 @@ mixin MenuHandler on BaseGameComponent {
   MenuMode _mode = MenuMode.none;
   Node? _selectedNode;
 
-  bool get constructMode => _mode == MenuMode.construct;
-
   bool get buildingMode => _mode == MenuMode.building;
 
   bool get destroyingMode => _mode == MenuMode.destroying;
 
-  bool get isDetailsMode =>
-      (_mode == MenuMode.construct) || (_mode == MenuMode.node_selected);
+  bool get isDetailsMode => _mode == MenuMode.node_selected;
 
   bool get isInSpecialMode => buildingMode || destroyingMode;
 
@@ -34,6 +32,8 @@ mixin MenuHandler on BaseGameComponent {
     _mode = MenuMode.none;
     state.notify();
   }
+
+  void openBuildMenu() => _openMenu(name: ConstructMenu.NAME);
 
   void openMainMenu() => _openMenu(
         name: MainMenu.NAME,
@@ -103,13 +103,10 @@ mixin MenuHandler on BaseGameComponent {
     removeMenuComponents();
   }
 
-  void toggleConstructMode() {
-    if (_mode != MenuMode.construct) {
-      _enableMode(MenuMode.construct);
-      removeMenuComponents();
-    } else {
-      disableMode();
-    }
+  void enableConstructMode() {
+    removeMenuComponents();
+    disableMode();
+    openBuildMenu();
   }
 
   void enableBuildingMode(NodeType type) {

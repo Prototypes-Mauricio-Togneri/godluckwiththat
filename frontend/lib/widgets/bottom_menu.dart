@@ -47,7 +47,7 @@ class FixedButtons extends StatelessWidget {
         BottomMenuButton(
           icon: Icons.construction,
           color: Palette.lightGrey,
-          onClick: game.toggleConstructMode,
+          onClick: game.enableConstructMode,
         ),
         const HBox(10),
         BottomMenuButton(
