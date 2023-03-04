@@ -3,13 +3,11 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/models/resource.dart';
+import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/services/assets.dart';
-import 'package:tensionnode/types/drone_type.dart';
 
 class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
-  final DroneType droneType;
-  Resource resource;
+  final Drone drone;
   Node origin;
   late Node target;
   Vector2 direction = Vector2.zero();
@@ -18,8 +16,7 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
   final List<Node> destinations;
 
   MovingDrone({
-    required this.droneType,
-    required this.resource,
+    required this.drone,
     required this.origin,
     required this.destinations,
   }) {
@@ -45,8 +42,8 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
         Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);
 
     if (progress >= 1) {
-      target.receiveDrone(this);
-      resource = Resource(resource.type, 0);
+      target.receiveMovingDrone(this);
+      drone.removeResource();
       _calculateRoute(target);
     }
   }
