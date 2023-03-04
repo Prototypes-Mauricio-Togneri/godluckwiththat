@@ -1,6 +1,6 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/construction.dart';
-import 'package:tensionnode/components/game/drone.dart';
+import 'package:tensionnode/components/game/moving_drone.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
@@ -63,8 +63,8 @@ class Headquarters extends Node {
   }
 
   @override
-  void receive(Drone drone) {
-    if (drone.droneType == DroneType.construction) {
+  void receive(MovingDrone movingDrone) {
+    if (movingDrone.droneType == DroneType.construction) {
       constructionDrones++;
     }
   }
@@ -90,13 +90,13 @@ class Headquarters extends Node {
     constructionDrones--;
     inventory.removeResource(resource);
 
-    final Drone drone = Drone(
+    final MovingDrone movingDrone = MovingDrone(
       droneType: DroneType.construction,
       resource: resource,
       origin: this,
       destinations: [construction, this],
     );
-    add(drone);
+    add(movingDrone);
     updateMenu();
   }
 

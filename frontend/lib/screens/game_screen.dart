@@ -56,7 +56,8 @@ class GameScreen extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: StateProvider<GameState>(
                     state: state,
-                    builder: (context, state) => BottomMenu(game, state),
+                    builder: (context, state) =>
+                        game.isLoaded ? BottomMenu(game, state) : const Empty(),
                   ),
                 ),
               ],
