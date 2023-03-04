@@ -16,10 +16,11 @@ class Building extends Node {
   Building({
     required super.type,
     required super.location,
-    required this.resourceProduced,
-    required this.input,
     required super.constructionDrones,
     required super.logisticDrones,
+    required super.connections,
+    required this.resourceProduced,
+    required this.input,
   });
 
   int get output => _output;

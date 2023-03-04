@@ -20,7 +20,7 @@ class SideMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     if (game.hasNodeSelected) {
       return Container(
-        width: 260,
+        width: 300,
         height: double.infinity,
         color: Palette.grey,
         padding: const EdgeInsets.all(10),

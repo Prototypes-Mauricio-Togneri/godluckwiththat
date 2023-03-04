@@ -12,5 +12,6 @@ class SolarPanel extends Building {
           resourceProduced: ResourceType.energy,
           constructionDrones: [],
           logisticDrones: [Drone.logistic()],
+          connections: [],
         );
 }

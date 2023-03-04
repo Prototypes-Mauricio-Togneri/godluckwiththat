@@ -8,6 +8,7 @@ import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
+import 'package:tensionnode/widgets/menus/item_row.dart';
 
 class BuildingMenu extends StatelessWidget {
   final GameComponent game;
@@ -33,10 +34,22 @@ class BuildingMenu extends StatelessWidget {
         OutputSection(node),
         const VBox(10),
         MenuButton(
+          text: 'Add connection',
+          icon: Icons.add,
+          color: Palette.primary,
+          onPressed: _onAddConnection,
+        ),
+        MenuButton(
+          text: 'Remove connection',
+          icon: Icons.remove,
+          color: Palette.primary,
+          onPressed: _onRemoveConnection,
+        ),
+        MenuButton(
           text: 'Center',
           icon: Icons.filter_tilt_shift,
           color: Palette.primary,
-          onPressed: () => _onCenter(node),
+          onPressed: _onCenter,
         ),
         MenuButton(
           text: 'Destroy',
@@ -54,7 +67,11 @@ class BuildingMenu extends StatelessWidget {
     );
   }
 
-  void _onCenter(Node node) => game.centerMap(node.position);
+  void _onAddConnection() {}
+
+  void _onRemoveConnection() {}
+
+  void _onCenter() => game.centerMap(node.position);
 
   void _onDestroy() {
     final Node node = game.selectedNode();
@@ -85,26 +102,9 @@ class InputSection extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             for (final Resource resource in inventory.list)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 30,
-                      height: 30,
-                      child: Image.asset(
-                        'images/${resource.type.sprite}',
-                      ),
-                    ),
-                    const HBox(10),
-                    Label(
-                      text: '${resource.amount}',
-                      align: TextAlign.center,
-                    ),
-                  ],
-                ),
+              ItemRow(
+                sprite: resource.type.sprite,
+                amount: '${resource.amount}',
               ),
           ],
         ),
@@ -129,31 +129,9 @@ class OutputSection extends StatelessWidget {
           align: TextAlign.center,
         ),
         const VBox(10),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: Image.asset(
-                      'images/${node.resourceProduced.sprite}',
-                    ),
-                  ),
-                  const HBox(10),
-                  Label(
-                    text: '${node.output}',
-                    align: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ],
+        ItemRow(
+          sprite: node.resourceProduced.sprite,
+          amount: '${node.output}',
         ),
       ],
     );

@@ -8,6 +8,7 @@ import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
+import 'package:tensionnode/widgets/menus/item_row.dart';
 
 class HeadquartersMenu extends StatelessWidget {
   final GameComponent game;
@@ -36,7 +37,7 @@ class HeadquartersMenu extends StatelessWidget {
           text: 'Center',
           icon: Icons.filter_tilt_shift,
           color: Palette.primary,
-          onPressed: () => _onCenter(node),
+          onPressed: _onCenter,
         ),
         MenuButton(
           text: 'Destroy',
@@ -54,7 +55,7 @@ class HeadquartersMenu extends StatelessWidget {
     );
   }
 
-  void _onCenter(Node node) => game.centerMap(node.position);
+  void _onCenter() => game.centerMap(node.position);
 
   void _onDestroy() {
     final Node node = game.selectedNode();
@@ -77,50 +78,17 @@ class InventorySummary extends StatelessWidget {
         for (final Resource resource in node.inventory.list)
           ItemRow(
             sprite: resource.type.sprite,
-            amount: resource.amount,
+            amount: '${resource.amount}',
           ),
         ItemRow(
           sprite: Assets.IMAGES_CONSTRUCTION_DRONE,
-          amount: node.constructionDrones.length,
+          amount: '${node.constructionDrones.length}',
         ),
         ItemRow(
           sprite: Assets.IMAGES_CONSTRUCTION_DRONE,
-          amount: node.logisticDrones.length,
+          amount: '${node.logisticDrones.length}',
         ),
       ],
-    );
-  }
-}
-
-class ItemRow extends StatelessWidget {
-  final String sprite;
-  final int amount;
-
-  const ItemRow({
-    required this.sprite,
-    required this.amount,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 30,
-            height: 30,
-            child: Image.asset(
-              'images/$sprite',
-            ),
-          ),
-          const HBox(10),
-          Label(
-            text: '$amount',
-            align: TextAlign.center,
-          ),
-        ],
-      ),
     );
   }
 }

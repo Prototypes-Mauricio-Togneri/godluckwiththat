@@ -11,5 +11,6 @@ class IronMine extends Building {
           resourceProduced: ResourceType.iron_ore,
           constructionDrones: [],
           logisticDrones: [],
+          connections: [],
         );
 }

@@ -7,6 +7,7 @@ import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
+import 'package:tensionnode/widgets/menus/item_row.dart';
 
 class ConstructionMenu extends StatelessWidget {
   final GameComponent game;
@@ -35,7 +36,7 @@ class ConstructionMenu extends StatelessWidget {
           text: 'Center',
           icon: Icons.filter_tilt_shift,
           color: Palette.primary,
-          onPressed: () => _onCenter(node),
+          onPressed: _onCenter,
         ),
         MenuButton(
           text: 'Destroy',
@@ -53,7 +54,7 @@ class ConstructionMenu extends StatelessWidget {
     );
   }
 
-  void _onCenter(Node node) => game.centerMap(node.position);
+  void _onCenter() => game.centerMap(node.position);
 
   void _onDestroy() {
     final Node node = game.selectedNode();
@@ -75,27 +76,10 @@ class ResourcesSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         for (final MapEntry<ResourceType, int> entry in node.type.cost.entries)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: Image.asset(
-                    'images/${entry.key.sprite}',
-                  ),
-                ),
-                const HBox(10),
-                Label(
-                  text:
-                      '${entry.value - node.remainingResources.get(entry.key)}/${entry.value}',
-                  align: TextAlign.center,
-                ),
-              ],
-            ),
+          ItemRow(
+            sprite: entry.key.sprite,
+            amount:
+                '${entry.value - node.remainingResources.get(entry.key)}/${entry.value}',
           ),
       ],
     );

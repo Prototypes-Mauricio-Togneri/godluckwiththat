@@ -15,6 +15,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final Location location;
   final List<Drone> constructionDrones;
   final List<Drone> logisticDrones;
+  final List<Node> connections;
 
   late final DebugText debugText = DebugText();
 
@@ -23,6 +24,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     required this.location,
     required this.constructionDrones,
     required this.logisticDrones,
+    required this.connections,
   });
 
   @override

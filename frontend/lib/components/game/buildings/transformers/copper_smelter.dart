@@ -11,5 +11,6 @@ class CopperSmelter extends Building {
           resourceProduced: ResourceType.copper_block,
           constructionDrones: [],
           logisticDrones: [],
+          connections: [],
         );
 }

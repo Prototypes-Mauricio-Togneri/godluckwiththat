@@ -17,6 +17,7 @@ class Headquarters extends Node {
           type: NodeType.headquarters,
           constructionDrones: [Drone.construction()],
           logisticDrones: [Drone.logistic()],
+          connections: [],
         );
 
   @override
