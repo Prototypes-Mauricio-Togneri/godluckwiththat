@@ -10,6 +10,10 @@ class Drone {
     required this.resource,
   });
 
+  bool get isConstruction => type == DroneType.construction;
+
+  bool get isLogistic => type == DroneType.logistic;
+
   void removeResource() {
     resource = Resource(resource.type, 0);
   }

@@ -13,14 +13,14 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
   Vector2 direction = Vector2.zero();
   double distanceToTarget = 0;
   double progress = 0;
-  final List<Node> destinations;
+  final List<Node> waypoints;
 
   MovingDrone({
     required this.drone,
     required this.origin,
-    required this.destinations,
+    required this.waypoints,
   }) {
-    _calculateRoute(origin);
+    _routeFrom(origin);
   }
 
   @override
@@ -44,14 +44,14 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
     if (progress >= 1) {
       target.receiveMovingDrone(this);
       drone.removeResource();
-      _calculateRoute(target);
+      _routeFrom(target);
     }
   }
 
-  void _calculateRoute(Node newOrigin) {
-    if (destinations.isNotEmpty) {
+  void _routeFrom(Node newOrigin) {
+    if (waypoints.isNotEmpty) {
       origin = newOrigin;
-      target = destinations.removeAt(0);
+      target = waypoints.removeAt(0);
 
       progress = 0;
       direction = target.position - origin.position;

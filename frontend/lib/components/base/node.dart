@@ -13,12 +13,16 @@ import 'package:tensionnode/types/node_type.dart';
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final NodeType type;
   final Location location;
+  int constructionDrones = 0;
+  int logisticDrones = 0;
 
   late final DebugText debugText = DebugText();
 
   Node({
     required this.type,
     required this.location,
+    this.constructionDrones = 0,
+    this.logisticDrones = 0,
   });
 
   @override
@@ -46,10 +50,23 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
   void receiveDone(Drone drone) {}
 
-  void send(Drone drone) {
-    // TODO(momo): implement
-    //road.send(routedResource);
-    //game.state.notify();
+  void sendDrone({
+    required Drone drone,
+    required List<Node> waypoints,
+  }) {
+    if (drone.isConstruction) {
+      constructionDrones--;
+    } else if (drone.isConstruction) {
+      logisticDrones--;
+    }
+
+    final MovingDrone movingDrone = MovingDrone(
+      drone: drone,
+      origin: this,
+      waypoints: waypoints,
+    );
+    add(movingDrone);
+    updateMenu();
   }
 
   bool isAt(Location location) => this.location == location;

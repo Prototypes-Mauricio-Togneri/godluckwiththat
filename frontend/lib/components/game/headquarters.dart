@@ -1,6 +1,5 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/construction.dart';
-import 'package:tensionnode/components/game/moving_drone.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/inventory.dart';
@@ -11,12 +10,15 @@ import 'package:tensionnode/types/resource_type.dart';
 
 class Headquarters extends Node {
   final Inventory inventory;
-  int constructionDrones = 1;
 
   Headquarters({
     required super.location,
     required this.inventory,
-  }) : super(type: NodeType.headquarters);
+  }) : super(
+          type: NodeType.headquarters,
+          constructionDrones: 1,
+          logisticDrones: 1,
+        );
 
   @override
   void update(double dt) {
@@ -88,20 +90,17 @@ class Headquarters extends Node {
     required Construction construction,
     required Resource resource,
   }) {
-    constructionDrones--;
     inventory.removeResource(resource);
 
     final Drone drone = Drone(
       type: DroneType.construction,
       resource: resource,
     );
-    final MovingDrone movingDrone = MovingDrone(
+
+    sendDrone(
       drone: drone,
-      origin: this,
-      destinations: [construction, this],
+      waypoints: [construction, this],
     );
-    add(movingDrone);
-    updateMenu();
   }
 
   JsonHeadquarters get json => JsonHeadquarters(
