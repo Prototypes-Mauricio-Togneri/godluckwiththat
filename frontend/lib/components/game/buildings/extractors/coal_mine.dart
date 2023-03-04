@@ -2,14 +2,12 @@ import 'package:tensionnode/components/base/building.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class StoneMine extends Building {
-  StoneMine({
+class CoalMine extends Building {
+  CoalMine({
     required super.location,
+    required super.input,
   }) : super(
-          type: NodeType.stone_mine,
-          resourceProduced: ResourceType.stone_ore,
-          resourcesRequired: {
-            ResourceType.energy: 0,
-          },
+          type: NodeType.coal_mine,
+          resourceProduced: ResourceType.coal_ore,
         );
 }

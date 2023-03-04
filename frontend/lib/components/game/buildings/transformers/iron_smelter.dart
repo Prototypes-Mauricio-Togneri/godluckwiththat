@@ -2,12 +2,12 @@ import 'package:tensionnode/components/base/building.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class CopperSmelter extends Building {
-  CopperSmelter({
+class IronSmelter extends Building {
+  IronSmelter({
     required super.location,
-    required super.resourcesRequired,
+    required super.input,
   }) : super(
-          type: NodeType.copper_smelter,
-          resourceProduced: ResourceType.copper_block,
+          type: NodeType.iron_smelter,
+          resourceProduced: ResourceType.iron_block,
         );
 }

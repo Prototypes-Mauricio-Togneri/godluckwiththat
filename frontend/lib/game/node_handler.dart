@@ -1,12 +1,12 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/sprite_group.dart';
-import 'package:tensionnode/components/game/buildings/coal_mine.dart';
-import 'package:tensionnode/components/game/buildings/copper_mine.dart';
-import 'package:tensionnode/components/game/buildings/copper_smelter.dart';
-import 'package:tensionnode/components/game/buildings/iron_mine.dart';
-import 'package:tensionnode/components/game/buildings/iron_smelter.dart';
-import 'package:tensionnode/components/game/buildings/solar_panel.dart';
-import 'package:tensionnode/components/game/buildings/stone_mine.dart';
+import 'package:tensionnode/components/game/buildings/energy/solar_panel.dart';
+import 'package:tensionnode/components/game/buildings/extractors/coal_mine.dart';
+import 'package:tensionnode/components/game/buildings/extractors/copper_mine.dart';
+import 'package:tensionnode/components/game/buildings/extractors/iron_mine.dart';
+import 'package:tensionnode/components/game/buildings/extractors/stone_mine.dart';
+import 'package:tensionnode/components/game/buildings/transformers/copper_smelter.dart';
+import 'package:tensionnode/components/game/buildings/transformers/iron_smelter.dart';
 import 'package:tensionnode/components/game/construction.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
@@ -25,7 +25,7 @@ mixin NodeHandler on BaseGameComponent {
   final Map<String, SpriteGroup> spriteGroups = {};
 
   void loadNodes() {
-    final Inventory inventory = Inventory();
+    final Inventory inventory = Inventory({});
     inventory.load(state.jsonMatch.headquarters.inventory);
 
     addHeadquarters(
@@ -153,6 +153,7 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(SolarPanel(
         location: location,
+        input: Inventory({}),
       ));
 
   Node addIronMine({
@@ -160,6 +161,9 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(IronMine(
         location: location,
+        input: Inventory({
+          ResourceType.energy: 0,
+        }),
       ));
 
   Node addCopperMine({
@@ -167,6 +171,9 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(CopperMine(
         location: location,
+        input: Inventory({
+          ResourceType.energy: 0,
+        }),
       ));
 
   Node addCoalMine({
@@ -174,6 +181,9 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(CoalMine(
         location: location,
+        input: Inventory({
+          ResourceType.energy: 0,
+        }),
       ));
 
   Node addStoneMine({
@@ -181,6 +191,9 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(StoneMine(
         location: location,
+        input: Inventory({
+          ResourceType.energy: 0,
+        }),
       ));
 
   Node addIronSmelter({
@@ -188,10 +201,10 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(IronSmelter(
         location: location,
-        resourcesRequired: {
+        input: Inventory({
           ResourceType.energy: 0,
           ResourceType.iron_ore: 0,
-        },
+        }),
       ));
 
   Node addCopperSmelter({
@@ -199,10 +212,10 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(CopperSmelter(
         location: location,
-        resourcesRequired: {
+        input: Inventory({
           ResourceType.energy: 0,
           ResourceType.copper_ore: 0,
-        },
+        }),
       ));
 
   Node _addNode(Node node) {

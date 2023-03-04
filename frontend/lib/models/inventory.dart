@@ -7,7 +7,9 @@ typedef JsonInventory = Map<ResourceType, int>;
 typedef ResourceMap = Map<ResourceType, int>;
 
 class Inventory {
-  final ResourceMap _resources = {};
+  final ResourceMap _resources;
+
+  Inventory(this._resources);
 
   List<Resource> get list =>
       _resources.entries.map((e) => Resource(e.key, e.value)).toList();
@@ -22,16 +24,6 @@ class Inventory {
     }
 
     return true;
-  }
-
-  bool get isNotEmpty {
-    for (final Resource resource in list) {
-      if (resource.amount == 0) {
-        return false;
-      }
-    }
-
-    return _resources.isNotEmpty;
   }
 
   int get(ResourceType type) => _resources[type] ?? 0;

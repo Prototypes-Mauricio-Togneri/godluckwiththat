@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionnode/components/base/building.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/game/game_component.dart';
+import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
@@ -28,7 +29,7 @@ class BuildingMenu extends StatelessWidget {
           text: '${node.location.i}, ${node.location.j}',
           align: TextAlign.center,
         ),
-        if (node.resourcesRequired.isNotEmpty) InputSection(node),
+        if (node.input.list.isNotEmpty) InputSection(node.input),
         OutputSection(node),
         const VBox(10),
         MenuButton(
@@ -65,9 +66,9 @@ class BuildingMenu extends StatelessWidget {
 }
 
 class InputSection extends StatelessWidget {
-  final Building node;
+  final Inventory inventory;
 
-  const InputSection(this.node);
+  const InputSection(this.inventory);
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +84,7 @@ class InputSection extends StatelessWidget {
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            for (final Resource resource in node.resourcesRequired.list)
+            for (final Resource resource in inventory.list)
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(

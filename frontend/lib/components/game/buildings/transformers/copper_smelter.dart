@@ -2,14 +2,12 @@ import 'package:tensionnode/components/base/building.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class CoalMine extends Building {
-  CoalMine({
+class CopperSmelter extends Building {
+  CopperSmelter({
     required super.location,
+    required super.input,
   }) : super(
-          type: NodeType.coal_mine,
-          resourceProduced: ResourceType.coal_ore,
-          resourcesRequired: {
-            ResourceType.energy: 0,
-          },
+          type: NodeType.copper_smelter,
+          resourceProduced: ResourceType.copper_block,
         );
 }

@@ -10,21 +10,15 @@ class Building extends Node {
   num _accumulatedTime = 0; // TODO(momo): receive as parameter
   BuildingState _state = BuildingState.idle; // TODO(momo): receive as parameter
   int _output = 0; // TODO(momo): receive as parameter
-  final Inventory _input = Inventory();
+  final Inventory input;
   final ResourceType resourceProduced;
 
   Building({
     required super.type,
     required super.location,
     required this.resourceProduced,
-    required ResourceMap resourcesRequired,
-  }) {
-    for (final MapEntry<ResourceType, int> entry in resourcesRequired.entries) {
-      _input.addResource(Resource(entry.key, entry.value));
-    }
-  }
-
-  Inventory get resourcesRequired => _input;
+    required this.input,
+  });
 
   int get output => _output;
 
@@ -49,7 +43,7 @@ class Building extends Node {
   }
 
   bool get _hasEnoughResources {
-    for (final Resource resource in _input.list) {
+    for (final Resource resource in input.list) {
       if (resource.amount == 0) {
         return false;
       }
@@ -62,8 +56,8 @@ class Building extends Node {
     if (_state.isIdle &&
         _hasEnoughResources &&
         (_output < Constants.OUTPUT_QUEUE_LIMIT)) {
-      for (final ResourceType type in _input.types) {
-        _input.removeResource(Resource(type, 1));
+      for (final ResourceType type in input.types) {
+        input.removeResource(Resource(type, 1));
       }
 
       _state = BuildingState.working;

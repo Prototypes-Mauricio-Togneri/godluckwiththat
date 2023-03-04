@@ -6,7 +6,7 @@ import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Construction extends Node {
-  final Inventory remainingResources = Inventory();
+  final Inventory remainingResources = Inventory({});
 
   Construction({
     required super.type,
@@ -42,7 +42,7 @@ class Construction extends Node {
         location: location,
         type: type,
       );
-      if (game.isNodeSelected(node)) {
+      if (game.isNodeSelected(this)) {
         game.selectNode(node);
       }
     }
