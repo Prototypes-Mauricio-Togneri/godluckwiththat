@@ -16,46 +16,40 @@ class HeadquartersMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 20,
-        bottom: 20,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Label(
-            text: node.type.toString().toUpperCase(),
-            align: TextAlign.center,
-          ),
-          const VBox(10),
-          Label(
-            text: '${node.location.i}, ${node.location.j}',
-            align: TextAlign.center,
-          ),
-          const VBox(10),
-          InventorySummary(game),
-          const VBox(10),
-          MenuButton(
-            text: 'Center',
-            icon: Icons.filter_tilt_shift,
-            color: Palette.primary,
-            onPressed: () => _onCenter(node),
-          ),
-          MenuButton(
-            text: 'Destroy',
-            icon: Icons.delete,
-            color: Palette.error,
-            onPressed: _onDestroy,
-          ),
-          MenuButton(
-            text: 'Close',
-            icon: Icons.close,
-            color: Palette.lightGrey,
-            onPressed: _closeMenu,
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Label(
+          text: node.type.toString().toUpperCase(),
+          align: TextAlign.center,
+        ),
+        const VBox(10),
+        Label(
+          text: '${node.location.i}, ${node.location.j}',
+          align: TextAlign.center,
+        ),
+        const VBox(10),
+        InventorySummary(game),
+        const VBox(10),
+        MenuButton(
+          text: 'Center',
+          icon: Icons.filter_tilt_shift,
+          color: Palette.primary,
+          onPressed: () => _onCenter(node),
+        ),
+        MenuButton(
+          text: 'Destroy',
+          icon: Icons.delete,
+          color: Palette.error,
+          onPressed: _onDestroy,
+        ),
+        MenuButton(
+          text: 'Close',
+          icon: Icons.close,
+          color: Palette.lightGrey,
+          onPressed: _closeMenu,
+        ),
+      ],
     );
   }
 

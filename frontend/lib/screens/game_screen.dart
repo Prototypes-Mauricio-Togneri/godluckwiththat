@@ -9,6 +9,7 @@ import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/widgets/bottom_menu.dart';
 import 'package:tensionnode/widgets/side_menu.dart';
 
 class GameScreen extends StatelessWidget {
@@ -35,22 +36,25 @@ class GameScreen extends StatelessWidget {
         statusBarColor: Palette.grey,
         child: SafeArea(
           child: Scaffold(
-            body: Row(
+            body: Stack(
               children: [
+                GameWidget(
+                  game: game,
+                  overlayBuilderMap: const {
+                    MainMenu.NAME: MainMenu.builder,
+                    SettingsMenu.NAME: SettingsMenu.builder,
+                    InfoMenu.NAME: InfoMenu.builder,
+                  },
+                ),
                 StateProvider<GameState>(
                   state: state,
                   builder: (context, state) => SideMenu(game, state),
                 ),
-                Expanded(
-                  child: SizedBox(
-                    child: GameWidget(
-                      game: game,
-                      overlayBuilderMap: const {
-                        MainMenu.NAME: MainMenu.builder,
-                        SettingsMenu.NAME: SettingsMenu.builder,
-                        InfoMenu.NAME: InfoMenu.builder,
-                      },
-                    ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: StateProvider<GameState>(
+                    state: state,
+                    builder: (context, state) => BottomMenu(game, state),
                   ),
                 ),
               ],

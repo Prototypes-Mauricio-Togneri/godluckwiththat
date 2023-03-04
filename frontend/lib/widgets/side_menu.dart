@@ -6,8 +6,6 @@ import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/services/palette.dart';
-import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/widgets/menu_button.dart';
 import 'package:tensionnode/widgets/menus/building_menu.dart';
 import 'package:tensionnode/widgets/menus/construction_menu.dart';
 import 'package:tensionnode/widgets/menus/headquarters_menu.dart';
@@ -20,22 +18,17 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 260,
-      color: Palette.grey,
-      padding: const EdgeInsets.all(10),
-      child: Column(
-        children: [
-          FixedButtons(game),
-          if (game.constructMode)
-            ConstructMenu(game)
-          else if (game.hasNodeSelected)
-            _showSelectedNode()
-          else if (game.isInSpecialMode)
-            CancelMenu(game),
-        ],
-      ),
-    );
+    if (game.hasNodeSelected) {
+      return Container(
+        width: 260,
+        height: double.infinity,
+        color: Palette.grey,
+        padding: const EdgeInsets.all(10),
+        child: _showSelectedNode(),
+      );
+    } else {
+      return const Empty();
+    }
   }
 
   Widget _showSelectedNode() {
@@ -57,122 +50,5 @@ class SideMenu extends StatelessWidget {
     } else {
       throw Exception('No valid node is selected');
     }
-  }
-}
-
-class FixedButtons extends StatelessWidget {
-  final GameComponent game;
-
-  const FixedButtons(this.game);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        BottomMenuButton(
-          icon: Icons.menu,
-          color: Palette.lightGrey,
-          onClick: game.openMainMenu,
-        ),
-        const HBox(10),
-        BottomMenuButton(
-          icon: Icons.construction,
-          color: Palette.lightGrey,
-          onClick: game.toggleConstructMode,
-        ),
-        const HBox(10),
-        BottomMenuButton(
-          icon: Icons.delete,
-          color: Palette.lightGrey,
-          onClick: game.enableDestroyingMode,
-        ),
-        const HBox(10),
-        BottomMenuButton(
-          icon: Icons.remove_red_eye,
-          color: Palette.lightGrey,
-          onClick: game.onShowDetails,
-        ),
-      ],
-    );
-  }
-}
-
-class ConstructMenu extends StatelessWidget {
-  final GameComponent game;
-
-  const ConstructMenu(this.game);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          for (final NodeType type in NodeType.values)
-            if (type != NodeType.headquarters)
-              MenuButton(
-                text: type.toString().toUpperCase(),
-                color: Palette.primary,
-                onPressed: () => _onBuild(type),
-              ),
-        ],
-      ),
-    );
-  }
-
-  void _onBuild(NodeType type) => game.enableBuildingMode(type);
-}
-
-class CancelMenu extends StatelessWidget {
-  final GameComponent game;
-
-  const CancelMenu(this.game);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      child: MenuButton(
-        text: 'Cancel',
-        icon: Icons.close,
-        color: Palette.error,
-        onPressed: game.onCancelOperation,
-      ),
-    );
-  }
-}
-
-class BottomMenuButton extends StatelessWidget {
-  final IconData icon;
-  final Color color;
-  final VoidCallback onClick;
-
-  const BottomMenuButton({
-    required this.icon,
-    required this.color,
-    required this.onClick,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: color,
-      child: InkWell(
-        onTap: onClick,
-        child: SizedBox(
-          width: 50,
-          height: 50,
-          child: Center(
-            child: Icon(
-              icon,
-              color: Palette.white,
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }
