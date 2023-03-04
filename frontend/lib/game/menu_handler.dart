@@ -27,8 +27,10 @@ mixin MenuHandler on BaseGameComponent {
       isAddConnectionMode ||
       isRemoveConnectionMode;
 
-  void _enableMode(MenuMode newMode) {
-    _selectedNode = null;
+  void _enableMode(MenuMode newMode, [unselectNode = true]) {
+    if (unselectNode) {
+      _selectedNode = null;
+    }
     _mode = newMode;
     state.notify();
   }
@@ -131,12 +133,12 @@ mixin MenuHandler on BaseGameComponent {
   }
 
   void enableAddConnectionMode() {
-    _enableMode(MenuMode.add_connection);
+    _enableMode(MenuMode.add_connection, false);
     removeMenuComponents();
   }
 
   void enableRemoveConnectionMode() {
-    _enableMode(MenuMode.remove_connection);
+    _enableMode(MenuMode.remove_connection, false);
     removeMenuComponents();
   }
 
