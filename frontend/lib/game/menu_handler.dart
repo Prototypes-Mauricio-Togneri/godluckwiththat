@@ -36,8 +36,10 @@ mixin MenuHandler on BaseGameComponent {
     state.notify();
   }
 
-  void disableMode() {
-    _selectedNode = null;
+  void disableMode([bool unselectNode = true]) {
+    if (unselectNode) {
+      _selectedNode = null;
+    }
     _mode = MenuMode.none;
     state.notify();
   }
@@ -143,11 +145,6 @@ mixin MenuHandler on BaseGameComponent {
     addComponent(BuildingIndicator(type: type));
   }
 
-  void _disableBuildingMode() {
-    disableMode();
-    removeMenuComponents();
-  }
-
   void enableDestroyingMode() {
     _enableMode(MenuMode.destroying);
     removeMenuComponents();
@@ -163,11 +160,12 @@ mixin MenuHandler on BaseGameComponent {
 
   void onCancelOperation() {
     if (isBuildingMode) {
-      _disableBuildingMode();
-    } else if (isDestroyingMode ||
-        isAddConnectionMode ||
-        isRemoveConnectionMode) {
       disableMode();
+      removeMenuComponents();
+    } else if (isDestroyingMode) {
+      disableMode();
+    } else if (isAddConnectionMode || isRemoveConnectionMode) {
+      disableMode(false);
     }
   }
 }
