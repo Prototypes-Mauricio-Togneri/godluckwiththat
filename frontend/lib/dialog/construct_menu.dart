@@ -77,7 +77,10 @@ class ConstructMenu extends StatelessWidget {
     );
   }
 
-  void _onBuild(NodeType type) => game.enableBuildingMode(type);
+  void _onBuild(NodeType type) {
+    _closeMenu();
+    game.enableBuildingMode(type);
+  }
 
   void _closeMenu() => game.closeMenu(name: ConstructMenu.NAME);
 }
