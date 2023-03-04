@@ -9,5 +9,7 @@ class IronMine extends Building {
   }) : super(
           type: NodeType.iron_mine,
           resourceProduced: ResourceType.iron_ore,
+          constructionDrones: [],
+          logisticDrones: [],
         );
 }

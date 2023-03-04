@@ -1,4 +1,5 @@
 import 'package:tensionnode/components/base/building.dart';
+import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -9,6 +10,7 @@ class SolarPanel extends Building {
   }) : super(
           type: NodeType.solar_panel,
           resourceProduced: ResourceType.energy,
-          logisticDrones: 1,
+          constructionDrones: [],
+          logisticDrones: [Drone.logistic()],
         );
 }

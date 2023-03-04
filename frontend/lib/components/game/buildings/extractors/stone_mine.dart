@@ -9,5 +9,7 @@ class StoneMine extends Building {
   }) : super(
           type: NodeType.stone_mine,
           resourceProduced: ResourceType.stone_ore,
+          constructionDrones: [],
+          logisticDrones: [],
         );
 }

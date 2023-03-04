@@ -13,16 +13,16 @@ import 'package:tensionnode/types/node_type.dart';
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final NodeType type;
   final Location location;
-  int constructionDrones = 0;
-  int logisticDrones = 0;
+  final List<Drone> constructionDrones;
+  final List<Drone> logisticDrones;
 
   late final DebugText debugText = DebugText();
 
   Node({
     required this.type,
     required this.location,
-    this.constructionDrones = 0,
-    this.logisticDrones = 0,
+    required this.constructionDrones,
+    required this.logisticDrones,
   });
 
   @override
@@ -54,12 +54,6 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     required Drone drone,
     required List<Node> waypoints,
   }) {
-    if (drone.isConstruction) {
-      constructionDrones--;
-    } else if (drone.isConstruction) {
-      logisticDrones--;
-    }
-
     final MovingDrone movingDrone = MovingDrone(
       drone: drone,
       origin: this,

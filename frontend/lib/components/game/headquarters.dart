@@ -4,7 +4,6 @@ import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
-import 'package:tensionnode/types/drone_type.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -16,22 +15,23 @@ class Headquarters extends Node {
     required this.inventory,
   }) : super(
           type: NodeType.headquarters,
-          constructionDrones: 1,
-          logisticDrones: 1,
+          constructionDrones: [Drone.construction()],
+          logisticDrones: [Drone.logistic()],
         );
 
   @override
   void update(double dt) {
     super.update(dt);
 
-    if (game.state.constructions.isNotEmpty && (constructionDrones > 0)) {
+    if (game.state.constructions.isNotEmpty &&
+        (constructionDrones.isNotEmpty)) {
       for (final Construction construction in game.state.constructions) {
         _checkConstruction(
           construction: construction,
           resource: const Resource(ResourceType.iron_block, 1),
         );
 
-        if (constructionDrones == 0) {
+        if (constructionDrones.isEmpty) {
           break;
         }
 
@@ -40,7 +40,7 @@ class Headquarters extends Node {
           resource: const Resource(ResourceType.copper_block, 1),
         );
 
-        if (constructionDrones == 0) {
+        if (constructionDrones.isEmpty) {
           break;
         }
 
@@ -49,7 +49,7 @@ class Headquarters extends Node {
           resource: const Resource(ResourceType.steel, 1),
         );
 
-        if (constructionDrones == 0) {
+        if (constructionDrones.isEmpty) {
           break;
         }
 
@@ -58,7 +58,7 @@ class Headquarters extends Node {
           resource: const Resource(ResourceType.concrete, 1),
         );
 
-        if (constructionDrones == 0) {
+        if (constructionDrones.isEmpty) {
           break;
         }
       }
@@ -67,8 +67,10 @@ class Headquarters extends Node {
 
   @override
   void receiveDone(Drone drone) {
-    if (drone.type == DroneType.construction) {
-      constructionDrones++;
+    if (drone.isConstruction) {
+      constructionDrones.add(drone);
+    } else if (drone.isLogistic) {
+      logisticDrones.add(drone);
     }
   }
 
@@ -76,7 +78,7 @@ class Headquarters extends Node {
     required Construction construction,
     required Resource resource,
   }) {
-    if ((constructionDrones > 0) &&
+    if ((constructionDrones.isNotEmpty) &&
         (construction.remainingResources.hasResource(resource)) &&
         inventory.hasResource(resource)) {
       _sendConstructionDrone(
@@ -92,10 +94,8 @@ class Headquarters extends Node {
   }) {
     inventory.removeResource(resource);
 
-    final Drone drone = Drone(
-      type: DroneType.construction,
-      resource: resource,
-    );
+    final Drone drone = constructionDrones.removeAt(0);
+    drone.load(resource);
 
     sendDrone(
       drone: drone,

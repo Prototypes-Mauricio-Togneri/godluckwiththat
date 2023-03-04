@@ -3,18 +3,27 @@ import 'package:tensionnode/types/drone_type.dart';
 
 class Drone {
   final DroneType type;
-  Resource resource;
+  Resource? _resource;
 
   Drone({
     required this.type,
-    required this.resource,
   });
+
+  factory Drone.construction() => Drone(type: DroneType.construction);
+
+  factory Drone.logistic() => Drone(type: DroneType.logistic);
+
+  Resource get resource => _resource!;
 
   bool get isConstruction => type == DroneType.construction;
 
   bool get isLogistic => type == DroneType.logistic;
 
-  void removeResource() {
-    resource = Resource(resource.type, 0);
+  void load(Resource resource) {
+    _resource = resource;
+  }
+
+  void unload() {
+    _resource = null;
   }
 }

@@ -11,7 +11,10 @@ class Construction extends Node {
   Construction({
     required super.type,
     required super.location,
-  });
+  }) : super(
+          constructionDrones: [],
+          logisticDrones: [],
+        );
 
   @override
   Future onLoad() {
