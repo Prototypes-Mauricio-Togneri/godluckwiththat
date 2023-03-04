@@ -30,6 +30,7 @@ class BaseGameComponent extends FlameGame
   final Component _layerDrones = Component(priority: 3);
   final Component _layerHud = Component(priority: 4)
     ..positionType = PositionType.viewport;
+  bool clickHandled = false;
 
   BaseGameComponent(this.state);
 
@@ -106,7 +107,12 @@ class BaseGameComponent extends FlameGame
   @override
   void onTapUp(int pointerId, TapUpInfo info) {
     super.onTapUp(pointerId, info);
-    onMapClicked(toGridPosition(info.eventPosition.game));
+
+    if (!clickHandled) {
+      onMapClicked(toGridPosition(info.eventPosition.game));
+    }
+
+    clickHandled = false;
   }
 
   @override

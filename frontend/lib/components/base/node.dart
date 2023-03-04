@@ -72,12 +72,10 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   @override
   bool onTapUp(TapUpInfo info) {
     game.selectNode(this);
+    game.clickHandled = true;
 
     return true;
   }
-
-  @override
-  bool onTapDown(TapDownInfo info) => false;
 
   void destroy() {
     game.removeNode(this);
