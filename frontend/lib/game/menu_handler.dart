@@ -1,3 +1,4 @@
+import 'package:tensionnode/components/base/building.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/node_selected.dart';
@@ -96,21 +97,33 @@ mixin MenuHandler on BaseGameComponent {
     if (isDestroyingMode) {
       node.destroy();
     } else if (isAddConnectionMode) {
-      if (selectedNode() != node) {
-        selectedNode().connections.add(node);
-      }
+      _addConnection(selectedNode(), node);
     } else if (isRemoveConnectionMode) {
-      if (selectedNode() != node) {
-        selectedNode().connections.remove(node);
-      }
+      _removeConnection(selectedNode(), node);
     } else if (!isInSpecialMode) {
-      _selectedNode = node;
-      removeMenuComponents();
-      addComponent(NodeSelected(node));
-      state.notify();
+      _selectNode(node);
     }
 
     return true;
+  }
+
+  void _addConnection(Node from, Node to) {
+    if ((from != to) && (to is Building)) {
+      from.connections.add(to);
+    }
+  }
+
+  void _removeConnection(Node from, Node to) {
+    if (from != to) {
+      from.connections.remove(to);
+    }
+  }
+
+  void _selectNode(Node node) {
+    _selectedNode = node;
+    removeMenuComponents();
+    addComponent(NodeSelected(node));
+    state.notify();
   }
 
   void unselectNode() {
