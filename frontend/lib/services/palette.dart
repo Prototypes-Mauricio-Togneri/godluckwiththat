@@ -9,6 +9,13 @@ class Palette {
   static const Color white = Colors.white;
   static const Color error = Colors.red;
 
+  static const Color buildTypeEnergy = Colors.yellow;
+  static const Color buildTypeExtractors = Colors.red;
+  static const Color buildTypeTransformers = Colors.blue;
+  static const Color buildTypeAssemblers = Colors.green;
+  static const Color buildTypeFactories = Colors.purple;
+  static const Color buildTypeOther = Colors.orange;
+
   static const Color screenBackground = Color(0x80000000);
   static const Color gameBackground = Color(0xff2f6eff);
 }

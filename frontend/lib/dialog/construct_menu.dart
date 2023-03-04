@@ -36,30 +36,33 @@ class ConstructMenu extends StatelessWidget {
               children: [
                 BuildingGroup(
                   title: 'Energy'.toUpperCase(),
+                  onBuild: _onBuild,
+                  color: Palette.buildTypeEnergy,
                   types: const [
                     NodeType.solar_panel,
                   ],
-                  onBuild: _onBuild,
                 ),
                 const HBox(20),
                 BuildingGroup(
-                  title: 'Mines'.toUpperCase(),
+                  title: 'Extractors'.toUpperCase(),
+                  onBuild: _onBuild,
+                  color: Palette.buildTypeExtractors,
                   types: const [
                     NodeType.iron_mine,
                     NodeType.copper_mine,
                     NodeType.coal_mine,
                     NodeType.stone_mine,
                   ],
-                  onBuild: _onBuild,
                 ),
                 const HBox(20),
                 BuildingGroup(
-                  title: 'Smelters'.toUpperCase(),
+                  title: 'Transformers'.toUpperCase(),
+                  onBuild: _onBuild,
+                  color: Palette.buildTypeTransformers,
                   types: const [
                     NodeType.iron_smelter,
                     NodeType.copper_smelter,
                   ],
-                  onBuild: _onBuild,
                 ),
               ],
             ),
@@ -88,11 +91,13 @@ class ConstructMenu extends StatelessWidget {
 class BuildingGroup extends StatelessWidget {
   final String title;
   final List<NodeType> types;
+  final Color color;
   final Function(NodeType) onBuild;
 
   const BuildingGroup({
     required this.title,
     required this.types,
+    required this.color,
     required this.onBuild,
   });
 
@@ -106,11 +111,12 @@ class BuildingGroup extends StatelessWidget {
           Label(
             text: title,
             align: TextAlign.center,
+            color: color,
           ),
           for (final NodeType type in types)
             MenuButton(
               text: type.toString(),
-              color: Palette.primary,
+              color: color,
               onPressed: () => onBuild(type),
             ),
         ],

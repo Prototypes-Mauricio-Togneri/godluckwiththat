@@ -42,7 +42,9 @@ class Construction extends Node {
         location: location,
         type: type,
       );
-      game.selectNode(node);
+      if (game.isNodeSelected(node)) {
+        game.selectNode(node);
+      }
     }
   }
 
