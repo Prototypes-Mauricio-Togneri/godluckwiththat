@@ -8,6 +8,7 @@ import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/services/style.dart';
+import 'package:tensionnode/types/drone_type.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
@@ -51,10 +52,13 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     } else {
       final Drone drone = movingDrone.drone;
 
-      if (drone.isConstruction) {
-        constructionDrones.add(drone);
-      } else if (drone.isLogistic) {
-        logisticDrones.add(drone);
+      switch (drone.type) {
+        case DroneType.construction:
+          constructionDrones.add(drone);
+          break;
+        case DroneType.logistic:
+          logisticDrones.add(drone);
+          break;
       }
     }
 
