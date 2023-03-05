@@ -134,7 +134,10 @@ class Node extends SpriteComponent
   }
 
   void destroy(bool sendDronesBack) {
-    game.removeNode(this, sendDronesBack);
+    game.removeNode(
+      node: this,
+      sendDronesBack: sendDronesBack,
+    );
   }
 }
 

@@ -215,7 +215,10 @@ mixin NodeHandler on BaseGameComponent {
     return node;
   }
 
-  void removeNode(Node node, bool sendDronesBack) {
+  void removeNode({
+    required Node node,
+    required bool sendDronesBack,
+  }) {
     try {
       removeComponent(node);
 
