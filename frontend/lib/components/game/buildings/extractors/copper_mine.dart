@@ -11,6 +11,7 @@ class CopperMine extends Building {
           resourceProduced: ResourceType.copper_ore,
           constructionDrones: [],
           logisticDrones: [],
-          connections: [],
+          droneConnections: [],
+          droneTransfers: [],
         );
 }

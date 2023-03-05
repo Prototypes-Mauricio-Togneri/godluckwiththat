@@ -4,4 +4,5 @@ enum MenuMode {
   destroying,
   add_connection,
   remove_connection,
+  transfer_drone,
 }

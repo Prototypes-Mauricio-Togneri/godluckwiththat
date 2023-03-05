@@ -11,6 +11,7 @@ class IronSmelter extends Building {
           resourceProduced: ResourceType.iron_block,
           constructionDrones: [],
           logisticDrones: [],
-          connections: [],
+          droneConnections: [],
+          droneTransfers: [],
         );
 }

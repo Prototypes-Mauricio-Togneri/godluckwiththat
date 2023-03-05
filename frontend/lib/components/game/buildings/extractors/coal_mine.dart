@@ -11,6 +11,7 @@ class CoalMine extends Building {
           resourceProduced: ResourceType.coal_ore,
           constructionDrones: [],
           logisticDrones: [],
-          connections: [],
+          droneConnections: [],
+          droneTransfers: [],
         );
 }

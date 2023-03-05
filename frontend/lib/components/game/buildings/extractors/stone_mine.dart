@@ -11,6 +11,7 @@ class StoneMine extends Building {
           resourceProduced: ResourceType.stone_ore,
           constructionDrones: [],
           logisticDrones: [],
-          connections: [],
+          droneConnections: [],
+          droneTransfers: [],
         );
 }

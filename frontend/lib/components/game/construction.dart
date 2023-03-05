@@ -14,7 +14,8 @@ class Construction extends Node {
   }) : super(
           constructionDrones: [],
           logisticDrones: [],
-          connections: [],
+          droneConnections: [],
+          droneTransfers: [],
         );
 
   @override

@@ -47,6 +47,13 @@ class BuildingMenu extends StatelessWidget {
         ),
         const VBox(30),
         MenuButton(
+          text: 'Send logistic drone',
+          icon: Icons.send,
+          color: Palette.primary,
+          onPressed: _onTransferDrone,
+        ),
+        const VBox(30),
+        MenuButton(
           text: 'Center',
           icon: Icons.filter_tilt_shift,
           color: Palette.primary,
@@ -71,6 +78,8 @@ class BuildingMenu extends StatelessWidget {
   void _onAddConnection() => game.enableAddConnectionMode();
 
   void _onRemoveConnection() => game.enableRemoveConnectionMode();
+
+  void _onTransferDrone() => game.enableTransferDroneMode();
 
   void _onCenter() => game.centerMap(node.position);
 

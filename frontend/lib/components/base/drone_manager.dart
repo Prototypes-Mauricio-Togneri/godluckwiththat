@@ -5,14 +5,17 @@ import 'package:tensionnode/types/drone_type.dart';
 mixin NodeManager {
   final List<Drone> _constructionDrones = [];
   final List<Drone> _logisticDrones = [];
-  final List<Node> _connections = [];
+  final List<Node> _droneConnections = [];
+  final List<Node> _droneTransfers = [];
   int connectionIndex = 0;
 
   bool get hasConstructionDrones => _constructionDrones.isNotEmpty;
 
   bool get hasLogisticDrones => _logisticDrones.isNotEmpty;
 
-  bool get hasConnections => _connections.isNotEmpty;
+  bool get hasDroneConnections => _droneConnections.isNotEmpty;
+
+  bool get hasDroneTransfers => _droneTransfers.isNotEmpty;
 
   int get availableConstructionDrones => _constructionDrones.length;
 
@@ -20,12 +23,14 @@ mixin NodeManager {
 
   Node get getAvailableConnection {
     connectionIndex++;
-    final int index = connectionIndex % _connections.length;
+    final int index = connectionIndex % _droneConnections.length;
 
-    return _connections[index];
+    return _droneConnections[index];
   }
 
-  List<Node> get connections => _connections;
+  List<Node> get droneConnections => _droneConnections;
+
+  List<Node> get droneTransfers => _droneTransfers;
 
   Drone getConstructionDrone() => _constructionDrones.removeAt(0);
 
@@ -34,11 +39,13 @@ mixin NodeManager {
   void initialize({
     required List<Drone> constructionDrones,
     required List<Drone> logisticDrones,
-    required List<Node> connections,
+    required List<Node> droneConnections,
+    required List<Node> droneTransfers,
   }) {
     _constructionDrones.addAll(constructionDrones);
     _logisticDrones.addAll(logisticDrones);
-    _connections.addAll(connections);
+    _droneConnections.addAll(droneConnections);
+    _droneTransfers.addAll(droneTransfers);
   }
 
   void addDrone(Drone drone) {
@@ -52,7 +59,19 @@ mixin NodeManager {
     }
   }
 
-  void addConnection(Node to) => connections.add(to);
+  void addDroneConnection(Node to) {
+    if (!_droneConnections.contains(to)) {
+      _droneConnections.add(to);
+    }
+  }
 
-  void removeConnection(Node to) => connections.remove(to);
+  void removeDroneConnection(Node to) => _droneConnections.remove(to);
+
+  void addDroneTransfer(Node to) {
+    if (!_droneTransfers.contains(to)) {
+      _droneTransfers.add(to);
+    }
+  }
+
+  void removeDroneTransfer(Node to) => _droneTransfers.remove(to);
 }

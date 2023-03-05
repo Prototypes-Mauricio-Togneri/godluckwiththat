@@ -16,8 +16,13 @@ class Headquarters extends Node {
   }) : super(
           type: NodeType.headquarters,
           constructionDrones: [Drone.construction()],
-          logisticDrones: [Drone.logistic()],
-          connections: [],
+          logisticDrones: [
+            Drone.logistic(),
+            Drone.logistic(),
+            Drone.logistic(),
+          ],
+          droneConnections: [],
+          droneTransfers: [],
         );
 
   @override

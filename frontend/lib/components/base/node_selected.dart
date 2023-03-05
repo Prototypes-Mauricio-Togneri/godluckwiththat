@@ -31,7 +31,7 @@ class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
   void render(Canvas canvas) {
     super.render(canvas);
 
-    for (final Node connection in node.connections) {
+    for (final Node connection in node.droneConnections) {
       final Vector2 start = size / 2;
       final Vector2 position =
           connection.location.position - node.location.position + start;

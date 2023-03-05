@@ -23,12 +23,14 @@ class Node extends SpriteComponent
     required this.location,
     required List<Drone> constructionDrones,
     required List<Drone> logisticDrones,
-    required List<Node> connections,
+    required List<Node> droneConnections,
+    required List<Node> droneTransfers,
   }) {
     initialize(
       constructionDrones: constructionDrones,
       logisticDrones: logisticDrones,
-      connections: connections,
+      droneConnections: droneConnections,
+      droneTransfers: droneTransfers,
     );
   }
 
@@ -73,6 +75,38 @@ class Node extends SpriteComponent
     );
     game.addComponent(movingDrone);
     updateMenu();
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (hasDroneTransfers) {
+      for (final Node to in droneTransfers) {
+        _checkTransferDrone(to);
+      }
+    }
+  }
+
+  void transferDroneTo(Node to) {
+    final bool sent = _checkTransferDrone(to);
+
+    if (!sent) {
+      addDroneTransfer(to);
+    }
+  }
+
+  bool _checkTransferDrone(Node to) {
+    if (hasLogisticDrones) {
+      final Drone drone = getLogisticDrone();
+      sendDrone(
+        drone: drone,
+        waypoints: [to],
+      );
+      return true;
+    } else {
+      return false;
+    }
   }
 
   bool isAt(Location location) => this.location == location;

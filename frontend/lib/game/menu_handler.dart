@@ -7,6 +7,7 @@ import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
+import 'package:tensionnode/types/drone_type.dart';
 import 'package:tensionnode/types/menu_mode.dart';
 import 'package:tensionnode/types/node_type.dart';
 
@@ -22,11 +23,14 @@ mixin MenuHandler on BaseGameComponent {
 
   bool get isRemoveConnectionMode => _mode == MenuMode.remove_connection;
 
+  bool get isTransferDroneMode => _mode == MenuMode.transfer_drone;
+
   bool get isInSpecialMode =>
       isBuildingMode ||
       isDestroyingMode ||
       isAddConnectionMode ||
-      isRemoveConnectionMode;
+      isRemoveConnectionMode ||
+      isTransferDroneMode;
 
   void _enableMode(MenuMode newMode, [unselectNode = true]) {
     if (unselectNode) {
@@ -102,6 +106,9 @@ mixin MenuHandler on BaseGameComponent {
       _addConnection(selectedNode(), node);
     } else if (isRemoveConnectionMode) {
       _removeConnection(selectedNode(), node);
+    } else if (isTransferDroneMode) {
+      final Node from = selectedNode();
+      from.transferDroneTo(node);
     } else if (!isInSpecialMode) {
       _selectNode(node);
     }
@@ -111,13 +118,13 @@ mixin MenuHandler on BaseGameComponent {
 
   void _addConnection(Node from, Node to) {
     if ((from != to) && (to is Building)) {
-      from.addConnection(to);
+      from.addDroneConnection(to);
     }
   }
 
   void _removeConnection(Node from, Node to) {
     if (from != to) {
-      from.removeConnection(to);
+      from.removeDroneConnection(to);
     }
   }
 
@@ -156,6 +163,10 @@ mixin MenuHandler on BaseGameComponent {
 
   void enableRemoveConnectionMode() {
     _enableMode(MenuMode.remove_connection, false);
+  }
+
+  void enableTransferDroneMode() {
+    _enableMode(MenuMode.transfer_drone, false);
   }
 
   void onCancelOperation() {
