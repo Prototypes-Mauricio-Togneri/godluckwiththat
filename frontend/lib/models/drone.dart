@@ -13,8 +13,6 @@ class Drone {
 
   factory Drone.logistic() => Drone(type: DroneType.logistic);
 
-  Resource get resource => _resource!;
-
   bool get hasResource => _resource != null;
 
   bool get isConstruction => type == DroneType.construction;
@@ -25,7 +23,10 @@ class Drone {
     _resource = resource;
   }
 
-  void unload() {
+  Resource? unload() {
+    final Resource? result = _resource;
     _resource = null;
+
+    return result;
   }
 }

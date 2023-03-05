@@ -41,7 +41,6 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
 
     if (progress >= 1) {
       target.receiveMovingDrone(this);
-      drone.unload();
       _routeFrom(target);
     }
   }

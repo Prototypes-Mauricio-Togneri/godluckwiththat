@@ -55,6 +55,7 @@ class Building extends Node {
         drone: drone,
         waypoints: [connections[0], this],
       );
+      _startProducing();
     }
   }
 
@@ -96,6 +97,13 @@ class Building extends Node {
   void receiveDone(Drone drone) {
     if (drone.isLogistic) {
       logisticDrones.add(drone);
+    }
+
+    final Resource? resource = drone.unload();
+
+    if ((resource != null) && input.hasResourceType(resource.type)) {
+      input.addResource(resource);
+      _startProducing();
     }
   }
 

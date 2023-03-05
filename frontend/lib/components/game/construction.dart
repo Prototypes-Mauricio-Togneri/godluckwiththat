@@ -33,12 +33,14 @@ class Construction extends Node {
 
   @override
   void receiveDone(Drone drone) {
-    final Resource resource = drone.resource;
+    final Resource? resource = drone.unload();
 
-    remainingResources.removeResource(Resource(
-      resource.type,
-      resource.amount,
-    ));
+    if (resource != null) {
+      remainingResources.removeResource(Resource(
+        resource.type,
+        resource.amount,
+      ));
+    }
 
     if (remainingResources.isEmpty) {
       destroy();
