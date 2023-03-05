@@ -20,6 +20,7 @@ class Headquarters extends Node {
             Drone.logistic(),
             Drone.logistic(),
             Drone.logistic(),
+            Drone.logistic(),
           ],
           droneConnections: [],
           droneTransfers: [],
@@ -33,7 +34,7 @@ class Headquarters extends Node {
       for (final Construction construction in game.state.constructions) {
         _checkConstruction(
           construction: construction,
-          resource: const Resource(ResourceType.iron_block, 1),
+          resource: Resource.one(ResourceType.iron_block),
         );
 
         if (!hasConstructionDrones) {
@@ -42,7 +43,7 @@ class Headquarters extends Node {
 
         _checkConstruction(
           construction: construction,
-          resource: const Resource(ResourceType.copper_block, 1),
+          resource: Resource.one(ResourceType.copper_block),
         );
 
         if (!hasConstructionDrones) {
@@ -51,7 +52,7 @@ class Headquarters extends Node {
 
         _checkConstruction(
           construction: construction,
-          resource: const Resource(ResourceType.steel, 1),
+          resource: Resource.one(ResourceType.steel),
         );
 
         if (!hasConstructionDrones) {
@@ -60,7 +61,7 @@ class Headquarters extends Node {
 
         _checkConstruction(
           construction: construction,
-          resource: const Resource(ResourceType.concrete, 1),
+          resource: Resource.one(ResourceType.concrete),
         );
 
         if (!hasConstructionDrones) {
@@ -70,6 +71,7 @@ class Headquarters extends Node {
     }
   }
 
+  @override
   void receiveDrone(Drone drone) {
     final Resource? resource = drone.unload();
 

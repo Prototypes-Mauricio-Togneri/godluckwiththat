@@ -54,7 +54,7 @@ class Node extends SpriteComponent
 
   void receiveMovingDrone(MovingDrone movingDrone) {
     if (movingDrone.hasWaypoints) {
-      receiveDone(movingDrone.drone);
+      receiveDrone(movingDrone.drone);
     } else {
       addDrone(movingDrone.drone);
     }
@@ -62,7 +62,7 @@ class Node extends SpriteComponent
     updateMenu();
   }
 
-  void receiveDone(Drone drone) {}
+  void receiveDrone(Drone drone) {}
 
   void sendDrone({
     required Drone drone,

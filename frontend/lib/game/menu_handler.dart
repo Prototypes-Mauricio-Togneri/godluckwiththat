@@ -2,12 +2,12 @@ import 'package:tensionnode/components/base/building.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/node_selected.dart';
+import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/dialog/construct_menu.dart';
 import 'package:tensionnode/dialog/main_menu.dart';
 import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
-import 'package:tensionnode/types/drone_type.dart';
 import 'package:tensionnode/types/menu_mode.dart';
 import 'package:tensionnode/types/node_type.dart';
 
@@ -117,7 +117,7 @@ mixin MenuHandler on BaseGameComponent {
   }
 
   void _addConnection(Node from, Node to) {
-    if ((from != to) && (to is Building)) {
+    if ((from != to) && ((to is Building) || (to is Headquarters))) {
       from.addDroneConnection(to);
     }
   }
@@ -175,7 +175,9 @@ mixin MenuHandler on BaseGameComponent {
       removeMenuComponents();
     } else if (isDestroyingMode) {
       disableMode();
-    } else if (isAddConnectionMode || isRemoveConnectionMode) {
+    } else if (isAddConnectionMode ||
+        isRemoveConnectionMode ||
+        isTransferDroneMode) {
       disableMode(false);
     }
   }

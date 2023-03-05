@@ -50,7 +50,7 @@ class Building extends Node {
       _output--;
 
       final Drone drone = getLogisticDrone();
-      drone.load(Resource(resourceProduced, 1));
+      drone.load(Resource.one(resourceProduced));
 
       sendDrone(
         drone: drone,
@@ -75,7 +75,7 @@ class Building extends Node {
         _hasEnoughResources &&
         (_output < Constants.OUTPUT_QUEUE_LIMIT)) {
       for (final ResourceType type in input.types) {
-        input.removeResource(Resource(type, 1));
+        input.removeResource(Resource.one(type));
       }
 
       _state = BuildingState.working;
@@ -95,7 +95,7 @@ class Building extends Node {
   }
 
   @override
-  void receiveDone(Drone drone) {
+  void receiveDrone(Drone drone) {
     final Resource? resource = drone.unload();
 
     if ((resource != null) && input.hasResourceType(resource.type)) {

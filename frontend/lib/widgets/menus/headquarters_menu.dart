@@ -6,7 +6,6 @@ import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/services/palette.dart';
-import 'package:tensionnode/types/drone_type.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 import 'package:tensionnode/widgets/menus/item_row.dart';

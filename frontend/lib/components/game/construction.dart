@@ -33,7 +33,7 @@ class Construction extends Node {
   }
 
   @override
-  void receiveDone(Drone drone) {
+  void receiveDrone(Drone drone) {
     final Resource? resource = drone.unload();
 
     if (resource != null) {

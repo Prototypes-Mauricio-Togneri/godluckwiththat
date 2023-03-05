@@ -5,4 +5,6 @@ class Resource {
   final int amount;
 
   const Resource(this.type, this.amount);
+
+  factory Resource.one(ResourceType type) => Resource(type, 1);
 }
