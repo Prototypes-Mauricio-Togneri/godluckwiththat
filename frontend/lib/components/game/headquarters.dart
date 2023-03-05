@@ -19,12 +19,12 @@ class Headquarters extends Node {
           type: NodeType.headquarters,
           drones: [
             Drone(),
+            /*Drone(),
             Drone(),
             Drone(),
             Drone(),
             Drone(),
-            Drone(),
-            Drone(),
+            Drone(),*/
           ],
           droneConnections: [],
           droneTransfers: [],

@@ -58,7 +58,7 @@ class ConstructionMenu extends StatelessWidget {
 
   void _onDestroy() {
     final Node node = game.selectedNode();
-    node.destroy();
+    node.destroy(true);
     _closeMenu();
   }
 

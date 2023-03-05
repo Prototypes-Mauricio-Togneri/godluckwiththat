@@ -10,6 +10,7 @@ import 'package:tensionnode/components/game/buildings/processors/copper_smelter.
 import 'package:tensionnode/components/game/buildings/processors/iron_smelter.dart';
 import 'package:tensionnode/components/game/construction.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
+import 'package:tensionnode/components/game/moving_drone.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/json/json_building.dart';
@@ -214,9 +215,19 @@ mixin NodeHandler on BaseGameComponent {
     return node;
   }
 
-  void removeNode(Node node) {
+  void removeNode(Node node, bool sendDronesBack) {
     try {
       removeComponent(node);
+
+      if (sendDronesBack) {
+        for (final MovingDrone movingDrone in getMovingDrones()) {
+          movingDrone.sendBack(
+            nodeDeleted: node,
+            headquarters: state.headquarters!,
+          );
+        }
+      }
+
       state.removeNode(node);
     } catch (e) {
       // ignore

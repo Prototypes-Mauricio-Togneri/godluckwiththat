@@ -7,7 +7,7 @@ import 'package:tensionnode/models/drone.dart';
 
 class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
   final Drone drone;
-  Node origin;
+  Vector2 origin;
   late Node target;
   Vector2 direction = Vector2.zero();
   double distanceToTarget = 0;
@@ -16,9 +16,9 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
 
   MovingDrone({
     required this.drone,
-    required this.origin,
     required this.waypoints,
-  }) {
+    required Node nodeOrigin,
+  }) : origin = nodeOrigin.position {
     _routeFrom(origin);
   }
 
@@ -38,24 +38,39 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
     super.update(dt);
 
     progress += (dt / distanceToTarget) * game.state.research.droneSpeed;
-    position = origin.position + (direction * progress);
+    position = origin + (direction * progress);
 
     if (progress >= 1) {
       target.receiveMovingDrone(this);
-      _routeFrom(target);
+      _routeFrom(target.position);
     }
   }
 
-  void _routeFrom(Node newOrigin) {
+  void _routeFrom(Vector2 newOrigin) {
     if (waypoints.isNotEmpty) {
       origin = newOrigin;
       target = waypoints.removeAt(0);
 
       progress = 0;
-      direction = target.position - origin.position;
+      direction = target.position - origin;
       distanceToTarget = direction.length / Constants.NODE_SIZE;
     } else {
       parent!.remove(this);
+    }
+  }
+
+  void sendBack({
+    required Node nodeDeleted,
+    required Node headquarters,
+  }) {
+    if ((target == nodeDeleted) || (waypoints.contains(nodeDeleted))) {
+      origin = position.clone();
+      target = headquarters;
+      waypoints.clear();
+
+      progress = 0;
+      direction = target.position - origin;
+      distanceToTarget = direction.length / Constants.NODE_SIZE;
     }
   }
 }

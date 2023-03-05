@@ -69,7 +69,7 @@ class Node extends SpriteComponent
   }) {
     final MovingDrone movingDrone = MovingDrone(
       drone: drone,
-      origin: this,
+      nodeOrigin: this,
       waypoints: waypoints,
     );
     game.addComponent(movingDrone);
@@ -133,8 +133,8 @@ class Node extends SpriteComponent
     return true;
   }
 
-  void destroy() {
-    game.removeNode(this);
+  void destroy(bool sendDronesBack) {
+    game.removeNode(this, sendDronesBack);
   }
 }
 

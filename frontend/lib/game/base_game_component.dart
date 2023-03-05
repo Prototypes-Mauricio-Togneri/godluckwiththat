@@ -72,6 +72,9 @@ class BaseGameComponent extends FlameGame
   @override
   Color backgroundColor() => Palette.gameBackground;
 
+  List<MovingDrone> getMovingDrones() =>
+      _layerDrones.children.whereType<MovingDrone>().toList();
+
   void addComponent(Component component) {
     if (component is MovingDrone) {
       _layerDrones.add(component);

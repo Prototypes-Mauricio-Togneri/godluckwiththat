@@ -47,7 +47,7 @@ class Construction extends Node {
     }
 
     if (remainingResources.isEmpty) {
-      destroy();
+      destroy(false);
       final Node node = game.buildNode(
         location: location,
         type: type,

@@ -108,7 +108,7 @@ mixin MenuHandler on BaseGameComponent {
 
   bool selectNode(Node node) {
     if (isDestroyingMode) {
-      node.destroy();
+      node.destroy(true);
     } else if (isAddConnectionMode) {
       _addConnection(selectedNode(), node);
     } else if (isRemoveConnectionMode) {
