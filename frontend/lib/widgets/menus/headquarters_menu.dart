@@ -4,7 +4,6 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/resource.dart';
-import 'package:tensionnode/utils/assets.dart';
 import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
@@ -31,7 +30,7 @@ class HeadquartersMenu extends StatelessWidget {
           align: TextAlign.center,
         ),
         const VBox(10),
-        InventorySummary(node),
+        InventorySummary(game, node),
         const VBox(30),
         if (node.availableDrones > 1)
           MenuButton(
@@ -77,9 +76,10 @@ class HeadquartersMenu extends StatelessWidget {
 }
 
 class InventorySummary extends StatelessWidget {
+  final GameComponent game;
   final Headquarters node;
 
-  const InventorySummary(this.node);
+  const InventorySummary(this.game, this.node);
 
   @override
   Widget build(BuildContext context) {
@@ -90,20 +90,10 @@ class InventorySummary extends StatelessWidget {
             sprite: resource.type.sprite,
             amount: '${resource.amount}',
           ),
-        if (node.availableBasicDrones > 0)
+        if (node.availableDrones > 0)
           ItemRow(
-            sprite: Assets.IMAGES_DRONES_BASIC_DRONE,
-            amount: '${node.availableBasicDrones}',
-          ),
-        if (node.availableIntermediateDrones > 0)
-          ItemRow(
-            sprite: Assets.IMAGES_DRONES_INTERMEDIATE_DRONE,
-            amount: '${node.availableIntermediateDrones}',
-          ),
-        if (node.availableAdvanceDrones > 0)
-          ItemRow(
-            sprite: Assets.IMAGES_DRONES_ADVANCE_DRONE,
-            amount: '${node.availableAdvanceDrones}',
+            sprite: game.state.research.droneSprite,
+            amount: '${node.availableDrones}',
           ),
       ],
     );

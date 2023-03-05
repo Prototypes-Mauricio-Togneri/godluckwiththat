@@ -4,7 +4,7 @@ import 'package:tensionnode/components/game/buildings/extractors/coal_mine.dart'
 import 'package:tensionnode/components/game/buildings/extractors/copper_mine.dart';
 import 'package:tensionnode/components/game/buildings/extractors/iron_mine.dart';
 import 'package:tensionnode/components/game/buildings/extractors/stone_mine.dart';
-import 'package:tensionnode/components/game/buildings/factories/factory_basic.dart';
+import 'package:tensionnode/components/game/buildings/factories/drone_factory.dart';
 import 'package:tensionnode/components/game/buildings/power_plants/solar_panel.dart';
 import 'package:tensionnode/components/game/buildings/processors/copper_smelter.dart';
 import 'package:tensionnode/components/game/buildings/processors/iron_smelter.dart';
@@ -75,8 +75,8 @@ mixin NodeHandler on BaseGameComponent {
       );
     }
 
-    for (final JsonBuilding json in state.jsonMatch.buildings.factoriesBasic) {
-      addFactoryBasic(
+    for (final JsonBuilding json in state.jsonMatch.buildings.droneFactories) {
+      addDroneFactory(
         location: json.location.location,
       );
     }
@@ -195,10 +195,10 @@ mixin NodeHandler on BaseGameComponent {
         }),
       ));
 
-  Node addFactoryBasic({
+  Node addDroneFactory({
     required Location location,
   }) =>
-      _addNode(FactoryBasic(
+      _addNode(DroneFactory(
         location: location,
         input: Inventory({
           ResourceType.energy: 0,
@@ -233,7 +233,7 @@ mixin NodeHandler on BaseGameComponent {
       case NodeType.solar_panel:
       case NodeType.iron_smelter:
       case NodeType.copper_smelter:
-      case NodeType.factory_basic:
+      case NodeType.drone_factory:
         if (tile.isSoil && (patch == null)) {
           addConstruction(
             location: location,
@@ -297,8 +297,8 @@ mixin NodeHandler on BaseGameComponent {
         return addIronSmelter(location: location);
       case NodeType.copper_smelter:
         return addCopperSmelter(location: location);
-      case NodeType.factory_basic:
-        return addFactoryBasic(location: location);
+      case NodeType.drone_factory:
+        return addDroneFactory(location: location);
       case NodeType.headquarters:
         throw Exception('Headquarters cannot be built');
     }

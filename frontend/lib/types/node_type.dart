@@ -9,7 +9,7 @@ enum NodeType {
       cost: {}),
   solar_panel(
       sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_SOLAR_PANEL,
-      productionTime: 1,
+      productionTime: 10,
       cost: {
         ResourceType.iron_block: 2,
       }),
@@ -51,8 +51,8 @@ enum NodeType {
       cost: {
         ResourceType.iron_block: 2,
       }),
-  factory_basic(
-      sprite: Assets.IMAGES_BUILDINGS_FACTORIES_BASIC_FACTORY,
+  drone_factory(
+      sprite: Assets.IMAGES_BUILDINGS_FACTORIES_DRONE_FACTORY,
       productionTime: 10,
       cost: {
         ResourceType.iron_block: 2,

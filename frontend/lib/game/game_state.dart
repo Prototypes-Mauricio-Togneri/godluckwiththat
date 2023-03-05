@@ -5,7 +5,7 @@ import 'package:tensionnode/components/game/buildings/extractors/coal_mine.dart'
 import 'package:tensionnode/components/game/buildings/extractors/copper_mine.dart';
 import 'package:tensionnode/components/game/buildings/extractors/iron_mine.dart';
 import 'package:tensionnode/components/game/buildings/extractors/stone_mine.dart';
-import 'package:tensionnode/components/game/buildings/factories/factory_basic.dart';
+import 'package:tensionnode/components/game/buildings/factories/drone_factory.dart';
 import 'package:tensionnode/components/game/buildings/power_plants/solar_panel.dart';
 import 'package:tensionnode/components/game/buildings/processors/copper_smelter.dart';
 import 'package:tensionnode/components/game/buildings/processors/iron_smelter.dart';
@@ -16,6 +16,7 @@ import 'package:tensionnode/json/json_buildings.dart';
 import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/patches.dart';
+import 'package:tensionnode/models/research.dart';
 
 class GameState extends BaseState {
   num _totalTimeElapsed = 0;
@@ -30,8 +31,9 @@ class GameState extends BaseState {
   final List<StoneMine> stoneMines = [];
   final List<IronSmelter> ironSmelters = [];
   final List<CopperSmelter> copperSmelters = [];
-  final List<FactoryBasic> factoriesBasic = [];
+  final List<DroneFactory> droneFactories = [];
   final List<Node> allNodes = [];
+  final Research research = Research();
   late final Patches patches;
   final JsonMatch jsonMatch;
 
@@ -88,8 +90,8 @@ class GameState extends BaseState {
       ironSmelters.add(node);
     } else if (node is CopperSmelter) {
       copperSmelters.add(node);
-    } else if (node is FactoryBasic) {
-      factoriesBasic.add(node);
+    } else if (node is DroneFactory) {
+      droneFactories.add(node);
     }
 
     allNodes.add(node);
@@ -112,8 +114,8 @@ class GameState extends BaseState {
       ironSmelters.remove(node);
     } else if (node is CopperSmelter) {
       copperSmelters.remove(node);
-    } else if (node is FactoryBasic) {
-      factoriesBasic.remove(node);
+    } else if (node is DroneFactory) {
+      droneFactories.remove(node);
     }
 
     allNodes.remove(node);
@@ -135,7 +137,7 @@ class GameState extends BaseState {
         stoneMines: stoneMines.map((e) => e.json).toList(),
         ironSmelters: ironSmelters.map((e) => e.json).toList(),
         copperSmelters: copperSmelters.map((e) => e.json).toList(),
-        factoriesBasic: factoriesBasic.map((e) => e.json).toList(),
+        droneFactories: droneFactories.map((e) => e.json).toList(),
       ),
     );
   }

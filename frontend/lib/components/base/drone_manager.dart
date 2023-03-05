@@ -1,6 +1,5 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/models/drone.dart';
-import 'package:tensionnode/types/drone_type.dart';
 
 mixin NodeManager {
   final List<Drone> _drones = [];
@@ -15,15 +14,6 @@ mixin NodeManager {
   bool get hasDroneTransfers => _droneTransfers.isNotEmpty;
 
   int get availableDrones => _drones.length;
-
-  int get availableBasicDrones =>
-      _drones.where((e) => e.type == DroneType.basic).length;
-
-  int get availableIntermediateDrones =>
-      _drones.where((e) => e.type == DroneType.intermediate).length;
-
-  int get availableAdvanceDrones =>
-      _drones.where((e) => e.type == DroneType.advance).length;
 
   Node get getAvailableConnection {
     connectionIndex++;

@@ -86,16 +86,11 @@ class Building extends Node {
   void _produce(double dt) {
     _accumulatedTime += dt;
 
-    // TODO(momo): what happens when a drone is crated?
     if (_accumulatedTime >= type.productionTime) {
       _accumulatedTime = 0;
 
-      if (resourceProduced == ResourceType.drone_basic) {
-        addDrone(Drone.basic());
-      } else if (resourceProduced == ResourceType.drone_intermediate) {
-        addDrone(Drone.intermediate());
-      } else if (resourceProduced == ResourceType.drone_advance) {
-        addDrone(Drone.advance());
+      if (resourceProduced == ResourceType.drone) {
+        addDrone(Drone());
       } else {
         _output++;
       }

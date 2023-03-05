@@ -2,13 +2,13 @@ import 'package:tensionnode/components/base/building.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
-class FactoryBasic extends Building {
-  FactoryBasic({
+class DroneFactory extends Building {
+  DroneFactory({
     required super.location,
     required super.input,
   }) : super(
-          type: NodeType.factory_basic,
-          resourceProduced: ResourceType.drone_basic,
+          type: NodeType.drone_factory,
+          resourceProduced: ResourceType.drone,
           drones: [],
           droneConnections: [],
           droneTransfers: [],

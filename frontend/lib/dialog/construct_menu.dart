@@ -70,7 +70,7 @@ class ConstructMenu extends StatelessWidget {
                   onBuild: _onBuild,
                   color: Palette.buildTypeFactories,
                   types: const [
-                    NodeType.factory_basic,
+                    NodeType.drone_factory,
                   ],
                 ),
               ],

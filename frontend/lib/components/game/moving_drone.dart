@@ -26,7 +26,7 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(drone.type.sprite);
+    sprite = await getSprite(game.state.research.droneSprite);
     size = getSize();
     anchor = Anchor.center;
 
@@ -37,7 +37,7 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
   void update(double dt) {
     super.update(dt);
 
-    progress += (dt / distanceToTarget) * drone.type.speed;
+    progress += (dt / distanceToTarget) * game.state.research.droneSpeed;
     position = origin.position + (direction * progress);
 
     if (progress >= 1) {

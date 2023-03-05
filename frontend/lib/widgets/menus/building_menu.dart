@@ -5,7 +5,6 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
-import 'package:tensionnode/utils/assets.dart';
 import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
@@ -34,7 +33,7 @@ class BuildingMenu extends StatelessWidget {
         if (node.input.list.isNotEmpty) InputSection(node.input),
         OutputSection(node),
         const VBox(10),
-        DroneSection(node),
+        DroneSection(game, node),
         const VBox(10),
         MenuButton(
           text: 'Add connection',
@@ -151,28 +150,19 @@ class OutputSection extends StatelessWidget {
 }
 
 class DroneSection extends StatelessWidget {
+  final GameComponent game;
   final Building node;
 
-  const DroneSection(this.node);
+  const DroneSection(this.game, this.node);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (node.availableBasicDrones > 0)
+        if (node.availableDrones > 0)
           ItemRow(
-            sprite: Assets.IMAGES_DRONES_BASIC_DRONE,
-            amount: '${node.availableBasicDrones}',
-          ),
-        if (node.availableIntermediateDrones > 0)
-          ItemRow(
-            sprite: Assets.IMAGES_DRONES_INTERMEDIATE_DRONE,
-            amount: '${node.availableIntermediateDrones}',
-          ),
-        if (node.availableAdvanceDrones > 0)
-          ItemRow(
-            sprite: Assets.IMAGES_DRONES_ADVANCE_DRONE,
-            amount: '${node.availableAdvanceDrones}',
+            sprite: game.state.research.droneSprite,
+            amount: '${node.availableDrones}',
           ),
       ],
     );
