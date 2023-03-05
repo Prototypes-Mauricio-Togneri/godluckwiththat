@@ -6,8 +6,8 @@ import 'package:tensionnode/components/game/buildings/extractors/coal_mine.dart'
 import 'package:tensionnode/components/game/buildings/extractors/copper_mine.dart';
 import 'package:tensionnode/components/game/buildings/extractors/iron_mine.dart';
 import 'package:tensionnode/components/game/buildings/extractors/stone_mine.dart';
-import 'package:tensionnode/components/game/buildings/transformers/copper_smelter.dart';
-import 'package:tensionnode/components/game/buildings/transformers/iron_smelter.dart';
+import 'package:tensionnode/components/game/buildings/processors/copper_smelter.dart';
+import 'package:tensionnode/components/game/buildings/processors/iron_smelter.dart';
 import 'package:tensionnode/components/game/construction.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/extensions/num_extension.dart';

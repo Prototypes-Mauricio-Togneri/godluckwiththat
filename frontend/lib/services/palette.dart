@@ -12,7 +12,7 @@ class Palette {
 
   static const Color buildTypeEnergy = Colors.yellow;
   static const Color buildTypeExtractors = Colors.red;
-  static const Color buildTypeTransformers = Colors.blue;
+  static const Color buildTypeProcessors = Colors.blue;
   static const Color buildTypeAssemblers = Colors.green;
   static const Color buildTypeFactories = Colors.purple;
   static const Color buildTypeOther = Colors.orange;

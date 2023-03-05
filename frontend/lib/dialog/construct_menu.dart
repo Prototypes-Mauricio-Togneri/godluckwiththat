@@ -56,9 +56,9 @@ class ConstructMenu extends StatelessWidget {
                 ),
                 const HBox(20),
                 BuildingGroup(
-                  title: 'Transformers'.toUpperCase(),
+                  title: 'Processors'.toUpperCase(),
                   onBuild: _onBuild,
-                  color: Palette.buildTypeTransformers,
+                  color: Palette.buildTypeProcessors,
                   types: const [
                     NodeType.iron_smelter,
                     NodeType.copper_smelter,
