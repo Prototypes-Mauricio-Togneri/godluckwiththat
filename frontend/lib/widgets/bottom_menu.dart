@@ -2,7 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
-import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
 class BottomMenu extends StatelessWidget {

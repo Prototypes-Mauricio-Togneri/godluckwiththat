@@ -1,4 +1,4 @@
-import 'package:tensionnode/services/assets.dart';
+import 'package:tensionnode/utils/assets.dart';
 
 enum ResourceType {
   energy(sprite: Assets.IMAGES_RESOURCES_ENERGY),

@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:tensionnode/services/platform.dart';
+import 'package:tensionnode/utils/platform.dart';
 
 class Environment {
   static const bool isDebug = kDebugMode;

@@ -5,7 +5,7 @@ import 'package:tensionnode/components/game/construction.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
-import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/menus/building_menu.dart';
 import 'package:tensionnode/widgets/menus/construction_menu.dart';
 import 'package:tensionnode/widgets/menus/headquarters_menu.dart';

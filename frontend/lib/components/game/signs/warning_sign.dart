@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
-import 'package:tensionnode/services/assets.dart';
+import 'package:tensionnode/utils/assets.dart';
 
 class WarningSign extends SpriteComponent {
   @override

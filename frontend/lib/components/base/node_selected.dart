@@ -4,8 +4,8 @@ import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/services/assets.dart';
-import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/utils/assets.dart';
+import 'package:tensionnode/utils/palette.dart';
 
 class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
   final Node node;

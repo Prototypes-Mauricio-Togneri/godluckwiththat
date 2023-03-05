@@ -16,9 +16,9 @@ import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/models/patch.dart';
-import 'package:tensionnode/services/assets.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionnode/utils/assets.dart';
 
 mixin NodeHandler on BaseGameComponent {
   final Map<String, SpriteGroup> spriteGroups = {};

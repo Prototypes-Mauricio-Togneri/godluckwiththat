@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tensionnode/platform/platform_initializer.dart';
-import 'package:tensionnode/services/navigation.dart';
+import 'package:tensionnode/utils/navigation.dart';
 
 final GetIt locator = GetIt.instance;
 

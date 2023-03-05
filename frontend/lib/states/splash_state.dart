@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionnode/services/audio.dart';
-import 'package:tensionnode/services/navigation.dart';
+import 'package:tensionnode/utils/audio.dart';
+import 'package:tensionnode/utils/navigation.dart';
 
 class SplashState extends BaseState {
   @override

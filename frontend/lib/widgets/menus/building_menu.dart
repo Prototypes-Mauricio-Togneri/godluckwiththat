@@ -5,7 +5,7 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
-import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 import 'package:tensionnode/widgets/menus/item_row.dart';

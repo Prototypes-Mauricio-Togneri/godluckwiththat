@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensionnode/components/base/drone_manager.dart';
@@ -7,9 +8,9 @@ import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/location.dart';
-import 'package:tensionnode/services/palette.dart';
-import 'package:tensionnode/services/style.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/utils/palette.dart';
+import 'package:tensionnode/utils/style.dart';
 
 class Node extends SpriteComponent
     with HasGameRef<GameComponent>, Tappable, NodeManager {

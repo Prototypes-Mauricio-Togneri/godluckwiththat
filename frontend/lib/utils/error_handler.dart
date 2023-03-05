@@ -1,5 +1,5 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:tensionnode/services/log.dart';
+import 'package:tensionnode/utils/log.dart';
 
 class ErrorHandler {
   static Future process(Object exception) {

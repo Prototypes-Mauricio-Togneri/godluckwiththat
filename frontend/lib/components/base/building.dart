@@ -86,6 +86,7 @@ class Building extends Node {
   void _produce(double dt) {
     _accumulatedTime += dt;
 
+    // TODO(momo): what happens when a drone is crated?
     if (_accumulatedTime >= type.productionTime) {
       _accumulatedTime = 0;
       _output++;

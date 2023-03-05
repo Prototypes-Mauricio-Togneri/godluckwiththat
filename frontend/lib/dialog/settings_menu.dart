@@ -2,9 +2,9 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/dialog/base_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/services/audio.dart';
-import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/storage/audio_storage.dart';
+import 'package:tensionnode/utils/audio.dart';
+import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 

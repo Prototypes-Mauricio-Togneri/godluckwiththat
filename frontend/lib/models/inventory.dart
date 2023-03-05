@@ -1,6 +1,6 @@
 import 'package:tensionnode/models/resource.dart';
-import 'package:tensionnode/services/json.dart';
 import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionnode/utils/json.dart';
 
 typedef JsonInventory = Map<ResourceType, int>;
 

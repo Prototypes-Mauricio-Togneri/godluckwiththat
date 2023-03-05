@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tensionnode/dialog/base_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 

@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/states/home_state.dart';
+import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
 class HomeScreen extends StatelessWidget {

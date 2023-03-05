@@ -9,7 +9,7 @@ import 'package:tensionnode/dialog/settings_menu.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/json/json_match.dart';
-import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/bottom_menu.dart';
 import 'package:tensionnode/widgets/side_menu.dart';
 

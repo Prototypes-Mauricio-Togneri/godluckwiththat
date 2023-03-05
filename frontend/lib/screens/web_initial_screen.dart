@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tensionnode/services/navigation.dart';
-import 'package:tensionnode/services/palette.dart';
+import 'package:tensionnode/utils/navigation.dart';
+import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 
 class WebInitialScreen extends StatelessWidget {
