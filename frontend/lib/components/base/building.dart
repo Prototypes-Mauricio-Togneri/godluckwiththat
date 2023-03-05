@@ -1,6 +1,7 @@
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_building.dart';
+import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/building_state.dart';
@@ -43,6 +44,18 @@ class Building extends Node {
     } else {
       debugText.text = '';
     }
+
+    if ((_output > 0) && logisticDrones.isNotEmpty && connections.isNotEmpty) {
+      _output--;
+
+      final Drone drone = logisticDrones.removeAt(0);
+      drone.load(Resource(resourceProduced, 1));
+
+      sendDrone(
+        drone: drone,
+        waypoints: [connections[0], this],
+      );
+    }
   }
 
   bool get _hasEnoughResources {
@@ -76,6 +89,13 @@ class Building extends Node {
       updateMenu();
       _state = BuildingState.idle;
       _startProducing();
+    }
+  }
+
+  @override
+  void receiveDone(Drone drone) {
+    if (drone.isLogistic) {
+      logisticDrones.add(drone);
     }
   }
 

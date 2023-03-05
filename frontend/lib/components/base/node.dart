@@ -61,7 +61,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
       origin: this,
       waypoints: waypoints,
     );
-    add(movingDrone);
+    game.addComponent(movingDrone);
     updateMenu();
   }
 

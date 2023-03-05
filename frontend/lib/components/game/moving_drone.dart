@@ -37,9 +37,7 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
     super.update(dt);
 
     progress += (dt / distanceToTarget) * Constants.CONSTRUCTION_DRONE_SPEED;
-    position = origin.position +
-        (direction * progress) +
-        Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);
+    position = origin.position + (direction * progress);
 
     if (progress >= 1) {
       target.receiveMovingDrone(this);
