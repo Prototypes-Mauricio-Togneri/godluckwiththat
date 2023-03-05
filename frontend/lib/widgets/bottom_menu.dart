@@ -13,18 +13,22 @@ class BottomMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 170,
-      color: Palette.grey,
-      padding: const EdgeInsets.all(10),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (game.isInSpecialMode) CancelMenu(game),
-          FixedButtons(game),
-        ],
-      ),
-    );
+    if (game.paused) {
+      return const Empty();
+    } else {
+      return Container(
+        width: 170,
+        color: Palette.grey,
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (game.isInSpecialMode) CancelMenu(game),
+            FixedButtons(game),
+          ],
+        ),
+      );
+    }
   }
 }
 

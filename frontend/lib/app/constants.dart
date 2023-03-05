@@ -86,8 +86,8 @@ class Constants {
   "headquarters": {
     "location": [0, 0],
     "inventory": {
-      "iron_block": 10,
-      "copper_block": 10
+      "iron_block": 20,
+      "copper_block": 20
     }
   },
 	"buildings": {
