@@ -4,7 +4,6 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/drone.dart';
-import 'package:tensionnode/services/assets.dart';
 
 class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
   final Drone drone;
@@ -27,7 +26,7 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(Assets.IMAGES_CONSTRUCTION_DRONE);
+    sprite = await getSprite(drone.type.sprite);
     size = getSize();
     anchor = Anchor.center;
 

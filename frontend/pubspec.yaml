@@ -52,6 +52,7 @@ flutter:
     - assets/audio/sfx/
     - assets/images/
     - assets/images/buildings/
+    - assets/images/drones/
     - assets/images/patches/
     - assets/images/resources/
     - assets/tiles/
