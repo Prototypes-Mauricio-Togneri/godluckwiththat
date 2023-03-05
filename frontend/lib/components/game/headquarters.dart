@@ -93,7 +93,7 @@ class Headquarters extends Node {
   }) {
     inventory.removeResource(resource);
 
-    final Drone drone = getConstructionDrone;
+    final Drone drone = getConstructionDrone();
     drone.load(resource);
 
     sendDrone(

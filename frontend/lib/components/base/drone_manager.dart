@@ -14,10 +14,6 @@ mixin NodeManager {
 
   bool get hasConnections => _connections.isNotEmpty;
 
-  Drone get getConstructionDrone => _constructionDrones.removeAt(0);
-
-  Drone get getLogisticDrone => _logisticDrones.removeAt(0);
-
   int get availableConstructionDrones => _constructionDrones.length;
 
   int get availableLogisticDrones => _logisticDrones.length;
@@ -30,6 +26,10 @@ mixin NodeManager {
   }
 
   List<Node> get connections => _connections;
+
+  Drone getConstructionDrone() => _constructionDrones.removeAt(0);
+
+  Drone getLogisticDrone() => _logisticDrones.removeAt(0);
 
   void initialize({
     required List<Drone> constructionDrones,

@@ -48,7 +48,7 @@ class Building extends Node {
     if ((_output > 0) && hasLogisticDrones && hasConnections) {
       _output--;
 
-      final Drone drone = getLogisticDrone;
+      final Drone drone = getLogisticDrone();
       drone.load(Resource(resourceProduced, 1));
 
       sendDrone(
