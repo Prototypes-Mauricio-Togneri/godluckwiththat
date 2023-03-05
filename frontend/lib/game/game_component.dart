@@ -25,7 +25,11 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
   @override
   void onKeyPressed(LogicalKeyboardKey key) {
     if (key == LogicalKeyboardKey.escape) {
-      openMainMenu();
+      if (isCancellable) {
+        onCancelOperation();
+      } else {
+        openMainMenu();
+      }
     } else if (key == LogicalKeyboardKey.space) {
       onShowDetails();
     }

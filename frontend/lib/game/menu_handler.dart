@@ -25,6 +25,13 @@ mixin MenuHandler on BaseGameComponent {
 
   bool get isTransferDroneMode => _mode == MenuMode.transfer_drone;
 
+  bool get isCancellable =>
+      isBuildingMode ||
+      isDestroyingMode ||
+      isAddConnectionMode ||
+      isRemoveConnectionMode ||
+      isTransferDroneMode;
+
   bool get isInSpecialMode =>
       isBuildingMode ||
       isDestroyingMode ||
