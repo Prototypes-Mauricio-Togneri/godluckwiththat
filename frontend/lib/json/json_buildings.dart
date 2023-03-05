@@ -27,6 +27,9 @@ class JsonBuildings {
   @JsonKey(name: 'copper_smelters')
   final List<JsonBuilding> copperSmelters;
 
+  @JsonKey(name: 'factories_basic')
+  final List<JsonBuilding> factoriesBasic;
+
   const JsonBuildings({
     required this.solarPanels,
     required this.ironMines,
@@ -35,6 +38,7 @@ class JsonBuildings {
     required this.stoneMines,
     required this.ironSmelters,
     required this.copperSmelters,
+    required this.factoriesBasic,
   });
 
   factory JsonBuildings.fromString(String json) =>

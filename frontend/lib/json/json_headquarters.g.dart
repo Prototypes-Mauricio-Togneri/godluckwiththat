@@ -32,4 +32,5 @@ const _$ResourceTypeEnumMap = {
   ResourceType.copper_block: 'copper_block',
   ResourceType.steel: 'steel',
   ResourceType.concrete: 'concrete',
+  ResourceType.drone_basic: 'drone_basic',
 };

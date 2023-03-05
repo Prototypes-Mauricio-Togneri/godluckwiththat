@@ -97,7 +97,8 @@ class Constants {
 		"coal_mines": [],
 		"stone_mines": [],
 		"iron_smelters": [],
-		"copper_smelters": []
+		"copper_smelters": [],
+		"factories_basic": []
 	}
 }
 ''';

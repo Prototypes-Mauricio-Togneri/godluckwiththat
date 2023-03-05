@@ -1,10 +1,11 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/sprite_group.dart';
-import 'package:tensionnode/components/game/buildings/energy/solar_panel.dart';
 import 'package:tensionnode/components/game/buildings/extractors/coal_mine.dart';
 import 'package:tensionnode/components/game/buildings/extractors/copper_mine.dart';
 import 'package:tensionnode/components/game/buildings/extractors/iron_mine.dart';
 import 'package:tensionnode/components/game/buildings/extractors/stone_mine.dart';
+import 'package:tensionnode/components/game/buildings/factories/factory_basic.dart';
+import 'package:tensionnode/components/game/buildings/power_plants/solar_panel.dart';
 import 'package:tensionnode/components/game/buildings/processors/copper_smelter.dart';
 import 'package:tensionnode/components/game/buildings/processors/iron_smelter.dart';
 import 'package:tensionnode/components/game/construction.dart';
@@ -70,6 +71,12 @@ mixin NodeHandler on BaseGameComponent {
 
     for (final JsonBuilding json in state.jsonMatch.buildings.copperSmelters) {
       addCopperSmelter(
+        location: json.location.location,
+      );
+    }
+
+    for (final JsonBuilding json in state.jsonMatch.buildings.factoriesBasic) {
+      addFactoryBasic(
         location: json.location.location,
       );
     }
@@ -188,6 +195,18 @@ mixin NodeHandler on BaseGameComponent {
         }),
       ));
 
+  Node addFactoryBasic({
+    required Location location,
+  }) =>
+      _addNode(FactoryBasic(
+        location: location,
+        input: Inventory({
+          ResourceType.energy: 0,
+          ResourceType.iron_block: 0,
+          ResourceType.copper_block: 0,
+        }),
+      ));
+
   Node _addNode(Node node) {
     addComponent(node);
     state.addNode(node);
@@ -214,6 +233,7 @@ mixin NodeHandler on BaseGameComponent {
       case NodeType.solar_panel:
       case NodeType.iron_smelter:
       case NodeType.copper_smelter:
+      case NodeType.factory_basic:
         if (tile.isSoil && (patch == null)) {
           addConstruction(
             location: location,
@@ -277,6 +297,8 @@ mixin NodeHandler on BaseGameComponent {
         return addIronSmelter(location: location);
       case NodeType.copper_smelter:
         return addCopperSmelter(location: location);
+      case NodeType.factory_basic:
+        return addFactoryBasic(location: location);
       case NodeType.headquarters:
         throw Exception('Headquarters cannot be built');
     }

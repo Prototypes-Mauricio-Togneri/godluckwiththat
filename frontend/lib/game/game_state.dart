@@ -1,11 +1,12 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/buildings/energy/solar_panel.dart';
 import 'package:tensionnode/components/game/buildings/extractors/coal_mine.dart';
 import 'package:tensionnode/components/game/buildings/extractors/copper_mine.dart';
 import 'package:tensionnode/components/game/buildings/extractors/iron_mine.dart';
 import 'package:tensionnode/components/game/buildings/extractors/stone_mine.dart';
+import 'package:tensionnode/components/game/buildings/factories/factory_basic.dart';
+import 'package:tensionnode/components/game/buildings/power_plants/solar_panel.dart';
 import 'package:tensionnode/components/game/buildings/processors/copper_smelter.dart';
 import 'package:tensionnode/components/game/buildings/processors/iron_smelter.dart';
 import 'package:tensionnode/components/game/construction.dart';
@@ -29,6 +30,7 @@ class GameState extends BaseState {
   final List<StoneMine> stoneMines = [];
   final List<IronSmelter> ironSmelters = [];
   final List<CopperSmelter> copperSmelters = [];
+  final List<FactoryBasic> factoriesBasic = [];
   final List<Node> allNodes = [];
   late final Patches patches;
   final JsonMatch jsonMatch;
@@ -86,6 +88,8 @@ class GameState extends BaseState {
       ironSmelters.add(node);
     } else if (node is CopperSmelter) {
       copperSmelters.add(node);
+    } else if (node is FactoryBasic) {
+      factoriesBasic.add(node);
     }
 
     allNodes.add(node);
@@ -108,6 +112,8 @@ class GameState extends BaseState {
       ironSmelters.remove(node);
     } else if (node is CopperSmelter) {
       copperSmelters.remove(node);
+    } else if (node is FactoryBasic) {
+      factoriesBasic.remove(node);
     }
 
     allNodes.remove(node);
@@ -129,6 +135,7 @@ class GameState extends BaseState {
         stoneMines: stoneMines.map((e) => e.json).toList(),
         ironSmelters: ironSmelters.map((e) => e.json).toList(),
         copperSmelters: copperSmelters.map((e) => e.json).toList(),
+        factoriesBasic: factoriesBasic.map((e) => e.json).toList(),
       ),
     );
   }

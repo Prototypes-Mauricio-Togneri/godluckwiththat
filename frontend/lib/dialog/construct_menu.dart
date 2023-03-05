@@ -20,7 +20,7 @@ class ConstructMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: 700,
+        width: 900,
         height: 320,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
@@ -62,6 +62,15 @@ class ConstructMenu extends StatelessWidget {
                   types: const [
                     NodeType.iron_smelter,
                     NodeType.copper_smelter,
+                  ],
+                ),
+                const HBox(20),
+                BuildingGroup(
+                  title: 'Factories'.toUpperCase(),
+                  onBuild: _onBuild,
+                  color: Palette.buildTypeFactories,
+                  types: const [
+                    NodeType.factory_basic,
                   ],
                 ),
               ],

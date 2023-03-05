@@ -9,7 +9,8 @@ enum ResourceType {
   iron_block(sprite: Assets.IMAGES_RESOURCES_IRON_BLOCK),
   copper_block(sprite: Assets.IMAGES_RESOURCES_COPPER_BLOCK),
   steel(sprite: Assets.IMAGES_RESOURCES_STEEL),
-  concrete(sprite: Assets.IMAGES_RESOURCES_CONCRETE);
+  concrete(sprite: Assets.IMAGES_RESOURCES_CONCRETE),
+  drone_basic(sprite: Assets.IMAGES_DRONES_BASIC_DRONE);
 
   final String sprite;
 
