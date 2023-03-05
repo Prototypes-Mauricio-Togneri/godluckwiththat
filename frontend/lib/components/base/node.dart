@@ -82,7 +82,11 @@ class Node extends SpriteComponent
 
     if (hasDroneTransfers) {
       for (final Node to in droneTransfers) {
-        _checkTransferDrone(to);
+        final bool sent = _checkTransferDrone(to);
+
+        if (sent) {
+          removeDroneTransfer(to);
+        }
       }
     }
   }
