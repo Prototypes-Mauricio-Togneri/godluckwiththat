@@ -9,7 +9,7 @@ enum NodeType {
       cost: {}),
   solar_panel(
       sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_SOLAR_PANEL,
-      productionTime: 10,
+      productionTime: 5,
       cost: {
         ResourceType.iron_block: 2,
       }),

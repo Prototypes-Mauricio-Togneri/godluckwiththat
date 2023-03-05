@@ -8,6 +8,7 @@ import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
+import 'package:tensionnode/widgets/menus/drone_section.dart';
 import 'package:tensionnode/widgets/menus/item_row.dart';
 
 class BuildingMenu extends StatelessWidget {
@@ -144,26 +145,6 @@ class OutputSection extends StatelessWidget {
           sprite: node.resourceProduced.sprite,
           amount: '${node.output}',
         ),
-      ],
-    );
-  }
-}
-
-class DroneSection extends StatelessWidget {
-  final GameComponent game;
-  final Building node;
-
-  const DroneSection(this.game, this.node);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (node.availableDrones > 0)
-          ItemRow(
-            sprite: game.state.research.droneSprite,
-            amount: '${node.availableDrones}',
-          ),
       ],
     );
   }

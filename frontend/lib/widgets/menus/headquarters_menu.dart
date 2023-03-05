@@ -7,6 +7,7 @@ import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
+import 'package:tensionnode/widgets/menus/drone_section.dart';
 import 'package:tensionnode/widgets/menus/item_row.dart';
 
 class HeadquartersMenu extends StatelessWidget {
@@ -90,11 +91,7 @@ class InventorySummary extends StatelessWidget {
             sprite: resource.type.sprite,
             amount: '${resource.amount}',
           ),
-        if (node.availableDrones > 0)
-          ItemRow(
-            sprite: game.state.research.droneSprite,
-            amount: '${node.availableDrones}',
-          ),
+        DroneSection(game, node),
       ],
     );
   }
