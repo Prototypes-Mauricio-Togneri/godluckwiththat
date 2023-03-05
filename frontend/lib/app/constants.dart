@@ -7,8 +7,6 @@ class Constants {
 
   static const double NODE_SIZE = 8;
 
-  static const double CONSTRUCTION_DRONE_SPEED = 1; // 1 tile per second
-
   static const int OUTPUT_QUEUE_LIMIT = 10;
 
   static String TEST_MATCH = '''
