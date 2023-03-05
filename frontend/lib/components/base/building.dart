@@ -80,6 +80,8 @@ class Building extends Node {
 
       _state = BuildingState.working;
     }
+
+    updateMenu();
   }
 
   void _produce(double dt) {
@@ -88,7 +90,6 @@ class Building extends Node {
     if (_accumulatedTime >= type.productionTime) {
       _accumulatedTime = 0;
       _output++;
-      updateMenu();
       _state = BuildingState.idle;
       _startProducing();
     }
