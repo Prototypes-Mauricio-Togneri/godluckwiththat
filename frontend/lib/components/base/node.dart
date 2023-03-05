@@ -99,9 +99,18 @@ class Node extends SpriteComponent
     }
   }
 
-  bool _checkTransferDrone(Node to) {
+  Drone? getAvailableDrone() {
     if (hasDrones) {
-      final Drone drone = getDrone();
+      return getDrone();
+    } else {
+      return null;
+    }
+  }
+
+  bool _checkTransferDrone(Node to) {
+    final Drone? drone = getAvailableDrone();
+
+    if (drone != null) {
       sendDrone(
         drone: drone,
         waypoints: [to],

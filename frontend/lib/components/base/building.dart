@@ -10,7 +10,7 @@ import 'package:tensionnode/types/resource_type.dart';
 class Building extends Node {
   num _accumulatedTime = 0; // TODO(momo): receive as parameter
   BuildingState _state = BuildingState.idle; // TODO(momo): receive as parameter
-  int _output = 0; // TODO(momo): receive as parameter
+  int output = 0; // TODO(momo): receive as parameter
   final Inventory input;
   final ResourceType resourceProduced;
 
@@ -23,8 +23,6 @@ class Building extends Node {
     required this.resourceProduced,
     required this.input,
   });
-
-  int get output => _output;
 
   @override
   Future onLoad() {
@@ -45,8 +43,8 @@ class Building extends Node {
       debugText.text = '';
     }
 
-    if ((_output > 0) && hasDroneConnections && hasDrones) {
-      _output--;
+    if ((output > 0) && hasDroneConnections && hasDrones) {
+      output--;
 
       final Drone drone = getDrone();
       drone.load(Resource.one(resourceProduced));
@@ -72,7 +70,7 @@ class Building extends Node {
   void _startProducing() {
     if (_state.isIdle &&
         _hasEnoughResources &&
-        (_output < Constants.OUTPUT_QUEUE_LIMIT)) {
+        (output < Constants.OUTPUT_QUEUE_LIMIT)) {
       for (final ResourceType type in input.types) {
         input.removeResource(Resource.one(type));
       }
@@ -88,13 +86,7 @@ class Building extends Node {
 
     if (_accumulatedTime >= type.productionTime) {
       _accumulatedTime = 0;
-
-      if (resourceProduced == ResourceType.drone) {
-        addDrone(Drone());
-      } else {
-        _output++;
-      }
-
+      output++;
       _state = BuildingState.idle;
       _startProducing();
     }
