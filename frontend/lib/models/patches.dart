@@ -1,0 +1,72 @@
+import 'package:tensionnode/json/json_patches.dart';
+import 'package:tensionnode/models/location.dart';
+import 'package:tensionnode/models/patch.dart';
+import 'package:tensionnode/types/resource_type.dart';
+
+class Patches {
+  final List<Patch> _iron = [];
+  final List<Patch> _copper = [];
+  final List<Patch> _coal = [];
+  final List<Patch> _stone = [];
+
+  Patches({
+    required List<Patch> iron,
+    required List<Patch> copper,
+    required List<Patch> coal,
+    required List<Patch> stone,
+  }) {
+    _iron.addAll(iron);
+    _copper.addAll(copper);
+    _coal.addAll(coal);
+    _stone.addAll(stone);
+  }
+
+  List<Location> locations(ResourceType type) {
+    if (type == ResourceType.iron_ore) {
+      return _iron.map((e) => e.location).toList();
+    } else if (type == ResourceType.copper_ore) {
+      return _copper.map((e) => e.location).toList();
+    } else if (type == ResourceType.coal_ore) {
+      return _coal.map((e) => e.location).toList();
+    } else if (type == ResourceType.stone_ore) {
+      return _stone.map((e) => e.location).toList();
+    } else {
+      throw Exception('Invalid patch type');
+    }
+  }
+
+  Patch? patchAt(Location location) {
+    for (final Patch patch in _iron) {
+      if (patch.isAt(location)) {
+        return patch;
+      }
+    }
+
+    for (final Patch patch in _copper) {
+      if (patch.isAt(location)) {
+        return patch;
+      }
+    }
+
+    for (final Patch patch in _coal) {
+      if (patch.isAt(location)) {
+        return patch;
+      }
+    }
+
+    for (final Patch patch in _stone) {
+      if (patch.isAt(location)) {
+        return patch;
+      }
+    }
+
+    return null;
+  }
+
+  JsonPatches get json => JsonPatches(
+        iron: _iron.map((e) => e.json).toList(),
+        copper: _copper.map((e) => e.json).toList(),
+        coal: _coal.map((e) => e.json).toList(),
+        stone: _stone.map((e) => e.json).toList(),
+      );
+}

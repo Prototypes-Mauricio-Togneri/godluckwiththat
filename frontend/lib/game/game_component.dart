@@ -7,6 +7,7 @@ import 'package:tensionnode/game/menu_handler.dart';
 import 'package:tensionnode/game/node_handler.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
+import 'package:tensionnode/models/patch.dart';
 import 'package:tensionnode/types/node_type.dart';
 
 class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
@@ -47,12 +48,14 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       final Node? node = layerNodes.getNode(location);
       final MapTile tile = getTile(location);
       final NodeType type = buildingIndicator.type;
+      final Patch? patch = state.patches.patchAt(location);
 
       if (node == null) {
         buildConstructionNode(
-          location: location,
           type: type,
+          location: location,
           tile: tile,
+          patch: patch,
         );
       }
     }

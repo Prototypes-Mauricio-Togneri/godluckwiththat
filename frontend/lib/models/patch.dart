@@ -13,6 +13,8 @@ class Patch {
     required this.amount,
   });
 
+  bool isAt(Location location) => this.location == location;
+
   JsonPatch get json => JsonPatch(
         location: location.json,
         amount: amount,

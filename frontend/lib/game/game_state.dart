@@ -13,10 +13,8 @@ import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/extensions/num_extension.dart';
 import 'package:tensionnode/json/json_buildings.dart';
 import 'package:tensionnode/json/json_match.dart';
-import 'package:tensionnode/json/json_patches.dart';
 import 'package:tensionnode/models/location.dart';
-import 'package:tensionnode/models/patch.dart';
-import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionnode/models/patches.dart';
 
 class GameState extends BaseState {
   num _totalTimeElapsed = 0;
@@ -32,18 +30,13 @@ class GameState extends BaseState {
   final List<IronSmelter> ironSmelters = [];
   final List<CopperSmelter> copperSmelters = [];
   final List<Node> allNodes = [];
-  final Map<ResourceType, List<Patch>> patches = {};
+  late final Patches patches;
   final JsonMatch jsonMatch;
 
   GameState(this.jsonMatch) {
     _totalTimeElapsed = jsonMatch.totalTimeElapsed;
-
-    patches[ResourceType.coal_ore] = [];
-    patches[ResourceType.copper_ore] = [];
+    patches = jsonMatch.patches.patches;
   }
-
-  List<Location> patchLocations(ResourceType type) =>
-      patches[type]!.map((e) => e.location).toList();
 
   void setLoaded() {
     loaded = true;
@@ -126,12 +119,7 @@ class GameState extends BaseState {
       id: jsonMatch.id,
       totalTimeElapsed: _totalTimeElapsed.decimal(),
       map: jsonMatch.map.withCamera(camera),
-      patches: JsonPatches(
-        iron: patches[ResourceType.iron_ore]!.map((e) => e.json).toList(),
-        copper: patches[ResourceType.copper_ore]!.map((e) => e.json).toList(),
-        coal: patches[ResourceType.coal_ore]!.map((e) => e.json).toList(),
-        stone: patches[ResourceType.stone_ore]!.map((e) => e.json).toList(),
-      ),
+      patches: patches.json,
       headquarters: headquarters!.json,
       buildings: JsonBuildings(
         solarPanels: solarPanels.map((e) => e.json).toList(),
