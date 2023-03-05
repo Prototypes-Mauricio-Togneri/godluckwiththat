@@ -46,7 +46,18 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   }
 
   void receiveMovingDrone(MovingDrone movingDrone) {
-    receiveDone(movingDrone.drone);
+    if (movingDrone.hasWaypoints) {
+      receiveDone(movingDrone.drone);
+    } else {
+      final Drone drone = movingDrone.drone;
+
+      if (drone.isConstruction) {
+        constructionDrones.add(drone);
+      } else if (drone.isLogistic) {
+        logisticDrones.add(drone);
+      }
+    }
+
     updateMenu();
   }
 

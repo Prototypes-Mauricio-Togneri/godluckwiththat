@@ -36,15 +36,16 @@ class BuildingMenu extends StatelessWidget {
         MenuButton(
           text: 'Add connection',
           icon: Icons.add,
-          color: Palette.primary,
+          color: Palette.success,
           onPressed: _onAddConnection,
         ),
         MenuButton(
           text: 'Remove connection',
           icon: Icons.remove,
-          color: Palette.primary,
+          color: Palette.error,
           onPressed: _onRemoveConnection,
         ),
+        const VBox(30),
         MenuButton(
           text: 'Center',
           icon: Icons.filter_tilt_shift,

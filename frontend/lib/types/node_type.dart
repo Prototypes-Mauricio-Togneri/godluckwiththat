@@ -15,7 +15,7 @@ enum NodeType {
       }),
   iron_mine(
       sprite: Assets.IMAGES_BUILDINGS_IRON_MINE,
-      productionTime: 3,
+      productionTime: 10,
       cost: {
         ResourceType.iron_block: 2,
       }),

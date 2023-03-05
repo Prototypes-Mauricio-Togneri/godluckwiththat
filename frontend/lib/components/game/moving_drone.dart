@@ -23,6 +23,8 @@ class MovingDrone extends SpriteComponent with HasGameRef<GameComponent> {
     _routeFrom(origin);
   }
 
+  bool get hasWaypoints => waypoints.isNotEmpty;
+
   @override
   Future onLoad() async {
     sprite = await getSprite(Assets.IMAGES_CONSTRUCTION_DRONE);

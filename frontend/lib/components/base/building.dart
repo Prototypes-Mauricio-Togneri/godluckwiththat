@@ -95,10 +95,6 @@ class Building extends Node {
 
   @override
   void receiveDone(Drone drone) {
-    if (drone.isLogistic) {
-      logisticDrones.add(drone);
-    }
-
     final Resource? resource = drone.unload();
 
     if ((resource != null) && input.hasResourceType(resource.type)) {

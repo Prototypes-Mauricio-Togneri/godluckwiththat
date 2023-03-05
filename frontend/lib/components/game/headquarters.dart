@@ -66,12 +66,11 @@ class Headquarters extends Node {
     }
   }
 
-  @override
-  void receiveDone(Drone drone) {
-    if (drone.isConstruction) {
-      constructionDrones.add(drone);
-    } else if (drone.isLogistic) {
-      logisticDrones.add(drone);
+  void receiveDrone(Drone drone) {
+    final Resource? resource = drone.unload();
+
+    if (resource != null) {
+      inventory.addResource(resource);
     }
   }
 
