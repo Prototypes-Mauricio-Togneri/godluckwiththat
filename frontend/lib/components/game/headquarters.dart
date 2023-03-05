@@ -19,6 +19,7 @@ class Headquarters extends Node {
             Drone.basic(),
             Drone.basic(),
             Drone.basic(),
+            Drone.basic(),
           ],
           droneConnections: [],
           droneTransfers: [],
@@ -83,8 +84,9 @@ class Headquarters extends Node {
     required Resource resource,
   }) {
     if (hasDrones &&
-        (construction.remainingResources.hasResource(resource)) &&
+        (construction.requestedResources.hasResource(resource)) &&
         inventory.hasResource(resource)) {
+      construction.requestedResources.removeResource(resource);
       _sendConstructionDrone(
         construction: construction,
         resource: resource,

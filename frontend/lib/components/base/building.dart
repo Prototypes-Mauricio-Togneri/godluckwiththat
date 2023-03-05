@@ -45,7 +45,7 @@ class Building extends Node {
       debugText.text = '';
     }
 
-    if ((_output > 0) && hasDrones) {
+    if ((_output > 0) && hasDroneConnections && hasDrones) {
       _output--;
 
       final Drone drone = getDrone();

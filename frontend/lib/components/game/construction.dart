@@ -6,6 +6,7 @@ import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
 class Construction extends Node {
+  final Inventory requestedResources = Inventory({});
   final Inventory remainingResources = Inventory({});
 
   Construction({
@@ -22,10 +23,13 @@ class Construction extends Node {
     opacity = 0.5;
 
     for (final MapEntry<ResourceType, int> entry in type.cost.entries) {
-      remainingResources.addResource(Resource(
+      final Resource resource = Resource(
         entry.key,
         entry.value,
-      ));
+      );
+
+      requestedResources.addResource(resource);
+      remainingResources.addResource(resource);
     }
 
     return super.onLoad();

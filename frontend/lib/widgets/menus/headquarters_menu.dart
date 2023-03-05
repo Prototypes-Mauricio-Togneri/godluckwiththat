@@ -32,7 +32,6 @@ class HeadquartersMenu extends StatelessWidget {
         ),
         const VBox(10),
         InventorySummary(node),
-        const VBox(10),
         const VBox(30),
         if (node.availableDrones > 1)
           MenuButton(
@@ -41,7 +40,7 @@ class HeadquartersMenu extends StatelessWidget {
             color: Palette.primary,
             onPressed: _onTransferDrone,
           ),
-        const VBox(30),
+        const Spacer(),
         MenuButton(
           text: 'Center',
           icon: Icons.filter_tilt_shift,
