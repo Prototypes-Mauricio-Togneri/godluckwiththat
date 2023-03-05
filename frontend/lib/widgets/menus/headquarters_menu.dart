@@ -90,10 +90,21 @@ class InventorySummary extends StatelessWidget {
             sprite: resource.type.sprite,
             amount: '${resource.amount}',
           ),
-        ItemRow(
-          sprite: Assets.IMAGES_DRONES_BASIC_DRONE,
-          amount: '${node.availableDrones}',
-        ),
+        if (node.availableBasicDrones > 0)
+          ItemRow(
+            sprite: Assets.IMAGES_DRONES_BASIC_DRONE,
+            amount: '${node.availableBasicDrones}',
+          ),
+        if (node.availableIntermediateDrones > 0)
+          ItemRow(
+            sprite: Assets.IMAGES_DRONES_INTERMEDIATE_DRONE,
+            amount: '${node.availableIntermediateDrones}',
+          ),
+        if (node.availableAdvanceDrones > 0)
+          ItemRow(
+            sprite: Assets.IMAGES_DRONES_ADVANCE_DRONE,
+            amount: '${node.availableAdvanceDrones}',
+          ),
       ],
     );
   }

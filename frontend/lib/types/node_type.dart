@@ -52,7 +52,7 @@ enum NodeType {
         ResourceType.iron_block: 2,
       }),
   factory_basic(
-      sprite: Assets.IMAGES_BUILDINGS_FACTORIES_FACTORY_BASIC,
+      sprite: Assets.IMAGES_BUILDINGS_FACTORIES_BASIC_FACTORY,
       productionTime: 10,
       cost: {
         ResourceType.iron_block: 2,

@@ -4,14 +4,17 @@ class Assets {
   static const String IMAGES_SIGNS_WARNING_SIGN = 'signs/warning_sign.png';
   static const String IMAGES_SIGNS_IDLE_SIGN = 'signs/idle_sign.png';
   static const String IMAGES_DRONES_BASIC_DRONE = 'drones/basic_drone.png';
+  static const String IMAGES_DRONES_ADVANCE_DRONE = 'drones/advance_drone.png';
+  static const String IMAGES_DRONES_INTERMEDIATE_DRONE =
+      'drones/intermediate_drone.png';
   static const String IMAGES_NODE_SELECTED = 'node_selected.png';
   static const String IMAGES_TILES_TERRAIN = 'tiles_terrain.png';
-  static const String IMAGES_BUILDINGS_FACTORIES_FACTORY_ADVANCE =
-      'buildings/factories/factory_advance.png';
-  static const String IMAGES_BUILDINGS_FACTORIES_FACTORY_INTERMEDIATE =
-      'buildings/factories/factory_intermediate.png';
-  static const String IMAGES_BUILDINGS_FACTORIES_FACTORY_BASIC =
-      'buildings/factories/factory_basic.png';
+  static const String IMAGES_BUILDINGS_FACTORIES_INTERMEDIATE_FACTORY =
+      'buildings/factories/intermediate_factory.png';
+  static const String IMAGES_BUILDINGS_FACTORIES_ADVANCE_FACTORY =
+      'buildings/factories/advance_factory.png';
+  static const String IMAGES_BUILDINGS_FACTORIES_BASIC_FACTORY =
+      'buildings/factories/basic_factory.png';
   static const String IMAGES_BUILDINGS_POWER_PLANTS_SOLAR_PANEL =
       'buildings/power_plants/solar_panel.png';
   static const String IMAGES_BUILDINGS_EXTRACTORS_COPPER_MINE =

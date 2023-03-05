@@ -6,11 +6,11 @@ enum DroneType {
     speed: 1,
   ),
   intermediate(
-    sprite: Assets.IMAGES_DRONES_BASIC_DRONE,
+    sprite: Assets.IMAGES_DRONES_INTERMEDIATE_DRONE,
     speed: 2,
   ),
   advance(
-    sprite: Assets.IMAGES_DRONES_BASIC_DRONE,
+    sprite: Assets.IMAGES_DRONES_ADVANCE_DRONE,
     speed: 3,
   );
 
