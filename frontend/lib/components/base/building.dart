@@ -1,5 +1,6 @@
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/components/game/buildings/factories/drone_factory.dart';
 import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/inventory.dart';
@@ -43,16 +44,25 @@ class Building extends Node {
       debugText.text = '';
     }
 
-    if ((output > 0) && hasDroneConnections && hasDrones) {
+    final bool isDroneFactory = this is DroneFactory;
+
+    if ((output > 0) && hasDroneConnections && (hasDrones || isDroneFactory)) {
       output--;
 
-      final Drone drone = getDrone();
-      drone.load(Resource.one(resourceProduced));
-
-      sendDrone(
-        drone: drone,
-        waypoints: [getAvailableConnection, this],
-      );
+      if (isDroneFactory) {
+        final Drone drone = Drone();
+        sendDrone(
+          drone: drone,
+          waypoints: [getAvailableConnection],
+        );
+      } else {
+        final Drone drone = getDrone();
+        drone.load(Resource.one(resourceProduced));
+        sendDrone(
+          drone: drone,
+          waypoints: [getAvailableConnection, this],
+        );
+      }
       _startProducing();
     }
   }
