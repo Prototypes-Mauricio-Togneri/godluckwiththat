@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/buildings/factories/drone_factory.dart';
@@ -7,6 +10,7 @@ import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionnode/utils/palette.dart';
 
 class Building extends Node {
   num _accumulatedTime = 0; // TODO(momo): receive as parameter
@@ -14,6 +18,8 @@ class Building extends Node {
   int output = 0; // TODO(momo): receive as parameter
   final Inventory input;
   final ResourceType resourceProduced;
+  final Paint _paintOutside = Paint();
+  final Paint _paintInside = Paint();
 
   Building({
     required super.type,
@@ -27,6 +33,14 @@ class Building extends Node {
 
   @override
   Future onLoad() {
+    _paintOutside.color = Palette.error;
+    _paintOutside.strokeWidth = 4 / Constants.NODE_SIZE;
+    _paintOutside.style = PaintingStyle.stroke;
+
+    _paintInside.color = Palette.white;
+    _paintInside.strokeWidth = 2 / Constants.NODE_SIZE;
+    _paintInside.style = PaintingStyle.stroke;
+
     _startProducing();
 
     return super.onLoad();
@@ -109,6 +123,31 @@ class Building extends Node {
     if ((resource != null) && input.hasResourceType(resource.type)) {
       input.addResource(resource);
       _startProducing();
+    }
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    if (!hasDroneConnections) {
+      canvas.drawRect(
+        Rect.fromCenter(
+          center: (size / 2).toOffset(),
+          width: width,
+          height: height,
+        ),
+        _paintOutside,
+      );
+
+      canvas.drawRect(
+        Rect.fromCenter(
+          center: (size / 2).toOffset(),
+          width: width * 0.98,
+          height: height * 0.98,
+        ),
+        _paintInside,
+      );
     }
   }
 
