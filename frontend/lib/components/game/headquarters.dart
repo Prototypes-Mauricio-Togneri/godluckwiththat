@@ -6,9 +6,11 @@ import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionnode/utils/every.dart';
 
 class Headquarters extends Node {
   final Inventory inventory;
+  final Every every = Every(1);
 
   Headquarters({
     required super.location,
@@ -32,7 +34,7 @@ class Headquarters extends Node {
   void update(double dt) {
     super.update(dt);
 
-    if (game.state.constructions.isNotEmpty && hasDrones) {
+    if (game.state.constructions.isNotEmpty && hasDrones && every.update(dt)) {
       for (final Construction construction in game.state.constructions) {
         _checkConstruction(
           construction: construction,
