@@ -9,7 +9,6 @@ class Constants {
 
   static const double CONSTRUCTION_DRONE_SPEED = 1; // 1 tile per second
 
-  static const int INPUT_QUEUE_LIMIT = 10;
   static const int OUTPUT_QUEUE_LIMIT = 10;
 
   static String TEST_MATCH = '''
