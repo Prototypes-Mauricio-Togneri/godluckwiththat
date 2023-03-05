@@ -204,7 +204,6 @@ mixin NodeHandler on BaseGameComponent {
     }
   }
 
-  // TODO(momo): check the tile is placed on
   void buildConstructionNode({
     required NodeType type,
     required Location location,
@@ -212,20 +211,50 @@ mixin NodeHandler on BaseGameComponent {
     required Patch? patch,
   }) {
     switch (type) {
-      case NodeType.headquarters:
-        break;
       case NodeType.solar_panel:
-      case NodeType.iron_mine:
-      case NodeType.copper_mine:
-      case NodeType.coal_mine:
-      case NodeType.stone_mine:
       case NodeType.iron_smelter:
       case NodeType.copper_smelter:
-        addConstruction(
-          location: location,
-          type: type,
-        );
+        if (tile.isSoil && (patch == null)) {
+          addConstruction(
+            location: location,
+            type: type,
+          );
+        }
         break;
+      case NodeType.iron_mine:
+        if (patch?.isIron ?? false) {
+          addConstruction(
+            location: location,
+            type: type,
+          );
+        }
+        break;
+      case NodeType.copper_mine:
+        if (patch?.isCopper ?? false) {
+          addConstruction(
+            location: location,
+            type: type,
+          );
+        }
+        break;
+      case NodeType.coal_mine:
+        if (patch?.isCoal ?? false) {
+          addConstruction(
+            location: location,
+            type: type,
+          );
+        }
+        break;
+      case NodeType.stone_mine:
+        if (patch?.isStone ?? false) {
+          addConstruction(
+            location: location,
+            type: type,
+          );
+        }
+        break;
+      case NodeType.headquarters:
+        throw Exception('Headquarters cannot be built');
     }
   }
 

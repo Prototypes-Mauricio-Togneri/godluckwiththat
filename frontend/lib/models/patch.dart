@@ -13,6 +13,14 @@ class Patch {
     required this.amount,
   });
 
+  bool get isIron => type == ResourceType.iron_ore;
+
+  bool get isCopper => type == ResourceType.copper_ore;
+
+  bool get isCoal => type == ResourceType.coal_ore;
+
+  bool get isStone => type == ResourceType.stone_ore;
+
   bool isAt(Location location) => this.location == location;
 
   JsonPatch get json => JsonPatch(
