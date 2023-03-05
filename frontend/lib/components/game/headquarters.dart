@@ -24,15 +24,14 @@ class Headquarters extends Node {
   void update(double dt) {
     super.update(dt);
 
-    if (game.state.constructions.isNotEmpty &&
-        (constructionDrones.isNotEmpty)) {
+    if (game.state.constructions.isNotEmpty && hasConstructionDrones) {
       for (final Construction construction in game.state.constructions) {
         _checkConstruction(
           construction: construction,
           resource: const Resource(ResourceType.iron_block, 1),
         );
 
-        if (constructionDrones.isEmpty) {
+        if (!hasConstructionDrones) {
           break;
         }
 
@@ -41,7 +40,7 @@ class Headquarters extends Node {
           resource: const Resource(ResourceType.copper_block, 1),
         );
 
-        if (constructionDrones.isEmpty) {
+        if (!hasConstructionDrones) {
           break;
         }
 
@@ -50,7 +49,7 @@ class Headquarters extends Node {
           resource: const Resource(ResourceType.steel, 1),
         );
 
-        if (constructionDrones.isEmpty) {
+        if (!hasConstructionDrones) {
           break;
         }
 
@@ -59,7 +58,7 @@ class Headquarters extends Node {
           resource: const Resource(ResourceType.concrete, 1),
         );
 
-        if (constructionDrones.isEmpty) {
+        if (!hasConstructionDrones) {
           break;
         }
       }
@@ -78,7 +77,7 @@ class Headquarters extends Node {
     required Construction construction,
     required Resource resource,
   }) {
-    if ((constructionDrones.isNotEmpty) &&
+    if (hasConstructionDrones &&
         (construction.remainingResources.hasResource(resource)) &&
         inventory.hasResource(resource)) {
       _sendConstructionDrone(
@@ -94,7 +93,7 @@ class Headquarters extends Node {
   }) {
     inventory.removeResource(resource);
 
-    final Drone drone = constructionDrones.removeAt(0);
+    final Drone drone = getConstructionDrone;
     drone.load(resource);
 
     sendDrone(

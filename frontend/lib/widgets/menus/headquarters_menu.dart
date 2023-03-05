@@ -82,11 +82,11 @@ class InventorySummary extends StatelessWidget {
           ),
         ItemRow(
           sprite: Assets.IMAGES_CONSTRUCTION_DRONE,
-          amount: '${node.constructionDrones.length}',
+          amount: '${node.availableConstructionDrones}',
         ),
         ItemRow(
           sprite: Assets.IMAGES_CONSTRUCTION_DRONE,
-          amount: '${node.logisticDrones.length}',
+          amount: '${node.availableLogisticDrones}',
         ),
       ],
     );

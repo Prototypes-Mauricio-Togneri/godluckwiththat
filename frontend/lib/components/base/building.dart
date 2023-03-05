@@ -45,15 +45,15 @@ class Building extends Node {
       debugText.text = '';
     }
 
-    if ((_output > 0) && logisticDrones.isNotEmpty && connections.isNotEmpty) {
+    if ((_output > 0) && hasLogisticDrones && hasConnections) {
       _output--;
 
-      final Drone drone = logisticDrones.removeAt(0);
+      final Drone drone = getLogisticDrone;
       drone.load(Resource(resourceProduced, 1));
 
       sendDrone(
         drone: drone,
-        waypoints: [connections[0], this],
+        waypoints: [getConnection, this],
       );
       _startProducing();
     }

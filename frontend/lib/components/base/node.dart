@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:tensionnode/components/base/drone_manager.dart';
 import 'package:tensionnode/components/game/moving_drone.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
@@ -8,25 +9,28 @@ import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/services/palette.dart';
 import 'package:tensionnode/services/style.dart';
-import 'package:tensionnode/types/drone_type.dart';
 import 'package:tensionnode/types/node_type.dart';
 
-class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
+class Node extends SpriteComponent
+    with HasGameRef<GameComponent>, Tappable, NodeManager {
   final NodeType type;
   final Location location;
-  final List<Drone> constructionDrones;
-  final List<Drone> logisticDrones;
-  final List<Node> connections;
 
   late final DebugText debugText = DebugText();
 
   Node({
     required this.type,
     required this.location,
-    required this.constructionDrones,
-    required this.logisticDrones,
-    required this.connections,
-  });
+    required List<Drone> constructionDrones,
+    required List<Drone> logisticDrones,
+    required List<Node> connections,
+  }) {
+    initialize(
+      constructionDrones: constructionDrones,
+      logisticDrones: logisticDrones,
+      connections: connections,
+    );
+  }
 
   @override
   Future onLoad() async {
@@ -50,16 +54,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     if (movingDrone.hasWaypoints) {
       receiveDone(movingDrone.drone);
     } else {
-      final Drone drone = movingDrone.drone;
-
-      switch (drone.type) {
-        case DroneType.construction:
-          constructionDrones.add(drone);
-          break;
-        case DroneType.logistic:
-          logisticDrones.add(drone);
-          break;
-      }
+      addDrone(movingDrone.drone);
     }
 
     updateMenu();
