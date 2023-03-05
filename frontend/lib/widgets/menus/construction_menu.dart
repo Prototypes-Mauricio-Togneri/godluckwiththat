@@ -31,7 +31,7 @@ class ConstructionMenu extends StatelessWidget {
         ),
         const VBox(10),
         ResourcesSection(node),
-        const VBox(10),
+        const Spacer(),
         MenuButton(
           text: 'Center',
           icon: Icons.filter_tilt_shift,

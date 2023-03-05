@@ -14,7 +14,7 @@ class BottomMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
+      width: 170,
       color: Palette.grey,
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -49,7 +49,7 @@ class FixedButtons extends StatelessWidget {
           color: Palette.lightGrey,
           onClick: game.enableConstructMode,
         ),
-        const HBox(10),
+        /*const HBox(10),
         BottomMenuButton(
           icon: Icons.delete,
           color: Palette.lightGrey,
@@ -60,7 +60,7 @@ class FixedButtons extends StatelessWidget {
           icon: Icons.remove_red_eye,
           color: Palette.lightGrey,
           onClick: game.onShowDetails,
-        ),
+        ),*/
       ],
     );
   }
@@ -84,7 +84,7 @@ class BottomMenuButton extends StatelessWidget {
       child: InkWell(
         onTap: onClick,
         child: SizedBox(
-          width: 50,
+          width: 70,
           height: 50,
           child: Center(
             child: Icon(

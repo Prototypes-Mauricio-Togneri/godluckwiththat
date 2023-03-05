@@ -45,14 +45,13 @@ class BuildingMenu extends StatelessWidget {
           color: Palette.error,
           onPressed: _onRemoveConnection,
         ),
-        const VBox(30),
         MenuButton(
-          text: 'Send logistic drone',
+          text: 'Send drone',
           icon: Icons.send,
           color: Palette.primary,
           onPressed: _onTransferDrone,
         ),
-        const VBox(30),
+        const Spacer(),
         MenuButton(
           text: 'Center',
           icon: Icons.filter_tilt_shift,

@@ -35,7 +35,7 @@ class HeadquartersMenu extends StatelessWidget {
         const VBox(30),
         if (node.availableDrones > 1)
           MenuButton(
-            text: 'Send logistic drone',
+            text: 'Send drone',
             icon: Icons.send,
             color: Palette.primary,
             onPressed: _onTransferDrone,
