@@ -220,17 +220,20 @@ mixin NodeHandler on BaseGameComponent {
     required bool sendDronesBack,
   }) {
     try {
-      removeComponent(node);
-
       if (sendDronesBack) {
+        final Headquarters headquarters = state.headquarters!;
+
+        node.evacuateDrones(headquarters);
+
         for (final MovingDrone movingDrone in getMovingDrones()) {
           movingDrone.sendBack(
             nodeDeleted: node,
-            headquarters: state.headquarters!,
+            headquarters: headquarters,
           );
         }
       }
 
+      removeComponent(node);
       state.removeNode(node);
     } catch (e) {
       // ignore

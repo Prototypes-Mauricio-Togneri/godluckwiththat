@@ -76,6 +76,15 @@ class Node extends SpriteComponent
     updateMenu();
   }
 
+  void evacuateDrones(Node node) {
+    for (int i = 0; i < availableDrones; i++) {
+      sendDrone(
+        drone: Drone(),
+        waypoints: [node],
+      );
+    }
+  }
+
   @override
   void update(double dt) {
     super.update(dt);
