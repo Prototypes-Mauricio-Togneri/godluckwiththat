@@ -5,19 +5,15 @@ class Drone {
   final DroneType type;
   Resource? _resource;
 
-  Drone({
-    required this.type,
-  });
+  Drone._(this.type);
 
-  factory Drone.construction() => Drone(type: DroneType.construction);
+  factory Drone.basic() => Drone._(DroneType.basic);
 
-  factory Drone.logistic() => Drone(type: DroneType.logistic);
+  factory Drone.intermediate() => Drone._(DroneType.intermediate);
+
+  factory Drone.advance() => Drone._(DroneType.advance);
 
   bool get hasResource => _resource != null;
-
-  bool get isConstruction => type == DroneType.construction;
-
-  bool get isLogistic => type == DroneType.logistic;
 
   void load(Resource resource) {
     _resource = resource;

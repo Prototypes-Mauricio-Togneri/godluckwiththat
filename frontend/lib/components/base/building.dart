@@ -17,8 +17,7 @@ class Building extends Node {
   Building({
     required super.type,
     required super.location,
-    required super.constructionDrones,
-    required super.logisticDrones,
+    required super.drones,
     required super.droneConnections,
     required super.droneTransfers,
     required this.resourceProduced,
@@ -46,10 +45,10 @@ class Building extends Node {
       debugText.text = '';
     }
 
-    if ((_output > 0) && hasLogisticDrones && hasDroneConnections) {
+    if ((_output > 0) && hasDrones) {
       _output--;
 
-      final Drone drone = getLogisticDrone();
+      final Drone drone = getDrone();
       drone.load(Resource.one(resourceProduced));
 
       sendDrone(

@@ -9,8 +9,7 @@ class CopperSmelter extends Building {
   }) : super(
           type: NodeType.copper_smelter,
           resourceProduced: ResourceType.copper_block,
-          constructionDrones: [],
-          logisticDrones: [],
+          drones: [],
           droneConnections: [],
           droneTransfers: [],
         );

@@ -21,14 +21,12 @@ class Node extends SpriteComponent
   Node({
     required this.type,
     required this.location,
-    required List<Drone> constructionDrones,
-    required List<Drone> logisticDrones,
+    required List<Drone> drones,
     required List<Node> droneConnections,
     required List<Node> droneTransfers,
   }) {
     initialize(
-      constructionDrones: constructionDrones,
-      logisticDrones: logisticDrones,
+      drones: drones,
       droneConnections: droneConnections,
       droneTransfers: droneTransfers,
     );
@@ -97,8 +95,8 @@ class Node extends SpriteComponent
   }
 
   bool _checkTransferDrone(Node to) {
-    if (hasLogisticDrones) {
-      final Drone drone = getLogisticDrone();
+    if (hasDrones) {
+      final Drone drone = getDrone();
       sendDrone(
         drone: drone,
         waypoints: [to],

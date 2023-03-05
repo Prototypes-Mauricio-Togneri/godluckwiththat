@@ -15,12 +15,10 @@ class Headquarters extends Node {
     required this.inventory,
   }) : super(
           type: NodeType.headquarters,
-          constructionDrones: [Drone.construction()],
-          logisticDrones: [
-            Drone.logistic(),
-            Drone.logistic(),
-            Drone.logistic(),
-            Drone.logistic(),
+          drones: [
+            Drone.basic(),
+            Drone.basic(),
+            Drone.basic(),
           ],
           droneConnections: [],
           droneTransfers: [],
@@ -30,14 +28,14 @@ class Headquarters extends Node {
   void update(double dt) {
     super.update(dt);
 
-    if (game.state.constructions.isNotEmpty && hasConstructionDrones) {
+    if (game.state.constructions.isNotEmpty && hasDrones) {
       for (final Construction construction in game.state.constructions) {
         _checkConstruction(
           construction: construction,
           resource: Resource.one(ResourceType.iron_block),
         );
 
-        if (!hasConstructionDrones) {
+        if (!hasDrones) {
           break;
         }
 
@@ -46,7 +44,7 @@ class Headquarters extends Node {
           resource: Resource.one(ResourceType.copper_block),
         );
 
-        if (!hasConstructionDrones) {
+        if (!hasDrones) {
           break;
         }
 
@@ -55,7 +53,7 @@ class Headquarters extends Node {
           resource: Resource.one(ResourceType.steel),
         );
 
-        if (!hasConstructionDrones) {
+        if (!hasDrones) {
           break;
         }
 
@@ -64,7 +62,7 @@ class Headquarters extends Node {
           resource: Resource.one(ResourceType.concrete),
         );
 
-        if (!hasConstructionDrones) {
+        if (!hasDrones) {
           break;
         }
       }
@@ -84,7 +82,7 @@ class Headquarters extends Node {
     required Construction construction,
     required Resource resource,
   }) {
-    if (hasConstructionDrones &&
+    if (hasDrones &&
         (construction.remainingResources.hasResource(resource)) &&
         inventory.hasResource(resource)) {
       _sendConstructionDrone(
@@ -100,7 +98,7 @@ class Headquarters extends Node {
   }) {
     inventory.removeResource(resource);
 
-    final Drone drone = getConstructionDrone();
+    final Drone drone = getDrone();
     drone.load(resource);
 
     sendDrone(

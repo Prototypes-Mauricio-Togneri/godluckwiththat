@@ -12,8 +12,7 @@ class Construction extends Node {
     required super.type,
     required super.location,
   }) : super(
-          constructionDrones: [],
-          logisticDrones: [],
+          drones: [],
           droneConnections: [],
           droneTransfers: [],
         );

@@ -113,6 +113,8 @@ mixin MenuHandler on BaseGameComponent {
       _selectNode(node);
     }
 
+    state.notify();
+
     return true;
   }
 

@@ -9,8 +9,7 @@ class CoalMine extends Building {
   }) : super(
           type: NodeType.coal_mine,
           resourceProduced: ResourceType.coal_ore,
-          constructionDrones: [],
-          logisticDrones: [],
+          drones: [],
           droneConnections: [],
           droneTransfers: [],
         );

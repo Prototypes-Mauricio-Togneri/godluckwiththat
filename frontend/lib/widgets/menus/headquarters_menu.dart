@@ -34,12 +34,13 @@ class HeadquartersMenu extends StatelessWidget {
         InventorySummary(node),
         const VBox(10),
         const VBox(30),
-        MenuButton(
-          text: 'Send logistic drone',
-          icon: Icons.send,
-          color: Palette.primary,
-          onPressed: _onTransferDrone,
-        ),
+        if (node.availableDrones > 1)
+          MenuButton(
+            text: 'Send logistic drone',
+            icon: Icons.send,
+            color: Palette.primary,
+            onPressed: _onTransferDrone,
+          ),
         const VBox(30),
         MenuButton(
           text: 'Center',
@@ -91,12 +92,8 @@ class InventorySummary extends StatelessWidget {
             amount: '${resource.amount}',
           ),
         ItemRow(
-          sprite: Assets.IMAGES_DRONES_CONSTRUCTION_DRONE,
-          amount: '${node.availableConstructionDrones}',
-        ),
-        ItemRow(
-          sprite: Assets.IMAGES_DRONES_LOGISTIC_DRONE,
-          amount: '${node.availableLogisticDrones}',
+          sprite: Assets.IMAGES_DRONES_BASIC_DRONE,
+          amount: '${node.availableDrones}',
         ),
       ],
     );

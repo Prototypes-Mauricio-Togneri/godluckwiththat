@@ -9,8 +9,7 @@ class IronSmelter extends Building {
   }) : super(
           type: NodeType.iron_smelter,
           resourceProduced: ResourceType.iron_block,
-          constructionDrones: [],
-          logisticDrones: [],
+          drones: [],
           droneConnections: [],
           droneTransfers: [],
         );

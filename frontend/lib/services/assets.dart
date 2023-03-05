@@ -3,10 +3,7 @@ class Assets {
   static const String AUDIO_SFX_AMMO2 = 'sfx/ammo2.mp3';
   static const String IMAGES_SIGNS_WARNING_SIGN = 'signs/warning_sign.png';
   static const String IMAGES_SIGNS_IDLE_SIGN = 'signs/idle_sign.png';
-  static const String IMAGES_DRONES_LOGISTIC_DRONE =
-      'drones/logistic_drone.png';
-  static const String IMAGES_DRONES_CONSTRUCTION_DRONE =
-      'drones/construction_drone.png';
+  static const String IMAGES_DRONES_BASIC_DRONE = 'drones/basic_drone.png';
   static const String IMAGES_NODE_SELECTED = 'node_selected.png';
   static const String IMAGES_TILES_TERRAIN = 'tiles_terrain.png';
   static const String IMAGES_BUILDINGS_COPPER_MINE =

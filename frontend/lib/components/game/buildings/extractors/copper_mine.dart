@@ -9,8 +9,7 @@ class CopperMine extends Building {
   }) : super(
           type: NodeType.copper_mine,
           resourceProduced: ResourceType.copper_ore,
-          constructionDrones: [],
-          logisticDrones: [],
+          drones: [],
           droneConnections: [],
           droneTransfers: [],
         );

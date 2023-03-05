@@ -1,13 +1,17 @@
 import 'package:tensionnode/services/assets.dart';
 
 enum DroneType {
-  construction(
-    sprite: Assets.IMAGES_DRONES_CONSTRUCTION_DRONE,
+  basic(
+    sprite: Assets.IMAGES_DRONES_BASIC_DRONE,
     speed: 1,
   ),
-  logistic(
-    sprite: Assets.IMAGES_DRONES_LOGISTIC_DRONE,
-    speed: 1,
+  intermediate(
+    sprite: Assets.IMAGES_DRONES_BASIC_DRONE,
+    speed: 2,
+  ),
+  advance(
+    sprite: Assets.IMAGES_DRONES_BASIC_DRONE,
+    speed: 3,
   );
 
   final String sprite;
