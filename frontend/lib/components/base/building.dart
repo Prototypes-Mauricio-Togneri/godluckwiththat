@@ -53,7 +53,7 @@ class Building extends Node {
 
       sendDrone(
         drone: drone,
-        waypoints: [getConnection, this],
+        waypoints: [getAvailableConnection, this],
       );
       _startProducing();
     }

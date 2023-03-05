@@ -111,13 +111,13 @@ mixin MenuHandler on BaseGameComponent {
 
   void _addConnection(Node from, Node to) {
     if ((from != to) && (to is Building)) {
-      from.connections.add(to);
+      from.addConnection(to);
     }
   }
 
   void _removeConnection(Node from, Node to) {
     if (from != to) {
-      from.connections.remove(to);
+      from.removeConnection(to);
     }
   }
 

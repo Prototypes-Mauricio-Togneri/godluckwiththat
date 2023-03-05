@@ -6,6 +6,7 @@ mixin NodeManager {
   final List<Drone> _constructionDrones = [];
   final List<Drone> _logisticDrones = [];
   final List<Node> _connections = [];
+  int connectionIndex = 0;
 
   bool get hasConstructionDrones => _constructionDrones.isNotEmpty;
 
@@ -21,7 +22,12 @@ mixin NodeManager {
 
   int get availableLogisticDrones => _logisticDrones.length;
 
-  Node get getConnection => _connections[0];
+  Node get getAvailableConnection {
+    connectionIndex++;
+    final int index = connectionIndex % _connections.length;
+
+    return _connections[index];
+  }
 
   List<Node> get connections => _connections;
 
@@ -45,4 +51,8 @@ mixin NodeManager {
         break;
     }
   }
+
+  void addConnection(Node to) => connections.add(to);
+
+  void removeConnection(Node to) => connections.remove(to);
 }
