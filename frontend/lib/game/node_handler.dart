@@ -268,7 +268,7 @@ mixin NodeHandler on BaseGameComponent {
       case NodeType.iron_mine:
         return addIronMine(location: location);
       case NodeType.copper_mine:
-        return addCoalMine(location: location);
+        return addCopperMine(location: location);
       case NodeType.coal_mine:
         return addCoalMine(location: location);
       case NodeType.stone_mine:
