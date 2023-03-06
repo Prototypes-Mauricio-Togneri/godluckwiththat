@@ -246,52 +246,41 @@ mixin NodeHandler on BaseGameComponent {
     required MapTile tile,
     required Patch? patch,
   }) {
+    final canBeBuilt = _canBeBuilt(
+      type: type,
+      tile: tile,
+      patch: patch,
+    );
+
+    if (canBeBuilt) {
+      addConstruction(
+        location: location,
+        type: type,
+      );
+    }
+  }
+
+  bool _canBeBuilt({
+    required NodeType type,
+    required MapTile tile,
+    required Patch? patch,
+  }) {
     switch (type) {
       case NodeType.solar_panel:
       case NodeType.iron_smelter:
       case NodeType.copper_smelter:
       case NodeType.drone_factory:
-        if (tile.isSoil && (patch == null)) {
-          addConstruction(
-            location: location,
-            type: type,
-          );
-        }
-        break;
+        return tile.isSoil && (patch == null);
       case NodeType.iron_mine:
-        if (patch?.isIron ?? false) {
-          addConstruction(
-            location: location,
-            type: type,
-          );
-        }
-        break;
+        return patch?.isIron ?? false;
       case NodeType.copper_mine:
-        if (patch?.isCopper ?? false) {
-          addConstruction(
-            location: location,
-            type: type,
-          );
-        }
-        break;
+        return patch?.isCopper ?? false;
       case NodeType.coal_mine:
-        if (patch?.isCoal ?? false) {
-          addConstruction(
-            location: location,
-            type: type,
-          );
-        }
-        break;
+        return patch?.isCoal ?? false;
       case NodeType.stone_mine:
-        if (patch?.isStone ?? false) {
-          addConstruction(
-            location: location,
-            type: type,
-          );
-        }
-        break;
+        return patch?.isStone ?? false;
       case NodeType.headquarters:
-        throw Exception('Headquarters cannot be built');
+        return false;
     }
   }
 
