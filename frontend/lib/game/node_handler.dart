@@ -31,7 +31,7 @@ mixin NodeHandler on BaseGameComponent {
     inventory.load(json.headquarters.inventory);
 
     addHeadquarters(
-      location: const Location(0, 0),
+      location: json.headquarters.location.location,
       inventory: inventory,
     );
 
