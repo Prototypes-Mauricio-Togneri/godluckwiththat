@@ -110,11 +110,13 @@ class Building extends Node {
 
     if (_accumulatedTime >= type.productionTime) {
       _accumulatedTime = 0;
-      output++;
+      output += outputGeneration;
       _state = BuildingState.idle;
       _startProducing();
     }
   }
+
+  int get outputGeneration => 1;
 
   @override
   void receiveDrone(Drone drone) {

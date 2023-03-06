@@ -13,6 +13,14 @@ enum NodeType {
       cost: {
         ResourceType.iron_block: 2,
       }),
+  wind_turbine(
+      sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_WIND_TURBINE,
+      productionTime: 5,
+      cost: {
+        ResourceType.iron_block: 10,
+        ResourceType.copper_block: 10,
+        ResourceType.steel: 10,
+      }),
   iron_mine(
       sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_IRON_MINE,
       productionTime: 10,
@@ -71,6 +79,7 @@ enum NodeType {
 
   static List<NodeType> powerPlants() => [
         NodeType.solar_panel,
+        NodeType.wind_turbine,
       ];
 
   static List<NodeType> extractors() => [

@@ -6,6 +6,7 @@ import 'package:tensionnode/components/game/buildings/extractors/iron_mine.dart'
 import 'package:tensionnode/components/game/buildings/extractors/stone_mine.dart';
 import 'package:tensionnode/components/game/buildings/factories/drone_factory.dart';
 import 'package:tensionnode/components/game/buildings/power_plants/solar_panel.dart';
+import 'package:tensionnode/components/game/buildings/power_plants/wind_turbine.dart';
 import 'package:tensionnode/components/game/buildings/processors/copper_smelter.dart';
 import 'package:tensionnode/components/game/buildings/processors/iron_smelter.dart';
 import 'package:tensionnode/components/game/construction.dart';
@@ -34,6 +35,12 @@ mixin NodeHandler on BaseGameComponent {
 
     for (final JsonBuilding json in json.getBuildings(NodeType.solar_panel)) {
       addSolarPanel(
+        location: json.location.location,
+      );
+    }
+
+    for (final JsonBuilding json in json.getBuildings(NodeType.wind_turbine)) {
+      addWindTurbine(
         location: json.location.location,
       );
     }
@@ -129,6 +136,14 @@ mixin NodeHandler on BaseGameComponent {
     required Location location,
   }) =>
       _addNode(SolarPanel(
+        location: location,
+        input: Inventory({}),
+      ));
+
+  Node addWindTurbine({
+    required Location location,
+  }) =>
+      _addNode(WindTurbine(
         location: location,
         input: Inventory({}),
       ));
@@ -270,6 +285,7 @@ mixin NodeHandler on BaseGameComponent {
   }) {
     switch (type) {
       case NodeType.solar_panel:
+      case NodeType.wind_turbine:
       case NodeType.iron_smelter:
       case NodeType.copper_smelter:
       case NodeType.drone_factory:
@@ -294,6 +310,8 @@ mixin NodeHandler on BaseGameComponent {
     switch (type) {
       case NodeType.solar_panel:
         return addSolarPanel(location: location);
+      case NodeType.wind_turbine:
+        return addWindTurbine(location: location);
       case NodeType.iron_mine:
         return addIronMine(location: location);
       case NodeType.copper_mine:
