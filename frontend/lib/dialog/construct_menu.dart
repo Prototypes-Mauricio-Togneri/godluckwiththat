@@ -6,7 +6,7 @@ import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
 
-class ConstructMenu extends StatelessWidget {
+class ConstructMenu extends StatefulWidget {
   final GameComponent game;
 
   static const String NAME = 'construct_menu';
@@ -17,11 +17,18 @@ class ConstructMenu extends StatelessWidget {
       ConstructMenu(game);
 
   @override
+  State<ConstructMenu> createState() => _ConstructMenuState();
+}
+
+class _ConstructMenuState extends State<ConstructMenu> {
+  int selectedIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: 900,
-        height: 320,
+        width: 850,
+        height: 390,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Palette.grey,
@@ -34,54 +41,22 @@ class ConstructMenu extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BuildingGroup(
-                  title: 'Energy'.toUpperCase(),
-                  onBuild: _onBuild,
-                  color: Palette.buildTypeEnergy,
-                  types: const [
-                    NodeType.solar_panel,
-                  ],
+                TabButtons(
+                  selectedIndex,
+                  onTabSelected,
                 ),
                 const HBox(20),
-                BuildingGroup(
-                  title: 'Extractors'.toUpperCase(),
-                  onBuild: _onBuild,
-                  color: Palette.buildTypeExtractors,
-                  types: const [
-                    NodeType.iron_mine,
-                    NodeType.copper_mine,
-                    NodeType.coal_mine,
-                    NodeType.stone_mine,
-                  ],
-                ),
-                const HBox(20),
-                BuildingGroup(
-                  title: 'Processors'.toUpperCase(),
-                  onBuild: _onBuild,
-                  color: Palette.buildTypeProcessors,
-                  types: const [
-                    NodeType.iron_smelter,
-                    NodeType.copper_smelter,
-                  ],
-                ),
-                const HBox(20),
-                BuildingGroup(
-                  title: 'Factories'.toUpperCase(),
-                  onBuild: _onBuild,
-                  color: Palette.buildTypeFactories,
-                  types: const [
-                    NodeType.drone_factory,
-                  ],
+                BuildingList(
+                  _types(selectedIndex),
+                  onBuild,
                 ),
               ],
             ),
             const VBox(10),
-            Expanded(
-              child: MenuButton(
-                text: 'Close',
-                color: Palette.lightGrey,
-                onPressed: _closeMenu,
-              ),
+            MenuButton(
+              text: 'Close',
+              color: Palette.lightGrey,
+              onPressed: _closeMenu,
             ),
           ],
         ),
@@ -89,46 +64,178 @@ class ConstructMenu extends StatelessWidget {
     );
   }
 
-  void _onBuild(NodeType type) {
-    _closeMenu();
-    game.enableBuildingMode(type);
+  void onTabSelected(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
   }
 
-  void _closeMenu() => game.closeMenu(name: ConstructMenu.NAME);
+  void onBuild(NodeType type) {
+    _closeMenu();
+    widget.game.enableBuildingMode(type);
+  }
+
+  List<NodeType> _types(int index) {
+    if (index == 0) {
+      return [
+        NodeType.solar_panel,
+      ];
+    } else if (index == 1) {
+      return [
+        NodeType.iron_mine,
+        NodeType.copper_mine,
+        NodeType.coal_mine,
+        NodeType.stone_mine,
+      ];
+    } else if (index == 2) {
+      return [
+        NodeType.iron_smelter,
+        NodeType.copper_smelter,
+      ];
+    } else if (index == 3) {
+      return [
+        NodeType.drone_factory,
+      ];
+    } else {
+      throw Exception('Invalid build tab index');
+    }
+  }
+
+  void _closeMenu() => widget.game.closeMenu(name: ConstructMenu.NAME);
 }
 
-class BuildingGroup extends StatelessWidget {
-  final String title;
-  final List<NodeType> types;
-  final Color color;
-  final Function(NodeType) onBuild;
+class TabButtons extends StatelessWidget {
+  final int indexSelected;
+  final Function(int) onSelected;
 
-  const BuildingGroup({
-    required this.title,
-    required this.types,
+  const TabButtons(this.indexSelected, this.onSelected);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TabButton(
+          index: 0,
+          name: 'Energy',
+          color: Palette.buildTypeEnergy,
+          selected: indexSelected == 0,
+          onSelected: onSelected,
+        ),
+        TabButton(
+          index: 1,
+          name: 'Extractors',
+          color: Palette.buildTypeExtractors,
+          selected: indexSelected == 1,
+          onSelected: onSelected,
+        ),
+        TabButton(
+          index: 2,
+          name: 'Processors',
+          color: Palette.buildTypeProcessors,
+          selected: indexSelected == 2,
+          onSelected: onSelected,
+        ),
+        TabButton(
+          index: 3,
+          name: 'Factories',
+          color: Palette.buildTypeFactories,
+          selected: indexSelected == 3,
+          onSelected: onSelected,
+        ),
+      ],
+    );
+  }
+}
+
+class TabButton extends StatelessWidget {
+  final int index;
+  final String name;
+  final Color color;
+  final bool selected;
+  final Function(int) onSelected;
+
+  const TabButton({
+    required this.index,
+    required this.name,
     required this.color,
-    required this.onBuild,
+    required this.selected,
+    required this.onSelected,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Label(
-            text: title,
+    return Material(
+      color: Palette.transparent,
+      child: InkWell(
+        onTap: () => onSelected(index),
+        child: Container(
+          width: 200,
+          color: selected ? Palette.white.withAlpha(128) : Palette.transparent,
+          padding: const EdgeInsets.all(10),
+          child: Label(
+            text: name.toUpperCase(),
             align: TextAlign.center,
             color: color,
           ),
-          for (final NodeType type in types)
-            MenuButton(
-              text: type.toString(),
-              color: color,
-              onPressed: () => onBuild(type),
-            ),
+        ),
+      ),
+    );
+  }
+}
+
+class BuildingList extends StatelessWidget {
+  final List<NodeType> types;
+  final Function(NodeType) onBuild;
+
+  const BuildingList(this.types, this.onBuild);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 590,
+      height: 290,
+      child: GridView.count(
+        crossAxisCount: 4,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        children: [
+          for (final NodeType type in types) BuildingCard(type, onBuild),
         ],
+      ),
+    );
+  }
+}
+
+class BuildingCard extends StatelessWidget {
+  final NodeType type;
+  final Function(NodeType) onBuild;
+
+  const BuildingCard(this.type, this.onBuild);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Palette.transparent,
+      child: InkWell(
+        onTap: () => onBuild(type),
+        child: Container(
+          color: Palette.white.withAlpha(128),
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Label(
+                text: type.toString().toUpperCase(),
+                size: 10,
+                align: TextAlign.center,
+              ),
+              const VBox(10),
+              Image.asset(
+                'images/${type.sprite}',
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
