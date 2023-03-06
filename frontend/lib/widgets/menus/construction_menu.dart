@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/construction.dart';
+import 'package:tensionnode/dialog/confirmation_dialog.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/utils/palette.dart';
@@ -42,7 +43,7 @@ class ConstructionMenu extends StatelessWidget {
           text: 'Destroy',
           icon: Icons.delete,
           color: Palette.error,
-          onPressed: _onDestroy,
+          onPressed: () => _onDestroy(context),
         ),
         MenuButton(
           text: 'Close',
@@ -56,7 +57,14 @@ class ConstructionMenu extends StatelessWidget {
 
   void _onCenter() => game.centerMap(node.position);
 
-  void _onDestroy() {
+  void _onDestroy(BuildContext context) {
+    ConfirmationDialog.destroyBuilding(
+      context: context,
+      onAccept: _destroy,
+    );
+  }
+
+  void _destroy() {
     final Node node = game.selectedNode();
     node.destroy(true);
     _closeMenu();
