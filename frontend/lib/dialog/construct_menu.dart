@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
@@ -211,6 +212,7 @@ class BuildingCard extends StatelessWidget {
           color: Palette.white.withAlpha(128),
           padding: const EdgeInsets.all(10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Label(
                 text: type.toString().toUpperCase(),
@@ -218,13 +220,54 @@ class BuildingCard extends StatelessWidget {
                 align: TextAlign.center,
               ),
               const VBox(10),
-              Image.asset(
-                'images/${type.sprite}',
+              SizedBox(
+                width: 55,
+                height: 55,
+                child: Image.asset(
+                  'images/${type.sprite}',
+                ),
+              ),
+              const VBox(10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  for (final MapEntry<ResourceType, int> entry
+                      in type.cost.entries)
+                    BuildingCost(entry.key, entry.value),
+                ],
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class BuildingCost extends StatelessWidget {
+  final ResourceType type;
+  final int amount;
+
+  const BuildingCost(this.type, this.amount);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          width: 20,
+          height: 20,
+          child: Image.asset(
+            'images/${type.sprite}',
+          ),
+        ),
+        const HBox(5),
+        Label(
+          text: '$amount',
+          size: 10,
+        ),
+      ],
     );
   }
 }
