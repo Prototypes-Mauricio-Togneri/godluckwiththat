@@ -38,7 +38,7 @@ class BuildingMenu extends StatelessWidget {
         const VBox(10),
         MenuButton(
           text: 'Set connection',
-          icon: Icons.add,
+          icon: Icons.turn_sharp_right_rounded,
           color: Palette.success,
           onPressed: _onSetConnection,
         ),

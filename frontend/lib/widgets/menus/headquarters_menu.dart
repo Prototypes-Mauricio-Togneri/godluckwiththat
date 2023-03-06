@@ -1,6 +1,5 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/resource.dart';
@@ -48,12 +47,6 @@ class HeadquartersMenu extends StatelessWidget {
           onPressed: _onCenter,
         ),
         MenuButton(
-          text: 'Destroy',
-          icon: Icons.delete,
-          color: Palette.error,
-          onPressed: _onDestroy,
-        ),
-        MenuButton(
           text: 'Close',
           icon: Icons.close,
           color: Palette.lightGrey,
@@ -66,12 +59,6 @@ class HeadquartersMenu extends StatelessWidget {
   void _onTransferDrone() => game.enableTransferDroneMode();
 
   void _onCenter() => game.centerMap(node.position);
-
-  void _onDestroy() {
-    final Node node = game.selectedNode();
-    node.destroy(true);
-    _closeMenu();
-  }
 
   void _closeMenu() => game.unselectNode();
 }
