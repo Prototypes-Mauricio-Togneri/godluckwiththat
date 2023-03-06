@@ -36,39 +36,39 @@ class Headquarters extends Node {
 
     if (game.state.constructions.isNotEmpty && hasDrones && every.update(dt)) {
       for (final Construction construction in game.state.constructions) {
-        _checkConstruction(
+        final bool ironSent = _checkConstruction(
           construction: construction,
           resource: Resource.one(ResourceType.iron_block),
         );
 
-        if (!hasDrones) {
+        if (ironSent) {
           break;
         }
 
-        _checkConstruction(
+        final bool copperSent = _checkConstruction(
           construction: construction,
           resource: Resource.one(ResourceType.copper_block),
         );
 
-        if (!hasDrones) {
+        if (copperSent) {
           break;
         }
 
-        _checkConstruction(
+        final bool steelSent = _checkConstruction(
           construction: construction,
           resource: Resource.one(ResourceType.steel),
         );
 
-        if (!hasDrones) {
+        if (steelSent) {
           break;
         }
 
-        _checkConstruction(
+        final bool concreteSent = _checkConstruction(
           construction: construction,
           resource: Resource.one(ResourceType.concrete),
         );
 
-        if (!hasDrones) {
+        if (concreteSent) {
           break;
         }
       }
@@ -84,7 +84,7 @@ class Headquarters extends Node {
     }
   }
 
-  void _checkConstruction({
+  bool _checkConstruction({
     required Construction construction,
     required Resource resource,
   }) {
@@ -96,6 +96,10 @@ class Headquarters extends Node {
         construction: construction,
         resource: resource,
       );
+
+      return true;
+    } else {
+      return false;
     }
   }
 
