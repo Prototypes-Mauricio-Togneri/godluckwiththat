@@ -42,8 +42,10 @@ mixin NodeManager {
     _drones.add(drone);
   }
 
+  bool hasDroneConnection(Node to) => _droneConnections.contains(to);
+
   void addDroneConnection(Node to) {
-    if (!_droneConnections.contains(to)) {
+    if (!hasDroneConnection(to)) {
       _droneConnections.add(to);
     }
   }

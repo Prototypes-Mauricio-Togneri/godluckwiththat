@@ -106,13 +106,17 @@ mixin MenuHandler on BaseGameComponent {
 
   bool isNodeSelected(Node node) => _selectedNode == node;
 
-  bool selectNode(Node node) {
-    if (isDestroyingMode) {
-      node.destroy(true);
-    } else if (isAddConnectionMode) {
+  void selectNode(Node node) {
+    if (isControlPressed || hasNodeSelected) {
+      _toggleConnection(selectedNode(), node);
+    }
+    /*else if (isAddConnectionMode) {
       _addConnection(selectedNode(), node);
     } else if (isRemoveConnectionMode) {
       _removeConnection(selectedNode(), node);
+    } */
+    else if (isDestroyingMode) {
+      node.destroy(true);
     } else if (isTransferDroneMode) {
       final Node from = selectedNode();
       from.transferDroneTo(node);
@@ -121,8 +125,14 @@ mixin MenuHandler on BaseGameComponent {
     }
 
     state.notify();
+  }
 
-    return true;
+  void _toggleConnection(Node from, Node to) {
+    if (from.hasDroneConnection(to)) {
+      _removeConnection(from, to);
+    } else {
+      _addConnection(from, to);
+    }
   }
 
   void _addConnection(Node from, Node to) {
