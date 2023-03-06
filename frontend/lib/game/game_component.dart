@@ -55,12 +55,16 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       final Patch? patch = state.patches.patchAt(location);
 
       if (node == null) {
-        buildConstructionNode(
+        final bool built = buildConstructionNode(
           type: type,
           location: location,
           tile: tile,
           patch: patch,
         );
+
+        if (built && !isControlPressed) {
+          onCancelOperation();
+        }
       }
     }
   }

@@ -240,7 +240,7 @@ mixin NodeHandler on BaseGameComponent {
     }
   }
 
-  void buildConstructionNode({
+  bool buildConstructionNode({
     required NodeType type,
     required Location location,
     required MapTile tile,
@@ -257,6 +257,10 @@ mixin NodeHandler on BaseGameComponent {
         location: location,
         type: type,
       );
+
+      return true;
+    } else {
+      return false;
     }
   }
 
