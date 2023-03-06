@@ -91,14 +91,14 @@ class Constants {
     }
   },
 	"buildings": {
-		"solar_panels": [],
-		"iron_mines": [],
-		"copper_mines": [],
-		"coal_mines": [],
-		"stone_mines": [],
-		"iron_smelters": [],
-		"copper_smelters": [],
-		"drone_factories": []
+		"solar_panel": [],
+		"iron_mine": [],
+		"copper_mine": [],
+		"coal_mine": [],
+		"stone_mine": [],
+		"iron_smelter": [],
+		"copper_smelter": [],
+		"drone_factory": []
 	}
 }
 ''';

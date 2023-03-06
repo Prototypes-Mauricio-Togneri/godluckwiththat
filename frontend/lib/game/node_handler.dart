@@ -14,6 +14,7 @@ import 'package:tensionnode/components/game/moving_drone.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/json/json_building.dart';
+import 'package:tensionnode/json/json_match.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
@@ -25,58 +26,59 @@ import 'package:tensionnode/utils/assets.dart';
 mixin NodeHandler on BaseGameComponent {
   final Map<String, SpriteGroup> spriteGroups = {};
 
-  void loadNodes() {
+  void loadNodes(JsonMatch json) {
     final Inventory inventory = Inventory({});
-    inventory.load(state.jsonMatch.headquarters.inventory);
+    inventory.load(json.headquarters.inventory);
 
     addHeadquarters(
       location: const Location(0, 0),
       inventory: inventory,
     );
 
-    for (final JsonBuilding json in state.jsonMatch.buildings.solarPanels) {
+    for (final JsonBuilding json in json.getBuildings(NodeType.solar_panel)) {
       addSolarPanel(
         location: json.location.location,
       );
     }
 
-    for (final JsonBuilding json in state.jsonMatch.buildings.ironMines) {
+    for (final JsonBuilding json in json.getBuildings(NodeType.iron_mine)) {
       addIronMine(
         location: json.location.location,
       );
     }
 
-    for (final JsonBuilding json in state.jsonMatch.buildings.copperMines) {
+    for (final JsonBuilding json in json.getBuildings(NodeType.copper_mine)) {
       addCopperMine(
         location: json.location.location,
       );
     }
 
-    for (final JsonBuilding json in state.jsonMatch.buildings.coalMines) {
+    for (final JsonBuilding json in json.getBuildings(NodeType.coal_mine)) {
       addCoalMine(
         location: json.location.location,
       );
     }
 
-    for (final JsonBuilding json in state.jsonMatch.buildings.stoneMines) {
+    for (final JsonBuilding json in json.getBuildings(NodeType.stone_mine)) {
       addStoneMine(
         location: json.location.location,
       );
     }
 
-    for (final JsonBuilding json in state.jsonMatch.buildings.ironSmelters) {
+    for (final JsonBuilding json in json.getBuildings(NodeType.iron_smelter)) {
       addIronSmelter(
         location: json.location.location,
       );
     }
 
-    for (final JsonBuilding json in state.jsonMatch.buildings.copperSmelters) {
+    for (final JsonBuilding json
+        in json.getBuildings(NodeType.copper_smelter)) {
       addCopperSmelter(
         location: json.location.location,
       );
     }
 
-    for (final JsonBuilding json in state.jsonMatch.buildings.droneFactories) {
+    for (final JsonBuilding json in json.getBuildings(NodeType.drone_factory)) {
       addDroneFactory(
         location: json.location.location,
       );

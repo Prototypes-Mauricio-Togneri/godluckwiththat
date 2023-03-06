@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/json/json_buildings.dart';
+import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/json/json_map.dart';
 import 'package:tensionnode/json/json_patches.dart';
+import 'package:tensionnode/types/node_type.dart';
 
 part 'json_match.g.dart';
 
@@ -28,7 +29,7 @@ class JsonMatch {
   final JsonHeadquarters headquarters;
 
   @JsonKey(name: 'buildings')
-  final JsonBuildings buildings;
+  final Map<NodeType, List<JsonBuilding>> buildings;
 
   const JsonMatch({
     required this.version,
@@ -39,6 +40,8 @@ class JsonMatch {
     required this.headquarters,
     required this.buildings,
   });
+
+  List<JsonBuilding> getBuildings(NodeType type) => buildings[type] ?? [];
 
   factory JsonMatch.fromString(String json) =>
       JsonMatch.fromJson(jsonDecode(json));

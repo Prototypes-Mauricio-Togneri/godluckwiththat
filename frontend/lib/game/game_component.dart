@@ -17,7 +17,7 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
   Future onLoad() async {
     await addBaseComponents(state.jsonMatch);
 
-    loadNodes();
+    loadNodes(state.jsonMatch);
 
     return super.onLoad();
   }
