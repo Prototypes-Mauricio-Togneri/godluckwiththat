@@ -2,7 +2,6 @@ enum MenuMode {
   none,
   building,
   destroying,
-  add_connection,
-  remove_connection,
+  set_connection,
   transfer_drone,
 }

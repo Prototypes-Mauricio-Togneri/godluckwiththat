@@ -37,16 +37,10 @@ class BuildingMenu extends StatelessWidget {
         DroneSection(game, node),
         const VBox(10),
         MenuButton(
-          text: 'Add connection',
+          text: 'Set connection',
           icon: Icons.add,
           color: Palette.success,
-          onPressed: _onAddConnection,
-        ),
-        MenuButton(
-          text: 'Remove connection',
-          icon: Icons.remove,
-          color: Palette.error,
-          onPressed: _onRemoveConnection,
+          onPressed: _onSetConnection,
         ),
         MenuButton(
           text: 'Send drone',
@@ -77,9 +71,7 @@ class BuildingMenu extends StatelessWidget {
     );
   }
 
-  void _onAddConnection() => game.enableAddConnectionMode();
-
-  void _onRemoveConnection() => game.enableRemoveConnectionMode();
+  void _onSetConnection() => game.enableSetConnectionMode();
 
   void _onTransferDrone() => game.enableTransferDroneMode();
 

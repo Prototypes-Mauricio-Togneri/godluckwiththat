@@ -19,24 +19,20 @@ mixin MenuHandler on BaseGameComponent {
 
   bool get isDestroyingMode => _mode == MenuMode.destroying;
 
-  bool get isAddConnectionMode => _mode == MenuMode.add_connection;
-
-  bool get isRemoveConnectionMode => _mode == MenuMode.remove_connection;
+  bool get isSetConnectionMode => _mode == MenuMode.set_connection;
 
   bool get isTransferDroneMode => _mode == MenuMode.transfer_drone;
 
   bool get isCancellable =>
       isBuildingMode ||
       isDestroyingMode ||
-      isAddConnectionMode ||
-      isRemoveConnectionMode ||
+      isSetConnectionMode ||
       isTransferDroneMode;
 
   bool get isInSpecialMode =>
       isBuildingMode ||
       isDestroyingMode ||
-      isAddConnectionMode ||
-      isRemoveConnectionMode ||
+      isSetConnectionMode ||
       isTransferDroneMode;
 
   void _enableMode(MenuMode newMode, [unselectNode = true]) {
@@ -107,15 +103,9 @@ mixin MenuHandler on BaseGameComponent {
   bool isNodeSelected(Node node) => _selectedNode == node;
 
   void selectNode(Node node) {
-    if (isControlPressed || hasNodeSelected) {
+    if (isSetConnectionMode || (isControlPressed && hasNodeSelected)) {
       _toggleConnection(selectedNode(), node);
-    }
-    /*else if (isAddConnectionMode) {
-      _addConnection(selectedNode(), node);
-    } else if (isRemoveConnectionMode) {
-      _removeConnection(selectedNode(), node);
-    } */
-    else if (isDestroyingMode) {
+    } else if (isDestroyingMode) {
       node.destroy(true);
     } else if (isTransferDroneMode) {
       final Node from = selectedNode();
@@ -176,12 +166,8 @@ mixin MenuHandler on BaseGameComponent {
     removeMenuComponents();
   }
 
-  void enableAddConnectionMode() {
-    _enableMode(MenuMode.add_connection, false);
-  }
-
-  void enableRemoveConnectionMode() {
-    _enableMode(MenuMode.remove_connection, false);
+  void enableSetConnectionMode() {
+    _enableMode(MenuMode.set_connection, false);
   }
 
   void enableTransferDroneMode() {
@@ -194,9 +180,7 @@ mixin MenuHandler on BaseGameComponent {
       removeMenuComponents();
     } else if (isDestroyingMode) {
       disableMode();
-    } else if (isAddConnectionMode ||
-        isRemoveConnectionMode ||
-        isTransferDroneMode) {
+    } else if (isSetConnectionMode || isTransferDroneMode) {
       disableMode(false);
     }
   }
