@@ -28,12 +28,6 @@ class Inventory {
 
   int get(ResourceType type) => _resources[type] ?? 0;
 
-  void load(JsonInventory map) {
-    for (final MapEntry<ResourceType, int> entry in map.entries) {
-      _resources[entry.key] = entry.value;
-    }
-  }
-
   void addResource(Resource resource) {
     final int current = get(resource.type);
     _resources[resource.type] = current + resource.amount;
@@ -58,6 +52,16 @@ class Inventory {
   bool hasResource(Resource resource) => get(resource.type) >= resource.amount;
 
   JsonInventory get json => _resources;
+
+  factory Inventory.fromJson(JsonInventory map) {
+    final ResourceMap resourceMap = {};
+
+    for (final MapEntry<ResourceType, int> entry in map.entries) {
+      resourceMap[entry.key] = entry.value;
+    }
+
+    return Inventory(resourceMap);
+  }
 
   @override
   String toString() => Json.encode(_resources);

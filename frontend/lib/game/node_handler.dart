@@ -27,12 +27,9 @@ mixin NodeHandler on BaseGameComponent {
   final Map<String, SpriteGroup> spriteGroups = {};
 
   void loadNodes(JsonMatch json) {
-    final Inventory inventory = Inventory({});
-    inventory.load(json.headquarters.inventory);
-
     addHeadquarters(
       location: json.headquarters.location.location,
-      inventory: inventory,
+      inventory: Inventory.fromJson(json.headquarters.inventory),
     );
 
     for (final JsonBuilding json in json.getBuildings(NodeType.solar_panel)) {
