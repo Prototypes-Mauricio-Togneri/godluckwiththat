@@ -49,16 +49,6 @@ class GameState extends BaseState {
     throw Exception('Node at $location cannot be found');
   }
 
-  /*bool _hasNodeAt(Location location) {
-    for (final Node node in allNodes) {
-      if (node.isAt(location)) {
-        return true;
-      }
-    }
-
-    return false;
-  }*/
-
   void addNode(Node node) {
     if (node is Headquarters) {
       headquarters = node;
