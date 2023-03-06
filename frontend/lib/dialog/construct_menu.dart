@@ -77,25 +77,13 @@ class _ConstructMenuState extends State<ConstructMenu> {
 
   List<NodeType> _types(int index) {
     if (index == 0) {
-      return [
-        NodeType.solar_panel,
-      ];
+      return NodeType.powerPlants();
     } else if (index == 1) {
-      return [
-        NodeType.iron_mine,
-        NodeType.copper_mine,
-        NodeType.coal_mine,
-        NodeType.stone_mine,
-      ];
+      return NodeType.extractors();
     } else if (index == 2) {
-      return [
-        NodeType.iron_smelter,
-        NodeType.copper_smelter,
-      ];
+      return NodeType.processors();
     } else if (index == 3) {
-      return [
-        NodeType.drone_factory,
-      ];
+      return NodeType.factories();
     } else {
       throw Exception('Invalid build tab index');
     }
@@ -117,7 +105,7 @@ class TabButtons extends StatelessWidget {
       children: [
         TabButton(
           index: 0,
-          name: 'Energy',
+          name: 'Power plants',
           color: Palette.buildTypeEnergy,
           selected: indexSelected == 0,
           onSelected: onSelected,

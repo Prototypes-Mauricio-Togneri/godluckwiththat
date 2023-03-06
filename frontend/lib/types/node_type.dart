@@ -69,6 +69,26 @@ enum NodeType {
     required this.cost,
   });
 
+  static List<NodeType> powerPlants() => [
+        NodeType.solar_panel,
+      ];
+
+  static List<NodeType> extractors() => [
+        NodeType.iron_mine,
+        NodeType.copper_mine,
+        NodeType.coal_mine,
+        NodeType.stone_mine,
+      ];
+
+  static List<NodeType> processors() => [
+        NodeType.iron_smelter,
+        NodeType.copper_smelter,
+      ];
+
+  static List<NodeType> factories() => [
+        NodeType.drone_factory,
+      ];
+
   @override
   String toString() => name.replaceAll('_', ' ');
 }
