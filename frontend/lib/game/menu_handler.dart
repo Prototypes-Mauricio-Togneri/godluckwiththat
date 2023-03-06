@@ -107,7 +107,7 @@ mixin MenuHandler on BaseGameComponent {
       _toggleConnection(selectedNode(), node);
     } else if (isDestroyingMode) {
       node.destroy(true);
-    } else if (isTransferDroneMode) {
+    } else if (isTransferDroneMode || (isShiftPressed && hasNodeSelected)) {
       final Node from = selectedNode();
       from.transferDroneTo(node);
     } else if (!isInSpecialMode) {
