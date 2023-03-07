@@ -1,7 +1,5 @@
 # Tension Node
 
-* Show building indicators
-
 * Create resource icon with tooltip
 * Save/load game state
 

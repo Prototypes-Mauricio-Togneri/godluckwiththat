@@ -4,6 +4,8 @@ import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/buildings/factories/drone_factory.dart';
+import 'package:tensionnode/components/game/signs/filled_sign.dart';
+import 'package:tensionnode/components/game/signs/idle_sign.dart';
 import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/inventory.dart';
@@ -20,6 +22,8 @@ class Building extends Node {
   final ResourceType resourceProduced;
   final Paint _paintOutside = Paint();
   final Paint _paintInside = Paint();
+  IdleSign? idleSign;
+  FilledSign? filledSign;
 
   Building({
     required super.type,
@@ -92,17 +96,21 @@ class Building extends Node {
   }
 
   void _startProducing() {
-    if (_state.isIdle &&
-        _hasEnoughResources &&
-        (output < Constants.OUTPUT_QUEUE_LIMIT)) {
-      for (final ResourceType type in input.types) {
-        input.removeResource(Resource.one(type));
+    if (_state.isIdle) {
+      if (!_hasEnoughResources) {
+        _showIdleSign();
+      } else if (output >= Constants.OUTPUT_QUEUE_LIMIT) {
+        _showFilledSign();
+      } else {
+        for (final ResourceType type in input.types) {
+          input.removeResource(Resource.one(type));
+        }
+
+        _state = BuildingState.working;
+        _removeSigns();
+        updateMenu();
       }
-
-      _state = BuildingState.working;
     }
-
-    updateMenu();
   }
 
   void _produce(double dt) {
@@ -150,6 +158,32 @@ class Building extends Node {
         ),
         _paintInside,
       );
+    }
+  }
+
+  void _showIdleSign() {
+    if (idleSign == null) {
+      idleSign = IdleSign();
+      add(idleSign!);
+    }
+  }
+
+  void _showFilledSign() {
+    if (filledSign == null) {
+      filledSign = FilledSign();
+      add(filledSign!);
+    }
+  }
+
+  void _removeSigns() {
+    if (idleSign != null) {
+      remove(idleSign!);
+      idleSign = null;
+    }
+
+    if (filledSign != null) {
+      remove(filledSign!);
+      filledSign = null;
     }
   }
 
