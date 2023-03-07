@@ -12,6 +12,7 @@ import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionnode/utils/every.dart';
 import 'package:tensionnode/utils/palette.dart';
 
 class Building extends Node {
@@ -22,6 +23,7 @@ class Building extends Node {
   final ResourceType resourceProduced;
   final Paint _paintOutside = Paint();
   final Paint _paintInside = Paint();
+  final Every every = Every(1);
   IdleSign? idleSign;
   FilledSign? filledSign;
 
@@ -66,7 +68,10 @@ class Building extends Node {
 
     final bool isDroneFactory = this is DroneFactory;
 
-    if ((output > 0) && hasDroneConnections && (hasDrones || isDroneFactory)) {
+    if ((output > 0) &&
+        hasDroneConnections &&
+        (hasDrones || isDroneFactory) &&
+        every.update(dt)) {
       output--;
 
       if (isDroneFactory) {
