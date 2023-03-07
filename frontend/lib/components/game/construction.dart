@@ -36,6 +36,21 @@ class Construction extends Node {
   }
 
   @override
+  void update(double dt) {
+    super.update(dt);
+
+    double received = 0;
+    double total = 0;
+
+    for (final MapEntry<ResourceType, int> entry in type.cost.entries) {
+      received += entry.value - remainingResources.get(entry.key);
+      total += entry.value;
+    }
+
+    debugText.text = '${((received / total) * 100).toInt()}%';
+  }
+
+  @override
   void receiveDrone(Drone drone) {
     final Resource? resource = drone.unload();
 
