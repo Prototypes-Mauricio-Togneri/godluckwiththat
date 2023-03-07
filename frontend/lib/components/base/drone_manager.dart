@@ -1,7 +1,7 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/models/drone.dart';
 
-mixin NodeManager {
+mixin DroneManager {
   final List<Drone> _drones = [];
   final List<Node> _droneConnections = [];
   final List<Node> _droneTransfers = [];
