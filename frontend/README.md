@@ -1,8 +1,7 @@
 # Tension Node
 
+* Show number of drones assigned to a building
 * Save/load game state
-
-* Only send drone if the target has that resource as input
 * Improve limits on input/output
 
 * Setup tensionplanet.com

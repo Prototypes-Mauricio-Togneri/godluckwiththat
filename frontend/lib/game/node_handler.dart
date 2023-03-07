@@ -36,42 +36,69 @@ mixin NodeHandler on BaseGameComponent {
     for (final JsonBuilding json in json.getBuildings(NodeType.solar_panel)) {
       addSolarPanel(
         location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+        }),
       );
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.wind_turbine)) {
       addWindTurbine(
         location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+        }),
       );
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.iron_mine)) {
       addIronMine(
         location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+          ResourceType.iron_ore: 0,
+        }),
       );
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.copper_mine)) {
       addCopperMine(
         location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+          ResourceType.copper_ore: 0,
+        }),
       );
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.coal_mine)) {
       addCoalMine(
         location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+          ResourceType.coal_ore: 0,
+        }),
       );
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.stone_mine)) {
       addStoneMine(
         location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+          ResourceType.stone_ore: 0,
+        }),
       );
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.iron_smelter)) {
       addIronSmelter(
         location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+          ResourceType.iron_ore: 0,
+          ResourceType.iron_block: 0,
+        }),
       );
     }
 
@@ -79,12 +106,23 @@ mixin NodeHandler on BaseGameComponent {
         in json.getBuildings(NodeType.copper_smelter)) {
       addCopperSmelter(
         location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+          ResourceType.copper_ore: 0,
+          ResourceType.copper_block: 0,
+        }),
       );
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.drone_factory)) {
       addDroneFactory(
         location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+          ResourceType.iron_block: 0,
+          ResourceType.copper_block: 0,
+          ResourceType.drone: 0,
+        }),
       );
     }
 
@@ -134,103 +172,83 @@ mixin NodeHandler on BaseGameComponent {
 
   Node addSolarPanel({
     required Location location,
+    required Inventory inventory,
   }) =>
       _addNode(SolarPanel(
         location: location,
-        inventory: Inventory({
-          ResourceType.energy: 0,
-        }),
+        inventory: inventory,
       ));
 
   Node addWindTurbine({
     required Location location,
+    required Inventory inventory,
   }) =>
       _addNode(WindTurbine(
         location: location,
-        inventory: Inventory({
-          ResourceType.energy: 0,
-        }),
+        inventory: inventory,
       ));
 
   Node addIronMine({
     required Location location,
+    required Inventory inventory,
   }) =>
       _addNode(IronMine(
         location: location,
-        inventory: Inventory({
-          ResourceType.energy: 0,
-          ResourceType.iron_ore: 0,
-        }),
+        inventory: inventory,
       ));
 
   Node addCopperMine({
     required Location location,
+    required Inventory inventory,
   }) =>
       _addNode(CopperMine(
         location: location,
-        inventory: Inventory({
-          ResourceType.energy: 0,
-          ResourceType.copper_ore: 0,
-        }),
+        inventory: inventory,
       ));
 
   Node addCoalMine({
     required Location location,
+    required Inventory inventory,
   }) =>
       _addNode(CoalMine(
         location: location,
-        inventory: Inventory({
-          ResourceType.energy: 0,
-          ResourceType.coal_ore: 0,
-        }),
+        inventory: inventory,
       ));
 
   Node addStoneMine({
     required Location location,
+    required Inventory inventory,
   }) =>
       _addNode(StoneMine(
         location: location,
-        inventory: Inventory({
-          ResourceType.energy: 0,
-          ResourceType.stone_ore: 0,
-        }),
+        inventory: inventory,
       ));
 
   Node addIronSmelter({
     required Location location,
+    required Inventory inventory,
   }) =>
       _addNode(IronSmelter(
         location: location,
-        inventory: Inventory({
-          ResourceType.energy: 0,
-          ResourceType.iron_ore: 0,
-          ResourceType.iron_block: 0,
-        }),
+        inventory: inventory,
       ));
 
   Node addCopperSmelter({
     required Location location,
+    required Inventory inventory,
   }) =>
       _addNode(CopperSmelter(
         location: location,
-        inventory: Inventory({
-          ResourceType.energy: 0,
-          ResourceType.copper_ore: 0,
-          ResourceType.copper_block: 0,
-        }),
+        inventory: inventory,
       ));
 
   Node addDroneFactory({
     required Location location,
+    required Inventory inventory,
   }) =>
       _addNode(DroneFactory(
         location: location,
-        inventory: Inventory({
-          ResourceType.energy: 0,
-          ResourceType.iron_block: 0,
-          ResourceType.copper_block: 0,
-          ResourceType.drone: 0,
-        }),
+        inventory: inventory,
       ));
 
   Node _addNode(Node node) {
@@ -320,23 +338,79 @@ mixin NodeHandler on BaseGameComponent {
   }) {
     switch (type) {
       case NodeType.solar_panel:
-        return addSolarPanel(location: location);
+        return addSolarPanel(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+          }),
+        );
       case NodeType.wind_turbine:
-        return addWindTurbine(location: location);
+        return addWindTurbine(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+          }),
+        );
       case NodeType.iron_mine:
-        return addIronMine(location: location);
+        return addIronMine(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+            ResourceType.iron_ore: 0,
+          }),
+        );
       case NodeType.copper_mine:
-        return addCopperMine(location: location);
+        return addCopperMine(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+            ResourceType.copper_ore: 0,
+          }),
+        );
       case NodeType.coal_mine:
-        return addCoalMine(location: location);
+        return addCoalMine(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+            ResourceType.coal_ore: 0,
+          }),
+        );
       case NodeType.stone_mine:
-        return addStoneMine(location: location);
+        return addStoneMine(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+            ResourceType.stone_ore: 0,
+          }),
+        );
       case NodeType.iron_smelter:
-        return addIronSmelter(location: location);
+        return addIronSmelter(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+            ResourceType.iron_ore: 0,
+            ResourceType.iron_block: 0,
+          }),
+        );
       case NodeType.copper_smelter:
-        return addCopperSmelter(location: location);
+        return addCopperSmelter(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+            ResourceType.copper_ore: 0,
+            ResourceType.copper_block: 0,
+          }),
+        );
       case NodeType.drone_factory:
-        return addDroneFactory(location: location);
+        return addDroneFactory(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+            ResourceType.iron_block: 0,
+            ResourceType.copper_block: 0,
+            ResourceType.drone: 0,
+          }),
+        );
       case NodeType.headquarters:
         throw Exception('Headquarters cannot be built');
     }
