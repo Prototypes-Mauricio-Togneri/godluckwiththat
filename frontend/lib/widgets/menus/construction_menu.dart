@@ -85,6 +85,7 @@ class ResourcesSection extends StatelessWidget {
       children: [
         for (final MapEntry<ResourceType, int> entry in node.type.cost.entries)
           ItemRow(
+            title: entry.key.toString(),
             sprite: entry.key.sprite,
             amount:
                 '${entry.value - node.remainingResources.get(entry.key)}/${entry.value}',

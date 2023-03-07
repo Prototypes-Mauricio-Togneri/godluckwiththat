@@ -75,6 +75,7 @@ class InventorySummary extends StatelessWidget {
       children: [
         for (final Resource resource in node.inventory.list)
           ItemRow(
+            title: resource.type.toString(),
             sprite: resource.type.sprite,
             amount: '${resource.amount}',
           ),

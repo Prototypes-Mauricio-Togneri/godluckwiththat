@@ -1,12 +1,13 @@
-import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/widgets/label.dart';
+import 'package:tensionnode/widgets/resource_icon.dart';
 
 class ItemRow extends StatelessWidget {
+  final String title;
   final String sprite;
   final String amount;
 
   const ItemRow({
+    required this.title,
     required this.sprite,
     required this.amount,
   });
@@ -15,21 +16,11 @@ class ItemRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 30,
-            height: 30,
-            child: Image.asset(
-              'images/$sprite',
-            ),
-          ),
-          const HBox(10),
-          Label(
-            text: amount,
-            align: TextAlign.center,
-          ),
-        ],
+      child: ResourceIcon(
+        title: title,
+        sprite: sprite,
+        amount: amount,
+        size: 30,
       ),
     );
   }

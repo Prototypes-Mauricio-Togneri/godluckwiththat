@@ -115,6 +115,7 @@ class InputSection extends StatelessWidget {
           children: [
             for (final Resource resource in inventory.list)
               ItemRow(
+                title: resource.type.toString(),
                 sprite: resource.type.sprite,
                 amount: '${resource.amount}',
               ),
@@ -142,6 +143,7 @@ class OutputSection extends StatelessWidget {
         ),
         const VBox(10),
         ItemRow(
+          title: node.resourceProduced.toString(),
           sprite: node.resourceProduced.sprite,
           amount: '${node.output}',
         ),

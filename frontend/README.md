@@ -1,6 +1,5 @@
 # Tension Node
 
-* Create resource icon with tooltip
 * Save/load game state
 
 * Only send drone if the target has that resource as input

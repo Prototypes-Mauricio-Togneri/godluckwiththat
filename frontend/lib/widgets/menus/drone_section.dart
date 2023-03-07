@@ -23,6 +23,7 @@ class DroneSection extends StatelessWidget {
           ),
           const VBox(10),
           ItemRow(
+            title: 'Drone',
             sprite: game.state.research.droneSprite,
             amount: '${node.availableDrones}',
           ),
