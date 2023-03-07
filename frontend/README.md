@@ -1,6 +1,5 @@
 # Tension Node
 
-* Show number of drones assigned to a building
 * Save/load game state
 * Improve limits on input/output
 
