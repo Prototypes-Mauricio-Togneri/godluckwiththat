@@ -19,6 +19,7 @@ class Node extends SpriteComponent
   final Inventory inventory;
 
   late final DebugText debugText = DebugText();
+  late final DroneCounter droneCounter = DroneCounter();
 
   Node({
     required this.type,
@@ -42,6 +43,7 @@ class Node extends SpriteComponent
     position = location.position;
 
     add(debugText);
+    add(droneCounter);
 
     return super.onLoad();
   }
@@ -56,7 +58,10 @@ class Node extends SpriteComponent
     if (movingDrone.hasWaypoints) {
       receiveDrone(movingDrone.drone);
     } else {
-      addDrone(movingDrone.drone);
+      addDrone(
+        receiver: this,
+        drone: movingDrone.drone,
+      );
     }
 
     updateMenu();
@@ -80,7 +85,10 @@ class Node extends SpriteComponent
   void evacuateDrones(Node node) {
     for (int i = 0; i < availableDrones; i++) {
       sendDrone(
-        drone: Drone(),
+        drone: getDrone(
+          home: this,
+          roundtrip: false,
+        ),
         waypoints: [node],
       );
     }
@@ -99,6 +107,8 @@ class Node extends SpriteComponent
         }
       }
     }
+
+    droneCounter.text = '$dronesAssigned';
   }
 
   void transferDroneTo(Node to) {
@@ -110,7 +120,10 @@ class Node extends SpriteComponent
   }
 
   bool _checkTransferDrone(Node to) {
-    final Drone? drone = getDrone();
+    final Drone? drone = getDrone(
+      home: this,
+      roundtrip: false,
+    );
 
     if (drone != null) {
       sendDrone(
@@ -150,6 +163,23 @@ class DebugText extends TextComponent {
   FutureOr onLoad() {
     node = parent as Node;
     position = node.size / 2;
+    anchor = Anchor.center;
+    textRenderer = Style.debugTextRenderer(
+      size: 2,
+      color: Palette.error,
+    );
+
+    return super.onLoad();
+  }
+}
+
+class DroneCounter extends TextComponent {
+  late Node node;
+
+  @override
+  FutureOr onLoad() {
+    node = parent as Node;
+    position = node.size;
     anchor = Anchor.center;
     textRenderer = Style.debugTextRenderer(
       size: 2,

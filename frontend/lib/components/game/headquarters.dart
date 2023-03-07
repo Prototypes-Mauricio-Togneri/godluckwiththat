@@ -99,7 +99,10 @@ class Headquarters extends Node {
   }) {
     inventory.removeResource(resource);
 
-    final Drone drone = getDrone();
+    final Drone drone = getDrone(
+      home: this,
+      roundtrip: true,
+    );
     drone.load(resource);
 
     sendDrone(

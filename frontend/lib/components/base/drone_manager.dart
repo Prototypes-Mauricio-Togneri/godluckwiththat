@@ -9,6 +9,7 @@ mixin DroneManager {
   final List<Node> _droneConnections = [];
   final List<Node> _droneTransfers = [];
   int _connectionIndex = 0;
+  int dronesAssigned = 0;
 
   bool get hasDrones => _inventory.get(ResourceType.drone) > 0;
 
@@ -37,16 +38,31 @@ mixin DroneManager {
     _inventory = inventory;
     _droneConnections.addAll(droneConnections);
     _droneTransfers.addAll(droneTransfers);
+    dronesAssigned = _inventory.get(ResourceType.drone);
   }
 
-  void addDrone(Drone drone) {
+  void addDrone({
+    required Node receiver,
+    required Drone drone,
+  }) {
     _inventory.addResource(Resource.one(ResourceType.drone));
+
+    if (!drone.isHome(receiver)) {
+      dronesAssigned++;
+    }
   }
 
-  Drone getDrone() {
+  Drone getDrone({
+    required Node home,
+    required bool roundtrip,
+  }) {
     _inventory.removeResource(Resource.one(ResourceType.drone));
 
-    return Drone();
+    if (!roundtrip) {
+      dronesAssigned--;
+    }
+
+    return Drone(home);
   }
 
   bool hasDroneConnection(Node to) => _droneConnections.contains(to);

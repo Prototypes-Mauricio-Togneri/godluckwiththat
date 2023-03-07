@@ -71,17 +71,23 @@ class Building extends Node {
         hasDroneConnections &&
         (hasDrones || isDroneFactory) &&
         every.update(dt)) {
-      final Resource resource = Resource.one(resourcesProduced);
-      inventory.removeResource(resource);
-
       if (isDroneFactory) {
-        final Drone drone = Drone();
+        final Drone drone = getDrone(
+          home: this,
+          roundtrip: false,
+        );
         sendDrone(
           drone: drone,
           waypoints: [getAvailableConnection],
         );
       } else {
-        final Drone drone = getDrone();
+        final Resource resource = Resource.one(resourcesProduced);
+        inventory.removeResource(resource);
+
+        final Drone drone = getDrone(
+          home: this,
+          roundtrip: true,
+        );
         drone.load(resource);
         sendDrone(
           drone: drone,
@@ -134,6 +140,11 @@ class Building extends Node {
     if (accumulatedTime >= type.productionTime) {
       accumulatedTime = 0;
       inventory.addResource(Resource(resourcesProduced, outputGeneration));
+
+      if (resourcesProduced == ResourceType.drone) {
+        dronesAssigned++;
+      }
+
       state = BuildingState.idle;
       _startProducing();
     }
