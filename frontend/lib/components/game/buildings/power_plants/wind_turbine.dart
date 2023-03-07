@@ -5,10 +5,11 @@ import 'package:tensionnode/types/resource_type.dart';
 class WindTurbine extends Building {
   WindTurbine({
     required super.location,
-    required super.input,
+    required super.inventory,
   }) : super(
           type: NodeType.wind_turbine,
-          resourceProduced: ResourceType.energy,
+          resourcesRequired: [],
+          resourcesProduced: ResourceType.energy,
           drones: [],
           droneConnections: [],
           droneTransfers: [],

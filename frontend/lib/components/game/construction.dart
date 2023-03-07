@@ -13,6 +13,7 @@ class Construction extends Node {
     required super.type,
     required super.location,
   }) : super(
+          inventory: Inventory({}),
           drones: [],
           droneConnections: [],
           droneTransfers: [],

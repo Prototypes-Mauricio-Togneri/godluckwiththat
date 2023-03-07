@@ -2,12 +2,10 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
-import 'package:tensionnode/widgets/menus/drone_section.dart';
-import 'package:tensionnode/widgets/menus/item_row.dart';
+import 'package:tensionnode/widgets/menus/resources_section.dart';
 
 class HeadquartersMenu extends StatelessWidget {
   final GameComponent game;
@@ -30,7 +28,10 @@ class HeadquartersMenu extends StatelessWidget {
           align: TextAlign.center,
         ),
         const VBox(10),
-        InventorySummary(game, node),
+        ResourcesSection(
+          title: 'Inventory',
+          resources: node.inventory.list,
+        ),
         const VBox(30),
         if (node.availableDrones > 1)
           MenuButton(
@@ -61,26 +62,4 @@ class HeadquartersMenu extends StatelessWidget {
   void _onCenter() => game.centerMap(node.position);
 
   void _closeMenu() => game.unselectNode();
-}
-
-class InventorySummary extends StatelessWidget {
-  final GameComponent game;
-  final Headquarters node;
-
-  const InventorySummary(this.game, this.node);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        for (final Resource resource in node.inventory.list)
-          ItemRow(
-            title: resource.type.toString(),
-            sprite: resource.type.sprite,
-            amount: '${resource.amount}',
-          ),
-        DroneSection(game, node),
-      ],
-    );
-  }
 }

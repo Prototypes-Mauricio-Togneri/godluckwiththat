@@ -5,10 +5,11 @@ import 'package:tensionnode/types/resource_type.dart';
 class SolarPanel extends Building {
   SolarPanel({
     required super.location,
-    required super.input,
+    required super.inventory,
   }) : super(
           type: NodeType.solar_panel,
-          resourceProduced: ResourceType.energy,
+          resourcesRequired: [],
+          resourcesProduced: ResourceType.energy,
           drones: [],
           droneConnections: [],
           droneTransfers: [],

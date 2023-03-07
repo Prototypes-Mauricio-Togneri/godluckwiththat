@@ -137,7 +137,9 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(SolarPanel(
         location: location,
-        input: Inventory({}),
+        inventory: Inventory({
+          ResourceType.energy: 0,
+        }),
       ));
 
   Node addWindTurbine({
@@ -145,7 +147,7 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(WindTurbine(
         location: location,
-        input: Inventory({}),
+        inventory: Inventory({}),
       ));
 
   Node addIronMine({
@@ -153,7 +155,7 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(IronMine(
         location: location,
-        input: Inventory({
+        inventory: Inventory({
           ResourceType.energy: 0,
         }),
       ));
@@ -163,7 +165,7 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(CopperMine(
         location: location,
-        input: Inventory({
+        inventory: Inventory({
           ResourceType.energy: 0,
         }),
       ));
@@ -173,7 +175,7 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(CoalMine(
         location: location,
-        input: Inventory({
+        inventory: Inventory({
           ResourceType.energy: 0,
         }),
       ));
@@ -183,7 +185,7 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(StoneMine(
         location: location,
-        input: Inventory({
+        inventory: Inventory({
           ResourceType.energy: 0,
         }),
       ));
@@ -193,7 +195,7 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(IronSmelter(
         location: location,
-        input: Inventory({
+        inventory: Inventory({
           ResourceType.energy: 0,
           ResourceType.iron_ore: 0,
         }),
@@ -204,7 +206,7 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(CopperSmelter(
         location: location,
-        input: Inventory({
+        inventory: Inventory({
           ResourceType.energy: 0,
           ResourceType.copper_ore: 0,
         }),
@@ -215,7 +217,7 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(DroneFactory(
         location: location,
-        input: Inventory({
+        inventory: Inventory({
           ResourceType.energy: 0,
           ResourceType.iron_block: 0,
           ResourceType.copper_block: 0,

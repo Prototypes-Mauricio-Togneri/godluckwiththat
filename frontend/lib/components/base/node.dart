@@ -7,6 +7,7 @@ import 'package:tensionnode/components/game/moving_drone.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/drone.dart';
+import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/utils/palette.dart';
@@ -16,12 +17,14 @@ class Node extends SpriteComponent
     with HasGameRef<GameComponent>, Tappable, NodeManager {
   final NodeType type;
   final Location location;
+  final Inventory inventory;
 
   late final DebugText debugText = DebugText();
 
   Node({
     required this.type,
     required this.location,
+    required this.inventory,
     required List<Drone> drones,
     required List<Node> droneConnections,
     required List<Node> droneTransfers,

@@ -4,13 +4,10 @@ import 'package:tensionnode/components/base/building.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/dialog/confirmation_dialog.dart';
 import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/models/inventory.dart';
-import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
-import 'package:tensionnode/widgets/menus/drone_section.dart';
-import 'package:tensionnode/widgets/menus/item_row.dart';
+import 'package:tensionnode/widgets/menus/resources_section.dart';
 
 class BuildingMenu extends StatelessWidget {
   final GameComponent game;
@@ -32,10 +29,18 @@ class BuildingMenu extends StatelessWidget {
           text: '${node.location.i}, ${node.location.j}',
           align: TextAlign.center,
         ),
-        if (node.input.list.isNotEmpty) InputSection(node.input),
-        OutputSection(node),
-        const VBox(10),
-        DroneSection(game, node),
+        ResourcesSection(
+          title: 'Input',
+          resources: node.inputInventory,
+        ),
+        ResourcesSection(
+          title: 'Output',
+          resources: node.outputInventory,
+        ),
+        ResourcesSection(
+          title: 'Inventory',
+          resources: node.restInventory,
+        ),
         const VBox(10),
         MenuButton(
           text: 'Set connection',
@@ -92,62 +97,4 @@ class BuildingMenu extends StatelessWidget {
   }
 
   void _closeMenu() => game.unselectNode();
-}
-
-class InputSection extends StatelessWidget {
-  final Inventory inventory;
-
-  const InputSection(this.inventory);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const VBox(20),
-        Label(
-          text: 'Input'.toUpperCase(),
-          align: TextAlign.center,
-        ),
-        const VBox(10),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            for (final Resource resource in inventory.list)
-              ItemRow(
-                title: resource.type.toString(),
-                sprite: resource.type.sprite,
-                amount: '${resource.amount}',
-              ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class OutputSection extends StatelessWidget {
-  final Building node;
-
-  const OutputSection(this.node);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const VBox(20),
-        Label(
-          text: 'Output'.toUpperCase(),
-          align: TextAlign.center,
-        ),
-        const VBox(10),
-        ItemRow(
-          title: node.resourceProduced.toString(),
-          sprite: node.resourceProduced.sprite,
-          amount: '${node.output}',
-        ),
-      ],
-    );
-  }
 }

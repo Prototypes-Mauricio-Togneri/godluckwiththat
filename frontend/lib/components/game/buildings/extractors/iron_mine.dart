@@ -5,10 +5,11 @@ import 'package:tensionnode/types/resource_type.dart';
 class IronMine extends Building {
   IronMine({
     required super.location,
-    required super.input,
+    required super.inventory,
   }) : super(
           type: NodeType.iron_mine,
-          resourceProduced: ResourceType.iron_ore,
+          resourcesRequired: [ResourceType.energy],
+          resourcesProduced: ResourceType.iron_ore,
           drones: [],
           droneConnections: [],
           droneTransfers: [],

@@ -5,10 +5,14 @@ import 'package:tensionnode/types/resource_type.dart';
 class CopperSmelter extends Building {
   CopperSmelter({
     required super.location,
-    required super.input,
+    required super.inventory,
   }) : super(
           type: NodeType.copper_smelter,
-          resourceProduced: ResourceType.copper_block,
+          resourcesRequired: [
+            ResourceType.energy,
+            ResourceType.copper_ore,
+          ],
+          resourcesProduced: ResourceType.copper_block,
           drones: [],
           droneConnections: [],
           droneTransfers: [],

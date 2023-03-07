@@ -2,19 +2,17 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/construction.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
 import 'package:tensionnode/models/drone.dart';
-import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/utils/every.dart';
 
 class Headquarters extends Node {
-  final Inventory inventory;
   final Every every = Every(1);
 
   Headquarters({
     required super.location,
-    required this.inventory,
+    required super.inventory,
   }) : super(
           type: NodeType.headquarters,
           drones: [

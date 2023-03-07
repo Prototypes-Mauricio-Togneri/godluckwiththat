@@ -6,7 +6,6 @@ import 'package:tensionnode/components/game/signs/idle_sign.dart';
 import 'package:tensionnode/components/game/signs/unconnected_sign.dart';
 import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/models/drone.dart';
-import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -15,9 +14,8 @@ import 'package:tensionnode/utils/every.dart';
 class Building extends Node {
   num accumulatedTime = 0; // TODO(momo): receive as parameter
   BuildingState state = BuildingState.idle; // TODO(momo): receive as parameter
-  int output = 0; // TODO(momo): receive as parameter
-  final Inventory input;
-  final ResourceType resourceProduced;
+  final List<ResourceType> resourcesRequired;
+  final ResourceType resourcesProduced;
   final Every every = Every(1);
   IdleSign? idleSign;
   FilledSign? filledSign;
@@ -26,14 +24,28 @@ class Building extends Node {
   Building({
     required super.type,
     required super.location,
+    required super.inventory,
     required super.drones,
     required super.droneConnections,
     required super.droneTransfers,
-    required this.resourceProduced,
-    required this.input,
+    required this.resourcesRequired,
+    required this.resourcesProduced,
   });
 
   int get outputGeneration => 1;
+
+  int get output => inventory.get(resourcesProduced);
+
+  List<Resource> get inputInventory =>
+      inventory.list.where((e) => resourcesRequired.contains(e.type)).toList();
+
+  List<Resource> get outputInventory =>
+      inventory.list.where((e) => e.type == resourcesProduced).toList();
+
+  List<Resource> get restInventory => inventory.list
+      .where((e) =>
+          (e.type != resourcesProduced) && !resourcesRequired.contains(e.type))
+      .toList();
 
   @override
   Future onLoad() {
@@ -60,7 +72,7 @@ class Building extends Node {
         hasDroneConnections &&
         (hasDrones || isDroneFactory) &&
         every.update(dt)) {
-      output--;
+      inventory.removeResource(Resource.one(resourcesProduced));
 
       if (isDroneFactory) {
         final Drone drone = Drone();
@@ -70,7 +82,7 @@ class Building extends Node {
         );
       } else {
         final Drone drone = getDrone();
-        drone.load(Resource.one(resourceProduced));
+        drone.load(Resource.one(resourcesProduced));
         sendDrone(
           drone: drone,
           waypoints: [getAvailableConnection, this],
@@ -87,8 +99,8 @@ class Building extends Node {
   }
 
   bool get hasEnoughResources {
-    for (final Resource resource in input.list) {
-      if (resource.amount == 0) {
+    for (final ResourceType type in resourcesRequired) {
+      if (inventory.get(type) == 0) {
         return false;
       }
     }
@@ -103,8 +115,8 @@ class Building extends Node {
       } else if (output >= Constants.OUTPUT_QUEUE_LIMIT) {
         _showFilledSign();
       } else {
-        for (final ResourceType type in input.types) {
-          input.removeResource(Resource.one(type));
+        for (final ResourceType type in resourcesRequired) {
+          inventory.removeResource(Resource.one(type));
         }
 
         state = BuildingState.working;
@@ -119,7 +131,7 @@ class Building extends Node {
 
     if (accumulatedTime >= type.productionTime) {
       accumulatedTime = 0;
-      output += outputGeneration;
+      inventory.addResource(Resource(resourcesProduced, outputGeneration));
       state = BuildingState.idle;
       _startProducing();
     }
@@ -129,8 +141,8 @@ class Building extends Node {
   void receiveDrone(Drone drone) {
     final Resource? resource = drone.unload();
 
-    if ((resource != null) && input.hasResourceType(resource.type)) {
-      input.addResource(resource);
+    if (resource != null) {
+      inventory.addResource(resource);
       _startProducing();
     }
   }

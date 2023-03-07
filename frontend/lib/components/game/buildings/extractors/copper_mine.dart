@@ -5,10 +5,11 @@ import 'package:tensionnode/types/resource_type.dart';
 class CopperMine extends Building {
   CopperMine({
     required super.location,
-    required super.input,
+    required super.inventory,
   }) : super(
           type: NodeType.copper_mine,
-          resourceProduced: ResourceType.copper_ore,
+          resourcesRequired: [ResourceType.energy],
+          resourcesProduced: ResourceType.copper_ore,
           drones: [],
           droneConnections: [],
           droneTransfers: [],
