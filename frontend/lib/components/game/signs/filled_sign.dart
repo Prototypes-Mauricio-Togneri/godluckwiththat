@@ -1,16 +1,6 @@
-import 'package:flame/components.dart';
-import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/extensions/sprite_component_extension.dart';
+import 'package:tensionnode/components/game/signs/sign.dart';
 import 'package:tensionnode/utils/assets.dart';
 
-class FilledSign extends SpriteComponent {
-  @override
-  Future onLoad() async {
-    sprite = await getSprite(Assets.IMAGES_SIGNS_FILLED_SIGN);
-    size = getSize() / 2;
-    anchor = Anchor.center;
-    position = Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);
-
-    return super.onLoad();
-  }
+class FilledSign extends Sign {
+  FilledSign() : super(Assets.IMAGES_SIGNS_FILLED_SIGN);
 }

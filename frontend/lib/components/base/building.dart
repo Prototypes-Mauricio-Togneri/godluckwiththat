@@ -1,11 +1,9 @@
-import 'dart:ui';
-
-import 'package:flame/components.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/buildings/factories/drone_factory.dart';
 import 'package:tensionnode/components/game/signs/filled_sign.dart';
 import 'package:tensionnode/components/game/signs/idle_sign.dart';
+import 'package:tensionnode/components/game/signs/unconnected_sign.dart';
 import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/inventory.dart';
@@ -13,7 +11,6 @@ import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/utils/every.dart';
-import 'package:tensionnode/utils/palette.dart';
 
 class Building extends Node {
   num _accumulatedTime = 0; // TODO(momo): receive as parameter
@@ -21,11 +18,10 @@ class Building extends Node {
   int output = 0; // TODO(momo): receive as parameter
   final Inventory input;
   final ResourceType resourceProduced;
-  final Paint _paintOutside = Paint();
-  final Paint _paintInside = Paint();
   final Every every = Every(1);
   IdleSign? idleSign;
   FilledSign? filledSign;
+  UnconnectedSign? unconnectedSign;
 
   Building({
     required super.type,
@@ -41,14 +37,6 @@ class Building extends Node {
 
   @override
   Future onLoad() {
-    _paintOutside.color = Palette.error;
-    _paintOutside.strokeWidth = 4 / Constants.NODE_SIZE;
-    _paintOutside.style = PaintingStyle.stroke;
-
-    _paintInside.color = Palette.white;
-    _paintInside.strokeWidth = 2 / Constants.NODE_SIZE;
-    _paintInside.style = PaintingStyle.stroke;
-
     _startProducing();
 
     return super.onLoad();
@@ -89,6 +77,12 @@ class Building extends Node {
         );
       }
       _startProducing();
+    }
+
+    if (!hasDroneConnections) {
+      _showUnconnectedSign();
+    } else {
+      _hideUnconnectedSign();
     }
   }
 
@@ -141,31 +135,6 @@ class Building extends Node {
     }
   }
 
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    if (!hasDroneConnections) {
-      canvas.drawRect(
-        Rect.fromCenter(
-          center: (size / 2).toOffset(),
-          width: width,
-          height: height,
-        ),
-        _paintOutside,
-      );
-
-      canvas.drawRect(
-        Rect.fromCenter(
-          center: (size / 2).toOffset(),
-          width: width * 0.98,
-          height: height * 0.98,
-        ),
-        _paintInside,
-      );
-    }
-  }
-
   void _showIdleSign() {
     if (idleSign == null) {
       idleSign = IdleSign();
@@ -177,6 +146,20 @@ class Building extends Node {
     if (filledSign == null) {
       filledSign = FilledSign();
       add(filledSign!);
+    }
+  }
+
+  void _showUnconnectedSign() {
+    if (unconnectedSign == null) {
+      unconnectedSign = UnconnectedSign();
+      add(unconnectedSign!);
+    }
+  }
+
+  void _hideUnconnectedSign() {
+    if (unconnectedSign != null) {
+      remove(unconnectedSign!);
+      unconnectedSign = null;
     }
   }
 
