@@ -19,5 +19,5 @@ enum ResourceType {
   });
 
   @override
-  String toString() => name;
+  String toString() => name.replaceAll('_', ' ');
 }

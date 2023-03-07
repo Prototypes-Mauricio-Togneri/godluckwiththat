@@ -6,6 +6,7 @@ import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/widgets/label.dart';
 import 'package:tensionnode/widgets/menu_button.dart';
+import 'package:tensionnode/widgets/resource_icon.dart';
 
 class ConstructMenu extends StatefulWidget {
   final GameComponent game;
@@ -233,41 +234,18 @@ class BuildingCard extends StatelessWidget {
                 children: [
                   for (final MapEntry<ResourceType, int> entry
                       in type.cost.entries)
-                    BuildingCost(entry.key, entry.value),
+                    ResourceIcon(
+                      title: entry.key.toString(),
+                      sprite: entry.key.sprite,
+                      amount: entry.value.toString(),
+                      size: 20,
+                    ),
                 ],
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class BuildingCost extends StatelessWidget {
-  final ResourceType type;
-  final int amount;
-
-  const BuildingCost(this.type, this.amount);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(
-          width: 20,
-          height: 20,
-          child: Image.asset(
-            'images/${type.sprite}',
-          ),
-        ),
-        const HBox(5),
-        Label(
-          text: '$amount',
-          size: 10,
-        ),
-      ],
     );
   }
 }
