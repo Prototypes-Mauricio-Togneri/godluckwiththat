@@ -147,7 +147,9 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(WindTurbine(
         location: location,
-        inventory: Inventory({}),
+        inventory: Inventory({
+          ResourceType.energy: 0,
+        }),
       ));
 
   Node addIronMine({
@@ -157,6 +159,7 @@ mixin NodeHandler on BaseGameComponent {
         location: location,
         inventory: Inventory({
           ResourceType.energy: 0,
+          ResourceType.iron_ore: 0,
         }),
       ));
 
@@ -167,6 +170,7 @@ mixin NodeHandler on BaseGameComponent {
         location: location,
         inventory: Inventory({
           ResourceType.energy: 0,
+          ResourceType.copper_ore: 0,
         }),
       ));
 
@@ -177,6 +181,7 @@ mixin NodeHandler on BaseGameComponent {
         location: location,
         inventory: Inventory({
           ResourceType.energy: 0,
+          ResourceType.coal_ore: 0,
         }),
       ));
 
@@ -187,6 +192,7 @@ mixin NodeHandler on BaseGameComponent {
         location: location,
         inventory: Inventory({
           ResourceType.energy: 0,
+          ResourceType.stone_ore: 0,
         }),
       ));
 
@@ -198,6 +204,7 @@ mixin NodeHandler on BaseGameComponent {
         inventory: Inventory({
           ResourceType.energy: 0,
           ResourceType.iron_ore: 0,
+          ResourceType.iron_block: 0,
         }),
       ));
 
@@ -209,6 +216,7 @@ mixin NodeHandler on BaseGameComponent {
         inventory: Inventory({
           ResourceType.energy: 0,
           ResourceType.copper_ore: 0,
+          ResourceType.copper_block: 0,
         }),
       ));
 
@@ -221,6 +229,7 @@ mixin NodeHandler on BaseGameComponent {
           ResourceType.energy: 0,
           ResourceType.iron_block: 0,
           ResourceType.copper_block: 0,
+          ResourceType.drone: 0,
         }),
       ));
 
