@@ -35,6 +35,8 @@ class Building extends Node {
     required this.input,
   });
 
+  int get outputGeneration => 1;
+
   @override
   Future onLoad() {
     _paintOutside.color = Palette.error;
@@ -123,8 +125,6 @@ class Building extends Node {
       _startProducing();
     }
   }
-
-  int get outputGeneration => 1;
 
   @override
   void receiveDrone(Drone drone) {
