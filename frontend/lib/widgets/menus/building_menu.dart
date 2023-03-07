@@ -39,7 +39,7 @@ class BuildingMenu extends StatelessWidget {
         ),
         ResourcesSection(
           title: 'Inventory',
-          resources: node.restInventory,
+          resources: node.restInventory.where((e) => e.amount > 0).toList(),
         ),
         const VBox(10),
         MenuButton(
