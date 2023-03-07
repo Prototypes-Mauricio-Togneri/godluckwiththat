@@ -29,39 +29,39 @@ enum NodeType {
       }),
   copper_mine(
       sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_COPPER_MINE,
-      productionTime: 3,
+      productionTime: 10,
       cost: {
         ResourceType.iron_block: 2,
       }),
   coal_mine(
       sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_COAL_MINE,
-      productionTime: 3,
+      productionTime: 10,
       cost: {
         ResourceType.iron_block: 2,
         ResourceType.copper_block: 2,
       }),
   stone_mine(
       sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_STONE_MINE,
-      productionTime: 3,
+      productionTime: 10,
       cost: {
         ResourceType.iron_block: 2,
         ResourceType.copper_block: 2,
       }),
   iron_smelter(
       sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_IRON_SMELTER,
-      productionTime: 10,
+      productionTime: 15,
       cost: {
         ResourceType.iron_block: 2,
       }),
   copper_smelter(
       sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_COPPER_SMELTER,
-      productionTime: 10,
+      productionTime: 15,
       cost: {
         ResourceType.iron_block: 2,
       }),
   drone_factory(
       sprite: Assets.IMAGES_BUILDINGS_FACTORIES_DRONE_FACTORY,
-      productionTime: 10,
+      productionTime: 20,
       cost: {
         ResourceType.iron_block: 2,
         ResourceType.copper_block: 2,

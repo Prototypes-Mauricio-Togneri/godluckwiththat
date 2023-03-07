@@ -1,7 +1,6 @@
 # Tension Node
 
 * Save/load game state
-* Improve limits on input/output
 
 * Setup tensionplanet.com
 * Setup localization

@@ -7,8 +7,6 @@ class Constants {
 
   static const double NODE_SIZE = 8;
 
-  static const int OUTPUT_QUEUE_LIMIT = 10;
-
   static String TEST_MATCH = '''
 {
 	"version": 1,

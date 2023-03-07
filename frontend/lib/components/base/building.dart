@@ -1,4 +1,3 @@
-import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/buildings/factories/drone_factory.dart';
 import 'package:tensionnode/components/game/signs/filled_sign.dart';
@@ -119,7 +118,7 @@ class Building extends Node {
     if (state.isIdle) {
       if (!hasEnoughResources) {
         _showIdleSign();
-      } else if (output >= Constants.OUTPUT_QUEUE_LIMIT) {
+      } else if (output >= game.state.research.outputQueueLimit) {
         _showFilledSign();
       } else {
         for (final ResourceType type in resourcesRequired) {
