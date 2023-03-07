@@ -13,8 +13,8 @@ import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/utils/every.dart';
 
 class Building extends Node {
-  num _accumulatedTime = 0; // TODO(momo): receive as parameter
-  BuildingState _state = BuildingState.idle; // TODO(momo): receive as parameter
+  num accumulatedTime = 0; // TODO(momo): receive as parameter
+  BuildingState state = BuildingState.idle; // TODO(momo): receive as parameter
   int output = 0; // TODO(momo): receive as parameter
   final Inventory input;
   final ResourceType resourceProduced;
@@ -46,10 +46,10 @@ class Building extends Node {
   void update(double dt) {
     super.update(dt);
 
-    if (_state.isWorking) {
+    if (state.isWorking) {
       _produce(dt);
       debugText.text =
-          '${((_accumulatedTime / type.productionTime) * 100).toInt()}%';
+          '${((accumulatedTime / type.productionTime) * 100).toInt()}%';
     } else {
       debugText.text = '';
     }
@@ -86,7 +86,7 @@ class Building extends Node {
     }
   }
 
-  bool get _hasEnoughResources {
+  bool get hasEnoughResources {
     for (final Resource resource in input.list) {
       if (resource.amount == 0) {
         return false;
@@ -97,8 +97,8 @@ class Building extends Node {
   }
 
   void _startProducing() {
-    if (_state.isIdle) {
-      if (!_hasEnoughResources) {
+    if (state.isIdle) {
+      if (!hasEnoughResources) {
         _showIdleSign();
       } else if (output >= Constants.OUTPUT_QUEUE_LIMIT) {
         _showFilledSign();
@@ -107,7 +107,7 @@ class Building extends Node {
           input.removeResource(Resource.one(type));
         }
 
-        _state = BuildingState.working;
+        state = BuildingState.working;
         _removeSigns();
         updateMenu();
       }
@@ -115,12 +115,12 @@ class Building extends Node {
   }
 
   void _produce(double dt) {
-    _accumulatedTime += dt;
+    accumulatedTime += dt;
 
-    if (_accumulatedTime >= type.productionTime) {
-      _accumulatedTime = 0;
+    if (accumulatedTime >= type.productionTime) {
+      accumulatedTime = 0;
       output += outputGeneration;
-      _state = BuildingState.idle;
+      state = BuildingState.idle;
       _startProducing();
     }
   }
