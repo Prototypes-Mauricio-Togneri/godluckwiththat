@@ -83,6 +83,12 @@ class ResourcesSection extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        const VBox(20),
+        Label(
+          text: 'Resources needed'.toUpperCase(),
+          align: TextAlign.center,
+        ),
+        const VBox(10),
         for (final MapEntry<ResourceType, int> entry in node.type.cost.entries)
           ItemRow(
             title: entry.key.toString(),
