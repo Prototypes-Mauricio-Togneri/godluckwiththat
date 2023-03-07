@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:tensionnode/components/base/building_indicator.dart';
 import 'package:tensionnode/components/base/node.dart';
+import 'package:tensionnode/dialog/construct_menu.dart';
 import 'package:tensionnode/extensions/component_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/game/menu_handler.dart';
@@ -41,6 +42,8 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
 
   @override
   void onMapClicked(Location location) {
+    closeMenu(name: ConstructMenu.NAME);
+
     if (hasNodeSelected) {
       removeMenuComponents();
       disableMode();

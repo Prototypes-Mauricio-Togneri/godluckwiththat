@@ -15,15 +15,6 @@ class Headquarters extends Node {
     required super.inventory,
   }) : super(
           type: NodeType.headquarters,
-          drones: [
-            Drone(),
-            Drone(),
-            Drone(),
-            Drone(),
-            Drone(),
-            Drone(),
-            Drone(),
-          ],
           droneConnections: [],
           droneTransfers: [],
         );
@@ -79,6 +70,7 @@ class Headquarters extends Node {
 
     if (resource != null) {
       inventory.addResource(resource);
+      updateMenu();
     }
   }
 
@@ -114,6 +106,8 @@ class Headquarters extends Node {
       drone: drone,
       waypoints: [construction, this],
     );
+
+    updateMenu();
   }
 
   JsonHeadquarters get json => JsonHeadquarters(

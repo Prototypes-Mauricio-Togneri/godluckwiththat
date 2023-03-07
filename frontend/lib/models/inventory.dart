@@ -14,8 +14,6 @@ class Inventory {
   List<Resource> get list =>
       _resources.entries.map((e) => Resource(e.key, e.value)).toList();
 
-  List<ResourceType> get types => _resources.keys.toList();
-
   bool get isEmpty {
     for (final Resource resource in list) {
       if (resource.amount != 0) {
@@ -38,14 +36,17 @@ class Inventory {
     _resources[resource.type] = current - resource.amount;
   }
 
+  void add(Inventory inventory) {
+    for (final Resource resource in inventory.list) {
+      addResource(resource);
+    }
+  }
+
   void remove(Inventory inventory) {
     for (final Resource resource in inventory.list) {
       removeResource(resource);
     }
   }
-
-  // TODO(momo): implement
-  bool has(Inventory inventory) => true;
 
   bool hasResourceType(ResourceType type) => _resources[type] != null;
 

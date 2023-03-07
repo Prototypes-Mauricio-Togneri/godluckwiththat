@@ -25,7 +25,6 @@ class Building extends Node {
     required super.type,
     required super.location,
     required super.inventory,
-    required super.drones,
     required super.droneConnections,
     required super.droneTransfers,
     required this.resourcesRequired,
@@ -72,7 +71,8 @@ class Building extends Node {
         hasDroneConnections &&
         (hasDrones || isDroneFactory) &&
         every.update(dt)) {
-      inventory.removeResource(Resource.one(resourcesProduced));
+      final Resource resource = Resource.one(resourcesProduced);
+      inventory.removeResource(resource);
 
       if (isDroneFactory) {
         final Drone drone = Drone();
@@ -82,12 +82,13 @@ class Building extends Node {
         );
       } else {
         final Drone drone = getDrone();
-        drone.load(Resource.one(resourcesProduced));
+        drone.load(resource);
         sendDrone(
           drone: drone,
           waypoints: [getAvailableConnection, this],
         );
       }
+
       _startProducing();
     }
 
@@ -121,9 +122,10 @@ class Building extends Node {
 
         state = BuildingState.working;
         _removeSigns();
-        updateMenu();
       }
     }
+
+    updateMenu();
   }
 
   void _produce(double dt) {

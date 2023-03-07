@@ -1,6 +1,4 @@
 import 'package:tensionnode/components/base/building.dart';
-import 'package:tensionnode/models/drone.dart';
-import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 
@@ -16,21 +14,7 @@ class DroneFactory extends Building {
             ResourceType.copper_block,
           ],
           resourcesProduced: ResourceType.drone,
-          drones: [],
           droneConnections: [],
           droneTransfers: [],
         );
-
-  @override
-  Drone? getAvailableDrone() {
-    final Resource resource = Resource.one(ResourceType.drone);
-
-    if (inventory.hasResource(resource)) {
-      inventory.removeResource(resource);
-
-      return Drone();
-    } else {
-      return super.getAvailableDrone();
-    }
-  }
 }

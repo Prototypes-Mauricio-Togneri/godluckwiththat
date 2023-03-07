@@ -10,7 +10,6 @@ class SolarPanel extends Building {
           type: NodeType.solar_panel,
           resourcesRequired: [],
           resourcesProduced: ResourceType.energy,
-          drones: [],
           droneConnections: [],
           droneTransfers: [],
         );

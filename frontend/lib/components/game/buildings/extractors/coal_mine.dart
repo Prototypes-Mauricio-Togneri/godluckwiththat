@@ -10,7 +10,6 @@ class CoalMine extends Building {
           type: NodeType.coal_mine,
           resourcesRequired: [ResourceType.energy],
           resourcesProduced: ResourceType.coal_ore,
-          drones: [],
           droneConnections: [],
           droneTransfers: [],
         );

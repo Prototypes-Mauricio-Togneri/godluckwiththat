@@ -13,7 +13,6 @@ class IronSmelter extends Building {
             ResourceType.iron_ore,
           ],
           resourcesProduced: ResourceType.iron_block,
-          drones: [],
           droneConnections: [],
           droneTransfers: [],
         );

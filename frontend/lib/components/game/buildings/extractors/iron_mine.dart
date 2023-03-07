@@ -10,7 +10,6 @@ class IronMine extends Building {
           type: NodeType.iron_mine,
           resourcesRequired: [ResourceType.energy],
           resourcesProduced: ResourceType.iron_ore,
-          drones: [],
           droneConnections: [],
           droneTransfers: [],
         );

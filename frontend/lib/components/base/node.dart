@@ -24,12 +24,11 @@ class Node extends SpriteComponent
     required this.type,
     required this.location,
     required this.inventory,
-    required List<Drone> drones,
     required List<Node> droneConnections,
     required List<Node> droneTransfers,
   }) {
     initialize(
-      drones: drones,
+      inventory: inventory,
       droneConnections: droneConnections,
       droneTransfers: droneTransfers,
     );
@@ -110,16 +109,8 @@ class Node extends SpriteComponent
     }
   }
 
-  Drone? getAvailableDrone() {
-    if (hasDrones) {
-      return getDrone();
-    } else {
-      return null;
-    }
-  }
-
   bool _checkTransferDrone(Node to) {
-    final Drone? drone = getAvailableDrone();
+    final Drone? drone = getDrone();
 
     if (drone != null) {
       sendDrone(
