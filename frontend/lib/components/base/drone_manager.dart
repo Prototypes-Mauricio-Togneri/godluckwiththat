@@ -8,7 +8,7 @@ mixin DroneManager {
   Inventory _inventory = Inventory({});
   final List<Node> _droneConnections = [];
   final List<Node> _droneTransfers = [];
-  int connectionIndex = 0;
+  int _connectionIndex = 0;
 
   bool get hasDrones => _inventory.get(ResourceType.drone) > 0;
 
@@ -19,8 +19,8 @@ mixin DroneManager {
   int get availableDrones => _inventory.get(ResourceType.drone);
 
   Node get getAvailableConnection {
-    connectionIndex++;
-    final int index = connectionIndex % _droneConnections.length;
+    _connectionIndex++;
+    final int index = _connectionIndex % _droneConnections.length;
 
     return _droneConnections[index];
   }
