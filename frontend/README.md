@@ -1,5 +1,11 @@
 # Tension Node
 
+* Show building efficiency percentage
+* Show amount of drones divided the amount of connections
+* Miscounted drones when deleting building
+* Launch drones immediately (update Every constantly)
+* Think about version with no visible drones
+
 * Save/load game state
 
 * Setup tensionplanet.com
