@@ -75,8 +75,13 @@ class Building extends Node {
 
     timeTotal += dt;
 
-    final int efficiency = ((timeWorking / timeTotal) * 100).toInt();
+    final int efficiency = (((timeWorking / timeTotal) * 10).toInt()) * 10;
     efficiencyText.text = '$efficiency%';
+
+    if (timeTotal > 60) {
+      timeWorking = 0;
+      timeTotal = 0;
+    }
 
     final bool isDroneFactory = this is DroneFactory;
 

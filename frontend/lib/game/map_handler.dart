@@ -11,7 +11,7 @@ import 'package:tensionnode/models/map_tile.dart';
 
 mixin MapHandler on FlameGame {
   final double MIN_ZOOM = 1;
-  final double MAX_ZOOM = 10;
+  final double MAX_ZOOM = 15;
   final double ZOOM_STEP = 1;
 
   late double _startZoom;
