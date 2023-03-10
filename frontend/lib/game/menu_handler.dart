@@ -92,11 +92,11 @@ mixin MenuHandler on BaseGameComponent {
     if (isDestroyingMode) {
       node.destroy(true);
     } else if (isControlPressed && hasNodeSelected) {
-      if (node is Building) {
+      if ((node is Building) || (node is Headquarters)) {
         _toggleConnection(selectedNode(), node);
       }
     } else if (isShiftPressed && hasNodeSelected) {
-      if (node is Building) {
+      if ((node is Building) || (node is Headquarters)) {
         final Node from = selectedNode();
         from.transferDroneTo(node);
       }

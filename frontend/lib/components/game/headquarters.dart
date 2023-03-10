@@ -82,35 +82,40 @@ class Headquarters extends Node {
         (construction.requestedResources.hasResource(resource)) &&
         inventory.hasResource(resource)) {
       construction.requestedResources.removeResource(resource);
-      _sendConstructionDrone(
+
+      return _sendConstructionDrone(
         construction: construction,
         resource: resource,
       );
-
-      return true;
     } else {
       return false;
     }
   }
 
-  void _sendConstructionDrone({
+  bool _sendConstructionDrone({
     required Construction construction,
     required Resource resource,
   }) {
-    inventory.removeResource(resource);
-
-    final Drone drone = getDrone(
+    final Drone? drone = getDrone(
       home: this,
       roundtrip: true,
     );
-    drone.load(resource);
 
-    sendDrone(
-      drone: drone,
-      waypoints: [construction, this],
-    );
+    if (drone != null) {
+      drone.load(resource);
+      inventory.removeResource(resource);
 
-    updateMenu();
+      sendDrone(
+        drone: drone,
+        waypoints: [construction, this],
+      );
+
+      updateMenu();
+
+      return true;
+    } else {
+      return false;
+    }
   }
 
   JsonHeadquarters get json => JsonHeadquarters(

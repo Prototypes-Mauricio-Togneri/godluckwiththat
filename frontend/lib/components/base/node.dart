@@ -84,13 +84,7 @@ class Node extends SpriteComponent
 
   void evacuateDrones(Node node) {
     for (int i = 0; i < availableDrones; i++) {
-      sendDrone(
-        drone: getDrone(
-          home: this,
-          roundtrip: false,
-        ),
-        waypoints: [node],
-      );
+      transferDroneTo(node);
     }
   }
 

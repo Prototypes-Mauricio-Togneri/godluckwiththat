@@ -418,8 +418,10 @@ mixin NodeHandler on BaseGameComponent {
   }
 
   void sendInitialDrone(Node node) {
-    Timer(const Duration(seconds: 1), () {
-      state.headquarters!.transferDroneTo(node);
-    });
+    if (state.headquarters!.dronesAssigned > 1) {
+      Timer(const Duration(seconds: 1), () {
+        state.headquarters!.transferDroneTo(node);
+      });
+    }
   }
 }

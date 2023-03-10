@@ -52,17 +52,23 @@ mixin DroneManager {
     }
   }
 
-  Drone getDrone({
+  Drone? getDrone({
     required Node home,
     required bool roundtrip,
   }) {
-    _inventory.removeResource(Resource.one(ResourceType.drone));
+    final Resource resource = Resource.one(ResourceType.drone);
 
-    if (!roundtrip) {
-      dronesAssigned--;
+    if (_inventory.hasResource(resource)) {
+      _inventory.removeResource(resource);
+
+      if (!roundtrip) {
+        dronesAssigned--;
+      }
+
+      return Drone(home);
+    } else {
+      return null;
     }
-
-    return Drone(home);
   }
 
   bool hasDroneConnection(Node to) => _droneConnections.contains(to);

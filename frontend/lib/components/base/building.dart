@@ -71,27 +71,33 @@ class Building extends Node {
         (hasDrones || isDroneFactory) &&
         every.update(dt)) {
       if (isDroneFactory) {
-        final Drone drone = getDrone(
+        final Drone? drone = getDrone(
           home: this,
           roundtrip: false,
         );
-        sendDrone(
-          drone: drone,
-          waypoints: [getAvailableConnection],
-        );
-      } else {
-        final Resource resource = Resource.one(resourcesProduced);
-        inventory.removeResource(resource);
 
-        final Drone drone = getDrone(
+        if (drone != null) {
+          sendDrone(
+            drone: drone,
+            waypoints: [getAvailableConnection],
+          );
+        }
+      } else {
+        final Drone? drone = getDrone(
           home: this,
           roundtrip: true,
         );
-        drone.load(resource);
-        sendDrone(
-          drone: drone,
-          waypoints: [getAvailableConnection, this],
-        );
+
+        if (drone != null) {
+          final Resource resource = Resource.one(resourcesProduced);
+          drone.load(resource);
+          inventory.removeResource(resource);
+
+          sendDrone(
+            drone: drone,
+            waypoints: [getAvailableConnection, this],
+          );
+        }
       }
 
       _startProducing();
