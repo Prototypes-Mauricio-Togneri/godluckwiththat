@@ -102,7 +102,7 @@ class Node extends SpriteComponent
       }
     }
 
-    droneCounter.text = '$dronesAssigned';
+    droneCounter.text = '$dronesAssigned / ${droneConnections.length}';
   }
 
   void transferDroneTo(Node to) {

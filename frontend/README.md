@@ -1,7 +1,6 @@
 # Tension Node
 
 * Show building efficiency percentage
-* Show amount of drones divided the amount of connections
 * Miscounted drones when deleting building
 * Show arrow when creating connections
 
