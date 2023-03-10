@@ -9,7 +9,8 @@ import 'package:tensionnode/utils/palette.dart';
 
 class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
   final Node node;
-  final Paint _paint = Paint();
+  final Paint _paintConnections = Paint();
+  final Paint _paintTransfers = Paint();
 
   NodeSelected(this.node);
 
@@ -20,9 +21,13 @@ class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
     anchor = Anchor.center;
     position = node.location.position;
 
-    _paint.color = Palette.white;
-    _paint.strokeWidth = 3 / Constants.NODE_SIZE;
-    _paint.style = PaintingStyle.stroke;
+    _paintConnections.color = Palette.white;
+    _paintConnections.strokeWidth = 3 / Constants.NODE_SIZE;
+    _paintConnections.style = PaintingStyle.stroke;
+
+    _paintTransfers.color = Palette.error;
+    _paintTransfers.strokeWidth = 5 / Constants.NODE_SIZE;
+    _paintTransfers.style = PaintingStyle.stroke;
 
     return super.onLoad();
   }
@@ -39,8 +44,22 @@ class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
       canvas.drawLine(
         start.toOffset(),
         position.toOffset(),
-        _paint,
+        _paintConnections,
       );
+    }
+
+    if (node.hasDroneTransfers) {
+      for (final Node to in node.droneTransfers) {
+        final Vector2 start = size / 2;
+        final Vector2 position =
+            to.location.position - node.location.position + start;
+
+        canvas.drawLine(
+          start.toOffset(),
+          position.toOffset(),
+          _paintTransfers,
+        );
+      }
     }
   }
 }
