@@ -11,6 +11,7 @@ import 'package:tensionnode/game/game_component.dart';
 import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
+import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/utils/palette.dart';
 import 'package:tensionnode/utils/style.dart';
@@ -66,6 +67,13 @@ class Node extends SpriteComponent
     if (movingDrone.hasWaypoints) {
       receiveDrone(movingDrone.drone);
     } else {
+      final Drone drone = movingDrone.drone;
+      final Resource? resource = drone.unload();
+
+      if (resource != null) {
+        inventory.addResource(resource);
+      }
+
       addDrone(
         receiver: this,
         drone: movingDrone.drone,
