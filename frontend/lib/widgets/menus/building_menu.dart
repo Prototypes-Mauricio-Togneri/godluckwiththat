@@ -41,7 +41,7 @@ class BuildingMenu extends StatelessWidget {
           title: 'Inventory',
           resources: node.restInventory.where((e) => e.amount > 0).toList(),
         ),
-        const VBox(10),
+        /*const VBox(10),
         MenuButton(
           text: 'Set connection',
           icon: Icons.turn_sharp_right_rounded,
@@ -53,7 +53,7 @@ class BuildingMenu extends StatelessWidget {
           icon: Icons.send,
           color: Palette.primary,
           onPressed: _onTransferDrone,
-        ),
+        ),*/
         const Spacer(),
         MenuButton(
           text: 'Center',
@@ -77,9 +77,9 @@ class BuildingMenu extends StatelessWidget {
     );
   }
 
-  void _onSetConnection() => game.enableSetConnectionMode();
+  //void _onSetConnection() => game.enableSetConnectionMode();
 
-  void _onTransferDrone() => game.enableTransferDroneMode();
+  //void _onTransferDrone() => game.enableTransferDroneMode();
 
   void _onCenter() => game.centerMap(node.position);
 

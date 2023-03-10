@@ -5,12 +5,10 @@
 * Miscounted drones when deleting building
 * Launch drones immediately (update Every constantly)
 * Think about version with no visible drones
-chose landing site
 auto send drone after construction
 show drone transfer with red lines
 Show arrow when creating connections
 -1 drone?
-Hide buttons to send drones and connections
 
 * Save/load game state
 
