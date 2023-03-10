@@ -22,10 +22,12 @@ class Building extends Node {
   final List<ResourceType> resourcesRequired;
   final ResourceType resourcesProduced;
   final Every every = Every(1);
+  final Paint paintProducing = Paint();
   IdleSign? idleSign;
   FilledSign? filledSign;
   UnconnectedSign? unconnectedSign;
-  final Paint paintProducing = Paint();
+  double timeWorking = 0;
+  double timeTotal = 0;
 
   Building({
     required super.type,
@@ -68,9 +70,13 @@ class Building extends Node {
 
     if (state.isWorking) {
       _produce(dt);
+      timeWorking += dt;
     }
 
-    efficiencyText.text = '12%';
+    timeTotal += dt;
+
+    final int efficiency = ((timeWorking / timeTotal) * 100).toInt();
+    efficiencyText.text = '$efficiency%';
 
     final bool isDroneFactory = this is DroneFactory;
 
