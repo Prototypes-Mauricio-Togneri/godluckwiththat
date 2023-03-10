@@ -2,7 +2,7 @@ import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/models/resource.dart';
 
 class Drone {
-  final Node home;
+  final Node? home;
   Resource? _resource;
 
   Drone(this.home);

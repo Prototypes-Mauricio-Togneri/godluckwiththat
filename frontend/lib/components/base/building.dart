@@ -90,10 +90,7 @@ class Building extends Node {
         (hasDrones || isDroneFactory) &&
         every.available) {
       if (isDroneFactory) {
-        final Drone? drone = getDrone(
-          home: this,
-          roundtrip: false,
-        );
+        final Drone? drone = getDrone(null);
 
         if (drone != null) {
           sendDrone(
@@ -102,10 +99,7 @@ class Building extends Node {
           );
         }
       } else {
-        final Drone? drone = getDrone(
-          home: this,
-          roundtrip: true,
-        );
+        final Drone? drone = getDrone(this);
 
         if (drone != null) {
           final Resource resource = Resource.one(resourcesProduced);

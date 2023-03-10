@@ -1,6 +1,5 @@
 # Tension Node
 
-* Miscounted drones when deleting building
 * Show arrow when creating connections
 
 * Save/load game state

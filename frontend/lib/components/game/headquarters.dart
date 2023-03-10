@@ -97,10 +97,7 @@ class Headquarters extends Node {
     required Construction construction,
     required Resource resource,
   }) {
-    final Drone? drone = getDrone(
-      home: this,
-      roundtrip: true,
-    );
+    final Drone? drone = getDrone(this);
 
     if (drone != null) {
       drone.load(resource);

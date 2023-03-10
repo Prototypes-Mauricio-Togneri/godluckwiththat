@@ -52,16 +52,13 @@ mixin DroneManager {
     }
   }
 
-  Drone? getDrone({
-    required Node home,
-    required bool roundtrip,
-  }) {
+  Drone? getDrone(Node? home) {
     final Resource resource = Resource.one(ResourceType.drone);
 
     if (_inventory.hasResource(resource)) {
       _inventory.removeResource(resource);
 
-      if (!roundtrip) {
+      if (home == null) {
         dronesAssigned--;
       }
 

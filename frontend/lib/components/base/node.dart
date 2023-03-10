@@ -132,10 +132,7 @@ class Node extends SpriteComponent
   }
 
   bool _checkTransferDrone(Node to) {
-    final Drone? drone = getDrone(
-      home: this,
-      roundtrip: false,
-    );
+    final Drone? drone = getDrone(null);
 
     if (drone != null) {
       sendDrone(
