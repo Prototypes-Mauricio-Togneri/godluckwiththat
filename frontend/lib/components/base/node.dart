@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:tensionnode/components/base/building.dart';
 import 'package:tensionnode/components/base/drone_manager.dart';
+import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/components/game/moving_drone.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/game/game_component.dart';
@@ -34,6 +36,9 @@ class Node extends SpriteComponent
       droneTransfers: droneTransfers,
     );
   }
+
+  bool get isBuildingOrHeadquarters =>
+      (this is Building) || (this is Headquarters);
 
   @override
   Future onLoad() async {

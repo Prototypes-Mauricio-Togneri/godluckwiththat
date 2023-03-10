@@ -1,14 +1,20 @@
+import 'dart:math';
+
+import 'package:flame/game.dart';
+import 'package:flutter/painting.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/buildings/factories/drone_factory.dart';
 import 'package:tensionnode/components/game/signs/filled_sign.dart';
 import 'package:tensionnode/components/game/signs/idle_sign.dart';
 import 'package:tensionnode/components/game/signs/unconnected_sign.dart';
+import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/utils/every.dart';
+import 'package:tensionnode/utils/palette.dart';
 
 class Building extends Node {
   num accumulatedTime = 0; // TODO(momo): receive as parameter
@@ -19,6 +25,7 @@ class Building extends Node {
   IdleSign? idleSign;
   FilledSign? filledSign;
   UnconnectedSign? unconnectedSign;
+  final Paint paintProducing = Paint();
 
   Building({
     required super.type,
@@ -48,6 +55,8 @@ class Building extends Node {
   @override
   Future onLoad() {
     _startProducing();
+
+    paintProducing.color = Palette.error;
 
     return super.onLoad();
   }
@@ -108,6 +117,25 @@ class Building extends Node {
       _showUnconnectedSign();
     } else {
       _hideUnconnectedSign();
+    }
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    if (state.isWorking) {
+      canvas.drawArc(
+        Rect.fromCenter(
+          center: (getSize() / 2).toOffset(),
+          width: size.x / 2,
+          height: size.x / 2,
+        ),
+        0.5,
+        2 * pi - 0.8,
+        true,
+        paintProducing,
+      );
     }
   }
 
