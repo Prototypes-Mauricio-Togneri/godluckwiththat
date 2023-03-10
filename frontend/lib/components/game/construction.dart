@@ -70,6 +70,7 @@ class Construction extends Node {
       if (game.isNodeSelected(this)) {
         game.selectNode(node);
       }
+      game.sendInitialDrone(node);
     }
   }
 

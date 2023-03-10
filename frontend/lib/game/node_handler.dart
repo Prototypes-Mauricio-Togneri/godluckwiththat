@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/sprite_group.dart';
 import 'package:tensionnode/components/game/buildings/extractors/coal_mine.dart';
@@ -414,5 +415,11 @@ mixin NodeHandler on BaseGameComponent {
       case NodeType.headquarters:
         throw Exception('Headquarters cannot be built');
     }
+  }
+
+  void sendInitialDrone(Node node) {
+    Timer(const Duration(seconds: 1), () {
+      state.headquarters!.transferDroneTo(node);
+    });
   }
 }

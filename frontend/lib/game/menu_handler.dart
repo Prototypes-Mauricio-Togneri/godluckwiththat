@@ -108,8 +108,10 @@ mixin MenuHandler on BaseGameComponent {
     } else if (isDestroyingMode) {
       node.destroy(true);
     } else if (isTransferDroneMode || (isShiftPressed && hasNodeSelected)) {
-      final Node from = selectedNode();
-      from.transferDroneTo(node);
+      if (node is Building) {
+        final Node from = selectedNode();
+        from.transferDroneTo(node);
+      }
     } else if (!isInSpecialMode) {
       _selectNode(node);
     }
