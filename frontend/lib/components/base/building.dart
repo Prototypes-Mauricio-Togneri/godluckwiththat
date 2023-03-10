@@ -68,10 +68,6 @@ class Building extends Node {
 
     if (state.isWorking) {
       _produce(dt);
-      debugText.text =
-          '${((accumulatedTime / type.productionTime) * 100).toInt()}%';
-    } else {
-      debugText.text = '';
     }
 
     final bool isDroneFactory = this is DroneFactory;
@@ -131,8 +127,8 @@ class Building extends Node {
           width: size.x / 2,
           height: size.x / 2,
         ),
-        0.5,
-        2 * pi - 0.8,
+        0,
+        (2 * pi) * (accumulatedTime / type.productionTime),
         true,
         paintProducing,
       );
