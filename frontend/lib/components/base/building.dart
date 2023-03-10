@@ -70,6 +70,8 @@ class Building extends Node {
       _produce(dt);
     }
 
+    efficiencyText.text = '12%';
+
     final bool isDroneFactory = this is DroneFactory;
 
     if ((output > 0) &&

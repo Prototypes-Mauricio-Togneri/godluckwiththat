@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensionnode/components/base/building.dart';
 import 'package:tensionnode/components/base/drone_manager.dart';
+import 'package:tensionnode/components/game/construction.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
 import 'package:tensionnode/components/game/moving_drone.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
@@ -22,6 +23,7 @@ class Node extends SpriteComponent
 
   late final DebugText debugText = DebugText();
   late final DroneCounter droneCounter = DroneCounter();
+  late final EfficiencyText efficiencyText = EfficiencyText();
 
   Node({
     required this.type,
@@ -49,6 +51,7 @@ class Node extends SpriteComponent
 
     add(debugText);
     add(droneCounter);
+    add(efficiencyText);
 
     return super.onLoad();
   }
@@ -107,7 +110,9 @@ class Node extends SpriteComponent
       }
     }
 
-    droneCounter.text = '$dronesAssigned / ${droneConnections.length}';
+    if (!(this is Construction)) {
+      droneCounter.text = '$dronesAssigned / ${droneConnections.length}';
+    }
   }
 
   void transferDroneTo(Node to) {
@@ -179,6 +184,23 @@ class DroneCounter extends TextComponent {
   FutureOr onLoad() {
     node = parent as Node;
     position = node.size;
+    anchor = Anchor.center;
+    textRenderer = Style.debugTextRenderer(
+      size: 2,
+      color: Palette.error,
+    );
+
+    return super.onLoad();
+  }
+}
+
+class EfficiencyText extends TextComponent {
+  late Node node;
+
+  @override
+  FutureOr onLoad() {
+    node = parent as Node;
+    position = Vector2(0, node.size.y);
     anchor = Anchor.center;
     textRenderer = Style.debugTextRenderer(
       size: 2,
