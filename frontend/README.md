@@ -9,11 +9,10 @@
 * Setup localization
 
 * Think about version with no visible drones
-* Buildings can request logistic drones that will be pulled from other buildings
-* Transport specific resources and back (e.g. move surplus resources out of the headquarters)
+* Transport specific resources (e.g. move surplus resources out of the node)
 
 Building problems:
 * Not connected
 * Idle
-* Output queue
+* Output queue full
 * No drones
