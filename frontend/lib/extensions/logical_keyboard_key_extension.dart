@@ -7,7 +7,7 @@ extension LogicalKeyboardKeyExtension on Set<LogicalKeyboardKey> {
 
   bool get isSpace => _isKey(LogicalKeyboardKey.space);
 
-  bool get isK => _isKey(LogicalKeyboardKey.keyK);
+  bool get isL => _isKey(LogicalKeyboardKey.keyL);
 
   bool get isControl => _isKey(LogicalKeyboardKey.controlLeft);
 

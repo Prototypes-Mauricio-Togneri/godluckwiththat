@@ -48,6 +48,8 @@ mixin MapHandler on FlameGame {
 
   void centerMap(Vector2 position) => camera.moveTo(position);
 
+  void onCenterHeadquarters();
+
   Vector2 mapMovement(Set<LogicalKeyboardKey> keysPressed) {
     final double x = keysPressed.isLeft
         ? Constants.MAP_MOVEMENT
@@ -140,8 +142,8 @@ mixin MapHandler on FlameGame {
     } else if (keysPressed.isSpace && isKeyDown) {
       onKeyPressed(LogicalKeyboardKey.space);
       return KeyEventResult.handled;
-    } else if (keysPressed.isK && isKeyDown) {
-      centerMap(Vector2(0, 0));
+    } else if (keysPressed.isL && isKeyDown) {
+      onCenterHeadquarters();
       return KeyEventResult.handled;
     } else {
       return KeyEventResult.ignored;

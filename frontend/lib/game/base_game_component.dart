@@ -130,4 +130,9 @@ class BaseGameComponent extends FlameGame
     Set<LogicalKeyboardKey> keysPressed,
   ) =>
       handleOnKeyEvent(event, keysPressed);
+
+  @override
+  void onCenterHeadquarters() {
+    centerMap(state.headquarters!.location.position);
+  }
 }
