@@ -16,7 +16,7 @@ class HomeState extends BaseState {
       Navigation.matchScreen(jsonMatch);
     } else {
       final String xml =
-          Environment.isProd ? Constants.EMPTY_MATCH : Constants.TEST_MATCH;
+          Environment.isProd ? Constants.TEST_MATCH : Constants.TEST_MATCH;
       final JsonMatch jsonMatch = JsonMatch.fromString(xml);
       Navigation.matchScreen(jsonMatch);
     }
