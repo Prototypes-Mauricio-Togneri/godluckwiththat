@@ -55,6 +55,7 @@ class Building extends Node {
   @override
   void update(double dt) {
     super.update(dt);
+    every.update(dt);
 
     if (state.isWorking) {
       _produce(dt);
@@ -69,7 +70,7 @@ class Building extends Node {
     if ((output > 0) &&
         hasDroneConnections &&
         (hasDrones || isDroneFactory) &&
-        every.update(dt)) {
+        every.available) {
       if (isDroneFactory) {
         final Drone? drone = getDrone(
           home: this,

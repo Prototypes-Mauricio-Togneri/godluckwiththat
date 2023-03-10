@@ -4,11 +4,13 @@ class Every {
 
   Every(this.time);
 
-  bool update(double dt) {
+  void update(double dt) {
     delta += dt;
+  }
 
+  bool get available {
     if (delta >= time) {
-      delta -= time;
+      delta = 0;
 
       return true;
     } else {
