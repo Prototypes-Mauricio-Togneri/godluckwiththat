@@ -3,8 +3,7 @@
 * Show building efficiency percentage
 * Show amount of drones divided the amount of connections
 * Miscounted drones when deleting building
-* Launch drones immediately (update Every constantly)
-* show drone transfer with red lines
+* Show drone transfer with red lines
 * Show arrow when creating connections
 * -1 drone?
 
