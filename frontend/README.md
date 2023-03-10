@@ -11,6 +11,7 @@ show drone transfer with red lines
 Show arrow when creating connections
 -1 drone?
 K -> L (to center landing ship)
+Hide buttons to send drones and connections
 
 * Save/load game state
 
