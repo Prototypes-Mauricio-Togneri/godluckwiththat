@@ -34,7 +34,7 @@ mixin NodeHandler on BaseGameComponent {
     );
 
     for (final JsonBuilding json in json.getBuildings(NodeType.solar_panel)) {
-      addSolarPanel(
+      _addSolarPanel(
         location: json.location.location,
         inventory: Inventory({
           ResourceType.energy: 0,
@@ -43,7 +43,7 @@ mixin NodeHandler on BaseGameComponent {
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.wind_turbine)) {
-      addWindTurbine(
+      _addWindTurbine(
         location: json.location.location,
         inventory: Inventory({
           ResourceType.energy: 0,
@@ -52,7 +52,7 @@ mixin NodeHandler on BaseGameComponent {
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.iron_mine)) {
-      addIronMine(
+      _addIronMine(
         location: json.location.location,
         inventory: Inventory({
           ResourceType.energy: 0,
@@ -62,7 +62,7 @@ mixin NodeHandler on BaseGameComponent {
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.copper_mine)) {
-      addCopperMine(
+      _addCopperMine(
         location: json.location.location,
         inventory: Inventory({
           ResourceType.energy: 0,
@@ -72,7 +72,7 @@ mixin NodeHandler on BaseGameComponent {
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.coal_mine)) {
-      addCoalMine(
+      _addCoalMine(
         location: json.location.location,
         inventory: Inventory({
           ResourceType.energy: 0,
@@ -82,7 +82,7 @@ mixin NodeHandler on BaseGameComponent {
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.stone_mine)) {
-      addStoneMine(
+      _addStoneMine(
         location: json.location.location,
         inventory: Inventory({
           ResourceType.energy: 0,
@@ -92,7 +92,7 @@ mixin NodeHandler on BaseGameComponent {
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.iron_smelter)) {
-      addIronSmelter(
+      _addIronSmelter(
         location: json.location.location,
         inventory: Inventory({
           ResourceType.energy: 0,
@@ -104,7 +104,7 @@ mixin NodeHandler on BaseGameComponent {
 
     for (final JsonBuilding json
         in json.getBuildings(NodeType.copper_smelter)) {
-      addCopperSmelter(
+      _addCopperSmelter(
         location: json.location.location,
         inventory: Inventory({
           ResourceType.energy: 0,
@@ -115,7 +115,7 @@ mixin NodeHandler on BaseGameComponent {
     }
 
     for (final JsonBuilding json in json.getBuildings(NodeType.drone_factory)) {
-      addDroneFactory(
+      _addDroneFactory(
         location: json.location.location,
         inventory: Inventory({
           ResourceType.energy: 0,
@@ -170,7 +170,7 @@ mixin NodeHandler on BaseGameComponent {
         type: type,
       ));
 
-  Node addSolarPanel({
+  Node _addSolarPanel({
     required Location location,
     required Inventory inventory,
   }) =>
@@ -179,7 +179,7 @@ mixin NodeHandler on BaseGameComponent {
         inventory: inventory,
       ));
 
-  Node addWindTurbine({
+  Node _addWindTurbine({
     required Location location,
     required Inventory inventory,
   }) =>
@@ -188,7 +188,7 @@ mixin NodeHandler on BaseGameComponent {
         inventory: inventory,
       ));
 
-  Node addIronMine({
+  Node _addIronMine({
     required Location location,
     required Inventory inventory,
   }) =>
@@ -197,7 +197,7 @@ mixin NodeHandler on BaseGameComponent {
         inventory: inventory,
       ));
 
-  Node addCopperMine({
+  Node _addCopperMine({
     required Location location,
     required Inventory inventory,
   }) =>
@@ -206,7 +206,7 @@ mixin NodeHandler on BaseGameComponent {
         inventory: inventory,
       ));
 
-  Node addCoalMine({
+  Node _addCoalMine({
     required Location location,
     required Inventory inventory,
   }) =>
@@ -215,7 +215,7 @@ mixin NodeHandler on BaseGameComponent {
         inventory: inventory,
       ));
 
-  Node addStoneMine({
+  Node _addStoneMine({
     required Location location,
     required Inventory inventory,
   }) =>
@@ -224,7 +224,7 @@ mixin NodeHandler on BaseGameComponent {
         inventory: inventory,
       ));
 
-  Node addIronSmelter({
+  Node _addIronSmelter({
     required Location location,
     required Inventory inventory,
   }) =>
@@ -233,7 +233,7 @@ mixin NodeHandler on BaseGameComponent {
         inventory: inventory,
       ));
 
-  Node addCopperSmelter({
+  Node _addCopperSmelter({
     required Location location,
     required Inventory inventory,
   }) =>
@@ -242,7 +242,7 @@ mixin NodeHandler on BaseGameComponent {
         inventory: inventory,
       ));
 
-  Node addDroneFactory({
+  Node _addDroneFactory({
     required Location location,
     required Inventory inventory,
   }) =>
@@ -338,21 +338,21 @@ mixin NodeHandler on BaseGameComponent {
   }) {
     switch (type) {
       case NodeType.solar_panel:
-        return addSolarPanel(
+        return _addSolarPanel(
           location: location,
           inventory: Inventory({
             ResourceType.energy: 0,
           }),
         );
       case NodeType.wind_turbine:
-        return addWindTurbine(
+        return _addWindTurbine(
           location: location,
           inventory: Inventory({
             ResourceType.energy: 0,
           }),
         );
       case NodeType.iron_mine:
-        return addIronMine(
+        return _addIronMine(
           location: location,
           inventory: Inventory({
             ResourceType.energy: 0,
@@ -360,7 +360,7 @@ mixin NodeHandler on BaseGameComponent {
           }),
         );
       case NodeType.copper_mine:
-        return addCopperMine(
+        return _addCopperMine(
           location: location,
           inventory: Inventory({
             ResourceType.energy: 0,
@@ -368,7 +368,7 @@ mixin NodeHandler on BaseGameComponent {
           }),
         );
       case NodeType.coal_mine:
-        return addCoalMine(
+        return _addCoalMine(
           location: location,
           inventory: Inventory({
             ResourceType.energy: 0,
@@ -376,7 +376,7 @@ mixin NodeHandler on BaseGameComponent {
           }),
         );
       case NodeType.stone_mine:
-        return addStoneMine(
+        return _addStoneMine(
           location: location,
           inventory: Inventory({
             ResourceType.energy: 0,
@@ -384,7 +384,7 @@ mixin NodeHandler on BaseGameComponent {
           }),
         );
       case NodeType.iron_smelter:
-        return addIronSmelter(
+        return _addIronSmelter(
           location: location,
           inventory: Inventory({
             ResourceType.energy: 0,
@@ -393,7 +393,7 @@ mixin NodeHandler on BaseGameComponent {
           }),
         );
       case NodeType.copper_smelter:
-        return addCopperSmelter(
+        return _addCopperSmelter(
           location: location,
           inventory: Inventory({
             ResourceType.energy: 0,
@@ -402,7 +402,7 @@ mixin NodeHandler on BaseGameComponent {
           }),
         );
       case NodeType.drone_factory:
-        return addDroneFactory(
+        return _addDroneFactory(
           location: location,
           inventory: Inventory({
             ResourceType.energy: 0,
