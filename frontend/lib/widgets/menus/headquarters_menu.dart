@@ -32,14 +32,6 @@ class HeadquartersMenu extends StatelessWidget {
           title: 'Inventory',
           resources: node.inventory.list,
         ),
-        /*const VBox(30),
-        if (node.availableDrones > 1)
-          MenuButton(
-            text: 'Send drone',
-            icon: Icons.send,
-            color: Palette.primary,
-            onPressed: _onTransferDrone,
-          ),*/
         const Spacer(),
         MenuButton(
           text: 'Center',

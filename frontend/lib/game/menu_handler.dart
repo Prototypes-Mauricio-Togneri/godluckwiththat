@@ -19,21 +19,9 @@ mixin MenuHandler on BaseGameComponent {
 
   bool get isDestroyingMode => _mode == MenuMode.destroying;
 
-  bool get isSetConnectionMode => _mode == MenuMode.set_connection;
+  bool get isCancellable => isBuildingMode || isDestroyingMode;
 
-  bool get isTransferDroneMode => _mode == MenuMode.transfer_drone;
-
-  bool get isCancellable =>
-      isBuildingMode ||
-      isDestroyingMode ||
-      isSetConnectionMode ||
-      isTransferDroneMode;
-
-  bool get isInSpecialMode =>
-      isBuildingMode ||
-      isDestroyingMode ||
-      isSetConnectionMode ||
-      isTransferDroneMode;
+  bool get isInSpecialMode => isBuildingMode || isDestroyingMode;
 
   void _enableMode(MenuMode newMode, [unselectNode = true]) {
     if (unselectNode) {
@@ -43,10 +31,8 @@ mixin MenuHandler on BaseGameComponent {
     state.notify();
   }
 
-  void disableMode([bool unselectNode = true]) {
-    if (unselectNode) {
-      _selectedNode = null;
-    }
+  void disableMode() {
+    _selectedNode = null;
     _mode = MenuMode.none;
     state.notify();
   }
@@ -103,11 +89,13 @@ mixin MenuHandler on BaseGameComponent {
   bool isNodeSelected(Node node) => _selectedNode == node;
 
   void selectNode(Node node) {
-    if (isSetConnectionMode || (isControlPressed && hasNodeSelected)) {
-      _toggleConnection(selectedNode(), node);
-    } else if (isDestroyingMode) {
+    if (isDestroyingMode) {
       node.destroy(true);
-    } else if (isTransferDroneMode || (isShiftPressed && hasNodeSelected)) {
+    } else if (isControlPressed && hasNodeSelected) {
+      if (node is Building) {
+        _toggleConnection(selectedNode(), node);
+      }
+    } else if (isShiftPressed && hasNodeSelected) {
       if (node is Building) {
         final Node from = selectedNode();
         from.transferDroneTo(node);
@@ -168,22 +156,12 @@ mixin MenuHandler on BaseGameComponent {
     removeMenuComponents();
   }
 
-  void enableSetConnectionMode() {
-    _enableMode(MenuMode.set_connection, false);
-  }
-
-  void enableTransferDroneMode() {
-    _enableMode(MenuMode.transfer_drone, false);
-  }
-
   void onCancelOperation() {
     if (isBuildingMode) {
       disableMode();
       removeMenuComponents();
     } else if (isDestroyingMode) {
       disableMode();
-    } else if (isSetConnectionMode || isTransferDroneMode) {
-      disableMode(false);
     }
   }
 }
