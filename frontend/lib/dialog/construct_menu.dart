@@ -85,6 +85,8 @@ class _ConstructMenuState extends State<ConstructMenu> {
     } else if (index == 2) {
       return NodeType.processors();
     } else if (index == 3) {
+      return NodeType.assemblers();
+    } else if (index == 4) {
       return NodeType.factories();
     } else {
       throw Exception('Invalid build tab index');
@@ -128,6 +130,13 @@ class TabButtons extends StatelessWidget {
         ),
         TabButton(
           index: 3,
+          name: 'Assemblers',
+          color: Palette.buildTypeAssemblers,
+          selected: indexSelected == 3,
+          onSelected: onSelected,
+        ),
+        TabButton(
+          index: 4,
           name: 'Factories',
           color: Palette.buildTypeFactories,
           selected: indexSelected == 3,

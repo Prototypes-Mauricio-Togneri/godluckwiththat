@@ -19,6 +19,8 @@ class Patch {
 
   bool get isCoal => type == ResourceType.coal_ore;
 
+  bool get isOil => type == ResourceType.oil;
+
   bool get isStone => type == ResourceType.stone_ore;
 
   bool isAt(Location location) => this.location == location;

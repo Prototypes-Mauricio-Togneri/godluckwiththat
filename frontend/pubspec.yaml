@@ -51,6 +51,7 @@ flutter:
   assets:
     - assets/audio/sfx/
     - assets/images/
+    - assets/images/buildings/assemblers/
     - assets/images/buildings/extractors/
     - assets/images/buildings/factories/
     - assets/images/buildings/headquarters/
