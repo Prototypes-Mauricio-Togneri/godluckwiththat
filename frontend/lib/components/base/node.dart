@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensionplanet/components/base/building.dart';
+import 'package:tensionplanet/components/game/buildings/factories/drone_factory.dart';
 import 'package:tensionplanet/components/game/construction.dart';
 import 'package:tensionplanet/components/game/headquarters.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
@@ -33,8 +34,15 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     required this.connections,
   });
 
-  bool get isBuildingOrHeadquarters =>
-      (this is Building) || (this is Headquarters);
+  bool get isConstruction => this is Construction;
+
+  bool get isBuilding => this is Building;
+
+  bool get isHeadquarters => this is Headquarters;
+
+  bool get isDroneFactory => this is DroneFactory;
+
+  bool get isBuildingOrHeadquarters => isBuilding || isHeadquarters;
 
   int get freeDrones => inventory.get(ResourceType.drone);
 
@@ -119,7 +127,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   void update(double dt) {
     super.update(dt);
 
-    if (!(this is Construction)) {
+    if (!isConstruction) {
       final int amountOfDrones = freeDrones;
       droneCounter.text = (amountOfDrones > 0) ? '$amountOfDrones' : '';
     }

@@ -1,8 +1,6 @@
-import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/components/base/building_indicator.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/base/node_selected.dart';
-import 'package:tensionplanet/components/game/headquarters.dart';
 import 'package:tensionplanet/dialog/construct_menu.dart';
 import 'package:tensionplanet/dialog/main_menu.dart';
 import 'package:tensionplanet/dialog/settings_menu.dart';
@@ -80,7 +78,7 @@ mixin MenuHandler on BaseGameComponent {
     layerNodes.removeComponents(NodeSelected);
   }
 
-  T selectedNode<T>() => _selectedNode as T;
+  T selectedNode<T extends Node>() => _selectedNode as T;
 
   bool get hasNodeSelected => _selectedNode != null;
 
@@ -92,11 +90,7 @@ mixin MenuHandler on BaseGameComponent {
     if (isDestroyingMode) {
       node.destroy(true);
     } else if (isControlPressed && hasNodeSelected) {
-      final Node from = selectedNode();
-
-      if (from.isBuildingOrHeadquarters && node.isBuildingOrHeadquarters) {
-        _toggleConnection(from, node);
-      }
+      _toggleConnection(selectedNode(), node);
     } else if (isShiftPressed && hasNodeSelected) {
       final Node from = selectedNode();
 
@@ -111,22 +105,18 @@ mixin MenuHandler on BaseGameComponent {
   }
 
   void _toggleConnection(Node from, Node to) {
-    if (from.hasConnection(to)) {
-      _removeConnection(from, to);
-    } else {
-      _addConnection(from, to);
+    if ((from != to) && from.isBuilding && to.isBuildingOrHeadquarters) {
+      if (from.hasConnection(to)) {
+        from.removeDroneConnection(to);
+      } else {
+        _addConnection(from, to);
+      }
     }
   }
 
   void _addConnection(Node from, Node to) {
-    if ((from != to) && ((to is Building) || (to is Headquarters))) {
+    if (to.isBuildingOrHeadquarters) {
       from.addDroneConnection(to);
-    }
-  }
-
-  void _removeConnection(Node from, Node to) {
-    if (from != to) {
-      from.removeDroneConnection(to);
     }
   }
 

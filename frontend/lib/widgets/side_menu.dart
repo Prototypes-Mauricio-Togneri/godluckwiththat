@@ -1,8 +1,5 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionplanet/components/base/building.dart';
-import 'package:tensionplanet/components/game/construction.dart';
-import 'package:tensionplanet/components/game/headquarters.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/utils/palette.dart';
@@ -32,17 +29,17 @@ class SideMenu extends StatelessWidget {
   }
 
   Widget _showSelectedNode() {
-    if (game.selectedNode() is Headquarters) {
+    if (game.selectedNode().isHeadquarters) {
       return HeadquartersMenu(
         game,
         game.selectedNode(),
       );
-    } else if (game.selectedNode() is Construction) {
+    } else if (game.selectedNode().isConstruction) {
       return ConstructionMenu(
         game,
         game.selectedNode(),
       );
-    } else if (game.selectedNode() is Building) {
+    } else if (game.selectedNode().isBuilding) {
       return BuildingMenu(
         game,
         game.selectedNode(),

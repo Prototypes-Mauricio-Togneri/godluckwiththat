@@ -1,5 +1,4 @@
 import 'package:tensionplanet/components/base/node.dart';
-import 'package:tensionplanet/components/game/buildings/factories/drone_factory.dart';
 import 'package:tensionplanet/components/game/signs/filled_sign.dart';
 import 'package:tensionplanet/components/game/signs/idle_sign.dart';
 import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
@@ -74,8 +73,6 @@ class Building extends Node {
       timeTotal = 0;
     }
 
-    final bool isDroneFactory = this is DroneFactory;
-
     if ((output > 0) && hasConnections && !isDroneFactory && every.available) {
       // TODO(momo): send resource slowly by a drone
       final Resource resource = Resource.one(resourcesProduced);
@@ -84,7 +81,7 @@ class Building extends Node {
       _startProducing();
     }
 
-    if (!hasConnections && !(this is DroneFactory)) {
+    if (!hasConnections && !isDroneFactory) {
       _showUnconnectedSign();
     } else {
       _hideUnconnectedSign();

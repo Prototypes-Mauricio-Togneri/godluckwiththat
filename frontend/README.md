@@ -1,7 +1,5 @@
 # Tension Planet
 
-* Show arrow when creating connections
-
 * Save/load game state
 * Setup tensionplanet.com
 
