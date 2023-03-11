@@ -6,11 +6,11 @@ class WindTurbine extends Building {
   WindTurbine({
     required super.location,
     required super.inventory,
+    required super.connections,
   }) : super(
           type: NodeType.wind_turbine,
           resourcesRequired: [],
           resourcesProduced: ResourceType.energy,
-          connections: [],
         );
 
   @override

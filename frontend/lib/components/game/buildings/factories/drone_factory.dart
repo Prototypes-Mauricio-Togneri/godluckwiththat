@@ -6,6 +6,7 @@ class DroneFactory extends Building {
   DroneFactory({
     required super.location,
     required super.inventory,
+    required super.connections,
   }) : super(
           type: NodeType.drone_factory,
           resourcesRequired: [
@@ -14,6 +15,5 @@ class DroneFactory extends Building {
             ResourceType.copper_block,
           ],
           resourcesProduced: ResourceType.drone,
-          connections: [],
         );
 }

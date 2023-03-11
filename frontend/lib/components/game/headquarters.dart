@@ -12,10 +12,8 @@ class Headquarters extends Node {
   Headquarters({
     required super.location,
     required super.inventory,
-  }) : super(
-          type: NodeType.headquarters,
-          connections: [],
-        );
+    required super.connections,
+  }) : super(type: NodeType.headquarters);
 
   @override
   void update(double dt) {

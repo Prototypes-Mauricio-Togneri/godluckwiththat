@@ -1,18 +1,13 @@
-import 'dart:math';
-import 'package:flame/game.dart';
-import 'package:flutter/painting.dart';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/buildings/factories/drone_factory.dart';
 import 'package:tensionnode/components/game/signs/filled_sign.dart';
 import 'package:tensionnode/components/game/signs/idle_sign.dart';
 import 'package:tensionnode/components/game/signs/unconnected_sign.dart';
-import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/utils/every.dart';
-import 'package:tensionnode/utils/palette.dart';
 
 class Building extends Node {
   num accumulatedTime = 0; // TODO(momo): receive as parameter
@@ -20,7 +15,6 @@ class Building extends Node {
   final List<ResourceType> resourcesRequired;
   final ResourceType resourcesProduced;
   final Every every = Every(1);
-  final Paint paintProducing = Paint();
   IdleSign? idleSign;
   FilledSign? filledSign;
   UnconnectedSign? unconnectedSign;
@@ -38,6 +32,8 @@ class Building extends Node {
 
   int get outputGeneration => 1;
 
+  double get producingProcess => accumulatedTime / type.productionTime;
+
   int get output => inventory.get(resourcesProduced);
 
   List<Resource> get inputInventory =>
@@ -54,8 +50,6 @@ class Building extends Node {
   @override
   Future onLoad() {
     _startProducing();
-
-    paintProducing.color = Palette.error;
 
     return super.onLoad();
   }
@@ -94,25 +88,6 @@ class Building extends Node {
       _showUnconnectedSign();
     } else {
       _hideUnconnectedSign();
-    }
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    if (state.isWorking) {
-      canvas.drawArc(
-        Rect.fromCenter(
-          center: (getSize() / 2).toOffset(),
-          width: size.x / 2,
-          height: size.x / 2,
-        ),
-        0,
-        (2 * pi) * (accumulatedTime / type.productionTime),
-        true,
-        paintProducing,
-      );
     }
   }
 

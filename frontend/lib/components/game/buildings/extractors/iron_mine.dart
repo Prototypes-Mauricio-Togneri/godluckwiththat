@@ -6,10 +6,10 @@ class IronMine extends Building {
   IronMine({
     required super.location,
     required super.inventory,
+    required super.connections,
   }) : super(
           type: NodeType.iron_mine,
           resourcesRequired: [ResourceType.energy],
           resourcesProduced: ResourceType.iron_ore,
-          connections: [],
         );
 }

@@ -6,6 +6,7 @@ class CopperSmelter extends Building {
   CopperSmelter({
     required super.location,
     required super.inventory,
+    required super.connections,
   }) : super(
           type: NodeType.copper_smelter,
           resourcesRequired: [
@@ -13,6 +14,5 @@ class CopperSmelter extends Building {
             ResourceType.copper_ore,
           ],
           resourcesProduced: ResourceType.copper_block,
-          connections: [],
         );
 }

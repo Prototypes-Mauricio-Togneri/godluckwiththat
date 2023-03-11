@@ -6,6 +6,7 @@ class IronSmelter extends Building {
   IronSmelter({
     required super.location,
     required super.inventory,
+    required super.connections,
   }) : super(
           type: NodeType.iron_smelter,
           resourcesRequired: [
@@ -13,6 +14,5 @@ class IronSmelter extends Building {
             ResourceType.iron_ore,
           ],
           resourcesProduced: ResourceType.iron_block,
-          connections: [],
         );
 }

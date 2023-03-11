@@ -15,6 +15,7 @@ import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/json/json_building.dart';
 import 'package:tensionnode/json/json_match.dart';
+import 'package:tensionnode/models/connection.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
@@ -31,6 +32,7 @@ mixin NodeHandler on BaseGameComponent {
     addHeadquarters(
       location: json.headquarters.location.location,
       inventory: Inventory.fromJson(json.headquarters.inventory),
+      connections: [],
     );
 
     for (final JsonBuilding json in json.getBuildings(NodeType.solar_panel)) {
@@ -39,6 +41,7 @@ mixin NodeHandler on BaseGameComponent {
         inventory: Inventory({
           ResourceType.energy: 0,
         }),
+        connections: [],
       );
     }
 
@@ -48,6 +51,7 @@ mixin NodeHandler on BaseGameComponent {
         inventory: Inventory({
           ResourceType.energy: 0,
         }),
+        connections: [],
       );
     }
 
@@ -58,6 +62,7 @@ mixin NodeHandler on BaseGameComponent {
           ResourceType.energy: 0,
           ResourceType.iron_ore: 0,
         }),
+        connections: [],
       );
     }
 
@@ -68,6 +73,7 @@ mixin NodeHandler on BaseGameComponent {
           ResourceType.energy: 0,
           ResourceType.copper_ore: 0,
         }),
+        connections: [],
       );
     }
 
@@ -78,6 +84,7 @@ mixin NodeHandler on BaseGameComponent {
           ResourceType.energy: 0,
           ResourceType.coal_ore: 0,
         }),
+        connections: [],
       );
     }
 
@@ -88,6 +95,7 @@ mixin NodeHandler on BaseGameComponent {
           ResourceType.energy: 0,
           ResourceType.stone_ore: 0,
         }),
+        connections: [],
       );
     }
 
@@ -99,6 +107,7 @@ mixin NodeHandler on BaseGameComponent {
           ResourceType.iron_ore: 0,
           ResourceType.iron_block: 0,
         }),
+        connections: [],
       );
     }
 
@@ -111,6 +120,7 @@ mixin NodeHandler on BaseGameComponent {
           ResourceType.copper_ore: 0,
           ResourceType.copper_block: 0,
         }),
+        connections: [],
       );
     }
 
@@ -123,6 +133,7 @@ mixin NodeHandler on BaseGameComponent {
           ResourceType.copper_block: 0,
           ResourceType.drone: 0,
         }),
+        connections: [],
       );
     }
 
@@ -155,10 +166,12 @@ mixin NodeHandler on BaseGameComponent {
   Node addHeadquarters({
     required Location location,
     required Inventory inventory,
+    required List<Connection> connections,
   }) =>
       _addNode(Headquarters(
         location: location,
         inventory: inventory,
+        connections: connections,
       ));
 
   Node addConstruction({
@@ -173,82 +186,100 @@ mixin NodeHandler on BaseGameComponent {
   Node _addSolarPanel({
     required Location location,
     required Inventory inventory,
+    required List<Connection> connections,
   }) =>
       _addNode(SolarPanel(
         location: location,
         inventory: inventory,
+        connections: connections,
       ));
 
   Node _addWindTurbine({
     required Location location,
     required Inventory inventory,
+    required List<Connection> connections,
   }) =>
       _addNode(WindTurbine(
         location: location,
         inventory: inventory,
+        connections: connections,
       ));
 
   Node _addIronMine({
     required Location location,
     required Inventory inventory,
+    required List<Connection> connections,
   }) =>
       _addNode(IronMine(
         location: location,
         inventory: inventory,
+        connections: connections,
       ));
 
   Node _addCopperMine({
     required Location location,
     required Inventory inventory,
+    required List<Connection> connections,
   }) =>
       _addNode(CopperMine(
         location: location,
         inventory: inventory,
+        connections: connections,
       ));
 
   Node _addCoalMine({
     required Location location,
     required Inventory inventory,
+    required List<Connection> connections,
   }) =>
       _addNode(CoalMine(
         location: location,
         inventory: inventory,
+        connections: connections,
       ));
 
   Node _addStoneMine({
     required Location location,
     required Inventory inventory,
+    required List<Connection> connections,
   }) =>
       _addNode(StoneMine(
         location: location,
         inventory: inventory,
+        connections: connections,
       ));
 
   Node _addIronSmelter({
     required Location location,
     required Inventory inventory,
+    required List<Connection> connections,
   }) =>
       _addNode(IronSmelter(
         location: location,
         inventory: inventory,
+        connections: connections,
       ));
 
   Node _addCopperSmelter({
     required Location location,
     required Inventory inventory,
+    required List<Connection> connections,
   }) =>
       _addNode(CopperSmelter(
         location: location,
         inventory: inventory,
+        connections: connections,
       ));
 
   Node _addDroneFactory({
     required Location location,
     required Inventory inventory,
+    required List<Connection> connections,
   }) =>
       _addNode(DroneFactory(
         location: location,
         inventory: inventory,
+        connections: connections,
       ));
 
   Node _addNode(Node node) {
@@ -336,6 +367,7 @@ mixin NodeHandler on BaseGameComponent {
           inventory: Inventory({
             ResourceType.energy: 0,
           }),
+          connections: [],
         );
       case NodeType.wind_turbine:
         return _addWindTurbine(
@@ -343,6 +375,7 @@ mixin NodeHandler on BaseGameComponent {
           inventory: Inventory({
             ResourceType.energy: 0,
           }),
+          connections: [],
         );
       case NodeType.iron_mine:
         return _addIronMine(
@@ -351,6 +384,7 @@ mixin NodeHandler on BaseGameComponent {
             ResourceType.energy: 0,
             ResourceType.iron_ore: 0,
           }),
+          connections: [],
         );
       case NodeType.copper_mine:
         return _addCopperMine(
@@ -359,6 +393,7 @@ mixin NodeHandler on BaseGameComponent {
             ResourceType.energy: 0,
             ResourceType.copper_ore: 0,
           }),
+          connections: [],
         );
       case NodeType.coal_mine:
         return _addCoalMine(
@@ -367,6 +402,7 @@ mixin NodeHandler on BaseGameComponent {
             ResourceType.energy: 0,
             ResourceType.coal_ore: 0,
           }),
+          connections: [],
         );
       case NodeType.stone_mine:
         return _addStoneMine(
@@ -375,6 +411,7 @@ mixin NodeHandler on BaseGameComponent {
             ResourceType.energy: 0,
             ResourceType.stone_ore: 0,
           }),
+          connections: [],
         );
       case NodeType.iron_smelter:
         return _addIronSmelter(
@@ -384,6 +421,7 @@ mixin NodeHandler on BaseGameComponent {
             ResourceType.iron_ore: 0,
             ResourceType.iron_block: 0,
           }),
+          connections: [],
         );
       case NodeType.copper_smelter:
         return _addCopperSmelter(
@@ -393,6 +431,7 @@ mixin NodeHandler on BaseGameComponent {
             ResourceType.copper_ore: 0,
             ResourceType.copper_block: 0,
           }),
+          connections: [],
         );
       case NodeType.drone_factory:
         return _addDroneFactory(
@@ -403,6 +442,7 @@ mixin NodeHandler on BaseGameComponent {
             ResourceType.copper_block: 0,
             ResourceType.drone: 0,
           }),
+          connections: [],
         );
       case NodeType.headquarters:
         throw Exception('Headquarters cannot be built');
