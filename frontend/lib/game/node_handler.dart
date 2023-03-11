@@ -1,14 +1,20 @@
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/base/sprite_group.dart';
+import 'package:tensionplanet/components/game/buildings/assemblers/circuit_assembly.dart';
+import 'package:tensionplanet/components/game/buildings/assemblers/gear_assembly.dart';
 import 'package:tensionplanet/components/game/buildings/extractors/coal_mine.dart';
 import 'package:tensionplanet/components/game/buildings/extractors/copper_mine.dart';
 import 'package:tensionplanet/components/game/buildings/extractors/iron_mine.dart';
+import 'package:tensionplanet/components/game/buildings/extractors/oil_rig.dart';
 import 'package:tensionplanet/components/game/buildings/extractors/stone_mine.dart';
 import 'package:tensionplanet/components/game/buildings/factories/drone_factory.dart';
+import 'package:tensionplanet/components/game/buildings/power_plants/coal_power_plant.dart';
 import 'package:tensionplanet/components/game/buildings/power_plants/solar_panel.dart';
 import 'package:tensionplanet/components/game/buildings/power_plants/wind_turbine.dart';
+import 'package:tensionplanet/components/game/buildings/processors/chemical_plant.dart';
 import 'package:tensionplanet/components/game/buildings/processors/copper_smelter.dart';
 import 'package:tensionplanet/components/game/buildings/processors/iron_smelter.dart';
+import 'package:tensionplanet/components/game/buildings/processors/steel_smelter.dart';
 import 'package:tensionplanet/components/game/construction.dart';
 import 'package:tensionplanet/components/game/headquarters.dart';
 import 'package:tensionplanet/extensions/json_location_extension.dart';
@@ -205,6 +211,17 @@ mixin NodeHandler on BaseGameComponent {
         connections: connections,
       ));
 
+  Node _addCoalPowerPlant({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(CoalPowerPlant(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
   Node _addIronMine({
     required Location location,
     required Inventory inventory,
@@ -238,6 +255,17 @@ mixin NodeHandler on BaseGameComponent {
         connections: connections,
       ));
 
+  Node _addOilRig({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(OilRig(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
   Node _addStoneMine({
     required Location location,
     required Inventory inventory,
@@ -266,6 +294,50 @@ mixin NodeHandler on BaseGameComponent {
     required List<Connection> connections,
   }) =>
       _addNode(CopperSmelter(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  Node _addSteelSmelter({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(SteelSmelter(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  Node _addChemicalPlant({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(ChemicalPlant(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  Node _addGearAssembly({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(GearAssembly(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  Node _addCircuitAssembly({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(CircuitAssembly(
         location: location,
         inventory: inventory,
         connections: connections,
@@ -384,6 +456,15 @@ mixin NodeHandler on BaseGameComponent {
           }),
           connections: [],
         );
+      case NodeType.coal_power_plant:
+        return _addCoalPowerPlant(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+            ResourceType.coal_ore: 0,
+          }),
+          connections: [],
+        );
       case NodeType.iron_mine:
         return _addIronMine(
           location: location,
@@ -408,6 +489,14 @@ mixin NodeHandler on BaseGameComponent {
           inventory: Inventory({
             ResourceType.energy: 0,
             ResourceType.coal_ore: 0,
+          }),
+          connections: [],
+        );
+      case NodeType.oil_rig:
+        return _addOilRig(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
           }),
           connections: [],
         );
@@ -437,6 +526,44 @@ mixin NodeHandler on BaseGameComponent {
             ResourceType.energy: 0,
             ResourceType.copper_ore: 0,
             ResourceType.copper_block: 0,
+          }),
+          connections: [],
+        );
+      case NodeType.steel_smelter:
+        return _addSteelSmelter(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+            ResourceType.iron_block: 0,
+            ResourceType.coal_ore: 0,
+          }),
+          connections: [],
+        );
+      case NodeType.chemical_plant:
+        return _addChemicalPlant(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+            ResourceType.oil: 0,
+          }),
+          connections: [],
+        );
+      case NodeType.gear_assembly:
+        return _addGearAssembly(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+            ResourceType.steel: 0,
+          }),
+          connections: [],
+        );
+      case NodeType.circuit_assembly:
+        return _addCircuitAssembly(
+          location: location,
+          inventory: Inventory({
+            ResourceType.energy: 0,
+            ResourceType.copper_block: 0,
+            ResourceType.plastic: 0,
           }),
           connections: [],
         );
