@@ -94,12 +94,23 @@ class Constants {
   },
 	"buildings": {
 		"solar_panel": [],
+		"wind_turbine": [],
+		"coal_power_plant": [],
+
 		"iron_mine": [],
 		"copper_mine": [],
 		"coal_mine": [],
+    "oil_rig": [],
 		"stone_mine": [],
+
 		"iron_smelter": [],
 		"copper_smelter": [],
+		"steel_smelter": [],
+		"chemical_plant": [],
+
+		"gear_assembly": [],
+		"circuit_assembly": [],
+
 		"drone_factory": []
 	}
 }

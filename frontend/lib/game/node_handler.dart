@@ -61,6 +61,18 @@ mixin NodeHandler on BaseGameComponent {
       );
     }
 
+    for (final JsonBuilding json
+        in json.getBuildings(NodeType.coal_power_plant)) {
+      _addCoalPowerPlant(
+        location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+          ResourceType.coal_ore: 0,
+        }),
+        connections: [],
+      );
+    }
+
     for (final JsonBuilding json in json.getBuildings(NodeType.iron_mine)) {
       _addIronMine(
         location: json.location.location,
@@ -89,6 +101,16 @@ mixin NodeHandler on BaseGameComponent {
         inventory: Inventory({
           ResourceType.energy: 0,
           ResourceType.coal_ore: 0,
+        }),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json in json.getBuildings(NodeType.oil_rig)) {
+      _addOilRig(
+        location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
         }),
         connections: [],
       );
@@ -125,6 +147,54 @@ mixin NodeHandler on BaseGameComponent {
           ResourceType.energy: 0,
           ResourceType.copper_ore: 0,
           ResourceType.copper_block: 0,
+        }),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json in json.getBuildings(NodeType.steel_smelter)) {
+      _addSteelSmelter(
+        location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+          ResourceType.iron_block: 0,
+          ResourceType.coal_ore: 0,
+        }),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json
+        in json.getBuildings(NodeType.chemical_plant)) {
+      _addChemicalPlant(
+        location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+          ResourceType.oil: 0,
+        }),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json in json.getBuildings(NodeType.gear_assembly)) {
+      _addGearAssembly(
+        location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+          ResourceType.steel: 0,
+        }),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json
+        in json.getBuildings(NodeType.circuit_assembly)) {
+      _addCircuitAssembly(
+        location: json.location.location,
+        inventory: Inventory({
+          ResourceType.energy: 0,
+          ResourceType.copper_block: 0,
+          ResourceType.plastic: 0,
         }),
         connections: [],
       );
