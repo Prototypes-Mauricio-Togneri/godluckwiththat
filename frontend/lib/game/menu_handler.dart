@@ -111,7 +111,7 @@ mixin MenuHandler on BaseGameComponent {
   }
 
   void _toggleConnection(Node from, Node to) {
-    if (from.hasDroneConnection(to)) {
+    if (from.hasConnection(to)) {
       _removeConnection(from, to);
     } else {
       _addConnection(from, to);

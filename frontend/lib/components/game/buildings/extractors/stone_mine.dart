@@ -10,7 +10,6 @@ class StoneMine extends Building {
           type: NodeType.stone_mine,
           resourcesRequired: [ResourceType.energy],
           resourcesProduced: ResourceType.stone_ore,
-          droneConnections: [],
-          droneTransfers: [],
+          connections: [],
         );
 }

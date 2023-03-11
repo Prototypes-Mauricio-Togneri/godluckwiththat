@@ -1,6 +1,5 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/json/json_building.dart';
-import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -14,8 +13,7 @@ class Construction extends Node {
     required super.location,
   }) : super(
           inventory: Inventory({}),
-          droneConnections: [],
-          droneTransfers: [],
+          connections: [],
         );
 
   @override
@@ -51,15 +49,11 @@ class Construction extends Node {
   }
 
   @override
-  void receiveDrone(Drone drone) {
-    final Resource? resource = drone.unload();
-
-    if (resource != null) {
-      remainingResources.removeResource(Resource(
-        resource.type,
-        resource.amount,
-      ));
-    }
+  void receiveResource(Resource resource) {
+    remainingResources.removeResource(Resource(
+      resource.type,
+      resource.amount,
+    ));
 
     if (remainingResources.isEmpty) {
       destroy(false);
@@ -70,7 +64,6 @@ class Construction extends Node {
       if (game.isNodeSelected(this)) {
         game.selectNode(node);
       }
-      game.sendInitialDrone(node);
     }
   }
 

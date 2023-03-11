@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/base/sprite_group.dart';
 import 'package:tensionnode/components/game/buildings/extractors/coal_mine.dart';
@@ -12,7 +11,6 @@ import 'package:tensionnode/components/game/buildings/processors/copper_smelter.
 import 'package:tensionnode/components/game/buildings/processors/iron_smelter.dart';
 import 'package:tensionnode/components/game/construction.dart';
 import 'package:tensionnode/components/game/headquarters.dart';
-import 'package:tensionnode/components/game/moving_drone.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/base_game_component.dart';
 import 'package:tensionnode/json/json_building.dart';
@@ -21,6 +19,7 @@ import 'package:tensionnode/models/inventory.dart';
 import 'package:tensionnode/models/location.dart';
 import 'package:tensionnode/models/map_tile.dart';
 import 'package:tensionnode/models/patch.dart';
+import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
 import 'package:tensionnode/utils/assets.dart';
@@ -266,15 +265,8 @@ mixin NodeHandler on BaseGameComponent {
     try {
       if (sendDronesBack) {
         final Headquarters headquarters = state.headquarters!;
-
-        node.evacuateDrones(headquarters);
-
-        for (final MovingDrone movingDrone in getMovingDrones()) {
-          movingDrone.sendBack(
-            nodeDeleted: node,
-            headquarters: headquarters,
-          );
-        }
+        headquarters.inventory
+            .addResource(Resource(ResourceType.drone, node.totalDrones));
       }
 
       removeComponent(node);
@@ -414,14 +406,6 @@ mixin NodeHandler on BaseGameComponent {
         );
       case NodeType.headquarters:
         throw Exception('Headquarters cannot be built');
-    }
-  }
-
-  void sendInitialDrone(Node node) {
-    if (state.headquarters!.dronesAssigned > 1) {
-      Timer(const Duration(seconds: 1), () {
-        state.headquarters!.transferDroneTo(node);
-      });
     }
   }
 }

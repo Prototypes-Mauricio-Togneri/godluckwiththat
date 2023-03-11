@@ -1,7 +1,6 @@
 import 'package:tensionnode/components/base/node.dart';
 import 'package:tensionnode/components/game/construction.dart';
 import 'package:tensionnode/json/json_headquarters.dart';
-import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/node_type.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -15,8 +14,7 @@ class Headquarters extends Node {
     required super.inventory,
   }) : super(
           type: NodeType.headquarters,
-          droneConnections: [],
-          droneTransfers: [],
+          connections: [],
         );
 
   @override
@@ -65,16 +63,6 @@ class Headquarters extends Node {
     }
   }
 
-  @override
-  void receiveDrone(Drone drone) {
-    final Resource? resource = drone.unload();
-
-    if (resource != null) {
-      inventory.addResource(resource);
-      updateMenu();
-    }
-  }
-
   bool _checkConstruction({
     required Construction construction,
     required Resource resource,
@@ -82,8 +70,6 @@ class Headquarters extends Node {
     if (hasDrones &&
         (construction.requestedResources.hasResource(resource)) &&
         inventory.hasResource(resource)) {
-      construction.requestedResources.removeResource(resource);
-
       return _sendConstructionDrone(
         construction: construction,
         resource: resource,
@@ -97,23 +83,13 @@ class Headquarters extends Node {
     required Construction construction,
     required Resource resource,
   }) {
-    final Drone? drone = getDrone(this);
+    // TODO(momo): send resource slowly by a drone
+    construction.requestedResources.removeResource(resource);
+    construction.receiveResource(resource);
+    inventory.removeResource(resource);
+    updateMenu();
 
-    if (drone != null) {
-      drone.load(resource);
-      inventory.removeResource(resource);
-
-      sendDrone(
-        drone: drone,
-        waypoints: [construction, this],
-      );
-
-      updateMenu();
-
-      return true;
-    } else {
-      return false;
-    }
+    return true;
   }
 
   JsonHeadquarters get json => JsonHeadquarters(

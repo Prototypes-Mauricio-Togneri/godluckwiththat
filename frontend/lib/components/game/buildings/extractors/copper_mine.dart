@@ -10,7 +10,6 @@ class CopperMine extends Building {
           type: NodeType.copper_mine,
           resourcesRequired: [ResourceType.energy],
           resourcesProduced: ResourceType.copper_ore,
-          droneConnections: [],
-          droneTransfers: [],
+          connections: [],
         );
 }

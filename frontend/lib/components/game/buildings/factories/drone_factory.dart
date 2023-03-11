@@ -14,7 +14,6 @@ class DroneFactory extends Building {
             ResourceType.copper_block,
           ],
           resourcesProduced: ResourceType.drone,
-          droneConnections: [],
-          droneTransfers: [],
+          connections: [],
         );
 }

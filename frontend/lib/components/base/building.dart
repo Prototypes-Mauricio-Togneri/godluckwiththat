@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flame/game.dart';
 import 'package:flutter/painting.dart';
 import 'package:tensionnode/components/base/node.dart';
@@ -9,7 +8,6 @@ import 'package:tensionnode/components/game/signs/idle_sign.dart';
 import 'package:tensionnode/components/game/signs/unconnected_sign.dart';
 import 'package:tensionnode/extensions/sprite_component_extension.dart';
 import 'package:tensionnode/json/json_building.dart';
-import 'package:tensionnode/models/drone.dart';
 import 'package:tensionnode/models/resource.dart';
 import 'package:tensionnode/types/building_state.dart';
 import 'package:tensionnode/types/resource_type.dart';
@@ -33,8 +31,7 @@ class Building extends Node {
     required super.type,
     required super.location,
     required super.inventory,
-    required super.droneConnections,
-    required super.droneTransfers,
+    required super.connections,
     required this.resourcesRequired,
     required this.resourcesProduced,
   });
@@ -85,38 +82,15 @@ class Building extends Node {
 
     final bool isDroneFactory = this is DroneFactory;
 
-    if ((output > 0) &&
-        hasDroneConnections &&
-        (hasDrones || isDroneFactory) &&
-        every.available) {
-      if (isDroneFactory) {
-        final Drone? drone = getDrone(null);
-
-        if (drone != null) {
-          sendDrone(
-            drone: drone,
-            waypoints: [getAvailableConnection],
-          );
-        }
-      } else {
-        final Drone? drone = getDrone(this);
-
-        if (drone != null) {
-          final Resource resource = Resource.one(resourcesProduced);
-          drone.load(resource);
-          inventory.removeResource(resource);
-
-          sendDrone(
-            drone: drone,
-            waypoints: [getAvailableConnection, this],
-          );
-        }
-      }
-
+    if ((output > 0) && hasConnections && !isDroneFactory && every.available) {
+      // TODO(momo): send resource slowly by a drone
+      final Resource resource = Resource.one(resourcesProduced);
+      getAvailableConnection.to.receiveResource(resource);
+      inventory.removeResource(resource);
       _startProducing();
     }
 
-    if (!hasDroneConnections) {
+    if (!hasConnections && !(this is DroneFactory)) {
       _showUnconnectedSign();
     } else {
       _hideUnconnectedSign();
@@ -177,24 +151,15 @@ class Building extends Node {
     if (accumulatedTime >= type.productionTime) {
       accumulatedTime = 0;
       inventory.addResource(Resource(resourcesProduced, outputGeneration));
-
-      if (resourcesProduced == ResourceType.drone) {
-        dronesAssigned++;
-      }
-
       state = BuildingState.idle;
       _startProducing();
     }
   }
 
   @override
-  void receiveDrone(Drone drone) {
-    final Resource? resource = drone.unload();
-
-    if (resource != null) {
-      inventory.addResource(resource);
-      _startProducing();
-    }
+  void receiveResource(Resource resource) {
+    super.receiveResource(resource);
+    _startProducing();
   }
 
   void _showIdleSign() {

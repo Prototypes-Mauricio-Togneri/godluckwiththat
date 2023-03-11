@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionnode/app/constants.dart';
 import 'package:tensionnode/components/base/map_component.dart';
-import 'package:tensionnode/components/game/moving_drone.dart';
 import 'package:tensionnode/extensions/json_location_extension.dart';
 import 'package:tensionnode/game/game_state.dart';
 import 'package:tensionnode/game/map_handler.dart';
@@ -27,8 +26,7 @@ class BaseGameComponent extends FlameGame
   final Component _layerBackground = Component(priority: 0);
   final Component _layerPatches = Component(priority: 1);
   final Component _layerNodes = Component(priority: 2);
-  final Component _layerDrones = Component(priority: 3);
-  final Component _layerHud = Component(priority: 4)
+  final Component _layerHud = Component(priority: 3)
     ..positionType = PositionType.viewport;
   bool clickHandled = false;
 
@@ -55,7 +53,6 @@ class BaseGameComponent extends FlameGame
     add(_layerBackground);
     add(_layerPatches);
     add(_layerNodes);
-    add(_layerDrones);
     add(_layerHud);
 
     final JsonLocation cameraLocation = jsonMatch.map.location;
@@ -72,23 +69,12 @@ class BaseGameComponent extends FlameGame
   @override
   Color backgroundColor() => Palette.gameBackground;
 
-  List<MovingDrone> getMovingDrones() =>
-      _layerDrones.children.whereType<MovingDrone>().toList();
-
   void addComponent(Component component) {
-    if (component is MovingDrone) {
-      _layerDrones.add(component);
-    } else {
-      _layerNodes.add(component);
-    }
+    _layerNodes.add(component);
   }
 
   void removeComponent(Component component) {
-    if (component is MovingDrone) {
-      _layerDrones.remove(component);
-    } else {
-      _layerNodes.remove(component);
-    }
+    _layerNodes.remove(component);
   }
 
   void addToPatchesLayer(Component component) => _layerPatches.add(component);

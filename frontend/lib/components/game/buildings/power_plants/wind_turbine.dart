@@ -10,8 +10,7 @@ class WindTurbine extends Building {
           type: NodeType.wind_turbine,
           resourcesRequired: [],
           resourcesProduced: ResourceType.energy,
-          droneConnections: [],
-          droneTransfers: [],
+          connections: [],
         );
 
   @override
