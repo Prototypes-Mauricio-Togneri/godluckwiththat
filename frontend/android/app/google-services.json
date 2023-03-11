@@ -1,15 +1,15 @@
 {
     "project_info": {
         "project_number": "376547971749",
-        "project_id": "tensionnode",
-        "storage_bucket": "tensionnode.appspot.com"
+        "project_id": "tensionplanet",
+        "storage_bucket": "tensionplanet.appspot.com"
     },
     "client": [
         {
             "client_info": {
                 "mobilesdk_app_id": "1:376547971749:android:43d5bf6dd978c3bd50f34c",
                 "android_client_info": {
-                    "package_name": "com.atomicinstinct.tensionnode"
+                    "package_name": "com.atomicinstinct.tensionplanet"
                 }
             },
             "oauth_client": [

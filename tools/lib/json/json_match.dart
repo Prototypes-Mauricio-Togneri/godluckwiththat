@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tension_node_tools/json/json_hole.dart';
-import 'package:tension_node_tools/json/json_node.dart';
-import 'package:tension_node_tools/json/json_patch.dart';
-import 'package:tension_node_tools/json/json_resources.dart';
+import 'package:tension_planet_tools/json/json_hole.dart';
+import 'package:tension_planet_tools/json/json_node.dart';
+import 'package:tension_planet_tools/json/json_patch.dart';
+import 'package:tension_planet_tools/json/json_resources.dart';
 
 part 'json_match.g.dart';
 

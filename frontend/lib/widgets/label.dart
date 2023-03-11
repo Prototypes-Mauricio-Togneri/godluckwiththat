@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/utils/palette.dart';
+import 'package:tensionplanet/app/constants.dart';
+import 'package:tensionplanet/utils/palette.dart';
 
 class Label extends StatelessWidget {
   final String text;

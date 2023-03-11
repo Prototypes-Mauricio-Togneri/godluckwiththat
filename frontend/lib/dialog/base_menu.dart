@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tensionnode/utils/palette.dart';
+import 'package:tensionplanet/utils/palette.dart';
 
 class BaseMenu extends StatelessWidget {
   final Widget child;

@@ -1,12 +1,12 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/types/resource_type.dart';
-import 'package:tensionnode/utils/palette.dart';
-import 'package:tensionnode/widgets/label.dart';
-import 'package:tensionnode/widgets/menu_button.dart';
-import 'package:tensionnode/widgets/resource_icon.dart';
+import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/types/node_type.dart';
+import 'package:tensionplanet/types/resource_type.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/widgets/label.dart';
+import 'package:tensionplanet/widgets/menu_button.dart';
+import 'package:tensionplanet/widgets/resource_icon.dart';
 
 class ConstructMenu extends StatefulWidget {
   final GameComponent game;

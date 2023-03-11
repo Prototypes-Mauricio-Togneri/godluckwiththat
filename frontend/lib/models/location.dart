@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
-import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/extensions/json_location_extension.dart';
+import 'package:tensionplanet/app/constants.dart';
+import 'package:tensionplanet/extensions/json_location_extension.dart';
 
 typedef Locations = List<Location>;
 

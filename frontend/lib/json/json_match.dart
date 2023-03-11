@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/json/json_building.dart';
-import 'package:tensionnode/json/json_headquarters.dart';
-import 'package:tensionnode/json/json_map.dart';
-import 'package:tensionnode/json/json_patches.dart';
-import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionplanet/json/json_building.dart';
+import 'package:tensionplanet/json/json_headquarters.dart';
+import 'package:tensionplanet/json/json_map.dart';
+import 'package:tensionplanet/json/json_patches.dart';
+import 'package:tensionplanet/types/node_type.dart';
 
 part 'json_match.g.dart';
 

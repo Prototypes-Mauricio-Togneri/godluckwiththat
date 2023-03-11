@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tensionnode/widgets/resource_icon.dart';
+import 'package:tensionplanet/widgets/resource_icon.dart';
 
 class ItemRow extends StatelessWidget {
   final String title;

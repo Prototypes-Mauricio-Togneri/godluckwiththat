@@ -3,14 +3,14 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/components/base/map_component.dart';
-import 'package:tensionnode/extensions/json_location_extension.dart';
-import 'package:tensionnode/game/game_state.dart';
-import 'package:tensionnode/game/map_handler.dart';
-import 'package:tensionnode/json/json_match.dart';
-import 'package:tensionnode/utils/palette.dart';
-import 'package:tensionnode/utils/style.dart';
+import 'package:tensionplanet/app/constants.dart';
+import 'package:tensionplanet/components/base/map_component.dart';
+import 'package:tensionplanet/extensions/json_location_extension.dart';
+import 'package:tensionplanet/game/game_state.dart';
+import 'package:tensionplanet/game/map_handler.dart';
+import 'package:tensionplanet/json/json_match.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/utils/style.dart';
 
 class BaseGameComponent extends FlameGame
     with

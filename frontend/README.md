@@ -1,4 +1,4 @@
-# Tension Node
+# Tension Planet
 
 * Show arrow when creating connections
 

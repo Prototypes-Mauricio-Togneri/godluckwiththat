@@ -1,10 +1,10 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/json/json_match.dart';
-import 'package:tensionnode/screens/game_screen.dart';
-import 'package:tensionnode/screens/home_screen.dart';
-import 'package:tensionnode/screens/splash_screen.dart';
-import 'package:tensionnode/utils/locator.dart';
+import 'package:tensionplanet/json/json_match.dart';
+import 'package:tensionplanet/screens/game_screen.dart';
+import 'package:tensionplanet/screens/home_screen.dart';
+import 'package:tensionplanet/screens/splash_screen.dart';
+import 'package:tensionplanet/utils/locator.dart';
 
 class Navigation {
   final Routes routes = Routes();

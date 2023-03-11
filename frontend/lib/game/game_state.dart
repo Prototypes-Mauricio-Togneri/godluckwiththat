@@ -1,17 +1,17 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
-import 'package:tensionnode/components/base/building.dart';
-import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/construction.dart';
-import 'package:tensionnode/components/game/headquarters.dart';
-import 'package:tensionnode/extensions/num_extension.dart';
-import 'package:tensionnode/json/json_building.dart';
-import 'package:tensionnode/json/json_match.dart';
-import 'package:tensionnode/models/location.dart';
-import 'package:tensionnode/models/patches.dart';
-import 'package:tensionnode/models/research.dart';
-import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/utils/map_list.dart';
+import 'package:tensionplanet/components/base/building.dart';
+import 'package:tensionplanet/components/base/node.dart';
+import 'package:tensionplanet/components/game/construction.dart';
+import 'package:tensionplanet/components/game/headquarters.dart';
+import 'package:tensionplanet/extensions/num_extension.dart';
+import 'package:tensionplanet/json/json_building.dart';
+import 'package:tensionplanet/json/json_match.dart';
+import 'package:tensionplanet/models/location.dart';
+import 'package:tensionplanet/models/patches.dart';
+import 'package:tensionplanet/models/research.dart';
+import 'package:tensionplanet/types/node_type.dart';
+import 'package:tensionplanet/utils/map_list.dart';
 
 class GameState extends BaseState {
   num _totalTimeElapsed = 0;

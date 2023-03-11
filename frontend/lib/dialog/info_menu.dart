@@ -1,11 +1,11 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:tensionnode/dialog/base_menu.dart';
-import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/utils/palette.dart';
-import 'package:tensionnode/widgets/label.dart';
-import 'package:tensionnode/widgets/menu_button.dart';
+import 'package:tensionplanet/dialog/base_menu.dart';
+import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/widgets/label.dart';
+import 'package:tensionplanet/widgets/menu_button.dart';
 
 class InfoMenu extends StatefulWidget {
   final GameComponent game;

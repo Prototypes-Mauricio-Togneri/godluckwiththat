@@ -1,9 +1,9 @@
 import 'package:flame/components.dart';
 import 'package:flame/rendering.dart';
-import 'package:tensionnode/extensions/sprite_component_extension.dart';
-import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/utils/environment.dart';
+import 'package:tensionplanet/extensions/sprite_component_extension.dart';
+import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/types/node_type.dart';
+import 'package:tensionplanet/utils/environment.dart';
 
 class BuildingIndicator extends SpriteComponent with HasGameRef<GameComponent> {
   final NodeType type;

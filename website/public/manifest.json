@@ -1,6 +1,6 @@
 {
-    "name": "tensionnode",
-    "short_name": "tensionnode",
+    "name": "tensionplanet",
+    "short_name": "tensionplanet",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

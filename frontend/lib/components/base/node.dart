@@ -1,19 +1,19 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:tensionnode/components/base/building.dart';
-import 'package:tensionnode/components/game/construction.dart';
-import 'package:tensionnode/components/game/headquarters.dart';
-import 'package:tensionnode/extensions/sprite_component_extension.dart';
-import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/models/connection.dart';
-import 'package:tensionnode/models/inventory.dart';
-import 'package:tensionnode/models/location.dart';
-import 'package:tensionnode/models/resource.dart';
-import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/types/resource_type.dart';
-import 'package:tensionnode/utils/palette.dart';
-import 'package:tensionnode/utils/style.dart';
+import 'package:tensionplanet/components/base/building.dart';
+import 'package:tensionplanet/components/game/construction.dart';
+import 'package:tensionplanet/components/game/headquarters.dart';
+import 'package:tensionplanet/extensions/sprite_component_extension.dart';
+import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/models/connection.dart';
+import 'package:tensionplanet/models/inventory.dart';
+import 'package:tensionplanet/models/location.dart';
+import 'package:tensionplanet/models/resource.dart';
+import 'package:tensionplanet/types/node_type.dart';
+import 'package:tensionplanet/types/resource_type.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/utils/style.dart';
 
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final NodeType type;

@@ -1,10 +1,10 @@
-import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/construction.dart';
-import 'package:tensionnode/json/json_headquarters.dart';
-import 'package:tensionnode/models/resource.dart';
-import 'package:tensionnode/types/node_type.dart';
-import 'package:tensionnode/types/resource_type.dart';
-import 'package:tensionnode/utils/every.dart';
+import 'package:tensionplanet/components/base/node.dart';
+import 'package:tensionplanet/components/game/construction.dart';
+import 'package:tensionplanet/json/json_headquarters.dart';
+import 'package:tensionplanet/models/resource.dart';
+import 'package:tensionplanet/types/node_type.dart';
+import 'package:tensionplanet/types/resource_type.dart';
+import 'package:tensionplanet/utils/every.dart';
 
 class Headquarters extends Node {
   final Every every = Every(1);

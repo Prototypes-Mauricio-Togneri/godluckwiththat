@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/screens/splash_screen.dart';
-import 'package:tensionnode/screens/web_initial_screen.dart';
-import 'package:tensionnode/utils/navigation.dart';
-import 'package:tensionnode/utils/palette.dart';
-import 'package:tensionnode/utils/platform.dart';
+import 'package:tensionplanet/app/constants.dart';
+import 'package:tensionplanet/screens/splash_screen.dart';
+import 'package:tensionplanet/screens/web_initial_screen.dart';
+import 'package:tensionplanet/utils/navigation.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/utils/platform.dart';
 
-class TensionNode extends StatelessWidget {
-  const TensionNode();
+class TensionPlanet extends StatelessWidget {
+  const TensionPlanet();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tension Node',
+      title: 'Tension Planet',
       debugShowCheckedModeBanner: false,
       navigatorKey: Navigation.getRoutes.key,
       theme: ThemeData(

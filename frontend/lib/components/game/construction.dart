@@ -1,8 +1,8 @@
-import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/json/json_building.dart';
-import 'package:tensionnode/models/inventory.dart';
-import 'package:tensionnode/models/resource.dart';
-import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionplanet/components/base/node.dart';
+import 'package:tensionplanet/json/json_building.dart';
+import 'package:tensionplanet/models/inventory.dart';
+import 'package:tensionplanet/models/resource.dart';
+import 'package:tensionplanet/types/resource_type.dart';
 
 class Construction extends Node {
   final Inventory requestedResources = Inventory({});

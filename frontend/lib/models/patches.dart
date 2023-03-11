@@ -1,7 +1,7 @@
-import 'package:tensionnode/json/json_patches.dart';
-import 'package:tensionnode/models/location.dart';
-import 'package:tensionnode/models/patch.dart';
-import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionplanet/json/json_patches.dart';
+import 'package:tensionplanet/models/location.dart';
+import 'package:tensionplanet/models/patch.dart';
+import 'package:tensionplanet/types/resource_type.dart';
 
 class Patches {
   final List<Patch> _iron = [];

@@ -1,4 +1,4 @@
-import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionplanet/types/resource_type.dart';
 
 class Resource {
   final ResourceType type;

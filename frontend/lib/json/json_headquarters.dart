@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/extensions/json_location_extension.dart';
-import 'package:tensionnode/models/inventory.dart';
-import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionplanet/extensions/json_location_extension.dart';
+import 'package:tensionplanet/models/inventory.dart';
+import 'package:tensionplanet/types/resource_type.dart';
 
 part 'json_headquarters.g.dart';
 

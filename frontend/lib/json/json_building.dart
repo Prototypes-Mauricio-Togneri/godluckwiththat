@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/extensions/json_location_extension.dart';
+import 'package:tensionplanet/extensions/json_location_extension.dart';
 
 part 'json_building.g.dart';
 

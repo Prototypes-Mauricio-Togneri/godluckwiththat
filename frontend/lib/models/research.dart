@@ -1,4 +1,4 @@
-import 'package:tensionnode/utils/assets.dart';
+import 'package:tensionplanet/utils/assets.dart';
 
 class Research {
   String get droneSprite => Assets.IMAGES_DRONES_BASIC_DRONE;

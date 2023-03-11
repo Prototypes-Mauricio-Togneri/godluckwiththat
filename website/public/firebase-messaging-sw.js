@@ -1,13 +1,13 @@
 importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js');
 
 const firebaseConfig = {
-    apiKey: "AIzaSyA2A6WG6fxumwwrKxOKCYzKZ-bmTkfHuGc",
-    authDomain: "tensionnode.firebaseapp.com",
-    projectId: "tensionnode",
-    storageBucket: "tensionnode.appspot.com",
-    messagingSenderId: "376547971749",
-    appId: "1:376547971749:web:d0e30debf292547050f34c",
-    measurementId: "G-6PG181VGKW"
+    apiKey: "AIzaSyDWAZs8_dNgfZl6EpLnTI7_P-JRvh4SzBI",
+    authDomain: "tensionplanet.firebaseapp.com",
+    projectId: "tensionplanet",
+    storageBucket: "tensionplanet.appspot.com",
+    messagingSenderId: "589993680424",
+    appId: "1:589993680424:web:3f2329afb4dc7c37819f1d",
+    measurementId: "G-P4V5HZYCMR"
 }
 
 firebase.initializeApp(firebaseConfig);

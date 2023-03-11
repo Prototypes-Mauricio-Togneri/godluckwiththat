@@ -1,13 +1,13 @@
-import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/game/buildings/factories/drone_factory.dart';
-import 'package:tensionnode/components/game/signs/filled_sign.dart';
-import 'package:tensionnode/components/game/signs/idle_sign.dart';
-import 'package:tensionnode/components/game/signs/unconnected_sign.dart';
-import 'package:tensionnode/json/json_building.dart';
-import 'package:tensionnode/models/resource.dart';
-import 'package:tensionnode/types/building_state.dart';
-import 'package:tensionnode/types/resource_type.dart';
-import 'package:tensionnode/utils/every.dart';
+import 'package:tensionplanet/components/base/node.dart';
+import 'package:tensionplanet/components/game/buildings/factories/drone_factory.dart';
+import 'package:tensionplanet/components/game/signs/filled_sign.dart';
+import 'package:tensionplanet/components/game/signs/idle_sign.dart';
+import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
+import 'package:tensionplanet/json/json_building.dart';
+import 'package:tensionplanet/models/resource.dart';
+import 'package:tensionplanet/types/building_state.dart';
+import 'package:tensionplanet/types/resource_type.dart';
+import 'package:tensionplanet/utils/every.dart';
 
 class Building extends Node {
   num accumulatedTime = 0; // TODO(momo): receive as parameter

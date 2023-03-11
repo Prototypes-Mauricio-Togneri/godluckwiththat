@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tensionnode/widgets/label.dart';
+import 'package:tensionplanet/widgets/label.dart';
 
 class MenuButton extends StatelessWidget {
   final String text;

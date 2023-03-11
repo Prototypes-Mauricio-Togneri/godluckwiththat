@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/models/resource.dart';
-import 'package:tensionnode/widgets/label.dart';
-import 'package:tensionnode/widgets/menus/item_row.dart';
+import 'package:tensionplanet/models/resource.dart';
+import 'package:tensionplanet/widgets/label.dart';
+import 'package:tensionplanet/widgets/menus/item_row.dart';
 
 class ResourcesSection extends StatelessWidget {
   final String title;

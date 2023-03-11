@@ -1,15 +1,15 @@
-import 'package:tensionnode/components/base/building.dart';
-import 'package:tensionnode/components/base/building_indicator.dart';
-import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/components/base/node_selected.dart';
-import 'package:tensionnode/components/game/headquarters.dart';
-import 'package:tensionnode/dialog/construct_menu.dart';
-import 'package:tensionnode/dialog/main_menu.dart';
-import 'package:tensionnode/dialog/settings_menu.dart';
-import 'package:tensionnode/extensions/component_extension.dart';
-import 'package:tensionnode/game/base_game_component.dart';
-import 'package:tensionnode/types/menu_mode.dart';
-import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionplanet/components/base/building.dart';
+import 'package:tensionplanet/components/base/building_indicator.dart';
+import 'package:tensionplanet/components/base/node.dart';
+import 'package:tensionplanet/components/base/node_selected.dart';
+import 'package:tensionplanet/components/game/headquarters.dart';
+import 'package:tensionplanet/dialog/construct_menu.dart';
+import 'package:tensionplanet/dialog/main_menu.dart';
+import 'package:tensionplanet/dialog/settings_menu.dart';
+import 'package:tensionplanet/extensions/component_extension.dart';
+import 'package:tensionplanet/game/base_game_component.dart';
+import 'package:tensionplanet/types/menu_mode.dart';
+import 'package:tensionplanet/types/node_type.dart';
 
 mixin MenuHandler on BaseGameComponent {
   MenuMode _mode = MenuMode.none;

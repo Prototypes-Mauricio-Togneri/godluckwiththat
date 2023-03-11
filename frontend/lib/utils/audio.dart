@@ -1,7 +1,7 @@
 import 'package:flame_audio/audio_pool.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:tensionnode/storage/audio_storage.dart';
-import 'package:tensionnode/utils/assets.dart';
+import 'package:tensionplanet/storage/audio_storage.dart';
+import 'package:tensionplanet/utils/assets.dart';
 
 class Audio {
   static final Map<String, AudioPool> pool = {};

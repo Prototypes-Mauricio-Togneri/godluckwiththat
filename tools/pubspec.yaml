@@ -1,9 +1,9 @@
-name: tension_node_tools
-description: Tension Node Tools
+name: tension_planet_tools
+description: Tension Planet Tools
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.2 <3.0.0'
+  sdk: '>=2.19.4 <3.0.0'
 
 dependencies:
   xml: ^6.2.2

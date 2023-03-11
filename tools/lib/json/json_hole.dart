@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tension_node_tools/types/types.dart';
+import 'package:tension_planet_tools/types/types.dart';
 
 part 'json_hole.g.dart';
 

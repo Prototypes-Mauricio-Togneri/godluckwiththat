@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tensionnode/dialog/base_menu.dart';
-import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/json/json_match.dart';
-import 'package:tensionnode/platform/clipboard_text.dart';
-import 'package:tensionnode/storage/saved_matches_storage.dart';
-import 'package:tensionnode/utils/palette.dart';
-import 'package:tensionnode/widgets/menu_button.dart';
+import 'package:tensionplanet/dialog/base_menu.dart';
+import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/json/json_match.dart';
+import 'package:tensionplanet/platform/clipboard_text.dart';
+import 'package:tensionplanet/storage/saved_matches_storage.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/widgets/menu_button.dart';
 
 class MainMenu extends StatelessWidget {
   final GameComponent game;

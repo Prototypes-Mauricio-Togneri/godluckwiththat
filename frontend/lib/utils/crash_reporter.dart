@@ -1,6 +1,6 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:tensionnode/utils/environment.dart';
-import 'package:tensionnode/utils/log.dart';
+import 'package:tensionplanet/utils/environment.dart';
+import 'package:tensionplanet/utils/log.dart';
 
 class CrashReporter {
   static void onError(Object error, StackTrace stackTrace) {

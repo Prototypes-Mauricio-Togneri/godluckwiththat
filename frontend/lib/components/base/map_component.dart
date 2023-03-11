@@ -1,9 +1,9 @@
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame_tiled_utils/flame_tiled_utils.dart';
-import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/models/location.dart';
-import 'package:tensionnode/models/map_tile.dart';
+import 'package:tensionplanet/app/constants.dart';
+import 'package:tensionplanet/models/location.dart';
+import 'package:tensionplanet/models/map_tile.dart';
 
 class MapComponent extends TiledComponent {
   late int mapWidth;

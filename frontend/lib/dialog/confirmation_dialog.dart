@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/utils/navigation.dart';
-import 'package:tensionnode/utils/palette.dart';
-import 'package:tensionnode/widgets/label.dart';
+import 'package:tensionplanet/utils/navigation.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/widgets/label.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   final String message;

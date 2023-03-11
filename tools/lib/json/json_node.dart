@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tension_node_tools/types/node_type.dart';
-import 'package:tension_node_tools/types/types.dart';
+import 'package:tension_planet_tools/types/node_type.dart';
+import 'package:tension_planet_tools/types/types.dart';
 
 part 'json_node.g.dart';
 

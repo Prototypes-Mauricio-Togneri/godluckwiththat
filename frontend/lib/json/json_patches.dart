@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/extensions/json_location_extension.dart';
-import 'package:tensionnode/json/json_patch.dart';
-import 'package:tensionnode/models/patch.dart';
-import 'package:tensionnode/models/patches.dart';
-import 'package:tensionnode/types/resource_type.dart';
+import 'package:tensionplanet/extensions/json_location_extension.dart';
+import 'package:tensionplanet/json/json_patch.dart';
+import 'package:tensionplanet/models/patch.dart';
+import 'package:tensionplanet/models/patches.dart';
+import 'package:tensionplanet/types/resource_type.dart';
 
 part 'json_patches.g.dart';
 

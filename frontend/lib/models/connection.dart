@@ -1,5 +1,5 @@
-import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/models/resource.dart';
+import 'package:tensionplanet/components/base/node.dart';
+import 'package:tensionplanet/models/resource.dart';
 
 class Connection {
   final Node to;

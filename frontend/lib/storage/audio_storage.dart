@@ -1,4 +1,4 @@
-import 'package:tensionnode/storage/base_storage.dart';
+import 'package:tensionplanet/storage/base_storage.dart';
 
 class AudioStorage extends Storage {
   static const FIELD_AUDIO_ENABLED = 'audio.enabled';

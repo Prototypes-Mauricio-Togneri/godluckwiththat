@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
-import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/models/location.dart';
+import 'package:tensionplanet/components/base/node.dart';
+import 'package:tensionplanet/models/location.dart';
 
 extension ComponentExtension on Component {
   void removeComponents(Type type) => removeWhere((c) {

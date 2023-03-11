@@ -3,11 +3,11 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/components/base/map_component.dart';
-import 'package:tensionnode/extensions/logical_keyboard_key_extension.dart';
-import 'package:tensionnode/models/location.dart';
-import 'package:tensionnode/models/map_tile.dart';
+import 'package:tensionplanet/app/constants.dart';
+import 'package:tensionplanet/components/base/map_component.dart';
+import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
+import 'package:tensionplanet/models/location.dart';
+import 'package:tensionplanet/models/map_tile.dart';
 
 mixin MapHandler on FlameGame {
   final double MIN_ZOOM = 1;

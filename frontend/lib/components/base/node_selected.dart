@@ -1,14 +1,14 @@
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flutter/rendering.dart';
-import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/components/base/building.dart';
-import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/extensions/sprite_component_extension.dart';
-import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/models/connection.dart';
-import 'package:tensionnode/utils/assets.dart';
-import 'package:tensionnode/utils/palette.dart';
+import 'package:tensionplanet/app/constants.dart';
+import 'package:tensionplanet/components/base/building.dart';
+import 'package:tensionplanet/components/base/node.dart';
+import 'package:tensionplanet/extensions/sprite_component_extension.dart';
+import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/models/connection.dart';
+import 'package:tensionplanet/utils/assets.dart';
+import 'package:tensionplanet/utils/palette.dart';
 
 class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
   final Node node;

@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:tensionnode/platform/empty_url_strategy.dart';
-import 'package:tensionnode/platform/platform_base.dart';
+import 'package:tensionplanet/platform/empty_url_strategy.dart';
+import 'package:tensionplanet/platform/platform_base.dart';
 
 class PlatformMethods extends PlatformMethodsBase {
   @override

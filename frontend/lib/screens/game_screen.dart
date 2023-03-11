@@ -2,16 +2,16 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tensionnode/dialog/construct_menu.dart';
-import 'package:tensionnode/dialog/info_menu.dart';
-import 'package:tensionnode/dialog/main_menu.dart';
-import 'package:tensionnode/dialog/settings_menu.dart';
-import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/game/game_state.dart';
-import 'package:tensionnode/json/json_match.dart';
-import 'package:tensionnode/utils/palette.dart';
-import 'package:tensionnode/widgets/bottom_menu.dart';
-import 'package:tensionnode/widgets/side_menu.dart';
+import 'package:tensionplanet/dialog/construct_menu.dart';
+import 'package:tensionplanet/dialog/info_menu.dart';
+import 'package:tensionplanet/dialog/main_menu.dart';
+import 'package:tensionplanet/dialog/settings_menu.dart';
+import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/game/game_state.dart';
+import 'package:tensionplanet/json/json_match.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/widgets/bottom_menu.dart';
+import 'package:tensionplanet/widgets/side_menu.dart';
 
 class GameScreen extends StatelessWidget {
   final GameState state;

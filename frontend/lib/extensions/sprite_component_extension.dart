@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
-import 'package:tensionnode/app/constants.dart';
+import 'package:tensionplanet/app/constants.dart';
 
 extension ComponentExtension on SpriteComponent {
   Future<Sprite> getSprite(String path) async {

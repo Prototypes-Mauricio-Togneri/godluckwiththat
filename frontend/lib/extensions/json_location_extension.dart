@@ -1,4 +1,4 @@
-import 'package:tensionnode/models/location.dart';
+import 'package:tensionplanet/models/location.dart';
 
 typedef JsonLocation = List<int>;
 

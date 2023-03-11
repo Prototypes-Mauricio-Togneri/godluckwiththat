@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flame/game.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionnode/extensions/json_location_extension.dart';
-import 'package:tensionnode/extensions/num_extension.dart';
+import 'package:tensionplanet/extensions/json_location_extension.dart';
+import 'package:tensionplanet/extensions/num_extension.dart';
 
 part 'json_map.g.dart';
 

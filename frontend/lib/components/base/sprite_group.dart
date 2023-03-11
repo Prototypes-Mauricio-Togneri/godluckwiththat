@@ -1,8 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:flame/image_composition.dart';
 import 'package:flame/sprite.dart';
-import 'package:tensionnode/app/constants.dart';
-import 'package:tensionnode/models/location.dart';
+import 'package:tensionplanet/app/constants.dart';
+import 'package:tensionplanet/models/location.dart';
 
 class SpriteGroup extends Component {
   final String sprite;

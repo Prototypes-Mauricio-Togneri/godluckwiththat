@@ -1,14 +1,14 @@
 import 'dart:io';
-import 'package:tension_node_tools/extensions/xml_element_extension.dart';
-import 'package:tension_node_tools/generators/base_generator.dart';
-import 'package:tension_node_tools/json/json_hole.dart';
-import 'package:tension_node_tools/json/json_match.dart';
-import 'package:tension_node_tools/json/json_node.dart';
-import 'package:tension_node_tools/json/json_patch.dart';
-import 'package:tension_node_tools/json/json_resources.dart';
-import 'package:tension_node_tools/types/node_type.dart';
-import 'package:tension_node_tools/types/resource_type.dart';
-import 'package:tension_node_tools/types/types.dart';
+import 'package:tension_planet_tools/extensions/xml_element_extension.dart';
+import 'package:tension_planet_tools/generators/base_generator.dart';
+import 'package:tension_planet_tools/json/json_hole.dart';
+import 'package:tension_planet_tools/json/json_match.dart';
+import 'package:tension_planet_tools/json/json_node.dart';
+import 'package:tension_planet_tools/json/json_patch.dart';
+import 'package:tension_planet_tools/json/json_resources.dart';
+import 'package:tension_planet_tools/types/node_type.dart';
+import 'package:tension_planet_tools/types/resource_type.dart';
+import 'package:tension_planet_tools/types/types.dart';
 import 'package:xml/xml.dart';
 
 class MatchGenerator extends BaseGenerator {

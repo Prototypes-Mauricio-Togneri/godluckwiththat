@@ -1,15 +1,15 @@
 import 'package:flutter/services.dart';
-import 'package:tensionnode/components/base/building_indicator.dart';
-import 'package:tensionnode/components/base/node.dart';
-import 'package:tensionnode/dialog/construct_menu.dart';
-import 'package:tensionnode/extensions/component_extension.dart';
-import 'package:tensionnode/game/base_game_component.dart';
-import 'package:tensionnode/game/menu_handler.dart';
-import 'package:tensionnode/game/node_handler.dart';
-import 'package:tensionnode/models/location.dart';
-import 'package:tensionnode/models/map_tile.dart';
-import 'package:tensionnode/models/patch.dart';
-import 'package:tensionnode/types/node_type.dart';
+import 'package:tensionplanet/components/base/building_indicator.dart';
+import 'package:tensionplanet/components/base/node.dart';
+import 'package:tensionplanet/dialog/construct_menu.dart';
+import 'package:tensionplanet/extensions/component_extension.dart';
+import 'package:tensionplanet/game/base_game_component.dart';
+import 'package:tensionplanet/game/menu_handler.dart';
+import 'package:tensionplanet/game/node_handler.dart';
+import 'package:tensionplanet/models/location.dart';
+import 'package:tensionplanet/models/map_tile.dart';
+import 'package:tensionplanet/models/patch.dart';
+import 'package:tensionplanet/types/node_type.dart';
 
 class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
   GameComponent(super.state);

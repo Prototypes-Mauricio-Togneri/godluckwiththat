@@ -1,6 +1,6 @@
-import 'package:tensionnode/models/inventory.dart';
-import 'package:tensionnode/types/resource_type.dart';
-import 'package:tensionnode/utils/assets.dart';
+import 'package:tensionplanet/models/inventory.dart';
+import 'package:tensionplanet/types/resource_type.dart';
+import 'package:tensionplanet/utils/assets.dart';
 
 enum NodeType {
   headquarters(

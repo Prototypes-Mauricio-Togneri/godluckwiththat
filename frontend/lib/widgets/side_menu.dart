@@ -1,14 +1,14 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/components/base/building.dart';
-import 'package:tensionnode/components/game/construction.dart';
-import 'package:tensionnode/components/game/headquarters.dart';
-import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/game/game_state.dart';
-import 'package:tensionnode/utils/palette.dart';
-import 'package:tensionnode/widgets/menus/building_menu.dart';
-import 'package:tensionnode/widgets/menus/construction_menu.dart';
-import 'package:tensionnode/widgets/menus/headquarters_menu.dart';
+import 'package:tensionplanet/components/base/building.dart';
+import 'package:tensionplanet/components/game/construction.dart';
+import 'package:tensionplanet/components/game/headquarters.dart';
+import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/game/game_state.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/widgets/menus/building_menu.dart';
+import 'package:tensionplanet/widgets/menus/construction_menu.dart';
+import 'package:tensionplanet/widgets/menus/headquarters_menu.dart';
 
 class SideMenu extends StatelessWidget {
   final GameComponent game;

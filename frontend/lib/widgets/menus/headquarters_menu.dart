@@ -1,11 +1,11 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionnode/components/game/headquarters.dart';
-import 'package:tensionnode/game/game_component.dart';
-import 'package:tensionnode/utils/palette.dart';
-import 'package:tensionnode/widgets/label.dart';
-import 'package:tensionnode/widgets/menu_button.dart';
-import 'package:tensionnode/widgets/menus/resources_section.dart';
+import 'package:tensionplanet/components/game/headquarters.dart';
+import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/widgets/label.dart';
+import 'package:tensionplanet/widgets/menu_button.dart';
+import 'package:tensionplanet/widgets/menus/resources_section.dart';
 
 class HeadquartersMenu extends StatelessWidget {
   final GameComponent game;
