@@ -226,7 +226,7 @@ class BuildingCard extends StatelessWidget {
             children: [
               Label(
                 text: type.toString().toUpperCase(),
-                size: 10,
+                size: 8,
                 align: TextAlign.center,
               ),
               const VBox(10),
@@ -247,7 +247,7 @@ class BuildingCard extends StatelessWidget {
                       title: entry.key.toString(),
                       sprite: entry.key.sprite,
                       amount: entry.value.toString(),
-                      size: 20,
+                      size: 15,
                     ),
                 ],
               ),
