@@ -5,8 +5,8 @@ set -e
 BASE_DIR=`dirname $0`
 
 FORMAT="json"
-TOKEN="a6960eee-78d5-41fc-af60-17f057e5467c"
-URL="https://script.google.com/macros/s/AKfycbzTusLIHZQ3KnrYwtgCuxbmU5DTLhMbnl4UxVysQ1qKnxhR4J0W3hCTKBSamddqctY/exec"
+TOKEN="c1005150-df8b-40a6-97bb-0308fd7a8431"
+URL="https://script.google.com/macros/s/AKfycbwU18OiJD0ZEzY__HHHAfA7DrfKXtt1GR2hoYHiuICX52K4dWw0Z0DaRypNS0mnsLnUng/exec"
 
 wget -O "${BASE_DIR}/../assets/i18n/en.json" "${URL}?locale=en&format=${FORMAT}&token=${TOKEN}"
 wget -O "${BASE_DIR}/../assets/i18n/es.json" "${URL}?locale=es&format=${FORMAT}&token=${TOKEN}"

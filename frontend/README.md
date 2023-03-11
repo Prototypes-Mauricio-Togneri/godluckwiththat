@@ -4,7 +4,6 @@
 
 * Save/load game state
 * Setup tensionplanet.com
-* Setup localization
 
 * Show resource being transferred in each connection
 * Transport specific resources (e.g. move surplus resources out of the node)
