@@ -37,11 +37,18 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
 const _$NodeTypeEnumMap = {
   NodeType.headquarters: 'headquarters',
   NodeType.solar_panel: 'solar_panel',
+  NodeType.wind_turbine: 'wind_turbine',
+  NodeType.coal_power_plant: 'coal_power_plant',
   NodeType.iron_mine: 'iron_mine',
   NodeType.copper_mine: 'copper_mine',
   NodeType.coal_mine: 'coal_mine',
+  NodeType.oil_rig: 'oil_rig',
   NodeType.stone_mine: 'stone_mine',
   NodeType.iron_smelter: 'iron_smelter',
   NodeType.copper_smelter: 'copper_smelter',
+  NodeType.steel_smelter: 'steel_smelter',
+  NodeType.chemical_plant: 'chemical_plant',
+  NodeType.gear_assembly: 'gear_assembly',
+  NodeType.circuit_assembly: 'circuit_assembly',
   NodeType.drone_factory: 'drone_factory',
 };

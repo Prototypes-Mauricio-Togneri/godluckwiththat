@@ -176,5 +176,6 @@ class Building extends Node {
 
   JsonBuilding get json => JsonBuilding(
         location: location.json,
+        inventory: inventory.json,
       );
 }

@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionplanet/extensions/json_location_extension.dart';
+import 'package:tensionplanet/models/inventory.dart';
+import 'package:tensionplanet/types/resource_type.dart';
 
 part 'json_building.g.dart';
 
@@ -9,8 +11,12 @@ class JsonBuilding {
   @JsonKey(name: 'location')
   final JsonLocation location;
 
+  @JsonKey(name: 'inventory')
+  final JsonInventory inventory;
+
   const JsonBuilding({
     required this.location,
+    required this.inventory,
   });
 
   factory JsonBuilding.fromString(String json) =>
