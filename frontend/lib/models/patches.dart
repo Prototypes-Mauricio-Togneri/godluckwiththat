@@ -59,6 +59,12 @@ class Patches {
       }
     }
 
+    for (final Patch patch in _oil) {
+      if (patch.isAt(location)) {
+        return patch;
+      }
+    }
+
     for (final Patch patch in _stone) {
       if (patch.isAt(location)) {
         return patch;

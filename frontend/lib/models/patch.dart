@@ -1,7 +1,6 @@
 import 'package:tensionplanet/json/json_patch.dart';
 import 'package:tensionplanet/models/location.dart';
 import 'package:tensionplanet/types/patch_type.dart';
-import 'package:tensionplanet/types/resource_type.dart';
 
 class Patch {
   final PatchType type;
@@ -14,15 +13,15 @@ class Patch {
     required this.amount,
   });
 
-  bool get isIron => type == ResourceType.iron_ore;
+  bool get isIron => type == PatchType.iron;
 
-  bool get isCopper => type == ResourceType.copper_ore;
+  bool get isCopper => type == PatchType.copper;
 
-  bool get isCoal => type == ResourceType.coal_ore;
+  bool get isCoal => type == PatchType.coal;
 
-  bool get isOil => type == ResourceType.oil;
+  bool get isOil => type == PatchType.oil;
 
-  bool get isStone => type == ResourceType.stone_ore;
+  bool get isStone => type == PatchType.stone;
 
   bool isAt(Location location) => this.location == location;
 
