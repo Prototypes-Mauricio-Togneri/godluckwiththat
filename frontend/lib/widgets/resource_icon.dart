@@ -21,6 +21,11 @@ class ResourceIcon extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        Label(
+          text: amount,
+          size: size / 2,
+        ),
+        const HBox(5),
         Tooltip(
           message: title.toUpperCase(),
           padding: const EdgeInsets.only(
@@ -43,11 +48,6 @@ class ResourceIcon extends StatelessWidget {
               'images/$sprite',
             ),
           ),
-        ),
-        const HBox(5),
-        Label(
-          text: amount,
-          size: size / 2,
         ),
       ],
     );
