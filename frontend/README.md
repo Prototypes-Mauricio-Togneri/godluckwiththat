@@ -1,6 +1,5 @@
 # Tension Planet
 
-* Show producing progress in left menu
 * Show warning messages if connections don't work
 * Save/load game state
 * Transport specific resources (e.g. move surplus resources out of the node)

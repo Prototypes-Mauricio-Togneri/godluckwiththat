@@ -1,8 +1,6 @@
-import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tensionplanet/app/constants.dart';
-import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/game/game_component.dart';
@@ -47,24 +45,6 @@ class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
         position.toOffset(),
         _paintConnections,
       );
-    }
-
-    if (node is Building) {
-      final Building building = node as Building;
-
-      if (building.state.isWorking) {
-        canvas.drawArc(
-          Rect.fromCenter(
-            center: (getSize() / 2).toOffset(),
-            width: size.x / 2,
-            height: size.x / 2,
-          ),
-          0,
-          (2 * pi) * building.producingProcess,
-          true,
-          _paintProducing,
-        );
-      }
     }
   }
 }

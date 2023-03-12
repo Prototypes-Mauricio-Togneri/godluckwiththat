@@ -49,6 +49,7 @@ class BuildingMenu extends StatelessWidget {
                   ResourceType.drone, node.inventory.get(ResourceType.drone))
             ],
           ),
+        ProducingIndicator(node),
         if (!node.hasConnections)
           const WarningMessage('Building not connected'),
         if (node.state.isIdle) const WarningMessage('Building not producing'),
@@ -143,6 +144,33 @@ class RecipeSection extends StatelessWidget {
             size: 25,
           ),
       ],
+    );
+  }
+}
+
+class ProducingIndicator extends StatelessWidget {
+  final Building building;
+
+  const ProducingIndicator(this.building);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Stack(
+        children: [
+          Container(
+            width: 280,
+            height: 20,
+            color: Palette.white,
+          ),
+          Container(
+            width: 280 * building.producingProcess,
+            height: 20,
+            color: Palette.lightGrey,
+          ),
+        ],
+      ),
     );
   }
 }

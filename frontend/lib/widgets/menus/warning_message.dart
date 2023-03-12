@@ -10,7 +10,7 @@ class WarningMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 20),
       width: double.infinity,
       padding: const EdgeInsets.all(5),
       color: Palette.error,

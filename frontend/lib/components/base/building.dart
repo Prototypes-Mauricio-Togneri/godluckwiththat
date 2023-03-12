@@ -121,6 +121,7 @@ class Building extends Node {
 
   void _produce(double dt) {
     accumulatedTime += dt;
+    updateMenu();
 
     if (accumulatedTime >= type.productionTime) {
       accumulatedTime = 0;
