@@ -1,5 +1,6 @@
 # Tension Planet
 
+* Make input section in building horizontal
 * Stop/resume constructions and buildings (stop receiving resources)
 * Implement input max capacity
 * Save/load game state
