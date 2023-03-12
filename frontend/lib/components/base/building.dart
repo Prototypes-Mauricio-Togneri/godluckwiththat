@@ -29,6 +29,8 @@ class Building extends Node {
   })  : input = type.input,
         output = type.output;
 
+  bool get outputFilled => outputAmount >= game.state.research.outputQueueLimit;
+
   double get producingProcess => accumulatedTime / type.productionTime;
 
   ResourceType get resourceProduced => output.keys.first;
@@ -102,7 +104,7 @@ class Building extends Node {
     if (state.isIdle) {
       if (!_hasEnoughResources()) {
         _showIdleSign();
-      } else if (outputAmount >= game.state.research.outputQueueLimit) {
+      } else if (outputFilled) {
         _showFilledSign();
       } else {
         for (final ResourceType type in input.keys) {

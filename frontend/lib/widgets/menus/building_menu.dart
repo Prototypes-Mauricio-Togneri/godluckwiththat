@@ -51,6 +51,8 @@ class BuildingMenu extends StatelessWidget {
           ),
         if (!node.hasConnections)
           const WarningMessage('Building not connected'),
+        if (node.state.isIdle) const WarningMessage('Building not producing'),
+        if (node.outputFilled) const WarningMessage('Output queue filled'),
         const Spacer(),
         RecipeSection(node),
         const VBox(20),
