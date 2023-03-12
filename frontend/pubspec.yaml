@@ -8,9 +8,10 @@ environment:
 
 dependencies:
   get_it: ^7.2.0
-  logger: ^1.2.2
+  logger: ^1.3.0
   dafluta: ^4.9.2
   url_strategy: ^0.2.0
+  motion_toast: ^2.6.5
   json_annotation: ^4.8.0
   package_info_plus: ^3.0.3
   shared_preferences: ^2.0.18
@@ -20,10 +21,10 @@ dependencies:
   flame_tiled: ^1.9.1
   flame_tiled_utils: ^1.0.7
 
-  cloud_firestore: ^4.4.3
-  firebase_core: ^2.7.0
-  firebase_auth: ^4.2.9
-  firebase_crashlytics: ^3.0.15
+  cloud_firestore: ^4.4.4
+  firebase_core: ^2.7.1
+  firebase_auth: ^4.2.10
+  firebase_crashlytics: ^3.0.16
 
   flutter:
     sdk: flutter

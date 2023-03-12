@@ -110,15 +110,11 @@ mixin MenuHandler on BaseGameComponent {
       if (from.hasConnection(to)) {
         from.removeDroneConnection(to);
       } else {
-        _addConnection(from, to);
+        if (to.isHeadquarters ||
+            ((to is Building) && to.canReceiveFrom(from as Building))) {
+          from.addDroneConnection(to);
+        }
       }
-    }
-  }
-
-  void _addConnection(Node from, Node to) {
-    if (to.isHeadquarters ||
-        ((to is Building) && to.canReceiveFrom(from as Building))) {
-      from.addDroneConnection(to);
     }
   }
 

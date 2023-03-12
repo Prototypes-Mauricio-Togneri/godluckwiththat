@@ -13,6 +13,8 @@ class Navigation {
 
   static Routes get getRoutes => _get.routes;
 
+  static BuildContext get context => _get.routes.key.currentContext!;
+
   static Route<dynamic>? get currentRoute => _get.routes.current();
 
   static bool isCurrent(String name) => currentRoute?.settings.name == name;

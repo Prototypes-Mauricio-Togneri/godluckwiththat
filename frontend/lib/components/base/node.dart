@@ -15,6 +15,7 @@ import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/utils/style.dart';
+import 'package:tensionplanet/utils/toast.dart';
 
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final NodeType type;
@@ -106,11 +107,13 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   bool hasConnection(Node to) => getConnection(to) != null;
 
   void addDroneConnection(Node to) {
-    if (hasDrones && !hasConnection(to)) {
+    if (hasDrones) {
       final Resource resource = Resource.one(ResourceType.drone);
       inventory.removeResource(resource);
       connections.add(Connection(to));
       updateMenu();
+    } else {
+      Toast.show('No drones available to make a connection');
     }
   }
 
