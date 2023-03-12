@@ -90,8 +90,10 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
       final Resource resource = Resource.one(ResourceType.drone);
       inventory.removeResource(resource);
       node.inventory.addResource(resource);
+      updateMenu();
+    } else {
+      Toast.show('No drones available to transfer');
     }
-    updateMenu();
   }
 
   Connection? getConnection(Node to) {
