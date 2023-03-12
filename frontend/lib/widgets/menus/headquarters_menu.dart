@@ -49,8 +49,6 @@ class HeadquartersMenu extends StatelessWidget {
     );
   }
 
-  //void _onTransferDrone() => game.enableTransferDroneMode();
-
   void _onCenter() => game.centerMap(node.position);
 
   void _closeMenu() => game.unselectNode();
