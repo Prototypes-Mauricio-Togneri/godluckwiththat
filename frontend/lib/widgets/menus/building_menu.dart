@@ -49,7 +49,7 @@ class BuildingMenu extends StatelessWidget {
                   ResourceType.drone, node.inventory.get(ResourceType.drone))
             ],
           ),
-        ProducingIndicator(node),
+        if (node.state.isWorking) ProducingIndicator(node),
         if (!node.hasConnections)
           const WarningMessage('Building not connected'),
         if (node.state.isIdle) const WarningMessage('Building not producing'),

@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
@@ -14,9 +15,21 @@ class WarningMessage extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(5),
       color: Palette.error,
-      child: Label(
-        text: message.toUpperCase(),
-        align: TextAlign.center,
+      child: Row(
+        children: [
+          const HBox(10),
+          const Icon(
+            Icons.warning,
+            color: Palette.white,
+            size: 15,
+          ),
+          const HBox(10),
+          Label(
+            text: message.toUpperCase(),
+            align: TextAlign.center,
+            size: 12,
+          ),
+        ],
       ),
     );
   }
