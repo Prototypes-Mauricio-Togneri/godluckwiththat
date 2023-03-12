@@ -4,10 +4,12 @@ import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/dialog/confirmation_dialog.dart';
 import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
 import 'package:tensionplanet/widgets/menus/resources_section.dart';
+import 'package:tensionplanet/widgets/resource_icon.dart';
 
 class BuildingMenu extends StatelessWidget {
   final GameComponent game;
@@ -42,6 +44,8 @@ class BuildingMenu extends StatelessWidget {
           resources: node.restInventory.where((e) => e.amount > 0).toList(),
         ),
         const Spacer(),
+        RecipeSection(node),
+        const VBox(20),
         MenuButton(
           text: 'Center',
           icon: Icons.filter_tilt_shift,
@@ -80,4 +84,53 @@ class BuildingMenu extends StatelessWidget {
   }
 
   void _closeMenu() => game.unselectNode();
+}
+
+class RecipeSection extends StatelessWidget {
+  final Building building;
+
+  const RecipeSection(this.building);
+
+  @override
+  Widget build(BuildContext context) {
+    final List<ResourceType> inputs = building.input.keys.toList();
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        for (int i = 0; i < inputs.length; i++)
+          Row(
+            children: [
+              if (i != 0)
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: Label(
+                    text: '+',
+                    size: 20,
+                  ),
+                ),
+              ResourceIcon(
+                title: inputs[i].toString(),
+                sprite: inputs[i].sprite,
+                amount: '${building.input[inputs[i]]!}',
+                size: 25,
+              ),
+            ],
+          ),
+        const HBox(10),
+        const Label(
+          text: '=',
+          size: 20,
+        ),
+        const HBox(10),
+        for (final ResourceType type in building.output.keys)
+          ResourceIcon(
+            title: type.toString(),
+            sprite: type.sprite,
+            amount: '${building.output[type]!}',
+            size: 25,
+          ),
+      ],
+    );
+  }
 }

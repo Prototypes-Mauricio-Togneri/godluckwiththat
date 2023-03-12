@@ -54,6 +54,7 @@ class Construction extends Node {
       resource.type,
       resource.amount,
     ));
+    updateMenu();
 
     if (remainingResources.isEmpty) {
       destroy(false);
