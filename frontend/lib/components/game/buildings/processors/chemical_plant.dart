@@ -1,6 +1,5 @@
 import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/types/node_type.dart';
-import 'package:tensionplanet/types/resource_type.dart';
 
 class ChemicalPlant extends Building {
   ChemicalPlant({
@@ -9,10 +8,5 @@ class ChemicalPlant extends Building {
     required super.connections,
   }) : super(
           type: NodeType.chemical_plant,
-          resourcesRequired: [
-            ResourceType.energy,
-            ResourceType.oil,
-          ],
-          resourcesProduced: ResourceType.plastic,
         );
 }

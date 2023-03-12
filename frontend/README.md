@@ -4,14 +4,6 @@
 
 ------------
 
-Move
-resourcesRequired: [ResourceType.coal_ore],
-resourcesProduced: ResourceType.energy,
-
-to NodeType
-
-------------
-
 Simplify the inventory. Make it from the resourcesRequired in the NodeType
 
 _addCoalPowerPlant(
@@ -25,6 +17,7 @@ _addCoalPowerPlant(
 
 ------------
 
+* Show building recipe (input -> output) in building details
 * Add oil patches in map
 * Save/load game state
 * Transport specific resources (e.g. move surplus resources out of the node)

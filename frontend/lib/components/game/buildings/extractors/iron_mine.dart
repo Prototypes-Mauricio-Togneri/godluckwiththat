@@ -1,6 +1,5 @@
 import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/types/node_type.dart';
-import 'package:tensionplanet/types/resource_type.dart';
 
 class IronMine extends Building {
   IronMine({
@@ -9,7 +8,5 @@ class IronMine extends Building {
     required super.connections,
   }) : super(
           type: NodeType.iron_mine,
-          resourcesRequired: [ResourceType.energy],
-          resourcesProduced: ResourceType.iron_ore,
         );
 }

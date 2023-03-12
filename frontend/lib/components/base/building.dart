@@ -4,6 +4,7 @@ import 'package:tensionplanet/components/game/signs/idle_sign.dart';
 import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
 import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/models/efficiency.dart';
+import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/building_state.dart';
 import 'package:tensionplanet/types/resource_type.dart';
@@ -12,8 +13,8 @@ import 'package:tensionplanet/utils/every.dart';
 class Building extends Node {
   num accumulatedTime = 0; // TODO(momo): receive as parameter
   BuildingState state = BuildingState.idle; // TODO(momo): receive as parameter
-  final List<ResourceType> resourcesRequired;
-  final ResourceType resourcesProduced;
+  final ResourceMap input;
+  final ResourceMap output;
   final Every every = Every(1);
   final Efficiency efficiency = Efficiency();
   IdleSign? idleSign;
@@ -25,26 +26,26 @@ class Building extends Node {
     required super.location,
     required super.inventory,
     required super.connections,
-    required this.resourcesRequired,
-    required this.resourcesProduced,
-  });
-
-  int get outputGeneration => 1;
+  })  : input = type.input,
+        output = type.output;
 
   double get producingProcess => accumulatedTime / type.productionTime;
 
-  int get output => inventory.get(resourcesProduced);
+  ResourceType get resourceProduced => output.keys.first;
 
-  List<Resource> get inputInventory =>
-      inventory.list.where((e) => resourcesRequired.contains(e.type)).toList();
+  int get outputAmount => inventory.get(resourceProduced);
+
+  bool isInInput(Resource resource) => input[resource.type] != null;
+
+  bool isInOutput(Resource resource) => output[resource.type] != null;
+
+  List<Resource> get inputInventory => inventory.list.where(isInInput).toList();
 
   List<Resource> get outputInventory =>
-      inventory.list.where((e) => e.type == resourcesProduced).toList();
+      inventory.list.where(isInOutput).toList();
 
-  List<Resource> get restInventory => inventory.list
-      .where((e) =>
-          (e.type != resourcesProduced) && !resourcesRequired.contains(e.type))
-      .toList();
+  List<Resource> get restInventory =>
+      inventory.list.where((e) => !isInInput(e) && !isInOutput(e)).toList();
 
   @override
   Future onLoad() {
@@ -63,9 +64,12 @@ class Building extends Node {
       _produce(dt);
     }
 
-    if ((output > 0) && hasConnections && !isDroneFactory && every.available) {
+    if ((outputAmount > 0) &&
+        hasConnections &&
+        !isDroneFactory &&
+        every.available) {
       // TODO(momo): send resource slowly by a drone
-      final Resource resource = Resource.one(resourcesProduced);
+      final Resource resource = Resource.one(resourceProduced);
       getAvailableConnection.to.receiveResource(resource);
       inventory.removeResource(resource);
       _startProducing();
@@ -79,8 +83,8 @@ class Building extends Node {
   }
 
   bool get hasEnoughResources {
-    for (final ResourceType type in resourcesRequired) {
-      if (inventory.get(type) == 0) {
+    for (final ResourceType type in input.keys) {
+      if (inventory.get(type) < input[type]!) {
         return false;
       }
     }
@@ -92,11 +96,11 @@ class Building extends Node {
     if (state.isIdle) {
       if (!hasEnoughResources) {
         _showIdleSign();
-      } else if (output >= game.state.research.outputQueueLimit) {
+      } else if (outputAmount >= game.state.research.outputQueueLimit) {
         _showFilledSign();
       } else {
-        for (final ResourceType type in resourcesRequired) {
-          inventory.removeResource(Resource.one(type));
+        for (final ResourceType type in input.keys) {
+          inventory.removeResource(Resource(type, input[type]!));
         }
 
         state = BuildingState.working;
@@ -112,7 +116,9 @@ class Building extends Node {
 
     if (accumulatedTime >= type.productionTime) {
       accumulatedTime = 0;
-      inventory.addResource(Resource(resourcesProduced, outputGeneration));
+      final Resource resource =
+          Resource(resourceProduced, output[resourceProduced]!);
+      inventory.addResource(resource);
       state = BuildingState.idle;
       _startProducing();
     }

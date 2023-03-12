@@ -1,6 +1,5 @@
 import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/types/node_type.dart';
-import 'package:tensionplanet/types/resource_type.dart';
 
 class WindTurbine extends Building {
   WindTurbine({
@@ -9,10 +8,5 @@ class WindTurbine extends Building {
     required super.connections,
   }) : super(
           type: NodeType.wind_turbine,
-          resourcesRequired: [],
-          resourcesProduced: ResourceType.energy,
         );
-
-  @override
-  int get outputGeneration => 5;
 }
