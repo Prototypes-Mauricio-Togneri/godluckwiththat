@@ -9,6 +9,7 @@ import 'package:tensionplanet/extensions/component_extension.dart';
 import 'package:tensionplanet/game/base_game_component.dart';
 import 'package:tensionplanet/types/menu_mode.dart';
 import 'package:tensionplanet/types/node_type.dart';
+import 'package:tensionplanet/utils/toast.dart';
 
 mixin MenuHandler on BaseGameComponent {
   MenuMode _mode = MenuMode.none;
@@ -106,9 +107,15 @@ mixin MenuHandler on BaseGameComponent {
       if (from.hasConnection(to)) {
         from.removeDroneConnection(to);
       } else {
-        if (to.isHeadquarters ||
-            ((to is Building) && to.canReceiveFrom(from as Building))) {
+        if (to.isHeadquarters) {
           from.addDroneConnection(to);
+        } else if (to is Building) {
+          if (to.canReceiveFrom(from as Building)) {
+            from.addDroneConnection(to);
+          } else {
+            Toast.show(
+                "Target building doesn't accept ${from.resourceProduced.toString()}");
+          }
         }
       }
     }
