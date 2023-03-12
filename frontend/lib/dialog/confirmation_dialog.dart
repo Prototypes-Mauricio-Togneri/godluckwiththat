@@ -64,30 +64,43 @@ class ConfirmationDialog extends StatelessWidget {
         color: Palette.white,
       ),
       actions: [
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Palette.primary,
-            minimumSize: const Size(0, 45),
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 10,
+            right: 10,
+            bottom: 10,
           ),
-          onPressed: () {
-            Navigation.pop();
-            onCancel.call();
-          },
-          child: Label(
-            text: buttonCancel.toUpperCase(),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Palette.primary,
+              minimumSize: const Size(0, 45),
+            ),
+            onPressed: () {
+              Navigation.pop();
+              onCancel.call();
+            },
+            child: Label(
+              text: buttonCancel.toUpperCase(),
+            ),
           ),
         ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Palette.error,
-            minimumSize: const Size(0, 45),
+        Padding(
+          padding: const EdgeInsets.only(
+            right: 10,
+            bottom: 10,
           ),
-          onPressed: () {
-            Navigation.pop();
-            onAccept.call();
-          },
-          child: Label(
-            text: buttonAccept.toUpperCase(),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Palette.error,
+              minimumSize: const Size(0, 45),
+            ),
+            onPressed: () {
+              Navigation.pop();
+              onAccept.call();
+            },
+            child: Label(
+              text: buttonAccept.toUpperCase(),
+            ),
           ),
         ),
       ],
