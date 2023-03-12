@@ -1,3 +1,4 @@
+import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/components/base/building_indicator.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/base/node_selected.dart';
@@ -115,7 +116,8 @@ mixin MenuHandler on BaseGameComponent {
   }
 
   void _addConnection(Node from, Node to) {
-    if (to.isBuildingOrHeadquarters) {
+    if (to.isHeadquarters ||
+        ((to is Building) && to.canReceiveFrom(from as Building))) {
       from.addDroneConnection(to);
     }
   }

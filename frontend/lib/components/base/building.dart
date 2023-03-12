@@ -82,6 +82,12 @@ class Building extends Node {
     }
   }
 
+  bool canReceiveFrom(Building building) {
+    final ResourceType type = building.resourceProduced;
+
+    return input.keys.contains(type);
+  }
+
   bool _hasEnoughResources() {
     for (final ResourceType type in input.keys) {
       if (inventory.get(type) < input[type]!) {
