@@ -27,7 +27,6 @@ _addCoalPowerPlant(
 
 * Add oil patches in map
 * Save/load game state
-* Setup tensionplanet.com
 * Transport specific resources (e.g. move surplus resources out of the node)
 
 Building problems:

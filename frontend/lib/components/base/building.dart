@@ -3,6 +3,7 @@ import 'package:tensionplanet/components/game/signs/filled_sign.dart';
 import 'package:tensionplanet/components/game/signs/idle_sign.dart';
 import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
 import 'package:tensionplanet/json/json_building.dart';
+import 'package:tensionplanet/models/efficiency.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/building_state.dart';
 import 'package:tensionplanet/types/resource_type.dart';
@@ -14,11 +15,10 @@ class Building extends Node {
   final List<ResourceType> resourcesRequired;
   final ResourceType resourcesProduced;
   final Every every = Every(1);
+  final Efficiency efficiency = Efficiency();
   IdleSign? idleSign;
   FilledSign? filledSign;
   UnconnectedSign? unconnectedSign;
-  double timeWorking = 0;
-  double timeTotal = 0;
 
   Building({
     required super.type,
@@ -57,20 +57,10 @@ class Building extends Node {
   void update(double dt) {
     super.update(dt);
     every.update(dt);
+    efficiency.update(this, dt);
 
     if (state.isWorking) {
       _produce(dt);
-      timeWorking += dt;
-    }
-
-    timeTotal += dt;
-
-    final int efficiency = (((timeWorking / timeTotal) * 10).toInt()) * 10;
-    efficiencyText.text = '$efficiency%';
-
-    if (timeTotal > 60) {
-      timeWorking = 0;
-      timeTotal = 0;
     }
 
     if ((output > 0) && hasConnections && !isDroneFactory && every.available) {
