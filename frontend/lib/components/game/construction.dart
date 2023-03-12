@@ -5,14 +5,14 @@ import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
 class Construction extends Node {
-  final Inventory requestedResources = Inventory({});
-  final Inventory remainingResources = Inventory({});
+  final Inventory requestedResources = Inventory.empty();
+  final Inventory remainingResources = Inventory.empty();
 
   Construction({
     required super.type,
     required super.location,
   }) : super(
-          inventory: Inventory({}),
+          inventory: Inventory.empty(),
           connections: [],
         );
 

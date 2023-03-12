@@ -465,139 +465,91 @@ mixin NodeHandler on BaseGameComponent {
       case NodeType.solar_panel:
         return _addSolarPanel(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.wind_turbine:
         return _addWindTurbine(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.coal_power_plant:
         return _addCoalPowerPlant(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-            ResourceType.coal_ore: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.iron_mine:
         return _addIronMine(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-            ResourceType.iron_ore: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.copper_mine:
         return _addCopperMine(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-            ResourceType.copper_ore: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.coal_mine:
         return _addCoalMine(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-            ResourceType.coal_ore: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.oil_rig:
         return _addOilRig(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.stone_mine:
         return _addStoneMine(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-            ResourceType.stone_ore: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.iron_smelter:
         return _addIronSmelter(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-            ResourceType.iron_ore: 0,
-            ResourceType.iron_block: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.copper_smelter:
         return _addCopperSmelter(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-            ResourceType.copper_ore: 0,
-            ResourceType.copper_block: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.steel_smelter:
         return _addSteelSmelter(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-            ResourceType.iron_block: 0,
-            ResourceType.coal_ore: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.chemical_plant:
         return _addChemicalPlant(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-            ResourceType.oil: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.gear_assembly:
         return _addGearAssembly(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-            ResourceType.steel: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.circuit_assembly:
         return _addCircuitAssembly(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-            ResourceType.copper_block: 0,
-            ResourceType.plastic: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.drone_factory:
         return _addDroneFactory(
           location: location,
-          inventory: Inventory({
-            ResourceType.energy: 0,
-            ResourceType.iron_block: 0,
-            ResourceType.copper_block: 0,
-            ResourceType.drone: 0,
-          }),
+          inventory: Inventory.fromNodeType(type),
           connections: [],
         );
       case NodeType.headquarters:

@@ -1,4 +1,5 @@
 import 'package:tensionplanet/models/resource.dart';
+import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/json.dart';
 
@@ -9,7 +10,7 @@ typedef ResourceMap = Map<ResourceType, int>;
 class Inventory {
   final ResourceMap _resources;
 
-  Inventory(this._resources);
+  Inventory._(this._resources);
 
   List<Resource> get list =>
       _resources.entries.map((e) => Resource(e.key, e.value)).toList();
@@ -54,6 +55,8 @@ class Inventory {
 
   JsonInventory get json => _resources;
 
+  factory Inventory.empty() => Inventory._({});
+
   factory Inventory.fromJson(JsonInventory map) {
     final ResourceMap resourceMap = {};
 
@@ -61,7 +64,21 @@ class Inventory {
       resourceMap[entry.key] = entry.value;
     }
 
-    return Inventory(resourceMap);
+    return Inventory._(resourceMap);
+  }
+
+  factory Inventory.fromNodeType(NodeType type) {
+    final ResourceMap resourceMap = {};
+
+    for (final MapEntry<ResourceType, int> entry in type.input.entries) {
+      resourceMap[entry.key] = 0;
+    }
+
+    for (final MapEntry<ResourceType, int> entry in type.output.entries) {
+      resourceMap[entry.key] = 0;
+    }
+
+    return Inventory._(resourceMap);
   }
 
   @override
