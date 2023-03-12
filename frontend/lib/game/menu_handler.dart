@@ -93,11 +93,7 @@ mixin MenuHandler on BaseGameComponent {
     } else if (isControlPressed && hasNodeSelected) {
       _toggleConnection(selectedNode(), node);
     } else if (isShiftPressed && hasNodeSelected) {
-      final Node from = selectedNode();
-
-      if (from.isBuildingOrHeadquarters && node.isBuildingOrHeadquarters) {
-        from.transferDroneTo(node);
-      }
+      _transferDrone(selectedNode(), node);
     } else if (!isInSpecialMode) {
       _selectNode(node);
     }
@@ -115,6 +111,12 @@ mixin MenuHandler on BaseGameComponent {
           from.addDroneConnection(to);
         }
       }
+    }
+  }
+
+  void _transferDrone(Node from, Node to) {
+    if (from.isBuildingOrHeadquarters && to.isBuildingOrHeadquarters) {
+      from.transferDroneTo(to);
     }
   }
 
