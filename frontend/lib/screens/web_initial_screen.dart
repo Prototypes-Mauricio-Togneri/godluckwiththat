@@ -23,7 +23,7 @@ class WebInitialScreen extends StatelessWidget {
             child: Container(
               color: Palette.black,
               child: Center(
-                child: Label(text: Localized.get.splashWeb.toUpperCase()),
+                child: Label(text: Localized.get.splashWeb),
               ),
             ),
           ),

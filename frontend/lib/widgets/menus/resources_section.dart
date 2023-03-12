@@ -26,7 +26,7 @@ class ResourcesSection extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             color: Palette.lightGrey,
             child: Label(
-              text: title.toUpperCase(),
+              text: title,
               align: TextAlign.center,
             ),
           ),

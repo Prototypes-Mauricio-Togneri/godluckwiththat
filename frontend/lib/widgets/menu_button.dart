@@ -41,7 +41,7 @@ class MenuButton extends StatelessWidget {
               ),
             const Spacer(),
             Label(
-              text: text.toUpperCase(),
+              text: text,
               size: size,
             ),
             const Spacer(),

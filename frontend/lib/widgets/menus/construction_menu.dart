@@ -22,7 +22,7 @@ class ConstructionMenu extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Label(
-          text: node.type.toString().toUpperCase(),
+          text: node.type.toString(),
           align: TextAlign.center,
         ),
         const VBox(10),
@@ -88,8 +88,8 @@ class ResourcesSection extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(5),
           color: Palette.lightGrey,
-          child: Label(
-            text: 'Resources needed'.toUpperCase(),
+          child: const Label(
+            text: 'Resources needed',
             align: TextAlign.center,
           ),
         ),

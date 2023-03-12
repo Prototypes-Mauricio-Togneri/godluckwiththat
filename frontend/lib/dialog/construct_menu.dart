@@ -173,7 +173,7 @@ class TabButton extends StatelessWidget {
           color: selected ? Palette.white.withAlpha(128) : Palette.transparent,
           padding: const EdgeInsets.all(10),
           child: Label(
-            text: name.toUpperCase(),
+            text: name,
             align: TextAlign.center,
             color: color,
           ),
@@ -225,7 +225,7 @@ class BuildingCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Label(
-                text: type.toString().toUpperCase(),
+                text: type.toString(),
                 size: 8,
                 align: TextAlign.center,
               ),

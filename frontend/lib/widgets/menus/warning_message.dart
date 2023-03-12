@@ -25,7 +25,7 @@ class WarningMessage extends StatelessWidget {
           ),
           const HBox(10),
           Label(
-            text: message.toUpperCase(),
+            text: message,
             align: TextAlign.center,
             size: 12,
           ),

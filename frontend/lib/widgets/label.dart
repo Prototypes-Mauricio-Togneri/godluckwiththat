@@ -28,7 +28,7 @@ class Label extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: size / 2),
       child: Text(
-        text,
+        text.toUpperCase(),
         textAlign: align,
         maxLines: maxLines,
         style: TextStyle(

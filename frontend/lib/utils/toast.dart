@@ -5,7 +5,7 @@ import 'package:tensionplanet/widgets/label.dart';
 class Toast {
   static void show(String message) {
     MotionToast.error(
-      description: Label(text: message.toUpperCase()),
+      description: Label(text: message),
       toastDuration: const Duration(seconds: 5),
     ).show(Navigation.context);
   }

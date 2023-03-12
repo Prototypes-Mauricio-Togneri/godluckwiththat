@@ -25,7 +25,7 @@ class BuildingMenu extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Label(
-          text: node.type.toString().toUpperCase(),
+          text: node.type.toString(),
           align: TextAlign.center,
         ),
         const VBox(10),

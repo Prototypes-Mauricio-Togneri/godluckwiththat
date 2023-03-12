@@ -60,7 +60,7 @@ class ConfirmationDialog extends StatelessWidget {
       contentPadding: const EdgeInsets.fromLTRB(25, 20, 25, 25),
       backgroundColor: Palette.grey,
       content: Label(
-        text: message.toUpperCase(),
+        text: message,
         color: Palette.white,
       ),
       actions: [
@@ -80,7 +80,7 @@ class ConfirmationDialog extends StatelessWidget {
               onCancel.call();
             },
             child: Label(
-              text: buttonCancel.toUpperCase(),
+              text: buttonCancel,
             ),
           ),
         ),
@@ -99,7 +99,7 @@ class ConfirmationDialog extends StatelessWidget {
               onAccept.call();
             },
             child: Label(
-              text: buttonAccept.toUpperCase(),
+              text: buttonAccept,
             ),
           ),
         ),
