@@ -4,7 +4,7 @@ import 'package:tensionplanet/extensions/json_location_extension.dart';
 import 'package:tensionplanet/json/json_patch.dart';
 import 'package:tensionplanet/models/patch.dart';
 import 'package:tensionplanet/models/patches.dart';
-import 'package:tensionplanet/types/resource_type.dart';
+import 'package:tensionplanet/types/patch_type.dart';
 
 part 'json_patches.g.dart';
 
@@ -19,6 +19,9 @@ class JsonPatches {
   @JsonKey(name: 'coal')
   final List<JsonPatch> coal;
 
+  @JsonKey(name: 'oil')
+  final List<JsonPatch> oil;
+
   @JsonKey(name: 'stone')
   final List<JsonPatch> stone;
 
@@ -26,10 +29,11 @@ class JsonPatches {
     required this.iron,
     required this.copper,
     required this.coal,
+    required this.oil,
     required this.stone,
   });
 
-  List<Patch> _list(List<JsonPatch> list, ResourceType type) => list
+  List<Patch> _list(List<JsonPatch> list, PatchType type) => list
       .map((e) => Patch(
             type: type,
             location: e.location.location,
@@ -38,10 +42,11 @@ class JsonPatches {
       .toList();
 
   Patches get patches => Patches(
-        iron: _list(iron, ResourceType.iron_ore),
-        copper: _list(copper, ResourceType.copper_ore),
-        coal: _list(coal, ResourceType.coal_ore),
-        stone: _list(stone, ResourceType.stone_ore),
+        iron: _list(iron, PatchType.iron),
+        copper: _list(copper, PatchType.copper),
+        coal: _list(coal, PatchType.coal),
+        oil: _list(oil, PatchType.oil),
+        stone: _list(stone, PatchType.stone),
       );
 
   factory JsonPatches.fromString(String json) =>

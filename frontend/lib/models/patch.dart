@@ -1,9 +1,10 @@
 import 'package:tensionplanet/json/json_patch.dart';
 import 'package:tensionplanet/models/location.dart';
+import 'package:tensionplanet/types/patch_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
 class Patch {
-  final ResourceType type;
+  final PatchType type;
   final Location location;
   int amount;
 

@@ -16,6 +16,9 @@ JsonPatches _$JsonPatchesFromJson(Map<String, dynamic> json) => JsonPatches(
       coal: (json['coal'] as List<dynamic>)
           .map((e) => JsonPatch.fromJson(e as Map<String, dynamic>))
           .toList(),
+      oil: (json['oil'] as List<dynamic>)
+          .map((e) => JsonPatch.fromJson(e as Map<String, dynamic>))
+          .toList(),
       stone: (json['stone'] as List<dynamic>)
           .map((e) => JsonPatch.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -26,5 +29,6 @@ Map<String, dynamic> _$JsonPatchesToJson(JsonPatches instance) =>
       'iron': instance.iron,
       'copper': instance.copper,
       'coal': instance.coal,
+      'oil': instance.oil,
       'stone': instance.stone,
     };

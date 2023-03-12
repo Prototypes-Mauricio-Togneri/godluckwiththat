@@ -67,6 +67,22 @@ class Constants {
 			"location": [4, -5],
 			"amount": 1000
 		}],
+		"oil": [{
+			"location": [-12, 0],
+			"amount": 1000
+		}, {
+			"location": [-12, -1],
+			"amount": 1000
+		}, {
+			"location": [-12, 1],
+			"amount": 1000
+		}, {
+			"location": [-11, 0],
+			"amount": 1000
+		}, {
+			"location": [-13, 0],
+			"amount": 1000
+		}],
 		"stone": [{
 			"location": [-5, -4],
 			"amount": 1000

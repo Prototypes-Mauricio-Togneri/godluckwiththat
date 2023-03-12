@@ -28,8 +28,8 @@ import 'package:tensionplanet/models/map_tile.dart';
 import 'package:tensionplanet/models/patch.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
+import 'package:tensionplanet/types/patch_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
-import 'package:tensionplanet/utils/assets.dart';
 
 mixin NodeHandler on BaseGameComponent {
   final Map<String, SpriteGroup> spriteGroups = {};
@@ -165,10 +165,11 @@ mixin NodeHandler on BaseGameComponent {
       );
     }
 
-    _addSpriteGroup(Assets.IMAGES_RESOURCES_IRON_ORE);
-    _addSpriteGroup(Assets.IMAGES_RESOURCES_COPPER_ORE);
-    _addSpriteGroup(Assets.IMAGES_RESOURCES_COAL_ORE);
-    _addSpriteGroup(Assets.IMAGES_RESOURCES_STONE_ORE);
+    _addSpriteGroup(PatchType.iron.sprite);
+    _addSpriteGroup(PatchType.copper.sprite);
+    _addSpriteGroup(PatchType.coal.sprite);
+    _addSpriteGroup(PatchType.oil.sprite);
+    _addSpriteGroup(PatchType.stone.sprite);
 
     reloadPatches();
   }
@@ -180,15 +181,15 @@ mixin NodeHandler on BaseGameComponent {
   }
 
   void reloadPatches() {
-    _reloadPatch(ResourceType.iron_ore);
-    _reloadPatch(ResourceType.copper_ore);
-    _reloadPatch(ResourceType.coal_ore);
-    _reloadPatch(ResourceType.stone_ore);
+    _reloadPatch(PatchType.iron);
+    _reloadPatch(PatchType.copper);
+    _reloadPatch(PatchType.coal);
+    _reloadPatch(PatchType.oil);
+    _reloadPatch(PatchType.stone);
   }
 
-  void _reloadPatch(ResourceType resourceType) {
-    spriteGroups[resourceType.sprite]!
-        .load(state.patches.locations(resourceType));
+  void _reloadPatch(PatchType type) {
+    spriteGroups[type.sprite]!.load(state.patches.locations(type));
   }
 
   Node addHeadquarters({
