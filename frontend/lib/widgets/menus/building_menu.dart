@@ -117,12 +117,14 @@ class RecipeSection extends StatelessWidget {
               ),
             ],
           ),
-        const HBox(10),
-        const Label(
-          text: '=',
-          size: 20,
-        ),
-        const HBox(10),
+        if (inputs.isNotEmpty)
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Label(
+              text: '=',
+              size: 20,
+            ),
+          ),
         for (final ResourceType type in building.output.keys)
           ResourceIcon(
             title: type.toString(),
