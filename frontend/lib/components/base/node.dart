@@ -21,7 +21,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final Location location;
   final Inventory inventory;
   final List<Connection> connections;
-  int _connectionIndex = 0;
+  int connectionIndex = 0;
 
   late final DebugText debugText = DebugText();
   late final DroneCounter droneCounter = DroneCounter();
@@ -53,8 +53,8 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   bool get hasConnections => connections.isNotEmpty;
 
   Connection get getAvailableConnection {
-    _connectionIndex++;
-    final int index = _connectionIndex % connections.length;
+    connectionIndex++;
+    final int index = connectionIndex % connections.length;
 
     return connections[index];
   }
