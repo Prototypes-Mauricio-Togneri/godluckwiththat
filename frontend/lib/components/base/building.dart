@@ -82,7 +82,7 @@ class Building extends Node {
     }
   }
 
-  bool get hasEnoughResources {
+  bool _hasEnoughResources() {
     for (final ResourceType type in input.keys) {
       if (inventory.get(type) < input[type]!) {
         return false;
@@ -94,7 +94,7 @@ class Building extends Node {
 
   void _startProducing() {
     if (state.isIdle) {
-      if (!hasEnoughResources) {
+      if (!_hasEnoughResources()) {
         _showIdleSign();
       } else if (outputAmount >= game.state.research.outputQueueLimit) {
         _showFilledSign();
