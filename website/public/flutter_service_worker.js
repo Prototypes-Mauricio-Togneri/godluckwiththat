@@ -3,8 +3,8 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "main.dart.js": "f2187f1275359cab751f7bf1d9e4b2a6",
-"assets/NOTICES": "1f40b111341e3c322dc4b75f3cf730d5",
+  "main.dart.js": "ef3fb70bc0b3f123ff5a9d7e83a82748",
+"assets/NOTICES": "79675db6e3fb8eb1e003343a2f22cef8",
 "assets/FontManifest.json": "1d61ef933c075efc9d5b2eceb3317b47",
 "assets/assets/audio/sfx/ammo1.mp3": "f8d02b968e3f3eaa373d7cc44a4c0102",
 "assets/assets/audio/sfx/ammo2.mp3": "3d4e89deff81a7679c9718845d034953",
@@ -49,10 +49,11 @@ const RESOURCES = {
 "assets/assets/images/patches/coal_patch.png": "69d3f0ca6445e01ca42304e3d717d569",
 "assets/assets/images/patches/iron_patch.png": "4dbdc5cd1c63bc71c128b6f407b5c755",
 "assets/assets/images/patches/stone_patch.png": "6263b0577d5acf8966e60ef4efc194d4",
+"assets/assets/images/patches/oil_patch.png": "ae572ac66fd47c0f54e8595661dfde81",
 "assets/assets/images/patches/copper_patch.png": "6df3268534067601a5b9240328276dc7",
 "assets/assets/fonts/Pixel.ttf": "80520f263d966b867eaf5f8ac5feac0a",
 "assets/fonts/MaterialIcons-Regular.otf": "e7069dfd19b331be16bed984668fe080",
-"assets/AssetManifest.json": "503372cb7a2db29b2298d01a0b55ca2a",
+"assets/AssetManifest.json": "eec4181f39ad5b8db8ceb0048109b48c",
 "manifest.json": "93b9088082de1f6e98edca51984431cc",
 "canvaskit/canvaskit.wasm": "3de12d898ec208a5f31362cc00f09b9e",
 "canvaskit/profiling/canvaskit.wasm": "371bc4e204443b0d5e774d64a046eb99",
@@ -62,8 +63,8 @@ const RESOURCES = {
 "firebase-messaging-sw.js": "6a00fdbf820ef5ab93a3f7b5f767256f",
 "favicon.ico": "7d5e71d98847316dae878429e3334569",
 "version.json": "e7d55f12544d51b8385a2b131fbe472a",
-"index.html": "929eda386d51f43a58a2bb3991f0beec",
-"/": "929eda386d51f43a58a2bb3991f0beec"
+"index.html": "7b38c514d062c0f94a640cd74669f23f",
+"/": "7b38c514d062c0f94a640cd74669f23f"
 };
 
 // The application shell files that are downloaded before a service worker can
