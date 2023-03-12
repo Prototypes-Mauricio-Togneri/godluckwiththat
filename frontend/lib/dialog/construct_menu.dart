@@ -139,7 +139,7 @@ class TabButtons extends StatelessWidget {
           index: 4,
           name: 'Factories',
           color: Palette.buildTypeFactories,
-          selected: indexSelected == 3,
+          selected: indexSelected == 4,
           onSelected: onSelected,
         ),
       ],
