@@ -10,6 +10,7 @@ import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
 import 'package:tensionplanet/widgets/menus/resources_section.dart';
+import 'package:tensionplanet/widgets/menus/warning_message.dart';
 import 'package:tensionplanet/widgets/resource_icon.dart';
 
 class BuildingMenu extends StatelessWidget {
@@ -40,12 +41,16 @@ class BuildingMenu extends StatelessWidget {
           title: 'Output',
           resources: node.outputInventory,
         ),
-        ResourcesSection(
-          title: 'Drones',
-          resources: [
-            Resource(ResourceType.drone, node.inventory.get(ResourceType.drone))
-          ],
-        ),
+        if (node.hasDrones)
+          ResourcesSection(
+            title: 'Drones',
+            resources: [
+              Resource(
+                  ResourceType.drone, node.inventory.get(ResourceType.drone))
+            ],
+          ),
+        if (!node.hasConnections)
+          const WarningMessage('Building not connected'),
         const Spacer(),
         RecipeSection(node),
         const VBox(20),

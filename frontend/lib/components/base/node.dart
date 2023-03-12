@@ -110,6 +110,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
       final Resource resource = Resource.one(ResourceType.drone);
       inventory.removeResource(resource);
       connections.add(Connection(to));
+      updateMenu();
     }
   }
 
@@ -120,6 +121,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
       connections.remove(connection);
       final Resource resource = Resource.one(ResourceType.drone);
       inventory.addResource(resource);
+      updateMenu();
     }
   }
 
