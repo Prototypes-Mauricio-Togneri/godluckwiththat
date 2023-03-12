@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/models/resource.dart';
+import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menus/item_row.dart';
 
@@ -20,9 +21,14 @@ class ResourcesSection extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const VBox(20),
-          Label(
-            text: title.toUpperCase(),
-            align: TextAlign.center,
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(5),
+            color: Palette.lightGrey,
+            child: Label(
+              text: title.toUpperCase(),
+              align: TextAlign.center,
+            ),
           ),
           const VBox(10),
           Column(
