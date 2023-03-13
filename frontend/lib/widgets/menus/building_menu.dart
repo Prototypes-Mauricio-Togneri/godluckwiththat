@@ -36,10 +36,12 @@ class BuildingMenu extends StatelessWidget {
         ResourcesSection(
           title: 'Input',
           resources: node.inputInventory,
+          horizontal: true,
         ),
         ResourcesSection(
           title: 'Output',
           resources: node.outputInventory,
+          horizontal: true,
         ),
         if (node.hasDrones)
           ResourcesSection(
@@ -48,6 +50,7 @@ class BuildingMenu extends StatelessWidget {
               Resource(
                   ResourceType.drone, node.inventory.get(ResourceType.drone))
             ],
+            horizontal: true,
           ),
         if (node.state.isWorking) ProducingIndicator(node),
         if (!node.hasConnections)

@@ -31,6 +31,7 @@ class HeadquartersMenu extends StatelessWidget {
         ResourcesSection(
           title: 'Inventory',
           resources: node.inventory.list,
+          horizontal: false,
         ),
         const Spacer(),
         MenuButton(

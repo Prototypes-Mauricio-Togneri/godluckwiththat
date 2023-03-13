@@ -8,10 +8,12 @@ import 'package:tensionplanet/widgets/menus/item_row.dart';
 class ResourcesSection extends StatelessWidget {
   final String title;
   final List<Resource> resources;
+  final bool horizontal;
 
   const ResourcesSection({
     required this.title,
     required this.resources,
+    required this.horizontal,
   });
 
   @override
@@ -31,17 +33,33 @@ class ResourcesSection extends StatelessWidget {
             ),
           ),
           const VBox(10),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              for (final Resource resource in resources)
-                ItemRow(
-                  title: resource.type.toString(),
-                  sprite: resource.type.sprite,
-                  amount: '${resource.amount}',
-                ),
-            ],
-          ),
+          if (horizontal)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (final Resource resource in resources)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: ItemRow(
+                      title: resource.type.toString(),
+                      sprite: resource.type.sprite,
+                      amount: '${resource.amount}',
+                    ),
+                  ),
+              ],
+            )
+          else
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for (final Resource resource in resources)
+                  ItemRow(
+                    title: resource.type.toString(),
+                    sprite: resource.type.sprite,
+                    amount: '${resource.amount}',
+                  ),
+              ],
+            ),
         ],
       );
     } else {
