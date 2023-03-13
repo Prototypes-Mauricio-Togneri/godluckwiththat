@@ -117,6 +117,11 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     } else if (force) {
       connections.add(Connection(to));
       updateMenu();
+    } else if (game.state.headquarters!.hasDrones) {
+      final Resource resource = Resource.one(ResourceType.drone);
+      game.state.headquarters!.inventory.removeResource(resource);
+      connections.add(Connection(to));
+      updateMenu();
     } else {
       Toast.show('No drones available to make a connection');
     }
