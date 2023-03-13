@@ -16,12 +16,10 @@ class BaseGameComponent extends FlameGame
     with
         MapHandler,
         HasTappables,
-        HasHoverables,
         ScaleDetector,
         ScrollDetector,
         KeyboardEvents,
-        MouseMovementDetector,
-        HasCollisionDetection {
+        MouseMovementDetector {
   final GameState state;
   final Component _layerBackground = Component(priority: 0);
   final Component _layerPatches = Component(priority: 1);

@@ -3,7 +3,8 @@
 set -e
 
 flutter clean
-flutter build web -t lib/main/main.dart --web-renderer=canvaskit --dart-define=BROWSER_IMAGE_DECODING_ENABLED=false
+flutter build web -t lib/main/main.dart
+#--web-renderer=canvaskit --dart-define=BROWSER_IMAGE_DECODING_ENABLED=false
 
 OUTPUT="../website/public"
 rm -r ${OUTPUT}
