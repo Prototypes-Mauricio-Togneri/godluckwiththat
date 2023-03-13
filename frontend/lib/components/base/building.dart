@@ -66,10 +66,7 @@ class Building extends Node {
       _produce(dt);
     }
 
-    if ((outputAmount > 0) &&
-        hasConnections &&
-        !isDroneFactory &&
-        every.available) {
+    if ((outputAmount > 0) && hasConnections && every.available) {
       // TODO(momo): send resource slowly by a drone
       final Resource resource = Resource.one(resourceProduced);
       getAvailableConnection.to.receiveResource(resource);

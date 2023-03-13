@@ -108,10 +108,10 @@ mixin MenuHandler on BaseGameComponent {
         from.removeDroneConnection(to);
       } else {
         if (to.isHeadquarters) {
-          from.addDroneConnection(to);
+          from.addDroneConnection(to, from.isDroneFactory);
         } else if (to is Building) {
           if (to.canReceiveFrom(from as Building)) {
-            from.addDroneConnection(to);
+            from.addDroneConnection(to, from.isDroneFactory);
           } else {
             Toast.show(
                 "Target building doesn't accept ${from.resourceProduced.toString()}");

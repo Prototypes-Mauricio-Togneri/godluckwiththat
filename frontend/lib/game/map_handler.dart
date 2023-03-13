@@ -17,8 +17,12 @@ mixin MapHandler on FlameGame {
   late double _startZoom;
   late MapComponent _map;
   Vector2? _mousePosition;
-  bool isControlPressed = false;
-  bool isShiftPressed = false;
+
+  bool get isControlPressed =>
+      RawKeyboard.instance.keysPressed.contains(LogicalKeyboardKey.controlLeft);
+
+  bool get isShiftPressed =>
+      RawKeyboard.instance.keysPressed.contains(LogicalKeyboardKey.shiftLeft);
 
   bool get hasMousePosition => _mousePosition != null;
 
@@ -129,9 +133,6 @@ mixin MapHandler on FlameGame {
     Set<LogicalKeyboardKey> keysPressed,
   ) {
     final bool isKeyDown = event is RawKeyDownEvent;
-
-    isControlPressed = keysPressed.isControl && isKeyDown;
-    isShiftPressed = keysPressed.isShift && isKeyDown;
 
     if (keysPressed.isDirectional) {
       camera.translateBy(-mapMovement(keysPressed));

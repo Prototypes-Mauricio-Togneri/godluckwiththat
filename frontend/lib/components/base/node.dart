@@ -108,10 +108,13 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
   bool hasConnection(Node to) => getConnection(to) != null;
 
-  void addDroneConnection(Node to) {
+  void addDroneConnection(Node to, [bool force = false]) {
     if (hasDrones) {
       final Resource resource = Resource.one(ResourceType.drone);
       inventory.removeResource(resource);
+      connections.add(Connection(to));
+      updateMenu();
+    } else if (force) {
       connections.add(Connection(to));
       updateMenu();
     } else {
