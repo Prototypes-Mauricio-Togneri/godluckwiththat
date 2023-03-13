@@ -2,7 +2,6 @@
 
 * Assign drones automatically
 * Warehouse
-* Implement input max capacity
 
 * Stop/resume constructions and buildings (stop receiving resources)
 * Save/load game state

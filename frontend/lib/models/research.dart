@@ -5,5 +5,7 @@ class Research {
 
   int get droneSpeed => 1;
 
+  int get inputQueueLimit => 10;
+
   int get outputQueueLimit => 10;
 }

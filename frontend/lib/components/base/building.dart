@@ -68,10 +68,16 @@ class Building extends Node {
 
     if ((outputAmount > 0) && hasConnections && every.available) {
       // TODO(momo): send resource slowly by a drone
+      final Node target = getAvailableConnection.to;
       final Resource resource = Resource.one(resourceProduced);
-      getAvailableConnection.to.receiveResource(resource);
-      inventory.removeResource(resource);
-      _startProducing();
+      final bool canReceive = target.isHeadquarters ||
+          (target as Building).canReceiveResource(resource);
+
+      if (canReceive) {
+        target.receiveResource(resource);
+        inventory.removeResource(resource);
+        _startProducing();
+      }
     }
 
     if (!hasConnections && !isDroneFactory) {
@@ -86,6 +92,9 @@ class Building extends Node {
 
     return input.keys.contains(type);
   }
+
+  bool canReceiveResource(Resource resource) =>
+      inventory.get(resource.type) < game.state.research.inputQueueLimit;
 
   bool _hasEnoughResources() {
     for (final ResourceType type in input.keys) {
