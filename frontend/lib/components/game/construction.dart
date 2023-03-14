@@ -74,5 +74,6 @@ class Construction extends Node {
   JsonBuilding get json => JsonBuilding(
         location: location.json,
         inventory: {},
+        resourceType: resourceType,
       );
 }

@@ -14,9 +14,13 @@ class JsonBuilding {
   @JsonKey(name: 'inventory')
   final JsonInventory inventory;
 
+  @JsonKey(name: 'resourceType')
+  final ResourceType? resourceType;
+
   const JsonBuilding({
     required this.location,
     required this.inventory,
+    required this.resourceType,
   });
 
   factory JsonBuilding.fromString(String json) =>

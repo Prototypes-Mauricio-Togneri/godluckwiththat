@@ -12,14 +12,26 @@ JsonBuilding _$JsonBuildingFromJson(Map<String, dynamic> json) => JsonBuilding(
       inventory: (json['inventory'] as Map<String, dynamic>).map(
         (k, e) => MapEntry($enumDecode(_$ResourceTypeEnumMap, k), e as int),
       ),
+      resourceType:
+          $enumDecodeNullable(_$ResourceTypeEnumMap, json['resourceType']),
     );
 
-Map<String, dynamic> _$JsonBuildingToJson(JsonBuilding instance) =>
-    <String, dynamic>{
-      'location': instance.location,
-      'inventory': instance.inventory
-          .map((k, e) => MapEntry(_$ResourceTypeEnumMap[k]!, e)),
-    };
+Map<String, dynamic> _$JsonBuildingToJson(JsonBuilding instance) {
+  final val = <String, dynamic>{
+    'location': instance.location,
+    'inventory': instance.inventory
+        .map((k, e) => MapEntry(_$ResourceTypeEnumMap[k]!, e)),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('resourceType', _$ResourceTypeEnumMap[instance.resourceType]);
+  return val;
+}
 
 const _$ResourceTypeEnumMap = {
   ResourceType.energy: 'energy',

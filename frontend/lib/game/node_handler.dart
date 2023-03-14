@@ -171,7 +171,7 @@ mixin NodeHandler on BaseGameComponent {
         location: json.location.location,
         inventory: Inventory.fromJson(json.inventory),
         connections: [],
-        resourceType: ResourceType.energy, // TODO(momo): change
+        resourceType: json.resourceType!,
       );
     }
 

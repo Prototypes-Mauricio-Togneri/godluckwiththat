@@ -67,5 +67,6 @@ class Warehouse extends Node {
   JsonBuilding get json => JsonBuilding(
         location: location.json,
         inventory: inventory.json,
+        resourceType: resourceType,
       );
 }
