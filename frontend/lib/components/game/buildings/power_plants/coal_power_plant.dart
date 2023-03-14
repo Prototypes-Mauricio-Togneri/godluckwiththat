@@ -7,6 +7,6 @@ class CoalPowerPlant extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.coal_power_plant,
+          nodeType: NodeType.coal_power_plant,
         );
 }

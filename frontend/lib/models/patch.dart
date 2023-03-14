@@ -3,25 +3,25 @@ import 'package:tensionplanet/models/location.dart';
 import 'package:tensionplanet/types/patch_type.dart';
 
 class Patch {
-  final PatchType type;
+  final PatchType patchType;
   final Location location;
   int amount;
 
   Patch({
-    required this.type,
+    required this.patchType,
     required this.location,
     required this.amount,
   });
 
-  bool get isIron => type == PatchType.iron;
+  bool get isIron => patchType == PatchType.iron;
 
-  bool get isCopper => type == PatchType.copper;
+  bool get isCopper => patchType == PatchType.copper;
 
-  bool get isCoal => type == PatchType.coal;
+  bool get isCoal => patchType == PatchType.coal;
 
-  bool get isOil => type == PatchType.oil;
+  bool get isOil => patchType == PatchType.oil;
 
-  bool get isStone => type == PatchType.stone;
+  bool get isStone => patchType == PatchType.stone;
 
   bool isAt(Location location) => this.location == location;
 

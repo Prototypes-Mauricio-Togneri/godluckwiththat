@@ -7,6 +7,6 @@ class SolarPanel extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.solar_panel,
+          nodeType: NodeType.solar_panel,
         );
 }

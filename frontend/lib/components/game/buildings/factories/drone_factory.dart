@@ -7,6 +7,6 @@ class DroneFactory extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.drone_factory,
+          nodeType: NodeType.drone_factory,
         );
 }

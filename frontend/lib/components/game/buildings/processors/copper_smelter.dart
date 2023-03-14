@@ -7,6 +7,6 @@ class CopperSmelter extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.copper_smelter,
+          nodeType: NodeType.copper_smelter,
         );
 }

@@ -13,7 +13,7 @@ class Headquarters extends Node {
     required super.location,
     required super.inventory,
     required super.connections,
-  }) : super(type: NodeType.headquarters);
+  }) : super(nodeType: NodeType.headquarters);
 
   @override
   void update(double dt) {

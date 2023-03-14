@@ -22,7 +22,7 @@ class ConstructionMenu extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Label(
-          text: node.type.toString(),
+          text: node.nodeType.toString(),
           align: TextAlign.center,
         ),
         const VBox(10),
@@ -94,7 +94,8 @@ class ResourcesSection extends StatelessWidget {
           ),
         ),
         const VBox(10),
-        for (final MapEntry<ResourceType, int> entry in node.type.cost.entries)
+        for (final MapEntry<ResourceType, int> entry
+            in node.nodeType.cost.entries)
           ItemRow(
             title: entry.key.toString(),
             sprite: entry.key.sprite,

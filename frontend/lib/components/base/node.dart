@@ -19,7 +19,7 @@ import 'package:tensionplanet/utils/style.dart';
 import 'package:tensionplanet/utils/toast.dart';
 
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
-  final NodeType type;
+  final NodeType nodeType;
   final Location location;
   final Inventory inventory;
   final List<Connection> connections;
@@ -30,7 +30,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   late final EfficiencyText efficiencyText = EfficiencyText();
 
   Node({
-    required this.type,
+    required this.nodeType,
     required this.location,
     required this.inventory,
     required this.connections,
@@ -66,7 +66,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(type.sprite);
+    sprite = await getSprite(nodeType.sprite);
     size = getSize();
     anchor = Anchor.center;
     position = location.position;

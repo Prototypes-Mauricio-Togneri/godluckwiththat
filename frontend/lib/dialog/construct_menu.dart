@@ -72,13 +72,13 @@ class _ConstructMenuState extends State<ConstructMenu> {
     });
   }
 
-  void onBuild(NodeType type) {
+  void onBuild(NodeType nodeType) {
     _closeMenu();
 
-    if (type == NodeType.warehouse) {
+    if (nodeType == NodeType.warehouse) {
       widget.game.openChoseResourceMenu();
     } else {
-      widget.game.enableBuildingMode(nodeType: type);
+      widget.game.enableBuildingMode(nodeType: nodeType);
     }
   }
 
@@ -198,10 +198,10 @@ class TabButton extends StatelessWidget {
 }
 
 class BuildingList extends StatelessWidget {
-  final List<NodeType> types;
+  final List<NodeType> nodeTypes;
   final Function(NodeType) onBuild;
 
-  const BuildingList(this.types, this.onBuild);
+  const BuildingList(this.nodeTypes, this.onBuild);
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +213,8 @@ class BuildingList extends StatelessWidget {
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         children: [
-          for (final NodeType type in types) BuildingCard(type, onBuild),
+          for (final NodeType resourceType in nodeTypes)
+            BuildingCard(resourceType, onBuild),
         ],
       ),
     );
@@ -221,17 +222,17 @@ class BuildingList extends StatelessWidget {
 }
 
 class BuildingCard extends StatelessWidget {
-  final NodeType type;
+  final NodeType nodeType;
   final Function(NodeType) onBuild;
 
-  const BuildingCard(this.type, this.onBuild);
+  const BuildingCard(this.nodeType, this.onBuild);
 
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Palette.transparent,
       child: InkWell(
-        onTap: () => onBuild(type),
+        onTap: () => onBuild(nodeType),
         child: Container(
           color: Palette.white.withAlpha(128),
           padding: const EdgeInsets.all(10),
@@ -239,7 +240,7 @@ class BuildingCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Label(
-                text: type.toString(),
+                text: nodeType.toString(),
                 size: 8,
                 align: TextAlign.center,
               ),
@@ -248,7 +249,7 @@ class BuildingCard extends StatelessWidget {
                 width: 55,
                 height: 55,
                 child: Image.asset(
-                  'images/${type.sprite}',
+                  'images/${nodeType.sprite}',
                 ),
               ),
               const VBox(10),
@@ -256,7 +257,7 @@ class BuildingCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   for (final MapEntry<ResourceType, int> entry
-                      in type.cost.entries)
+                      in nodeType.cost.entries)
                     ResourceIcon(
                       title: entry.key.toString(),
                       sprite: entry.key.sprite,

@@ -7,6 +7,6 @@ class CoalMine extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.coal_mine,
+          nodeType: NodeType.coal_mine,
         );
 }

@@ -7,6 +7,6 @@ class WindTurbine extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.wind_turbine,
+          nodeType: NodeType.wind_turbine,
         );
 }

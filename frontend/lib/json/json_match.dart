@@ -41,7 +41,8 @@ class JsonMatch {
     required this.buildings,
   });
 
-  List<JsonBuilding> getBuildings(NodeType type) => buildings[type] ?? [];
+  List<JsonBuilding> getBuildings(NodeType nodeType) =>
+      buildings[nodeType] ?? [];
 
   factory JsonMatch.fromString(String json) =>
       JsonMatch.fromJson(jsonDecode(json));

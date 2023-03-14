@@ -22,24 +22,24 @@ class Building extends Node {
   UnconnectedSign? unconnectedSign;
 
   Building({
-    required super.type,
+    required super.nodeType,
     required super.location,
     required super.inventory,
     required super.connections,
-  })  : input = type.input,
-        output = type.output;
+  })  : input = nodeType.input,
+        output = nodeType.output;
 
   bool get outputFilled => outputAmount >= game.state.research.outputQueueLimit;
 
-  double get producingProcess => accumulatedTime / type.productionTime;
+  double get producingProcess => accumulatedTime / nodeType.productionTime;
 
   ResourceType get resourceProduced => output.keys.first;
 
   int get outputAmount => inventory.get(resourceProduced);
 
-  bool isInInput(Resource resource) => input[resource.type] != null;
+  bool isInInput(Resource resource) => input[resource.resourceType] != null;
 
-  bool isInOutput(Resource resource) => output[resource.type] != null;
+  bool isInOutput(Resource resource) => output[resource.resourceType] != null;
 
   List<Resource> get inputInventory => inventory.list.where(isInInput).toList();
 
@@ -89,14 +89,16 @@ class Building extends Node {
     }
   }
 
-  bool canReceiveFrom(ResourceType type) => input.keys.contains(type);
+  bool canReceiveFrom(ResourceType resourceType) =>
+      input.keys.contains(resourceType);
 
   bool canReceiveResource(Resource resource) =>
-      inventory.get(resource.type) < game.state.research.inputQueueLimit;
+      inventory.get(resource.resourceType) <
+      game.state.research.inputQueueLimit;
 
   bool _hasEnoughResources() {
-    for (final ResourceType type in input.keys) {
-      if (inventory.get(type) < input[type]!) {
+    for (final ResourceType resourceType in input.keys) {
+      if (inventory.get(resourceType) < input[resourceType]!) {
         return false;
       }
     }
@@ -111,8 +113,9 @@ class Building extends Node {
       } else if (outputFilled) {
         _showFilledSign();
       } else {
-        for (final ResourceType type in input.keys) {
-          inventory.removeResource(Resource(type, input[type]!));
+        for (final ResourceType resourceType in input.keys) {
+          inventory
+              .removeResource(Resource(resourceType, input[resourceType]!));
         }
 
         state = BuildingState.working;
@@ -127,7 +130,7 @@ class Building extends Node {
     accumulatedTime += dt;
     updateMenu();
 
-    if (accumulatedTime >= type.productionTime) {
+    if (accumulatedTime >= nodeType.productionTime) {
       accumulatedTime = 0;
       final Resource resource =
           Resource(resourceProduced, output[resourceProduced]!);

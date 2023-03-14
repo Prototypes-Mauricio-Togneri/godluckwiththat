@@ -7,6 +7,6 @@ class IronMine extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.iron_mine,
+          nodeType: NodeType.iron_mine,
         );
 }

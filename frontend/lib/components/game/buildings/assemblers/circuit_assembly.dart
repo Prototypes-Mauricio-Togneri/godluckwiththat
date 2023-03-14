@@ -7,6 +7,6 @@ class CircuitAssembly extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.circuit_assembly,
+          nodeType: NodeType.circuit_assembly,
         );
 }

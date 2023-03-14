@@ -41,8 +41,8 @@ class ResourcesSection extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: ItemRow(
-                      title: resource.type.toString(),
-                      sprite: resource.type.sprite,
+                      title: resource.resourceType.toString(),
+                      sprite: resource.resourceType.sprite,
                       amount: '${resource.amount}',
                     ),
                   ),
@@ -54,8 +54,8 @@ class ResourcesSection extends StatelessWidget {
               children: [
                 for (final Resource resource in resources)
                   ItemRow(
-                    title: resource.type.toString(),
-                    sprite: resource.type.sprite,
+                    title: resource.resourceType.toString(),
+                    sprite: resource.resourceType.sprite,
                     amount: '${resource.amount}',
                   ),
               ],

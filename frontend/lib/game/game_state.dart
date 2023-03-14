@@ -57,7 +57,7 @@ class GameState extends BaseState {
     } else if (node is Construction) {
       constructions.add(node);
     } else if (node is Building) {
-      buildings.add(node.type, node);
+      buildings.add(node.nodeType, node);
     }
 
     allNodes.add(node);
@@ -67,7 +67,7 @@ class GameState extends BaseState {
     if (node is Construction) {
       constructions.remove(node);
     } else if (node is Building) {
-      buildings.remove(node.type, node);
+      buildings.remove(node.nodeType, node);
     }
 
     allNodes.remove(node);
@@ -76,8 +76,9 @@ class GameState extends BaseState {
   JsonMatch getMatch(Camera camera) {
     final Map<NodeType, List<JsonBuilding>> jsonBuildings = {};
 
-    for (final NodeType type in buildings.keys) {
-      jsonBuildings[type] = buildings.get(type).map((e) => e.json).toList();
+    for (final NodeType resourceType in buildings.keys) {
+      jsonBuildings[resourceType] =
+          buildings.get(resourceType).map((e) => e.json).toList();
     }
 
     return JsonMatch(

@@ -7,6 +7,6 @@ class GearAssembly extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.gear_assembly,
+          nodeType: NodeType.gear_assembly,
         );
 }

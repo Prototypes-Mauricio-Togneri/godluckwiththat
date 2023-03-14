@@ -17,7 +17,7 @@ class Warehouse extends Node {
     required super.inventory,
     required super.connections,
     required this.resourceType,
-  }) : super(type: NodeType.warehouse);
+  }) : super(nodeType: NodeType.warehouse);
 
   @override
   void update(double dt) {
@@ -48,7 +48,8 @@ class Warehouse extends Node {
     }
   }
 
-  bool canReceiveFrom(ResourceType type) => type == resourceType;
+  bool canReceiveFrom(ResourceType resourceType) =>
+      resourceType == this.resourceType;
 
   void _showUnconnectedSign() {
     if (unconnectedSign == null) {

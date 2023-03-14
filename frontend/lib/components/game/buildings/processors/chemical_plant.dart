@@ -7,6 +7,6 @@ class ChemicalPlant extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.chemical_plant,
+          nodeType: NodeType.chemical_plant,
         );
 }

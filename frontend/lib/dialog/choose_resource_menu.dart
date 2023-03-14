@@ -44,11 +44,11 @@ class ChooseResourceMenu extends StatelessWidget {
     );
   }
 
-  void onSelected(ResourceType type) {
+  void onSelected(ResourceType resourceType) {
     _closeMenu();
     game.enableBuildingMode(
       nodeType: NodeType.warehouse,
-      resourceType: type,
+      resourceType: resourceType,
     );
   }
 
@@ -70,8 +70,9 @@ class ResourcesList extends StatelessWidget {
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         children: [
-          for (final ResourceType type in ResourceType.values)
-            if (type != ResourceType.drone) ResourceCard(type, onSelected),
+          for (final ResourceType resourceType in ResourceType.values)
+            if (resourceType != ResourceType.drone)
+              ResourceCard(resourceType, onSelected),
         ],
       ),
     );
@@ -79,17 +80,17 @@ class ResourcesList extends StatelessWidget {
 }
 
 class ResourceCard extends StatelessWidget {
-  final ResourceType type;
+  final ResourceType resourceType;
   final Function(ResourceType) onSelected;
 
-  const ResourceCard(this.type, this.onSelected);
+  const ResourceCard(this.resourceType, this.onSelected);
 
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Palette.transparent,
       child: InkWell(
-        onTap: () => onSelected(type),
+        onTap: () => onSelected(resourceType),
         child: Container(
           color: Palette.white.withAlpha(128),
           padding: const EdgeInsets.all(10),
@@ -97,7 +98,7 @@ class ResourceCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Label(
-                text: type.toString(),
+                text: resourceType.toString(),
                 size: 8,
                 align: TextAlign.center,
               ),
@@ -106,7 +107,7 @@ class ResourceCard extends StatelessWidget {
                 width: 55,
                 height: 55,
                 child: Image.asset(
-                  'images/${type.sprite}',
+                  'images/${resourceType.sprite}',
                 ),
               ),
             ],

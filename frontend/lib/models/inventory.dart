@@ -25,16 +25,16 @@ class Inventory {
     return true;
   }
 
-  int get(ResourceType type) => _resources[type] ?? 0;
+  int get(ResourceType resourceType) => _resources[resourceType] ?? 0;
 
   void addResource(Resource resource) {
-    final int current = get(resource.type);
-    _resources[resource.type] = current + resource.amount;
+    final int current = get(resource.resourceType);
+    _resources[resource.resourceType] = current + resource.amount;
   }
 
   void removeResource(Resource resource) {
-    final int current = get(resource.type);
-    _resources[resource.type] = current - resource.amount;
+    final int current = get(resource.resourceType);
+    _resources[resource.resourceType] = current - resource.amount;
   }
 
   void add(Inventory inventory) {
@@ -49,9 +49,11 @@ class Inventory {
     }
   }
 
-  bool hasResourceType(ResourceType type) => _resources[type] != null;
+  bool hasResourceType(ResourceType resourceType) =>
+      _resources[resourceType] != null;
 
-  bool hasResource(Resource resource) => get(resource.type) >= resource.amount;
+  bool hasResource(Resource resource) =>
+      get(resource.resourceType) >= resource.amount;
 
   JsonInventory get json => _resources;
 
@@ -67,14 +69,14 @@ class Inventory {
     return Inventory._(resourceMap);
   }
 
-  factory Inventory.fromNodeType(NodeType type) {
+  factory Inventory.fromNodeType(NodeType nodeType) {
     final ResourceMap resourceMap = {};
 
-    for (final MapEntry<ResourceType, int> entry in type.input.entries) {
+    for (final MapEntry<ResourceType, int> entry in nodeType.input.entries) {
       resourceMap[entry.key] = 0;
     }
 
-    for (final MapEntry<ResourceType, int> entry in type.output.entries) {
+    for (final MapEntry<ResourceType, int> entry in nodeType.output.entries) {
       resourceMap[entry.key] = 0;
     }
 

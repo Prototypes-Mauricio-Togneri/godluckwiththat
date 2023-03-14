@@ -7,6 +7,6 @@ class CopperMine extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.copper_mine,
+          nodeType: NodeType.copper_mine,
         );
 }

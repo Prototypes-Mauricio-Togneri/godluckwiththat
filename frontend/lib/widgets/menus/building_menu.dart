@@ -25,7 +25,7 @@ class BuildingMenu extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Label(
-          text: node.type.toString(),
+          text: node.nodeType.toString(),
           align: TextAlign.center,
         ),
         const VBox(10),
@@ -139,11 +139,11 @@ class RecipeSection extends StatelessWidget {
               size: 20,
             ),
           ),
-        for (final ResourceType type in building.output.keys)
+        for (final ResourceType resourceType in building.output.keys)
           ResourceIcon(
-            title: type.toString(),
-            sprite: type.sprite,
-            amount: '${building.output[type]!}',
+            title: resourceType.toString(),
+            sprite: resourceType.sprite,
+            amount: '${building.output[resourceType]!}',
             size: 25,
           ),
       ],

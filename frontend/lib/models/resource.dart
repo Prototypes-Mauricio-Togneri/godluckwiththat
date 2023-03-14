@@ -1,10 +1,10 @@
 import 'package:tensionplanet/types/resource_type.dart';
 
 class Resource {
-  final ResourceType type;
+  final ResourceType resourceType;
   final int amount;
 
-  const Resource(this.type, this.amount);
+  const Resource(this.resourceType, this.amount);
 
-  factory Resource.one(ResourceType type) => Resource(type, 1);
+  factory Resource.one(ResourceType resourceType) => Resource(resourceType, 1);
 }

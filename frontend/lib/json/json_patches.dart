@@ -33,9 +33,9 @@ class JsonPatches {
     required this.stone,
   });
 
-  List<Patch> _list(List<JsonPatch> list, PatchType type) => list
+  List<Patch> _list(List<JsonPatch> list, PatchType patchType) => list
       .map((e) => Patch(
-            type: type,
+            patchType: patchType,
             location: e.location.location,
             amount: e.amount,
           ))

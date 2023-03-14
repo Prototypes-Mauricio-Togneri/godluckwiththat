@@ -10,7 +10,7 @@ class Construction extends Node {
   final Inventory remainingResources = Inventory.empty();
 
   Construction({
-    required super.type,
+    required super.nodeType,
     required super.location,
     required this.resourceType,
   }) : super(
@@ -22,7 +22,7 @@ class Construction extends Node {
   Future onLoad() {
     opacity = 0.5;
 
-    for (final MapEntry<ResourceType, int> entry in type.cost.entries) {
+    for (final MapEntry<ResourceType, int> entry in nodeType.cost.entries) {
       final Resource resource = Resource(
         entry.key,
         entry.value,
@@ -42,7 +42,7 @@ class Construction extends Node {
     double received = 0;
     double total = 0;
 
-    for (final MapEntry<ResourceType, int> entry in type.cost.entries) {
+    for (final MapEntry<ResourceType, int> entry in nodeType.cost.entries) {
       received += entry.value - remainingResources.get(entry.key);
       total += entry.value;
     }
@@ -53,7 +53,7 @@ class Construction extends Node {
   @override
   void receiveResource(Resource resource) {
     remainingResources.removeResource(Resource(
-      resource.type,
+      resource.resourceType,
       resource.amount,
     ));
     updateMenu();
@@ -62,7 +62,7 @@ class Construction extends Node {
       destroy(false);
       final Node node = game.buildNode(
         location: location,
-        nodeType: type,
+        nodeType: nodeType,
         resourceType: resourceType,
       );
       if (game.isNodeSelected(this)) {

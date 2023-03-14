@@ -7,6 +7,6 @@ class IronSmelter extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.iron_smelter,
+          nodeType: NodeType.iron_smelter,
         );
 }

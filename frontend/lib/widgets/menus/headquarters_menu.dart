@@ -19,7 +19,7 @@ class HeadquartersMenu extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Label(
-          text: node.type.toString(),
+          text: node.nodeType.toString(),
           align: TextAlign.center,
         ),
         const VBox(10),

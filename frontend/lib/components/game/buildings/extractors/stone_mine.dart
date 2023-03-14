@@ -7,6 +7,6 @@ class StoneMine extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.stone_mine,
+          nodeType: NodeType.stone_mine,
         );
 }

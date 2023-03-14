@@ -21,12 +21,12 @@ class Patches {
     _patches.set(PatchType.stone, stone);
   }
 
-  List<Location> locations(PatchType type) =>
-      _patches.get(type).map((e) => e.location).toList();
+  List<Location> locations(PatchType patchType) =>
+      _patches.get(patchType).map((e) => e.location).toList();
 
   Patch? patchAt(Location location) {
-    for (final PatchType type in _patches.keys) {
-      for (final Patch patch in _patches.get(type)) {
+    for (final PatchType patchType in _patches.keys) {
+      for (final Patch patch in _patches.get(patchType)) {
         if (patch.isAt(location)) {
           return patch;
         }

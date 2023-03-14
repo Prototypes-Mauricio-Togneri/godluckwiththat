@@ -198,8 +198,8 @@ mixin NodeHandler on BaseGameComponent {
     _reloadPatch(PatchType.stone);
   }
 
-  void _reloadPatch(PatchType type) {
-    spriteGroups[type.sprite]!.load(state.patches.locations(type));
+  void _reloadPatch(PatchType patchType) {
+    spriteGroups[patchType.sprite]!.load(state.patches.locations(patchType));
   }
 
   Node addHeadquarters({
@@ -220,7 +220,7 @@ mixin NodeHandler on BaseGameComponent {
   }) =>
       _addNode(Construction(
         location: location,
-        type: nodeType,
+        nodeType: nodeType,
         resourceType: resourceType,
       ));
 
@@ -435,7 +435,7 @@ mixin NodeHandler on BaseGameComponent {
     required Patch? patch,
   }) {
     final canBeBuilt = _canBeBuilt(
-      type: nodeType,
+      nodeType: nodeType,
       tile: tile,
       patch: patch,
     );
@@ -454,11 +454,11 @@ mixin NodeHandler on BaseGameComponent {
   }
 
   bool _canBeBuilt({
-    required NodeType type,
+    required NodeType nodeType,
     required MapTile tile,
     required Patch? patch,
   }) {
-    switch (type) {
+    switch (nodeType) {
       case NodeType.solar_panel:
       case NodeType.wind_turbine:
       case NodeType.coal_power_plant:

@@ -7,6 +7,6 @@ class OilRig extends Building {
     required super.inventory,
     required super.connections,
   }) : super(
-          type: NodeType.oil_rig,
+          nodeType: NodeType.oil_rig,
         );
 }
