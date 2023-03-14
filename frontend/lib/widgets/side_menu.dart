@@ -6,6 +6,7 @@ import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/menus/building_menu.dart';
 import 'package:tensionplanet/widgets/menus/construction_menu.dart';
 import 'package:tensionplanet/widgets/menus/headquarters_menu.dart';
+import 'package:tensionplanet/widgets/menus/warehouse_menu.dart';
 
 class SideMenu extends StatelessWidget {
   final GameComponent game;
@@ -41,6 +42,11 @@ class SideMenu extends StatelessWidget {
       );
     } else if (game.selectedNode().isBuilding) {
       return BuildingMenu(
+        game,
+        game.selectedNode(),
+      );
+    } else if (game.selectedNode().isWarehouse) {
+      return WarehouseMenu(
         game,
         game.selectedNode(),
       );

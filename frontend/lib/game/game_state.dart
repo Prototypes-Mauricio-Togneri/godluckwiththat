@@ -17,7 +17,7 @@ class GameState extends BaseState {
   num _totalTimeElapsed = 0;
   bool loaded = false;
 
-  Headquarters? headquarters;
+  Headquarters? _headquarters;
   final List<Construction> constructions = [];
   final MapList<NodeType, Building> buildings = MapList();
   final List<Node> allNodes = [];
@@ -29,6 +29,8 @@ class GameState extends BaseState {
     _totalTimeElapsed = jsonMatch.totalTimeElapsed;
     patches = jsonMatch.patches.patches;
   }
+
+  Headquarters get headquarters => _headquarters!;
 
   void setLoaded() {
     loaded = true;
@@ -51,7 +53,7 @@ class GameState extends BaseState {
 
   void addNode(Node node) {
     if (node is Headquarters) {
-      headquarters = node;
+      _headquarters = node;
     } else if (node is Construction) {
       constructions.add(node);
     } else if (node is Building) {
@@ -84,7 +86,7 @@ class GameState extends BaseState {
       totalTimeElapsed: _totalTimeElapsed.decimal(),
       map: jsonMatch.map.withCamera(camera),
       patches: patches.json,
-      headquarters: headquarters!.json,
+      headquarters: headquarters.json,
       buildings: jsonBuildings,
     );
   }

@@ -17,6 +17,7 @@ import 'package:tensionplanet/components/game/buildings/processors/iron_smelter.
 import 'package:tensionplanet/components/game/buildings/processors/steel_smelter.dart';
 import 'package:tensionplanet/components/game/construction.dart';
 import 'package:tensionplanet/components/game/headquarters.dart';
+import 'package:tensionplanet/components/game/warehouse.dart';
 import 'package:tensionplanet/extensions/json_location_extension.dart';
 import 'package:tensionplanet/game/base_game_component.dart';
 import 'package:tensionplanet/json/json_building.dart';
@@ -162,6 +163,15 @@ mixin NodeHandler on BaseGameComponent {
         location: json.location.location,
         inventory: Inventory.fromJson(json.inventory),
         connections: [],
+      );
+    }
+
+    for (final JsonBuilding json in json.getBuildings(NodeType.warehouse)) {
+      _addWarehouse(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+        resourceType: ResourceType.energy, // TODO(momo): change
       );
     }
 
@@ -377,6 +387,19 @@ mixin NodeHandler on BaseGameComponent {
         connections: connections,
       ));
 
+  Node _addWarehouse({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+    required ResourceType resourceType,
+  }) =>
+      _addNode(Warehouse(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+        resourceType: resourceType,
+      ));
+
   Node _addNode(Node node) {
     addComponent(node);
     state.addNode(node);
@@ -390,7 +413,7 @@ mixin NodeHandler on BaseGameComponent {
   }) {
     try {
       if (sendDronesBack) {
-        final Headquarters headquarters = state.headquarters!;
+        final Headquarters headquarters = state.headquarters;
         headquarters.inventory
             .addResource(Resource(ResourceType.drone, node.totalDrones));
       }
@@ -442,6 +465,7 @@ mixin NodeHandler on BaseGameComponent {
       case NodeType.gear_assembly:
       case NodeType.circuit_assembly:
       case NodeType.drone_factory:
+      case NodeType.warehouse:
         return tile.isSoil && (patch == null);
       case NodeType.iron_mine:
         return patch?.isIron ?? false;
@@ -552,6 +576,13 @@ mixin NodeHandler on BaseGameComponent {
           location: location,
           inventory: Inventory.fromNodeType(type),
           connections: [],
+        );
+      case NodeType.warehouse:
+        return _addWarehouse(
+          location: location,
+          inventory: Inventory.fromNodeType(type),
+          connections: [],
+          resourceType: ResourceType.energy, // TODO(momo): change
         );
       case NodeType.headquarters:
         throw Exception('Headquarters cannot be built');

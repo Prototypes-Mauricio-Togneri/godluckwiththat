@@ -71,7 +71,9 @@ class Building extends Node {
       final Node target = getAvailableConnection.to;
       final Resource resource = Resource.one(resourceProduced);
       final bool canReceive = target.isHeadquarters ||
-          (target as Building).canReceiveResource(resource);
+          target.isWarehouse ||
+          (target.isBuilding &&
+              (target as Building).canReceiveResource(resource));
 
       if (canReceive) {
         target.receiveResource(resource);
@@ -87,11 +89,7 @@ class Building extends Node {
     }
   }
 
-  bool canReceiveFrom(Building building) {
-    final ResourceType type = building.resourceProduced;
-
-    return input.keys.contains(type);
-  }
+  bool canReceiveFrom(ResourceType type) => input.keys.contains(type);
 
   bool canReceiveResource(Resource resource) =>
       inventory.get(resource.type) < game.state.research.inputQueueLimit;

@@ -2,6 +2,7 @@ import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/components/base/building_indicator.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/base/node_selected.dart';
+import 'package:tensionplanet/components/game/warehouse.dart';
 import 'package:tensionplanet/dialog/construct_menu.dart';
 import 'package:tensionplanet/dialog/main_menu.dart';
 import 'package:tensionplanet/dialog/settings_menu.dart';
@@ -9,6 +10,7 @@ import 'package:tensionplanet/extensions/component_extension.dart';
 import 'package:tensionplanet/game/base_game_component.dart';
 import 'package:tensionplanet/types/menu_mode.dart';
 import 'package:tensionplanet/types/node_type.dart';
+import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/toast.dart';
 
 mixin MenuHandler on BaseGameComponent {
@@ -103,18 +105,31 @@ mixin MenuHandler on BaseGameComponent {
   }
 
   void _toggleConnection(Node from, Node to) {
-    if ((from != to) && from.isBuilding && to.isBuildingOrHeadquarters) {
+    if ((from != to) &&
+        (from.isBuilding || from.isWarehouse) &&
+        to.isBuildingOrHeadquartersOrWareHouse) {
       if (from.hasConnection(to)) {
         from.removeDroneConnection(to);
       } else {
         if (to.isHeadquarters) {
-          from.addDroneConnection(to, from.isDroneFactory);
-        } else if (to is Building) {
-          if (to.canReceiveFrom(from as Building)) {
-            from.addDroneConnection(to, from.isDroneFactory);
-          } else {
-            Toast.show(
-                "Target building doesn't accept ${from.resourceProduced.toString()}");
+          from.addDroneConnection(to);
+        } else {
+          final ResourceType resourceType = from.outputType;
+
+          if (to is Building) {
+            if (to.canReceiveFrom(resourceType)) {
+              from.addDroneConnection(to);
+            } else {
+              Toast.show(
+                  "Target building doesn't accept ${resourceType.toString()}");
+            }
+          } else if (to is Warehouse) {
+            if (to.canReceiveFrom(resourceType)) {
+              from.addDroneConnection(to);
+            } else {
+              Toast.show(
+                  "Target warehouse doesn't accept ${resourceType.toString()}");
+            }
           }
         }
       }
@@ -122,7 +137,8 @@ mixin MenuHandler on BaseGameComponent {
   }
 
   void _transferDrone(Node from, Node to) {
-    if (from.isBuildingOrHeadquarters && to.isBuildingOrHeadquarters) {
+    if (from.isBuildingOrHeadquartersOrWareHouse &&
+        to.isBuildingOrHeadquartersOrWareHouse) {
       from.transferDroneTo(to);
     }
   }

@@ -55,7 +55,7 @@ flutter:
     - assets/images/buildings/assemblers/
     - assets/images/buildings/extractors/
     - assets/images/buildings/factories/
-    - assets/images/buildings/headquarters/
+    - assets/images/buildings/other/
     - assets/images/buildings/power_plants/
     - assets/images/buildings/processors/
     - assets/images/drones/

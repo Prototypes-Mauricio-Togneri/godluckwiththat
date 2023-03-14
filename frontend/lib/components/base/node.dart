@@ -5,6 +5,7 @@ import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/components/game/buildings/factories/drone_factory.dart';
 import 'package:tensionplanet/components/game/construction.dart';
 import 'package:tensionplanet/components/game/headquarters.dart';
+import 'package:tensionplanet/components/game/warehouse.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/models/connection.dart';
@@ -41,9 +42,12 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
   bool get isHeadquarters => this is Headquarters;
 
+  bool get isWarehouse => this is Warehouse;
+
   bool get isDroneFactory => this is DroneFactory;
 
-  bool get isBuildingOrHeadquarters => isBuilding || isHeadquarters;
+  bool get isBuildingOrHeadquartersOrWareHouse =>
+      isBuilding || isHeadquarters || isWarehouse;
 
   int get freeDrones => inventory.get(ResourceType.drone);
 
@@ -108,18 +112,18 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
   bool hasConnection(Node to) => getConnection(to) != null;
 
-  void addDroneConnection(Node to, [bool force = false]) {
-    if (hasDrones) {
+  void addDroneConnection(Node to) {
+    if (isDroneFactory) {
+      connections.add(Connection(to));
+      updateMenu();
+    } else if (hasDrones) {
       final Resource resource = Resource.one(ResourceType.drone);
       inventory.removeResource(resource);
       connections.add(Connection(to));
       updateMenu();
-    } else if (force) {
-      connections.add(Connection(to));
-      updateMenu();
-    } else if (game.state.headquarters!.hasDrones) {
+    } else if (game.state.headquarters.hasDrones) {
       final Resource resource = Resource.one(ResourceType.drone);
-      game.state.headquarters!.inventory.removeResource(resource);
+      game.state.headquarters.inventory.removeResource(resource);
       connections.add(Connection(to));
       updateMenu();
     } else {
@@ -151,6 +155,16 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   bool isAt(Location location) => this.location == location;
 
   double distanceTo(Node node) => location.distanceTo(node.location);
+
+  ResourceType get outputType {
+    if (this is Building) {
+      return (this as Building).resourceProduced;
+    } else if (this is Warehouse) {
+      return (this as Warehouse).resourceType;
+    } else {
+      throw Exception('Node cannot produce any resource');
+    }
+  }
 
   @override
   bool onTapUp(TapUpInfo info) {

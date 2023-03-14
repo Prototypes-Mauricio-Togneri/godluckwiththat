@@ -51,4 +51,5 @@ const _$NodeTypeEnumMap = {
   NodeType.gear_assembly: 'gear_assembly',
   NodeType.circuit_assembly: 'circuit_assembly',
   NodeType.drone_factory: 'drone_factory',
+  NodeType.warehouse: 'warehouse',
 };

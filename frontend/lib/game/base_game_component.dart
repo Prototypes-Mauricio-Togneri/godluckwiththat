@@ -117,6 +117,6 @@ class BaseGameComponent extends FlameGame
 
   @override
   void onCenterHeadquarters() {
-    centerMap(state.headquarters!.location.position);
+    centerMap(state.headquarters.location.position);
   }
 }

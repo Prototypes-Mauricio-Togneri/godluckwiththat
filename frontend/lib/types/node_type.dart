@@ -4,7 +4,7 @@ import 'package:tensionplanet/utils/assets.dart';
 
 enum NodeType {
   headquarters(
-    sprite: Assets.IMAGES_BUILDINGS_HEADQUARTERS_HEADQUARTERS,
+    sprite: Assets.IMAGES_BUILDINGS_OTHER_HEADQUARTERS,
     productionTime: 0,
     cost: {},
     input: {},
@@ -236,6 +236,18 @@ enum NodeType {
     output: {
       ResourceType.drone: 1,
     },
+  ),
+
+  // other
+  warehouse(
+    sprite: Assets.IMAGES_BUILDINGS_OTHER_WAREHOUSE,
+    productionTime: 0,
+    cost: {
+      ResourceType.iron_block: 5,
+      ResourceType.copper_block: 5,
+    },
+    input: {},
+    output: {},
   );
 
   final String sprite;
@@ -280,6 +292,10 @@ enum NodeType {
 
   static List<NodeType> factories() => [
         NodeType.drone_factory,
+      ];
+
+  static List<NodeType> other() => [
+        NodeType.warehouse,
       ];
 
   @override

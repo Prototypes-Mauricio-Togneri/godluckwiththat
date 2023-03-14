@@ -41,8 +41,10 @@ class Assets {
       'buildings/processors/steel_smelter.png';
   static const String IMAGES_BUILDINGS_PROCESSORS_COPPER_SMELTER =
       'buildings/processors/copper_smelter.png';
-  static const String IMAGES_BUILDINGS_HEADQUARTERS_HEADQUARTERS =
-      'buildings/headquarters/headquarters.png';
+  static const String IMAGES_BUILDINGS_OTHER_HEADQUARTERS =
+      'buildings/other/headquarters.png';
+  static const String IMAGES_BUILDINGS_OTHER_WAREHOUSE =
+      'buildings/other/warehouse.png';
   static const String IMAGES_RESOURCES_CONCRETE = 'resources/concrete.png';
   static const String IMAGES_RESOURCES_ENERGY = 'resources/energy.png';
   static const String IMAGES_RESOURCES_COPPER_ORE = 'resources/copper_ore.png';

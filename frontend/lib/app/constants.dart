@@ -127,7 +127,9 @@ class Constants {
 		"gear_assembly": [],
 		"circuit_assembly": [],
 
-		"drone_factory": []
+		"drone_factory": [],
+
+		"warehouse": []
 	}
 }
 ''';
