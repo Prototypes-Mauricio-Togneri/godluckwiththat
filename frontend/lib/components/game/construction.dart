@@ -5,12 +5,14 @@ import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
 class Construction extends Node {
+  final ResourceType? resourceType;
   final Inventory requestedResources = Inventory.empty();
   final Inventory remainingResources = Inventory.empty();
 
   Construction({
     required super.type,
     required super.location,
+    required this.resourceType,
   }) : super(
           inventory: Inventory.empty(),
           connections: [],
@@ -60,7 +62,8 @@ class Construction extends Node {
       destroy(false);
       final Node node = game.buildNode(
         location: location,
-        type: type,
+        nodeType: type,
+        resourceType: resourceType,
       );
       if (game.isNodeSelected(this)) {
         game.selectNode(node);

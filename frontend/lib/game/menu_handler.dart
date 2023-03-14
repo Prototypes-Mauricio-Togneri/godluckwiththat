@@ -164,10 +164,16 @@ mixin MenuHandler on BaseGameComponent {
     openBuildMenu();
   }
 
-  void enableBuildingMode(NodeType type) {
+  void enableBuildingMode({
+    required NodeType nodeType,
+    ResourceType? resourceType,
+  }) {
     _enableMode(MenuMode.building);
     removeMenuComponents();
-    addComponent(BuildingIndicator(type: type));
+    addComponent(BuildingIndicator(
+      nodeType: nodeType,
+      resourceType: resourceType,
+    ));
   }
 
   void enableDestroyingMode() {

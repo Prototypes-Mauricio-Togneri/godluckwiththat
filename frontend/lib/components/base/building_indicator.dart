@@ -3,18 +3,21 @@ import 'package:flame/rendering.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/types/node_type.dart';
+import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/environment.dart';
 
 class BuildingIndicator extends SpriteComponent with HasGameRef<GameComponent> {
-  final NodeType type;
+  final NodeType nodeType;
+  final ResourceType? resourceType;
 
   BuildingIndicator({
-    required this.type,
+    required this.nodeType,
+    this.resourceType,
   });
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(type.sprite);
+    sprite = await getSprite(nodeType.sprite);
     size = getSize();
     anchor = Anchor.center;
 

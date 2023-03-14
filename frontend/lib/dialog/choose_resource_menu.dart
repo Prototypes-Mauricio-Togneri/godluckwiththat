@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
@@ -45,6 +46,10 @@ class ChooseResourceMenu extends StatelessWidget {
 
   void onSelected(ResourceType type) {
     _closeMenu();
+    game.enableBuildingMode(
+      nodeType: NodeType.warehouse,
+      resourceType: type,
+    );
   }
 
   void _closeMenu() => game.closeMenu(name: ChooseResourceMenu.NAME);

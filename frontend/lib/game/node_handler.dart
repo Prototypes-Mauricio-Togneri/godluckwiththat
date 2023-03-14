@@ -213,13 +213,15 @@ mixin NodeHandler on BaseGameComponent {
         connections: connections,
       ));
 
-  Node addConstruction({
+  Node _addConstruction({
     required Location location,
-    required NodeType type,
+    required NodeType nodeType,
+    required ResourceType? resourceType,
   }) =>
       _addNode(Construction(
         location: location,
-        type: type,
+        type: nodeType,
+        resourceType: resourceType,
       ));
 
   Node _addSolarPanel({
@@ -426,21 +428,23 @@ mixin NodeHandler on BaseGameComponent {
   }
 
   bool buildConstructionNode({
-    required NodeType type,
+    required NodeType nodeType,
+    required ResourceType? resourceType,
     required Location location,
     required MapTile tile,
     required Patch? patch,
   }) {
     final canBeBuilt = _canBeBuilt(
-      type: type,
+      type: nodeType,
       tile: tile,
       patch: patch,
     );
 
     if (canBeBuilt) {
-      addConstruction(
+      _addConstruction(
         location: location,
-        type: type,
+        nodeType: nodeType,
+        resourceType: resourceType,
       );
 
       return true;
@@ -484,105 +488,106 @@ mixin NodeHandler on BaseGameComponent {
 
   Node buildNode({
     required Location location,
-    required NodeType type,
+    required NodeType nodeType,
+    required ResourceType? resourceType,
   }) {
-    switch (type) {
+    switch (nodeType) {
       case NodeType.solar_panel:
         return _addSolarPanel(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.wind_turbine:
         return _addWindTurbine(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.coal_power_plant:
         return _addCoalPowerPlant(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.iron_mine:
         return _addIronMine(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.copper_mine:
         return _addCopperMine(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.coal_mine:
         return _addCoalMine(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.oil_rig:
         return _addOilRig(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.stone_mine:
         return _addStoneMine(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.iron_smelter:
         return _addIronSmelter(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.copper_smelter:
         return _addCopperSmelter(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.steel_smelter:
         return _addSteelSmelter(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.chemical_plant:
         return _addChemicalPlant(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.gear_assembly:
         return _addGearAssembly(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.circuit_assembly:
         return _addCircuitAssembly(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.drone_factory:
         return _addDroneFactory(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
       case NodeType.warehouse:
         return _addWarehouse(
           location: location,
-          inventory: Inventory.fromNodeType(type),
+          inventory: Inventory.fromNodeType(nodeType),
           connections: [],
-          resourceType: ResourceType.energy, // TODO(momo): change
+          resourceType: resourceType!,
         );
       case NodeType.headquarters:
         throw Exception('Headquarters cannot be built');

@@ -78,7 +78,7 @@ class _ConstructMenuState extends State<ConstructMenu> {
     if (type == NodeType.warehouse) {
       widget.game.openChoseResourceMenu();
     } else {
-      widget.game.enableBuildingMode(type);
+      widget.game.enableBuildingMode(nodeType: type);
     }
   }
 

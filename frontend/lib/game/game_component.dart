@@ -10,6 +10,7 @@ import 'package:tensionplanet/models/location.dart';
 import 'package:tensionplanet/models/map_tile.dart';
 import 'package:tensionplanet/models/patch.dart';
 import 'package:tensionplanet/types/node_type.dart';
+import 'package:tensionplanet/types/resource_type.dart';
 
 class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
   GameComponent(super.state);
@@ -54,12 +55,14 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
           layerNodes.getComponent(BuildingIndicator);
       final Node? node = layerNodes.getNode(location);
       final MapTile tile = getTile(location);
-      final NodeType type = buildingIndicator.type;
+      final NodeType nodeType = buildingIndicator.nodeType;
+      final ResourceType? resourceType = buildingIndicator.resourceType;
       final Patch? patch = state.patches.patchAt(location);
 
       if (node == null) {
         final bool built = buildConstructionNode(
-          type: type,
+          nodeType: nodeType,
+          resourceType: resourceType,
           location: location,
           tile: tile,
           patch: patch,
