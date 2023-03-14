@@ -3,6 +3,7 @@ import 'package:tensionplanet/components/base/building_indicator.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/base/node_selected.dart';
 import 'package:tensionplanet/components/game/warehouse.dart';
+import 'package:tensionplanet/dialog/choose_resource_menu.dart';
 import 'package:tensionplanet/dialog/construct_menu.dart';
 import 'package:tensionplanet/dialog/main_menu.dart';
 import 'package:tensionplanet/dialog/settings_menu.dart';
@@ -38,6 +39,8 @@ mixin MenuHandler on BaseGameComponent {
     _mode = MenuMode.none;
     state.notify();
   }
+
+  void openChoseResourceMenu() => _openMenu(name: ChooseResourceMenu.NAME);
 
   void openBuildMenu() => _openMenu(name: ConstructMenu.NAME);
 
