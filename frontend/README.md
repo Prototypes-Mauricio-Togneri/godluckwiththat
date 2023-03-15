@@ -2,6 +2,7 @@
 
 * Show warehouse resource type
 * Space bar + drag
+* Send resource slowly by a drone
 
 * Stop/resume constructions and buildings (stop receiving resources)
 * Save/load game state
