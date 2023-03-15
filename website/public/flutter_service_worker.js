@@ -3,7 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "main.dart.js": "f6abfd83467bbb6b3992056df66698bf",
+  "main.dart.js": "039cdf18ea40ddc92d25c24432258e60",
 "assets/NOTICES": "79675db6e3fb8eb1e003343a2f22cef8",
 "assets/FontManifest.json": "1d61ef933c075efc9d5b2eceb3317b47",
 "assets/assets/audio/sfx/ammo1.mp3": "f8d02b968e3f3eaa373d7cc44a4c0102",
@@ -32,7 +32,8 @@ const RESOURCES = {
 "assets/assets/images/buildings/processors/iron_smelter.png": "f415c687fe052adfdd25d654f90a4295",
 "assets/assets/images/buildings/processors/steel_smelter.png": "b0dbea9756c8fb32b3741102420ec88d",
 "assets/assets/images/buildings/processors/copper_smelter.png": "02cf51c3b2b8dbc33c07302f303f86b3",
-"assets/assets/images/buildings/headquarters/headquarters.png": "a06c84f7daa157e06d4123e87c25b1e6",
+"assets/assets/images/buildings/other/headquarters.png": "a06c84f7daa157e06d4123e87c25b1e6",
+"assets/assets/images/buildings/other/warehouse.png": "9e211eac795fbc235e2fb522bb6e973b",
 "assets/assets/images/resources/concrete.png": "ba578f0b91996db41653c14ca83f2586",
 "assets/assets/images/resources/energy.png": "7d723528b588e91d279549f6d927cbcb",
 "assets/assets/images/resources/copper_ore.png": "f541086db626bdb7dadad57193839dce",
@@ -53,7 +54,7 @@ const RESOURCES = {
 "assets/assets/images/patches/copper_patch.png": "6df3268534067601a5b9240328276dc7",
 "assets/assets/fonts/Pixel.ttf": "80520f263d966b867eaf5f8ac5feac0a",
 "assets/fonts/MaterialIcons-Regular.otf": "e7069dfd19b331be16bed984668fe080",
-"assets/AssetManifest.json": "eec4181f39ad5b8db8ceb0048109b48c",
+"assets/AssetManifest.json": "afae702e2a776baa4dbd53e27d524571",
 "manifest.json": "93b9088082de1f6e98edca51984431cc",
 "canvaskit/canvaskit.wasm": "3de12d898ec208a5f31362cc00f09b9e",
 "canvaskit/profiling/canvaskit.wasm": "371bc4e204443b0d5e774d64a046eb99",
@@ -63,8 +64,8 @@ const RESOURCES = {
 "firebase-messaging-sw.js": "6a00fdbf820ef5ab93a3f7b5f767256f",
 "favicon.ico": "7d5e71d98847316dae878429e3334569",
 "version.json": "e7d55f12544d51b8385a2b131fbe472a",
-"index.html": "94a066ac838b62446cdd5944e4bf2f4c",
-"/": "94a066ac838b62446cdd5944e4bf2f4c"
+"index.html": "260d9df726869eb37a47bda8259ab295",
+"/": "260d9df726869eb37a47bda8259ab295"
 };
 
 // The application shell files that are downloaded before a service worker can
