@@ -67,7 +67,6 @@ class Building extends Node {
       }
 
       if ((outputAmount > 0) && hasConnections) {
-        // TODO(momo): send resource slowly by a drone
         final Connection? connection = nextAvailableConnection;
 
         if (connection != null) {
