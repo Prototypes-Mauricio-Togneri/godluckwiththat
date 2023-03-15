@@ -1,17 +1,18 @@
 import 'package:flame/components.dart';
 import 'package:tensionplanet/app/constants.dart';
+import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/json/json_building.dart';
+import 'package:tensionplanet/models/connection.dart';
+import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/assets.dart';
-import 'package:tensionplanet/utils/every.dart';
 
 class Warehouse extends Node {
   final ResourceType resourceType;
-  final Every every = Every(1);
   UnconnectedSign? unconnectedSign;
 
   Warehouse({
@@ -34,23 +35,22 @@ class Warehouse extends Node {
     super.update(dt);
 
     if (enabled) {
-      every.update(dt);
+      if ((inventory.get(resourceType) > 0) && hasConnections) {
+        final Connection? connection = nextAvailableConnection;
 
-      if ((inventory.get(resourceType) > 0) &&
-          hasConnections &&
-          every.available) {
-        // TODO(momo): send resource slowly by a drone
-        /*final Node target = getAvailableConnection.to;
-        final Resource resource = Resource.one(resourceType);
-        final bool canReceive = target.isHeadquarters ||
-            target.isWarehouse ||
-            (target.isBuilding &&
-                (target as Building).canReceiveResource(resource));
+        if (connection != null) {
+          final Resource resource = Resource.one(resourceType);
+          final Node target = connection.to;
+          final bool canReceive = target.isHeadquarters ||
+              target.isWarehouse ||
+              (target.isBuilding &&
+                  (target as Building).canReceiveResource(resource));
 
-        if (canReceive) {
-          target.receiveResource(resource);
-          inventory.removeResource(resource);
-        }*/
+          if (canReceive) {
+            connection.send(resource);
+            inventory.removeResource(resource);
+          }
+        }
       }
     }
 
