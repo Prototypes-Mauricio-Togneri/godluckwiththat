@@ -21,8 +21,6 @@ class Construction extends Node {
   Future onLoad() {
     opacity = 0.5;
 
-    game.state.headquarters.addDroneConnection(this);
-
     for (final MapEntry<ResourceType, int> entry in nodeType.cost.entries) {
       final Resource resource = Resource(
         entry.key,
@@ -33,6 +31,12 @@ class Construction extends Node {
     }
 
     return super.onLoad();
+  }
+
+  @override
+  void onMount() {
+    super.onMount();
+    game.state.headquarters.addDroneConnection(this);
   }
 
   @override
