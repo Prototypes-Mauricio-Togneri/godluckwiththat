@@ -1,7 +1,6 @@
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/signs/filled_sign.dart';
 import 'package:tensionplanet/components/game/signs/idle_sign.dart';
-import 'package:tensionplanet/components/game/signs/stopped_sign.dart';
 import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
 import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/models/connection.dart';
@@ -22,7 +21,6 @@ class Building extends Node {
   IdleSign? idleSign;
   FilledSign? filledSign;
   UnconnectedSign? unconnectedSign;
-  StoppedSign? stoppedSign;
 
   Building({
     required super.nodeType,
@@ -93,20 +91,10 @@ class Building extends Node {
       }
     }
 
-    for (final Connection connection in busyConnections) {
-      connection.update(dt);
-    }
-
     if (!hasConnections && !isDroneFactory) {
       _showUnconnectedSign();
     } else {
       _hideUnconnectedSign();
-    }
-
-    if (!enabled) {
-      _showStoppedSign();
-    } else {
-      _hideStoppedSign();
     }
   }
 
@@ -192,20 +180,6 @@ class Building extends Node {
     if (unconnectedSign != null) {
       remove(unconnectedSign!);
       unconnectedSign = null;
-    }
-  }
-
-  void _showStoppedSign() {
-    if (stoppedSign == null) {
-      stoppedSign = StoppedSign();
-      add(stoppedSign!);
-    }
-  }
-
-  void _hideStoppedSign() {
-    if (stoppedSign != null) {
-      remove(stoppedSign!);
-      stoppedSign = null;
     }
   }
 

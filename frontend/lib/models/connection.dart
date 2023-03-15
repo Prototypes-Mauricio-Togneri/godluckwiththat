@@ -49,7 +49,6 @@ class Connection {
       } else if (state == ConnectionState.returning) {
         progress = 0;
         state = ConnectionState.available;
-        print('RETURNED');
       }
     }
   }

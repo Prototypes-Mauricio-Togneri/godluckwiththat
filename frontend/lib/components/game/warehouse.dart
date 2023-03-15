@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/components/base/node.dart';
-import 'package:tensionplanet/components/game/signs/stopped_sign.dart';
 import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/json/json_building.dart';
@@ -14,7 +13,6 @@ class Warehouse extends Node {
   final ResourceType resourceType;
   final Every every = Every(1);
   UnconnectedSign? unconnectedSign;
-  StoppedSign? stoppedSign;
 
   Warehouse({
     required super.location,
@@ -61,12 +59,6 @@ class Warehouse extends Node {
     } else {
       _hideUnconnectedSign();
     }
-
-    if (!enabled) {
-      _showStoppedSign();
-    } else {
-      _hideStoppedSign();
-    }
   }
 
   bool canReceiveFrom(ResourceType resourceType) =>
@@ -83,20 +75,6 @@ class Warehouse extends Node {
     if (unconnectedSign != null) {
       remove(unconnectedSign!);
       unconnectedSign = null;
-    }
-  }
-
-  void _showStoppedSign() {
-    if (stoppedSign == null) {
-      stoppedSign = StoppedSign();
-      add(stoppedSign!);
-    }
-  }
-
-  void _hideStoppedSign() {
-    if (stoppedSign != null) {
-      remove(stoppedSign!);
-      stoppedSign = null;
     }
   }
 
