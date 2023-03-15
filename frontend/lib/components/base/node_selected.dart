@@ -11,7 +11,7 @@ import 'package:tensionplanet/utils/palette.dart';
 class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
   final Node node;
   final Paint _paintConnections = Paint();
-  final Paint _paintProducing = Paint();
+  final Paint _paintDrone = Paint();
 
   NodeSelected(this.node);
 
@@ -26,7 +26,8 @@ class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
     _paintConnections.strokeWidth = 3 / Constants.NODE_SIZE;
     _paintConnections.style = PaintingStyle.stroke;
 
-    _paintProducing.color = Palette.error;
+    _paintDrone.color = Palette.error;
+    _paintDrone.style = PaintingStyle.fill;
 
     return super.onLoad();
   }
@@ -47,7 +48,11 @@ class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
       );
 
       if (!connection.isAvailable) {
-        
+        canvas.drawCircle(
+          (connection.position + (size / 2)).toOffset(),
+          0.5,
+          _paintDrone,
+        );
       }
     }
   }

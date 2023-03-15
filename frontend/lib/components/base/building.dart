@@ -9,14 +9,12 @@ import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/building_state.dart';
 import 'package:tensionplanet/types/resource_type.dart';
-import 'package:tensionplanet/utils/every.dart';
 
 class Building extends Node {
   num accumulatedTime = 0; // TODO(momo): receive as parameter
   BuildingState state = BuildingState.idle; // TODO(momo): receive as parameter
   final ResourceMap input;
   final ResourceMap output;
-  final Every every = Every(1);
   final Efficiency efficiency = Efficiency();
   IdleSign? idleSign;
   FilledSign? filledSign;
@@ -62,14 +60,13 @@ class Building extends Node {
     super.update(dt);
 
     if (enabled) {
-      every.update(dt);
       efficiency.update(this, dt);
 
       if (state.isWorking) {
         _produce(dt);
       }
 
-      if ((outputAmount > 0) && hasConnections && every.available) {
+      if ((outputAmount > 0) && hasConnections) {
         // TODO(momo): send resource slowly by a drone
         final Connection? connection = nextAvailableConnection;
 

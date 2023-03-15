@@ -29,7 +29,7 @@ class Connection {
 
   bool get isAvailable => state == ConnectionState.available;
 
-  Vector2 get position => from.position + (direction * progress);
+  Vector2 get position => direction * progress;
 
   void send(Resource newResource) {
     state = ConnectionState.sending;
