@@ -1,6 +1,7 @@
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/signs/filled_sign.dart';
 import 'package:tensionplanet/components/game/signs/idle_sign.dart';
+import 'package:tensionplanet/components/game/signs/stopped_sign.dart';
 import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
 import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/models/efficiency.dart';
@@ -20,6 +21,7 @@ class Building extends Node {
   IdleSign? idleSign;
   FilledSign? filledSign;
   UnconnectedSign? unconnectedSign;
+  StoppedSign? stoppedSign;
 
   Building({
     required super.nodeType,
@@ -59,26 +61,29 @@ class Building extends Node {
   @override
   void update(double dt) {
     super.update(dt);
-    every.update(dt);
-    efficiency.update(this, dt);
 
-    if (state.isWorking) {
-      _produce(dt);
-    }
+    if (enabled) {
+      every.update(dt);
+      efficiency.update(this, dt);
 
-    if ((outputAmount > 0) && hasConnections && every.available) {
-      // TODO(momo): send resource slowly by a drone
-      final Node target = getAvailableConnection.to;
-      final Resource resource = Resource.one(resourceProduced);
-      final bool canReceive = target.isHeadquarters ||
-          target.isWarehouse ||
-          (target.isBuilding &&
-              (target as Building).canReceiveResource(resource));
+      if (state.isWorking) {
+        _produce(dt);
+      }
 
-      if (canReceive) {
-        target.receiveResource(resource);
-        inventory.removeResource(resource);
-        _startProducing();
+      if ((outputAmount > 0) && hasConnections && every.available) {
+        // TODO(momo): send resource slowly by a drone
+        final Node target = getAvailableConnection.to;
+        final Resource resource = Resource.one(resourceProduced);
+        final bool canReceive = target.isHeadquarters ||
+            target.isWarehouse ||
+            (target.isBuilding &&
+                (target as Building).canReceiveResource(resource));
+
+        if (canReceive) {
+          target.receiveResource(resource);
+          inventory.removeResource(resource);
+          _startProducing();
+        }
       }
     }
 
@@ -86,6 +91,12 @@ class Building extends Node {
       _showUnconnectedSign();
     } else {
       _hideUnconnectedSign();
+    }
+
+    if (!enabled) {
+      _showStoppedSign();
+    } else {
+      _hideStoppedSign();
     }
   }
 
@@ -171,6 +182,20 @@ class Building extends Node {
     if (unconnectedSign != null) {
       remove(unconnectedSign!);
       unconnectedSign = null;
+    }
+  }
+
+  void _showStoppedSign() {
+    if (stoppedSign == null) {
+      stoppedSign = StoppedSign();
+      add(stoppedSign!);
+    }
+  }
+
+  void _hideStoppedSign() {
+    if (stoppedSign != null) {
+      remove(stoppedSign!);
+      stoppedSign = null;
     }
   }
 

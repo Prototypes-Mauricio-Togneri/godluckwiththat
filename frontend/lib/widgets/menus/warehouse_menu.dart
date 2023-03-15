@@ -49,6 +49,20 @@ class WarehouseMenu extends StatelessWidget {
         if (!node.hasConnections)
           const WarningMessage('Building not connected'),
         const Spacer(),
+        if (node.enabled)
+          MenuButton(
+            text: 'Stop',
+            icon: Icons.stop,
+            color: Palette.error,
+            onPressed: () => _onToggleEnabled(false),
+          )
+        else
+          MenuButton(
+            text: 'Resume',
+            icon: Icons.play_arrow,
+            color: Palette.success,
+            onPressed: () => _onToggleEnabled(true),
+          ),
         MenuButton(
           text: 'Center',
           icon: Icons.filter_tilt_shift,
@@ -69,6 +83,11 @@ class WarehouseMenu extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _onToggleEnabled(bool value) {
+    node.enabled = value;
+    node.updateMenu();
   }
 
   void _onCenter() => game.centerMap(node.position);

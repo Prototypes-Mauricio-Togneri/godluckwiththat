@@ -5,6 +5,7 @@ class Assets {
   static const String IMAGES_SIGNS_UNCONNECTED_SIGN =
       'signs/unconnected_sign.png';
   static const String IMAGES_SIGNS_IDLE_SIGN = 'signs/idle_sign.png';
+  static const String IMAGES_SIGNS_STOPPED_SIGN = 'signs/stopped_sign.png';
   static const String IMAGES_DRONES_BASIC_DRONE = 'drones/basic_drone.png';
   static const String IMAGES_DRONES_ADVANCE_DRONE = 'drones/advance_drone.png';
   static const String IMAGES_DRONES_INTERMEDIATE_DRONE =

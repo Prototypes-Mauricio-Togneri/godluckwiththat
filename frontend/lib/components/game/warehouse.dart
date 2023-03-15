@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/components/base/node.dart';
+import 'package:tensionplanet/components/game/signs/stopped_sign.dart';
 import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/json/json_building.dart';
@@ -15,6 +16,7 @@ class Warehouse extends Node {
   final ResourceType resourceType;
   final Every every = Every(1);
   UnconnectedSign? unconnectedSign;
+  StoppedSign? stoppedSign;
 
   Warehouse({
     required super.location,
@@ -34,22 +36,25 @@ class Warehouse extends Node {
   @override
   void update(double dt) {
     super.update(dt);
-    every.update(dt);
 
-    if ((inventory.get(resourceType) > 0) &&
-        hasConnections &&
-        every.available) {
-      // TODO(momo): send resource slowly by a drone
-      final Node target = getAvailableConnection.to;
-      final Resource resource = Resource.one(resourceType);
-      final bool canReceive = target.isHeadquarters ||
-          target.isWarehouse ||
-          (target.isBuilding &&
-              (target as Building).canReceiveResource(resource));
+    if (enabled) {
+      every.update(dt);
 
-      if (canReceive) {
-        target.receiveResource(resource);
-        inventory.removeResource(resource);
+      if ((inventory.get(resourceType) > 0) &&
+          hasConnections &&
+          every.available) {
+        // TODO(momo): send resource slowly by a drone
+        final Node target = getAvailableConnection.to;
+        final Resource resource = Resource.one(resourceType);
+        final bool canReceive = target.isHeadquarters ||
+            target.isWarehouse ||
+            (target.isBuilding &&
+                (target as Building).canReceiveResource(resource));
+
+        if (canReceive) {
+          target.receiveResource(resource);
+          inventory.removeResource(resource);
+        }
       }
     }
 
@@ -57,6 +62,12 @@ class Warehouse extends Node {
       _showUnconnectedSign();
     } else {
       _hideUnconnectedSign();
+    }
+
+    if (!enabled) {
+      _showStoppedSign();
+    } else {
+      _hideStoppedSign();
     }
   }
 
@@ -74,6 +85,20 @@ class Warehouse extends Node {
     if (unconnectedSign != null) {
       remove(unconnectedSign!);
       unconnectedSign = null;
+    }
+  }
+
+  void _showStoppedSign() {
+    if (stoppedSign == null) {
+      stoppedSign = StoppedSign();
+      add(stoppedSign!);
+    }
+  }
+
+  void _hideStoppedSign() {
+    if (stoppedSign != null) {
+      remove(stoppedSign!);
+      stoppedSign = null;
     }
   }
 

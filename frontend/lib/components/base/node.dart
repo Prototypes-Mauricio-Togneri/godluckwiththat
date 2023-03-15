@@ -23,6 +23,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   final Location location;
   final Inventory inventory;
   final List<Connection> connections;
+  bool enabled = true;
   int connectionIndex = 0;
 
   late final DebugText debugText = DebugText();
