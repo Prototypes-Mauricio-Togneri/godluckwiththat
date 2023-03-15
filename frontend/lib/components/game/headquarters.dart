@@ -21,7 +21,10 @@ class Headquarters extends Node {
     super.update(dt);
     every.update(dt);
 
-    if (game.state.constructions.isNotEmpty && hasDrones && every.available) {
+    if (game.state.constructions.isNotEmpty &&
+        hasDrones &&
+        hasConnections &&
+        every.available) {
       for (final Construction construction in game.state.constructions) {
         final bool ironSent = _checkConstruction(
           construction: construction,

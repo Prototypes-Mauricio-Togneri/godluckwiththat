@@ -22,6 +22,8 @@ class Construction extends Node {
   Future onLoad() {
     opacity = 0.5;
 
+    game.state.headquarters.addDroneConnection(this);
+
     for (final MapEntry<ResourceType, int> entry in nodeType.cost.entries) {
       final Resource resource = Resource(
         entry.key,
@@ -59,6 +61,7 @@ class Construction extends Node {
     updateMenu();
 
     if (remainingResources.isEmpty) {
+      game.state.headquarters.removeDroneConnection(this);
       destroy(false);
       final Node node = game.buildNode(
         location: location,
