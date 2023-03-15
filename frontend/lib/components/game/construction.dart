@@ -6,7 +6,6 @@ import 'package:tensionplanet/types/resource_type.dart';
 
 class Construction extends Node {
   final ResourceType? resourceType;
-  final Inventory requestedResources = Inventory.empty();
   final Inventory remainingResources = Inventory.empty();
 
   Construction({
@@ -30,7 +29,6 @@ class Construction extends Node {
         entry.value,
       );
 
-      requestedResources.addResource(resource);
       remainingResources.addResource(resource);
     }
 

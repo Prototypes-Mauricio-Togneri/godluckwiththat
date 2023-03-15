@@ -5,11 +5,8 @@ import 'package:tensionplanet/models/connection.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
-import 'package:tensionplanet/utils/every.dart';
 
 class Headquarters extends Node {
-  final Every every = Every(1);
-
   Headquarters({
     required super.location,
     required super.inventory,
@@ -19,12 +16,8 @@ class Headquarters extends Node {
   @override
   void update(double dt) {
     super.update(dt);
-    every.update(dt);
 
-    if (game.state.constructions.isNotEmpty &&
-        hasDrones &&
-        hasConnections &&
-        every.available) {
+    if (game.state.constructions.isNotEmpty && hasDrones && hasConnections) {
       for (final Construction construction in game.state.constructions) {
         final bool ironSent = _checkConstruction(
           construction: construction,
@@ -69,9 +62,7 @@ class Headquarters extends Node {
     required Construction construction,
     required Resource resource,
   }) {
-    if (hasDrones &&
-        (construction.requestedResources.hasResource(resource)) &&
-        inventory.hasResource(resource)) {
+    if (hasDrones && inventory.hasResource(resource)) {
       return _sendConstructionDrone(
         construction: construction,
         resource: resource,
@@ -88,7 +79,6 @@ class Headquarters extends Node {
     final Connection? connection = nextAvailableConnection;
 
     if (connection != null) {
-      construction.requestedResources.removeResource(resource);
       inventory.removeResource(resource);
       connection.send(resource);
       updateMenu();
