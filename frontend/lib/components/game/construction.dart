@@ -6,7 +6,6 @@ import 'package:tensionplanet/types/resource_type.dart';
 
 class Construction extends Node {
   final ResourceType? resourceType;
-  final Inventory remainingResources = Inventory.empty();
 
   Construction({
     required super.nodeType,
@@ -27,7 +26,7 @@ class Construction extends Node {
         entry.value,
       );
 
-      remainingResources.addResource(resource);
+      inventory.addResource(resource);
     }
 
     return super.onLoad();
@@ -47,7 +46,7 @@ class Construction extends Node {
     double total = 0;
 
     for (final MapEntry<ResourceType, int> entry in nodeType.cost.entries) {
-      received += entry.value - remainingResources.get(entry.key);
+      received += entry.value - inventory.get(entry.key);
       total += entry.value;
     }
 
@@ -56,13 +55,13 @@ class Construction extends Node {
 
   @override
   void receiveResource(Resource resource) {
-    remainingResources.removeResource(Resource(
+    inventory.removeResource(Resource(
       resource.resourceType,
       resource.amount,
     ));
     updateMenu();
 
-    if (remainingResources.isEmpty) {
+    if (inventory.isEmpty) {
       game.state.headquarters.removeDroneConnection(this);
       destroy(false);
       final Node node = game.buildNode(

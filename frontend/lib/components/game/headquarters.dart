@@ -63,8 +63,8 @@ class Headquarters extends Node {
     required Resource resource,
   }) {
     if (hasDrones &&
-        construction.remainingResources.hasResource(resource) &&
-         inventory.hasResource(resource)) {
+        construction.inventory.hasResource(resource) &&
+        inventory.hasResource(resource)) {
       return _sendConstructionDrone(
         construction: construction,
         resource: resource,

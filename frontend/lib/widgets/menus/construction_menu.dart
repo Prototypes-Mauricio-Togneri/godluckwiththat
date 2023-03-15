@@ -100,7 +100,7 @@ class ResourcesSection extends StatelessWidget {
             title: entry.key.toString(),
             sprite: entry.key.sprite,
             amount:
-                '${entry.value - node.remainingResources.get(entry.key)}/${entry.value}',
+                '${entry.value - node.inventory.get(entry.key)}/${entry.value}',
           ),
       ],
     );
