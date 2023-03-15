@@ -3,7 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "main.dart.js": "039cdf18ea40ddc92d25c24432258e60",
+  "main.dart.js": "4a0813b548d8fa54da0b5915a36a8d9e",
 "assets/NOTICES": "79675db6e3fb8eb1e003343a2f22cef8",
 "assets/FontManifest.json": "1d61ef933c075efc9d5b2eceb3317b47",
 "assets/assets/audio/sfx/ammo1.mp3": "f8d02b968e3f3eaa373d7cc44a4c0102",
@@ -12,6 +12,7 @@ const RESOURCES = {
 "assets/assets/images/signs/filled_sign.png": "f2b9076fbca6ad320cdc08f7293f50af",
 "assets/assets/images/signs/unconnected_sign.png": "1032b43ade41f6b4559110d197338d3f",
 "assets/assets/images/signs/idle_sign.png": "98afbf937c101118a2c6275ab4364da2",
+"assets/assets/images/signs/stopped_sign.png": "2620c0a6a620a0dabc6d436dc57b1fc0",
 "assets/assets/images/drones/basic_drone.png": "66fad146a8fecfa7ddfa0d8358834549",
 "assets/assets/images/drones/advance_drone.png": "0c810c983652b2a5e613920f612f2363",
 "assets/assets/images/drones/intermediate_drone.png": "18f2c7517797e123453b623df5d95e49",
@@ -34,6 +35,7 @@ const RESOURCES = {
 "assets/assets/images/buildings/processors/copper_smelter.png": "02cf51c3b2b8dbc33c07302f303f86b3",
 "assets/assets/images/buildings/other/headquarters.png": "a06c84f7daa157e06d4123e87c25b1e6",
 "assets/assets/images/buildings/other/warehouse.png": "9e211eac795fbc235e2fb522bb6e973b",
+"assets/assets/images/buildings/other/void_background.png": "d6be39f3ac937f4b0ddec2d479c80132",
 "assets/assets/images/resources/concrete.png": "ba578f0b91996db41653c14ca83f2586",
 "assets/assets/images/resources/energy.png": "7d723528b588e91d279549f6d927cbcb",
 "assets/assets/images/resources/copper_ore.png": "f541086db626bdb7dadad57193839dce",
@@ -54,7 +56,7 @@ const RESOURCES = {
 "assets/assets/images/patches/copper_patch.png": "6df3268534067601a5b9240328276dc7",
 "assets/assets/fonts/Pixel.ttf": "80520f263d966b867eaf5f8ac5feac0a",
 "assets/fonts/MaterialIcons-Regular.otf": "e7069dfd19b331be16bed984668fe080",
-"assets/AssetManifest.json": "afae702e2a776baa4dbd53e27d524571",
+"assets/AssetManifest.json": "48d2c2c5eaa0a6391e563ee5a30522b8",
 "manifest.json": "93b9088082de1f6e98edca51984431cc",
 "canvaskit/canvaskit.wasm": "3de12d898ec208a5f31362cc00f09b9e",
 "canvaskit/profiling/canvaskit.wasm": "371bc4e204443b0d5e774d64a046eb99",
@@ -64,8 +66,8 @@ const RESOURCES = {
 "firebase-messaging-sw.js": "6a00fdbf820ef5ab93a3f7b5f767256f",
 "favicon.ico": "7d5e71d98847316dae878429e3334569",
 "version.json": "e7d55f12544d51b8385a2b131fbe472a",
-"index.html": "260d9df726869eb37a47bda8259ab295",
-"/": "260d9df726869eb37a47bda8259ab295"
+"index.html": "82f416091d4b5ec850b18a2d38593c58",
+"/": "82f416091d4b5ec850b18a2d38593c58"
 };
 
 // The application shell files that are downloaded before a service worker can
