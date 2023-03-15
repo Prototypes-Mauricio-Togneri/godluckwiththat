@@ -38,15 +38,21 @@ class Connection {
   }
 
   void update(double dt) {
-    progress += (dt / distance) * research.droneSpeed;
+    final double moved = (dt / distance) * research.droneSpeed;
 
-    if (progress >= 1) {
-      if (state == ConnectionState.sending) {
-        progress = 0;
+    if (state == ConnectionState.sending) {
+      progress += moved;
+
+      if (progress >= 1) {
+        progress = 1;
         state = ConnectionState.returning;
         to.receiveResource(resource!);
         resource = null;
-      } else if (state == ConnectionState.returning) {
+      }
+    } else if (state == ConnectionState.returning) {
+      progress -= moved;
+
+      if (progress <= 0) {
         progress = 0;
         state = ConnectionState.available;
       }

@@ -45,6 +45,10 @@ class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
         position.toOffset(),
         _paintConnections,
       );
+
+      if (!connection.isAvailable) {
+        
+      }
     }
   }
 }
