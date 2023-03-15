@@ -45,6 +45,8 @@ class Assets {
       'buildings/other/headquarters.png';
   static const String IMAGES_BUILDINGS_OTHER_WAREHOUSE =
       'buildings/other/warehouse.png';
+  static const String IMAGES_BUILDINGS_OTHER_VOID_BACKGROUND =
+      'buildings/other/void_background.png';
   static const String IMAGES_RESOURCES_CONCRETE = 'resources/concrete.png';
   static const String IMAGES_RESOURCES_ENERGY = 'resources/energy.png';
   static const String IMAGES_RESOURCES_COPPER_ORE = 'resources/copper_ore.png';

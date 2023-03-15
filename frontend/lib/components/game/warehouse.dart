@@ -1,10 +1,14 @@
+import 'package:flame/components.dart';
+import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
+import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
+import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/every.dart';
 
 class Warehouse extends Node {
@@ -18,6 +22,14 @@ class Warehouse extends Node {
     required super.connections,
     required this.resourceType,
   }) : super(nodeType: NodeType.warehouse);
+
+  @override
+  Future onLoad() async {
+    add(ResourceBackground());
+    add(ResourceIcon(resourceType));
+
+    return super.onLoad();
+  }
 
   @override
   void update(double dt) {
@@ -70,4 +82,32 @@ class Warehouse extends Node {
         inventory: inventory.json,
         resourceType: resourceType,
       );
+}
+
+class ResourceIcon extends SpriteComponent {
+  final ResourceType resourceType;
+
+  ResourceIcon(this.resourceType);
+
+  @override
+  Future onLoad() async {
+    sprite = await getSprite(resourceType.sprite);
+    size = getSize();
+    anchor = Anchor.center;
+    position = Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);
+
+    return super.onLoad();
+  }
+}
+
+class ResourceBackground extends SpriteComponent {
+  @override
+  Future onLoad() async {
+    sprite = await getSprite(Assets.IMAGES_BUILDINGS_OTHER_VOID_BACKGROUND);
+    size = getSize();
+    anchor = Anchor.center;
+    position = Vector2(Constants.NODE_SIZE / 2, Constants.NODE_SIZE / 2);
+
+    return super.onLoad();
+  }
 }

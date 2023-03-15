@@ -1,6 +1,5 @@
 # Tension Planet
 
-* Show warehouse resource type
 * Space bar + drag
 * Send resource slowly by a drone
 
