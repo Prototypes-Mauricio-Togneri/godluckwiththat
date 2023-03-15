@@ -1,6 +1,7 @@
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/construction.dart';
 import 'package:tensionplanet/json/json_headquarters.dart';
+import 'package:tensionplanet/models/connection.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
@@ -81,13 +82,16 @@ class Headquarters extends Node {
     required Construction construction,
     required Resource resource,
   }) {
-    // TODO(momo): send resource slowly by a drone
-    construction.requestedResources.removeResource(resource);
-    construction.receiveResource(resource);
-    inventory.removeResource(resource);
-    updateMenu();
+    final Connection? connection = nextAvailableConnection;
 
-    return true;
+    if (connection != null) {
+      construction.requestedResources.removeResource(resource);
+      inventory.removeResource(resource);
+      connection.send(resource);
+      updateMenu();
+    }
+
+    return connection != null;
   }
 
   JsonHeadquarters get json => JsonHeadquarters(
