@@ -1,12 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:tensionplanet/app/constants.dart';
-import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/signs/stopped_sign.dart';
 import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/json/json_building.dart';
-import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/assets.dart';
@@ -44,7 +42,7 @@ class Warehouse extends Node {
           hasConnections &&
           every.available) {
         // TODO(momo): send resource slowly by a drone
-        final Node target = getAvailableConnection.to;
+        /*final Node target = getAvailableConnection.to;
         final Resource resource = Resource.one(resourceType);
         final bool canReceive = target.isHeadquarters ||
             target.isWarehouse ||
@@ -54,7 +52,7 @@ class Warehouse extends Node {
         if (canReceive) {
           target.receiveResource(resource);
           inventory.removeResource(resource);
-        }
+        }*/
       }
     }
 

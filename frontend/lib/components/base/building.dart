@@ -4,6 +4,7 @@ import 'package:tensionplanet/components/game/signs/idle_sign.dart';
 import 'package:tensionplanet/components/game/signs/stopped_sign.dart';
 import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
 import 'package:tensionplanet/json/json_building.dart';
+import 'package:tensionplanet/models/connection.dart';
 import 'package:tensionplanet/models/efficiency.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
@@ -72,19 +73,28 @@ class Building extends Node {
 
       if ((outputAmount > 0) && hasConnections && every.available) {
         // TODO(momo): send resource slowly by a drone
-        final Node target = getAvailableConnection.to;
-        final Resource resource = Resource.one(resourceProduced);
-        final bool canReceive = target.isHeadquarters ||
-            target.isWarehouse ||
-            (target.isBuilding &&
-                (target as Building).canReceiveResource(resource));
+        final Connection? connection = nextAvailableConnection;
 
-        if (canReceive) {
-          target.receiveResource(resource);
-          inventory.removeResource(resource);
-          _startProducing();
+        if (connection != null) {
+          final Resource resource = Resource.one(resourceProduced);
+          final Node target = connection.to;
+          final bool canReceive = target.isHeadquarters ||
+              target.isWarehouse ||
+              (target.isBuilding &&
+                  (target as Building).canReceiveResource(resource));
+
+          if (canReceive) {
+            connection.send(resource);
+            inventory.removeResource(resource);
+            //target.receiveResource(resource);
+            _startProducing();
+          }
         }
       }
+    }
+
+    for (final Connection connection in busyConnections) {
+      connection.update(dt);
     }
 
     if (!hasConnections && !isDroneFactory) {

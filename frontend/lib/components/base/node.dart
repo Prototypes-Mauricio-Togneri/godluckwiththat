@@ -58,11 +58,15 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
   bool get hasConnections => connections.isNotEmpty;
 
-  Connection get getAvailableConnection {
+  List<Connection> get busyConnections =>
+      connections.where((e) => !e.isAvailable).toList();
+
+  Connection? get nextAvailableConnection {
     connectionIndex++;
     final int index = connectionIndex % connections.length;
+    final Connection connection = connections[index];
 
-    return connections[index];
+    return connection.isAvailable ? connection : null;
   }
 
   @override
@@ -114,18 +118,24 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   bool hasConnection(Node to) => getConnection(to) != null;
 
   void addDroneConnection(Node to) {
+    final Connection connection = Connection.empty(
+      from: this,
+      to: to,
+      research: game.state.research,
+    );
+
     if (isDroneFactory) {
-      connections.add(Connection.empty(to));
+      connections.add(connection);
       updateMenu();
     } else if (hasDrones) {
       final Resource resource = Resource.one(ResourceType.drone);
       inventory.removeResource(resource);
-      connections.add(Connection.empty(to));
+      connections.add(connection);
       updateMenu();
     } else if (game.state.headquarters.hasDrones) {
       final Resource resource = Resource.one(ResourceType.drone);
       game.state.headquarters.inventory.removeResource(resource);
-      connections.add(Connection.empty(to));
+      connections.add(connection);
       updateMenu();
     } else {
       Toast.show('No drones available to make a connection');
