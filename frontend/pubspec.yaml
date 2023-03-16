@@ -21,10 +21,10 @@ dependencies:
   flame_tiled: ^1.9.1
   flame_tiled_utils: ^1.0.7
 
-  cloud_firestore: ^4.4.4
-  firebase_core: ^2.7.1
-  firebase_auth: ^4.2.10
-  firebase_crashlytics: ^3.0.16
+  cloud_firestore: ^4.4.5
+  firebase_core: ^2.8.0
+  firebase_auth: ^4.3.0
+  firebase_crashlytics: ^3.0.17
 
   flutter:
     sdk: flutter
