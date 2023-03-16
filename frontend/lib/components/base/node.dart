@@ -54,7 +54,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
   int get freeDrones => inventory.get(ResourceType.drone);
 
-  bool get hasDrones => freeDrones > 0;
+  bool get hasDrones => freeDrones > 0; // TODO(momo): used?
 
   int get totalDrones => freeDrones + connections.length;
 
@@ -96,17 +96,6 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     updateMenu();
   }
 
-  void transferDroneTo(Node node) {
-    if (hasDrones) {
-      final Resource resource = Resource.one(ResourceType.drone);
-      inventory.removeResource(resource);
-      node.inventory.addResource(resource);
-      updateMenu();
-    } else {
-      Toast.show('No drones available to transfer');
-    }
-  }
-
   Connection? getConnection(Node to) {
     for (final Connection connection in connections) {
       if (connection.to == to) {
@@ -126,15 +115,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
       research: game.state.research,
     );
 
-    if (isDroneFactory) {
-      connections.add(connection);
-      updateMenu();
-    } else if (hasDrones) {
-      final Resource resource = Resource.one(ResourceType.drone);
-      inventory.removeResource(resource);
-      connections.add(connection);
-      updateMenu();
-    } else if (game.state.headquarters.hasDrones) {
+    if (game.state.headquarters.hasDrones) {
       final Resource resource = Resource.one(ResourceType.drone);
       game.state.headquarters.inventory.removeResource(resource);
       connections.add(connection);
@@ -148,9 +129,9 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     final Connection? connection = getConnection(to);
 
     if (connection != null) {
-      connections.remove(connection);
       final Resource resource = Resource.one(ResourceType.drone);
-      inventory.addResource(resource);
+      game.state.headquarters.inventory.addResource(resource);
+      connections.remove(connection);
       updateMenu();
     }
   }
