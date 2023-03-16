@@ -2,7 +2,6 @@ import 'package:flame/components.dart';
 import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/components/base/node.dart';
-import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/models/connection.dart';
@@ -13,7 +12,6 @@ import 'package:tensionplanet/utils/assets.dart';
 
 class Warehouse extends Node {
   final ResourceType resourceType;
-  UnconnectedSign? unconnectedSign;
 
   Warehouse({
     required super.location,
@@ -53,30 +51,10 @@ class Warehouse extends Node {
         }
       }
     }
-
-    if (!hasConnections) {
-      _showUnconnectedSign();
-    } else {
-      _hideUnconnectedSign();
-    }
   }
 
   bool canReceiveFrom(ResourceType resourceType) =>
       resourceType == this.resourceType;
-
-  void _showUnconnectedSign() {
-    if (unconnectedSign == null) {
-      unconnectedSign = UnconnectedSign();
-      add(unconnectedSign!);
-    }
-  }
-
-  void _hideUnconnectedSign() {
-    if (unconnectedSign != null) {
-      remove(unconnectedSign!);
-      unconnectedSign = null;
-    }
-  }
 
   JsonBuilding get json => JsonBuilding(
         location: location.json,

@@ -6,6 +6,7 @@ import 'package:tensionplanet/components/game/buildings/factories/drone_factory.
 import 'package:tensionplanet/components/game/construction.dart';
 import 'package:tensionplanet/components/game/headquarters.dart';
 import 'package:tensionplanet/components/game/signs/stopped_sign.dart';
+import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
 import 'package:tensionplanet/components/game/warehouse.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/game/game_component.dart';
@@ -27,6 +28,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   bool enabled = true;
   int connectionIndex = 0;
   StoppedSign? stoppedSign;
+  UnconnectedSign? unconnectedSign;
 
   late final DebugText debugText = DebugText();
   late final DroneCounter droneCounter = DroneCounter();
@@ -154,6 +156,12 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     } else {
       _hideStoppedSign();
     }
+
+    if (!hasConnections && !isDroneFactory) {
+      _showUnconnectedSign();
+    } else {
+      _hideUnconnectedSign();
+    }
   }
 
   bool isAt(Location location) => this.location == location;
@@ -196,6 +204,20 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     if (stoppedSign != null) {
       remove(stoppedSign!);
       stoppedSign = null;
+    }
+  }
+
+  void _showUnconnectedSign() {
+    if (unconnectedSign == null) {
+      unconnectedSign = UnconnectedSign();
+      add(unconnectedSign!);
+    }
+  }
+
+  void _hideUnconnectedSign() {
+    if (unconnectedSign != null) {
+      remove(unconnectedSign!);
+      unconnectedSign = null;
     }
   }
 }

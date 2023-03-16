@@ -1,6 +1,5 @@
 # Tension Planet
 
-* Move signs to Node
 * Make connections to constructions
 * Bug when no materials in headquarters and try to build 2 buildings that require iron block
 * Stop constructions

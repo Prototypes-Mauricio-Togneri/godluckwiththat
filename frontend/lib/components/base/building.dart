@@ -1,7 +1,6 @@
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/signs/filled_sign.dart';
 import 'package:tensionplanet/components/game/signs/idle_sign.dart';
-import 'package:tensionplanet/components/game/signs/unconnected_sign.dart';
 import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/models/connection.dart';
 import 'package:tensionplanet/models/efficiency.dart';
@@ -18,7 +17,6 @@ class Building extends Node {
   final Efficiency efficiency = Efficiency();
   IdleSign? idleSign;
   FilledSign? filledSign;
-  UnconnectedSign? unconnectedSign;
 
   Building({
     required super.nodeType,
@@ -80,17 +78,10 @@ class Building extends Node {
           if (canReceive) {
             connection.send(resource);
             inventory.removeResource(resource);
-            //target.receiveResource(resource);
             _startProducing();
           }
         }
       }
-    }
-
-    if (!hasConnections && !isDroneFactory) {
-      _showUnconnectedSign();
-    } else {
-      _hideUnconnectedSign();
     }
   }
 
@@ -162,20 +153,6 @@ class Building extends Node {
     if (filledSign == null) {
       filledSign = FilledSign();
       add(filledSign!);
-    }
-  }
-
-  void _showUnconnectedSign() {
-    if (unconnectedSign == null) {
-      unconnectedSign = UnconnectedSign();
-      add(unconnectedSign!);
-    }
-  }
-
-  void _hideUnconnectedSign() {
-    if (unconnectedSign != null) {
-      remove(unconnectedSign!);
-      unconnectedSign = null;
     }
   }
 
