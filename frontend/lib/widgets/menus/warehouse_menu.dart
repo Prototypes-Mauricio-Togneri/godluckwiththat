@@ -4,8 +4,6 @@ import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/warehouse.dart';
 import 'package:tensionplanet/dialog/confirmation_dialog.dart';
 import 'package:tensionplanet/game/game_component.dart';
-import 'package:tensionplanet/models/resource.dart';
-import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
@@ -37,15 +35,6 @@ class WarehouseMenu extends StatelessWidget {
           resources: node.inventory.list,
           horizontal: false,
         ),
-        if (node.hasDrones)
-          ResourcesSection(
-            title: 'Drones',
-            resources: [
-              Resource(
-                  ResourceType.drone, node.inventory.get(ResourceType.drone))
-            ],
-            horizontal: true,
-          ),
         if (!node.hasConnections)
           const WarningMessage('Building not connected'),
         const Spacer(),

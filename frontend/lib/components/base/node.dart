@@ -54,7 +54,7 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
   int get freeDrones => inventory.get(ResourceType.drone);
 
-  bool get hasDrones => freeDrones > 0; // TODO(momo): used?
+  bool get hasDrones => freeDrones > 0;
 
   int get totalDrones => freeDrones + connections.length;
 

@@ -4,7 +4,6 @@ import 'package:tensionplanet/components/base/building.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/dialog/confirmation_dialog.dart';
 import 'package:tensionplanet/game/game_component.dart';
-import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
@@ -43,15 +42,6 @@ class BuildingMenu extends StatelessWidget {
           resources: node.outputInventory,
           horizontal: true,
         ),
-        if (node.hasDrones)
-          ResourcesSection(
-            title: 'Drones',
-            resources: [
-              Resource(
-                  ResourceType.drone, node.inventory.get(ResourceType.drone))
-            ],
-            horizontal: true,
-          ),
         if (node.state.isWorking) ProducingIndicator(node),
         if (!node.hasConnections)
           const WarningMessage('Building not connected'),
