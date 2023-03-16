@@ -415,9 +415,10 @@ mixin NodeHandler on BaseGameComponent {
   }) {
     try {
       if (sendDronesBack) {
-        final Headquarters headquarters = state.headquarters;
-        headquarters.inventory
-            .addResource(Resource(ResourceType.drone, node.totalDrones));
+        state.headquarters.inventory.addResource(Resource(
+          ResourceType.drone,
+          node.totalDrones,
+        ));
       }
 
       removeComponent(node);
