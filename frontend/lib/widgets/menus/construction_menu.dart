@@ -21,16 +21,11 @@ class ConstructionMenu extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        const VBox(10),
         Label(
           text: node.nodeType.toString(),
           align: TextAlign.center,
         ),
-        const VBox(10),
-        Label(
-          text: '${node.location.i}, ${node.location.j}',
-          align: TextAlign.center,
-        ),
-        const VBox(10),
         ResourcesSection(node),
         const Spacer(),
         if (node.enabled)
