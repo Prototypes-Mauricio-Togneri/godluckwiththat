@@ -31,7 +31,6 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   UnconnectedSign? unconnectedSign;
 
   final DebugText debugText = DebugText();
-  final EfficiencyText efficiencyText = EfficiencyText();
 
   Node({
     required this.nodeType,
@@ -80,7 +79,6 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     position = location.position;
 
     add(debugText);
-    add(efficiencyText);
 
     return super.onLoad();
   }

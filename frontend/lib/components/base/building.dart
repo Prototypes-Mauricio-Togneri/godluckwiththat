@@ -15,6 +15,7 @@ class Building extends Node {
   final ResourceMap input;
   final ResourceMap output;
   final Efficiency efficiency = Efficiency();
+  final EfficiencyText efficiencyText = EfficiencyText();
   IdleSign? idleSign;
   FilledSign? filledSign;
 
@@ -51,6 +52,13 @@ class Building extends Node {
     _startProducing();
 
     return super.onLoad();
+  }
+
+  @override
+  void onMount() {
+    super.onMount();
+
+    add(efficiencyText);
   }
 
   @override
