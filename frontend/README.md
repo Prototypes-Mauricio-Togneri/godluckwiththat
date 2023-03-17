@@ -1,7 +1,6 @@
 # Tension Planet
 
 * Bug when no materials in headquarters and try to build 2 buildings that require iron block
-* Stop constructions
 * Make connections to constructions
 * Show constructions amount and stopped buildings amount
 

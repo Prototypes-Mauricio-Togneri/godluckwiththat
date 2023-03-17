@@ -416,6 +416,7 @@ mixin NodeHandler on BaseGameComponent {
   }) {
     try {
       if (sendDronesBack) {
+        state.headquarters.removeDroneConnection(node);
         state.headquarters.inventory.addResource(Resource(
           ResourceType.drone,
           node.totalDrones,
