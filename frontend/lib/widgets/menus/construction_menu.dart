@@ -33,6 +33,20 @@ class ConstructionMenu extends StatelessWidget {
         const VBox(10),
         ResourcesSection(node),
         const Spacer(),
+        if (node.enabled)
+          MenuButton(
+            text: 'Stop',
+            icon: Icons.stop,
+            color: Palette.error,
+            onPressed: () => _onToggleEnabled(false),
+          )
+        else
+          MenuButton(
+            text: 'Resume',
+            icon: Icons.play_arrow,
+            color: Palette.success,
+            onPressed: () => _onToggleEnabled(true),
+          ),
         MenuButton(
           text: 'Center',
           icon: Icons.filter_tilt_shift,
@@ -53,6 +67,11 @@ class ConstructionMenu extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _onToggleEnabled(bool value) {
+    node.enabled = value;
+    node.updateMenu();
   }
 
   void _onCenter() => game.centerMap(node.position);

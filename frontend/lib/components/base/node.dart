@@ -136,14 +136,16 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
       connection.update(dt);
     }
 
-    if (!isHeadquarters && !isConstruction) {
+    if (!isHeadquarters) {
       if (!enabled) {
         _showStoppedSign();
       } else {
         _hideStoppedSign();
       }
+    }
 
-      if (!hasConnections && !isDroneFactory) {
+    if (!isHeadquarters && !isConstruction && !isDroneFactory) {
+      if (!hasConnections) {
         _showUnconnectedSign();
       } else {
         _hideUnconnectedSign();

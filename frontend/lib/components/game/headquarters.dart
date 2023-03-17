@@ -35,40 +35,42 @@ class Headquarters extends Node {
 
     if (game.state.constructions.isNotEmpty && hasDrones && hasConnections) {
       for (final Construction construction in game.state.constructions) {
-        final bool ironSent = _checkConstruction(
-          construction: construction,
-          resource: Resource.one(ResourceType.iron_block),
-        );
+        if (construction.enabled) {
+          final bool ironSent = _checkConstruction(
+            construction: construction,
+            resource: Resource.one(ResourceType.iron_block),
+          );
 
-        if (ironSent) {
-          break;
-        }
+          if (ironSent) {
+            break;
+          }
 
-        final bool copperSent = _checkConstruction(
-          construction: construction,
-          resource: Resource.one(ResourceType.copper_block),
-        );
+          final bool copperSent = _checkConstruction(
+            construction: construction,
+            resource: Resource.one(ResourceType.copper_block),
+          );
 
-        if (copperSent) {
-          break;
-        }
+          if (copperSent) {
+            break;
+          }
 
-        final bool steelSent = _checkConstruction(
-          construction: construction,
-          resource: Resource.one(ResourceType.steel),
-        );
+          final bool steelSent = _checkConstruction(
+            construction: construction,
+            resource: Resource.one(ResourceType.steel),
+          );
 
-        if (steelSent) {
-          break;
-        }
+          if (steelSent) {
+            break;
+          }
 
-        final bool concreteSent = _checkConstruction(
-          construction: construction,
-          resource: Resource.one(ResourceType.concrete),
-        );
+          final bool concreteSent = _checkConstruction(
+            construction: construction,
+            resource: Resource.one(ResourceType.concrete),
+          );
 
-        if (concreteSent) {
-          break;
+          if (concreteSent) {
+            break;
+          }
         }
       }
     }
