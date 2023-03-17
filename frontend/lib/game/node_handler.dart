@@ -31,6 +31,7 @@ import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/patch_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
+import 'package:tensionplanet/utils/error_handler.dart';
 
 mixin NodeHandler on BaseGameComponent {
   final Map<String, SpriteGroup> spriteGroups = {};
@@ -424,7 +425,7 @@ mixin NodeHandler on BaseGameComponent {
       removeComponent(node);
       state.removeNode(node);
     } catch (e) {
-      // ignore
+      ErrorHandler.process(e);
     }
   }
 
