@@ -16,8 +16,6 @@ import 'package:tensionplanet/models/location.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
-import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/utils/style.dart';
 import 'package:tensionplanet/utils/toast.dart';
 
 class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
@@ -29,8 +27,6 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   int connectionIndex = 0;
   StoppedSign? stoppedSign;
   UnconnectedSign? unconnectedSign;
-
-  final DebugText debugText = DebugText();
 
   Node({
     required this.nodeType,
@@ -77,8 +73,6 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     size = getSize();
     anchor = Anchor.center;
     position = location.position;
-
-    add(debugText);
 
     return super.onLoad();
   }
@@ -212,39 +206,5 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
       remove(unconnectedSign!);
       unconnectedSign = null;
     }
-  }
-}
-
-class DebugText extends TextComponent {
-  late Node node;
-
-  @override
-  FutureOr onLoad() {
-    node = parent as Node;
-    position = node.size / 2;
-    anchor = Anchor.center;
-    textRenderer = Style.debugTextRenderer(
-      size: 2,
-      color: Palette.error,
-    );
-
-    return super.onLoad();
-  }
-}
-
-class EfficiencyText extends TextComponent {
-  late Node node;
-
-  @override
-  FutureOr onLoad() {
-    node = parent as Node;
-    position = Vector2(0, node.size.y);
-    anchor = Anchor.center;
-    textRenderer = Style.debugTextRenderer(
-      size: 2,
-      color: Palette.error,
-    );
-
-    return super.onLoad();
   }
 }

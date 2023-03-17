@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:flame/components.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/signs/filled_sign.dart';
 import 'package:tensionplanet/components/game/signs/idle_sign.dart';
@@ -8,6 +10,8 @@ import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/building_state.dart';
 import 'package:tensionplanet/types/resource_type.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/utils/style.dart';
 
 class Building extends Node {
   num accumulatedTime = 0; // TODO(momo): receive as parameter
@@ -181,4 +185,21 @@ class Building extends Node {
         inventory: inventory.json,
         resourceType: null,
       );
+}
+
+class EfficiencyText extends TextComponent {
+  late Node node;
+
+  @override
+  FutureOr onLoad() {
+    node = parent as Node;
+    position = Vector2(0, node.size.y);
+    anchor = Anchor.center;
+    textRenderer = Style.debugTextRenderer(
+      size: 2,
+      color: Palette.error,
+    );
+
+    return super.onLoad();
+  }
 }

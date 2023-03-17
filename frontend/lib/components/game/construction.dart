@@ -1,11 +1,16 @@
+import 'dart:async';
+import 'package:flame/components.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/resource_type.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/utils/style.dart';
 
 class Construction extends Node {
   final ResourceType? resourceType;
+  final DebugText debugText = DebugText();
 
   Construction({
     required super.nodeType,
@@ -35,6 +40,7 @@ class Construction extends Node {
   @override
   void onMount() {
     super.onMount();
+    add(debugText);
     game.state.headquarters.addDroneConnection(this);
   }
 
@@ -80,4 +86,21 @@ class Construction extends Node {
         inventory: {},
         resourceType: resourceType,
       );
+}
+
+class DebugText extends TextComponent {
+  late Node node;
+
+  @override
+  FutureOr onLoad() {
+    node = parent as Node;
+    position = node.size / 2;
+    anchor = Anchor.center;
+    textRenderer = Style.debugTextRenderer(
+      size: 2,
+      color: Palette.error,
+    );
+
+    return super.onLoad();
+  }
 }
