@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:flame/components.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/construction.dart';
 import 'package:tensionplanet/json/json_headquarters.dart';
@@ -5,8 +7,12 @@ import 'package:tensionplanet/models/connection.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/utils/style.dart';
 
 class Headquarters extends Node {
+  final DroneCounter droneCounter = DroneCounter();
+
   Headquarters({
     required super.location,
     required super.inventory,
@@ -14,8 +20,18 @@ class Headquarters extends Node {
   }) : super(nodeType: NodeType.headquarters);
 
   @override
+  void onMount() {
+    super.onMount();
+
+    add(droneCounter);
+  }
+
+  @override
   void update(double dt) {
     super.update(dt);
+
+    final int amountOfDrones = freeDrones;
+    droneCounter.text = (amountOfDrones > 0) ? '$amountOfDrones' : '';
 
     if (game.state.constructions.isNotEmpty && hasDrones && hasConnections) {
       for (final Construction construction in game.state.constructions) {
@@ -93,4 +109,21 @@ class Headquarters extends Node {
         location: location.json,
         inventory: inventory.json,
       );
+}
+
+class DroneCounter extends TextComponent {
+  late Node node;
+
+  @override
+  FutureOr onLoad() {
+    node = parent as Node;
+    position = node.size;
+    anchor = Anchor.center;
+    textRenderer = Style.debugTextRenderer(
+      size: 2,
+      color: Palette.error,
+    );
+
+    return super.onLoad();
+  }
 }

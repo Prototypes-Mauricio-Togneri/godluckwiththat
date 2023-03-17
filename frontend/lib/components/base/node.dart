@@ -30,9 +30,8 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   StoppedSign? stoppedSign;
   UnconnectedSign? unconnectedSign;
 
-  late final DebugText debugText = DebugText();
-  late final DroneCounter droneCounter = DroneCounter();
-  late final EfficiencyText efficiencyText = EfficiencyText();
+  final DebugText debugText = DebugText();
+  final EfficiencyText efficiencyText = EfficiencyText();
 
   Node({
     required this.nodeType,
@@ -81,7 +80,6 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     position = location.position;
 
     add(debugText);
-    add(droneCounter);
     add(efficiencyText);
 
     return super.onLoad();
@@ -142,25 +140,22 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
   void update(double dt) {
     super.update(dt);
 
-    if (!isConstruction) {
-      final int amountOfDrones = freeDrones;
-      droneCounter.text = (amountOfDrones > 0) ? '$amountOfDrones' : '';
-    }
-
     for (final Connection connection in busyConnections) {
       connection.update(dt);
     }
 
-    if (!enabled) {
-      _showStoppedSign();
-    } else {
-      _hideStoppedSign();
-    }
+    if (!isHeadquarters) {
+      if (!enabled) {
+        _showStoppedSign();
+      } else {
+        _hideStoppedSign();
+      }
 
-    if (!hasConnections && !isDroneFactory) {
-      _showUnconnectedSign();
-    } else {
-      _hideUnconnectedSign();
+      if (!hasConnections && !isDroneFactory) {
+        _showUnconnectedSign();
+      } else {
+        _hideUnconnectedSign();
+      }
     }
   }
 
@@ -229,23 +224,6 @@ class DebugText extends TextComponent {
   FutureOr onLoad() {
     node = parent as Node;
     position = node.size / 2;
-    anchor = Anchor.center;
-    textRenderer = Style.debugTextRenderer(
-      size: 2,
-      color: Palette.error,
-    );
-
-    return super.onLoad();
-  }
-}
-
-class DroneCounter extends TextComponent {
-  late Node node;
-
-  @override
-  FutureOr onLoad() {
-    node = parent as Node;
-    position = node.size;
     anchor = Anchor.center;
     textRenderer = Style.debugTextRenderer(
       size: 2,
