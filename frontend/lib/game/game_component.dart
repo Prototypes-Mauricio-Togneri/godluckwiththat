@@ -33,12 +33,8 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
         openMainMenu();
       }
     } else if (key == LogicalKeyboardKey.space) {
-      onShowDetails();
+      openBuildMenu();
     }
-  }
-
-  void onShowDetails() {
-    // TODO(momo): implement
   }
 
   @override
