@@ -6,6 +6,7 @@ import 'package:tensionplanet/components/game/construction.dart';
 import 'package:tensionplanet/json/json_headquarters.dart';
 import 'package:tensionplanet/models/connection.dart';
 import 'package:tensionplanet/models/resource.dart';
+import 'package:tensionplanet/painters/drone_painter.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
@@ -13,21 +14,12 @@ import 'package:tensionplanet/utils/style.dart';
 
 class Headquarters extends Node {
   final DroneCounter droneCounter = DroneCounter();
-  final Paint _paintDrone = Paint();
 
   Headquarters({
     required super.location,
     required super.inventory,
     required super.connections,
   }) : super(nodeType: NodeType.headquarters);
-
-  @override
-  Future onLoad() async {
-    _paintDrone.color = Palette.error;
-    _paintDrone.style = PaintingStyle.fill;
-
-    return super.onLoad();
-  }
 
   @override
   void onMount() {
@@ -123,10 +115,9 @@ class Headquarters extends Node {
 
     for (final Connection connection in connections) {
       if (!connection.isVisible && !connection.isAvailable) {
-        canvas.drawCircle(
-          (connection.position + (size / 2)).toOffset(),
-          0.5,
-          _paintDrone,
+        DronePainter.render(
+          canvas: canvas,
+          center: connection.position + (size / 2),
         );
       }
     }

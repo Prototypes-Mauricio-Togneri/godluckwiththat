@@ -5,13 +5,13 @@ import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/models/connection.dart';
+import 'package:tensionplanet/painters/drone_painter.dart';
 import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
 
 class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
   final Node node;
   final Paint _paintConnections = Paint();
-  final Paint _paintDrone = Paint();
 
   NodeSelected(this.node);
 
@@ -25,9 +25,6 @@ class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
     _paintConnections.color = Palette.white;
     _paintConnections.strokeWidth = 3 / Constants.NODE_SIZE;
     _paintConnections.style = PaintingStyle.stroke;
-
-    _paintDrone.color = Palette.error;
-    _paintDrone.style = PaintingStyle.fill;
 
     return super.onLoad();
   }
@@ -49,10 +46,9 @@ class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
         );
 
         if (!connection.isAvailable) {
-          canvas.drawCircle(
-            (connection.position + (size / 2)).toOffset(),
-            0.5,
-            _paintDrone,
+          DronePainter.render(
+            canvas: canvas,
+            center: connection.position + (size / 2),
           );
         }
       }
