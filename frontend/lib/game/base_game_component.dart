@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
@@ -26,6 +28,7 @@ class BaseGameComponent extends FlameGame
   final Component _layerNodes = Component(priority: 2);
   final Component _layerHud = Component(priority: 3)
     ..positionType = PositionType.viewport;
+  final ConstructionsCounter constructionsCounter = ConstructionsCounter();
   bool clickHandled = false;
 
   BaseGameComponent(this.state);
@@ -47,6 +50,12 @@ class BaseGameComponent extends FlameGame
       ),
       textRenderer: Style.textRenderer(size: 20),
     ));
+
+    constructionsCounter.position = Vector2(
+      size.x - 20,
+      20,
+    );
+    _addToHudLayer(constructionsCounter);
 
     add(_layerBackground);
     add(_layerPatches);
@@ -118,5 +127,18 @@ class BaseGameComponent extends FlameGame
   @override
   void onCenterHeadquarters() {
     centerMap(state.headquarters.location.position);
+  }
+}
+
+class ConstructionsCounter extends TextComponent {
+  @override
+  FutureOr onLoad() {
+    anchor = Anchor.topRight;
+    textRenderer = Style.textRenderer(
+      size: 20,
+      backgroundColor: Palette.textBackground,
+    );
+
+    return super.onLoad();
   }
 }

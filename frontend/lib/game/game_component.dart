@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:tensionplanet/components/base/building_indicator.dart';
 import 'package:tensionplanet/components/base/node.dart';
@@ -34,6 +35,19 @@ class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
       }
     } else if (key == LogicalKeyboardKey.space) {
       openBuildMenu();
+    }
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    final int constructions = state.constructions.length;
+
+    if (constructions > 0) {
+      constructionsCounter.text = 'Constructions: $constructions'.toUpperCase();
+    } else {
+      constructionsCounter.text = '';
     }
   }
 

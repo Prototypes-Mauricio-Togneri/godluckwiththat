@@ -7,12 +7,15 @@ class Style {
   static TextRenderer textRenderer({
     required double size,
     Color color = Palette.white,
+    Color? backgroundColor,
   }) =>
       TextPaint(
         style: TextStyle(
+          backgroundColor: backgroundColor,
           fontSize: size,
           fontFamily: Constants.FONT_NAME,
           color: color,
+          height: size / 10,
         ),
       );
 

@@ -10,6 +10,8 @@ class Palette {
   static const Color success = Colors.green;
   static const Color error = Colors.red;
 
+  static const Color textBackground = Color(0xaa000000);
+
   static const Color buildTypeEnergy = Colors.yellow;
   static const Color buildTypeExtractors = Colors.red;
   static const Color buildTypeProcessors = Colors.blue;
