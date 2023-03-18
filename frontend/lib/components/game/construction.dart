@@ -41,7 +41,7 @@ class Construction extends Node {
   void onMount() {
     super.onMount();
     add(debugText);
-    game.state.headquarters.addDroneConnection(this);
+    game.state.headquarters.addDroneConnection(this, false);
   }
 
   @override

@@ -9,6 +9,7 @@ class Connection {
   final Node from;
   final Node to;
   final Research research;
+  final bool isVisible;
   late final Vector2 direction;
   late final double distance;
   ConnectionState state;
@@ -19,6 +20,7 @@ class Connection {
     required this.from,
     required this.to,
     required this.research,
+    required this.isVisible,
     required this.state,
     required this.resource,
     required this.progress,
@@ -63,11 +65,13 @@ class Connection {
     required Node from,
     required Node to,
     required Research research,
+    required bool isVisible,
   }) =>
       Connection(
         from: from,
         to: to,
         research: research,
+        isVisible: isVisible,
         state: ConnectionState.available,
         resource: null,
         progress: 0,

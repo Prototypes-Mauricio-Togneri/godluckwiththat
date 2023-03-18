@@ -37,22 +37,24 @@ class NodeSelected extends SpriteComponent with HasGameRef<GameComponent> {
     super.render(canvas);
 
     for (final Connection connection in node.connections) {
-      final Vector2 start = size / 2;
-      final Vector2 position =
-          connection.to.location.position - node.location.position + start;
+      if (connection.isVisible) {
+        final Vector2 start = size / 2;
+        final Vector2 position =
+            connection.to.location.position - node.location.position + start;
 
-      canvas.drawLine(
-        start.toOffset(),
-        position.toOffset(),
-        _paintConnections,
-      );
-
-      if (!connection.isAvailable) {
-        canvas.drawCircle(
-          (connection.position + (size / 2)).toOffset(),
-          0.5,
-          _paintDrone,
+        canvas.drawLine(
+          start.toOffset(),
+          position.toOffset(),
+          _paintConnections,
         );
+
+        if (!connection.isAvailable) {
+          canvas.drawCircle(
+            (connection.position + (size / 2)).toOffset(),
+            0.5,
+            _paintDrone,
+          );
+        }
       }
     }
   }

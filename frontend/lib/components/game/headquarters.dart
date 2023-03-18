@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:flutter/painting.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/construction.dart';
 import 'package:tensionplanet/json/json_headquarters.dart';
@@ -12,12 +13,21 @@ import 'package:tensionplanet/utils/style.dart';
 
 class Headquarters extends Node {
   final DroneCounter droneCounter = DroneCounter();
+  final Paint _paintDrone = Paint();
 
   Headquarters({
     required super.location,
     required super.inventory,
     required super.connections,
   }) : super(nodeType: NodeType.headquarters);
+
+  @override
+  Future onLoad() async {
+    _paintDrone.color = Palette.error;
+    _paintDrone.style = PaintingStyle.fill;
+
+    return super.onLoad();
+  }
 
   @override
   void onMount() {
@@ -105,6 +115,21 @@ class Headquarters extends Node {
     }
 
     return connection != null;
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    for (final Connection connection in connections) {
+      if (!connection.isVisible && !connection.isAvailable) {
+        canvas.drawCircle(
+          (connection.position + (size / 2)).toOffset(),
+          0.5,
+          _paintDrone,
+        );
+      }
+    }
   }
 
   JsonHeadquarters get json => JsonHeadquarters(

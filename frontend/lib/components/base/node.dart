@@ -100,11 +100,12 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
 
   bool hasConnection(Node to) => getConnection(to) != null;
 
-  void addDroneConnection(Node to) {
+  void addDroneConnection(Node to, [bool isVisible = true]) {
     final Connection connection = Connection.empty(
       from: this,
       to: to,
       research: game.state.research,
+      isVisible: isVisible,
     );
 
     if (game.state.headquarters.hasDrones) {
