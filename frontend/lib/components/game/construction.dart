@@ -70,7 +70,10 @@ class Construction extends Node {
     updateMenu();
 
     if (isBuilt) {
-      destroy(false);
+      destroy(
+        sendDronesBack: false,
+        resourcesBack: {},
+      );
       final Node node = game.buildNode(
         location: location,
         nodeType: nodeType,

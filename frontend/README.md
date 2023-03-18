@@ -1,6 +1,5 @@
 # Tension Planet
 
-* Dismantle buildings
 * Pending connections to constructions
 
 * Save/load game state

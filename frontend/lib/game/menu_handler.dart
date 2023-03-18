@@ -95,7 +95,10 @@ mixin MenuHandler on BaseGameComponent {
 
   void selectNode(Node node) {
     if (isDestroyingMode) {
-      node.destroy(true);
+      node.destroy(
+        sendDronesBack: true,
+        resourcesBack: node.nodeType.cost,
+      );
     } else if (isControlPressed && hasNodeSelected) {
       _toggleConnection(selectedNode(), node);
     } else if (!isInSpecialMode) {

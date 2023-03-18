@@ -25,6 +25,8 @@ class Inventory {
     return true;
   }
 
+  ResourceMap get resourceMap => _resources;
+
   int get(ResourceType resourceType) => _resources[resourceType] ?? 0;
 
   void addResource(Resource resource) {

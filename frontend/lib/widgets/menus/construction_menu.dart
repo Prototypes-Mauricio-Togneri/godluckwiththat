@@ -80,7 +80,10 @@ class ConstructionMenu extends StatelessWidget {
 
   void _destroy() {
     final Node node = game.selectedNode();
-    node.destroy(true);
+    node.destroy(
+      sendDronesBack: true,
+      resourcesBack: {},
+    );
     _closeMenu();
   }
 

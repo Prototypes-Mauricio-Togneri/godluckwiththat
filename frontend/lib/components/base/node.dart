@@ -178,10 +178,14 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     return true;
   }
 
-  void destroy(bool sendDronesBack) {
+  void destroy({
+    required bool sendDronesBack,
+    required ResourceMap resourcesBack,
+  }) {
     game.removeNode(
       node: this,
       sendDronesBack: sendDronesBack,
+      resourcesBack: resourcesBack,
     );
   }
 

@@ -413,6 +413,7 @@ mixin NodeHandler on BaseGameComponent {
   void removeNode({
     required Node node,
     required bool sendDronesBack,
+    required ResourceMap resourcesBack,
   }) {
     try {
       if (sendDronesBack) {
@@ -421,6 +422,13 @@ mixin NodeHandler on BaseGameComponent {
           ResourceType.drone,
           node.totalDrones,
         ));
+
+        for (final MapEntry<ResourceType, int> entry in resourcesBack.entries) {
+          state.headquarters.inventory.addResource(Resource(
+            entry.key,
+            entry.value,
+          ));
+        }
       }
 
       removeComponent(node);

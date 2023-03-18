@@ -86,7 +86,10 @@ class WarehouseMenu extends StatelessWidget {
 
   void _destroy() {
     final Node node = game.selectedNode();
-    node.destroy(true);
+    node.destroy(
+      sendDronesBack: true,
+      resourcesBack: node.nodeType.cost,
+    );
     _closeMenu();
   }
 
