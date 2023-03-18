@@ -1,5 +1,7 @@
 # Tension Planet
 
+* Pending connections to constructions
+* Invisible connection
 * Show constructions amount and stopped buildings amount
 
 * Save/load game state
