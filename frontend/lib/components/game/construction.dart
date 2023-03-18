@@ -21,6 +21,8 @@ class Construction extends Node {
           connections: [],
         );
 
+  bool get isBuilt => inventory.isEmpty;
+
   @override
   Future onLoad() {
     opacity = 0.5;
@@ -67,8 +69,7 @@ class Construction extends Node {
     ));
     updateMenu();
 
-    if (inventory.isEmpty) {
-      game.state.headquarters.removeDroneConnection(this);
+    if (isBuilt) {
       destroy(false);
       final Node node = game.buildNode(
         location: location,

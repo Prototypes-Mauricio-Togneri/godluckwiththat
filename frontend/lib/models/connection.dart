@@ -57,6 +57,7 @@ class Connection {
       if (progress <= 0) {
         progress = 0;
         state = ConnectionState.available;
+        from.droneReturned(to);
       }
     }
   }

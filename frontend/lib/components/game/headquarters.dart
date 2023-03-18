@@ -110,6 +110,13 @@ class Headquarters extends Node {
   }
 
   @override
+  void droneReturned(Node from) {
+    if ((from is Construction) && (from.isBuilt)) {
+      removeDroneConnection(from);
+    }
+  }
+
+  @override
   void render(Canvas canvas) {
     super.render(canvas);
 

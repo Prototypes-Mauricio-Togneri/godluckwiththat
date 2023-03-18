@@ -88,6 +88,8 @@ class Node extends SpriteComponent with HasGameRef<GameComponent>, Tappable {
     updateMenu();
   }
 
+  void droneReturned(Node from) {}
+
   Connection? getConnection(Node to) {
     for (final Connection connection in connections) {
       if (connection.to == to) {
