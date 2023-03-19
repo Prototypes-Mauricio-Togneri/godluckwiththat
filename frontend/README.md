@@ -1,5 +1,7 @@
 # Tension Planet
 
+* Construction materials green and red
+* Special research that allows to upgrade buildings, solar panels, mines
 * Pending connections to constructions
 
 * Save/load game state
