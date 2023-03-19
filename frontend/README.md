@@ -1,5 +1,7 @@
 # Tension Planet
 
+* Copy buildings
+* Create generic mines and assembly plants
 * Construction materials green and red
 * Special research that allows to upgrade buildings, solar panels, mines
 * Pending connections to constructions
