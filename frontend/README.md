@@ -1,5 +1,7 @@
 # Tension Planet
 
+* Return half of resources when destroying a building
+* Make mines never exhaust (always give a minimum)
 * Create resource widget with a circle and a number
 * Copy buildings
 * Create generic mines and assembly plants
