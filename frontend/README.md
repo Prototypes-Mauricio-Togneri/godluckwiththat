@@ -1,5 +1,6 @@
 # Tension Planet
 
+* Create resource widget with a circle and a number
 * Copy buildings
 * Create generic mines and assembly plants
 * Construction materials green and red
