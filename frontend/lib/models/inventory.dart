@@ -26,7 +26,7 @@ class Inventory {
 
   ResourceMap get resourceMap => _resources;
 
-  int get(ResourceType resourceType) => _resources[resourceType] ?? 0;
+  int get(ResourceType resourceType) => _resources.get(resourceType);
 
   void addResource(Resource resource) {
     final int current = get(resource.resourceType);

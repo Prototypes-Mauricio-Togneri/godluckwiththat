@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/extensions/resource_map_extension.dart';
+import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
-import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/navigation.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
@@ -101,13 +101,13 @@ class InfoRow extends StatelessWidget {
             color: Palette.white,
             align: TextAlign.center,
           ),
-          for (final MapEntry<ResourceType, int> entry in resourceMap.entries)
+          for (final Resource resource in resourceMap.resources())
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: ResourceIcon(
-                title: entry.key.toString(),
-                sprite: entry.key.sprite,
-                amount: entry.value.toString(),
+                title: resource.resourceType.toString(),
+                sprite: resource.resourceType.sprite,
+                amount: resource.amount.toString(),
                 size: 40,
               ),
             ),
