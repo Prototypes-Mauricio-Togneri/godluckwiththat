@@ -1,6 +1,5 @@
 # Tension Planet
 
-* Improve warning labels in side menu
 * Copy buildings
 
 * Pending connections to constructions

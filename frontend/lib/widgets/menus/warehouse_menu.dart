@@ -32,8 +32,8 @@ class WarehouseMenu extends StatelessWidget {
           resources: node.inventory.list,
           horizontal: false,
         ),
-        if (!node.hasConnections)
-          const WarningMessage('Building not connected'),
+        if (!node.hasConnections) WarningMessage.notConnected(),
+        if (!node.enabled) WarningMessage.stopped(),
         const Spacer(),
         if (node.enabled)
           MenuButton(
