@@ -1,7 +1,5 @@
 # Tension Planet
 
-* Copy buildings
-
 * Pending connections to constructions
 * Save/load game state
 

@@ -590,9 +590,11 @@ mixin NodeHandler on BaseGameComponent {
       case NodeType.warehouse:
         return _addWarehouse(
           location: location,
-          inventory: Inventory.fromNodeType(nodeType),
+          inventory: Inventory.fromResourceMap({
+            resourceType!: 0,
+          }),
           connections: [],
-          resourceType: resourceType!,
+          resourceType: resourceType,
         );
       case NodeType.headquarters:
         throw Exception('Headquarters cannot be built');
