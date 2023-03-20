@@ -79,8 +79,8 @@ class Inventory {
   factory Inventory.fromResourceMap(ResourceMap map) {
     final ResourceMap resourceMap = {};
 
-    for (final MapEntry<ResourceType, int> entry in map.entries) {
-      resourceMap[entry.key] = entry.value;
+    for (final Resource resource in map.resources()) {
+      resourceMap[resource.resourceType] = resource.amount;
     }
 
     return Inventory._(resourceMap);
@@ -89,8 +89,8 @@ class Inventory {
   factory Inventory.fromJson(JsonInventory map) {
     final ResourceMap resourceMap = {};
 
-    for (final MapEntry<ResourceType, int> entry in map.entries) {
-      resourceMap[entry.key] = entry.value;
+    for (final Resource resource in map.resources()) {
+      resourceMap[resource.resourceType] = resource.amount;
     }
 
     return Inventory._(resourceMap);

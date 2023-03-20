@@ -7,7 +7,6 @@ import 'package:tensionplanet/extensions/resource_map_extension.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
-import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
@@ -172,11 +171,11 @@ class RecipeSection extends StatelessWidget {
             size: 20,
           ),
         ),
-        for (final ResourceType resourceType in nodeType.output.keys)
+        for (final Resource resource in nodeType.output.resources())
           ResourceIcon(
-            title: resourceType.toString(),
-            sprite: resourceType.sprite,
-            amount: '${nodeType.output[resourceType]!}',
+            title: resource.resourceType.toString(),
+            sprite: resource.resourceType.sprite,
+            amount: '${resource.amount}',
             size: 40,
           ),
       ],
