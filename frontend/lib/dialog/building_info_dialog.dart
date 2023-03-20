@@ -54,20 +54,41 @@ class BuildingInfoDialog extends StatelessWidget {
               ),
             ),
             const VBox(10),
+            SizedBox(
+              width: 80,
+              height: 80,
+              child: Image.asset(
+                'images/${nodeType.sprite}',
+              ),
+            ),
+            const VBox(10),
             const Label(
               text:
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
               color: Palette.white,
+              align: TextAlign.center,
               size: 12,
               height: 1.5,
             ),
+            const VBox(20),
             InfoRow(
               message: 'Cost:',
               resourceMap: nodeType.cost,
             ),
-            const VBox(10),
-            if (nodeType.output.isNotEmpty) RecipeSection(nodeType),
-            const VBox(10),
+            if (nodeType.output.isNotEmpty)
+              const Padding(
+                padding: EdgeInsets.only(top: 30),
+                child: Label(
+                  text: 'Produces:',
+                  color: Palette.white,
+                ),
+              ),
+            if (nodeType.output.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: RecipeSection(nodeType),
+              ),
+            const VBox(20),
             const MenuButton(
               text: 'Close',
               color: Palette.lightGrey,

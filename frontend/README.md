@@ -1,5 +1,6 @@
 # Tension Planet
 
+* Show resource info dialog when clicking on an icon
 * Pending connections to constructions
 * Save/load game state
 
