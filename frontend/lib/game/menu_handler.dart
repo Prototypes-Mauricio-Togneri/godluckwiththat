@@ -4,8 +4,8 @@ import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/base/node_selected.dart';
 import 'package:tensionplanet/components/game/warehouse.dart';
 import 'package:tensionplanet/extensions/component_extension.dart';
+import 'package:tensionplanet/extensions/resource_map_extension.dart';
 import 'package:tensionplanet/game/base_game_component.dart';
-import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/overlay/choose_resource_overlay.dart';
 import 'package:tensionplanet/overlay/construct_overlay.dart';
 import 'package:tensionplanet/overlay/main_overlay.dart';
@@ -98,7 +98,7 @@ mixin MenuHandler on BaseGameComponent {
     if (isDestroyingMode) {
       node.destroy(
         sendDronesBack: true,
-        resourcesBack: Inventory.fromResourceMap(node.nodeType.cost).half,
+        resourcesBack: node.nodeType.cost.asInventory.half,
       );
     } else if (isControlPressed && hasNodeSelected) {
       _toggleConnection(selectedNode(), node);

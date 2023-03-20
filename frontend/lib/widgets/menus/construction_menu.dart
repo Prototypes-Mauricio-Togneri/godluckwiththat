@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/construction.dart';
 import 'package:tensionplanet/dialog/confirmation_dialog.dart';
+import 'package:tensionplanet/extensions/resource_map_extension.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/models/inventory.dart';
+import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
-import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
@@ -100,8 +101,7 @@ class ConstructionMenu extends StatelessWidget {
   void _destroy() {
     final Node node = game.selectedNode();
 
-    final Inventory resourcesBack =
-        Inventory.fromResourceMap(node.nodeType.cost);
+    final Inventory resourcesBack = node.nodeType.cost.asInventory;
     resourcesBack.remove(node.inventory);
 
     node.destroy(
@@ -135,16 +135,17 @@ class ResourcesSection extends StatelessWidget {
           ),
         ),
         const VBox(10),
-        for (final MapEntry<ResourceType, int> entry
-            in node.nodeType.cost.entries)
+        for (final Resource resource in node.nodeType.cost.resources())
           ItemRow(
-            title: entry.key.toString(),
-            sprite: entry.key.sprite,
+            title: resource.resourceType.toString(),
+            sprite: resource.resourceType.sprite,
             amount:
-                '${entry.value - node.inventory.get(entry.key)}/${entry.value}',
-            border: (entry.value - node.inventory.get(entry.key) == entry.value)
-                ? Palette.success
-                : Palette.error,
+                '${resource.amount - node.inventory.get(resource.resourceType)}/${resource.amount}',
+            border:
+                (resource.amount - node.inventory.get(resource.resourceType) ==
+                        resource.amount)
+                    ? Palette.success
+                    : Palette.error,
           ),
       ],
     );
