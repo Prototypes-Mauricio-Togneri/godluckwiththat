@@ -1,11 +1,10 @@
+import 'package:tensionplanet/extensions/resource_map_extension.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/json.dart';
 
 typedef JsonInventory = Map<ResourceType, int>;
-
-typedef ResourceMap = Map<ResourceType, int>;
 
 class Inventory {
   final ResourceMap _resources;
@@ -37,6 +36,12 @@ class Inventory {
   void removeResource(Resource resource) {
     final int current = get(resource.resourceType);
     _resources[resource.resourceType] = current - resource.amount;
+  }
+
+  void removeResources(List<Resource> resources) {
+    for (final Resource resource in resources) {
+      removeResource(resource);
+    }
   }
 
   void add(Inventory inventory) {

@@ -3,10 +3,10 @@ import 'package:flame/components.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/signs/filled_sign.dart';
 import 'package:tensionplanet/components/game/signs/idle_sign.dart';
+import 'package:tensionplanet/extensions/resource_map_extension.dart';
 import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/models/connection.dart';
 import 'package:tensionplanet/models/efficiency.dart';
-import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/building_state.dart';
 import 'package:tensionplanet/types/resource_type.dart';
@@ -39,9 +39,9 @@ class Building extends Node {
 
   int get outputAmount => inventory.get(resourceProduced);
 
-  bool isInInput(Resource resource) => input[resource.resourceType] != null;
+  bool isInInput(Resource resource) => input.contains(resource.resourceType);
 
-  bool isInOutput(Resource resource) => output[resource.resourceType] != null;
+  bool isInOutput(Resource resource) => output.contains(resource.resourceType);
 
   List<Resource> get inputInventory => inventory.list.where(isInInput).toList();
 
@@ -98,7 +98,7 @@ class Building extends Node {
   }
 
   bool canReceiveFrom(ResourceType resourceType) =>
-      input.keys.contains(resourceType);
+      input.contains(resourceType);
 
   bool canReceiveResource(Resource resource) =>
       inventory.get(resource.resourceType) <
@@ -106,7 +106,7 @@ class Building extends Node {
 
   bool _hasEnoughResources() {
     for (final ResourceType resourceType in input.keys) {
-      if (inventory.get(resourceType) < input[resourceType]!) {
+      if (inventory.get(resourceType) < input.get(resourceType)) {
         return false;
       }
     }
@@ -121,11 +121,7 @@ class Building extends Node {
       } else if (outputFilled) {
         _showFilledSign();
       } else {
-        for (final ResourceType resourceType in input.keys) {
-          inventory
-              .removeResource(Resource(resourceType, input[resourceType]!));
-        }
-
+        inventory.removeResources(input.resources());
         state = BuildingState.working;
         _removeSigns();
       }
@@ -140,9 +136,11 @@ class Building extends Node {
 
     if (accumulatedTime >= nodeType.productionTime) {
       accumulatedTime = 0;
-      final Resource resource =
-          Resource(resourceProduced, output[resourceProduced]!);
-      inventory.addResource(resource);
+
+      for (final Resource resource in output.resources()) {
+        inventory.addResource(resource);
+      }
+
       state = BuildingState.idle;
       _startProducing();
     }
