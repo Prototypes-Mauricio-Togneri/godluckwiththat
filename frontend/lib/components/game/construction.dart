@@ -17,7 +17,7 @@ class Construction extends Node {
     required super.location,
     required this.resourceType,
   }) : super(
-          inventory: Inventory.empty(),
+          inventory: Inventory.fromResourceMap(nodeType.cost),
           connections: [],
         );
 
@@ -26,7 +26,6 @@ class Construction extends Node {
   @override
   Future onLoad() {
     opacity = 0.5;
-    inventory.add(Inventory.fromResourceMap(nodeType.cost));
 
     return super.onLoad();
   }
