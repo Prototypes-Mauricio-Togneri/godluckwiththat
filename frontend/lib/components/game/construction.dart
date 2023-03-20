@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionplanet/components/base/node.dart';
+import 'package:tensionplanet/extensions/resource_map_extension.dart';
 import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
@@ -17,7 +18,7 @@ class Construction extends Node {
     required super.location,
     required this.resourceType,
   }) : super(
-          inventory: Inventory.fromResourceMap(nodeType.cost),
+          inventory: nodeType.cost.asInventory,
           connections: [],
         );
 
@@ -44,9 +45,9 @@ class Construction extends Node {
     double received = 0;
     double total = 0;
 
-    for (final MapEntry<ResourceType, int> entry in nodeType.cost.entries) {
-      received += entry.value - inventory.get(entry.key);
-      total += entry.value;
+    for (final Resource resource in nodeType.cost.resources()) {
+      received += resource.amount - inventory.get(resource.resourceType);
+      total += resource.amount;
     }
 
     debugText.text = '${((received / total) * 100).toInt()}%';
