@@ -136,7 +136,7 @@ class RecipeSection extends StatelessWidget {
                 title: inputs[i].toString(),
                 sprite: inputs[i].sprite,
                 amount: '${building.input[inputs[i]]!}',
-                size: 25,
+                size: 50,
               ),
             ],
           ),
@@ -153,7 +153,7 @@ class RecipeSection extends StatelessWidget {
             title: resourceType.toString(),
             sprite: resourceType.sprite,
             amount: '${building.output[resourceType]!}',
-            size: 25,
+            size: 50,
           ),
       ],
     );

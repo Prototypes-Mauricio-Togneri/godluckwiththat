@@ -262,7 +262,7 @@ class BuildingCard extends StatelessWidget {
                       title: entry.key.toString(),
                       sprite: entry.key.sprite,
                       amount: entry.value.toString(),
-                      size: 15,
+                      size: 30,
                     ),
                 ],
               ),
