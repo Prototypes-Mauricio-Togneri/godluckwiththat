@@ -20,7 +20,7 @@ class ItemRow extends StatelessWidget {
         title: title,
         sprite: sprite,
         amount: amount,
-        size: 30,
+        size: 50,
       ),
     );
   }

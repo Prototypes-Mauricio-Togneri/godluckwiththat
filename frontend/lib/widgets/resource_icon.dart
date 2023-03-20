@@ -1,4 +1,3 @@
-import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
@@ -18,38 +17,56 @@ class ResourceIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Label(
-          text: amount,
-          size: size / 2,
-        ),
-        const HBox(5),
-        Tooltip(
-          message: title.toUpperCase(),
-          padding: const EdgeInsets.only(
-            top: 5,
-            bottom: 1,
-            left: 6,
-            right: 5,
-          ),
-          textStyle: TextStyle(
-            fontSize: size / 2,
-            color: Palette.white,
-          ),
-          decoration: const BoxDecoration(
-            color: Palette.black,
-          ),
-          child: SizedBox(
-            width: size,
-            height: size,
-            child: Image.asset(
-              'images/$sprite',
+    return Tooltip(
+      message: title.toUpperCase(),
+      padding: const EdgeInsets.only(
+        top: 5,
+        bottom: 1,
+        left: 6,
+        right: 5,
+      ),
+      textStyle: TextStyle(
+        fontSize: size / 4,
+        color: Palette.white,
+      ),
+      decoration: const BoxDecoration(
+        color: Palette.black,
+      ),
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          CircleAvatar(
+            radius: size / 2,
+            backgroundColor: Palette.lightGrey,
+            child: CircleAvatar(
+              radius: size / 2.2,
+              backgroundColor: Palette.black,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  bottom: size / 5,
+                  left: size / 10,
+                  right: size / 10,
+                ),
+                child: SizedBox(
+                  width: size,
+                  height: size,
+                  child: Image.asset(
+                    'images/$sprite',
+                  ),
+                ),
+              ),
             ),
           ),
-        ),
-      ],
+          Padding(
+            padding: EdgeInsets.only(left: size / 10),
+            child: Label(
+              text: amount,
+              size: size / 5,
+              color: Palette.white,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
