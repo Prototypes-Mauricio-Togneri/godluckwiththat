@@ -1,6 +1,5 @@
 # Tension Planet
 
-* Return half of resources when destroying a building
 * Create resource widget with a circle and a number
 * Copy buildings
 * Construction materials green and red

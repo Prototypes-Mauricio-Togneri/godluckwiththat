@@ -81,9 +81,14 @@ class ConstructionMenu extends StatelessWidget {
 
   void _destroy() {
     final Node node = game.selectedNode();
+
+    final Inventory resourcesBack =
+        Inventory.fromResourceMap(node.nodeType.cost);
+    resourcesBack.remove(node.inventory);
+
     node.destroy(
       sendDronesBack: true,
-      resourcesBack: Inventory.empty(),
+      resourcesBack: resourcesBack.half,
     );
     _closeMenu();
   }
