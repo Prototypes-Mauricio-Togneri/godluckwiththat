@@ -62,6 +62,12 @@ class BuildingMenu extends StatelessWidget {
             onPressed: () => _onToggleEnabled(true),
           ),
         MenuButton(
+          text: 'Copy',
+          icon: Icons.copy,
+          color: Palette.primary,
+          onPressed: _onCopy,
+        ),
+        MenuButton(
           text: 'Center',
           icon: Icons.filter_tilt_shift,
           color: Palette.primary,
@@ -87,6 +93,8 @@ class BuildingMenu extends StatelessWidget {
     node.enabled = value;
     node.updateMenu();
   }
+
+  void _onCopy() => game.enableBuildingMode(nodeType: node.nodeType);
 
   void _onCenter() => game.centerMap(node.position);
 

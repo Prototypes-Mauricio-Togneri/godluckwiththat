@@ -245,7 +245,7 @@ enum NodeType {
     cost: {
       ResourceType.iron_block: 5,
       ResourceType.copper_block: 5,
-      ResourceType.steel: 5,
+      //ResourceType.steel: 5,
     },
     input: {},
     output: {},

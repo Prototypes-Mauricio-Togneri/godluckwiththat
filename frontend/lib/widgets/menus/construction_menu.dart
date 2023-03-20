@@ -5,6 +5,7 @@ import 'package:tensionplanet/components/game/construction.dart';
 import 'package:tensionplanet/dialog/confirmation_dialog.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/models/inventory.dart';
+import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
@@ -44,6 +45,12 @@ class ConstructionMenu extends StatelessWidget {
             onPressed: () => _onToggleEnabled(true),
           ),
         MenuButton(
+          text: 'Copy',
+          icon: Icons.copy,
+          color: Palette.primary,
+          onPressed: _onCopy,
+        ),
+        MenuButton(
           text: 'Center',
           icon: Icons.filter_tilt_shift,
           color: Palette.primary,
@@ -68,6 +75,17 @@ class ConstructionMenu extends StatelessWidget {
   void _onToggleEnabled(bool value) {
     node.enabled = value;
     node.updateMenu();
+  }
+
+  void _onCopy() {
+    if (node.nodeType == NodeType.warehouse) {
+      game.enableBuildingMode(
+        nodeType: NodeType.warehouse,
+        resourceType: node.resourceType,
+      );
+    } else {
+      game.enableBuildingMode(nodeType: node.nodeType);
+    }
   }
 
   void _onCenter() => game.centerMap(node.position);
