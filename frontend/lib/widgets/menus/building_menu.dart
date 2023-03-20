@@ -5,6 +5,7 @@ import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/dialog/confirmation_dialog.dart';
 import 'package:tensionplanet/extensions/resource_map_extension.dart';
 import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/assets.dart';
@@ -126,7 +127,7 @@ class RecipeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<ResourceType> inputs = nodeType.input.keys.toList();
+    final List<Resource> inputs = nodeType.input.resources();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -143,9 +144,9 @@ class RecipeSection extends StatelessWidget {
                   ),
                 ),
               ResourceIcon(
-                title: inputs[i].toString(),
-                sprite: inputs[i].sprite,
-                amount: '${nodeType.input[inputs[i]]!}',
+                title: inputs[i].resourceType.toString(),
+                sprite: inputs[i].resourceType.sprite,
+                amount: '${inputs[i].amount}',
                 size: 40,
               ),
             ],

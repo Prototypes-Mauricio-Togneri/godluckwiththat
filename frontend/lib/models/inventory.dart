@@ -99,12 +99,12 @@ class Inventory {
   factory Inventory.fromNodeType(NodeType nodeType) {
     final ResourceMap resourceMap = {};
 
-    for (final MapEntry<ResourceType, int> entry in nodeType.input.entries) {
-      resourceMap[entry.key] = 0;
+    for (final Resource resource in nodeType.input.resources()) {
+      resourceMap[resource.resourceType] = 0;
     }
 
-    for (final MapEntry<ResourceType, int> entry in nodeType.output.entries) {
-      resourceMap[entry.key] = 0;
+    for (final Resource resource in nodeType.output.resources()) {
+      resourceMap[resource.resourceType] = 0;
     }
 
     return Inventory._(resourceMap);
