@@ -8,6 +8,7 @@ class MenuButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double topPadding;
   final double size;
+  final bool expand;
 
   const MenuButton({
     required this.text,
@@ -16,6 +17,7 @@ class MenuButton extends StatelessWidget {
     this.icon,
     this.topPadding = 10,
     this.size = 14,
+    this.expand = true,
   });
 
   @override
@@ -25,7 +27,7 @@ class MenuButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
-          minimumSize: const Size(0, 45),
+          minimumSize: Size(0, size * 3.5),
         ),
         onPressed: onPressed,
         child: Row(
@@ -36,15 +38,15 @@ class MenuButton extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 10),
                 child: Icon(
                   icon,
-                  size: 20,
+                  size: size * 1.5,
                 ),
               ),
-            const Spacer(),
+            if (expand) const Spacer(),
             Label(
               text: text,
               size: size,
             ),
-            const Spacer(),
+            if (expand) const Spacer(),
           ],
         ),
       ),

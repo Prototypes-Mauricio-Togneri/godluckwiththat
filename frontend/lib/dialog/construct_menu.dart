@@ -2,11 +2,9 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/types/node_type.dart';
-import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
-import 'package:tensionplanet/widgets/resource_icon.dart';
 
 class ConstructMenu extends StatefulWidget {
   final GameComponent game;
@@ -30,7 +28,7 @@ class _ConstructMenuState extends State<ConstructMenu> {
     return Center(
       child: Container(
         width: 850,
-        height: 390,
+        height: 400,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Palette.grey,
@@ -51,6 +49,7 @@ class _ConstructMenuState extends State<ConstructMenu> {
                 BuildingList(
                   _types(selectedIndex),
                   onBuild,
+                  onInfo,
                 ),
               ],
             ),
@@ -81,6 +80,8 @@ class _ConstructMenuState extends State<ConstructMenu> {
       widget.game.enableBuildingMode(nodeType: nodeType);
     }
   }
+
+  void onInfo(NodeType nodeType) {}
 
   List<NodeType> _types(int index) {
     if (index == 0) {
@@ -200,8 +201,9 @@ class TabButton extends StatelessWidget {
 class BuildingList extends StatelessWidget {
   final List<NodeType> nodeTypes;
   final Function(NodeType) onBuild;
+  final Function(NodeType) onInfo;
 
-  const BuildingList(this.nodeTypes, this.onBuild);
+  const BuildingList(this.nodeTypes, this.onBuild, this.onInfo);
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +216,7 @@ class BuildingList extends StatelessWidget {
         mainAxisSpacing: 10,
         children: [
           for (final NodeType resourceType in nodeTypes)
-            BuildingCard(resourceType, onBuild),
+            BuildingCard(resourceType, onBuild, onInfo),
         ],
       ),
     );
@@ -224,8 +226,9 @@ class BuildingList extends StatelessWidget {
 class BuildingCard extends StatelessWidget {
   final NodeType nodeType;
   final Function(NodeType) onBuild;
+  final Function(NodeType) onInfo;
 
-  const BuildingCard(this.nodeType, this.onBuild);
+  const BuildingCard(this.nodeType, this.onBuild, this.onInfo);
 
   @override
   Widget build(BuildContext context) {
@@ -252,19 +255,14 @@ class BuildingCard extends StatelessWidget {
                   'images/${nodeType.sprite}',
                 ),
               ),
-              const VBox(10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  for (final MapEntry<ResourceType, int> entry
-                      in nodeType.cost.entries)
-                    ResourceIcon(
-                      title: entry.key.toString(),
-                      sprite: entry.key.sprite,
-                      amount: entry.value.toString(),
-                      size: 30,
-                    ),
-                ],
+              const VBox(5),
+              MenuButton(
+                text: 'Info',
+                icon: Icons.info_outline,
+                color: Palette.primary,
+                onPressed: () => onInfo(nodeType),
+                size: 9,
+                expand: false,
               ),
             ],
           ),
