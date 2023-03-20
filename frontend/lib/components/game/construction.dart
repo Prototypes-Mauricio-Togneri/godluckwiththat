@@ -26,15 +26,7 @@ class Construction extends Node {
   @override
   Future onLoad() {
     opacity = 0.5;
-
-    for (final MapEntry<ResourceType, int> entry in nodeType.cost.entries) {
-      final Resource resource = Resource(
-        entry.key,
-        entry.value,
-      );
-
-      inventory.addResource(resource);
-    }
+    inventory.add(Inventory.fromResourceMap(nodeType.cost));
 
     return super.onLoad();
   }
@@ -72,7 +64,7 @@ class Construction extends Node {
     if (isBuilt) {
       destroy(
         sendDronesBack: false,
-        resourcesBack: {},
+        resourcesBack: Inventory.empty(),
       );
       final Node node = game.buildNode(
         location: location,

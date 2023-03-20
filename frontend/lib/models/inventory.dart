@@ -57,9 +57,21 @@ class Inventory {
   bool hasResource(Resource resource) =>
       get(resource.resourceType) >= resource.amount;
 
+  Inventory get half {
+    final ResourceMap map = {};
+
+    for (final Resource resource in list) {
+      map[resource.resourceType] = resource.amount ~/ 2;
+    }
+
+    return Inventory._(map);
+  }
+
   JsonInventory get json => _resources;
 
   factory Inventory.empty() => Inventory._({});
+
+  factory Inventory.fromResourceMap(ResourceMap map) => Inventory._(map);
 
   factory Inventory.fromJson(JsonInventory map) {
     final ResourceMap resourceMap = {};

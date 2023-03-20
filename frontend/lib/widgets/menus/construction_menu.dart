@@ -4,6 +4,7 @@ import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/game/construction.dart';
 import 'package:tensionplanet/dialog/confirmation_dialog.dart';
 import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
@@ -82,7 +83,7 @@ class ConstructionMenu extends StatelessWidget {
     final Node node = game.selectedNode();
     node.destroy(
       sendDronesBack: true,
-      resourcesBack: {},
+      resourcesBack: Inventory.empty(),
     );
     _closeMenu();
   }
