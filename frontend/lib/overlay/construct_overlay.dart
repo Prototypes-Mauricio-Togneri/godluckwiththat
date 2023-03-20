@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionplanet/dialog/building_info_dialog.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
@@ -49,7 +50,7 @@ class _ConstructOverlayState extends State<ConstructOverlay> {
                 BuildingList(
                   _types(selectedIndex),
                   onBuild,
-                  onInfo,
+                  (nodeType) => onInfo(context, nodeType),
                 ),
               ],
             ),
@@ -81,7 +82,11 @@ class _ConstructOverlayState extends State<ConstructOverlay> {
     }
   }
 
-  void onInfo(NodeType nodeType) {}
+  void onInfo(BuildContext context, NodeType nodeType) =>
+      BuildingInfoDialog.show(
+        context: context,
+        nodeType: nodeType,
+      );
 
   List<NodeType> _types(int index) {
     if (index == 0) {
