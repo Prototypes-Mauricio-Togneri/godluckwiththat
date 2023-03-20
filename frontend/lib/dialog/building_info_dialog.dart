@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/navigation.dart';
@@ -59,26 +60,20 @@ class BuildingInfoDialog extends StatelessWidget {
               size: 12,
               height: 1.5,
             ),
-            const VBox(10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Label(
-                  text: 'Cost:',
-                  color: Palette.white,
-                  align: TextAlign.center,
-                ),
-                const HBox(10),
-                for (final MapEntry<ResourceType, int> entry
-                    in nodeType.cost.entries)
-                  ResourceIcon(
-                    title: entry.key.toString(),
-                    sprite: entry.key.sprite,
-                    amount: entry.value.toString(),
-                    size: 50,
-                  ),
-              ],
+            InfoRow(
+              message: 'Cost:',
+              resourceMap: nodeType.cost,
             ),
+            if (nodeType.input.isNotEmpty)
+              InfoRow(
+                message: 'Input:',
+                resourceMap: nodeType.input,
+              ),
+            if (nodeType.output.isNotEmpty)
+              InfoRow(
+                message: 'Output:',
+                resourceMap: nodeType.output,
+              ),
             const VBox(10),
             const MenuButton(
               text: 'Close',
@@ -87,6 +82,43 @@ class BuildingInfoDialog extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class InfoRow extends StatelessWidget {
+  final String message;
+  final ResourceMap resourceMap;
+
+  const InfoRow({
+    required this.message,
+    required this.resourceMap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Label(
+            text: message,
+            color: Palette.white,
+            align: TextAlign.center,
+          ),
+          for (final MapEntry<ResourceType, int> entry in resourceMap.entries)
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: ResourceIcon(
+                title: entry.key.toString(),
+                sprite: entry.key.sprite,
+                amount: entry.value.toString(),
+                size: 50,
+              ),
+            ),
+        ],
       ),
     );
   }
