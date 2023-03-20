@@ -8,16 +8,16 @@ import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
 
-class SettingsMenu extends StatelessWidget {
+class SettingsOverlay extends StatelessWidget {
   final GameComponent game;
   final SettingsMenuState state;
 
-  static const String NAME = 'settings_menu';
+  static const String NAME = 'settings_overlay';
 
-  const SettingsMenu(this.game, this.state);
+  const SettingsOverlay(this.game, this.state);
 
-  factory SettingsMenu.builder(BuildContext _, GameComponent game) =>
-      SettingsMenu(
+  factory SettingsOverlay.builder(BuildContext _, GameComponent game) =>
+      SettingsOverlay(
         game,
         SettingsMenuState(),
       );
@@ -64,7 +64,7 @@ class SettingsMenu extends StatelessWidget {
 
   //void _onAutosave() {}
 
-  void _closeMenu() => game.closeMenu(name: SettingsMenu.NAME);
+  void _closeMenu() => game.closeMenu(name: SettingsOverlay.NAME);
 }
 
 class SettingsMenuState extends BaseState {

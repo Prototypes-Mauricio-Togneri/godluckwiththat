@@ -7,15 +7,15 @@ import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
 
-class ChooseResourceMenu extends StatelessWidget {
+class ChooseResourceOverlay extends StatelessWidget {
   final GameComponent game;
 
-  static const String NAME = 'chose_resource_menu';
+  static const String NAME = 'chose_resource_overlay';
 
-  const ChooseResourceMenu(this.game);
+  const ChooseResourceOverlay(this.game);
 
-  factory ChooseResourceMenu.builder(BuildContext _, GameComponent game) =>
-      ChooseResourceMenu(game);
+  factory ChooseResourceOverlay.builder(BuildContext _, GameComponent game) =>
+      ChooseResourceOverlay(game);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class ChooseResourceMenu extends StatelessWidget {
     );
   }
 
-  void _closeMenu() => game.closeMenu(name: ChooseResourceMenu.NAME);
+  void _closeMenu() => game.closeMenu(name: ChooseResourceOverlay.NAME);
 }
 
 class ResourcesList extends StatelessWidget {

@@ -3,13 +3,13 @@ import 'package:tensionplanet/components/base/building_indicator.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/base/node_selected.dart';
 import 'package:tensionplanet/components/game/warehouse.dart';
-import 'package:tensionplanet/dialog/choose_resource_menu.dart';
-import 'package:tensionplanet/dialog/construct_menu.dart';
-import 'package:tensionplanet/dialog/main_menu.dart';
-import 'package:tensionplanet/dialog/settings_menu.dart';
 import 'package:tensionplanet/extensions/component_extension.dart';
 import 'package:tensionplanet/game/base_game_component.dart';
 import 'package:tensionplanet/models/inventory.dart';
+import 'package:tensionplanet/overlay/choose_resource_overlay.dart';
+import 'package:tensionplanet/overlay/construct_overlay.dart';
+import 'package:tensionplanet/overlay/main_overlay.dart';
+import 'package:tensionplanet/overlay/settings_overlay.dart';
 import 'package:tensionplanet/types/menu_mode.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
@@ -41,17 +41,17 @@ mixin MenuHandler on BaseGameComponent {
     state.notify();
   }
 
-  void openChoseResourceMenu() => _openMenu(name: ChooseResourceMenu.NAME);
+  void openChoseResourceMenu() => _openMenu(name: ChooseResourceOverlay.NAME);
 
-  void openBuildMenu() => _openMenu(name: ConstructMenu.NAME);
+  void openBuildMenu() => _openMenu(name: ConstructOverlay.NAME);
 
   void openMainMenu() => _openMenu(
-        name: MainMenu.NAME,
+        name: MainOverlay.NAME,
         pauseGame: true,
       );
 
   void openSettingsMenu() => _openMenu(
-        name: SettingsMenu.NAME,
+        name: SettingsOverlay.NAME,
       );
 
   void _openMenu({

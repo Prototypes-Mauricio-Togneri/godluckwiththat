@@ -6,21 +6,21 @@ import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
 
-class ConstructMenu extends StatefulWidget {
+class ConstructOverlay extends StatefulWidget {
   final GameComponent game;
 
-  static const String NAME = 'construct_menu';
+  static const String NAME = 'construct_overlay';
 
-  const ConstructMenu(this.game);
+  const ConstructOverlay(this.game);
 
-  factory ConstructMenu.builder(BuildContext _, GameComponent game) =>
-      ConstructMenu(game);
+  factory ConstructOverlay.builder(BuildContext _, GameComponent game) =>
+      ConstructOverlay(game);
 
   @override
-  State<ConstructMenu> createState() => _ConstructMenuState();
+  State<ConstructOverlay> createState() => _ConstructOverlayState();
 }
 
-class _ConstructMenuState extends State<ConstructMenu> {
+class _ConstructOverlayState extends State<ConstructOverlay> {
   int selectedIndex = 0;
 
   @override
@@ -28,7 +28,7 @@ class _ConstructMenuState extends State<ConstructMenu> {
     return Center(
       child: Container(
         width: 850,
-        height: 400,
+        height: 395,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Palette.grey,
@@ -101,7 +101,7 @@ class _ConstructMenuState extends State<ConstructMenu> {
     }
   }
 
-  void _closeMenu() => widget.game.closeMenu(name: ConstructMenu.NAME);
+  void _closeMenu() => widget.game.closeMenu(name: ConstructOverlay.NAME);
 }
 
 class TabButtons extends StatelessWidget {

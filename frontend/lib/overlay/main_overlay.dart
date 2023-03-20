@@ -7,15 +7,15 @@ import 'package:tensionplanet/storage/saved_matches_storage.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
 
-class MainMenu extends StatelessWidget {
+class MainOverlay extends StatelessWidget {
   final GameComponent game;
 
-  static const String NAME = 'main_menu';
+  static const String NAME = 'main_overlay';
 
-  const MainMenu(this.game);
+  const MainOverlay(this.game);
 
-  factory MainMenu.builder(BuildContext _, GameComponent game) =>
-      MainMenu(game);
+  factory MainOverlay.builder(BuildContext _, GameComponent game) =>
+      MainOverlay(game);
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class MainMenu extends StatelessWidget {
   }*/
 
   void _closeMenu() => game.closeMenu(
-        name: MainMenu.NAME,
+        name: MainOverlay.NAME,
         resumeGame: true,
       );
 }

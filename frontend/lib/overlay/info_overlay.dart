@@ -7,21 +7,21 @@ import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
 
-class InfoMenu extends StatefulWidget {
+class InfoOverlay extends StatefulWidget {
   final GameComponent game;
 
-  static const String NAME = 'info_menu';
+  static const String NAME = 'info_overlay';
 
-  const InfoMenu(this.game);
+  const InfoOverlay(this.game);
 
-  factory InfoMenu.builder(BuildContext _, GameComponent game) =>
-      InfoMenu(game);
+  factory InfoOverlay.builder(BuildContext _, GameComponent game) =>
+      InfoOverlay(game);
 
   @override
-  State<InfoMenu> createState() => _InfoMenuState();
+  State<InfoOverlay> createState() => _InfoOverlayState();
 }
 
-class _InfoMenuState extends State<InfoMenu> {
+class _InfoOverlayState extends State<InfoOverlay> {
   String version = '';
 
   @override
@@ -107,5 +107,5 @@ class _InfoMenuState extends State<InfoMenu> {
 
   void _onCredits() {}
 
-  void _closeMenu() => widget.game.closeMenu(name: InfoMenu.NAME);
+  void _closeMenu() => widget.game.closeMenu(name: InfoOverlay.NAME);
 }

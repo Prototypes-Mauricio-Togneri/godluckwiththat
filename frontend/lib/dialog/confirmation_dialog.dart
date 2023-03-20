@@ -30,6 +30,7 @@ class ConfirmationDialog extends StatelessWidget {
     showDialog(
       context: context,
       barrierDismissible: false,
+      barrierColor: Palette.transparent,
       builder: (context) => ConfirmationDialog._(
         message: message,
         buttonAccept: buttonAccept,
