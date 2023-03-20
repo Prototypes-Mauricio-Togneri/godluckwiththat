@@ -7,6 +7,7 @@ import 'package:tensionplanet/utils/navigation.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
+import 'package:tensionplanet/widgets/menus/building_menu.dart';
 import 'package:tensionplanet/widgets/resource_icon.dart';
 
 class BuildingInfoDialog extends StatelessWidget {
@@ -38,7 +39,7 @@ class BuildingInfoDialog extends StatelessWidget {
       contentPadding: const EdgeInsets.fromLTRB(25, 20, 25, 25),
       backgroundColor: Palette.grey,
       content: SizedBox(
-        width: 300,
+        width: 350,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -64,16 +65,8 @@ class BuildingInfoDialog extends StatelessWidget {
               message: 'Cost:',
               resourceMap: nodeType.cost,
             ),
-            if (nodeType.input.isNotEmpty)
-              InfoRow(
-                message: 'Input:',
-                resourceMap: nodeType.input,
-              ),
-            if (nodeType.output.isNotEmpty)
-              InfoRow(
-                message: 'Output:',
-                resourceMap: nodeType.output,
-              ),
+            const VBox(10),
+            if (nodeType.output.isNotEmpty) RecipeSection(nodeType),
             const VBox(10),
             const MenuButton(
               text: 'Close',
@@ -115,7 +108,7 @@ class InfoRow extends StatelessWidget {
                 title: entry.key.toString(),
                 sprite: entry.key.sprite,
                 amount: entry.value.toString(),
-                size: 50,
+                size: 40,
               ),
             ),
         ],

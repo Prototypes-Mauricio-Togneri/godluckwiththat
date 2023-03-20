@@ -5,7 +5,9 @@ import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/dialog/confirmation_dialog.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/models/inventory.dart';
+import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
+import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
@@ -45,7 +47,7 @@ class BuildingMenu extends StatelessWidget {
         if (node.outputFilled) WarningMessage.outputFilled(),
         if (!node.enabled) WarningMessage.stopped(),
         const Spacer(),
-        RecipeSection(node),
+        RecipeSection(node.nodeType),
         const VBox(20),
         if (node.enabled)
           MenuButton(
@@ -118,13 +120,13 @@ class BuildingMenu extends StatelessWidget {
 }
 
 class RecipeSection extends StatelessWidget {
-  final Building building;
+  final NodeType nodeType;
 
-  const RecipeSection(this.building);
+  const RecipeSection(this.nodeType);
 
   @override
   Widget build(BuildContext context) {
-    final List<ResourceType> inputs = building.input.keys.toList();
+    final List<ResourceType> inputs = nodeType.input.keys.toList();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -143,25 +145,38 @@ class RecipeSection extends StatelessWidget {
               ResourceIcon(
                 title: inputs[i].toString(),
                 sprite: inputs[i].sprite,
-                amount: '${building.input[inputs[i]]!}',
-                size: 50,
+                amount: '${nodeType.input[inputs[i]]!}',
+                size: 40,
               ),
             ],
           ),
         if (inputs.isNotEmpty)
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(horizontal: 5),
             child: Label(
-              text: '=',
+              text: '+',
               size: 20,
             ),
           ),
-        for (final ResourceType resourceType in building.output.keys)
+        ResourceIcon(
+          title: 'Seconds',
+          sprite: Assets.IMAGES_RESOURCES_TIME,
+          amount: '${nodeType.productionTime}',
+          size: 40,
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Label(
+            text: '=',
+            size: 20,
+          ),
+        ),
+        for (final ResourceType resourceType in nodeType.output.keys)
           ResourceIcon(
             title: resourceType.toString(),
             sprite: resourceType.sprite,
-            amount: '${building.output[resourceType]!}',
-            size: 50,
+            amount: '${nodeType.output[resourceType]!}',
+            size: 40,
           ),
       ],
     );

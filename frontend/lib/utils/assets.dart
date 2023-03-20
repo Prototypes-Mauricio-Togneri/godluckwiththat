@@ -54,6 +54,7 @@ class Assets {
   static const String IMAGES_RESOURCES_PLASTIC = 'resources/plastic.png';
   static const String IMAGES_RESOURCES_CIRCUIT = 'resources/circuit.png';
   static const String IMAGES_RESOURCES_IRON_ORE = 'resources/iron_ore.png';
+  static const String IMAGES_RESOURCES_TIME = 'resources/time.png';
   static const String IMAGES_RESOURCES_COAL_ORE = 'resources/coal_ore.png';
   static const String IMAGES_RESOURCES_COPPER_BLOCK =
       'resources/copper_block.png';
