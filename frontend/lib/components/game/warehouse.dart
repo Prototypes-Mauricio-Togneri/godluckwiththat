@@ -47,6 +47,7 @@ class Warehouse extends Node {
           if (canReceive) {
             connection.send(resource);
             inventory.removeResource(resource);
+            updateMenu();
           }
         }
       }
