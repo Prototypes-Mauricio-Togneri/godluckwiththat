@@ -1,7 +1,5 @@
 # Tension Planet
 
-* Construction materials green and red
-* Create resource widget with a circle and a number
 * Improve warning labels in side menu
 * Copy buildings
 

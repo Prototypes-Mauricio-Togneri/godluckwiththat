@@ -7,12 +7,14 @@ class ResourceIcon extends StatelessWidget {
   final String sprite;
   final String amount;
   final double size;
+  final Color border;
 
   const ResourceIcon({
     required this.title,
     required this.sprite,
     required this.amount,
     required this.size,
+    this.border = Palette.lightGrey,
   });
 
   @override
@@ -37,7 +39,7 @@ class ResourceIcon extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: size / 2,
-            backgroundColor: Palette.lightGrey,
+            backgroundColor: border,
             child: CircleAvatar(
               radius: size / 2.2,
               backgroundColor: Palette.black,

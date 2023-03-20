@@ -124,6 +124,9 @@ class ResourcesSection extends StatelessWidget {
             sprite: entry.key.sprite,
             amount:
                 '${entry.value - node.inventory.get(entry.key)}/${entry.value}',
+            border: (entry.value - node.inventory.get(entry.key) == entry.value)
+                ? Palette.success
+                : Palette.error,
           ),
       ],
     );
