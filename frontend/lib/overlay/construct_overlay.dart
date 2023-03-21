@@ -30,7 +30,7 @@ class _ConstructOverlayState extends State<ConstructOverlay> {
     return Center(
       child: Container(
         width: 850,
-        height: 395,
+        height: 425,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Palette.grey,
@@ -215,14 +215,16 @@ class BuildingList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 590,
-      height: 290,
-      child: GridView.count(
-        crossAxisCount: 4,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+      height: 320,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (final NodeType resourceType in nodeTypes)
-            BuildingCard(resourceType, onBuild, onInfo),
+          Wrap(
+            children: [
+              for (final NodeType resourceType in nodeTypes)
+                BuildingCard(resourceType, onBuild, onInfo),
+            ],
+          ),
         ],
       ),
     );
@@ -243,7 +245,14 @@ class BuildingCard extends StatelessWidget {
       child: InkWell(
         onTap: () => onBuild(nodeType),
         child: Container(
+          width: 135,
+          height: 150,
           color: Palette.white.withAlpha(128),
+          margin: const EdgeInsets.only(
+            left: 5,
+            right: 5,
+            bottom: 10,
+          ),
           padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
