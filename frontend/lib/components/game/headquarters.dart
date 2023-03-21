@@ -35,7 +35,7 @@ class Headquarters extends Node {
     final int amountOfDrones = freeDrones;
     droneCounter.text = (amountOfDrones > 0) ? '$amountOfDrones' : '';
 
-    if (game.state.constructions.isNotEmpty && hasDrones && hasConnections) {
+    if (game.state.constructions.isNotEmpty && hasConnections) {
       for (final Construction construction in game.state.constructions) {
         if (construction.enabled) {
           final bool ironSent = _checkConstruction(
@@ -82,8 +82,7 @@ class Headquarters extends Node {
     required Construction construction,
     required Resource resource,
   }) {
-    if (hasDrones &&
-        construction.inventory.hasResource(resource) &&
+    if (construction.inventory.hasResource(resource) &&
         inventory.hasResource(resource)) {
       return _sendConstructionDrone(
         construction: construction,
