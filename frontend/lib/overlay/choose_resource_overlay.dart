@@ -22,8 +22,8 @@ class ChooseResourceOverlay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: 740,
-        height: 455,
+        width: 760,
+        height: 465,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Palette.grey,
@@ -64,17 +64,19 @@ class ResourcesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 700,
-      height: 350,
-      child: GridView.count(
-        crossAxisCount: 6,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+      width: 720,
+      height: 360,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (final ResourceType resourceType in ResourceType.values)
-            if ((resourceType != ResourceType.drone) &&
-                (resourceType != ResourceType.time))
-              ResourceCard(resourceType, onSelected),
+          Wrap(
+            children: [
+              for (final ResourceType resourceType in ResourceType.values)
+                if ((resourceType != ResourceType.drone) &&
+                    (resourceType != ResourceType.time))
+                  ResourceCard(resourceType, onSelected),
+            ],
+          ),
         ],
       ),
     );
@@ -89,27 +91,36 @@ class ResourceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Palette.transparent,
-      child: InkWell(
-        onTap: () => onSelected(resourceType),
-        child: Container(
-          color: Palette.white.withAlpha(128),
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Label(
-                text: resourceType.toString(),
-                size: 8,
-                align: TextAlign.center,
-              ),
-              const VBox(20),
-              ImageAsset(
-                path: resourceType.sprite,
-                size: 40,
-              ),
-            ],
+    return Container(
+      margin: const EdgeInsets.only(
+        left: 5,
+        right: 5,
+        bottom: 10,
+      ),
+      child: Material(
+        color: Palette.transparent,
+        child: InkWell(
+          onTap: () => onSelected(resourceType),
+          child: Container(
+            width: 110,
+            height: 110,
+            color: Palette.white.withAlpha(128),
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Label(
+                  text: resourceType.toString(),
+                  size: 8,
+                  align: TextAlign.center,
+                ),
+                const VBox(20),
+                ImageAsset(
+                  path: resourceType.sprite,
+                  size: 40,
+                ),
+              ],
+            ),
           ),
         ),
       ),

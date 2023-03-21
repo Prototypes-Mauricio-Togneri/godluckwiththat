@@ -240,43 +240,45 @@ class BuildingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Palette.transparent,
-      child: InkWell(
-        onTap: () => onBuild(nodeType),
-        child: Container(
-          width: 135,
-          height: 150,
-          color: Palette.white.withAlpha(128),
-          margin: const EdgeInsets.only(
-            left: 5,
-            right: 5,
-            bottom: 10,
-          ),
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Label(
-                text: nodeType.toString(),
-                size: 8,
-                align: TextAlign.center,
-              ),
-              const VBox(10),
-              ImageAsset(
-                path: nodeType.sprite,
-                size: 55,
-              ),
-              const VBox(5),
-              MenuButton(
-                text: 'Info',
-                icon: Icons.info_outline,
-                color: Palette.primary,
-                onPressed: () => onInfo(nodeType),
-                size: 9,
-                expand: false,
-              ),
-            ],
+    return Container(
+      margin: const EdgeInsets.only(
+        left: 5,
+        right: 5,
+        bottom: 10,
+      ),
+      child: Material(
+        color: Palette.transparent,
+        child: InkWell(
+          onTap: () => onBuild(nodeType),
+          child: Container(
+            width: 135,
+            height: 150,
+            color: Palette.white.withAlpha(128),
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Label(
+                  text: nodeType.toString(),
+                  size: 8,
+                  align: TextAlign.center,
+                ),
+                const VBox(10),
+                ImageAsset(
+                  path: nodeType.sprite,
+                  size: 55,
+                ),
+                const VBox(5),
+                MenuButton(
+                  text: 'Info',
+                  icon: Icons.info_outline,
+                  color: Palette.primary,
+                  onPressed: () => onInfo(nodeType),
+                  size: 9,
+                  expand: false,
+                ),
+              ],
+            ),
           ),
         ),
       ),
