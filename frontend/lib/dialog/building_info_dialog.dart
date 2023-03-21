@@ -126,8 +126,7 @@ class InfoRow extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: ResourceIcon(
-                title: resource.resourceType.toString(),
-                sprite: resource.resourceType.sprite,
+                resourceType: resource.resourceType,
                 amount: resource.amount.toString(),
                 size: 40,
               ),

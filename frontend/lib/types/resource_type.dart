@@ -23,7 +23,10 @@ enum ResourceType {
   circuit(sprite: Assets.IMAGES_RESOURCES_CIRCUIT),
 
   // machines
-  drone(sprite: Assets.IMAGES_DRONES_BASIC_DRONE);
+  drone(sprite: Assets.IMAGES_DRONES_BASIC_DRONE),
+
+  // other
+  time(sprite: Assets.IMAGES_RESOURCES_TIME);
 
   final String sprite;
 

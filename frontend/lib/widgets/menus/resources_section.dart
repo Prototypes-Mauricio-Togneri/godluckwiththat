@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
-import 'package:tensionplanet/widgets/menus/item_row.dart';
+import 'package:tensionplanet/widgets/resource_icon.dart';
 
 class ResourcesSection extends StatelessWidget {
   final String title;
@@ -39,11 +39,15 @@ class ResourcesSection extends StatelessWidget {
               children: [
                 for (final Resource resource in resources)
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: ItemRow(
-                      title: resource.resourceType.toString(),
-                      sprite: resource.resourceType.sprite,
+                    padding: const EdgeInsets.only(
+                      top: 10,
+                      left: 10,
+                      right: 10,
+                    ),
+                    child: ResourceIcon(
+                      resourceType: resource.resourceType,
                       amount: '${resource.amount}',
+                      size: 50,
                     ),
                   ),
               ],
@@ -53,10 +57,13 @@ class ResourcesSection extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 for (final Resource resource in resources)
-                  ItemRow(
-                    title: resource.resourceType.toString(),
-                    sprite: resource.resourceType.sprite,
-                    amount: '${resource.amount}',
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: ResourceIcon(
+                      resourceType: resource.resourceType,
+                      amount: '${resource.amount}',
+                      size: 50,
+                    ),
                   ),
               ],
             ),

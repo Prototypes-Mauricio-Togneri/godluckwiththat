@@ -7,7 +7,7 @@ import 'package:tensionplanet/extensions/resource_map_extension.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
-import 'package:tensionplanet/utils/assets.dart';
+import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
@@ -143,8 +143,7 @@ class RecipeSection extends StatelessWidget {
                   ),
                 ),
               ResourceIcon(
-                title: inputs[i].resourceType.toString(),
-                sprite: inputs[i].resourceType.sprite,
+                resourceType: inputs[i].resourceType,
                 amount: '${inputs[i].amount}',
                 size: 40,
               ),
@@ -159,8 +158,7 @@ class RecipeSection extends StatelessWidget {
             ),
           ),
         ResourceIcon(
-          title: 'Seconds',
-          sprite: Assets.IMAGES_RESOURCES_TIME,
+          resourceType: ResourceType.time,
           amount: '${nodeType.productionTime}',
           size: 40,
         ),
@@ -173,8 +171,7 @@ class RecipeSection extends StatelessWidget {
         ),
         for (final Resource resource in nodeType.output.resources())
           ResourceIcon(
-            title: resource.resourceType.toString(),
-            sprite: resource.resourceType.sprite,
+            resourceType: resource.resourceType,
             amount: '${resource.amount}',
             size: 40,
           ),

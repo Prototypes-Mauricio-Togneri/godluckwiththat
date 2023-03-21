@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:tensionplanet/dialog/resource_info_dialog.dart';
+import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 
 class ResourceIcon extends StatelessWidget {
-  final String title;
-  final String sprite;
+  final ResourceType resourceType;
   final String amount;
   final double size;
   final Color border;
 
   const ResourceIcon({
-    required this.title,
-    required this.sprite,
+    required this.resourceType,
     required this.amount,
     required this.size,
     this.border = Palette.lightGrey,
@@ -20,7 +20,7 @@ class ResourceIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: title.toUpperCase(),
+      message: resourceType.toString().toUpperCase(),
       padding: const EdgeInsets.only(
         top: 5,
         bottom: 1,
@@ -34,40 +34,46 @@ class ResourceIcon extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Palette.black,
       ),
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          CircleAvatar(
-            radius: size / 2,
-            backgroundColor: border,
-            child: CircleAvatar(
-              radius: size / 2.2,
-              backgroundColor: Palette.black,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  bottom: size / 5,
-                  left: size / 10,
-                  right: size / 10,
-                ),
-                child: SizedBox(
-                  width: size,
-                  height: size,
-                  child: Image.asset(
-                    'images/$sprite',
+      child: GestureDetector(
+        onTap: () => ResourceInfoDialog.show(
+          context: context,
+          resourceType: resourceType,
+        ),
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            CircleAvatar(
+              radius: size / 2,
+              backgroundColor: border,
+              child: CircleAvatar(
+                radius: size / 2.2,
+                backgroundColor: Palette.black,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: size / 5,
+                    left: size / 10,
+                    right: size / 10,
+                  ),
+                  child: SizedBox(
+                    width: size,
+                    height: size,
+                    child: Image.asset(
+                      'images/${resourceType.sprite}',
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: size / 10),
-            child: Label(
-              text: amount,
-              size: size / 5,
-              color: Palette.white,
+            Padding(
+              padding: EdgeInsets.only(left: size / 10),
+              child: Label(
+                text: amount,
+                size: size / 5,
+                color: Palette.white,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

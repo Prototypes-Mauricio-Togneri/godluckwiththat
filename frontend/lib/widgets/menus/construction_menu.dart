@@ -11,7 +11,7 @@ import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
-import 'package:tensionplanet/widgets/menus/item_row.dart';
+import 'package:tensionplanet/widgets/resource_icon.dart';
 
 class ConstructionMenu extends StatelessWidget {
   final GameComponent game;
@@ -136,9 +136,8 @@ class ResourcesSection extends StatelessWidget {
         ),
         const VBox(10),
         for (final Resource resource in node.nodeType.cost.resources())
-          ItemRow(
-            title: resource.resourceType.toString(),
-            sprite: resource.resourceType.sprite,
+          ResourceIcon(
+            resourceType: resource.resourceType,
             amount:
                 '${resource.amount - node.inventory.get(resource.resourceType)}/${resource.amount}',
             border:
@@ -146,7 +145,9 @@ class ResourcesSection extends StatelessWidget {
                         resource.amount)
                     ? Palette.success
                     : Palette.error,
+            size: 50,
           ),
+        const VBox(10),
       ],
     );
   }
