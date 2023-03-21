@@ -61,15 +61,6 @@ class BuildingInfoDialog extends StatelessWidget {
                 'images/${nodeType.sprite}',
               ),
             ),
-            const VBox(10),
-            const Label(
-              text:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              color: Palette.white,
-              align: TextAlign.center,
-              size: 12,
-              height: 1.5,
-            ),
             const VBox(20),
             InfoRow(
               message: 'Cost:',

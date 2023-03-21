@@ -35,10 +35,12 @@ class ResourceIcon extends StatelessWidget {
         color: Palette.black,
       ),
       child: GestureDetector(
-        onTap: () => ResourceInfoDialog.show(
-          context: context,
-          resourceType: resourceType,
-        ),
+        onTap: (resourceType == ResourceType.time)
+            ? null
+            : () => ResourceInfoDialog.show(
+                  context: context,
+                  resourceType: resourceType,
+                ),
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [

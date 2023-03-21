@@ -4,6 +4,7 @@ import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/navigation.dart';
 import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/widgets/image_asset.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
 import 'package:tensionplanet/widgets/resource_icon.dart';
@@ -52,22 +53,9 @@ class ResourceInfoDialog extends StatelessWidget {
               ),
             ),
             const VBox(10),
-            SizedBox(
-              width: 50,
-              height: 50,
-              child: Image.asset(
-                'images/${resourceType.sprite}',
-                fit: BoxFit.cover,
-              ),
-            ),
-            const VBox(10),
-            const Label(
-              text:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-              color: Palette.white,
-              align: TextAlign.center,
-              size: 12,
-              height: 1.5,
+            ImageAsset(
+              path: resourceType.sprite,
+              size: 50,
             ),
             const VBox(20),
             const Label(
