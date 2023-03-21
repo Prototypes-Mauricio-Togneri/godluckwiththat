@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:tensionplanet/dialog/building_info_dialog.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/navigation.dart';
@@ -66,9 +67,15 @@ class ResourceInfoDialog extends StatelessWidget {
               color: Palette.white,
             ),
             const VBox(10),
-            ImageAsset(
-              path: producedIn.sprite,
-              size: 50,
+            GestureDetector(
+              onTap: () => BuildingInfoDialog.show(
+                context: context,
+                nodeType: producedIn,
+              ),
+              child: ImageAsset(
+                path: producedIn.sprite,
+                size: 50,
+              ),
             ),
             const VBox(5),
             Label(
