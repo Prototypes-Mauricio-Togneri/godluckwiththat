@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionplanet/dialog/resource_info_dialog.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/widgets/image_asset.dart';
 import 'package:tensionplanet/widgets/label.dart';
 
 class ResourceIcon extends StatelessWidget {
@@ -52,16 +53,14 @@ class ResourceIcon extends StatelessWidget {
                 backgroundColor: Palette.black,
                 child: Padding(
                   padding: EdgeInsets.only(
+                    top: amount.isEmpty ? size / 5 : 0,
                     bottom: size / 5,
                     left: size / 10,
                     right: size / 10,
                   ),
-                  child: SizedBox(
-                    width: size,
-                    height: size,
-                    child: Image.asset(
-                      'images/${resourceType.sprite}',
-                    ),
+                  child: ImageAsset(
+                    path: resourceType.sprite,
+                    size: size,
                   ),
                 ),
               ),

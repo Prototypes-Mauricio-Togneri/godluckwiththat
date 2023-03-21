@@ -57,7 +57,7 @@ class BuildingInfoDialog extends StatelessWidget {
             const VBox(20),
             ImageAsset(
               path: nodeType.sprite,
-              size: 80,
+              size: 60,
             ),
             const VBox(20),
             InfoRow(

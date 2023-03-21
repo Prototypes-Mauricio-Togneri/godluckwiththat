@@ -4,6 +4,7 @@ import 'package:tensionplanet/dialog/building_info_dialog.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/widgets/image_asset.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
 
@@ -253,12 +254,9 @@ class BuildingCard extends StatelessWidget {
                 align: TextAlign.center,
               ),
               const VBox(10),
-              SizedBox(
-                width: 55,
-                height: 55,
-                child: Image.asset(
-                  'images/${nodeType.sprite}',
-                ),
+              ImageAsset(
+                path: nodeType.sprite,
+                size: 55,
               ),
               const VBox(5),
               MenuButton(
