@@ -34,6 +34,9 @@ class ResourceInfoDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NodeType producedIn = ResourceType.producedIn(resourceType);
+    final List<ResourceType> usedFor = ResourceType.usedFor(resourceType);
+
     return AlertDialog(
       contentPadding: const EdgeInsets.fromLTRB(25, 20, 25, 25),
       backgroundColor: Palette.grey,
@@ -64,29 +67,34 @@ class ResourceInfoDialog extends StatelessWidget {
             ),
             const VBox(10),
             ImageAsset(
-              path: NodeType.circuit_assembly.sprite,
+              path: producedIn.sprite,
               size: 50,
             ),
             const VBox(5),
-            const Label(
-              text: 'XXX',
+            Label(
+              text: producedIn.toString(),
               color: Palette.white,
-              size: 12,
+              size: 10,
             ),
-            const VBox(20),
-            const Label(
-              text: 'Used for:',
-              color: Palette.white,
-            ),
-            for (final ResourceType resourceType
-                in ResourceType.usedFor(resourceType))
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: ResourceIcon(
-                  resourceType: resourceType,
-                  amount: '',
-                  size: 40,
-                ),
+            if (usedFor.isNotEmpty)
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const VBox(20),
+                  const Label(
+                    text: 'Used for:',
+                    color: Palette.white,
+                  ),
+                  for (final ResourceType resourceType in usedFor)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: ResourceIcon(
+                        resourceType: resourceType,
+                        amount: '',
+                        size: 40,
+                      ),
+                    ),
+                ],
               ),
             const VBox(20),
             const MenuButton(

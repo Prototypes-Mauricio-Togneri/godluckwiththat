@@ -50,6 +50,16 @@ enum ResourceType {
     return result;
   }
 
+  static NodeType producedIn(ResourceType resourceType) {
+    for (final NodeType nodeType in NodeType.values) {
+      if (nodeType.output.contains(resourceType)) {
+        return nodeType;
+      }
+    }
+
+    throw Exception('Resource not produced anywhere');
+  }
+
   @override
   String toString() => name.replaceAll('_', ' ');
 }
