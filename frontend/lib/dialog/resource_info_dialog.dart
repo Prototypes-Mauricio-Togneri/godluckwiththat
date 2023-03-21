@@ -78,16 +78,16 @@ class ResourceInfoDialog extends StatelessWidget {
               text: 'Used for:',
               color: Palette.white,
             ),
-            const VBox(10),
-            //for (final Resource resource in resourceMap.resources())
-            const Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: ResourceIcon(
-                resourceType: ResourceType.circuit,
-                amount: '',
-                size: 40,
+            for (final ResourceType resourceType
+                in ResourceType.usedFor(resourceType))
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: ResourceIcon(
+                  resourceType: resourceType,
+                  amount: '',
+                  size: 40,
+                ),
               ),
-            ),
             const VBox(20),
             const MenuButton(
               text: 'Close',

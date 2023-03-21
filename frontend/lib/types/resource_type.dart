@@ -1,3 +1,5 @@
+import 'package:tensionplanet/extensions/resource_map_extension.dart';
+import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/utils/assets.dart';
 
 enum ResourceType {
@@ -33,6 +35,20 @@ enum ResourceType {
   const ResourceType({
     required this.sprite,
   });
+
+  static List<ResourceType> usedFor(ResourceType resourceType) {
+    final List<ResourceType> result = [];
+
+    for (final NodeType nodeType in NodeType.values) {
+      if (nodeType.input.contains(resourceType)) {
+        for (final ResourceType resourceType in nodeType.output.keys) {
+          result.add(resourceType);
+        }
+      }
+    }
+
+    return result;
+  }
 
   @override
   String toString() => name.replaceAll('_', ' ');
