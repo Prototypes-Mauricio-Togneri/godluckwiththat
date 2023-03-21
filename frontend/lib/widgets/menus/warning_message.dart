@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/widgets/image_asset.dart';
 import 'package:tensionplanet/widgets/label.dart';
 
 class WarningMessage extends StatelessWidget {
@@ -43,12 +44,9 @@ class WarningMessage extends StatelessWidget {
       child: Row(
         children: [
           const HBox(5),
-          SizedBox(
-            width: 25,
-            height: 25,
-            child: Image.asset(
-              'images/$image',
-            ),
+          ImageAsset(
+            path: image,
+            size: 25,
           ),
           const HBox(10),
           Label(
