@@ -63,12 +63,9 @@ class ResourceInfoDialog extends StatelessWidget {
               color: Palette.white,
             ),
             const VBox(10),
-            SizedBox(
-              width: 80,
-              height: 80,
-              child: Image.asset(
-                'images/${NodeType.circuit_assembly.sprite}',
-              ),
+            ImageAsset(
+              path: NodeType.circuit_assembly.sprite,
+              size: 50,
             ),
             const VBox(5),
             const Label(

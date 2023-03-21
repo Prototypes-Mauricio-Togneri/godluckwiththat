@@ -4,6 +4,7 @@ import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/widgets/image_asset.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
 
@@ -22,7 +23,7 @@ class ChooseResourceOverlay extends StatelessWidget {
     return Center(
       child: Container(
         width: 740,
-        height: 450,
+        height: 455,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Palette.grey,
@@ -71,7 +72,8 @@ class ResourcesList extends StatelessWidget {
         mainAxisSpacing: 10,
         children: [
           for (final ResourceType resourceType in ResourceType.values)
-            if (resourceType != ResourceType.drone)
+            if ((resourceType != ResourceType.drone) &&
+                (resourceType != ResourceType.time))
               ResourceCard(resourceType, onSelected),
         ],
       ),
@@ -102,13 +104,10 @@ class ResourceCard extends StatelessWidget {
                 size: 8,
                 align: TextAlign.center,
               ),
-              const VBox(10),
-              SizedBox(
-                width: 55,
-                height: 55,
-                child: Image.asset(
-                  'images/${resourceType.sprite}',
-                ),
+              const VBox(20),
+              ImageAsset(
+                path: resourceType.sprite,
+                size: 40,
               ),
             ],
           ),
