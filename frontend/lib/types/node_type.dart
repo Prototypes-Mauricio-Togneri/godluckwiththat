@@ -196,10 +196,26 @@ enum NodeType {
     },
     input: {
       ResourceType.energy: 2,
-      ResourceType.steel: 1,
+      ResourceType.iron_block: 1,
     },
     output: {
       ResourceType.gear: 1,
+    },
+  ),
+  wire_assembly(
+    sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_WIRE_ASSEMBLY,
+    productionTime: 15,
+    cost: {
+      ResourceType.iron_block: 30,
+      ResourceType.copper_block: 30,
+      ResourceType.steel: 30,
+    },
+    input: {
+      ResourceType.energy: 2,
+      ResourceType.copper_block: 1,
+    },
+    output: {
+      ResourceType.wire: 1,
     },
   ),
   circuit_assembly(
@@ -212,11 +228,28 @@ enum NodeType {
     },
     input: {
       ResourceType.energy: 2,
-      ResourceType.copper_block: 1,
+      ResourceType.wire: 1,
       ResourceType.plastic: 1,
     },
     output: {
       ResourceType.circuit: 1,
+    },
+  ),
+  motor_assembly(
+    sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_MOTOR_ASSEMBLY,
+    productionTime: 15,
+    cost: {
+      ResourceType.iron_block: 30,
+      ResourceType.copper_block: 30,
+      ResourceType.steel: 30,
+    },
+    input: {
+      ResourceType.energy: 2,
+      ResourceType.iron_block: 1,
+      ResourceType.gear: 1,
+    },
+    output: {
+      ResourceType.motor: 1,
     },
   ),
 
@@ -288,7 +321,9 @@ enum NodeType {
 
   static List<NodeType> assemblers() => [
         NodeType.gear_assembly,
+        NodeType.wire_assembly,
         NodeType.circuit_assembly,
+        NodeType.motor_assembly,
       ];
 
   static List<NodeType> factories() => [

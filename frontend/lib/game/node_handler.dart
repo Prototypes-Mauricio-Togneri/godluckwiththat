@@ -2,6 +2,8 @@ import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/base/sprite_group.dart';
 import 'package:tensionplanet/components/game/buildings/assemblers/circuit_assembly.dart';
 import 'package:tensionplanet/components/game/buildings/assemblers/gear_assembly.dart';
+import 'package:tensionplanet/components/game/buildings/assemblers/motor_assembly.dart';
+import 'package:tensionplanet/components/game/buildings/assemblers/wire_assembly.dart';
 import 'package:tensionplanet/components/game/buildings/extractors/coal_mine.dart';
 import 'package:tensionplanet/components/game/buildings/extractors/copper_mine.dart';
 import 'package:tensionplanet/components/game/buildings/extractors/iron_mine.dart';
@@ -150,9 +152,26 @@ mixin NodeHandler on BaseGameComponent {
       );
     }
 
+    for (final JsonBuilding json in json.getBuildings(NodeType.wire_assembly)) {
+      _addWireAssembly(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
     for (final JsonBuilding json
         in json.getBuildings(NodeType.circuit_assembly)) {
       _addCircuitAssembly(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json
+        in json.getBuildings(NodeType.motor_assembly)) {
+      _addMotorAssembly(
         location: json.location.location,
         inventory: Inventory.fromJson(json.inventory),
         connections: [],
@@ -368,12 +387,34 @@ mixin NodeHandler on BaseGameComponent {
         connections: connections,
       ));
 
+  Node _addWireAssembly({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(WireAssembly(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
   Node _addCircuitAssembly({
     required Location location,
     required Inventory inventory,
     required List<Connection> connections,
   }) =>
       _addNode(CircuitAssembly(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  Node _addMotorAssembly({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(MotorAssembly(
         location: location,
         inventory: inventory,
         connections: connections,
@@ -472,7 +513,9 @@ mixin NodeHandler on BaseGameComponent {
       case NodeType.steel_smelter:
       case NodeType.chemical_plant:
       case NodeType.gear_assembly:
+      case NodeType.wire_assembly:
       case NodeType.circuit_assembly:
+      case NodeType.motor_assembly:
       case NodeType.drone_factory:
       case NodeType.warehouse:
         return tile.isSoil && (patch == null);
@@ -575,8 +618,20 @@ mixin NodeHandler on BaseGameComponent {
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
+      case NodeType.wire_assembly:
+        return _addWireAssembly(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
       case NodeType.circuit_assembly:
         return _addCircuitAssembly(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
+      case NodeType.motor_assembly:
+        return _addMotorAssembly(
           location: location,
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],

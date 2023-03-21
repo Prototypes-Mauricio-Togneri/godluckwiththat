@@ -269,10 +269,10 @@ packages:
     dependency: "direct main"
     description:
       name: dafluta
-      sha256: "5dcab55b71f275c73fd8f54db6c0fdd786e1456f39f7549e4eeb6b82ed51a2f4"
+      sha256: "74906c1a64652fd310d06ad729ddd07f761cd08d71fdfdd90205adf48a7830ab"
       url: "https://pub.dev"
     source: hosted
-    version: "4.9.2"
+    version: "4.9.3"
   dalocale:
     dependency: "direct dev"
     description:
@@ -665,10 +665,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider
-      sha256: "04890b994ee89bfa80bf3080bfec40d5a92c5c7a785ebb02c13084a099d2b6f9"
+      sha256: c7edf82217d4b2952b2129a61d3ad60f1075b9299e629e149a8d2e39c2e6aad4
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.13"
+    version: "2.0.14"
   path_provider_android:
     dependency: transitive
     description:

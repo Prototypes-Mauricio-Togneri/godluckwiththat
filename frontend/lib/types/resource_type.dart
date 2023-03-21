@@ -22,7 +22,9 @@ enum ResourceType {
 
   // components
   gear(sprite: Assets.IMAGES_RESOURCES_GEAR),
+  wire(sprite: Assets.IMAGES_RESOURCES_WIRE),
   circuit(sprite: Assets.IMAGES_RESOURCES_CIRCUIT),
+  motor(sprite: Assets.IMAGES_RESOURCES_MOTOR),
 
   // machines
   drone(sprite: Assets.IMAGES_DRONES_BASIC_DRONE),

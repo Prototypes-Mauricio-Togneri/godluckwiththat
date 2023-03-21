@@ -20,8 +20,12 @@ class Assets {
       'buildings/power_plants/wind_turbine.png';
   static const String IMAGES_BUILDINGS_POWER_PLANTS_SOLAR_PANEL =
       'buildings/power_plants/solar_panel.png';
+  static const String IMAGES_BUILDINGS_ASSEMBLERS_WIRE_ASSEMBLY =
+      'buildings/assemblers/wire_assembly.png';
   static const String IMAGES_BUILDINGS_ASSEMBLERS_GEAR_ASSEMBLY =
       'buildings/assemblers/gear_assembly.png';
+  static const String IMAGES_BUILDINGS_ASSEMBLERS_MOTOR_ASSEMBLY =
+      'buildings/assemblers/motor_assembly.png';
   static const String IMAGES_BUILDINGS_ASSEMBLERS_CIRCUIT_ASSEMBLY =
       'buildings/assemblers/circuit_assembly.png';
   static const String IMAGES_BUILDINGS_EXTRACTORS_COPPER_MINE =
@@ -55,7 +59,9 @@ class Assets {
   static const String IMAGES_RESOURCES_CIRCUIT = 'resources/circuit.png';
   static const String IMAGES_RESOURCES_IRON_ORE = 'resources/iron_ore.png';
   static const String IMAGES_RESOURCES_TIME = 'resources/time.png';
+  static const String IMAGES_RESOURCES_WIRE = 'resources/wire.png';
   static const String IMAGES_RESOURCES_COAL_ORE = 'resources/coal_ore.png';
+  static const String IMAGES_RESOURCES_MOTOR = 'resources/motor.png';
   static const String IMAGES_RESOURCES_COPPER_BLOCK =
       'resources/copper_block.png';
   static const String IMAGES_RESOURCES_STONE_ORE = 'resources/stone_ore.png';
