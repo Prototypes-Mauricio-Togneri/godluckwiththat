@@ -6,10 +6,6 @@ class Assets {
       'signs/unconnected_sign.png';
   static const String IMAGES_SIGNS_IDLE_SIGN = 'signs/idle_sign.png';
   static const String IMAGES_SIGNS_STOPPED_SIGN = 'signs/stopped_sign.png';
-  static const String IMAGES_DRONES_BASIC_DRONE = 'drones/basic_drone.png';
-  static const String IMAGES_DRONES_ADVANCE_DRONE = 'drones/advance_drone.png';
-  static const String IMAGES_DRONES_INTERMEDIATE_DRONE =
-      'drones/intermediate_drone.png';
   static const String IMAGES_NODE_SELECTED = 'node_selected.png';
   static const String IMAGES_TILES_TERRAIN = 'tiles_terrain.png';
   static const String IMAGES_BUILDINGS_FACTORIES_DRONE_FACTORY =
@@ -54,21 +50,29 @@ class Assets {
       'buildings/other/void_background.png';
   static const String IMAGES_RESOURCES_CONCRETE = 'resources/concrete.png';
   static const String IMAGES_RESOURCES_ENERGY = 'resources/energy.png';
+  static const String IMAGES_RESOURCES_CRYSTAL = 'resources/crystal.png';
   static const String IMAGES_RESOURCES_COPPER_ORE = 'resources/copper_ore.png';
+  static const String IMAGES_RESOURCES_EXPLORER = 'resources/explorer.png';
   static const String IMAGES_RESOURCES_PLASTIC = 'resources/plastic.png';
   static const String IMAGES_RESOURCES_CIRCUIT = 'resources/circuit.png';
+  static const String IMAGES_RESOURCES_HYDROGEN = 'resources/hydrogen.png';
   static const String IMAGES_RESOURCES_IRON_ORE = 'resources/iron_ore.png';
   static const String IMAGES_RESOURCES_TIME = 'resources/time.png';
   static const String IMAGES_RESOURCES_WIRE = 'resources/wire.png';
   static const String IMAGES_RESOURCES_COAL_ORE = 'resources/coal_ore.png';
+  static const String IMAGES_RESOURCES_ROCKET = 'resources/rocket.png';
   static const String IMAGES_RESOURCES_MOTOR = 'resources/motor.png';
   static const String IMAGES_RESOURCES_COPPER_BLOCK =
       'resources/copper_block.png';
+  static const String IMAGES_RESOURCES_CARBON_FIBER =
+      'resources/carbon_fiber.png';
   static const String IMAGES_RESOURCES_STONE_ORE = 'resources/stone_ore.png';
+  static const String IMAGES_RESOURCES_DRONE = 'resources/drone.png';
   static const String IMAGES_RESOURCES_IRON_BLOCK = 'resources/iron_block.png';
   static const String IMAGES_RESOURCES_STEEL = 'resources/steel.png';
   static const String IMAGES_RESOURCES_GEAR = 'resources/gear.png';
   static const String IMAGES_RESOURCES_OIL = 'resources/oil.png';
+  static const String IMAGES_RESOURCES_BATTERY = 'resources/battery.png';
   static const String IMAGES_PATCHES_COAL_PATCH = 'patches/coal_patch.png';
   static const String IMAGES_PATCHES_IRON_PATCH = 'patches/iron_patch.png';
   static const String IMAGES_PATCHES_STONE_PATCH = 'patches/stone_patch.png';

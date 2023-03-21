@@ -12,6 +12,7 @@ enum ResourceType {
   coal_ore(sprite: Assets.IMAGES_RESOURCES_COAL_ORE),
   oil(sprite: Assets.IMAGES_RESOURCES_OIL),
   stone_ore(sprite: Assets.IMAGES_RESOURCES_STONE_ORE),
+  crystal(sprite: Assets.IMAGES_RESOURCES_CRYSTAL),
 
   // materials
   iron_block(sprite: Assets.IMAGES_RESOURCES_IRON_BLOCK),
@@ -19,15 +20,20 @@ enum ResourceType {
   steel(sprite: Assets.IMAGES_RESOURCES_STEEL),
   plastic(sprite: Assets.IMAGES_RESOURCES_PLASTIC),
   concrete(sprite: Assets.IMAGES_RESOURCES_CONCRETE),
+  hydrogen(sprite: Assets.IMAGES_RESOURCES_HYDROGEN),
 
   // components
   gear(sprite: Assets.IMAGES_RESOURCES_GEAR),
   wire(sprite: Assets.IMAGES_RESOURCES_WIRE),
   circuit(sprite: Assets.IMAGES_RESOURCES_CIRCUIT),
   motor(sprite: Assets.IMAGES_RESOURCES_MOTOR),
+  battery(sprite: Assets.IMAGES_RESOURCES_BATTERY),
+  carbon_fiber(sprite: Assets.IMAGES_RESOURCES_CARBON_FIBER),
 
   // machines
-  drone(sprite: Assets.IMAGES_DRONES_BASIC_DRONE),
+  drone(sprite: Assets.IMAGES_RESOURCES_DRONE),
+  explorer(sprite: Assets.IMAGES_RESOURCES_EXPLORER),
+  rocket(sprite: Assets.IMAGES_RESOURCES_ROCKET),
 
   // other
   time(sprite: Assets.IMAGES_RESOURCES_TIME);
