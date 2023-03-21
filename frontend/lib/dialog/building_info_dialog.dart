@@ -5,6 +5,7 @@ import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/utils/navigation.dart';
 import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/widgets/image_asset.dart';
 import 'package:tensionplanet/widgets/label.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
 import 'package:tensionplanet/widgets/menus/building_menu.dart';
@@ -53,13 +54,10 @@ class BuildingInfoDialog extends StatelessWidget {
                 align: TextAlign.center,
               ),
             ),
-            const VBox(10),
-            SizedBox(
-              width: 80,
-              height: 80,
-              child: Image.asset(
-                'images/${nodeType.sprite}',
-              ),
+            const VBox(20),
+            ImageAsset(
+              path: nodeType.sprite,
+              size: 80,
             ),
             const VBox(20),
             InfoRow(
