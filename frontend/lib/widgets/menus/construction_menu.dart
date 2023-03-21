@@ -136,18 +136,20 @@ class ResourcesSection extends StatelessWidget {
         ),
         const VBox(10),
         for (final Resource resource in node.nodeType.cost.resources())
-          ResourceIcon(
-            resourceType: resource.resourceType,
-            amount:
-                '${resource.amount - node.inventory.get(resource.resourceType)}/${resource.amount}',
-            border:
-                (resource.amount - node.inventory.get(resource.resourceType) ==
-                        resource.amount)
-                    ? Palette.success
-                    : Palette.error,
-            size: 50,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: ResourceIcon(
+              resourceType: resource.resourceType,
+              amount:
+                  '${resource.amount - node.inventory.get(resource.resourceType)}/${resource.amount}',
+              border: (resource.amount -
+                          node.inventory.get(resource.resourceType) ==
+                      resource.amount)
+                  ? Palette.success
+                  : Palette.error,
+              size: 50,
+            ),
           ),
-        const VBox(10),
       ],
     );
   }
