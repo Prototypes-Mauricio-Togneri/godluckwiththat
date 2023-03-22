@@ -1,7 +1,6 @@
 # Tension Planet
 
-* Fix formula not fitting side menu
-
+* Overlay with active constructions, building problems, etc
 * Fix construction drones. Make a connection only when it moves resources. Destroy the connection when the drone is back
 * Pending connections to constructions
 * Save/load game state

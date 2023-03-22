@@ -145,7 +145,7 @@ class RecipeSection extends StatelessWidget {
               ResourceIcon(
                 resourceType: inputs[i].resourceType,
                 amount: '${inputs[i].amount}',
-                size: 40,
+                size: 30,
               ),
             ],
           ),
@@ -160,7 +160,7 @@ class RecipeSection extends StatelessWidget {
         ResourceIcon(
           resourceType: ResourceType.time,
           amount: '${nodeType.productionTime}',
-          size: 40,
+          size: 30,
         ),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
@@ -173,7 +173,7 @@ class RecipeSection extends StatelessWidget {
           ResourceIcon(
             resourceType: resource.resourceType,
             amount: '${resource.amount}',
-            size: 40,
+            size: 30,
           ),
       ],
     );
