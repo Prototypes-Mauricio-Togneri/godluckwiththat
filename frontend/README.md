@@ -10,12 +10,12 @@
 * Link different devices. Create FirebaseAuth account under the hood
 * Make mines never exhaust (always give a minimum)
 
+## ################################################################################################################ ##
+
 ## New buildings
 * Oil refinery
 * Nuclear power plant
 * Oil power plant
-
-## ################################################################################################################ ##
 
 ## Resources
 * Uranium
