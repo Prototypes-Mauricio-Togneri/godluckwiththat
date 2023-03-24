@@ -17,6 +17,27 @@
 
 ## ################################################################################################################ ##
 
+## Resources
+* Uranium
+
+## Materials
+* Carbon fiber: hydrogen + plastic
+* Solid fuel: crude oil
+
+## Components
+* Gear: iron
+* Pipe: iron
+* Wire: copper
+* Electronics: iron + copper
+
+* Chips: electronics + plastic
+* Solar cell: electronics + iron + copper
+* Motor: iron + gear
+* Battery: copper + iron + plastic
+* Circuit: chips + plastic
+
+## ################################################################################################################ ##
+
 ## Goals
 * Extract a special resource (crystals)
 * Launch crystals back to home planet with rockets
