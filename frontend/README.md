@@ -18,26 +18,38 @@
 * Oil power plant
 
 ## Resources
-* Uranium
+* iron
+* copper
+* coal
+* oil
+* stone
+* uranium
 
 ## Materials
-* Carbon fiber: hydrogen + plastic
-* Solid fuel: crude oil
+* iron block: iron
+* copper block: copper
+* steel: iron + coal
+* plastic: oil + coal
+* concrete: stone
+* hydrogen: oil
+
+* carbon fiber: hydrogen + plastic
+* solid fuel: crude oil
 
 ## Components
-* Gear: iron
-* Wire: copper
-* Electronics: iron + wire
-* Solar cell: electronics + copper
-* Chips: electronics + plastic
-* Motor: wire + gear
-* Battery: wire + plastic
-* Circuit: chips + plastic
+* gear: iron
+* wire: copper
+* electronics: iron + wire
+* solar cell: electronics + copper
+* chips: electronics + plastic
+* motor: wire + gear
+* battery: wire + plastic
+* circuit: chips + plastic
 
 ## Machines
-* Drone: electronics + solar cell + motor
-* Explorer: chips + motor + battery
-* Rocket: circuits + battery + hydrogen
+* drone: electronics + solar cell + motor
+* explorer: chips + motor + battery
+* rocket: circuit + battery + hydrogen
 
 ## ################################################################################################################ ##
 
