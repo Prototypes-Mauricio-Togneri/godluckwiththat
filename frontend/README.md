@@ -39,7 +39,7 @@
 ## Components
 * gear: iron
 * wire: copper
-* electronics: iron + wire
+* electronics: iron + copper
 * solar cell: electronics + copper
 * chips: electronics + plastic
 * motor: wire + gear
