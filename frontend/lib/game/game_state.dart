@@ -11,7 +11,6 @@ import 'package:tensionplanet/models/location.dart';
 import 'package:tensionplanet/models/patches.dart';
 import 'package:tensionplanet/models/research.dart';
 import 'package:tensionplanet/types/node_type.dart';
-import 'package:tensionplanet/utils/map_list.dart';
 
 class GameState extends BaseState {
   num _totalTimeElapsed = 0;

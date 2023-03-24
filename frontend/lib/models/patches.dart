@@ -1,8 +1,8 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:tensionplanet/json/json_patches.dart';
 import 'package:tensionplanet/models/location.dart';
 import 'package:tensionplanet/models/patch.dart';
 import 'package:tensionplanet/types/patch_type.dart';
-import 'package:tensionplanet/utils/map_list.dart';
 
 class Patches {
   final MapList<PatchType, Patch> _patches = MapList();
