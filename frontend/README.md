@@ -26,15 +26,18 @@
 
 ## Components
 * Gear: iron
-* Pipe: iron
 * Wire: copper
-* Electronics: iron + copper
-
+* Electronics: iron + wire
+* Solar cell: electronics + copper
 * Chips: electronics + plastic
-* Solar cell: electronics + iron + copper
-* Motor: iron + gear
-* Battery: copper + iron + plastic
+* Motor: wire + gear
+* Battery: wire + plastic
 * Circuit: chips + plastic
+
+## Machines
+* Drone: electronics + solar cell + motor
+* Explorer: chips + motor + battery
+* Rocket: circuits + battery + hydrogen
 
 ## ################################################################################################################ ##
 
