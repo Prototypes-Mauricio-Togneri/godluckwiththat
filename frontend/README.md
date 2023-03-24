@@ -13,15 +13,15 @@
 ## ################################################################################################################ ##
 
 ## New buildings
-* Oil refinery
-* Nuclear power plant
-* Oil power plant
+* Oil refinery (solid fuel)
+* Nuclear power plant (uranium)
+* Oil power plant (crude oil)
 
 ## Resources
 * iron
 * copper
 * coal
-* oil
+* crude oil
 * stone
 * uranium
 
@@ -29,11 +29,8 @@
 * iron block: iron
 * copper block: copper
 * steel: iron + coal
-* plastic: oil + coal
+* plastic: crude oil + coal
 * concrete: stone
-* hydrogen: oil
-
-* carbon fiber: hydrogen + plastic
 * solid fuel: crude oil
 
 ## Components
@@ -49,7 +46,7 @@
 ## Machines
 * drone: electronics + solar cell + motor
 * explorer: chips + motor + battery
-* rocket: circuit + battery + hydrogen
+* rocket: circuit + battery + solid fuel
 
 ## ################################################################################################################ ##
 
