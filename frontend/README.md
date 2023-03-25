@@ -52,39 +52,40 @@
 New elements, explosives and lasers
 Make building, resources and research graphs
 
-water
-timber
-titanium
-silicon
-sulfur
+### New resources
+* water
+* titanium
+* silicon
 
-distilled water: water
-wood: timber
+    distilled water: water
 graphene: coal
-refined oil: crude oil
-
-light oil: refined oil + water
-heavy oil: light oil + water
+    refined oil: crude oil
+    light oil: refined oil + water
+    heavy oil: light oil + water
 solid fuel: heavy oil + water
 
-sulfuric acid: sulfur + water		
-glass: silicon + stone		
-pipe: iron
-magnet: iron
-spring: iron	
-fiber optic cable: glass + plastic		
-solar cell: silicon + wire + iron
-carbon fiber: coal + plastic + oil
-explosives: coal + sulfur + water
-battery: iron + copper + sulfuric acid
+### New materials
+* sulfur: crude oil + water
+* glass: silicon + stone
 
-shells: iron + copper
-piercing shells: steel + copper
-cannon shells: steel + plastic + explosives
-rocket shell: iron + chip + explosives
+### New components
+* pipe: iron
+* magnet: iron
+* spring: iron
+* fiber optic cable: glass + plastic
+* solar cell: silicon + wire + iron
+* carbon fiber: coal + plastic + crude oil
+* explosives: coal + sulfur + water
+* battery: iron + copper + sulfur
 
-gun turret: iron + copper + gear
-laser turret: steel + chip + battery
+### Military
+* shells: iron + copper
+* piercing shells: steel + copper
+* cannon shells: steel + plastic + explosives
+* rocket shell: iron + chip + explosives
+
+* gun turret: iron + copper + gear
+* laser turret: steel + chip + battery
 
 ## ################################################################################################################ ##
 
