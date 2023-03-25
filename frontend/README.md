@@ -33,13 +33,13 @@
 * Basic
     * iron plate: iron
     * copper plate: copper
-    * concrete: stone
 * Medium
     * steel: iron + coal
     * plastic: crude oil + coal
     * solid fuel: crude oil
     * sulfur: crude oil + water
-    * glass: silicon + stone
+    * glass: stone + silicon
+    * concrete: stone + water
 
 ## Components
 * Basic
