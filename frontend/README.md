@@ -1,5 +1,6 @@
 # Tension Planet
 
+* Warehouses start with a limit of 100
 * Make building, resources and research graphs
 * Overlay with active constructions, building problems, etc
 * Fix construction drones. Make a connection only when it moves resources. Destroy the connection when the drone is back
@@ -19,15 +20,18 @@
 * Oil power plant (crude oil)
 
 ## Resources
-* iron (mine)
-* copper (mine)
-* coal (mine)
-* crude oil (oil rig)
-* stone (mine)
-* water (pump)
-* titanium (mine)
-* silicon (mine)
-* uranium (mine)
+* Common
+    * iron (mine)
+    * copper (mine)
+    * coal (mine)
+    * stone (mine)
+    * water (pump)
+* Medium
+    * silicon (mine)
+    * crude oil (oil rig)
+* Rare
+    * titanium (mine)
+    * uranium (mine)
 
 ## Materials
 * Basic
@@ -36,6 +40,7 @@
     * solid fuel: crude oil (oil refinery)
 * Medium
     * steel: iron + coal (smelter)
+    * titanium plate: titanium + coal (smelter)
     * glass: stone + silicon (smelter)
     * concrete: stone + water (smelter)
     * plastic: crude oil + coal (polymer plant)
@@ -45,9 +50,6 @@
 * Basic
     * gear: iron (assembly)
     * wire: copper (assembly)
-    * pipe: iron (assembly)
-    * magnet: iron (assembly)
-    * spring: iron (assembly)
 * Medium
     * solar cell: silicon + iron
     * electronics: iron + copper
@@ -55,7 +57,6 @@
     * motor: wire + gear
     * battery: wire + plastic
     * circuit: chips + plastic
-    * fiber optic cable: glass + plastic
 * Advanced
     * carbon fiber: coal + plastic + crude oil
     * explosives: coal + sulfur + water
@@ -73,12 +74,12 @@
 * rocket shell: iron + chip + explosives
 
 ## Turrets
-* gun turret: iron + copper + gear
-* laser turret: steel + chip + battery
+* gun turret: steel + copper + gear
+* laser turret: titanium plate + chip + battery
 
 ## Combat drones
 * light drone
-* heavy drone
+* heavy drone: titanium plate
 * etc...
 
 ## ################################################################################################################ ##
