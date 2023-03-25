@@ -1,5 +1,6 @@
 # Tension Planet
 
+* Make building, resources and research graphs
 * Overlay with active constructions, building problems, etc
 * Fix construction drones. Make a connection only when it moves resources. Destroy the connection when the drone is back
 * Pending connections to constructions
@@ -23,63 +24,63 @@
 * coal
 * crude oil
 * stone
+* water
+* titanium
+* silicon
 * uranium
 
 ## Materials
-* iron block: iron
-* copper block: copper
-* steel: iron + coal
-* plastic: crude oil + coal
-* concrete: stone
-* solid fuel: crude oil
+* Basic
+    * iron plate: iron
+    * copper plate: copper
+    * concrete: stone
+* Medium
+    * steel: iron + coal
+    * plastic: crude oil + coal
+    * solid fuel: crude oil
+    * sulfur: crude oil + water
+    * glass: silicon + stone
 
 ## Components
-* gear: iron
-* wire: copper
-* electronics: iron + copper
-* solar cell: electronics + copper
-* chips: electronics + plastic
-* motor: wire + gear
-* battery: wire + plastic
-* circuit: chips + plastic
+* Basic
+    * gear: iron
+    * wire: copper
+    * pipe: iron
+    * magnet: iron
+    * spring: iron
+* Medium
+    * electronics: iron + copper
+    * solar cell: electronics + copper
+    * chips: electronics + silicon
+    * motor: wire + gear
+    * battery: wire + plastic
+    * circuit: chips + plastic
+    * fiber optic cable: glass + plastic
+* Advanced
+    * solar cell: silicon + wire + iron
+    * carbon fiber: coal + plastic + crude oil
+    * explosives: coal + sulfur + water
+    * battery: iron + copper + sulfur
 
 ## Machines
 * drone: electronics + solar cell + motor
 * explorer: chips + motor + battery
 * rocket: circuit + battery + solid fuel
 
-
-New elements, explosives and lasers
-Make building, resources and research graphs
-
-### New resources
-* water
-* titanium
-* silicon
-
-### New materials
-* sulfur: crude oil + water
-* glass: silicon + stone
-* solid fuel: heavy oil + water
-
-### New components
-* pipe: iron
-* magnet: iron
-* spring: iron
-* fiber optic cable: glass + plastic
-* solar cell: silicon + wire + iron
-* carbon fiber: coal + plastic + crude oil
-* explosives: coal + sulfur + water
-* battery: iron + copper + sulfur
-
-### Military
+## Ammo
 * shells: iron + copper
 * piercing shells: steel + copper
 * cannon shells: steel + plastic + explosives
 * rocket shell: iron + chip + explosives
 
+## Turrets
 * gun turret: iron + copper + gear
 * laser turret: steel + chip + battery
+
+## Combat drones
+* light drone
+* heavy drone
+* etc...
 
 ## ################################################################################################################ ##
 
@@ -96,6 +97,9 @@ Make building, resources and research graphs
 ## Buildings
 * Buildings can be scrapped and get back half of the cost
 * Buildings can be stopped and resumed
+* Buildings cannot be placed next to each other
+* Solar power plants can be placed next to each other
+* Wind turbines need to be separated by 3 fields
 
 ## Drones
 * Research can upgrade existing drones to the next level
