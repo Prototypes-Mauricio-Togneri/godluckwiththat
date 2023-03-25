@@ -48,6 +48,44 @@
 * explorer: chips + motor + battery
 * rocket: circuit + battery + solid fuel
 
+
+New elements, explosives and lasers
+Make building, resources and research graphs
+
+water
+timber
+titanium
+silicon
+sulfur
+
+distilled water: water
+wood: timber
+graphene: coal
+refined oil: crude oil
+
+light oil: refined oil + water
+heavy oil: light oil + water
+solid fuel: heavy oil + water
+
+sulfuric acid: sulfur + water		
+glass: silicon + stone		
+pipe: iron
+magnet: iron
+spring: iron	
+fiber optic cable: glass + plastic		
+solar cell: silicon + wire + iron
+carbon fiber: coal + plastic + oil
+explosives: coal + sulfur + water
+battery: iron + copper + sulfuric acid
+
+shells: iron + copper
+piercing shells: steel + copper
+cannon shells: steel + plastic + explosives
+rocket shell: iron + chip + explosives
+
+gun turret: iron + copper + gear
+laser turret: steel + chip + battery
+
 ## ################################################################################################################ ##
 
 ## Goals
