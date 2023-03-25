@@ -36,10 +36,10 @@
     * solid fuel: crude oil (oil refinery)
 * Medium
     * steel: iron + coal (smelter)
-    * plastic: crude oil + coal (chemical plant)
-    * sulfur: crude oil + water (???)
     * glass: stone + silicon (smelter)
     * concrete: stone + water (smelter)
+    * plastic: crude oil + coal (polymer plant)
+    * sulfur: crude oil + water (chemical plant)
 
 ## Components
 * Basic
@@ -49,15 +49,14 @@
     * magnet: iron (assembly)
     * spring: iron (assembly)
 * Medium
+    * solar cell: silicon + iron
     * electronics: iron + copper
-    * solar cell: electronics + copper
     * chips: electronics + silicon
     * motor: wire + gear
     * battery: wire + plastic
     * circuit: chips + plastic
     * fiber optic cable: glass + plastic
 * Advanced
-    * solar cell: silicon + wire + iron
     * carbon fiber: coal + plastic + crude oil
     * explosives: coal + sulfur + water
     * battery: iron + copper + sulfur
