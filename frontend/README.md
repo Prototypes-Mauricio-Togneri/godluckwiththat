@@ -57,16 +57,10 @@ Make building, resources and research graphs
 * titanium
 * silicon
 
-    distilled water: water
-graphene: coal
-    refined oil: crude oil
-    light oil: refined oil + water
-    heavy oil: light oil + water
-solid fuel: heavy oil + water
-
 ### New materials
 * sulfur: crude oil + water
 * glass: silicon + stone
+* solid fuel: heavy oil + water
 
 ### New components
 * pipe: iron
