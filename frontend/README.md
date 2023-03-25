@@ -15,39 +15,39 @@
 
 ## New buildings
 * Oil refinery (solid fuel)
-* Nuclear power plant (uranium)
+* Nuclear power plant (uranium + water)
 * Oil power plant (crude oil)
 
 ## Resources
-* iron
-* copper
-* coal
-* crude oil
-* stone
-* water
-* titanium
-* silicon
-* uranium
+* iron (mine)
+* copper (mine)
+* coal (mine)
+* crude oil (oil rig)
+* stone (mine)
+* water (pump)
+* titanium (mine)
+* silicon (mine)
+* uranium (mine)
 
 ## Materials
 * Basic
-    * iron plate: iron
-    * copper plate: copper
+    * iron plate: iron (smelter)
+    * copper plate: copper (smelter)
+    * solid fuel: crude oil (oil refinery)
 * Medium
-    * steel: iron + coal
-    * plastic: crude oil + coal
-    * solid fuel: crude oil
-    * sulfur: crude oil + water
-    * glass: stone + silicon
-    * concrete: stone + water
+    * steel: iron + coal (smelter)
+    * plastic: crude oil + coal (chemical plant)
+    * sulfur: crude oil + water (???)
+    * glass: stone + silicon (smelter)
+    * concrete: stone + water (smelter)
 
 ## Components
 * Basic
-    * gear: iron
-    * wire: copper
-    * pipe: iron
-    * magnet: iron
-    * spring: iron
+    * gear: iron (assembly)
+    * wire: copper (assembly)
+    * pipe: iron (assembly)
+    * magnet: iron (assembly)
+    * spring: iron (assembly)
 * Medium
     * electronics: iron + copper
     * solar cell: electronics + copper
