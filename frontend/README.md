@@ -20,9 +20,9 @@
 ## ################################################################################################################ ##
 
 Add glass? 1 silicon + 1 stone
+Carbon fiber? 1 coal + 1 crude oil
 
 ## Machines
-* drone: electronics + solar cell + motor
 * explorer: chips + motor + battery
 * rocket: circuit + battery + solid fuel
 
