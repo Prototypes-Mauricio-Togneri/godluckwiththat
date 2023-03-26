@@ -19,11 +19,6 @@
 
 ## ################################################################################################################ ##
 
-## New buildings
-* Oil refinery (solid fuel)
-* Nuclear power plant (uranium + water)
-* Oil power plant (crude oil + water)
-
 ## Resources
 * Common
     * iron (mine)
