@@ -19,20 +19,6 @@
 
 ## ################################################################################################################ ##
 
-## Resources
-* Common
-    * iron (mine)
-    * copper (mine)
-    * coal (mine)
-    * stone (mine)
-    * water (pump)
-* Medium
-    * silicon (mine)
-    * crude oil (oil rig)
-* Rare
-    * titanium (mine)
-    * uranium (mine)
-
 ## Materials
 * Basic
     * iron plate: iron (smelter)
@@ -43,6 +29,7 @@
     * titanium plate: titanium + coal (smelter)
     * glass: stone + silicon (smelter)
     * concrete: stone + water (smelter)
+* Advanced
     * plastic: crude oil + coal (polymer plant)
     * sulfur: crude oil + water (chemical plant)
 
