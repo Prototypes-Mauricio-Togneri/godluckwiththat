@@ -1,6 +1,6 @@
 # Tension Planet
 
-* Search more uses of silicon and battery
+* Search more uses of silicon
 
 * Always push (always or select list)
     - CTRL click makes an automatic connection
