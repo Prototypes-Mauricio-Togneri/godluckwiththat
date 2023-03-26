@@ -45,9 +45,10 @@ class BaseGameComponent extends FlameGame
 
     _addToHudLayer(FpsTextComponent(
       position: Vector2(
-        10,
-        size.y - 30,
+        size.x - 20,
+        size.y - 20,
       ),
+      anchor: Anchor.centerRight,
       textRenderer: Style.textRenderer(size: 20),
     ));
 

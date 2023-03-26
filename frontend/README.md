@@ -1,12 +1,9 @@
 # Tension Planet
 
-* Search more uses of silicon
-
 * Always push (always or select list)
     - CTRL click makes an automatic connection
     - ALT click makes a specific connection
 
-* FPS to bottom right corner
 * Warehouses start with a limit of 100
 * Make building, resources and research graphs
 * Overlay with active constructions, building problems, etc
