@@ -1,10 +1,10 @@
 # Tension Planet
 
-radar
-lab
-always push (always or select list)
-FPS to bottom right corner
+* Always push (always or select list)
+    - CTRL click makes an automatic connection
+    - ALT click makes a specific connection
 
+* FPS to bottom right corner
 * Warehouses start with a limit of 100
 * Make building, resources and research graphs
 * Overlay with active constructions, building problems, etc
@@ -86,38 +86,3 @@ FPS to bottom right corner
 * light drone
 * heavy drone: titanium plate
 * etc...
-
-## ################################################################################################################ ##
-
-## Goals
-* Extract a special resource (crystals)
-* Launch crystals back to home planet with rockets
-
-## Core destabilization
-* Buildings generate pollution
-* The more pollution, the more the planet core gets destabilized
-* Each resource extracted (iron, coal, etc) increases the core destabilization
-* Dropping crystals into the core stabilizes it
-
-## Buildings
-* Buildings can be scrapped and get back half of the cost
-* Buildings can be stopped and resumed
-* Buildings cannot be placed next to each other
-* Solar power plants can be placed next to each other
-* Wind turbines need to be separated by 3 fields
-
-## Drones
-* Research can upgrade existing drones to the next level
-* The cost of the research is proportional to the existing drones
-
-## Resources
-* Have 3 different patch densities
-* Upgrade mines to dig deeper and get more resources
-* Always put similar patches far away from each other. For example, one patch of iron on the south-west and another in the north-east
-
-## Start
-* The player chooses the landing site
-
-## Story
-* Plot twist. The last planet is Earth
-* That opens a portal to the past (Settlers version)
