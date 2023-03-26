@@ -22,14 +22,7 @@
 Add glass? 1 silicon + 1 stone
 Carbon fiber? 1 coal + 1 crude oil
 
-## Machines
-* explorer: chips + motor + battery
-* rocket: circuit + battery + solid fuel
-
 ## Ammo
-* shells: iron plate + copper plate
-* piercing shells: steel + copper plate
-* cannon shells: steel + plastic + explosives
 * rocket shell: iron plate + chip + explosives
 
 ## Combat drones
