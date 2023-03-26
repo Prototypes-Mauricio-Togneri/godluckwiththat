@@ -1,5 +1,10 @@
 # Tension Planet
 
+radar
+lab
+always push (always or select list)
+FPS to bottom right corner
+
 * Warehouses start with a limit of 100
 * Make building, resources and research graphs
 * Overlay with active constructions, building problems, etc
