@@ -22,7 +22,7 @@
 ## New buildings
 * Oil refinery (solid fuel)
 * Nuclear power plant (uranium + water)
-* Oil power plant (crude oil)
+* Oil power plant (crude oil + water)
 
 ## Resources
 * Common
@@ -79,7 +79,7 @@
 * rocket shell: iron plate + chip + explosives
 
 ## Combat drones
-* Gun Mecha: steel + copper plate + gear
-* Rocket Mecha: ???
-* Laser Mecha: titanium plate + chip + battery
+* Gun Mecha: steel + copper plate + gear + solid fuel
+* Rocket Mecha: ??? + solid fuel
+* Laser Mecha: titanium plate + chip + battery + solid fuel
 * etc...
