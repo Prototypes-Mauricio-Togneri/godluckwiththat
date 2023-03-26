@@ -19,21 +19,7 @@
 
 ## ################################################################################################################ ##
 
-## Components
-* Basic
-    * gear: iron plate (assembly)
-    * wire: copper plate (assembly)
-* Medium
-    * solar cell: silicon + iron plate
-    * electronics: iron plate + copper plate
-    * chips: electronics + silicon
-    * motor: wire + gear
-    * battery: wire + plastic
-    * circuit: chips + plastic
-* Advanced
-    * carbon fiber: coal + plastic + crude oil
-    * explosives: coal + sulfur + water
-    * battery: iron plate + copper plate + sulfur
+Add glass? 1 silicon + 1 stone
 
 ## Machines
 * drone: electronics + solar cell + motor
