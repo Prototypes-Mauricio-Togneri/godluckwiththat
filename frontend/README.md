@@ -44,7 +44,7 @@
     * copper plate: copper (smelter)
     * solid fuel: crude oil (oil refinery)
 * Medium
-    * steel: iron + coal (smelter)
+    * steel: iron plate + coal (smelter)
     * titanium plate: titanium + coal (smelter)
     * glass: stone + silicon (smelter)
     * concrete: stone + water (smelter)
@@ -53,11 +53,11 @@
 
 ## Components
 * Basic
-    * gear: iron (assembly)
-    * wire: copper (assembly)
+    * gear: iron plate (assembly)
+    * wire: copper plate (assembly)
 * Medium
-    * solar cell: silicon + iron
-    * electronics: iron + copper
+    * solar cell: silicon + iron plate
+    * electronics: iron plate + copper plate
     * chips: electronics + silicon
     * motor: wire + gear
     * battery: wire + plastic
@@ -65,7 +65,7 @@
 * Advanced
     * carbon fiber: coal + plastic + crude oil
     * explosives: coal + sulfur + water
-    * battery: iron + copper + sulfur
+    * battery: iron plate + copper plate + sulfur
 
 ## Machines
 * drone: electronics + solar cell + motor
@@ -73,16 +73,13 @@
 * rocket: circuit + battery + solid fuel
 
 ## Ammo
-* shells: iron + copper
-* piercing shells: steel + copper
+* shells: iron plate + copper plate
+* piercing shells: steel + copper plate
 * cannon shells: steel + plastic + explosives
-* rocket shell: iron + chip + explosives
-
-## Turrets
-* gun turret: steel + copper + gear
-* laser turret: titanium plate + chip + battery
+* rocket shell: iron plate + chip + explosives
 
 ## Combat drones
-* light drone
-* heavy drone: titanium plate
+* Gun Mecha: steel + copper plate + gear
+* Rocket Mecha: ???
+* Laser Mecha: titanium plate + chip + battery
 * etc...
