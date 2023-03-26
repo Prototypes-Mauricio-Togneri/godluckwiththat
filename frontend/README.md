@@ -19,20 +19,6 @@
 
 ## ################################################################################################################ ##
 
-## Materials
-* Basic
-    * iron plate: iron (smelter)
-    * copper plate: copper (smelter)
-    * solid fuel: crude oil (oil refinery)
-* Medium
-    * steel: iron plate + coal (smelter)
-    * titanium plate: titanium + coal (smelter)
-    * glass: stone + silicon (smelter)
-    * concrete: stone + water (smelter)
-* Advanced
-    * plastic: crude oil + coal (polymer plant)
-    * sulfur: crude oil + water (chemical plant)
-
 ## Components
 * Basic
     * gear: iron plate (assembly)
