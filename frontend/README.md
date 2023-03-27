@@ -1,5 +1,6 @@
 # Tension Planet
 
+* Show constructions green red if they can be built or not
 * Always push (always or select list)
     - CTRL click makes an automatic connection
     - ALT click makes a specific connection
