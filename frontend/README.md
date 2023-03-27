@@ -1,5 +1,6 @@
 # Tension Planet
 
+* Show construction indicator as chart pie
 * Show constructions green red if they can be built or not
 * Always push (always or select list)
     - CTRL click makes an automatic connection
