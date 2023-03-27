@@ -58,12 +58,12 @@ class Building extends Node {
     return super.onLoad();
   }
 
-  @override
+  /*@override
   void onMount() {
     super.onMount();
 
     add(efficiencyText);
-  }
+  }*/
 
   @override
   void update(double dt) {
