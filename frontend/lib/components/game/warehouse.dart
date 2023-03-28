@@ -55,7 +55,8 @@ class Warehouse extends Node {
   }
 
   bool canReceiveFrom(ResourceType resourceType) =>
-      resourceType == this.resourceType;
+      (resourceType == this.resourceType) &&
+      (inventory.get(resourceType) < game.state.research.warehouseCapacity);
 
   JsonBuilding get json => JsonBuilding(
         location: location.json,
