@@ -49,7 +49,9 @@ const _$NodeTypeEnumMap = {
   NodeType.steel_smelter: 'steel_smelter',
   NodeType.chemical_plant: 'chemical_plant',
   NodeType.gear_assembly: 'gear_assembly',
+  NodeType.wire_assembly: 'wire_assembly',
   NodeType.circuit_assembly: 'circuit_assembly',
+  NodeType.motor_assembly: 'motor_assembly',
   NodeType.drone_factory: 'drone_factory',
   NodeType.warehouse: 'warehouse',
 };

@@ -17,12 +17,14 @@ enum ResourceType {
   uranium_ore(sprite: Assets.IMAGES_RESOURCES_RESOURCES_URANIUM_ORE),
 
   // materials
-  iron_block(sprite: Assets.IMAGES_RESOURCES_IRON_BLOCK),
-  copper_block(sprite: Assets.IMAGES_RESOURCES_COPPER_BLOCK),
-  steel(sprite: Assets.IMAGES_RESOURCES_STEEL),
-  plastic(sprite: Assets.IMAGES_RESOURCES_PLASTIC),
-  concrete(sprite: Assets.IMAGES_RESOURCES_CONCRETE),
-  hydrogen(sprite: Assets.IMAGES_RESOURCES_HYDROGEN),
+  iron_plate(sprite: Assets.IMAGES_RESOURCES_MATERIALS_IRON_PLATE),
+  copper_plate(sprite: Assets.IMAGES_RESOURCES_MATERIALS_COPPER_PLATE),
+  concrete(sprite: Assets.IMAGES_RESOURCES_MATERIALS_CONCRETE),
+  steel(sprite: Assets.IMAGES_RESOURCES_MATERIALS_STEEL),
+  plastic(sprite: Assets.IMAGES_RESOURCES_MATERIALS_PLASTIC),
+  sulfur(sprite: Assets.IMAGES_RESOURCES_MATERIALS_SULFUR),
+  fuel(sprite: Assets.IMAGES_RESOURCES_MATERIALS_FUEL),
+  titanium_plate(sprite: Assets.IMAGES_RESOURCES_MATERIALS_TITANIUM_PLATE),
 
   // components
   gear(sprite: Assets.IMAGES_RESOURCES_GEAR),

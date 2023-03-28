@@ -40,7 +40,7 @@ class Headquarters extends Node {
         if (construction.enabled) {
           final bool ironSent = _checkConstruction(
             construction: construction,
-            resource: Resource.one(ResourceType.iron_block),
+            resource: Resource.one(ResourceType.iron_plate),
           );
 
           if (ironSent) {
@@ -49,7 +49,7 @@ class Headquarters extends Node {
 
           final bool copperSent = _checkConstruction(
             construction: construction,
-            resource: Resource.one(ResourceType.copper_block),
+            resource: Resource.one(ResourceType.copper_plate),
           );
 
           if (copperSent) {
