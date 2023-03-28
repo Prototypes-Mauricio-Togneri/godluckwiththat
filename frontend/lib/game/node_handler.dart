@@ -480,7 +480,7 @@ mixin NodeHandler on BaseGameComponent {
     required MapTile tile,
     required Patch? patch,
   }) {
-    final canBeBuilt = _canBeBuilt(
+    final canBeBuilt = nodeCanBeBuilt(
       nodeType: nodeType,
       tile: tile,
       patch: patch,
@@ -499,7 +499,7 @@ mixin NodeHandler on BaseGameComponent {
     }
   }
 
-  bool _canBeBuilt({
+  bool nodeCanBeBuilt({
     required NodeType nodeType,
     required MapTile tile,
     required Patch? patch,

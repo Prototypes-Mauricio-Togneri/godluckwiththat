@@ -28,7 +28,6 @@ class Construction extends Node {
 
   @override
   Future onLoad() {
-    opacity = 0.5;
     paintProgress.color = Palette.success;
 
     return super.onLoad();
