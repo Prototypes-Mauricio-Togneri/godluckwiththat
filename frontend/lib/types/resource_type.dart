@@ -36,13 +36,21 @@ enum ResourceType {
   microprocessor(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_MICROPROCESSOR),
   explosives(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_EXPLOSIVES),
 
+  // ammunition
+  standard_shell(sprite: Assets.IMAGES_RESOURCES_AMMUNITION_STANDARD_SHELL),
+  piercing_shell(sprite: Assets.IMAGES_RESOURCES_AMMUNITION_PIERCING_SHELL),
+  cannon_shell(sprite: Assets.IMAGES_RESOURCES_AMMUNITION_CANNON_SHELL),
+
   // machines
-  drone(sprite: Assets.IMAGES_RESOURCES_DRONE),
-  explorer(sprite: Assets.IMAGES_RESOURCES_EXPLORER),
-  rocket(sprite: Assets.IMAGES_RESOURCES_ROCKET),
+  drone(sprite: Assets.IMAGES_RESOURCES_MACHINES_DRONE),
+  light_mech(sprite: Assets.IMAGES_RESOURCES_MACHINES_LIGHT_MECH),
+  heavy_mech(sprite: Assets.IMAGES_RESOURCES_MACHINES_HEAVY_MECH),
+  laser_mech(sprite: Assets.IMAGES_RESOURCES_MACHINES_LASER_MECH),
+  armored_mech(sprite: Assets.IMAGES_RESOURCES_MACHINES_ARMORED_MECH),
+  cannon_mech(sprite: Assets.IMAGES_RESOURCES_MACHINES_CANNON_MECH),
 
   // other
-  time(sprite: Assets.IMAGES_RESOURCES_TIME);
+  time(sprite: Assets.IMAGES_RESOURCES_TIME_TIME);
 
   final String sprite;
 

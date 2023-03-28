@@ -59,9 +59,10 @@ flutter:
     - assets/images/buildings/power_plants/
     - assets/images/buildings/processors/
     - assets/images/patches/
-    - assets/images/resources/
+    - assets/images/resources/ammunition
     - assets/images/resources/components
     - assets/images/resources/energy
+    - assets/images/resources/machines
     - assets/images/resources/materials
     - assets/images/resources/resources
     - assets/images/resources/time
