@@ -232,7 +232,7 @@ enum NodeType {
       ResourceType.plastic: 1,
     },
     output: {
-      ResourceType.circuit: 1,
+      ResourceType.chip: 1,
     },
   ),
   motor_assembly(

@@ -52,8 +52,23 @@ class Assets {
       'buildings/other/warehouse.png';
   static const String IMAGES_BUILDINGS_OTHER_VOID_BACKGROUND =
       'buildings/other/void_background.png';
-  static const String IMAGES_RESOURCES_TRANSISTOR = 'resources/transistor.png';
   static const String IMAGES_RESOURCES_CRYSTAL = 'resources/crystal.png';
+  static const String IMAGES_RESOURCES_COMPONENTS_TRANSISTOR =
+      'resources/components/transistor.png';
+  static const String IMAGES_RESOURCES_COMPONENTS_WIRE =
+      'resources/components/wire.png';
+  static const String IMAGES_RESOURCES_COMPONENTS_MICROPROCESSOR =
+      'resources/components/microprocessor.png';
+  static const String IMAGES_RESOURCES_COMPONENTS_CHIP =
+      'resources/components/chip.png';
+  static const String IMAGES_RESOURCES_COMPONENTS_MOTOR =
+      'resources/components/motor.png';
+  static const String IMAGES_RESOURCES_COMPONENTS_EXPLOSIVES =
+      'resources/components/explosives.png';
+  static const String IMAGES_RESOURCES_COMPONENTS_GEAR =
+      'resources/components/gear.png';
+  static const String IMAGES_RESOURCES_COMPONENTS_BATTERY =
+      'resources/components/battery.png';
   static const String IMAGES_RESOURCES_MATERIALS_CONCRETE =
       'resources/materials/concrete.png';
   static const String IMAGES_RESOURCES_MATERIALS_TITANIUM_PLATE =
@@ -71,17 +86,11 @@ class Assets {
   static const String IMAGES_RESOURCES_MATERIALS_COPPER_PLATE =
       'resources/materials/copper_plate.png';
   static const String IMAGES_RESOURCES_EXPLORER = 'resources/explorer.png';
-  static const String IMAGES_RESOURCES_CIRCUIT = 'resources/circuit.png';
   static const String IMAGES_RESOURCES_HYDROGEN = 'resources/hydrogen.png';
   static const String IMAGES_RESOURCES_TIME = 'resources/time.png';
   static const String IMAGES_RESOURCES_ENERGY_ENERGY =
       'resources/energy/energy.png';
-  static const String IMAGES_RESOURCES_WIRE = 'resources/wire.png';
-  static const String IMAGES_RESOURCES_MICROPROCESSOR =
-      'resources/microprocessor.png';
-  static const String IMAGES_RESOURCES_CHIP = 'resources/chip.png';
   static const String IMAGES_RESOURCES_ROCKET = 'resources/rocket.png';
-  static const String IMAGES_RESOURCES_MOTOR = 'resources/motor.png';
   static const String IMAGES_RESOURCES_RESOURCES_COPPER_ORE =
       'resources/resources/copper_ore.png';
   static const String IMAGES_RESOURCES_RESOURCES_IRON_ORE =
@@ -101,8 +110,6 @@ class Assets {
   static const String IMAGES_RESOURCES_CARBON_FIBER =
       'resources/carbon_fiber.png';
   static const String IMAGES_RESOURCES_DRONE = 'resources/drone.png';
-  static const String IMAGES_RESOURCES_GEAR = 'resources/gear.png';
-  static const String IMAGES_RESOURCES_BATTERY = 'resources/battery.png';
   static const String IMAGES_PATCHES_COAL_PATCH = 'patches/coal_patch.png';
   static const String IMAGES_PATCHES_IRON_PATCH = 'patches/iron_patch.png';
   static const String IMAGES_PATCHES_STONE_PATCH = 'patches/stone_patch.png';

@@ -27,12 +27,14 @@ enum ResourceType {
   titanium_plate(sprite: Assets.IMAGES_RESOURCES_MATERIALS_TITANIUM_PLATE),
 
   // components
-  gear(sprite: Assets.IMAGES_RESOURCES_GEAR),
-  wire(sprite: Assets.IMAGES_RESOURCES_WIRE),
-  circuit(sprite: Assets.IMAGES_RESOURCES_CIRCUIT),
-  motor(sprite: Assets.IMAGES_RESOURCES_MOTOR),
-  battery(sprite: Assets.IMAGES_RESOURCES_BATTERY),
-  carbon_fiber(sprite: Assets.IMAGES_RESOURCES_CARBON_FIBER),
+  gear(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_GEAR),
+  wire(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_WIRE),
+  transistor(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_TRANSISTOR),
+  motor(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_MOTOR),
+  chip(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_CHIP),
+  battery(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_BATTERY),
+  microprocessor(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_MICROPROCESSOR),
+  explosives(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_EXPLOSIVES),
 
   // machines
   drone(sprite: Assets.IMAGES_RESOURCES_DRONE),

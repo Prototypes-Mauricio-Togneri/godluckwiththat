@@ -60,8 +60,10 @@ flutter:
     - assets/images/buildings/processors/
     - assets/images/patches/
     - assets/images/resources/
+    - assets/images/resources/components
     - assets/images/resources/energy
     - assets/images/resources/materials
     - assets/images/resources/resources
+    - assets/images/resources/time
     - assets/images/signs/
     - assets/tiles/
