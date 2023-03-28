@@ -10,6 +10,10 @@ class Assets {
   static const String IMAGES_TILES_TERRAIN = 'tiles_terrain.png';
   static const String IMAGES_BUILDINGS_FACTORIES_DRONE_FACTORY =
       'buildings/factories/drone_factory.png';
+  static const String IMAGES_BUILDINGS_POWER_PLANTS_NUCLEAR_POWER_PLANT =
+      'buildings/power_plants/nuclear_power_plant.png';
+  static const String IMAGES_BUILDINGS_POWER_PLANTS_OIL_POWER_PLANT =
+      'buildings/power_plants/oil_power_plant.png';
   static const String IMAGES_BUILDINGS_POWER_PLANTS_COAL_POWER_PLANT =
       'buildings/power_plants/coal_power_plant.png';
   static const String IMAGES_BUILDINGS_POWER_PLANTS_WIND_TURBINE =

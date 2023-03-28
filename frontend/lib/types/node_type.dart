@@ -12,17 +12,6 @@ enum NodeType {
   ),
 
   // energy
-  solar_panel(
-    sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_SOLAR_PANEL,
-    productionTime: 5,
-    cost: {
-      ResourceType.iron_plate: 2,
-    },
-    input: {},
-    output: {
-      ResourceType.energy: 1,
-    },
-  ),
   wind_turbine(
     sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_WIND_TURBINE,
     productionTime: 5,
@@ -34,6 +23,17 @@ enum NodeType {
     input: {},
     output: {
       ResourceType.energy: 5,
+    },
+  ),
+  solar_panel(
+    sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_SOLAR_PANEL,
+    productionTime: 5,
+    cost: {
+      ResourceType.iron_plate: 2,
+    },
+    input: {},
+    output: {
+      ResourceType.energy: 1,
     },
   ),
   coal_power_plant(
@@ -51,6 +51,36 @@ enum NodeType {
       ResourceType.energy: 20,
     },
   ),
+  /*oil_power_plant(
+    sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_OIL_POWER_PLANT,
+    productionTime: 5,
+    cost: {
+      ResourceType.iron_plate: 20,
+      ResourceType.copper_plate: 20,
+      ResourceType.steel: 20,
+    },
+    input: {
+      ResourceType.crude_oil: 1,
+    },
+    output: {
+      ResourceType.energy: 20,
+    },
+  ),
+  nuclear_power_plant(
+    sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_NUCLEAR_POWER_PLANT,
+    productionTime: 5,
+    cost: {
+      ResourceType.iron_plate: 20,
+      ResourceType.copper_plate: 20,
+      ResourceType.steel: 20,
+    },
+    input: {
+      ResourceType.uranium_ore: 1,
+    },
+    output: {
+      ResourceType.energy: 20,
+    },
+  ),*/
 
   // extractors
   iron_mine(

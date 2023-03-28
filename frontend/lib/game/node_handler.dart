@@ -505,30 +505,40 @@ mixin NodeHandler on BaseGameComponent {
     required Patch? patch,
   }) {
     switch (nodeType) {
-      case NodeType.solar_panel:
+      // power plants
       case NodeType.wind_turbine:
+      case NodeType.solar_panel:
       case NodeType.coal_power_plant:
+      //case NodeType.oil_power_plant:
+      //case NodeType.nuclear_power_plant:
+
+      // processors
       case NodeType.iron_smelter:
       case NodeType.copper_smelter:
       case NodeType.steel_smelter:
       case NodeType.chemical_plant:
+
+      // assemblies
       case NodeType.gear_assembly:
       case NodeType.wire_assembly:
       case NodeType.circuit_assembly:
       case NodeType.motor_assembly:
       case NodeType.drone_factory:
+
+      // other
       case NodeType.warehouse:
         return tile.isSoil && (patch == null);
+
       case NodeType.iron_mine:
         return patch?.isIron ?? false;
       case NodeType.copper_mine:
         return patch?.isCopper ?? false;
+      case NodeType.stone_mine:
+        return patch?.isStone ?? false;
       case NodeType.coal_mine:
         return patch?.isCoal ?? false;
       case NodeType.oil_rig:
         return patch?.isOil ?? false;
-      case NodeType.stone_mine:
-        return patch?.isStone ?? false;
       case NodeType.headquarters:
         return false;
     }
