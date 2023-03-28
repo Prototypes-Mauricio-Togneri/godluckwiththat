@@ -105,7 +105,7 @@ enum NodeType {
       ResourceType.energy: 2,
     },
     output: {
-      ResourceType.oil: 1,
+      ResourceType.crude_oil: 1,
     },
   ),
   stone_mine(
@@ -178,7 +178,7 @@ enum NodeType {
     },
     input: {
       ResourceType.energy: 2,
-      ResourceType.oil: 2,
+      ResourceType.crude_oil: 2,
     },
     output: {
       ResourceType.plastic: 1,

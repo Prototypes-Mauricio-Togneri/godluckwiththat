@@ -4,15 +4,17 @@ import 'package:tensionplanet/utils/assets.dart';
 
 enum ResourceType {
   // energy
-  energy(sprite: Assets.IMAGES_RESOURCES_ENERGY),
+  energy(sprite: Assets.IMAGES_RESOURCES_ENERGY_ENERGY),
 
   // resources
-  iron_ore(sprite: Assets.IMAGES_RESOURCES_IRON_ORE),
-  copper_ore(sprite: Assets.IMAGES_RESOURCES_COPPER_ORE),
-  coal_ore(sprite: Assets.IMAGES_RESOURCES_COAL_ORE),
-  oil(sprite: Assets.IMAGES_RESOURCES_OIL),
-  stone_ore(sprite: Assets.IMAGES_RESOURCES_STONE_ORE),
-  crystal(sprite: Assets.IMAGES_RESOURCES_CRYSTAL),
+  iron_ore(sprite: Assets.IMAGES_RESOURCES_RESOURCES_IRON_ORE),
+  copper_ore(sprite: Assets.IMAGES_RESOURCES_RESOURCES_COPPER_ORE),
+  stone_ore(sprite: Assets.IMAGES_RESOURCES_RESOURCES_STONE_ORE),
+  water(sprite: Assets.IMAGES_RESOURCES_RESOURCES_WATER),
+  coal_ore(sprite: Assets.IMAGES_RESOURCES_RESOURCES_COAL_ORE),
+  crude_oil(sprite: Assets.IMAGES_RESOURCES_RESOURCES_OIL),
+  titanium_ore(sprite: Assets.IMAGES_RESOURCES_RESOURCES_TITANIUM_ORE),
+  uranium_ore(sprite: Assets.IMAGES_RESOURCES_RESOURCES_URANIUM_ORE),
 
   // materials
   iron_block(sprite: Assets.IMAGES_RESOURCES_IRON_BLOCK),
