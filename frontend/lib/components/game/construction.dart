@@ -58,7 +58,7 @@ class Construction extends Node {
         width: size.x / 2,
         height: size.x / 2,
       ),
-      0,
+      -pi / 2,
       (2 * pi) * (received / total),
       true,
       paintProgress,
