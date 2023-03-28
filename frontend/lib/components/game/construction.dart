@@ -1,17 +1,19 @@
 import 'dart:async';
-import 'package:flame/components.dart';
+import 'dart:math';
+import 'package:flame/extensions.dart';
+import 'package:flutter/painting.dart';
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/extensions/resource_map_extension.dart';
+import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/utils/style.dart';
 
 class Construction extends Node {
   final ResourceType? resourceType;
-  final DebugText debugText = DebugText();
+  final Paint paintProgress = Paint();
 
   Construction({
     required super.nodeType,
@@ -27,6 +29,7 @@ class Construction extends Node {
   @override
   Future onLoad() {
     opacity = 0.5;
+    paintProgress.color = Palette.success;
 
     return super.onLoad();
   }
@@ -34,13 +37,12 @@ class Construction extends Node {
   @override
   void onMount() {
     super.onMount();
-    add(debugText);
     game.state.headquarters.addDroneConnection(this, false);
   }
 
   @override
-  void update(double dt) {
-    super.update(dt);
+  void render(Canvas canvas) {
+    super.render(canvas);
 
     double received = 0;
     double total = 0;
@@ -50,7 +52,17 @@ class Construction extends Node {
       total += resource.amount;
     }
 
-    debugText.text = '${((received / total) * 100).toInt()}%';
+    canvas.drawArc(
+      Rect.fromCenter(
+        center: (getSize() / 2).toOffset(),
+        width: size.x / 2,
+        height: size.x / 2,
+      ),
+      0,
+      (2 * pi) * (received / total),
+      true,
+      paintProgress,
+    );
   }
 
   @override
@@ -82,21 +94,4 @@ class Construction extends Node {
         inventory: {},
         resourceType: resourceType,
       );
-}
-
-class DebugText extends TextComponent {
-  late Node node;
-
-  @override
-  FutureOr onLoad() {
-    node = parent as Node;
-    position = node.size / 2;
-    anchor = Anchor.center;
-    textRenderer = Style.debugTextRenderer(
-      size: 2,
-      color: Palette.error,
-    );
-
-    return super.onLoad();
-  }
 }
