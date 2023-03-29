@@ -125,7 +125,7 @@ class Constants {
 		"chemical_plant": [],
 
 		"gear_assembly": [],
-		"circuit_assembly": [],
+		"transistor_assembly": [],
 
 		"drone_factory": [],
 

@@ -51,7 +51,7 @@ enum NodeType {
       ResourceType.energy: 20,
     },
   ),
-  /*oil_power_plant(
+  oil_power_plant(
     sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_OIL_POWER_PLANT,
     productionTime: 5,
     cost: {
@@ -80,7 +80,7 @@ enum NodeType {
     output: {
       ResourceType.energy: 20,
     },
-  ),*/
+  ),
 
   // extractors
   iron_mine(
@@ -107,6 +107,34 @@ enum NodeType {
     },
     output: {
       ResourceType.copper_ore: 1,
+    },
+  ),
+  stone_mine(
+    sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_STONE_MINE,
+    productionTime: 10,
+    cost: {
+      ResourceType.iron_plate: 2,
+      ResourceType.copper_plate: 2,
+    },
+    input: {
+      ResourceType.energy: 3,
+    },
+    output: {
+      ResourceType.stone_ore: 1,
+    },
+  ),
+  water_pump(
+    sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_WATER_PUMP,
+    productionTime: 10,
+    cost: {
+      ResourceType.iron_plate: 2,
+      ResourceType.copper_plate: 2,
+    },
+    input: {
+      ResourceType.energy: 3,
+    },
+    output: {
+      ResourceType.stone_ore: 1,
     },
   ),
   coal_mine(
@@ -138,18 +166,34 @@ enum NodeType {
       ResourceType.crude_oil: 1,
     },
   ),
-  stone_mine(
-    sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_STONE_MINE,
+  titanium_mine(
+    sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_TITANIUM_MINE,
     productionTime: 10,
     cost: {
-      ResourceType.iron_plate: 2,
-      ResourceType.copper_plate: 2,
+      ResourceType.iron_plate: 10,
+      ResourceType.copper_plate: 10,
+      ResourceType.steel: 10,
     },
     input: {
-      ResourceType.energy: 3,
+      ResourceType.energy: 2,
     },
     output: {
-      ResourceType.stone_ore: 1,
+      ResourceType.crude_oil: 1,
+    },
+  ),
+  uranium_mine(
+    sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_URANIUM_MINE,
+    productionTime: 10,
+    cost: {
+      ResourceType.iron_plate: 10,
+      ResourceType.copper_plate: 10,
+      ResourceType.steel: 10,
+    },
+    input: {
+      ResourceType.energy: 2,
+    },
+    output: {
+      ResourceType.crude_oil: 1,
     },
   ),
 
@@ -182,6 +226,22 @@ enum NodeType {
       ResourceType.copper_plate: 1,
     },
   ),
+  stone_smelter(
+    sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_STONE_SMELTER,
+    productionTime: 15,
+    cost: {
+      ResourceType.iron_plate: 20,
+      ResourceType.copper_plate: 20,
+    },
+    input: {
+      ResourceType.energy: 2,
+      ResourceType.iron_plate: 1,
+      ResourceType.coal_ore: 1,
+    },
+    output: {
+      ResourceType.steel: 1,
+    },
+  ),
   steel_smelter(
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_STEEL_SMELTER,
     productionTime: 15,
@@ -198,8 +258,56 @@ enum NodeType {
       ResourceType.steel: 1,
     },
   ),
+  polymer_plant(
+    sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_POLYMER_PLANT,
+    productionTime: 15,
+    cost: {
+      ResourceType.iron_plate: 20,
+      ResourceType.copper_plate: 20,
+      ResourceType.steel: 20,
+    },
+    input: {
+      ResourceType.energy: 2,
+      ResourceType.crude_oil: 2,
+    },
+    output: {
+      ResourceType.plastic: 1,
+    },
+  ),
   chemical_plant(
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_CHEMICAL_PLANT,
+    productionTime: 15,
+    cost: {
+      ResourceType.iron_plate: 20,
+      ResourceType.copper_plate: 20,
+      ResourceType.steel: 20,
+    },
+    input: {
+      ResourceType.energy: 2,
+      ResourceType.crude_oil: 2,
+    },
+    output: {
+      ResourceType.plastic: 1,
+    },
+  ),
+  oil_refinery(
+    sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_OIL_REFINERY,
+    productionTime: 15,
+    cost: {
+      ResourceType.iron_plate: 20,
+      ResourceType.copper_plate: 20,
+      ResourceType.steel: 20,
+    },
+    input: {
+      ResourceType.energy: 2,
+      ResourceType.crude_oil: 2,
+    },
+    output: {
+      ResourceType.plastic: 1,
+    },
+  ),
+  titanium_smelter(
+    sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_TITANIUM_SMELTER,
     productionTime: 15,
     cost: {
       ResourceType.iron_plate: 20,
@@ -248,8 +356,8 @@ enum NodeType {
       ResourceType.wire: 1,
     },
   ),
-  circuit_assembly(
-    sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_CIRCUIT_ASSEMBLY,
+  transistor_assembly(
+    sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_TRANSISTOR_ASSEMBLY,
     productionTime: 15,
     cost: {
       ResourceType.iron_plate: 30,
@@ -267,6 +375,74 @@ enum NodeType {
   ),
   motor_assembly(
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_MOTOR_ASSEMBLY,
+    productionTime: 15,
+    cost: {
+      ResourceType.iron_plate: 30,
+      ResourceType.copper_plate: 30,
+      ResourceType.steel: 30,
+    },
+    input: {
+      ResourceType.energy: 2,
+      ResourceType.iron_plate: 1,
+      ResourceType.gear: 1,
+    },
+    output: {
+      ResourceType.motor: 1,
+    },
+  ),
+  chip_assembly(
+    sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_CHIP_ASSEMBLY,
+    productionTime: 15,
+    cost: {
+      ResourceType.iron_plate: 30,
+      ResourceType.copper_plate: 30,
+      ResourceType.steel: 30,
+    },
+    input: {
+      ResourceType.energy: 2,
+      ResourceType.iron_plate: 1,
+      ResourceType.gear: 1,
+    },
+    output: {
+      ResourceType.motor: 1,
+    },
+  ),
+  battery_assembly(
+    sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_BATTERY_ASSEMBLY,
+    productionTime: 15,
+    cost: {
+      ResourceType.iron_plate: 30,
+      ResourceType.copper_plate: 30,
+      ResourceType.steel: 30,
+    },
+    input: {
+      ResourceType.energy: 2,
+      ResourceType.iron_plate: 1,
+      ResourceType.gear: 1,
+    },
+    output: {
+      ResourceType.motor: 1,
+    },
+  ),
+  microprocessor_assembly(
+    sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_MICROPROCESSOR_ASSEMBLY,
+    productionTime: 15,
+    cost: {
+      ResourceType.iron_plate: 30,
+      ResourceType.copper_plate: 30,
+      ResourceType.steel: 30,
+    },
+    input: {
+      ResourceType.energy: 2,
+      ResourceType.iron_plate: 1,
+      ResourceType.gear: 1,
+    },
+    output: {
+      ResourceType.motor: 1,
+    },
+  ),
+  explosives_assembly(
+    sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_EXPLOSIVES_ASSEMBLY,
     productionTime: 15,
     cost: {
       ResourceType.iron_plate: 30,
@@ -329,31 +505,44 @@ enum NodeType {
   });
 
   static List<NodeType> powerPlants() => [
-        NodeType.solar_panel,
         NodeType.wind_turbine,
+        NodeType.solar_panel,
         NodeType.coal_power_plant,
+        NodeType.oil_power_plant,
+        NodeType.nuclear_power_plant,
       ];
 
   static List<NodeType> extractors() => [
         NodeType.iron_mine,
         NodeType.copper_mine,
+        NodeType.stone_mine,
+        NodeType.water_pump,
         NodeType.coal_mine,
         NodeType.oil_rig,
-        NodeType.stone_mine,
+        NodeType.titanium_mine,
+        NodeType.uranium_mine,
       ];
 
   static List<NodeType> processors() => [
         NodeType.iron_smelter,
         NodeType.copper_smelter,
+        NodeType.stone_smelter,
         NodeType.steel_smelter,
+        NodeType.polymer_plant,
         NodeType.chemical_plant,
+        NodeType.oil_refinery,
+        NodeType.titanium_smelter,
       ];
 
   static List<NodeType> assemblers() => [
         NodeType.gear_assembly,
         NodeType.wire_assembly,
-        NodeType.circuit_assembly,
+        NodeType.transistor_assembly,
         NodeType.motor_assembly,
+        NodeType.chip_assembly,
+        NodeType.battery_assembly,
+        NodeType.microprocessor_assembly,
+        NodeType.explosives_assembly,
       ];
 
   static List<NodeType> factories() => [

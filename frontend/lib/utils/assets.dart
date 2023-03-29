@@ -20,36 +20,56 @@ class Assets {
       'buildings/power_plants/wind_turbine.png';
   static const String IMAGES_BUILDINGS_POWER_PLANTS_SOLAR_PANEL =
       'buildings/power_plants/solar_panel.png';
-  static const String IMAGES_BUILDINGS_ASSEMBLERS_CARBON_FIBER_ASSEMBLY =
-      'buildings/assemblers/carbon_fiber_assembly.png';
+  static const String IMAGES_BUILDINGS_ASSEMBLERS_EXPLOSIVES_ASSEMBLY =
+      'buildings/assemblers/explosives_assembly.png';
+  static const String IMAGES_BUILDINGS_ASSEMBLERS_CHIP_ASSEMBLY =
+      'buildings/assemblers/chip_assembly.png';
   static const String IMAGES_BUILDINGS_ASSEMBLERS_WIRE_ASSEMBLY =
       'buildings/assemblers/wire_assembly.png';
+  static const String IMAGES_BUILDINGS_ASSEMBLERS_TRANSISTOR_ASSEMBLY =
+      'buildings/assemblers/transistor_assembly.png';
+  static const String IMAGES_BUILDINGS_ASSEMBLERS_MICROPROCESSOR_ASSEMBLY =
+      'buildings/assemblers/microprocessor_assembly.png';
   static const String IMAGES_BUILDINGS_ASSEMBLERS_BATTERY_ASSEMBLY =
       'buildings/assemblers/battery_assembly.png';
   static const String IMAGES_BUILDINGS_ASSEMBLERS_GEAR_ASSEMBLY =
       'buildings/assemblers/gear_assembly.png';
   static const String IMAGES_BUILDINGS_ASSEMBLERS_MOTOR_ASSEMBLY =
       'buildings/assemblers/motor_assembly.png';
-  static const String IMAGES_BUILDINGS_ASSEMBLERS_CIRCUIT_ASSEMBLY =
-      'buildings/assemblers/circuit_assembly.png';
   static const String IMAGES_BUILDINGS_EXTRACTORS_COPPER_MINE =
       'buildings/extractors/copper_mine.png';
   static const String IMAGES_BUILDINGS_EXTRACTORS_COAL_MINE =
       'buildings/extractors/coal_mine.png';
   static const String IMAGES_BUILDINGS_EXTRACTORS_OIL_RIG =
       'buildings/extractors/oil_rig.png';
+  static const String IMAGES_BUILDINGS_EXTRACTORS_TITANIUM_MINE =
+      'buildings/extractors/titanium_mine.png';
   static const String IMAGES_BUILDINGS_EXTRACTORS_STONE_MINE =
       'buildings/extractors/stone_mine.png';
   static const String IMAGES_BUILDINGS_EXTRACTORS_IRON_MINE =
       'buildings/extractors/iron_mine.png';
+  static const String IMAGES_BUILDINGS_EXTRACTORS_WATER_PUMP =
+      'buildings/extractors/water_pump.png';
+  static const String IMAGES_BUILDINGS_EXTRACTORS_URANIUM_MINE =
+      'buildings/extractors/uranium_mine.png';
+  static const String IMAGES_BUILDINGS_PROCESSORS_OIL_REFINERY =
+      'buildings/processors/oil_refinery.png';
   static const String IMAGES_BUILDINGS_PROCESSORS_CHEMICAL_PLANT =
       'buildings/processors/chemical_plant.png';
+  static const String IMAGES_BUILDINGS_PROCESSORS_STONE_SMELTER =
+      'buildings/processors/stone_smelter.png';
   static const String IMAGES_BUILDINGS_PROCESSORS_IRON_SMELTER =
       'buildings/processors/iron_smelter.png';
+  static const String IMAGES_BUILDINGS_PROCESSORS_POLYMER_PLANT =
+      'buildings/processors/polymer_plant.png';
   static const String IMAGES_BUILDINGS_PROCESSORS_STEEL_SMELTER =
       'buildings/processors/steel_smelter.png';
+  static const String IMAGES_BUILDINGS_PROCESSORS_TITANIUM_SMELTER =
+      'buildings/processors/titanium_smelter.png';
   static const String IMAGES_BUILDINGS_PROCESSORS_COPPER_SMELTER =
       'buildings/processors/copper_smelter.png';
+  static const String IMAGES_BUILDINGS_OTHER_RADAR =
+      'buildings/other/radar.png';
   static const String IMAGES_BUILDINGS_OTHER_HEADQUARTERS =
       'buildings/other/headquarters.png';
   static const String IMAGES_BUILDINGS_OTHER_WAREHOUSE =

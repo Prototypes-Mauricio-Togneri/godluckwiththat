@@ -1,8 +1,8 @@
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/base/sprite_group.dart';
-import 'package:tensionplanet/components/game/buildings/assemblers/circuit_assembly.dart';
 import 'package:tensionplanet/components/game/buildings/assemblers/gear_assembly.dart';
 import 'package:tensionplanet/components/game/buildings/assemblers/motor_assembly.dart';
+import 'package:tensionplanet/components/game/buildings/assemblers/transistor_assembly.dart';
 import 'package:tensionplanet/components/game/buildings/assemblers/wire_assembly.dart';
 import 'package:tensionplanet/components/game/buildings/extractors/coal_mine.dart';
 import 'package:tensionplanet/components/game/buildings/extractors/copper_mine.dart';
@@ -161,8 +161,8 @@ mixin NodeHandler on BaseGameComponent {
     }
 
     for (final JsonBuilding json
-        in json.getBuildings(NodeType.circuit_assembly)) {
-      _addCircuitAssembly(
+        in json.getBuildings(NodeType.transistor_assembly)) {
+      _addTransistorAssembly(
         location: json.location.location,
         inventory: Inventory.fromJson(json.inventory),
         connections: [],
@@ -398,12 +398,12 @@ mixin NodeHandler on BaseGameComponent {
         connections: connections,
       ));
 
-  Node _addCircuitAssembly({
+  Node _addTransistorAssembly({
     required Location location,
     required Inventory inventory,
     required List<Connection> connections,
   }) =>
-      _addNode(CircuitAssembly(
+      _addNode(TransistorAssembly(
         location: location,
         inventory: inventory,
         connections: connections,
@@ -509,20 +509,30 @@ mixin NodeHandler on BaseGameComponent {
       case NodeType.wind_turbine:
       case NodeType.solar_panel:
       case NodeType.coal_power_plant:
-      //case NodeType.oil_power_plant:
-      //case NodeType.nuclear_power_plant:
+      case NodeType.oil_power_plant:
+      case NodeType.nuclear_power_plant:
 
       // processors
       case NodeType.iron_smelter:
       case NodeType.copper_smelter:
+      case NodeType.stone_smelter:
       case NodeType.steel_smelter:
+      case NodeType.polymer_plant:
       case NodeType.chemical_plant:
+      case NodeType.oil_refinery:
+      case NodeType.titanium_smelter:
 
       // assemblies
       case NodeType.gear_assembly:
       case NodeType.wire_assembly:
-      case NodeType.circuit_assembly:
+      case NodeType.transistor_assembly:
       case NodeType.motor_assembly:
+      case NodeType.chip_assembly:
+      case NodeType.battery_assembly:
+      case NodeType.microprocessor_assembly:
+      case NodeType.explosives_assembly:
+
+      // factories
       case NodeType.drone_factory:
 
       // other
@@ -535,10 +545,16 @@ mixin NodeHandler on BaseGameComponent {
         return patch?.isCopper ?? false;
       case NodeType.stone_mine:
         return patch?.isStone ?? false;
+      case NodeType.water_pump:
+        return patch?.isWater ?? false;
       case NodeType.coal_mine:
         return patch?.isCoal ?? false;
       case NodeType.oil_rig:
         return patch?.isOil ?? false;
+      case NodeType.titanium_mine:
+        return patch?.isTitanium ?? false;
+      case NodeType.uranium_mine:
+        return patch?.isUranium ?? false;
       case NodeType.headquarters:
         return false;
     }
@@ -634,8 +650,8 @@ mixin NodeHandler on BaseGameComponent {
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
-      case NodeType.circuit_assembly:
-        return _addCircuitAssembly(
+      case NodeType.transistor_assembly:
+        return _addTransistorAssembly(
           location: location,
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
