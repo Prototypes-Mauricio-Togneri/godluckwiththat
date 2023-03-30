@@ -529,7 +529,7 @@ mixin NodeHandler on BaseGameComponent {
       case NodeType.motor_assembly:
       case NodeType.chip_assembly:
       case NodeType.battery_assembly:
-      case NodeType.microprocessor_assembly:
+      case NodeType.circuit_assembly:
       case NodeType.explosives_assembly:
 
       // factories

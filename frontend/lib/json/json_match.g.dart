@@ -63,7 +63,7 @@ const _$NodeTypeEnumMap = {
   NodeType.motor_assembly: 'motor_assembly',
   NodeType.chip_assembly: 'chip_assembly',
   NodeType.battery_assembly: 'battery_assembly',
-  NodeType.microprocessor_assembly: 'microprocessor_assembly',
+  NodeType.circuit_assembly: 'circuit_assembly',
   NodeType.explosives_assembly: 'explosives_assembly',
   NodeType.drone_factory: 'drone_factory',
   NodeType.warehouse: 'warehouse',

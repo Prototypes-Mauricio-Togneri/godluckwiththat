@@ -46,7 +46,7 @@ const _$ResourceTypeEnumMap = {
   ResourceType.motor: 'motor',
   ResourceType.chip: 'chip',
   ResourceType.battery: 'battery',
-  ResourceType.microprocessor: 'microprocessor',
+  ResourceType.circuit: 'circuit',
   ResourceType.explosives: 'explosives',
   ResourceType.standard_shell: 'standard_shell',
   ResourceType.piercing_shell: 'piercing_shell',

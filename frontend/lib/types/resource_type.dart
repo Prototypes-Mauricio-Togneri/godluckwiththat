@@ -33,7 +33,7 @@ enum ResourceType {
   motor(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_MOTOR),
   chip(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_CHIP),
   battery(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_BATTERY),
-  microprocessor(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_MICROPROCESSOR),
+  circuit(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_CIRCUIT),
   explosives(sprite: Assets.IMAGES_RESOURCES_COMPONENTS_EXPLOSIVES),
 
   // ammunition

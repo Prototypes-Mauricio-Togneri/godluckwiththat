@@ -28,14 +28,14 @@ class Assets {
       'buildings/assemblers/wire_assembly.png';
   static const String IMAGES_BUILDINGS_ASSEMBLERS_TRANSISTOR_ASSEMBLY =
       'buildings/assemblers/transistor_assembly.png';
-  static const String IMAGES_BUILDINGS_ASSEMBLERS_MICROPROCESSOR_ASSEMBLY =
-      'buildings/assemblers/microprocessor_assembly.png';
   static const String IMAGES_BUILDINGS_ASSEMBLERS_BATTERY_ASSEMBLY =
       'buildings/assemblers/battery_assembly.png';
   static const String IMAGES_BUILDINGS_ASSEMBLERS_GEAR_ASSEMBLY =
       'buildings/assemblers/gear_assembly.png';
   static const String IMAGES_BUILDINGS_ASSEMBLERS_MOTOR_ASSEMBLY =
       'buildings/assemblers/motor_assembly.png';
+  static const String IMAGES_BUILDINGS_ASSEMBLERS_CIRCUIT_ASSEMBLY =
+      'buildings/assemblers/circuit_assembly.png';
   static const String IMAGES_BUILDINGS_EXTRACTORS_COPPER_MINE =
       'buildings/extractors/copper_mine.png';
   static const String IMAGES_BUILDINGS_EXTRACTORS_COAL_MINE =
@@ -78,10 +78,10 @@ class Assets {
       'buildings/other/void_background.png';
   static const String IMAGES_RESOURCES_COMPONENTS_TRANSISTOR =
       'resources/components/transistor.png';
+  static const String IMAGES_RESOURCES_COMPONENTS_CIRCUIT =
+      'resources/components/circuit.png';
   static const String IMAGES_RESOURCES_COMPONENTS_WIRE =
       'resources/components/wire.png';
-  static const String IMAGES_RESOURCES_COMPONENTS_MICROPROCESSOR =
-      'resources/components/microprocessor.png';
   static const String IMAGES_RESOURCES_COMPONENTS_CHIP =
       'resources/components/chip.png';
   static const String IMAGES_RESOURCES_COMPONENTS_MOTOR =

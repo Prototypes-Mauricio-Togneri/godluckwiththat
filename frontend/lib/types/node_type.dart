@@ -424,8 +424,8 @@ enum NodeType {
       ResourceType.motor: 1,
     },
   ),
-  microprocessor_assembly(
-    sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_MICROPROCESSOR_ASSEMBLY,
+  circuit_assembly(
+    sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_CIRCUIT_ASSEMBLY,
     productionTime: 15,
     cost: {
       ResourceType.iron_plate: 30,
@@ -541,7 +541,7 @@ enum NodeType {
         NodeType.motor_assembly,
         NodeType.chip_assembly,
         NodeType.battery_assembly,
-        NodeType.microprocessor_assembly,
+        NodeType.circuit_assembly,
         NodeType.explosives_assembly,
       ];
 
