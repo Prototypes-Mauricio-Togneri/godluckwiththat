@@ -20,7 +20,22 @@ class Constants {
 	},
 	"patches": {
 		"iron": [],
-		"copper": [],
+		"copper": [{
+			"location": [7, -1],
+			"amount": 1000
+		}, {
+			"location": [6, 0],
+			"amount": 1000
+		}, {
+			"location": [7, 0],
+			"amount": 1000
+		}, {
+			"location": [8, 0],
+			"amount": 1000
+		}, {
+			"location": [7, 1],
+			"amount": 1000
+		}],
 		"stone": [{
 			"location": [0, -6],
 			"amount": 1000
