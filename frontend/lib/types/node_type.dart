@@ -16,9 +16,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_WIND_TURBINE,
     productionTime: 5,
     cost: {
-      ResourceType.iron_plate: 10,
-      ResourceType.copper_plate: 10,
-      ResourceType.steel: 10,
+      ResourceType.iron_plate: 5,
+      ResourceType.copper_plate: 5,
     },
     input: {},
     output: {
@@ -29,7 +28,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_SOLAR_PANEL,
     productionTime: 5,
     cost: {
-      ResourceType.iron_plate: 2,
+      ResourceType.steel: 10,
+      ResourceType.concrete: 10,
     },
     input: {},
     output: {
@@ -40,27 +40,27 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_COAL_POWER_PLANT,
     productionTime: 5,
     cost: {
-      ResourceType.iron_plate: 20,
-      ResourceType.copper_plate: 20,
       ResourceType.steel: 20,
+      ResourceType.concrete: 20,
     },
     input: {
       ResourceType.coal_ore: 1,
+      ResourceType.water: 1,
     },
     output: {
-      ResourceType.energy: 20,
+      ResourceType.energy: 10,
     },
   ),
   oil_power_plant(
     sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_OIL_POWER_PLANT,
-    productionTime: 5,
+    productionTime: 10,
     cost: {
-      ResourceType.iron_plate: 20,
-      ResourceType.copper_plate: 20,
-      ResourceType.steel: 20,
+      ResourceType.steel: 30,
+      ResourceType.concrete: 30,
     },
     input: {
       ResourceType.crude_oil: 1,
+      ResourceType.water: 1,
     },
     output: {
       ResourceType.energy: 20,
@@ -68,17 +68,17 @@ enum NodeType {
   ),
   nuclear_power_plant(
     sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_NUCLEAR_POWER_PLANT,
-    productionTime: 5,
+    productionTime: 20,
     cost: {
-      ResourceType.iron_plate: 20,
-      ResourceType.copper_plate: 20,
-      ResourceType.steel: 20,
+      ResourceType.steel: 50,
+      ResourceType.concrete: 50,
     },
     input: {
       ResourceType.uranium_ore: 1,
+      ResourceType.water: 1,
     },
     output: {
-      ResourceType.energy: 20,
+      ResourceType.energy: 50,
     },
   ),
 
