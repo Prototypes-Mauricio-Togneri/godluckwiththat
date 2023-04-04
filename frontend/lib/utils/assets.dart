@@ -145,9 +145,14 @@ class Assets {
   static const String IMAGES_RESOURCES_RESOURCES_WATER =
       'resources/resources/water.png';
   static const String IMAGES_RESOURCES_TIME_TIME = 'resources/time/time.png';
+  static const String IMAGES_PATCHES_TITANIUM_PATCH =
+      'patches/titanium_patch.png';
   static const String IMAGES_PATCHES_COAL_PATCH = 'patches/coal_patch.png';
   static const String IMAGES_PATCHES_IRON_PATCH = 'patches/iron_patch.png';
   static const String IMAGES_PATCHES_STONE_PATCH = 'patches/stone_patch.png';
+  static const String IMAGES_PATCHES_WATER_PATCH = 'patches/water_patch.png';
+  static const String IMAGES_PATCHES_URANIUM_PATCH =
+      'patches/uranium_patch.png';
   static const String IMAGES_PATCHES_OIL_PATCH = 'patches/oil_patch.png';
   static const String IMAGES_PATCHES_COPPER_PATCH = 'patches/copper_patch.png';
   static const String TILES_TERRAIN = 'terrain.tsx';

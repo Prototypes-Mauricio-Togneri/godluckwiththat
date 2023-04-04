@@ -10,15 +10,21 @@ class Patches {
   Patches({
     required List<Patch> iron,
     required List<Patch> copper,
+    required List<Patch> stone,
+    required List<Patch> water,
     required List<Patch> coal,
     required List<Patch> oil,
-    required List<Patch> stone,
+    required List<Patch> titanium,
+    required List<Patch> uranium,
   }) {
     _patches.set(PatchType.iron, iron);
     _patches.set(PatchType.copper, copper);
+    _patches.set(PatchType.stone, stone);
+    _patches.set(PatchType.water, water);
     _patches.set(PatchType.coal, coal);
     _patches.set(PatchType.oil, oil);
-    _patches.set(PatchType.stone, stone);
+    _patches.set(PatchType.titanium, titanium);
+    _patches.set(PatchType.uranium, uranium);
   }
 
   List<Location> locations(PatchType patchType) =>
@@ -39,8 +45,11 @@ class Patches {
   JsonPatches get json => JsonPatches(
         iron: _patches.get(PatchType.iron).map((e) => e.json).toList(),
         copper: _patches.get(PatchType.copper).map((e) => e.json).toList(),
+        stone: _patches.get(PatchType.stone).map((e) => e.json).toList(),
+        water: _patches.get(PatchType.water).map((e) => e.json).toList(),
         coal: _patches.get(PatchType.coal).map((e) => e.json).toList(),
         oil: _patches.get(PatchType.oil).map((e) => e.json).toList(),
-        stone: _patches.get(PatchType.stone).map((e) => e.json).toList(),
+        titanium: _patches.get(PatchType.titanium).map((e) => e.json).toList(),
+        uranium: _patches.get(PatchType.uranium).map((e) => e.json).toList(),
       );
 }

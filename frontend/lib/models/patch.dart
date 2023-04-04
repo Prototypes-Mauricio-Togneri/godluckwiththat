@@ -17,17 +17,17 @@ class Patch {
 
   bool get isCopper => patchType == PatchType.copper;
 
+  bool get isStone => patchType == PatchType.stone;
+
+  bool get isWater => patchType == PatchType.water;
+
   bool get isCoal => patchType == PatchType.coal;
 
   bool get isOil => patchType == PatchType.oil;
 
-  bool get isStone => patchType == PatchType.stone;
+  bool get isTitanium => patchType == PatchType.titanium;
 
-  bool get isWater => patchType == PatchType.stone; // TODO(momo): fix
-
-  bool get isTitanium => patchType == PatchType.stone; // TODO(momo): fix
-
-  bool get isUranium => patchType == PatchType.stone; // TODO(momo): fix
+  bool get isUranium => patchType == PatchType.uranium;
 
   bool isAt(Location location) => this.location == location;
 

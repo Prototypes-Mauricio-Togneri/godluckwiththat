@@ -16,21 +16,33 @@ class JsonPatches {
   @JsonKey(name: 'copper')
   final List<JsonPatch> copper;
 
+  @JsonKey(name: 'stone')
+  final List<JsonPatch> stone;
+
+  @JsonKey(name: 'water')
+  final List<JsonPatch> water;
+
   @JsonKey(name: 'coal')
   final List<JsonPatch> coal;
 
   @JsonKey(name: 'oil')
   final List<JsonPatch> oil;
 
-  @JsonKey(name: 'stone')
-  final List<JsonPatch> stone;
+  @JsonKey(name: 'titanium')
+  final List<JsonPatch> titanium;
+
+  @JsonKey(name: 'uranium')
+  final List<JsonPatch> uranium;
 
   const JsonPatches({
     required this.iron,
     required this.copper,
+    required this.stone,
+    required this.water,
     required this.coal,
     required this.oil,
-    required this.stone,
+    required this.titanium,
+    required this.uranium,
   });
 
   List<Patch> _list(List<JsonPatch> list, PatchType patchType) => list
@@ -44,9 +56,12 @@ class JsonPatches {
   Patches get patches => Patches(
         iron: _list(iron, PatchType.iron),
         copper: _list(copper, PatchType.copper),
+        stone: _list(stone, PatchType.stone),
+        water: _list(stone, PatchType.water),
         coal: _list(coal, PatchType.coal),
         oil: _list(oil, PatchType.oil),
-        stone: _list(stone, PatchType.stone),
+        titanium: _list(oil, PatchType.titanium),
+        uranium: _list(oil, PatchType.uranium),
       );
 
   factory JsonPatches.fromString(String json) =>

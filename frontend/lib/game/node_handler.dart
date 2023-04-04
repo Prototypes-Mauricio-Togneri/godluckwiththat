@@ -332,9 +332,12 @@ mixin NodeHandler on BaseGameComponent {
 
     _addSpriteGroup(PatchType.iron.sprite);
     _addSpriteGroup(PatchType.copper.sprite);
+    _addSpriteGroup(PatchType.stone.sprite);
+    _addSpriteGroup(PatchType.water.sprite);
     _addSpriteGroup(PatchType.coal.sprite);
     _addSpriteGroup(PatchType.oil.sprite);
-    _addSpriteGroup(PatchType.stone.sprite);
+    _addSpriteGroup(PatchType.titanium.sprite);
+    _addSpriteGroup(PatchType.uranium.sprite);
 
     reloadPatches();
   }
@@ -348,9 +351,12 @@ mixin NodeHandler on BaseGameComponent {
   void reloadPatches() {
     _reloadPatch(PatchType.iron);
     _reloadPatch(PatchType.copper);
+    _reloadPatch(PatchType.stone);
+    _reloadPatch(PatchType.water);
     _reloadPatch(PatchType.coal);
     _reloadPatch(PatchType.oil);
-    _reloadPatch(PatchType.stone);
+    _reloadPatch(PatchType.titanium);
+    _reloadPatch(PatchType.uranium);
   }
 
   void _reloadPatch(PatchType patchType) {
