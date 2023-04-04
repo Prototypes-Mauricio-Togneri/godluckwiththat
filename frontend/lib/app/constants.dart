@@ -67,7 +67,22 @@ class Constants {
 			"location": [0, -4],
 			"amount": 1000
 		}],
-		"water": [],
+		"water": [{
+			"location": [-7, -6],
+			"amount": 1000
+		}, {
+			"location": [-8, -5],
+			"amount": 1000
+		}, {
+			"location": [-7, -5],
+			"amount": 1000
+		}, {
+			"location": [-6, -5],
+			"amount": 1000
+		}, {
+			"location": [-7, -4],
+			"amount": 1000
+		}],
 		"coal": [{
 			"location": [0, 4],
 			"amount": 1000
