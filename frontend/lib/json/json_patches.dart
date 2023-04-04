@@ -57,11 +57,11 @@ class JsonPatches {
         iron: _list(iron, PatchType.iron),
         copper: _list(copper, PatchType.copper),
         stone: _list(stone, PatchType.stone),
-        water: _list(stone, PatchType.water),
+        water: _list(water, PatchType.water),
         coal: _list(coal, PatchType.coal),
         oil: _list(oil, PatchType.oil),
-        titanium: _list(oil, PatchType.titanium),
-        uranium: _list(oil, PatchType.uranium),
+        titanium: _list(titanium, PatchType.titanium),
+        uranium: _list(uranium, PatchType.uranium),
       );
 
   factory JsonPatches.fromString(String json) =>

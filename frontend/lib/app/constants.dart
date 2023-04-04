@@ -19,87 +19,27 @@ class Constants {
 		"zoom": 8
 	},
 	"patches": {
-		"iron": [{
-			"location": [5, 4],
-			"amount": 1000
-		}, {
-			"location": [4, 5],
-			"amount": 1000
-		}, {
-			"location": [5, 5],
-			"amount": 1000
-		}, {
-			"location": [6, 5],
-			"amount": 1000
-		}, {
-			"location": [5, 6],
-			"amount": 1000
-		}],
-		"copper": [{
-			"location": [-5, 5],
-			"amount": 1000
-		}, {
-			"location": [-5, 4],
-			"amount": 1000
-		}, {
-			"location": [-5, 6],
-			"amount": 1000
-		}, {
-			"location": [-4, 5],
-			"amount": 1000
-		}, {
-			"location": [-6, 5],
-			"amount": 1000
-		}],
+		"iron": [],
+		"copper": [],
 		"stone": [{
-			"location": [-5, -4],
+			"location": [0, -6],
 			"amount": 1000
 		}, {
-			"location": [-5, -5],
+			"location": [-1, -5],
 			"amount": 1000
 		}, {
-			"location": [-5, -6],
+			"location": [0, -5],
 			"amount": 1000
 		}, {
-			"location": [-6, -5],
+			"location": [1, -5],
 			"amount": 1000
 		}, {
-			"location": [-4, -5],
+			"location": [0, -4],
 			"amount": 1000
 		}],
 		"water": [],
-		"coal": [{
-			"location": [5, -4],
-			"amount": 1000
-		}, {
-			"location": [5, -5],
-			"amount": 1000
-		}, {
-			"location": [5, -6],
-			"amount": 1000
-		}, {
-			"location": [6, -5],
-			"amount": 1000
-		}, {
-			"location": [4, -5],
-			"amount": 1000
-		}],
-		"oil": [{
-			"location": [-12, 0],
-			"amount": 1000
-		}, {
-			"location": [-12, -1],
-			"amount": 1000
-		}, {
-			"location": [-12, 1],
-			"amount": 1000
-		}, {
-			"location": [-11, 0],
-			"amount": 1000
-		}, {
-			"location": [-13, 0],
-			"amount": 1000
-		}],
+		"coal": [],
+		"oil": [],
 		"titanium": [],
 		"uranium": []
 	},
