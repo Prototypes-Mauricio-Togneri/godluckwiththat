@@ -9,6 +9,9 @@ import 'package:tensionplanet/components/game/buildings/extractors/copper_mine.d
 import 'package:tensionplanet/components/game/buildings/extractors/iron_mine.dart';
 import 'package:tensionplanet/components/game/buildings/extractors/oil_rig.dart';
 import 'package:tensionplanet/components/game/buildings/extractors/stone_mine.dart';
+import 'package:tensionplanet/components/game/buildings/extractors/titanium_mine.dart';
+import 'package:tensionplanet/components/game/buildings/extractors/uranium_mine.dart';
+import 'package:tensionplanet/components/game/buildings/extractors/water_pump.dart';
 import 'package:tensionplanet/components/game/buildings/factories/drone_factory.dart';
 import 'package:tensionplanet/components/game/buildings/power_plants/coal_power_plant.dart';
 import 'package:tensionplanet/components/game/buildings/power_plants/nuclear_power_plant.dart';
@@ -110,6 +113,22 @@ mixin NodeHandler on BaseGameComponent {
       );
     }
 
+    for (final JsonBuilding json in json.getBuildings(NodeType.stone_mine)) {
+      _addStoneMine(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json in json.getBuildings(NodeType.water_pump)) {
+      _addWaterPump(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
     for (final JsonBuilding json in json.getBuildings(NodeType.coal_mine)) {
       _addCoalMine(
         location: json.location.location,
@@ -126,13 +145,23 @@ mixin NodeHandler on BaseGameComponent {
       );
     }
 
-    for (final JsonBuilding json in json.getBuildings(NodeType.stone_mine)) {
-      _addStoneMine(
+    for (final JsonBuilding json in json.getBuildings(NodeType.titanium_mine)) {
+      _addTitaniumMine(
         location: json.location.location,
         inventory: Inventory.fromJson(json.inventory),
         connections: [],
       );
     }
+
+    for (final JsonBuilding json in json.getBuildings(NodeType.uranium_mine)) {
+      _addUraniumMine(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
+    // ============================= PROCESSORS============================== \\
 
     for (final JsonBuilding json in json.getBuildings(NodeType.iron_smelter)) {
       _addIronSmelter(
@@ -349,6 +378,28 @@ mixin NodeHandler on BaseGameComponent {
         connections: connections,
       ));
 
+  Node _addStoneMine({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(StoneMine(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  Node _addWaterPump({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(WaterPump(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
   Node _addCoalMine({
     required Location location,
     required Inventory inventory,
@@ -371,16 +422,29 @@ mixin NodeHandler on BaseGameComponent {
         connections: connections,
       ));
 
-  Node _addStoneMine({
+  Node _addTitaniumMine({
     required Location location,
     required Inventory inventory,
     required List<Connection> connections,
   }) =>
-      _addNode(StoneMine(
+      _addNode(TitaniumMine(
         location: location,
         inventory: inventory,
         connections: connections,
       ));
+
+  Node _addUraniumMine({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(UraniumMine(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  // ============================== PROCESSORS ============================== \\
 
   Node _addIronSmelter({
     required Location location,
@@ -661,6 +725,18 @@ mixin NodeHandler on BaseGameComponent {
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
+      case NodeType.stone_mine:
+        return _addStoneMine(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
+      case NodeType.water_pump:
+        return _addWaterPump(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
       case NodeType.coal_mine:
         return _addCoalMine(
           location: location,
@@ -673,12 +749,19 @@ mixin NodeHandler on BaseGameComponent {
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
-      case NodeType.stone_mine:
-        return _addStoneMine(
+      case NodeType.titanium_mine:
+        return _addTitaniumMine(
           location: location,
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
+      case NodeType.uranium_mine:
+        return _addUraniumMine(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
+
       case NodeType.iron_smelter:
         return _addIronSmelter(
           location: location,
