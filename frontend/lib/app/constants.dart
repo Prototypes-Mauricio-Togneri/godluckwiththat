@@ -7,7 +7,7 @@ class Constants {
 
   static const double NODE_SIZE = 8;
 
-  static String TEST_MATCH = '''
+  static String EMPTY_MATCH = '''
 {
 	"version": 1,
 	"id": "map1",
@@ -51,6 +51,23 @@ class Constants {
 			"location": [-6, 5],
 			"amount": 1000
 		}],
+		"stone": [{
+			"location": [-5, -4],
+			"amount": 1000
+		}, {
+			"location": [-5, -5],
+			"amount": 1000
+		}, {
+			"location": [-5, -6],
+			"amount": 1000
+		}, {
+			"location": [-6, -5],
+			"amount": 1000
+		}, {
+			"location": [-4, -5],
+			"amount": 1000
+		}],
+		"water": [],
 		"coal": [{
 			"location": [5, -4],
 			"amount": 1000
@@ -83,22 +100,8 @@ class Constants {
 			"location": [-13, 0],
 			"amount": 1000
 		}],
-		"stone": [{
-			"location": [-5, -4],
-			"amount": 1000
-		}, {
-			"location": [-5, -5],
-			"amount": 1000
-		}, {
-			"location": [-5, -6],
-			"amount": 1000
-		}, {
-			"location": [-6, -5],
-			"amount": 1000
-		}, {
-			"location": [-4, -5],
-			"amount": 1000
-		}]
+		"titanium": [],
+		"uranium": []
 	},
   "headquarters": {
     "location": [0, 0],
@@ -109,42 +112,43 @@ class Constants {
     }
   },
 	"buildings": {
-		"solar_panel": [],
 		"wind_turbine": [],
+		"solar_panel": [],
 		"coal_power_plant": [],
+		"oil_power_plant": [],
+		"nuclear_power_plant": [],
 
 		"iron_mine": [],
 		"copper_mine": [],
+		"stone_mine": [],
+		"water_pump": [],
 		"coal_mine": [],
     "oil_rig": [],
-		"stone_mine": [],
+		"titanium_mine": [],
+		"uranium_mine": [],
 
 		"iron_smelter": [],
 		"copper_smelter": [],
+		"stone_smelter": [],
 		"steel_smelter": [],
+		"polymer_plant": [],
 		"chemical_plant": [],
+		"oil_refinery": [],
+		"titanium_smelter": [],
 
 		"gear_assembly": [],
+		"wire_assembly": [],
 		"transistor_assembly": [],
+		"motor_assembly": [],
+		"chip_assembly": [],
+		"battery_assembly": [],
+		"circuit_assembly": [],
+		"explosives_assembly": [],
 
 		"drone_factory": [],
 
 		"warehouse": []
 	}
-}
-''';
-
-  static String EMPTY_MATCH = '''
-{
-	"version": 1,
-	"id": "map1",
-	"totalTimeElapsed": 60,
-	"map": {
-		"name": "level1",
-		"xml": "",
-		"location": [0, 0],
-		"zoom": 8
-	},
 }
 ''';
 
