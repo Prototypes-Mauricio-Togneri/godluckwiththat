@@ -322,14 +322,13 @@ enum NodeType {
   // assemblers
   gear_assembly(
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_GEAR_ASSEMBLY,
-    productionTime: 15,
+    productionTime: 1,
     cost: {
-      ResourceType.iron_plate: 30,
-      ResourceType.copper_plate: 30,
-      ResourceType.steel: 30,
+      ResourceType.iron_plate: 20,
+      ResourceType.copper_plate: 20,
     },
     input: {
-      ResourceType.energy: 2,
+      ResourceType.energy: 1,
       ResourceType.iron_plate: 1,
     },
     output: {
@@ -338,14 +337,13 @@ enum NodeType {
   ),
   wire_assembly(
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_WIRE_ASSEMBLY,
-    productionTime: 15,
+    productionTime: 1,
     cost: {
-      ResourceType.iron_plate: 30,
-      ResourceType.copper_plate: 30,
-      ResourceType.steel: 30,
+      ResourceType.iron_plate: 20,
+      ResourceType.copper_plate: 20,
     },
     input: {
-      ResourceType.energy: 2,
+      ResourceType.energy: 1,
       ResourceType.copper_plate: 1,
     },
     output: {
@@ -354,33 +352,31 @@ enum NodeType {
   ),
   transistor_assembly(
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_TRANSISTOR_ASSEMBLY,
-    productionTime: 15,
+    productionTime: 1,
     cost: {
-      ResourceType.iron_plate: 30,
-      ResourceType.copper_plate: 30,
-      ResourceType.steel: 30,
+      ResourceType.iron_plate: 10,
+      ResourceType.concrete: 10,
     },
     input: {
-      ResourceType.energy: 2,
-      ResourceType.wire: 1,
-      ResourceType.plastic: 1,
+      ResourceType.energy: 1,
+      ResourceType.iron_plate: 1,
+      ResourceType.copper_plate: 1,
     },
     output: {
-      ResourceType.chip: 1,
+      ResourceType.transistor: 1,
     },
   ),
   motor_assembly(
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_MOTOR_ASSEMBLY,
-    productionTime: 15,
+    productionTime: 1,
     cost: {
-      ResourceType.iron_plate: 30,
-      ResourceType.copper_plate: 30,
-      ResourceType.steel: 30,
+      ResourceType.iron_plate: 10,
+      ResourceType.concrete: 10,
     },
     input: {
-      ResourceType.energy: 2,
-      ResourceType.iron_plate: 1,
+      ResourceType.energy: 1,
       ResourceType.gear: 1,
+      ResourceType.wire: 1,
     },
     output: {
       ResourceType.motor: 1,
@@ -388,70 +384,68 @@ enum NodeType {
   ),
   chip_assembly(
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_CHIP_ASSEMBLY,
-    productionTime: 15,
+    productionTime: 2,
     cost: {
-      ResourceType.iron_plate: 30,
-      ResourceType.copper_plate: 30,
-      ResourceType.steel: 30,
+      ResourceType.steel: 10,
+      ResourceType.concrete: 10,
     },
     input: {
       ResourceType.energy: 2,
-      ResourceType.iron_plate: 1,
-      ResourceType.gear: 1,
+      ResourceType.transistor: 1,
+      ResourceType.wire: 1,
     },
     output: {
-      ResourceType.motor: 1,
+      ResourceType.chip: 1,
     },
   ),
   battery_assembly(
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_BATTERY_ASSEMBLY,
-    productionTime: 15,
+    productionTime: 2,
     cost: {
-      ResourceType.iron_plate: 30,
-      ResourceType.copper_plate: 30,
-      ResourceType.steel: 30,
+      ResourceType.steel: 15,
+      ResourceType.concrete: 15,
     },
     input: {
       ResourceType.energy: 2,
-      ResourceType.iron_plate: 1,
-      ResourceType.gear: 1,
+      ResourceType.wire: 1,
+      ResourceType.plastic: 1,
+      ResourceType.sulfur: 1,
     },
     output: {
-      ResourceType.motor: 1,
+      ResourceType.battery: 1,
     },
   ),
   circuit_assembly(
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_CIRCUIT_ASSEMBLY,
-    productionTime: 15,
+    productionTime: 3,
     cost: {
-      ResourceType.iron_plate: 30,
-      ResourceType.copper_plate: 30,
-      ResourceType.steel: 30,
+      ResourceType.steel: 20,
+      ResourceType.concrete: 20,
     },
     input: {
-      ResourceType.energy: 2,
-      ResourceType.iron_plate: 1,
-      ResourceType.gear: 1,
+      ResourceType.energy: 3,
+      ResourceType.chip: 1,
+      ResourceType.plastic: 1,
     },
     output: {
-      ResourceType.motor: 1,
+      ResourceType.circuit: 1,
     },
   ),
   explosives_assembly(
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_EXPLOSIVES_ASSEMBLY,
-    productionTime: 15,
+    productionTime: 3,
     cost: {
-      ResourceType.iron_plate: 30,
-      ResourceType.copper_plate: 30,
       ResourceType.steel: 30,
+      ResourceType.concrete: 30,
     },
     input: {
-      ResourceType.energy: 2,
-      ResourceType.iron_plate: 1,
-      ResourceType.gear: 1,
+      ResourceType.energy: 3,
+      ResourceType.coal_ore: 1,
+      ResourceType.sulfur: 1,
+      ResourceType.water: 1,
     },
     output: {
-      ResourceType.motor: 1,
+      ResourceType.explosives: 1,
     },
   ),
 
