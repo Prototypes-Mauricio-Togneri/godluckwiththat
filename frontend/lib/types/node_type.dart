@@ -197,9 +197,9 @@ enum NodeType {
   // processors
   iron_smelter(
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_IRON_SMELTER,
-    productionTime: 15,
+    productionTime: 1,
     cost: {
-      ResourceType.iron_plate: 2,
+      ResourceType.iron_plate: 10,
     },
     input: {
       ResourceType.energy: 1,
@@ -211,9 +211,9 @@ enum NodeType {
   ),
   copper_smelter(
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_COPPER_SMELTER,
-    productionTime: 15,
+    productionTime: 1,
     cost: {
-      ResourceType.iron_plate: 2,
+      ResourceType.iron_plate: 10,
     },
     input: {
       ResourceType.energy: 1,
@@ -225,31 +225,31 @@ enum NodeType {
   ),
   stone_smelter(
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_STONE_SMELTER,
-    productionTime: 15,
+    productionTime: 1,
     cost: {
-      ResourceType.iron_plate: 20,
-      ResourceType.copper_plate: 20,
+      ResourceType.iron_plate: 10,
+      ResourceType.copper_plate: 10,
     },
     input: {
-      ResourceType.energy: 2,
-      ResourceType.iron_plate: 1,
-      ResourceType.coal_ore: 1,
+      ResourceType.energy: 1,
+      ResourceType.stone_ore: 1,
+      ResourceType.water: 1,
     },
     output: {
-      ResourceType.steel: 1,
+      ResourceType.concrete: 1,
     },
   ),
   steel_smelter(
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_STEEL_SMELTER,
-    productionTime: 15,
+    productionTime: 2,
     cost: {
-      ResourceType.iron_plate: 20,
-      ResourceType.copper_plate: 20,
+      ResourceType.iron_plate: 15,
+      ResourceType.concrete: 15,
     },
     input: {
       ResourceType.energy: 2,
-      ResourceType.iron_plate: 1,
       ResourceType.coal_ore: 1,
+      ResourceType.iron_plate: 1,
     },
     output: {
       ResourceType.steel: 1,
@@ -257,15 +257,15 @@ enum NodeType {
   ),
   polymer_plant(
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_POLYMER_PLANT,
-    productionTime: 15,
+    productionTime: 2,
     cost: {
-      ResourceType.iron_plate: 20,
-      ResourceType.copper_plate: 20,
-      ResourceType.steel: 20,
+      ResourceType.steel: 10,
+      ResourceType.concrete: 10,
     },
     input: {
       ResourceType.energy: 2,
-      ResourceType.crude_oil: 2,
+      ResourceType.coal_ore: 1,
+      ResourceType.crude_oil: 1,
     },
     output: {
       ResourceType.plastic: 1,
@@ -273,50 +273,49 @@ enum NodeType {
   ),
   chemical_plant(
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_CHEMICAL_PLANT,
-    productionTime: 15,
+    productionTime: 2,
     cost: {
-      ResourceType.iron_plate: 20,
-      ResourceType.copper_plate: 20,
-      ResourceType.steel: 20,
+      ResourceType.steel: 15,
+      ResourceType.concrete: 15,
     },
     input: {
       ResourceType.energy: 2,
-      ResourceType.crude_oil: 2,
+      ResourceType.water: 1,
+      ResourceType.crude_oil: 1,
     },
     output: {
-      ResourceType.plastic: 1,
+      ResourceType.sulfur: 1,
     },
   ),
   oil_refinery(
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_OIL_REFINERY,
-    productionTime: 15,
+    productionTime: 3,
     cost: {
-      ResourceType.iron_plate: 20,
-      ResourceType.copper_plate: 20,
       ResourceType.steel: 20,
+      ResourceType.concrete: 20,
     },
     input: {
-      ResourceType.energy: 2,
-      ResourceType.crude_oil: 2,
+      ResourceType.energy: 3,
+      ResourceType.crude_oil: 1,
     },
     output: {
-      ResourceType.plastic: 1,
+      ResourceType.fuel: 1,
     },
   ),
   titanium_smelter(
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_TITANIUM_SMELTER,
-    productionTime: 15,
+    productionTime: 3,
     cost: {
-      ResourceType.iron_plate: 20,
-      ResourceType.copper_plate: 20,
-      ResourceType.steel: 20,
+      ResourceType.steel: 30,
+      ResourceType.concrete: 30,
     },
     input: {
-      ResourceType.energy: 2,
-      ResourceType.crude_oil: 2,
+      ResourceType.energy: 3,
+      ResourceType.coal_ore: 1,
+      ResourceType.titanium_ore: 1,
     },
     output: {
-      ResourceType.plastic: 1,
+      ResourceType.titanium_plate: 1,
     },
   ),
 
