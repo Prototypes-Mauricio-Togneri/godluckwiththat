@@ -21,7 +21,11 @@ import 'package:tensionplanet/components/game/buildings/power_plants/wind_turbin
 import 'package:tensionplanet/components/game/buildings/processors/chemical_plant.dart';
 import 'package:tensionplanet/components/game/buildings/processors/copper_smelter.dart';
 import 'package:tensionplanet/components/game/buildings/processors/iron_smelter.dart';
+import 'package:tensionplanet/components/game/buildings/processors/oil_refinery.dart';
+import 'package:tensionplanet/components/game/buildings/processors/polymer_plant.dart';
 import 'package:tensionplanet/components/game/buildings/processors/steel_smelter.dart';
+import 'package:tensionplanet/components/game/buildings/processors/stone_smelter.dart';
+import 'package:tensionplanet/components/game/buildings/processors/titanium_smelter.dart';
 import 'package:tensionplanet/components/game/construction.dart';
 import 'package:tensionplanet/components/game/headquarters.dart';
 import 'package:tensionplanet/components/game/warehouse.dart';
@@ -161,7 +165,7 @@ mixin NodeHandler on BaseGameComponent {
       );
     }
 
-    // ============================= PROCESSORS============================== \\
+    // ============================= PROCESSORS ============================= \\
 
     for (final JsonBuilding json in json.getBuildings(NodeType.iron_smelter)) {
       _addIronSmelter(
@@ -180,8 +184,24 @@ mixin NodeHandler on BaseGameComponent {
       );
     }
 
+    for (final JsonBuilding json in json.getBuildings(NodeType.stone_smelter)) {
+      _addStoneSmelter(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
     for (final JsonBuilding json in json.getBuildings(NodeType.steel_smelter)) {
       _addSteelSmelter(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json in json.getBuildings(NodeType.polymer_plant)) {
+      _addPolymerPlant(
         location: json.location.location,
         inventory: Inventory.fromJson(json.inventory),
         connections: [],
@@ -196,6 +216,25 @@ mixin NodeHandler on BaseGameComponent {
         connections: [],
       );
     }
+
+    for (final JsonBuilding json in json.getBuildings(NodeType.oil_refinery)) {
+      _addOilRefinery(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json
+        in json.getBuildings(NodeType.titanium_smelter)) {
+      _addTitaniumSmelter(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
+    // ============================= ASSEMBLERS ============================= \\
 
     for (final JsonBuilding json in json.getBuildings(NodeType.gear_assembly)) {
       _addGearAssembly(
@@ -231,6 +270,8 @@ mixin NodeHandler on BaseGameComponent {
       );
     }
 
+    // ============================= FACTORIES ============================== \\
+
     for (final JsonBuilding json in json.getBuildings(NodeType.drone_factory)) {
       _addDroneFactory(
         location: json.location.location,
@@ -238,6 +279,8 @@ mixin NodeHandler on BaseGameComponent {
         connections: [],
       );
     }
+
+    // =============================== OTHER ================================ \\
 
     for (final JsonBuilding json in json.getBuildings(NodeType.warehouse)) {
       _addWarehouse(
@@ -468,12 +511,34 @@ mixin NodeHandler on BaseGameComponent {
         connections: connections,
       ));
 
+  Node _addStoneSmelter({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(StoneSmelter(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
   Node _addSteelSmelter({
     required Location location,
     required Inventory inventory,
     required List<Connection> connections,
   }) =>
       _addNode(SteelSmelter(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  Node _addPolymerPlant({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(PolymerPlant(
         location: location,
         inventory: inventory,
         connections: connections,
@@ -489,6 +554,30 @@ mixin NodeHandler on BaseGameComponent {
         inventory: inventory,
         connections: connections,
       ));
+
+  Node _addOilRefinery({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(OilRefinery(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  Node _addTitaniumSmelter({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(TitaniumSmelter(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  // ============================== ASSEMBLERS ============================== \\
 
   Node _addGearAssembly({
     required Location location,
@@ -534,6 +623,8 @@ mixin NodeHandler on BaseGameComponent {
         connections: connections,
       ));
 
+  // =============================== FACTORIES ============================== \\
+
   Node _addDroneFactory({
     required Location location,
     required Inventory inventory,
@@ -544,6 +635,8 @@ mixin NodeHandler on BaseGameComponent {
         inventory: inventory,
         connections: connections,
       ));
+
+  // ================================ OTHER ================================= \\
 
   Node _addWarehouse({
     required Location location,
@@ -762,6 +855,7 @@ mixin NodeHandler on BaseGameComponent {
           connections: [],
         );
 
+      // processors
       case NodeType.iron_smelter:
         return _addIronSmelter(
           location: location,
@@ -774,8 +868,20 @@ mixin NodeHandler on BaseGameComponent {
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
+      case NodeType.stone_smelter:
+        return _addStoneSmelter(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
       case NodeType.steel_smelter:
         return _addSteelSmelter(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
+      case NodeType.polymer_plant:
+        return _addPolymerPlant(
           location: location,
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
@@ -786,6 +892,20 @@ mixin NodeHandler on BaseGameComponent {
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
+      case NodeType.oil_refinery:
+        return _addOilRefinery(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
+      case NodeType.titanium_smelter:
+        return _addTitaniumSmelter(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
+
+      // assemblers
       case NodeType.gear_assembly:
         return _addGearAssembly(
           location: location,
@@ -810,12 +930,16 @@ mixin NodeHandler on BaseGameComponent {
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
+
+      // factories
       case NodeType.drone_factory:
         return _addDroneFactory(
           location: location,
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
+
+      // other
       case NodeType.warehouse:
         return _addWarehouse(
           location: location,
