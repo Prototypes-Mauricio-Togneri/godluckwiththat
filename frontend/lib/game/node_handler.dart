@@ -1,5 +1,9 @@
 import 'package:tensionplanet/components/base/node.dart';
 import 'package:tensionplanet/components/base/sprite_group.dart';
+import 'package:tensionplanet/components/game/buildings/assemblers/battery_assembly.dart';
+import 'package:tensionplanet/components/game/buildings/assemblers/chip_assembly.dart';
+import 'package:tensionplanet/components/game/buildings/assemblers/circuit_assembly.dart';
+import 'package:tensionplanet/components/game/buildings/assemblers/explosives_assembly.dart';
 import 'package:tensionplanet/components/game/buildings/assemblers/gear_assembly.dart';
 import 'package:tensionplanet/components/game/buildings/assemblers/motor_assembly.dart';
 import 'package:tensionplanet/components/game/buildings/assemblers/transistor_assembly.dart';
@@ -264,6 +268,41 @@ mixin NodeHandler on BaseGameComponent {
     for (final JsonBuilding json
         in json.getBuildings(NodeType.motor_assembly)) {
       _addMotorAssembly(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json in json.getBuildings(NodeType.chip_assembly)) {
+      _addChipAssembly(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json
+        in json.getBuildings(NodeType.battery_assembly)) {
+      _addBatteryAssembly(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json
+        in json.getBuildings(NodeType.circuit_assembly)) {
+      _addCircuitAssembly(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json
+        in json.getBuildings(NodeType.explosives_assembly)) {
+      _addExplosivesAssembly(
         location: json.location.location,
         inventory: Inventory.fromJson(json.inventory),
         connections: [],
@@ -623,6 +662,50 @@ mixin NodeHandler on BaseGameComponent {
         connections: connections,
       ));
 
+  Node _addChipAssembly({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(ChipAssembly(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  Node _addBatteryAssembly({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(BatteryAssembly(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  Node _addCircuitAssembly({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(CircuitAssembly(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  Node _addExplosivesAssembly({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(ExplosivesAssembly(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
   // =============================== FACTORIES ============================== \\
 
   Node _addDroneFactory({
@@ -926,6 +1009,30 @@ mixin NodeHandler on BaseGameComponent {
         );
       case NodeType.motor_assembly:
         return _addMotorAssembly(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
+      case NodeType.chip_assembly:
+        return _addChipAssembly(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
+      case NodeType.battery_assembly:
+        return _addBatteryAssembly(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
+      case NodeType.circuit_assembly:
+        return _addCircuitAssembly(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
+      case NodeType.explosives_assembly:
+        return _addExplosivesAssembly(
           location: location,
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
