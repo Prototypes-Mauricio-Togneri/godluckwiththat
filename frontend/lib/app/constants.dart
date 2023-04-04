@@ -38,7 +38,22 @@ class Constants {
 			"amount": 1000
 		}],
 		"water": [],
-		"coal": [],
+		"coal": [{
+			"location": [0, 4],
+			"amount": 1000
+		}, {
+			"location": [-1, 5],
+			"amount": 1000
+		}, {
+			"location": [0, 5],
+			"amount": 1000
+		}, {
+			"location": [1, 5],
+			"amount": 1000
+		}, {
+			"location": [0, 6],
+			"amount": 1000
+		}],
 		"oil": [],
 		"titanium": [],
 		"uranium": []
