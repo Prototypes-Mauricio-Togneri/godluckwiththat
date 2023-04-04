@@ -11,6 +11,8 @@ import 'package:tensionplanet/components/game/buildings/extractors/oil_rig.dart'
 import 'package:tensionplanet/components/game/buildings/extractors/stone_mine.dart';
 import 'package:tensionplanet/components/game/buildings/factories/drone_factory.dart';
 import 'package:tensionplanet/components/game/buildings/power_plants/coal_power_plant.dart';
+import 'package:tensionplanet/components/game/buildings/power_plants/nuclear_power_plant.dart';
+import 'package:tensionplanet/components/game/buildings/power_plants/oil_power_plant.dart';
 import 'package:tensionplanet/components/game/buildings/power_plants/solar_panel.dart';
 import 'package:tensionplanet/components/game/buildings/power_plants/wind_turbine.dart';
 import 'package:tensionplanet/components/game/buildings/processors/chemical_plant.dart';
@@ -45,16 +47,18 @@ mixin NodeHandler on BaseGameComponent {
       connections: [],
     );
 
-    for (final JsonBuilding json in json.getBuildings(NodeType.solar_panel)) {
-      _addSolarPanel(
+    // =============================== ENERGY =============================== \\
+
+    for (final JsonBuilding json in json.getBuildings(NodeType.wind_turbine)) {
+      _addWindTurbine(
         location: json.location.location,
         inventory: Inventory.fromJson(json.inventory),
         connections: [],
       );
     }
 
-    for (final JsonBuilding json in json.getBuildings(NodeType.wind_turbine)) {
-      _addWindTurbine(
+    for (final JsonBuilding json in json.getBuildings(NodeType.solar_panel)) {
+      _addSolarPanel(
         location: json.location.location,
         inventory: Inventory.fromJson(json.inventory),
         connections: [],
@@ -69,6 +73,26 @@ mixin NodeHandler on BaseGameComponent {
         connections: [],
       );
     }
+
+    for (final JsonBuilding json
+        in json.getBuildings(NodeType.oil_power_plant)) {
+      _addOilPowerPlant(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
+    for (final JsonBuilding json
+        in json.getBuildings(NodeType.nuclear_power_plant)) {
+      _addNuclearPowerPlant(
+        location: json.location.location,
+        inventory: Inventory.fromJson(json.inventory),
+        connections: [],
+      );
+    }
+
+    // ============================= EXTRACTORS============================== \\
 
     for (final JsonBuilding json in json.getBuildings(NodeType.iron_mine)) {
       _addIronMine(
@@ -244,16 +268,7 @@ mixin NodeHandler on BaseGameComponent {
         resourceType: resourceType,
       ));
 
-  Node _addSolarPanel({
-    required Location location,
-    required Inventory inventory,
-    required List<Connection> connections,
-  }) =>
-      _addNode(SolarPanel(
-        location: location,
-        inventory: inventory,
-        connections: connections,
-      ));
+  // ================================ ENERGY ================================ \\
 
   Node _addWindTurbine({
     required Location location,
@@ -261,6 +276,17 @@ mixin NodeHandler on BaseGameComponent {
     required List<Connection> connections,
   }) =>
       _addNode(WindTurbine(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  Node _addSolarPanel({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(SolarPanel(
         location: location,
         inventory: inventory,
         connections: connections,
@@ -276,6 +302,30 @@ mixin NodeHandler on BaseGameComponent {
         inventory: inventory,
         connections: connections,
       ));
+
+  Node _addOilPowerPlant({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(OilPowerPlant(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  Node _addNuclearPowerPlant({
+    required Location location,
+    required Inventory inventory,
+    required List<Connection> connections,
+  }) =>
+      _addNode(NuclearPowerPlant(
+        location: location,
+        inventory: inventory,
+        connections: connections,
+      ));
+
+  // ============================== EXTRACTORS ============================== \\
 
   Node _addIronMine({
     required Location location,
@@ -566,14 +616,15 @@ mixin NodeHandler on BaseGameComponent {
     required ResourceType? resourceType,
   }) {
     switch (nodeType) {
-      case NodeType.solar_panel:
-        return _addSolarPanel(
+      // energy
+      case NodeType.wind_turbine:
+        return _addWindTurbine(
           location: location,
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
-      case NodeType.wind_turbine:
-        return _addWindTurbine(
+      case NodeType.solar_panel:
+        return _addSolarPanel(
           location: location,
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
@@ -584,6 +635,20 @@ mixin NodeHandler on BaseGameComponent {
           inventory: Inventory.fromNodeType(nodeType),
           connections: [],
         );
+      case NodeType.oil_power_plant:
+        return _addOilPowerPlant(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
+      case NodeType.nuclear_power_plant:
+        return _addNuclearPowerPlant(
+          location: location,
+          inventory: Inventory.fromNodeType(nodeType),
+          connections: [],
+        );
+
+      // extractors
       case NodeType.iron_mine:
         return _addIronMine(
           location: location,

@@ -23,6 +23,12 @@ class Patch {
 
   bool get isStone => patchType == PatchType.stone;
 
+  bool get isWater => patchType == PatchType.stone; // TODO(momo): fix
+
+  bool get isTitanium => patchType == PatchType.stone; // TODO(momo): fix
+
+  bool get isUranium => patchType == PatchType.stone; // TODO(momo): fix
+
   bool isAt(Location location) => this.location == location;
 
   JsonPatch get json => JsonPatch(
