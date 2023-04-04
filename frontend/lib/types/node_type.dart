@@ -85,9 +85,9 @@ enum NodeType {
   // extractors
   iron_mine(
     sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_IRON_MINE,
-    productionTime: 10,
+    productionTime: 1,
     cost: {
-      ResourceType.iron_plate: 2,
+      ResourceType.iron_plate: 5,
     },
     input: {
       ResourceType.energy: 1,
@@ -98,9 +98,9 @@ enum NodeType {
   ),
   copper_mine(
     sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_COPPER_MINE,
-    productionTime: 10,
+    productionTime: 1,
     cost: {
-      ResourceType.iron_plate: 2,
+      ResourceType.iron_plate: 5,
     },
     input: {
       ResourceType.energy: 1,
@@ -111,13 +111,13 @@ enum NodeType {
   ),
   stone_mine(
     sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_STONE_MINE,
-    productionTime: 10,
+    productionTime: 1,
     cost: {
-      ResourceType.iron_plate: 2,
-      ResourceType.copper_plate: 2,
+      ResourceType.iron_plate: 10,
+      ResourceType.copper_plate: 10,
     },
     input: {
-      ResourceType.energy: 3,
+      ResourceType.energy: 1,
     },
     output: {
       ResourceType.stone_ore: 1,
@@ -125,24 +125,24 @@ enum NodeType {
   ),
   water_pump(
     sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_WATER_PUMP,
-    productionTime: 10,
+    productionTime: 1,
     cost: {
-      ResourceType.iron_plate: 2,
-      ResourceType.copper_plate: 2,
+      ResourceType.iron_plate: 15,
+      ResourceType.copper_plate: 15,
     },
     input: {
-      ResourceType.energy: 3,
+      ResourceType.energy: 1,
     },
     output: {
-      ResourceType.stone_ore: 1,
+      ResourceType.water: 1,
     },
   ),
   coal_mine(
     sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_COAL_MINE,
-    productionTime: 10,
+    productionTime: 2,
     cost: {
-      ResourceType.iron_plate: 2,
-      ResourceType.copper_plate: 2,
+      ResourceType.iron_plate: 15,
+      ResourceType.concrete: 15,
     },
     input: {
       ResourceType.energy: 2,
@@ -153,11 +153,10 @@ enum NodeType {
   ),
   oil_rig(
     sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_OIL_RIG,
-    productionTime: 10,
+    productionTime: 2,
     cost: {
-      ResourceType.iron_plate: 10,
-      ResourceType.copper_plate: 10,
       ResourceType.steel: 10,
+      ResourceType.concrete: 10,
     },
     input: {
       ResourceType.energy: 2,
@@ -168,32 +167,30 @@ enum NodeType {
   ),
   titanium_mine(
     sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_TITANIUM_MINE,
-    productionTime: 10,
+    productionTime: 3,
     cost: {
-      ResourceType.iron_plate: 10,
-      ResourceType.copper_plate: 10,
-      ResourceType.steel: 10,
+      ResourceType.steel: 20,
+      ResourceType.concrete: 20,
     },
     input: {
-      ResourceType.energy: 2,
+      ResourceType.energy: 3,
     },
     output: {
-      ResourceType.crude_oil: 1,
+      ResourceType.titanium_ore: 1,
     },
   ),
   uranium_mine(
     sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_URANIUM_MINE,
-    productionTime: 10,
+    productionTime: 3,
     cost: {
-      ResourceType.iron_plate: 10,
-      ResourceType.copper_plate: 10,
-      ResourceType.steel: 10,
+      ResourceType.steel: 30,
+      ResourceType.concrete: 30,
     },
     input: {
-      ResourceType.energy: 2,
+      ResourceType.energy: 3,
     },
     output: {
-      ResourceType.crude_oil: 1,
+      ResourceType.uranium_ore: 1,
     },
   ),
 
