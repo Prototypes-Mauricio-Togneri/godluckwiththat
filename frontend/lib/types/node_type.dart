@@ -28,8 +28,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_SOLAR_PANEL,
     productionTime: 5,
     cost: {
-      ResourceType.steel: 10,
       ResourceType.concrete: 10,
+      ResourceType.steel: 10,
     },
     input: {},
     output: {
@@ -40,8 +40,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_COAL_POWER_PLANT,
     productionTime: 5,
     cost: {
-      ResourceType.steel: 20,
       ResourceType.concrete: 20,
+      ResourceType.steel: 20,
     },
     input: {
       ResourceType.coal_ore: 1,
@@ -55,8 +55,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_OIL_POWER_PLANT,
     productionTime: 10,
     cost: {
-      ResourceType.steel: 30,
       ResourceType.concrete: 30,
+      ResourceType.steel: 30,
     },
     input: {
       ResourceType.crude_oil: 1,
@@ -70,8 +70,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_POWER_PLANTS_NUCLEAR_POWER_PLANT,
     productionTime: 20,
     cost: {
-      ResourceType.steel: 50,
       ResourceType.concrete: 50,
+      ResourceType.steel: 50,
     },
     input: {
       ResourceType.uranium_ore: 1,
@@ -141,8 +141,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_COAL_MINE,
     productionTime: 2,
     cost: {
-      ResourceType.iron_plate: 15,
       ResourceType.concrete: 15,
+      ResourceType.iron_plate: 15,
     },
     input: {
       ResourceType.energy: 2,
@@ -155,8 +155,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_OIL_RIG,
     productionTime: 2,
     cost: {
-      ResourceType.steel: 10,
       ResourceType.concrete: 10,
+      ResourceType.steel: 10,
     },
     input: {
       ResourceType.energy: 2,
@@ -169,8 +169,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_TITANIUM_MINE,
     productionTime: 3,
     cost: {
-      ResourceType.steel: 20,
       ResourceType.concrete: 20,
+      ResourceType.steel: 20,
     },
     input: {
       ResourceType.energy: 3,
@@ -183,8 +183,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_EXTRACTORS_URANIUM_MINE,
     productionTime: 3,
     cost: {
-      ResourceType.steel: 30,
       ResourceType.concrete: 30,
+      ResourceType.steel: 30,
     },
     input: {
       ResourceType.energy: 3,
@@ -243,8 +243,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_STEEL_SMELTER,
     productionTime: 2,
     cost: {
-      ResourceType.iron_plate: 15,
       ResourceType.concrete: 15,
+      ResourceType.iron_plate: 15,
     },
     input: {
       ResourceType.energy: 2,
@@ -259,8 +259,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_POLYMER_PLANT,
     productionTime: 2,
     cost: {
-      ResourceType.steel: 10,
       ResourceType.concrete: 10,
+      ResourceType.steel: 10,
     },
     input: {
       ResourceType.energy: 2,
@@ -275,8 +275,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_CHEMICAL_PLANT,
     productionTime: 2,
     cost: {
-      ResourceType.steel: 15,
       ResourceType.concrete: 15,
+      ResourceType.steel: 15,
     },
     input: {
       ResourceType.energy: 2,
@@ -291,8 +291,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_OIL_REFINERY,
     productionTime: 3,
     cost: {
-      ResourceType.steel: 20,
       ResourceType.concrete: 20,
+      ResourceType.steel: 20,
     },
     input: {
       ResourceType.energy: 3,
@@ -306,8 +306,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_PROCESSORS_TITANIUM_SMELTER,
     productionTime: 3,
     cost: {
-      ResourceType.steel: 30,
       ResourceType.concrete: 30,
+      ResourceType.steel: 30,
     },
     input: {
       ResourceType.energy: 3,
@@ -354,8 +354,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_TRANSISTOR_ASSEMBLY,
     productionTime: 1,
     cost: {
-      ResourceType.iron_plate: 10,
       ResourceType.concrete: 10,
+      ResourceType.iron_plate: 10,
     },
     input: {
       ResourceType.energy: 1,
@@ -370,8 +370,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_MOTOR_ASSEMBLY,
     productionTime: 1,
     cost: {
-      ResourceType.iron_plate: 10,
       ResourceType.concrete: 10,
+      ResourceType.iron_plate: 10,
     },
     input: {
       ResourceType.energy: 1,
@@ -386,8 +386,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_CHIP_ASSEMBLY,
     productionTime: 2,
     cost: {
-      ResourceType.steel: 10,
       ResourceType.concrete: 10,
+      ResourceType.steel: 10,
     },
     input: {
       ResourceType.energy: 2,
@@ -402,8 +402,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_BATTERY_ASSEMBLY,
     productionTime: 2,
     cost: {
-      ResourceType.steel: 15,
       ResourceType.concrete: 15,
+      ResourceType.steel: 15,
     },
     input: {
       ResourceType.energy: 2,
@@ -419,8 +419,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_CIRCUIT_ASSEMBLY,
     productionTime: 3,
     cost: {
-      ResourceType.steel: 20,
       ResourceType.concrete: 20,
+      ResourceType.steel: 20,
     },
     input: {
       ResourceType.energy: 3,
@@ -435,8 +435,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_ASSEMBLERS_EXPLOSIVES_ASSEMBLY,
     productionTime: 3,
     cost: {
-      ResourceType.steel: 30,
       ResourceType.concrete: 30,
+      ResourceType.steel: 30,
     },
     input: {
       ResourceType.energy: 3,
@@ -452,15 +452,16 @@ enum NodeType {
   // factories
   drone_factory(
     sprite: Assets.IMAGES_BUILDINGS_FACTORIES_DRONE_FACTORY,
-    productionTime: 20,
+    productionTime: 1,
     cost: {
       ResourceType.iron_plate: 10,
       ResourceType.copper_plate: 10,
     },
     input: {
       ResourceType.energy: 1,
-      ResourceType.iron_plate: 1,
-      ResourceType.copper_plate: 1,
+      ResourceType.gear: 1,
+      ResourceType.transistor: 1,
+      ResourceType.motor: 1,
     },
     output: {
       ResourceType.drone: 1,
@@ -472,9 +473,8 @@ enum NodeType {
     sprite: Assets.IMAGES_BUILDINGS_OTHER_WAREHOUSE,
     productionTime: 0,
     cost: {
-      ResourceType.iron_plate: 5,
-      ResourceType.copper_plate: 5,
-      //ResourceType.steel: 5,
+      ResourceType.concrete: 10,
+      ResourceType.steel: 10,
     },
     input: {},
     output: {},
