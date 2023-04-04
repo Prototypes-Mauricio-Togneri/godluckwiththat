@@ -19,7 +19,22 @@ class Constants {
 		"zoom": 8
 	},
 	"patches": {
-		"iron": [],
+		"iron": [{
+			"location": [-7, -1],
+			"amount": 1000
+		}, {
+			"location": [-8, 0],
+			"amount": 1000
+		}, {
+			"location": [-7, 0],
+			"amount": 1000
+		}, {
+			"location": [-6, 0],
+			"amount": 1000
+		}, {
+			"location": [-7, 1],
+			"amount": 1000
+		}],
 		"copper": [{
 			"location": [7, -1],
 			"amount": 1000
