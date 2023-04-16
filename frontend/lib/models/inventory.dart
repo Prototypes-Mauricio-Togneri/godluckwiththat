@@ -1,6 +1,5 @@
 import 'package:tensionplanet/extensions/resource_map_extension.dart';
 import 'package:tensionplanet/models/resource.dart';
-import 'package:tensionplanet/types/node_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/json.dart';
 
@@ -91,20 +90,6 @@ class Inventory {
 
     for (final Resource resource in map.resources()) {
       resourceMap[resource.resourceType] = resource.amount;
-    }
-
-    return Inventory._(resourceMap);
-  }
-
-  factory Inventory.fromNodeType(NodeType nodeType) {
-    final ResourceMap resourceMap = {};
-
-    for (final Resource resource in nodeType.input.resources()) {
-      resourceMap[resource.resourceType] = 0;
-    }
-
-    for (final Resource resource in nodeType.output.resources()) {
-      resourceMap[resource.resourceType] = 0;
     }
 
     return Inventory._(resourceMap);

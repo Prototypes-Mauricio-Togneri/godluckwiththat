@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/dialog/base_menu.dart';
 import 'package:tensionplanet/game/game_component.dart';
-import 'package:tensionplanet/json/json_match.dart';
-import 'package:tensionplanet/platform/clipboard_text.dart';
-import 'package:tensionplanet/storage/saved_matches_storage.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
 
@@ -71,20 +68,17 @@ class MainOverlay extends StatelessWidget {
   }*/
 
   void _onSave() {
-    final JsonMatch jsonMatch = game.state.getMatch(game.camera);
+    /*final JsonMatch jsonMatch = game.state.getMatch(game.camera);
     SavedMatchesStorage.save(jsonMatch.toJsonString());
-    ClipboardText().copy(jsonMatch.toJsonString());
+    ClipboardText().copy(jsonMatch.toJsonString());*/
     _closeMenu();
   }
 
-  void _onSettings() => game.openSettingsMenu();
+  void _onSettings() {}
 
   /*void _onInfo() {
     game.openMenu(name: InfoMenu.NAME);
   }*/
 
-  void _closeMenu() => game.closeMenu(
-        name: MainOverlay.NAME,
-        resumeGame: true,
-      );
+  void _closeMenu() {}
 }

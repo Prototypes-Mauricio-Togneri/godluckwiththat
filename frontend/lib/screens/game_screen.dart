@@ -5,14 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/json/json_match.dart';
-import 'package:tensionplanet/overlay/choose_resource_overlay.dart';
-import 'package:tensionplanet/overlay/construct_overlay.dart';
-import 'package:tensionplanet/overlay/info_overlay.dart';
 import 'package:tensionplanet/overlay/main_overlay.dart';
-import 'package:tensionplanet/overlay/settings_overlay.dart';
 import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/widgets/bottom_menu.dart';
-import 'package:tensionplanet/widgets/side_menu.dart';
+import 'package:tensionplanet/widgets/overlay_menus.dart';
 
 class GameScreen extends StatelessWidget {
   final GameState state;
@@ -30,7 +25,7 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        game.openMainMenu();
+        // TODO(momo): open main menu
         return false;
       },
       child: CustomStatusBar(
@@ -43,23 +38,14 @@ class GameScreen extends StatelessWidget {
                 GameWidget(
                   game: game,
                   overlayBuilderMap: const {
-                    ConstructOverlay.NAME: ConstructOverlay.builder,
-                    ChooseResourceOverlay.NAME: ChooseResourceOverlay.builder,
                     MainOverlay.NAME: MainOverlay.builder,
-                    SettingsOverlay.NAME: SettingsOverlay.builder,
-                    InfoOverlay.NAME: InfoOverlay.builder,
                   },
                 ),
                 StateProvider<GameState>(
                   state: state,
-                  builder: (context, state) => SideMenu(game, state),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: StateProvider<GameState>(
+                  builder: (context, state) => OverlayMenus(
+                    game: game,
                     state: state,
-                    builder: (context, state) =>
-                        game.isLoaded ? BottomMenu(game, state) : const Empty(),
                   ),
                 ),
               ],

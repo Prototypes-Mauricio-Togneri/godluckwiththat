@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tensionplanet/dialog/resource_info_dialog.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/image_asset.dart';
@@ -36,12 +35,7 @@ class ResourceIcon extends StatelessWidget {
         color: Palette.black,
       ),
       child: GestureDetector(
-        onTap: (resourceType == ResourceType.time)
-            ? null
-            : () => ResourceInfoDialog.show(
-                  context: context,
-                  resourceType: resourceType,
-                ),
+        onTap: () {},
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [

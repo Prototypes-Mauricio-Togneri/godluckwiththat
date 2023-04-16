@@ -1,87 +1,92 @@
 import 'dart:async';
+import 'package:flame/components.dart';
+import 'package:flame/events.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
-import 'package:tensionplanet/components/base/building_indicator.dart';
-import 'package:tensionplanet/components/base/node.dart';
-import 'package:tensionplanet/extensions/component_extension.dart';
-import 'package:tensionplanet/game/base_game_component.dart';
-import 'package:tensionplanet/game/menu_handler.dart';
-import 'package:tensionplanet/game/node_handler.dart';
-import 'package:tensionplanet/models/location.dart';
-import 'package:tensionplanet/models/map_tile.dart';
-import 'package:tensionplanet/models/patch.dart';
-import 'package:tensionplanet/overlay/construct_overlay.dart';
-import 'package:tensionplanet/types/node_type.dart';
-import 'package:tensionplanet/types/resource_type.dart';
+import 'package:flutter/widgets.dart';
+import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
+import 'package:tensionplanet/game/game_state.dart';
+import 'package:tensionplanet/json/json_match.dart';
+import 'package:tensionplanet/utils/palette.dart';
+import 'package:tensionplanet/utils/style.dart';
 
-class GameComponent extends BaseGameComponent with MenuHandler, NodeHandler {
-  GameComponent(super.state);
+class GameComponent extends FlameGame
+    with HasTappables, KeyboardEvents, MouseMovementDetector {
+  final GameState state;
+  final Component _layerSprites = Component(priority: 0);
+  final Component _layerDebug = Component(priority: 3)
+    ..positionType = PositionType.viewport;
+  bool clickHandled = false;
+
+  GameComponent(this.state);
 
   @override
   Future onLoad() async {
     await addBaseComponents(state.jsonMatch);
 
-    loadNodes(state.jsonMatch);
-
     return super.onLoad();
-  }
-
-  @override
-  void onKeyPressed(LogicalKeyboardKey key) {
-    if (key == LogicalKeyboardKey.escape) {
-      if (isCancellable) {
-        onCancelOperation();
-      } else {
-        openMainMenu();
-      }
-    } else if (key == LogicalKeyboardKey.space) {
-      openBuildMenu();
-    }
   }
 
   @override
   void update(double dt) {
     super.update(dt);
 
-    final int constructions = state.constructions.length;
+    print(dt);
+  }
 
-    if (constructions > 0) {
-      constructionsCounter.text = 'Constructions: $constructions'.toUpperCase();
-    } else {
-      constructionsCounter.text = '';
-    }
+  Future addBaseComponents(JsonMatch jsonMatch) async {
+    camera.viewport = FixedResolutionViewport(size);
+    //camera.setRelativeOffset(Anchor.center);
+
+    _layerDebug.add(FpsTextComponent(
+      position: Vector2(
+        size.x - 20,
+        size.y - 20,
+      ),
+      anchor: Anchor.centerRight,
+      textRenderer: Style.textRenderer(size: 20),
+    ));
+
+    add(_layerSprites);
+    add(_layerDebug);
+
+    state.setLoaded();
   }
 
   @override
-  void onMapClicked(Location location) {
-    closeMenu(name: ConstructOverlay.NAME);
+  Color backgroundColor() => Palette.black;
 
-    if (hasNodeSelected) {
-      removeMenuComponents();
-      disableMode();
+  void addComponent(Component component) {
+    _layerSprites.add(component);
+  }
+
+  void removeComponent(Component component) {
+    _layerSprites.remove(component);
+  }
+
+  @override
+  void onTapUp(int pointerId, TapUpInfo info) {
+    super.onTapUp(pointerId, info);
+
+    if (!clickHandled) {
+      // TODO(momo): handle
     }
 
-    if (isBuildingMode) {
-      final BuildingIndicator buildingIndicator =
-          layerNodes.getComponent(BuildingIndicator);
-      final Node? node = layerNodes.getNode(location);
-      final MapTile tile = getTile(location);
-      final NodeType nodeType = buildingIndicator.nodeType;
-      final ResourceType? resourceType = buildingIndicator.resourceType;
-      final Patch? patch = state.patches.patchAt(location);
+    clickHandled = false;
+  }
 
-      if (node == null) {
-        final bool built = buildConstructionNode(
-          nodeType: nodeType,
-          resourceType: resourceType,
-          location: location,
-          tile: tile,
-          patch: patch,
-        );
+  @override
+  KeyEventResult onKeyEvent(
+    RawKeyEvent event,
+    Set<LogicalKeyboardKey> keysPressed,
+  ) {
+    final bool isKeyDown = event is RawKeyDownEvent;
 
-        if (built && !isControlPressed) {
-          onCancelOperation();
-        }
-      }
+    if (keysPressed.isEscape && isKeyDown) {
+      // TODO(momo): open main menu
+      return KeyEventResult.handled;
+    } else {
+      return KeyEventResult.ignored;
     }
   }
 }
