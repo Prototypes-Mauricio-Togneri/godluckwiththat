@@ -1,12 +1,12 @@
 import 'package:tensionplanet/utils/assets.dart';
 
 enum ResourceType {
-  food(sprite: Assets.IMAGES_RESOURCES_RESOURCES_IRON_ORE),
-  wood(sprite: Assets.IMAGES_RESOURCES_RESOURCES_COPPER_ORE),
-  stone(sprite: Assets.IMAGES_RESOURCES_RESOURCES_STONE_ORE),
-  copper(sprite: Assets.IMAGES_RESOURCES_RESOURCES_WATER),
-  iron(sprite: Assets.IMAGES_RESOURCES_RESOURCES_COAL_ORE),
-  gold(sprite: Assets.IMAGES_RESOURCES_RESOURCES_URANIUM_ORE);
+  food(sprite: Assets.IMAGES_RESOURCES_FOOD),
+  wood(sprite: Assets.IMAGES_RESOURCES_WOOD),
+  stone(sprite: Assets.IMAGES_RESOURCES_STONE),
+  copper(sprite: Assets.IMAGES_RESOURCES_COPPER),
+  iron(sprite: Assets.IMAGES_RESOURCES_IRON),
+  gold(sprite: Assets.IMAGES_RESOURCES_GOLD);
 
   final String sprite;
 

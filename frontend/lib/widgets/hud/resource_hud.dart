@@ -19,6 +19,7 @@ class ResourceHud extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
+      alignment: Alignment.topCenter,
       child: Row(
         children: [
           ResourceIndicator(state.inventory.resource(ResourceType.food)),
@@ -44,6 +45,7 @@ class ResourceIndicator extends StatelessWidget {
       color: Palette.lightGrey,
       padding: const EdgeInsets.all(5),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           ImageAsset(
             path: resource.resourceType.sprite,

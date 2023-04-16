@@ -10,12 +10,12 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       version: json['version'] as int,
       id: json['id'] as String,
       totalTimeElapsed: json['totalTimeElapsed'] as num,
-      map: JsonMap.fromJson(json['map'] as Map<String, dynamic>),
+      level: json['level'] as int,
     );
 
 Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'version': instance.version,
       'id': instance.id,
       'totalTimeElapsed': instance.totalTimeElapsed,
-      'map': instance.map,
+      'level': instance.level,
     };

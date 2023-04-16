@@ -19,8 +19,7 @@ class Building extends SpriteComponent
 
   @override
   Future onLoad() async {
-    sprite =
-        await getSprite(Assets.IMAGES_BUILDINGS_ASSEMBLERS_BATTERY_ASSEMBLY);
+    sprite = await getSprite(Assets.IMAGES_BUILDINGS_HEADQUARTERS);
     size = getSize();
     anchor = Anchor.center;
     position = location.position;

@@ -52,19 +52,5 @@ flutter:
   assets:
     - assets/audio/sfx/
     - assets/images/
-    - assets/images/buildings/assemblers/
-    - assets/images/buildings/extractors/
-    - assets/images/buildings/factories/
-    - assets/images/buildings/other/
-    - assets/images/buildings/power_plants/
-    - assets/images/buildings/processors/
-    - assets/images/patches/
-    - assets/images/resources/ammunition/
-    - assets/images/resources/components/
-    - assets/images/resources/energy/
-    - assets/images/resources/machines/
-    - assets/images/resources/materials/
-    - assets/images/resources/resources/
-    - assets/images/resources/time/
-    - assets/images/signs/
-    - assets/tiles/
+    - assets/images/buildings/
+    - assets/images/resources/
