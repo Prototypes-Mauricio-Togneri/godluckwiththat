@@ -3,26 +3,22 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/game/game_component.dart';
-import 'package:tensionplanet/models/inventory.dart';
-import 'package:tensionplanet/models/location.dart';
-import 'package:tensionplanet/utils/assets.dart';
+import 'package:tensionplanet/types/building_type.dart';
 
 class Building extends SpriteComponent
     with HasGameRef<GameComponent>, Tappable {
-  final Location location;
-  final Inventory inventory;
+  final BuildingType buildingType;
 
   Building({
-    required this.location,
-    required this.inventory,
+    required this.buildingType,
+    required super.position,
   });
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(Assets.IMAGES_BUILDINGS_HEADQUARTERS);
+    sprite = await getSprite(buildingType.sprite);
     size = getSize();
     anchor = Anchor.center;
-    position = location.position;
 
     return super.onLoad();
   }

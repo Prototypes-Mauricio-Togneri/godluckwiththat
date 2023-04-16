@@ -1,12 +1,16 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tensionplanet/app/constants.dart';
+import 'package:tensionplanet/components/buildings/building.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/json/json_match.dart';
+import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/utils/style.dart';
 
@@ -17,12 +21,19 @@ class GameComponent extends FlameGame
   final Component _layerDebug = Component(priority: 3)
     ..positionType = PositionType.viewport;
   bool clickHandled = false;
+  late final Vector2 viewPortSize;
 
   GameComponent(this.state);
 
   @override
   Future onLoad() async {
     await addBaseComponents(state.jsonMatch);
+
+    final Building headquarters = Building(
+      buildingType: BuildingType.headquarters,
+      position: Vector2(viewPortSize.x / 2, viewPortSize.y / 2),
+    );
+    addComponent(headquarters);
 
     return super.onLoad();
   }
@@ -35,8 +46,11 @@ class GameComponent extends FlameGame
   }
 
   Future addBaseComponents(JsonMatch jsonMatch) async {
-    camera.viewport = FixedResolutionViewport(size);
-    //camera.setRelativeOffset(Anchor.center);
+    viewPortSize = Vector2(
+      (size.x / size.y) * Constants.VIEWPORT_SIZE,
+      Constants.VIEWPORT_SIZE,
+    );
+    camera.viewport = FixedResolutionViewport(viewPortSize);
 
     _layerDebug.add(FpsTextComponent(
       position: Vector2(

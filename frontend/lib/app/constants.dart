@@ -1,11 +1,7 @@
 class Constants {
   static const String FONT_NAME = 'CustomFont';
 
-  static const double MAP_MOVEMENT = 20;
-
-  static const double BASE_IMAGE_SIZE = 64;
-
-  static const double NODE_SIZE = 8;
+  static double VIEWPORT_SIZE = 500;
 
   static String EMPTY_MATCH = '''
 {

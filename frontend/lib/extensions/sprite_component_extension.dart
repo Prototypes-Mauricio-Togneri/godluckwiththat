@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
-import 'package:tensionplanet/app/constants.dart';
 
 extension ComponentExtension on SpriteComponent {
   Future<Sprite> getSprite(String path) async {
@@ -10,12 +9,8 @@ extension ComponentExtension on SpriteComponent {
     return Sprite(image);
   }
 
-  Vector2 getSize() {
-    final double width =
-        Constants.NODE_SIZE * (sprite!.image.width / Constants.BASE_IMAGE_SIZE);
-    final double height = Constants.NODE_SIZE *
-        (sprite!.image.height / Constants.BASE_IMAGE_SIZE);
-
-    return Vector2(width, height);
-  }
+  Vector2 getSize() => Vector2(
+        sprite!.image.width.toDouble(),
+        sprite!.image.height.toDouble(),
+      );
 }
