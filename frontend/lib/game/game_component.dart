@@ -49,8 +49,7 @@ class GameComponent extends FlameGame
   @override
   void update(double dt) {
     super.update(dt);
-
-    print(dt);
+    state.update(dt);
   }
 
   Future addBaseComponents(JsonMatch jsonMatch) async {
@@ -111,4 +110,10 @@ class GameComponent extends FlameGame
       return KeyEventResult.ignored;
     }
   }
+
+  void onOpenMainMenu() {}
+
+  void onOpenResearchMenu() {}
+
+  void onOpenMilitaryMenu() {}
 }
