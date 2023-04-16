@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/screens/splash_screen.dart';
-import 'package:tensionplanet/screens/web_initial_screen.dart';
 import 'package:tensionplanet/utils/localizations.dart';
 import 'package:tensionplanet/utils/navigation.dart';
 import 'package:tensionplanet/utils/palette.dart';
@@ -36,5 +35,5 @@ class TensionPlanet extends StatelessWidget {
   }
 
   Widget _home() =>
-      Platform.isWeb ? WebInitialScreen.instance() : SplashScreen.instance();
+      Platform.isWeb ? SplashScreen.instance() : SplashScreen.instance();
 }

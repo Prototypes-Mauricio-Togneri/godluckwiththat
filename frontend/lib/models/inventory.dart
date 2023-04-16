@@ -27,6 +27,9 @@ class Inventory {
 
   int get(ResourceType resourceType) => _resources.get(resourceType);
 
+  Resource resource(ResourceType resourceType) =>
+      Resource(resourceType, get(resourceType));
+
   void addResource(Resource resource) {
     final int current = get(resource.resourceType);
     _resources[resource.resourceType] = current + resource.amount;
