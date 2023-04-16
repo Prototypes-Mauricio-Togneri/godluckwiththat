@@ -10,4 +10,5 @@ class Assets {
   static const String IMAGES_RESOURCES_STONE = 'resources/stone.png';
   static const String IMAGES_RESOURCES_WOOD = 'resources/wood.png';
   static const String IMAGES_RESOURCES_COPPER = 'resources/copper.png';
+  static const String IMAGES_BACKGROUNDS_VILLAGE = 'backgrounds/village.jpg';
 }

@@ -6,11 +6,13 @@ import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionplanet/app/constants.dart';
+import 'package:tensionplanet/components/backgrounds/village_background.dart';
 import 'package:tensionplanet/components/buildings/building.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/json/json_match.dart';
 import 'package:tensionplanet/types/building_type.dart';
+import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/utils/style.dart';
 
@@ -28,6 +30,12 @@ class GameComponent extends FlameGame
   @override
   Future onLoad() async {
     await addBaseComponents(state.jsonMatch);
+
+    final VillageBackground villageBackground = VillageBackground(
+      image: Assets.IMAGES_BACKGROUNDS_VILLAGE,
+      size: viewPortSize,
+    );
+    addComponent(villageBackground);
 
     final Building headquarters = Building(
       buildingType: BuildingType.headquarters,

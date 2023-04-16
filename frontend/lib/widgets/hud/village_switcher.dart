@@ -7,7 +7,7 @@ import 'package:tensionplanet/widgets/label.dart';
 class VillageSwitcher extends StatelessWidget {
   final GameComponent game;
   final GameState state;
-  
+
   const VillageSwitcher({
     required this.game,
     required this.state,
