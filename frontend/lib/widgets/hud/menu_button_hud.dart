@@ -21,6 +21,10 @@ class MenuButtonHud extends StatelessWidget {
         children: [
           MenuButton(
             onTap: game.onOpenMainMenu,
+            icon: Icons.menu,
+          ),
+          MenuButton(
+            onTap: game.onOpenConstructionMenu,
             icon: Icons.construction,
           ),
           MenuButton(

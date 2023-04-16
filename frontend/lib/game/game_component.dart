@@ -113,6 +113,8 @@ class GameComponent extends FlameGame
 
   void onOpenMainMenu() {}
 
+  void onOpenConstructionMenu() {}
+
   void onOpenResearchMenu() {}
 
   void onOpenMilitaryMenu() {}
