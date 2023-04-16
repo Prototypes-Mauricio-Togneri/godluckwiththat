@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/game/game_state.dart';
@@ -21,6 +22,7 @@ class ResourceHud extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           ResourceIndicator(state.inventory.resource(ResourceType.food)),
           ResourceIndicator(state.inventory.resource(ResourceType.wood)),
@@ -43,15 +45,25 @@ class ResourceIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Palette.lightGrey,
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.only(
+        top: 5,
+        bottom: 5,
+        left: 15,
+        right: 15,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ImageAsset(
             path: resource.resourceType.sprite,
             size: 32,
           ),
-          Label(text: '${resource.amount}'),
+          const VBox(3),
+          Label(
+            text: '${resource.amount}',
+            size: 12,
+          ),
         ],
       ),
     );
