@@ -35,6 +35,10 @@ class MenuButtonHud extends StatelessWidget {
             onTap: game.onOpenMilitaryMenu,
             icon: Icons.shield,
           ),
+          MenuButton(
+            onTap: game.onOpenMap,
+            icon: Icons.public,
+          ),
         ],
       ),
     );
