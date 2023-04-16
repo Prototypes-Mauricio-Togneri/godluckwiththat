@@ -39,6 +39,18 @@ class MenuButtonHud extends StatelessWidget {
             onTap: game.onOpenMap,
             icon: Icons.public,
           ),
+          MenuButton(
+            onTap: game.onOpenReportsMenu,
+            icon: Icons.history_edu_rounded,
+          ),
+          MenuButton(
+            onTap: game.onOpenVillagesOverviewMenu,
+            icon: Icons.list_alt,
+          ),
+          MenuButton(
+            onTap: game.onOpenExpeditionsMenu,
+            icon: Icons.route,
+          ),
         ],
       ),
     );
