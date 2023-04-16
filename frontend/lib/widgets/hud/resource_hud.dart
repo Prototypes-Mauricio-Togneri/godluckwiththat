@@ -24,12 +24,20 @@ class ResourceHud extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ResourceIndicator(state.inventory.resource(ResourceType.food)),
-          ResourceIndicator(state.inventory.resource(ResourceType.wood)),
-          ResourceIndicator(state.inventory.resource(ResourceType.stone)),
-          ResourceIndicator(state.inventory.resource(ResourceType.copper)),
-          ResourceIndicator(state.inventory.resource(ResourceType.iron)),
-          ResourceIndicator(state.inventory.resource(ResourceType.gold)),
+          if (state.inventory.get(ResourceType.food) > 0)
+            ResourceIndicator(state.inventory.resource(ResourceType.food)),
+          if (state.inventory.get(ResourceType.wood) > 0)
+            ResourceIndicator(state.inventory.resource(ResourceType.wood)),
+          if (state.inventory.get(ResourceType.stone) > 0)
+            ResourceIndicator(state.inventory.resource(ResourceType.stone)),
+          if (state.inventory.get(ResourceType.copper) > 0)
+            ResourceIndicator(state.inventory.resource(ResourceType.copper)),
+          if (state.inventory.get(ResourceType.iron) > 0)
+            ResourceIndicator(state.inventory.resource(ResourceType.iron)),
+          if (state.inventory.get(ResourceType.gold) > 0)
+            ResourceIndicator(state.inventory.resource(ResourceType.gold)),
+          if (state.inventory.get(ResourceType.villager) > 0)
+            ResourceIndicator(state.inventory.resource(ResourceType.villager)),
         ],
       ),
     );

@@ -16,12 +16,13 @@ class GameState extends BaseState {
   GameState(this.jsonMatch) {
     _totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
-    inventory.addResource(const Resource(ResourceType.food, 600));
-    inventory.addResource(const Resource(ResourceType.wood, 500));
-    inventory.addResource(const Resource(ResourceType.stone, 400));
-    inventory.addResource(const Resource(ResourceType.copper, 300));
-    inventory.addResource(const Resource(ResourceType.iron, 200));
-    inventory.addResource(const Resource(ResourceType.gold, 100));
+    inventory.addResource(const Resource(ResourceType.food, 300));
+    inventory.addResource(const Resource(ResourceType.wood, 100));
+    inventory.addResource(const Resource(ResourceType.stone, 0));
+    inventory.addResource(const Resource(ResourceType.copper, 0));
+    inventory.addResource(const Resource(ResourceType.iron, 0));
+    inventory.addResource(const Resource(ResourceType.gold, 0));
+    inventory.addResource(const Resource(ResourceType.villager, 10));
   }
 
   void setLoaded() {

@@ -79,7 +79,7 @@ class MenuButton extends StatelessWidget {
             child: Icon(
               icon,
               color: Palette.white,
-              size: 30,
+              size: 40,
             ),
           ),
         ),
