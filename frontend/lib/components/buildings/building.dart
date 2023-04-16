@@ -32,6 +32,8 @@ class Building extends SpriteComponent
 
   @override
   bool onTapUp(TapUpInfo info) {
+    gameRef.clickHandled = true;
+
     return true;
   }
 }
