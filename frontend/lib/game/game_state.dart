@@ -3,6 +3,7 @@ import 'package:tensionplanet/json/json_match.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/research.dart';
 import 'package:tensionplanet/models/resource.dart';
+import 'package:tensionplanet/models/village.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
 class GameState extends BaseState {
@@ -12,6 +13,7 @@ class GameState extends BaseState {
   final Inventory inventory = Inventory.empty();
   final Research research = Research();
   final JsonMatch jsonMatch;
+  final List<Village> villages = [];
 
   GameState(this.jsonMatch) {
     _totalTimeElapsed = jsonMatch.totalTimeElapsed;
@@ -33,5 +35,9 @@ class GameState extends BaseState {
   void update(double dt) {
     _totalTimeElapsed += dt;
     print(_totalTimeElapsed);
+    
+    for (final Village village in villages) {
+      village.update(dt);
+    }
   }
 }

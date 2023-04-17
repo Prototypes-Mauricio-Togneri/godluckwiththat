@@ -38,21 +38,21 @@ enum BuildingType {
     initialCost: {
       ResourceType.wood: 5,
     },
-    position: Offset(0.5, 0.5),
+    position: Offset(0.5, 0.25),
   ),
   woodcutter(
     sprite: Assets.IMAGES_BUILDINGS_WOODCUTTER,
     initialCost: {
       ResourceType.wood: 5,
     },
-    position: Offset(0.5, 0.5),
+    position: Offset(0.25, 0.5),
   ),
   quarry(
     sprite: Assets.IMAGES_BUILDINGS_QUARRY,
     initialCost: {
       ResourceType.wood: 5,
     },
-    position: Offset(0.5, 0.5),
+    position: Offset(0.75, 0.5),
   ),
 
   copper_mine(

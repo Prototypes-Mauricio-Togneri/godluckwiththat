@@ -11,6 +11,7 @@ import 'package:tensionplanet/components/buildings/building.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/json/json_match.dart';
+import 'package:tensionplanet/models/village.dart';
 import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
@@ -41,6 +42,31 @@ class GameComponent extends FlameGame
       buildingType: BuildingType.headquarters,
     );
     addComponent(headquarters);
+
+    final Building farm = Building(
+      buildingType: BuildingType.farm,
+    );
+    addComponent(farm);
+
+    final Building woodcutter = Building(
+      buildingType: BuildingType.woodcutter,
+    );
+    addComponent(woodcutter);
+
+    final Building quarry = Building(
+      buildingType: BuildingType.quarry,
+    );
+    addComponent(quarry);
+
+    state.villages.add(Village(
+      name: 'Home village',
+      buildings: [
+        headquarters,
+        farm,
+        woodcutter,
+        quarry,
+      ],
+    ));
 
     return super.onLoad();
   }
