@@ -89,7 +89,7 @@ enum BuildingType {
     position: Offset(0.75, 0.25),
   ),
   archery(
-    sprite: Assets.IMAGES_BUILDINGS_BARRACKS,
+    sprite: Assets.IMAGES_BUILDINGS_ARCHERY,
     initialCost: {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
