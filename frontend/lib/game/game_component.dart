@@ -7,15 +7,20 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/components/backgrounds/village_background.dart';
+import 'package:tensionplanet/components/buildings/archery.dart';
+import 'package:tensionplanet/components/buildings/barracks.dart';
 import 'package:tensionplanet/components/buildings/building.dart';
+import 'package:tensionplanet/components/buildings/cavalry.dart';
 import 'package:tensionplanet/components/buildings/copper_mine.dart';
 import 'package:tensionplanet/components/buildings/farm.dart';
+import 'package:tensionplanet/components/buildings/fortress.dart';
 import 'package:tensionplanet/components/buildings/headquarters.dart';
 import 'package:tensionplanet/components/buildings/house.dart';
 import 'package:tensionplanet/components/buildings/market.dart';
 import 'package:tensionplanet/components/buildings/quarry.dart';
 import 'package:tensionplanet/components/buildings/warehouse.dart';
 import 'package:tensionplanet/components/buildings/woodcutter.dart';
+import 'package:tensionplanet/components/buildings/workshop.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/json/json_match.dart';
@@ -57,6 +62,9 @@ class GameComponent extends FlameGame
     final Building market = Market(level: 1);
     addComponent(market);
 
+    final Building fortress = Fortress(level: 1);
+    addComponent(fortress);
+
     final Building farm = Farm(
       level: 1,
       productionTime: 3,
@@ -81,6 +89,18 @@ class GameComponent extends FlameGame
     );
     addComponent(copperMine);
 
+    final Building barracks = Barracks(level: 1);
+    addComponent(barracks);
+
+    final Building archery = Archery(level: 1);
+    addComponent(archery);
+
+    final Building cavalry = Cavalry(level: 1);
+    addComponent(cavalry);
+
+    final Building workshop = Workshop(level: 1);
+    addComponent(workshop);
+
     state.villages.add(Village(
       name: 'Home village',
       buildings: [
@@ -88,10 +108,15 @@ class GameComponent extends FlameGame
         house,
         warehouse,
         market,
+        fortress,
         farm,
         woodcutter,
         quarry,
         copperMine,
+        barracks,
+        archery,
+        cavalry,
+        workshop,
       ],
     ));
 

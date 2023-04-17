@@ -86,7 +86,7 @@ enum BuildingType {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
     },
-    position: Offset(0.75, 0.32),
+    position: Offset(0.75, 0.25),
   ),
   archery(
     sprite: Assets.IMAGES_BUILDINGS_BARRACKS,
@@ -94,7 +94,7 @@ enum BuildingType {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
     },
-    position: Offset(0.25, 0.66),
+    position: Offset(0.25, 0.75),
   ),
   cavalry(
     sprite: Assets.IMAGES_BUILDINGS_CAVALRY,
@@ -102,7 +102,7 @@ enum BuildingType {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
     },
-    position: Offset(0.75, 0.66),
+    position: Offset(0.75, 0.75),
   ),
   workshop(
     sprite: Assets.IMAGES_BUILDINGS_WORKSHOP,
@@ -110,7 +110,7 @@ enum BuildingType {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
     },
-    position: Offset(0.25, 0.32),
+    position: Offset(0.25, 0.25),
   ),
   fortress(
     sprite: Assets.IMAGES_BUILDINGS_FORTRESS,
