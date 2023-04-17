@@ -5,5 +5,6 @@ class Barracks extends Building {
   Barracks({required super.level})
       : super(
           buildingType: BuildingType.barracks,
+          offset: BuildingType.barracks.position,
         );
 }

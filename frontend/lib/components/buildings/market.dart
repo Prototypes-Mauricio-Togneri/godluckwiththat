@@ -5,5 +5,6 @@ class Market extends Building {
   Market({required super.level})
       : super(
           buildingType: BuildingType.market,
+          offset: BuildingType.market.position,
         );
 }

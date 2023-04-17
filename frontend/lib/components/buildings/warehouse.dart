@@ -5,5 +5,6 @@ class Warehouse extends Building {
   Warehouse({required super.level})
       : super(
           buildingType: BuildingType.warehouse,
+          offset: BuildingType.warehouse.position,
         );
 }

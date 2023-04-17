@@ -5,5 +5,6 @@ class Fortress extends Building {
   Fortress({required super.level})
       : super(
           buildingType: BuildingType.fortress,
+          offset: BuildingType.fortress.position,
         );
 }

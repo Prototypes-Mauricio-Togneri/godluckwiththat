@@ -38,21 +38,21 @@ enum BuildingType {
     initialCost: {
       ResourceType.wood: 5,
     },
-    position: Offset(0.5, 0.16),
+    position: Offset(0, 0),
   ),
   woodcutter(
     sprite: Assets.IMAGES_BUILDINGS_WOODCUTTER,
     initialCost: {
       ResourceType.wood: 5,
     },
-    position: Offset(0.82, 0.5),
+    position: Offset(0, 0),
   ),
   quarry(
     sprite: Assets.IMAGES_BUILDINGS_QUARRY,
     initialCost: {
       ResourceType.wood: 5,
     },
-    position: Offset(0.16, 0.5),
+    position: Offset(0, 0),
   ),
 
   copper_mine(
@@ -61,7 +61,7 @@ enum BuildingType {
       ResourceType.wood: 5,
       ResourceType.stone: 5,
     },
-    position: Offset(0.5, 0.85),
+    position: Offset(0, 0),
   ),
   iron_mine(
     sprite: Assets.IMAGES_BUILDINGS_IRON_MINE,
@@ -69,7 +69,7 @@ enum BuildingType {
       ResourceType.wood: 10,
       ResourceType.stone: 10,
     },
-    position: Offset(0.5, 0.85),
+    position: Offset(0, 0),
   ),
   gold_mine(
     sprite: Assets.IMAGES_BUILDINGS_GOLD_MINE,
@@ -77,7 +77,7 @@ enum BuildingType {
       ResourceType.wood: 15,
       ResourceType.stone: 15,
     },
-    position: Offset(0.5, 0.85),
+    position: Offset(0, 0),
   ),
 
   barracks(

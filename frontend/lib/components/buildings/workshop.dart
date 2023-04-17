@@ -5,5 +5,6 @@ class Workshop extends Building {
   Workshop({required super.level})
       : super(
           buildingType: BuildingType.workshop,
+          offset: BuildingType.workshop.position,
         );
 }

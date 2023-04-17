@@ -25,6 +25,7 @@ import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/json/json_match.dart';
 import 'package:tensionplanet/models/village.dart';
+import 'package:tensionplanet/types/producer_location.dart';
 import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/utils/style.dart';
@@ -68,24 +69,28 @@ class GameComponent extends FlameGame
     final Building farm = Farm(
       level: 1,
       productionTime: 3,
+      location: ProducerLocation.north,
     );
     addComponent(farm);
 
     final Building woodcutter = Woodcutter(
       level: 1,
       productionTime: 5,
+      location: ProducerLocation.east,
     );
     addComponent(woodcutter);
 
     final Building quarry = Quarry(
       level: 1,
       productionTime: 10,
+      location: ProducerLocation.west,
     );
     addComponent(quarry);
 
     final Building copperMine = CopperMine(
       level: 1,
       productionTime: 15,
+      location: ProducerLocation.south,
     );
     addComponent(copperMine);
 

@@ -6,6 +6,7 @@ class GoldMine extends Producer {
   GoldMine({
     required super.level,
     required super.productionTime,
+    required super.location,
   }) : super(
           buildingType: BuildingType.gold_mine,
           resourceType: ResourceType.gold,

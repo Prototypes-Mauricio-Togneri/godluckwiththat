@@ -5,5 +5,6 @@ class Cavalry extends Building {
   Cavalry({required super.level})
       : super(
           buildingType: BuildingType.cavalry,
+          offset: BuildingType.cavalry.position,
         );
 }

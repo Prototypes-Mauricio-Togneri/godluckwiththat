@@ -5,5 +5,6 @@ class Archery extends Building {
   Archery({required super.level})
       : super(
           buildingType: BuildingType.archery,
+          offset: BuildingType.archery.position,
         );
 }

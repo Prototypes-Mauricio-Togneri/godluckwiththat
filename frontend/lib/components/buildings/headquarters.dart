@@ -5,5 +5,6 @@ class Headquarters extends Building {
   Headquarters({required super.level})
       : super(
           buildingType: BuildingType.headquarters,
+          offset: BuildingType.headquarters.position,
         );
 }

@@ -5,5 +5,6 @@ class House extends Building {
   House({required super.level})
       : super(
           buildingType: BuildingType.house,
+          offset: BuildingType.house.position,
         );
 }
