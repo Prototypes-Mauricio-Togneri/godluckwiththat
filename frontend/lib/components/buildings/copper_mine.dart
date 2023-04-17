@@ -3,10 +3,11 @@ import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
 class CopperMine extends Producer {
-  CopperMine()
-      : super(
+  CopperMine({
+    required super.level,
+    required super.productionTime,
+  }) : super(
           buildingType: BuildingType.copper_mine,
           resourceType: ResourceType.copper,
-          productionTime: 15,
         );
 }

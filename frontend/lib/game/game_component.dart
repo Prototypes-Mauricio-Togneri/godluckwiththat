@@ -10,13 +10,13 @@ import 'package:tensionplanet/components/backgrounds/village_background.dart';
 import 'package:tensionplanet/components/buildings/building.dart';
 import 'package:tensionplanet/components/buildings/copper_mine.dart';
 import 'package:tensionplanet/components/buildings/farm.dart';
+import 'package:tensionplanet/components/buildings/headquarters.dart';
 import 'package:tensionplanet/components/buildings/quarry.dart';
 import 'package:tensionplanet/components/buildings/woodcutter.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/json/json_match.dart';
 import 'package:tensionplanet/models/village.dart';
-import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/utils/style.dart';
@@ -42,21 +42,31 @@ class GameComponent extends FlameGame
     );
     addComponent(villageBackground);
 
-    final Building headquarters = Building(
-      buildingType: BuildingType.headquarters,
-    );
+    final Building headquarters = Headquarters(level: 1);
     addComponent(headquarters);
 
-    final Building farm = Farm();
+    final Building farm = Farm(
+      level: 1,
+      productionTime: 3,
+    );
     addComponent(farm);
 
-    final Building woodcutter = Woodcutter();
+    final Building woodcutter = Woodcutter(
+      level: 1,
+      productionTime: 5,
+    );
     addComponent(woodcutter);
 
-    final Building quarry = Quarry();
+    final Building quarry = Quarry(
+      level: 1,
+      productionTime: 10,
+    );
     addComponent(quarry);
 
-    final Building copperMine = CopperMine();
+    final Building copperMine = CopperMine(
+      level: 1,
+      productionTime: 15,
+    );
     addComponent(copperMine);
 
     state.villages.add(Village(

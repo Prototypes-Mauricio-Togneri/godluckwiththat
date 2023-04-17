@@ -3,10 +3,11 @@ import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
 class Woodcutter extends Producer {
-  Woodcutter()
-      : super(
+  Woodcutter({
+    required super.level,
+    required super.productionTime,
+  }) : super(
           buildingType: BuildingType.woodcutter,
           resourceType: ResourceType.wood,
-          productionTime: 5,
         );
 }

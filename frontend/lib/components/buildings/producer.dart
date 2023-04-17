@@ -11,6 +11,7 @@ class Producer extends Building {
     required BuildingType buildingType,
     required this.resourceType,
     required this.productionTime,
+    required super.level,
   }) : super(buildingType: buildingType);
 
   @override

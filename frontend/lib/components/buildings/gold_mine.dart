@@ -3,10 +3,11 @@ import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
 class GoldMine extends Producer {
-  GoldMine()
-      : super(
+  GoldMine({
+    required super.level,
+    required super.productionTime,
+  }) : super(
           buildingType: BuildingType.gold_mine,
           resourceType: ResourceType.gold,
-          productionTime: 15,
         );
 }

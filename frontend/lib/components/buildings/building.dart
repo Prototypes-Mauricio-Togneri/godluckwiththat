@@ -8,9 +8,11 @@ import 'package:tensionplanet/types/building_type.dart';
 class Building extends SpriteComponent
     with HasGameRef<GameComponent>, Tappable {
   final BuildingType buildingType;
+  int level;
 
   Building({
     required this.buildingType,
+    required this.level,
   });
 
   @override
@@ -24,13 +26,6 @@ class Building extends SpriteComponent
     anchor = Anchor.center;
 
     return super.onLoad();
-  }
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-
-    print(dt);
   }
 
   @override
