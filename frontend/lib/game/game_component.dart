@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/components/backgrounds/village_background.dart';
 import 'package:tensionplanet/components/buildings/building.dart';
+import 'package:tensionplanet/components/buildings/copper_mine.dart';
 import 'package:tensionplanet/components/buildings/farm.dart';
 import 'package:tensionplanet/components/buildings/quarry.dart';
 import 'package:tensionplanet/components/buildings/woodcutter.dart';
@@ -55,6 +56,9 @@ class GameComponent extends FlameGame
     final Building quarry = Quarry();
     addComponent(quarry);
 
+    final Building copperMine = CopperMine();
+    addComponent(copperMine);
+
     state.villages.add(Village(
       name: 'Home village',
       buildings: [
@@ -62,6 +66,7 @@ class GameComponent extends FlameGame
         farm,
         woodcutter,
         quarry,
+        copperMine,
       ],
     ));
 
