@@ -61,7 +61,7 @@ enum BuildingType {
       ResourceType.wood: 5,
       ResourceType.stone: 5,
     },
-    position: Offset(0.5, 0.82),
+    position: Offset(0.5, 0.85),
   ),
   iron_mine(
     sprite: Assets.IMAGES_BUILDINGS_IRON_MINE,
@@ -69,7 +69,7 @@ enum BuildingType {
       ResourceType.wood: 10,
       ResourceType.stone: 10,
     },
-    position: Offset(0.5, 0.82),
+    position: Offset(0.5, 0.85),
   ),
   gold_mine(
     sprite: Assets.IMAGES_BUILDINGS_GOLD_MINE,
@@ -77,7 +77,7 @@ enum BuildingType {
       ResourceType.wood: 15,
       ResourceType.stone: 15,
     },
-    position: Offset(0.5, 0.82),
+    position: Offset(0.5, 0.85),
   ),
 
   barracks(
