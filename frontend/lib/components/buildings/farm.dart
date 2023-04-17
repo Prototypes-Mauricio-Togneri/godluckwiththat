@@ -6,8 +6,7 @@ class Farm extends Producer {
   Farm({
     required super.level,
     required super.productionTime,
-  })
-      : super(
+  }) : super(
           buildingType: BuildingType.farm,
           resourceType: ResourceType.food,
         );

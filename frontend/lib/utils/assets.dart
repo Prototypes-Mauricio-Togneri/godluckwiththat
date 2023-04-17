@@ -7,13 +7,16 @@ class Assets {
   static const String IMAGES_BUILDINGS_HEADQUARTERS =
       'buildings/headquarters.png';
   static const String IMAGES_BUILDINGS_HOUSE = 'buildings/house.png';
-  static const String IMAGES_BUILDINGS_TOWER = 'buildings/tower.png';
+  static const String IMAGES_BUILDINGS_CAVALRY = 'buildings/cavalry.png';
   static const String IMAGES_BUILDINGS_MARKET = 'buildings/market.png';
   static const String IMAGES_BUILDINGS_QUARRY = 'buildings/quarry.png';
   static const String IMAGES_BUILDINGS_WAREHOUSE = 'buildings/warehouse.png';
+  static const String IMAGES_BUILDINGS_ARCHERY = 'buildings/archery.png';
   static const String IMAGES_BUILDINGS_WOODCUTTER = 'buildings/woodcutter.png';
   static const String IMAGES_BUILDINGS_IRON_MINE = 'buildings/iron_mine.png';
   static const String IMAGES_BUILDINGS_GOLD_MINE = 'buildings/gold_mine.png';
+  static const String IMAGES_BUILDINGS_WORKSHOP = 'buildings/workshop.png';
+  static const String IMAGES_BUILDINGS_BARRACKS = 'buildings/barracks.png';
   static const String IMAGES_BUILDINGS_FARM = 'buildings/farm.png';
   static const String IMAGES_RESOURCES_FOOD = 'resources/food.png';
   static const String IMAGES_RESOURCES_GOLD = 'resources/gold.png';
