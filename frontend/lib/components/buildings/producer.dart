@@ -4,12 +4,13 @@ import 'package:tensionplanet/types/resource_type.dart';
 
 class Producer extends Building {
   final ResourceType resourceType;
+  double productionTime;
   double accumulatedTime = 0;
-  double productionTime = 3;
 
   Producer({
     required BuildingType buildingType,
     required this.resourceType,
+    required this.productionTime,
   }) : super(buildingType: buildingType);
 
   @override

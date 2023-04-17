@@ -9,6 +9,8 @@ import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/components/backgrounds/village_background.dart';
 import 'package:tensionplanet/components/buildings/building.dart';
 import 'package:tensionplanet/components/buildings/farm.dart';
+import 'package:tensionplanet/components/buildings/quarry.dart';
+import 'package:tensionplanet/components/buildings/woodcutter.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/json/json_match.dart';
@@ -47,14 +49,10 @@ class GameComponent extends FlameGame
     final Building farm = Farm();
     addComponent(farm);
 
-    final Building woodcutter = Building(
-      buildingType: BuildingType.woodcutter,
-    );
+    final Building woodcutter = Woodcutter();
     addComponent(woodcutter);
 
-    final Building quarry = Building(
-      buildingType: BuildingType.quarry,
-    );
+    final Building quarry = Quarry();
     addComponent(quarry);
 
     state.villages.add(Village(

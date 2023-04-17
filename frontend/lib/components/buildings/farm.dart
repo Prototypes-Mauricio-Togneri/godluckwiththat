@@ -7,5 +7,6 @@ class Farm extends Producer {
       : super(
           buildingType: BuildingType.farm,
           resourceType: ResourceType.food,
+          productionTime: 3,
         );
 }
