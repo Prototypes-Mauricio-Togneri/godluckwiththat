@@ -39,7 +39,6 @@ class GameComponent extends FlameGame
 
     final Building headquarters = Building(
       buildingType: BuildingType.headquarters,
-      position: Vector2(viewPortSize.x / 2, viewPortSize.y / 2),
     );
     addComponent(headquarters);
 

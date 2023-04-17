@@ -11,13 +11,16 @@ class Building extends SpriteComponent
 
   Building({
     required this.buildingType,
-    required super.position,
   });
 
   @override
   Future onLoad() async {
     sprite = await getSprite(buildingType.sprite);
     size = getSize();
+    position = Vector2(
+      gameRef.size.x * buildingType.position.dx,
+      gameRef.size.y * buildingType.position.dy,
+    );
     anchor = Anchor.center;
 
     return super.onLoad();
