@@ -11,7 +11,10 @@ import 'package:tensionplanet/components/buildings/building.dart';
 import 'package:tensionplanet/components/buildings/copper_mine.dart';
 import 'package:tensionplanet/components/buildings/farm.dart';
 import 'package:tensionplanet/components/buildings/headquarters.dart';
+import 'package:tensionplanet/components/buildings/house.dart';
+import 'package:tensionplanet/components/buildings/market.dart';
 import 'package:tensionplanet/components/buildings/quarry.dart';
+import 'package:tensionplanet/components/buildings/warehouse.dart';
 import 'package:tensionplanet/components/buildings/woodcutter.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
@@ -45,6 +48,15 @@ class GameComponent extends FlameGame
     final Building headquarters = Headquarters(level: 1);
     addComponent(headquarters);
 
+    final Building house = House(level: 1);
+    addComponent(house);
+
+    final Building warehouse = Warehouse(level: 1);
+    addComponent(warehouse);
+
+    final Building market = Market(level: 1);
+    addComponent(market);
+
     final Building farm = Farm(
       level: 1,
       productionTime: 3,
@@ -73,6 +85,9 @@ class GameComponent extends FlameGame
       name: 'Home village',
       buildings: [
         headquarters,
+        house,
+        warehouse,
+        market,
         farm,
         woodcutter,
         quarry,
