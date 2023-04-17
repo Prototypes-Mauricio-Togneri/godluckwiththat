@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/components/backgrounds/village_background.dart';
 import 'package:tensionplanet/components/buildings/building.dart';
+import 'package:tensionplanet/components/buildings/farm.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/json/json_match.dart';
@@ -20,8 +21,8 @@ import 'package:tensionplanet/utils/style.dart';
 class GameComponent extends FlameGame
     with HasTappables, KeyboardEvents, MouseMovementDetector {
   final GameState state;
-  final Component _layerSprites = Component(priority: 0);
-  final Component _layerDebug = Component(priority: 3)
+  final Component layerSprites = Component(priority: 0);
+  final Component layerDebug = Component(priority: 3)
     ..positionType = PositionType.viewport;
   bool clickHandled = false;
   late final Vector2 viewPortSize;
@@ -43,9 +44,7 @@ class GameComponent extends FlameGame
     );
     addComponent(headquarters);
 
-    final Building farm = Building(
-      buildingType: BuildingType.farm,
-    );
+    final Building farm = Farm();
     addComponent(farm);
 
     final Building woodcutter = Building(
@@ -84,7 +83,7 @@ class GameComponent extends FlameGame
     );
     camera.viewport = FixedResolutionViewport(viewPortSize);
 
-    _layerDebug.add(FpsTextComponent(
+    layerDebug.add(FpsTextComponent(
       position: Vector2(
         size.x - 20,
         size.y - 20,
@@ -93,8 +92,8 @@ class GameComponent extends FlameGame
       textRenderer: Style.textRenderer(size: 20),
     ));
 
-    add(_layerSprites);
-    add(_layerDebug);
+    add(layerSprites);
+    add(layerDebug);
 
     state.setLoaded();
   }
@@ -103,11 +102,11 @@ class GameComponent extends FlameGame
   Color backgroundColor() => Palette.black;
 
   void addComponent(Component component) {
-    _layerSprites.add(component);
+    layerSprites.add(component);
   }
 
   void removeComponent(Component component) {
-    _layerSprites.remove(component);
+    layerSprites.remove(component);
   }
 
   @override

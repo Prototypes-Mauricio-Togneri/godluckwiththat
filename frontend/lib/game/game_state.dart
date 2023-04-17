@@ -7,7 +7,7 @@ import 'package:tensionplanet/models/village.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
 class GameState extends BaseState {
-  num _totalTimeElapsed = 0;
+  num totalTimeElapsed = 0;
   bool loaded = false;
 
   final Inventory inventory = Inventory.empty();
@@ -16,7 +16,7 @@ class GameState extends BaseState {
   final List<Village> villages = [];
 
   GameState(this.jsonMatch) {
-    _totalTimeElapsed = jsonMatch.totalTimeElapsed;
+    totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
     inventory.addResource(const Resource(ResourceType.food, 300));
     inventory.addResource(const Resource(ResourceType.wood, 100));
@@ -32,10 +32,15 @@ class GameState extends BaseState {
     //notify();
   }
 
+  void addResource(ResourceType resourceType) {
+    inventory.addResource(Resource(resourceType, 1));
+    notify();
+  }
+
   void update(double dt) {
-    _totalTimeElapsed += dt;
-    print(_totalTimeElapsed);
-    
+    totalTimeElapsed += dt;
+    print(totalTimeElapsed);
+
     for (final Village village in villages) {
       village.update(dt);
     }
