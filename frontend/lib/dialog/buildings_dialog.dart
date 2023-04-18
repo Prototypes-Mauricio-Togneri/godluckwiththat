@@ -8,7 +8,9 @@ import 'package:tensionplanet/widgets/menu_button.dart';
 class BuildingsDialog extends StatelessWidget {
   const BuildingsDialog._();
 
-  static DialogController show(BuildContext context) {
+  static DialogController show() {
+    final BuildContext context = Navigation.context;
+
     showDialog(
       context: context,
       barrierDismissible: false,
