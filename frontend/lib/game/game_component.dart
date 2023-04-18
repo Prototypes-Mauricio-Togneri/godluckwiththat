@@ -7,25 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/components/backgrounds/village_background.dart';
-import 'package:tensionplanet/components/buildings/archery.dart';
-import 'package:tensionplanet/components/buildings/barracks.dart';
 import 'package:tensionplanet/components/buildings/building.dart';
-import 'package:tensionplanet/components/buildings/cavalry.dart';
-import 'package:tensionplanet/components/buildings/copper_mine.dart';
-import 'package:tensionplanet/components/buildings/farm.dart';
-import 'package:tensionplanet/components/buildings/fortress.dart';
 import 'package:tensionplanet/components/buildings/headquarters.dart';
-import 'package:tensionplanet/components/buildings/house.dart';
-import 'package:tensionplanet/components/buildings/market.dart';
-import 'package:tensionplanet/components/buildings/quarry.dart';
-import 'package:tensionplanet/components/buildings/warehouse.dart';
-import 'package:tensionplanet/components/buildings/woodcutter.dart';
-import 'package:tensionplanet/components/buildings/workshop.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/json/json_match.dart';
 import 'package:tensionplanet/models/village.dart';
-import 'package:tensionplanet/types/producer_location.dart';
 import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/utils/style.dart';
@@ -54,7 +41,7 @@ class GameComponent extends FlameGame
     final Building headquarters = Headquarters(level: 1);
     addComponent(headquarters);
 
-    final Building house = House(level: 1);
+    /*final Building house = House(level: 1);
     addComponent(house);
 
     final Building warehouse = Warehouse(level: 1);
@@ -104,26 +91,16 @@ class GameComponent extends FlameGame
     addComponent(cavalry);
 
     final Building workshop = Workshop(level: 1);
-    addComponent(workshop);
+    addComponent(workshop);*/
 
-    state.villages.add(Village(
-      name: 'Home village',
-      buildings: [
-        headquarters,
-        house,
-        warehouse,
-        market,
-        fortress,
-        farm,
-        woodcutter,
-        quarry,
-        copperMine,
-        barracks,
-        archery,
-        cavalry,
-        workshop,
-      ],
-    ));
+    state.addVillages([
+      Village(
+        name: 'Home village',
+        buildings: [
+          headquarters,
+        ],
+      )
+    ]);
 
     return super.onLoad();
   }

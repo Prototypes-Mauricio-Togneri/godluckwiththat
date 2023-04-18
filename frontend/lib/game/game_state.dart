@@ -14,6 +14,7 @@ class GameState extends BaseState {
   final Research research = Research();
   final JsonMatch jsonMatch;
   final List<Village> villages = [];
+  late Village currentVillage;
 
   GameState(this.jsonMatch) {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
@@ -25,6 +26,11 @@ class GameState extends BaseState {
     inventory.addResource(const Resource(ResourceType.iron, 0));
     inventory.addResource(const Resource(ResourceType.gold, 0));
     inventory.addResource(const Resource(ResourceType.villager, 10));
+  }
+
+  void addVillages(List<Village> villages) {
+    villages.addAll(villages);
+    currentVillage = villages[0];
   }
 
   void setLoaded() {
