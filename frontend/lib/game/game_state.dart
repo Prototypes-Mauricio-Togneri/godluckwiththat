@@ -28,9 +28,9 @@ class GameState extends BaseState {
     inventory.addResource(const Resource(ResourceType.villager, 10));
   }
 
-  void addVillages(List<Village> villages) {
-    villages.addAll(villages);
-    currentVillage = villages[0];
+  void addVillages(List<Village> list) {
+    villages.addAll(list);
+    currentVillage = list[0];
   }
 
   void setLoaded() {

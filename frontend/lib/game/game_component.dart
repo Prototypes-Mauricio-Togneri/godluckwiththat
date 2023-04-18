@@ -9,6 +9,7 @@ import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/components/backgrounds/village_background.dart';
 import 'package:tensionplanet/components/buildings/building.dart';
 import 'package:tensionplanet/components/buildings/headquarters.dart';
+import 'package:tensionplanet/extensions/component_extension.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/json/json_match.dart';
@@ -32,7 +33,7 @@ class GameComponent extends FlameGame
   Future onLoad() async {
     await addBaseComponents(state.jsonMatch);
 
-    final VillageBackground villageBackground = VillageBackground(
+    /*final VillageBackground villageBackground = VillageBackground(
       image: Assets.IMAGES_BACKGROUNDS_VILLAGE,
       size: viewPortSize,
     );
@@ -41,7 +42,7 @@ class GameComponent extends FlameGame
     final Building headquarters = Headquarters(level: 1);
     addComponent(headquarters);
 
-    /*final Building house = House(level: 1);
+    final Building house = House(level: 1);
     addComponent(house);
 
     final Building warehouse = Warehouse(level: 1);
@@ -97,12 +98,28 @@ class GameComponent extends FlameGame
       Village(
         name: 'Home village',
         buildings: [
-          headquarters,
+          Headquarters(level: 1),
         ],
       )
     ]);
 
+    loadVillage(state.currentVillage);
+
     return super.onLoad();
+  }
+
+  void loadVillage(Village village) {
+    layerSprites.removeAllComponents();
+
+    final VillageBackground villageBackground = VillageBackground(
+      image: Assets.IMAGES_BACKGROUNDS_VILLAGE,
+      size: viewPortSize,
+    );
+    addComponent(villageBackground);
+
+    for (final Building building in village.buildings) {
+      addComponent(building);
+    }
   }
 
   @override
