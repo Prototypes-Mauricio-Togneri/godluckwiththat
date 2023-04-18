@@ -13,6 +13,7 @@ class Producer extends Building {
     required ProducerLocation location,
     required this.resourceType,
     required this.productionTime,
+    required super.village,
     required super.level,
   }) : super(
           buildingType: buildingType,
@@ -27,7 +28,7 @@ class Producer extends Building {
 
     if (accumulatedTime > productionTime) {
       accumulatedTime -= productionTime;
-      gameRef.state.addResource(resourceType);
+      village.addResource(resourceType);
     }
   }
 }

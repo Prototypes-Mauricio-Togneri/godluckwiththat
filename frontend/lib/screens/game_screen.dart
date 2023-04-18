@@ -43,10 +43,12 @@ class GameScreen extends StatelessWidget {
                 ),
                 StateProvider<GameState>(
                   state: state,
-                  builder: (context, state) => OverlayMenus(
-                    game: game,
-                    state: state,
-                  ),
+                  builder: (context, state) => state.loaded
+                      ? OverlayMenus(
+                          game: game,
+                          state: state,
+                        )
+                      : const Empty(),
                 ),
               ],
             ),

@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/game/game_state.dart';
+import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/palette.dart';
@@ -19,25 +20,27 @@ class ResourceHud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Inventory inventory = state.currentVillage.inventory;
+
     return Align(
       alignment: Alignment.topCenter,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (state.inventory.get(ResourceType.food) > 0)
-            ResourceIndicator(state.inventory.resource(ResourceType.food)),
-          if (state.inventory.get(ResourceType.wood) > 0)
-            ResourceIndicator(state.inventory.resource(ResourceType.wood)),
-          if (state.inventory.get(ResourceType.stone) > 0)
-            ResourceIndicator(state.inventory.resource(ResourceType.stone)),
-          if (state.inventory.get(ResourceType.copper) > 0)
-            ResourceIndicator(state.inventory.resource(ResourceType.copper)),
-          if (state.inventory.get(ResourceType.iron) > 0)
-            ResourceIndicator(state.inventory.resource(ResourceType.iron)),
-          if (state.inventory.get(ResourceType.gold) > 0)
-            ResourceIndicator(state.inventory.resource(ResourceType.gold)),
-          if (state.inventory.get(ResourceType.villager) > 0)
-            ResourceIndicator(state.inventory.resource(ResourceType.villager)),
+          if (inventory.get(ResourceType.food) > 0)
+            ResourceIndicator(inventory.resource(ResourceType.food)),
+          if (inventory.get(ResourceType.wood) > 0)
+            ResourceIndicator(inventory.resource(ResourceType.wood)),
+          if (inventory.get(ResourceType.stone) > 0)
+            ResourceIndicator(inventory.resource(ResourceType.stone)),
+          if (inventory.get(ResourceType.copper) > 0)
+            ResourceIndicator(inventory.resource(ResourceType.copper)),
+          if (inventory.get(ResourceType.iron) > 0)
+            ResourceIndicator(inventory.resource(ResourceType.iron)),
+          if (inventory.get(ResourceType.gold) > 0)
+            ResourceIndicator(inventory.resource(ResourceType.gold)),
+          if (inventory.get(ResourceType.villager) > 0)
+            ResourceIndicator(inventory.resource(ResourceType.villager)),
         ],
       ),
     );

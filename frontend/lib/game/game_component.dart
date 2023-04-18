@@ -13,7 +13,10 @@ import 'package:tensionplanet/extensions/component_extension.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/json/json_match.dart';
+import 'package:tensionplanet/models/inventory.dart';
+import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/models/village.dart';
+import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/utils/style.dart';
@@ -94,16 +97,32 @@ class GameComponent extends FlameGame
     final Building workshop = Workshop(level: 1);
     addComponent(workshop);*/
 
-    state.addVillages([
-      Village(
-        name: 'Home village',
-        buildings: [
-          Headquarters(level: 1),
-        ],
-      )
+    final Inventory inventory = Inventory.empty();
+    inventory.addResource(const Resource(ResourceType.food, 300));
+    inventory.addResource(const Resource(ResourceType.wood, 100));
+    inventory.addResource(const Resource(ResourceType.stone, 0));
+    inventory.addResource(const Resource(ResourceType.copper, 0));
+    inventory.addResource(const Resource(ResourceType.iron, 0));
+    inventory.addResource(const Resource(ResourceType.gold, 0));
+    inventory.addResource(const Resource(ResourceType.villager, 10));
+
+    final Village village = Village(
+      name: 'Home village',
+      inventory: inventory,
+      buildings: [],
+    );
+    village.addBuildings([
+      Headquarters(
+        village: village,
+        level: 1,
+      ),
     ]);
 
+    state.addVillages([village]);
+
     loadVillage(state.currentVillage);
+
+    state.setLoaded();
 
     return super.onLoad();
   }
@@ -146,8 +165,6 @@ class GameComponent extends FlameGame
 
     add(layerSprites);
     add(layerDebug);
-
-    state.setLoaded();
   }
 
   @override
