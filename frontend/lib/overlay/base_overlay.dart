@@ -3,10 +3,10 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionplanet/utils/palette.dart';
 
-class BaseMenu extends StatelessWidget {
+class BaseOverlay extends StatelessWidget {
   final Widget child;
 
-  const BaseMenu({
+  const BaseOverlay({
     required this.child,
   });
 

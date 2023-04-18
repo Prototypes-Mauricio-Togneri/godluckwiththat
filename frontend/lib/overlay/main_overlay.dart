@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tensionplanet/dialog/base_menu.dart';
 import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/overlay/base_overlay.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/menu_button.dart';
 
@@ -16,7 +16,7 @@ class MainOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseMenu(
+    return BaseOverlay(
       child: IntrinsicWidth(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
