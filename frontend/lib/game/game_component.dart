@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/components/backgrounds/village_background.dart';
 import 'package:tensionplanet/components/buildings/building.dart';
+import 'package:tensionplanet/components/buildings/farm.dart';
 import 'package:tensionplanet/components/buildings/headquarters.dart';
 import 'package:tensionplanet/extensions/component_extension.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
@@ -16,6 +17,7 @@ import 'package:tensionplanet/json/json_match.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/models/village.dart';
+import 'package:tensionplanet/types/producer_location.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
@@ -115,6 +117,12 @@ class GameComponent extends FlameGame
       Headquarters(
         village: village,
         level: 1,
+      ),
+      Farm(
+        village: village,
+        level: 1,
+        productionTime: 3,
+        location: ProducerLocation.east,
       ),
     ]);
 

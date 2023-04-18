@@ -5,6 +5,7 @@ import 'package:tensionplanet/models/village.dart';
 
 class GameState extends BaseState {
   num totalTimeElapsed = 0;
+  num refreshTimeout = 0;
   bool loaded = false;
 
   final Research research = Research();
@@ -26,14 +27,18 @@ class GameState extends BaseState {
     notify();
   }
 
-  void refresh() => notify();
-
   void update(double dt) {
     totalTimeElapsed += dt;
+    refreshTimeout += dt;
     print(totalTimeElapsed);
 
     for (final Village village in villages) {
       village.update(dt);
+    }
+
+    if (refreshTimeout > 1) {
+      refreshTimeout--;
+      notify();
     }
   }
 }
