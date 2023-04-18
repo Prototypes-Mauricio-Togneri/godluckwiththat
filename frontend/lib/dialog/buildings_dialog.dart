@@ -4,7 +4,6 @@ import 'package:tensionplanet/dialog/window_dialog.dart';
 import 'package:tensionplanet/utils/navigation.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
-import 'package:tensionplanet/widgets/menu_button.dart';
 
 class BuildingsDialog extends StatelessWidget {
   const BuildingsDialog._();
@@ -31,17 +30,13 @@ class BuildingsDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: const [
+            VBox(20),
             Label(
               text: 'This is the content',
               color: Palette.white,
               align: TextAlign.center,
             ),
             VBox(20),
-            MenuButton(
-              text: 'Close',
-              color: Palette.lightGrey,
-              onPressed: Navigation.pop,
-            ),
           ],
         ),
       ),
