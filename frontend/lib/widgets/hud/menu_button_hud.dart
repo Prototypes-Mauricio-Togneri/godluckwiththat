@@ -73,7 +73,7 @@ class MenuButton extends StatelessWidget {
       child: Material(
         color: Palette.transparent,
         child: InkWell(
-          onTap: () {},
+          onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Icon(

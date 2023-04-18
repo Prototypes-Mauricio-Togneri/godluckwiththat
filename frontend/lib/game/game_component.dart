@@ -9,6 +9,7 @@ import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/components/backgrounds/village_background.dart';
 import 'package:tensionplanet/components/buildings/building.dart';
 import 'package:tensionplanet/components/buildings/headquarters.dart';
+import 'package:tensionplanet/dialog/buildings_dialog.dart';
 import 'package:tensionplanet/extensions/component_extension.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
@@ -18,6 +19,7 @@ import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/models/village.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/assets.dart';
+import 'package:tensionplanet/utils/navigation.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/utils/style.dart';
 
@@ -207,7 +209,7 @@ class GameComponent extends FlameGame
 
   void onOpenMainMenu() {}
 
-  void onOpenConstructionMenu() {}
+  void onOpenConstructionMenu() => BuildingsDialog.show(Navigation.context);
 
   void onOpenResearchMenu() {}
 

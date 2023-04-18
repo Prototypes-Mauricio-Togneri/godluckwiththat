@@ -30,7 +30,10 @@ class GameState extends BaseState {
   void update(double dt) {
     totalTimeElapsed += dt;
     refreshTimeout += dt;
-    print(totalTimeElapsed);
+
+    if (totalTimeElapsed == 0) {
+      print(totalTimeElapsed);
+    }
 
     if (refreshTimeout > 1) {
       refreshTimeout--;
