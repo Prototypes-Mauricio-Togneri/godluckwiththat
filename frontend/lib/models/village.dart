@@ -7,11 +7,13 @@ class Village {
   final String name;
   final Inventory inventory;
   final List<Building> buildings;
+  int freeVillagers;
 
   Village({
     required this.name,
     required this.inventory,
     required this.buildings,
+    required this.freeVillagers,
   });
 
   void addBuildings(List<Building> list) {

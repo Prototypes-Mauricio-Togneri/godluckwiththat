@@ -110,6 +110,7 @@ class GameComponent extends FlameGame
       name: 'Home village',
       inventory: inventory,
       buildings: [],
+      freeVillagers: 10,
     );
     village.addBuildings([
       Headquarters(
