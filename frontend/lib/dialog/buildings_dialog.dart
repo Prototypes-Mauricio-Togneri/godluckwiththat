@@ -13,7 +13,7 @@ class BuildingsDialog extends StatelessWidget {
 
     showDialog(
       context: context,
-      barrierDismissible: false,
+      barrierDismissible: true,
       barrierColor: Palette.transparent,
       builder: (context) => const BuildingsDialog._(),
     );
@@ -24,25 +24,23 @@ class BuildingsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      contentPadding: const EdgeInsets.fromLTRB(25, 20, 25, 25),
+      contentPadding: EdgeInsets.zero,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.zero,
+      ),
       backgroundColor: Palette.grey,
       content: SizedBox(
-        width: 350,
+        width: 400,
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(5),
-              color: Palette.lightGrey,
-              child: const Label(
-                text: 'TEST',
-                color: Palette.white,
-                align: TextAlign.center,
-              ),
+          children: const [
+            Label(
+              text: 'TEST',
+              color: Palette.white,
+              align: TextAlign.center,
             ),
-            const VBox(20),
-            const MenuButton(
+            VBox(20),
+            MenuButton(
               text: 'Close',
               color: Palette.lightGrey,
               onPressed: Navigation.pop,

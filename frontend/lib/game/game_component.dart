@@ -19,7 +19,6 @@ import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/models/village.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 import 'package:tensionplanet/utils/assets.dart';
-import 'package:tensionplanet/utils/navigation.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/utils/style.dart';
 
