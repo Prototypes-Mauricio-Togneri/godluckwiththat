@@ -32,10 +32,6 @@ class GameState extends BaseState {
     refreshTimeout += dt;
     print(totalTimeElapsed);
 
-    for (final Village village in villages) {
-      village.update(dt);
-    }
-
     if (refreshTimeout > 1) {
       refreshTimeout--;
       notify();
