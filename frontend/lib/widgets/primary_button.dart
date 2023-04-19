@@ -28,30 +28,31 @@ class PrimaryButton extends StatelessWidget {
         child: InkWell(
           onTap: onPressed,
           child: Padding(
-              padding: const EdgeInsets.only(
-                bottom: 1,
-                left: 10,
-                right: 10,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  if (icon != null)
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: Icon(
-                        icon,
-                        color: Palette.white,
-                        size: size * 1.5,
-                      ),
+            padding: const EdgeInsets.only(
+              bottom: 1,
+              left: 10,
+              right: 10,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (icon != null)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Icon(
+                      icon,
+                      color: Palette.white,
+                      size: size * 1.5,
                     ),
-                  Label(
-                    text: text.toUpperCase(),
-                    size: size,
                   ),
-                ],
-              )),
+                Label(
+                  text: text.toUpperCase(),
+                  size: size,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

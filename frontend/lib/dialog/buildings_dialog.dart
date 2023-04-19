@@ -13,17 +13,21 @@ import 'package:tensionplanet/widgets/primary_button.dart';
 
 class BuildingsDialog extends StatelessWidget {
   final Village village;
+  final Function(BuildingType) onSelect;
 
-  const BuildingsDialog._(this.village);
+  const BuildingsDialog._(this.village, this.onSelect);
 
-  static DialogController show(Village village) {
+  static DialogController show({
+    required Village village,
+    required Function(BuildingType) onSelect,
+  }) {
     final BuildContext context = Navigation.context;
 
     showDialog(
       context: context,
       barrierDismissible: true,
       barrierColor: Palette.transparent,
-      builder: (context) => BuildingsDialog._(village),
+      builder: (context) => BuildingsDialog._(village, onSelect),
     );
 
     return DialogController(context);
