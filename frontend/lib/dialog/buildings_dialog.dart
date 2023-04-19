@@ -8,6 +8,7 @@ import 'package:tensionplanet/utils/navigation.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/image_asset.dart';
 import 'package:tensionplanet/widgets/label.dart';
+import 'package:tensionplanet/widgets/primary_button.dart';
 
 class BuildingsDialog extends StatelessWidget {
   final Village village;
@@ -142,28 +143,28 @@ class BuildingEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 150,
-      height: 150,
+      height: 180,
       color: Palette.grey,
-      child: Material(
-        color: Palette.transparent,
-        child: InkWell(
-          onTap: () {},
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                Label(
-                  text: buildingType.toString(),
-                  size: 10,
-                ),
-                const VBox(10),
-                ImageAsset(
-                  path: buildingType.sprite,
-                  size: 60,
-                ),
-              ],
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Label(
+              text: buildingType.toString(),
+              size: 10,
             ),
-          ),
+            const VBox(10),
+            ImageAsset(
+              path: buildingType.sprite,
+              size: 60,
+            ),
+            const VBox(10),
+            PrimaryButton(
+              text: 'Build',
+              color: Palette.success,
+              onPressed: () {},
+            ),
+          ],
         ),
       ),
     );

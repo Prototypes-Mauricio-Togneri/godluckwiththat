@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/overlay/base_overlay.dart';
 import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/widgets/menu_button.dart';
+import 'package:tensionplanet/widgets/primary_button.dart';
 
 class MainOverlay extends StatelessWidget {
   final GameComponent game;
@@ -22,7 +22,7 @@ class MainOverlay extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            MenuButton(
+            PrimaryButton(
               text: 'Continue',
               icon: Icons.play_arrow,
               color: Palette.primary,
@@ -35,13 +35,13 @@ class MainOverlay extends StatelessWidget {
               color: Palette.primary,
               onPressed: _onLoad,
             ),*/
-            MenuButton(
+            PrimaryButton(
               text: 'Save',
               icon: Icons.save,
               color: Palette.primary,
               onPressed: _onSave,
             ),
-            MenuButton(
+            PrimaryButton(
               text: 'Settings',
               icon: Icons.settings,
               color: Palette.primary,

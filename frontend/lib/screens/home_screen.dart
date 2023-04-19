@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionplanet/states/home_state.dart';
 import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/widgets/menu_button.dart';
+import 'package:tensionplanet/widgets/primary_button.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeState state;
@@ -48,20 +48,20 @@ class Content extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            MenuButton(
+            PrimaryButton(
               text: 'Continue',
               icon: Icons.play_arrow,
               color: Palette.primary,
               onPressed: state.onContinue,
               topPadding: 0,
             ),
-            MenuButton(
+            PrimaryButton(
               text: 'Settings',
               icon: Icons.settings,
               color: Palette.primary,
               onPressed: state.onSettings,
             ),
-            MenuButton(
+            PrimaryButton(
               text: 'Info',
               icon: Icons.info,
               color: Palette.primary,

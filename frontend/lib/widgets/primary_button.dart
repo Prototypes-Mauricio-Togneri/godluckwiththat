@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/widgets/label.dart';
 
-class MenuButton extends StatelessWidget {
+class PrimaryButton extends StatelessWidget {
   final String text;
   final IconData? icon;
   final Color color;
@@ -10,7 +10,7 @@ class MenuButton extends StatelessWidget {
   final double size;
   final bool expand;
 
-  const MenuButton({
+  const PrimaryButton({
     required this.text,
     required this.color,
     required this.onPressed,

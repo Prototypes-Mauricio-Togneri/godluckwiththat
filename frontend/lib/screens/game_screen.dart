@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/game/game_state.dart';
+import 'package:tensionplanet/hud/overlay_menus.dart';
 import 'package:tensionplanet/json/json_match.dart';
 import 'package:tensionplanet/overlay/main_overlay.dart';
 import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/widgets/hud/overlay_menus.dart';
 
 class GameScreen extends StatelessWidget {
   final GameState state;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/game/game_state.dart';
-import 'package:tensionplanet/widgets/hud/menu_button_hud.dart';
-import 'package:tensionplanet/widgets/hud/resource_hud.dart';
-import 'package:tensionplanet/widgets/hud/village_switcher.dart';
+import 'package:tensionplanet/hud/menu_button_hud.dart';
+import 'package:tensionplanet/hud/resource_hud.dart';
+import 'package:tensionplanet/hud/village_switcher.dart';
 
 class OverlayMenus extends StatelessWidget {
   final GameComponent game;
