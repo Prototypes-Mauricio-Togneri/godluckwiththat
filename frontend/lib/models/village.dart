@@ -1,4 +1,5 @@
 import 'package:tensionplanet/components/buildings/building.dart';
+import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/building_type.dart';
@@ -8,6 +9,7 @@ class Village {
   final String name;
   final Inventory inventory;
   final List<Building> buildings;
+  final List<Construction> constructions;
   int freeVillagers;
 
   Village({
@@ -15,6 +17,7 @@ class Village {
     required this.inventory,
     required this.buildings,
     required this.freeVillagers,
+    required this.constructions,
   });
 
   Building? getBuilding(BuildingType buildingType) {
@@ -34,4 +37,8 @@ class Village {
   void addResource(ResourceType resourceType) {
     inventory.addResource(Resource(resourceType, 1));
   }
+
+  void onStartConstruction(Construction construction) {}
+
+  void onConstructionCompleted(Construction construction) {}
 }

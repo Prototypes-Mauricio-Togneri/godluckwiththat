@@ -2,7 +2,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:tensionplanet/json/json_match.dart';
 import 'package:tensionplanet/models/research.dart';
 import 'package:tensionplanet/models/village.dart';
-import 'package:tensionplanet/types/building_type.dart';
 
 class GameState extends BaseState {
   num totalTimeElapsed = 0;
@@ -41,6 +40,4 @@ class GameState extends BaseState {
       notify();
     }
   }
-
-  void onIncreaseLevel(BuildingType buildingType) {}
 }

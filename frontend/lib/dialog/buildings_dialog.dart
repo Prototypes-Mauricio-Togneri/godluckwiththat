@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/components/buildings/building.dart';
 import 'package:tensionplanet/dialog/window_dialog.dart';
+import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/village.dart';
 import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/utils/assets.dart';
@@ -13,21 +14,17 @@ import 'package:tensionplanet/widgets/primary_button.dart';
 
 class BuildingsDialog extends StatelessWidget {
   final Village village;
-  final Function(BuildingType) onSelect;
 
-  const BuildingsDialog._(this.village, this.onSelect);
+  const BuildingsDialog._(this.village);
 
-  static DialogController show({
-    required Village village,
-    required Function(BuildingType) onSelect,
-  }) {
+  static DialogController show(Village village) {
     final BuildContext context = Navigation.context;
 
     showDialog(
       context: context,
       barrierDismissible: true,
       barrierColor: Palette.transparent,
-      builder: (context) => BuildingsDialog._(village, onSelect),
+      builder: (context) => BuildingsDialog._(village),
     );
 
     return DialogController(context);
@@ -45,23 +42,23 @@ class BuildingsDialog extends StatelessWidget {
             Row(
               children: [
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.headquarters,
-                  building: village.getBuilding(BuildingType.headquarters),
                 ),
                 const HBox(10),
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.house,
-                  building: village.getBuilding(BuildingType.house),
                 ),
                 const HBox(10),
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.warehouse,
-                  building: village.getBuilding(BuildingType.warehouse),
                 ),
                 const HBox(10),
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.market,
-                  building: village.getBuilding(BuildingType.market),
                 ),
               ],
             ),
@@ -69,33 +66,33 @@ class BuildingsDialog extends StatelessWidget {
             Row(
               children: [
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.farm,
-                  building: village.getBuilding(BuildingType.farm),
                 ),
                 const HBox(10),
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.woodcutter,
-                  building: village.getBuilding(BuildingType.woodcutter),
                 ),
                 const HBox(10),
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.quarry,
-                  building: village.getBuilding(BuildingType.quarry),
                 ),
                 const HBox(10),
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.copper_mine,
-                  building: village.getBuilding(BuildingType.copper_mine),
                 ),
                 const HBox(10),
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.iron_mine,
-                  building: village.getBuilding(BuildingType.iron_mine),
                 ),
                 const HBox(10),
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.gold_mine,
-                  building: village.getBuilding(BuildingType.gold_mine),
                 ),
               ],
             ),
@@ -103,28 +100,28 @@ class BuildingsDialog extends StatelessWidget {
             Row(
               children: [
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.barracks,
-                  building: village.getBuilding(BuildingType.barracks),
                 ),
                 const HBox(10),
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.archery,
-                  building: village.getBuilding(BuildingType.archery),
                 ),
                 const HBox(10),
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.cavalry,
-                  building: village.getBuilding(BuildingType.cavalry),
                 ),
                 const HBox(10),
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.workshop,
-                  building: village.getBuilding(BuildingType.workshop),
                 ),
                 const HBox(10),
                 BuildingEntry(
+                  village: village,
                   buildingType: BuildingType.fortress,
-                  building: village.getBuilding(BuildingType.fortress),
                 ),
               ],
             ),
@@ -136,13 +133,14 @@ class BuildingsDialog extends StatelessWidget {
 }
 
 class BuildingEntry extends StatelessWidget {
+  final Village village;
   final BuildingType buildingType;
   final Building? building;
 
-  const BuildingEntry({
+  BuildingEntry({
+    required this.village,
     required this.buildingType,
-    required this.building,
-  });
+  }) : building = village.getBuilding(buildingType);
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +190,7 @@ class BuildingEntry extends StatelessWidget {
           PrimaryButton(
             text: (building != null) ? 'Level up' : 'Build',
             color: (building != null) ? Palette.primary : Palette.success,
-            onPressed: () {},
+            onPressed: _onSelect,
             icon: (building != null)
                 ? Icons.keyboard_double_arrow_up_sharp
                 : Icons.construction,
@@ -201,5 +199,14 @@ class BuildingEntry extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _onSelect() {
+    Navigation.pop();
+    village.onStartConstruction(Construction(
+      village: village,
+      buildingType: buildingType,
+      toLevel: (building != null) ? (building!.level + 1) : 1,
+    ));
   }
 }

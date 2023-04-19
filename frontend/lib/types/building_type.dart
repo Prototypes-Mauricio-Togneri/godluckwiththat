@@ -133,6 +133,10 @@ enum BuildingType {
 
   ResourceMap cost(int level) => {};
 
+  double constructionTime(int level) {
+    return level * 10;
+  }
+
   @override
   String toString() => name.replaceAll('_', ' ');
 }

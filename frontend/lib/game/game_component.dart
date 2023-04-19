@@ -112,6 +112,7 @@ class GameComponent extends FlameGame
       inventory: inventory,
       buildings: [],
       freeVillagers: 10,
+      constructions: [],
     );
     village.addBuildings([
       Headquarters(
@@ -208,10 +209,7 @@ class GameComponent extends FlameGame
 
   void onOpenMainMenu() {}
 
-  void onOpenConstructionMenu() => BuildingsDialog.show(
-        village: state.currentVillage,
-        onSelect: state.onIncreaseLevel,
-      );
+  void onOpenConstructionMenu() => BuildingsDialog.show(state.currentVillage);
 
   void onOpenResearchMenu() {}
 
