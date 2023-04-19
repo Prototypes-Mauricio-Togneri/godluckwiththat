@@ -76,6 +76,50 @@ class BuildingsDialog extends StatelessWidget {
                   buildingType: BuildingType.quarry,
                   building: village.getBuilding(BuildingType.quarry),
                 ),
+                const HBox(10),
+                BuildingEntry(
+                  buildingType: BuildingType.copper_mine,
+                  building: village.getBuilding(BuildingType.copper_mine),
+                ),
+                const HBox(10),
+                BuildingEntry(
+                  buildingType: BuildingType.iron_mine,
+                  building: village.getBuilding(BuildingType.iron_mine),
+                ),
+                const HBox(10),
+                BuildingEntry(
+                  buildingType: BuildingType.gold_mine,
+                  building: village.getBuilding(BuildingType.gold_mine),
+                ),
+              ],
+            ),
+            const VBox(10),
+            Row(
+              children: [
+                BuildingEntry(
+                  buildingType: BuildingType.barracks,
+                  building: village.getBuilding(BuildingType.barracks),
+                ),
+                const HBox(10),
+                BuildingEntry(
+                  buildingType: BuildingType.archery,
+                  building: village.getBuilding(BuildingType.archery),
+                ),
+                const HBox(10),
+                BuildingEntry(
+                  buildingType: BuildingType.cavalry,
+                  building: village.getBuilding(BuildingType.cavalry),
+                ),
+                const HBox(10),
+                BuildingEntry(
+                  buildingType: BuildingType.workshop,
+                  building: village.getBuilding(BuildingType.workshop),
+                ),
+                const HBox(10),
+                BuildingEntry(
+                  buildingType: BuildingType.fortress,
+                  building: village.getBuilding(BuildingType.fortress),
+                ),
               ],
             ),
           ],
