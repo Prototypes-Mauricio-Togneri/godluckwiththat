@@ -1,6 +1,7 @@
 import 'package:tensionplanet/components/buildings/building.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
+import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
 class Village {
@@ -15,6 +16,16 @@ class Village {
     required this.buildings,
     required this.freeVillagers,
   });
+
+  Building? getBuilding(BuildingType buildingType) {
+    for (final Building building in buildings) {
+      if (building.buildingType == buildingType) {
+        return building;
+      }
+    }
+
+    return null;
+  }
 
   void addBuildings(List<Building> list) {
     buildings.addAll(list);
