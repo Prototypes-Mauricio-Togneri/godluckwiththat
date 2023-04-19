@@ -4,6 +4,7 @@ import 'package:tensionplanet/components/buildings/building.dart';
 import 'package:tensionplanet/dialog/window_dialog.dart';
 import 'package:tensionplanet/models/village.dart';
 import 'package:tensionplanet/types/building_type.dart';
+import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/navigation.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/image_asset.dart';
@@ -143,38 +144,57 @@ class BuildingEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 150,
-      height: 180,
+      height: 158,
       color: Palette.grey,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Label(
-              text: buildingType.toString(),
-              size: 10,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(5),
+            color: Palette.black,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Label(
+                    text: buildingType.toString(),
+                    size: 10,
+                  ),
+                ),
+                Label(
+                  text: (building != null) ? '${building!.level}' : '0',
+                  size: 10,
+                ),
+              ],
             ),
-            const VBox(10),
-            ImageAsset(
-              path: buildingType.sprite,
-              size: 60,
+          ),
+          Container(
+            width: 150,
+            height: 100,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                const ImageAsset(
+                  path: Assets.IMAGES_BACKGROUNDS_VILLAGE,
+                  width: 150,
+                  height: 150,
+                ),
+                ImageAsset(
+                  path: buildingType.sprite,
+                  size: 60,
+                ),
+              ],
             ),
-            const VBox(10),
-            Label(
-              text: (building != null) ? 'Level ${building!.level}' : '',
-              size: 10,
-            ),
-            const VBox(8),
-            PrimaryButton(
-              text: (building != null) ? 'Level up' : 'Build',
-              color: (building != null) ? Palette.primary : Palette.success,
-              onPressed: () {},
-              icon: (building != null)
-                  ? Icons.keyboard_double_arrow_up_sharp
-                  : Icons.construction,
-              size: 10,
-            ),
-          ],
-        ),
+          ),
+          PrimaryButton(
+            text: (building != null) ? 'Level up' : 'Build',
+            color: (building != null) ? Palette.primary : Palette.success,
+            onPressed: () {},
+            icon: (building != null)
+                ? Icons.keyboard_double_arrow_up_sharp
+                : Icons.construction,
+            size: 10,
+          ),
+        ],
       ),
     );
   }

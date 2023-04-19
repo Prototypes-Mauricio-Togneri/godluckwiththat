@@ -43,7 +43,7 @@ class PrimaryButton extends StatelessWidget {
                       child: Icon(
                         icon,
                         color: Palette.white,
-                        size: size * 1.2,
+                        size: size * 1.5,
                       ),
                     ),
                   Label(
