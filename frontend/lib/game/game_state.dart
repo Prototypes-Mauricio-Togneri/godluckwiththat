@@ -39,5 +39,9 @@ class GameState extends BaseState {
       refreshTimeout--;
       notify();
     }
+
+    for (final Village village in villages) {
+      village.update(dt);
+    }
   }
 }

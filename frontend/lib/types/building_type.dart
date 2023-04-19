@@ -137,6 +137,10 @@ enum BuildingType {
     return level * 10;
   }
 
+  double productionTime(int level) {
+    return level * 10;
+  }
+
   @override
   String toString() => name.replaceAll('_', ' ');
 }
