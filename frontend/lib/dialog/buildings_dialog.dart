@@ -159,11 +159,18 @@ class BuildingEntry extends StatelessWidget {
               size: 60,
             ),
             const VBox(10),
+            Label(
+              text: (building != null) ? 'Level ${building!.level}' : '',
+              size: 10,
+            ),
+            const VBox(8),
             PrimaryButton(
-              text: 'Build',
-              color: Palette.success,
+              text: (building != null) ? 'Level up' : 'Build',
+              color: (building != null) ? Palette.primary : Palette.success,
               onPressed: () {},
-              icon: Icons.construction,
+              icon: (building != null)
+                  ? Icons.keyboard_double_arrow_up_sharp
+                  : Icons.construction,
               size: 10,
             ),
           ],
