@@ -135,12 +135,16 @@ class BuildingsDialog extends StatelessWidget {
 class BuildingEntry extends StatelessWidget {
   final Village village;
   final BuildingType buildingType;
-  final Building? building;
+  late final Building? building;
+  late final int level;
 
   BuildingEntry({
     required this.village,
     required this.buildingType,
-  }) : building = village.getBuilding(buildingType);
+  }) {
+    building = village.getBuilding(buildingType);
+    level = building?.level ?? 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +155,12 @@ class BuildingEntry extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(5),
+            padding: const EdgeInsets.only(
+              top: 5,
+              bottom: 5,
+              left: 10,
+              right: 10,
+            ),
             color: Palette.black,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -163,7 +172,7 @@ class BuildingEntry extends StatelessWidget {
                   ),
                 ),
                 Label(
-                  text: (building != null) ? '${building!.level}' : '0',
+                  text: '$level',
                   size: 10,
                 ),
               ],
@@ -206,7 +215,7 @@ class BuildingEntry extends StatelessWidget {
     village.onStartConstruction(Construction(
       village: village,
       buildingType: buildingType,
-      toLevel: (building != null) ? (building!.level + 1) : 1,
+      toLevel: level + 1,
     ));
   }
 }
