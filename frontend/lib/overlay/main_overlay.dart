@@ -27,7 +27,6 @@ class MainOverlay extends StatelessWidget {
               icon: Icons.play_arrow,
               color: Palette.primary,
               onPressed: _onContinue,
-              topPadding: 0,
             ),
             /*MenuButton(
               text: 'Load',

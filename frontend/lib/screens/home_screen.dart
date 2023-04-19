@@ -53,7 +53,6 @@ class Content extends StatelessWidget {
               icon: Icons.play_arrow,
               color: Palette.primary,
               onPressed: state.onContinue,
-              topPadding: 0,
             ),
             PrimaryButton(
               text: 'Settings',
