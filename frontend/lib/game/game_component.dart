@@ -115,7 +115,7 @@ class GameComponent extends FlameGame
 
   void onOpenMainMenu() {}
 
-  void onOpenConstructionMenu() => BuildingsDialog.show(state.currentVillage);
+  void onOpenConstructionMenu() => BuildingsDialog.show(state);
 
   void onOpenResearchMenu() {}
 
