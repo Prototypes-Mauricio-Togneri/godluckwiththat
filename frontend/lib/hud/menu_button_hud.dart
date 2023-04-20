@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/utils/palette.dart';
 
 class MenuButtonHud extends StatelessWidget {
-  final GameComponent game;
   final GameState state;
 
-  const MenuButtonHud({
-    required this.game,
-    required this.state,
-  });
+  const MenuButtonHud(this.state);
 
   @override
   Widget build(BuildContext context) {
@@ -20,35 +15,35 @@ class MenuButtonHud extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           MenuButton(
-            onTap: game.onOpenMainMenu,
+            onTap: state.onOpenMainMenu,
             icon: Icons.menu,
           ),
           MenuButton(
-            onTap: game.onOpenConstructionMenu,
+            onTap: state.onOpenConstructionMenu,
             icon: Icons.construction,
           ),
           MenuButton(
-            onTap: game.onOpenResearchMenu,
+            onTap: state.onOpenResearchMenu,
             icon: Icons.science,
           ),
           MenuButton(
-            onTap: game.onOpenMilitaryMenu,
+            onTap: state.onOpenMilitaryMenu,
             icon: Icons.shield,
           ),
           MenuButton(
-            onTap: game.onOpenMap,
+            onTap: state.onOpenMap,
             icon: Icons.public,
           ),
           MenuButton(
-            onTap: game.onOpenReportsMenu,
+            onTap: state.onOpenReportsMenu,
             icon: Icons.history_edu_rounded,
           ),
           MenuButton(
-            onTap: game.onOpenVillagesOverviewMenu,
+            onTap: state.onOpenVillagesOverviewMenu,
             icon: Icons.list_alt,
           ),
           MenuButton(
-            onTap: game.onOpenExpeditionsMenu,
+            onTap: state.onOpenExpeditionsMenu,
             icon: Icons.route,
           ),
         ],

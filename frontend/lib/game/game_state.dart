@@ -1,4 +1,5 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:tensionplanet/dialog/buildings_dialog.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/json/json_match.dart';
@@ -97,4 +98,20 @@ class GameState extends BaseState {
     construction.village.onConstructionCompleted(construction);
     gameComponent.loadVillage(currentVillage);
   }
+
+  void onOpenMainMenu() {}
+
+  void onOpenConstructionMenu() => BuildingsDialog.show(this);
+
+  void onOpenResearchMenu() {}
+
+  void onOpenMilitaryMenu() {}
+
+  void onOpenMap() {}
+
+  void onOpenReportsMenu() {}
+
+  void onOpenVillagesOverviewMenu() {}
+
+  void onOpenExpeditionsMenu() {}
 }

@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/components/village_background.dart';
-import 'package:tensionplanet/dialog/buildings_dialog.dart';
 import 'package:tensionplanet/extensions/component_extension.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
@@ -112,20 +111,4 @@ class GameComponent extends FlameGame
       return KeyEventResult.ignored;
     }
   }
-
-  void onOpenMainMenu() {}
-
-  void onOpenConstructionMenu() => BuildingsDialog.show(state);
-
-  void onOpenResearchMenu() {}
-
-  void onOpenMilitaryMenu() {}
-
-  void onOpenMap() {}
-
-  void onOpenReportsMenu() {}
-
-  void onOpenVillagesOverviewMenu() {}
-
-  void onOpenExpeditionsMenu() {}
 }
