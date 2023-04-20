@@ -16,6 +16,7 @@ class GameScreen extends StatelessWidget {
 
   factory GameScreen.instance(JsonMatch jsonMatch) {
     final GameState state = GameState(jsonMatch);
+    GameState.instance = state;
 
     return GameScreen(state, GameComponent(state));
   }

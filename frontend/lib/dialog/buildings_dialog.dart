@@ -213,7 +213,6 @@ class BuildingEntry extends StatelessWidget {
   void _onSelect() {
     Navigation.pop();
     state.onStartConstruction(Construction(
-      state: state,
       village: state.currentVillage,
       buildingType: buildingType,
       toLevel: level + 1,

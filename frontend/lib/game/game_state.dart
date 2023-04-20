@@ -23,6 +23,8 @@ class GameState extends BaseState {
   final List<Village> villages = [];
   late Village currentVillage;
 
+  static late GameState instance;
+
   GameState(this.jsonMatch) {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 

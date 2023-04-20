@@ -3,14 +3,12 @@ import 'package:tensionplanet/models/village.dart';
 import 'package:tensionplanet/types/building_type.dart';
 
 class Construction {
-  final GameState state;
   final Village village;
   final BuildingType buildingType;
   final int toLevel;
   double remainingTime = 0;
 
   Construction({
-    required this.state,
     required this.village,
     required this.buildingType,
     required this.toLevel,
@@ -22,7 +20,7 @@ class Construction {
     remainingTime -= dt;
 
     if (remainingTime < 0) {
-      state.onConstructionCompleted(this);
+      GameState.instance.onConstructionCompleted(this);
     }
   }
 }
