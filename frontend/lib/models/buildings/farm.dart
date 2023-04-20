@@ -1,15 +1,15 @@
-import 'package:tensionplanet/components/buildings/producer.dart';
+import 'package:tensionplanet/models/buildings/producer.dart';
 import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
-class GoldMine extends Producer {
-  GoldMine({
+class Farm extends Producer {
+  Farm({
     required super.village,
     required super.level,
     required super.productionTime,
     required super.location,
   }) : super(
-          buildingType: BuildingType.gold_mine,
-          resourceType: ResourceType.gold,
+          buildingType: BuildingType.farm,
+          resourceType: ResourceType.food,
         );
 }

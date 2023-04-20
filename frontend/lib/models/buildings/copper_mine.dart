@@ -1,15 +1,15 @@
-import 'package:tensionplanet/components/buildings/producer.dart';
+import 'package:tensionplanet/models/buildings/producer.dart';
 import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
-class Quarry extends Producer {
-  Quarry({
+class CopperMine extends Producer {
+  CopperMine({
     required super.village,
     required super.level,
     required super.productionTime,
     required super.location,
   }) : super(
-          buildingType: BuildingType.quarry,
-          resourceType: ResourceType.stone,
+          buildingType: BuildingType.copper_mine,
+          resourceType: ResourceType.copper,
         );
 }

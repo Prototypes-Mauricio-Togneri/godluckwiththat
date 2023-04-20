@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionplanet/components/buildings/building.dart';
 import 'package:tensionplanet/dialog/window_dialog.dart';
 import 'package:tensionplanet/game/game_state.dart';
+import 'package:tensionplanet/models/buildings/building.dart';
 import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/utils/assets.dart';

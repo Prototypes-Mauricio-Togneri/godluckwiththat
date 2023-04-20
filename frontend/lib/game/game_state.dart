@@ -1,7 +1,8 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionplanet/components/buildings/headquarters.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/json/json_match.dart';
+import 'package:tensionplanet/models/buildings/building.dart';
+import 'package:tensionplanet/models/buildings/headquarters.dart';
 import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/research.dart';
@@ -139,6 +140,8 @@ class GameState extends BaseState {
       village.update(dt);
     }
   }
+
+  void onBuildingSelected(Building building) {}
 
   void onStartConstruction(Construction construction) {
     construction.village.constructions.add(construction);

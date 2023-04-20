@@ -1,4 +1,4 @@
-import 'package:tensionplanet/components/buildings/building.dart';
+import 'package:tensionplanet/models/buildings/building.dart';
 import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/types/producer_location.dart';
 import 'package:tensionplanet/types/resource_type.dart';
@@ -22,8 +22,6 @@ class Producer extends Building {
 
   @override
   void update(double dt) {
-    super.update(dt);
-
     accumulatedTime += dt;
 
     if (accumulatedTime > productionTime) {

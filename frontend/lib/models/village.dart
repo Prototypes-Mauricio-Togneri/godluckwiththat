@@ -1,6 +1,6 @@
-import 'package:tensionplanet/components/buildings/building.dart';
-import 'package:tensionplanet/components/buildings/farm.dart';
-import 'package:tensionplanet/components/buildings/headquarters.dart';
+import 'package:tensionplanet/models/buildings/building.dart';
+import 'package:tensionplanet/models/buildings/farm.dart';
+import 'package:tensionplanet/models/buildings/headquarters.dart';
 import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
@@ -52,6 +52,7 @@ class Village {
   }
 
   void onConstructionCompleted(Construction construction) {
+    constructions.remove(construction);
     final Building? building = getBuilding(construction.buildingType);
 
     if (building != null) {

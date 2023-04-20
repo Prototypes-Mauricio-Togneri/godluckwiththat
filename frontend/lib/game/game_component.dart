@@ -6,12 +6,12 @@ import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionplanet/app/constants.dart';
-import 'package:tensionplanet/components/backgrounds/village_background.dart';
-import 'package:tensionplanet/components/buildings/building.dart';
+import 'package:tensionplanet/components/village_background.dart';
 import 'package:tensionplanet/dialog/buildings_dialog.dart';
 import 'package:tensionplanet/extensions/component_extension.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
+import 'package:tensionplanet/models/buildings/building.dart';
 import 'package:tensionplanet/models/village.dart';
 import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
@@ -83,7 +83,7 @@ class GameComponent extends FlameGame
     addComponent(villageBackground);
 
     for (final Building building in village.buildings) {
-      addComponent(building);
+      addComponent(building.sprite);
     }
   }
 

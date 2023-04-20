@@ -1,4 +1,4 @@
-import 'package:tensionplanet/components/buildings/building.dart';
+import 'package:tensionplanet/models/buildings/building.dart';
 import 'package:tensionplanet/types/building_type.dart';
 
 class Market extends Building {

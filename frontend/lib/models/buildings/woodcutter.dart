@@ -1,15 +1,15 @@
-import 'package:tensionplanet/components/buildings/producer.dart';
+import 'package:tensionplanet/models/buildings/producer.dart';
 import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
-class IronMine extends Producer {
-  IronMine({
+class Woodcutter extends Producer {
+  Woodcutter({
     required super.village,
     required super.level,
     required super.productionTime,
     required super.location,
   }) : super(
-          buildingType: BuildingType.iron_mine,
-          resourceType: ResourceType.iron,
+          buildingType: BuildingType.woodcutter,
+          resourceType: ResourceType.wood,
         );
 }
