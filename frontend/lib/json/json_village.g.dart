@@ -12,6 +12,9 @@ JsonVillage _$JsonVillageFromJson(Map<String, dynamic> json) => JsonVillage(
         (k, e) => MapEntry($enumDecode(_$ResourceTypeEnumMap, k), e as int),
       ),
       freeVillagers: json['freeVillagers'] as int,
+      patches: (json['patches'] as List<dynamic>)
+          .map((e) => JsonPatch.fromJson(e as Map<String, dynamic>))
+          .toList(),
       buildings: (json['buildings'] as List<dynamic>)
           .map((e) => JsonBuilding.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -23,6 +26,7 @@ Map<String, dynamic> _$JsonVillageToJson(JsonVillage instance) =>
       'inventory': instance.inventory
           .map((k, e) => MapEntry(_$ResourceTypeEnumMap[k]!, e)),
       'freeVillagers': instance.freeVillagers,
+      'patches': instance.patches,
       'buildings': instance.buildings,
     };
 

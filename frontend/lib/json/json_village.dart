@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionplanet/json/json_building.dart';
+import 'package:tensionplanet/json/json_patch.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
@@ -17,6 +18,9 @@ class JsonVillage {
   @JsonKey(name: 'freeVillagers')
   final int freeVillagers;
 
+  @JsonKey(name: 'patches')
+  final List<JsonPatch> patches;
+
   @JsonKey(name: 'buildings')
   final List<JsonBuilding> buildings;
 
@@ -24,6 +28,7 @@ class JsonVillage {
     required this.name,
     required this.inventory,
     required this.freeVillagers,
+    required this.patches,
     required this.buildings,
   });
 

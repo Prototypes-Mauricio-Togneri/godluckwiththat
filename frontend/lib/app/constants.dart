@@ -18,6 +18,16 @@ class Constants {
         "villager": 10
       },
       "freeVillagers": 10,
+      "patches": [
+        {
+          "type": "food",
+          "location": "north"
+        },
+        {
+          "type": "wood",
+          "location": "south"
+        }
+      ],
       "buildings": [
         {
           "type": "headquarters",
