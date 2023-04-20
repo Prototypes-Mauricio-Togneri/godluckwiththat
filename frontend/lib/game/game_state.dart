@@ -23,16 +23,17 @@ class GameState extends BaseState {
   GameState(this.jsonMatch) {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
-    for (final JsonVillage json in jsonMatch.villages) {
+    for (final JsonVillage jsonVillage in jsonMatch.villages) {
       final Village village = Village(
-        name: json.name,
-        inventory: Inventory.fromJson(json.inventory),
-        freeVillagers: json.freeVillagers,
+        name: jsonVillage.name,
+        inventory: Inventory.fromJson(jsonVillage.inventory),
+        freeVillagers: jsonVillage.freeVillagers,
         buildings: [],
         constructions: [],
+        patches: [],
       );
 
-      for (final JsonBuilding jsonBuilding in json.buildings) {
+      for (final JsonBuilding jsonBuilding in jsonVillage.buildings) {
         village.addBuilding(Building.create(
           village: village,
           buildingType: jsonBuilding.type,

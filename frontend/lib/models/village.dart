@@ -1,6 +1,7 @@
 import 'package:tensionplanet/models/buildings/building.dart';
 import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/inventory.dart';
+import 'package:tensionplanet/models/patch.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/types/patch_location.dart';
@@ -12,6 +13,7 @@ class Village {
   int freeVillagers;
   final List<Building> buildings;
   final List<Construction> constructions;
+  final List<Patch> patches;
 
   Village({
     required this.name,
@@ -19,6 +21,7 @@ class Village {
     required this.freeVillagers,
     required this.buildings,
     required this.constructions,
+    required this.patches,
   });
 
   void update(double dt) {
