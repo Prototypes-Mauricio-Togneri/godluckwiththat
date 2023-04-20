@@ -18,7 +18,10 @@ class GameScreen extends StatelessWidget {
     final GameState state = GameState(jsonMatch);
     GameState.instance = state;
 
-    return GameScreen(state, GameComponent());
+    final GameComponent game = GameComponent();
+    GameComponent.instance = game;
+
+    return GameScreen(state, game);
   }
 
   @override

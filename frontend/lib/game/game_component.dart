@@ -24,10 +24,12 @@ class GameComponent extends FlameGame
   bool clickHandled = false;
   late final Vector2 viewPortSize;
 
+  static late GameComponent instance;
+
   @override
   Future onLoad() async {
     _initialize();
-    GameState.instance.initialize(this);
+    GameState.instance.load();
 
     return super.onLoad();
   }

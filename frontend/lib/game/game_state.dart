@@ -17,7 +17,6 @@ class GameState extends BaseState {
   num refreshTimeout = 0;
   bool loaded = false;
 
-  late final GameComponent gameComponent;
   final Research research = Research();
   final JsonMatch jsonMatch;
   final List<Village> villages = [];
@@ -25,7 +24,9 @@ class GameState extends BaseState {
 
   static late GameState instance;
 
-  GameState(this.jsonMatch) {
+  GameState(this.jsonMatch);
+
+  void load() {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
     for (final JsonVillage jsonVillage in jsonMatch.villages) {
@@ -60,11 +61,8 @@ class GameState extends BaseState {
     }
 
     currentVillage = villages[0];
-  }
 
-  void initialize(GameComponent value) {
-    gameComponent = value;
-    gameComponent.loadVillage(currentVillage);
+    GameComponent.instance.loadVillage(currentVillage);
 
     Delayed.post(() {
       loaded = true;
@@ -98,7 +96,7 @@ class GameState extends BaseState {
 
   void onConstructionCompleted(Construction construction) {
     construction.village.onConstructionCompleted(construction);
-    gameComponent.loadVillage(currentVillage);
+    GameComponent.instance.loadVillage(currentVillage);
   }
 
   void onOpenMainMenu() {}
