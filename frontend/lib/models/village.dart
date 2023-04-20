@@ -1,6 +1,4 @@
 import 'package:tensionplanet/models/buildings/building.dart';
-import 'package:tensionplanet/models/buildings/farm.dart';
-import 'package:tensionplanet/models/buildings/headquarters.dart';
 import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
@@ -62,61 +60,12 @@ class Village {
     if (building != null) {
       building.level = construction.toLevel;
     } else {
-      switch (construction.buildingType) {
-        case BuildingType.headquarters:
-          buildings.add(Headquarters(
-            village: this,
-            level: 1,
-          ));
-          break;
-        case BuildingType.house:
-          // TODO: Handle this case.
-          break;
-        case BuildingType.market:
-          // TODO: Handle this case.
-          break;
-        case BuildingType.warehouse:
-          // TODO: Handle this case.
-          break;
-        case BuildingType.farm:
-          buildings.add(Farm(
-            village: this,
-            level: 1,
-            productionTime: construction.buildingType.productionTime(1),
-            location: ProducerLocation.north,
-          ));
-          break;
-        case BuildingType.woodcutter:
-          // TODO: Handle this case.
-          break;
-        case BuildingType.quarry:
-          // TODO: Handle this case.
-          break;
-        case BuildingType.copper_mine:
-          // TODO: Handle this case.
-          break;
-        case BuildingType.iron_mine:
-          // TODO: Handle this case.
-          break;
-        case BuildingType.gold_mine:
-          // TODO: Handle this case.
-          break;
-        case BuildingType.barracks:
-          // TODO: Handle this case.
-          break;
-        case BuildingType.archery:
-          // TODO: Handle this case.
-          break;
-        case BuildingType.cavalry:
-          // TODO: Handle this case.
-          break;
-        case BuildingType.workshop:
-          // TODO: Handle this case.
-          break;
-        case BuildingType.fortress:
-          // TODO: Handle this case.
-          break;
-      }
+      buildings.add(Building.create(
+        village: this,
+        buildingType: construction.buildingType,
+        level: construction.toLevel,
+        producerLocation: ProducerLocation.north, // TODO(momo): change
+      ));
     }
   }
 }
