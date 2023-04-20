@@ -39,7 +39,7 @@ class Building {
     required Village village,
     required BuildingType buildingType,
     required int level,
-    ProducerLocation? producerLocation,
+    ProducerLocation? location,
   }) {
     switch (buildingType) {
       case BuildingType.headquarters:
@@ -67,42 +67,42 @@ class Building {
           village: village,
           level: level,
           productionTime: buildingType.productionTime(level),
-          location: producerLocation!,
+          location: location!,
         );
       case BuildingType.woodcutter:
         return Woodcutter(
           village: village,
           level: level,
           productionTime: buildingType.productionTime(level),
-          location: producerLocation!,
+          location: location!,
         );
       case BuildingType.quarry:
         return Quarry(
           village: village,
           level: level,
           productionTime: buildingType.productionTime(level),
-          location: producerLocation!,
+          location: location!,
         );
       case BuildingType.copper_mine:
         return CopperMine(
           village: village,
           level: level,
           productionTime: buildingType.productionTime(level),
-          location: producerLocation!,
+          location: location!,
         );
       case BuildingType.iron_mine:
         return IronMine(
           village: village,
           level: level,
           productionTime: buildingType.productionTime(level),
-          location: producerLocation!,
+          location: location!,
         );
       case BuildingType.gold_mine:
         return GoldMine(
           village: village,
           level: level,
           productionTime: buildingType.productionTime(level),
-          location: producerLocation!,
+          location: location!,
         );
       case BuildingType.barracks:
         return Barracks(

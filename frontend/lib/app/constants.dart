@@ -25,7 +25,8 @@ class Constants {
         },
         {
           "type": "farm",
-          "level": 1
+          "level": 1,
+          "location": "north"
         }
       ]
     }

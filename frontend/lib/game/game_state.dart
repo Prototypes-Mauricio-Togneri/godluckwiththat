@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/json/json_match.dart';
 import 'package:tensionplanet/json/json_village.dart';
 import 'package:tensionplanet/models/buildings/building.dart';
@@ -7,7 +8,6 @@ import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/research.dart';
 import 'package:tensionplanet/models/village.dart';
-import 'package:tensionplanet/types/building_type.dart';
 
 class GameState extends BaseState {
   num totalTimeElapsed = 0;
@@ -27,17 +27,19 @@ class GameState extends BaseState {
       final Village village = Village(
         name: json.name,
         inventory: Inventory.fromJson(json.inventory),
-        buildings: [],
         freeVillagers: json.freeVillagers,
+        buildings: [],
         constructions: [],
       );
-      village.addBuildings([
-        Building.create(
+
+      for (final JsonBuilding jsonBuilding in json.buildings) {
+        village.addBuilding(Building.create(
           village: village,
-          buildingType: BuildingType.headquarters,
-          level: 1,
-        ),
-      ]);
+          buildingType: jsonBuilding.type,
+          level: jsonBuilding.level,
+          location: jsonBuilding.location,
+        ));
+      }
 
       villages.add(village);
     }

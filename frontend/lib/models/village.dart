@@ -41,8 +41,8 @@ class Village {
     return null;
   }
 
-  void addBuildings(List<Building> list) {
-    buildings.addAll(list);
+  void addBuilding(Building building) {
+    buildings.add(building);
   }
 
   void addResource(ResourceType resourceType) {
@@ -64,7 +64,7 @@ class Village {
         village: this,
         buildingType: construction.buildingType,
         level: construction.toLevel,
-        producerLocation: ProducerLocation.north, // TODO(momo): change
+        location: ProducerLocation.north, // TODO(momo): change
       ));
     }
   }
