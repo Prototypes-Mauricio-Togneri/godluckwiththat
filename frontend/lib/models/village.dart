@@ -27,6 +27,10 @@ class Village {
     for (final Construction construction in constructions) {
       construction.update(dt);
     }
+
+    for (final Building building in buildings) {
+      building.update(dt);
+    }
   }
 
   Building? getBuilding(BuildingType buildingType) {
