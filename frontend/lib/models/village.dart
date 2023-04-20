@@ -79,20 +79,20 @@ class Village {
     throw Exception('Patch not found for $location');
   }
 
-  bool _isPatchUsed(Patch patch) {
+  bool _isPatchAvailable(Patch patch) {
     for (final Building building in buildings) {
       if ((building is Producer) && building.patch == patch) {
-        return true;
+        return false;
       }
     }
 
-    return false;
+    return true;
   }
 
   Patch _patchForBuilding(BuildingType buildingType) {
     for (final Patch patch in patches) {
       if ((patch.resourceType == buildingType.produces) &&
-          !_isPatchUsed(patch)) {
+          _isPatchAvailable(patch)) {
         return patch;
       }
     }
