@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 import 'package:tensionplanet/game/game_component.dart';
+import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/models/buildings/building.dart';
 
 class BuildingSprite extends SpriteComponent
@@ -27,7 +28,7 @@ class BuildingSprite extends SpriteComponent
   @override
   bool onTapUp(TapUpInfo info) {
     gameRef.clickHandled = true;
-    gameRef.state.onBuildingSelected(building);
+    GameState.instance.onBuildingSelected(building);
 
     return true;
   }

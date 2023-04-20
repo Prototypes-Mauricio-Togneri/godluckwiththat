@@ -18,19 +18,16 @@ import 'package:tensionplanet/utils/style.dart';
 
 class GameComponent extends FlameGame
     with HasTappables, KeyboardEvents, MouseMovementDetector {
-  final GameState state;
   final Component layerSprites = Component(priority: 0);
   final Component layerDebug = Component(priority: 3)
     ..positionType = PositionType.viewport;
   bool clickHandled = false;
   late final Vector2 viewPortSize;
 
-  GameComponent(this.state);
-
   @override
   Future onLoad() async {
     _initialize();
-    state.initialize(this);
+    GameState.instance.initialize(this);
 
     return super.onLoad();
   }
@@ -38,7 +35,7 @@ class GameComponent extends FlameGame
   @override
   void update(double dt) {
     super.update(dt);
-    state.update(dt);
+    GameState.instance.update(dt);
   }
 
   void _initialize() {
