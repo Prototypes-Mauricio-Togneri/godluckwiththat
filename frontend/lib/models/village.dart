@@ -55,16 +55,17 @@ class Village {
 
   void onConstructionCompleted(Construction construction) {
     constructions.remove(construction);
-    final Building? building = getBuilding(construction.buildingType);
+    final BuildingType buildingType = construction.buildingType;
+    final Building? building = getBuilding(buildingType);
 
     if (building != null) {
       building.level = construction.toLevel;
     } else {
       buildings.add(Building.create(
         village: this,
-        buildingType: construction.buildingType,
+        buildingType: buildingType,
         level: construction.toLevel,
-        patch: _patchForBuilding(construction.buildingType),
+        patch: buildingType.isProducer ? _patchForBuilding(buildingType) : null,
       ));
     }
   }

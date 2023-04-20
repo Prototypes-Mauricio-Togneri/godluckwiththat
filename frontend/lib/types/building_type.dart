@@ -148,6 +148,8 @@ enum BuildingType {
     required this.produces,
   });
 
+  bool get isProducer => produces != null;
+
   ResourceMap cost(int level) => {};
 
   double constructionTime(int level) {
