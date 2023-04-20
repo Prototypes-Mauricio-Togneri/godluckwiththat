@@ -6,7 +6,6 @@ import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/hud/overlay_menus.dart';
 import 'package:tensionplanet/json/json_match.dart';
-import 'package:tensionplanet/overlay/main_overlay.dart';
 import 'package:tensionplanet/utils/palette.dart';
 
 class GameScreen extends StatelessWidget {
@@ -35,12 +34,7 @@ class GameScreen extends StatelessWidget {
           child: Scaffold(
             body: Stack(
               children: [
-                GameWidget(
-                  game: game,
-                  overlayBuilderMap: const {
-                    MainOverlay.NAME: MainOverlay.builder,
-                  },
-                ),
+                GameWidget(game: game),
                 StateProvider<GameState>(
                   state: state,
                   builder: (context, state) =>
