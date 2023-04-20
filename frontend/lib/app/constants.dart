@@ -9,8 +9,16 @@ class Constants {
 	"id": "level1",
 	"totalTimeElapsed": 60,
 	"level": 1,
-	"buildings": {
-	}
+	"buildings": [
+    {
+      "type": "headquarters",
+      "level": 2
+    },
+    {
+      "type": "farm",
+      "level": 1
+    }
+  ]
 }
 ''';
 }

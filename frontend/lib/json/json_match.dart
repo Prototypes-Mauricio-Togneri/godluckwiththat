@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:tensionplanet/json/json_building.dart';
 
 part 'json_match.g.dart';
 
@@ -17,11 +18,15 @@ class JsonMatch {
   @JsonKey(name: 'level')
   final int level;
 
+  @JsonKey(name: 'buildings')
+  final List<JsonBuilding> buildings;
+
   const JsonMatch({
     required this.version,
     required this.id,
     required this.totalTimeElapsed,
     required this.level,
+    required this.buildings,
   });
 
   factory JsonMatch.fromString(String json) =>

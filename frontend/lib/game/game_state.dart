@@ -23,10 +23,6 @@ class GameState extends BaseState {
 
   GameState(this.jsonMatch) {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
-  }
-
-  void initialize(GameComponent value) {
-    gameComponent = value;
 
     final Inventory inventory = Inventory.empty();
     inventory.addResource(const Resource(ResourceType.food, 300));
@@ -54,7 +50,10 @@ class GameState extends BaseState {
 
     villages.addAll([village]);
     currentVillage = village;
+  }
 
+  void initialize(GameComponent value) {
+    gameComponent = value;
     gameComponent.loadVillage(currentVillage);
 
     Delayed.post(() {
