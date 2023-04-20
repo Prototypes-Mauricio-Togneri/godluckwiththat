@@ -2,10 +2,12 @@ import 'package:dafluta/dafluta.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/json/json_match.dart';
+import 'package:tensionplanet/json/json_patch.dart';
 import 'package:tensionplanet/json/json_village.dart';
 import 'package:tensionplanet/models/buildings/building.dart';
 import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/inventory.dart';
+import 'package:tensionplanet/models/patch.dart';
 import 'package:tensionplanet/models/research.dart';
 import 'package:tensionplanet/models/village.dart';
 
@@ -33,12 +35,21 @@ class GameState extends BaseState {
         patches: [],
       );
 
+      for (final JsonPatch jsonPatch in jsonVillage.patches) {
+        village.patches.add(Patch(
+          resourceType: jsonPatch.type,
+          location: jsonPatch.location,
+        ));
+      }
+
       for (final JsonBuilding jsonBuilding in jsonVillage.buildings) {
-        village.addBuilding(Building.create(
+        village.buildings.add(Building.create(
           village: village,
           buildingType: jsonBuilding.type,
           level: jsonBuilding.level,
-          location: jsonBuilding.location,
+          patch: (jsonBuilding.location != null)
+              ? village.patchByLocation(jsonBuilding.location!)
+              : null,
         ));
       }
 

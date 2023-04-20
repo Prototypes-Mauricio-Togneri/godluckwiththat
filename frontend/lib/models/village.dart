@@ -1,4 +1,5 @@
 import 'package:tensionplanet/models/buildings/building.dart';
+import 'package:tensionplanet/models/buildings/producer.dart';
 import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/patch.dart';
@@ -44,10 +45,6 @@ class Village {
     return null;
   }
 
-  void addBuilding(Building building) {
-    buildings.add(building);
-  }
-
   void addResource(ResourceType resourceType) {
     inventory.addResource(Resource(resourceType, 1));
   }
@@ -67,8 +64,39 @@ class Village {
         village: this,
         buildingType: construction.buildingType,
         level: construction.toLevel,
-        location: PatchLocation.north, // TODO(momo): change
+        patch: _patchForBuilding(construction.buildingType),
       ));
     }
+  }
+
+  Patch patchByLocation(PatchLocation location) {
+    for (final Patch patch in patches) {
+      if (patch.location == location) {
+        return patch;
+      }
+    }
+
+    throw Exception('Patch not found for $location');
+  }
+
+  bool _isPatchUsed(Patch patch) {
+    for (final Building building in buildings) {
+      if ((building is Producer) && building.patch == patch) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  Patch _patchForBuilding(BuildingType buildingType) {
+    for (final Patch patch in patches) {
+      if ((patch.resourceType == buildingType.produces) &&
+          !_isPatchUsed(patch)) {
+        return patch;
+      }
+    }
+
+    throw Exception('Available patch not found for $buildingType');
   }
 }

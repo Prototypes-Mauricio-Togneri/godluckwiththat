@@ -1,23 +1,24 @@
 import 'package:tensionplanet/models/buildings/building.dart';
+import 'package:tensionplanet/models/patch.dart';
 import 'package:tensionplanet/types/building_type.dart';
-import 'package:tensionplanet/types/patch_location.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
 class Producer extends Building {
   final ResourceType resourceType;
+  final Patch patch;
   double productionTime;
   double accumulatedTime = 0;
 
   Producer({
     required BuildingType buildingType,
-    required PatchLocation location,
     required this.resourceType,
+    required this.patch,
     required this.productionTime,
     required super.village,
     required super.level,
   }) : super(
           buildingType: buildingType,
-          offset: location.offset,
+          offset: patch.location.offset,
         );
 
   @override

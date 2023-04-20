@@ -8,6 +8,7 @@ enum BuildingType {
     sprite: Assets.IMAGES_BUILDINGS_HEADQUARTERS,
     initialCost: {},
     position: Offset(0.5, 0.5),
+    produces: ResourceType.villager,
   ),
   house(
     sprite: Assets.IMAGES_BUILDINGS_HOUSE,
@@ -15,6 +16,7 @@ enum BuildingType {
       ResourceType.wood: 2,
     },
     position: Offset(0.5, 0.32),
+    produces: null,
   ),
   market(
     sprite: Assets.IMAGES_BUILDINGS_MARKET,
@@ -23,6 +25,7 @@ enum BuildingType {
       ResourceType.stone: 10,
     },
     position: Offset(0.66, 0.5),
+    produces: null,
   ),
   warehouse(
     sprite: Assets.IMAGES_BUILDINGS_WAREHOUSE,
@@ -31,6 +34,7 @@ enum BuildingType {
       ResourceType.stone: 20,
     },
     position: Offset(0.32, 0.5),
+    produces: null,
   ),
 
   farm(
@@ -39,6 +43,7 @@ enum BuildingType {
       ResourceType.wood: 5,
     },
     position: Offset(0, 0),
+    produces: ResourceType.food,
   ),
   woodcutter(
     sprite: Assets.IMAGES_BUILDINGS_WOODCUTTER,
@@ -46,6 +51,7 @@ enum BuildingType {
       ResourceType.wood: 5,
     },
     position: Offset(0, 0),
+    produces: ResourceType.wood,
   ),
   quarry(
     sprite: Assets.IMAGES_BUILDINGS_QUARRY,
@@ -53,6 +59,7 @@ enum BuildingType {
       ResourceType.wood: 5,
     },
     position: Offset(0, 0),
+    produces: ResourceType.stone,
   ),
 
   copper_mine(
@@ -62,6 +69,7 @@ enum BuildingType {
       ResourceType.stone: 5,
     },
     position: Offset(0, 0),
+    produces: ResourceType.copper,
   ),
   iron_mine(
     sprite: Assets.IMAGES_BUILDINGS_IRON_MINE,
@@ -70,6 +78,7 @@ enum BuildingType {
       ResourceType.stone: 10,
     },
     position: Offset(0, 0),
+    produces: ResourceType.iron,
   ),
   gold_mine(
     sprite: Assets.IMAGES_BUILDINGS_GOLD_MINE,
@@ -78,6 +87,7 @@ enum BuildingType {
       ResourceType.stone: 15,
     },
     position: Offset(0, 0),
+    produces: ResourceType.gold,
   ),
 
   barracks(
@@ -87,6 +97,7 @@ enum BuildingType {
       ResourceType.stone: 20,
     },
     position: Offset(0.75, 0.25),
+    produces: null,
   ),
   archery(
     sprite: Assets.IMAGES_BUILDINGS_ARCHERY,
@@ -95,6 +106,7 @@ enum BuildingType {
       ResourceType.stone: 20,
     },
     position: Offset(0.25, 0.75),
+    produces: null,
   ),
   cavalry(
     sprite: Assets.IMAGES_BUILDINGS_CAVALRY,
@@ -103,6 +115,7 @@ enum BuildingType {
       ResourceType.stone: 20,
     },
     position: Offset(0.75, 0.75),
+    produces: null,
   ),
   workshop(
     sprite: Assets.IMAGES_BUILDINGS_WORKSHOP,
@@ -111,6 +124,7 @@ enum BuildingType {
       ResourceType.stone: 20,
     },
     position: Offset(0.25, 0.25),
+    produces: null,
   ),
   fortress(
     sprite: Assets.IMAGES_BUILDINGS_FORTRESS,
@@ -119,16 +133,19 @@ enum BuildingType {
       ResourceType.stone: 50,
     },
     position: Offset(0.5, 0.66),
+    produces: null,
   );
 
   final String sprite;
   final ResourceMap initialCost;
   final Offset position;
+  final ResourceType? produces;
 
   const BuildingType({
     required this.sprite,
     required this.initialCost,
     required this.position,
+    required this.produces,
   });
 
   ResourceMap cost(int level) => {};

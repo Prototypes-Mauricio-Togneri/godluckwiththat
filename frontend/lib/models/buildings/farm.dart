@@ -5,9 +5,9 @@ import 'package:tensionplanet/types/resource_type.dart';
 class Farm extends Producer {
   Farm({
     required super.village,
+    required super.patch,
     required super.level,
     required super.productionTime,
-    required super.location,
   }) : super(
           buildingType: BuildingType.farm,
           resourceType: ResourceType.food,
