@@ -1,14 +1,13 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/json/json_match.dart';
+import 'package:tensionplanet/json/json_village.dart';
 import 'package:tensionplanet/models/buildings/building.dart';
 import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/research.dart';
-import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/models/village.dart';
 import 'package:tensionplanet/types/building_type.dart';
-import 'package:tensionplanet/types/resource_type.dart';
 
 class GameState extends BaseState {
   num totalTimeElapsed = 0;
@@ -24,32 +23,26 @@ class GameState extends BaseState {
   GameState(this.jsonMatch) {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
-    final Inventory inventory = Inventory.empty();
-    inventory.addResource(const Resource(ResourceType.food, 300));
-    inventory.addResource(const Resource(ResourceType.wood, 100));
-    inventory.addResource(const Resource(ResourceType.stone, 0));
-    inventory.addResource(const Resource(ResourceType.copper, 0));
-    inventory.addResource(const Resource(ResourceType.iron, 0));
-    inventory.addResource(const Resource(ResourceType.gold, 0));
-    inventory.addResource(const Resource(ResourceType.villager, 10));
+    for (final JsonVillage json in jsonMatch.villages) {
+      final Village village = Village(
+        name: json.name,
+        inventory: Inventory.fromJson(json.inventory),
+        buildings: [],
+        freeVillagers: json.freeVillagers,
+        constructions: [],
+      );
+      village.addBuildings([
+        Building.create(
+          village: village,
+          buildingType: BuildingType.headquarters,
+          level: 1,
+        ),
+      ]);
 
-    final Village village = Village(
-      name: 'Home village',
-      inventory: inventory,
-      buildings: [],
-      freeVillagers: 10,
-      constructions: [],
-    );
-    village.addBuildings([
-      Building.create(
-        village: village,
-        buildingType: BuildingType.headquarters,
-        level: 1,
-      ),
-    ]);
+      villages.add(village);
+    }
 
-    villages.addAll([village]);
-    currentVillage = village;
+    currentVillage = villages[0];
   }
 
   void initialize(GameComponent value) {
