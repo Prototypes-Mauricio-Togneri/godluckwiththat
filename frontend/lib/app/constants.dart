@@ -9,14 +9,25 @@ class Constants {
 	"id": "level1",
 	"totalTimeElapsed": 60,
 	"level": 1,
-	"buildings": [
+	"villages": [
     {
-      "type": "headquarters",
-      "level": 2
-    },
-    {
-      "type": "farm",
-      "level": 1
+      "name": "Momo's village",
+      "inventory": {
+        "food": 300,
+        "wood": 100,
+        "villager": 10
+      },
+      "freeVillagers": 10,
+      "buildings": [
+        {
+          "type": "headquarters",
+          "level": 2
+        },
+        {
+          "type": "farm",
+          "level": 1
+        }
+      ]
     }
   ]
 }
