@@ -9,15 +9,15 @@ import 'package:tensionplanet/types/resource_type.dart';
 class Village {
   final String name;
   final Inventory inventory;
+  int freeVillagers;
   final List<Building> buildings;
   final List<Construction> constructions;
-  int freeVillagers;
 
   Village({
     required this.name,
     required this.inventory,
-    required this.buildings,
     required this.freeVillagers,
+    required this.buildings,
     required this.constructions,
   });
 
