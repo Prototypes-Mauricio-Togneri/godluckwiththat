@@ -134,7 +134,7 @@ enum BuildingType {
   ResourceMap cost(int level) => {};
 
   double constructionTime(int level) {
-    return level * 10;
+    return 0;
   }
 
   double productionTime(int level) {

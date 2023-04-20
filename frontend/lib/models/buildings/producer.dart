@@ -1,6 +1,6 @@
 import 'package:tensionplanet/models/buildings/building.dart';
 import 'package:tensionplanet/types/building_type.dart';
-import 'package:tensionplanet/types/producer_location.dart';
+import 'package:tensionplanet/types/patch_location.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
 class Producer extends Building {
@@ -10,7 +10,7 @@ class Producer extends Building {
 
   Producer({
     required BuildingType buildingType,
-    required ProducerLocation location,
+    required PatchLocation location,
     required this.resourceType,
     required this.productionTime,
     required super.village,

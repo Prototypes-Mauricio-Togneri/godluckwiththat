@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:tensionplanet/types/building_type.dart';
-import 'package:tensionplanet/types/producer_location.dart';
+import 'package:tensionplanet/types/patch_location.dart';
 
 part 'json_building.g.dart';
 
@@ -14,7 +14,7 @@ class JsonBuilding {
   final int level;
 
   @JsonKey(name: 'location')
-  final ProducerLocation? location;
+  final PatchLocation? location;
 
   const JsonBuilding({
     required this.type,

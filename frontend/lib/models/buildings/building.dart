@@ -16,7 +16,7 @@ import 'package:tensionplanet/models/buildings/woodcutter.dart';
 import 'package:tensionplanet/models/buildings/workshop.dart';
 import 'package:tensionplanet/models/village.dart';
 import 'package:tensionplanet/types/building_type.dart';
-import 'package:tensionplanet/types/producer_location.dart';
+import 'package:tensionplanet/types/patch_location.dart';
 
 class Building {
   final Village village;
@@ -39,7 +39,7 @@ class Building {
     required Village village,
     required BuildingType buildingType,
     required int level,
-    ProducerLocation? location,
+    PatchLocation? location,
   }) {
     switch (buildingType) {
       case BuildingType.headquarters:

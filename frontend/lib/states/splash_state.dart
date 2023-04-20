@@ -23,7 +23,6 @@ class SplashState extends BaseState {
     if (success) {
       Navigation.homeScreen();
     } else {
-      // TODO(momo): show error
     }
   }*/
 }

@@ -9,8 +9,7 @@ part of 'json_building.dart';
 JsonBuilding _$JsonBuildingFromJson(Map<String, dynamic> json) => JsonBuilding(
       type: $enumDecode(_$BuildingTypeEnumMap, json['type']),
       level: json['level'] as int,
-      location:
-          $enumDecodeNullable(_$ProducerLocationEnumMap, json['location']),
+      location: $enumDecodeNullable(_$PatchLocationEnumMap, json['location']),
     );
 
 Map<String, dynamic> _$JsonBuildingToJson(JsonBuilding instance) {
@@ -25,7 +24,7 @@ Map<String, dynamic> _$JsonBuildingToJson(JsonBuilding instance) {
     }
   }
 
-  writeNotNull('location', _$ProducerLocationEnumMap[instance.location]);
+  writeNotNull('location', _$PatchLocationEnumMap[instance.location]);
   return val;
 }
 
@@ -47,9 +46,9 @@ const _$BuildingTypeEnumMap = {
   BuildingType.fortress: 'fortress',
 };
 
-const _$ProducerLocationEnumMap = {
-  ProducerLocation.north: 'north',
-  ProducerLocation.south: 'south',
-  ProducerLocation.west: 'west',
-  ProducerLocation.east: 'east',
+const _$PatchLocationEnumMap = {
+  PatchLocation.north: 'north',
+  PatchLocation.south: 'south',
+  PatchLocation.west: 'west',
+  PatchLocation.east: 'east',
 };

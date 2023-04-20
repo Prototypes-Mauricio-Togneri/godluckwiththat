@@ -3,7 +3,7 @@ import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/building_type.dart';
-import 'package:tensionplanet/types/producer_location.dart';
+import 'package:tensionplanet/types/patch_location.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
 class Village {
@@ -64,7 +64,7 @@ class Village {
         village: this,
         buildingType: construction.buildingType,
         level: construction.toLevel,
-        location: ProducerLocation.north, // TODO(momo): change
+        location: PatchLocation.north, // TODO(momo): change
       ));
     }
   }

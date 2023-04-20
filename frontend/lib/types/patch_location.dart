@@ -1,6 +1,6 @@
 import 'package:flutter/painting.dart';
 
-enum ProducerLocation {
+enum PatchLocation {
   north,
   south,
   west,
@@ -8,13 +8,13 @@ enum ProducerLocation {
 
   Offset get offset {
     switch (this) {
-      case ProducerLocation.north:
+      case PatchLocation.north:
         return const Offset(0.5, 0.16);
-      case ProducerLocation.south:
+      case PatchLocation.south:
         return const Offset(0.5, 0.85);
-      case ProducerLocation.west:
+      case PatchLocation.west:
         return const Offset(0.16, 0.5);
-      case ProducerLocation.east:
+      case PatchLocation.east:
         return const Offset(0.82, 0.5);
     }
   }
