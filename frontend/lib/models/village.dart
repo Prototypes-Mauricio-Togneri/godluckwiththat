@@ -28,6 +28,8 @@ class Village {
     required this.patches,
   });
 
+  bool get hasFreeVillagers => freeVillagers > 0;
+
   int get populationLimit {
     int total = 0;
 
@@ -38,6 +40,18 @@ class Village {
     }
 
     return total + Constants.HEADQUARTERS_POPULATION;
+  }
+
+  int removeFreeVillager() {
+    freeVillagers--;
+
+    return 1;
+  }
+
+  int addFreeVillager() {
+    freeVillagers++;
+
+    return 1;
   }
 
   void update(double dt) {

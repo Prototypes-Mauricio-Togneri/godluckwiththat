@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:tensionplanet/components/building_sprite.dart';
+import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/models/buildings/archery.dart';
 import 'package:tensionplanet/models/buildings/barracks.dart';
 import 'package:tensionplanet/models/buildings/cavalry.dart';
@@ -42,11 +43,17 @@ class Building {
   }
 
   void onAddVillager() {
-    villagers++;
+    if (village.hasFreeVillagers) {
+      villagers += village.removeFreeVillager();
+      GameState.instance.notify();
+    }
   }
 
   void onRemoveVillager() {
-    villagers--;
+    if (village.hasFreeVillagers) {
+      villagers -= village.addFreeVillager();
+      GameState.instance.notify();
+    }
   }
 
   factory Building.create({
