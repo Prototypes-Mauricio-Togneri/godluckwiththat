@@ -35,6 +35,12 @@ class Building {
 
   BuildingSprite get sprite => BuildingSprite(this);
 
+  void onUpgrade() {}
+
+  void onAddVillager() {}
+
+  void onRemoveVillager() {}
+
   factory Building.create({
     required Village village,
     required BuildingType buildingType,
