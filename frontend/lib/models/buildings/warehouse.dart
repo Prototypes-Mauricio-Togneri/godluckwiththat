@@ -8,6 +8,6 @@ class Warehouse extends Building {
   }) : super(
           buildingType: BuildingType.warehouse,
           offset: BuildingType.warehouse.position,
-          villagers: 0,
+          workers: 0,
         );
 }

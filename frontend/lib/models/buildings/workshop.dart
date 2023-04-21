@@ -8,6 +8,6 @@ class Workshop extends Building {
   }) : super(
           buildingType: BuildingType.workshop,
           offset: BuildingType.workshop.position,
-          villagers: 0,
+          workers: 0,
         );
 }

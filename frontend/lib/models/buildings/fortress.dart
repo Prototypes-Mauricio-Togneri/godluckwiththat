@@ -8,6 +8,6 @@ class Fortress extends Building {
   }) : super(
           buildingType: BuildingType.fortress,
           offset: BuildingType.fortress.position,
-          villagers: 0,
+          workers: 0,
         );
 }

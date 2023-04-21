@@ -8,6 +8,6 @@ class Cavalry extends Building {
   }) : super(
           buildingType: BuildingType.cavalry,
           offset: BuildingType.cavalry.position,
-          villagers: 0,
+          workers: 0,
         );
 }

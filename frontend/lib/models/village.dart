@@ -94,7 +94,7 @@ class Village {
         village: this,
         buildingType: buildingType,
         level: construction.toLevel,
-        villagers: 0,
+        workers: 0,
         patch: buildingType.isProducer ? _patchForBuilding(buildingType) : null,
       ));
     }

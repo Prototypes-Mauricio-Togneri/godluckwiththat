@@ -24,17 +24,17 @@ class Building {
   final BuildingType buildingType;
   final Offset offset;
   int level;
-  int villagers;
+  int workers;
 
   Building({
     required this.village,
     required this.buildingType,
     required this.offset,
     required this.level,
-    required this.villagers,
+    required this.workers,
   });
 
-  bool get hasVillagers => villagers > 0;
+  bool get hasWorkers => workers > 0;
 
   BuildingSprite get sprite => BuildingSprite(this);
 
@@ -46,14 +46,14 @@ class Building {
 
   void onAddVillager() {
     if (village.hasFreeVillagers) {
-      villagers += village.removeFreeVillager();
+      workers += village.removeFreeVillager();
       GameState.instance.notify();
     }
   }
 
   void onRemoveVillager() {
-    if (hasVillagers) {
-      villagers -= village.addFreeVillager();
+    if (hasWorkers) {
+      workers -= village.addFreeVillager();
       GameState.instance.notify();
     }
   }
@@ -62,7 +62,7 @@ class Building {
     required Village village,
     required BuildingType buildingType,
     required int level,
-    required int villagers,
+    required int workers,
     Patch? patch,
   }) {
     switch (buildingType) {
@@ -70,7 +70,7 @@ class Building {
         return Headquarters(
           village: village,
           level: level,
-          villagers: villagers,
+          workers: workers,
         );
       case BuildingType.house:
         return House(
@@ -92,7 +92,7 @@ class Building {
           village: village,
           patch: patch!,
           level: level,
-          villagers: villagers,
+          workers: workers,
           productionTime: buildingType.productionTime(level),
         );
       case BuildingType.woodcutter:
@@ -100,7 +100,7 @@ class Building {
           village: village,
           patch: patch!,
           level: level,
-          villagers: villagers,
+          workers: workers,
           productionTime: buildingType.productionTime(level),
         );
       case BuildingType.quarry:
@@ -108,7 +108,7 @@ class Building {
           village: village,
           patch: patch!,
           level: level,
-          villagers: villagers,
+          workers: workers,
           productionTime: buildingType.productionTime(level),
         );
       case BuildingType.copper_mine:
@@ -116,7 +116,7 @@ class Building {
           village: village,
           patch: patch!,
           level: level,
-          villagers: villagers,
+          workers: workers,
           productionTime: buildingType.productionTime(level),
         );
       case BuildingType.iron_mine:
@@ -124,7 +124,7 @@ class Building {
           village: village,
           patch: patch!,
           level: level,
-          villagers: villagers,
+          workers: workers,
           productionTime: buildingType.productionTime(level),
         );
       case BuildingType.gold_mine:
@@ -132,7 +132,7 @@ class Building {
           village: village,
           patch: patch!,
           level: level,
-          villagers: villagers,
+          workers: workers,
           productionTime: buildingType.productionTime(level),
         );
       case BuildingType.barracks:

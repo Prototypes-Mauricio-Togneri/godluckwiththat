@@ -13,8 +13,8 @@ class JsonBuilding {
   @JsonKey(name: 'level')
   final int level;
 
-  @JsonKey(name: 'villagers')
-  final int villagers;
+  @JsonKey(name: 'workers')
+  final int workers;
 
   @JsonKey(name: 'location')
   final PatchLocation? location;
@@ -22,7 +22,7 @@ class JsonBuilding {
   const JsonBuilding({
     required this.type,
     required this.level,
-    required this.villagers,
+    required this.workers,
     required this.location,
   });
 

@@ -8,6 +8,6 @@ class House extends Building {
   }) : super(
           buildingType: BuildingType.house,
           offset: BuildingType.house.position,
-          villagers: 0,
+          workers: 0,
         );
 }

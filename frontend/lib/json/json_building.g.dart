@@ -9,7 +9,7 @@ part of 'json_building.dart';
 JsonBuilding _$JsonBuildingFromJson(Map<String, dynamic> json) => JsonBuilding(
       type: $enumDecode(_$BuildingTypeEnumMap, json['type']),
       level: json['level'] as int,
-      villagers: json['villagers'] as int,
+      workers: json['workers'] as int,
       location: $enumDecodeNullable(_$PatchLocationEnumMap, json['location']),
     );
 
@@ -17,7 +17,7 @@ Map<String, dynamic> _$JsonBuildingToJson(JsonBuilding instance) {
   final val = <String, dynamic>{
     'type': _$BuildingTypeEnumMap[instance.type]!,
     'level': instance.level,
-    'villagers': instance.villagers,
+    'workers': instance.workers,
   };
 
   void writeNotNull(String key, dynamic value) {

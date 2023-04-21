@@ -37,12 +37,12 @@ class Constants {
         {
           "type": "headquarters",
           "level": 2,
-          "villagers": 0
+          "workers": 0
         },
         {
           "type": "farm",
           "level": 1,
-          "villagers": 0,
+          "workers": 0,
           "location": "north"
         }
       ]

@@ -16,7 +16,7 @@ class Producer extends Building {
     required this.productionTime,
     required super.village,
     required super.level,
-    required super.villagers,
+    required super.workers,
   }) : super(
           buildingType: buildingType,
           offset: patch.location.offset,

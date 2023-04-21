@@ -5,7 +5,7 @@ class Headquarters extends Building {
   Headquarters({
     required super.village,
     required super.level,
-    required super.villagers,
+    required super.workers,
   }) : super(
           buildingType: BuildingType.headquarters,
           offset: BuildingType.headquarters.position,

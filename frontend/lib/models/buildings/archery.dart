@@ -8,6 +8,6 @@ class Archery extends Building {
   }) : super(
           buildingType: BuildingType.archery,
           offset: BuildingType.archery.position,
-          villagers: 0,
+          workers: 0,
         );
 }

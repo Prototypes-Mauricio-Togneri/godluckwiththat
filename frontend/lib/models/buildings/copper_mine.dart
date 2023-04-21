@@ -7,7 +7,7 @@ class CopperMine extends Producer {
     required super.village,
     required super.patch,
     required super.level,
-    required super.villagers,
+    required super.workers,
     required super.productionTime,
   }) : super(
           buildingType: BuildingType.copper_mine,

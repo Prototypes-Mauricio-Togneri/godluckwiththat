@@ -58,7 +58,7 @@ class BuildingQuickMenu extends StatelessWidget {
                   color: Palette.error,
                   icon: Icons.remove,
                   size: size / 4,
-                  enabled: building.hasVillagers,
+                  enabled: building.hasWorkers,
                   onPressed: building.onRemoveVillager,
                 ),
               ],
