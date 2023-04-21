@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/types/resource_type.dart';
+import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/image_asset.dart';
 import 'package:tensionplanet/widgets/label.dart';
@@ -23,39 +24,44 @@ class ResourceHud extends StatelessWidget {
         children: [
           if (inventory.get(ResourceType.food) > 0)
             ResourceIndicator(
-              ResourceType.food,
-              inventory.resource(ResourceType.food).amount.toString(),
+              sprite: ResourceType.food.sprite,
+              value: inventory.resource(ResourceType.food).amount.toString(),
             ),
           if (inventory.get(ResourceType.wood) > 0)
             ResourceIndicator(
-              ResourceType.wood,
-              inventory.resource(ResourceType.wood).amount.toString(),
+              sprite: ResourceType.wood.sprite,
+              value: inventory.resource(ResourceType.wood).amount.toString(),
             ),
           if (inventory.get(ResourceType.stone) > 0)
             ResourceIndicator(
-              ResourceType.stone,
-              inventory.resource(ResourceType.stone).amount.toString(),
+              sprite: ResourceType.stone.sprite,
+              value: inventory.resource(ResourceType.stone).amount.toString(),
             ),
           if (inventory.get(ResourceType.copper) > 0)
             ResourceIndicator(
-              ResourceType.copper,
-              inventory.resource(ResourceType.copper).amount.toString(),
+              sprite: ResourceType.copper.sprite,
+              value: inventory.resource(ResourceType.copper).amount.toString(),
             ),
           if (inventory.get(ResourceType.iron) > 0)
             ResourceIndicator(
-              ResourceType.iron,
-              inventory.resource(ResourceType.iron).amount.toString(),
+              sprite: ResourceType.iron.sprite,
+              value: inventory.resource(ResourceType.iron).amount.toString(),
             ),
           if (inventory.get(ResourceType.gold) > 0)
             ResourceIndicator(
-              ResourceType.gold,
-              inventory.resource(ResourceType.gold).amount.toString(),
+              sprite: ResourceType.gold.sprite,
+              value: inventory.resource(ResourceType.gold).amount.toString(),
             ),
           if (inventory.get(ResourceType.villager) > 0)
             ResourceIndicator(
-              ResourceType.villager,
-              '${inventory.resource(ResourceType.villager).amount.toString()}/${state.currentVillage.populationLimit}',
+              sprite: ResourceType.villager.sprite,
+              value:
+                  '${inventory.resource(ResourceType.villager).amount.toString()}/${state.currentVillage.populationLimit}',
             ),
+          ResourceIndicator(
+            sprite: Assets.IMAGES_HUD_IDLE,
+            value: state.currentVillage.freeVillagers.toString(),
+          ),
         ],
       ),
     );
@@ -63,10 +69,13 @@ class ResourceHud extends StatelessWidget {
 }
 
 class ResourceIndicator extends StatelessWidget {
-  final ResourceType resourceType;
+  final String sprite;
   final String value;
 
-  const ResourceIndicator(this.resourceType, this.value);
+  const ResourceIndicator({
+    required this.sprite,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +92,7 @@ class ResourceIndicator extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ImageAsset(
-            path: resourceType.sprite,
+            path: sprite,
             size: 32,
           ),
           const VBox(3),

@@ -50,7 +50,7 @@ class Building {
   }
 
   void onRemoveVillager() {
-    if (village.hasFreeVillagers) {
+    if (villagers > 0) {
       villagers -= village.addFreeVillager();
       GameState.instance.notify();
     }

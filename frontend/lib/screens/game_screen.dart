@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/game/game_state.dart';
-import 'package:tensionplanet/hud/overlay_menus.dart';
+import 'package:tensionplanet/hud/hud_container.dart';
 import 'package:tensionplanet/json/json_match.dart';
 import 'package:tensionplanet/utils/palette.dart';
 
@@ -42,7 +42,7 @@ class GameScreen extends StatelessWidget {
                 StateProvider<GameState>(
                   state: state,
                   builder: (context, state) =>
-                      state.loaded ? OverlayMenus(state) : const Empty(),
+                      state.loaded ? HudContainer(state) : const Empty(),
                 ),
               ],
             ),

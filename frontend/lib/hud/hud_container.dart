@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/hud/menu_button_hud.dart';
 import 'package:tensionplanet/hud/resource_hud.dart';
-import 'package:tensionplanet/hud/village_switcher.dart';
+import 'package:tensionplanet/hud/village_switcher_hud.dart';
 import 'package:tensionplanet/models/buildings/building.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 
-class OverlayMenus extends StatelessWidget {
+class HudContainer extends StatelessWidget {
   final GameState state;
 
-  const OverlayMenus(this.state);
+  const HudContainer(this.state);
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) => Stack(
         children: [
-          VillageSwitcher(state),
+          VillageSwitcherHud(state),
           ResourceHud(state),
           MenuButtonHud(state),
           if (state.selectedBuilding != null)
