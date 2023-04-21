@@ -54,7 +54,7 @@ class ResourceHud extends StatelessWidget {
           if (inventory.get(ResourceType.villager) > 0)
             ResourceIndicator(
               ResourceType.villager,
-              '${state.currentVillage.freeVillagers}/${inventory.resource(ResourceType.villager).amount.toString()}',
+              '${inventory.resource(ResourceType.villager).amount.toString()}/${state.currentVillage.populationLimit}',
             ),
         ],
       ),

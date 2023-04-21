@@ -5,6 +5,9 @@ class Constants {
 
   static double RESOURCES_HUD_REFRESH_TIMEOUT = 1; // in seconds
 
+  static int HOUSE_POPULATION = 10;
+  static int HEADQUARTERS_POPULATION = 10;
+
   static String EMPTY_MATCH = '''
 {
 	"version": 1,

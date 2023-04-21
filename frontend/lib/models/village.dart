@@ -1,4 +1,7 @@
+import 'package:tensionplanet/app/constants.dart';
+import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/models/buildings/building.dart';
+import 'package:tensionplanet/models/buildings/house.dart';
 import 'package:tensionplanet/models/buildings/producer.dart';
 import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/inventory.dart';
@@ -11,10 +14,10 @@ import 'package:tensionplanet/types/resource_type.dart';
 class Village {
   final String name;
   final Inventory inventory;
-  int freeVillagers;
   final List<Building> buildings;
   final List<Construction> constructions;
   final List<Patch> patches;
+  int freeVillagers;
 
   Village({
     required this.name,
@@ -24,6 +27,18 @@ class Village {
     required this.constructions,
     required this.patches,
   });
+
+  int get populationLimit {
+    int total = 0;
+
+    for (final Building building in buildings) {
+      if (building is House) {
+        total += Constants.HOUSE_POPULATION;
+      }
+    }
+
+    return total + Constants.HEADQUARTERS_POPULATION;
+  }
 
   void update(double dt) {
     for (final Construction construction in constructions) {
@@ -69,6 +84,8 @@ class Village {
         patch: buildingType.isProducer ? _patchForBuilding(buildingType) : null,
       ));
     }
+
+    GameState.instance.notify();
   }
 
   Patch patchByLocation(PatchLocation location) {
