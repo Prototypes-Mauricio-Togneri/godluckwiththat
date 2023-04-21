@@ -13,12 +13,16 @@ class JsonBuilding {
   @JsonKey(name: 'level')
   final int level;
 
+  @JsonKey(name: 'villagers')
+  final int villagers;
+
   @JsonKey(name: 'location')
   final PatchLocation? location;
 
   const JsonBuilding({
     required this.type,
     required this.level,
+    required this.villagers,
     required this.location,
   });
 

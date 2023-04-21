@@ -23,28 +23,37 @@ class Building {
   final BuildingType buildingType;
   final Offset offset;
   int level;
+  int villagers;
 
   Building({
     required this.village,
     required this.buildingType,
     required this.offset,
     required this.level,
+    required this.villagers,
   });
 
   void update(double dt) {}
 
   BuildingSprite get sprite => BuildingSprite(this);
 
-  void onUpgrade() {}
+  void onUpgrade() {
+    level++;
+  }
 
-  void onAddVillager() {}
+  void onAddVillager() {
+    villagers++;
+  }
 
-  void onRemoveVillager() {}
+  void onRemoveVillager() {
+    villagers--;
+  }
 
   factory Building.create({
     required Village village,
     required BuildingType buildingType,
     required int level,
+    required int villagers,
     Patch? patch,
   }) {
     switch (buildingType) {
@@ -52,6 +61,7 @@ class Building {
         return Headquarters(
           village: village,
           level: level,
+          villagers: villagers,
         );
       case BuildingType.house:
         return House(
@@ -73,6 +83,7 @@ class Building {
           village: village,
           patch: patch!,
           level: level,
+          villagers: villagers,
           productionTime: buildingType.productionTime(level),
         );
       case BuildingType.woodcutter:
@@ -80,6 +91,7 @@ class Building {
           village: village,
           patch: patch!,
           level: level,
+          villagers: villagers,
           productionTime: buildingType.productionTime(level),
         );
       case BuildingType.quarry:
@@ -87,6 +99,7 @@ class Building {
           village: village,
           patch: patch!,
           level: level,
+          villagers: villagers,
           productionTime: buildingType.productionTime(level),
         );
       case BuildingType.copper_mine:
@@ -94,6 +107,7 @@ class Building {
           village: village,
           patch: patch!,
           level: level,
+          villagers: villagers,
           productionTime: buildingType.productionTime(level),
         );
       case BuildingType.iron_mine:
@@ -101,6 +115,7 @@ class Building {
           village: village,
           patch: patch!,
           level: level,
+          villagers: villagers,
           productionTime: buildingType.productionTime(level),
         );
       case BuildingType.gold_mine:
@@ -108,6 +123,7 @@ class Building {
           village: village,
           patch: patch!,
           level: level,
+          villagers: villagers,
           productionTime: buildingType.productionTime(level),
         );
       case BuildingType.barracks:

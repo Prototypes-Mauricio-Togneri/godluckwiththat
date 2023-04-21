@@ -7,6 +7,7 @@ class Farm extends Producer {
     required super.village,
     required super.patch,
     required super.level,
+    required super.villagers,
     required super.productionTime,
   }) : super(
           buildingType: BuildingType.farm,

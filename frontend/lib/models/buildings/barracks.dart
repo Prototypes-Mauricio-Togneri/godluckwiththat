@@ -8,5 +8,6 @@ class Barracks extends Building {
   }) : super(
           buildingType: BuildingType.barracks,
           offset: BuildingType.barracks.position,
+          villagers: 0,
         );
 }

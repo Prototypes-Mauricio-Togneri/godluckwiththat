@@ -53,6 +53,7 @@ class GameState extends BaseState {
           village: village,
           buildingType: jsonBuilding.type,
           level: jsonBuilding.level,
+          villagers: jsonBuilding.villagers,
           patch: (jsonBuilding.location != null)
               ? village.patchByLocation(jsonBuilding.location!)
               : null,

@@ -8,5 +8,6 @@ class Market extends Building {
   }) : super(
           buildingType: BuildingType.market,
           offset: BuildingType.market.position,
+          villagers: 0,
         );
 }
