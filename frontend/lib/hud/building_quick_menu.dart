@@ -44,18 +44,21 @@ class BuildingQuickMenu extends StatelessWidget {
                   color: Palette.primary,
                   icon: Icons.upload,
                   size: size / 4,
+                  enabled: true,
                   onPressed: building.onUpgrade,
                 ),
                 QuickMenuButton(
                   color: Palette.success,
                   icon: Icons.add,
                   size: size / 4,
+                  enabled: false,
                   onPressed: building.onAddVillager,
                 ),
                 QuickMenuButton(
                   color: Palette.error,
                   icon: Icons.remove,
                   size: size / 4,
+                  enabled: true,
                   onPressed: building.onRemoveVillager,
                 ),
               ],
@@ -71,12 +74,14 @@ class QuickMenuButton extends StatelessWidget {
   final Color color;
   final IconData icon;
   final double size;
+  final bool enabled;
   final VoidCallback onPressed;
 
   const QuickMenuButton({
     required this.color,
     required this.icon,
     required this.size,
+    required this.enabled,
     required this.onPressed,
   });
 
@@ -86,7 +91,7 @@ class QuickMenuButton extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: color,
+        color: enabled ? color : Palette.lightGrey,
         borderRadius: BorderRadius.circular(100),
         border: Border.all(
           width: size / 20,
@@ -97,7 +102,7 @@ class QuickMenuButton extends StatelessWidget {
         color: Palette.transparent,
         borderRadius: BorderRadius.circular(100),
         child: InkWell(
-          onTap: onPressed,
+          onTap: enabled ? onPressed : null,
           borderRadius: BorderRadius.circular(100),
           child: Center(
             child: Icon(

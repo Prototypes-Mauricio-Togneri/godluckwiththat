@@ -59,7 +59,7 @@ class ResourceHud extends StatelessWidget {
                   '${inventory.resource(ResourceType.villager).amount.toString()}/${state.currentVillage.populationLimit}',
             ),
           ResourceIndicator(
-            sprite: Assets.IMAGES_HUD_IDLE,
+            sprite: Assets.IMAGES_RESOURCES_IDLE,
             value: state.currentVillage.freeVillagers.toString(),
           ),
         ],
