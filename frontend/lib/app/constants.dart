@@ -3,6 +3,8 @@ class Constants {
 
   static double VIEWPORT_SIZE = 500;
 
+  static double RESOURCES_HUD_REFRESH_TIMEOUT = 1; // in seconds
+
   static String EMPTY_MATCH = '''
 {
 	"version": 1,

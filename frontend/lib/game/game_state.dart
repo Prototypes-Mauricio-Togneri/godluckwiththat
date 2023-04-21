@@ -1,4 +1,5 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/dialog/buildings_dialog.dart';
 import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/json/json_building.dart';
@@ -78,7 +79,7 @@ class GameState extends BaseState {
       print(totalTimeElapsed);
     }
 
-    if (refreshTimeout > 1) {
+    if (refreshTimeout > Constants.RESOURCES_HUD_REFRESH_TIMEOUT) {
       refreshTimeout--;
       notify();
     }
