@@ -34,9 +34,11 @@ class Building {
     required this.villagers,
   });
 
-  void update(double dt) {}
+  bool get hasVillagers => villagers > 0;
 
   BuildingSprite get sprite => BuildingSprite(this);
+
+  void update(double dt) {}
 
   void onUpgrade() {
     level++;
@@ -50,7 +52,7 @@ class Building {
   }
 
   void onRemoveVillager() {
-    if (villagers > 0) {
+    if (hasVillagers) {
       villagers -= village.addFreeVillager();
       GameState.instance.notify();
     }
