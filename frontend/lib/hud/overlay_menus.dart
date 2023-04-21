@@ -55,9 +55,18 @@ class BuildingQuickMenu extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.topCenter,
-            child: Label(
-              text: building.buildingType.toString(),
-              size: 14,
+            child: Container(
+              color: Palette.black,
+              padding: const EdgeInsets.only(
+                top: 5,
+                bottom: 5,
+                left: 10,
+                right: 10,
+              ),
+              child: Label(
+                text: building.buildingType.toString(),
+                size: 12,
+              ),
             ),
           ),
           Align(
