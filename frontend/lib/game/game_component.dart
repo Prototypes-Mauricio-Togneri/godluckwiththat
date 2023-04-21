@@ -85,12 +85,16 @@ class GameComponent extends FlameGame
     }
   }
 
+  void showBuildingQuickMenu(Building building) {
+    layerSprites.removeAllComponents();
+  }
+
   @override
   void onTapUp(int pointerId, TapUpInfo info) {
     super.onTapUp(pointerId, info);
 
     if (!clickHandled) {
-      // TODO(momo): handle
+      GameState.instance.onMapClicked();
     }
 
     clickHandled = false;

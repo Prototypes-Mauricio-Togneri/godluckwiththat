@@ -22,6 +22,7 @@ class GameState extends BaseState {
   final JsonMatch jsonMatch;
   final List<Village> villages = [];
   late Village currentVillage;
+  Building? selectedBuilding;
 
   static late GameState instance;
 
@@ -89,7 +90,16 @@ class GameState extends BaseState {
     }
   }
 
-  void onBuildingSelected(Building building) {}
+  void onMapClicked() {
+    selectedBuilding = null;
+    notify();
+  }
+
+  void onBuildingSelected(Building building) {
+    selectedBuilding = building;
+    notify();
+    //GameComponent.instance.showBuildingQuickMenu(building);
+  }
 
   void onStartConstruction(Construction construction) {
     construction.village.constructions.add(construction);
