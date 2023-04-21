@@ -42,6 +42,7 @@ class Building {
 
   void onUpgrade() {
     level++;
+    GameState.instance.notify();
   }
 
   void onAddVillager() {

@@ -36,6 +36,31 @@ class BuildingQuickMenu extends StatelessWidget {
             ),
           ),
           Align(
+            alignment: Alignment.center,
+            child: Container(
+              color: Palette.black,
+              padding: const EdgeInsets.only(
+                top: 5,
+                bottom: 5,
+                left: 10,
+                right: 10,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Label(
+                    text: 'Level: ${building.level}',
+                    size: 12,
+                  ),
+                  Label(
+                    text: 'Workers: ${building.workers}',
+                    size: 12,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Align(
             alignment: Alignment.bottomCenter,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
