@@ -39,7 +39,7 @@ class MenuButtonHud extends StatelessWidget {
             icon: Icons.history_edu_rounded,
           ),
           MenuButton(
-            onTap: state.onOpenVillagesOverviewMenu,
+            onTap: state.onOpenZonesOverviewMenu,
             icon: Icons.list_alt,
           ),
           MenuButton(

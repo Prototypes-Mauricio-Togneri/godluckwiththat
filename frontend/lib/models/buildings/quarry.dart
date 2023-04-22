@@ -4,7 +4,7 @@ import 'package:tensionplanet/types/resource_type.dart';
 
 class Quarry extends Producer {
   Quarry({
-    required super.village,
+    required super.zone,
     required super.patch,
     required super.level,
     required super.workers,

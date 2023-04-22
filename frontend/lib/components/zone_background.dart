@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:tensionplanet/extensions/sprite_component_extension.dart';
 
-class VillageBackground extends SpriteComponent {
+class ZoneBackground extends SpriteComponent {
   final String image;
 
-  VillageBackground({
+  ZoneBackground({
     required this.image,
     required super.size,
   });

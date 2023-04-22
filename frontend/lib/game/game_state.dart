@@ -5,13 +5,13 @@ import 'package:tensionplanet/game/game_component.dart';
 import 'package:tensionplanet/json/json_building.dart';
 import 'package:tensionplanet/json/json_match.dart';
 import 'package:tensionplanet/json/json_patch.dart';
-import 'package:tensionplanet/json/json_village.dart';
+import 'package:tensionplanet/json/json_zone.dart';
 import 'package:tensionplanet/models/buildings/building.dart';
 import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/patch.dart';
 import 'package:tensionplanet/models/research.dart';
-import 'package:tensionplanet/models/village.dart';
+import 'package:tensionplanet/models/zone.dart';
 
 class GameState extends BaseState {
   num totalTimeElapsed = 0;
@@ -20,8 +20,8 @@ class GameState extends BaseState {
 
   final Research research = Research();
   final JsonMatch jsonMatch;
-  final List<Village> villages = [];
-  late Village currentVillage;
+  final List<Zone> zones = [];
+  late Zone currentZone;
   Building? selectedBuilding;
 
   static late GameState instance;
@@ -31,41 +31,40 @@ class GameState extends BaseState {
   void load() {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
-    for (final JsonVillage jsonVillage in jsonMatch.villages) {
-      final Village village = Village(
-        name: jsonVillage.name,
-        inventory: Inventory.fromJson(jsonVillage.inventory),
-        freeVillagers: jsonVillage.freeVillagers,
+    for (final JsonZone jsonZone in jsonMatch.zones) {
+      final Zone zone = Zone(
+        inventory: Inventory.fromJson(jsonZone.inventory),
+        freeVillagers: jsonZone.freeVillagers,
         buildings: [],
         constructions: [],
         patches: [],
       );
 
-      for (final JsonPatch jsonPatch in jsonVillage.patches) {
-        village.patches.add(Patch(
+      for (final JsonPatch jsonPatch in jsonZone.patches) {
+        zone.patches.add(Patch(
           resourceType: jsonPatch.type,
           location: jsonPatch.location,
         ));
       }
 
-      for (final JsonBuilding jsonBuilding in jsonVillage.buildings) {
-        village.buildings.add(Building.create(
-          village: village,
+      for (final JsonBuilding jsonBuilding in jsonZone.buildings) {
+        zone.buildings.add(Building.create(
+          zone: zone,
           buildingType: jsonBuilding.type,
           level: jsonBuilding.level,
           workers: jsonBuilding.workers,
           patch: (jsonBuilding.location != null)
-              ? village.patchByLocation(jsonBuilding.location!)
+              ? zone.patchByLocation(jsonBuilding.location!)
               : null,
         ));
       }
 
-      villages.add(village);
+      zones.add(zone);
     }
 
-    currentVillage = villages[0];
+    currentZone = zones[0];
 
-    GameComponent.instance.loadVillage(currentVillage);
+    GameComponent.instance.loadZone(currentZone);
 
     Delayed.post(() {
       loaded = true;
@@ -86,8 +85,8 @@ class GameState extends BaseState {
       notify();
     }
 
-    for (final Village village in villages) {
-      village.update(dt);
+    for (final Zone zone in zones) {
+      zone.update(dt);
     }
   }
 
@@ -103,12 +102,12 @@ class GameState extends BaseState {
   }
 
   void onStartConstruction(Construction construction) {
-    construction.village.constructions.add(construction);
+    construction.zone.constructions.add(construction);
   }
 
   void onConstructionCompleted(Construction construction) {
-    construction.village.onConstructionCompleted(construction);
-    GameComponent.instance.loadVillage(currentVillage);
+    construction.zone.onConstructionCompleted(construction);
+    GameComponent.instance.loadZone(currentZone);
   }
 
   void onOpenMainMenu() {}
@@ -123,7 +122,7 @@ class GameState extends BaseState {
 
   void onOpenReportsMenu() {}
 
-  void onOpenVillagesOverviewMenu() {}
+  void onOpenZonesOverviewMenu() {}
 
   void onOpenExpeditionsMenu() {}
 }

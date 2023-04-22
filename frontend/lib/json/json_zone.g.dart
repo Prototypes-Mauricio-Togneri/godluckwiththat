@@ -1,13 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'json_village.dart';
+part of 'json_zone.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-JsonVillage _$JsonVillageFromJson(Map<String, dynamic> json) => JsonVillage(
-      name: json['name'] as String,
+JsonZone _$JsonZoneFromJson(Map<String, dynamic> json) => JsonZone(
       inventory: (json['inventory'] as Map<String, dynamic>).map(
         (k, e) => MapEntry($enumDecode(_$ResourceTypeEnumMap, k), e as int),
       ),
@@ -20,9 +19,7 @@ JsonVillage _$JsonVillageFromJson(Map<String, dynamic> json) => JsonVillage(
           .toList(),
     );
 
-Map<String, dynamic> _$JsonVillageToJson(JsonVillage instance) =>
-    <String, dynamic>{
-      'name': instance.name,
+Map<String, dynamic> _$JsonZoneToJson(JsonZone instance) => <String, dynamic>{
       'inventory': instance.inventory
           .map((k, e) => MapEntry(_$ResourceTypeEnumMap[k]!, e)),
       'freeVillagers': instance.freeVillagers,

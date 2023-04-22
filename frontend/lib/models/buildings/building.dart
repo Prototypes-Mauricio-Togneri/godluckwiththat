@@ -6,6 +6,7 @@ import 'package:tensionplanet/models/buildings/barracks.dart';
 import 'package:tensionplanet/models/buildings/cavalry.dart';
 import 'package:tensionplanet/models/buildings/copper_mine.dart';
 import 'package:tensionplanet/models/buildings/farm.dart';
+import 'package:tensionplanet/models/buildings/fortress.dart';
 import 'package:tensionplanet/models/buildings/gold_mine.dart';
 import 'package:tensionplanet/models/buildings/headquarters.dart';
 import 'package:tensionplanet/models/buildings/house.dart';
@@ -16,18 +17,18 @@ import 'package:tensionplanet/models/buildings/warehouse.dart';
 import 'package:tensionplanet/models/buildings/woodcutter.dart';
 import 'package:tensionplanet/models/buildings/workshop.dart';
 import 'package:tensionplanet/models/patch.dart';
-import 'package:tensionplanet/models/village.dart';
+import 'package:tensionplanet/models/zone.dart';
 import 'package:tensionplanet/types/building_type.dart';
 
 class Building {
-  final Village village;
+  final Zone zone;
   final BuildingType buildingType;
   final Offset offset;
   int level;
   int workers;
 
   Building({
-    required this.village,
+    required this.zone,
     required this.buildingType,
     required this.offset,
     required this.level,
@@ -46,21 +47,21 @@ class Building {
   }
 
   void onAddVillager() {
-    if (village.hasFreeVillagers) {
-      workers += village.removeFreeVillager();
+    if (zone.hasFreeVillagers) {
+      workers += zone.removeFreeVillager();
       GameState.instance.notify();
     }
   }
 
   void onRemoveVillager() {
     if (hasWorkers) {
-      workers -= village.addFreeVillager();
+      workers -= zone.addFreeVillager();
       GameState.instance.notify();
     }
   }
 
   factory Building.create({
-    required Village village,
+    required Zone zone,
     required BuildingType buildingType,
     required int level,
     required int workers,
@@ -69,28 +70,28 @@ class Building {
     switch (buildingType) {
       case BuildingType.headquarters:
         return Headquarters(
-          village: village,
+          zone: zone,
           level: level,
           workers: workers,
         );
       case BuildingType.house:
         return House(
-          village: village,
+          zone: zone,
           level: level,
         );
       case BuildingType.market:
         return Market(
-          village: village,
+          zone: zone,
           level: level,
         );
       case BuildingType.warehouse:
         return Warehouse(
-          village: village,
+          zone: zone,
           level: level,
         );
       case BuildingType.farm:
         return Farm(
-          village: village,
+          zone: zone,
           patch: patch!,
           level: level,
           workers: workers,
@@ -98,7 +99,7 @@ class Building {
         );
       case BuildingType.woodcutter:
         return Woodcutter(
-          village: village,
+          zone: zone,
           patch: patch!,
           level: level,
           workers: workers,
@@ -106,7 +107,7 @@ class Building {
         );
       case BuildingType.quarry:
         return Quarry(
-          village: village,
+          zone: zone,
           patch: patch!,
           level: level,
           workers: workers,
@@ -114,7 +115,7 @@ class Building {
         );
       case BuildingType.copper_mine:
         return CopperMine(
-          village: village,
+          zone: zone,
           patch: patch!,
           level: level,
           workers: workers,
@@ -122,7 +123,7 @@ class Building {
         );
       case BuildingType.iron_mine:
         return IronMine(
-          village: village,
+          zone: zone,
           patch: patch!,
           level: level,
           workers: workers,
@@ -130,7 +131,7 @@ class Building {
         );
       case BuildingType.gold_mine:
         return GoldMine(
-          village: village,
+          zone: zone,
           patch: patch!,
           level: level,
           workers: workers,
@@ -138,27 +139,27 @@ class Building {
         );
       case BuildingType.barracks:
         return Barracks(
-          village: village,
+          zone: zone,
           level: level,
         );
       case BuildingType.archery:
         return Archery(
-          village: village,
+          zone: zone,
           level: level,
         );
       case BuildingType.cavalry:
         return Cavalry(
-          village: village,
+          zone: zone,
           level: level,
         );
       case BuildingType.workshop:
         return Workshop(
-          village: village,
+          zone: zone,
           level: level,
         );
       case BuildingType.fortress:
-        return Workshop(
-          village: village,
+        return Fortress(
+          zone: zone,
           level: level,
         );
     }

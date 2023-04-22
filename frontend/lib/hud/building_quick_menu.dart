@@ -76,7 +76,7 @@ class BuildingQuickMenu extends StatelessWidget {
                   color: Palette.success,
                   icon: Icons.add,
                   size: size / 4,
-                  enabled: building.village.hasFreeVillagers,
+                  enabled: building.zone.hasFreeVillagers,
                   onPressed: building.onAddVillager,
                 ),
                 QuickMenuButton(

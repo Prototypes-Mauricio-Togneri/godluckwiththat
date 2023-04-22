@@ -3,7 +3,7 @@ import 'package:tensionplanet/types/building_type.dart';
 
 class Headquarters extends Building {
   Headquarters({
-    required super.village,
+    required super.zone,
     required super.level,
     required super.workers,
   }) : super(

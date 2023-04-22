@@ -142,7 +142,7 @@ class BuildingEntry extends StatelessWidget {
     required this.state,
     required this.buildingType,
   }) {
-    building = state.currentVillage.getBuilding(buildingType);
+    building = state.currentZone.getBuilding(buildingType);
     level = building?.level ?? 0;
   }
 
@@ -185,7 +185,7 @@ class BuildingEntry extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 const ImageAsset(
-                  path: Assets.IMAGES_BACKGROUNDS_VILLAGE,
+                  path: Assets.IMAGES_BACKGROUNDS_ZONE,
                   width: 150,
                   height: 150,
                 ),
@@ -213,7 +213,7 @@ class BuildingEntry extends StatelessWidget {
   void _onSelect() {
     Navigation.pop();
     state.onStartConstruction(Construction(
-      village: state.currentVillage,
+      zone: state.currentZone,
       buildingType: buildingType,
       toLevel: level + 1,
     ));

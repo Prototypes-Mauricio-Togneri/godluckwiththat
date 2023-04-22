@@ -3,7 +3,7 @@ import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/hud/building_quick_menu.dart';
 import 'package:tensionplanet/hud/menu_button_hud.dart';
 import 'package:tensionplanet/hud/resource_hud.dart';
-import 'package:tensionplanet/hud/village_switcher_hud.dart';
+import 'package:tensionplanet/hud/zone_switcher_hud.dart';
 
 class HudContainer extends StatelessWidget {
   final GameState state;
@@ -15,7 +15,7 @@ class HudContainer extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) => Stack(
         children: [
-          VillageSwitcherHud(state),
+          ZoneSwitcherHud(state),
           ResourceHud(state),
           MenuButtonHud(state),
           if (state.selectedBuilding != null)

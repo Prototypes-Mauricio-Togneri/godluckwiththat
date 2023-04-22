@@ -1,15 +1,15 @@
 import 'package:tensionplanet/game/game_state.dart';
-import 'package:tensionplanet/models/village.dart';
+import 'package:tensionplanet/models/zone.dart';
 import 'package:tensionplanet/types/building_type.dart';
 
 class Construction {
-  final Village village;
+  final Zone zone;
   final BuildingType buildingType;
   final int toLevel;
   double remainingTime = 0;
 
   Construction({
-    required this.village,
+    required this.zone,
     required this.buildingType,
     required this.toLevel,
   }) {

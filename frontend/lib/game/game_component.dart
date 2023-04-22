@@ -6,12 +6,12 @@ import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tensionplanet/app/constants.dart';
-import 'package:tensionplanet/components/village_background.dart';
+import 'package:tensionplanet/components/zone_background.dart';
 import 'package:tensionplanet/extensions/component_extension.dart';
 import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/models/buildings/building.dart';
-import 'package:tensionplanet/models/village.dart';
+import 'package:tensionplanet/models/zone.dart';
 import 'package:tensionplanet/utils/assets.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/utils/style.dart';
@@ -71,16 +71,16 @@ class GameComponent extends FlameGame
     layerSprites.remove(component);
   }
 
-  void loadVillage(Village village) {
+  void loadZone(Zone zone) {
     layerSprites.removeAllComponents();
 
-    final VillageBackground villageBackground = VillageBackground(
-      image: Assets.IMAGES_BACKGROUNDS_VILLAGE,
+    final ZoneBackground zoneBackground = ZoneBackground(
+      image: Assets.IMAGES_BACKGROUNDS_ZONE,
       size: viewPortSize,
     );
-    addComponent(villageBackground);
+    addComponent(zoneBackground);
 
-    for (final Building building in village.buildings) {
+    for (final Building building in zone.buildings) {
       addComponent(building.sprite);
     }
   }

@@ -14,9 +14,8 @@ class Constants {
 	"id": "level1",
 	"totalTimeElapsed": 60,
 	"level": 1,
-	"villages": [
+	"zones": [
     {
-      "name": "Momo's village",
       "inventory": {
         "food": 300,
         "wood": 100,

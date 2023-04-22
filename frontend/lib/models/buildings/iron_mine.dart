@@ -4,7 +4,7 @@ import 'package:tensionplanet/types/resource_type.dart';
 
 class IronMine extends Producer {
   IronMine({
-    required super.village,
+    required super.zone,
     required super.patch,
     required super.level,
     required super.workers,

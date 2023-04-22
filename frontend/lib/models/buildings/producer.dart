@@ -14,7 +14,7 @@ class Producer extends Building {
     required this.resourceType,
     required this.patch,
     required this.productionTime,
-    required super.village,
+    required super.zone,
     required super.level,
     required super.workers,
   }) : super(
@@ -28,7 +28,7 @@ class Producer extends Building {
 
     if (accumulatedTime > productionTime) {
       accumulatedTime -= productionTime;
-      village.addResource(resourceType);
+      zone.addResource(resourceType);
     }
   }
 }

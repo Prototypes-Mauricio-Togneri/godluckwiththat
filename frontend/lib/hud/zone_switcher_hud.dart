@@ -3,10 +3,10 @@ import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 
-class VillageSwitcherHud extends StatelessWidget {
+class ZoneSwitcherHud extends StatelessWidget {
   final GameState state;
 
-  const VillageSwitcherHud(this.state);
+  const ZoneSwitcherHud(this.state);
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:tensionplanet/types/building_type.dart';
 
 class Market extends Building {
   Market({
-    required super.village,
+    required super.zone,
     required super.level,
   }) : super(
           buildingType: BuildingType.market,

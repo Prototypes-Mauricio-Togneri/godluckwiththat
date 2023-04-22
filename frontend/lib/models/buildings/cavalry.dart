@@ -3,7 +3,7 @@ import 'package:tensionplanet/types/building_type.dart';
 
 class Cavalry extends Building {
   Cavalry({
-    required super.village,
+    required super.zone,
     required super.level,
   }) : super(
           buildingType: BuildingType.cavalry,

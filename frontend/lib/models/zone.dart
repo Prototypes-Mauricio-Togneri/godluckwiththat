@@ -11,16 +11,14 @@ import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/types/patch_location.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
-class Village {
-  final String name;
+class Zone {
   final Inventory inventory;
   final List<Building> buildings;
   final List<Construction> constructions;
   final List<Patch> patches;
   int freeVillagers;
 
-  Village({
-    required this.name,
+  Zone({
     required this.inventory,
     required this.freeVillagers,
     required this.buildings,
@@ -91,7 +89,7 @@ class Village {
       building.level = construction.toLevel;
     } else {
       buildings.add(Building.create(
-        village: this,
+        zone: this,
         buildingType: buildingType,
         level: construction.toLevel,
         workers: 0,

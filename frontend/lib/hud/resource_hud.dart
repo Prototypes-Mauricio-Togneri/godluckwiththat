@@ -15,7 +15,7 @@ class ResourceHud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Inventory inventory = state.currentVillage.inventory;
+    final Inventory inventory = state.currentZone.inventory;
 
     return Align(
       alignment: Alignment.topCenter,
@@ -56,11 +56,11 @@ class ResourceHud extends StatelessWidget {
             ResourceIndicator(
               sprite: ResourceType.villager.sprite,
               value:
-                  '${inventory.resource(ResourceType.villager).amount.toString()}/${state.currentVillage.populationLimit}',
+                  '${inventory.resource(ResourceType.villager).amount.toString()}/${state.currentZone.populationLimit}',
             ),
           ResourceIndicator(
             sprite: Assets.IMAGES_RESOURCES_IDLE,
-            value: state.currentVillage.freeVillagers.toString(),
+            value: state.currentZone.freeVillagers.toString(),
           ),
         ],
       ),

@@ -3,7 +3,7 @@ import 'package:tensionplanet/types/building_type.dart';
 
 class Archery extends Building {
   Archery({
-    required super.village,
+    required super.zone,
     required super.level,
   }) : super(
           buildingType: BuildingType.archery,

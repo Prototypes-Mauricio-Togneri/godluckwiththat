@@ -5,13 +5,10 @@ import 'package:tensionplanet/json/json_patch.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/types/resource_type.dart';
 
-part 'json_village.g.dart';
+part 'json_zone.g.dart';
 
 @JsonSerializable(includeIfNull: false)
-class JsonVillage {
-  @JsonKey(name: 'name')
-  final String name;
-
+class JsonZone {
   @JsonKey(name: 'inventory')
   final JsonInventory inventory;
 
@@ -24,21 +21,20 @@ class JsonVillage {
   @JsonKey(name: 'buildings')
   final List<JsonBuilding> buildings;
 
-  const JsonVillage({
-    required this.name,
+  const JsonZone({
     required this.inventory,
     required this.freeVillagers,
     required this.patches,
     required this.buildings,
   });
 
-  factory JsonVillage.fromString(String json) =>
-      JsonVillage.fromJson(jsonDecode(json));
+  factory JsonZone.fromString(String json) =>
+      JsonZone.fromJson(jsonDecode(json));
 
-  factory JsonVillage.fromJson(Map<String, dynamic> json) =>
-      _$JsonVillageFromJson(json);
+  factory JsonZone.fromJson(Map<String, dynamic> json) =>
+      _$JsonZoneFromJson(json);
 
-  Map<String, dynamic> toJson() => _$JsonVillageToJson(this);
+  Map<String, dynamic> toJson() => _$JsonZoneToJson(this);
 
   String toJsonString() => jsonEncode(toJson());
 }
