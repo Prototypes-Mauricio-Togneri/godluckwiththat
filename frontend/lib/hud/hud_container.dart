@@ -25,6 +25,7 @@ class HudContainer extends StatelessWidget {
               left: (constraints.maxWidth * state.selectedBuilding!.offset.dx) -
                   (constraints.maxHeight / 10),
               child: BuildingQuickMenu(
+                colony: state.colony,
                 building: state.selectedBuilding!,
                 size: constraints.maxHeight / 5,
               ),

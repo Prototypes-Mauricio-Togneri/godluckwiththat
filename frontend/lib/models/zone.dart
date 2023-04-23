@@ -1,56 +1,24 @@
-import 'package:tensionplanet/app/constants.dart';
 import 'package:tensionplanet/game/game_state.dart';
 import 'package:tensionplanet/models/buildings/building.dart';
-import 'package:tensionplanet/models/buildings/house.dart';
 import 'package:tensionplanet/models/buildings/producer.dart';
+import 'package:tensionplanet/models/colony.dart';
 import 'package:tensionplanet/models/construction.dart';
-import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/patch.dart';
-import 'package:tensionplanet/models/resource.dart';
 import 'package:tensionplanet/types/building_type.dart';
 import 'package:tensionplanet/types/patch_location.dart';
-import 'package:tensionplanet/types/resource_type.dart';
 
 class Zone {
-  final Inventory inventory;
+  final Colony colony;
   final List<Building> buildings;
   final List<Construction> constructions;
   final List<Patch> patches;
-  int freeVillagers;
 
   Zone({
-    required this.inventory,
-    required this.freeVillagers,
+    required this.colony,
     required this.buildings,
     required this.constructions,
     required this.patches,
   });
-
-  bool get hasFreeVillagers => freeVillagers > 0;
-
-  int get populationLimit {
-    int total = 0;
-
-    for (final Building building in buildings) {
-      if (building is House) {
-        total += Constants.HOUSE_POPULATION;
-      }
-    }
-
-    return total + Constants.HEADQUARTERS_POPULATION;
-  }
-
-  int removeFreeVillager() {
-    freeVillagers--;
-
-    return 1;
-  }
-
-  int addFreeVillager() {
-    freeVillagers++;
-
-    return 1;
-  }
 
   void update(double dt) {
     for (final Construction construction in constructions) {
@@ -72,10 +40,6 @@ class Zone {
     return null;
   }
 
-  void addResource(ResourceType resourceType) {
-    inventory.addResource(Resource(resourceType, 1));
-  }
-
   void onStartConstruction(Construction construction) {
     constructions.add(construction);
   }
@@ -89,6 +53,7 @@ class Zone {
       building.level = construction.toLevel;
     } else {
       buildings.add(Building.create(
+        colony: colony,
         zone: this,
         buildingType: buildingType,
         level: construction.toLevel,

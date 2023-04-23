@@ -3,6 +3,7 @@ import 'package:tensionplanet/types/building_type.dart';
 
 class Workshop extends Building {
   Workshop({
+    required super.colony,
     required super.zone,
     required super.level,
   }) : super(

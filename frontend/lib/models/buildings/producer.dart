@@ -14,6 +14,7 @@ class Producer extends Building {
     required this.resourceType,
     required this.patch,
     required this.productionTime,
+    required super.colony,
     required super.zone,
     required super.level,
     required super.workers,
@@ -28,7 +29,7 @@ class Producer extends Building {
 
     if (accumulatedTime > productionTime) {
       accumulatedTime -= productionTime;
-      zone.addResource(resourceType);
+      colony.addResource(resourceType);
     }
   }
 }

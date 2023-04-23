@@ -4,6 +4,7 @@ import 'package:tensionplanet/types/resource_type.dart';
 
 class Farm extends Producer {
   Farm({
+    required super.colony,
     required super.zone,
     required super.patch,
     required super.level,

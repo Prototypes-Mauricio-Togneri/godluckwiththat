@@ -7,6 +7,7 @@ import 'package:tensionplanet/json/json_match.dart';
 import 'package:tensionplanet/json/json_patch.dart';
 import 'package:tensionplanet/json/json_zone.dart';
 import 'package:tensionplanet/models/buildings/building.dart';
+import 'package:tensionplanet/models/colony.dart';
 import 'package:tensionplanet/models/construction.dart';
 import 'package:tensionplanet/models/inventory.dart';
 import 'package:tensionplanet/models/patch.dart';
@@ -20,7 +21,7 @@ class GameState extends BaseState {
 
   final Research research = Research();
   final JsonMatch jsonMatch;
-  final List<Zone> zones = [];
+  late Colony colony;
   late Zone currentZone;
   Building? selectedBuilding;
 
@@ -31,10 +32,15 @@ class GameState extends BaseState {
   void load() {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
-    for (final JsonZone jsonZone in jsonMatch.zones) {
+    colony = Colony(
+      inventory: Inventory.fromJson(jsonMatch.colony.inventory),
+      zones: [],
+      freeVillagers: jsonMatch.colony.freeVillagers,
+    );
+
+    for (final JsonZone jsonZone in jsonMatch.colony.zones) {
       final Zone zone = Zone(
-        inventory: Inventory.fromJson(jsonZone.inventory),
-        freeVillagers: jsonZone.freeVillagers,
+        colony: colony,
         buildings: [],
         constructions: [],
         patches: [],
@@ -49,6 +55,7 @@ class GameState extends BaseState {
 
       for (final JsonBuilding jsonBuilding in jsonZone.buildings) {
         zone.buildings.add(Building.create(
+          colony: colony,
           zone: zone,
           buildingType: jsonBuilding.type,
           level: jsonBuilding.level,
@@ -59,10 +66,10 @@ class GameState extends BaseState {
         ));
       }
 
-      zones.add(zone);
+      colony.zones.add(zone);
     }
 
-    currentZone = zones[0];
+    currentZone = colony.zones[0];
 
     GameComponent.instance.loadZone(currentZone);
 
@@ -85,9 +92,7 @@ class GameState extends BaseState {
       notify();
     }
 
-    for (final Zone zone in zones) {
-      zone.update(dt);
-    }
+    colony.update(dt);
   }
 
   void onMapClicked() {

@@ -4,6 +4,7 @@ import 'package:tensionplanet/types/resource_type.dart';
 
 class GoldMine extends Producer {
   GoldMine({
+    required super.colony,
     required super.zone,
     required super.patch,
     required super.level,

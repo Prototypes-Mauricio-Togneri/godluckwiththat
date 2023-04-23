@@ -7,10 +7,6 @@ part of 'json_zone.dart';
 // **************************************************************************
 
 JsonZone _$JsonZoneFromJson(Map<String, dynamic> json) => JsonZone(
-      inventory: (json['inventory'] as Map<String, dynamic>).map(
-        (k, e) => MapEntry($enumDecode(_$ResourceTypeEnumMap, k), e as int),
-      ),
-      freeVillagers: json['freeVillagers'] as int,
       patches: (json['patches'] as List<dynamic>)
           .map((e) => JsonPatch.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -20,19 +16,6 @@ JsonZone _$JsonZoneFromJson(Map<String, dynamic> json) => JsonZone(
     );
 
 Map<String, dynamic> _$JsonZoneToJson(JsonZone instance) => <String, dynamic>{
-      'inventory': instance.inventory
-          .map((k, e) => MapEntry(_$ResourceTypeEnumMap[k]!, e)),
-      'freeVillagers': instance.freeVillagers,
       'patches': instance.patches,
       'buildings': instance.buildings,
     };
-
-const _$ResourceTypeEnumMap = {
-  ResourceType.food: 'food',
-  ResourceType.wood: 'wood',
-  ResourceType.stone: 'stone',
-  ResourceType.copper: 'copper',
-  ResourceType.iron: 'iron',
-  ResourceType.gold: 'gold',
-  ResourceType.villager: 'villager',
-};

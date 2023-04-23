@@ -15,11 +15,13 @@ import 'package:tensionplanet/models/buildings/quarry.dart';
 import 'package:tensionplanet/models/buildings/warehouse.dart';
 import 'package:tensionplanet/models/buildings/woodcutter.dart';
 import 'package:tensionplanet/models/buildings/workshop.dart';
+import 'package:tensionplanet/models/colony.dart';
 import 'package:tensionplanet/models/patch.dart';
 import 'package:tensionplanet/models/zone.dart';
 import 'package:tensionplanet/types/building_type.dart';
 
 class Building {
+  final Colony colony;
   final Zone zone;
   final BuildingType buildingType;
   final Offset offset;
@@ -27,6 +29,7 @@ class Building {
   int workers;
 
   Building({
+    required this.colony,
     required this.zone,
     required this.buildingType,
     required this.offset,
@@ -46,20 +49,21 @@ class Building {
   }
 
   void onAddVillager() {
-    if (zone.hasFreeVillagers) {
-      workers += zone.removeFreeVillager();
+    if (colony.hasFreeVillagers) {
+      workers += colony.removeFreeVillager();
       GameState.instance.notify();
     }
   }
 
   void onRemoveVillager() {
     if (hasWorkers) {
-      workers -= zone.addFreeVillager();
+      workers -= colony.addFreeVillager();
       GameState.instance.notify();
     }
   }
 
   factory Building.create({
+    required Colony colony,
     required Zone zone,
     required BuildingType buildingType,
     required int level,
@@ -69,22 +73,26 @@ class Building {
     switch (buildingType) {
       case BuildingType.headquarters:
         return Headquarters(
+          colony: colony,
           zone: zone,
           level: level,
           workers: workers,
         );
       case BuildingType.house:
         return House(
+          colony: colony,
           zone: zone,
           level: level,
         );
       case BuildingType.warehouse:
         return Warehouse(
+          colony: colony,
           zone: zone,
           level: level,
         );
       case BuildingType.farm:
         return Farm(
+          colony: colony,
           zone: zone,
           patch: patch!,
           level: level,
@@ -93,6 +101,7 @@ class Building {
         );
       case BuildingType.woodcutter:
         return Woodcutter(
+          colony: colony,
           zone: zone,
           patch: patch!,
           level: level,
@@ -101,6 +110,7 @@ class Building {
         );
       case BuildingType.quarry:
         return Quarry(
+          colony: colony,
           zone: zone,
           patch: patch!,
           level: level,
@@ -109,6 +119,7 @@ class Building {
         );
       case BuildingType.copper_mine:
         return CopperMine(
+          colony: colony,
           zone: zone,
           patch: patch!,
           level: level,
@@ -117,6 +128,7 @@ class Building {
         );
       case BuildingType.iron_mine:
         return IronMine(
+          colony: colony,
           zone: zone,
           patch: patch!,
           level: level,
@@ -125,6 +137,7 @@ class Building {
         );
       case BuildingType.gold_mine:
         return GoldMine(
+          colony: colony,
           zone: zone,
           patch: patch!,
           level: level,
@@ -133,26 +146,31 @@ class Building {
         );
       case BuildingType.barracks:
         return Barracks(
+          colony: colony,
           zone: zone,
           level: level,
         );
       case BuildingType.archery:
         return Archery(
+          colony: colony,
           zone: zone,
           level: level,
         );
       case BuildingType.cavalry:
         return Cavalry(
+          colony: colony,
           zone: zone,
           level: level,
         );
       case BuildingType.workshop:
         return Workshop(
+          colony: colony,
           zone: zone,
           level: level,
         );
       case BuildingType.fortress:
         return Fortress(
+          colony: colony,
           zone: zone,
           level: level,
         );

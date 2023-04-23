@@ -1,0 +1,57 @@
+import 'package:tensionplanet/app/constants.dart';
+import 'package:tensionplanet/models/buildings/building.dart';
+import 'package:tensionplanet/models/buildings/house.dart';
+import 'package:tensionplanet/models/inventory.dart';
+import 'package:tensionplanet/models/resource.dart';
+import 'package:tensionplanet/models/zone.dart';
+import 'package:tensionplanet/types/resource_type.dart';
+
+class Colony {
+  final Inventory inventory;
+  final List<Zone> zones;
+  int freeVillagers;
+
+  Colony({
+    required this.inventory,
+    required this.zones,
+    required this.freeVillagers,
+  });
+
+  bool get hasFreeVillagers => freeVillagers > 0;
+
+  int get populationLimit {
+    int total = 0;
+
+    for (final Zone zone in zones) {
+      for (final Building building in zone.buildings) {
+        if (building is House) {
+          total += Constants.HOUSE_POPULATION;
+        }
+      }
+    }
+
+    return total + Constants.HEADQUARTERS_POPULATION;
+  }
+
+  int removeFreeVillager() {
+    freeVillagers--;
+
+    return 1;
+  }
+
+  int addFreeVillager() {
+    freeVillagers++;
+
+    return 1;
+  }
+
+  void update(double dt) {
+    for (final Zone zone in zones) {
+      zone.update(dt);
+    }
+  }
+
+  void addResource(ResourceType resourceType) {
+    inventory.addResource(Resource(resourceType, 1));
+  }
+}

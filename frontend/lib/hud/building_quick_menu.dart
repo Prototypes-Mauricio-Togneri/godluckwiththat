@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:tensionplanet/models/buildings/building.dart';
+import 'package:tensionplanet/models/colony.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/widgets/label.dart';
 
 class BuildingQuickMenu extends StatelessWidget {
+  final Colony colony;
   final Building building;
   final double size;
 
   const BuildingQuickMenu({
+    required this.colony,
     required this.building,
     required this.size,
   });
@@ -76,7 +79,7 @@ class BuildingQuickMenu extends StatelessWidget {
                   color: Palette.success,
                   icon: Icons.add,
                   size: size / 4,
-                  enabled: building.zone.hasFreeVillagers,
+                  enabled: colony.hasFreeVillagers,
                   onPressed: building.onAddVillager,
                 ),
                 QuickMenuButton(

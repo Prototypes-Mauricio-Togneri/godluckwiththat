@@ -7,8 +7,8 @@ import 'package:tensionplanet/utils/navigation.dart';
 import 'package:tensionplanet/utils/palette.dart';
 import 'package:tensionplanet/utils/platform.dart';
 
-class TensionPlanet extends StatelessWidget {
-  const TensionPlanet();
+class GatewayGuardians extends StatelessWidget {
+  const GatewayGuardians();
 
   @override
   Widget build(BuildContext context) {

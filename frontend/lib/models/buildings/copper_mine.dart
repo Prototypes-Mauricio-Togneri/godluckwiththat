@@ -4,6 +4,7 @@ import 'package:tensionplanet/types/resource_type.dart';
 
 class CopperMine extends Producer {
   CopperMine({
+    required super.colony,
     required super.zone,
     required super.patch,
     required super.level,
