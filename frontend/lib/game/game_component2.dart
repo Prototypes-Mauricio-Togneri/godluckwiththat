@@ -19,11 +19,10 @@ class GameComponent2 extends FlameGame
     with
         MapHandler,
         HasTappables,
-        HasTappables,
+        HasHoverables,
         ScaleDetector,
         ScrollDetector,
-        KeyboardEvents,
-        MouseMovementDetector {
+        KeyboardEvents {
   final Component layerSprites = Component(priority: 0);
   final Component layerDebug = Component(priority: 3)
     ..positionType = PositionType.viewport;
