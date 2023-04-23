@@ -12,12 +12,14 @@ class Zone {
   final List<Building> buildings;
   final List<Construction> constructions;
   final List<Patch> patches;
+  final int maxBuildings;
 
   Zone({
     required this.colony,
     required this.buildings,
     required this.constructions,
     required this.patches,
+    required this.maxBuildings,
   });
 
   void update(double dt) {

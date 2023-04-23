@@ -23,6 +23,7 @@ class Constants {
     "freeVillagers": 10,
     "zones": [
       {
+        "maxBuildings": 4,
         "patches": [
           {
             "type": "food",

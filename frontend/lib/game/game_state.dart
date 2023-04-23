@@ -44,6 +44,7 @@ class GameState extends BaseState {
         buildings: [],
         constructions: [],
         patches: [],
+        maxBuildings: jsonZone.maxBuildings,
       );
 
       for (final JsonPatch jsonPatch in jsonZone.patches) {
