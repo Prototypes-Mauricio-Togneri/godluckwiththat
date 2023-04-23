@@ -22,6 +22,7 @@ import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/patch_location.dart';
 
 class Zone {
+  final String id;
   final Colony colony;
   final List<Building> buildings;
   final List<Construction> constructions;
@@ -29,6 +30,7 @@ class Zone {
   final int maxBuildings;
 
   Zone({
+    required this.id,
     required this.colony,
     required this.buildings,
     required this.constructions,

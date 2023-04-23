@@ -24,6 +24,7 @@ class Constants {
     "freeVillagers": 10,
     "zones": [
       {
+        "id": "1",
         "maxBuildings": 4,
         "patches": [
           {

@@ -40,6 +40,7 @@ class GameState extends BaseState {
 
     for (final JsonZone jsonZone in jsonMatch.colony.zones) {
       final Zone zone = Zone(
+        id: jsonZone.id,
         colony: colony,
         buildings: [],
         constructions: [],

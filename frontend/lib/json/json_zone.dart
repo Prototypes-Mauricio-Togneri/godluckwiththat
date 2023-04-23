@@ -7,6 +7,9 @@ part 'json_zone.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonZone {
+  @JsonKey(name: 'id')
+  final String id;
+
   @JsonKey(name: 'maxBuildings')
   final int maxBuildings;
 
@@ -17,6 +20,7 @@ class JsonZone {
   final List<JsonBuilding> buildings;
 
   const JsonZone({
+    required this.id,
     required this.maxBuildings,
     required this.patches,
     required this.buildings,
