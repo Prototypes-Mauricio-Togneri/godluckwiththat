@@ -1,7 +1,7 @@
 import 'package:flame/text.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionplanet/app/constants.dart';
-import 'package:tensionplanet/utils/palette.dart';
+import 'package:gatewayguardians/app/constants.dart';
+import 'package:gatewayguardians/utils/palette.dart';
 
 class Style {
   static TextRenderer textRenderer({

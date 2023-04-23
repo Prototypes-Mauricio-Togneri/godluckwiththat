@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionplanet/json/json_colony.dart';
 
 part 'json_match.g.dart';
 

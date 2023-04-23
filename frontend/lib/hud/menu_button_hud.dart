@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tensionplanet/game/game_state.dart';
-import 'package:tensionplanet/utils/palette.dart';
+import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/utils/palette.dart';
 
 class MenuButtonHud extends StatelessWidget {
   final GameState state;

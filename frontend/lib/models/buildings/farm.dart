@@ -1,6 +1,6 @@
-import 'package:tensionplanet/models/buildings/producer.dart';
-import 'package:tensionplanet/types/building_type.dart';
-import 'package:tensionplanet/types/resource_type.dart';
+import 'package:gatewayguardians/models/buildings/producer.dart';
+import 'package:gatewayguardians/types/building_type.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
 
 class Farm extends Producer {
   Farm({

@@ -1,9 +1,9 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tensionplanet/states/home_state.dart';
-import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/widgets/primary_button.dart';
+import 'package:gatewayguardians/states/home_state.dart';
+import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/widgets/primary_button.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeState state;

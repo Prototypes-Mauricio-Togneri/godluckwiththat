@@ -1,4 +1,4 @@
-import 'package:tensionplanet/platform/platform_base.dart';
+import 'package:gatewayguardians/platform/platform_base.dart';
 
 class PlatformMethods extends PlatformMethodsBase {
   @override

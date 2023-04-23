@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'package:gatewayguardians/json/json_building.dart';
+import 'package:gatewayguardians/json/json_patch.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionplanet/json/json_building.dart';
-import 'package:tensionplanet/json/json_patch.dart';
 
 part 'json_zone.g.dart';
 

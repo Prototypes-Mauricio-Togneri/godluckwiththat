@@ -1,11 +1,11 @@
-import 'package:tensionplanet/game/game_state.dart';
-import 'package:tensionplanet/models/buildings/building.dart';
-import 'package:tensionplanet/models/buildings/producer.dart';
-import 'package:tensionplanet/models/colony.dart';
-import 'package:tensionplanet/models/construction.dart';
-import 'package:tensionplanet/models/patch.dart';
-import 'package:tensionplanet/types/building_type.dart';
-import 'package:tensionplanet/types/patch_location.dart';
+import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/buildings/producer.dart';
+import 'package:gatewayguardians/models/colony.dart';
+import 'package:gatewayguardians/models/construction.dart';
+import 'package:gatewayguardians/models/patch.dart';
+import 'package:gatewayguardians/types/building_type.dart';
+import 'package:gatewayguardians/types/patch_location.dart';
 
 class Zone {
   final Colony colony;

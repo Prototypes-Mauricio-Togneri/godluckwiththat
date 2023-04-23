@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tensionplanet/app/constants.dart';
-import 'package:tensionplanet/screens/splash_screen.dart';
-import 'package:tensionplanet/utils/localizations.dart';
-import 'package:tensionplanet/utils/navigation.dart';
-import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/utils/platform.dart';
+import 'package:gatewayguardians/app/constants.dart';
+import 'package:gatewayguardians/screens/splash_screen.dart';
+import 'package:gatewayguardians/utils/localizations.dart';
+import 'package:gatewayguardians/utils/navigation.dart';
+import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/utils/platform.dart';
 
 class GatewayGuardians extends StatelessWidget {
   const GatewayGuardians();

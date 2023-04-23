@@ -1,18 +1,18 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionplanet/app/constants.dart';
-import 'package:tensionplanet/dialog/buildings_dialog.dart';
-import 'package:tensionplanet/game/game_component.dart';
-import 'package:tensionplanet/json/json_building.dart';
-import 'package:tensionplanet/json/json_match.dart';
-import 'package:tensionplanet/json/json_patch.dart';
-import 'package:tensionplanet/json/json_zone.dart';
-import 'package:tensionplanet/models/buildings/building.dart';
-import 'package:tensionplanet/models/colony.dart';
-import 'package:tensionplanet/models/construction.dart';
-import 'package:tensionplanet/models/inventory.dart';
-import 'package:tensionplanet/models/patch.dart';
-import 'package:tensionplanet/models/research.dart';
-import 'package:tensionplanet/models/zone.dart';
+import 'package:gatewayguardians/app/constants.dart';
+import 'package:gatewayguardians/dialog/buildings_dialog.dart';
+import 'package:gatewayguardians/game/game_component.dart';
+import 'package:gatewayguardians/json/json_building.dart';
+import 'package:gatewayguardians/json/json_match.dart';
+import 'package:gatewayguardians/json/json_patch.dart';
+import 'package:gatewayguardians/json/json_zone.dart';
+import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/colony.dart';
+import 'package:gatewayguardians/models/construction.dart';
+import 'package:gatewayguardians/models/inventory.dart';
+import 'package:gatewayguardians/models/patch.dart';
+import 'package:gatewayguardians/models/research.dart';
+import 'package:gatewayguardians/models/zone.dart';
 
 class GameState extends BaseState {
   num totalTimeElapsed = 0;

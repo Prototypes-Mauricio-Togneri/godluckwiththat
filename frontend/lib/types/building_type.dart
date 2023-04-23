@@ -1,7 +1,7 @@
 import 'package:flame/extensions.dart';
-import 'package:tensionplanet/extensions/resource_map_extension.dart';
-import 'package:tensionplanet/types/resource_type.dart';
-import 'package:tensionplanet/utils/assets.dart';
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
+import 'package:gatewayguardians/utils/assets.dart';
 
 enum BuildingType {
   headquarters(

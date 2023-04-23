@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'package:gatewayguardians/json/json_zone.dart';
+import 'package:gatewayguardians/models/inventory.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionplanet/json/json_zone.dart';
-import 'package:tensionplanet/models/inventory.dart';
-import 'package:tensionplanet/types/resource_type.dart';
 
 part 'json_colony.g.dart';
 

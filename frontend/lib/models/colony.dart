@@ -1,10 +1,10 @@
-import 'package:tensionplanet/app/constants.dart';
-import 'package:tensionplanet/models/buildings/building.dart';
-import 'package:tensionplanet/models/buildings/house.dart';
-import 'package:tensionplanet/models/inventory.dart';
-import 'package:tensionplanet/models/resource.dart';
-import 'package:tensionplanet/models/zone.dart';
-import 'package:tensionplanet/types/resource_type.dart';
+import 'package:gatewayguardians/app/constants.dart';
+import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/buildings/house.dart';
+import 'package:gatewayguardians/models/inventory.dart';
+import 'package:gatewayguardians/models/resource.dart';
+import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
 
 class Colony {
   final Inventory inventory;

@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:tensionplanet/extensions/json_location_extension.dart';
+import 'package:gatewayguardians/extensions/json_location_extension.dart';
 
 typedef Locations = List<Location>;
 

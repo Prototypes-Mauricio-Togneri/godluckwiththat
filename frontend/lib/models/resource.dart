@@ -1,4 +1,4 @@
-import 'package:tensionplanet/types/resource_type.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
 
 class Resource {
   final ResourceType resourceType;

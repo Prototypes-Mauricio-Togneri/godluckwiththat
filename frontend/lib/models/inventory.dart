@@ -1,7 +1,7 @@
-import 'package:tensionplanet/extensions/resource_map_extension.dart';
-import 'package:tensionplanet/models/resource.dart';
-import 'package:tensionplanet/types/resource_type.dart';
-import 'package:tensionplanet/utils/json.dart';
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
+import 'package:gatewayguardians/models/resource.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
+import 'package:gatewayguardians/utils/json.dart';
 
 typedef JsonInventory = Map<ResourceType, int>;
 

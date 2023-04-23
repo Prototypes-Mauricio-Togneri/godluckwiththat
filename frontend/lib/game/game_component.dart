@@ -5,16 +5,16 @@ import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tensionplanet/app/constants.dart';
-import 'package:tensionplanet/components/zone_background.dart';
-import 'package:tensionplanet/extensions/component_extension.dart';
-import 'package:tensionplanet/extensions/logical_keyboard_key_extension.dart';
-import 'package:tensionplanet/game/game_state.dart';
-import 'package:tensionplanet/models/buildings/building.dart';
-import 'package:tensionplanet/models/zone.dart';
-import 'package:tensionplanet/utils/assets.dart';
-import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/utils/style.dart';
+import 'package:gatewayguardians/app/constants.dart';
+import 'package:gatewayguardians/components/zone_background.dart';
+import 'package:gatewayguardians/extensions/component_extension.dart';
+import 'package:gatewayguardians/extensions/logical_keyboard_key_extension.dart';
+import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/utils/assets.dart';
+import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/utils/style.dart';
 
 class GameComponent extends FlameGame
     with HasTappables, KeyboardEvents, MouseMovementDetector {

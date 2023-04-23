@@ -1,6 +1,6 @@
-import 'package:tensionplanet/game/game_state.dart';
-import 'package:tensionplanet/models/zone.dart';
-import 'package:tensionplanet/types/building_type.dart';
+import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/building_type.dart';
 
 class Construction {
   final Zone zone;

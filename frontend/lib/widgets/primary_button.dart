@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/widgets/label.dart';
+import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/widgets/label.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;

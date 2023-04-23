@@ -1,4 +1,4 @@
-import 'package:tensionplanet/utils/assets.dart';
+import 'package:gatewayguardians/utils/assets.dart';
 
 enum ResourceType {
   food(sprite: Assets.IMAGES_RESOURCES_FOOD),

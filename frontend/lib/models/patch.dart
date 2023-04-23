@@ -1,5 +1,5 @@
-import 'package:tensionplanet/types/patch_location.dart';
-import 'package:tensionplanet/types/resource_type.dart';
+import 'package:gatewayguardians/types/patch_location.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
 
 class Patch {
   final ResourceType resourceType;

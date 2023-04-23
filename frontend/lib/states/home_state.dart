@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:tensionplanet/app/constants.dart';
-import 'package:tensionplanet/json/json_match.dart';
-import 'package:tensionplanet/storage/saved_matches_storage.dart';
-import 'package:tensionplanet/utils/navigation.dart';
+import 'package:gatewayguardians/app/constants.dart';
+import 'package:gatewayguardians/json/json_match.dart';
+import 'package:gatewayguardians/storage/saved_matches_storage.dart';
+import 'package:gatewayguardians/utils/navigation.dart';
 
 class HomeState extends BaseState {
   @override

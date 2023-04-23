@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tensionplanet/utils/navigation.dart';
-import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/widgets/label.dart';
+import 'package:gatewayguardians/utils/navigation.dart';
+import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/widgets/label.dart';
 
 class WindowDialog extends StatelessWidget {
   final String title;

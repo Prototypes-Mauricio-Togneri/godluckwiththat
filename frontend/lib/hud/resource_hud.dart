@@ -1,12 +1,12 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionplanet/game/game_state.dart';
-import 'package:tensionplanet/models/inventory.dart';
-import 'package:tensionplanet/types/resource_type.dart';
-import 'package:tensionplanet/utils/assets.dart';
-import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/widgets/image_asset.dart';
-import 'package:tensionplanet/widgets/label.dart';
+import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/models/inventory.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
+import 'package:gatewayguardians/utils/assets.dart';
+import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/widgets/image_asset.dart';
+import 'package:gatewayguardians/widgets/label.dart';
 
 class ResourceHud extends StatelessWidget {
   final GameState state;

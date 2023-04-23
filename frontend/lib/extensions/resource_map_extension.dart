@@ -1,6 +1,6 @@
-import 'package:tensionplanet/models/inventory.dart';
-import 'package:tensionplanet/models/resource.dart';
-import 'package:tensionplanet/types/resource_type.dart';
+import 'package:gatewayguardians/models/inventory.dart';
+import 'package:gatewayguardians/models/resource.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
 
 typedef ResourceMap = Map<ResourceType, int>;
 

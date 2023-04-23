@@ -1,5 +1,5 @@
-import 'package:tensionplanet/models/buildings/building.dart';
-import 'package:tensionplanet/types/building_type.dart';
+import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/types/building_type.dart';
 
 class Archery extends Building {
   Archery({

@@ -2,11 +2,11 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tensionplanet/game/game_component.dart';
-import 'package:tensionplanet/game/game_state.dart';
-import 'package:tensionplanet/hud/hud_container.dart';
-import 'package:tensionplanet/json/json_match.dart';
-import 'package:tensionplanet/utils/palette.dart';
+import 'package:gatewayguardians/game/game_component.dart';
+import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/hud/hud_container.dart';
+import 'package:gatewayguardians/json/json_match.dart';
+import 'package:gatewayguardians/utils/palette.dart';
 
 class GameScreen extends StatelessWidget {
   final GameState state;

@@ -1,4 +1,4 @@
-import 'package:tensionplanet/storage/base_storage.dart';
+import 'package:gatewayguardians/storage/base_storage.dart';
 
 class SavedMatchesStorage extends Storage {
   static const FIELD_SAVED_MATCH = 'saved.match';

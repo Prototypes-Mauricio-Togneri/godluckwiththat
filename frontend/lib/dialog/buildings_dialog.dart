@@ -1,16 +1,16 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:tensionplanet/dialog/window_dialog.dart';
-import 'package:tensionplanet/game/game_state.dart';
-import 'package:tensionplanet/models/buildings/building.dart';
-import 'package:tensionplanet/models/construction.dart';
-import 'package:tensionplanet/types/building_type.dart';
-import 'package:tensionplanet/utils/assets.dart';
-import 'package:tensionplanet/utils/navigation.dart';
-import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/widgets/image_asset.dart';
-import 'package:tensionplanet/widgets/label.dart';
-import 'package:tensionplanet/widgets/primary_button.dart';
+import 'package:gatewayguardians/dialog/window_dialog.dart';
+import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/construction.dart';
+import 'package:gatewayguardians/types/building_type.dart';
+import 'package:gatewayguardians/utils/assets.dart';
+import 'package:gatewayguardians/utils/navigation.dart';
+import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/widgets/image_asset.dart';
+import 'package:gatewayguardians/widgets/label.dart';
+import 'package:gatewayguardians/widgets/primary_button.dart';
 
 class BuildingsDialog extends StatelessWidget {
   final GameState state;

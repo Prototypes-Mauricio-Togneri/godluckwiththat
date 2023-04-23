@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flame/components.dart';
-import 'package:tensionplanet/extensions/sprite_component_extension.dart';
+import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
 
 class ZoneBackground extends SpriteComponent {
   final String image;

@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Tension Planet",
+            "name": "Gateway Guardians",
             "request": "launch",
             "type": "dart",
             "program": "lib/main/main.dart"

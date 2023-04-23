@@ -1,7 +1,7 @@
-import 'package:tensionplanet/models/buildings/building.dart';
-import 'package:tensionplanet/models/patch.dart';
-import 'package:tensionplanet/types/building_type.dart';
-import 'package:tensionplanet/types/resource_type.dart';
+import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/patch.dart';
+import 'package:gatewayguardians/types/building_type.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
 
 class Producer extends Building {
   final ResourceType resourceType;

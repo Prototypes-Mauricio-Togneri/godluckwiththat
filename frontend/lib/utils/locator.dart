@@ -2,9 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gatewayguardians/platform/platform_initializer.dart';
+import 'package:gatewayguardians/utils/navigation.dart';
 import 'package:get_it/get_it.dart';
-import 'package:tensionplanet/platform/platform_initializer.dart';
-import 'package:tensionplanet/utils/navigation.dart';
 
 final GetIt locator = GetIt.instance;
 

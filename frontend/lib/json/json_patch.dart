@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'package:gatewayguardians/types/patch_location.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tensionplanet/types/patch_location.dart';
-import 'package:tensionplanet/types/resource_type.dart';
 
 part 'json_patch.g.dart';
 

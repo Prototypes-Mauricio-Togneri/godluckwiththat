@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tensionplanet/game/game_state.dart';
-import 'package:tensionplanet/utils/palette.dart';
-import 'package:tensionplanet/widgets/label.dart';
+import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/widgets/label.dart';
 
 class ZoneSwitcherHud extends StatelessWidget {
   final GameState state;
