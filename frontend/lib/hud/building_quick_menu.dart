@@ -3,6 +3,7 @@ import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 
 class BuildingQuickMenu extends StatelessWidget {
   final Colony colony;
@@ -68,12 +69,25 @@ class BuildingQuickMenu extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                QuickMenuButton(
-                  color: Palette.primary,
-                  icon: Icons.upload,
-                  size: size / 4,
-                  enabled: true,
-                  onPressed: building.onUpgrade,
+                JustTheTooltip(
+                  backgroundColor: Palette.grey,
+                  borderRadius: const BorderRadius.all(Radius.circular(0)),
+                  content: Container(
+                    color: Palette.grey,
+                    padding: const EdgeInsets.all(10),
+                    child: const Label(
+                      text: 'Cost:\n100 wood\n50 stone',
+                      color: Palette.white,
+                      size: 10,
+                    ),
+                  ),
+                  child: QuickMenuButton(
+                    color: Palette.primary,
+                    icon: Icons.upload,
+                    size: size / 4,
+                    enabled: true,
+                    onPressed: building.onUpgrade,
+                  ),
                 ),
                 QuickMenuButton(
                   color: Palette.success,
