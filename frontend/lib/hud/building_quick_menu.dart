@@ -3,8 +3,8 @@ import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/widgets/custom_tooltip.dart';
 import 'package:gatewayguardians/widgets/label.dart';
-import 'package:just_the_tooltip/just_the_tooltip.dart';
 
 class BuildingQuickMenu extends StatelessWidget {
   final Colony colony;
@@ -70,19 +70,13 @@ class BuildingQuickMenu extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                JustTheTooltip(
-                  backgroundColor: Palette.grey,
-                  borderRadius: const BorderRadius.all(Radius.circular(0)),
-                  content: Container(
-                    color: Palette.grey,
-                    padding: const EdgeInsets.all(10),
-                    child: Label(
-                      text: building.buildingType
-                          .cost(building.level + 1)
-                          .text('Cost'),
-                      color: Palette.white,
-                      size: 10,
-                    ),
+                CustomTooltip(
+                  content: Label(
+                    text: building.buildingType
+                        .cost(building.level + 1)
+                        .text('Cost'),
+                    color: Palette.white,
+                    size: 10,
                   ),
                   child: QuickMenuButton(
                     color: Palette.primary,
