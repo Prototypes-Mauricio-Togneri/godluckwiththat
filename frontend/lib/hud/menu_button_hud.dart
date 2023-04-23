@@ -23,10 +23,6 @@ class MenuButtonHud extends StatelessWidget {
             icon: Icons.construction,
           ),
           MenuButton(
-            onTap: state.onOpenResearchMenu,
-            icon: Icons.science,
-          ),
-          MenuButton(
             onTap: state.onOpenMilitaryMenu,
             icon: Icons.shield,
           ),
@@ -37,10 +33,6 @@ class MenuButtonHud extends StatelessWidget {
           MenuButton(
             onTap: state.onOpenReportsMenu,
             icon: Icons.history_edu_rounded,
-          ),
-          MenuButton(
-            onTap: state.onOpenZonesOverviewMenu,
-            icon: Icons.list_alt,
           ),
           MenuButton(
             onTap: state.onOpenExpeditionsMenu,
