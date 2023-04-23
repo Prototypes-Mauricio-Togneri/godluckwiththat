@@ -98,7 +98,6 @@ class GameState extends BaseState {
   void onBuildingSelected(Building building) {
     selectedBuilding = building;
     notify();
-    //GameComponent.instance.showBuildingQuickMenu(building);
   }
 
   void onStartConstruction(Construction construction) {

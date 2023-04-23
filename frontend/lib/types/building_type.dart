@@ -18,15 +18,6 @@ enum BuildingType {
     position: Offset(0.5, 0.32),
     produces: null,
   ),
-  market(
-    sprite: Assets.IMAGES_BUILDINGS_MARKET,
-    initialCost: {
-      ResourceType.wood: 10,
-      ResourceType.stone: 10,
-    },
-    position: Offset(0.66, 0.5),
-    produces: null,
-  ),
   warehouse(
     sprite: Assets.IMAGES_BUILDINGS_WAREHOUSE,
     initialCost: {

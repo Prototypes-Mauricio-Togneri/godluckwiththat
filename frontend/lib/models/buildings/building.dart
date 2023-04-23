@@ -11,7 +11,6 @@ import 'package:tensionplanet/models/buildings/gold_mine.dart';
 import 'package:tensionplanet/models/buildings/headquarters.dart';
 import 'package:tensionplanet/models/buildings/house.dart';
 import 'package:tensionplanet/models/buildings/iron_mine.dart';
-import 'package:tensionplanet/models/buildings/market.dart';
 import 'package:tensionplanet/models/buildings/quarry.dart';
 import 'package:tensionplanet/models/buildings/warehouse.dart';
 import 'package:tensionplanet/models/buildings/woodcutter.dart';
@@ -76,11 +75,6 @@ class Building {
         );
       case BuildingType.house:
         return House(
-          zone: zone,
-          level: level,
-        );
-      case BuildingType.market:
-        return Market(
           zone: zone,
           level: level,
         );

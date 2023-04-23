@@ -55,11 +55,6 @@ class BuildingsDialog extends StatelessWidget {
                   state: state,
                   buildingType: BuildingType.warehouse,
                 ),
-                const HBox(10),
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.market,
-                ),
               ],
             ),
             const VBox(10),

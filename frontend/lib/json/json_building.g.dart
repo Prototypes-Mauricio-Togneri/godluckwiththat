@@ -33,7 +33,6 @@ Map<String, dynamic> _$JsonBuildingToJson(JsonBuilding instance) {
 const _$BuildingTypeEnumMap = {
   BuildingType.headquarters: 'headquarters',
   BuildingType.house: 'house',
-  BuildingType.market: 'market',
   BuildingType.warehouse: 'warehouse',
   BuildingType.farm: 'farm',
   BuildingType.woodcutter: 'woodcutter',

@@ -8,7 +8,6 @@ class Assets {
       'buildings/headquarters.png';
   static const String IMAGES_BUILDINGS_HOUSE = 'buildings/house.png';
   static const String IMAGES_BUILDINGS_CAVALRY = 'buildings/cavalry.png';
-  static const String IMAGES_BUILDINGS_MARKET = 'buildings/market.png';
   static const String IMAGES_BUILDINGS_QUARRY = 'buildings/quarry.png';
   static const String IMAGES_BUILDINGS_WAREHOUSE = 'buildings/warehouse.png';
   static const String IMAGES_BUILDINGS_ARCHERY = 'buildings/archery.png';
