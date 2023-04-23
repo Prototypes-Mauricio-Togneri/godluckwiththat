@@ -2,12 +2,12 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
-import 'package:gatewayguardians/game/game_component.dart';
+import 'package:gatewayguardians/game/game_component2.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 
 class BuildingSprite extends SpriteComponent
-    with HasGameRef<GameComponent>, Tappable {
+    with HasGameRef<GameComponent2>, Tappable {
   final Building building;
 
   BuildingSprite(this.building);
