@@ -1,3 +1,4 @@
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/buildings/producer.dart';
@@ -54,6 +55,9 @@ class Zone {
     if (building != null) {
       building.level = construction.toLevel;
     } else {
+      final ResourceMap cost = buildingType.cost(construction.toLevel);
+      colony.inventory.removeResources(cost.resources());
+
       buildings.add(Building.create(
         colony: colony,
         zone: this,

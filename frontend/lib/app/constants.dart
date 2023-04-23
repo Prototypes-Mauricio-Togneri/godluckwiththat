@@ -17,7 +17,8 @@ class Constants {
   "colony": {
     "inventory": {
       "food": 300,
-      "wood": 100,
+      "wood": 200,
+      "stone": 100,
       "villager": 10
     },
     "freeVillagers": 10,

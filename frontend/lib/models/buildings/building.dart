@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:gatewayguardians/components/building_sprite.dart';
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
 import 'package:gatewayguardians/models/buildings/barracks.dart';
@@ -44,6 +45,8 @@ class Building {
   void update(double dt) {}
 
   void onUpgrade() {
+    final ResourceMap cost = buildingType.cost(level + 1);
+    colony.inventory.removeResources(cost.resources());
     level++;
     GameState.instance.notify();
   }

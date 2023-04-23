@@ -64,14 +64,14 @@ class Inventory {
   bool hasResource(Resource resource) =>
       get(resource.resourceType) >= resource.amount;
 
-  Inventory get half {
-    final ResourceMap map = {};
-
-    for (final Resource resource in list) {
-      map[resource.resourceType] = resource.amount ~/ 2;
+  bool has(ResourceMap map) {
+    for (final Resource resource in map.resources()) {
+      if (!hasResource(resource)) {
+        return false;
+      }
     }
 
-    return Inventory._(map);
+    return true;
   }
 
   JsonInventory get json => _resources;

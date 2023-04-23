@@ -88,23 +88,25 @@ class BuildingQuickMenu extends StatelessWidget {
                     color: Palette.primary,
                     icon: Icons.upload,
                     size: size / 4,
-                    enabled: true,
-                    onPressed: building.onUpgrade,
+                    onPressed: colony.inventory
+                            .has(building.buildingType.cost(building.level + 1))
+                        ? building.onUpgrade
+                        : null,
                   ),
                 ),
                 QuickMenuButton(
                   color: Palette.success,
                   icon: Icons.add,
                   size: size / 4,
-                  enabled: colony.hasFreeVillagers,
-                  onPressed: building.onAddVillager,
+                  onPressed:
+                      colony.hasFreeVillagers ? building.onAddVillager : null,
                 ),
                 QuickMenuButton(
                   color: Palette.error,
                   icon: Icons.remove,
                   size: size / 4,
-                  enabled: building.hasWorkers,
-                  onPressed: building.onRemoveVillager,
+                  onPressed:
+                      building.hasWorkers ? building.onRemoveVillager : null,
                 ),
               ],
             ),
@@ -119,14 +121,12 @@ class QuickMenuButton extends StatelessWidget {
   final Color color;
   final IconData icon;
   final double size;
-  final bool enabled;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const QuickMenuButton({
     required this.color,
     required this.icon,
     required this.size,
-    required this.enabled,
     required this.onPressed,
   });
 
@@ -136,7 +136,7 @@ class QuickMenuButton extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: enabled ? color : Palette.lightGrey,
+        color: (onPressed != null) ? color : Palette.lightGrey,
         borderRadius: BorderRadius.circular(100),
         border: Border.all(
           width: size / 20,
@@ -147,7 +147,7 @@ class QuickMenuButton extends StatelessWidget {
         color: Palette.transparent,
         borderRadius: BorderRadius.circular(100),
         child: InkWell(
-          onTap: enabled ? onPressed : null,
+          onTap: onPressed,
           borderRadius: BorderRadius.circular(100),
           child: Center(
             child: Icon(
