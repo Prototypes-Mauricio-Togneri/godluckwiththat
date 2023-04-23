@@ -2,8 +2,8 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/dialog/window_dialog.dart';
 import 'package:gatewayguardians/game/game_state.dart';
-import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/construction.dart';
+import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 import 'package:gatewayguardians/utils/navigation.dart';
@@ -32,6 +32,8 @@ class BuildingsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Zone zone = state.currentZone;
+
     return WindowDialog(
       title: 'Buildings',
       child: Padding(
@@ -39,87 +41,36 @@ class BuildingsDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              children: [
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.headquarters,
-                ),
-                const HBox(10),
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.house,
-                ),
-                const HBox(10),
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.warehouse,
-                ),
-              ],
-            ),
-            const VBox(10),
-            Row(
-              children: [
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.farm,
-                ),
-                const HBox(10),
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.woodcutter,
-                ),
-                const HBox(10),
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.quarry,
-                ),
-                const HBox(10),
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.copper_mine,
-                ),
-                const HBox(10),
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.iron_mine,
-                ),
-                const HBox(10),
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.gold_mine,
-                ),
-              ],
-            ),
-            const VBox(10),
-            Row(
-              children: [
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.barracks,
-                ),
-                const HBox(10),
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.archery,
-                ),
-                const HBox(10),
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.cavalry,
-                ),
-                const HBox(10),
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.workshop,
-                ),
-                const HBox(10),
-                BuildingEntry(
-                  state: state,
-                  buildingType: BuildingType.fortress,
-                ),
-              ],
-            ),
+            if (zone.basic().isNotEmpty)
+              Row(
+                children: [
+                  for (final BuildingType buildingType in zone.basic())
+                    BuildingEntry(
+                      state: state,
+                      buildingType: buildingType,
+                    ),
+                ],
+              ),
+            if (zone.producers().isNotEmpty)
+              Row(
+                children: [
+                  for (final BuildingType buildingType in zone.producers())
+                    BuildingEntry(
+                      state: state,
+                      buildingType: buildingType,
+                    ),
+                ],
+              ),
+            if (zone.military().isNotEmpty)
+              Row(
+                children: [
+                  for (final BuildingType buildingType in zone.military())
+                    BuildingEntry(
+                      state: state,
+                      buildingType: buildingType,
+                    ),
+                ],
+              ),
           ],
         ),
       ),
@@ -130,22 +81,21 @@ class BuildingsDialog extends StatelessWidget {
 class BuildingEntry extends StatelessWidget {
   final GameState state;
   final BuildingType buildingType;
-  late final Building? building;
-  late final int level;
 
-  BuildingEntry({
+  const BuildingEntry({
     required this.state,
     required this.buildingType,
-  }) {
-    building = state.currentZone.getBuilding(buildingType);
-    level = building?.level ?? 0;
-  }
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 150,
       height: 158,
+      margin: const EdgeInsets.only(
+        right: 10,
+        bottom: 10,
+      ),
       color: Palette.grey,
       child: Column(
         children: [
@@ -160,14 +110,8 @@ class BuildingEntry extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(
-                  child: Label(
-                    text: buildingType.toString(),
-                    size: 10,
-                  ),
-                ),
                 Label(
-                  text: '$level',
+                  text: buildingType.toString(),
                   size: 10,
                 ),
               ],
@@ -192,12 +136,10 @@ class BuildingEntry extends StatelessWidget {
             ),
           ),
           PrimaryButton(
-            text: (building != null) ? 'Level up' : 'Build',
-            color: (building != null) ? Palette.primary : Palette.success,
+            text: 'Build',
+            color: Palette.success,
             onPressed: _onSelect,
-            icon: (building != null)
-                ? Icons.keyboard_double_arrow_up_sharp
-                : Icons.construction,
+            icon: Icons.construction,
             size: 10,
           ),
         ],
@@ -210,7 +152,7 @@ class BuildingEntry extends StatelessWidget {
     state.onStartConstruction(Construction(
       zone: state.currentZone,
       buildingType: buildingType,
-      toLevel: level + 1,
+      toLevel: 1,
     ));
   }
 }
