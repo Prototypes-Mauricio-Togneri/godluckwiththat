@@ -6,8 +6,7 @@ import 'package:gatewayguardians/game/game_component2.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 
-class BuildingSprite extends SpriteComponent
-    with HasGameRef<GameComponent2>, Tappable {
+class BuildingSprite extends SpriteComponent with Tappable {
   final Building building;
 
   BuildingSprite(this.building);
@@ -17,8 +16,8 @@ class BuildingSprite extends SpriteComponent
     sprite = await getSprite(building.buildingType.sprite);
     size = getSize();
     position = Vector2(
-      gameRef.size.x * building.offset.dx,
-      gameRef.size.y * building.offset.dy,
+      GameComponent2.instance.size.x * building.offset.dx,
+      GameComponent2.instance.size.y * building.offset.dy,
     );
     anchor = Anchor.center;
 
@@ -27,7 +26,7 @@ class BuildingSprite extends SpriteComponent
 
   @override
   bool onTapUp(TapUpInfo info) {
-    gameRef.clickHandled = true;
+    GameComponent2.instance.clickHandled = true;
     GameState.instance.onBuildingSelected(building);
 
     return true;

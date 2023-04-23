@@ -13,7 +13,6 @@ import 'package:gatewayguardians/game/map_handler.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/assets.dart';
-import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/utils/style.dart';
 
 class GameComponent2 extends FlameGame
@@ -90,7 +89,7 @@ class GameComponent2 extends FlameGame
   void onScaleUpdate(ScaleUpdateInfo info) => handleOnScaleUpdate(info);
 
   @override
-  Color backgroundColor() => Palette.black;
+  Color backgroundColor() => const Color(0xff006dff);
 
   void addComponent(Component component) {
     //layerSprites.add(component);
