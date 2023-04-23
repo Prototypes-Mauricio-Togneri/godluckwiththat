@@ -141,7 +141,10 @@ enum BuildingType {
 
   bool get isProducer => produces != null;
 
-  ResourceMap cost(int level) => {};
+  ResourceMap cost(int level) => {
+        ResourceType.wood: level * 100,
+        ResourceType.stone: level * 10,
+      };
 
   double constructionTime(int level) {
     return 0;

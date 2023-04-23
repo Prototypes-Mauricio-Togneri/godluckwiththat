@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/utils/palette.dart';
@@ -75,8 +76,10 @@ class BuildingQuickMenu extends StatelessWidget {
                   content: Container(
                     color: Palette.grey,
                     padding: const EdgeInsets.all(10),
-                    child: const Label(
-                      text: 'Cost:\n100 wood\n50 stone',
+                    child: Label(
+                      text: building.buildingType
+                          .cost(building.level + 1)
+                          .text('Cost'),
                       color: Palette.white,
                       size: 10,
                     ),
