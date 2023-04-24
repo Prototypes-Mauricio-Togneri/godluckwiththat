@@ -20,6 +20,16 @@ class Colony {
 
   bool get hasFreeVillagers => freeVillagers > 0;
 
+  Zone zoneById(String id) {
+    for (final Zone zone in zones) {
+      if (zone.id == id) {
+        return zone;
+      }
+    }
+
+    throw Exception('Zone with id $id not found');
+  }
+
   int productionOf(ResourceType resourceType) {
     double total = 0;
 

@@ -1,7 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/dialog/buildings_dialog.dart';
-import 'package:gatewayguardians/game/game_component.dart';
 import 'package:gatewayguardians/json/json_building.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/json/json_patch.dart';
@@ -22,7 +21,6 @@ class GameState extends BaseState {
   final Research research = Research();
   final JsonMatch jsonMatch;
   late Colony colony;
-  late Zone currentZone;
   Building? selectedBuilding;
 
   static late GameState instance;
@@ -71,10 +69,6 @@ class GameState extends BaseState {
       colony.zones.add(zone);
     }
 
-    currentZone = colony.zones[0];
-
-    GameComponent.instance.loadZone(currentZone);
-
     Delayed.post(() {
       loaded = true;
       notify();
@@ -102,6 +96,11 @@ class GameState extends BaseState {
     notify();
   }
 
+  void onZoneSelected(Zone zone) => BuildingsDialog.show(
+        state: this,
+        zone: zone,
+      );
+
   void onBuildingSelected(Building building) {
     selectedBuilding = building;
     notify();
@@ -113,12 +112,9 @@ class GameState extends BaseState {
 
   void onConstructionCompleted(Construction construction) {
     construction.zone.onConstructionCompleted(construction);
-    GameComponent.instance.loadZone(currentZone);
   }
 
   void onOpenMainMenu() {}
-
-  void onOpenConstructionMenu() => BuildingsDialog.show(this);
 
   void onOpenResearchMenu() {}
 

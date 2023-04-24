@@ -86,6 +86,36 @@ class Constants {
             "location": "north"
           }
         ]
+      },
+      {
+        "id": "2",
+        "maxBuildings": 4,
+        "patches": [],
+        "buildings": []
+      },
+      {
+        "id": "3",
+        "maxBuildings": 4,
+        "patches": [],
+        "buildings": []
+      },
+      {
+        "id": "4",
+        "maxBuildings": 4,
+        "patches": [],
+        "buildings": []
+      },
+      {
+        "id": "5",
+        "maxBuildings": 4,
+        "patches": [],
+        "buildings": []
+      },
+      {
+        "id": "6",
+        "maxBuildings": 4,
+        "patches": [],
+        "buildings": []
       }
     ]
   }

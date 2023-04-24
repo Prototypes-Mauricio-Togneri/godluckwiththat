@@ -12,8 +12,6 @@ import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/game/map_handler.dart';
 import 'package:gatewayguardians/json/json_map.dart';
 import 'package:gatewayguardians/json/json_map_zone.dart';
-import 'package:gatewayguardians/models/buildings/building.dart';
-import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/style.dart';
 
 class GameComponent extends FlameGame
@@ -33,8 +31,8 @@ class GameComponent extends FlameGame
 
   @override
   Future onLoad() async {
-    _initialize(GameState.instance.jsonMatch.map);
     GameState.instance.load();
+    _initialize(GameState.instance);
 
     return super.onLoad();
   }
@@ -45,7 +43,8 @@ class GameComponent extends FlameGame
     GameState.instance.update(dt);
   }
 
-  void _initialize(JsonMap map) {
+  void _initialize(GameState state) {
+    final JsonMap map = state.jsonMatch.map;
     final double width = map.height * (size.x / size.y) * 1.2;
     final double height = map.height.toDouble() * 1.2;
 
@@ -65,10 +64,12 @@ class GameComponent extends FlameGame
     add(layerSprites);
     add(layerDebug);
 
-    layerSprites.add(MapComponent(image: '${map.path}/map.png'));
+    layerSprites
+        .add(MapComponent(image: '${state.jsonMatch.map.path}/map.png'));
 
     for (final JsonMapZone zone in map.zones) {
       layerSprites.add(ZoneComponent(
+        zone: state.colony.zoneById(zone.id),
         image: '${map.path}/zone${zone.id}.png',
         position: Vector2(zone.x, zone.y),
       ));
@@ -92,32 +93,6 @@ class GameComponent extends FlameGame
 
   @override
   Color backgroundColor() => const Color(0xff006dff);
-
-  void addComponent(Component component) {
-    //layerSprites.add(component);
-  }
-
-  void removeComponent(Component component) {
-    //layerSprites.remove(component);
-  }
-
-  void loadZone(Zone zone) {
-    /*layerSprites.removeAllComponents();
-
-    final ZoneBackground zoneBackground = ZoneBackground(
-      image: Assets.IMAGES_BACKGROUNDS_ZONE,
-      size: viewPortSize,
-    );
-    addComponent(zoneBackground);
-
-    for (final Building building in zone.buildings) {
-      addComponent(building.sprite);
-    }*/
-  }
-
-  void showBuildingQuickMenu(Building building) {
-    //layerSprites.removeAllComponents();
-  }
 
   @override
   void onTapUp(int pointerId, TapUpInfo info) {

@@ -14,17 +14,21 @@ import 'package:gatewayguardians/widgets/primary_button.dart';
 
 class BuildingsDialog extends StatelessWidget {
   final GameState state;
+  final Zone zone;
 
-  const BuildingsDialog._(this.state);
+  const BuildingsDialog._(this.state, this.zone);
 
-  static DialogController show(GameState state) {
+  static DialogController show({
+    required GameState state,
+    required Zone zone,
+  }) {
     final BuildContext context = Navigation.context;
 
     showDialog(
       context: context,
       barrierDismissible: true,
       barrierColor: Palette.transparent,
-      builder: (context) => BuildingsDialog._(state),
+      builder: (context) => BuildingsDialog._(state, zone),
     );
 
     return DialogController(context);
@@ -32,8 +36,6 @@ class BuildingsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Zone zone = state.currentZone;
-
     return WindowDialog(
       title: 'Buildings',
       child: Padding(
@@ -47,6 +49,7 @@ class BuildingsDialog extends StatelessWidget {
                   for (final BuildingType buildingType in zone.basic())
                     BuildingEntry(
                       state: state,
+                      zone: zone,
                       buildingType: buildingType,
                     ),
                 ],
@@ -57,6 +60,7 @@ class BuildingsDialog extends StatelessWidget {
                   for (final BuildingType buildingType in zone.producers())
                     BuildingEntry(
                       state: state,
+                      zone: zone,
                       buildingType: buildingType,
                     ),
                 ],
@@ -67,6 +71,7 @@ class BuildingsDialog extends StatelessWidget {
                   for (final BuildingType buildingType in zone.military())
                     BuildingEntry(
                       state: state,
+                      zone: zone,
                       buildingType: buildingType,
                     ),
                 ],
@@ -80,10 +85,12 @@ class BuildingsDialog extends StatelessWidget {
 
 class BuildingEntry extends StatelessWidget {
   final GameState state;
+  final Zone zone;
   final BuildingType buildingType;
 
   const BuildingEntry({
     required this.state,
+    required this.zone,
     required this.buildingType,
   });
 
@@ -150,7 +157,7 @@ class BuildingEntry extends StatelessWidget {
   void _onSelect() {
     Navigation.pop();
     state.onStartConstruction(Construction(
-      zone: state.currentZone,
+      zone: zone,
       buildingType: buildingType,
       toLevel: 1,
     ));

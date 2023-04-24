@@ -1,14 +1,17 @@
-import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
 import 'package:gatewayguardians/game/game_component.dart';
+import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/models/zone.dart';
 
 class ZoneComponent extends SpriteComponent with Tappable, Hoverable {
+  final Zone zone;
   final String image;
 
   ZoneComponent({
+    required this.zone,
     required this.image,
     required super.position,
   });
@@ -47,7 +50,7 @@ class ZoneComponent extends SpriteComponent with Tappable, Hoverable {
 
   @override
   bool onTapUp(TapUpInfo info) {
-    print('CLICKED');
+    GameState.instance.onZoneSelected(zone);
 
     return true;
   }
