@@ -11,9 +11,9 @@ import 'package:gatewayguardians/extensions/logical_keyboard_key_extension.dart'
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/game/map_handler.dart';
 import 'package:gatewayguardians/json/json_map.dart';
+import 'package:gatewayguardians/json/json_map_zone.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/zone.dart';
-import 'package:gatewayguardians/utils/assets.dart';
 import 'package:gatewayguardians/utils/style.dart';
 
 class GameComponent extends FlameGame
@@ -66,10 +66,13 @@ class GameComponent extends FlameGame
     add(layerDebug);
 
     layerSprites.add(MapComponent(image: '${map.path}/map.png'));
-    layerSprites.add(ZoneComponent(
-      image: Assets.IMAGES_MAPS_CHAPTER1_ZONE1,
-      position: Vector2(85.295, 1375.670),
-    ));
+
+    for (final JsonMapZone zone in map.zones) {
+      layerSprites.add(ZoneComponent(
+        image: '${map.path}/zone${zone.id}.png',
+        position: Vector2(zone.x, zone.y),
+      ));
+    }
 
     camera.zoom = 1;
     centerMap(Vector2(

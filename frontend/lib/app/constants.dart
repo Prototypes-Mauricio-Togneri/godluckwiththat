@@ -17,7 +17,14 @@ class Constants {
   "map": {
     "path": "maps/chapter1",
     "width": 1080,
-    "height": 1920
+    "height": 1920,
+    "zones": [
+      {
+        "id": "1",
+        "x": 85.295,
+        "y": 1375.670
+      }
+    ]
   },
   "colony": {
     "inventory": {
