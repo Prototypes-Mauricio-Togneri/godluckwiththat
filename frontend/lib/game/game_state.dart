@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/dialog/buildings_dialog.dart';
-import 'package:gatewayguardians/game/game_component2.dart';
+import 'package:gatewayguardians/game/game_component.dart';
 import 'package:gatewayguardians/json/json_building.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/json/json_patch.dart';
@@ -73,7 +73,7 @@ class GameState extends BaseState {
 
     currentZone = colony.zones[0];
 
-    GameComponent2.instance.loadZone(currentZone);
+    GameComponent.instance.loadZone(currentZone);
 
     Delayed.post(() {
       loaded = true;
@@ -113,7 +113,7 @@ class GameState extends BaseState {
 
   void onConstructionCompleted(Construction construction) {
     construction.zone.onConstructionCompleted(construction);
-    GameComponent2.instance.loadZone(currentZone);
+    GameComponent.instance.loadZone(currentZone);
   }
 
   void onOpenMainMenu() {}

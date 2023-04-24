@@ -5,30 +5,35 @@ import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gatewayguardians/app/constants.dart';
-import 'package:gatewayguardians/components/zone_background.dart';
-import 'package:gatewayguardians/extensions/component_extension.dart';
+import 'package:gatewayguardians/components/map_component.dart';
+import 'package:gatewayguardians/components/zone_component.dart';
 import 'package:gatewayguardians/extensions/logical_keyboard_key_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/game/map_handler.dart';
+import 'package:gatewayguardians/json/json_map.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/assets.dart';
-import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/utils/style.dart';
 
 class GameComponent extends FlameGame
-    with HasTappables, KeyboardEvents, MouseMovementDetector {
+    with
+        MapHandler,
+        HasTappables,
+        HasHoverables,
+        ScaleDetector,
+        ScrollDetector,
+        KeyboardEvents {
   final Component layerSprites = Component(priority: 0);
   final Component layerDebug = Component(priority: 3)
     ..positionType = PositionType.viewport;
   bool clickHandled = false;
-  late final Vector2 viewPortSize;
 
   static late GameComponent instance;
 
   @override
   Future onLoad() async {
-    _initialize();
+    _initialize(GameState.instance.jsonMatch.map);
     GameState.instance.load();
 
     return super.onLoad();
@@ -40,12 +45,13 @@ class GameComponent extends FlameGame
     GameState.instance.update(dt);
   }
 
-  void _initialize() {
-    viewPortSize = Vector2(
-      (size.x / size.y) * Constants.VIEWPORT_SIZE,
-      Constants.VIEWPORT_SIZE,
-    );
-    camera.viewport = FixedResolutionViewport(viewPortSize);
+  void _initialize(JsonMap map) {
+    final double width = map.height * (size.x / size.y) * 1.1;
+    final double height = map.height.toDouble() * 1.1;
+
+    camera.viewport = FixedResolutionViewport(Vector2(width, height));
+    camera.setRelativeOffset(Anchor.center);
+    camera.speed = double.maxFinite;
 
     layerDebug.add(FpsTextComponent(
       position: Vector2(
@@ -58,21 +64,42 @@ class GameComponent extends FlameGame
 
     add(layerSprites);
     add(layerDebug);
+
+    layerSprites.add(MapComponent(image: '${map.path}/map.png'));
+    layerSprites.add(ZoneComponent(
+      image: Assets.IMAGES_MAPS_CHAPTER1_ZONE1,
+      position: Vector2(85.295, 1375.670),
+    ));
+
+    camera.zoom = 1;
+    centerMap(Vector2(
+      map.width / 2,
+      map.height / 2,
+    ));
   }
 
   @override
-  Color backgroundColor() => Palette.black;
+  void onScroll(PointerScrollInfo info) => handleOnScroll(info);
+
+  @override
+  void onScaleStart(ScaleStartInfo info) => handleOnScaleStart(info);
+
+  @override
+  void onScaleUpdate(ScaleUpdateInfo info) => handleOnScaleUpdate(info);
+
+  @override
+  Color backgroundColor() => const Color(0xff006dff);
 
   void addComponent(Component component) {
-    layerSprites.add(component);
+    //layerSprites.add(component);
   }
 
   void removeComponent(Component component) {
-    layerSprites.remove(component);
+    //layerSprites.remove(component);
   }
 
   void loadZone(Zone zone) {
-    layerSprites.removeAllComponents();
+    /*layerSprites.removeAllComponents();
 
     final ZoneBackground zoneBackground = ZoneBackground(
       image: Assets.IMAGES_BACKGROUNDS_ZONE,
@@ -82,11 +109,11 @@ class GameComponent extends FlameGame
 
     for (final Building building in zone.buildings) {
       addComponent(building.sprite);
-    }
+    }*/
   }
 
   void showBuildingQuickMenu(Building building) {
-    layerSprites.removeAllComponents();
+    //layerSprites.removeAllComponents();
   }
 
   @override
