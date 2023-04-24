@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
+import 'package:gatewayguardians/game/game_component.dart';
 
 class ZoneComponent extends SpriteComponent with Tappable, Hoverable {
   final String image;
@@ -30,8 +31,18 @@ class ZoneComponent extends SpriteComponent with Tappable, Hoverable {
   @override
   bool onHoverLeave(PointerHoverInfo info) {
     tint(const Color(0x00000000));
+    GameComponent.instance.mouseCursor = SystemMouseCursors.basic;
 
     return true;
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    if (isHovered) {
+      GameComponent.instance.mouseCursor = SystemMouseCursors.grab;
+    }
   }
 
   @override
