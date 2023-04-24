@@ -91,7 +91,7 @@ class BuildingEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 150,
-      height: 158,
+      height: 154,
       margin: const EdgeInsets.only(
         right: 10,
         bottom: 10,
