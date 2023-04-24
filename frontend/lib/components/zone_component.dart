@@ -1,32 +1,38 @@
 import 'package:flame/components.dart';
-import 'package:flame/input.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flame/palette.dart';
 import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
-import 'package:gatewayguardians/game/game_component.dart';
 import 'package:gatewayguardians/json/json_map_zone.dart';
 import 'package:gatewayguardians/models/zone.dart';
 
-class ZoneComponent extends SpriteComponent with Hoverable {
+class ZoneComponent extends SpriteComponent {
   final Zone zone;
-  final String folder;
   final JsonMapZone mapZone;
+  final String image;
 
   ZoneComponent({
     required this.zone,
-    required this.folder,
+    required this.image,
     required this.mapZone,
     required super.position,
   });
 
   @override
   Future onLoad() async {
-    sprite = await getSprite('$folder/zone${zone.id}.png');
+    sprite = await getSprite(image);
     anchor = Anchor.topLeft;
 
     return super.onLoad();
   }
 
-  @override
+  void onHoverEnter() {
+    tint(const Color(0x33ffffff));
+  }
+
+  void onHoverLeave() {
+    tint(const Color(0x00000000));
+  }
+
+  /*@override
   bool onHoverEnter(PointerHoverInfo info) {
     tint(const Color(0x33ffffff));
 
@@ -48,16 +54,5 @@ class ZoneComponent extends SpriteComponent with Hoverable {
     if (isHovered) {
       GameComponent.instance.mouseCursor = SystemMouseCursors.grab;
     }
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-
-    canvas.drawCircle(
-      const Offset(JsonMapZone.CENTER_X, JsonMapZone.CENTER_Y),
-      JsonMapZone.RADIUS,
-      paint..style = PaintingStyle.stroke,
-    );
-  }
+  }*/
 }

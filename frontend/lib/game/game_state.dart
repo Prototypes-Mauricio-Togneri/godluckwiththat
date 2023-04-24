@@ -1,7 +1,10 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/components.dart';
 import 'package:gatewayguardians/app/constants.dart';
+import 'package:gatewayguardians/components/zone_component.dart';
 import 'package:gatewayguardians/dialog/buildings_dialog.dart';
+import 'package:gatewayguardians/extensions/component_extension.dart';
+import 'package:gatewayguardians/game/game_component.dart';
 import 'package:gatewayguardians/json/json_building.dart';
 import 'package:gatewayguardians/json/json_map_zone.dart';
 import 'package:gatewayguardians/json/json_match.dart';
@@ -106,6 +109,21 @@ class GameState extends BaseState {
 
     selectedBuilding = null;
     notify();
+  }
+
+  void onMouseMoved(Vector2 position) {
+    final List<ZoneComponent> list = GameComponent.instance.layerSprites
+        .getComponents(ZoneComponent)
+        .map((e) => e as ZoneComponent)
+        .toList();
+
+    for (final ZoneComponent zone in list) {
+      if (zone.mapZone.contains(position)) {
+        zone.onHoverEnter();
+      } else {
+        zone.onHoverLeave();
+      }
+    }
   }
 
   void onBuildingSelected(Building building) {

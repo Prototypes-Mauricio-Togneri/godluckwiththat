@@ -18,10 +18,10 @@ class GameComponent extends FlameGame
     with
         MapHandler,
         HasTappables,
-        HasHoverables,
         ScaleDetector,
         ScrollDetector,
-        KeyboardEvents {
+        KeyboardEvents,
+        MouseMovementDetector {
   final Component layerSprites = Component(priority: 0);
   final Component layerDebug = Component(priority: 3)
     ..positionType = PositionType.viewport;
@@ -68,7 +68,7 @@ class GameComponent extends FlameGame
     for (final JsonMapZone zone in map.zones) {
       layerSprites.add(ZoneComponent(
         zone: state.colony.zoneById(zone.id),
-        folder: map.path,
+        image: '${map.path}/zone${zone.id}.png',
         mapZone: zone,
         position: Vector2(zone.x, zone.y),
       ));
@@ -97,6 +97,11 @@ class GameComponent extends FlameGame
   void onTapUp(int pointerId, TapUpInfo info) {
     super.onTapUp(pointerId, info);
     GameState.instance.onMapClicked(info.eventPosition.game);
+  }
+
+  @override
+  void onMouseMove(PointerHoverInfo info) {
+    GameState.instance.onMouseMoved(info.eventPosition.game);
   }
 
   @override
