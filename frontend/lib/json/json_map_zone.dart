@@ -15,7 +15,7 @@ class JsonMapZone {
   @JsonKey(name: 'y')
   final double y;
 
-  static const double RADIUS = 160;
+  static const double RADIUS = 190;
 
   const JsonMapZone({
     required this.id,

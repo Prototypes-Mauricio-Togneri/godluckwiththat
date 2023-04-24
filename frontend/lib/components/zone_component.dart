@@ -3,21 +3,24 @@ import 'package:flame/input.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
 import 'package:gatewayguardians/game/game_component.dart';
+import 'package:gatewayguardians/json/json_map_zone.dart';
 import 'package:gatewayguardians/models/zone.dart';
 
 class ZoneComponent extends SpriteComponent with Hoverable {
   final Zone zone;
-  final String image;
+  final String folder;
+  final JsonMapZone mapZone;
 
   ZoneComponent({
     required this.zone,
-    required this.image,
+    required this.folder,
+    required this.mapZone,
     required super.position,
   });
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(image);
+    sprite = await getSprite('$folder/zone${zone.id}.png');
     anchor = Anchor.topLeft;
 
     return super.onLoad();
@@ -45,5 +48,16 @@ class ZoneComponent extends SpriteComponent with Hoverable {
     if (isHovered) {
       GameComponent.instance.mouseCursor = SystemMouseCursors.grab;
     }
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    canvas.drawCircle(
+      const Offset(JsonMapZone.RADIUS, JsonMapZone.RADIUS),
+      JsonMapZone.RADIUS,
+      paint..style = PaintingStyle.stroke,
+    );
   }
 }

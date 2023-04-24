@@ -63,13 +63,13 @@ class GameComponent extends FlameGame
     add(layerSprites);
     add(layerDebug);
 
-    layerSprites
-        .add(MapComponent(image: '${state.jsonMatch.map.path}/map.png'));
+    layerSprites.add(MapComponent(image: '${map.path}/map.png'));
 
     for (final JsonMapZone zone in map.zones) {
       layerSprites.add(ZoneComponent(
         zone: state.colony.zoneById(zone.id),
-        image: '${map.path}/zone${zone.id}.png',
+        folder: map.path,
+        mapZone: zone,
         position: Vector2(zone.x, zone.y),
       ));
     }
