@@ -10,6 +10,7 @@ import 'package:gatewayguardians/components/zone_component.dart';
 import 'package:gatewayguardians/extensions/logical_keyboard_key_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/game/map_handler.dart';
+import 'package:gatewayguardians/json/json_map.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/assets.dart';
@@ -32,7 +33,7 @@ class GameComponent2 extends FlameGame
 
   @override
   Future onLoad() async {
-    _initialize();
+    _initialize(GameState.instance.jsonMatch.map);
     GameState.instance.load();
 
     return super.onLoad();
@@ -44,8 +45,11 @@ class GameComponent2 extends FlameGame
     GameState.instance.update(dt);
   }
 
-  void _initialize() {
-    camera.viewport = FixedResolutionViewport(size);
+  void _initialize(JsonMap map) {
+    final double width = map.height * (size.x / size.y);
+    final double height = map.height.toDouble();
+
+    camera.viewport = FixedResolutionViewport(Vector2(width, height));
     camera.setRelativeOffset(Anchor.center);
     camera.speed = double.maxFinite;
 
@@ -67,15 +71,11 @@ class GameComponent2 extends FlameGame
       position: Vector2(85.295, 1375.670),
     ));
 
-    /*camera.moveTo(Vector2(
-      cameraLocation[0].toDouble(),
-      cameraLocation[1].toDouble(),
-    ));*/
     camera.zoom = 1;
-    centerMap(Vector2(
+    /*centerMap(Vector2(
       500,
       1600,
-    ));
+    ));*/
   }
 
   @override

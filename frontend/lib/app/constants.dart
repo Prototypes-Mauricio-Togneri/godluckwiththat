@@ -14,6 +14,11 @@ class Constants {
 	"id": "level1",
 	"totalTimeElapsed": 60,
 	"level": 1,
+  "map": {
+    "path": "maps/chapter1",
+    "width": 1080,
+    "height": 1920
+  },
   "colony": {
     "inventory": {
       "food": 300,
