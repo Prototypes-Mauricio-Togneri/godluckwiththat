@@ -26,7 +26,6 @@ class BuildingSprite extends SpriteComponent with Tappable {
 
   @override
   bool onTapUp(TapUpInfo info) {
-    GameComponent.instance.clickHandled = true;
     GameState.instance.onBuildingSelected(building);
 
     return true;

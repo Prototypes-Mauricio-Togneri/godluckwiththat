@@ -1,7 +1,9 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:flame/components.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/dialog/buildings_dialog.dart';
 import 'package:gatewayguardians/json/json_building.dart';
+import 'package:gatewayguardians/json/json_map_zone.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/json/json_patch.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
@@ -91,15 +93,20 @@ class GameState extends BaseState {
     colony.update(dt);
   }
 
-  void onMapClicked() {
+  void onMapClicked(Vector2 position) {
+    for (final JsonMapZone zone in jsonMatch.map.zones) {
+      if (zone.contains(position)) {
+        BuildingsDialog.show(
+          state: this,
+          zone: colony.zoneById(zone.id),
+        );
+        return;
+      }
+    }
+
     selectedBuilding = null;
     notify();
   }
-
-  void onZoneSelected(Zone zone) => BuildingsDialog.show(
-        state: this,
-        zone: zone,
-      );
 
   void onBuildingSelected(Building building) {
     selectedBuilding = building;

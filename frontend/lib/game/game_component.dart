@@ -25,7 +25,6 @@ class GameComponent extends FlameGame
   final Component layerSprites = Component(priority: 0);
   final Component layerDebug = Component(priority: 3)
     ..positionType = PositionType.viewport;
-  bool clickHandled = false;
 
   static late GameComponent instance;
 
@@ -97,12 +96,7 @@ class GameComponent extends FlameGame
   @override
   void onTapUp(int pointerId, TapUpInfo info) {
     super.onTapUp(pointerId, info);
-
-    if (!clickHandled) {
-      GameState.instance.onMapClicked();
-    }
-
-    clickHandled = false;
+    GameState.instance.onMapClicked(info.eventPosition.game);
   }
 
   @override

@@ -37,7 +37,7 @@ class BuildingsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WindowDialog(
-      title: 'Buildings',
+      title: 'Zone ${zone.id}',
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(

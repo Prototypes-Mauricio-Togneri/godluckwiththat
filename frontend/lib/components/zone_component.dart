@@ -3,10 +3,9 @@ import 'package:flame/input.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
 import 'package:gatewayguardians/game/game_component.dart';
-import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/zone.dart';
 
-class ZoneComponent extends SpriteComponent with Tappable, Hoverable {
+class ZoneComponent extends SpriteComponent with Hoverable {
   final Zone zone;
   final String image;
 
@@ -46,12 +45,5 @@ class ZoneComponent extends SpriteComponent with Tappable, Hoverable {
     if (isHovered) {
       GameComponent.instance.mouseCursor = SystemMouseCursors.grab;
     }
-  }
-
-  @override
-  bool onTapUp(TapUpInfo info) {
-    GameState.instance.onZoneSelected(zone);
-
-    return true;
   }
 }
