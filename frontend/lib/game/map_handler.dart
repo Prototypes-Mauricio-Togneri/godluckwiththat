@@ -33,7 +33,7 @@ mixin MapHandler on FlameGame {
         camera.translateBy(vector);
       }
 
-      camera.zoom += -info.scrollDelta.game.y.sign * ZOOM_STEP;
+      camera.zoom += -info.scrollDelta.game.y.sign * (camera.zoom / 10);
       _clampZoom();
       onMapMoved();
     }
