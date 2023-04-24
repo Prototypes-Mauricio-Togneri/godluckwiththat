@@ -46,8 +46,8 @@ class GameComponent extends FlameGame
   }
 
   void _initialize(JsonMap map) {
-    final double width = map.height * (size.x / size.y) * 1.1;
-    final double height = map.height.toDouble() * 1.1;
+    final double width = map.height * (size.x / size.y) * 1.2;
+    final double height = map.height.toDouble() * 1.2;
 
     camera.viewport = FixedResolutionViewport(Vector2(width, height));
     camera.setRelativeOffset(Anchor.center);
