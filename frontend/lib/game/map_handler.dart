@@ -4,7 +4,7 @@ import 'package:flame/input.dart';
 mixin MapHandler on FlameGame {
   final double MIN_ZOOM = 1;
   final double MAX_ZOOM = 15;
-  final double ZOOM_STEP = 1;
+  final double ZOOM_STEP = 0.5;
 
   late double _startZoom;
 

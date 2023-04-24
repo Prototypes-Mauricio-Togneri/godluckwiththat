@@ -46,8 +46,8 @@ class GameComponent2 extends FlameGame
   }
 
   void _initialize(JsonMap map) {
-    final double width = map.height * (size.x / size.y);
-    final double height = map.height.toDouble();
+    final double width = map.height * (size.x / size.y) * 1.1;
+    final double height = map.height.toDouble() * 1.1;
 
     camera.viewport = FixedResolutionViewport(Vector2(width, height));
     camera.setRelativeOffset(Anchor.center);
@@ -65,17 +65,17 @@ class GameComponent2 extends FlameGame
     add(layerSprites);
     add(layerDebug);
 
-    layerSprites.add(MapComponent(image: Assets.IMAGES_MAPS_CHAPTER1_MAP));
+    layerSprites.add(MapComponent(image: '${map.path}/map.png'));
     layerSprites.add(ZoneComponent(
       image: Assets.IMAGES_MAPS_CHAPTER1_ZONE1,
       position: Vector2(85.295, 1375.670),
     ));
 
     camera.zoom = 1;
-    /*centerMap(Vector2(
-      500,
-      1600,
-    ));*/
+    centerMap(Vector2(
+      map.width / 2,
+      map.height / 2,
+    ));
   }
 
   @override
