@@ -15,7 +15,9 @@ class JsonMapZone {
   @JsonKey(name: 'y')
   final double y;
 
-  static const double RADIUS = 190;
+  static const double CENTER_X = 184.5;
+  static const double CENTER_Y = 160.5;
+  static const double RADIUS = 157;
 
   const JsonMapZone({
     required this.id,
@@ -25,7 +27,7 @@ class JsonMapZone {
 
   bool contains(Vector2 position) {
     final double distance =
-        Vector2(x + RADIUS, y + RADIUS).distanceTo(position);
+        Vector2(x + CENTER_X, y + CENTER_Y).distanceTo(position);
 
     return distance < RADIUS;
   }

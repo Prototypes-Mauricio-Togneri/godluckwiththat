@@ -55,7 +55,7 @@ class ZoneComponent extends SpriteComponent with Hoverable {
     super.render(canvas);
 
     canvas.drawCircle(
-      const Offset(JsonMapZone.RADIUS, JsonMapZone.RADIUS),
+      const Offset(JsonMapZone.CENTER_X, JsonMapZone.CENTER_Y),
       JsonMapZone.RADIUS,
       paint..style = PaintingStyle.stroke,
     );
