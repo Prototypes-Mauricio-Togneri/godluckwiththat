@@ -47,7 +47,7 @@ class ZoneComponent extends SpriteComponent with Tappable, Hoverable {
 
   @override
   bool onTapUp(TapUpInfo info) {
-    print('aaa');
+    print('CLICKED');
 
     return true;
   }

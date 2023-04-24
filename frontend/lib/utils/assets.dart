@@ -28,6 +28,7 @@ class Assets {
   static const String IMAGES_BACKGROUNDS_ZONE = 'backgrounds/zone.jpg';
   static const String IMAGES_MAPS_CHAPTER1_ZONE4 = 'maps/chapter1/zone4.png';
   static const String IMAGES_MAPS_CHAPTER1_ZONE5 = 'maps/chapter1/zone5.png';
+  static const String IMAGES_MAPS_CHAPTER1_ZONE6 = 'maps/chapter1/zone6.png';
   static const String IMAGES_MAPS_CHAPTER1_ZONE3 = 'maps/chapter1/zone3.png';
   static const String IMAGES_MAPS_CHAPTER1_ZONE2 = 'maps/chapter1/zone2.png';
   static const String IMAGES_MAPS_CHAPTER1_ZONE1 = 'maps/chapter1/zone1.png';
