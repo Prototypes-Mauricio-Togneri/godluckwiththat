@@ -26,6 +26,8 @@ class Assets {
   static const String IMAGES_RESOURCES_WOOD = 'resources/wood.png';
   static const String IMAGES_RESOURCES_COPPER = 'resources/copper.png';
   static const String IMAGES_BACKGROUNDS_ZONE = 'backgrounds/zone.jpg';
+  static const String IMAGES_MAPS_MISC_ZONE_HOVERED =
+      'maps/misc/zone_hovered.png';
   static const String IMAGES_MAPS_CHAPTER1_ZONE4 = 'maps/chapter1/zone4.png';
   static const String IMAGES_MAPS_CHAPTER1_ZONE5 = 'maps/chapter1/zone5.png';
   static const String IMAGES_MAPS_CHAPTER1_ZONE6 = 'maps/chapter1/zone6.png';
