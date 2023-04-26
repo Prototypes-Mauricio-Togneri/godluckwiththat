@@ -21,6 +21,7 @@ class ZoneComponent extends SpriteComponent {
   Future onLoad() async {
     sprite = await getSprite(image);
     anchor = Anchor.topLeft;
+    opacity = 0;
 
     zoneHoveredComponent = ZoneHoveredComponent(position: size / 2);
     add(zoneHoveredComponent);
