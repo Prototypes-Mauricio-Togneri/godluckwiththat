@@ -4,7 +4,7 @@ import 'package:gatewayguardians/json/json_map_zone.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 
-class ZoneComponent extends SpriteComponent {
+class ZoneComponent extends PositionComponent {
   final Zone zone;
   final JsonMapZone mapZone;
   final String image;
@@ -19,11 +19,9 @@ class ZoneComponent extends SpriteComponent {
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(image);
     anchor = Anchor.topLeft;
-    opacity = 0;
 
-    zoneHoveredComponent = ZoneHoveredComponent(position: size / 2);
+    zoneHoveredComponent = ZoneHoveredComponent();
     add(zoneHoveredComponent);
 
     return super.onLoad();
@@ -37,12 +35,9 @@ class ZoneComponent extends SpriteComponent {
 class ZoneHoveredComponent extends SpriteComponent {
   bool hovered = false;
 
-  ZoneHoveredComponent({
-    required super.position,
-  });
-
   @override
   Future onLoad() async {
+    position = Vector2(182, 158);
     sprite = await getSprite(Assets.IMAGES_MAPS_MISC_ZONE_HOVERED);
     anchor = Anchor.center;
     opacity = 0;
