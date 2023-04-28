@@ -1,0 +1,4 @@
+enum ZoneStatus {
+  hidden,
+  explored;
+}

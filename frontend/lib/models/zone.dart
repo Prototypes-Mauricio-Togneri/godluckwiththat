@@ -1,6 +1,4 @@
 import 'package:flame/game.dart';
-import 'package:gatewayguardians/extensions/resource_map_extension.dart';
-import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
 import 'package:gatewayguardians/models/buildings/barracks.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
@@ -16,21 +14,21 @@ import 'package:gatewayguardians/models/buildings/quarry.dart';
 import 'package:gatewayguardians/models/buildings/warehouse.dart';
 import 'package:gatewayguardians/models/buildings/woodcutter.dart';
 import 'package:gatewayguardians/models/buildings/workshop.dart';
-import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/construction.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/patch_location.dart';
+import 'package:gatewayguardians/types/zone_status.dart';
 
 class Zone {
   final String id;
   final double x;
   final double y;
-  final Colony colony;
   final List<Building> buildings;
   final List<Construction> constructions;
   final List<Patch> patches;
   final int maxBuildings;
+  final ZoneStatus zoneStatus;
 
   static const double CENTER_X = 184.5;
   static const double CENTER_Y = 160.5;
@@ -40,11 +38,11 @@ class Zone {
     required this.id,
     required this.x,
     required this.y,
-    required this.colony,
     required this.buildings,
     required this.constructions,
     required this.patches,
     required this.maxBuildings,
+    required this.zoneStatus,
   });
 
   void update(double dt) {
@@ -78,30 +76,6 @@ class Zone {
     constructions.add(construction);
   }
 
-  void onConstructionCompleted(Construction construction) {
-    constructions.remove(construction);
-    final BuildingType buildingType = construction.buildingType;
-    final Building? building = getBuilding(buildingType);
-
-    if (building != null) {
-      building.level = construction.toLevel;
-    } else {
-      final ResourceMap cost = buildingType.cost(construction.toLevel);
-      colony.inventory.removeResources(cost.resources());
-
-      buildings.add(Building.create(
-        colony: colony,
-        zone: this,
-        buildingType: buildingType,
-        level: construction.toLevel,
-        workers: 0,
-        patch: buildingType.isProducer ? _patchForBuilding(buildingType) : null,
-      ));
-    }
-
-    GameState.instance.notify();
-  }
-
   Patch patchByLocation(PatchLocation location) {
     for (final Patch patch in patches) {
       if (patch.location == location) {
@@ -122,7 +96,7 @@ class Zone {
     return true;
   }
 
-  Patch _patchForBuilding(BuildingType buildingType) {
+  Patch patchForBuilding(BuildingType buildingType) {
     for (final Patch patch in patches) {
       if ((patch.resourceType == buildingType.produces) &&
           _isPatchAvailable(patch)) {

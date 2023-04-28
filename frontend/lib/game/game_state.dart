@@ -4,6 +4,7 @@ import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/components/zone_component.dart';
 import 'package:gatewayguardians/dialog/buildings_dialog.dart';
 import 'package:gatewayguardians/extensions/component_extension.dart';
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_component.dart';
 import 'package:gatewayguardians/json/json_building.dart';
 import 'package:gatewayguardians/json/json_match.dart';
@@ -16,6 +17,7 @@ import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/research.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/building_type.dart';
 
 class GameState extends BaseState {
   num totalTimeElapsed = 0;
@@ -46,11 +48,11 @@ class GameState extends BaseState {
         id: jsonZone.id,
         x: jsonZone.x,
         y: jsonZone.y,
-        colony: colony,
         buildings: [],
         constructions: [],
         patches: [],
         maxBuildings: jsonZone.maxBuildings,
+        zoneStatus: jsonZone.status,
       );
 
       for (final JsonPatch jsonPatch in jsonZone.patches) {
@@ -148,7 +150,31 @@ class GameState extends BaseState {
   }
 
   void onConstructionCompleted(Construction construction) {
-    construction.zone.onConstructionCompleted(construction);
+    final Zone zone = construction.zone;
+    zone.constructions.remove(construction);
+
+    final BuildingType buildingType = construction.buildingType;
+    final Building? building = zone.getBuilding(buildingType);
+
+    if (building != null) {
+      building.level = construction.toLevel;
+    } else {
+      final ResourceMap cost = buildingType.cost(construction.toLevel);
+      colony.inventory.removeResources(cost.resources());
+
+      zone.buildings.add(Building.create(
+        colony: colony,
+        zone: zone,
+        buildingType: buildingType,
+        level: construction.toLevel,
+        workers: 0,
+        patch: buildingType.isProducer
+            ? zone.patchForBuilding(buildingType)
+            : null,
+      ));
+    }
+
+    notify();
   }
 
   void onOpenMainMenu() {}

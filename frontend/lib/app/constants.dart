@@ -25,6 +25,7 @@ class Constants {
       "x": 24.944,
       "y": 976.082,
       "maxBuildings": 4,
+      "status": "explored",
       "patches": [
         {
           "type": "food",
@@ -54,6 +55,7 @@ class Constants {
       "x": 297.811,
       "y": 817.540,
       "maxBuildings": 4,
+      "status": "explored",
       "patches": [],
       "buildings": []
     },
@@ -62,6 +64,7 @@ class Constants {
       "x": 570.677,
       "y": 658.998,
       "maxBuildings": 4,
+      "status": "explored",
       "patches": [],
       "buildings": []
     },
@@ -70,6 +73,7 @@ class Constants {
       "x": 296.942,
       "y": 501.967,
       "maxBuildings": 4,
+      "status": "explored",
       "patches": [],
       "buildings": []
     },
@@ -78,6 +82,7 @@ class Constants {
       "x": 569.808,
       "y": 343.387,
       "maxBuildings": 4,
+      "status": "explored",
       "patches": [],
       "buildings": []
     },
@@ -86,6 +91,7 @@ class Constants {
       "x": 568.901,
       "y": 27.815,
       "maxBuildings": 4,
+      "status": "explored",
       "patches": [],
       "buildings": []
     }
