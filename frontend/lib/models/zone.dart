@@ -32,9 +32,7 @@ class Zone {
   final int maxBuildings;
   final ZoneStatus zoneStatus;
 
-  static const double CENTER_X = 184.5;
-  static const double CENTER_Y = 160.5;
-  static const double RADIUS = 157;
+  static const double RADIUS = 160;
 
   Zone({
     required this.id,
@@ -61,8 +59,7 @@ class Zone {
   }
 
   bool contains(Vector2 position) {
-    final double distance =
-        Vector2(x + CENTER_X, y + CENTER_Y).distanceTo(position);
+    final double distance = Vector2(x, y).distanceTo(position);
 
     return distance < RADIUS;
   }

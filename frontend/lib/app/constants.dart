@@ -18,14 +18,14 @@ class Constants {
 	"level": 1,
   "map": {
     "path": "maps/chapter1",
-    "width": 960,
-    "height": 1320
+    "width": 1300,
+    "height": 1300
   },
   "zones": [
     {
       "id": "1",
-      "x": 24.944,
-      "y": 976.082,
+      "x": 246.071,
+      "y": 1050.502,
       "owner": "player",
       "maxBuildings": 4,
       "status": "explored",
@@ -55,8 +55,8 @@ class Constants {
     },
     {
       "id": "2",
-      "x": 297.811,
-      "y": 817.540,
+      "x": 515.647,
+      "y": 889.996,
       "owner": "",
       "maxBuildings": 4,
       "status": "explored",
@@ -65,8 +65,8 @@ class Constants {
     },
     {
       "id": "3",
-      "x": 570.677,
-      "y": 658.998,
+      "x": 785.224,
+      "y": 729.49,
       "owner": "",
       "maxBuildings": 4,
       "status": "explored",
@@ -75,31 +75,31 @@ class Constants {
     },
     {
       "id": "4",
-      "x": 296.942,
-      "y": 501.967,
+      "x": 514.778,
+      "y": 570.533,
       "owner": "",
       "maxBuildings": 4,
-      "status": "explored",
+      "status": "unexplored",
       "patches": [],
       "buildings": []
     },
     {
       "id": "5",
-      "x": 569.808,
-      "y": 343.387,
+      "x": 784.355,
+      "y": 410.026,
       "owner": "",
       "maxBuildings": 4,
-      "status": "explored",
+      "status": "unexplored",
       "patches": [],
       "buildings": []
     },
     {
       "id": "6",
-      "x": 568.901,
-      "y": 27.815,
+      "x": 1053.932,
+      "y": 249.508,
       "owner": "guardians",
       "maxBuildings": 4,
-      "status": "explored",
+      "status": "unexplored",
       "patches": [],
       "buildings": []
     }

@@ -14,7 +14,7 @@ class ZoneComponent extends PositionComponent {
 
   @override
   Future onLoad() async {
-    anchor = Anchor.topLeft;
+    anchor = Anchor.center;
 
     zoneHoveredComponent = ZoneHoveredComponent();
     add(zoneHoveredComponent);
@@ -32,7 +32,6 @@ class ZoneHoveredComponent extends SpriteComponent {
 
   @override
   Future onLoad() async {
-    position = Vector2(182, 158);
     sprite = await getSprite(Assets.IMAGES_MAPS_MISC_ZONE_HOVERED);
     anchor = Anchor.center;
     opacity = 0;

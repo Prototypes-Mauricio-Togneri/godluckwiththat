@@ -33,6 +33,6 @@ Map<String, dynamic> _$JsonZoneToJson(JsonZone instance) => <String, dynamic>{
     };
 
 const _$ZoneStatusEnumMap = {
-  ZoneStatus.hidden: 'hidden',
+  ZoneStatus.unexplored: 'unexplored',
   ZoneStatus.explored: 'explored',
 };
