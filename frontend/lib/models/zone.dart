@@ -1,4 +1,5 @@
 import 'package:flame/game.dart';
+import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
 import 'package:gatewayguardians/models/buildings/barracks.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
@@ -24,6 +25,7 @@ class Zone {
   final String id;
   final double x;
   final double y;
+  final String owner;
   final List<Building> buildings;
   final List<Construction> constructions;
   final List<Patch> patches;
@@ -38,12 +40,15 @@ class Zone {
     required this.id,
     required this.x,
     required this.y,
+    required this.owner,
     required this.buildings,
     required this.constructions,
     required this.patches,
     required this.maxBuildings,
     required this.zoneStatus,
   });
+
+  bool get isOwned => owner == Constants.ZONE_OWNER_PLAYER;
 
   void update(double dt) {
     for (final Construction construction in constructions) {

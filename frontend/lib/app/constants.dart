@@ -1,14 +1,16 @@
 class Constants {
   static const String FONT_NAME = 'CustomFont';
 
-  static double VIEWPORT_SIZE = 500;
+  static const double VIEWPORT_SIZE = 500;
 
-  static double RESOURCES_HUD_REFRESH_TIMEOUT = 1; // in seconds
+  static const String ZONE_OWNER_PLAYER = 'player';
 
-  static int HOUSE_POPULATION = 10;
-  static int HEADQUARTERS_POPULATION = 10;
+  static const double RESOURCES_HUD_REFRESH_TIMEOUT = 1; // in seconds
 
-  static String EMPTY_MATCH = '''
+  static const int HOUSE_POPULATION = 10;
+  static const int HEADQUARTERS_POPULATION = 10;
+
+  static const String EMPTY_MATCH = '''
 {
 	"version": 1,
 	"id": "level1",
@@ -24,6 +26,7 @@ class Constants {
       "id": "1",
       "x": 24.944,
       "y": 976.082,
+      "owner": "player",
       "maxBuildings": 4,
       "status": "explored",
       "patches": [
@@ -54,6 +57,7 @@ class Constants {
       "id": "2",
       "x": 297.811,
       "y": 817.540,
+      "owner": "",
       "maxBuildings": 4,
       "status": "explored",
       "patches": [],
@@ -63,6 +67,7 @@ class Constants {
       "id": "3",
       "x": 570.677,
       "y": 658.998,
+      "owner": "",
       "maxBuildings": 4,
       "status": "explored",
       "patches": [],
@@ -72,6 +77,7 @@ class Constants {
       "id": "4",
       "x": 296.942,
       "y": 501.967,
+      "owner": "",
       "maxBuildings": 4,
       "status": "explored",
       "patches": [],
@@ -81,6 +87,7 @@ class Constants {
       "id": "5",
       "x": 569.808,
       "y": 343.387,
+      "owner": "",
       "maxBuildings": 4,
       "status": "explored",
       "patches": [],
@@ -90,6 +97,7 @@ class Constants {
       "id": "6",
       "x": 568.901,
       "y": 27.815,
+      "owner": "guardians",
       "maxBuildings": 4,
       "status": "explored",
       "patches": [],

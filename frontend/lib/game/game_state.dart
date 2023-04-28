@@ -48,6 +48,7 @@ class GameState extends BaseState {
         id: jsonZone.id,
         x: jsonZone.x,
         y: jsonZone.y,
+        owner: jsonZone.owner,
         buildings: [],
         constructions: [],
         patches: [],
@@ -73,6 +74,10 @@ class GameState extends BaseState {
               ? zone.patchByLocation(jsonBuilding.location!)
               : null,
         ));
+      }
+
+      if (zone.isOwned) {
+        colony.zones.add(zone);
       }
 
       zones.add(zone);

@@ -10,6 +10,7 @@ JsonZone _$JsonZoneFromJson(Map<String, dynamic> json) => JsonZone(
       id: json['id'] as String,
       x: (json['x'] as num).toDouble(),
       y: (json['y'] as num).toDouble(),
+      owner: json['owner'] as String,
       maxBuildings: json['maxBuildings'] as int,
       status: $enumDecode(_$ZoneStatusEnumMap, json['status']),
       patches: (json['patches'] as List<dynamic>)
@@ -24,6 +25,7 @@ Map<String, dynamic> _$JsonZoneToJson(JsonZone instance) => <String, dynamic>{
       'id': instance.id,
       'x': instance.x,
       'y': instance.y,
+      'owner': instance.owner,
       'maxBuildings': instance.maxBuildings,
       'status': _$ZoneStatusEnumMap[instance.status]!,
       'patches': instance.patches,
