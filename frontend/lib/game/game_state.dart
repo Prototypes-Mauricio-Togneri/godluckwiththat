@@ -141,15 +141,7 @@ class GameState extends BaseState {
 
   void onOpenMainMenu() {}
 
-  void onOpenResearchMenu() {}
-
-  void onOpenMilitaryMenu() {}
-
-  void onOpenMap() {}
-
   void onOpenReportsMenu() {}
-
-  void onOpenZonesOverviewMenu() {}
 
   void onOpenExpeditionsMenu() {}
 }
