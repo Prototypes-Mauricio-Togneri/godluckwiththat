@@ -12,6 +12,9 @@ JsonMatch _$JsonMatchFromJson(Map<String, dynamic> json) => JsonMatch(
       totalTimeElapsed: json['totalTimeElapsed'] as num,
       level: json['level'] as int,
       map: JsonMap.fromJson(json['map'] as Map<String, dynamic>),
+      zones: (json['zones'] as List<dynamic>)
+          .map((e) => JsonZone.fromJson(e as Map<String, dynamic>))
+          .toList(),
       colony: JsonColony.fromJson(json['colony'] as Map<String, dynamic>),
     );
 
@@ -21,5 +24,6 @@ Map<String, dynamic> _$JsonMatchToJson(JsonMatch instance) => <String, dynamic>{
       'totalTimeElapsed': instance.totalTimeElapsed,
       'level': instance.level,
       'map': instance.map,
+      'zones': instance.zones,
       'colony': instance.colony,
     };

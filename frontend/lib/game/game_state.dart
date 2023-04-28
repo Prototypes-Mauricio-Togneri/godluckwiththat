@@ -6,7 +6,6 @@ import 'package:gatewayguardians/dialog/buildings_dialog.dart';
 import 'package:gatewayguardians/extensions/component_extension.dart';
 import 'package:gatewayguardians/game/game_component.dart';
 import 'package:gatewayguardians/json/json_building.dart';
-import 'package:gatewayguardians/json/json_map_zone.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/json/json_patch.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
@@ -25,6 +24,7 @@ class GameState extends BaseState {
 
   final Research research = Research();
   final JsonMatch jsonMatch;
+  final List<Zone> zones = [];
   late Colony colony;
   Building? selectedBuilding;
 
@@ -41,9 +41,11 @@ class GameState extends BaseState {
       freeVillagers: jsonMatch.colony.freeVillagers,
     );
 
-    for (final JsonZone jsonZone in jsonMatch.colony.zones) {
+    for (final JsonZone jsonZone in jsonMatch.zones) {
       final Zone zone = Zone(
         id: jsonZone.id,
+        x: jsonZone.x,
+        y: jsonZone.y,
         colony: colony,
         buildings: [],
         constructions: [],
@@ -71,7 +73,7 @@ class GameState extends BaseState {
         ));
       }
 
-      colony.zones.add(zone);
+      zones.add(zone);
     }
 
     Delayed.post(() {
@@ -96,12 +98,22 @@ class GameState extends BaseState {
     colony.update(dt);
   }
 
+  Zone _zoneById(String id) {
+    for (final Zone zone in zones) {
+      if (zone.id == id) {
+        return zone;
+      }
+    }
+
+    throw Exception('Zone with id $id not found');
+  }
+
   void onMapClicked(Vector2 position) {
-    for (final JsonMapZone zone in jsonMatch.map.zones) {
+    for (final Zone zone in zones) {
       if (zone.contains(position)) {
         BuildingsDialog.show(
           state: this,
-          zone: colony.zoneById(zone.id),
+          zone: _zoneById(zone.id),
         );
         return;
       }
@@ -118,7 +130,7 @@ class GameState extends BaseState {
         .toList();
 
     for (final ZoneComponent zone in list) {
-      if (zone.mapZone.contains(position)) {
+      if (zone.zone.contains(position)) {
         zone.onHoverEnter();
       } else {
         zone.onHoverLeave();

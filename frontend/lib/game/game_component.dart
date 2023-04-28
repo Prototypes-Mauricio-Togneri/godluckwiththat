@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
@@ -11,7 +10,7 @@ import 'package:gatewayguardians/extensions/logical_keyboard_key_extension.dart'
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/game/map_handler.dart';
 import 'package:gatewayguardians/json/json_map.dart';
-import 'package:gatewayguardians/json/json_map_zone.dart';
+import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/style.dart';
 
 class GameComponent extends FlameGame
@@ -65,11 +64,9 @@ class GameComponent extends FlameGame
 
     layerSprites.add(MapComponent(image: '${map.path}/map.png'));
 
-    for (final JsonMapZone zone in map.zones) {
+    for (final Zone zone in state.zones) {
       layerSprites.add(ZoneComponent(
-        zone: state.colony.zoneById(zone.id),
-        image: '${map.path}/zone${zone.id}.png',
-        mapZone: zone,
+        zone: zone,
         position: Vector2(zone.x, zone.y),
       ));
     }

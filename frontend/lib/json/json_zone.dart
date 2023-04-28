@@ -10,6 +10,12 @@ class JsonZone {
   @JsonKey(name: 'id')
   final String id;
 
+  @JsonKey(name: 'x')
+  final double x;
+
+  @JsonKey(name: 'y')
+  final double y;
+
   @JsonKey(name: 'maxBuildings')
   final int maxBuildings;
 
@@ -19,8 +25,14 @@ class JsonZone {
   @JsonKey(name: 'buildings')
   final List<JsonBuilding> buildings;
 
+  static const double CENTER_X = 184.5;
+  static const double CENTER_Y = 160.5;
+  static const double RADIUS = 157;
+
   const JsonZone({
     required this.id,
+    required this.x,
+    required this.y,
     required this.maxBuildings,
     required this.patches,
     required this.buildings,

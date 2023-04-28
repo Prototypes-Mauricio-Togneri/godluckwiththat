@@ -11,9 +11,6 @@ JsonColony _$JsonColonyFromJson(Map<String, dynamic> json) => JsonColony(
         (k, e) => MapEntry($enumDecode(_$ResourceTypeEnumMap, k), e as int),
       ),
       freeVillagers: json['freeVillagers'] as int,
-      zones: (json['zones'] as List<dynamic>)
-          .map((e) => JsonZone.fromJson(e as Map<String, dynamic>))
-          .toList(),
     );
 
 Map<String, dynamic> _$JsonColonyToJson(JsonColony instance) =>
@@ -21,7 +18,6 @@ Map<String, dynamic> _$JsonColonyToJson(JsonColony instance) =>
       'inventory': instance.inventory
           .map((k, e) => MapEntry(_$ResourceTypeEnumMap[k]!, e)),
       'freeVillagers': instance.freeVillagers,
-      'zones': instance.zones,
     };
 
 const _$ResourceTypeEnumMap = {

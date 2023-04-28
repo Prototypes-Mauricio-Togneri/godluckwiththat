@@ -1,19 +1,14 @@
 import 'package:flame/components.dart';
 import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
-import 'package:gatewayguardians/json/json_map_zone.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 
 class ZoneComponent extends PositionComponent {
   final Zone zone;
-  final JsonMapZone mapZone;
-  final String image;
   late final ZoneHoveredComponent zoneHoveredComponent;
 
   ZoneComponent({
     required this.zone,
-    required this.image,
-    required this.mapZone,
     required super.position,
   });
 

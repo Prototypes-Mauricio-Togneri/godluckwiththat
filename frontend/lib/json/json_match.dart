@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/json/json_map.dart';
+import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_match.g.dart';
@@ -22,6 +23,9 @@ class JsonMatch {
   @JsonKey(name: 'map')
   final JsonMap map;
 
+  @JsonKey(name: 'zones')
+  final List<JsonZone> zones;
+
   @JsonKey(name: 'colony')
   final JsonColony colony;
 
@@ -31,6 +35,7 @@ class JsonMatch {
     required this.totalTimeElapsed,
     required this.level,
     required this.map,
+    required this.zones,
     required this.colony,
   });
 

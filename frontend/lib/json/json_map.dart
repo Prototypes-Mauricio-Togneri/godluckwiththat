@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:gatewayguardians/json/json_map_zone.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_map.g.dart';
@@ -15,14 +14,10 @@ class JsonMap {
   @JsonKey(name: 'height')
   final int height;
 
-  @JsonKey(name: 'zones')
-  final List<JsonMapZone> zones;
-
   const JsonMap({
     required this.path,
     required this.width,
     required this.height,
-    required this.zones,
   });
 
   factory JsonMap.fromString(String json) => JsonMap.fromJson(jsonDecode(json));

@@ -1,3 +1,4 @@
+import 'package:flame/game.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
@@ -23,14 +24,22 @@ import 'package:gatewayguardians/types/patch_location.dart';
 
 class Zone {
   final String id;
+  final double x;
+  final double y;
   final Colony colony;
   final List<Building> buildings;
   final List<Construction> constructions;
   final List<Patch> patches;
   final int maxBuildings;
 
+  static const double CENTER_X = 184.5;
+  static const double CENTER_Y = 160.5;
+  static const double RADIUS = 157;
+
   Zone({
     required this.id,
+    required this.x,
+    required this.y,
     required this.colony,
     required this.buildings,
     required this.constructions,
@@ -46,6 +55,13 @@ class Zone {
     for (final Building building in buildings) {
       building.update(dt);
     }
+  }
+
+  bool contains(Vector2 position) {
+    final double distance =
+        Vector2(x + CENTER_X, y + CENTER_Y).distanceTo(position);
+
+    return distance < RADIUS;
   }
 
   Building? getBuilding(BuildingType buildingType) {
