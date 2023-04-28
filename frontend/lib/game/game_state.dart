@@ -97,7 +97,9 @@ class GameState extends BaseState {
       notify();
     }
 
-    colony.update(dt);
+    for (final Zone zone in zones) {
+      zone.update(dt);
+    }
   }
 
   Zone _zoneById(String id) {

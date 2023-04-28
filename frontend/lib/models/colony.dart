@@ -60,12 +60,6 @@ class Colony {
     return 1;
   }
 
-  void update(double dt) {
-    for (final Zone zone in zones) {
-      zone.update(dt);
-    }
-  }
-
   void addResource(ResourceType resourceType) {
     inventory.addResource(Resource(resourceType, 1));
   }
