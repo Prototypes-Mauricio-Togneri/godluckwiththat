@@ -69,7 +69,7 @@ class Constants {
       "y": 729.49,
       "owner": "",
       "maxBuildings": 4,
-      "status": "explored",
+      "status": "unexplored",
       "patches": [],
       "buildings": []
     },

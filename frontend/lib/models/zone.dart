@@ -30,7 +30,7 @@ class Zone {
   final List<Construction> constructions;
   final List<Patch> patches;
   final int maxBuildings;
-  final ZoneStatus zoneStatus;
+  final ZoneStatus status;
 
   static const double RADIUS = 160;
 
@@ -43,7 +43,7 @@ class Zone {
     required this.constructions,
     required this.patches,
     required this.maxBuildings,
-    required this.zoneStatus,
+    required this.status,
   });
 
   bool get isOwned => owner == Constants.ZONE_OWNER_PLAYER;

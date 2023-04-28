@@ -28,5 +28,7 @@ class Assets {
   static const String IMAGES_BACKGROUNDS_ZONE = 'backgrounds/zone.jpg';
   static const String IMAGES_MAPS_MISC_ZONE_HOVERED =
       'maps/misc/zone_hovered.png';
+  static const String IMAGES_MAPS_MISC_ZONE_UNEXPLORED =
+      'maps/misc/zone_unexplored.png';
   static const String IMAGES_MAPS_CHAPTER1_MAP = 'maps/chapter1/map.png';
 }

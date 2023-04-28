@@ -16,6 +16,10 @@ class ZoneComponent extends PositionComponent {
   Future onLoad() async {
     anchor = Anchor.center;
 
+    if (zone.status.isUnexplored) {
+      add(ZoneUnexploredComponent());
+    }
+
     zoneHoveredComponent = ZoneHoveredComponent();
     add(zoneHoveredComponent);
 
@@ -60,5 +64,15 @@ class ZoneHoveredComponent extends SpriteComponent {
         opacity = (opacity - (dt * 3)).clamp(0, 1);
       }
     }
+  }
+}
+
+class ZoneUnexploredComponent extends SpriteComponent {
+  @override
+  Future onLoad() async {
+    sprite = await getSprite(Assets.IMAGES_MAPS_MISC_ZONE_UNEXPLORED);
+    anchor = Anchor.center;
+
+    return super.onLoad();
   }
 }
