@@ -6,6 +6,7 @@ import 'package:gatewayguardians/utils/assets.dart';
 class ZoneComponent extends PositionComponent {
   final Zone zone;
   late final ZoneHoveredComponent zoneHoveredComponent;
+  late final ZoneUnexploredComponent zoneUnexploredComponent;
 
   ZoneComponent({
     required this.zone,
@@ -16,11 +17,13 @@ class ZoneComponent extends PositionComponent {
   Future onLoad() async {
     anchor = Anchor.center;
 
+    zoneUnexploredComponent = ZoneUnexploredComponent();
+    zoneHoveredComponent = ZoneHoveredComponent();
+
     if (zone.status.isUnexplored) {
       add(ZoneUnexploredComponent());
     }
 
-    zoneHoveredComponent = ZoneHoveredComponent();
     add(zoneHoveredComponent);
 
     return super.onLoad();
