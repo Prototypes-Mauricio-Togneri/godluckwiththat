@@ -55,14 +55,10 @@ class ZoneHoveredComponent extends SpriteComponent {
   void update(double dt) {
     super.update(dt);
 
-    if (hovered) {
-      if (opacity < 1) {
-        opacity = (opacity + dt).clamp(0, 1);
-      }
-    } else {
-      if (opacity > 0) {
-        opacity = (opacity - (dt * 3)).clamp(0, 1);
-      }
+    if (hovered && (opacity < 1)) {
+      opacity = (opacity + dt).clamp(0, 1);
+    } else if (!hovered && (opacity > 0)) {
+      opacity = (opacity - (dt * 3)).clamp(0, 1);
     }
   }
 }
