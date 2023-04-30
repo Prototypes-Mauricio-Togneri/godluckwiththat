@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-import 'package:gatewayguardians/components/building_sprite.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
@@ -20,12 +18,13 @@ import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
+import 'package:gatewayguardians/types/zone_location.dart';
 
 class Building {
   final Colony colony;
   final Zone zone;
   final BuildingType buildingType;
-  final Offset offset;
+  final ZoneLocation location;
   int level;
   int workers;
 
@@ -33,14 +32,12 @@ class Building {
     required this.colony,
     required this.zone,
     required this.buildingType,
-    required this.offset,
+    required this.location,
     required this.level,
     required this.workers,
   });
 
   bool get hasWorkers => workers > 0;
-
-  BuildingSprite get sprite => BuildingSprite(this);
 
   void update(double dt) {}
 
@@ -71,6 +68,7 @@ class Building {
     required BuildingType buildingType,
     required int level,
     required int workers,
+    ZoneLocation? location,
     Patch? patch,
   }) {
     switch (buildingType) {
@@ -78,6 +76,7 @@ class Building {
         return Headquarters(
           colony: colony,
           zone: zone,
+          location: location!,
           level: level,
           workers: workers,
         );
@@ -85,12 +84,14 @@ class Building {
         return House(
           colony: colony,
           zone: zone,
+          location: location!,
           level: level,
         );
       case BuildingType.warehouse:
         return Warehouse(
           colony: colony,
           zone: zone,
+          location: location!,
           level: level,
         );
       case BuildingType.farm:
@@ -151,30 +152,35 @@ class Building {
         return Barracks(
           colony: colony,
           zone: zone,
+          location: location!,
           level: level,
         );
       case BuildingType.archery:
         return Archery(
           colony: colony,
           zone: zone,
+          location: location!,
           level: level,
         );
       case BuildingType.cavalry:
         return Cavalry(
           colony: colony,
           zone: zone,
+          location: location!,
           level: level,
         );
       case BuildingType.workshop:
         return Workshop(
           colony: colony,
           zone: zone,
+          location: location!,
           level: level,
         );
       case BuildingType.fortress:
         return Fortress(
           colony: colony,
           zone: zone,
+          location: location!,
           level: level,
         );
     }

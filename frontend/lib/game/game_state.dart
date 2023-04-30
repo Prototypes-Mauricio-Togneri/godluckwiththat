@@ -70,9 +70,8 @@ class GameState extends BaseState {
           buildingType: jsonBuilding.type,
           level: jsonBuilding.level,
           workers: jsonBuilding.workers,
-          patch: (jsonBuilding.location != null)
-              ? zone.patchByLocation(jsonBuilding.location!)
-              : null,
+          location: jsonBuilding.location,
+          patch: zone.patchByLocation(jsonBuilding.location!),
         ));
       }
 
@@ -175,6 +174,7 @@ class GameState extends BaseState {
         buildingType: buildingType,
         level: construction.toLevel,
         workers: 0,
+        location: construction.location,
         patch: buildingType.isProducer
             ? zone.patchForBuilding(buildingType)
             : null,

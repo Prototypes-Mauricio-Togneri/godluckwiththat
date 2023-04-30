@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
+import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/assets.dart';
@@ -32,6 +33,13 @@ class ZoneComponent extends PositionComponent {
       add(ZonePatchComponent(
         patch: patch,
         position: (patch.location.offset * Zone.RADIUS).toVector2(),
+      ));
+    }
+
+    for (final Building building in zone.buildings) {
+      add(ZoneBuildingComponent(
+        building: building,
+        position: (building.location.offset * Zone.RADIUS).toVector2(),
       ));
     }
 
@@ -96,6 +104,23 @@ class ZonePatchComponent extends SpriteComponent {
   @override
   Future onLoad() async {
     sprite = await getSprite(patch.patchType.sprite);
+    anchor = Anchor.center;
+
+    return super.onLoad();
+  }
+}
+
+class ZoneBuildingComponent extends SpriteComponent {
+  final Building building;
+
+  ZoneBuildingComponent({
+    required this.building,
+    required super.position,
+  });
+
+  @override
+  Future onLoad() async {
+    sprite = await getSprite(building.buildingType.sprite);
     anchor = Anchor.center;
 
     return super.onLoad();

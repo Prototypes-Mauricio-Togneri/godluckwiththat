@@ -78,14 +78,14 @@ class Zone {
     constructions.add(construction);
   }
 
-  Patch patchByLocation(ZoneLocation location) {
+  Patch? patchByLocation(ZoneLocation location) {
     for (final Patch patch in patches) {
       if (patch.location == location) {
         return patch;
       }
     }
 
-    throw Exception('Patch not found for $location');
+    return null;
   }
 
   bool _isPatchAvailable(Patch patch) {

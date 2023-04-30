@@ -20,7 +20,7 @@ class Producer extends Building {
     required super.workers,
   }) : super(
           buildingType: buildingType,
-          offset: patch.location.offset,
+          location: patch.location,
         );
 
   @override

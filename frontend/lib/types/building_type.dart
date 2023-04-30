@@ -1,4 +1,3 @@
-import 'package:flame/extensions.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/utils/assets.dart';
@@ -7,7 +6,6 @@ enum BuildingType {
   headquarters(
     sprite: Assets.IMAGES_BUILDINGS_HEADQUARTERS,
     initialCost: {},
-    position: Offset(0.5, 0.5),
     produces: ResourceType.villager,
   ),
   house(
@@ -15,7 +13,6 @@ enum BuildingType {
     initialCost: {
       ResourceType.wood: 2,
     },
-    position: Offset(0.5, 0.32),
     produces: null,
   ),
   warehouse(
@@ -24,7 +21,6 @@ enum BuildingType {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
     },
-    position: Offset(0.32, 0.5),
     produces: null,
   ),
 
@@ -33,7 +29,6 @@ enum BuildingType {
     initialCost: {
       ResourceType.wood: 5,
     },
-    position: Offset(0, 0),
     produces: ResourceType.food,
   ),
   woodcutter(
@@ -41,7 +36,6 @@ enum BuildingType {
     initialCost: {
       ResourceType.wood: 5,
     },
-    position: Offset(0, 0),
     produces: ResourceType.wood,
   ),
   quarry(
@@ -49,7 +43,6 @@ enum BuildingType {
     initialCost: {
       ResourceType.wood: 5,
     },
-    position: Offset(0, 0),
     produces: ResourceType.stone,
   ),
 
@@ -59,7 +52,6 @@ enum BuildingType {
       ResourceType.wood: 5,
       ResourceType.stone: 5,
     },
-    position: Offset(0, 0),
     produces: ResourceType.copper,
   ),
   iron_mine(
@@ -68,7 +60,6 @@ enum BuildingType {
       ResourceType.wood: 10,
       ResourceType.stone: 10,
     },
-    position: Offset(0, 0),
     produces: ResourceType.iron,
   ),
   gold_mine(
@@ -77,7 +68,6 @@ enum BuildingType {
       ResourceType.wood: 15,
       ResourceType.stone: 15,
     },
-    position: Offset(0, 0),
     produces: ResourceType.gold,
   ),
 
@@ -87,7 +77,6 @@ enum BuildingType {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
     },
-    position: Offset(0.75, 0.25),
     produces: null,
   ),
   archery(
@@ -96,7 +85,6 @@ enum BuildingType {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
     },
-    position: Offset(0.25, 0.75),
     produces: null,
   ),
   cavalry(
@@ -105,7 +93,6 @@ enum BuildingType {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
     },
-    position: Offset(0.75, 0.75),
     produces: null,
   ),
   workshop(
@@ -114,7 +101,6 @@ enum BuildingType {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
     },
-    position: Offset(0.25, 0.25),
     produces: null,
   ),
   fortress(
@@ -123,19 +109,16 @@ enum BuildingType {
       ResourceType.wood: 50,
       ResourceType.stone: 50,
     },
-    position: Offset(0.5, 0.66),
     produces: null,
   );
 
   final String sprite;
   final ResourceMap initialCost;
-  final Offset position;
   final ResourceType? produces;
 
   const BuildingType({
     required this.sprite,
     required this.initialCost,
-    required this.position,
     required this.produces,
   });
 

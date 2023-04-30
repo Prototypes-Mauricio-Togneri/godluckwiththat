@@ -5,10 +5,10 @@ class Barracks extends Building {
   Barracks({
     required super.colony,
     required super.zone,
+    required super.location,
     required super.level,
   }) : super(
           buildingType: BuildingType.barracks,
-          offset: BuildingType.barracks.position,
           workers: 0,
         );
 }

@@ -5,10 +5,10 @@ class Workshop extends Building {
   Workshop({
     required super.colony,
     required super.zone,
+    required super.location,
     required super.level,
   }) : super(
           buildingType: BuildingType.workshop,
-          offset: BuildingType.workshop.position,
           workers: 0,
         );
 }

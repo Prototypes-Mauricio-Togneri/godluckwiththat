@@ -5,10 +5,10 @@ class Cavalry extends Building {
   Cavalry({
     required super.colony,
     required super.zone,
+    required super.location,
     required super.level,
   }) : super(
           buildingType: BuildingType.cavalry,
-          offset: BuildingType.cavalry.position,
           workers: 0,
         );
 }
