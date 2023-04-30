@@ -10,7 +10,7 @@ JsonBuilding _$JsonBuildingFromJson(Map<String, dynamic> json) => JsonBuilding(
       type: $enumDecode(_$BuildingTypeEnumMap, json['type']),
       level: json['level'] as int,
       workers: json['workers'] as int,
-      location: $enumDecodeNullable(_$PatchLocationEnumMap, json['location']),
+      location: $enumDecodeNullable(_$ZoneLocationEnumMap, json['location']),
     );
 
 Map<String, dynamic> _$JsonBuildingToJson(JsonBuilding instance) {
@@ -26,7 +26,7 @@ Map<String, dynamic> _$JsonBuildingToJson(JsonBuilding instance) {
     }
   }
 
-  writeNotNull('location', _$PatchLocationEnumMap[instance.location]);
+  writeNotNull('location', _$ZoneLocationEnumMap[instance.location]);
   return val;
 }
 
@@ -47,9 +47,9 @@ const _$BuildingTypeEnumMap = {
   BuildingType.fortress: 'fortress',
 };
 
-const _$PatchLocationEnumMap = {
-  PatchLocation.north: 'north',
-  PatchLocation.south: 'south',
-  PatchLocation.west: 'west',
-  PatchLocation.east: 'east',
+const _$ZoneLocationEnumMap = {
+  ZoneLocation.north: 'north',
+  ZoneLocation.south: 'south',
+  ZoneLocation.west: 'west',
+  ZoneLocation.east: 'east',
 };

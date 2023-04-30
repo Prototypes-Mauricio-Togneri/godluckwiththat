@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:gatewayguardians/types/building_type.dart';
-import 'package:gatewayguardians/types/patch_location.dart';
+import 'package:gatewayguardians/types/zone_location.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_building.g.dart';
@@ -17,7 +17,7 @@ class JsonBuilding {
   final int workers;
 
   @JsonKey(name: 'location')
-  final PatchLocation? location;
+  final ZoneLocation? location;
 
   const JsonBuilding({
     required this.type,

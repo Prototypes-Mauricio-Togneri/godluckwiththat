@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:gatewayguardians/types/patch_location.dart';
-import 'package:gatewayguardians/types/resource_type.dart';
+import 'package:gatewayguardians/types/patch_type.dart';
+import 'package:gatewayguardians/types/zone_location.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_patch.g.dart';
@@ -8,10 +8,10 @@ part 'json_patch.g.dart';
 @JsonSerializable(includeIfNull: false)
 class JsonPatch {
   @JsonKey(name: 'type')
-  final ResourceType type;
+  final PatchType type;
 
   @JsonKey(name: 'location')
-  final PatchLocation location;
+  final ZoneLocation location;
 
   const JsonPatch({
     required this.type,

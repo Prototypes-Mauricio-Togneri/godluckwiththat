@@ -31,12 +31,12 @@ class Constants {
       "status": "explored",
       "patches": [
         {
-          "type": "food",
-          "location": "north"
+          "type": "crop_field",
+          "location": "west"
         },
         {
-          "type": "wood",
-          "location": "south"
+          "type": "forest",
+          "location": "east"
         }
       ],
       "buildings": [
@@ -49,7 +49,7 @@ class Constants {
           "type": "farm",
           "level": 1,
           "workers": 0,
-          "location": "north"
+          "location": "west"
         }
       ]
     },

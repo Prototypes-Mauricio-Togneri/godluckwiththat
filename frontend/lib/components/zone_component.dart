@@ -1,5 +1,7 @@
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
 import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
+import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 
@@ -21,10 +23,17 @@ class ZoneComponent extends PositionComponent {
     zoneHoveredComponent = ZoneHoveredComponent();
 
     if (zone.status.isUnexplored) {
-      add(ZoneUnexploredComponent());
+      add(zoneUnexploredComponent);
     }
 
     add(zoneHoveredComponent);
+
+    for (final Patch patch in zone.patches) {
+      add(ZonePatchComponent(
+        patch: patch,
+        position: (patch.location.offset * Zone.RADIUS).toVector2(),
+      ));
+    }
 
     return super.onLoad();
   }
@@ -70,6 +79,23 @@ class ZoneUnexploredComponent extends SpriteComponent {
   @override
   Future onLoad() async {
     sprite = await getSprite(Assets.IMAGES_MAPS_MISC_ZONE_UNEXPLORED);
+    anchor = Anchor.center;
+
+    return super.onLoad();
+  }
+}
+
+class ZonePatchComponent extends SpriteComponent {
+  final Patch patch;
+
+  ZonePatchComponent({
+    required this.patch,
+    required super.position,
+  });
+
+  @override
+  Future onLoad() async {
+    sprite = await getSprite(patch.patchType.sprite);
     anchor = Anchor.center;
 
     return super.onLoad();

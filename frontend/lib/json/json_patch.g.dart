@@ -7,28 +7,24 @@ part of 'json_patch.dart';
 // **************************************************************************
 
 JsonPatch _$JsonPatchFromJson(Map<String, dynamic> json) => JsonPatch(
-      type: $enumDecode(_$ResourceTypeEnumMap, json['type']),
-      location: $enumDecode(_$PatchLocationEnumMap, json['location']),
+      type: $enumDecode(_$PatchTypeEnumMap, json['type']),
+      location: $enumDecode(_$ZoneLocationEnumMap, json['location']),
     );
 
 Map<String, dynamic> _$JsonPatchToJson(JsonPatch instance) => <String, dynamic>{
-      'type': _$ResourceTypeEnumMap[instance.type]!,
-      'location': _$PatchLocationEnumMap[instance.location]!,
+      'type': _$PatchTypeEnumMap[instance.type]!,
+      'location': _$ZoneLocationEnumMap[instance.location]!,
     };
 
-const _$ResourceTypeEnumMap = {
-  ResourceType.food: 'food',
-  ResourceType.wood: 'wood',
-  ResourceType.stone: 'stone',
-  ResourceType.copper: 'copper',
-  ResourceType.iron: 'iron',
-  ResourceType.gold: 'gold',
-  ResourceType.villager: 'villager',
+const _$PatchTypeEnumMap = {
+  PatchType.crop_field: 'crop_field',
+  PatchType.forest: 'forest',
+  PatchType.stone_deposit: 'stone_deposit',
 };
 
-const _$PatchLocationEnumMap = {
-  PatchLocation.north: 'north',
-  PatchLocation.south: 'south',
-  PatchLocation.west: 'west',
-  PatchLocation.east: 'east',
+const _$ZoneLocationEnumMap = {
+  ZoneLocation.north: 'north',
+  ZoneLocation.south: 'south',
+  ZoneLocation.west: 'west',
+  ZoneLocation.east: 'east',
 };

@@ -58,7 +58,7 @@ class GameState extends BaseState {
 
       for (final JsonPatch jsonPatch in jsonZone.patches) {
         zone.patches.add(Patch(
-          resourceType: jsonPatch.type,
+          patchType: jsonPatch.type,
           location: jsonPatch.location,
         ));
       }

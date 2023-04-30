@@ -18,7 +18,7 @@ import 'package:gatewayguardians/models/buildings/workshop.dart';
 import 'package:gatewayguardians/models/construction.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/types/building_type.dart';
-import 'package:gatewayguardians/types/patch_location.dart';
+import 'package:gatewayguardians/types/zone_location.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
 
 class Zone {
@@ -78,7 +78,7 @@ class Zone {
     constructions.add(construction);
   }
 
-  Patch patchByLocation(PatchLocation location) {
+  Patch patchByLocation(ZoneLocation location) {
     for (final Patch patch in patches) {
       if (patch.location == location) {
         return patch;
@@ -100,7 +100,7 @@ class Zone {
 
   Patch patchForBuilding(BuildingType buildingType) {
     for (final Patch patch in patches) {
-      if ((patch.resourceType == buildingType.produces) &&
+      if ((patch.patchType.resourceType == buildingType.produces) &&
           _isPatchAvailable(patch)) {
         return patch;
       }
