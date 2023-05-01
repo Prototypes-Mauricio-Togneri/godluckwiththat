@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame/input.dart';
 import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/patch.dart';
@@ -110,7 +111,7 @@ class ZonePatchComponent extends SpriteComponent {
   }
 }
 
-class ZoneBuildingComponent extends SpriteComponent {
+class ZoneBuildingComponent extends SpriteComponent with Tappable {
   final Building building;
 
   ZoneBuildingComponent({
@@ -124,5 +125,12 @@ class ZoneBuildingComponent extends SpriteComponent {
     anchor = Anchor.center;
 
     return super.onLoad();
+  }
+
+  @override
+  bool onTapDown(TapDownInfo info) {
+    print('Clicked on ${building.buildingType.toString()}');
+
+    return false;
   }
 }

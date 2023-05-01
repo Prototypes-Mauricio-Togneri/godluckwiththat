@@ -2,7 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/components.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/components/zone_component.dart';
-import 'package:gatewayguardians/dialog/buildings_dialog.dart';
+import 'package:gatewayguardians/dialog/zone_dialog.dart';
 import 'package:gatewayguardians/extensions/component_extension.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_component.dart';
@@ -119,7 +119,7 @@ class GameState extends BaseState {
   void onMapClicked(Vector2 position) {
     for (final Zone zone in zones) {
       if (zone.contains(position)) {
-        BuildingsDialog.show(
+        ZoneDialog.show(
           state: this,
           zone: _zoneById(zone.id),
         );

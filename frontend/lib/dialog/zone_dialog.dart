@@ -13,11 +13,11 @@ import 'package:gatewayguardians/widgets/image_asset.dart';
 import 'package:gatewayguardians/widgets/label.dart';
 import 'package:gatewayguardians/widgets/primary_button.dart';
 
-class BuildingsDialog extends StatelessWidget {
+class ZoneDialog extends StatelessWidget {
   final GameState state;
   final Zone zone;
 
-  const BuildingsDialog._(this.state, this.zone);
+  const ZoneDialog._(this.state, this.zone);
 
   static DialogController show({
     required GameState state,
@@ -29,7 +29,7 @@ class BuildingsDialog extends StatelessWidget {
       context: context,
       barrierDismissible: true,
       barrierColor: Palette.transparent,
-      builder: (context) => BuildingsDialog._(state, zone),
+      builder: (context) => ZoneDialog._(state, zone),
     );
 
     return DialogController(context);
