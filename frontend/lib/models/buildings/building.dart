@@ -15,16 +15,13 @@ import 'package:gatewayguardians/models/buildings/warehouse.dart';
 import 'package:gatewayguardians/models/buildings/woodcutter.dart';
 import 'package:gatewayguardians/models/buildings/workshop.dart';
 import 'package:gatewayguardians/models/colony.dart';
-import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
-import 'package:gatewayguardians/types/zone_location.dart';
 
 class Building {
   final Colony colony;
   final Zone zone;
   final BuildingType buildingType;
-  final ZoneLocation location;
   int level;
   int workers;
 
@@ -32,7 +29,6 @@ class Building {
     required this.colony,
     required this.zone,
     required this.buildingType,
-    required this.location,
     required this.level,
     required this.workers,
   });
@@ -68,15 +64,12 @@ class Building {
     required BuildingType buildingType,
     required int level,
     required int workers,
-    ZoneLocation? location,
-    Patch? patch,
   }) {
     switch (buildingType) {
       case BuildingType.headquarters:
         return Headquarters(
           colony: colony,
           zone: zone,
-          location: location!,
           level: level,
           workers: workers,
         );
@@ -84,21 +77,18 @@ class Building {
         return House(
           colony: colony,
           zone: zone,
-          location: location!,
           level: level,
         );
       case BuildingType.warehouse:
         return Warehouse(
           colony: colony,
           zone: zone,
-          location: location!,
           level: level,
         );
       case BuildingType.farm:
         return Farm(
           colony: colony,
           zone: zone,
-          patch: patch!,
           level: level,
           workers: workers,
           productionTime: buildingType.productionTime(level),
@@ -107,7 +97,6 @@ class Building {
         return Woodcutter(
           colony: colony,
           zone: zone,
-          patch: patch!,
           level: level,
           workers: workers,
           productionTime: buildingType.productionTime(level),
@@ -116,7 +105,6 @@ class Building {
         return Quarry(
           colony: colony,
           zone: zone,
-          patch: patch!,
           level: level,
           workers: workers,
           productionTime: buildingType.productionTime(level),
@@ -125,7 +113,6 @@ class Building {
         return CopperMine(
           colony: colony,
           zone: zone,
-          patch: patch!,
           level: level,
           workers: workers,
           productionTime: buildingType.productionTime(level),
@@ -134,7 +121,6 @@ class Building {
         return IronMine(
           colony: colony,
           zone: zone,
-          patch: patch!,
           level: level,
           workers: workers,
           productionTime: buildingType.productionTime(level),
@@ -143,7 +129,6 @@ class Building {
         return GoldMine(
           colony: colony,
           zone: zone,
-          patch: patch!,
           level: level,
           workers: workers,
           productionTime: buildingType.productionTime(level),
@@ -152,35 +137,30 @@ class Building {
         return Barracks(
           colony: colony,
           zone: zone,
-          location: location!,
           level: level,
         );
       case BuildingType.archery:
         return Archery(
           colony: colony,
           zone: zone,
-          location: location!,
           level: level,
         );
       case BuildingType.cavalry:
         return Cavalry(
           colony: colony,
           zone: zone,
-          location: location!,
           level: level,
         );
       case BuildingType.workshop:
         return Workshop(
           colony: colony,
           zone: zone,
-          location: location!,
           level: level,
         );
       case BuildingType.fortress:
         return Fortress(
           colony: colony,
           zone: zone,
-          location: location!,
           level: level,
         );
     }

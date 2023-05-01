@@ -6,7 +6,6 @@ class Farm extends Producer {
   Farm({
     required super.colony,
     required super.zone,
-    required super.patch,
     required super.level,
     required super.workers,
     required super.productionTime,

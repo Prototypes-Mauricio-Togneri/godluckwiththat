@@ -5,7 +5,6 @@ class Fortress extends Building {
   Fortress({
     required super.colony,
     required super.zone,
-    required super.location,
     required super.level,
   }) : super(
           buildingType: BuildingType.fortress,

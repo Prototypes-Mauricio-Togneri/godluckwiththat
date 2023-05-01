@@ -4,7 +4,6 @@ import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/components/zone_component.dart';
 import 'package:gatewayguardians/dialog/zone_dialog.dart';
 import 'package:gatewayguardians/extensions/component_extension.dart';
-import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_component.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/json/json_patch.dart';
@@ -16,7 +15,6 @@ import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/research.dart';
 import 'package:gatewayguardians/models/zone.dart';
-import 'package:gatewayguardians/types/building_type.dart';
 
 class GameState extends BaseState {
   num totalTimeElapsed = 0;
@@ -48,32 +46,30 @@ class GameState extends BaseState {
         x: jsonZone.x,
         y: jsonZone.y,
         owner: jsonZone.owner,
-        buildings: [],
-        constructions: [],
         patches: [],
+        constructions: [],
         maxBuildings: jsonZone.maxBuildings,
         status: jsonZone.status,
       );
 
       for (final JsonPatch jsonPatch in jsonZone.patches) {
+        Building? building;
+
+        if (jsonPatch.buildingType != null) {
+          building = Building.create(
+            colony: colony,
+            zone: zone,
+            buildingType: jsonPatch.buildingType!,
+            level: jsonPatch.level!,
+            workers: jsonPatch.workers!,
+          );
+        }
+
         zone.patches.add(Patch(
           patchType: jsonPatch.patchType,
           location: jsonPatch.location,
+          building: building,
         ));
-      }
-
-      for (final JsonPatch jsonBuilding in jsonZone.patches) {
-        if (jsonBuilding.buildingType != null) {
-          zone.buildings.add(Building.create(
-            colony: colony,
-            zone: zone,
-            buildingType: jsonBuilding.buildingType!,
-            level: jsonBuilding.level!,
-            workers: jsonBuilding.workers!,
-            location: jsonBuilding.location,
-            patch: zone.patchByLocation(jsonBuilding.location),
-          ));
-        }
       }
 
       if (zone.isOwned) {
@@ -160,7 +156,7 @@ class GameState extends BaseState {
     final Zone zone = construction.zone;
     zone.constructions.remove(construction);
 
-    final BuildingType buildingType = construction.buildingType;
+    /*final BuildingType buildingType = construction.buildingType;
     final Building? building = zone.getBuilding(buildingType);
 
     if (building != null) {
@@ -180,7 +176,7 @@ class GameState extends BaseState {
             ? zone.patchForBuilding(buildingType)
             : null,
       ));
-    }
+    }*/
 
     notify();
   }

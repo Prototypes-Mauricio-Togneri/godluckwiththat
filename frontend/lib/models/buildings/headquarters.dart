@@ -5,7 +5,6 @@ class Headquarters extends Building {
   Headquarters({
     required super.colony,
     required super.zone,
-    required super.location,
     required super.level,
     required super.workers,
   }) : super(

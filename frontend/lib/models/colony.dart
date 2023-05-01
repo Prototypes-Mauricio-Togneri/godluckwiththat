@@ -3,6 +3,7 @@ import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/buildings/house.dart';
 import 'package:gatewayguardians/models/buildings/producer.dart';
 import 'package:gatewayguardians/models/inventory.dart';
+import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/resource.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
@@ -24,9 +25,14 @@ class Colony {
     double total = 0;
 
     for (final Zone zone in zones) {
-      for (final Building building in zone.buildings) {
-        if ((building is Producer) && (building.resourceType == resourceType)) {
-          total += building.productionTime;
+      for (final Patch patch in zone.patches) {
+        if (patch.hasBuilding) {
+          final Building building = patch.building!;
+
+          if ((building is Producer) &&
+              (building.resourceType == resourceType)) {
+            total += building.productionTime;
+          }
         }
       }
     }
@@ -38,9 +44,13 @@ class Colony {
     int total = 0;
 
     for (final Zone zone in zones) {
-      for (final Building building in zone.buildings) {
-        if (building is House) {
-          total += Constants.HOUSE_POPULATION;
+      for (final Patch patch in zone.patches) {
+        if (patch.hasBuilding) {
+          final Building building = patch.building!;
+
+          if (building is House) {
+            total += Constants.HOUSE_POPULATION;
+          }
         }
       }
     }

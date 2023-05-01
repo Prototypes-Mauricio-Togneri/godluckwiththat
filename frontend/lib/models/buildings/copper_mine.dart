@@ -6,7 +6,6 @@ class CopperMine extends Producer {
   CopperMine({
     required super.colony,
     required super.zone,
-    required super.patch,
     required super.level,
     required super.workers,
     required super.productionTime,

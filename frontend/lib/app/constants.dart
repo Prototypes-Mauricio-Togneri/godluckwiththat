@@ -35,7 +35,7 @@ class Constants {
           "location": "west",
           "building_type": "farm",
           "level": 1,
-          "workers": 0,
+          "workers": 0
         },
         {
           "patch_type": "forest",

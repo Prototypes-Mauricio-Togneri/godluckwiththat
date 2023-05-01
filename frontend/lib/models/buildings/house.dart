@@ -5,7 +5,6 @@ class House extends Building {
   House({
     required super.colony,
     required super.zone,
-    required super.location,
     required super.level,
   }) : super(
           buildingType: BuildingType.house,

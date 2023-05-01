@@ -5,7 +5,6 @@ class Warehouse extends Building {
   Warehouse({
     required super.colony,
     required super.zone,
-    required super.location,
     required super.level,
   }) : super(
           buildingType: BuildingType.warehouse,

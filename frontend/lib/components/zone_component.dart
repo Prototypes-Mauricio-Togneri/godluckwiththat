@@ -31,17 +31,17 @@ class ZoneComponent extends PositionComponent {
     add(zoneHoveredComponent);
 
     for (final Patch patch in zone.patches) {
-      add(ZonePatchComponent(
-        patch: patch,
-        position: (patch.location.offset * Zone.RADIUS).toVector2(),
-      ));
-    }
-
-    for (final Building building in zone.buildings) {
-      add(ZoneBuildingComponent(
-        building: building,
-        position: (building.location.offset * Zone.RADIUS).toVector2(),
-      ));
+      if (patch.hasBuilding) {
+        add(ZoneBuildingComponent(
+          building: patch.building!,
+          position: (patch.location.offset * Zone.RADIUS).toVector2(),
+        ));
+      } else {
+        add(ZonePatchComponent(
+          patch: patch,
+          position: (patch.location.offset * Zone.RADIUS).toVector2(),
+        ));
+      }
     }
 
     return super.onLoad();
@@ -131,6 +131,6 @@ class ZoneBuildingComponent extends SpriteComponent with Tappable {
   bool onTapDown(TapDownInfo info) {
     print('Clicked on ${building.buildingType.toString()}');
 
-    return false;
+    return true;
   }
 }

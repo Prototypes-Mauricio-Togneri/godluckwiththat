@@ -5,7 +5,6 @@ class Workshop extends Building {
   Workshop({
     required super.colony,
     required super.zone,
-    required super.location,
     required super.level,
   }) : super(
           buildingType: BuildingType.workshop,

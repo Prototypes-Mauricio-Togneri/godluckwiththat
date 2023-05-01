@@ -5,7 +5,6 @@ class Archery extends Building {
   Archery({
     required super.colony,
     required super.zone,
-    required super.location,
     required super.level,
   }) : super(
           buildingType: BuildingType.archery,
