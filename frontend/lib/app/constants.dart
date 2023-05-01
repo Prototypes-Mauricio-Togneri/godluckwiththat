@@ -31,26 +31,22 @@ class Constants {
       "status": "explored",
       "patches": [
         {
-          "type": "crop_field",
-          "location": "west"
+          "patch_type": "crop_field",
+          "location": "west",
+          "building_type": "farm",
+          "level": 1,
+          "workers": 0,
         },
         {
-          "type": "forest",
+          "patch_type": "forest",
           "location": "east"
-        }
-      ],
-      "buildings": [
+        },
         {
-          "type": "headquarters",
+          "patch_type": "empty",
+          "building_type": "headquarters",
           "level": 2,
           "workers": 0,
           "location": "south"
-        },
-        {
-          "type": "farm",
-          "level": 1,
-          "workers": 0,
-          "location": "west"
         }
       ]
     },

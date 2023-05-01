@@ -2,6 +2,10 @@ import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 
 enum PatchType {
+  empty(
+    sprite: '',
+    resourceType: ResourceType.villager,
+  ),
   crop_field(
     sprite: Assets.IMAGES_PATCHES_CROP_FIELD,
     resourceType: ResourceType.food,

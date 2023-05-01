@@ -6,7 +6,6 @@ import 'package:gatewayguardians/dialog/zone_dialog.dart';
 import 'package:gatewayguardians/extensions/component_extension.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_component.dart';
-import 'package:gatewayguardians/json/json_building.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/json/json_patch.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
@@ -58,21 +57,23 @@ class GameState extends BaseState {
 
       for (final JsonPatch jsonPatch in jsonZone.patches) {
         zone.patches.add(Patch(
-          patchType: jsonPatch.type,
+          patchType: jsonPatch.patchType,
           location: jsonPatch.location,
         ));
       }
 
-      for (final JsonBuilding jsonBuilding in jsonZone.buildings) {
-        zone.buildings.add(Building.create(
-          colony: colony,
-          zone: zone,
-          buildingType: jsonBuilding.type,
-          level: jsonBuilding.level,
-          workers: jsonBuilding.workers,
-          location: jsonBuilding.location,
-          patch: zone.patchByLocation(jsonBuilding.location!),
-        ));
+      for (final JsonPatch jsonBuilding in jsonZone.patches) {
+        if (jsonBuilding.buildingType != null) {
+          zone.buildings.add(Building.create(
+            colony: colony,
+            zone: zone,
+            buildingType: jsonBuilding.buildingType!,
+            level: jsonBuilding.level!,
+            workers: jsonBuilding.workers!,
+            location: jsonBuilding.location,
+            patch: zone.patchByLocation(jsonBuilding.location),
+          ));
+        }
       }
 
       if (zone.isOwned) {

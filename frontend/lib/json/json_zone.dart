@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:gatewayguardians/json/json_building.dart';
 import 'package:gatewayguardians/json/json_patch.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -29,9 +28,6 @@ class JsonZone {
   @JsonKey(name: 'patches')
   final List<JsonPatch> patches;
 
-  @JsonKey(name: 'buildings')
-  final List<JsonBuilding> buildings;
-
   static const double CENTER_X = 184.5;
   static const double CENTER_Y = 160.5;
   static const double RADIUS = 157;
@@ -44,7 +40,6 @@ class JsonZone {
     required this.maxBuildings,
     required this.status,
     required this.patches,
-    required this.buildings,
   });
 
   factory JsonZone.fromString(String json) =>
