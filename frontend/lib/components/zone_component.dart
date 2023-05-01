@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/input.dart';
 import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
+import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/zone.dart';
@@ -130,6 +131,7 @@ class ZoneBuildingComponent extends SpriteComponent with Tappable {
   @override
   bool onTapDown(TapDownInfo info) {
     print('Clicked on ${building.buildingType.toString()}');
+    GameState.instance.clickHandled = true;
 
     return true;
   }

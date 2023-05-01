@@ -20,6 +20,7 @@ class GameState extends BaseState {
   num totalTimeElapsed = 0;
   num refreshTimeout = 0;
   bool loaded = false;
+  bool clickHandled = false;
 
   final Research research = Research();
   final JsonMatch jsonMatch;
@@ -114,18 +115,22 @@ class GameState extends BaseState {
   }
 
   void onMapClicked(Vector2 position) {
-    for (final Zone zone in zones) {
-      if (zone.contains(position)) {
-        ZoneDialog.show(
-          state: this,
-          zone: _zoneById(zone.id),
-        );
-        return;
+    if (!clickHandled) {
+      for (final Zone zone in zones) {
+        if (zone.contains(position)) {
+          ZoneDialog.show(
+            state: this,
+            zone: _zoneById(zone.id),
+          );
+          return;
+        }
       }
+
+      selectedBuilding = null;
+      notify();
     }
 
-    selectedBuilding = null;
-    notify();
+    clickHandled = false;
   }
 
   void onMouseMoved(Vector2 position) {
