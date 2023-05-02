@@ -91,7 +91,7 @@ class Building {
           zone: zone,
           level: level,
           workers: workers,
-          productionTime: buildingType.productionTime(level),
+          productionTime: buildingType.productionTime(),
         );
       case BuildingType.woodcutter:
         return Woodcutter(
@@ -99,7 +99,7 @@ class Building {
           zone: zone,
           level: level,
           workers: workers,
-          productionTime: buildingType.productionTime(level),
+          productionTime: buildingType.productionTime(),
         );
       case BuildingType.quarry:
         return Quarry(
@@ -107,7 +107,7 @@ class Building {
           zone: zone,
           level: level,
           workers: workers,
-          productionTime: buildingType.productionTime(level),
+          productionTime: buildingType.productionTime(),
         );
       case BuildingType.copper_mine:
         return CopperMine(
@@ -115,7 +115,7 @@ class Building {
           zone: zone,
           level: level,
           workers: workers,
-          productionTime: buildingType.productionTime(level),
+          productionTime: buildingType.productionTime(),
         );
       case BuildingType.iron_mine:
         return IronMine(
@@ -123,7 +123,7 @@ class Building {
           zone: zone,
           level: level,
           workers: workers,
-          productionTime: buildingType.productionTime(level),
+          productionTime: buildingType.productionTime(),
         );
       case BuildingType.gold_mine:
         return GoldMine(
@@ -131,7 +131,7 @@ class Building {
           zone: zone,
           level: level,
           workers: workers,
-          productionTime: buildingType.productionTime(level),
+          productionTime: buildingType.productionTime(),
         );
       case BuildingType.barracks:
         return Barracks(

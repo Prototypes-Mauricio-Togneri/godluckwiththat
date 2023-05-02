@@ -1,3 +1,4 @@
+import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/utils/assets.dart';
@@ -133,8 +134,23 @@ enum BuildingType {
     return 0;
   }
 
-  double productionTime(int level) {
-    return level * 10;
+  double productionTime() {
+    switch (this) {
+      case BuildingType.farm:
+        return Constants.FARM_PRODUCTION_TIME;
+      case BuildingType.woodcutter:
+        return Constants.WOODCUTTER_PRODUCTION_TIME;
+      case BuildingType.quarry:
+        return Constants.QUARRY_PRODUCTION_TIME;
+      case BuildingType.copper_mine:
+        return Constants.COPPER_MINE_PRODUCTION_TIME;
+      case BuildingType.iron_mine:
+        return Constants.IRON_MINE_PRODUCTION_TIME;
+      case BuildingType.gold_mine:
+        return Constants.GOLD_MINE_PRODUCTION_TIME;
+      default:
+        return 0;
+    }
   }
 
   @override
