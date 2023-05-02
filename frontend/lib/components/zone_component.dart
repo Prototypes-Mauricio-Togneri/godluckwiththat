@@ -95,7 +95,7 @@ class ZoneUnexploredComponent extends SpriteComponent {
   }
 }
 
-class ZonePatchComponent extends SpriteComponent {
+class ZonePatchComponent extends SpriteComponent with Tappable {
   final Patch patch;
 
   ZonePatchComponent({
@@ -109,6 +109,13 @@ class ZonePatchComponent extends SpriteComponent {
     anchor = Anchor.center;
 
     return super.onLoad();
+  }
+
+  @override
+  bool onTapDown(TapDownInfo info) {
+    GameState.instance.onPatchSelected(patch);
+
+    return true;
   }
 }
 
@@ -131,7 +138,6 @@ class ZoneBuildingComponent extends SpriteComponent with Tappable {
   @override
   bool onTapDown(TapDownInfo info) {
     GameState.instance.onBuildingSelected(building);
-    GameState.instance.clickHandled = true;
 
     return true;
   }

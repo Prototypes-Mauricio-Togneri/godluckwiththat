@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/hud/building_menu_hud.dart';
+import 'package:gatewayguardians/hud/patch_menu_hud.dart';
 import 'package:gatewayguardians/hud/resource_hud.dart';
 
 class HudContainer extends StatelessWidget {
@@ -19,6 +20,11 @@ class HudContainer extends StatelessWidget {
             BuildingMenuHud(
               state: state,
               building: state.selectedBuilding!,
+            )
+          else if (state.selectedPatch != null)
+            PatchMenuHud(
+              state: state,
+              patch: state.selectedPatch!,
             ),
         ],
       ),

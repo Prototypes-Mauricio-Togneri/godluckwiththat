@@ -27,6 +27,7 @@ class GameState extends BaseState {
   final List<Zone> zones = [];
   late Colony colony;
   Building? selectedBuilding;
+  Patch? selectedPatch;
 
   static late GameState instance;
 
@@ -124,6 +125,7 @@ class GameState extends BaseState {
       }
 
       selectedBuilding = null;
+      selectedPatch = null;
       notify();
     }
 
@@ -147,6 +149,15 @@ class GameState extends BaseState {
 
   void onBuildingSelected(Building building) {
     selectedBuilding = building;
+    selectedPatch = null;
+    clickHandled = true;
+    notify();
+  }
+
+  void onPatchSelected(Patch patch) {
+    selectedBuilding = null;
+    selectedPatch = patch;
+    clickHandled = true;
     notify();
   }
 
