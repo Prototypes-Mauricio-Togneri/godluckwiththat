@@ -58,8 +58,6 @@ class GameState extends BaseState {
 
         if (jsonPatch.buildingType != null) {
           building = Building.create(
-            colony: colony,
-            zone: zone,
             buildingType: jsonPatch.buildingType!,
             level: jsonPatch.level!,
             workers: jsonPatch.workers!,

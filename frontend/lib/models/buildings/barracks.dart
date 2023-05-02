@@ -3,8 +3,6 @@ import 'package:gatewayguardians/types/building_type.dart';
 
 class Barracks extends Building {
   Barracks({
-    required super.colony,
-    required super.zone,
     required super.level,
   }) : super(
           buildingType: BuildingType.barracks,

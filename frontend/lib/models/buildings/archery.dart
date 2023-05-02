@@ -3,8 +3,6 @@ import 'package:gatewayguardians/types/building_type.dart';
 
 class Archery extends Building {
   Archery({
-    required super.colony,
-    required super.zone,
     required super.level,
   }) : super(
           buildingType: BuildingType.archery,

@@ -15,25 +15,22 @@ import 'package:gatewayguardians/models/buildings/warehouse.dart';
 import 'package:gatewayguardians/models/buildings/woodcutter.dart';
 import 'package:gatewayguardians/models/buildings/workshop.dart';
 import 'package:gatewayguardians/models/colony.dart';
-import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 
 class Building {
-  final Colony colony;
-  final Zone zone;
   final BuildingType buildingType;
   int level;
   int workers;
 
   Building({
-    required this.colony,
-    required this.zone,
     required this.buildingType,
     required this.level,
     required this.workers,
   });
 
   bool get hasWorkers => workers > 0;
+
+  Colony get colony => GameState.instance.colony;
 
   void update(double dt) {}
 
@@ -59,8 +56,6 @@ class Building {
   }
 
   factory Building.create({
-    required Colony colony,
-    required Zone zone,
     required BuildingType buildingType,
     required int level,
     required int workers,
@@ -68,99 +63,71 @@ class Building {
     switch (buildingType) {
       case BuildingType.headquarters:
         return Headquarters(
-          colony: colony,
-          zone: zone,
           level: level,
           workers: workers,
         );
       case BuildingType.house:
         return House(
-          colony: colony,
-          zone: zone,
           level: level,
         );
       case BuildingType.warehouse:
         return Warehouse(
-          colony: colony,
-          zone: zone,
           level: level,
         );
       case BuildingType.farm:
         return Farm(
-          colony: colony,
-          zone: zone,
           level: level,
           workers: workers,
           productionTime: buildingType.productionTime(),
         );
       case BuildingType.woodcutter:
         return Woodcutter(
-          colony: colony,
-          zone: zone,
           level: level,
           workers: workers,
           productionTime: buildingType.productionTime(),
         );
       case BuildingType.quarry:
         return Quarry(
-          colony: colony,
-          zone: zone,
           level: level,
           workers: workers,
           productionTime: buildingType.productionTime(),
         );
       case BuildingType.copper_mine:
         return CopperMine(
-          colony: colony,
-          zone: zone,
           level: level,
           workers: workers,
           productionTime: buildingType.productionTime(),
         );
       case BuildingType.iron_mine:
         return IronMine(
-          colony: colony,
-          zone: zone,
           level: level,
           workers: workers,
           productionTime: buildingType.productionTime(),
         );
       case BuildingType.gold_mine:
         return GoldMine(
-          colony: colony,
-          zone: zone,
           level: level,
           workers: workers,
           productionTime: buildingType.productionTime(),
         );
       case BuildingType.barracks:
         return Barracks(
-          colony: colony,
-          zone: zone,
           level: level,
         );
       case BuildingType.archery:
         return Archery(
-          colony: colony,
-          zone: zone,
           level: level,
         );
       case BuildingType.cavalry:
         return Cavalry(
-          colony: colony,
-          zone: zone,
           level: level,
         );
       case BuildingType.workshop:
         return Workshop(
-          colony: colony,
-          zone: zone,
           level: level,
         );
       case BuildingType.fortress:
         return Fortress(
-          colony: colony,
-          zone: zone,
           level: level,
         );
     }

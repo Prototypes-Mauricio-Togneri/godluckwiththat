@@ -3,8 +3,6 @@ import 'package:gatewayguardians/types/building_type.dart';
 
 class Headquarters extends Building {
   Headquarters({
-    required super.colony,
-    required super.zone,
     required super.level,
     required super.workers,
   }) : super(

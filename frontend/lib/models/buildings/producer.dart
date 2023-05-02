@@ -11,8 +11,6 @@ class Producer extends Building {
     required BuildingType buildingType,
     required this.resourceType,
     required this.productionTime,
-    required super.colony,
-    required super.zone,
     required super.level,
     required super.workers,
   }) : super(

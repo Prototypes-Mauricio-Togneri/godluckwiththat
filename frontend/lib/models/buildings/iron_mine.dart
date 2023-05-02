@@ -4,8 +4,6 @@ import 'package:gatewayguardians/types/resource_type.dart';
 
 class IronMine extends Producer {
   IronMine({
-    required super.colony,
-    required super.zone,
     required super.level,
     required super.workers,
     required super.productionTime,
