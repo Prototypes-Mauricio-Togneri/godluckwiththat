@@ -34,7 +34,6 @@ class Constants {
       "x": 246.071,
       "y": 1050.502,
       "owner": "player",
-      "maxBuildings": 4,
       "status": "explored",
       "patches": [
         {
@@ -62,7 +61,6 @@ class Constants {
       "x": 515.647,
       "y": 889.996,
       "owner": "",
-      "maxBuildings": 4,
       "status": "explored",
       "patches": [],
       "buildings": []
@@ -72,7 +70,6 @@ class Constants {
       "x": 785.224,
       "y": 729.49,
       "owner": "",
-      "maxBuildings": 4,
       "status": "unexplored",
       "patches": [],
       "buildings": []
@@ -82,7 +79,6 @@ class Constants {
       "x": 514.778,
       "y": 570.533,
       "owner": "",
-      "maxBuildings": 4,
       "status": "unexplored",
       "patches": [],
       "buildings": []
@@ -92,7 +88,6 @@ class Constants {
       "x": 784.355,
       "y": 410.026,
       "owner": "",
-      "maxBuildings": 4,
       "status": "unexplored",
       "patches": [],
       "buildings": []
@@ -102,7 +97,6 @@ class Constants {
       "x": 1053.932,
       "y": 249.508,
       "owner": "guardians",
-      "maxBuildings": 4,
       "status": "unexplored",
       "patches": [],
       "buildings": []

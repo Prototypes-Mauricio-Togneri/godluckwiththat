@@ -49,7 +49,6 @@ class GameState extends BaseState {
         owner: jsonZone.owner,
         patches: [],
         constructions: [],
-        maxBuildings: jsonZone.maxBuildings,
         status: jsonZone.status,
       );
 

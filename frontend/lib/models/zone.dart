@@ -25,7 +25,6 @@ class Zone {
   final String owner;
   final List<Patch> patches;
   final List<Construction> constructions;
-  final int maxBuildings;
   final ZoneStatus status;
 
   static const double RADIUS = 160;
@@ -37,7 +36,6 @@ class Zone {
     required this.owner,
     required this.patches,
     required this.constructions,
-    required this.maxBuildings,
     required this.status,
   });
 

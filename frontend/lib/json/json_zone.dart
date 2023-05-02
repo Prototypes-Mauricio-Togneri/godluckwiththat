@@ -19,9 +19,6 @@ class JsonZone {
   @JsonKey(name: 'owner')
   final String owner;
 
-  @JsonKey(name: 'maxBuildings')
-  final int maxBuildings;
-
   @JsonKey(name: 'status')
   final ZoneStatus status;
 
@@ -37,7 +34,6 @@ class JsonZone {
     required this.x,
     required this.y,
     required this.owner,
-    required this.maxBuildings,
     required this.status,
     required this.patches,
   });
