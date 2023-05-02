@@ -27,39 +27,43 @@ class ResourceHud extends StatelessWidget {
             ResourceIndicator(
               sprite: ResourceType.food.sprite,
               value: inventory.resource(ResourceType.food).amount.toString(),
-              tooltip: 'Food: ${state.colony.productionOf(ResourceType.food)}',
+              tooltip:
+                  'Food: ${state.colony.productionOf(ResourceType.food)} / min',
             ),
           if (inventory.get(ResourceType.wood) > 0)
             ResourceIndicator(
               sprite: ResourceType.wood.sprite,
               value: inventory.resource(ResourceType.wood).amount.toString(),
-              tooltip: 'Wood: ${state.colony.productionOf(ResourceType.wood)}',
+              tooltip:
+                  'Wood: ${state.colony.productionOf(ResourceType.wood)} / min',
             ),
           if (inventory.get(ResourceType.stone) > 0)
             ResourceIndicator(
               sprite: ResourceType.stone.sprite,
               value: inventory.resource(ResourceType.stone).amount.toString(),
               tooltip:
-                  'Stone: ${state.colony.productionOf(ResourceType.stone)}',
+                  'Stone: ${state.colony.productionOf(ResourceType.stone)} / min',
             ),
           if (inventory.get(ResourceType.copper) > 0)
             ResourceIndicator(
               sprite: ResourceType.copper.sprite,
               value: inventory.resource(ResourceType.copper).amount.toString(),
               tooltip:
-                  'Copper: ${state.colony.productionOf(ResourceType.copper)}',
+                  'Copper: ${state.colony.productionOf(ResourceType.copper)} / min',
             ),
           if (inventory.get(ResourceType.iron) > 0)
             ResourceIndicator(
               sprite: ResourceType.iron.sprite,
               value: inventory.resource(ResourceType.iron).amount.toString(),
-              tooltip: 'Iron: ${state.colony.productionOf(ResourceType.iron)}',
+              tooltip:
+                  'Iron: ${state.colony.productionOf(ResourceType.iron)} / min',
             ),
           if (inventory.get(ResourceType.gold) > 0)
             ResourceIndicator(
               sprite: ResourceType.gold.sprite,
               value: inventory.resource(ResourceType.gold).amount.toString(),
-              tooltip: 'Gold: ${state.colony.productionOf(ResourceType.gold)}',
+              tooltip:
+                  'Gold: ${state.colony.productionOf(ResourceType.gold)} / min',
             ),
           if (inventory.get(ResourceType.villager) > 0)
             ResourceIndicator(

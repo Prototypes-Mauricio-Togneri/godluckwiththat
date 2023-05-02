@@ -19,9 +19,12 @@ class Producer extends Building {
           buildingType: buildingType,
         );
 
+  // resources per minute
+  double get productionRate => (workers > 0) ? (productionTime / workers) : 0;
+
   @override
   void update(double dt) {
-    accumulatedTime += dt;
+    accumulatedTime += dt * workers;
 
     if (accumulatedTime > productionTime) {
       accumulatedTime -= productionTime;

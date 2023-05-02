@@ -31,7 +31,7 @@ class Colony {
 
           if ((building is Producer) &&
               (building.resourceType == resourceType)) {
-            total += building.productionTime;
+            total += building.productionRate;
           }
         }
       }
