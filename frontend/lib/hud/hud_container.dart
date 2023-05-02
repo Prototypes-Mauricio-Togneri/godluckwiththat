@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
-import 'package:gatewayguardians/hud/menu_button_hud.dart';
+import 'package:gatewayguardians/hud/building_menu_hud.dart';
 import 'package:gatewayguardians/hud/resource_hud.dart';
 
 class HudContainer extends StatelessWidget {
@@ -14,19 +14,12 @@ class HudContainer extends StatelessWidget {
       builder: (context, constraints) => Stack(
         children: [
           ResourceHud(state),
-          MenuButtonHud(state),
-          /*if (state.selectedBuilding != null)
-            Positioned(
-              top: (constraints.maxHeight * state.selectedBuilding!.offset.dy) -
-                  (constraints.maxHeight / 10),
-              left: (constraints.maxWidth * state.selectedBuilding!.offset.dx) -
-                  (constraints.maxHeight / 10),
-              child: BuildingQuickMenu(
-                colony: state.colony,
-                building: state.selectedBuilding!,
-                size: constraints.maxHeight / 5,
-              ),
-            ),*/
+          //MenuButtonHud(state),
+          if (state.selectedBuilding != null)
+            BuildingMenuHud(
+              state: state,
+              building: state.selectedBuilding!,
+            ),
         ],
       ),
     );

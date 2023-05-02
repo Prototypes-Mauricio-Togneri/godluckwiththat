@@ -130,7 +130,7 @@ class ZoneBuildingComponent extends SpriteComponent with Tappable {
 
   @override
   bool onTapDown(TapDownInfo info) {
-    print('Clicked on ${building.buildingType.toString()}');
+    GameState.instance.onBuildingSelected(building);
     GameState.instance.clickHandled = true;
 
     return true;
