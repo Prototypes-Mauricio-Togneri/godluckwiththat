@@ -3,7 +3,7 @@ import 'package:gatewayguardians/utils/assets.dart';
 
 enum PatchType {
   empty(
-    sprite: '',
+    sprite: Assets.IMAGES_PATCHES_EMPTY,
     resourceType: ResourceType.villager,
   ),
   crop_field(

@@ -44,6 +44,10 @@ class Constants {
           "workers": 0
         },
         {
+          "patch_type": "empty",
+          "location": "north"
+        },
+        {
           "patch_type": "forest",
           "location": "east"
         },
@@ -61,7 +65,7 @@ class Constants {
       "x": 515.647,
       "y": 889.996,
       "owner": "",
-      "status": "explored",
+      "status": "unexplored",
       "patches": [],
       "buildings": []
     },
