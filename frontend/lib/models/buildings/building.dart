@@ -30,6 +30,8 @@ class Building {
 
   bool get hasWorkers => workers > 0;
 
+  bool get canAddWorkers => level > workers;
+
   Colony get colony => GameState.instance.colony;
 
   void update(double dt) {}

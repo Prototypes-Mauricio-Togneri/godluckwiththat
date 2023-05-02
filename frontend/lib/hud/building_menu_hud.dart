@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/buildings/producer.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/custom_tooltip.dart';
 import 'package:gatewayguardians/widgets/label.dart';
@@ -41,6 +42,15 @@ class BuildingMenuHud extends StatelessWidget {
               text: 'Workers: ${building.workers}',
               size: 12,
             ),
+            if (building is Producer)
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Label(
+                  text:
+                      '${(building as Producer).resourceType.toString()}: ${(building as Producer).productionRate} / min',
+                  size: 12,
+                ),
+              ),
             const VBox(10),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -68,9 +78,10 @@ class BuildingMenuHud extends StatelessWidget {
                   color: Palette.success,
                   icon: Icons.add,
                   size: 40,
-                  onPressed: state.colony.hasFreeVillagers
-                      ? building.onAddVillager
-                      : null,
+                  onPressed:
+                      (state.colony.hasFreeVillagers && building.canAddWorkers)
+                          ? building.onAddVillager
+                          : null,
                 ),
                 const HBox(10),
                 QuickMenuButton(
