@@ -8,6 +8,6 @@ extension ComponentExtension on Component {
   T getComponent<T extends Component>(Type type) =>
       children.singleWhere((c) => c.runtimeType == type) as T;
 
-  List<Component> getComponents<T extends Component>(Type type) =>
-      children.where((c) => c.runtimeType == type).toList();
+  List<T> getComponents<T extends Component>(Type type) =>
+      children.where((c) => c.runtimeType == type).map((e) => e as T).toList();
 }
