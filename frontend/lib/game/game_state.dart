@@ -7,15 +7,14 @@ import 'package:gatewayguardians/extensions/component_extension.dart';
 import 'package:gatewayguardians/game/game_component.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/json/json_match.dart';
-import 'package:gatewayguardians/json/json_patch.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/construction.dart';
-import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/research.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/utils/loaders.dart';
 
 class GameState extends BaseState {
   num totalTimeElapsed = 0;
@@ -39,41 +38,11 @@ class GameState extends BaseState {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
     for (final JsonColony jsonColony in jsonMatch.colonies) {
-      colonies.add(Colony(
-        inventory: Inventory.fromJson(jsonColony.inventory),
-        zones: [],
-        freeVillagers: jsonColony.freeVillagers,
-      ));
+      colonies.add(Loaders.colony(jsonColony));
     }
 
     for (final JsonZone jsonZone in jsonMatch.zones) {
-      final Zone zone = Zone(
-        id: jsonZone.id,
-        x: jsonZone.x,
-        y: jsonZone.y,
-        owner: jsonZone.owner,
-        patches: [],
-        constructions: [],
-        status: jsonZone.status,
-      );
-
-      for (final JsonPatch jsonPatch in jsonZone.patches) {
-        Building? building;
-
-        if (jsonPatch.buildingType != null) {
-          building = Building.create(
-            buildingType: jsonPatch.buildingType!,
-            level: jsonPatch.level!,
-            workers: jsonPatch.workers!,
-          );
-        }
-
-        zone.patches.add(Patch(
-          patchType: jsonPatch.patchType,
-          location: jsonPatch.location,
-          building: building,
-        ));
-      }
+      final Zone zone = Loaders.zone(jsonZone);
 
       if (zone.isOwned) {
         colony.zones.add(zone);
