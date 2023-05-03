@@ -5,6 +5,7 @@ import 'package:gatewayguardians/components/zone_component.dart';
 import 'package:gatewayguardians/dialog/zone_dialog.dart';
 import 'package:gatewayguardians/extensions/component_extension.dart';
 import 'package:gatewayguardians/game/game_component.dart';
+import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/json/json_patch.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
@@ -25,6 +26,7 @@ class GameState extends BaseState {
   final Research research = Research();
   final JsonMatch jsonMatch;
   final List<Zone> zones = [];
+  final List<Colony> colonies = [];
   late Colony colony;
   Building? selectedBuilding;
   Patch? selectedPatch;
@@ -36,11 +38,13 @@ class GameState extends BaseState {
   void load() {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
-    colony = Colony(
-      inventory: Inventory.fromJson(jsonMatch.colony.inventory),
-      zones: [],
-      freeVillagers: jsonMatch.colony.freeVillagers,
-    );
+    for (final JsonColony jsonColony in jsonMatch.colonies) {
+      colonies.add(Colony(
+        inventory: Inventory.fromJson(jsonColony.inventory),
+        zones: [],
+        freeVillagers: jsonColony.freeVillagers,
+      ));
+    }
 
     for (final JsonZone jsonZone in jsonMatch.zones) {
       final Zone zone = Zone(

@@ -26,8 +26,8 @@ class JsonMatch {
   @JsonKey(name: 'zones')
   final List<JsonZone> zones;
 
-  @JsonKey(name: 'colony')
-  final JsonColony colony;
+  @JsonKey(name: 'colonies')
+  final List<JsonColony> colonies;
 
   const JsonMatch({
     required this.version,
@@ -36,7 +36,7 @@ class JsonMatch {
     required this.level,
     required this.map,
     required this.zones,
-    required this.colony,
+    required this.colonies,
   });
 
   factory JsonMatch.fromString(String json) =>

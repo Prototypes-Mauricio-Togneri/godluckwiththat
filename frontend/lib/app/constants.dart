@@ -66,8 +66,7 @@ class Constants {
       "y": 889.996,
       "owner": "",
       "status": "unexplored",
-      "patches": [],
-      "buildings": []
+      "patches": []
     },
     {
       "id": "3",
@@ -75,8 +74,7 @@ class Constants {
       "y": 729.49,
       "owner": "",
       "status": "unexplored",
-      "patches": [],
-      "buildings": []
+      "patches": []
     },
     {
       "id": "4",
@@ -84,8 +82,7 @@ class Constants {
       "y": 570.533,
       "owner": "",
       "status": "unexplored",
-      "patches": [],
-      "buildings": []
+      "patches": []
     },
     {
       "id": "5",
@@ -93,8 +90,7 @@ class Constants {
       "y": 410.026,
       "owner": "",
       "status": "unexplored",
-      "patches": [],
-      "buildings": []
+      "patches": []
     },
     {
       "id": "6",
@@ -102,19 +98,20 @@ class Constants {
       "y": 249.508,
       "owner": "guardians",
       "status": "unexplored",
-      "patches": [],
-      "buildings": []
+      "patches": []
     }
   ],
-  "colony": {
-    "inventory": {
-      "food": 300,
-      "wood": 200,
-      "stone": 100,
-      "villager": 10
-    },
-    "freeVillagers": 10
-  }
+  "colonies": [
+    {
+      "inventory": {
+        "food": 300,
+        "wood": 200,
+        "stone": 100,
+        "villager": 10
+      },
+      "freeVillagers": 10
+    }
+  ]
 }
 ''';
 }
