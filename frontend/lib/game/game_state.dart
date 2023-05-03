@@ -134,6 +134,17 @@ class GameState extends BaseState {
         building.onHoverLeave();
       }
     }
+
+    final List<ZonePatchComponent> patchList =
+        allComponents.whereType<ZonePatchComponent>().toList();
+
+    for (final ZonePatchComponent patch in patchList) {
+      if (patch.containsPosition(position)) {
+        patch.onHoverEnter();
+      } else {
+        patch.onHoverLeave();
+      }
+    }
   }
 
   void onBuildingSelected(Building building) {

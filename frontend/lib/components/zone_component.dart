@@ -107,6 +107,8 @@ class ZoneUnexploredComponent extends SpriteComponent {
 class ZonePatchComponent extends SpriteComponent with Tappable {
   final Patch patch;
 
+  static const double RADIUS = 45;
+
   ZonePatchComponent({
     required this.patch,
     required super.position,
@@ -123,6 +125,24 @@ class ZonePatchComponent extends SpriteComponent with Tappable {
   @override
   bool onTapDown(TapDownInfo info) {
     GameState.instance.onPatchSelected(patch);
+
+    return true;
+  }
+
+  bool containsPosition(Vector2 position) {
+    final double distance = absolutePosition.distanceTo(position);
+
+    return distance < RADIUS;
+  }
+
+  bool onHoverEnter() {
+    decorator.addLast(PaintDecorator.tint(const Color(0x05ffffff)));
+
+    return true;
+  }
+
+  bool onHoverLeave() {
+    decorator.removeLast();
 
     return true;
   }
