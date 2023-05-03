@@ -39,7 +39,7 @@ class Zone {
     required this.status,
   });
 
-  bool get isOwned => owner == Constants.ZONE_OWNER_PLAYER;
+  bool get isOwned => owner == Constants.PLAYER_OWNER;
 
   void update(double dt) {
     for (final Construction construction in constructions) {

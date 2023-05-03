@@ -7,6 +7,9 @@ part 'json_colony.g.dart';
 
 @JsonSerializable(includeIfNull: false)
 class JsonColony {
+  @JsonKey(name: 'owner')
+  final String owner;
+
   @JsonKey(name: 'inventory')
   final JsonInventory inventory;
 
@@ -14,6 +17,7 @@ class JsonColony {
   final int freeVillagers;
 
   const JsonColony({
+    required this.owner,
     required this.inventory,
     required this.freeVillagers,
   });

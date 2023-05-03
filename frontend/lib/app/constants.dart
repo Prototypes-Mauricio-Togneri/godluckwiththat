@@ -3,7 +3,7 @@ class Constants {
 
   static const double VIEWPORT_SIZE = 500;
 
-  static const String ZONE_OWNER_PLAYER = 'player';
+  static const String PLAYER_OWNER = 'player';
 
   static const double RESOURCES_HUD_REFRESH_TIMEOUT = 1; // in seconds
 
@@ -103,13 +103,24 @@ class Constants {
   ],
   "colonies": [
     {
+      "owner": "player",
+      "freeVillagers": 10,
       "inventory": {
         "food": 300,
         "wood": 200,
         "stone": 100,
         "villager": 10
-      },
-      "freeVillagers": 10
+      }
+    },
+    {
+      "owner": "guardians",
+      "freeVillagers": 0,
+      "inventory": {
+        "food": 100,
+        "wood": 100,
+        "stone": 100,
+        "villager": 10
+      }
     }
   ]
 }

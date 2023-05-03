@@ -9,6 +9,7 @@ import 'package:gatewayguardians/models/zone.dart';
 
 class Loaders {
   static Colony colony(JsonColony jsonColony) => Colony(
+        owner: jsonColony.owner,
         inventory: Inventory.fromJson(jsonColony.inventory),
         zones: [],
         freeVillagers: jsonColony.freeVillagers,

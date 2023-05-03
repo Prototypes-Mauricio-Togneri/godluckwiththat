@@ -7,6 +7,7 @@ part of 'json_colony.dart';
 // **************************************************************************
 
 JsonColony _$JsonColonyFromJson(Map<String, dynamic> json) => JsonColony(
+      owner: json['owner'] as String,
       inventory: (json['inventory'] as Map<String, dynamic>).map(
         (k, e) => MapEntry($enumDecode(_$ResourceTypeEnumMap, k), e as int),
       ),
@@ -15,6 +16,7 @@ JsonColony _$JsonColonyFromJson(Map<String, dynamic> json) => JsonColony(
 
 Map<String, dynamic> _$JsonColonyToJson(JsonColony instance) =>
     <String, dynamic>{
+      'owner': instance.owner,
       'inventory': instance.inventory
           .map((k, e) => MapEntry(_$ResourceTypeEnumMap[k]!, e)),
       'freeVillagers': instance.freeVillagers,

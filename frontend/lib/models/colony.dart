@@ -9,17 +9,21 @@ import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 
 class Colony {
+  final String owner;
   final Inventory inventory;
   final List<Zone> zones;
   int freeVillagers;
 
   Colony({
+    required this.owner,
     required this.inventory,
     required this.zones,
     required this.freeVillagers,
   });
 
   bool get hasFreeVillagers => freeVillagers > 0;
+
+  bool get isOwned => owner == Constants.PLAYER_OWNER;
 
   int productionOf(ResourceType resourceType) {
     double total = 0;

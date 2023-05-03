@@ -42,13 +42,16 @@ class GameState extends BaseState {
     }
 
     for (final JsonZone jsonZone in jsonMatch.zones) {
-      final Zone zone = Loaders.zone(jsonZone);
+      zones.add(Loaders.zone(jsonZone));
+    }
 
-      if (zone.isOwned) {
+    colony = _colonyByOwner(Constants.PLAYER_OWNER);
+
+    for (final Zone zone in zones) {
+      if (zone.owner.isNotEmpty) {
+        final Colony colony = _colonyByOwner(zone.owner);
         colony.zones.add(zone);
       }
-
-      zones.add(zone);
     }
 
     Delayed.post(() {
@@ -75,14 +78,14 @@ class GameState extends BaseState {
     }
   }
 
-  Zone _zoneById(String id) {
-    for (final Zone zone in zones) {
-      if (zone.id == id) {
-        return zone;
+  Colony _colonyByOwner(String owner) {
+    for (final Colony colony in colonies) {
+      if (colony.owner == owner) {
+        return colony;
       }
     }
 
-    throw Exception('Zone with id $id not found');
+    throw Exception('Colony not found for owner $owner');
   }
 
   void onMapClicked(Vector2 position) {
@@ -91,9 +94,9 @@ class GameState extends BaseState {
         if (zone.contains(position)) {
           ZoneDialog.show(
             state: this,
-            zone: _zoneById(zone.id),
+            zone: zone,
           );
-          return;
+          break;
         }
       }
 
