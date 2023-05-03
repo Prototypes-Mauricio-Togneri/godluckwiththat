@@ -1,4 +1,5 @@
 import 'package:gatewayguardians/app/constants.dart';
+import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/buildings/house.dart';
 import 'package:gatewayguardians/models/buildings/producer.dart';
@@ -77,4 +78,10 @@ class Colony {
   void addResource(ResourceType resourceType) {
     inventory.addResource(Resource(resourceType, 1));
   }
+
+  JsonColony get json => JsonColony(
+        owner: owner,
+        inventory: inventory.json,
+        freeVillagers: freeVillagers,
+      );
 }

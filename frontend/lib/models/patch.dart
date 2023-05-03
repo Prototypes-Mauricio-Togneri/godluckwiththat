@@ -1,3 +1,4 @@
+import 'package:gatewayguardians/json/json_patch.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
 import 'package:gatewayguardians/types/zone_location.dart';
@@ -20,4 +21,12 @@ class Patch {
   }
 
   bool has<T>(T type) => building?.buildingType is T;
+
+  JsonPatch get json => JsonPatch(
+        patchType: patchType,
+        location: location,
+        buildingType: building?.buildingType,
+        level: building?.level,
+        workers: building?.workers,
+      );
 }

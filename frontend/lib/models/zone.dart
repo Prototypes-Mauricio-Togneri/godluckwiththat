@@ -1,5 +1,6 @@
 import 'package:flame/game.dart';
 import 'package:gatewayguardians/app/constants.dart';
+import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
 import 'package:gatewayguardians/models/buildings/barracks.dart';
 import 'package:gatewayguardians/models/buildings/cavalry.dart';
@@ -130,4 +131,13 @@ class Zone {
 
     return result;
   }
+
+  JsonZone get json => JsonZone(
+        id: id,
+        x: x,
+        y: y,
+        owner: owner,
+        status: status,
+        patches: patches.map((p) => p.json).toList(),
+      );
 }

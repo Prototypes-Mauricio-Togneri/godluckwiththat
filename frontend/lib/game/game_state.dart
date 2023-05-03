@@ -64,10 +64,6 @@ class GameState extends BaseState {
     totalTimeElapsed += dt;
     refreshTimeout += dt;
 
-    if (totalTimeElapsed == 0) {
-      print(totalTimeElapsed);
-    }
-
     if (refreshTimeout > Constants.RESOURCES_HUD_REFRESH_TIMEOUT) {
       refreshTimeout--;
       notify();
@@ -175,4 +171,14 @@ class GameState extends BaseState {
   void onOpenReportsMenu() {}
 
   void onOpenExpeditionsMenu() {}
+
+  JsonMatch get json => JsonMatch(
+        version: jsonMatch.version,
+        id: jsonMatch.id,
+        totalTimeElapsed: totalTimeElapsed,
+        level: jsonMatch.level,
+        map: jsonMatch.map,
+        zones: zones.map((z) => z.json).toList(),
+        colonies: colonies.map((c) => c.json).toList(),
+      );
 }
