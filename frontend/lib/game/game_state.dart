@@ -83,12 +83,13 @@ class GameState extends BaseState {
     throw Exception('Colony not found for owner $owner');
   }
 
-  List<T> _components<T extends Component>() =>
-      GameComponent.instance.layerSprites.children.query<T>();
-
   void onMapClicked(Vector2 position) {
     if (!clickHandled) {
-      final List<ZoneComponent> zoneList = _components();
+      final Iterable<Component> allComponents =
+          GameComponent.instance.layerSprites.descendants();
+
+      final List<ZoneComponent> zoneList =
+          allComponents.whereType<ZoneComponent>().toList();
 
       for (final ZoneComponent zone in zoneList) {
         if (zone.containsPosition(position)) {
@@ -109,7 +110,11 @@ class GameState extends BaseState {
   }
 
   void onMouseMoved(Vector2 position) {
-    final List<ZoneComponent> zoneList = _components();
+    final Iterable<Component> allComponents =
+        GameComponent.instance.layerSprites.descendants();
+
+    final List<ZoneComponent> zoneList =
+        allComponents.whereType<ZoneComponent>().toList();
 
     for (final ZoneComponent zone in zoneList) {
       if (zone.containsPosition(position)) {
@@ -119,7 +124,8 @@ class GameState extends BaseState {
       }
     }
 
-    final List<ZoneBuildingComponent> buildingList = _components();
+    final List<ZoneBuildingComponent> buildingList =
+        allComponents.whereType<ZoneBuildingComponent>().toList();
 
     for (final ZoneBuildingComponent building in buildingList) {
       if (building.containsPosition(position)) {

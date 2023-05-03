@@ -154,13 +154,13 @@ class ZoneBuildingComponent extends SpriteComponent with Tappable {
   }
 
   bool containsPosition(Vector2 position) {
-    final double distance = Vector2(x, y).distanceTo(position);
+    final double distance = absolutePosition.distanceTo(position);
 
     return distance < RADIUS;
   }
 
   bool onHoverEnter() {
-    decorator.addLast(PaintDecorator.tint(const Color(0x55ffffff)));
+    decorator.addLast(PaintDecorator.tint(const Color(0x05ffffff)));
 
     return true;
   }
