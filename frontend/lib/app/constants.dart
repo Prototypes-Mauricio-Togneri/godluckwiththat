@@ -39,9 +39,11 @@ class Constants {
         {
           "patch_type": "crop_field",
           "location": "west",
-          "building_type": "farm",
-          "level": 1,
-          "workers": 0
+          "building": {
+            "building_type": "farm",
+            "level": 1,
+            "workers": 0
+          }
         },
         {
           "patch_type": "empty",
@@ -53,10 +55,12 @@ class Constants {
         },
         {
           "patch_type": "empty",
-          "building_type": "headquarters",
-          "level": 2,
-          "workers": 0,
-          "location": "south"
+          "location": "south",
+          "building": {
+            "building_type": "headquarters",
+            "level": 2,
+            "workers": 0
+          }
         }
       ]
     },

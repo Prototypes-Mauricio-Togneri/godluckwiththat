@@ -1,3 +1,4 @@
+import 'package:gatewayguardians/json/json_building.dart';
 import 'package:gatewayguardians/json/json_patch.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
@@ -25,8 +26,12 @@ class Patch {
   JsonPatch get json => JsonPatch(
         patchType: patchType,
         location: location,
-        buildingType: building?.buildingType,
-        level: building?.level,
-        workers: building?.workers,
+        building: (building != null)
+            ? JsonBuilding(
+                buildingType: building!.buildingType,
+                level: building!.level,
+                workers: building!.workers,
+              )
+            : null,
       );
 }

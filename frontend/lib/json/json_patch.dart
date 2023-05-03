@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:gatewayguardians/types/building_type.dart';
+import 'package:gatewayguardians/json/json_building.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
 import 'package:gatewayguardians/types/zone_location.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -14,21 +14,13 @@ class JsonPatch {
   @JsonKey(name: 'location')
   final ZoneLocation location;
 
-  @JsonKey(name: 'building_type')
-  final BuildingType? buildingType;
-
-  @JsonKey(name: 'level')
-  final int? level;
-
-  @JsonKey(name: 'workers')
-  final int? workers;
+  @JsonKey(name: 'building')
+  final JsonBuilding? building;
 
   const JsonPatch({
     required this.patchType,
     required this.location,
-    required this.buildingType,
-    required this.level,
-    required this.workers,
+    required this.building,
   });
 
   factory JsonPatch.fromString(String json) =>

@@ -38,11 +38,11 @@ class Loaders {
   }
 
   static Building? building(JsonPatch jsonPatch) {
-    if (jsonPatch.buildingType != null) {
+    if (jsonPatch.building != null) {
       return Building.create(
-        buildingType: jsonPatch.buildingType!,
-        level: jsonPatch.level!,
-        workers: jsonPatch.workers!,
+        buildingType: jsonPatch.building!.buildingType,
+        level: jsonPatch.building!.level,
+        workers: jsonPatch.building!.workers,
       );
     } else {
       return null;

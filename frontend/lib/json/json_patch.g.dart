@@ -9,10 +9,9 @@ part of 'json_patch.dart';
 JsonPatch _$JsonPatchFromJson(Map<String, dynamic> json) => JsonPatch(
       patchType: $enumDecode(_$PatchTypeEnumMap, json['patch_type']),
       location: $enumDecode(_$ZoneLocationEnumMap, json['location']),
-      buildingType:
-          $enumDecodeNullable(_$BuildingTypeEnumMap, json['building_type']),
-      level: json['level'] as int?,
-      workers: json['workers'] as int?,
+      building: json['building'] == null
+          ? null
+          : JsonBuilding.fromJson(json['building'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$JsonPatchToJson(JsonPatch instance) {
@@ -27,9 +26,7 @@ Map<String, dynamic> _$JsonPatchToJson(JsonPatch instance) {
     }
   }
 
-  writeNotNull('building_type', _$BuildingTypeEnumMap[instance.buildingType]);
-  writeNotNull('level', instance.level);
-  writeNotNull('workers', instance.workers);
+  writeNotNull('building', instance.building);
   return val;
 }
 
@@ -45,21 +42,4 @@ const _$ZoneLocationEnumMap = {
   ZoneLocation.south: 'south',
   ZoneLocation.west: 'west',
   ZoneLocation.east: 'east',
-};
-
-const _$BuildingTypeEnumMap = {
-  BuildingType.headquarters: 'headquarters',
-  BuildingType.house: 'house',
-  BuildingType.warehouse: 'warehouse',
-  BuildingType.farm: 'farm',
-  BuildingType.woodcutter: 'woodcutter',
-  BuildingType.quarry: 'quarry',
-  BuildingType.copper_mine: 'copper_mine',
-  BuildingType.iron_mine: 'iron_mine',
-  BuildingType.gold_mine: 'gold_mine',
-  BuildingType.barracks: 'barracks',
-  BuildingType.archery: 'archery',
-  BuildingType.cavalry: 'cavalry',
-  BuildingType.workshop: 'workshop',
-  BuildingType.fortress: 'fortress',
 };
