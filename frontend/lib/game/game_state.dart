@@ -123,19 +123,19 @@ class GameState extends BaseState {
       }
     }
 
-    /*final List<ZoneBuildingComponent> buildingList = GameComponent
+    final List<ZoneBuildingComponent> buildingList = GameComponent
         .instance.layerSprites
         .getComponents(ZoneBuildingComponent)
         .map((e) => e as ZoneBuildingComponent)
         .toList();
 
     for (final ZoneBuildingComponent building in buildingList) {
-      if (building.zone.contains(position)) {
+      if (building.containsPosition(position)) {
         building.onHoverEnter();
       } else {
         building.onHoverLeave();
       }
-    }*/
+    }
   }
 
   void onBuildingSelected(Building building) {

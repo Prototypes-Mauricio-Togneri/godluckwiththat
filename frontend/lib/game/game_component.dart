@@ -65,10 +65,7 @@ class GameComponent extends FlameGame
     layerSprites.add(MapComponent(image: '${map.path}/map.png'));
 
     for (final Zone zone in state.zones) {
-      layerSprites.add(ZoneComponent(
-        zone: zone,
-        position: Vector2(zone.x, zone.y),
-      ));
+      layerSprites.add(ZoneComponent(zone: zone));
     }
 
     camera.zoom = 1;

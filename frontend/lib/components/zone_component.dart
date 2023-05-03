@@ -18,11 +18,11 @@ class ZoneComponent extends PositionComponent {
 
   ZoneComponent({
     required this.zone,
-    required super.position,
   });
 
   @override
   Future onLoad() async {
+    position = Vector2(zone.x, zone.y);
     anchor = Anchor.center;
 
     zoneUnexploredComponent = ZoneUnexploredComponent();
@@ -131,6 +131,8 @@ class ZonePatchComponent extends SpriteComponent with Tappable {
 class ZoneBuildingComponent extends SpriteComponent with Tappable {
   final Building building;
 
+  static const double RADIUS = 45;
+
   ZoneBuildingComponent({
     required this.building,
     required super.position,
@@ -149,6 +151,12 @@ class ZoneBuildingComponent extends SpriteComponent with Tappable {
     GameState.instance.onBuildingSelected(building);
 
     return true;
+  }
+
+  bool containsPosition(Vector2 position) {
+    final double distance = Vector2(x, y).distanceTo(position);
+
+    return distance < RADIUS;
   }
 
   bool onHoverEnter() {
