@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/input.dart';
+import 'package:flame/rendering.dart';
 import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
@@ -12,6 +13,8 @@ class ZoneComponent extends PositionComponent {
   final Zone zone;
   late final ZoneHoveredComponent zoneHoveredComponent;
   late final ZoneUnexploredComponent zoneUnexploredComponent;
+
+  static const double RADIUS = 160;
 
   ZoneComponent({
     required this.zone,
@@ -35,17 +38,23 @@ class ZoneComponent extends PositionComponent {
       if (patch.hasBuilding) {
         add(ZoneBuildingComponent(
           building: patch.building!,
-          position: (patch.location.offset * Zone.RADIUS).toVector2(),
+          position: (patch.location.offset * RADIUS).toVector2(),
         ));
       } else {
         add(ZonePatchComponent(
           patch: patch,
-          position: (patch.location.offset * Zone.RADIUS).toVector2(),
+          position: (patch.location.offset * RADIUS).toVector2(),
         ));
       }
     }
 
     return super.onLoad();
+  }
+
+  bool containsPosition(Vector2 position) {
+    final double distance = Vector2(x, y).distanceTo(position);
+
+    return distance < RADIUS;
   }
 
   void onHoverEnter() => zoneHoveredComponent.onHoverEnter();
@@ -138,6 +147,18 @@ class ZoneBuildingComponent extends SpriteComponent with Tappable {
   @override
   bool onTapDown(TapDownInfo info) {
     GameState.instance.onBuildingSelected(building);
+
+    return true;
+  }
+
+  bool onHoverEnter() {
+    decorator.addLast(PaintDecorator.tint(const Color(0x55ffffff)));
+
+    return true;
+  }
+
+  bool onHoverLeave() {
+    decorator.removeLast();
 
     return true;
   }

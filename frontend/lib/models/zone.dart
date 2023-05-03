@@ -1,4 +1,3 @@
-import 'package:flame/game.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
@@ -28,8 +27,6 @@ class Zone {
   final List<Construction> constructions;
   final ZoneStatus status;
 
-  static const double RADIUS = 160;
-
   Zone({
     required this.id,
     required this.x,
@@ -50,12 +47,6 @@ class Zone {
     for (final Patch patch in patches) {
       patch.update(dt);
     }
-  }
-
-  bool contains(Vector2 position) {
-    final double distance = Vector2(x, y).distanceTo(position);
-
-    return distance < RADIUS;
   }
 
   void onStartConstruction(Construction construction) {

@@ -86,11 +86,16 @@ class GameState extends BaseState {
 
   void onMapClicked(Vector2 position) {
     if (!clickHandled) {
-      for (final Zone zone in zones) {
-        if (zone.contains(position)) {
+      final List<ZoneComponent> zoneList = GameComponent.instance.layerSprites
+          .getComponents(ZoneComponent)
+          .map((e) => e as ZoneComponent)
+          .toList();
+
+      for (final ZoneComponent zone in zoneList) {
+        if (zone.containsPosition(position)) {
           ZoneDialog.show(
             state: this,
-            zone: zone,
+            zone: zone.zone,
           );
           break;
         }
@@ -105,18 +110,32 @@ class GameState extends BaseState {
   }
 
   void onMouseMoved(Vector2 position) {
-    final List<ZoneComponent> list = GameComponent.instance.layerSprites
+    final List<ZoneComponent> zoneList = GameComponent.instance.layerSprites
         .getComponents(ZoneComponent)
         .map((e) => e as ZoneComponent)
         .toList();
 
-    for (final ZoneComponent zone in list) {
-      if (zone.zone.contains(position)) {
+    for (final ZoneComponent zone in zoneList) {
+      if (zone.containsPosition(position)) {
         zone.onHoverEnter();
       } else {
         zone.onHoverLeave();
       }
     }
+
+    /*final List<ZoneBuildingComponent> buildingList = GameComponent
+        .instance.layerSprites
+        .getComponents(ZoneBuildingComponent)
+        .map((e) => e as ZoneBuildingComponent)
+        .toList();
+
+    for (final ZoneBuildingComponent building in buildingList) {
+      if (building.zone.contains(position)) {
+        building.onHoverEnter();
+      } else {
+        building.onHoverLeave();
+      }
+    }*/
   }
 
   void onBuildingSelected(Building building) {
