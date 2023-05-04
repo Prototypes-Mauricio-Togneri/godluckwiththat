@@ -57,6 +57,10 @@ class Building {
     }
   }
 
+  void onDestroy() {
+    
+  }
+
   factory Building.create({
     required BuildingType buildingType,
     required int level,

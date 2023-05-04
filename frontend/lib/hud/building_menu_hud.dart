@@ -4,6 +4,7 @@ import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/buildings/producer.dart';
+import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/custom_tooltip.dart';
@@ -78,7 +79,7 @@ class BuildingMenuHud extends StatelessWidget {
                   child: QuickMenuButton(
                     color: Palette.primary,
                     icon: Icons.upload,
-                    size: 40,
+                    size: 60,
                     onPressed: state.colony.inventory
                             .has(building.buildingType.cost(building.level + 1))
                         ? building.onUpgrade
@@ -89,7 +90,7 @@ class BuildingMenuHud extends StatelessWidget {
                 QuickMenuButton(
                   color: Palette.success,
                   icon: Icons.add,
-                  size: 40,
+                  size: 60,
                   onPressed:
                       (state.colony.hasFreeVillagers && building.canAddWorkers)
                           ? building.onAddVillager
@@ -99,10 +100,20 @@ class BuildingMenuHud extends StatelessWidget {
                 QuickMenuButton(
                   color: Palette.error,
                   icon: Icons.remove,
-                  size: 40,
+                  size: 60,
                   onPressed:
                       building.hasWorkers ? building.onRemoveVillager : null,
                 ),
+                if (building.buildingType != BuildingType.headquarters)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: QuickMenuButton(
+                      color: Palette.error,
+                      icon: Icons.delete_outline_outlined,
+                      size: 60,
+                      onPressed: building.onDestroy,
+                    ),
+                  ),
               ],
             ),
           ],
@@ -134,7 +145,7 @@ class QuickMenuButton extends StatelessWidget {
         color: (onPressed != null) ? color : Palette.lightGrey,
         borderRadius: BorderRadius.circular(100),
         border: Border.all(
-          width: size / 20,
+          width: size / 40,
           color: Palette.white,
         ),
       ),
