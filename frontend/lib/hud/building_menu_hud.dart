@@ -4,8 +4,10 @@ import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/buildings/producer.dart';
+import 'package:gatewayguardians/utils/assets.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/custom_tooltip.dart';
+import 'package:gatewayguardians/widgets/image_asset.dart';
 import 'package:gatewayguardians/widgets/label.dart';
 
 class BuildingMenuHud extends StatelessWidget {
@@ -38,9 +40,19 @@ class BuildingMenuHud extends StatelessWidget {
               size: 12,
             ),
             const VBox(10),
-            Label(
-              text: 'Workers: ${building.workers}',
-              size: 12,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const ImageAsset(
+                  path: Assets.IMAGES_RESOURCES_VILLAGER,
+                  size: 25,
+                ),
+                const HBox(5),
+                Label(
+                  text: '${building.workers}',
+                  size: 12,
+                ),
+              ],
             ),
             if (building is Producer)
               Padding(

@@ -136,7 +136,7 @@ class ZonePatchComponent extends SpriteComponent with Tappable {
   }
 
   bool onHoverEnter() {
-    decorator.addLast(PaintDecorator.tint(const Color(0x05ffffff)));
+    decorator.addLast(PaintDecorator.tint(const Color(0x05000000)));
 
     return true;
   }
@@ -180,7 +180,7 @@ class ZoneBuildingComponent extends SpriteComponent with Tappable {
   }
 
   bool onHoverEnter() {
-    decorator.addLast(PaintDecorator.tint(const Color(0x05ffffff)));
+    decorator.addLast(PaintDecorator.tint(const Color(0x05000000)));
 
     return true;
   }
