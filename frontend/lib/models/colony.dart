@@ -26,6 +26,7 @@ class Colony {
 
   bool get isOwned => owner == Constants.PLAYER_OWNER;
 
+  // resources generated per minute
   int productionOf(ResourceType resourceType) {
     double total = 0;
 
@@ -36,13 +37,13 @@ class Colony {
 
           if ((building is Producer) &&
               (building.resourceType == resourceType)) {
-            total += building.productionRate;
+            total += building.productionPerMinute;
           }
         }
       }
     }
 
-    return (total > 0) ? 60 ~/ total : 0;
+    return total.truncate();
   }
 
   int get populationLimit {

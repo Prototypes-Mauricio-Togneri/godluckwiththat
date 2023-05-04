@@ -5,7 +5,7 @@ import 'package:gatewayguardians/types/resource_type.dart';
 class Producer extends Building {
   final ResourceType resourceType;
   double productionTime;
-  double accumulatedTime = 0;
+  double resourcesProduced = 0;
 
   Producer({
     required BuildingType buildingType,
@@ -17,15 +17,17 @@ class Producer extends Building {
           buildingType: buildingType,
         );
 
-  // resources per minute
-  double get productionRate => (workers > 0) ? (productionTime / workers) : 0;
+  double get _productionPerTick => workers / productionTime;
+
+  double get productionPerMinute => _productionPerTick * 60;
 
   @override
   void update(double dt) {
-    accumulatedTime += dt * workers;
+    resourcesProduced += dt * _productionPerTick;
+    final int resources = resourcesProduced.truncate();
 
-    if (accumulatedTime > productionTime) {
-      accumulatedTime -= productionTime;
+    if (resourcesProduced >= 1) {
+      resourcesProduced -= resources;
       colony.addResource(resourceType);
     }
   }

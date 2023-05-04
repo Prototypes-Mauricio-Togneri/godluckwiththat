@@ -59,7 +59,7 @@ class BuildingMenuHud extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 10),
                 child: Label(
                   text:
-                      '${(building as Producer).resourceType.toString()}: ${(building as Producer).productionRate} / min',
+                      '${(building as Producer).resourceType.toString()}: ${(building as Producer).productionPerMinute} / min',
                   size: 12,
                 ),
               ),
