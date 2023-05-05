@@ -26,7 +26,7 @@ class BuildingMenuHud extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: Container(
         padding: const EdgeInsets.all(20),
-        color: Palette.grey.withAlpha(160),
+        color: Palette.blackOverlay,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,

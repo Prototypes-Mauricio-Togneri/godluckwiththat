@@ -21,7 +21,7 @@ class ResourceHud extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
-        color: Palette.black.withAlpha(150),
+        color: Palette.blackOverlay,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
