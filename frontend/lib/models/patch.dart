@@ -1,3 +1,4 @@
+import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/json/json_building.dart';
 import 'package:gatewayguardians/json/json_patch.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
@@ -24,6 +25,7 @@ class Patch {
   bool has<T>(T type) => building?.buildingType is T;
 
   void destroyBuilding() {
+    GameState.instance.colony.freeVillagers += building!.workers;
     building = null;
   }
 
