@@ -14,10 +14,10 @@ class CustomTooltip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return JustTheTooltip(
-      backgroundColor: Palette.grey,
+      backgroundColor: Palette.black,
       borderRadius: const BorderRadius.all(Radius.circular(0)),
       content: Container(
-        color: Palette.grey,
+        color: Palette.black,
         padding: const EdgeInsets.all(10),
         child: content,
       ),
