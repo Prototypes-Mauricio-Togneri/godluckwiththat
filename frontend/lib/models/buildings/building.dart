@@ -60,7 +60,7 @@ class Building {
 
   void onDestroy() => ConfirmationDialog.destroyBuilding(onAccept: _destroy);
 
-  void _destroy() {}
+  void _destroy() => GameState.instance.onDestroyBuilding(this);
 
   factory Building.create({
     required BuildingType buildingType,

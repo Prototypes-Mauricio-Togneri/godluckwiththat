@@ -2,6 +2,7 @@ import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
 import 'package:gatewayguardians/models/buildings/barracks.dart';
+import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/buildings/cavalry.dart';
 import 'package:gatewayguardians/models/buildings/copper_mine.dart';
 import 'package:gatewayguardians/models/buildings/farm.dart';
@@ -51,6 +52,15 @@ class Zone {
 
   void onStartConstruction(Construction construction) {
     constructions.add(construction);
+  }
+
+  void onDestroyBuilding(Building building) {
+    for (final Patch patch in patches) {
+      if ((patch.hasBuilding) && (patch.building == building)) {
+        patch.destroyBuilding();
+        break;
+      }
+    }
   }
 
   List<BuildingType> basic() {

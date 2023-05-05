@@ -7,9 +7,9 @@ import 'package:gatewayguardians/types/zone_location.dart';
 class Patch {
   final PatchType patchType;
   final ZoneLocation location;
-  final Building? building;
+  Building? building;
 
-  const Patch({
+  Patch({
     required this.patchType,
     required this.location,
     required this.building,
@@ -22,6 +22,10 @@ class Patch {
   }
 
   bool has<T>(T type) => building?.buildingType is T;
+
+  void destroyBuilding() {
+    building = null;
+  }
 
   JsonPatch get json => JsonPatch(
         patchType: patchType,

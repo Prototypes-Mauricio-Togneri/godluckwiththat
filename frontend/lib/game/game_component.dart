@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gatewayguardians/components/map_component.dart';
 import 'package:gatewayguardians/components/zone_component.dart';
+import 'package:gatewayguardians/extensions/component_extension.dart';
 import 'package:gatewayguardians/extensions/logical_keyboard_key_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/game/map_handler.dart';
@@ -62,17 +63,24 @@ class GameComponent extends FlameGame
     add(layerSprites);
     add(layerDebug);
 
-    layerSprites.add(MapComponent(image: '${map.path}/map.png'));
-
-    for (final Zone zone in state.zones) {
-      layerSprites.add(ZoneComponent(zone: zone));
-    }
+    loadMap(state);
 
     camera.zoom = 1;
     centerMap(Vector2(
       map.width / 2,
       map.height / 2,
     ));
+  }
+
+  void loadMap(GameState state) {
+    layerSprites.removeAllComponents();
+
+    final JsonMap map = state.jsonMatch.map;
+    layerSprites.add(MapComponent(image: '${map.path}/map.png'));
+
+    for (final Zone zone in state.zones) {
+      layerSprites.add(ZoneComponent(zone: zone));
+    }
   }
 
   @override

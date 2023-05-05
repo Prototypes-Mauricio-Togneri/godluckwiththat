@@ -194,6 +194,18 @@ class GameState extends BaseState {
     notify();
   }
 
+  void onDestroyBuilding(Building building) {
+    for (final Zone zone in colony.zones) {
+      if (zone.isOwned) {
+        zone.onDestroyBuilding(building);
+      }
+    }
+
+    selectedBuilding = null;
+    GameComponent.instance.loadMap(this);
+    notify();
+  }
+
   void onOpenMainMenu() {}
 
   void onOpenReportsMenu() {}
