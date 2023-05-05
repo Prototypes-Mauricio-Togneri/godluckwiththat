@@ -20,64 +20,68 @@ class ResourceHud extends StatelessWidget {
 
     return Align(
       alignment: Alignment.topCenter,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (inventory.get(ResourceType.food) > 0)
+      child: Container(
+        color: Palette.black.withAlpha(150),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (inventory.get(ResourceType.food) > 0)
+              ResourceIndicator(
+                sprite: ResourceType.food.sprite,
+                value: inventory.resource(ResourceType.food).amount.toString(),
+                tooltip:
+                    'Food: ${state.colony.productionOf(ResourceType.food)} / min',
+              ),
+            if (inventory.get(ResourceType.wood) > 0)
+              ResourceIndicator(
+                sprite: ResourceType.wood.sprite,
+                value: inventory.resource(ResourceType.wood).amount.toString(),
+                tooltip:
+                    'Wood: ${state.colony.productionOf(ResourceType.wood)} / min',
+              ),
+            if (inventory.get(ResourceType.stone) > 0)
+              ResourceIndicator(
+                sprite: ResourceType.stone.sprite,
+                value: inventory.resource(ResourceType.stone).amount.toString(),
+                tooltip:
+                    'Stone: ${state.colony.productionOf(ResourceType.stone)} / min',
+              ),
+            if (inventory.get(ResourceType.copper) > 0)
+              ResourceIndicator(
+                sprite: ResourceType.copper.sprite,
+                value:
+                    inventory.resource(ResourceType.copper).amount.toString(),
+                tooltip:
+                    'Copper: ${state.colony.productionOf(ResourceType.copper)} / min',
+              ),
+            if (inventory.get(ResourceType.iron) > 0)
+              ResourceIndicator(
+                sprite: ResourceType.iron.sprite,
+                value: inventory.resource(ResourceType.iron).amount.toString(),
+                tooltip:
+                    'Iron: ${state.colony.productionOf(ResourceType.iron)} / min',
+              ),
+            if (inventory.get(ResourceType.gold) > 0)
+              ResourceIndicator(
+                sprite: ResourceType.gold.sprite,
+                value: inventory.resource(ResourceType.gold).amount.toString(),
+                tooltip:
+                    'Gold: ${state.colony.productionOf(ResourceType.gold)} / min',
+              ),
+            if (inventory.get(ResourceType.villager) > 0)
+              ResourceIndicator(
+                sprite: ResourceType.villager.sprite,
+                value:
+                    '${inventory.resource(ResourceType.villager).amount.toString()}/${state.colony.populationLimit}',
+                tooltip: 'Population',
+              ),
             ResourceIndicator(
-              sprite: ResourceType.food.sprite,
-              value: inventory.resource(ResourceType.food).amount.toString(),
-              tooltip:
-                  'Food: ${state.colony.productionOf(ResourceType.food)} / min',
+              sprite: Assets.IMAGES_RESOURCES_IDLE,
+              value: state.colony.freeVillagers.toString(),
+              tooltip: 'Idle villagers',
             ),
-          if (inventory.get(ResourceType.wood) > 0)
-            ResourceIndicator(
-              sprite: ResourceType.wood.sprite,
-              value: inventory.resource(ResourceType.wood).amount.toString(),
-              tooltip:
-                  'Wood: ${state.colony.productionOf(ResourceType.wood)} / min',
-            ),
-          if (inventory.get(ResourceType.stone) > 0)
-            ResourceIndicator(
-              sprite: ResourceType.stone.sprite,
-              value: inventory.resource(ResourceType.stone).amount.toString(),
-              tooltip:
-                  'Stone: ${state.colony.productionOf(ResourceType.stone)} / min',
-            ),
-          if (inventory.get(ResourceType.copper) > 0)
-            ResourceIndicator(
-              sprite: ResourceType.copper.sprite,
-              value: inventory.resource(ResourceType.copper).amount.toString(),
-              tooltip:
-                  'Copper: ${state.colony.productionOf(ResourceType.copper)} / min',
-            ),
-          if (inventory.get(ResourceType.iron) > 0)
-            ResourceIndicator(
-              sprite: ResourceType.iron.sprite,
-              value: inventory.resource(ResourceType.iron).amount.toString(),
-              tooltip:
-                  'Iron: ${state.colony.productionOf(ResourceType.iron)} / min',
-            ),
-          if (inventory.get(ResourceType.gold) > 0)
-            ResourceIndicator(
-              sprite: ResourceType.gold.sprite,
-              value: inventory.resource(ResourceType.gold).amount.toString(),
-              tooltip:
-                  'Gold: ${state.colony.productionOf(ResourceType.gold)} / min',
-            ),
-          if (inventory.get(ResourceType.villager) > 0)
-            ResourceIndicator(
-              sprite: ResourceType.villager.sprite,
-              value:
-                  '${inventory.resource(ResourceType.villager).amount.toString()}/${state.colony.populationLimit}',
-              tooltip: 'Population',
-            ),
-          ResourceIndicator(
-            sprite: Assets.IMAGES_RESOURCES_IDLE,
-            value: state.colony.freeVillagers.toString(),
-            tooltip: 'Idle villagers',
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -102,26 +106,25 @@ class ResourceIndicator extends StatelessWidget {
         color: Palette.white,
         size: 12,
       ),
-      child: Container(
-        color: Palette.lightGrey,
+      child: Padding(
         padding: const EdgeInsets.only(
           top: 5,
           bottom: 5,
-          left: 15,
-          right: 15,
+          left: 20,
+          right: 20,
         ),
-        child: Column(
+        child: Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ImageAsset(
               path: sprite,
-              size: 32,
+              size: 28,
             ),
-            const VBox(3),
+            const HBox(10),
             Label(
               text: value,
-              size: 12,
+              size: 14,
             ),
           ],
         ),
