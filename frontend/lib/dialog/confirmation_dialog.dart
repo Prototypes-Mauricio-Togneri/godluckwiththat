@@ -20,13 +20,14 @@ class ConfirmationDialog extends StatelessWidget {
   });
 
   static DialogController _show({
-    required BuildContext context,
     required String message,
     required String buttonAccept,
     required String buttonCancel,
     required VoidCallback onAccept,
     VoidCallback? onCancel,
   }) {
+    final BuildContext context = Navigation.context;
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -44,11 +45,9 @@ class ConfirmationDialog extends StatelessWidget {
   }
 
   static DialogController destroyBuilding({
-    required BuildContext context,
     required VoidCallback onAccept,
   }) =>
       _show(
-        context: context,
         message: 'Destroy building?',
         buttonAccept: 'Destroy',
         buttonCancel: 'Cancel',

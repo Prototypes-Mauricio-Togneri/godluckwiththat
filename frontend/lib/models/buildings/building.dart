@@ -1,3 +1,4 @@
+import 'package:gatewayguardians/dialog/confirmation_dialog.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
@@ -57,9 +58,9 @@ class Building {
     }
   }
 
-  void onDestroy() {
-    
-  }
+  void onDestroy() => ConfirmationDialog.destroyBuilding(onAccept: _destroy);
+
+  void _destroy() {}
 
   factory Building.create({
     required BuildingType buildingType,
