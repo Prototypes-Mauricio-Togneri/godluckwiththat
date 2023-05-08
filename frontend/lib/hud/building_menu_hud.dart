@@ -40,21 +40,24 @@ class BuildingMenuHud extends StatelessWidget {
               text: 'Level: ${building.level}',
               size: 12,
             ),
-            const VBox(10),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const ImageAsset(
-                  path: Assets.IMAGES_RESOURCES_VILLAGER,
-                  size: 25,
+            if (building.buildingType.canHostWorkers)
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const ImageAsset(
+                      path: Assets.IMAGES_RESOURCES_VILLAGER,
+                      size: 25,
+                    ),
+                    const HBox(5),
+                    Label(
+                      text: '${building.workers} / ${building.level}',
+                      size: 12,
+                    ),
+                  ],
                 ),
-                const HBox(5),
-                Label(
-                  text: '${building.workers} / ${building.level}',
-                  size: 12,
-                ),
-              ],
-            ),
+              ),
             if (building is Producer)
               Padding(
                 padding: const EdgeInsets.only(top: 10),

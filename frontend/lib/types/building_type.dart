@@ -134,7 +134,7 @@ enum BuildingType {
     return 0;
   }
 
-  double productionTime() {
+  double get productionTime {
     switch (this) {
       case BuildingType.farm:
         return Constants.FARM_PRODUCTION_TIME;
@@ -150,6 +150,21 @@ enum BuildingType {
         return Constants.GOLD_MINE_PRODUCTION_TIME;
       default:
         return 0;
+    }
+  }
+
+  bool get canHostWorkers {
+    switch (this) {
+      case BuildingType.headquarters:
+      case BuildingType.farm:
+      case BuildingType.woodcutter:
+      case BuildingType.quarry:
+      case BuildingType.copper_mine:
+      case BuildingType.iron_mine:
+      case BuildingType.gold_mine:
+        return true;
+      default:
+        return false;
     }
   }
 

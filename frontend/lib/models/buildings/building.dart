@@ -33,6 +33,8 @@ class Building {
 
   bool get canAddWorkers => level > workers;
 
+  bool get canHostWorkers => true;
+
   Colony get colony => GameState.instance.colony;
 
   void update(double dt) {}
@@ -85,37 +87,37 @@ class Building {
         return Farm(
           level: level,
           workers: workers,
-          productionTime: buildingType.productionTime(),
+          productionTime: buildingType.productionTime,
         );
       case BuildingType.woodcutter:
         return Woodcutter(
           level: level,
           workers: workers,
-          productionTime: buildingType.productionTime(),
+          productionTime: buildingType.productionTime,
         );
       case BuildingType.quarry:
         return Quarry(
           level: level,
           workers: workers,
-          productionTime: buildingType.productionTime(),
+          productionTime: buildingType.productionTime,
         );
       case BuildingType.copper_mine:
         return CopperMine(
           level: level,
           workers: workers,
-          productionTime: buildingType.productionTime(),
+          productionTime: buildingType.productionTime,
         );
       case BuildingType.iron_mine:
         return IronMine(
           level: level,
           workers: workers,
-          productionTime: buildingType.productionTime(),
+          productionTime: buildingType.productionTime,
         );
       case BuildingType.gold_mine:
         return GoldMine(
           level: level,
           workers: workers,
-          productionTime: buildingType.productionTime(),
+          productionTime: buildingType.productionTime,
         );
       case BuildingType.barracks:
         return Barracks(
