@@ -29,4 +29,7 @@ enum PatchType {
     required this.sprite,
     required this.resourceType,
   });
+
+  @override
+  String toString() => name.replaceAll('_', ' ');
 }

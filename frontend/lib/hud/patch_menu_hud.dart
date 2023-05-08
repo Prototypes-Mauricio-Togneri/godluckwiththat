@@ -1,8 +1,10 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
+import 'package:gatewayguardians/widgets/primary_button.dart';
 
 class PatchMenuHud extends StatelessWidget {
   final GameState state;
@@ -18,10 +20,27 @@ class PatchMenuHud extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        width: double.infinity,
-        height: 100,
-        color: Palette.grey,
-        child: Label(text: patch.patchType.toString()),
+        padding: const EdgeInsets.all(20),
+        color: Palette.blackOverlay,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Label(
+              text: patch.patchType.toString(),
+              size: 12,
+            ),
+            const VBox(15),
+            PrimaryButton(
+              text: 'Build',
+              color: Palette.success,
+              onPressed: () => state.onBuildOnPatch(patch),
+              icon: Icons.construction,
+              textSize: 12,
+              expand: false,
+            ),
+          ],
+        ),
       ),
     );
   }

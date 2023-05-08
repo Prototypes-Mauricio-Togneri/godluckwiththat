@@ -7,20 +7,22 @@ class PrimaryButton extends StatelessWidget {
   final IconData? icon;
   final Color color;
   final VoidCallback onPressed;
-  final double size;
+  final double textSize;
+  final bool expand;
 
   const PrimaryButton({
     required this.text,
     required this.color,
     required this.onPressed,
     this.icon,
-    this.size = 12,
+    this.textSize = 12,
+    this.expand = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: expand ? double.infinity : null,
       height: 30,
       color: color,
       child: Material(
@@ -34,6 +36,7 @@ class PrimaryButton extends StatelessWidget {
               right: 10,
             ),
             child: Row(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -43,12 +46,12 @@ class PrimaryButton extends StatelessWidget {
                     child: Icon(
                       icon,
                       color: Palette.white,
-                      size: size * 1.5,
+                      size: textSize * 1.5,
                     ),
                   ),
                 Label(
                   text: text.toUpperCase(),
-                  size: size,
+                  size: textSize,
                 ),
               ],
             ),

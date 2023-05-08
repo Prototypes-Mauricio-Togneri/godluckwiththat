@@ -161,6 +161,10 @@ class GameState extends BaseState {
     notify();
   }
 
+  void onBuildOnPatch(Patch patch) {
+    
+  }
+
   void onStartConstruction(Construction construction) {
     construction.zone.constructions.add(construction);
   }

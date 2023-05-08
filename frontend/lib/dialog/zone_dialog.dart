@@ -149,7 +149,7 @@ class BuildingEntry extends StatelessWidget {
             color: Palette.success,
             onPressed: _onSelect,
             icon: Icons.construction,
-            size: 10,
+            textSize: 10,
           ),
         ],
       ),
