@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/dialog/window_dialog.dart';
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/construction.dart';
 import 'package:gatewayguardians/models/patch.dart';
@@ -9,6 +10,7 @@ import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 import 'package:gatewayguardians/utils/navigation.dart';
 import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/widgets/custom_tooltip.dart';
 import 'package:gatewayguardians/widgets/image_asset.dart';
 import 'package:gatewayguardians/widgets/label.dart';
 import 'package:gatewayguardians/widgets/primary_button.dart';
@@ -158,12 +160,19 @@ class BuildingEntry extends StatelessWidget {
               ],
             ),
           ),
-          PrimaryButton(
-            text: 'Build',
-            color: Palette.success,
-            onPressed: _onSelect,
-            icon: Icons.construction,
-            textSize: 10,
+          CustomTooltip(
+            content: Label(
+              text: buildingType.cost(1).cost(),
+              color: Palette.white,
+              size: 10,
+            ),
+            child: PrimaryButton(
+              text: 'Build',
+              color: Palette.success,
+              onPressed: _onSelect,
+              icon: Icons.construction,
+              textSize: 10,
+            ),
           ),
         ],
       ),

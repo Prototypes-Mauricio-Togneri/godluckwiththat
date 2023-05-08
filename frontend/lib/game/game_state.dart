@@ -4,6 +4,7 @@ import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/components/zone_component.dart';
 import 'package:gatewayguardians/dialog/build_dialog.dart';
 import 'package:gatewayguardians/dialog/zone_dialog.dart';
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_component.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/json/json_match.dart';
@@ -14,6 +15,7 @@ import 'package:gatewayguardians/models/construction.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/research.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/utils/loaders.dart';
 
 class GameState extends BaseState {
@@ -180,27 +182,15 @@ class GameState extends BaseState {
     final Zone zone = construction.zone;
     zone.constructions.remove(construction);
 
-    /*final BuildingType buildingType = construction.buildingType;
-    final Building? building = zone.getBuilding(buildingType);
+    final BuildingType buildingType = construction.buildingType;
+    final ResourceMap cost = buildingType.cost(construction.toLevel);
+    colony.inventory.removeResources(cost.resources());
 
-    if (building != null) {
-      building.level = construction.toLevel;
-    } else {
-      final ResourceMap cost = buildingType.cost(construction.toLevel);
-      colony.inventory.removeResources(cost.resources());
-
-      zone.buildings.add(Building.create(
-        colony: colony,
-        zone: zone,
-        buildingType: buildingType,
-        level: construction.toLevel,
-        workers: 0,
-        location: construction.location,
-        patch: buildingType.isProducer
-            ? zone.patchForBuilding(buildingType)
-            : null,
-      ));
-    }*/
+    construction.patch.building = Building.create(
+      buildingType: buildingType,
+      level: 1,
+      workers: 0,
+    );
 
     notify();
   }

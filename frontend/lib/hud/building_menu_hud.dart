@@ -70,9 +70,7 @@ class BuildingMenuHud extends StatelessWidget {
               children: [
                 CustomTooltip(
                   content: Label(
-                    text: building.buildingType
-                        .cost(building.level + 1)
-                        .text('Cost'),
+                    text: building.buildingType.cost(building.level + 1).cost(),
                     color: Palette.white,
                     size: 10,
                   ),

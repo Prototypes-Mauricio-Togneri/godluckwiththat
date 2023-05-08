@@ -11,11 +11,15 @@ extension ResourceMapExtension on ResourceMap {
 
   int get(ResourceType resourceType) => this[resourceType] ?? 0;
 
-  String text(String title) {
-    String result = '$title:';
+  String cost() {
+    String result = '';
 
     for (final ResourceType resourceType in keys) {
-      result += '\n${resourceType.toString()}: ${get(resourceType)}';
+      if (result.isNotEmpty) {
+        result += '\n';
+      }
+
+      result += '${resourceType.toString()}: ${get(resourceType)}';
     }
 
     return result;
