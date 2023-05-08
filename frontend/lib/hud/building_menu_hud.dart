@@ -76,7 +76,7 @@ class BuildingMenuHud extends StatelessWidget {
                     color: Palette.white,
                     size: 10,
                   ),
-                  child: QuickMenuButton(
+                  child: BuildingMenuButton(
                     color: Palette.primary,
                     icon: Icons.upload,
                     size: 60,
@@ -87,7 +87,7 @@ class BuildingMenuHud extends StatelessWidget {
                   ),
                 ),
                 const HBox(10),
-                QuickMenuButton(
+                BuildingMenuButton(
                   color: Palette.success,
                   icon: Icons.add,
                   size: 60,
@@ -97,7 +97,7 @@ class BuildingMenuHud extends StatelessWidget {
                           : null,
                 ),
                 const HBox(10),
-                QuickMenuButton(
+                BuildingMenuButton(
                   color: Palette.error,
                   icon: Icons.remove,
                   size: 60,
@@ -107,7 +107,7 @@ class BuildingMenuHud extends StatelessWidget {
                 if (building.buildingType != BuildingType.headquarters)
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
-                    child: QuickMenuButton(
+                    child: BuildingMenuButton(
                       color: Palette.error,
                       icon: Icons.delete_outline_outlined,
                       size: 60,
@@ -123,13 +123,13 @@ class BuildingMenuHud extends StatelessWidget {
   }
 }
 
-class QuickMenuButton extends StatelessWidget {
+class BuildingMenuButton extends StatelessWidget {
   final Color color;
   final IconData icon;
   final double size;
   final VoidCallback? onPressed;
 
-  const QuickMenuButton({
+  const BuildingMenuButton({
     required this.color,
     required this.icon,
     required this.size,
