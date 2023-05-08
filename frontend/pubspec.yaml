@@ -46,7 +46,7 @@ flutter:
   fonts:
     - family: CustomFont
       fonts:
-        - asset: assets/fonts/NunitoSans-Regular.ttf
+        - asset: assets/fonts/Dulcinea-Serif-Bold.ttf
 
   assets:
     - assets/audio/sfx/

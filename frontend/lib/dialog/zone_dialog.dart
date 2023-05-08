@@ -99,7 +99,7 @@ class BuildingEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 150,
-      height: 154,
+      height: 155,
       margin: const EdgeInsets.only(
         right: 10,
         bottom: 10,
@@ -108,6 +108,7 @@ class BuildingEntry extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            height: 25,
             padding: const EdgeInsets.only(
               top: 5,
               bottom: 5,
