@@ -33,8 +33,6 @@ class Building {
 
   bool get canAddWorkers => level > workers;
 
-  bool get canHostWorkers => true;
-
   Colony get colony => GameState.instance.colony;
 
   void update(double dt) {}

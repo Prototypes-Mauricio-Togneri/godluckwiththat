@@ -87,24 +87,31 @@ class BuildingMenuHud extends StatelessWidget {
                         : null,
                   ),
                 ),
-                const HBox(10),
-                BuildingMenuButton(
-                  color: Palette.success,
-                  icon: Icons.add,
-                  size: 60,
-                  onPressed:
-                      (state.colony.hasFreeVillagers && building.canAddWorkers)
+                if (building.buildingType.canHostWorkers)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: BuildingMenuButton(
+                      color: Palette.success,
+                      icon: Icons.add,
+                      size: 60,
+                      onPressed: (state.colony.hasFreeVillagers &&
+                              building.canAddWorkers)
                           ? building.onAddVillager
                           : null,
-                ),
-                const HBox(10),
-                BuildingMenuButton(
-                  color: Palette.error,
-                  icon: Icons.remove,
-                  size: 60,
-                  onPressed:
-                      building.hasWorkers ? building.onRemoveVillager : null,
-                ),
+                    ),
+                  ),
+                if (building.buildingType.canHostWorkers)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: BuildingMenuButton(
+                      color: Palette.error,
+                      icon: Icons.remove,
+                      size: 60,
+                      onPressed: building.hasWorkers
+                          ? building.onRemoveVillager
+                          : null,
+                    ),
+                  ),
                 if (building.buildingType != BuildingType.headquarters)
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
