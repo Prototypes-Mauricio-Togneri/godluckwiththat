@@ -50,7 +50,7 @@ class BuildingMenuHud extends StatelessWidget {
                 ),
                 const HBox(5),
                 Label(
-                  text: '${building.workers}',
+                  text: '${building.workers} / ${building.level}',
                   size: 12,
                 ),
               ],
