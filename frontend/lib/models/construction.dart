@@ -1,19 +1,19 @@
 import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
-import 'package:gatewayguardians/types/zone_location.dart';
 
 class Construction {
   final Zone zone;
+  final Patch patch;
   final BuildingType buildingType;
-  final ZoneLocation location;
   final int toLevel;
   double remainingTime = 0;
 
   Construction({
     required this.zone,
+    required this.patch,
     required this.buildingType,
-    required this.location,
     required this.toLevel,
   }) {
     remainingTime = buildingType.constructionTime(toLevel);

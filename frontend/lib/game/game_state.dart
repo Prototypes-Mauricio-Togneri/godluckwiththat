@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flame/components.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/components/zone_component.dart';
+import 'package:gatewayguardians/dialog/build_dialog.dart';
 import 'package:gatewayguardians/dialog/zone_dialog.dart';
 import 'package:gatewayguardians/game/game_component.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
@@ -162,7 +163,13 @@ class GameState extends BaseState {
   }
 
   void onBuildOnPatch(Patch patch) {
-    
+    selectedPatch = null;
+    notify();
+
+    BuildDialog.show(
+      state: this,
+      patch: patch,
+    );
   }
 
   void onStartConstruction(Construction construction) {
@@ -199,12 +206,6 @@ class GameState extends BaseState {
   }
 
   void onDestroyBuilding(Building building) {
-    for (final Zone zone in colony.zones) {
-      if (zone.isOwned) {
-        zone.onDestroyBuilding(building);
-      }
-    }
-
     selectedBuilding = null;
     GameComponent.instance.loadMap(this);
     notify();

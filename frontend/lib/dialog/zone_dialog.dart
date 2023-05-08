@@ -5,7 +5,6 @@ import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/construction.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
-import 'package:gatewayguardians/types/zone_location.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 import 'package:gatewayguardians/utils/navigation.dart';
 import 'package:gatewayguardians/utils/palette.dart';
@@ -160,8 +159,8 @@ class BuildingEntry extends StatelessWidget {
     Navigation.pop();
     state.onStartConstruction(Construction(
       zone: zone,
+      patch: zone.patches[0], // TODO(momo): fix
       buildingType: buildingType,
-      location: ZoneLocation.north, // TODO(momo): select correct location
       toLevel: 1,
     ));
   }
