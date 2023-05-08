@@ -192,6 +192,7 @@ class GameState extends BaseState {
       workers: 0,
     );
 
+    GameComponent.instance.loadMap(this);
     notify();
   }
 
