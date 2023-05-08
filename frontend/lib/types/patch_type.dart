@@ -1,3 +1,4 @@
+import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 
@@ -29,6 +30,33 @@ enum PatchType {
     required this.sprite,
     required this.resourceType,
   });
+
+  bool allowsBuildingType(BuildingType buildingType) {
+    switch (buildingType) {
+      case BuildingType.headquarters:
+        return false;
+      case BuildingType.farm:
+        return this == crop_field;
+      case BuildingType.woodcutter:
+        return this == forest;
+      case BuildingType.quarry:
+        return this == stone_deposit;
+      case BuildingType.copper_mine:
+        return false; // TODO(momo): update
+      case BuildingType.iron_mine:
+        return false; // TODO(momo): update
+      case BuildingType.gold_mine:
+        return false; // TODO(momo): update
+      case BuildingType.house:
+      case BuildingType.warehouse:
+      case BuildingType.barracks:
+      case BuildingType.archery:
+      case BuildingType.cavalry:
+      case BuildingType.workshop:
+      case BuildingType.fortress:
+        return this == empty;
+    }
+  }
 
   @override
   String toString() => name.replaceAll('_', ' ');

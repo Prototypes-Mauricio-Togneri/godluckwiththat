@@ -50,36 +50,39 @@ class BuildDialog extends StatelessWidget {
               Row(
                 children: [
                   for (final BuildingType buildingType in zone.basic())
-                    BuildingEntry(
-                      state: state,
-                      zone: zone,
-                      patch: patch,
-                      buildingType: buildingType,
-                    ),
+                    if (patch.patchType.allowsBuildingType(buildingType))
+                      BuildingEntry(
+                        state: state,
+                        zone: zone,
+                        patch: patch,
+                        buildingType: buildingType,
+                      ),
                 ],
               ),
             if (zone.producers().isNotEmpty)
               Row(
                 children: [
                   for (final BuildingType buildingType in zone.producers())
-                    BuildingEntry(
-                      state: state,
-                      zone: zone,
-                      patch: patch,
-                      buildingType: buildingType,
-                    ),
+                    if (patch.patchType.allowsBuildingType(buildingType))
+                      BuildingEntry(
+                        state: state,
+                        zone: zone,
+                        patch: patch,
+                        buildingType: buildingType,
+                      ),
                 ],
               ),
             if (zone.military().isNotEmpty)
               Row(
                 children: [
                   for (final BuildingType buildingType in zone.military())
-                    BuildingEntry(
-                      state: state,
-                      zone: zone,
-                      patch: patch,
-                      buildingType: buildingType,
-                    ),
+                    if (patch.patchType.allowsBuildingType(buildingType))
+                      BuildingEntry(
+                        state: state,
+                        zone: zone,
+                        patch: patch,
+                        buildingType: buildingType,
+                      ),
                 ],
               ),
           ],
