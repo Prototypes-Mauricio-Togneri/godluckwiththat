@@ -21,6 +21,7 @@ class WindowDialog extends StatelessWidget {
       ),
       backgroundColor: Palette.lightGrey,
       content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
