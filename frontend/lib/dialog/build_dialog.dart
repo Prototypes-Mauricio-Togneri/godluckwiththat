@@ -44,10 +44,12 @@ class BuildDialog extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             if (zone.basic().isNotEmpty)
               Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   for (final BuildingType buildingType in zone.basic())
                     if (patch.patchType.allowsBuildingType(buildingType))
@@ -61,6 +63,7 @@ class BuildDialog extends StatelessWidget {
               ),
             if (zone.producers().isNotEmpty)
               Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   for (final BuildingType buildingType in zone.producers())
                     if (patch.patchType.allowsBuildingType(buildingType))
@@ -74,6 +77,7 @@ class BuildDialog extends StatelessWidget {
               ),
             if (zone.military().isNotEmpty)
               Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   for (final BuildingType buildingType in zone.military())
                     if (patch.patchType.allowsBuildingType(buildingType))

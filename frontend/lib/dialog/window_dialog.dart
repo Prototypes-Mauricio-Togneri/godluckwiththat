@@ -26,6 +26,7 @@ class WindowDialog extends StatelessWidget {
           Container(
             color: Palette.grey,
             child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(
                   child: Padding(
