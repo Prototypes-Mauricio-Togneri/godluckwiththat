@@ -45,17 +45,18 @@ class GameState extends BaseState {
     }
 
     for (final JsonZone jsonZone in jsonMatch.zones) {
-      zones.add(Loaders.zone(jsonZone));
+      Colony? colony;
+
+      if (jsonZone.owner.isNotEmpty) {
+        colony = _colonyByOwner(jsonZone.owner);
+      }
+
+      final Zone zone = Loaders.zone(jsonZone, colony);
+      zones.add(zone);
+      colony?.zones.add(zone);
     }
 
     colony = _colonyByOwner(Constants.PLAYER_OWNER);
-
-    for (final Zone zone in zones) {
-      if (zone.owner.isNotEmpty) {
-        final Colony colony = _colonyByOwner(zone.owner);
-        colony.zones.add(zone);
-      }
-    }
 
     Delayed.post(() {
       loaded = true;
@@ -195,7 +196,7 @@ class GameState extends BaseState {
 
   void onConquerZone(Zone zone) {
     colony.inventory.removeResources(zone.conquerCost().resources());
-    zone.conquer();
+    zone.conquer(colony);
     selectedZone = null;
 
     GameComponent.instance.loadMap(this);

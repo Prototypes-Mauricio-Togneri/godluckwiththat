@@ -28,6 +28,10 @@ class ZoneComponent extends PositionComponent {
     zoneUnexploredComponent = ZoneUnexploredComponent();
     zoneHoveredComponent = ZoneHoveredComponent();
 
+    if (!zone.isNeutral) {
+      add(ZoneBorderComponent(zone.colony!.color));
+    }
+
     if (zone.status.isUnexplored) {
       add(zoneUnexploredComponent);
     }
@@ -93,6 +97,21 @@ class ZoneHoveredComponent extends SpriteComponent {
     } else if (!hovered && (opacity > 0)) {
       opacity = (opacity - (dt * 3)).clamp(0, 1);
     }
+  }
+}
+
+class ZoneBorderComponent extends SpriteComponent {
+  final Color color;
+
+  ZoneBorderComponent(this.color);
+
+  @override
+  Future onLoad() async {
+    sprite = await getSprite(Assets.IMAGES_MAPS_MISC_ZONE_HOVERED);
+    anchor = Anchor.center;
+    decorator.addLast(PaintDecorator.tint(color));
+
+    return super.onLoad();
   }
 }
 

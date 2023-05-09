@@ -1,4 +1,6 @@
+import 'package:flutter/painting.dart';
 import 'package:gatewayguardians/app/constants.dart';
+import 'package:gatewayguardians/extensions/color_extension.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/buildings/house.dart';
@@ -11,12 +13,14 @@ import 'package:gatewayguardians/types/resource_type.dart';
 
 class Colony {
   final String owner;
+  final Color color;
   final Inventory inventory;
   final List<Zone> zones;
   int freeVillagers;
 
   Colony({
     required this.owner,
+    required this.color,
     required this.inventory,
     required this.zones,
     required this.freeVillagers,
@@ -82,6 +86,7 @@ class Colony {
 
   JsonColony get json => JsonColony(
         owner: owner,
+        color: color.toHex(),
         inventory: inventory.json,
         freeVillagers: freeVillagers,
       );

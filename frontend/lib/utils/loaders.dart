@@ -1,3 +1,4 @@
+import 'package:flame/palette.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/json/json_patch.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
@@ -10,17 +11,18 @@ import 'package:gatewayguardians/models/zone.dart';
 class Loaders {
   static Colony colony(JsonColony jsonColony) => Colony(
         owner: jsonColony.owner,
+        color: ColorExtension.fromRGBHexString(jsonColony.color),
         inventory: Inventory.fromJson(jsonColony.inventory),
         zones: [],
         freeVillagers: jsonColony.freeVillagers,
       );
 
-  static Zone zone(JsonZone jsonZone) {
+  static Zone zone(JsonZone jsonZone, Colony? colony) {
     final Zone zone = Zone(
       id: jsonZone.id,
       x: jsonZone.x,
       y: jsonZone.y,
-      owner: jsonZone.owner,
+      colony: colony,
       patches: [],
       constructions: [],
       status: jsonZone.status,

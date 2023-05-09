@@ -16,10 +16,14 @@ class JsonColony {
   @JsonKey(name: 'freeVillagers')
   final int freeVillagers;
 
+  @JsonKey(name: 'color')
+  final String color;
+
   const JsonColony({
     required this.owner,
     required this.inventory,
     required this.freeVillagers,
+    required this.color,
   });
 
   factory JsonColony.fromString(String json) =>

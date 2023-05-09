@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
+
 class Constants {
   static const String FONT_NAME = 'CustomFont';
 
   static const double VIEWPORT_SIZE = 500;
 
   static const String PLAYER_OWNER = 'player';
+  static const Color PLAYER_COLOR = Colors.blue;
 
   static const double RESOURCES_HUD_REFRESH_TIMEOUT = 1; // in seconds
 
@@ -112,6 +115,7 @@ class Constants {
   "colonies": [
     {
       "owner": "player",
+      "color": "0000ff",
       "freeVillagers": 5,
       "inventory": {
         "food": 300,
@@ -121,6 +125,7 @@ class Constants {
     },
     {
       "owner": "guardians",
+      "color": "ff0000",
       "freeVillagers": 0,
       "inventory": {
         "food": 100,
