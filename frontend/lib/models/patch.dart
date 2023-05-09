@@ -21,7 +21,7 @@ class Patch {
   bool get hasBuilding => building != null;
 
   Zone get zone {
-    for (final Zone zone in GameState.instance.colony.zones) {
+    for (final Zone zone in GameState.instance.zones) {
       if (zone.patches.contains(this)) {
         return zone;
       }

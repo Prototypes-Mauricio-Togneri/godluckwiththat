@@ -34,37 +34,60 @@ class PatchMenuHud extends StatelessWidget {
               text: patch.patchType.toString(),
               size: 12,
             ),
-            const VBox(15),
-            if (patch.patchType == PatchType.crop_field)
-              DirectBuild(
+            if (patch.zone.isOwned)
+              BuildButtons(
                 state: state,
                 patch: patch,
-                buildingType: BuildingType.farm,
-              )
-            else if (patch.patchType == PatchType.forest)
-              DirectBuild(
-                state: state,
-                patch: patch,
-                buildingType: BuildingType.woodcutter,
-              )
-            else if (patch.patchType == PatchType.stone_deposit)
-              DirectBuild(
-                state: state,
-                patch: patch,
-                buildingType: BuildingType.quarry,
-              )
-            else
-              PrimaryButton(
-                text: 'Build',
-                color: Palette.success,
-                onPressed: () => state.onBuildOnPatch(patch),
-                icon: Icons.construction,
-                textSize: 12,
-                expand: false,
               ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class BuildButtons extends StatelessWidget {
+  final GameState state;
+  final Patch patch;
+
+  const BuildButtons({
+    required this.state,
+    required this.patch,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const VBox(15),
+        if (patch.patchType == PatchType.crop_field)
+          DirectBuild(
+            state: state,
+            patch: patch,
+            buildingType: BuildingType.farm,
+          )
+        else if (patch.patchType == PatchType.forest)
+          DirectBuild(
+            state: state,
+            patch: patch,
+            buildingType: BuildingType.woodcutter,
+          )
+        else if (patch.patchType == PatchType.stone_deposit)
+          DirectBuild(
+            state: state,
+            patch: patch,
+            buildingType: BuildingType.quarry,
+          )
+        else
+          PrimaryButton(
+            text: 'Build',
+            color: Palette.success,
+            onPressed: () => state.onBuildOnPatch(patch),
+            icon: Icons.construction,
+            textSize: 12,
+            expand: false,
+          ),
+      ],
     );
   }
 }
