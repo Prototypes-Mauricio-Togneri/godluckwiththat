@@ -9,10 +9,10 @@ import 'package:gatewayguardians/widgets/custom_tooltip.dart';
 import 'package:gatewayguardians/widgets/image_asset.dart';
 import 'package:gatewayguardians/widgets/label.dart';
 
-class ResourceHud extends StatelessWidget {
+class ResourcesHud extends StatelessWidget {
   final GameState state;
 
-  const ResourceHud(this.state);
+  const ResourcesHud(this.state);
 
   @override
   Widget build(BuildContext context) {
