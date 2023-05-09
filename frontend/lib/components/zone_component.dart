@@ -34,17 +34,19 @@ class ZoneComponent extends PositionComponent {
 
     add(zoneHoveredComponent);
 
-    for (final Patch patch in zone.patches) {
-      if (patch.hasBuilding) {
-        add(ZoneBuildingComponent(
-          building: patch.building!,
-          position: (patch.location.offset * RADIUS).toVector2(),
-        ));
-      } else {
-        add(ZonePatchComponent(
-          patch: patch,
-          position: (patch.location.offset * RADIUS).toVector2(),
-        ));
+    if (zone.status.isExplored) {
+      for (final Patch patch in zone.patches) {
+        if (patch.hasBuilding) {
+          add(ZoneBuildingComponent(
+            building: patch.building!,
+            position: (patch.location.offset * RADIUS).toVector2(),
+          ));
+        } else {
+          add(ZonePatchComponent(
+            patch: patch,
+            position: (patch.location.offset * RADIUS).toVector2(),
+          ));
+        }
       }
     }
 

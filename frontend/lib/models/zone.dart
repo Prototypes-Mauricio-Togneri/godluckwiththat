@@ -29,8 +29,6 @@ class Zone {
 
   bool get isOwned => owner == Constants.PLAYER_OWNER;
 
-  bool get isUnexplored => status == ZoneStatus.unexplored;
-
   void update(double dt) {
     for (final Construction construction in constructions) {
       construction.update(dt);

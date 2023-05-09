@@ -31,7 +31,7 @@ class ZoneMenuHud extends StatelessWidget {
               text: zone.isOwned ? 'Owned' : 'Not owned',
               size: 12,
             ),
-            if (zone.isUnexplored)
+            if (zone.status.isUnexplored)
               Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: CustomTooltip(
