@@ -185,7 +185,7 @@ class GameState extends BaseState {
   }
 
   void onExploreZone(Zone zone) {
-    colony.inventory.removeResources(zone.cost().resources());
+    colony.inventory.removeResources(zone.explorationCost().resources());
     zone.explore();
     selectedZone = null;
 

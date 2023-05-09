@@ -36,17 +36,39 @@ class ZoneMenuHud extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 15),
                 child: CustomTooltip(
                   content: Label(
-                    text: zone.cost().join(),
+                    text: zone.explorationCost().join(),
                     color: Palette.white,
                     size: 10,
                   ),
                   child: PrimaryButton(
                     text: 'Explore',
                     color: Palette.success,
-                    onPressed: state.colony.inventory.has(zone.cost())
+                    onPressed:
+                        state.colony.inventory.has(zone.explorationCost())
+                            ? () => state.onExploreZone(zone)
+                            : null,
+                    icon: Icons.explore,
+                    textSize: 12,
+                    expand: false,
+                  ),
+                ),
+              )
+            else if (!zone.isOwned)
+              Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: CustomTooltip(
+                  content: Label(
+                    text: zone.conquerCost().join(),
+                    color: Palette.white,
+                    size: 10,
+                  ),
+                  child: PrimaryButton(
+                    text: 'Conquer',
+                    color: Palette.success,
+                    onPressed: state.colony.inventory.has(zone.conquerCost())
                         ? () => state.onExploreZone(zone)
                         : null,
-                    icon: Icons.explore,
+                    icon: Icons.flag,
                     textSize: 12,
                     expand: false,
                   ),

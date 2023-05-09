@@ -43,7 +43,11 @@ class Zone {
     status = ZoneStatus.explored;
   }
 
-  ResourceMap cost() => {
+  ResourceMap explorationCost() => {
+        ResourceType.food: 100,
+      };
+
+  ResourceMap conquerCost() => {
         ResourceType.food: 100,
       };
 
