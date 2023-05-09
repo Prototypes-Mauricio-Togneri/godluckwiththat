@@ -41,7 +41,7 @@ class Constants {
           "location": "west"
         },
         {
-          "patch_type": "forest",
+          "patch_type": "empty",
           "location": "east"
         },
         {
@@ -61,7 +61,20 @@ class Constants {
       "y": 889.996,
       "owner": "",
       "status": "unexplored",
-      "patches": []
+      "patches": [
+        {
+          "patch_type": "empty",
+          "location": "west"
+        },
+        {
+          "patch_type": "forest",
+          "location": "east"
+        },
+        {
+          "patch_type": "empty",
+          "location": "south"
+        }
+      ]
     },
     {
       "id": "3",
