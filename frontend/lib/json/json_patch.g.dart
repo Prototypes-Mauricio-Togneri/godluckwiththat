@@ -38,7 +38,6 @@ const _$PatchTypeEnumMap = {
 };
 
 const _$ZoneLocationEnumMap = {
-  ZoneLocation.north: 'north',
   ZoneLocation.south: 'south',
   ZoneLocation.west: 'west',
   ZoneLocation.east: 'east',

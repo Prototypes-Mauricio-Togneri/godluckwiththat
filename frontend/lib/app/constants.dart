@@ -41,10 +41,6 @@ class Constants {
           "location": "west"
         },
         {
-          "patch_type": "empty",
-          "location": "north"
-        },
-        {
           "patch_type": "forest",
           "location": "east"
         },
