@@ -38,12 +38,7 @@ class Constants {
       "patches": [
         {
           "patch_type": "crop_field",
-          "location": "west",
-          "building": {
-            "building_type": "farm",
-            "level": 1,
-            "workers": 0
-          }
+          "location": "west"
         },
         {
           "patch_type": "empty",
@@ -58,7 +53,7 @@ class Constants {
           "location": "south",
           "building": {
             "building_type": "headquarters",
-            "level": 2,
+            "level": 1,
             "workers": 0
           }
         }
@@ -108,11 +103,11 @@ class Constants {
   "colonies": [
     {
       "owner": "player",
-      "freeVillagers": 10,
+      "freeVillagers": 5,
       "inventory": {
         "food": 300,
-        "wood": 200,
-        "villager": 10
+        "wood": 300,
+        "villager": 5
       }
     },
     {
