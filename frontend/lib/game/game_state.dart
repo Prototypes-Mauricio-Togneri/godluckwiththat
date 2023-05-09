@@ -216,6 +216,10 @@ class GameState extends BaseState {
   }
 
   void onDestroyBuilding(Building building) {
+    for (final Zone zone in zones) {
+      zone.onDestroyBuilding(building);
+    }
+
     selectedBuilding = null;
     GameComponent.instance.loadMap(this);
     notify();
