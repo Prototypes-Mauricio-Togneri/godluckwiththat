@@ -112,7 +112,6 @@ class Constants {
       "inventory": {
         "food": 300,
         "wood": 200,
-        "stone": 100,
         "villager": 10
       }
     },

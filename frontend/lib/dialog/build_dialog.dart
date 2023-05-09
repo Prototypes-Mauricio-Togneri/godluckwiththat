@@ -151,7 +151,7 @@ class BuildingEntry extends StatelessWidget {
                 const ImageAsset(
                   path: Assets.IMAGES_BACKGROUNDS_ZONE,
                   width: 150,
-                  height: 150,
+                  height: 100,
                 ),
                 ImageAsset(
                   path: buildingType.sprite,

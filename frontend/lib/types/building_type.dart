@@ -125,10 +125,41 @@ enum BuildingType {
 
   bool get isProducer => produces != null;
 
-  ResourceMap cost(int level) => {
-        ResourceType.wood: level * 100,
-        ResourceType.stone: level * 10,
-      };
+  ResourceMap cost(int level) {
+    switch (this) {
+      case BuildingType.headquarters:
+      case BuildingType.house:
+      case BuildingType.warehouse:
+        return {
+          ResourceType.wood: level * 100,
+          ResourceType.stone: level * 10,
+        };
+      case BuildingType.farm:
+      case BuildingType.woodcutter:
+      case BuildingType.quarry:
+        return {
+          ResourceType.wood: level * 100,
+        };
+      case BuildingType.copper_mine:
+      case BuildingType.iron_mine:
+      case BuildingType.gold_mine:
+        return {
+          ResourceType.wood: level * 200,
+          ResourceType.stone: level * 20,
+        };
+      case BuildingType.barracks:
+      case BuildingType.archery:
+      case BuildingType.cavalry:
+      case BuildingType.workshop:
+      case BuildingType.fortress:
+        return {
+          ResourceType.wood: level * 500,
+          ResourceType.stone: level * 50,
+        };
+      default:
+        return {};
+    }
+  }
 
   double constructionTime(int level) {
     return 0;
