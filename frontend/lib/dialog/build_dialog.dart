@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/dialog/window_dialog.dart';
 import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/models/construction.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
@@ -51,14 +52,11 @@ class BuildDialog extends StatelessWidget {
                   children: [
                     for (final BuildingType buildingType in zone.basic())
                       if (patch.patchType.allowsBuildingType(buildingType))
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: BuildingBlock(
-                            state: state,
-                            zone: zone,
-                            patch: patch,
-                            buildingType: buildingType,
-                          ),
+                        DirectBuild(
+                          state: state,
+                          zone: zone,
+                          patch: patch,
+                          buildingType: buildingType,
                         ),
                   ],
                 ),
@@ -71,14 +69,11 @@ class BuildDialog extends StatelessWidget {
                   children: [
                     for (final BuildingType buildingType in zone.producers())
                       if (patch.patchType.allowsBuildingType(buildingType))
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: BuildingBlock(
-                            state: state,
-                            zone: zone,
-                            patch: patch,
-                            buildingType: buildingType,
-                          ),
+                        DirectBuild(
+                          state: state,
+                          zone: zone,
+                          patch: patch,
+                          buildingType: buildingType,
                         ),
                   ],
                 ),
@@ -91,20 +86,53 @@ class BuildDialog extends StatelessWidget {
                   children: [
                     for (final BuildingType buildingType in zone.military())
                       if (patch.patchType.allowsBuildingType(buildingType))
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: BuildingBlock(
-                            state: state,
-                            zone: zone,
-                            patch: patch,
-                            buildingType: buildingType,
-                          ),
+                        DirectBuild(
+                          state: state,
+                          zone: zone,
+                          patch: patch,
+                          buildingType: buildingType,
                         ),
                   ],
                 ),
               ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class DirectBuild extends StatelessWidget {
+  final GameState state;
+  final Zone zone;
+  final Patch patch;
+  final BuildingType buildingType;
+
+  const DirectBuild({
+    required this.state,
+    required this.zone,
+    required this.patch,
+    required this.buildingType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: BuildingBlock(
+        state: state,
+        zone: zone,
+        patch: patch,
+        buildingType: buildingType,
+        onBuild: () {
+          Navigation.pop();
+          state.onStartConstruction(Construction(
+            zone: zone,
+            patch: patch,
+            buildingType: buildingType,
+            toLevel: 1,
+          ));
+        },
       ),
     );
   }

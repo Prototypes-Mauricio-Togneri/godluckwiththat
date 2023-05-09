@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
-import 'package:gatewayguardians/models/construction.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/utils/assets.dart';
-import 'package:gatewayguardians/utils/navigation.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/custom_tooltip.dart';
 import 'package:gatewayguardians/widgets/image_asset.dart';
@@ -18,12 +16,14 @@ class BuildingBlock extends StatelessWidget {
   final Zone zone;
   final Patch patch;
   final BuildingType buildingType;
+  final VoidCallback onBuild;
 
   const BuildingBlock({
     required this.state,
     required this.zone,
     required this.patch,
     required this.buildingType,
+    required this.onBuild,
   });
 
   @override
@@ -81,7 +81,7 @@ class BuildingBlock extends StatelessWidget {
               text: 'Build',
               color: Palette.success,
               onPressed: state.colony.inventory.has(buildingType.cost(1))
-                  ? _onSelect
+                  ? onBuild
                   : null,
               icon: Icons.construction,
               textSize: 10,
@@ -90,15 +90,5 @@ class BuildingBlock extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _onSelect() {
-    Navigation.pop();
-    state.onStartConstruction(Construction(
-      zone: zone,
-      patch: patch,
-      buildingType: buildingType,
-      toLevel: 1,
-    ));
   }
 }

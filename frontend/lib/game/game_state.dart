@@ -194,7 +194,9 @@ class GameState extends BaseState {
   }
 
   void onStartConstruction(Construction construction) {
+    selectedPatch = null;
     construction.zone.constructions.add(construction);
+    notify();
   }
 
   void onConstructionCompleted(Construction construction) {

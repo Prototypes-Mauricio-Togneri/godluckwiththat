@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/models/construction.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
@@ -35,23 +36,20 @@ class PatchMenuHud extends StatelessWidget {
             ),
             const VBox(15),
             if (patch.patchType == PatchType.crop_field)
-              BuildingBlock(
+              DirectBuild(
                 state: state,
-                zone: patch.zone,
                 patch: patch,
                 buildingType: BuildingType.farm,
               )
             else if (patch.patchType == PatchType.forest)
-              BuildingBlock(
+              DirectBuild(
                 state: state,
-                zone: patch.zone,
                 patch: patch,
                 buildingType: BuildingType.woodcutter,
               )
             else if (patch.patchType == PatchType.stone_deposit)
-              BuildingBlock(
+              DirectBuild(
                 state: state,
-                zone: patch.zone,
                 patch: patch,
                 buildingType: BuildingType.quarry,
               )
@@ -67,6 +65,34 @@ class PatchMenuHud extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class DirectBuild extends StatelessWidget {
+  final GameState state;
+  final Patch patch;
+  final BuildingType buildingType;
+
+  const DirectBuild({
+    required this.state,
+    required this.patch,
+    required this.buildingType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BuildingBlock(
+      state: state,
+      zone: patch.zone,
+      patch: patch,
+      buildingType: buildingType,
+      onBuild: () => state.onStartConstruction(Construction(
+        zone: patch.zone,
+        patch: patch,
+        buildingType: buildingType,
+        toLevel: 1,
+      )),
     );
   }
 }
