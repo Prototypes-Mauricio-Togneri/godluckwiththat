@@ -1,9 +1,11 @@
 import 'package:gatewayguardians/app/constants.dart';
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/construction.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/types/building_type.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
 
 class Zone {
@@ -13,7 +15,7 @@ class Zone {
   final String owner;
   final List<Patch> patches;
   final List<Construction> constructions;
-  final ZoneStatus status;
+  ZoneStatus status;
 
   Zone({
     required this.id,
@@ -27,6 +29,8 @@ class Zone {
 
   bool get isOwned => owner == Constants.PLAYER_OWNER;
 
+  bool get isUnexplored => status == ZoneStatus.unexplored;
+
   void update(double dt) {
     for (final Construction construction in constructions) {
       construction.update(dt);
@@ -36,6 +40,14 @@ class Zone {
       patch.update(dt);
     }
   }
+
+  void explore() {
+    status = ZoneStatus.explored;
+  }
+
+  ResourceMap cost() => {
+        ResourceType.food: 100,
+      };
 
   void onStartConstruction(Construction construction) {
     constructions.add(construction);

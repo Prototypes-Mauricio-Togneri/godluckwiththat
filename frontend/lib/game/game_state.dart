@@ -3,7 +3,6 @@ import 'package:flame/components.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/components/zone_component.dart';
 import 'package:gatewayguardians/dialog/build_dialog.dart';
-import 'package:gatewayguardians/dialog/zone_dialog.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_component.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
@@ -29,8 +28,10 @@ class GameState extends BaseState {
   final List<Zone> zones = [];
   final List<Colony> colonies = [];
   late Colony colony;
-  Building? selectedBuilding;
+
+  Zone? selectedZone;
   Patch? selectedPatch;
+  Building? selectedBuilding;
 
   static late GameState instance;
 
@@ -94,18 +95,17 @@ class GameState extends BaseState {
       final List<ZoneComponent> zoneList =
           allComponents.whereType<ZoneComponent>().toList();
 
+      selectedZone = null;
+      selectedPatch = null;
+      selectedBuilding = null;
+
       for (final ZoneComponent zone in zoneList) {
         if (zone.containsPosition(position)) {
-          ZoneDialog.show(
-            state: this,
-            zone: zone.zone,
-          );
+          onZoneSelected(zone.zone);
           break;
         }
       }
 
-      selectedBuilding = null;
-      selectedPatch = null;
       notify();
     }
 
@@ -150,16 +150,26 @@ class GameState extends BaseState {
     }
   }
 
-  void onBuildingSelected(Building building) {
-    selectedBuilding = building;
+  void onZoneSelected(Zone zone) {
+    selectedZone = zone;
     selectedPatch = null;
+    selectedBuilding = null;
     clickHandled = true;
     notify();
   }
 
   void onPatchSelected(Patch patch) {
-    selectedBuilding = null;
+    selectedZone = null;
     selectedPatch = patch;
+    selectedBuilding = null;
+    clickHandled = true;
+    notify();
+  }
+
+  void onBuildingSelected(Building building) {
+    selectedZone = null;
+    selectedPatch = null;
+    selectedBuilding = building;
     clickHandled = true;
     notify();
   }
@@ -172,6 +182,15 @@ class GameState extends BaseState {
       state: this,
       patch: patch,
     );
+  }
+
+  void onExploreZone(Zone zone) {
+    colony.inventory.removeResources(zone.cost().resources());
+    zone.explore();
+    selectedZone = null;
+
+    GameComponent.instance.loadMap(this);
+    notify();
   }
 
   void onStartConstruction(Construction construction) {

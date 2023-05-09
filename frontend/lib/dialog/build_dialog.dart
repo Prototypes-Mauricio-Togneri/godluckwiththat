@@ -162,7 +162,7 @@ class BuildingEntry extends StatelessWidget {
           ),
           CustomTooltip(
             content: Label(
-              text: buildingType.cost(1).cost(),
+              text: buildingType.cost(1).join(),
               color: Palette.white,
               size: 10,
             ),

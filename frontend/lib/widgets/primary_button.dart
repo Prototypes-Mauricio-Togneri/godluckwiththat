@@ -6,7 +6,7 @@ class PrimaryButton extends StatelessWidget {
   final String text;
   final IconData? icon;
   final Color color;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final double textSize;
   final bool expand;
 
@@ -24,7 +24,7 @@ class PrimaryButton extends StatelessWidget {
     return Container(
       width: expand ? double.infinity : null,
       height: 30,
-      color: color,
+      color: (onPressed != null) ? color : Palette.lightGrey,
       child: Material(
         color: Palette.transparent,
         child: InkWell(

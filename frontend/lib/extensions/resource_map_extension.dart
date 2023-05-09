@@ -11,7 +11,7 @@ extension ResourceMapExtension on ResourceMap {
 
   int get(ResourceType resourceType) => this[resourceType] ?? 0;
 
-  String cost() {
+  String join() {
     String result = '';
 
     for (final ResourceType resourceType in keys) {
