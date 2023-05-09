@@ -169,7 +169,9 @@ class BuildingEntry extends StatelessWidget {
             child: PrimaryButton(
               text: 'Build',
               color: Palette.success,
-              onPressed: _onSelect,
+              onPressed: state.colony.inventory.has(buildingType.cost(1))
+                  ? _onSelect
+                  : null,
               icon: Icons.construction,
               textSize: 10,
             ),

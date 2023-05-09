@@ -22,6 +22,9 @@ class BuildingMenuHud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ResourceMap upgradeCost =
+        building.buildingType.cost(building.level + 1);
+
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
@@ -73,7 +76,7 @@ class BuildingMenuHud extends StatelessWidget {
               children: [
                 CustomTooltip(
                   content: Label(
-                    text: building.buildingType.cost(building.level + 1).join(),
+                    text: upgradeCost.join(),
                     color: Palette.white,
                     size: 10,
                   ),
@@ -81,8 +84,7 @@ class BuildingMenuHud extends StatelessWidget {
                     color: Palette.primary,
                     icon: Icons.upload,
                     size: 60,
-                    onPressed: state.colony.inventory
-                            .has(building.buildingType.cost(building.level + 1))
+                    onPressed: state.colony.inventory.has(upgradeCost)
                         ? building.onUpgrade
                         : null,
                   ),
