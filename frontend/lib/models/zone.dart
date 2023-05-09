@@ -12,7 +12,7 @@ class Zone {
   final String id;
   final double x;
   final double y;
-  final String owner;
+  String owner;
   final List<Patch> patches;
   final List<Construction> constructions;
   ZoneStatus status;
@@ -29,6 +29,8 @@ class Zone {
 
   bool get isOwned => owner == Constants.PLAYER_OWNER;
 
+  bool get isNeutral => owner.isEmpty;
+
   void update(double dt) {
     for (final Construction construction in constructions) {
       construction.update(dt);
@@ -41,6 +43,10 @@ class Zone {
 
   void explore() {
     status = ZoneStatus.explored;
+  }
+
+  void conquer() {
+    owner = Constants.PLAYER_OWNER;
   }
 
   ResourceMap explorationCost() => {

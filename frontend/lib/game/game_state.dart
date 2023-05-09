@@ -193,6 +193,15 @@ class GameState extends BaseState {
     notify();
   }
 
+  void onConquerZone(Zone zone) {
+    colony.inventory.removeResources(zone.conquerCost().resources());
+    zone.conquer();
+    selectedZone = null;
+
+    GameComponent.instance.loadMap(this);
+    notify();
+  }
+
   void onStartConstruction(Construction construction) {
     selectedPatch = null;
     construction.zone.constructions.add(construction);

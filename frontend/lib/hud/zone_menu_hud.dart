@@ -53,7 +53,7 @@ class ZoneMenuHud extends StatelessWidget {
                   ),
                 ),
               )
-            else if (!zone.isOwned)
+            else if (zone.isNeutral)
               Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: CustomTooltip(
@@ -66,7 +66,7 @@ class ZoneMenuHud extends StatelessWidget {
                     text: 'Conquer',
                     color: Palette.success,
                     onPressed: state.colony.inventory.has(zone.conquerCost())
-                        ? () => state.onExploreZone(zone)
+                        ? () => state.onConquerZone(zone)
                         : null,
                     icon: Icons.flag,
                     textSize: 12,
