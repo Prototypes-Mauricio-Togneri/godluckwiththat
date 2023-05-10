@@ -31,6 +31,12 @@ class Assets {
   static const String IMAGES_PATCHES_EMPTY = 'patches/empty.png';
   static const String IMAGES_PATCHES_CROP_FIELD = 'patches/crop_field.png';
   static const String IMAGES_BACKGROUNDS_ZONE = 'backgrounds/zone.jpg';
+  static const String IMAGES_MAPS_MISC_BORDER6 = 'maps/misc/border6.png';
+  static const String IMAGES_MAPS_MISC_BORDER4 = 'maps/misc/border4.png';
+  static const String IMAGES_MAPS_MISC_BORDER2 = 'maps/misc/border2.png';
+  static const String IMAGES_MAPS_MISC_BORDER5 = 'maps/misc/border5.png';
+  static const String IMAGES_MAPS_MISC_BORDER1 = 'maps/misc/border1.png';
+  static const String IMAGES_MAPS_MISC_BORDER3 = 'maps/misc/border3.png';
   static const String IMAGES_MAPS_MISC_ZONE_HOVERED =
       'maps/misc/zone_hovered.png';
   static const String IMAGES_MAPS_MISC_ZONE_UNEXPLORED =
