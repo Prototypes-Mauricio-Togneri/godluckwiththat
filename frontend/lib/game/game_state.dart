@@ -237,6 +237,16 @@ class GameState extends BaseState {
     notify();
   }
 
+  Zone? zoneById(String id) {
+    for (final Zone zone in zones) {
+      if (zone.id == id) {
+        return zone;
+      }
+    }
+
+    return null;
+  }
+
   void onOpenMainMenu() {}
 
   void onOpenReportsMenu() {}

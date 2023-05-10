@@ -28,9 +28,37 @@ class Zone {
     required this.status,
   });
 
+  int get i => int.parse(id.split(',')[0]);
+
+  int get j => int.parse(id.split(',')[1]);
+
   bool get isOwned => colony == GameState.instance.colony;
 
   bool get isNeutral => colony == null;
+
+  String get neighbor1Id => '$i,${j - 1}';
+
+  String get neighbor2Id => '${i + 1},${j - 1}';
+
+  String get neighbor3Id => '${i + 1},$j';
+
+  String get neighbor4Id => '$i,${j + 1}';
+
+  String get neighbor5Id => '${i - 1},${j + 1}';
+
+  String get neighbor6Id => '${i - 1},$j';
+
+  Zone? get neighbor1 => GameState.instance.zoneById(neighbor1Id);
+
+  Zone? get neighbor2 => GameState.instance.zoneById(neighbor2Id);
+
+  Zone? get neighbor3 => GameState.instance.zoneById(neighbor3Id);
+
+  Zone? get neighbor4 => GameState.instance.zoneById(neighbor4Id);
+
+  Zone? get neighbor5 => GameState.instance.zoneById(neighbor5Id);
+
+  Zone? get neighbor6 => GameState.instance.zoneById(neighbor6Id);
 
   void update(double dt) {
     for (final Construction construction in constructions) {

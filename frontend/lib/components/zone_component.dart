@@ -29,7 +29,12 @@ class ZoneComponent extends PositionComponent {
     zoneHoveredComponent = ZoneHoveredComponent();
 
     if (!zone.isNeutral) {
-      add(ZoneBorderComponent(zone.colony!.color));
+      _checkBorder(zone.neighbor1, Assets.IMAGES_MAPS_MISC_BORDER1);
+      _checkBorder(zone.neighbor2, Assets.IMAGES_MAPS_MISC_BORDER2);
+      _checkBorder(zone.neighbor3, Assets.IMAGES_MAPS_MISC_BORDER3);
+      _checkBorder(zone.neighbor4, Assets.IMAGES_MAPS_MISC_BORDER4);
+      _checkBorder(zone.neighbor5, Assets.IMAGES_MAPS_MISC_BORDER5);
+      _checkBorder(zone.neighbor6, Assets.IMAGES_MAPS_MISC_BORDER6);
     }
 
     if (zone.status.isUnexplored) {
@@ -66,6 +71,15 @@ class ZoneComponent extends PositionComponent {
   void onHoverEnter() => zoneHoveredComponent.onHoverEnter();
 
   void onHoverLeave() => zoneHoveredComponent.onHoverLeave();
+
+  void _checkBorder(Zone? neighborZone, String image) {
+    if ((neighborZone == null) || (neighborZone.colony != zone.colony)) {
+      add(ZoneBorderComponent(
+        image: image,
+        color: zone.colony!.color,
+      ));
+    }
+  }
 }
 
 class ZoneHoveredComponent extends SpriteComponent {
@@ -101,13 +115,17 @@ class ZoneHoveredComponent extends SpriteComponent {
 }
 
 class ZoneBorderComponent extends SpriteComponent {
+  final String image;
   final Color color;
 
-  ZoneBorderComponent(this.color);
+  ZoneBorderComponent({
+    required this.image,
+    required this.color,
+  });
 
   @override
   Future onLoad() async {
-    sprite = await getSprite(Assets.IMAGES_MAPS_MISC_ZONE_HOVERED);
+    sprite = await getSprite(image);
     anchor = Anchor.center;
     decorator.addLast(PaintDecorator.tint(color));
 

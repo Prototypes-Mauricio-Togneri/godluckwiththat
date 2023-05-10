@@ -33,7 +33,7 @@ class Constants {
   },
   "zones": [
     {
-      "id": "1",
+      "id": "0,0",
       "x": 246.071,
       "y": 1050.502,
       "owner": "player",
@@ -59,7 +59,7 @@ class Constants {
       ]
     },
     {
-      "id": "2",
+      "id": "1,-1",
       "x": 515.647,
       "y": 889.996,
       "owner": "",
@@ -80,7 +80,7 @@ class Constants {
       ]
     },
     {
-      "id": "3",
+      "id": "1,-2",
       "x": 785.224,
       "y": 729.49,
       "owner": "",
@@ -88,7 +88,7 @@ class Constants {
       "patches": []
     },
     {
-      "id": "4",
+      "id": "2,-2",
       "x": 514.778,
       "y": 570.533,
       "owner": "",
@@ -96,7 +96,7 @@ class Constants {
       "patches": []
     },
     {
-      "id": "5",
+      "id": "2,-3",
       "x": 784.355,
       "y": 410.026,
       "owner": "",
@@ -104,7 +104,7 @@ class Constants {
       "patches": []
     },
     {
-      "id": "6",
+      "id": "3,-4",
       "x": 1053.932,
       "y": 249.508,
       "owner": "guardians",
