@@ -81,16 +81,16 @@ class Constants {
     },
     {
       "id": "1,-2",
-      "x": 785.224,
-      "y": 729.49,
+      "x": 514.778,
+      "y": 570.533,
       "owner": "",
       "status": "unexplored",
       "patches": []
     },
     {
       "id": "2,-2",
-      "x": 514.778,
-      "y": 570.533,
+      "x": 785.224,
+      "y": 729.49,
       "owner": "",
       "status": "unexplored",
       "patches": []
