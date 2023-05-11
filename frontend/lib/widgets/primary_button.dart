@@ -83,10 +83,16 @@ class ButtonContent extends StatelessWidget {
 }
 
 class HexShape extends CustomPainter {
-  final Paint _paint = Paint();
+  final Paint _paintBackground = Paint();
+  final Paint _paintBorder = Paint();
 
   HexShape(Color color) {
-    _paint.color = color;
+    _paintBackground.color = color;
+    _paintBorder.color = Palette.white;
+    _paintBorder.style = PaintingStyle.stroke;
+    _paintBorder.strokeWidth = 2;
+    _paintBorder.strokeCap = StrokeCap.round;
+    _paintBorder.strokeJoin = StrokeJoin.round;
   }
 
   @override
@@ -100,7 +106,8 @@ class HexShape extends CustomPainter {
     path.lineTo(size.width * 1 / 8, size.height);
     path.close();
 
-    canvas.drawPath(path, _paint);
+    canvas.drawPath(path, _paintBackground);
+    canvas.drawPath(path, _paintBorder);
   }
 
   @override
