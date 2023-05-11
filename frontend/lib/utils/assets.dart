@@ -34,6 +34,8 @@ class Assets {
   static const String IMAGES_MAPS_MISC_BORDER6 = 'maps/misc/border6.png';
   static const String IMAGES_MAPS_MISC_BORDER4 = 'maps/misc/border4.png';
   static const String IMAGES_MAPS_MISC_BORDER2 = 'maps/misc/border2.png';
+  static const String IMAGES_MAPS_MISC_BUILDING_SELECTED =
+      'maps/misc/building_selected.png';
   static const String IMAGES_MAPS_MISC_BORDER5 = 'maps/misc/border5.png';
   static const String IMAGES_MAPS_MISC_BORDER1 = 'maps/misc/border1.png';
   static const String IMAGES_MAPS_MISC_BORDER3 = 'maps/misc/border3.png';

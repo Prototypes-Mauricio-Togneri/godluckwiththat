@@ -46,15 +46,29 @@ class ZoneComponent extends PositionComponent {
     if (zone.status.isExplored) {
       for (final Patch patch in zone.patches) {
         if (patch.hasBuilding) {
+          final Vector2 buildingPosition =
+              (patch.location.offset * RADIUS).toVector2();
+
           add(ZoneBuildingComponent(
             building: patch.building!,
-            position: (patch.location.offset * RADIUS).toVector2(),
+            position: buildingPosition,
           ));
+
+          if (GameState.instance.selectedBuilding == patch.building) {
+            add(ZoneElementSelectedComponent(position: buildingPosition));
+          }
         } else {
+          final Vector2 patchPosition =
+              (patch.location.offset * RADIUS).toVector2();
+
           add(ZonePatchComponent(
             patch: patch,
-            position: (patch.location.offset * RADIUS).toVector2(),
+            position: patchPosition,
           ));
+
+          if (GameState.instance.selectedPatch == patch) {
+            add(ZoneElementSelectedComponent(position: patchPosition));
+          }
         }
       }
     }
@@ -229,5 +243,19 @@ class ZoneBuildingComponent extends SpriteComponent with Tappable {
     decorator.removeLast();
 
     return true;
+  }
+}
+
+class ZoneElementSelectedComponent extends SpriteComponent {
+  ZoneElementSelectedComponent({
+    required super.position,
+  });
+
+  @override
+  Future onLoad() async {
+    sprite = await getSprite(Assets.IMAGES_MAPS_MISC_BUILDING_SELECTED);
+    anchor = Anchor.center;
+
+    return super.onLoad();
   }
 }

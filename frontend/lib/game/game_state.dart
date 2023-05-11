@@ -108,6 +108,7 @@ class GameState extends BaseState {
       }
 
       notify();
+      GameComponent.instance.loadMap(this);
     }
 
     clickHandled = false;
@@ -156,7 +157,9 @@ class GameState extends BaseState {
     selectedPatch = null;
     selectedBuilding = null;
     clickHandled = true;
+
     notify();
+    GameComponent.instance.loadMap(this);
   }
 
   void onPatchSelected(Patch patch) {
@@ -164,7 +167,9 @@ class GameState extends BaseState {
     selectedPatch = patch;
     selectedBuilding = null;
     clickHandled = true;
+
     notify();
+    GameComponent.instance.loadMap(this);
   }
 
   void onBuildingSelected(Building building) {
@@ -172,12 +177,16 @@ class GameState extends BaseState {
     selectedPatch = null;
     selectedBuilding = building;
     clickHandled = true;
+
     notify();
+    GameComponent.instance.loadMap(this);
   }
 
   void onBuildOnPatch(Patch patch) {
     selectedPatch = null;
+
     notify();
+    GameComponent.instance.loadMap(this);
 
     BuildDialog.show(
       state: this,
@@ -190,8 +199,8 @@ class GameState extends BaseState {
     zone.explore();
     selectedZone = null;
 
-    GameComponent.instance.loadMap(this);
     notify();
+    GameComponent.instance.loadMap(this);
   }
 
   void onConquerZone(Zone zone) {
@@ -199,8 +208,8 @@ class GameState extends BaseState {
     zone.conquer(colony);
     selectedZone = null;
 
-    GameComponent.instance.loadMap(this);
     notify();
+    GameComponent.instance.loadMap(this);
   }
 
   void onStartConstruction(Construction construction) {
@@ -223,8 +232,8 @@ class GameState extends BaseState {
       workers: 0,
     );
 
-    GameComponent.instance.loadMap(this);
     notify();
+    GameComponent.instance.loadMap(this);
   }
 
   void onDestroyBuilding(Building building) {
@@ -233,8 +242,9 @@ class GameState extends BaseState {
     }
 
     selectedBuilding = null;
-    GameComponent.instance.loadMap(this);
+
     notify();
+    GameComponent.instance.loadMap(this);
   }
 
   Zone? zoneById(String id) {
