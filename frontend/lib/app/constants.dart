@@ -118,7 +118,7 @@ class Constants {
       "color": "0000ff",
       "freeVillagers": 5,
       "inventory": {
-        "food": 300,
+        "food": 1000,
         "wood": 300,
         "villager": 5
       }

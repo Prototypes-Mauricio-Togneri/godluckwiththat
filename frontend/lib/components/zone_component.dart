@@ -127,6 +127,7 @@ class ZoneBorderComponent extends SpriteComponent {
   Future onLoad() async {
     sprite = await getSprite(image);
     anchor = Anchor.center;
+    opacity = 0.75;
     decorator.addLast(PaintDecorator.tint(color));
 
     return super.onLoad();
