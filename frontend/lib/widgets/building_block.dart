@@ -53,39 +53,50 @@ class BuildingBlock extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            width: 150,
-            height: 100,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                const ImageAsset(
-                  path: Assets.IMAGES_BACKGROUNDS_ZONE,
-                  width: 150,
-                  height: 100,
+          Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                width: 150,
+                height: 130,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    const ImageAsset(
+                      path: Assets.IMAGES_BACKGROUNDS_ZONE,
+                      width: 150,
+                      height: 130,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 30),
+                      child: ImageAsset(
+                        path: buildingType.sprite,
+                        size: 60,
+                      ),
+                    ),
+                  ],
                 ),
-                ImageAsset(
-                  path: buildingType.sprite,
-                  size: 60,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: CustomTooltip(
+                  content: Label(
+                    text: buildingType.cost(1).join(),
+                    color: Palette.white,
+                    size: 10,
+                  ),
+                  child: PrimaryButton(
+                    text: 'Build',
+                    color: Palette.success,
+                    onPressed: state.colony.inventory.has(buildingType.cost(1))
+                        ? onBuild
+                        : null,
+                    icon: Icons.construction,
+                    textSize: 10,
+                  ),
                 ),
-              ],
-            ),
-          ),
-          CustomTooltip(
-            content: Label(
-              text: buildingType.cost(1).join(),
-              color: Palette.white,
-              size: 10,
-            ),
-            child: PrimaryButton(
-              text: 'Build',
-              color: Palette.success,
-              onPressed: state.colony.inventory.has(buildingType.cost(1))
-                  ? onBuild
-                  : null,
-              icon: Icons.construction,
-              textSize: 10,
-            ),
+              ),
+            ],
           ),
         ],
       ),
