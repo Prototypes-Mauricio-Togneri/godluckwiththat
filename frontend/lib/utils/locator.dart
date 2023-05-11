@@ -21,13 +21,14 @@ class Locator {
 
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-          apiKey: 'AIzaSyDWAZs8_dNgfZl6EpLnTI7_P-JRvh4SzBI',
-          projectId: 'tensionplanet',
-          messagingSenderId: '589993680424',
-          appId: '1:589993680424:web:3f2329afb4dc7c37819f1d',
-          authDomain: 'tensionplanet.firebaseapp.com',
-          storageBucket: 'tensionplanet.appspot.com',
-          measurementId: 'G-P4V5HZYCMR'),
+        apiKey: 'AIzaSyBo50IUbmmoh955SaXT1t3TRFz0NK4ENjQ',
+        authDomain: 'gateway-guardians.firebaseapp.com',
+        projectId: 'gateway-guardians',
+        storageBucket: 'gateway-guardians.appspot.com',
+        messagingSenderId: '925734356060',
+        appId: '1:925734356060:web:fc665f1a549f75471d9299',
+        measurementId: 'G-XLJFFV543L',
+      ),
     );
 
     locator.registerSingleton<Navigation>(Navigation());

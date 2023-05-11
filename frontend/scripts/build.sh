@@ -11,7 +11,6 @@ mkdir ${OUTPUT}
 cp -r build/web/** ${OUTPUT}
 cp -r "${OUTPUT}/assets/assets/audio" "${OUTPUT}/assets/"
 cp -r "${OUTPUT}/assets/assets/images" "${OUTPUT}/assets/"
-cp -r "${OUTPUT}/assets/assets/tiles" "${OUTPUT}/assets/"
 
 cd ../website
 firebase deploy --only hosting
