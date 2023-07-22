@@ -5,8 +5,8 @@ import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
-import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/zone_type.dart';
 
 class Loaders {
   static Colony colony(JsonColony jsonColony) => Colony(
@@ -22,17 +22,18 @@ class Loaders {
       id: jsonZone.id,
       x: jsonZone.x,
       y: jsonZone.y,
+      zoneType: ZoneType.grass,
       patches: [],
       owner: '',
       status: jsonZone.status,
     );
 
-    for (final JsonPatch jsonPatch in jsonZone.patches) {
+    /*for (final JsonPatch jsonPatch in jsonZone.patches) {
       zone.patches.add(Patch(
         patchType: jsonPatch.patchType,
         building: building(jsonPatch),
       ));
-    }
+    }*/
 
     return zone;
   }

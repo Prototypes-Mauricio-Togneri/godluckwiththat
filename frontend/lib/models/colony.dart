@@ -2,11 +2,7 @@ import 'package:flutter/painting.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/color_extension.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
-import 'package:gatewayguardians/models/buildings/building.dart';
-import 'package:gatewayguardians/models/buildings/house.dart';
-import 'package:gatewayguardians/models/buildings/producer.dart';
 import 'package:gatewayguardians/models/inventory.dart';
-import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/resource.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
@@ -32,9 +28,9 @@ class Colony {
 
   // resources generated per turn
   int productionOf(ResourceType resourceType) {
-    double total = 0;
+    const double total = 0;
 
-    for (final Zone zone in zones) {
+    /*for (final Zone zone in zones) {
       for (final Patch patch in zone.patches) {
         if (patch.hasBuilding) {
           final Building building = patch.building!;
@@ -45,15 +41,15 @@ class Colony {
           }
         }
       }
-    }
+    }*/
 
     return total.truncate();
   }
 
   int get populationLimit {
-    int total = 0;
+    const int total = 0;
 
-    for (final Zone zone in zones) {
+    /*for (final Zone zone in zones) {
       for (final Patch patch in zone.patches) {
         if (patch.hasBuilding) {
           final Building building = patch.building!;
@@ -63,7 +59,7 @@ class Colony {
           }
         }
       }
-    }
+    }*/
 
     return total + Constants.HEADQUARTERS_POPULATION;
   }

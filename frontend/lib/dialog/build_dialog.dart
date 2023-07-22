@@ -2,7 +2,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/dialog/window_dialog.dart';
 import 'package:gatewayguardians/game/game_state.dart';
-import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/utils/navigation.dart';
@@ -10,13 +9,11 @@ import 'package:gatewayguardians/utils/palette.dart';
 
 class BuildDialog extends StatelessWidget {
   final GameState state;
-  final Patch patch;
 
-  const BuildDialog._(this.state, this.patch);
+  const BuildDialog._(this.state);
 
   static DialogController show({
     required GameState state,
-    required Patch patch,
   }) {
     final BuildContext context = Navigation.context;
 
@@ -24,7 +21,7 @@ class BuildDialog extends StatelessWidget {
       context: context,
       barrierDismissible: true,
       barrierColor: Palette.transparent,
-      builder: (context) => BuildDialog._(state, patch),
+      builder: (context) => BuildDialog._(state),
     );
 
     return DialogController(context);
@@ -103,13 +100,11 @@ class BuildDialog extends StatelessWidget {
 class DirectBuild extends StatelessWidget {
   final GameState state;
   final Zone zone;
-  final Patch patch;
   final BuildingType buildingType;
 
   const DirectBuild({
     required this.state,
     required this.zone,
-    required this.patch,
     required this.buildingType,
   });
 
