@@ -7,7 +7,6 @@ import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/utils/navigation.dart';
 import 'package:gatewayguardians/utils/palette.dart';
-import 'package:gatewayguardians/widgets/building_block.dart';
 
 class BuildDialog extends StatelessWidget {
   final GameState state;
@@ -116,23 +115,6 @@ class DirectBuild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: BuildingBlock(
-        state: state,
-        zone: zone,
-        patch: patch,
-        buildingType: buildingType,
-        onBuild: () => {
-          Navigation.pop()
-          //state.onStartConstruction(Construction(
-          //  zone: zone,
-          //  patch: patch,
-          //  buildingType: buildingType,
-          //  toLevel: 1,
-          //));
-        },
-      ),
-    );
+    return const Empty();
   }
 }

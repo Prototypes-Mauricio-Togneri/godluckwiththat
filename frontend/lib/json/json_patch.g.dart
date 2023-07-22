@@ -31,7 +31,6 @@ Map<String, dynamic> _$JsonPatchToJson(JsonPatch instance) {
 }
 
 const _$PatchTypeEnumMap = {
-  PatchType.empty: 'empty',
   PatchType.crop_field: 'crop_field',
   PatchType.forest: 'forest',
   PatchType.stone_deposit: 'stone_deposit',

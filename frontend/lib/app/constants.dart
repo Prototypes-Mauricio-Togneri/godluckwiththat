@@ -44,11 +44,11 @@ class Constants {
           "location": "west"
         },
         {
-          "patch_type": "empty",
+          "patch_type": "crop_field",
           "location": "east"
         },
         {
-          "patch_type": "empty",
+          "patch_type": "crop_field",
           "location": "south",
           "building": {
             "building_type": "headquarters",
@@ -66,7 +66,7 @@ class Constants {
       "status": "unexplored",
       "patches": [
         {
-          "patch_type": "empty",
+          "patch_type": "crop_field",
           "location": "west"
         },
         {
@@ -74,7 +74,7 @@ class Constants {
           "location": "east"
         },
         {
-          "patch_type": "empty",
+          "patch_type": "crop_field",
           "location": "south"
         }
       ]

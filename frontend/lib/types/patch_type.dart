@@ -3,10 +3,6 @@ import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 
 enum PatchType {
-  empty(
-    sprite: Assets.IMAGES_PATCHES_EMPTY,
-    resourceType: ResourceType.villager,
-  ),
   crop_field(
     sprite: Assets.IMAGES_PATCHES_CROP_FIELD,
     resourceType: ResourceType.food,
@@ -54,7 +50,7 @@ enum PatchType {
       case BuildingType.cavalry:
       case BuildingType.workshop:
       case BuildingType.fortress:
-        return this == empty;
+        return true;
     }
   }
 
