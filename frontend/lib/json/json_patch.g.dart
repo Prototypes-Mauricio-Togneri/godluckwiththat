@@ -8,7 +8,6 @@ part of 'json_patch.dart';
 
 JsonPatch _$JsonPatchFromJson(Map<String, dynamic> json) => JsonPatch(
       patchType: $enumDecode(_$PatchTypeEnumMap, json['patch_type']),
-      location: $enumDecode(_$ZoneLocationEnumMap, json['location']),
       building: json['building'] == null
           ? null
           : JsonBuilding.fromJson(json['building'] as Map<String, dynamic>),
@@ -17,7 +16,6 @@ JsonPatch _$JsonPatchFromJson(Map<String, dynamic> json) => JsonPatch(
 Map<String, dynamic> _$JsonPatchToJson(JsonPatch instance) {
   final val = <String, dynamic>{
     'patch_type': _$PatchTypeEnumMap[instance.patchType]!,
-    'location': _$ZoneLocationEnumMap[instance.location]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -34,10 +32,4 @@ const _$PatchTypeEnumMap = {
   PatchType.crop_field: 'crop_field',
   PatchType.forest: 'forest',
   PatchType.stone_deposit: 'stone_deposit',
-};
-
-const _$ZoneLocationEnumMap = {
-  ZoneLocation.south: 'south',
-  ZoneLocation.west: 'west',
-  ZoneLocation.east: 'east',
 };

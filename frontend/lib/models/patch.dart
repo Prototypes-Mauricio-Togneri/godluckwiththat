@@ -4,16 +4,13 @@ import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
-import 'package:gatewayguardians/types/zone_location.dart';
 
 class Patch {
   final PatchType patchType;
-  final ZoneLocation location;
   Building? building;
 
   Patch({
     required this.patchType,
-    required this.location,
     required this.building,
   });
 
@@ -25,8 +22,7 @@ class Patch {
         return zone;
       }
     }*/
-
-    throw Exception('Zone not found for patch at $location');
+    throw Exception('Zone not found for patch a');
   }
 
   void update(double dt) {
@@ -42,7 +38,6 @@ class Patch {
 
   JsonPatch get json => JsonPatch(
         patchType: patchType,
-        location: location,
         building: (building != null)
             ? JsonBuilding(
                 buildingType: building!.buildingType,

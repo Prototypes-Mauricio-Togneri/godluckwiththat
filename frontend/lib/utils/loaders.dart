@@ -31,7 +31,6 @@ class Loaders {
     for (final JsonPatch jsonPatch in jsonZone.patches) {
       zone.patches.add(Patch(
         patchType: jsonPatch.patchType,
-        location: jsonPatch.location,
         building: building(jsonPatch),
       ));
     }
