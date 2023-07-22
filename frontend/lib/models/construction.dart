@@ -1,4 +1,3 @@
-import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
@@ -23,7 +22,7 @@ class Construction {
     remainingTime -= dt;
 
     if (remainingTime < 0) {
-      GameState.instance.onConstructionCompleted(this);
+      //GameState.instance.onConstructionCompleted(this);
     }
   }
 }

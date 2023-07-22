@@ -2,7 +2,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/dialog/window_dialog.dart';
 import 'package:gatewayguardians/game/game_state.dart';
-import 'package:gatewayguardians/models/construction.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
@@ -124,14 +123,14 @@ class DirectBuild extends StatelessWidget {
         zone: zone,
         patch: patch,
         buildingType: buildingType,
-        onBuild: () {
-          Navigation.pop();
-          state.onStartConstruction(Construction(
-            zone: zone,
-            patch: patch,
-            buildingType: buildingType,
-            toLevel: 1,
-          ));
+        onBuild: () => {
+          Navigation.pop()
+          //state.onStartConstruction(Construction(
+          //  zone: zone,
+          //  patch: patch,
+          //  buildingType: buildingType,
+          //  toLevel: 1,
+          //));
         },
       ),
     );

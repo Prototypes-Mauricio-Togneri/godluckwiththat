@@ -1,7 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
-import 'package:gatewayguardians/models/construction.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
@@ -110,12 +109,7 @@ class DirectBuild extends StatelessWidget {
       zone: patch.zone,
       patch: patch,
       buildingType: buildingType,
-      onBuild: () => state.onStartConstruction(Construction(
-        zone: patch.zone,
-        patch: patch,
-        buildingType: buildingType,
-        toLevel: 1,
-      )),
+      onBuild: () => {},
     );
   }
 }

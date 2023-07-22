@@ -1,5 +1,4 @@
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
-import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
@@ -32,7 +31,7 @@ class Zone {
 
   int get j => int.parse(id.split(',')[1]);
 
-  bool get isOwned => colony == GameState.instance.colony;
+  bool get isOwned => true; //colony == GameState.instance.colony;
 
   bool get isNeutral => colony == null;
 
@@ -48,17 +47,17 @@ class Zone {
 
   String get neighbor6Id => '${i - 1},$j';
 
-  Zone? get neighbor1 => GameState.instance.zoneById(neighbor1Id);
+  Zone? get neighbor1 => null; //GameState.instance.zoneById(neighbor1Id);
 
-  Zone? get neighbor2 => GameState.instance.zoneById(neighbor2Id);
+  Zone? get neighbor2 => null; //GameState.instance.zoneById(neighbor2Id);
 
-  Zone? get neighbor3 => GameState.instance.zoneById(neighbor3Id);
+  Zone? get neighbor3 => null; //GameState.instance.zoneById(neighbor3Id);
 
-  Zone? get neighbor4 => GameState.instance.zoneById(neighbor4Id);
+  Zone? get neighbor4 => null; //GameState.instance.zoneById(neighbor4Id);
 
-  Zone? get neighbor5 => GameState.instance.zoneById(neighbor5Id);
+  Zone? get neighbor5 => null; //GameState.instance.zoneById(neighbor5Id);
 
-  Zone? get neighbor6 => GameState.instance.zoneById(neighbor6Id);
+  Zone? get neighbor6 => null; //GameState.instance.zoneById(neighbor6Id);
 
   void update(double dt) {
     for (final Construction construction in constructions) {

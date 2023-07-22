@@ -3,7 +3,6 @@ import 'package:flame/extensions.dart';
 import 'package:flame/input.dart';
 import 'package:flame/rendering.dart';
 import 'package:gatewayguardians/extensions/sprite_component_extension.dart';
-import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/zone.dart';
@@ -54,9 +53,9 @@ class ZoneComponent extends PositionComponent {
             position: buildingPosition,
           ));
 
-          if (GameState.instance.selectedBuilding == patch.building) {
+          /*if (GameState.instance.selectedBuilding == patch.building) {
             add(ZoneElementSelectedComponent(position: buildingPosition));
-          }
+          }*/
         } else {
           final Vector2 patchPosition =
               (patch.location.offset * RADIUS).toVector2();
@@ -66,9 +65,9 @@ class ZoneComponent extends PositionComponent {
             position: patchPosition,
           ));
 
-          if (GameState.instance.selectedPatch == patch) {
+          /*if (GameState.instance.selectedPatch == patch) {
             add(ZoneElementSelectedComponent(position: patchPosition));
-          }
+          }*/
         }
       }
     }
@@ -178,7 +177,7 @@ class ZonePatchComponent extends SpriteComponent with Tappable {
 
   @override
   bool onTapDown(TapDownInfo info) {
-    GameState.instance.onPatchSelected(patch);
+    //GameState.instance.onPatchSelected(patch);
 
     return true;
   }
@@ -222,7 +221,7 @@ class ZoneBuildingComponent extends SpriteComponent with Tappable {
 
   @override
   bool onTapDown(TapDownInfo info) {
-    GameState.instance.onBuildingSelected(building);
+    //GameState.instance.onBuildingSelected(building);
 
     return true;
   }

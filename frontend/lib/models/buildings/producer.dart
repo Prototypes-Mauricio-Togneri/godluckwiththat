@@ -28,7 +28,7 @@ class Producer extends Building {
 
     if (resourcesProduced >= 1) {
       resourcesProduced -= resources;
-      colony.addResource(resourceType);
+      //colony.addResource(resourceType);
     }
   }
 }

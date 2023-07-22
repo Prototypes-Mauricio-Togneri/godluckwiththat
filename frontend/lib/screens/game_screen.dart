@@ -1,7 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gatewayguardians/game/game_component.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/hud/hud_container.dart';
 import 'package:gatewayguardians/json/json_match.dart';
@@ -10,18 +9,13 @@ import 'package:gatewayguardians/widgets/map_widget.dart';
 
 class GameScreen extends StatelessWidget {
   final GameState state;
-  final GameComponent game;
 
-  const GameScreen(this.state, this.game);
+  const GameScreen(this.state);
 
   factory GameScreen.instance(JsonMatch jsonMatch) {
     final GameState state = GameState(jsonMatch);
-    GameState.instance = state;
 
-    final GameComponent game = GameComponent();
-    GameComponent.instance = game;
-
-    return GameScreen(state, game);
+    return GameScreen(state);
   }
 
   @override

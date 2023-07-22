@@ -1,6 +1,4 @@
 import 'package:gatewayguardians/dialog/confirmation_dialog.dart';
-import 'package:gatewayguardians/extensions/resource_map_extension.dart';
-import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
 import 'package:gatewayguardians/models/buildings/barracks.dart';
 import 'package:gatewayguardians/models/buildings/cavalry.dart';
@@ -15,7 +13,6 @@ import 'package:gatewayguardians/models/buildings/quarry.dart';
 import 'package:gatewayguardians/models/buildings/warehouse.dart';
 import 'package:gatewayguardians/models/buildings/woodcutter.dart';
 import 'package:gatewayguardians/models/buildings/workshop.dart';
-import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 
 class Building {
@@ -33,34 +30,34 @@ class Building {
 
   bool get canAddWorkers => level > workers;
 
-  Colony get colony => GameState.instance.colony;
+  //Colony get colony => GameState.instance.colony;
 
   void update(double dt) {}
 
   void onUpgrade() {
-    final ResourceMap cost = buildingType.cost(level + 1);
-    colony.inventory.removeResources(cost.resources());
-    level++;
-    GameState.instance.notify();
+    //final ResourceMap cost = buildingType.cost(level + 1);
+    //colony.inventory.removeResources(cost.resources());
+    //level++;
+    //GameState.instance.notify();
   }
 
   void onAddVillager() {
-    if (colony.hasFreeVillagers) {
+    /*if (colony.hasFreeVillagers) {
       workers += colony.removeFreeVillager();
       GameState.instance.notify();
-    }
+    }*/
   }
 
   void onRemoveVillager() {
-    if (hasWorkers) {
+    /*if (hasWorkers) {
       workers -= colony.addFreeVillager();
       GameState.instance.notify();
-    }
+    }*/
   }
 
   void onDestroy() => ConfirmationDialog.destroyBuilding(onAccept: _destroy);
 
-  void _destroy() => GameState.instance.onDestroyBuilding(this);
+  void _destroy() => {}; //GameState.instance.onDestroyBuilding(this);
 
   factory Building.create({
     required BuildingType buildingType,

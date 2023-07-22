@@ -1,20 +1,14 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flame/components.dart';
 import 'package:gatewayguardians/app/constants.dart';
-import 'package:gatewayguardians/components/zone_component.dart';
-import 'package:gatewayguardians/dialog/build_dialog.dart';
-import 'package:gatewayguardians/extensions/resource_map_extension.dart';
-import 'package:gatewayguardians/game/game_component.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
-import 'package:gatewayguardians/models/construction.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/models/research.dart';
 import 'package:gatewayguardians/models/zone.dart';
-import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/utils/loaders.dart';
 
 class GameState extends BaseState {
@@ -33,7 +27,7 @@ class GameState extends BaseState {
   Patch? selectedPatch;
   Building? selectedBuilding;
 
-  static late GameState instance;
+  //static late GameState instance;
 
   GameState(this.jsonMatch);
 
@@ -90,7 +84,7 @@ class GameState extends BaseState {
   }
 
   void onMapClicked(Vector2 position) {
-    if (!clickHandled) {
+    /*if (!clickHandled) {
       final Iterable<Component> allComponents =
           GameComponent.instance.layerSprites.descendants();
 
@@ -110,13 +104,13 @@ class GameState extends BaseState {
 
       notify();
       GameComponent.instance.loadMap(this);
-    }
+    }*/
 
     clickHandled = false;
   }
 
   void onMouseMoved(Vector2 position) {
-    final Iterable<Component> allComponents =
+    /*final Iterable<Component> allComponents =
         GameComponent.instance.layerSprites.descendants();
 
     final List<ZoneComponent> zoneList =
@@ -150,7 +144,7 @@ class GameState extends BaseState {
       } else {
         patch.onHoverLeave();
       }
-    }
+    }*/
   }
 
   void onZoneSelected(Zone zone) {
@@ -160,7 +154,7 @@ class GameState extends BaseState {
     clickHandled = true;
 
     notify();
-    GameComponent.instance.loadMap(this);
+    //GameComponent.instance.loadMap(this);
   }
 
   void onPatchSelected(Patch patch) {
@@ -170,7 +164,7 @@ class GameState extends BaseState {
     clickHandled = true;
 
     notify();
-    GameComponent.instance.loadMap(this);
+    //GameComponent.instance.loadMap(this);
   }
 
   void onBuildingSelected(Building building) {
@@ -180,40 +174,40 @@ class GameState extends BaseState {
     clickHandled = true;
 
     notify();
-    GameComponent.instance.loadMap(this);
+    //GameComponent.instance.loadMap(this);
   }
 
   void onBuildOnPatch(Patch patch) {
     selectedPatch = null;
 
     notify();
-    GameComponent.instance.loadMap(this);
+    /*GameComponent.instance.loadMap(this);
 
     BuildDialog.show(
       state: this,
       patch: patch,
-    );
+    );*/
   }
 
   void onExploreZone(Zone zone) {
-    colony.inventory.removeResources(zone.explorationCost().resources());
+    /*colony.inventory.removeResources(zone.explorationCost().resources());
     zone.explore();
     selectedZone = null;
 
     notify();
-    GameComponent.instance.loadMap(this);
+    GameComponent.instance.loadMap(this);*/
   }
 
   void onConquerZone(Zone zone) {
-    colony.inventory.removeResources(zone.conquerCost().resources());
+    /*colony.inventory.removeResources(zone.conquerCost().resources());
     zone.conquer(colony);
     selectedZone = null;
 
     notify();
-    GameComponent.instance.loadMap(this);
+    GameComponent.instance.loadMap(this);*/
   }
 
-  void onStartConstruction(Construction construction) {
+  /*void onStartConstruction(Construction construction) {
     selectedPatch = null;
     construction.zone.constructions.add(construction);
     notify();
@@ -235,7 +229,7 @@ class GameState extends BaseState {
 
     notify();
     GameComponent.instance.loadMap(this);
-  }
+  }*/
 
   void onDestroyBuilding(Building building) {
     for (final Zone zone in zones) {
@@ -245,7 +239,7 @@ class GameState extends BaseState {
     selectedBuilding = null;
 
     notify();
-    GameComponent.instance.loadMap(this);
+    //GameComponent.instance.loadMap(this);
   }
 
   Zone? zoneById(String id) {

@@ -1,4 +1,3 @@
-import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/json/json_building.dart';
 import 'package:gatewayguardians/json/json_patch.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
@@ -21,11 +20,11 @@ class Patch {
   bool get hasBuilding => building != null;
 
   Zone get zone {
-    for (final Zone zone in GameState.instance.zones) {
+    /*for (final Zone zone in GameState.instance.zones) {
       if (zone.patches.contains(this)) {
         return zone;
       }
-    }
+    }*/
 
     throw Exception('Zone not found for patch at $location');
   }
@@ -37,7 +36,7 @@ class Patch {
   bool has(BuildingType type) => building?.buildingType == type;
 
   void destroyBuilding() {
-    GameState.instance.colony.freeVillagers += building!.workers;
+    //GameState.instance.colony.freeVillagers += building!.workers;
     building = null;
   }
 
