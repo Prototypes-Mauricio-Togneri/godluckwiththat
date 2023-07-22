@@ -18,12 +18,33 @@ class ResourcesHud extends StatelessWidget {
   Widget build(BuildContext context) {
     final Inventory inventory = state.colony.inventory;
 
-    return Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        color: Palette.grey,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const VBox(10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ResourceIndicator(
+              sprite: ResourceType.villager.sprite,
+              value:
+                  '${inventory.get(ResourceType.villager)}/${state.colony.populationLimit}',
+              tooltip: 'Population',
+              textColor: (inventory.get(ResourceType.villager) ==
+                      state.colony.populationLimit)
+                  ? Palette.error
+                  : Palette.white,
+            ),
+            ResourceIndicator(
+              sprite: Assets.IMAGES_RESOURCES_IDLE,
+              value: state.colony.freeVillagers.toString(),
+              tooltip: 'Idle villagers',
+            ),
+          ],
+        ),
+        const VBox(10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ResourceIndicator(
               sprite: ResourceType.food.sprite,
@@ -43,6 +64,11 @@ class ResourcesHud extends StatelessWidget {
               tooltip:
                   'Stone: ${state.colony.productionOf(ResourceType.stone)} / min',
             ),
+          ],
+        ),
+        /*Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             ResourceIndicator(
               sprite: ResourceType.copper.sprite,
               value: inventory.get(ResourceType.copper).toString(),
@@ -61,24 +87,9 @@ class ResourcesHud extends StatelessWidget {
               tooltip:
                   'Gold: ${state.colony.productionOf(ResourceType.gold)} / min',
             ),
-            ResourceIndicator(
-              sprite: ResourceType.villager.sprite,
-              value:
-                  '${inventory.get(ResourceType.villager)}/${state.colony.populationLimit}',
-              tooltip: 'Population',
-              textColor: (inventory.get(ResourceType.villager) ==
-                      state.colony.populationLimit)
-                  ? Palette.error
-                  : Palette.white,
-            ),
-            ResourceIndicator(
-              sprite: Assets.IMAGES_RESOURCES_IDLE,
-              value: state.colony.freeVillagers.toString(),
-              tooltip: 'Idle villagers',
-            ),
           ],
-        ),
-      ),
+        ),*/
+      ],
     );
   }
 }

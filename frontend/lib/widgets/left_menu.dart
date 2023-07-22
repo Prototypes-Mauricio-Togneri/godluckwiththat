@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/hud/resources_hud.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 
 class LeftMenu extends StatelessWidget {
@@ -10,9 +11,14 @@ class LeftMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Palette.success,
+      color: Palette.grey,
       width: 300,
       height: double.infinity,
+      child: Column(
+        children: [
+          ResourcesHud(state),
+        ],
+      ),
     );
   }
 }
