@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
 
@@ -15,13 +18,15 @@ class MapWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            for (int i = 0; i < state.mapSize; i++)
+            for (int i = 0; i < state.mapHeight; i++)
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  for (int j = 0; j < state.mapSize; j++)
+                  for (int j = 0; j < state.mapWidth; j++)
                     MapTile(
-                      size: constraints.maxHeight / (state.mapSize + 1),
+                      zone: state.zoneById('$i,$j'),
+                      size: constraints.maxHeight /
+                          (max(state.mapHeight, state.mapWidth) + 1),
                     ),
                 ],
               )
@@ -33,9 +38,11 @@ class MapWidget extends StatelessWidget {
 }
 
 class MapTile extends StatefulWidget {
+  final Zone zone;
   final double size;
 
   const MapTile({
+    required this.zone,
     required this.size,
   });
 
@@ -66,9 +73,9 @@ class _MapTileState extends State<MapTile> {
             width: 1,
           ),
         ),
-        child: const Center(
+        child: Center(
           child: Label(
-            text: 'tile',
+            text: widget.zone.zoneType.name,
             color: Palette.white,
           ),
         ),

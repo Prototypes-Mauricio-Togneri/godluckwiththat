@@ -4,13 +4,12 @@ import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/zone.dart';
-import 'package:gatewayguardians/types/zone_status.dart';
-import 'package:gatewayguardians/types/zone_type.dart';
 
 class GameState extends BaseState {
   num totalTimeElapsed = 0;
 
-  final int mapSize = 7;
+  final int mapWidth = 4;
+  final int mapHeight = 4;
 
   final JsonMatch jsonMatch;
   final List<Zone> zones = [];
@@ -21,15 +20,7 @@ class GameState extends BaseState {
   GameState(this.jsonMatch) {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
-    zones.add(Zone(
-      x: 0,
-      y: 0,
-      zoneType: ZoneType.grass,
-      patches: [],
-      owner: null,
-      building: null,
-      status: ZoneStatus.unexplored,
-    ));
+    zones.addAll(Constants.zones());
 
     colony = Colony(
       owner: Constants.PLAYER_OWNER,
@@ -40,14 +31,14 @@ class GameState extends BaseState {
     );
   }
 
-  Zone? zoneById(String id) {
+  Zone zoneById(String id) {
     for (final Zone zone in zones) {
       if (zone.id == id) {
         return zone;
       }
     }
 
-    return null;
+    throw Exception('Zone with id $id not found');
   }
 
   void onPassTurn() {}

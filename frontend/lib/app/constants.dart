@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/zone_status.dart';
+import 'package:gatewayguardians/types/zone_type.dart';
 
 class Constants {
   static const String FONT_NAME = 'CustomFont';
@@ -133,4 +136,153 @@ class Constants {
   ]
 }
 ''';
+
+  static List<Zone> zones() {
+    return [
+      Zone(
+        x: 0,
+        y: 0,
+        zoneType: ZoneType.water,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 1,
+        y: 0,
+        zoneType: ZoneType.water,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 2,
+        y: 0,
+        zoneType: ZoneType.water,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 3,
+        y: 0,
+        zoneType: ZoneType.water,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 0,
+        y: 1,
+        zoneType: ZoneType.water,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 1,
+        y: 1,
+        zoneType: ZoneType.grass,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 2,
+        y: 1,
+        zoneType: ZoneType.grass,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 3,
+        y: 1,
+        zoneType: ZoneType.water,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 0,
+        y: 2,
+        zoneType: ZoneType.water,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 1,
+        y: 2,
+        zoneType: ZoneType.grass,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 2,
+        y: 2,
+        zoneType: ZoneType.grass,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 3,
+        y: 2,
+        zoneType: ZoneType.water,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 0,
+        y: 3,
+        zoneType: ZoneType.water,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 1,
+        y: 3,
+        zoneType: ZoneType.water,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 2,
+        y: 3,
+        zoneType: ZoneType.water,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+      Zone(
+        x: 3,
+        y: 3,
+        zoneType: ZoneType.water,
+        patches: [],
+        owner: null,
+        building: null,
+        status: ZoneStatus.unexplored,
+      ),
+    ];
+  }
 }
