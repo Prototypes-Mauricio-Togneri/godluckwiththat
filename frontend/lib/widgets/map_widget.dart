@@ -36,7 +36,7 @@ class MapWidget extends StatelessWidget {
   }
 }
 
-class MapTile extends StatelessWidget {
+class MapTile extends StatefulWidget {
   final double size;
 
   const MapTile({
@@ -44,21 +44,37 @@ class MapTile extends StatelessWidget {
   });
 
   @override
+  State<MapTile> createState() => _MapTileState();
+}
+
+class _MapTileState extends State<MapTile> {
+  bool mouseOver = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: Palette.black,
-        border: Border.all(
-          color: Palette.white,
-          width: 1,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (event) => setState(() {
+        mouseOver = true;
+      }),
+      onExit: (event) => setState(() {
+        mouseOver = false;
+      }),
+      child: Container(
+        width: widget.size,
+        height: widget.size,
+        decoration: BoxDecoration(
+          color: Palette.black,
+          border: Border.all(
+            color: mouseOver ? Palette.white : Palette.black,
+            width: 1,
+          ),
         ),
-      ),
-      child: const Center(
-        child: Label(
-          text: 'tile',
-          color: Palette.white,
+        child: const Center(
+          child: Label(
+            text: 'tile',
+            color: Palette.white,
+          ),
         ),
       ),
     );
