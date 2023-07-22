@@ -22,8 +22,8 @@ class Loaders {
       id: jsonZone.id,
       x: jsonZone.x,
       y: jsonZone.y,
-      colony: colony,
       patches: [],
+      owner: '',
       status: jsonZone.status,
     );
 

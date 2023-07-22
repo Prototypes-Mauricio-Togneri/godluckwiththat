@@ -32,17 +32,17 @@ class BuildDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Zone zone = patch.zone;
+    //final Zone zone = patch.zone;
 
-    return WindowDialog(
+    return const WindowDialog(
       title: 'Build',
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (zone.basic().isNotEmpty)
+            /*if (zone.basic().isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(
@@ -92,7 +92,7 @@ class BuildDialog extends StatelessWidget {
                         ),
                   ],
                 ),
-              ),
+              ),*/
           ],
         ),
       ),
