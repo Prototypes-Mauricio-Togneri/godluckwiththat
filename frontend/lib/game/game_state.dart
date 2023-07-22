@@ -4,6 +4,8 @@ import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/zone_status.dart';
+import 'package:gatewayguardians/types/zone_type.dart';
 
 class GameState extends BaseState {
   num totalTimeElapsed = 0;
@@ -18,6 +20,16 @@ class GameState extends BaseState {
 
   GameState(this.jsonMatch) {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
+
+    zones.add(Zone(
+      x: 0,
+      y: 0,
+      zoneType: ZoneType.grass,
+      patches: [],
+      owner: null,
+      building: null,
+      status: ZoneStatus.unexplored,
+    ));
 
     colony = Colony(
       owner: Constants.PLAYER_OWNER,

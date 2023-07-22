@@ -19,12 +19,12 @@ class Loaders {
 
   static Zone zone(JsonZone jsonZone, Colony? colony) {
     final Zone zone = Zone(
-      id: jsonZone.id,
-      x: jsonZone.x,
-      y: jsonZone.y,
+      x: 0,
+      y: 0,
       zoneType: ZoneType.grass,
       patches: [],
       owner: '',
+      building: null,
       status: jsonZone.status,
     );
 
