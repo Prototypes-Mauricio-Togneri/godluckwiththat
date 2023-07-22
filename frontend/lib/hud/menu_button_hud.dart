@@ -12,7 +12,7 @@ class MenuButtonHud extends StatelessWidget {
     return Stack(
       children: [
         Align(
-          alignment: Alignment.topRight,
+          alignment: Alignment.bottomLeft,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
