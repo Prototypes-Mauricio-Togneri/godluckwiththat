@@ -37,7 +37,8 @@ class GameState extends BaseState {
 
   GameState(this.jsonMatch);
 
-  void load() {
+  @override
+  void onLoad() {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
     for (final JsonColony jsonColony in jsonMatch.colonies) {

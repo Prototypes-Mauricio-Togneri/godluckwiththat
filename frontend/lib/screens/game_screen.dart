@@ -1,5 +1,4 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gatewayguardians/game/game_component.dart';
@@ -7,6 +6,7 @@ import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/hud/hud_container.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/widgets/map_widget.dart';
 
 class GameScreen extends StatelessWidget {
   final GameState state;
@@ -36,15 +36,14 @@ class GameScreen extends StatelessWidget {
         statusBarColor: Palette.grey,
         child: SafeArea(
           child: Scaffold(
-            body: Stack(
-              children: [
-                GameWidget(game: game),
-                StateProvider<GameState>(
-                  state: state,
-                  builder: (context, state) =>
-                      state.loaded ? HudContainer(state) : const Empty(),
-                ),
-              ],
+            body: StateProvider<GameState>(
+              state: state,
+              builder: (context, state) => Stack(
+                children: [
+                  MapWidget(state),
+                  if (state.loaded) HudContainer(state) else const Empty(),
+                ],
+              ),
             ),
           ),
         ),

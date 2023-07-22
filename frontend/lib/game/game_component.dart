@@ -30,7 +30,6 @@ class GameComponent extends FlameGame
 
   @override
   Future onLoad() async {
-    GameState.instance.load();
     _initialize(GameState.instance);
 
     return super.onLoad();
