@@ -10,22 +10,18 @@ class MapWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const int mapSize = 7;
-    final double size = MediaQuery.of(context).size.height / (mapSize + 1);
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 50),
-      child: Center(
+    return LayoutBuilder(
+      builder: (context, constraints) => Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            for (int i = 0; i < mapSize; i++)
+            for (int i = 0; i < state.mapSize; i++)
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  for (int j = 0; j < mapSize; j++)
+                  for (int j = 0; j < state.mapSize; j++)
                     MapTile(
-                      size: size,
+                      size: constraints.maxHeight / (state.mapSize + 1),
                     ),
                 ],
               )

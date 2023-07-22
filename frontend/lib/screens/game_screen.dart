@@ -2,9 +2,9 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gatewayguardians/game/game_state.dart';
-import 'package:gatewayguardians/hud/hud_container.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/widgets/left_menu.dart';
 import 'package:gatewayguardians/widgets/map_widget.dart';
 
 class GameScreen extends StatelessWidget {
@@ -32,10 +32,10 @@ class GameScreen extends StatelessWidget {
           child: Scaffold(
             body: StateProvider<GameState>(
               state: state,
-              builder: (context, state) => Stack(
+              builder: (context, state) => Row(
                 children: [
-                  MapWidget(state),
-                  if (state.loaded) HudContainer(state) else const Empty(),
+                  LeftMenu(state),
+                  Expanded(child: MapWidget(state)),
                 ],
               ),
             ),

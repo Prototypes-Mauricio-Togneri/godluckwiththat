@@ -17,6 +17,8 @@ class GameState extends BaseState {
   bool loaded = false;
   bool clickHandled = false;
 
+  final int mapSize = 7;
+
   final Research research = Research();
   final JsonMatch jsonMatch;
   final List<Zone> zones = [];
