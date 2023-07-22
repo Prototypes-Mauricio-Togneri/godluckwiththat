@@ -18,14 +18,6 @@ class MenuButtonHud extends StatelessWidget {
             onTap: state.onOpenMainMenu,
             icon: Icons.menu,
           ),
-          MenuButton(
-            onTap: state.onOpenReportsMenu,
-            icon: Icons.history_edu_rounded,
-          ),
-          MenuButton(
-            onTap: state.onOpenExpeditionsMenu,
-            icon: Icons.route,
-          ),
         ],
       ),
     );

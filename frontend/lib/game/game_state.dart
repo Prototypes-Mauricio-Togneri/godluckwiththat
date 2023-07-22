@@ -254,10 +254,6 @@ class GameState extends BaseState {
 
   void onOpenMainMenu() {}
 
-  void onOpenReportsMenu() {}
-
-  void onOpenExpeditionsMenu() {}
-
   JsonMatch get json => JsonMatch(
         version: jsonMatch.version,
         id: jsonMatch.id,
