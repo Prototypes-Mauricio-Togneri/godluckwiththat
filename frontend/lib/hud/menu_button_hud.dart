@@ -9,26 +9,46 @@ class MenuButtonHud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topRight,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          MenuButton(
-            onTap: state.onOpenMainMenu,
-            icon: Icons.menu,
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.topRight,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              MenuButton(
+                color: Palette.grey,
+                onTap: state.onOpenMainMenu,
+                icon: Icons.menu,
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              MenuButton(
+                color: Palette.error,
+                onTap: state.onPassTurn,
+                icon: Icons.forward,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
 
 class MenuButton extends StatelessWidget {
+  final Color color;
   final VoidCallback onTap;
   final IconData icon;
 
   const MenuButton({
+    required this.color,
     required this.onTap,
     required this.icon,
   });
@@ -36,7 +56,7 @@ class MenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Palette.grey,
+      color: color,
       child: Material(
         color: Palette.transparent,
         child: InkWell(

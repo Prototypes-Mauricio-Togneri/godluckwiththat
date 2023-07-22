@@ -252,6 +252,8 @@ class GameState extends BaseState {
     return null;
   }
 
+  void onPassTurn() {}
+
   void onOpenMainMenu() {}
 
   JsonMatch get json => JsonMatch(
