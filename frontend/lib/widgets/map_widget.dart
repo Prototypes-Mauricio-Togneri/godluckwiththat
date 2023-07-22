@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/palette.dart';
-import 'package:gatewayguardians/widgets/label.dart';
 
 class MapWidget extends StatelessWidget {
   final GameState state;
@@ -66,20 +65,54 @@ class _MapTileState extends State<MapTile> {
       child: Container(
         width: widget.size,
         height: widget.size,
-        decoration: BoxDecoration(
-          color: Palette.black,
-          border: Border.all(
-            color: mouseOver ? Palette.white : Palette.black,
-            width: 1,
-          ),
-        ),
-        child: Center(
-          child: Label(
-            text: widget.zone.zoneType.name,
-            color: Palette.white,
-          ),
+        child: CustomPaint(
+          painter: ZonePainter(widget.zone, mouseOver),
         ),
       ),
     );
   }
+}
+
+class ZonePainter extends CustomPainter {
+  final Zone zone;
+  final bool mouseOver;
+  final Paint backgroundColor = Paint();
+  final Paint borderColor = Paint();
+
+  ZonePainter(this.zone, this.mouseOver) {
+    backgroundColor.color = zone.color;
+    backgroundColor.style = PaintingStyle.fill;
+
+    borderColor.color = Palette.white;
+    borderColor.style = PaintingStyle.stroke;
+    borderColor.strokeWidth = 3;
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawRect(
+      Rect.fromLTWH(
+        0,
+        0,
+        size.width,
+        size.height,
+      ),
+      backgroundColor,
+    );
+
+    if (mouseOver) {
+      canvas.drawRect(
+        Rect.fromLTWH(
+          0,
+          0,
+          size.width,
+          size.height,
+        ),
+        borderColor,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
