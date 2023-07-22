@@ -24,7 +24,6 @@ class Loaders {
       y: jsonZone.y,
       colony: colony,
       patches: [],
-      constructions: [],
       status: jsonZone.status,
     );
 

@@ -1,247 +1,31 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:flame/components.dart';
 import 'package:gatewayguardians/app/constants.dart';
-import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/json/json_match.dart';
-import 'package:gatewayguardians/json/json_zone.dart';
-import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
-import 'package:gatewayguardians/models/patch.dart';
-import 'package:gatewayguardians/models/research.dart';
+import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/zone.dart';
-import 'package:gatewayguardians/utils/loaders.dart';
 
 class GameState extends BaseState {
   num totalTimeElapsed = 0;
-  num refreshTimeout = 0;
-  bool loaded = false;
-  bool clickHandled = false;
 
   final int mapSize = 7;
 
-  final Research research = Research();
   final JsonMatch jsonMatch;
   final List<Zone> zones = [];
-  final List<Colony> colonies = [];
-  late Colony colony;
+  late final Colony colony;
 
   Zone? selectedZone;
-  Patch? selectedPatch;
-  Building? selectedBuilding;
 
-  //static late GameState instance;
-
-  GameState(this.jsonMatch);
-
-  @override
-  void onLoad() {
+  GameState(this.jsonMatch) {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
-    for (final JsonColony jsonColony in jsonMatch.colonies) {
-      colonies.add(Loaders.colony(jsonColony));
-    }
-
-    for (final JsonZone jsonZone in jsonMatch.zones) {
-      Colony? colony;
-
-      if (jsonZone.owner.isNotEmpty) {
-        colony = _colonyByOwner(jsonZone.owner);
-      }
-
-      final Zone zone = Loaders.zone(jsonZone, colony);
-      zones.add(zone);
-      colony?.zones.add(zone);
-    }
-
-    colony = _colonyByOwner(Constants.PLAYER_OWNER);
-
-    Delayed.post(() {
-      loaded = true;
-      notify();
-    });
-  }
-
-  void update(double dt) {
-    totalTimeElapsed += dt;
-    refreshTimeout += dt;
-
-    if (refreshTimeout > Constants.RESOURCES_HUD_REFRESH_TIMEOUT) {
-      refreshTimeout--;
-      notify();
-    }
-
-    for (final Zone zone in zones) {
-      zone.update(dt);
-    }
-  }
-
-  Colony _colonyByOwner(String owner) {
-    for (final Colony colony in colonies) {
-      if (colony.owner == owner) {
-        return colony;
-      }
-    }
-
-    throw Exception('Colony not found for owner $owner');
-  }
-
-  void onMapClicked(Vector2 position) {
-    /*if (!clickHandled) {
-      final Iterable<Component> allComponents =
-          GameComponent.instance.layerSprites.descendants();
-
-      final List<ZoneComponent> zoneList =
-          allComponents.whereType<ZoneComponent>().toList();
-
-      selectedZone = null;
-      selectedPatch = null;
-      selectedBuilding = null;
-
-      for (final ZoneComponent zone in zoneList) {
-        if (zone.containsPosition(position)) {
-          onZoneSelected(zone.zone);
-          break;
-        }
-      }
-
-      notify();
-      GameComponent.instance.loadMap(this);
-    }*/
-
-    clickHandled = false;
-  }
-
-  void onMouseMoved(Vector2 position) {
-    /*final Iterable<Component> allComponents =
-        GameComponent.instance.layerSprites.descendants();
-
-    final List<ZoneComponent> zoneList =
-        allComponents.whereType<ZoneComponent>().toList();
-
-    for (final ZoneComponent zone in zoneList) {
-      if (zone.containsPosition(position)) {
-        zone.onHoverEnter();
-      } else {
-        zone.onHoverLeave();
-      }
-    }
-
-    final List<ZoneBuildingComponent> buildingList =
-        allComponents.whereType<ZoneBuildingComponent>().toList();
-
-    for (final ZoneBuildingComponent building in buildingList) {
-      if (building.containsPosition(position)) {
-        building.onHoverEnter();
-      } else {
-        building.onHoverLeave();
-      }
-    }
-
-    final List<ZonePatchComponent> patchList =
-        allComponents.whereType<ZonePatchComponent>().toList();
-
-    for (final ZonePatchComponent patch in patchList) {
-      if (patch.containsPosition(position)) {
-        patch.onHoverEnter();
-      } else {
-        patch.onHoverLeave();
-      }
-    }*/
-  }
-
-  void onZoneSelected(Zone zone) {
-    selectedZone = zone;
-    selectedPatch = null;
-    selectedBuilding = null;
-    clickHandled = true;
-
-    notify();
-    //GameComponent.instance.loadMap(this);
-  }
-
-  void onPatchSelected(Patch patch) {
-    selectedZone = null;
-    selectedPatch = patch;
-    selectedBuilding = null;
-    clickHandled = true;
-
-    notify();
-    //GameComponent.instance.loadMap(this);
-  }
-
-  void onBuildingSelected(Building building) {
-    selectedZone = null;
-    selectedPatch = null;
-    selectedBuilding = building;
-    clickHandled = true;
-
-    notify();
-    //GameComponent.instance.loadMap(this);
-  }
-
-  void onBuildOnPatch(Patch patch) {
-    selectedPatch = null;
-
-    notify();
-    /*GameComponent.instance.loadMap(this);
-
-    BuildDialog.show(
-      state: this,
-      patch: patch,
-    );*/
-  }
-
-  void onExploreZone(Zone zone) {
-    /*colony.inventory.removeResources(zone.explorationCost().resources());
-    zone.explore();
-    selectedZone = null;
-
-    notify();
-    GameComponent.instance.loadMap(this);*/
-  }
-
-  void onConquerZone(Zone zone) {
-    /*colony.inventory.removeResources(zone.conquerCost().resources());
-    zone.conquer(colony);
-    selectedZone = null;
-
-    notify();
-    GameComponent.instance.loadMap(this);*/
-  }
-
-  /*void onStartConstruction(Construction construction) {
-    selectedPatch = null;
-    construction.zone.constructions.add(construction);
-    notify();
-  }
-
-  void onConstructionCompleted(Construction construction) {
-    final Zone zone = construction.zone;
-    zone.constructions.remove(construction);
-
-    final BuildingType buildingType = construction.buildingType;
-    final ResourceMap cost = buildingType.cost(construction.toLevel);
-    colony.inventory.removeResources(cost.resources());
-
-    construction.patch.building = Building.create(
-      buildingType: buildingType,
-      level: 1,
-      workers: 0,
+    colony = Colony(
+      owner: Constants.PLAYER_OWNER,
+      color: Constants.PLAYER_COLOR,
+      inventory: Inventory.empty(),
+      zones: zones,
+      freeVillagers: 5,
     );
-
-    notify();
-    GameComponent.instance.loadMap(this);
-  }*/
-
-  void onDestroyBuilding(Building building) {
-    for (final Zone zone in zones) {
-      zone.onDestroyBuilding(building);
-    }
-
-    selectedBuilding = null;
-
-    notify();
-    //GameComponent.instance.loadMap(this);
   }
 
   Zone? zoneById(String id) {
@@ -265,6 +49,6 @@ class GameState extends BaseState {
         level: jsonMatch.level,
         map: jsonMatch.map,
         zones: zones.map((z) => z.json).toList(),
-        colonies: colonies.map((c) => c.json).toList(),
+        colonies: [],
       );
 }

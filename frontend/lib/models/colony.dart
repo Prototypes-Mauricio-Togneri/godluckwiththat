@@ -30,7 +30,7 @@ class Colony {
 
   bool get isOwned => owner == Constants.PLAYER_OWNER;
 
-  // resources generated per minute
+  // resources generated per turn
   int productionOf(ResourceType resourceType) {
     double total = 0;
 

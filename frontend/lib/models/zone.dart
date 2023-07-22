@@ -2,7 +2,6 @@ import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
-import 'package:gatewayguardians/models/construction.dart';
 import 'package:gatewayguardians/models/patch.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
@@ -13,7 +12,6 @@ class Zone {
   final double x;
   final double y;
   final List<Patch> patches;
-  final List<Construction> constructions;
   Colony? colony;
   ZoneStatus status;
 
@@ -22,7 +20,6 @@ class Zone {
     required this.x,
     required this.y,
     required this.patches,
-    required this.constructions,
     required this.colony,
     required this.status,
   });
@@ -34,40 +31,6 @@ class Zone {
   bool get isOwned => true; //colony == GameState.instance.colony;
 
   bool get isNeutral => colony == null;
-
-  String get neighbor1Id => '$i,${j - 1}';
-
-  String get neighbor2Id => '${i + 1},${j - 1}';
-
-  String get neighbor3Id => '${i + 1},$j';
-
-  String get neighbor4Id => '$i,${j + 1}';
-
-  String get neighbor5Id => '${i - 1},${j + 1}';
-
-  String get neighbor6Id => '${i - 1},$j';
-
-  Zone? get neighbor1 => null; //GameState.instance.zoneById(neighbor1Id);
-
-  Zone? get neighbor2 => null; //GameState.instance.zoneById(neighbor2Id);
-
-  Zone? get neighbor3 => null; //GameState.instance.zoneById(neighbor3Id);
-
-  Zone? get neighbor4 => null; //GameState.instance.zoneById(neighbor4Id);
-
-  Zone? get neighbor5 => null; //GameState.instance.zoneById(neighbor5Id);
-
-  Zone? get neighbor6 => null; //GameState.instance.zoneById(neighbor6Id);
-
-  void update(double dt) {
-    for (final Construction construction in constructions) {
-      construction.update(dt);
-    }
-
-    for (final Patch patch in patches) {
-      patch.update(dt);
-    }
-  }
 
   void explore() {
     status = ZoneStatus.explored;
@@ -84,10 +47,6 @@ class Zone {
   ResourceMap conquerCost() => {
         ResourceType.food: 100,
       };
-
-  void onStartConstruction(Construction construction) {
-    constructions.add(construction);
-  }
 
   void onDestroyBuilding(Building building) {
     for (final Patch patch in patches) {
