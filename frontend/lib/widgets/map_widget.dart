@@ -110,15 +110,17 @@ class ZonePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawRect(
-      Rect.fromLTWH(
-        0,
-        0,
-        size.width,
-        size.height,
-      ),
-      backgroundColor,
-    );
+    if (zone.status.isExplored) {
+      canvas.drawRect(
+        Rect.fromLTWH(
+          0,
+          0,
+          size.width,
+          size.height,
+        ),
+        backgroundColor,
+      );
+    }
 
     if (selected) {
       canvas.drawRect(
