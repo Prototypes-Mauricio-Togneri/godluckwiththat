@@ -157,7 +157,7 @@ class Constants {
         patches: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.explored,
       ),
       Zone(
         x: 2,
@@ -251,7 +251,7 @@ class Constants {
         patches: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.explored,
       ),
       Zone(
         x: 0,

@@ -3,5 +3,6 @@ enum ActionType {
   claim,
   build,
   levelUp,
-  destroy;
+  destroy,
+  attack;
 }
