@@ -29,12 +29,14 @@ class ZoneHud extends StatelessWidget {
             size: 16,
             color: Palette.white,
           ),
-          const VBox(20),
-          Label(
-            text: zone.zoneType.toString(),
-            size: 14,
-            color: Palette.white,
-          ),
+          if (zone.status.isExplored) ...[
+            const VBox(20),
+            Label(
+              text: zone.zoneType.toString(),
+              size: 14,
+              color: Palette.white,
+            ),
+          ],
           if (zone.patches.isNotEmpty) ...[
             const VBox(20),
             Label(

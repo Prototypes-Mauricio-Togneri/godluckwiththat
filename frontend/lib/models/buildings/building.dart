@@ -1,4 +1,5 @@
 import 'package:gatewayguardians/dialog/confirmation_dialog.dart';
+import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
 import 'package:gatewayguardians/models/buildings/barracks.dart';
 import 'package:gatewayguardians/models/buildings/cavalry.dart';
@@ -30,9 +31,15 @@ class Building {
 
   bool get canAddWorkers => level > workers;
 
-  //Colony get colony => GameState.instance.colony;
+  bool get isProducer =>
+      (buildingType == BuildingType.farm) &&
+      (buildingType == BuildingType.woodcutter) &&
+      (buildingType == BuildingType.quarry) &&
+      (buildingType == BuildingType.copper_mine) &&
+      (buildingType == BuildingType.iron_mine) &&
+      (buildingType == BuildingType.gold_mine);
 
-  void update(double dt) {}
+  int get resourcesPerTurn => 10;
 
   void onUpgrade() {
     //final ResourceMap cost = buildingType.cost(level + 1);
@@ -41,14 +48,14 @@ class Building {
     //GameState.instance.notify();
   }
 
-  void onAddVillager() {
+  void onAddVillager(GameState state) {
     /*if (colony.hasFreeVillagers) {
       workers += colony.removeFreeVillager();
       GameState.instance.notify();
     }*/
   }
 
-  void onRemoveVillager() {
+  void onRemoveVillager(GameState state) {
     /*if (hasWorkers) {
       workers -= colony.addFreeVillager();
       GameState.instance.notify();

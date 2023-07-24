@@ -38,11 +38,19 @@ class BuildingHud extends StatelessWidget {
           ),
           const VBox(20),
           Label(
-            text: 'WORKERS ${building.workers}',
+            text: 'VILLAGERS ${building.workers}',
             size: 14,
             color: Palette.white,
           ),
-          const VBox(20),
+          if (building.isProducer) ...[
+            const VBox(20),
+            Label(
+              text:
+                  '${building.resourcesPerTurn} ${building.buildingType.produces.toString()}/turn',
+              size: 14,
+              color: Palette.white,
+            ),
+          ]
         ],
       ),
     );
