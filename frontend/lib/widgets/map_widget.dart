@@ -71,7 +71,11 @@ class _MapTileState extends State<MapTile> {
           width: widget.size,
           height: widget.size,
           child: CustomPaint(
-            painter: ZonePainter(widget.zone, mouseOver),
+            painter: ZonePainter(
+              zone: widget.zone,
+              mouseOver: mouseOver,
+              selected: widget.state.selectedZone == widget.zone,
+            ),
           ),
         ),
       ),
@@ -82,16 +86,26 @@ class _MapTileState extends State<MapTile> {
 class ZonePainter extends CustomPainter {
   final Zone zone;
   final bool mouseOver;
+  final bool selected;
   final Paint backgroundColor = Paint();
-  final Paint borderColor = Paint();
+  final Paint borderHoverColor = Paint();
+  final Paint borderSelectedColor = Paint();
 
-  ZonePainter(this.zone, this.mouseOver) {
+  ZonePainter({
+    required this.zone,
+    required this.mouseOver,
+    required this.selected,
+  }) {
     backgroundColor.color = zone.color;
     backgroundColor.style = PaintingStyle.fill;
 
-    borderColor.color = Palette.white;
-    borderColor.style = PaintingStyle.stroke;
-    borderColor.strokeWidth = 3;
+    borderHoverColor.color = Palette.white;
+    borderHoverColor.style = PaintingStyle.stroke;
+    borderHoverColor.strokeWidth = 3;
+
+    borderSelectedColor.color = Palette.white;
+    borderSelectedColor.style = PaintingStyle.stroke;
+    borderSelectedColor.strokeWidth = 5;
   }
 
   @override
@@ -106,7 +120,7 @@ class ZonePainter extends CustomPainter {
       backgroundColor,
     );
 
-    if (mouseOver) {
+    if (selected) {
       canvas.drawRect(
         Rect.fromLTWH(
           0,
@@ -114,7 +128,17 @@ class ZonePainter extends CustomPainter {
           size.width,
           size.height,
         ),
-        borderColor,
+        borderSelectedColor,
+      );
+    } else if (mouseOver) {
+      canvas.drawRect(
+        Rect.fromLTWH(
+          0,
+          0,
+          size.width,
+          size.height,
+        ),
+        borderHoverColor,
       );
     }
   }
