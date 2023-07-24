@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
 import 'package:gatewayguardians/types/zone_type.dart';
 
@@ -199,7 +201,11 @@ class Constants {
         zoneType: ZoneType.grass,
         patches: [],
         owner: null,
-        building: null,
+        building: Building(
+          buildingType: BuildingType.headquarters,
+          level: 1,
+          workers: 5,
+        ),
         status: ZoneStatus.explored,
       ),
       Zone(

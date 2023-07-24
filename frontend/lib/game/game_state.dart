@@ -4,6 +4,7 @@ import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
 
 class GameState extends BaseState {
   int turn = 1;
@@ -26,7 +27,11 @@ class GameState extends BaseState {
     colony = Colony(
       owner: Constants.PLAYER_OWNER,
       color: Constants.PLAYER_COLOR,
-      inventory: Inventory.empty(),
+      inventory: Inventory.fromResourceMap({
+        ResourceType.villager: 5,
+        ResourceType.food: 40,
+        ResourceType.wood: 50,
+      }),
       zones: zones,
       freeVillagers: 5,
     );
