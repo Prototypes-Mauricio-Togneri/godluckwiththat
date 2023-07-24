@@ -32,11 +32,11 @@ class Building {
   bool get canAddWorkers => level > workers;
 
   bool get isProducer =>
-      (buildingType == BuildingType.farm) &&
-      (buildingType == BuildingType.woodcutter) &&
-      (buildingType == BuildingType.quarry) &&
-      (buildingType == BuildingType.copper_mine) &&
-      (buildingType == BuildingType.iron_mine) &&
+      (buildingType == BuildingType.farm) ||
+      (buildingType == BuildingType.woodcutter) ||
+      (buildingType == BuildingType.quarry) ||
+      (buildingType == BuildingType.copper_mine) ||
+      (buildingType == BuildingType.iron_mine) ||
       (buildingType == BuildingType.gold_mine);
 
   int get resourcesPerTurn => 10;
@@ -48,18 +48,18 @@ class Building {
     //GameState.instance.notify();
   }
 
-  void onAddVillager(GameState state) {
-    /*if (colony.hasFreeVillagers) {
-      workers += colony.removeFreeVillager();
-      GameState.instance.notify();
-    }*/
+  void onAddWorker(GameState state) {
+    if (state.colony.hasFreeVillagers) {
+      workers += state.colony.removeFreeVillager();
+      state.notify();
+    }
   }
 
-  void onRemoveVillager(GameState state) {
-    /*if (hasWorkers) {
-      workers -= colony.addFreeVillager();
-      GameState.instance.notify();
-    }*/
+  void onRemoveWorker(GameState state) {
+    if (hasWorkers) {
+      workers -= state.colony.addFreeVillager();
+      state.notify();
+    }
   }
 
   void onDestroy() => ConfirmationDialog.destroyBuilding(onAccept: _destroy);

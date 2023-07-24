@@ -36,12 +36,6 @@ class BuildingHud extends StatelessWidget {
             size: 14,
             color: Palette.white,
           ),
-          const VBox(20),
-          Label(
-            text: 'VILLAGERS ${building.workers}',
-            size: 14,
-            color: Palette.white,
-          ),
           if (building.isProducer) ...[
             const VBox(20),
             Label(
@@ -50,8 +44,68 @@ class BuildingHud extends StatelessWidget {
               size: 14,
               color: Palette.white,
             ),
+            const VBox(20),
+            Label(
+              text: 'WORKERS ${building.workers}',
+              size: 14,
+              color: Palette.white,
+            ),
+            const VBox(20),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                WorkerButton(
+                  color: Palette.error,
+                  onTap: building.hasWorkers
+                      ? () => building.onRemoveWorker(state)
+                      : null,
+                  icon: Icons.remove,
+                ),
+                const HBox(20),
+                WorkerButton(
+                  color: Palette.success,
+                  onTap: state.colony.hasFreeVillagers
+                      ? () => building.onAddWorker(state)
+                      : null,
+                  icon: Icons.add,
+                ),
+              ],
+            ),
           ]
         ],
+      ),
+    );
+  }
+}
+
+class WorkerButton extends StatelessWidget {
+  final Color color;
+  final VoidCallback? onTap;
+  final IconData icon;
+
+  const WorkerButton({
+    required this.color,
+    required this.onTap,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: (onTap != null) ? color : Palette.lightGrey,
+      child: Material(
+        color: Palette.transparent,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Icon(
+              icon,
+              color: Palette.white,
+              size: 30,
+            ),
+          ),
+        ),
       ),
     );
   }
