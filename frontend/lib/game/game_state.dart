@@ -41,6 +41,16 @@ class GameState extends BaseState {
     throw Exception('Zone with id $id not found');
   }
 
+  void onZoneClicked(Zone zone) {
+    if (selectedZone != zone) {
+      selectedZone = zone;
+    } else {
+      selectedZone = null;
+    }
+
+    notify();
+  }
+
   void onPassTurn() {}
 
   void onOpenMainMenu() {}

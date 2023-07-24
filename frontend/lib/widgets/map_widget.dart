@@ -23,6 +23,7 @@ class MapWidget extends StatelessWidget {
                 children: [
                   for (int j = 0; j < state.mapWidth; j++)
                     MapTile(
+                      state: state,
                       zone: state.zoneById('$i,$j'),
                       size: constraints.maxHeight /
                           (max(state.mapHeight, state.mapWidth) + 1),
@@ -37,10 +38,12 @@ class MapWidget extends StatelessWidget {
 }
 
 class MapTile extends StatefulWidget {
+  final GameState state;
   final Zone zone;
   final double size;
 
   const MapTile({
+    required this.state,
     required this.zone,
     required this.size,
   });
@@ -54,19 +57,22 @@ class _MapTileState extends State<MapTile> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (event) => setState(() {
-        mouseOver = true;
-      }),
-      onExit: (event) => setState(() {
-        mouseOver = false;
-      }),
-      child: Container(
-        width: widget.size,
-        height: widget.size,
-        child: CustomPaint(
-          painter: ZonePainter(widget.zone, mouseOver),
+    return GestureDetector(
+      onTap: () => widget.state.onZoneClicked(widget.zone),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (event) => setState(() {
+          mouseOver = true;
+        }),
+        onExit: (event) => setState(() {
+          mouseOver = false;
+        }),
+        child: Container(
+          width: widget.size,
+          height: widget.size,
+          child: CustomPaint(
+            painter: ZonePainter(widget.zone, mouseOver),
+          ),
         ),
       ),
     );
