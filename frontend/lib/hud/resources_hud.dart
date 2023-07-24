@@ -89,6 +89,7 @@ class ResourcesHud extends StatelessWidget {
             ),
           ],
         ),*/
+        const VBox(20),
       ],
     );
   }
