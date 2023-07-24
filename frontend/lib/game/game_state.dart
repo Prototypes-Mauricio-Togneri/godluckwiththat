@@ -6,6 +6,7 @@ import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/zone.dart';
 
 class GameState extends BaseState {
+  int turn = 1;
   num totalTimeElapsed = 0;
 
   final int mapWidth = 4;

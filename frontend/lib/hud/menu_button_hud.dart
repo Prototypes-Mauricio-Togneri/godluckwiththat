@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/widgets/label.dart';
 
 class MenuButtonHud extends StatelessWidget {
   final GameState state;
@@ -10,6 +11,7 @@ class MenuButtonHud extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.center,
       children: [
         Align(
           alignment: Alignment.bottomLeft,
@@ -35,6 +37,14 @@ class MenuButtonHud extends StatelessWidget {
                 icon: Icons.forward,
               ),
             ],
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Label(
+            text: 'TURN ${state.turn}',
+            size: 18,
+            color: Palette.white,
           ),
         ),
       ],

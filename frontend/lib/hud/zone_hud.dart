@@ -21,7 +21,7 @@ class ZoneHud extends StatelessWidget {
         Label(
           text: zone.id,
           size: 14,
-          color: Palette.black,
+          color: Palette.white,
         ),
       ],
     );
