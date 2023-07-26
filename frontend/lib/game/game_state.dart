@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/json/json_match.dart';
+import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/zone.dart';
@@ -55,6 +56,20 @@ class GameState extends BaseState {
     }
 
     notify();
+  }
+
+  void onAddWorker(Building building) {
+    if (colony.hasFreeVillagers) {
+      building.addWorkers(colony.removeFreeVillager());
+      notify();
+    }
+  }
+
+  void onRemoveWorker(Building building) {
+    if (building.hasWorkers) {
+      building.removeWorker(colony.addFreeVillager());
+      notify();
+    }
   }
 
   void explore(Zone zone) {

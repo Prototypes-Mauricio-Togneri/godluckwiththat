@@ -57,7 +57,7 @@ class BuildingHud extends StatelessWidget {
                 WorkerButton(
                   color: Palette.error,
                   onTap: building.hasWorkers
-                      ? () => building.onRemoveWorker(state)
+                      ? () => state.onRemoveWorker(building)
                       : null,
                   icon: Icons.remove,
                 ),
@@ -65,7 +65,7 @@ class BuildingHud extends StatelessWidget {
                 WorkerButton(
                   color: Palette.success,
                   onTap: state.colony.hasFreeVillagers
-                      ? () => building.onAddWorker(state)
+                      ? () => state.onAddWorker(building)
                       : null,
                   icon: Icons.add,
                 ),

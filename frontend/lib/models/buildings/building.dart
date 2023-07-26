@@ -1,5 +1,4 @@
 import 'package:gatewayguardians/dialog/confirmation_dialog.dart';
-import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
 import 'package:gatewayguardians/models/buildings/barracks.dart';
 import 'package:gatewayguardians/models/buildings/cavalry.dart';
@@ -48,18 +47,12 @@ class Building {
     //GameState.instance.notify();
   }
 
-  void onAddWorker(GameState state) {
-    if (state.colony.hasFreeVillagers) {
-      workers += state.colony.removeFreeVillager();
-      state.notify();
-    }
+  void addWorkers(int amount) {
+    workers += amount;
   }
 
-  void onRemoveWorker(GameState state) {
-    if (hasWorkers) {
-      workers -= state.colony.addFreeVillager();
-      state.notify();
-    }
+  void removeWorker(int amount) {
+    workers -= amount;
   }
 
   void onDestroy() => ConfirmationDialog.destroyBuilding(onAccept: _destroy);
