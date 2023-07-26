@@ -199,7 +199,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.explored,
       ),
       Zone(
         x: 2,
@@ -207,7 +207,7 @@ class Constants {
         zoneType: ZoneType.grass,
         patches: [],
         actions: [],
-        owner: null,
+        owner: Constants.PLAYER_OWNER,
         building: Building(
           buildingType: BuildingType.headquarters,
           level: 1,

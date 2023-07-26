@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/palette.dart';
@@ -90,6 +91,7 @@ class ZonePainter extends CustomPainter {
   final Paint backgroundColor = Paint();
   final Paint borderHoverColor = Paint();
   final Paint borderSelectedColor = Paint();
+  final Paint borderOwnedColor = Paint();
 
   ZonePainter({
     required this.zone,
@@ -106,6 +108,10 @@ class ZonePainter extends CustomPainter {
     borderSelectedColor.color = Palette.white;
     borderSelectedColor.style = PaintingStyle.stroke;
     borderSelectedColor.strokeWidth = 5;
+
+    borderOwnedColor.color = Constants.PLAYER_COLOR;
+    borderOwnedColor.style = PaintingStyle.stroke;
+    borderOwnedColor.strokeWidth = 5;
   }
 
   @override
@@ -119,6 +125,18 @@ class ZonePainter extends CustomPainter {
           size.height,
         ),
         backgroundColor,
+      );
+    }
+
+    if (zone.isOwned) {
+      canvas.drawRect(
+        Rect.fromLTWH(
+          0,
+          0,
+          size.width,
+          size.height,
+        ),
+        borderOwnedColor,
       );
     }
 

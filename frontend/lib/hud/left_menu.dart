@@ -25,7 +25,8 @@ class LeftMenu extends StatelessWidget {
               state: state,
               zone: state.selectedZone!,
             ),
-          if ((state.selectedZone != null) && (state.selectedZone!.building != null))
+          if ((state.selectedZone != null) &&
+              (state.selectedZone!.building != null))
             BuildingHud(
               state: state,
               zone: state.selectedZone!,
