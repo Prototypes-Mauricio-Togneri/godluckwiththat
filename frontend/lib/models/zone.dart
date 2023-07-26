@@ -4,6 +4,7 @@ import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/actions/action.dart';
 import 'package:gatewayguardians/models/actions/action_explore.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/resource.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
@@ -57,11 +58,25 @@ class Zone {
     }
   }
 
-  void explore() {
+  void update(Colony colony) {
+    if (hasActionExplore) {
+      colony.addFreeVillager();
+      status = ZoneStatus.explored;
+    }
+  }
+
+  void explore(Colony colony) {
+    colony.removeResource(explorationCost);
+    colony.removeFreeVillager();
     actions.add(ActionExplore());
   }
 
-  void cancel() {
+  void cancel(Colony colony) {
+    if (hasActionExplore) {
+      colony.addResource(explorationCost);
+      colony.addFreeVillager();
+    }
+
     actions.clear();
   }
 

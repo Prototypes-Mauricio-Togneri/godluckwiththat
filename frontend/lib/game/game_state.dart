@@ -73,23 +73,25 @@ class GameState extends BaseState {
   }
 
   void explore(Zone zone) {
-    colony.removeResource(zone.explorationCost);
-    colony.removeFreeVillager();
-    zone.explore();
+    zone.explore(colony);
     notify();
   }
 
   void cancel(Zone zone) {
-    if (zone.hasActionExplore) {
-      colony.addResource(zone.explorationCost);
-      colony.addFreeVillager();
-    }
-
-    zone.cancel();
+    zone.cancel(colony);
     notify();
   }
 
-  void onPassTurn() {}
+  void onPassTurn() {
+    turn++;
+
+    for (final Zone zone in zones) {
+      zone.update(colony);
+    }
+
+    selectedZone = null;
+    notify();
+  }
 
   void onOpenMainMenu() {}
 
