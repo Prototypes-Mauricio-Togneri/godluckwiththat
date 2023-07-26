@@ -15,101 +15,49 @@ class PrimaryButton extends StatelessWidget {
     required this.color,
     required this.onPressed,
     this.icon,
-    this.textSize = 12,
+    this.textSize = 14,
     this.expand = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: CustomPaint(
-        painter: HexShape(color),
-        child: SizedBox(
-          width: expand ? double.infinity : null,
-          height: 30,
-          child: ButtonContent(
-            text: text,
-            icon: icon,
-            textSize: textSize,
+    return Container(
+      width: expand ? double.infinity : 0,
+      height: 35,
+      color: (onPressed != null) ? color : Palette.lightGrey,
+      child: Material(
+        color: Palette.transparent,
+        child: InkWell(
+          onTap: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              bottom: 1,
+              left: 15,
+              right: 15,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (icon != null)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Icon(
+                      icon,
+                      color: Palette.white,
+                      size: textSize * 1.5,
+                    ),
+                  ),
+                Label(
+                  text: text.toUpperCase(),
+                  size: textSize,
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-}
-
-class ButtonContent extends StatelessWidget {
-  final String text;
-  final IconData? icon;
-  final double textSize;
-
-  const ButtonContent({
-    required this.text,
-    this.icon,
-    this.textSize = 12,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        bottom: 1,
-        left: 15,
-        right: 15,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if (icon != null)
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: Icon(
-                icon,
-                color: Palette.white,
-                size: textSize * 1.5,
-              ),
-            ),
-          Label(
-            text: text.toUpperCase(),
-            size: textSize,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class HexShape extends CustomPainter {
-  final Paint _paintBackground = Paint();
-  final Paint _paintBorder = Paint();
-
-  HexShape(Color color) {
-    _paintBackground.color = color;
-    _paintBorder.color = Palette.white;
-    _paintBorder.style = PaintingStyle.stroke;
-    _paintBorder.strokeWidth = 2;
-    _paintBorder.strokeCap = StrokeCap.round;
-    _paintBorder.strokeJoin = StrokeJoin.round;
-  }
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Path path = Path();
-    path.moveTo(0, size.height / 2);
-    path.lineTo(size.width * 1 / 8, 0);
-    path.lineTo(size.width * 7 / 8, 0);
-    path.lineTo(size.width, size.height / 2);
-    path.lineTo(size.width * 7 / 8, size.height);
-    path.lineTo(size.width * 1 / 8, size.height);
-    path.close();
-
-    canvas.drawPath(path, _paintBackground);
-    canvas.drawPath(path, _paintBorder);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

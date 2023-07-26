@@ -76,9 +76,15 @@ class Colony {
     return 1;
   }
 
-  void addResource(ResourceType resourceType) {
-    inventory.addResource(Resource(resourceType, 1));
+  void addResource(Resource resource) {
+    inventory.addResource(resource);
   }
+
+  void removeResource(Resource resource) {
+    inventory.removeResource(resource);
+  }
+
+  bool hasResource(Resource resource) => inventory.hasResource(resource);
 
   JsonColony get json => JsonColony(
         owner: owner,

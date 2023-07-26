@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Action;
 import 'package:gatewayguardians/app/constants.dart';
-import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
+import 'package:gatewayguardians/models/actions/action.dart';
+import 'package:gatewayguardians/models/actions/action_explore.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/resource.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
-import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
 import 'package:gatewayguardians/types/zone_type.dart';
 
@@ -13,6 +14,7 @@ class Zone {
   final int y;
   final ZoneType zoneType;
   final List<PatchType> patches;
+  final List<Action> actions;
   String? owner;
   Building? building;
   ZoneStatus status;
@@ -22,6 +24,7 @@ class Zone {
     required this.y,
     required this.zoneType,
     required this.patches,
+    required this.actions,
     required this.owner,
     required this.building,
     required this.status,
@@ -32,6 +35,12 @@ class Zone {
   bool get isOwned => owner == Constants.PLAYER_OWNER;
 
   bool get isNeutral => owner == null;
+
+  bool get hasAction => actions.isNotEmpty;
+
+  bool get hasActionExplore => actions.isNotEmpty && actions[0].isExplore;
+
+  Resource get explorationCost => Resource.food(10);
 
   Color get color {
     switch (zoneType) {
@@ -48,13 +57,13 @@ class Zone {
     }
   }
 
-  ResourceMap explorationCost() => {
-        ResourceType.food: 100,
-      };
+  void explore() {
+    actions.add(ActionExplore());
+  }
 
-  ResourceMap claimCost() => {
-        ResourceType.food: 100,
-      };
+  void cancel() {
+    actions.clear();
+  }
 
   JsonZone get json => JsonZone(
         id: id,

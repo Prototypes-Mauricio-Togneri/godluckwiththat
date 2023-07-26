@@ -10,4 +10,6 @@ class Action {
     required this.villagers,
     required this.turns,
   });
+
+  bool get isExplore => actionType == ActionType.explore;
 }

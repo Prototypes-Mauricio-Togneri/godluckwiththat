@@ -7,4 +7,6 @@ class Resource {
   const Resource(this.resourceType, this.amount);
 
   factory Resource.one(ResourceType resourceType) => Resource(resourceType, 1);
+
+  factory Resource.food(int amount) => Resource(ResourceType.food, amount);
 }
