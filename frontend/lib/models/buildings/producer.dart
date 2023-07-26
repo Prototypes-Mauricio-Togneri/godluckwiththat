@@ -21,7 +21,6 @@ class Producer extends Building {
 
   double get productionPerMinute => _productionPerTick * 60;
 
-  @override
   void update(double dt) {
     resourcesProduced += dt * _productionPerTick;
     final int resources = resourcesProduced.truncate();
