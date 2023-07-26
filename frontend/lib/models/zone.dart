@@ -52,7 +52,7 @@ class Zone {
         ResourceType.food: 100,
       };
 
-  ResourceMap conquerCost() => {
+  ResourceMap claimCost() => {
         ResourceType.food: 100,
       };
 
