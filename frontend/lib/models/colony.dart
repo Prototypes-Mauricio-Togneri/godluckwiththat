@@ -64,16 +64,24 @@ class Colony {
     return total + Constants.HEADQUARTERS_POPULATION;
   }
 
+  int addFreeVillager() {
+    freeVillagers++;
+
+    return 1;
+  }
+
   int removeFreeVillager() {
     freeVillagers--;
 
     return 1;
   }
 
-  int addFreeVillager() {
-    freeVillagers++;
+  void removeFreeVillagers(int amount) {
+    freeVillagers -= amount;
+  }
 
-    return 1;
+  void addFreeVillagers(int amount) {
+    freeVillagers += amount;
   }
 
   void addResource(Resource resource) {

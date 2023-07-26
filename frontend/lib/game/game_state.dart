@@ -77,6 +77,11 @@ class GameState extends BaseState {
     notify();
   }
 
+  void claim(Zone zone) {
+    zone.claim(colony);
+    notify();
+  }
+
   void cancel(Zone zone) {
     zone.cancel(colony);
     notify();

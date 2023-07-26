@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/actions/action.dart';
+import 'package:gatewayguardians/models/actions/action_claim.dart';
 import 'package:gatewayguardians/models/actions/action_explore.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
@@ -15,7 +16,7 @@ class Zone {
   final int y;
   final ZoneType zoneType;
   final List<PatchType> patches;
-  final List<Action> actions;
+  Action? action;
   String? owner;
   Building? building;
   ZoneStatus status;
@@ -25,7 +26,7 @@ class Zone {
     required this.y,
     required this.zoneType,
     required this.patches,
-    required this.actions,
+    required this.action,
     required this.owner,
     required this.building,
     required this.status,
@@ -37,11 +38,15 @@ class Zone {
 
   bool get isNeutral => owner == null;
 
-  bool get hasAction => actions.isNotEmpty;
+  bool get hasAction => action != null;
 
-  bool get hasActionExplore => actions.isNotEmpty && actions[0].isExplore;
+  bool get hasActionExplore => action?.isExplore ?? false;
+
+  bool get hasActionClaim => action?.isClaim ?? false;
 
   Resource get explorationCost => Resource.food(10);
+
+  Resource get claimCost => Resource.food(10);
 
   Color get color {
     switch (zoneType) {
@@ -59,25 +64,42 @@ class Zone {
   }
 
   void update(Colony colony) {
-    if (hasActionExplore) {
-      colony.addFreeVillager();
-      status = ZoneStatus.explored;
+    if (hasAction) {
+      action!.turns--;
+
+      if (action!.isReady) {
+        if (hasActionExplore) {
+          colony.addFreeVillager();
+          status = ZoneStatus.explored;
+        } else if (hasActionClaim) {
+          owner = Constants.PLAYER_OWNER;
+        }
+
+        action = null;
+      }
     }
   }
 
   void explore(Colony colony) {
     colony.removeResource(explorationCost);
     colony.removeFreeVillager();
-    actions.add(ActionExplore());
+    action = ActionExplore();
+  }
+
+  void claim(Colony colony) {
+    colony.removeResource(claimCost);
+    action = ActionClaim();
   }
 
   void cancel(Colony colony) {
     if (hasActionExplore) {
       colony.addResource(explorationCost);
       colony.addFreeVillager();
+    } else if (hasActionClaim) {
+      colony.addResource(claimCost);
     }
 
-    actions.clear();
+    action = null;
   }
 
   JsonZone get json => JsonZone(

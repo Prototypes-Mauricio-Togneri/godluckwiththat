@@ -78,6 +78,37 @@ class ZoneHud extends StatelessWidget {
                 ),
               ),
           ],
+          if (zone.status.isExplored && zone.isNeutral) ...[
+            const VBox(20),
+            if (zone.hasAction)
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: PrimaryButton(
+                  text: 'CANCEL',
+                  color: Palette.error,
+                  icon: Icons.close,
+                  onPressed: () => state.cancel(zone),
+                ),
+              )
+            else
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: PrimaryButton(
+                  text: 'CLAIM',
+                  color: Palette.success,
+                  icon: Icons.flag,
+                  onPressed: state.colony.hasResource(zone.claimCost)
+                      ? () => state.claim(zone)
+                      : null,
+                ),
+              ),
+          ],
           const VBox(20),
         ],
       ),
