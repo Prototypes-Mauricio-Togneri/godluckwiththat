@@ -6,6 +6,6 @@ class Cavalry extends Building {
     required super.level,
   }) : super(
           buildingType: BuildingType.cavalry,
-          workers: 0,
+          villagers: 0,
         );
 }

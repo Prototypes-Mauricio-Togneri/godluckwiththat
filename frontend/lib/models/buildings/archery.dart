@@ -6,6 +6,6 @@ class Archery extends Building {
     required super.level,
   }) : super(
           buildingType: BuildingType.archery,
-          workers: 0,
+          villagers: 0,
         );
 }

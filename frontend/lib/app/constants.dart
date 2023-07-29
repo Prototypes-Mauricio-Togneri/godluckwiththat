@@ -212,7 +212,7 @@ class Constants {
         building: Building(
           buildingType: BuildingType.headquarters,
           level: 1,
-          workers: 5,
+          villagers: 5,
         ),
         status: ZoneStatus.explored,
       ),

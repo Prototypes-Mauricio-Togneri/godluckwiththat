@@ -6,6 +6,6 @@ class Workshop extends Building {
     required super.level,
   }) : super(
           buildingType: BuildingType.workshop,
-          workers: 0,
+          villagers: 0,
         );
 }

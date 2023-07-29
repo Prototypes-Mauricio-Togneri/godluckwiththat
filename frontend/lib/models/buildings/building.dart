@@ -18,17 +18,17 @@ import 'package:gatewayguardians/types/building_type.dart';
 class Building {
   final BuildingType buildingType;
   int level;
-  int workers;
+  int villagers;
 
   Building({
     required this.buildingType,
     required this.level,
-    required this.workers,
+    required this.villagers,
   });
 
-  bool get hasWorkers => workers > 0;
+  bool get hasVillagers => villagers > 0;
 
-  bool get canAddWorkers => level > workers;
+  bool get canAddVillagers => level > villagers;
 
   bool get isProducer =>
       (buildingType == BuildingType.farm) ||
@@ -37,6 +37,13 @@ class Building {
       (buildingType == BuildingType.copper_mine) ||
       (buildingType == BuildingType.iron_mine) ||
       (buildingType == BuildingType.gold_mine);
+
+  bool get isTrainer =>
+      (buildingType == BuildingType.headquarters) ||
+      (buildingType == BuildingType.barracks) ||
+      (buildingType == BuildingType.archery) ||
+      (buildingType == BuildingType.cavalry) ||
+      (buildingType == BuildingType.workshop);
 
   int get resourcesPerTurn => 10;
 
@@ -47,12 +54,12 @@ class Building {
     //GameState.instance.notify();
   }
 
-  void addWorkers(int amount) {
-    workers += amount;
+  void addVillagers(int amount) {
+    villagers += amount;
   }
 
-  void removeWorker(int amount) {
-    workers -= amount;
+  void removeVillagers(int amount) {
+    villagers -= amount;
   }
 
   void onDestroy() => ConfirmationDialog.destroyBuilding(onAccept: _destroy);
@@ -62,13 +69,13 @@ class Building {
   factory Building.create({
     required BuildingType buildingType,
     required int level,
-    required int workers,
+    required int villagers,
   }) {
     switch (buildingType) {
       case BuildingType.headquarters:
         return Headquarters(
           level: level,
-          workers: workers,
+          villagers: villagers,
         );
       case BuildingType.house:
         return House(
@@ -81,37 +88,37 @@ class Building {
       case BuildingType.farm:
         return Farm(
           level: level,
-          workers: workers,
+          villagers: villagers,
           productionTime: buildingType.productionTime,
         );
       case BuildingType.woodcutter:
         return Woodcutter(
           level: level,
-          workers: workers,
+          villagers: villagers,
           productionTime: buildingType.productionTime,
         );
       case BuildingType.quarry:
         return Quarry(
           level: level,
-          workers: workers,
+          villagers: villagers,
           productionTime: buildingType.productionTime,
         );
       case BuildingType.copper_mine:
         return CopperMine(
           level: level,
-          workers: workers,
+          villagers: villagers,
           productionTime: buildingType.productionTime,
         );
       case BuildingType.iron_mine:
         return IronMine(
           level: level,
-          workers: workers,
+          villagers: villagers,
           productionTime: buildingType.productionTime,
         );
       case BuildingType.gold_mine:
         return GoldMine(
           level: level,
-          workers: workers,
+          villagers: villagers,
           productionTime: buildingType.productionTime,
         );
       case BuildingType.barracks:

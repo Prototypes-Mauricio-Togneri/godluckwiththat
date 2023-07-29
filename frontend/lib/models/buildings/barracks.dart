@@ -6,6 +6,6 @@ class Barracks extends Building {
     required super.level,
   }) : super(
           buildingType: BuildingType.barracks,
-          workers: 0,
+          villagers: 0,
         );
 }

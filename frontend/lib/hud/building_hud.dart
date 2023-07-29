@@ -41,6 +41,11 @@ class BuildingHud extends StatelessWidget {
               state: state,
               building: building,
             ),
+          if (building.isTrainer)
+            TrainerBlock(
+              state: state,
+              zone: zone,
+            ),
         ],
       ),
     );
@@ -69,8 +74,8 @@ class ProducerBlock extends StatelessWidget {
           color: Palette.white,
         ),
         const VBox(20),
-        Label(
-          text: 'WORKERS ${building.workers}',
+        const Label(
+          text: 'VILLAGERS ASSIGNED:',
           size: 14,
           color: Palette.white,
         ),
@@ -78,18 +83,24 @@ class ProducerBlock extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            WorkerButton(
+            VillagerButton(
               color: Palette.error,
-              onTap: building.hasWorkers
-                  ? () => state.onRemoveWorker(building)
+              onTap: building.hasVillagers
+                  ? () => state.removeVillager(building)
                   : null,
               icon: Icons.remove,
             ),
             const HBox(20),
-            WorkerButton(
+            Label(
+              text: '${building.villagers}',
+              size: 20,
+              color: Palette.white,
+            ),
+            const HBox(20),
+            VillagerButton(
               color: Palette.success,
               onTap: state.colony.hasFreeVillagers
-                  ? () => state.onAddWorker(building)
+                  ? () => state.addVillager(building)
                   : null,
               icon: Icons.add,
             ),
@@ -100,12 +111,64 @@ class ProducerBlock extends StatelessWidget {
   }
 }
 
-class WorkerButton extends StatelessWidget {
+class TrainerBlock extends StatelessWidget {
+  final GameState state;
+  final Zone zone;
+
+  const TrainerBlock({
+    required this.state,
+    required this.zone,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const VBox(20),
+        const Label(
+          text: 'TRAIN VILLAGERS:',
+          size: 14,
+          color: Palette.white,
+        ),
+        const VBox(20),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            VillagerButton(
+              color: Palette.error,
+              onTap: zone.hasActionTrain
+                  ? () => state.untrainVillager(zone)
+                  : null,
+              icon: Icons.remove,
+            ),
+            const HBox(20),
+            Label(
+              text: zone.hasActionTrain ? '${zone.action!.villagers}' : '0',
+              size: 20,
+              color: Palette.white,
+            ),
+            const HBox(20),
+            VillagerButton(
+              color: Palette.success,
+              onTap: state.colony.hasResource(zone.trainVillagerCost)
+                  ? () => state.trainVillager(zone)
+                  : null,
+              icon: Icons.add,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class VillagerButton extends StatelessWidget {
   final Color color;
   final VoidCallback? onTap;
   final IconData icon;
 
-  const WorkerButton({
+  const VillagerButton({
     required this.color,
     required this.onTap,
     required this.icon,

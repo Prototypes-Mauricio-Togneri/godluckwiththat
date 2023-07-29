@@ -5,7 +5,7 @@ import 'package:gatewayguardians/types/resource_type.dart';
 class CopperMine extends Producer {
   CopperMine({
     required super.level,
-    required super.workers,
+    required super.villagers,
     required super.productionTime,
   }) : super(
           buildingType: BuildingType.copper_mine,

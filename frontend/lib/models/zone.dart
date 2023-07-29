@@ -42,9 +42,13 @@ class Zone {
 
   bool get hasActionClaim => action?.isClaim ?? false;
 
+  bool get hasActionTrain => action?.isTrain ?? false;
+
   Resource get explorationCost => Resource.food(10);
 
   Resource get claimCost => Resource.food(10);
+
+  Resource get trainVillagerCost => Resource.food(10);
 
   Color get color {
     switch (zoneType) {
@@ -75,6 +79,30 @@ class Zone {
           owner = Constants.PLAYER_OWNER;
           action = null;
         }
+      }
+    }
+  }
+
+  void trainVillager(Colony colony) {
+    colony.removeResource(trainVillagerCost);
+
+    if (action != null) {
+      action = Action.train(action!.villagers + 1);
+    } else {
+      action = Action.train(1);
+    }
+  }
+
+  void untrainVillager(Colony colony) {
+    colony.addResource(trainVillagerCost);
+
+    if (action != null) {
+      final int amount = action!.villagers;
+
+      if (amount > 1) {
+        action = Action.train(amount - 1);
+      } else {
+        action = null;
       }
     }
   }

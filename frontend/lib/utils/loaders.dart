@@ -44,7 +44,7 @@ class Loaders {
       return Building.create(
         buildingType: jsonPatch.building!.buildingType,
         level: jsonPatch.building!.level,
-        workers: jsonPatch.building!.workers,
+        villagers: jsonPatch.building!.workers,
       );
     } else {
       return null;

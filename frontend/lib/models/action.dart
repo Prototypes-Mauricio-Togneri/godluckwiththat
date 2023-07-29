@@ -15,6 +15,8 @@ class Action {
 
   bool get isClaim => actionType == ActionType.claim;
 
+  bool get isTrain => actionType == ActionType.train;
+
   bool get isReady => turns == 0;
 
   factory Action.explore() => Action(
@@ -27,5 +29,11 @@ class Action {
         actionType: ActionType.claim,
         villagers: 1,
         turns: 1,
+      );
+
+  factory Action.train(int amount) => Action(
+        actionType: ActionType.train,
+        villagers: amount,
+        turns: amount,
       );
 }

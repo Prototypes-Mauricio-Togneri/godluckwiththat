@@ -58,16 +58,26 @@ class GameState extends BaseState {
     notify();
   }
 
-  void onAddWorker(Building building) {
+  void trainVillager(Zone zone) {
+    zone.trainVillager(colony);
+    notify();
+  }
+
+  void untrainVillager(Zone zone) {
+    zone.untrainVillager(colony);
+    notify();
+  }
+
+  void addVillager(Building building) {
     if (colony.hasFreeVillagers) {
-      building.addWorkers(colony.removeFreeVillagers(1));
+      building.addVillagers(colony.removeFreeVillagers(1));
       notify();
     }
   }
 
-  void onRemoveWorker(Building building) {
-    if (building.hasWorkers) {
-      building.removeWorker(colony.addFreeVillagers(1));
+  void removeVillager(Building building) {
+    if (building.hasVillagers) {
+      building.removeVillagers(colony.addFreeVillagers(1));
       notify();
     }
   }

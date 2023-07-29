@@ -6,6 +6,6 @@ class Warehouse extends Building {
     required super.level,
   }) : super(
           buildingType: BuildingType.warehouse,
-          workers: 0,
+          villagers: 0,
         );
 }

@@ -5,7 +5,7 @@ import 'package:gatewayguardians/types/resource_type.dart';
 class GoldMine extends Producer {
   GoldMine({
     required super.level,
-    required super.workers,
+    required super.villagers,
     required super.productionTime,
   }) : super(
           buildingType: BuildingType.gold_mine,

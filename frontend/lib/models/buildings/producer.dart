@@ -12,12 +12,12 @@ class Producer extends Building {
     required this.resourceType,
     required this.productionTime,
     required super.level,
-    required super.workers,
+    required super.villagers,
   }) : super(
           buildingType: buildingType,
         );
 
-  double get _productionPerTick => workers / productionTime;
+  double get _productionPerTick => villagers / productionTime;
 
   double get productionPerMinute => _productionPerTick * 60;
 

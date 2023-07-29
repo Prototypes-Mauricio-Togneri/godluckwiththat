@@ -184,7 +184,7 @@ enum BuildingType {
     }
   }
 
-  bool get canHostWorkers {
+  bool get canHostVillagers {
     switch (this) {
       case BuildingType.headquarters:
       case BuildingType.farm:

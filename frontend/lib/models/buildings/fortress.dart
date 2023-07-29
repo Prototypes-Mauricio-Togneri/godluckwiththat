@@ -6,6 +6,6 @@ class Fortress extends Building {
     required super.level,
   }) : super(
           buildingType: BuildingType.fortress,
-          workers: 0,
+          villagers: 0,
         );
 }
