@@ -136,10 +136,13 @@ class Zone {
             actions.removeAt(0);
             break;
           case ActionType.levelUp:
+            // TODO(momo): implement
             break;
           case ActionType.destroy:
+            // TODO(momo): implement
             break;
           case ActionType.attack:
+            // TODO(momo): implement
             break;
         }
       }
@@ -198,10 +201,13 @@ class Zone {
         colony.addFreeVillagers(action.villagers);
         break;
       case ActionType.levelUp:
+        // TODO(momo): implement
         break;
       case ActionType.destroy:
+        // TODO(momo): implement
         break;
       case ActionType.attack:
+        // TODO(momo): implement
         break;
     }
 
