@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/game/game_state.dart';
@@ -76,19 +77,49 @@ class _MapTileState extends State<MapTile> {
               mouseOver: mouseOver,
               selected: widget.state.selectedZone == widget.zone,
             ),
-            child: (widget.zone.building != null)
-                ? Center(
-                    child: Image(
-                      image: widget.zone.building!.image,
-                      width: widget.size * 0.5,
-                      height: widget.size * 0.5,
-                    ),
-                  )
-                : null,
+            child: ZoneImage(
+              zone: widget.zone,
+              size: widget.size,
+            ),
           ),
         ),
       ),
     );
+  }
+}
+
+class ZoneImage extends StatelessWidget {
+  final Zone zone;
+  final double size;
+
+  const ZoneImage({
+    required this.zone,
+    required this.size,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if ((zone.building != null) || (zone.patches.isNotEmpty)) {
+      return Stack(
+        alignment: Alignment.center,
+        children: [
+          if (zone.patches.isNotEmpty)
+            Image.asset(
+              zone.patches[0].sprite,
+              width: size,
+              height: size,
+            ),
+          if (zone.building != null)
+            Image.asset(
+              zone.building!.buildingType.sprite,
+              width: size * 0.5,
+              height: size * 0.5,
+            ),
+        ],
+      );
+    } else {
+      return const Empty();
+    }
   }
 }
 

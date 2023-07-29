@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:gatewayguardians/dialog/confirmation_dialog.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
 import 'package:gatewayguardians/models/buildings/barracks.dart';
@@ -40,8 +39,6 @@ class Building {
       (buildingType == BuildingType.gold_mine);
 
   int get resourcesPerTurn => 10;
-
-  AssetImage get image => AssetImage('assets/images/${buildingType.sprite}');
 
   void onUpgrade() {
     //final ResourceMap cost = buildingType.cost(level + 1);

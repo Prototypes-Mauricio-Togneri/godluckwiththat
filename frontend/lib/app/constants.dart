@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
+import 'package:gatewayguardians/types/patch_type.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
 import 'package:gatewayguardians/types/zone_type.dart';
 
@@ -195,7 +196,7 @@ class Constants {
         x: 1,
         y: 1,
         zoneType: ZoneType.grass,
-        patches: [],
+        patches: [PatchType.crop_field],
         action: null,
         owner: null,
         building: null,

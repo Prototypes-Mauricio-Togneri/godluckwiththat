@@ -19,7 +19,7 @@ class ImageAsset extends StatelessWidget {
       width: width ?? size,
       height: height ?? size,
       child: Image.asset(
-        'images/$path',
+        path,
         fit: BoxFit.cover,
       ),
     );
