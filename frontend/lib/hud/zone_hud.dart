@@ -185,7 +185,19 @@ class ZoneOwned extends StatelessWidget {
         building: zone.building!,
       );
     } else {
-      return const Empty();
+      return Padding(
+        padding: const EdgeInsets.only(
+          top: 20,
+          left: 20,
+          right: 20,
+        ),
+        child: PrimaryButton(
+          text: 'BUILD',
+          color: Palette.success,
+          icon: Icons.construction,
+          onPressed: () => state.onBuild(zone),
+        ),
+      );
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:gatewayguardians/app/constants.dart';
+import 'package:gatewayguardians/dialog/build_dialog.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
@@ -58,6 +59,11 @@ class GameState extends BaseState {
 
     notify();
   }
+
+  void onBuild(Zone zone) => BuildDialog.show(
+        state: this,
+        zone: zone,
+      );
 
   void addVillager(Building building) {
     if (colony.hasFreeVillagers) {

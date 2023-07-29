@@ -9,11 +9,13 @@ import 'package:gatewayguardians/utils/palette.dart';
 
 class BuildDialog extends StatelessWidget {
   final GameState state;
+  final Zone zone;
 
-  const BuildDialog._(this.state);
+  const BuildDialog._(this.state, this.zone);
 
   static DialogController show({
     required GameState state,
+    required Zone zone,
   }) {
     final BuildContext context = Navigation.context;
 
@@ -21,7 +23,7 @@ class BuildDialog extends StatelessWidget {
       context: context,
       barrierDismissible: true,
       barrierColor: Palette.transparent,
-      builder: (context) => BuildDialog._(state),
+      builder: (context) => BuildDialog._(state, zone),
     );
 
     return DialogController(context);
@@ -29,8 +31,6 @@ class BuildDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final Zone zone = patch.zone;
-
     return const WindowDialog(
       title: 'Build',
       child: Padding(
