@@ -23,6 +23,12 @@ enum ZoneType {
     required this.sprite,
   });
 
+  bool get canBeClaimed =>
+      (this == grass) ||
+      (this == desert) ||
+      (this == snow) ||
+      (this == mountain);
+
   @override
   String toString() => name.replaceAll('_', ' ');
 }

@@ -150,7 +150,7 @@ class Constants {
         action: null,
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.explored,
       ),
       Zone(
         x: 1,
