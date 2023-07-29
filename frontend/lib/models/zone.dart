@@ -72,7 +72,7 @@ class Zone {
           colony.addFreeVillagers(action.villagers);
           owner = Constants.PLAYER_OWNER;
           actions.removeAt(0);
-        } else if (action.isClaim) {
+        } else if (action.isTrain) {
           colony.addFreeVillagers(1);
           colony.addResource(Resource.villager(1));
           actions.removeAt(0);
