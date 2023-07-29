@@ -5,7 +5,9 @@ import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/buildings/producer.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/action_type.dart';
 import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/widgets/cancel_button.dart';
 import 'package:gatewayguardians/widgets/label.dart';
 import 'package:gatewayguardians/widgets/primary_button.dart';
 
@@ -49,7 +51,14 @@ class BuildingHud extends StatelessWidget {
               state: state,
               zone: zone,
             ),
-          if (building.isDestroyable)
+          if (zone.hasAction &&
+              (zone.actions.first.actionType == ActionType.destroy))
+            CancelButton(
+              state: state,
+              zone: zone,
+              action: zone.actions.first,
+            )
+          else if (building.isDestroyable)
             Padding(
               padding: const EdgeInsets.only(
                 top: 20,
