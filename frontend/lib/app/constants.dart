@@ -198,7 +198,7 @@ class Constants {
         zoneType: ZoneType.grass,
         patch: PatchType.crop_field,
         actions: [],
-        owner: null,
+        owner: Constants.PLAYER_OWNER,
         building: null,
         status: ZoneStatus.explored,
       ),
