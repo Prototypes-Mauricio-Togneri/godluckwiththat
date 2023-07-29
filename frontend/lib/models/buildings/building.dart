@@ -30,6 +30,8 @@ class Building {
 
   bool get canAddVillagers => level > villagers;
 
+  bool get isDestroyable => buildingType != BuildingType.headquarters;
+
   bool get isProducer =>
       (buildingType == BuildingType.farm) ||
       (buildingType == BuildingType.woodcutter) ||
@@ -44,15 +46,6 @@ class Building {
       (buildingType == BuildingType.archery) ||
       (buildingType == BuildingType.cavalry) ||
       (buildingType == BuildingType.workshop);
-
-  int get resourcesPerTurn => 10;
-
-  void onUpgrade() {
-    //final ResourceMap cost = buildingType.cost(level + 1);
-    //colony.inventory.removeResources(cost.resources());
-    //level++;
-    //GameState.instance.notify();
-  }
 
   void addVillagers(int amount) {
     villagers += amount;

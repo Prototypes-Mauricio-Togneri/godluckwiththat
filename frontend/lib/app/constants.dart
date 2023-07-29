@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/buildings/farm.dart';
+import 'package:gatewayguardians/models/buildings/headquarters.dart';
 import 'package:gatewayguardians/models/zone.dart';
-import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
 import 'package:gatewayguardians/types/zone_type.dart';
@@ -199,7 +199,10 @@ class Constants {
         patch: PatchType.crop_field,
         actions: [],
         owner: Constants.PLAYER_OWNER,
-        building: null,
+        building: Farm(
+          level: 1,
+          villagers: 1,
+        ),
         status: ZoneStatus.explored,
       ),
       Zone(
@@ -209,8 +212,7 @@ class Constants {
         patch: null,
         actions: [],
         owner: Constants.PLAYER_OWNER,
-        building: Building(
-          buildingType: BuildingType.headquarters,
+        building: Headquarters(
           level: 1,
           villagers: 5,
         ),

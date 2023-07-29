@@ -44,4 +44,10 @@ class Action {
         turns: 1,
         buildingType: buildingType,
       );
+
+  factory Action.destroy() => Action(
+        actionType: ActionType.destroy,
+        villagers: 1,
+        turns: 1,
+      );
 }

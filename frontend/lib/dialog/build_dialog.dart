@@ -119,7 +119,10 @@ class DirectBuild extends StatelessWidget {
         buildingType: buildingType,
         onBuild: () {
           Navigation.pop();
-          state.build(zone, buildingType);
+          state.build(
+            zone: zone,
+            buildingType: buildingType,
+          );
         },
       ),
     );

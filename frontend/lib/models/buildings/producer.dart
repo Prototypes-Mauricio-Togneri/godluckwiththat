@@ -15,6 +15,7 @@ class Producer extends Building {
           buildingType: buildingType,
         );
 
-  Resource produce() =>
-      Resource(resourceType, buildingType.productionRate * villagers);
+  int get resourcesPerTurn => buildingType.productionRate * villagers;
+
+  Resource produce() => Resource(resourceType, resourcesPerTurn);
 }

@@ -139,7 +139,9 @@ class Zone {
             // TODO(momo): implement
             break;
           case ActionType.destroy:
-            // TODO(momo): implement
+            colony.addFreeVillagers(action.villagers);
+            building = null;
+            actions.removeAt(0);
             break;
           case ActionType.attack:
             // TODO(momo): implement
@@ -161,6 +163,15 @@ class Zone {
     colony.removeResources(buildingType.cost(1));
     colony.removeFreeVillagers(1);
     actions.add(Action.build(buildingType));
+  }
+
+  void destroy({
+    required Colony colony,
+    required Building building,
+  }) {
+    colony.removeFreeVillagers(1);
+    actions.clear();
+    actions.add(Action.destroy());
   }
 
   void explore(Colony colony) {
@@ -204,7 +215,7 @@ class Zone {
         // TODO(momo): implement
         break;
       case ActionType.destroy:
-        // TODO(momo): implement
+        colony.addFreeVillagers(action.villagers);
         break;
       case ActionType.attack:
         // TODO(momo): implement

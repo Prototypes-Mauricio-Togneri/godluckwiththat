@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/buildings/producer.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
@@ -48,6 +49,23 @@ class BuildingHud extends StatelessWidget {
               state: state,
               zone: zone,
             ),
+          if (building.isDestroyable)
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+              ),
+              child: PrimaryButton(
+                text: 'DESTROY',
+                color: Palette.error,
+                icon: Icons.delete_forever,
+                onPressed: () => state.destroy(
+                  zone: zone,
+                  building: building,
+                ),
+              ),
+            )
         ],
       ),
     );
@@ -71,7 +89,7 @@ class ProducerBlock extends StatelessWidget {
         const VBox(20),
         Label(
           text:
-              '${building.resourcesPerTurn} ${building.buildingType.produces.toString()}/turn',
+              '${(building as Producer).resourcesPerTurn} ${building.buildingType.produces.toString()}/turn',
           size: 14,
           color: Palette.white,
         ),
@@ -199,39 +217,17 @@ class QueuedAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(
+    return Padding(
+      padding: const EdgeInsets.only(
         top: 20,
         left: 20,
         right: 20,
       ),
-      color: Palette.error,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Center(
-              child: Label(
-                text: text.toUpperCase(),
-                size: 14,
-              ),
-            ),
-          ),
-          Material(
-            color: Palette.transparent,
-            child: IconButton(
-              padding: const EdgeInsets.all(0),
-              onPressed: onTap,
-              icon: const Icon(
-                Icons.close,
-                color: Palette.white,
-                size: 14,
-              ),
-            ),
-          ),
-        ],
+      child: PrimaryButton(
+        text: text.toUpperCase(),
+        color: Palette.error,
+        icon: Icons.do_not_disturb_on_outlined,
+        onPressed: onTap,
       ),
     );
   }

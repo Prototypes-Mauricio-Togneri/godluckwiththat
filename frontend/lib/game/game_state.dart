@@ -66,10 +66,24 @@ class GameState extends BaseState {
         zone: zone,
       );
 
-  void build(Zone zone, BuildingType buildingType) {
+  void build({
+    required Zone zone,
+    required BuildingType buildingType,
+  }) {
     zone.build(
       colony: colony,
       buildingType: buildingType,
+    );
+    notify();
+  }
+
+  void destroy({
+    required Zone zone,
+    required Building building,
+  }) {
+    zone.destroy(
+      colony: colony,
+      building: building,
     );
     notify();
   }
