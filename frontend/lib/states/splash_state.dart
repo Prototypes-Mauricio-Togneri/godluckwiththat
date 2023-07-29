@@ -1,11 +1,9 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:gatewayguardians/utils/audio.dart';
 import 'package:gatewayguardians/utils/navigation.dart';
 
 class SplashState extends BaseState {
   @override
-  void onLoad() {
-    Audio.load();
+  Future onLoad() async {
     /*Authentication.checkIfAuthenticated(
       onSuccess: _onUserAuthenticated,
       onError: _onUserNotAuthenticated,

@@ -1,4 +1,4 @@
-import 'package:flame/palette.dart';
+import 'package:flutter/material.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/json/json_patch.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
@@ -11,7 +11,7 @@ import 'package:gatewayguardians/types/zone_type.dart';
 class Loaders {
   static Colony colony(JsonColony jsonColony) => Colony(
         owner: jsonColony.owner,
-        color: ColorExtension.fromRGBHexString(jsonColony.color),
+        color: Colors.blue,
         inventory: Inventory.fromJson(jsonColony.inventory),
         zones: [],
         freeVillagers: jsonColony.freeVillagers,

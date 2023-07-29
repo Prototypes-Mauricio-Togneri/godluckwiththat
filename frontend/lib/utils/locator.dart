@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gatewayguardians/platform/platform_initializer.dart';
@@ -16,8 +15,6 @@ class Locator {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    await Flame.device.fullScreen();
-    await Flame.device.setPortrait();
 
     await Firebase.initializeApp(
       options: const FirebaseOptions(

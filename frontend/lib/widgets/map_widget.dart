@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/game/game_state.dart';
@@ -77,6 +76,15 @@ class _MapTileState extends State<MapTile> {
               mouseOver: mouseOver,
               selected: widget.state.selectedZone == widget.zone,
             ),
+            child: (widget.zone.building != null)
+                ? Center(
+                    child: Image(
+                      image: widget.zone.building!.image,
+                      width: widget.size * 0.5,
+                      height: widget.size * 0.5,
+                    ),
+                  )
+                : null,
           ),
         ),
       ),

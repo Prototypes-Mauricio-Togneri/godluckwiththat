@@ -1,4 +1,4 @@
-import 'package:flame/palette.dart';
+import 'package:flutter/painting.dart';
 
 extension ColorExtension on Color {
   String toHex() => '${red.toRadixString(16).padLeft(2, '0')}'
