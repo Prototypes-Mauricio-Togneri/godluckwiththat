@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
-import 'package:gatewayguardians/models/actions/action.dart';
-import 'package:gatewayguardians/models/actions/action_claim.dart';
-import 'package:gatewayguardians/models/actions/action_explore.dart';
+import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/resource.dart';
@@ -69,34 +67,37 @@ class Zone {
 
       if (action!.isReady) {
         if (hasActionExplore) {
-          colony.addFreeVillager();
+          colony.addFreeVillagers(action!.villagers);
           status = ZoneStatus.explored;
+          action = null;
         } else if (hasActionClaim) {
+          colony.addFreeVillagers(action!.villagers);
           owner = Constants.PLAYER_OWNER;
+          action = null;
         }
-
-        action = null;
       }
     }
   }
 
   void explore(Colony colony) {
     colony.removeResource(explorationCost);
-    colony.removeFreeVillager();
-    action = ActionExplore();
+    colony.removeFreeVillagers(1);
+    action = Action.EXPLORE;
   }
 
   void claim(Colony colony) {
     colony.removeResource(claimCost);
-    action = ActionClaim();
+    colony.removeFreeVillagers(1);
+    action = Action.CLAIM;
   }
 
   void cancel(Colony colony) {
     if (hasActionExplore) {
       colony.addResource(explorationCost);
-      colony.addFreeVillager();
+      colony.addFreeVillagers(action!.villagers);
     } else if (hasActionClaim) {
       colony.addResource(claimCost);
+      colony.addFreeVillagers(action!.villagers);
     }
 
     action = null;

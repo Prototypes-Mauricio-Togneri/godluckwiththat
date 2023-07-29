@@ -60,14 +60,14 @@ class GameState extends BaseState {
 
   void onAddWorker(Building building) {
     if (colony.hasFreeVillagers) {
-      building.addWorkers(colony.removeFreeVillager());
+      building.addWorkers(colony.removeFreeVillagers(1));
       notify();
     }
   }
 
   void onRemoveWorker(Building building) {
     if (building.hasWorkers) {
-      building.removeWorker(colony.addFreeVillager());
+      building.removeWorker(colony.addFreeVillagers(1));
       notify();
     }
   }

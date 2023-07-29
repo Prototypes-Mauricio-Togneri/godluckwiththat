@@ -5,6 +5,18 @@ class Action {
   final int villagers;
   int turns;
 
+  static final Action CLAIM = Action(
+    actionType: ActionType.claim,
+    villagers: 1,
+    turns: 1,
+  );
+
+  static final Action EXPLORE = Action(
+    actionType: ActionType.explore,
+    villagers: 1,
+    turns: 1,
+  );
+
   Action({
     required this.actionType,
     required this.villagers,

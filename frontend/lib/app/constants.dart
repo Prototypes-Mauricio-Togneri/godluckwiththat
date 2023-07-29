@@ -9,7 +9,7 @@ class Constants {
   static const String FONT_NAME = 'CustomFont';
 
   static const String PLAYER_OWNER = 'player';
-  static const Color PLAYER_COLOR = Colors.blue;
+  static final Color PLAYER_COLOR = Colors.blue[900]!;
 
   static const int HOUSE_POPULATION = 10;
   static const int HEADQUARTERS_POPULATION = 10;
