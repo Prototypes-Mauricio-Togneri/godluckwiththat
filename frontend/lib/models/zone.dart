@@ -67,7 +67,7 @@ class Zone {
 
   void update(Colony colony) {
     if (hasAction) {
-      action!.turns--;
+      action!.passTurn();
 
       if (action!.isReady) {
         if (hasActionExplore) {
@@ -78,6 +78,17 @@ class Zone {
           colony.addFreeVillagers(action!.villagers);
           owner = Constants.PLAYER_OWNER;
           action = null;
+        } else if (hasActionTrain) {
+          colony.addFreeVillagers(1);
+          colony.addResource(Resource.villager(1));
+
+          final int amount = action!.villagers;
+
+          if (amount > 1) {
+            action = Action.train(amount - 1);
+          } else {
+            action = null;
+          }
         }
       }
     }

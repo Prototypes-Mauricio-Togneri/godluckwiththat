@@ -8,5 +8,7 @@ class Resource {
 
   factory Resource.one(ResourceType resourceType) => Resource(resourceType, 1);
 
+  factory Resource.villager(int amount) => Resource(ResourceType.villager, amount);
+
   factory Resource.food(int amount) => Resource(ResourceType.food, amount);
 }

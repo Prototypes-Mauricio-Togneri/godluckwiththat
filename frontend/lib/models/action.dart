@@ -19,6 +19,12 @@ class Action {
 
   bool get isReady => turns == 0;
 
+  void passTurn() {
+    if (actionType.passTurn) {
+      turns--;
+    }
+  }
+
   factory Action.explore() => Action(
         actionType: ActionType.explore,
         villagers: 1,
@@ -34,6 +40,6 @@ class Action {
   factory Action.train(int amount) => Action(
         actionType: ActionType.train,
         villagers: amount,
-        turns: amount,
+        turns: 0,
       );
 }
