@@ -99,15 +99,16 @@ class ZoneImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if ((zone.building != null) || (zone.patches.isNotEmpty)) {
+    if ((zone.building != null) || (zone.patch != null)) {
       return Stack(
         alignment: Alignment.center,
         children: [
-          if (zone.patches.isNotEmpty)
+          if (zone.patch != null)
             Image.asset(
-              zone.patches[0].sprite,
+              zone.patch!.sprite,
               width: size,
               height: size,
+              scale: 0.5,
             ),
           if (zone.building != null)
             Image.asset(

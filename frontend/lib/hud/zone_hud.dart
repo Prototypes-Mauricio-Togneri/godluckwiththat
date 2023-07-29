@@ -30,18 +30,18 @@ class ZoneHud extends StatelessWidget {
             size: 16,
             color: Palette.white,
           ),
-          if (zone.status.isExplored) ...[
+          /*if (zone.status.isExplored) ...[
             const VBox(20),
             Label(
               text: zone.zoneType.toString(),
               size: 14,
               color: Palette.white,
             ),
-          ],
-          if (zone.patches.isNotEmpty) ...[
+          ],*/
+          if (zone.patch != null) ...[
             const VBox(20),
             Label(
-              text: zone.patches.map((e) => e.toString()).join(', '),
+              text: zone.patch!.toString(),
               size: 16,
               color: Palette.white,
             ),

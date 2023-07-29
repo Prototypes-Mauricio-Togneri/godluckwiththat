@@ -13,7 +13,7 @@ class Zone {
   final int x;
   final int y;
   final ZoneType zoneType;
-  final List<PatchType> patches;
+  final PatchType? patch;
   Action? action;
   String? owner;
   Building? building;
@@ -23,7 +23,7 @@ class Zone {
     required this.x,
     required this.y,
     required this.zoneType,
-    required this.patches,
+    required this.patch,
     required this.action,
     required this.owner,
     required this.building,
