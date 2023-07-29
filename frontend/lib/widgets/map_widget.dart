@@ -169,6 +169,30 @@ class ZonePainter extends CustomPainter {
         borderHoverColor,
       );
     }
+
+    if (zone.building != null) {
+      final TextStyle textStyle = TextStyle(
+        color: Colors.white,
+        fontSize: size.width / 10,
+      );
+      final TextSpan textSpan = TextSpan(
+        text: zone.building!.level.toString(),
+        style: textStyle,
+      );
+      final TextPainter textPainter = TextPainter(
+        text: textSpan,
+        textAlign: TextAlign.center,
+        textDirection: TextDirection.ltr,
+      );
+      textPainter.layout(
+        minWidth: 0,
+        maxWidth: size.width,
+      );
+      final double xCenter = size.width - textPainter.width - size.width / 15;
+      final double yCenter = size.width / 15;
+      final Offset offset = Offset(xCenter, yCenter);
+      textPainter.paint(canvas, offset);
+    }
   }
 
   @override
