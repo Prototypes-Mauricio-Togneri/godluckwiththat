@@ -103,15 +103,15 @@ class ZonePainter extends CustomPainter {
 
     borderHoverColor.color = Palette.white;
     borderHoverColor.style = PaintingStyle.stroke;
-    borderHoverColor.strokeWidth = 3;
+    borderHoverColor.strokeWidth = 2;
 
     borderSelectedColor.color = Palette.white;
     borderSelectedColor.style = PaintingStyle.stroke;
-    borderSelectedColor.strokeWidth = 5;
+    borderSelectedColor.strokeWidth = 4;
 
     borderOwnedColor.color = Constants.PLAYER_COLOR;
     borderOwnedColor.style = PaintingStyle.stroke;
-    borderOwnedColor.strokeWidth = 5;
+    borderOwnedColor.strokeWidth = 4;
   }
 
   @override
@@ -131,10 +131,10 @@ class ZonePainter extends CustomPainter {
     if (zone.isOwned) {
       canvas.drawRect(
         Rect.fromLTWH(
-          0,
-          0,
-          size.width,
-          size.height,
+          2,
+          2,
+          size.width - 4,
+          size.height - 4,
         ),
         borderOwnedColor,
       );
@@ -143,20 +143,20 @@ class ZonePainter extends CustomPainter {
     if (selected) {
       canvas.drawRect(
         Rect.fromLTWH(
-          0,
-          0,
-          size.width,
-          size.height,
+          2,
+          2,
+          size.width - 4,
+          size.height - 4,
         ),
         borderSelectedColor,
       );
     } else if (mouseOver) {
       canvas.drawRect(
         Rect.fromLTWH(
-          0,
-          0,
-          size.width,
-          size.height,
+          1,
+          1,
+          size.width - 2,
+          size.height - 2,
         ),
         borderHoverColor,
       );
