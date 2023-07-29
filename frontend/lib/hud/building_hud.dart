@@ -5,6 +5,7 @@ import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
+import 'package:gatewayguardians/widgets/primary_button.dart';
 
 class BuildingHud extends StatelessWidget {
   final GameState state;
@@ -126,12 +127,19 @@ class TrainerBlock extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         const VBox(20),
-        const Label(
-          text: 'TRAIN VILLAGERS:',
-          size: 14,
-          color: Palette.white,
-        ),
-        const VBox(20),
+        if (state.colony.hasResource(zone.trainVillagerCost))
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 20,
+              right: 20,
+            ),
+            child: PrimaryButton(
+              text: 'CREATE VILLAGER',
+              color: Palette.success,
+              icon: Icons.person,
+              onPressed: () => state.trainVillager(zone),
+            ),
+          ),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
