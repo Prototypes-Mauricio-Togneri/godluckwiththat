@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
-import 'package:gatewayguardians/hud/building_hud.dart';
 import 'package:gatewayguardians/hud/menu_button_hud.dart';
 import 'package:gatewayguardians/hud/resources_hud.dart';
 import 'package:gatewayguardians/hud/zone_hud.dart';
@@ -24,13 +23,6 @@ class LeftMenu extends StatelessWidget {
             ZoneHud(
               state: state,
               zone: state.selectedZone!,
-            ),
-          if ((state.selectedZone != null) &&
-              (state.selectedZone!.building != null))
-            BuildingHud(
-              state: state,
-              zone: state.selectedZone!,
-              building: state.selectedZone!.building!,
             ),
           const Spacer(),
           MenuButtonHud(state),

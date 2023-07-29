@@ -36,44 +36,66 @@ class BuildingHud extends StatelessWidget {
             size: 14,
             color: Palette.white,
           ),
-          if (building.isProducer) ...[
-            const VBox(20),
-            Label(
-              text:
-                  '${building.resourcesPerTurn} ${building.buildingType.produces.toString()}/turn',
-              size: 14,
-              color: Palette.white,
+          if (building.isProducer)
+            ProducerBlock(
+              state: state,
+              building: building,
             ),
-            const VBox(20),
-            Label(
-              text: 'WORKERS ${building.workers}',
-              size: 14,
-              color: Palette.white,
-            ),
-            const VBox(20),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                WorkerButton(
-                  color: Palette.error,
-                  onTap: building.hasWorkers
-                      ? () => state.onRemoveWorker(building)
-                      : null,
-                  icon: Icons.remove,
-                ),
-                const HBox(20),
-                WorkerButton(
-                  color: Palette.success,
-                  onTap: state.colony.hasFreeVillagers
-                      ? () => state.onAddWorker(building)
-                      : null,
-                  icon: Icons.add,
-                ),
-              ],
-            ),
-          ]
         ],
       ),
+    );
+  }
+}
+
+class ProducerBlock extends StatelessWidget {
+  final GameState state;
+  final Building building;
+
+  const ProducerBlock({
+    required this.state,
+    required this.building,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const VBox(20),
+        Label(
+          text:
+              '${building.resourcesPerTurn} ${building.buildingType.produces.toString()}/turn',
+          size: 14,
+          color: Palette.white,
+        ),
+        const VBox(20),
+        Label(
+          text: 'WORKERS ${building.workers}',
+          size: 14,
+          color: Palette.white,
+        ),
+        const VBox(20),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            WorkerButton(
+              color: Palette.error,
+              onTap: building.hasWorkers
+                  ? () => state.onRemoveWorker(building)
+                  : null,
+              icon: Icons.remove,
+            ),
+            const HBox(20),
+            WorkerButton(
+              color: Palette.success,
+              onTap: state.colony.hasFreeVillagers
+                  ? () => state.onAddWorker(building)
+                  : null,
+              icon: Icons.add,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

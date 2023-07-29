@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/hud/building_hud.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
@@ -71,17 +72,9 @@ class ZoneUnexplored extends StatelessWidget {
       children: [
         const VBox(20),
         if (zone.hasAction)
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 20,
-            ),
-            child: PrimaryButton(
-              text: 'CANCEL',
-              color: Palette.error,
-              icon: Icons.close,
-              onPressed: () => state.cancel(zone),
-            ),
+          CancelButton(
+            state: state,
+            zone: zone,
           )
         else
           Padding(
@@ -118,40 +111,105 @@ class ZoneExplored extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (zone.isNeutral) ...[
-          if (zone.hasAction)
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-              ),
-              child: PrimaryButton(
-                text: 'CANCEL',
-                color: Palette.error,
-                icon: Icons.close,
-                onPressed: () => state.cancel(zone),
-              ),
-            )
-          else if (zone.zoneType.canBeClaimed)
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-              ),
-              child: PrimaryButton(
-                text: 'CLAIM',
-                color: Palette.success,
-                icon: Icons.flag,
-                onPressed: state.colony.hasResource(zone.claimCost)
-                    ? () => state.claim(zone)
-                    : null,
-              ),
-            ),
-        ] else
-          ...[],
+        if (zone.isNeutral)
+          ZoneNeutral(
+            state: state,
+            zone: zone,
+          )
+        else
+          ZoneOwned(
+            state: state,
+            zone: zone,
+          ),
       ],
+    );
+  }
+}
+
+class ZoneNeutral extends StatelessWidget {
+  final GameState state;
+  final Zone zone;
+
+  const ZoneNeutral({
+    required this.state,
+    required this.zone,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (zone.hasAction) {
+      return CancelButton(
+        state: state,
+        zone: zone,
+      );
+    } else if (zone.zoneType.canBeClaimed) {
+      return Padding(
+        padding: const EdgeInsets.only(
+          top: 20,
+          left: 20,
+          right: 20,
+        ),
+        child: PrimaryButton(
+          text: 'CLAIM',
+          color: Palette.success,
+          icon: Icons.flag,
+          onPressed: state.colony.hasResource(zone.claimCost)
+              ? () => state.claim(zone)
+              : null,
+        ),
+      );
+    } else {
+      return const Empty();
+    }
+  }
+}
+
+class ZoneOwned extends StatelessWidget {
+  final GameState state;
+  final Zone zone;
+
+  const ZoneOwned({
+    required this.state,
+    required this.zone,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (zone.building != null) {
+      return BuildingHud(
+        state: state,
+        zone: zone,
+        building: zone.building!,
+      );
+    } else {
+      return const Empty();
+    }
+  }
+}
+
+class CancelButton extends StatelessWidget {
+  final GameState state;
+  final Zone zone;
+
+  const CancelButton({
+    required this.state,
+    required this.zone,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 20,
+        left: 20,
+        right: 20,
+      ),
+      child: PrimaryButton(
+        text: 'CANCEL',
+        color: Palette.error,
+        icon: Icons.close,
+        onPressed: () => state.cancel(zone),
+      ),
     );
   }
 }
