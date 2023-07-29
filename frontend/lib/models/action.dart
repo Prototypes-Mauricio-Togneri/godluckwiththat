@@ -5,18 +5,6 @@ class Action {
   final int villagers;
   int turns;
 
-  static final Action CLAIM = Action(
-    actionType: ActionType.claim,
-    villagers: 1,
-    turns: 1,
-  );
-
-  static final Action EXPLORE = Action(
-    actionType: ActionType.explore,
-    villagers: 1,
-    turns: 1,
-  );
-
   Action({
     required this.actionType,
     required this.villagers,
@@ -28,4 +16,16 @@ class Action {
   bool get isClaim => actionType == ActionType.claim;
 
   bool get isReady => turns == 0;
+
+  factory Action.explore() => Action(
+        actionType: ActionType.explore,
+        villagers: 1,
+        turns: 1,
+      );
+
+  factory Action.claim() => Action(
+        actionType: ActionType.claim,
+        villagers: 1,
+        turns: 1,
+      );
 }

@@ -82,13 +82,13 @@ class Zone {
   void explore(Colony colony) {
     colony.removeResource(explorationCost);
     colony.removeFreeVillagers(1);
-    action = Action.EXPLORE;
+    action = Action.explore();
   }
 
   void claim(Colony colony) {
     colony.removeResource(claimCost);
     colony.removeFreeVillagers(1);
-    action = Action.CLAIM;
+    action = Action.claim();
   }
 
   void cancel(Colony colony) {
