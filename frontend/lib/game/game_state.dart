@@ -7,6 +7,7 @@ import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 
 class GameState extends BaseState {
@@ -32,8 +33,8 @@ class GameState extends BaseState {
       color: Constants.PLAYER_COLOR,
       inventory: Inventory.fromResourceMap({
         ResourceType.villager: 5,
-        ResourceType.food: 40,
-        ResourceType.wood: 50,
+        ResourceType.food: 50,
+        ResourceType.wood: 200,
       }),
       zones: zones,
       freeVillagers: 5,
@@ -64,6 +65,14 @@ class GameState extends BaseState {
         state: this,
         zone: zone,
       );
+
+  void build(Zone zone, BuildingType buildingType) {
+    zone.build(
+      colony: colony,
+      buildingType: buildingType,
+    );
+    notify();
+  }
 
   void addVillager(Building building) {
     if (colony.hasFreeVillagers) {

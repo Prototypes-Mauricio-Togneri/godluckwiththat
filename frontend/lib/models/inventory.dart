@@ -40,6 +40,12 @@ class Inventory {
     _resources[resource.resourceType] = current - resource.amount;
   }
 
+  void addResources(List<Resource> resources) {
+    for (final Resource resource in resources) {
+      addResource(resource);
+    }
+  }
+
   void removeResources(List<Resource> resources) {
     for (final Resource resource in resources) {
       removeResource(resource);

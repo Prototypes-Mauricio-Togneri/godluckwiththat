@@ -75,7 +75,7 @@ class ZoneUnexplored extends StatelessWidget {
           CancelButton(
             state: state,
             zone: zone,
-            action: zone.actions[0],
+            action: zone.actions.first,
           )
         else
           Padding(
@@ -143,7 +143,7 @@ class ZoneNeutral extends StatelessWidget {
       return CancelButton(
         state: state,
         zone: zone,
-        action: zone.actions[0],
+        action: zone.actions.first,
       );
     } else if (zone.zoneType.canBeClaimed) {
       return Padding(
@@ -185,19 +185,29 @@ class ZoneOwned extends StatelessWidget {
         building: zone.building!,
       );
     } else {
-      return Padding(
-        padding: const EdgeInsets.only(
-          top: 20,
-          left: 20,
-          right: 20,
-        ),
-        child: PrimaryButton(
-          text: 'BUILD',
-          color: Palette.success,
-          icon: Icons.construction,
-          onPressed: () => state.onBuild(zone),
-        ),
-      );
+      if (zone.hasAction) {
+        return CancelButton(
+          state: state,
+          zone: zone,
+          action: zone.actions.first,
+        );
+      } else {
+        return Padding(
+          padding: const EdgeInsets.only(
+            top: 20,
+            left: 20,
+            right: 20,
+          ),
+          child: PrimaryButton(
+            text: 'BUILD',
+            color: Palette.success,
+            icon: Icons.construction,
+            onPressed: state.colony.hasFreeVillagers
+                ? () => state.onBuild(zone)
+                : null,
+          ),
+        );
+      }
     }
   }
 }

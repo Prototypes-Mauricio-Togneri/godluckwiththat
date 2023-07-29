@@ -1,21 +1,18 @@
 import 'package:gatewayguardians/types/action_type.dart';
+import 'package:gatewayguardians/types/building_type.dart';
 
 class Action {
   final ActionType actionType;
   final int villagers;
+  final BuildingType? buildingType;
   int turns;
 
   Action({
     required this.actionType,
     required this.villagers,
     required this.turns,
+    this.buildingType,
   });
-
-  bool get isExplore => actionType == ActionType.explore;
-
-  bool get isClaim => actionType == ActionType.claim;
-
-  bool get isTrain => actionType == ActionType.train;
 
   bool passTurn() {
     turns--;
@@ -39,5 +36,12 @@ class Action {
         actionType: ActionType.train,
         villagers: amount,
         turns: 1,
+      );
+
+  factory Action.build(BuildingType buildingType) => Action(
+        actionType: ActionType.build,
+        villagers: 1,
+        turns: 1,
+        buildingType: buildingType,
       );
 }

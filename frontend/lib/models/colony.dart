@@ -1,6 +1,7 @@
 import 'package:flutter/painting.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/color_extension.dart';
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/resource.dart';
@@ -82,6 +83,14 @@ class Colony {
 
   void removeResource(Resource resource) {
     inventory.removeResource(resource);
+  }
+
+  void addResources(ResourceMap resources) {
+    inventory.addResources(resources.resources());
+  }
+
+  void removeResources(ResourceMap resources) {
+    inventory.removeResources(resources.resources());
   }
 
   bool hasResource(Resource resource) => inventory.hasResource(resource);

@@ -5,6 +5,8 @@ import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/resource.dart';
+import 'package:gatewayguardians/types/action_type.dart';
+import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
 import 'package:gatewayguardians/types/zone_type.dart';
@@ -59,26 +61,97 @@ class Zone {
     }
   }
 
+  List<BuildingType> basic() => [
+        BuildingType.house,
+        BuildingType.warehouse,
+      ];
+
+  List<BuildingType> producers() {
+    final List<BuildingType> result = [];
+
+    if (patch == PatchType.crop_field) {
+      result.add(BuildingType.farm);
+    }
+
+    if (patch == PatchType.forest) {
+      result.add(BuildingType.woodcutter);
+    }
+
+    if (patch == PatchType.stone_deposit) {
+      result.add(BuildingType.quarry);
+    }
+
+    /*if (patch == PatchType.copper_deposit) {
+      result.add(BuildingType.copper_mine);
+    }
+
+    if (patch == PatchType.iron_deposit) {
+      result.add(BuildingType.iron_mine);
+    }
+
+    if (patch == PatchType.gold_deposit) {
+      result.add(BuildingType.gold_mine);
+    }*/
+
+    return result;
+  }
+
+  List<BuildingType> military() => [
+        BuildingType.barracks,
+        BuildingType.archery,
+        BuildingType.cavalry,
+        BuildingType.workshop,
+        BuildingType.fortress,
+      ];
+
   void update(Colony colony) {
     if (hasAction) {
-      final Action action = actions[0];
+      final Action action = actions.first;
 
       if (action.passTurn()) {
-        if (action.isExplore) {
-          colony.addFreeVillagers(action.villagers);
-          status = ZoneStatus.explored;
-          actions.removeAt(0);
-        } else if (action.isClaim) {
-          colony.addFreeVillagers(action.villagers);
-          owner = Constants.PLAYER_OWNER;
-          actions.removeAt(0);
-        } else if (action.isTrain) {
-          colony.addFreeVillagers(1);
-          colony.addResource(Resource.villager(1));
-          actions.removeAt(0);
+        switch (action.actionType) {
+          case ActionType.explore:
+            colony.addFreeVillagers(action.villagers);
+            status = ZoneStatus.explored;
+            actions.removeAt(0);
+            break;
+          case ActionType.claim:
+            colony.addFreeVillagers(action.villagers);
+            owner = Constants.PLAYER_OWNER;
+            actions.removeAt(0);
+            break;
+          case ActionType.train:
+            colony.addFreeVillagers(1);
+            colony.addResource(Resource.villager(1));
+            actions.removeAt(0);
+            break;
+          case ActionType.build:
+            colony.addFreeVillagers(action.villagers);
+            building = Building.create(
+              buildingType: action.buildingType!,
+              level: 1,
+              villagers: 0,
+            );
+            actions.removeAt(0);
+            break;
+          case ActionType.levelUp:
+            break;
+          case ActionType.destroy:
+            break;
+          case ActionType.attack:
+            break;
         }
       }
     }
+  }
+
+  void build({
+    required Colony colony,
+    required BuildingType buildingType,
+  }) {
+    colony.removeResources(buildingType.cost(1));
+    colony.removeFreeVillagers(1);
+    actions.add(Action.build(buildingType));
   }
 
   void explore(Colony colony) {
@@ -102,14 +175,28 @@ class Zone {
     required Colony colony,
     required Action action,
   }) {
-    if (action.isExplore) {
-      colony.addResource(explorationCost);
-      colony.addFreeVillagers(action.villagers);
-    } else if (action.isClaim) {
-      colony.addResource(claimCost);
-      colony.addFreeVillagers(action.villagers);
-    } else if (action.isTrain) {
-      colony.addResource(trainVillagerCost);
+    switch (action.actionType) {
+      case ActionType.explore:
+        colony.addResource(explorationCost);
+        colony.addFreeVillagers(action.villagers);
+        break;
+      case ActionType.claim:
+        colony.addResource(claimCost);
+        colony.addFreeVillagers(action.villagers);
+        break;
+      case ActionType.train:
+        colony.addResource(trainVillagerCost);
+        break;
+      case ActionType.build:
+        colony.addResources(action.buildingType!.cost(1));
+        colony.addFreeVillagers(action.villagers);
+        break;
+      case ActionType.levelUp:
+        break;
+      case ActionType.destroy:
+        break;
+      case ActionType.attack:
+        break;
     }
 
     actions.remove(action);

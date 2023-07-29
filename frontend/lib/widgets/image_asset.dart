@@ -15,13 +15,11 @@ class ImageAsset extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Image.asset(
+      path,
       width: width ?? size,
       height: height ?? size,
-      child: Image.asset(
-        path,
-        fit: BoxFit.cover,
-      ),
+      fit: BoxFit.cover,
     );
   }
 }
