@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Action;
 import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/palette.dart';
@@ -127,45 +128,28 @@ class TrainerBlock extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         const VBox(20),
-        if (state.colony.hasResource(zone.trainVillagerCost))
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 20,
-            ),
-            child: PrimaryButton(
-              text: 'CREATE VILLAGER',
-              color: Palette.success,
-              icon: Icons.person,
-              onPressed: () => state.trainVillager(zone),
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+          ),
+          child: PrimaryButton(
+            text: 'CREATE VILLAGER',
+            color: Palette.success,
+            icon: Icons.person,
+            onPressed: state.colony.hasResource(zone.trainVillagerCost)
+                ? () => state.trainVillager(zone)
+                : null,
+          ),
+        ),
+        for (final Action action in zone.actions)
+          QueuedAction(
+            text: 'CREATE VILLAGER',
+            onTap: () => state.cancel(
+              zone: zone,
+              action: action,
             ),
           ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            /*VillagerButton(
-              color: Palette.error,
-              onTap: zone.hasActionTrain
-                  ? () => state.untrainVillager(zone)
-                  : null,
-              icon: Icons.remove,
-            ),*/
-            const HBox(20),
-            /*Label(
-              text: zone.hasActionTrain ? '${zone.action!.villagers}' : '0',
-              size: 20,
-              color: Palette.white,
-            ),*/
-            const HBox(20),
-            VillagerButton(
-              color: Palette.success,
-              onTap: state.colony.hasResource(zone.trainVillagerCost)
-                  ? () => state.trainVillager(zone)
-                  : null,
-              icon: Icons.add,
-            ),
-          ],
-        ),
       ],
     );
   }
@@ -199,6 +183,55 @@ class VillagerButton extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class QueuedAction extends StatelessWidget {
+  final String text;
+  final VoidCallback? onTap;
+
+  const QueuedAction({
+    required this.text,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        top: 20,
+        left: 20,
+        right: 20,
+      ),
+      color: Palette.error,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Center(
+              child: Label(
+                text: text.toUpperCase(),
+                size: 14,
+              ),
+            ),
+          ),
+          Material(
+            color: Palette.transparent,
+            child: IconButton(
+              padding: const EdgeInsets.all(0),
+              onPressed: onTap,
+              icon: const Icon(
+                Icons.close,
+                color: Palette.white,
+                size: 14,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
