@@ -50,19 +50,19 @@ class ResourcesHud extends StatelessWidget {
               sprite: ResourceType.food.sprite,
               value: inventory.get(ResourceType.food).toString(),
               tooltip:
-                  'Food: ${state.colony.productionOf(ResourceType.food)} / min',
+                  'Food: ${state.colony.productionOf(ResourceType.food)} / turn',
             ),
             ResourceIndicator(
               sprite: ResourceType.wood.sprite,
               value: inventory.get(ResourceType.wood).toString(),
               tooltip:
-                  'Wood: ${state.colony.productionOf(ResourceType.wood)} / min',
+                  'Wood: ${state.colony.productionOf(ResourceType.wood)} / turn',
             ),
             ResourceIndicator(
               sprite: ResourceType.stone.sprite,
               value: inventory.get(ResourceType.stone).toString(),
               tooltip:
-                  'Stone: ${state.colony.productionOf(ResourceType.stone)} / min',
+                  'Stone: ${state.colony.productionOf(ResourceType.stone)} / turn',
             ),
           ],
         ),
@@ -73,19 +73,19 @@ class ResourcesHud extends StatelessWidget {
               sprite: ResourceType.copper.sprite,
               value: inventory.get(ResourceType.copper).toString(),
               tooltip:
-                  'Copper: ${state.colony.productionOf(ResourceType.copper)} / min',
+                  'Copper: ${state.colony.productionOf(ResourceType.copper)} / turn',
             ),
             ResourceIndicator(
               sprite: ResourceType.iron.sprite,
               value: inventory.get(ResourceType.iron).toString(),
               tooltip:
-                  'Iron: ${state.colony.productionOf(ResourceType.iron)} / min',
+                  'Iron: ${state.colony.productionOf(ResourceType.iron)} / turn',
             ),
             ResourceIndicator(
               sprite: ResourceType.gold.sprite,
               value: inventory.get(ResourceType.gold).toString(),
               tooltip:
-                  'Gold: ${state.colony.productionOf(ResourceType.gold)} / min',
+                  'Gold: ${state.colony.productionOf(ResourceType.gold)} / turn',
             ),
           ],
         ),*/

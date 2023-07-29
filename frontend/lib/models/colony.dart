@@ -31,7 +31,7 @@ class Colony {
 
   // resources generated per turn
   int productionOf(ResourceType resourceType) {
-    double total = 0;
+    int total = 0;
 
     for (final Zone zone in zones) {
       if ((zone.building is Producer) &&
@@ -40,7 +40,7 @@ class Colony {
       }
     }
 
-    return total.truncate();
+    return total;
   }
 
   int get populationLimit {
