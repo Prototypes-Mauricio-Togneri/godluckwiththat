@@ -28,9 +28,19 @@ class Building {
 
   bool get hasVillagers => villagers > 0;
 
+  bool get canHaveMoreVillagers => villagers < level;
+
   bool get canAddVillagers => level > villagers;
 
   bool get isDestroyable => buildingType != BuildingType.headquarters;
+
+  String get buildingLabel {
+    if (isProducer) {
+      return '$villagers/$level';
+    } else {
+      return '$level';
+    }
+  }
 
   bool get isProducer =>
       (buildingType == BuildingType.farm) ||

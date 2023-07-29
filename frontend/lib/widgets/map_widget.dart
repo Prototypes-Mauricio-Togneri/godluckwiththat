@@ -208,12 +208,12 @@ class ZonePainter extends CustomPainter {
         fontSize: size.width / 10,
       );
       final TextSpan textSpan = TextSpan(
-        text: zone.building!.level.toString(),
+        text: zone.building!.buildingLabel,
         style: textStyle,
       );
       final TextPainter textPainter = TextPainter(
         text: textSpan,
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.left,
         textDirection: TextDirection.ltr,
       );
       textPainter.layout(

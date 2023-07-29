@@ -69,10 +69,12 @@ class BuildingHud extends StatelessWidget {
                 text: 'DESTROY',
                 color: Palette.error,
                 icon: Icons.delete_forever,
-                onPressed: () => state.destroy(
-                  zone: zone,
-                  building: building,
-                ),
+                onPressed: state.colony.hasFreeVillagers
+                    ? () => state.destroy(
+                          zone: zone,
+                          building: building,
+                        )
+                    : null,
               ),
             )
         ],
@@ -128,7 +130,8 @@ class ProducerBlock extends StatelessWidget {
             const HBox(20),
             VillagerButton(
               color: Palette.success,
-              onTap: state.colony.hasFreeVillagers
+              onTap: (state.colony.hasFreeVillagers &&
+                      building.canHaveMoreVillagers)
                   ? () => state.addVillager(building)
                   : null,
               icon: Icons.add,
