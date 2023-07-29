@@ -3,6 +3,7 @@ import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/buildings/producer.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/resource.dart';
 import 'package:gatewayguardians/types/action_type.dart';
@@ -142,6 +143,11 @@ class Zone {
             break;
         }
       }
+    } else if ((building != null) &&
+        (building!.isProducer) &&
+        (building!.hasVillagers)) {
+      final Producer producer = building as Producer;
+      colony.addResource(producer.produce());
     }
   }
 

@@ -6,7 +6,6 @@ class Farm extends Producer {
   Farm({
     required super.level,
     required super.villagers,
-    required super.productionTime,
   }) : super(
           buildingType: BuildingType.farm,
           resourceType: ResourceType.food,

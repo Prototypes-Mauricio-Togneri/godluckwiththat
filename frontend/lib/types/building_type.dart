@@ -165,20 +165,20 @@ enum BuildingType {
     return 0;
   }
 
-  double get productionTime {
+  int get productionRate {
     switch (this) {
       case BuildingType.farm:
-        return Constants.FARM_PRODUCTION_TIME;
+        return Constants.FARM_PRODUCTION_RATE;
       case BuildingType.woodcutter:
-        return Constants.WOODCUTTER_PRODUCTION_TIME;
+        return Constants.WOODCUTTER_PRODUCTION_RATE;
       case BuildingType.quarry:
-        return Constants.QUARRY_PRODUCTION_TIME;
+        return Constants.QUARRY_PRODUCTION_RATE;
       case BuildingType.copper_mine:
-        return Constants.COPPER_MINE_PRODUCTION_TIME;
+        return Constants.COPPER_MINE_PRODUCTION_RATE;
       case BuildingType.iron_mine:
-        return Constants.IRON_MINE_PRODUCTION_TIME;
+        return Constants.IRON_MINE_PRODUCTION_RATE;
       case BuildingType.gold_mine:
-        return Constants.GOLD_MINE_PRODUCTION_TIME;
+        return Constants.GOLD_MINE_PRODUCTION_RATE;
       default:
         return 0;
     }

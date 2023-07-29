@@ -11,4 +11,14 @@ class Resource {
   factory Resource.villager(int amount) => Resource(ResourceType.villager, amount);
 
   factory Resource.food(int amount) => Resource(ResourceType.food, amount);
+
+  factory Resource.wood(int amount) => Resource(ResourceType.wood, amount);
+
+  factory Resource.stone(int amount) => Resource(ResourceType.stone, amount);
+
+  factory Resource.copper(int amount) => Resource(ResourceType.copper, amount);
+
+  factory Resource.iron(int amount) => Resource(ResourceType.iron, amount);
+
+  factory Resource.gold(int amount) => Resource(ResourceType.gold, amount);
 }

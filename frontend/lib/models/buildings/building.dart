@@ -89,37 +89,31 @@ class Building {
         return Farm(
           level: level,
           villagers: villagers,
-          productionTime: buildingType.productionTime,
         );
       case BuildingType.woodcutter:
         return Woodcutter(
           level: level,
           villagers: villagers,
-          productionTime: buildingType.productionTime,
         );
       case BuildingType.quarry:
         return Quarry(
           level: level,
           villagers: villagers,
-          productionTime: buildingType.productionTime,
         );
       case BuildingType.copper_mine:
         return CopperMine(
           level: level,
           villagers: villagers,
-          productionTime: buildingType.productionTime,
         );
       case BuildingType.iron_mine:
         return IronMine(
           level: level,
           villagers: villagers,
-          productionTime: buildingType.productionTime,
         );
       case BuildingType.gold_mine:
         return GoldMine(
           level: level,
           villagers: villagers,
-          productionTime: buildingType.productionTime,
         );
       case BuildingType.barracks:
         return Barracks(

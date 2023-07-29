@@ -6,7 +6,6 @@ class CopperMine extends Producer {
   CopperMine({
     required super.level,
     required super.villagers,
-    required super.productionTime,
   }) : super(
           buildingType: BuildingType.copper_mine,
           resourceType: ResourceType.copper,

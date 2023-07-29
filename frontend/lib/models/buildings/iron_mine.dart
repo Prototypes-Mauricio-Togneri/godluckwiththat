@@ -6,7 +6,6 @@ class IronMine extends Producer {
   IronMine({
     required super.level,
     required super.villagers,
-    required super.productionTime,
   }) : super(
           buildingType: BuildingType.iron_mine,
           resourceType: ResourceType.iron,

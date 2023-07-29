@@ -15,12 +15,12 @@ class Constants {
   static const int HOUSE_POPULATION = 10;
   static const int HEADQUARTERS_POPULATION = 10;
 
-  static const double FARM_PRODUCTION_TIME = 10;
-  static const double WOODCUTTER_PRODUCTION_TIME = 10;
-  static const double QUARRY_PRODUCTION_TIME = 10;
-  static const double COPPER_MINE_PRODUCTION_TIME = 10;
-  static const double IRON_MINE_PRODUCTION_TIME = 10;
-  static const double GOLD_MINE_PRODUCTION_TIME = 10;
+  static const int FARM_PRODUCTION_RATE = 10;
+  static const int WOODCUTTER_PRODUCTION_RATE = 10;
+  static const int QUARRY_PRODUCTION_RATE = 10;
+  static const int COPPER_MINE_PRODUCTION_RATE = 10;
+  static const int IRON_MINE_PRODUCTION_RATE = 10;
+  static const int GOLD_MINE_PRODUCTION_RATE = 10;
 
   static const String EMPTY_MATCH = '''
 {
