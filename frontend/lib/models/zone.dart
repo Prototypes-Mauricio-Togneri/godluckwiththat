@@ -41,6 +41,12 @@ class Zone {
 
   bool get hasAction => actions.isNotEmpty;
 
+  bool get hasActionDestroy =>
+      actions.isNotEmpty && (actions.first.actionType == ActionType.destroy);
+
+  bool get hasActionLevelUp =>
+      actions.isNotEmpty && (actions.first.actionType == ActionType.levelUp);
+
   Resource get explorationCost => Resource.food(10);
 
   Resource get claimCost => Resource.food(10);
