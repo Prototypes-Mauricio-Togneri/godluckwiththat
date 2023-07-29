@@ -3,9 +3,11 @@ import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/color_extension.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
+import 'package:gatewayguardians/models/buildings/producer.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/resource.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 
 class Colony {
@@ -29,38 +31,26 @@ class Colony {
 
   // resources generated per turn
   int productionOf(ResourceType resourceType) {
-    const double total = 0;
+    double total = 0;
 
-    /*for (final Zone zone in zones) {
-      for (final Patch patch in zone.patches) {
-        if (patch.hasBuilding) {
-          final Building building = patch.building!;
-
-          if ((building is Producer) &&
-              (building.resourceType == resourceType)) {
-            total += building.productionPerMinute;
-          }
-        }
+    for (final Zone zone in zones) {
+      if ((zone.building is Producer) &&
+          (zone.building?.buildingType.produces == resourceType)) {
+        total += (zone.building as Producer).resourcesPerTurn;
       }
-    }*/
+    }
 
     return total.truncate();
   }
 
   int get populationLimit {
-    const int total = 0;
+    int total = 0;
 
-    /*for (final Zone zone in zones) {
-      for (final Patch patch in zone.patches) {
-        if (patch.hasBuilding) {
-          final Building building = patch.building!;
-
-          if (building is House) {
-            total += Constants.HOUSE_POPULATION;
-          }
-        }
+    for (final Zone zone in zones) {
+      if (zone.building?.buildingType == BuildingType.house) {
+        total += Constants.HOUSE_POPULATION;
       }
-    }*/
+    }
 
     return total + Constants.HEADQUARTERS_POPULATION;
   }
