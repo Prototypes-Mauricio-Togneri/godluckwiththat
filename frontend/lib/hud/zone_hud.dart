@@ -1,7 +1,8 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Action;
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/hud/building_hud.dart';
+import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
@@ -70,15 +71,16 @@ class ZoneUnexplored extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const VBox(20),
         if (zone.hasAction)
           CancelButton(
             state: state,
             zone: zone,
+            action: zone.actions[0],
           )
         else
           Padding(
             padding: const EdgeInsets.only(
+              top: 20,
               left: 20,
               right: 20,
             ),
@@ -141,6 +143,7 @@ class ZoneNeutral extends StatelessWidget {
       return CancelButton(
         state: state,
         zone: zone,
+        action: zone.actions[0],
       );
     } else if (zone.zoneType.canBeClaimed) {
       return Padding(
@@ -190,10 +193,12 @@ class ZoneOwned extends StatelessWidget {
 class CancelButton extends StatelessWidget {
   final GameState state;
   final Zone zone;
+  final Action action;
 
   const CancelButton({
     required this.state,
     required this.zone,
+    required this.action,
   });
 
   @override
@@ -208,7 +213,10 @@ class CancelButton extends StatelessWidget {
         text: 'CANCEL',
         color: Palette.error,
         icon: Icons.close,
-        onPressed: () => state.cancel(zone),
+        onPressed: () => state.cancel(
+          zone: zone,
+          action: action,
+        ),
       ),
     );
   }

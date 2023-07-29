@@ -23,7 +23,7 @@ class Loaders {
       y: 0,
       zoneType: ZoneType.grass,
       patch: null,
-      action: null,
+      actions: [],
       owner: '',
       building: null,
       status: jsonZone.status,

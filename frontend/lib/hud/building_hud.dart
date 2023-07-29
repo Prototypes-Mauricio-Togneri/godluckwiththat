@@ -135,19 +135,19 @@ class TrainerBlock extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            VillagerButton(
+            /*VillagerButton(
               color: Palette.error,
               onTap: zone.hasActionTrain
                   ? () => state.untrainVillager(zone)
                   : null,
               icon: Icons.remove,
-            ),
+            ),*/
             const HBox(20),
-            Label(
+            /*Label(
               text: zone.hasActionTrain ? '${zone.action!.villagers}' : '0',
               size: 20,
               color: Palette.white,
-            ),
+            ),*/
             const HBox(20),
             VillagerButton(
               color: Palette.success,

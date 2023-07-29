@@ -14,7 +14,7 @@ class Zone {
   final int y;
   final ZoneType zoneType;
   final PatchType? patch;
-  Action? action;
+  final List<Action> actions;
   String? owner;
   Building? building;
   ZoneStatus status;
@@ -24,7 +24,7 @@ class Zone {
     required this.y,
     required this.zoneType,
     required this.patch,
-    required this.action,
+    required this.actions,
     required this.owner,
     required this.building,
     required this.status,
@@ -36,13 +36,7 @@ class Zone {
 
   bool get isNeutral => owner == null;
 
-  bool get hasAction => action != null;
-
-  bool get hasActionExplore => action?.isExplore ?? false;
-
-  bool get hasActionClaim => action?.isClaim ?? false;
-
-  bool get hasActionTrain => action?.isTrain ?? false;
+  bool get hasAction => actions.isNotEmpty;
 
   Resource get explorationCost => Resource.food(10);
 
@@ -67,53 +61,22 @@ class Zone {
 
   void update(Colony colony) {
     if (hasAction) {
-      action!.passTurn();
+      final Action action = actions[0];
 
-      if (action!.isReady) {
-        if (hasActionExplore) {
-          colony.addFreeVillagers(action!.villagers);
+      if (action.passTurn()) {
+        if (action.isExplore) {
+          colony.addFreeVillagers(action.villagers);
           status = ZoneStatus.explored;
-          action = null;
-        } else if (hasActionClaim) {
-          colony.addFreeVillagers(action!.villagers);
+          actions.removeAt(0);
+        } else if (action.isClaim) {
+          colony.addFreeVillagers(action.villagers);
           owner = Constants.PLAYER_OWNER;
-          action = null;
-        } else if (hasActionTrain) {
+          actions.removeAt(0);
+        } else if (action.isClaim) {
           colony.addFreeVillagers(1);
           colony.addResource(Resource.villager(1));
-
-          final int amount = action!.villagers;
-
-          if (amount > 1) {
-            action = Action.train(amount - 1);
-          } else {
-            action = null;
-          }
+          actions.removeAt(0);
         }
-      }
-    }
-  }
-
-  void trainVillager(Colony colony) {
-    colony.removeResource(trainVillagerCost);
-
-    if (action != null) {
-      action = Action.train(action!.villagers + 1);
-    } else {
-      action = Action.train(1);
-    }
-  }
-
-  void untrainVillager(Colony colony) {
-    colony.addResource(trainVillagerCost);
-
-    if (action != null) {
-      final int amount = action!.villagers;
-
-      if (amount > 1) {
-        action = Action.train(amount - 1);
-      } else {
-        action = null;
       }
     }
   }
@@ -121,25 +84,35 @@ class Zone {
   void explore(Colony colony) {
     colony.removeResource(explorationCost);
     colony.removeFreeVillagers(1);
-    action = Action.explore();
+    actions.add(Action.explore());
   }
 
   void claim(Colony colony) {
     colony.removeResource(claimCost);
     colony.removeFreeVillagers(1);
-    action = Action.claim();
+    actions.add(Action.claim());
   }
 
-  void cancel(Colony colony) {
-    if (hasActionExplore) {
+  void trainVillager(Colony colony) {
+    colony.removeResource(trainVillagerCost);
+    actions.add(Action.train(1));
+  }
+
+  void cancel({
+    required Colony colony,
+    required Action action,
+  }) {
+    if (action.isExplore) {
       colony.addResource(explorationCost);
-      colony.addFreeVillagers(action!.villagers);
-    } else if (hasActionClaim) {
+      colony.addFreeVillagers(action.villagers);
+    } else if (action.isClaim) {
       colony.addResource(claimCost);
-      colony.addFreeVillagers(action!.villagers);
+      colony.addFreeVillagers(action.villagers);
+    } else if (action.isTrain) {
+      colony.addResource(trainVillagerCost);
     }
 
-    action = null;
+    actions.remove(action);
   }
 
   JsonZone get json => JsonZone(

@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/json/json_match.dart';
+import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
@@ -58,16 +59,6 @@ class GameState extends BaseState {
     notify();
   }
 
-  void trainVillager(Zone zone) {
-    zone.trainVillager(colony);
-    notify();
-  }
-
-  void untrainVillager(Zone zone) {
-    zone.untrainVillager(colony);
-    notify();
-  }
-
   void addVillager(Building building) {
     if (colony.hasFreeVillagers) {
       building.addVillagers(colony.removeFreeVillagers(1));
@@ -92,8 +83,19 @@ class GameState extends BaseState {
     notify();
   }
 
-  void cancel(Zone zone) {
-    zone.cancel(colony);
+  void trainVillager(Zone zone) {
+    zone.trainVillager(colony);
+    notify();
+  }
+
+  void cancel({
+    required Zone zone,
+    required Action action,
+  }) {
+    zone.cancel(
+      colony: colony,
+      action: action,
+    );
     notify();
   }
 
