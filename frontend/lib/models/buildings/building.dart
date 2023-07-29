@@ -1,4 +1,5 @@
 import 'package:gatewayguardians/dialog/confirmation_dialog.dart';
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/models/buildings/archery.dart';
 import 'package:gatewayguardians/models/buildings/barracks.dart';
 import 'package:gatewayguardians/models/buildings/cavalry.dart';
@@ -33,6 +34,8 @@ class Building {
   bool get canAddVillagers => level > villagers;
 
   bool get isDestroyable => buildingType != BuildingType.headquarters;
+
+  ResourceMap get costNextLevel => buildingType.cost(level + 1);
 
   String get buildingLabel {
     if (isProducer) {

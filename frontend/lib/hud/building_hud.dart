@@ -56,7 +56,26 @@ class BuildingHud extends StatelessWidget {
               zone: zone,
               action: zone.actions.first,
             ),
-          if (!zone.hasActionDestroy && building.isDestroyable)
+          if (!zone.hasAction)
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+              ),
+              child: PrimaryButton(
+                text: 'LEVEL UP',
+                color: Palette.success,
+                icon: Icons.arrow_circle_up_outlined,
+                onPressed: state.colony.inventory.has(building.costNextLevel)
+                    ? () => state.levelUp(
+                          zone: zone,
+                          building: building,
+                        )
+                    : null,
+              ),
+            ),
+          if (!zone.hasAction && building.isDestroyable)
             Padding(
               padding: const EdgeInsets.only(
                 top: 20,
@@ -74,7 +93,7 @@ class BuildingHud extends StatelessWidget {
                         )
                     : null,
               ),
-            )
+            ),
         ],
       ),
     );

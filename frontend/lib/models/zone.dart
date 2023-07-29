@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:gatewayguardians/app/constants.dart';
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
@@ -142,10 +143,10 @@ class Zone {
             actions.removeAt(0);
             break;
           case ActionType.levelUp:
-            // TODO(momo): implement
+            building!.level++;
+            actions.removeAt(0);
             break;
           case ActionType.destroy:
-            colony.addFreeVillagers(action.villagers);
             building = null;
             actions.removeAt(0);
             break;
@@ -166,16 +167,28 @@ class Zone {
     required Colony colony,
     required BuildingType buildingType,
   }) {
-    colony.removeResources(buildingType.cost(1));
+    final ResourceMap cost = buildingType.cost(1);
+    colony.removeResources(cost);
     colony.removeFreeVillagers(1);
-    actions.add(Action.build(buildingType));
+    actions.add(Action.build(
+      buildingType: buildingType,
+      cost: cost,
+    ));
+  }
+
+  void levelUp({
+    required Colony colony,
+    required Building building,
+  }) {
+    colony.removeResources(building.costNextLevel);
+    actions.clear();
+    actions.add(Action.levelUp(building.costNextLevel));
   }
 
   void destroy({
     required Colony colony,
     required Building building,
   }) {
-    colony.removeFreeVillagers(1);
     actions.clear();
     actions.add(Action.destroy());
   }
@@ -214,14 +227,13 @@ class Zone {
         colony.addResource(trainVillagerCost);
         break;
       case ActionType.build:
-        colony.addResources(action.buildingType!.cost(1));
+        colony.addResources(action.cost!);
         colony.addFreeVillagers(action.villagers);
         break;
       case ActionType.levelUp:
-        // TODO(momo): implement
+        colony.addResources(action.cost!);
         break;
       case ActionType.destroy:
-        colony.addFreeVillagers(action.villagers);
         break;
       case ActionType.attack:
         // TODO(momo): implement

@@ -77,6 +77,17 @@ class GameState extends BaseState {
     notify();
   }
 
+  void levelUp({
+    required Zone zone,
+    required Building building,
+  }) {
+    zone.levelUp(
+      colony: colony,
+      building: building,
+    );
+    notify();
+  }
+
   void destroy({
     required Zone zone,
     required Building building,
