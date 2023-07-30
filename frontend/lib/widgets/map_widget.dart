@@ -108,13 +108,13 @@ class ZoneImage extends StatelessWidget {
       return Stack(
         alignment: Alignment.center,
         children: [
-          if (zone.patch != null)
+          /*if (zone.patch != null)
             Image.asset(
               zone.patch!.sprite,
               width: size,
               height: size,
               scale: 0.5,
-            ),
+            ),*/
           if (zone.building != null)
             Image.asset(
               zone.building!.buildingType.sprite,
@@ -162,14 +162,18 @@ class ZonePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (zone.status.isExplored) {
-      if (zone.zoneType == ZoneType.grass) {
-        _drawImageFull(canvas, size, Images.imageTileGrass);
-      } else {
-        if (zone.zoneType == ZoneType.water) {
-          _drawImageFull(canvas, size, Images.imageTileWater);
-        }
+    //if (zone.status.isExplored) {
+    if (zone.zoneType == ZoneType.grass) {
+      _drawImageFull(canvas, size, Images.imageTileGrass);
+    } else {
+      if (zone.zoneType == ZoneType.water) {
+        _drawImageFull(canvas, size, Images.imageTileWater);
       }
+    }
+    //}
+
+    if (zone.patch != null) {
+      _drawImageHalf(canvas, size, Images.image(zone.patch!.sprite));
     }
 
     if (zone.isOwned) {
@@ -244,7 +248,7 @@ class ZonePainter extends CustomPainter {
     canvas.restore();
   }
 
-  /*void _drawImageHalf(Canvas canvas, Size size, ui.Image image) {
+  void _drawImageHalf(Canvas canvas, Size size, ui.Image image) {
     final double imageSize =
         max(image.width.toDouble(), image.height.toDouble());
     const double ratio = 0.5;
@@ -254,10 +258,10 @@ class ZonePainter extends CustomPainter {
     canvas.drawImage(
         image,
         Offset(
-          size.width / 3,
-          size.height / 3,
+          size.width / 2,
+          size.height / 2,
         ),
         imagePaint);
     canvas.restore();
-  }*/
+  }
 }
