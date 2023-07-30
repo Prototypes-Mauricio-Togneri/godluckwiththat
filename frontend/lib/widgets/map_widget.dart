@@ -18,14 +18,14 @@ class MapWidget extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            for (int i = 0; i < state.mapHeight; i++)
+            for (int y = 0; y < state.mapHeight; y++)
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  for (int j = 0; j < state.mapWidth; j++)
+                  for (int x = 0; x < state.mapWidth; x++)
                     MapTile(
                       state: state,
-                      zone: state.zoneById('$i,$j'),
+                      zone: state.zoneById('$x,$y'),
                       size: constraints.maxHeight /
                           (max(state.mapHeight, state.mapWidth) + 1),
                     ),

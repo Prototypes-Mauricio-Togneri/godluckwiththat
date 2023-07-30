@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dafluta/dafluta.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/dialog/build_dialog.dart';
@@ -14,8 +16,8 @@ class GameState extends BaseState {
   int turn = 1;
   num totalTimeElapsed = 0;
 
-  final int mapWidth = 4;
-  final int mapHeight = 4;
+  late final int mapWidth;
+  late final int mapHeight;
 
   final JsonMatch jsonMatch;
   final List<Zone> zones = [];
@@ -27,6 +29,9 @@ class GameState extends BaseState {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
     zones.addAll(Constants.zones());
+
+    mapWidth = sqrt(zones.length).toInt();
+    mapHeight = sqrt(zones.length).toInt();
 
     colony = Colony(
       owner: Constants.PLAYER_OWNER,
