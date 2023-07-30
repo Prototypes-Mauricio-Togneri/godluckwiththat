@@ -99,7 +99,8 @@ class ZoneImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if ((zone.building != null) || (zone.patch != null)) {
+    if (zone.status.isExplored &&
+        ((zone.building != null) || (zone.patch != null))) {
       return Stack(
         alignment: Alignment.center,
         children: [
