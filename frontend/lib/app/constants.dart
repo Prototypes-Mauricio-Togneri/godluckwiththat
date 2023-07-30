@@ -1349,7 +1349,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.explored,
       ),
       Zone(
         x: 1,
@@ -1472,7 +1472,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.explored,
       ),
       Zone(
         x: 1,
@@ -1482,7 +1482,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.explored,
       ),
       Zone(
         x: 2,

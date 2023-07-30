@@ -1,9 +1,7 @@
 class Assets {
 	static const String AUDIO_SFX_AMMO1 = './assets/audio/sfx/ammo1.mp3';
 	static const String AUDIO_SFX_AMMO2 = './assets/audio/sfx/ammo2.mp3';
-	static const String IMAGES_TILES_TILE3 = './assets/images/tiles/tile3.png';
-	static const String IMAGES_TILES_TILE2 = './assets/images/tiles/tile2.png';
-	static const String IMAGES_TILES_TILE1 = './assets/images/tiles/tile1.png';
+	static const String IMAGES_TILES_GRASS = './assets/images/tiles/grass.png';
 	static const String IMAGES_TILES_WATER = './assets/images/tiles/water.png';
 	static const String IMAGES_BUILDINGS_COPPER_MINE = './assets/images/buildings/copper_mine.png';
 	static const String IMAGES_BUILDINGS_FORTRESS = './assets/images/buildings/fortress.png';

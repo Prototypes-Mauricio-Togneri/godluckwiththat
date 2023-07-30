@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/zone_type.dart';
 import 'package:gatewayguardians/utils/images.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 
@@ -161,9 +162,15 @@ class ZonePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    //if (zone.status.isExplored) {
-    _drawImageFull(canvas, size, Images.image());
-    //}
+    if (zone.status.isExplored) {
+      if (zone.zoneType == ZoneType.grass) {
+        _drawImageFull(canvas, size, Images.imageTileGrass);
+      } else {
+        if (zone.zoneType == ZoneType.water) {
+          _drawImageFull(canvas, size, Images.imageTileWater);
+        }
+      }
+    }
 
     if (zone.isOwned) {
       canvas.drawRect(
@@ -237,7 +244,7 @@ class ZonePainter extends CustomPainter {
     canvas.restore();
   }
 
-  void _drawImageHalf(Canvas canvas, Size size, ui.Image image) {
+  /*void _drawImageHalf(Canvas canvas, Size size, ui.Image image) {
     final double imageSize =
         max(image.width.toDouble(), image.height.toDouble());
     const double ratio = 0.5;
@@ -252,5 +259,5 @@ class ZonePainter extends CustomPainter {
         ),
         imagePaint);
     canvas.restore();
-  }
+  }*/
 }
