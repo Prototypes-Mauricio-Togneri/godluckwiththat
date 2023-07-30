@@ -232,14 +232,16 @@ class ZonePainter extends CustomPainter {
     final image = Images.image();
     final double imageSize =
         max(image.width.toDouble(), image.height.toDouble());
-    const double ratio = 1;
+    const double ratio = 0.5;
+    final double scale = (size.width / imageSize) * ratio;
+    final double finalImageSize = size.width * ratio;
     canvas.save();
-    canvas.scale((size.width / imageSize) * ratio);
+    canvas.scale(scale);
     canvas.drawImage(
         image,
         Offset(
-          size.width / 3,
-          size.height / 3,
+          (size.width / 2) - (finalImageSize / 4),
+          (size.height / 2) - (finalImageSize / 4),
         ),
         imagePaint);
     canvas.restore();
