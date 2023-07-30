@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'dart:ui' as ui;
+
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/app/constants.dart';
@@ -159,17 +161,9 @@ class ZonePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (zone.status.isExplored) {
-      canvas.drawRect(
-        Rect.fromLTWH(
-          0,
-          0,
-          size.width,
-          size.height,
-        ),
-        backgroundColor,
-      );
-    }
+    //if (zone.status.isExplored) {
+    _drawImageFull(canvas, size, Images.image());
+    //}
 
     if (zone.isOwned) {
       canvas.drawRect(
@@ -228,25 +222,35 @@ class ZonePainter extends CustomPainter {
       final Offset offset = Offset(xCenter, yCenter);
       textPainter.paint(canvas, offset);
     }
+  }
 
-    final image = Images.image();
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+
+  void _drawImageFull(Canvas canvas, Size size, ui.Image image) {
+    final double imageSize =
+        max(image.width.toDouble(), image.height.toDouble());
+    final double scale = size.width / imageSize;
+    canvas.save();
+    canvas.scale(scale);
+    canvas.drawImage(image, const Offset(0, 0), imagePaint);
+    canvas.restore();
+  }
+
+  void _drawImageHalf(Canvas canvas, Size size, ui.Image image) {
     final double imageSize =
         max(image.width.toDouble(), image.height.toDouble());
     const double ratio = 0.5;
     final double scale = (size.width / imageSize) * ratio;
-    final double finalImageSize = size.width * ratio;
     canvas.save();
     canvas.scale(scale);
     canvas.drawImage(
         image,
         Offset(
-          (size.width / 2) - (finalImageSize / 4),
-          (size.height / 2) - (finalImageSize / 4),
+          size.width / 3,
+          size.height / 3,
         ),
         imagePaint);
     canvas.restore();
   }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
