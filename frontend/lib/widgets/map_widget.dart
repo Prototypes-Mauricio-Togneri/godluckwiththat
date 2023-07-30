@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/utils/images.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 
 class MapWidget extends StatelessWidget {
@@ -133,6 +134,7 @@ class ZonePainter extends CustomPainter {
   final Paint borderHoverColor = Paint();
   final Paint borderSelectedColor = Paint();
   final Paint borderOwnedColor = Paint();
+  static final Paint imagePaint = Paint();
 
   ZonePainter({
     required this.zone,
@@ -226,6 +228,21 @@ class ZonePainter extends CustomPainter {
       final Offset offset = Offset(xCenter, yCenter);
       textPainter.paint(canvas, offset);
     }
+
+    final image = Images.image();
+    final double imageSize =
+        max(image.width.toDouble(), image.height.toDouble());
+    const double ratio = 1;
+    canvas.save();
+    canvas.scale((size.width / imageSize) * ratio);
+    canvas.drawImage(
+        image,
+        Offset(
+          size.width / 3,
+          size.height / 3,
+        ),
+        imagePaint);
+    canvas.restore();
   }
 
   @override
