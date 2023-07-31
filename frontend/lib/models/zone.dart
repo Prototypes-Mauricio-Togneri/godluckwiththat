@@ -35,6 +35,22 @@ class Zone {
 
   String get id => '$x,$y';
 
+  String get top => '$x,${y - 1}';
+
+  String get topLeft => '${x - 1},${y - 1}';
+
+  String get topRight => '${x + 1},${y - 1}';
+
+  String get left => '${x - 1},$y';
+
+  String get right => '${x + 1},$y';
+
+  String get bottom => '$x,${y + 1}';
+
+  String get bottomLeft => '${x - 1},${y + 1}';
+
+  String get bottomRight => '${x + 1},${y + 1}';
+
   bool get isOwned => owner == Constants.PLAYER_OWNER;
 
   bool get isNeutral => owner == null;
@@ -52,6 +68,16 @@ class Zone {
   Resource get claimCost => Resource.food(10);
 
   Resource get trainVillagerCost => Resource.food(10);
+
+  bool isNeighbor(Zone zone) =>
+      (zone.id == top) ||
+      (zone.id == topLeft) ||
+      (zone.id == topRight) ||
+      (zone.id == left) ||
+      (zone.id == right) ||
+      (zone.id == bottom) ||
+      (zone.id == bottomLeft) ||
+      (zone.id == bottomRight);
 
   List<BuildingType> basic() => [
         BuildingType.house,
@@ -103,6 +129,11 @@ class Zone {
       if (action.passTurn()) {
         switch (action.actionType) {
           case ActionType.explore:
+            for (final Zone zone in colony.getNeighbors(this)) {
+              if (zone.zoneType == ZoneType.water) {
+                zone.status = ZoneStatus.explored;
+              }
+            }
             colony.addFreeVillagers(action.villagers);
             status = ZoneStatus.explored;
             actions.removeAt(0);

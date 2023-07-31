@@ -55,6 +55,28 @@ class Colony {
     return total + Constants.HEADQUARTERS_POPULATION;
   }
 
+  Zone? zoneById(String id) {
+    for (final Zone zone in zones) {
+      if (zone.id == id) {
+        return zone;
+      }
+    }
+
+    return null;
+  }
+
+  List<Zone> getNeighbors(Zone center) {
+    final List<Zone> result = [];
+
+    for (final Zone zone in zones) {
+      if (center.isNeighbor(zone)) {
+        result.add(zone);
+      }
+    }
+
+    return result;
+  }
+
   int addFreeVillagers(int amount) {
     freeVillagers += amount;
 

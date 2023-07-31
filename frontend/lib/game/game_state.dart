@@ -46,16 +46,6 @@ class GameState extends BaseState {
     );
   }
 
-  Zone zoneById(String id) {
-    for (final Zone zone in zones) {
-      if (zone.id == id) {
-        return zone;
-      }
-    }
-
-    throw Exception('Zone with id $id not found');
-  }
-
   void onZoneClicked(Zone zone) {
     if (selectedZone != zone) {
       selectedZone = zone;

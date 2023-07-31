@@ -28,7 +28,7 @@ class MapWidget extends StatelessWidget {
                   for (int x = 0; x < state.mapWidth; x++)
                     MapTile(
                       state: state,
-                      zone: state.zoneById('$x,$y'),
+                      zone: state.colony.zoneById('$x,$y')!,
                       size: constraints.maxHeight /
                           (max(state.mapHeight, state.mapWidth) + 1),
                     ),
