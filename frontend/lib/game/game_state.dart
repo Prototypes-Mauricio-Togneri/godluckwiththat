@@ -1,6 +1,7 @@
 import 'dart:math';
-
 import 'package:dafluta/dafluta.dart';
+import 'package:flutter/material.dart' hide Action;
+import 'package:flutter/services.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/dialog/build_dialog.dart';
 import 'package:gatewayguardians/json/json_match.dart';
@@ -15,6 +16,7 @@ import 'package:gatewayguardians/types/resource_type.dart';
 class GameState extends BaseState {
   int turn = 1;
   num totalTimeElapsed = 0;
+  final FocusNode focusNode = FocusNode();
 
   late final int mapWidth;
   late final int mapHeight;
@@ -44,6 +46,14 @@ class GameState extends BaseState {
       zones: zones,
       freeVillagers: 5,
     );
+  }
+
+  void onKey(RawKeyEvent event) {
+    print('');
+
+    if (event.isKeyPressed(LogicalKeyboardKey.space) && !event.repeat) {
+      onPassTurn();
+    }
   }
 
   void onZoneClicked(Zone zone) {

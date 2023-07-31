@@ -32,11 +32,16 @@ class GameScreen extends StatelessWidget {
           child: Scaffold(
             body: StateProvider<GameState>(
               state: state,
-              builder: (context, state) => Row(
-                children: [
-                  LeftMenu(state),
-                  Expanded(child: MapWidget(state)),
-                ],
+              builder: (context, state) => RawKeyboardListener(
+                autofocus: true,
+                focusNode: state.focusNode,
+                onKey: state.onKey,
+                child: Row(
+                  children: [
+                    LeftMenu(state),
+                    Expanded(child: MapWidget(state)),
+                  ],
+                ),
               ),
             ),
           ),
