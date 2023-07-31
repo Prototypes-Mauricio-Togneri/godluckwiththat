@@ -75,7 +75,7 @@ class Zone {
 
   Resource get trainVillagerCost => Resource.food(10);
 
-  bool isNeighbor(Zone zone) =>
+  bool isAnyNeighbor(Zone zone) =>
       (zone.id == top) ||
       (zone.id == topLeft) ||
       (zone.id == topRight) ||
@@ -85,9 +85,15 @@ class Zone {
       (zone.id == bottomLeft) ||
       (zone.id == bottomRight);
 
+  bool isSideNeighbor(Zone zone) =>
+      (zone.id == top) ||
+      (zone.id == left) ||
+      (zone.id == right) ||
+      (zone.id == bottom);
+
   bool canBeExplored(Colony colony) {
     if (zoneType.canExplored && (status == ZoneStatus.explored)) {
-      final List<Zone> neighbors = colony.getNeighbors(this);
+      final List<Zone> neighbors = colony.getAllNeighbors(this);
 
       for (final Zone zone in neighbors) {
         if (zone.isUnexplored) {
@@ -103,7 +109,7 @@ class Zone {
 
   bool canBeClaimed(Colony colony) {
     if (zoneType.canBeClaimed && (status == ZoneStatus.explored)) {
-      final List<Zone> neighbors = colony.getNeighbors(this);
+      final List<Zone> neighbors = colony.getSideNeighbors(this);
 
       for (final Zone zone in neighbors) {
         if (zone.isOwned) {
@@ -167,7 +173,7 @@ class Zone {
       if (action.passTurn()) {
         switch (action.actionType) {
           case ActionType.explore:
-            for (final Zone zone in colony.getNeighbors(this)) {
+            for (final Zone zone in colony.getAllNeighbors(this)) {
               zone.status = ZoneStatus.explored;
             }
             colony.addFreeVillagers(action.villagers);

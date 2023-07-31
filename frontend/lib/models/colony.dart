@@ -65,11 +65,23 @@ class Colony {
     return null;
   }
 
-  List<Zone> getNeighbors(Zone center) {
+  List<Zone> getAllNeighbors(Zone center) {
     final List<Zone> result = [];
 
     for (final Zone zone in zones) {
-      if (center.isNeighbor(zone)) {
+      if (center.isAnyNeighbor(zone)) {
+        result.add(zone);
+      }
+    }
+
+    return result;
+  }
+
+  List<Zone> getSideNeighbors(Zone center) {
+    final List<Zone> result = [];
+
+    for (final Zone zone in zones) {
+      if (center.isSideNeighbor(zone)) {
         result.add(zone);
       }
     }
