@@ -101,6 +101,22 @@ class Zone {
     }
   }
 
+  bool canBeClaimed(Colony colony) {
+    if (zoneType.canBeClaimed && (status == ZoneStatus.explored)) {
+      final List<Zone> neighbors = colony.getNeighbors(this);
+
+      for (final Zone zone in neighbors) {
+        if (zone.isOwned) {
+          return true;
+        }
+      }
+
+      return false;
+    } else {
+      return false;
+    }
+  }
+
   List<BuildingType> basic() => [
         BuildingType.house,
         BuildingType.warehouse,

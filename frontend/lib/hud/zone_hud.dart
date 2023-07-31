@@ -101,7 +101,7 @@ class ZoneNeutral extends StatelessWidget {
     } else {
       return Column(
         children: [
-          if (zone.zoneType.canBeClaimed)
+          if (zone.canBeClaimed(state.colony))
             Padding(
               padding: const EdgeInsets.only(
                 top: 20,
