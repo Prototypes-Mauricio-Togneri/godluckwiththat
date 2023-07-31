@@ -3,7 +3,7 @@ import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/color_extension.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
-import 'package:gatewayguardians/models/buildings/producer.dart';
+import 'package:gatewayguardians/models/buildings/producers/producer.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/resource.dart';
 import 'package:gatewayguardians/models/zone.dart';

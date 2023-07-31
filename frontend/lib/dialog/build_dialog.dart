@@ -5,7 +5,7 @@ import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
-import 'package:gatewayguardians/types/patch_type.dart';
+import 'package:gatewayguardians/utils/assets.dart';
 import 'package:gatewayguardians/utils/navigation.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/custom_tooltip.dart';
@@ -75,7 +75,7 @@ class BuildDialog extends StatelessWidget {
                   ],
                 ),
               ),
-            if (zone.military().isNotEmpty)
+            /*if (zone.military().isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(
@@ -89,7 +89,7 @@ class BuildDialog extends StatelessWidget {
                       ),
                   ],
                 ),
-              ),
+              ),*/
           ],
         ),
       ),
@@ -115,7 +115,6 @@ class DirectBuild extends StatelessWidget {
       child: BuildingBlock(
         state: state,
         zone: zone,
-        patch: zone.patch!,
         buildingType: buildingType,
         onBuild: () {
           Navigation.pop();
@@ -132,14 +131,12 @@ class DirectBuild extends StatelessWidget {
 class BuildingBlock extends StatelessWidget {
   final GameState state;
   final Zone zone;
-  final PatchType patch;
   final BuildingType buildingType;
   final VoidCallback onBuild;
 
   const BuildingBlock({
     required this.state,
     required this.zone,
-    required this.patch,
     required this.buildingType,
     required this.onBuild,
   });
@@ -180,11 +177,11 @@ class BuildingBlock extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    /*const ImageAsset(
-                      path: Assets.IMAGES_BACKGROUNDS_ZONE,
+                    const ImageAsset(
+                      path: Assets.IMAGES_TILES_GRASS,
                       width: 150,
                       height: 130,
-                    ),*/
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 30),
                       child: ImageAsset(

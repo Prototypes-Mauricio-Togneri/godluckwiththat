@@ -5,19 +5,19 @@ import 'package:gatewayguardians/utils/assets.dart';
 
 enum BuildingType {
   headquarters(
-    sprite: Assets.IMAGES_BUILDINGS_HEADQUARTERS,
+    sprite: Assets.IMAGES_BUILDINGS_MISC_HEADQUARTERS,
     initialCost: {},
     produces: ResourceType.villager,
   ),
   house(
-    sprite: Assets.IMAGES_BUILDINGS_HOUSE,
+    sprite: Assets.IMAGES_BUILDINGS_MISC_HOUSE,
     initialCost: {
       ResourceType.wood: 2,
     },
     produces: null,
   ),
   warehouse(
-    sprite: Assets.IMAGES_BUILDINGS_WAREHOUSE,
+    sprite: Assets.IMAGES_BUILDINGS_MISC_WAREHOUSE,
     initialCost: {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
@@ -26,21 +26,21 @@ enum BuildingType {
   ),
 
   farm(
-    sprite: Assets.IMAGES_BUILDINGS_FARM,
+    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_FARM,
     initialCost: {
       ResourceType.wood: 5,
     },
     produces: ResourceType.food,
   ),
   woodcutter(
-    sprite: Assets.IMAGES_BUILDINGS_WOODCUTTER,
+    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_WOODCUTTER,
     initialCost: {
       ResourceType.wood: 5,
     },
     produces: ResourceType.wood,
   ),
   quarry(
-    sprite: Assets.IMAGES_BUILDINGS_QUARRY,
+    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_QUARRY,
     initialCost: {
       ResourceType.wood: 5,
     },
@@ -48,7 +48,7 @@ enum BuildingType {
   ),
 
   copper_mine(
-    sprite: Assets.IMAGES_BUILDINGS_COPPER_MINE,
+    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_COPPER_MINE,
     initialCost: {
       ResourceType.wood: 5,
       ResourceType.stone: 5,
@@ -56,7 +56,7 @@ enum BuildingType {
     produces: ResourceType.copper,
   ),
   iron_mine(
-    sprite: Assets.IMAGES_BUILDINGS_IRON_MINE,
+    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_IRON_MINE,
     initialCost: {
       ResourceType.wood: 10,
       ResourceType.stone: 10,
@@ -64,7 +64,7 @@ enum BuildingType {
     produces: ResourceType.iron,
   ),
   gold_mine(
-    sprite: Assets.IMAGES_BUILDINGS_GOLD_MINE,
+    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_GOLD_MINE,
     initialCost: {
       ResourceType.wood: 15,
       ResourceType.stone: 15,
@@ -73,7 +73,7 @@ enum BuildingType {
   ),
 
   barracks(
-    sprite: Assets.IMAGES_BUILDINGS_BARRACKS,
+    sprite: Assets.IMAGES_BUILDINGS_MILITARY_BARRACKS,
     initialCost: {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
@@ -81,7 +81,7 @@ enum BuildingType {
     produces: null,
   ),
   archery(
-    sprite: Assets.IMAGES_BUILDINGS_ARCHERY,
+    sprite: Assets.IMAGES_BUILDINGS_MILITARY_ARCHERY,
     initialCost: {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
@@ -89,7 +89,7 @@ enum BuildingType {
     produces: null,
   ),
   cavalry(
-    sprite: Assets.IMAGES_BUILDINGS_CAVALRY,
+    sprite: Assets.IMAGES_BUILDINGS_MILITARY_CAVALRY,
     initialCost: {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
@@ -97,7 +97,7 @@ enum BuildingType {
     produces: null,
   ),
   workshop(
-    sprite: Assets.IMAGES_BUILDINGS_WORKSHOP,
+    sprite: Assets.IMAGES_BUILDINGS_MILITARY_WORKSHOP,
     initialCost: {
       ResourceType.wood: 20,
       ResourceType.stone: 20,
@@ -105,7 +105,7 @@ enum BuildingType {
     produces: null,
   ),
   fortress(
-    sprite: Assets.IMAGES_BUILDINGS_FORTRESS,
+    sprite: Assets.IMAGES_BUILDINGS_MILITARY_FORTRESS,
     initialCost: {
       ResourceType.wood: 50,
       ResourceType.stone: 50,

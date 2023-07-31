@@ -3,7 +3,7 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
-import 'package:gatewayguardians/models/buildings/producer.dart';
+import 'package:gatewayguardians/models/buildings/producers/producer.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/cancel_button.dart';

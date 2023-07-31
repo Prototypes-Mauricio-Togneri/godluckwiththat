@@ -1,19 +1,19 @@
 import 'package:gatewayguardians/dialog/confirmation_dialog.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
-import 'package:gatewayguardians/models/buildings/archery.dart';
-import 'package:gatewayguardians/models/buildings/barracks.dart';
-import 'package:gatewayguardians/models/buildings/cavalry.dart';
-import 'package:gatewayguardians/models/buildings/copper_mine.dart';
-import 'package:gatewayguardians/models/buildings/farm.dart';
-import 'package:gatewayguardians/models/buildings/fortress.dart';
-import 'package:gatewayguardians/models/buildings/gold_mine.dart';
-import 'package:gatewayguardians/models/buildings/headquarters.dart';
-import 'package:gatewayguardians/models/buildings/house.dart';
-import 'package:gatewayguardians/models/buildings/iron_mine.dart';
-import 'package:gatewayguardians/models/buildings/quarry.dart';
-import 'package:gatewayguardians/models/buildings/warehouse.dart';
-import 'package:gatewayguardians/models/buildings/woodcutter.dart';
-import 'package:gatewayguardians/models/buildings/workshop.dart';
+import 'package:gatewayguardians/models/buildings/military/archery.dart';
+import 'package:gatewayguardians/models/buildings/military/barracks.dart';
+import 'package:gatewayguardians/models/buildings/military/cavalry.dart';
+import 'package:gatewayguardians/models/buildings/military/fortress.dart';
+import 'package:gatewayguardians/models/buildings/military/workshop.dart';
+import 'package:gatewayguardians/models/buildings/misc/headquarters.dart';
+import 'package:gatewayguardians/models/buildings/misc/house.dart';
+import 'package:gatewayguardians/models/buildings/misc/warehouse.dart';
+import 'package:gatewayguardians/models/buildings/producers/copper_mine.dart';
+import 'package:gatewayguardians/models/buildings/producers/farm.dart';
+import 'package:gatewayguardians/models/buildings/producers/gold_mine.dart';
+import 'package:gatewayguardians/models/buildings/producers/iron_mine.dart';
+import 'package:gatewayguardians/models/buildings/producers/quarry.dart';
+import 'package:gatewayguardians/models/buildings/producers/woodcutter.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 
 class Building {

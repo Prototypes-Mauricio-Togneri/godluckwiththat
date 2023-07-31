@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/models/buildings/headquarters.dart';
+import 'package:gatewayguardians/models/buildings/misc/headquarters.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
