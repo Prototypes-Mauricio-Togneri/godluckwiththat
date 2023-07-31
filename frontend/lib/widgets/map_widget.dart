@@ -148,7 +148,7 @@ class ZonePainter extends CustomPainter {
   }) {
     borderHoverColor.color = Palette.white;
     borderHoverColor.style = PaintingStyle.stroke;
-    borderHoverColor.strokeWidth = 2;
+    borderHoverColor.strokeWidth = 4;
 
     borderSelectedColor.color = Palette.white;
     borderSelectedColor.style = PaintingStyle.stroke;
@@ -224,10 +224,10 @@ class ZonePainter extends CustomPainter {
     } else if (mouseOver) {
       canvas.drawRect(
         Rect.fromLTWH(
-          1,
-          1,
-          size.width - 2,
-          size.height - 2,
+          2,
+          2,
+          size.width - 4,
+          size.height - 4,
         ),
         borderHoverColor,
       );
