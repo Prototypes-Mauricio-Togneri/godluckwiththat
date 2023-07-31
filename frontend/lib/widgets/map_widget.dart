@@ -174,8 +174,8 @@ class ZonePainter extends CustomPainter {
 
       if ((zoneTop == null) || (!zoneTop.isOwned)) {
         canvas.drawLine(
-          const Offset(0, 0),
-          Offset(size.width, 0),
+          const Offset(0, 2),
+          Offset(size.width, 2),
           borderOwnedColor,
         );
       }
@@ -184,8 +184,8 @@ class ZonePainter extends CustomPainter {
 
       if ((zoneBottom == null) || (!zoneBottom.isOwned)) {
         canvas.drawLine(
-          Offset(0, size.height),
-          Offset(size.width, size.height),
+          Offset(0, size.height - 2),
+          Offset(size.width, size.height - 2),
           borderOwnedColor,
         );
       }
@@ -194,8 +194,8 @@ class ZonePainter extends CustomPainter {
 
       if ((zoneLeft == null) || (!zoneLeft.isOwned)) {
         canvas.drawLine(
-          const Offset(0, 0),
-          Offset(0, size.height),
+          const Offset(2, 0),
+          Offset(2, size.height),
           borderOwnedColor,
         );
       }
@@ -204,8 +204,8 @@ class ZonePainter extends CustomPainter {
 
       if ((zoneRight == null) || (!zoneRight.isOwned)) {
         canvas.drawLine(
-          Offset(size.width, 0),
-          Offset(size.width, size.height),
+          Offset(size.width - 2, 0),
+          Offset(size.width - 2, size.height),
           borderOwnedColor,
         );
       }
