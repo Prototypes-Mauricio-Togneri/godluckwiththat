@@ -49,8 +49,6 @@ class GameState extends BaseState {
   }
 
   void onKey(RawKeyEvent event) {
-    print('');
-
     if (event.isKeyPressed(LogicalKeyboardKey.space) && !event.repeat) {
       onPassTurn();
     }
