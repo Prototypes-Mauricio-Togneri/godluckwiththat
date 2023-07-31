@@ -28,6 +28,11 @@ enum ZoneType {
   //(this == snow) ||
   //(this == mountain);
 
+  bool get canExplored => this == grass;
+  //(this == desert) ||
+  //(this == snow) ||
+  //(this == mountain);
+
   @override
   String toString() => name.replaceAll('_', ' ');
 }

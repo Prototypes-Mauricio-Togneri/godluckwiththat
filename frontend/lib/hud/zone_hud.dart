@@ -32,12 +32,7 @@ class ZoneHud extends StatelessWidget {
             size: 16,
             color: Palette.white,
           ),
-          if (zone.status.isUnexplored)
-            ZoneUnexplored(
-              state: state,
-              zone: zone,
-            )
-          else
+          if (zone.status.isExplored)
             ZoneExplored(
               state: state,
               zone: zone,
@@ -45,48 +40,6 @@ class ZoneHud extends StatelessWidget {
           const VBox(20),
         ],
       ),
-    );
-  }
-}
-
-class ZoneUnexplored extends StatelessWidget {
-  final GameState state;
-  final Zone zone;
-
-  const ZoneUnexplored({
-    required this.state,
-    required this.zone,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (zone.hasAction)
-          CancelButton(
-            state: state,
-            zone: zone,
-            action: zone.actions.first,
-          )
-        else if (zone.canBeExplored(state.colony))
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 20,
-              left: 20,
-              right: 20,
-            ),
-            child: PrimaryButton(
-              text: 'EXPLORE',
-              color: Palette.success,
-              icon: Icons.explore_outlined,
-              onPressed: state.colony.hasFreeVillagers &&
-                      state.colony.hasResource(zone.explorationCost)
-                  ? () => state.explore(zone)
-                  : null,
-            ),
-          ),
-      ],
     );
   }
 }
@@ -105,12 +58,14 @@ class ZoneExplored extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const VBox(20),
-        Label(
-          text: zone.patch!.toString(),
-          size: 16,
-          color: Palette.white,
-        ),
+        if (zone.hasPatch) ...[
+          const VBox(20),
+          Label(
+            text: zone.patch!.toString(),
+            size: 16,
+            color: Palette.white,
+          ),
+        ],
         if (zone.isNeutral)
           ZoneNeutral(
             state: state,
@@ -143,24 +98,44 @@ class ZoneNeutral extends StatelessWidget {
         zone: zone,
         action: zone.actions.first,
       );
-    } else if (zone.zoneType.canBeClaimed) {
-      return Padding(
-        padding: const EdgeInsets.only(
-          top: 20,
-          left: 20,
-          right: 20,
-        ),
-        child: PrimaryButton(
-          text: 'CLAIM',
-          color: Palette.success,
-          icon: Icons.flag,
-          onPressed: state.colony.hasResource(zone.claimCost)
-              ? () => state.claim(zone)
-              : null,
-        ),
-      );
     } else {
-      return const Empty();
+      return Column(
+        children: [
+          if (zone.zoneType.canBeClaimed)
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+              ),
+              child: PrimaryButton(
+                text: 'CLAIM',
+                color: Palette.success,
+                icon: Icons.flag,
+                onPressed: state.colony.hasResource(zone.claimCost)
+                    ? () => state.claim(zone)
+                    : null,
+              ),
+            ),
+          if (zone.canBeExplored(state.colony))
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+              ),
+              child: PrimaryButton(
+                text: 'EXPLORE',
+                color: Palette.success,
+                icon: Icons.explore_outlined,
+                onPressed: state.colony.hasFreeVillagers &&
+                        state.colony.hasResource(zone.explorationCost)
+                    ? () => state.explore(zone)
+                    : null,
+              ),
+            ),
+        ],
+      );
     }
   }
 }

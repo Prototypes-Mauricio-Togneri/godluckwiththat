@@ -57,6 +57,10 @@ class Zone {
 
   bool get isExplored => status == ZoneStatus.explored;
 
+  bool get isUnexplored => status == ZoneStatus.unexplored;
+
+  bool get hasPatch => patch != null;
+
   bool get hasAction => actions.isNotEmpty;
 
   bool get hasActionDestroy =>
@@ -82,15 +86,19 @@ class Zone {
       (zone.id == bottomRight);
 
   bool canBeExplored(Colony colony) {
-    final List<Zone> neighbors = colony.getNeighbors(this);
+    if (zoneType.canExplored && (status == ZoneStatus.explored)) {
+      final List<Zone> neighbors = colony.getNeighbors(this);
 
-    for (final Zone zone in neighbors) {
-      if (zone.isExplored) {
-        return true;
+      for (final Zone zone in neighbors) {
+        if (zone.isUnexplored) {
+          return true;
+        }
       }
-    }
 
-    return false;
+      return false;
+    } else {
+      return false;
+    }
   }
 
   List<BuildingType> basic() => [
@@ -144,12 +152,9 @@ class Zone {
         switch (action.actionType) {
           case ActionType.explore:
             for (final Zone zone in colony.getNeighbors(this)) {
-              if (zone.zoneType == ZoneType.water) {
-                zone.status = ZoneStatus.explored;
-              }
+              zone.status = ZoneStatus.explored;
             }
             colony.addFreeVillagers(action.villagers);
-            status = ZoneStatus.explored;
             actions.removeAt(0);
             break;
           case ActionType.claim:
