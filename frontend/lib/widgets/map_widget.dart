@@ -170,11 +170,11 @@ class ZonePainter extends CustomPainter {
         _drawImageFull(canvas, size, Images.imageTileWater);
       }
     }
-    //}
 
     if (zone.patch != null) {
       _drawImageHalf(canvas, size, Images.image(zone.patch!.sprite));
     }
+    //}
 
     if (zone.isOwned) {
       canvas.drawRect(
