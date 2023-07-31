@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/zone.dart';
-import 'package:gatewayguardians/types/zone_type.dart';
 import 'package:gatewayguardians/utils/images.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 
@@ -133,7 +132,6 @@ class ZonePainter extends CustomPainter {
   final Zone zone;
   final bool mouseOver;
   final bool selected;
-  final Paint backgroundColor = Paint();
   final Paint borderHoverColor = Paint();
   final Paint borderSelectedColor = Paint();
   final Paint borderOwnedColor = Paint();
@@ -144,9 +142,6 @@ class ZonePainter extends CustomPainter {
     required this.mouseOver,
     required this.selected,
   }) {
-    backgroundColor.color = zone.color;
-    backgroundColor.style = PaintingStyle.fill;
-
     borderHoverColor.color = Palette.white;
     borderHoverColor.style = PaintingStyle.stroke;
     borderHoverColor.strokeWidth = 2;
@@ -162,19 +157,13 @@ class ZonePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    //if (zone.status.isExplored) {
-    if (zone.zoneType == ZoneType.grass) {
-      _drawImageFull(canvas, size, Images.imageTileGrass);
-    } else {
-      if (zone.zoneType == ZoneType.water) {
-        _drawImageFull(canvas, size, Images.imageTileWater);
+    if (zone.status.isExplored) {
+      _drawImageFull(canvas, size, Images.image(zone.zoneType.sprite));
+
+      if (zone.patch != null) {
+        _drawImageHalf(canvas, size, Images.image(zone.patch!.sprite));
       }
     }
-
-    if (zone.patch != null) {
-      _drawImageHalf(canvas, size, Images.image(zone.patch!.sprite));
-    }
-    //}
 
     if (zone.isOwned) {
       canvas.drawRect(

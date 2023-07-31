@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart' hide Action;
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
@@ -53,21 +52,6 @@ class Zone {
   Resource get claimCost => Resource.food(10);
 
   Resource get trainVillagerCost => Resource.food(10);
-
-  Color get color {
-    switch (zoneType) {
-      case ZoneType.grass:
-        return Colors.green;
-      case ZoneType.desert:
-        return Colors.orange;
-      case ZoneType.snow:
-        return Colors.white;
-      case ZoneType.mountain:
-        return Colors.brown;
-      case ZoneType.water:
-        return Colors.blue;
-    }
-  }
 
   List<BuildingType> basic() => [
         BuildingType.house,

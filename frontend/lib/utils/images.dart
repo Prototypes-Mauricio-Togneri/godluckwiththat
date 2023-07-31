@@ -3,13 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 
 class Images {
-  static late final Image imageTileGrass;
-  static late final Image imageTileWater;
   static final Map<String, Image> _map = {};
 
   static Future load() async {
-    imageTileGrass = await _load(Assets.IMAGES_TILES_GRASS);
-    imageTileWater = await _load(Assets.IMAGES_TILES_WATER);
+    await _load(Assets.IMAGES_TILES_GRASS);
+    await _load(Assets.IMAGES_TILES_WATER);
     await _load(Assets.IMAGES_PATCHES_CROP_FIELD);
     await _load(Assets.IMAGES_PATCHES_FOREST);
     await _load(Assets.IMAGES_PATCHES_STONE_DEPOSIT);
