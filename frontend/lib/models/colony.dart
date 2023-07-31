@@ -65,6 +65,14 @@ class Colony {
     return null;
   }
 
+  Zone? getNeighborTop(Zone zone) => zoneById(zone.top);
+
+  Zone? getNeighborBottom(Zone zone) => zoneById(zone.bottom);
+
+  Zone? getNeighborLeft(Zone zone) => zoneById(zone.left);
+
+  Zone? getNeighborRight(Zone zone) => zoneById(zone.right);
+
   List<Zone> getAllNeighbors(Zone center) {
     final List<Zone> result = [];
 

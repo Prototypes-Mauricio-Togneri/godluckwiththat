@@ -5,6 +5,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/images.dart';
 import 'package:gatewayguardians/utils/palette.dart';
@@ -76,6 +77,7 @@ class _MapTileState extends State<MapTile> {
           height: widget.size,
           child: CustomPaint(
             painter: ZonePainter(
+              colony: widget.state.colony,
               zone: widget.zone,
               mouseOver: mouseOver,
               selected: widget.state.selectedZone == widget.zone,
@@ -129,6 +131,7 @@ class ZoneImage extends StatelessWidget {
 }
 
 class ZonePainter extends CustomPainter {
+  final Colony colony;
   final Zone zone;
   final bool mouseOver;
   final bool selected;
@@ -138,6 +141,7 @@ class ZonePainter extends CustomPainter {
   static final Paint imagePaint = Paint();
 
   ZonePainter({
+    required this.colony,
     required this.zone,
     required this.mouseOver,
     required this.selected,
@@ -166,15 +170,45 @@ class ZonePainter extends CustomPainter {
     }
 
     if (zone.isOwned) {
-      canvas.drawRect(
-        Rect.fromLTWH(
-          2,
-          2,
-          size.width - 4,
-          size.height - 4,
-        ),
-        borderOwnedColor,
-      );
+      final Zone? zoneTop = colony.getNeighborTop(zone);
+
+      if ((zoneTop == null) || (!zoneTop.isOwned)) {
+        canvas.drawLine(
+          const Offset(0, 0),
+          Offset(size.width, 0),
+          borderOwnedColor,
+        );
+      }
+
+      final Zone? zoneBottom = colony.getNeighborBottom(zone);
+
+      if ((zoneBottom == null) || (!zoneBottom.isOwned)) {
+        canvas.drawLine(
+          Offset(0, size.height),
+          Offset(size.width, size.height),
+          borderOwnedColor,
+        );
+      }
+
+      final Zone? zoneLeft = colony.getNeighborLeft(zone);
+
+      if ((zoneLeft == null) || (!zoneLeft.isOwned)) {
+        canvas.drawLine(
+          const Offset(0, 0),
+          Offset(0, size.height),
+          borderOwnedColor,
+        );
+      }
+
+      final Zone? zoneRight = colony.getNeighborRight(zone);
+
+      if ((zoneRight == null) || (!zoneRight.isOwned)) {
+        canvas.drawLine(
+          Offset(size.width, 0),
+          Offset(size.width, size.height),
+          borderOwnedColor,
+        );
+      }
     }
 
     if (selected) {
