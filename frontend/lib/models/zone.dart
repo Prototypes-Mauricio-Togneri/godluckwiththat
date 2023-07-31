@@ -55,6 +55,8 @@ class Zone {
 
   bool get isNeutral => owner == null;
 
+  bool get isExplored => status == ZoneStatus.explored;
+
   bool get hasAction => actions.isNotEmpty;
 
   bool get hasActionDestroy =>
@@ -78,6 +80,18 @@ class Zone {
       (zone.id == bottom) ||
       (zone.id == bottomLeft) ||
       (zone.id == bottomRight);
+
+  bool canBeExplored(Colony colony) {
+    final List<Zone> neighbors = colony.getNeighbors(this);
+
+    for (final Zone zone in neighbors) {
+      if (zone.isExplored) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   List<BuildingType> basic() => [
         BuildingType.house,

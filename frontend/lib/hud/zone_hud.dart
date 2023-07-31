@@ -32,14 +32,6 @@ class ZoneHud extends StatelessWidget {
             size: 16,
             color: Palette.white,
           ),
-          if (zone.patch != null) ...[
-            const VBox(20),
-            Label(
-              text: zone.patch!.toString(),
-              size: 16,
-              color: Palette.white,
-            ),
-          ],
           if (zone.status.isUnexplored)
             ZoneUnexplored(
               state: state,
@@ -77,7 +69,7 @@ class ZoneUnexplored extends StatelessWidget {
             zone: zone,
             action: zone.actions.first,
           )
-        else
+        else if (zone.canBeExplored(state.colony))
           Padding(
             padding: const EdgeInsets.only(
               top: 20,
@@ -113,6 +105,12 @@ class ZoneExplored extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        const VBox(20),
+        Label(
+          text: zone.patch!.toString(),
+          size: 16,
+          color: Palette.white,
+        ),
         if (zone.isNeutral)
           ZoneNeutral(
             state: state,
