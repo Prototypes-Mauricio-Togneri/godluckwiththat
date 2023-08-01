@@ -15,7 +15,7 @@ class ZoneRenderer {
     required this.x,
     required this.y,
   }) {
-    paintSelected.color = Palette.error;
+    paintSelected.color = Palette.white;
     paintSelected.style = PaintingStyle.stroke;
   }
 

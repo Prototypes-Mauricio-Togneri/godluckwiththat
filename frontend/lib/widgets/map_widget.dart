@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'dart:ui' as ui;
-import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/game/game_state.dart';
@@ -99,94 +98,6 @@ class MapPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-}
-
-class MapTile extends StatefulWidget {
-  final GameState state;
-  final Zone zone;
-  final double size;
-
-  const MapTile({
-    required this.state,
-    required this.zone,
-    required this.size,
-  });
-
-  @override
-  State<MapTile> createState() => _MapTileState();
-}
-
-class _MapTileState extends State<MapTile> {
-  bool mouseOver = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => widget.state.onZoneClicked(widget.zone),
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        onEnter: (event) => setState(() {
-          mouseOver = true;
-        }),
-        onExit: (event) => setState(() {
-          mouseOver = false;
-        }),
-        child: Container(
-          width: widget.size,
-          height: widget.size,
-          child: CustomPaint(
-            painter: ZonePainter(
-              colony: widget.state.colony,
-              zone: widget.zone,
-              mouseOver: mouseOver,
-              selected: widget.state.selectedZone == widget.zone,
-            ),
-            child: ZoneImage(
-              zone: widget.zone,
-              size: widget.size,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ZoneImage extends StatelessWidget {
-  final Zone zone;
-  final double size;
-
-  const ZoneImage({
-    required this.zone,
-    required this.size,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (zone.status.isExplored &&
-        ((zone.building != null) || (zone.patchType != null))) {
-      return Stack(
-        alignment: Alignment.center,
-        children: [
-          /*if (zone.patch != null)
-            Image.asset(
-              zone.patch!.sprite,
-              width: size,
-              height: size,
-              scale: 0.5,
-            ),*/
-          if (zone.building != null)
-            Image.asset(
-              zone.building!.buildingType.sprite,
-              width: size * 0.5,
-              height: size * 0.5,
-            ),
-        ],
-      );
-    } else {
-      return const Empty();
-    }
-  }
 }
 
 class ZonePainter extends CustomPainter {

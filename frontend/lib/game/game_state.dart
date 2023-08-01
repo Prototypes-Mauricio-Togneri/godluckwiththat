@@ -68,16 +68,6 @@ class GameState extends BaseState {
     }
   }
 
-  void onZoneClicked(Zone zone) {
-    if (selectedZone != zone) {
-      selectedZone = zone;
-    } else {
-      selectedZone = null;
-    }
-
-    notify();
-  }
-
   void onBuild(Zone zone) => BuildDialog.show(
         state: this,
         zone: zone,
