@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/utils/images.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/map_widget.dart';
 
@@ -66,7 +67,12 @@ class ZoneRenderer {
     path.close();
     canvas.drawPath(path, paintImage);
 
-    //_drawImageFull(canvas, size, Images.image(zone.zoneType.sprite));
+    _drawImageFull(
+      canvas,
+      Offset(i, j),
+      tileWidth,
+      Images.image(zone.zoneType.sprite),
+    );
   }
 
   void renderSelected({
@@ -90,13 +96,16 @@ class ZoneRenderer {
     canvas.drawPath(path, paintSelected);
   }
 
-  void _drawImageFull(Canvas canvas, Size size, Image image) {
-    final double imageSize =
-        max(image.width.toDouble(), image.height.toDouble());
-    final double scale = size.width / imageSize;
+  void _drawImageFull(
+    Canvas canvas,
+    Offset offset,
+    double tileWidth,
+    Image image,
+  ) {
+    final double scale = tileWidth / image.width;
     canvas.save();
     canvas.scale(scale);
-    canvas.drawImage(image, const Offset(0, 0), paintImage);
+    canvas.drawImage(image, offset, paintImage);
     canvas.restore();
   }
 }
