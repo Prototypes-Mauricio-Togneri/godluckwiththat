@@ -46,8 +46,10 @@ class MapPainter extends CustomPainter {
   final Paint paintTest = Paint();
   final int MAP_WIDTH = 7;
   final int MAP_HEIGHT = 7;
-  int tileWidth = 0;
-  int tileHeight = 0;
+  double tileWidth = 0;
+  double tileHeight = 0;
+  double tileWidthHalf = 0;
+  double tileHeightHalf = 0;
   double topGap = 0;
 
   MapPainter({
@@ -56,11 +58,13 @@ class MapPainter extends CustomPainter {
   }) {
     paintTest.color = Palette.white;
     paintTest.style = PaintingStyle.stroke;
-    paintTest.strokeWidth = 4;
+    paintTest.strokeWidth = 3;
 
-    tileWidth = canvasWidth ~/ max(MAP_WIDTH, MAP_HEIGHT);
-    tileHeight = tileWidth ~/ 2;
-    topGap = (canvasHeight - (tileHeight * MAP_HEIGHT)) / 2;
+    tileWidth = canvasWidth / max(MAP_WIDTH + 1, MAP_HEIGHT + 1);
+    tileHeight = tileWidth / 2;
+    tileWidthHalf = tileWidth / 2;
+    tileHeightHalf = tileHeight / 2;
+    topGap = canvasHeight - (tileHeight * MAP_HEIGHT) - tileHeightHalf;
   }
 
   @override
@@ -81,11 +85,19 @@ class MapPainter extends CustomPainter {
     required int x,
     required int y,
   }) {
-    final double i = (x - y) * (tileWidth / 2);
-    final double j = (x + y) * (tileHeight / 2);
+    final double i = (canvasWidth / 2) + ((x - y) * (tileWidth / 2));
+    final double j = topGap + ((x + y) * (tileHeight / 2));
+
+    final Path path = Path();
+    path.moveTo(i, j - tileHeightHalf);
+    path.lineTo(i + tileWidthHalf, j);
+    path.lineTo(i, j + tileHeightHalf);
+    path.lineTo(i - tileWidthHalf, j);
+    path.close();
+    canvas.drawPath(path, paintTest);
 
     canvas.drawCircle(
-      Offset((canvasWidth / 2) + i, j + topGap),
+      Offset(i, j),
       5,
       paintTest,
     );
