@@ -6,7 +6,6 @@ import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/zone.dart';
-import 'package:gatewayguardians/types/zone_type.dart';
 
 class Loaders {
   static Colony colony(JsonColony jsonColony) => Colony(
@@ -19,10 +18,8 @@ class Loaders {
 
   static Zone zone(JsonZone jsonZone, Colony? colony) {
     final Zone zone = Zone(
-      x: 0,
-      y: 0,
-      zoneType: ZoneType.grass,
-      patchType: null,
+      id: '',
+      tiles: [],
       actions: [],
       owner: '',
       building: null,

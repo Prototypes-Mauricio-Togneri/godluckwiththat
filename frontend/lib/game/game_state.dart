@@ -56,7 +56,7 @@ class GameState extends BaseState {
 
   void onTapDown(TapDownDetails details) {
     for (final Zone zone in zones) {
-      if (zone.renderer.isInside(details.localPosition)) {
+      if (zone.isInside(details.localPosition)) {
         if (selectedZone != zone) {
           selectedZone = zone;
         } else {
@@ -158,14 +158,4 @@ class GameState extends BaseState {
   }
 
   void onOpenMainMenu() {}
-
-  JsonMatch get json => JsonMatch(
-        version: jsonMatch.version,
-        id: jsonMatch.id,
-        totalTimeElapsed: totalTimeElapsed,
-        level: jsonMatch.level,
-        map: jsonMatch.map,
-        zones: zones.map((z) => z.json).toList(),
-        colonies: [],
-      );
 }

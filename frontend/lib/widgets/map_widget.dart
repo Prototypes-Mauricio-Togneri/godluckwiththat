@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/colony.dart';
+import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/images.dart';
 import 'package:gatewayguardians/utils/palette.dart';
@@ -73,19 +74,21 @@ class MapPainter extends CustomPainter {
         final Zone? zone = state.colony.zoneById('$x,$y');
 
         if (zone != null) {
-          zone.renderer.render(
-            zone: zone,
-            canvas: canvas,
-            size: size,
-            tileWidth: TILE_WIDTH,
-            tileHeight: TILE_HEIGHT,
-            topGap: TOP_GAP,
-          );
+          for (final Tile tile in zone.tiles) {
+            tile.renderer.render(
+              tile: tile,
+              canvas: canvas,
+              size: size,
+              tileWidth: TILE_WIDTH,
+              tileHeight: TILE_HEIGHT,
+              topGap: TOP_GAP,
+            );
+          }
         }
       }
     }
 
-    if (state.selectedZone != null) {
+    /*if (state.selectedZone != null) {
       state.selectedZone!.renderer.renderSelected(
         canvas: canvas,
         canvasWidth: CANVAS_WIDTH,
@@ -93,7 +96,7 @@ class MapPainter extends CustomPainter {
         tileHeight: TILE_HEIGHT,
         topGap: TOP_GAP,
       );
-    }
+    }*/
   }
 
   @override
@@ -132,14 +135,16 @@ class ZonePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (zone.status.isExplored) {
-      _drawImageFull(canvas, size, Images.image(zone.zoneType.sprite));
+      for (final Tile tile in zone.tiles) {
+        _drawImageFull(canvas, size, Images.image(tile.tileType.sprite));
 
-      if (zone.patchType != null) {
-        _drawImageHalf(canvas, size, Images.image(zone.patchType!.sprite));
+        if (tile.patchType != null) {
+          _drawImageHalf(canvas, size, Images.image(tile.patchType!.sprite));
+        }
       }
     }
 
-    if (zone.isOwned) {
+    /*if (zone.isOwned) {
       final Zone? zoneTop = colony.getNeighborTop(zone);
 
       if ((zoneTop == null) || (!zoneTop.isOwned)) {
@@ -179,7 +184,7 @@ class ZonePainter extends CustomPainter {
           borderOwnedColor,
         );
       }
-    }
+    }*/
 
     if (selected) {
       canvas.drawRect(

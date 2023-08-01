@@ -1,57 +1,33 @@
+import 'dart:ui';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
-import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/buildings/producers/producer.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/resource.dart';
+import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/types/action_type.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
-import 'package:gatewayguardians/types/zone_type.dart';
-import 'package:gatewayguardians/utils/zone_renderer.dart';
 
 class Zone {
-  final int x;
-  final int y;
-  final ZoneType zoneType;
-  final PatchType? patchType;
+  final String id;
+  final List<Tile> tiles;
   final List<Action> actions;
-  final ZoneRenderer renderer;
   String? owner;
   Building? building;
   ZoneStatus status;
 
   Zone({
-    required this.x,
-    required this.y,
-    required this.zoneType,
-    required this.patchType,
+    required this.id,
+    required this.tiles,
     required this.actions,
     required this.owner,
     required this.building,
     required this.status,
-  }) : renderer = ZoneRenderer(x: x, y: y);
-
-  String get id => '$x,$y';
-
-  String get top => '$x,${y - 1}';
-
-  String get topLeft => '${x - 1},${y - 1}';
-
-  String get topRight => '${x + 1},${y - 1}';
-
-  String get left => '${x - 1},$y';
-
-  String get right => '${x + 1},$y';
-
-  String get bottom => '$x,${y + 1}';
-
-  String get bottomLeft => '${x - 1},${y + 1}';
-
-  String get bottomRight => '${x + 1},${y + 1}';
+  });
 
   bool get isOwned => owner == Constants.PLAYER_OWNER;
 
@@ -61,7 +37,7 @@ class Zone {
 
   bool get isUnexplored => status == ZoneStatus.unexplored;
 
-  bool get hasPatch => patchType != null;
+  bool get hasPatch => tiles.any((t) => t.hasPatch);
 
   bool get hasAction => actions.isNotEmpty;
 
@@ -77,31 +53,18 @@ class Zone {
 
   ResourceMap get trainVillagerCost => Resource.food(10).map;
 
-  bool isAnyNeighbor(Zone zone) =>
-      (zone.id == top) ||
-      (zone.id == topLeft) ||
-      (zone.id == topRight) ||
-      (zone.id == left) ||
-      (zone.id == right) ||
-      (zone.id == bottom) ||
-      (zone.id == bottomLeft) ||
-      (zone.id == bottomRight);
-
-  bool isSideNeighbor(Zone zone) =>
-      (zone.id == top) ||
-      (zone.id == left) ||
-      (zone.id == right) ||
-      (zone.id == bottom);
+  bool isInside(Offset offset) =>
+      tiles.any((element) => element.renderer.isInside(offset));
 
   bool canBeExplored(Colony colony) {
-    if (zoneType.canExplored && (status == ZoneStatus.explored)) {
-      final List<Zone> neighbors = colony.getAllNeighbors(this);
+    if (status == ZoneStatus.explored) {
+      /*final List<Zone> neighbors = colony.getAllNeighbors(this);
 
       for (final Zone zone in neighbors) {
         if (zone.isUnexplored) {
           return true;
         }
-      }
+      }*/
 
       return false;
     } else {
@@ -110,14 +73,14 @@ class Zone {
   }
 
   bool canBeClaimed(Colony colony) {
-    if (zoneType.canBeClaimed && (status == ZoneStatus.explored)) {
-      final List<Zone> neighbors = colony.getSideNeighbors(this);
+    if (status == ZoneStatus.explored) {
+      /*final List<Zone> neighbors = colony.getSideNeighbors(this);
 
       for (final Zone zone in neighbors) {
         if (zone.isOwned) {
           return true;
         }
-      }
+      }*/
 
       return false;
     } else {
@@ -133,15 +96,15 @@ class Zone {
   List<BuildingType> producers() {
     final List<BuildingType> result = [];
 
-    if (patchType == PatchType.crop_field) {
+    if (tiles.any((t) => t.hasPatchType(PatchType.crop_field))) {
       result.add(BuildingType.farm);
     }
 
-    if (patchType == PatchType.forest) {
+    if (tiles.any((t) => t.hasPatchType(PatchType.forest))) {
       result.add(BuildingType.woodcutter);
     }
 
-    if (patchType == PatchType.stone_deposit) {
+    if (tiles.any((t) => t.hasPatchType(PatchType.stone_deposit))) {
       result.add(BuildingType.quarry);
     }
 
@@ -175,9 +138,9 @@ class Zone {
       if (action.passTurn()) {
         switch (action.actionType) {
           case ActionType.explore:
-            for (final Zone zone in colony.getAllNeighbors(this)) {
+            /*for (final Zone zone in colony.getAllNeighbors(this)) {
               zone.status = ZoneStatus.explored;
-            }
+            }*/
             colony.addFreeVillagers(action.villagers);
             actions.removeAt(0);
             break;
@@ -300,13 +263,4 @@ class Zone {
 
     actions.remove(action);
   }
-
-  JsonZone get json => JsonZone(
-        id: id,
-        x: x.toDouble(),
-        y: y.toDouble(),
-        owner: owner ?? '',
-        status: status,
-        patches: [],
-      );
 }

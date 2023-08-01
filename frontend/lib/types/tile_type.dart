@@ -1,6 +1,6 @@
 import 'package:gatewayguardians/utils/assets.dart';
 
-enum ZoneType {
+enum TileType {
   grass(
     sprite: Assets.IMAGES_TILES_GRASS,
   ),
@@ -16,7 +16,7 @@ enum ZoneType {
 
   final String sprite;
 
-  const ZoneType({
+  const TileType({
     required this.sprite,
   });
 

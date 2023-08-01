@@ -65,38 +65,6 @@ class Colony {
     return null;
   }
 
-  Zone? getNeighborTop(Zone zone) => zoneById(zone.top);
-
-  Zone? getNeighborBottom(Zone zone) => zoneById(zone.bottom);
-
-  Zone? getNeighborLeft(Zone zone) => zoneById(zone.left);
-
-  Zone? getNeighborRight(Zone zone) => zoneById(zone.right);
-
-  List<Zone> getAllNeighbors(Zone center) {
-    final List<Zone> result = [];
-
-    for (final Zone zone in zones) {
-      if (center.isAnyNeighbor(zone)) {
-        result.add(zone);
-      }
-    }
-
-    return result;
-  }
-
-  List<Zone> getSideNeighbors(Zone center) {
-    final List<Zone> result = [];
-
-    for (final Zone zone in zones) {
-      if (center.isSideNeighbor(zone)) {
-        result.add(zone);
-      }
-    }
-
-    return result;
-  }
-
   int addFreeVillagers(int amount) {
     freeVillagers += amount;
 

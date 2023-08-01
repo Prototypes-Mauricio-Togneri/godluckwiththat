@@ -62,7 +62,10 @@ class ZoneExplored extends StatelessWidget {
         if (zone.hasPatch) ...[
           const VBox(20),
           Label(
-            text: zone.patchType!.toString(),
+            text: zone.tiles
+                .where((e) => e.patchType != null)
+                .map((e) => e.patchType)
+                .join(','),
             size: 16,
             color: Palette.white,
           ),

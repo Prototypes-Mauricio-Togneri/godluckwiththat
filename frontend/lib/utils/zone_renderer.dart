@@ -1,17 +1,17 @@
 import 'dart:math';
 import 'dart:ui';
-import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/utils/images.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/map_widget.dart';
 
-class ZoneRenderer {
+class TileRenderer {
   final int x;
   final int y;
   final Paint paintImage = Paint();
   final Paint paintSelected = Paint();
 
-  ZoneRenderer({
+  TileRenderer({
     required this.x,
     required this.y,
   }) {
@@ -46,7 +46,7 @@ class ZoneRenderer {
   }
 
   void render({
-    required Zone zone,
+    required Tile tile,
     required Canvas canvas,
     required Size size,
     required double tileWidth,
@@ -72,16 +72,16 @@ class ZoneRenderer {
       offset: Offset(i - (tileWidth / 2), j - (tileHeight / 2)),
       tileWidth: tileWidth,
       tileHeight: tileHeight,
-      image: Images.image(zone.zoneType.sprite),
+      image: Images.image(tile.tileType.sprite),
     );
 
-    if (zone.patchType != null) {
+    if (tile.patchType != null) {
       _drawImageFull(
         canvas: canvas,
         offset: Offset(i - (tileWidth / 2), j - (tileHeight / 2)),
         tileWidth: tileWidth,
         tileHeight: tileHeight,
-        image: Images.image(zone.patchType!.sprite),
+        image: Images.image(tile.patchType!.sprite),
       );
     }
   }
