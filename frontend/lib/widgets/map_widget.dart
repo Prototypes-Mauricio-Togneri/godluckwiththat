@@ -45,14 +45,11 @@ class MapWidget extends StatelessWidget {
 class MapPainter extends CustomPainter {
   final int canvasWidth;
   final int canvasHeight;
-  final Paint paintTest = Paint();
   final Colony colony;
   final List<Zone> zones;
   int mapSize = 0;
   double tileWidth = 0;
   double tileHeight = 0;
-  double tileWidthHalf = 0;
-  double tileHeightHalf = 0;
   double topGap = 0;
 
   MapPainter({
@@ -61,15 +58,9 @@ class MapPainter extends CustomPainter {
     required this.zones,
     required this.colony,
   }) {
-    paintTest.color = Palette.white;
-    paintTest.style = PaintingStyle.stroke;
-    paintTest.strokeWidth = canvasWidth / 700;
-
     mapSize = sqrt(zones.length).toInt();
     tileWidth = canvasWidth / (mapSize + 1);
     tileHeight = tileWidth / 2;
-    tileWidthHalf = tileWidth / 2;
-    tileHeightHalf = tileHeight / 2;
     topGap = canvasHeight - (tileHeight * mapSize) - tileHeight;
   }
 
@@ -80,29 +71,16 @@ class MapPainter extends CustomPainter {
         final Zone? zone = colony.zoneById('$x,$y');
 
         if (zone != null) {
-          _drawTile(
+          zone.draw(
             canvas: canvas,
-            zone: zone,
+            canvasWidth: canvasWidth,
+            tileWidth: tileWidth,
+            tileHeight: tileHeight,
+            topGap: topGap,
           );
         }
       }
     }
-  }
-
-  void _drawTile({
-    required Canvas canvas,
-    required Zone zone,
-  }) {
-    final double i = (canvasWidth / 2) + ((zone.x - zone.y) * (tileWidth / 2));
-    final double j = topGap + ((zone.x + zone.y) * (tileHeight / 2));
-
-    final Path path = Path();
-    path.moveTo(i, j - tileHeightHalf);
-    path.lineTo(i + tileWidthHalf, j);
-    path.lineTo(i, j + tileHeightHalf);
-    path.lineTo(i - tileWidthHalf, j);
-    path.close();
-    canvas.drawPath(path, paintTest);
   }
 
   @override
