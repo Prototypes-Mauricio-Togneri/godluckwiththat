@@ -32,8 +32,7 @@ class MapWidget extends StatelessWidget {
                   painter: MapPainter(
                     canvasWidth: constraints.maxWidth.toInt(),
                     canvasHeight: constraints.maxHeight.toInt(),
-                    colony: state.colony,
-                    zones: state.colony.zones,
+                    state: state,
                   ),
                 ),
               ),
@@ -46,8 +45,7 @@ class MapWidget extends StatelessWidget {
 }
 
 class MapPainter extends CustomPainter {
-  final Colony colony;
-  final List<Zone> zones;
+  final GameState state;
 
   static int CANVAS_WIDTH = 0;
   static int CANVAS_HEIGHT = 0;
@@ -59,10 +57,9 @@ class MapPainter extends CustomPainter {
   MapPainter({
     required int canvasWidth,
     required int canvasHeight,
-    required this.zones,
-    required this.colony,
+    required this.state,
   }) {
-    mapSize = sqrt(zones.length).toInt();
+    mapSize = sqrt(state.colony.zones.length).toInt();
     CANVAS_WIDTH = canvasWidth;
     CANVAS_HEIGHT = canvasHeight;
     TILE_WIDTH = CANVAS_WIDTH / (mapSize + 1);
@@ -74,7 +71,7 @@ class MapPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     for (int y = 0; y < mapSize; y++) {
       for (int x = 0; x < mapSize; x++) {
-        final Zone? zone = colony.zoneById('$x,$y');
+        final Zone? zone = state.colony.zoneById('$x,$y');
 
         if (zone != null) {
           zone.renderer.render(
