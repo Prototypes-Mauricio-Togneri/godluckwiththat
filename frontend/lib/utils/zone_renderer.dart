@@ -53,7 +53,7 @@ class ZoneRenderer {
     required double tileHeight,
     required double topGap,
   }) {
-    paintImage.color = Palette.success;
+    paintImage.color = Palette.grey;
     paintImage.style = PaintingStyle.fill;
 
     final double i = (size.width / 2) + ((x - y) * (tileWidth / 2));
@@ -68,10 +68,10 @@ class ZoneRenderer {
     canvas.drawPath(path, paintImage);
 
     _drawImageFull(
-      canvas,
-      Offset(i, j),
-      tileWidth,
-      Images.image(zone.zoneType.sprite),
+      canvas: canvas,
+      offset: Offset(i - (tileWidth / 2), j - (tileHeight / 2)),
+      tileWidth: tileWidth,
+      image: Images.image(zone.zoneType.sprite),
     );
   }
 
@@ -96,16 +96,17 @@ class ZoneRenderer {
     canvas.drawPath(path, paintSelected);
   }
 
-  void _drawImageFull(
-    Canvas canvas,
-    Offset offset,
-    double tileWidth,
-    Image image,
-  ) {
-    final double scale = tileWidth / image.width;
-    canvas.save();
-    canvas.scale(scale);
-    canvas.drawImage(image, offset, paintImage);
-    canvas.restore();
+  void _drawImageFull({
+    required Canvas canvas,
+    required Offset offset,
+    required double tileWidth,
+    required Image image,
+  }) {
+    canvas.drawImageRect(
+      image,
+      Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
+      Rect.fromLTWH(offset.dx, offset.dy, tileWidth, tileWidth / 2),
+      paintImage,
+    );
   }
 }
