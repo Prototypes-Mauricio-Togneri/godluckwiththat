@@ -1,4 +1,3 @@
-import 'package:gatewayguardians/dialog/confirmation_dialog.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/models/buildings/military/archery.dart';
 import 'package:gatewayguardians/models/buildings/military/barracks.dart';
@@ -67,10 +66,6 @@ class Building {
   void removeVillagers(int amount) {
     villagers -= amount;
   }
-
-  void onDestroy() => ConfirmationDialog.destroyBuilding(onAccept: _destroy);
-
-  void _destroy() => {}; //GameState.instance.onDestroyBuilding(this);
 
   factory Building.create({
     required BuildingType buildingType,

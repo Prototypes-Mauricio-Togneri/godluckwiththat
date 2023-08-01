@@ -16,7 +16,7 @@ class Zone {
   final int x;
   final int y;
   final ZoneType zoneType;
-  final PatchType? patch;
+  final PatchType? patchType;
   final List<Action> actions;
   String? owner;
   Building? building;
@@ -26,7 +26,7 @@ class Zone {
     required this.x,
     required this.y,
     required this.zoneType,
-    required this.patch,
+    required this.patchType,
     required this.actions,
     required this.owner,
     required this.building,
@@ -59,7 +59,7 @@ class Zone {
 
   bool get isUnexplored => status == ZoneStatus.unexplored;
 
-  bool get hasPatch => patch != null;
+  bool get hasPatch => patchType != null;
 
   bool get hasAction => actions.isNotEmpty;
 
@@ -131,15 +131,15 @@ class Zone {
   List<BuildingType> producers() {
     final List<BuildingType> result = [];
 
-    if (patch == PatchType.crop_field) {
+    if (patchType == PatchType.crop_field) {
       result.add(BuildingType.farm);
     }
 
-    if (patch == PatchType.forest) {
+    if (patchType == PatchType.forest) {
       result.add(BuildingType.woodcutter);
     }
 
-    if (patch == PatchType.stone_deposit) {
+    if (patchType == PatchType.stone_deposit) {
       result.add(BuildingType.quarry);
     }
 

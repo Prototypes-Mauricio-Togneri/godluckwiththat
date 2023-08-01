@@ -105,7 +105,7 @@ class ZoneImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (zone.status.isExplored &&
-        ((zone.building != null) || (zone.patch != null))) {
+        ((zone.building != null) || (zone.patchType != null))) {
       return Stack(
         alignment: Alignment.center,
         children: [
@@ -164,8 +164,8 @@ class ZonePainter extends CustomPainter {
     if (zone.status.isExplored) {
       _drawImageFull(canvas, size, Images.image(zone.zoneType.sprite));
 
-      if (zone.patch != null) {
-        _drawImageHalf(canvas, size, Images.image(zone.patch!.sprite));
+      if (zone.patchType != null) {
+        _drawImageHalf(canvas, size, Images.image(zone.patchType!.sprite));
       }
     }
 
