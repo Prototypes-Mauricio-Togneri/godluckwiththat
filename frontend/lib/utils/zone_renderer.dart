@@ -6,14 +6,15 @@ import 'package:gatewayguardians/widgets/map_widget.dart';
 class ZoneRenderer {
   final int x;
   final int y;
-  final Paint paintTest = Paint();
+  final Paint paintImage = Paint();
+  final Paint paintSelected = Paint();
 
   ZoneRenderer({
     required this.x,
     required this.y,
   }) {
-    paintTest.color = Palette.white;
-    paintTest.style = PaintingStyle.stroke;
+    paintSelected.color = Palette.error;
+    paintSelected.style = PaintingStyle.stroke;
   }
 
   // https://math.stackexchange.com/questions/312403/how-do-i-determine-if-a-point-is-within-a-rhombus
@@ -48,10 +49,9 @@ class ZoneRenderer {
     required double tileWidth,
     required double tileHeight,
     required double topGap,
-    required bool selected,
   }) {
-    paintTest.color = selected ? Palette.error : Palette.white;
-    paintTest.strokeWidth = canvasWidth / 700;
+    paintImage.color = Palette.success;
+    paintImage.style = PaintingStyle.fill;
 
     final double i = (canvasWidth / 2) + ((x - y) * (tileWidth / 2));
     final double j = topGap + ((x + y) * (tileHeight / 2));
@@ -62,6 +62,27 @@ class ZoneRenderer {
     path.lineTo(i, j + (tileHeight / 2));
     path.lineTo(i - (tileWidth / 2), j);
     path.close();
-    canvas.drawPath(path, paintTest);
+    canvas.drawPath(path, paintImage);
+  }
+
+  void renderSelected({
+    required Canvas canvas,
+    required int canvasWidth,
+    required double tileWidth,
+    required double tileHeight,
+    required double topGap,
+  }) {
+    paintSelected.strokeWidth = canvasWidth / 700;
+
+    final double i = (canvasWidth / 2) + ((x - y) * (tileWidth / 2));
+    final double j = topGap + ((x + y) * (tileHeight / 2));
+
+    final Path path = Path();
+    path.moveTo(i, j - (tileHeight / 2));
+    path.lineTo(i + (tileWidth / 2), j);
+    path.lineTo(i, j + (tileHeight / 2));
+    path.lineTo(i - (tileWidth / 2), j);
+    path.close();
+    canvas.drawPath(path, paintSelected);
   }
 }
