@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/map_widget.dart';
 
@@ -44,8 +45,9 @@ class ZoneRenderer {
   }
 
   void render({
+    required Zone zone,
     required Canvas canvas,
-    required int canvasWidth,
+    required Size size,
     required double tileWidth,
     required double tileHeight,
     required double topGap,
@@ -53,7 +55,7 @@ class ZoneRenderer {
     paintImage.color = Palette.success;
     paintImage.style = PaintingStyle.fill;
 
-    final double i = (canvasWidth / 2) + ((x - y) * (tileWidth / 2));
+    final double i = (size.width / 2) + ((x - y) * (tileWidth / 2));
     final double j = topGap + ((x + y) * (tileHeight / 2));
 
     final Path path = Path();
@@ -63,6 +65,8 @@ class ZoneRenderer {
     path.lineTo(i - (tileWidth / 2), j);
     path.close();
     canvas.drawPath(path, paintImage);
+
+    //_drawImageFull(canvas, size, Images.image(zone.zoneType.sprite));
   }
 
   void renderSelected({
@@ -84,5 +88,15 @@ class ZoneRenderer {
     path.lineTo(i - (tileWidth / 2), j);
     path.close();
     canvas.drawPath(path, paintSelected);
+  }
+
+  void _drawImageFull(Canvas canvas, Size size, Image image) {
+    final double imageSize =
+        max(image.width.toDouble(), image.height.toDouble());
+    final double scale = size.width / imageSize;
+    canvas.save();
+    canvas.scale(scale);
+    canvas.drawImage(image, const Offset(0, 0), paintImage);
+    canvas.restore();
   }
 }

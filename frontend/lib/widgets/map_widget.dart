@@ -75,8 +75,9 @@ class MapPainter extends CustomPainter {
 
         if (zone != null) {
           zone.renderer.render(
+            zone: zone,
             canvas: canvas,
-            canvasWidth: CANVAS_WIDTH,
+            size: size,
             tileWidth: TILE_WIDTH,
             tileHeight: TILE_HEIGHT,
             topGap: TOP_GAP,
