@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:gatewayguardians/utils/palette.dart';
 
 class ZoneRenderer {
