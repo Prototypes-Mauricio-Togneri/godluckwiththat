@@ -14,6 +14,10 @@ class ZoneRenderer {
     paintTest.style = PaintingStyle.stroke;
   }
 
+  bool isInside(Offset offset) {
+    return true;
+  }
+
   void render({
     required Canvas canvas,
     required int canvasWidth,
