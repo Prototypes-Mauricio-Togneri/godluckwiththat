@@ -71,6 +71,7 @@ class ZoneRenderer {
       canvas: canvas,
       offset: Offset(i - (tileWidth / 2), j - (tileHeight / 2)),
       tileWidth: tileWidth,
+      tileHeight: tileHeight,
       image: Images.image(zone.zoneType.sprite),
     );
   }
@@ -100,12 +101,13 @@ class ZoneRenderer {
     required Canvas canvas,
     required Offset offset,
     required double tileWidth,
+    required double tileHeight,
     required Image image,
   }) {
     canvas.drawImageRect(
       image,
       Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-      Rect.fromLTWH(offset.dx, offset.dy, tileWidth, tileWidth / 2),
+      Rect.fromLTWH(offset.dx, offset.dy, tileWidth, tileHeight),
       paintImage,
     );
   }
