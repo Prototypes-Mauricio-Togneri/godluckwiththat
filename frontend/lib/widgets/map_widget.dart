@@ -20,36 +20,17 @@ class MapWidget extends StatelessWidget {
       builder: (context, constraints) => Center(
         child: Center(
           child: InteractiveViewer(
-            boundaryMargin: const EdgeInsets.all(0),
-            minScale: 0.1,
-            maxScale: 5,
-            child: MapContainer(
-              width: constraints.maxWidth,
-              height: constraints.maxHeight,
-            ),
-          ),
+              boundaryMargin: const EdgeInsets.all(0),
+              minScale: 0.1,
+              maxScale: 5,
+              child: Container(
+                width: constraints.maxWidth,
+                height: constraints.maxHeight,
+                child: CustomPaint(
+                  painter: MapPainter(),
+                ),
+              )),
         ),
-      ),
-    );
-  }
-}
-
-class MapContainer extends StatelessWidget {
-  final double width;
-  final double height;
-
-  const MapContainer({
-    required this.width,
-    required this.height,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      child: CustomPaint(
-        painter: MapPainter(),
       ),
     );
   }
