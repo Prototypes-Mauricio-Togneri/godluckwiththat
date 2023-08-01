@@ -58,7 +58,7 @@ class MapPainter extends CustomPainter {
   }) {
     paintTest.color = Palette.white;
     paintTest.style = PaintingStyle.stroke;
-    paintTest.strokeWidth = 3;
+    paintTest.strokeWidth = canvasWidth / 500;
 
     tileWidth = canvasWidth / max(MAP_WIDTH + 1, MAP_HEIGHT + 1);
     tileHeight = tileWidth / 2;
@@ -95,12 +95,6 @@ class MapPainter extends CustomPainter {
     path.lineTo(i - tileWidthHalf, j);
     path.close();
     canvas.drawPath(path, paintTest);
-
-    canvas.drawCircle(
-      Offset(i, j),
-      5,
-      paintTest,
-    );
   }
 
   @override
