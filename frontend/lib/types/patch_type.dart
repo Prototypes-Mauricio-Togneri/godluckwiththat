@@ -14,10 +14,6 @@ enum PatchType {
   stone_deposit(
     sprite: Assets.IMAGES_PATCHES_STONE_DEPOSIT,
     resourceType: ResourceType.stone,
-  ),
-  mountain(
-    sprite: Assets.IMAGES_PATCHES_MOUNTAIN,
-    resourceType: ResourceType.stone,
   );
   //copper_deposit(sprite: Assets.IMAGES_RESOURCES_COPPER),
   //iron_deposit(sprite: Assets.IMAGES_RESOURCES_IRON),
