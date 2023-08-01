@@ -9,9 +9,6 @@ enum ZoneType {
   ),
   snow(
     sprite: Assets.IMAGES_PATCHES_FOREST,
-  ),
-  mountain(
-    sprite: Assets.IMAGES_PATCHES_FOREST,
   ),*/
   water(
     sprite: Assets.IMAGES_TILES_WATER,

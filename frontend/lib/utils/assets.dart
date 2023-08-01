@@ -31,5 +31,6 @@ class Assets {
 	static const String IMAGES_RESOURCES_COPPER = './assets/images/resources/copper.png';
 	static const String IMAGES_PATCHES_STONE_DEPOSIT = './assets/images/patches/stone_deposit.png';
 	static const String IMAGES_PATCHES_FOREST = './assets/images/patches/forest.png';
+	static const String IMAGES_PATCHES_MOUNTAIN = './assets/images/patches/mountain.png';
 	static const String IMAGES_PATCHES_CROP_FIELD = './assets/images/patches/crop_field.png';
 }
