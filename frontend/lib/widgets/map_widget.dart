@@ -80,6 +80,7 @@ class MapPainter extends CustomPainter {
             tileWidth: TILE_WIDTH,
             tileHeight: TILE_HEIGHT,
             topGap: TOP_GAP,
+            selected: state.selectedZone == zone,
           );
         }
       }

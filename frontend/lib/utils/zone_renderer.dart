@@ -48,7 +48,9 @@ class ZoneRenderer {
     required double tileWidth,
     required double tileHeight,
     required double topGap,
+    required bool selected,
   }) {
+    paintTest.color = selected ? Palette.error : Palette.white;
     paintTest.strokeWidth = canvasWidth / 700;
 
     final double i = (canvasWidth / 2) + ((x - y) * (tileWidth / 2));
