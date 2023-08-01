@@ -20,16 +20,20 @@ class MapWidget extends StatelessWidget {
       builder: (context, constraints) => Center(
         child: Center(
           child: InteractiveViewer(
-              boundaryMargin: const EdgeInsets.all(0),
-              minScale: 0.1,
-              maxScale: 5,
-              child: Container(
-                width: constraints.maxWidth,
-                height: constraints.maxHeight,
-                child: CustomPaint(
-                  painter: MapPainter(),
+            boundaryMargin: const EdgeInsets.all(0),
+            minScale: 0.1,
+            maxScale: 5,
+            child: Container(
+              width: constraints.maxWidth,
+              height: constraints.maxHeight,
+              child: CustomPaint(
+                painter: MapPainter(
+                  canvasWidth: constraints.maxWidth.toInt(),
+                  canvasHeight: constraints.maxHeight.toInt(),
                 ),
-              )),
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -37,19 +41,52 @@ class MapWidget extends StatelessWidget {
 }
 
 class MapPainter extends CustomPainter {
+  final int canvasWidth;
+  final int canvasHeight;
   final Paint paintTest = Paint();
+  final int MAP_WIDTH = 7;
+  final int MAP_HEIGHT = 7;
+  int tileWidth = 0;
+  int tileHeight = 0;
+  double topGap = 0;
 
-  MapPainter() {
+  MapPainter({
+    required this.canvasWidth,
+    required this.canvasHeight,
+  }) {
     paintTest.color = Palette.white;
     paintTest.style = PaintingStyle.stroke;
     paintTest.strokeWidth = 4;
+
+    tileWidth = canvasWidth ~/ max(MAP_WIDTH, MAP_HEIGHT);
+    tileHeight = tileWidth ~/ 2;
+    topGap = (canvasHeight - (tileHeight * MAP_HEIGHT)) / 2;
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawLine(
-      const Offset(10, 10),
-      Offset(size.width - 10, size.height - 10),
+    for (int y = 0; y < MAP_HEIGHT; y++) {
+      for (int x = 0; x < MAP_WIDTH; x++) {
+        _drawTile(
+          canvas: canvas,
+          x: x,
+          y: y,
+        );
+      }
+    }
+  }
+
+  void _drawTile({
+    required Canvas canvas,
+    required int x,
+    required int y,
+  }) {
+    final double i = (x - y) * (tileWidth / 2);
+    final double j = (x + y) * (tileHeight / 2);
+
+    canvas.drawCircle(
+      Offset((canvasWidth / 2) + i, j + topGap),
+      5,
       paintTest,
     );
   }
