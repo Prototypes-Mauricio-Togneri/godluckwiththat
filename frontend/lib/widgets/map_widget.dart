@@ -46,25 +46,28 @@ class MapWidget extends StatelessWidget {
 }
 
 class MapPainter extends CustomPainter {
-  final int canvasWidth;
-  final int canvasHeight;
   final Colony colony;
   final List<Zone> zones;
+
+  static int CANVAS_WIDTH = 0;
+  static int CANVAS_HEIGHT = 0;
+  static double TILE_WIDTH = 0;
+  static double TILE_HEIGHT = 0;
+  static double TOP_GAP = 0;
   int mapSize = 0;
-  double tileWidth = 0;
-  double tileHeight = 0;
-  double topGap = 0;
 
   MapPainter({
-    required this.canvasWidth,
-    required this.canvasHeight,
+    required int canvasWidth,
+    required int canvasHeight,
     required this.zones,
     required this.colony,
   }) {
     mapSize = sqrt(zones.length).toInt();
-    tileWidth = canvasWidth / (mapSize + 1);
-    tileHeight = tileWidth / 2;
-    topGap = canvasHeight - (tileHeight * mapSize) - tileHeight;
+    CANVAS_WIDTH = canvasWidth;
+    CANVAS_HEIGHT = canvasHeight;
+    TILE_WIDTH = CANVAS_WIDTH / (mapSize + 1);
+    TILE_HEIGHT = TILE_WIDTH / 2;
+    TOP_GAP = CANVAS_HEIGHT - (TILE_HEIGHT * mapSize) - TILE_HEIGHT;
   }
 
   @override
@@ -76,10 +79,10 @@ class MapPainter extends CustomPainter {
         if (zone != null) {
           zone.renderer.render(
             canvas: canvas,
-            canvasWidth: canvasWidth,
-            tileWidth: tileWidth,
-            tileHeight: tileHeight,
-            topGap: topGap,
+            canvasWidth: CANVAS_WIDTH,
+            tileWidth: TILE_WIDTH,
+            tileHeight: TILE_HEIGHT,
+            topGap: TOP_GAP,
           );
         }
       }

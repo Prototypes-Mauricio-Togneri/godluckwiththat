@@ -57,6 +57,8 @@ class GameState extends BaseState {
   void onTapDown(TapDownDetails details) {
     for (final Zone zone in zones) {
       if (zone.renderer.isInside(details.localPosition)) {
+        print(zone.id);
+
         if (selectedZone != zone) {
           selectedZone = zone;
         } else {
