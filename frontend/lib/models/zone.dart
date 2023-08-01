@@ -11,11 +11,13 @@ import 'package:gatewayguardians/types/action_type.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
+import 'package:gatewayguardians/utils/zone_renderer.dart';
 
 class Zone {
   final String id;
   final List<Tile> tiles;
   final List<Action> actions;
+  final ZoneRenderer renderer;
   String? owner;
   Building? building;
   ZoneStatus status;
@@ -27,7 +29,7 @@ class Zone {
     required this.owner,
     required this.building,
     required this.status,
-  });
+  }) : renderer = ZoneRenderer(tiles: tiles);
 
   bool get isOwned => owner == Constants.PLAYER_OWNER;
 

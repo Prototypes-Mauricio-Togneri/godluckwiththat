@@ -1,6 +1,6 @@
 import 'package:gatewayguardians/types/patch_type.dart';
 import 'package:gatewayguardians/types/tile_type.dart';
-import 'package:gatewayguardians/utils/zone_renderer.dart';
+import 'package:gatewayguardians/utils/tile_renderer.dart';
 
 class Tile {
   final int x;

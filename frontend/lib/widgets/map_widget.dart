@@ -88,15 +88,15 @@ class MapPainter extends CustomPainter {
       }
     }
 
-    /*if (state.selectedZone != null) {
-      state.selectedZone!.renderer.renderSelected(
+    if (state.selectedZone != null) {
+      state.selectedZone!.renderer.render(
         canvas: canvas,
         canvasWidth: CANVAS_WIDTH,
         tileWidth: TILE_WIDTH,
         tileHeight: TILE_HEIGHT,
         topGap: TOP_GAP,
       );
-    }*/
+    }
   }
 
   @override
