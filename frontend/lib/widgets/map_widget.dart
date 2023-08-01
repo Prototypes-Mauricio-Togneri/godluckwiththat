@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'dart:ui' as ui;
-
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/app/constants.dart';
@@ -19,27 +18,63 @@ class MapWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) => Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            for (int y = 0; y < state.mapHeight; y++)
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  for (int x = 0; x < state.mapWidth; x++)
-                    MapTile(
-                      state: state,
-                      zone: state.colony.zoneById('$x,$y')!,
-                      size: constraints.maxHeight /
-                          (max(state.mapHeight, state.mapWidth) + 1),
-                    ),
-                ],
-              )
-          ],
+        child: Center(
+          child: InteractiveViewer(
+            boundaryMargin: const EdgeInsets.all(0),
+            minScale: 0.1,
+            maxScale: 5,
+            child: MapContainer(
+              width: constraints.maxWidth,
+              height: constraints.maxHeight,
+            ),
+          ),
         ),
       ),
     );
   }
+}
+
+class MapContainer extends StatelessWidget {
+  final double width;
+  final double height;
+
+  const MapContainer({
+    required this.width,
+    required this.height,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      child: CustomPaint(
+        painter: MapPainter(),
+      ),
+    );
+  }
+}
+
+class MapPainter extends CustomPainter {
+  final Paint paintTest = Paint();
+
+  MapPainter() {
+    paintTest.color = Palette.white;
+    paintTest.style = PaintingStyle.stroke;
+    paintTest.strokeWidth = 4;
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawLine(
+      const Offset(10, 10),
+      Offset(size.width - 10, size.height - 10),
+      paintTest,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
 class MapTile extends StatefulWidget {
