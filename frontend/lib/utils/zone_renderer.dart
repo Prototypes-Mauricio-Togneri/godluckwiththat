@@ -74,6 +74,16 @@ class ZoneRenderer {
       tileHeight: tileHeight,
       image: Images.image(zone.zoneType.sprite),
     );
+
+    if (zone.patchType != null) {
+      _drawImageFull(
+        canvas: canvas,
+        offset: Offset(i - (tileWidth / 2), j - (tileHeight / 2)),
+        tileWidth: tileWidth,
+        tileHeight: tileHeight,
+        image: Images.image(zone.patchType!.sprite),
+      );
+    }
   }
 
   void renderSelected({
