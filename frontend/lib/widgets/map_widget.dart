@@ -74,7 +74,7 @@ class MapPainter extends CustomPainter {
         final Zone? zone = colony.zoneById('$x,$y');
 
         if (zone != null) {
-          zone.draw(
+          zone.renderer.render(
             canvas: canvas,
             canvasWidth: canvasWidth,
             tileWidth: tileWidth,

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_zone.dart';
@@ -13,7 +11,7 @@ import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
 import 'package:gatewayguardians/types/zone_type.dart';
-import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/utils/zone_renderer.dart';
 
 class Zone {
   final int x;
@@ -21,7 +19,7 @@ class Zone {
   final ZoneType zoneType;
   final PatchType? patchType;
   final List<Action> actions;
-  final Paint paintTest = Paint();
+  final ZoneRenderer renderer;
   String? owner;
   Building? building;
   ZoneStatus status;
@@ -35,10 +33,7 @@ class Zone {
     required this.owner,
     required this.building,
     required this.status,
-  }) {
-    paintTest.color = Palette.white;
-    paintTest.style = PaintingStyle.stroke;
-  }
+  }) : renderer = ZoneRenderer(x: x, y: y);
 
   String get id => '$x,$y';
 
@@ -304,27 +299,6 @@ class Zone {
     }
 
     actions.remove(action);
-  }
-
-  void draw({
-    required Canvas canvas,
-    required int canvasWidth,
-    required double tileWidth,
-    required double tileHeight,
-    required double topGap,
-  }) {
-    paintTest.strokeWidth = canvasWidth / 700;
-
-    final double i = (canvasWidth / 2) + ((x - y) * (tileWidth / 2));
-    final double j = topGap + ((x + y) * (tileHeight / 2));
-
-    final Path path = Path();
-    path.moveTo(i, j - (tileHeight / 2));
-    path.lineTo(i + (tileWidth / 2), j);
-    path.lineTo(i, j + (tileHeight / 2));
-    path.lineTo(i - (tileWidth / 2), j);
-    path.close();
-    canvas.drawPath(path, paintTest);
   }
 
   JsonZone get json => JsonZone(
