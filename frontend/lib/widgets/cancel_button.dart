@@ -28,6 +28,7 @@ class CancelButton extends StatelessWidget {
         text: 'CANCEL',
         color: Palette.error,
         icon: Icons.do_not_disturb_on_outlined,
+        tooltipError: null,
         onPressed: () => state.cancel(
           zone: zone,
           action: action,

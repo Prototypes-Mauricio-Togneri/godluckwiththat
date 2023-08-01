@@ -19,7 +19,7 @@ extension ResourceMapExtension on ResourceMap {
         result += '\n';
       }
 
-      result += '${resourceType.toString()}: ${get(resourceType)}';
+      result += '$resourceType: ${get(resourceType)}';
     }
 
     return result;

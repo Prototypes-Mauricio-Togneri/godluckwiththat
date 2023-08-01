@@ -203,11 +203,13 @@ class BuildingBlock extends StatelessWidget {
                   child: PrimaryButton(
                     text: 'Build',
                     color: Palette.success,
-                    onPressed: state.colony.inventory.has(buildingType.cost(1))
-                        ? onBuild
-                        : null,
                     icon: Icons.construction,
                     textSize: 10,
+                    tooltipError: buildingType.cost(1).join(),
+                    onPressed: state.colony.inventory
+                            .hasResources(buildingType.cost(1))
+                        ? onBuild
+                        : null,
                   ),
                 ),
               ),

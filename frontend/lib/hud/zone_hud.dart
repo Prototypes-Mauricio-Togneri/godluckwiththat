@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/hud/building_hud.dart';
 import 'package:gatewayguardians/models/zone.dart';
@@ -112,7 +113,8 @@ class ZoneNeutral extends StatelessWidget {
                 text: 'CLAIM',
                 color: Palette.success,
                 icon: Icons.flag,
-                onPressed: state.colony.hasResource(zone.claimCost)
+                tooltipError: zone.claimCost.join(),
+                onPressed: state.colony.hasResources(zone.claimCost)
                     ? () => state.claim(zone)
                     : null,
               ),
@@ -128,8 +130,9 @@ class ZoneNeutral extends StatelessWidget {
                 text: 'EXPLORE',
                 color: Palette.success,
                 icon: Icons.explore_outlined,
+                tooltipError: zone.explorationCost.join(),
                 onPressed: state.colony.hasFreeVillagers &&
-                        state.colony.hasResource(zone.explorationCost)
+                        state.colony.hasResources(zone.explorationCost)
                     ? () => state.explore(zone)
                     : null,
               ),
@@ -175,6 +178,7 @@ class ZoneOwned extends StatelessWidget {
             text: 'BUILD',
             color: Palette.success,
             icon: Icons.construction,
+            tooltipError: 'NO FREE VILLAGERS AVAILABLE',
             onPressed: state.colony.hasFreeVillagers
                 ? () => state.onBuild(zone)
                 : null,

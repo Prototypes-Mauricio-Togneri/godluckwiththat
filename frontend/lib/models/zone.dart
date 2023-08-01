@@ -69,11 +69,11 @@ class Zone {
   bool get hasActionLevelUp =>
       actions.isNotEmpty && (actions.first.actionType == ActionType.levelUp);
 
-  Resource get explorationCost => Resource.food(10);
+  ResourceMap get explorationCost => Resource.food(10).map;
 
-  Resource get claimCost => Resource.food(10);
+  ResourceMap get claimCost => Resource.food(10).map;
 
-  Resource get trainVillagerCost => Resource.food(10);
+  ResourceMap get trainVillagerCost => Resource.food(10).map;
 
   bool isAnyNeighbor(Zone zone) =>
       (zone.id == top) ||
@@ -250,19 +250,19 @@ class Zone {
   }
 
   void explore(Colony colony) {
-    colony.removeResource(explorationCost);
+    colony.removeResources(explorationCost);
     colony.removeFreeVillagers(1);
     actions.add(Action.explore());
   }
 
   void claim(Colony colony) {
-    colony.removeResource(claimCost);
+    colony.removeResources(claimCost);
     colony.removeFreeVillagers(1);
     actions.add(Action.claim());
   }
 
   void trainVillager(Colony colony) {
-    colony.removeResource(trainVillagerCost);
+    colony.removeResources(trainVillagerCost);
     actions.add(Action.train(1));
   }
 
@@ -272,15 +272,15 @@ class Zone {
   }) {
     switch (action.actionType) {
       case ActionType.explore:
-        colony.addResource(explorationCost);
+        colony.addResources(explorationCost);
         colony.addFreeVillagers(action.villagers);
         break;
       case ActionType.claim:
-        colony.addResource(claimCost);
+        colony.addResources(claimCost);
         colony.addFreeVillagers(action.villagers);
         break;
       case ActionType.train:
-        colony.addResource(trainVillagerCost);
+        colony.addResources(trainVillagerCost);
         break;
       case ActionType.build:
         colony.addResources(action.cost!);

@@ -127,6 +127,8 @@ class Colony {
 
   bool hasResource(Resource resource) => inventory.hasResource(resource);
 
+  bool hasResources(ResourceMap resources) => inventory.hasResources(resources);
+
   JsonColony get json => JsonColony(
         owner: owner,
         color: color.toHex(),

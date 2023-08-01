@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
@@ -67,12 +68,14 @@ class BuildingHud extends StatelessWidget {
                 text: 'LEVEL UP',
                 color: Palette.success,
                 icon: Icons.arrow_circle_up_outlined,
-                onPressed: state.colony.inventory.has(building.costNextLevel)
-                    ? () => state.levelUp(
-                          zone: zone,
-                          building: building,
-                        )
-                    : null,
+                tooltipError: building.costNextLevel.join(),
+                onPressed:
+                    state.colony.inventory.hasResources(building.costNextLevel)
+                        ? () => state.levelUp(
+                              zone: zone,
+                              building: building,
+                            )
+                        : null,
               ),
             ),
           if (!zone.hasAction && building.isDestroyable)
@@ -86,6 +89,7 @@ class BuildingHud extends StatelessWidget {
                 text: 'DESTROY',
                 color: Palette.error,
                 icon: Icons.delete_forever,
+                tooltipError: 'NO FREE VILLAGERS AVAILABLE',
                 onPressed: state.colony.hasFreeVillagers
                     ? () => state.destroy(
                           zone: zone,
@@ -117,7 +121,7 @@ class ProducerBlock extends StatelessWidget {
         const VBox(20),
         Label(
           text:
-              '${(building as Producer).resourcesPerTurn} ${building.buildingType.produces.toString()}/turn',
+              '${(building as Producer).resourcesPerTurn} ${building.buildingType.produces}/turn',
           size: 14,
           color: Palette.white,
         ),
@@ -184,7 +188,8 @@ class TrainerBlock extends StatelessWidget {
             text: 'CREATE VILLAGER',
             color: Palette.success,
             icon: Icons.person,
-            onPressed: state.colony.hasResource(zone.trainVillagerCost)
+            tooltipError: zone.trainVillagerCost.join(),
+            onPressed: state.colony.hasResources(zone.trainVillagerCost)
                 ? () => state.trainVillager(zone)
                 : null,
           ),
@@ -256,6 +261,7 @@ class QueuedAction extends StatelessWidget {
         text: text.toUpperCase(),
         color: Palette.error,
         icon: Icons.do_not_disturb_on_outlined,
+        tooltipError: null,
         onPressed: onTap,
       ),
     );
