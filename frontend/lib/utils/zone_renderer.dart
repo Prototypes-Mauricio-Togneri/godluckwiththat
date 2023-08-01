@@ -16,6 +16,7 @@ class ZoneRenderer {
     paintTest.style = PaintingStyle.stroke;
   }
 
+  // https://math.stackexchange.com/questions/312403/how-do-i-determine-if-a-point-is-within-a-rhombus
   bool isInside(Offset offset) {
     final double qx =
         (MapPainter.CANVAS_WIDTH / 2) + ((x - y) * (MapPainter.TILE_WIDTH / 2));
