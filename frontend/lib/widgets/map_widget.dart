@@ -30,6 +30,8 @@ class MapWidget extends StatelessWidget {
                 painter: MapPainter(
                   canvasWidth: constraints.maxWidth.toInt(),
                   canvasHeight: constraints.maxHeight.toInt(),
+                  colony: state.colony,
+                  zones: state.colony.zones,
                 ),
               ),
             ),
@@ -44,8 +46,9 @@ class MapPainter extends CustomPainter {
   final int canvasWidth;
   final int canvasHeight;
   final Paint paintTest = Paint();
-  final int MAP_WIDTH = 7;
-  final int MAP_HEIGHT = 7;
+  final Colony colony;
+  final List<Zone> zones;
+  int mapSize = 0;
   double tileWidth = 0;
   double tileHeight = 0;
   double tileWidthHalf = 0;
@@ -55,38 +58,43 @@ class MapPainter extends CustomPainter {
   MapPainter({
     required this.canvasWidth,
     required this.canvasHeight,
+    required this.zones,
+    required this.colony,
   }) {
     paintTest.color = Palette.white;
     paintTest.style = PaintingStyle.stroke;
-    paintTest.strokeWidth = canvasWidth / 500;
+    paintTest.strokeWidth = canvasWidth / 700;
 
-    tileWidth = canvasWidth / max(MAP_WIDTH + 1, MAP_HEIGHT + 1);
+    mapSize = sqrt(zones.length).toInt();
+    tileWidth = canvasWidth / (mapSize + 1);
     tileHeight = tileWidth / 2;
     tileWidthHalf = tileWidth / 2;
     tileHeightHalf = tileHeight / 2;
-    topGap = canvasHeight - (tileHeight * MAP_HEIGHT) - tileHeightHalf;
+    topGap = canvasHeight - (tileHeight * mapSize) - tileHeight;
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    for (int y = 0; y < MAP_HEIGHT; y++) {
-      for (int x = 0; x < MAP_WIDTH; x++) {
-        _drawTile(
-          canvas: canvas,
-          x: x,
-          y: y,
-        );
+    for (int y = 0; y < mapSize; y++) {
+      for (int x = 0; x < mapSize; x++) {
+        final Zone? zone = colony.zoneById('$x,$y');
+
+        if (zone != null) {
+          _drawTile(
+            canvas: canvas,
+            zone: zone,
+          );
+        }
       }
     }
   }
 
   void _drawTile({
     required Canvas canvas,
-    required int x,
-    required int y,
+    required Zone zone,
   }) {
-    final double i = (canvasWidth / 2) + ((x - y) * (tileWidth / 2));
-    final double j = topGap + ((x + y) * (tileHeight / 2));
+    final double i = (canvasWidth / 2) + ((zone.x - zone.y) * (tileWidth / 2));
+    final double j = topGap + ((zone.x + zone.y) * (tileHeight / 2));
 
     final Path path = Path();
     path.moveTo(i, j - tileHeightHalf);
