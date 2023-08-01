@@ -54,6 +54,10 @@ class GameState extends BaseState {
     }
   }
 
+  void onTapDown(TapDownDetails details) {
+    print(details.localPosition);
+  }
+
   void onZoneClicked(Zone zone) {
     if (selectedZone != zone) {
       selectedZone = zone;

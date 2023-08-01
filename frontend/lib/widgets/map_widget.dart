@@ -23,15 +23,18 @@ class MapWidget extends StatelessWidget {
             boundaryMargin: const EdgeInsets.all(0),
             minScale: 0.1,
             maxScale: 5,
-            child: Container(
-              width: constraints.maxWidth,
-              height: constraints.maxHeight,
-              child: CustomPaint(
-                painter: MapPainter(
-                  canvasWidth: constraints.maxWidth.toInt(),
-                  canvasHeight: constraints.maxHeight.toInt(),
-                  colony: state.colony,
-                  zones: state.colony.zones,
+            child: GestureDetector(
+              onTapDown: state.onTapDown,
+              child: Container(
+                width: constraints.maxWidth,
+                height: constraints.maxHeight,
+                child: CustomPaint(
+                  painter: MapPainter(
+                    canvasWidth: constraints.maxWidth.toInt(),
+                    canvasHeight: constraints.maxHeight.toInt(),
+                    colony: state.colony,
+                    zones: state.colony.zones,
+                  ),
                 ),
               ),
             ),
