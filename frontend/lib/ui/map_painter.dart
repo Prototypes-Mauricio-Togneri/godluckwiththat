@@ -139,8 +139,8 @@ class MapPainter extends CustomPainter {
     required Zone zone,
     required Offset offset,
   }) =>
-      zone.tiles.any((element) => _isInsideTile(
-            tile: element,
+      zone.tiles.any((tile) => _isInsideTile(
+            tile: tile,
             offset: offset,
           ));
 

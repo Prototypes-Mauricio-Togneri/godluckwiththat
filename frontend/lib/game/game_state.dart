@@ -62,10 +62,11 @@ class GameState extends BaseState {
 
   void onTapDown(TapDownDetails details) {
     for (final Zone zone in zones) {
-      if (mapPainter!.isInsideZone(
-        zone: zone,
-        offset: details.localPosition,
-      )) {
+      if (zone.canBeSelected &&
+          mapPainter!.isInsideZone(
+            zone: zone,
+            offset: details.localPosition,
+          )) {
         if (selectedZone != zone) {
           selectedZone = zone;
         } else {

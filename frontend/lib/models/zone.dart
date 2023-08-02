@@ -52,6 +52,8 @@ class Zone {
 
   ResourceMap get trainVillagerCost => Resource.food(10).map;
 
+  bool get canBeSelected => tiles.any((tile) => tile.tileType.canSelected);
+
   bool canBeExplored(Colony colony) {
     if (status == ZoneStatus.explored) {
       /*final List<Zone> neighbors = colony.getAllNeighbors(this);
