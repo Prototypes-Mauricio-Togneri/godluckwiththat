@@ -37,6 +37,11 @@ class ZoneHud extends StatelessWidget {
             ZoneExplored(
               state: state,
               zone: zone,
+            )
+          else if (zone.status.isUnexplored)
+            ZoneUnexplored(
+              state: state,
+              zone: zone,
             ),
           const VBox(20),
         ],
@@ -85,6 +90,47 @@ class ZoneExplored extends StatelessWidget {
   }
 }
 
+class ZoneUnexplored extends StatelessWidget {
+  final GameState state;
+  final Zone zone;
+
+  const ZoneUnexplored({
+    required this.state,
+    required this.zone,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (zone.hasAction) {
+      return CancelButton(
+        state: state,
+        zone: zone,
+        action: zone.actions.first,
+      );
+    } else if (zone.canBeExplored(state.colony)) {
+      return Padding(
+        padding: const EdgeInsets.only(
+          top: 20,
+          left: 20,
+          right: 20,
+        ),
+        child: PrimaryButton(
+          text: 'EXPLORE',
+          color: Palette.success,
+          icon: Icons.explore_outlined,
+          tooltipError: zone.explorationCost.join(),
+          onPressed: state.colony.hasFreeVillagers &&
+                  state.colony.hasResources(zone.explorationCost)
+              ? () => state.explore(zone)
+              : null,
+        ),
+      );
+    } else {
+      return const Empty();
+    }
+  }
+}
+
 class ZoneNeutral extends StatelessWidget {
   final GameState state;
   final Zone zone;
@@ -102,46 +148,25 @@ class ZoneNeutral extends StatelessWidget {
         zone: zone,
         action: zone.actions.first,
       );
-    } else {
-      return Column(
-        children: [
-          if (zone.canBeClaimed(state.colony))
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-              ),
-              child: PrimaryButton(
-                text: 'CLAIM',
-                color: Palette.success,
-                icon: Icons.flag,
-                tooltipError: zone.claimCost.join(),
-                onPressed: state.colony.hasResources(zone.claimCost)
-                    ? () => state.claim(zone)
-                    : null,
-              ),
-            ),
-          if (zone.canBeExplored(state.colony))
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-              ),
-              child: PrimaryButton(
-                text: 'EXPLORE',
-                color: Palette.success,
-                icon: Icons.explore_outlined,
-                tooltipError: zone.explorationCost.join(),
-                onPressed: state.colony.hasFreeVillagers &&
-                        state.colony.hasResources(zone.explorationCost)
-                    ? () => state.explore(zone)
-                    : null,
-              ),
-            ),
-        ],
+    } else if (zone.canBeClaimed(state.colony)) {
+      return Padding(
+        padding: const EdgeInsets.only(
+          top: 20,
+          left: 20,
+          right: 20,
+        ),
+        child: PrimaryButton(
+          text: 'CLAIM',
+          color: Palette.success,
+          icon: Icons.flag,
+          tooltipError: zone.claimCost.join(),
+          onPressed: state.colony.hasResources(zone.claimCost)
+              ? () => state.claim(zone)
+              : null,
+        ),
       );
+    } else {
+      return const Empty();
     }
   }
 }

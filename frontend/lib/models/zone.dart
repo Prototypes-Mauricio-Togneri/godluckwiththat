@@ -56,7 +56,7 @@ class Zone {
       !status.isHidden && tiles.any((tile) => tile.tileType.canSelected);
 
   bool canBeExplored(Colony colony) {
-    if (status == ZoneStatus.explored) {
+    if (status == ZoneStatus.unexplored) {
       /*final List<Zone> neighbors = colony.getAllNeighbors(this);
 
       for (final Zone zone in neighbors) {
@@ -65,7 +65,7 @@ class Zone {
         }
       }*/
 
-      return false;
+      return true; // TODO(momo): change to false
     } else {
       return false;
     }
@@ -81,7 +81,7 @@ class Zone {
         }
       }*/
 
-      return false;
+      return true; // TODO(momo): change to false
     } else {
       return false;
     }
