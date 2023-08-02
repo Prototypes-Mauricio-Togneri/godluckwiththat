@@ -79,8 +79,6 @@ class MapPainter extends CustomPainter {
               tile: tile,
               canvas: canvas,
               size: size,
-              tileWidth: TILE_WIDTH,
-              tileHeight: TILE_HEIGHT,
               topGap: TOP_GAP,
             );
           }

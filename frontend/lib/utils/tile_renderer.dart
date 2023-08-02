@@ -45,38 +45,42 @@ class TileRenderer {
     required Tile tile,
     required Canvas canvas,
     required Size size,
-    required double tileWidth,
-    required double tileHeight,
     required double topGap,
   }) {
     paintImage.color = Palette.grey;
     paintImage.style = PaintingStyle.fill;
 
-    final double i = (size.width / 2) + ((x - y) * (tileWidth / 2));
-    final double j = topGap + ((x + y) * (tileHeight / 2));
+    final double i = (size.width / 2) + ((x - y) * (MapPainter.TILE_WIDTH / 2));
+    final double j = topGap + ((x + y) * (MapPainter.TILE_HEIGHT / 2));
 
     final Path path = Path();
-    path.moveTo(i, j - (tileHeight / 2));
-    path.lineTo(i + (tileWidth / 2), j);
-    path.lineTo(i, j + (tileHeight / 2));
-    path.lineTo(i - (tileWidth / 2), j);
+    path.moveTo(i, j - (MapPainter.TILE_HEIGHT / 2));
+    path.lineTo(i + (MapPainter.TILE_WIDTH / 2), j);
+    path.lineTo(i, j + (MapPainter.TILE_HEIGHT / 2));
+    path.lineTo(i - (MapPainter.TILE_WIDTH / 2), j);
     path.close();
     canvas.drawPath(path, paintImage);
 
     _drawImageFull(
       canvas: canvas,
-      offset: Offset(i - (tileWidth / 2), j - (tileHeight / 2)),
-      tileWidth: tileWidth,
-      tileHeight: tileHeight,
+      offset: Offset(
+        i - (MapPainter.TILE_WIDTH / 2),
+        j - (MapPainter.TILE_HEIGHT / 2),
+      ),
+      tileWidth: MapPainter.TILE_WIDTH,
+      tileHeight: MapPainter.TILE_HEIGHT,
       image: Images.image(tile.tileType.sprite),
     );
 
     if (tile.patchType != null) {
       _drawImageFull(
         canvas: canvas,
-        offset: Offset(i - (tileWidth / 2), j - (tileHeight / 2)),
-        tileWidth: tileWidth,
-        tileHeight: tileHeight,
+        offset: Offset(
+          i - (MapPainter.TILE_WIDTH / 2),
+          j - (MapPainter.TILE_HEIGHT / 2),
+        ),
+        tileWidth: MapPainter.TILE_WIDTH,
+        tileHeight: MapPainter.TILE_HEIGHT,
         image: Images.image(tile.patchType!.sprite),
       );
     }
