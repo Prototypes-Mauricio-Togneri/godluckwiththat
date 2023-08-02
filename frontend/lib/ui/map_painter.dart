@@ -42,7 +42,7 @@ class MapPainter extends CustomPainter {
     paintTileImage.color = Palette.grey;
     paintTileImage.style = PaintingStyle.fill;
 
-    paintTileUnexplored.color = Palette.grey.withAlpha(200);
+    paintTileUnexplored.color = Palette.black.withAlpha(150);
     paintTileUnexplored.style = PaintingStyle.fill;
   }
 
