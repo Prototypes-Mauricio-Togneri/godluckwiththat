@@ -199,10 +199,10 @@ class MapPainter extends CustomPainter {
       image,
       Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
       Rect.fromLTWH(
-        offset.dx - (tileHeight / 4),
-        offset.dy - (tileHeight / 4),
-        tileHeight / 2,
-        tileHeight / 2,
+        offset.dx - (tileHeight / 3),
+        offset.dy - (tileHeight / 3),
+        tileHeight / 1.5,
+        tileHeight / 1.5,
       ),
       paintTileImage,
     );
