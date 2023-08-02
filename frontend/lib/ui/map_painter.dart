@@ -14,8 +14,8 @@ class MapPainter extends CustomPainter {
 
   final int canvasWidth;
   final int canvasHeight;
-  static double TILE_WIDTH = 0;
-  static double TILE_HEIGHT = 0;
+  late final double tileWidth;
+  late final double tileHeight;
   static double TOP_GAP = 0;
   int mapSize = 0;
 
@@ -26,9 +26,9 @@ class MapPainter extends CustomPainter {
   }) {
     state.setMapPainter(this);
     mapSize = sqrt(state.colony.zones.length).toInt();
-    TILE_WIDTH = canvasWidth / (mapSize + 1);
-    TILE_HEIGHT = TILE_WIDTH / 2;
-    TOP_GAP = canvasHeight - (TILE_HEIGHT * mapSize) - TILE_HEIGHT;
+    tileWidth = canvasWidth / (mapSize + 1);
+    tileHeight = tileWidth / 2;
+    TOP_GAP = canvasHeight - (tileHeight * mapSize) - tileHeight;
 
     paintZoneSelected.color = Palette.white;
     paintZoneSelected.style = PaintingStyle.stroke;
@@ -63,14 +63,14 @@ class MapPainter extends CustomPainter {
     final Tile tile = zone.tiles.first;
     paintZoneSelected.strokeWidth = canvasWidth / 700;
 
-    final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (TILE_WIDTH / 2));
-    final double j = TOP_GAP + ((tile.x + tile.y) * (TILE_HEIGHT / 2));
+    final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
+    final double j = TOP_GAP + ((tile.x + tile.y) * (tileHeight / 2));
 
     final Path path = Path();
-    path.moveTo(i, j - (TILE_HEIGHT / 2));
-    path.lineTo(i + (TILE_WIDTH / 2), j);
-    path.lineTo(i, j + (TILE_HEIGHT / 2));
-    path.lineTo(i - (TILE_WIDTH / 2), j);
+    path.moveTo(i, j - (tileHeight / 2));
+    path.lineTo(i + (tileWidth / 2), j);
+    path.lineTo(i, j + (tileHeight / 2));
+    path.lineTo(i - (tileWidth / 2), j);
     path.close();
     canvas.drawPath(path, paintZoneSelected);
   }
@@ -79,27 +79,25 @@ class MapPainter extends CustomPainter {
     required Tile tile,
     required Canvas canvas,
   }) {
-    final double i =
-        (canvasWidth / 2) + ((tile.x - tile.y) * (MapPainter.TILE_WIDTH / 2));
-    final double j =
-        TOP_GAP + ((tile.x + tile.y) * (MapPainter.TILE_HEIGHT / 2));
+    final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
+    final double j = TOP_GAP + ((tile.x + tile.y) * (tileHeight / 2));
 
     final Path path = Path();
-    path.moveTo(i, j - (MapPainter.TILE_HEIGHT / 2));
-    path.lineTo(i + (MapPainter.TILE_WIDTH / 2), j);
-    path.lineTo(i, j + (MapPainter.TILE_HEIGHT / 2));
-    path.lineTo(i - (MapPainter.TILE_WIDTH / 2), j);
+    path.moveTo(i, j - (tileHeight / 2));
+    path.lineTo(i + (tileWidth / 2), j);
+    path.lineTo(i, j + (tileHeight / 2));
+    path.lineTo(i - (tileWidth / 2), j);
     path.close();
     canvas.drawPath(path, paintTileImage);
 
     _drawImageFull(
       canvas: canvas,
       offset: Offset(
-        i - (MapPainter.TILE_WIDTH / 2),
-        j - (MapPainter.TILE_HEIGHT / 2),
+        i - (tileWidth / 2),
+        j - (tileHeight / 2),
       ),
-      tileWidth: MapPainter.TILE_WIDTH,
-      tileHeight: MapPainter.TILE_HEIGHT,
+      tileWidth: tileWidth,
+      tileHeight: tileHeight,
       image: Images.image(tile.tileType.sprite),
     );
 
@@ -107,11 +105,11 @@ class MapPainter extends CustomPainter {
       _drawImageFull(
         canvas: canvas,
         offset: Offset(
-          i - (MapPainter.TILE_WIDTH / 2),
-          j - (MapPainter.TILE_HEIGHT / 2),
+          i - (tileWidth / 2),
+          j - (tileHeight / 2),
         ),
-        tileWidth: MapPainter.TILE_WIDTH,
-        tileHeight: MapPainter.TILE_HEIGHT,
+        tileWidth: tileWidth,
+        tileHeight: tileHeight,
         image: Images.image(tile.patchType!.sprite),
       );
     }
@@ -146,10 +144,9 @@ class MapPainter extends CustomPainter {
     required Tile tile,
     required Offset offset,
   }) {
-    final double qx =
-        (canvasWidth / 2) + ((tile.x - tile.y) * (MapPainter.TILE_WIDTH / 2));
+    final double qx = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
     final double qy =
-        MapPainter.TOP_GAP + ((tile.x + tile.y) * (MapPainter.TILE_HEIGHT / 2));
+        MapPainter.TOP_GAP + ((tile.x + tile.y) * (tileHeight / 2));
     // final double a = MapPainter.TILE_WIDTH / 2;
     // final double b = MapPainter.TILE_HEIGHT / 2;
 
@@ -167,7 +164,7 @@ class MapPainter extends CustomPainter {
     final double distance =
         sqrt(pow(offset.dx - qx, 2) + pow(offset.dy - qy, 2));
 
-    return distance <= (MapPainter.TILE_HEIGHT / 2);
+    return distance <= (tileHeight / 2);
   }
 
   @override
