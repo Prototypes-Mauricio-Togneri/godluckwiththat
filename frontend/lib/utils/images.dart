@@ -14,6 +14,15 @@ class Images {
     await _load(Assets.IMAGES_PATCHES_STONE_DEPOSIT);
 
     await _load(Assets.IMAGES_BUILDINGS_MISC_HEADQUARTERS);
+    await _load(Assets.IMAGES_BUILDINGS_MISC_HOUSE);
+    await _load(Assets.IMAGES_BUILDINGS_MISC_WAREHOUSE);
+
+    await _load(Assets.IMAGES_BUILDINGS_PRODUCERS_FARM);
+    await _load(Assets.IMAGES_BUILDINGS_PRODUCERS_WOODCUTTER);
+    await _load(Assets.IMAGES_BUILDINGS_PRODUCERS_QUARRY);
+    await _load(Assets.IMAGES_BUILDINGS_PRODUCERS_COPPER_MINE);
+    await _load(Assets.IMAGES_BUILDINGS_PRODUCERS_IRON_MINE);
+    await _load(Assets.IMAGES_BUILDINGS_PRODUCERS_GOLD_MINE);
   }
 
   static Image image(String path) => _map[path]!;
