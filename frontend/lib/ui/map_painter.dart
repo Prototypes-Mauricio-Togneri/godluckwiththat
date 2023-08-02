@@ -12,25 +12,23 @@ class MapPainter extends CustomPainter {
   final Paint paintZoneSelected = Paint();
   final Paint paintTileImage = Paint();
 
-  static int CANVAS_WIDTH = 0;
-  static int CANVAS_HEIGHT = 0;
+  final int canvasWidth;
+  final int canvasHeight;
   static double TILE_WIDTH = 0;
   static double TILE_HEIGHT = 0;
   static double TOP_GAP = 0;
   int mapSize = 0;
 
   MapPainter({
-    required int canvasWidth,
-    required int canvasHeight,
+    required this.canvasWidth,
+    required this.canvasHeight,
     required this.state,
   }) {
     state.setMapPainter(this);
     mapSize = sqrt(state.colony.zones.length).toInt();
-    CANVAS_WIDTH = canvasWidth;
-    CANVAS_HEIGHT = canvasHeight;
-    TILE_WIDTH = CANVAS_WIDTH / (mapSize + 1);
+    TILE_WIDTH = canvasWidth / (mapSize + 1);
     TILE_HEIGHT = TILE_WIDTH / 2;
-    TOP_GAP = CANVAS_HEIGHT - (TILE_HEIGHT * mapSize) - TILE_HEIGHT;
+    TOP_GAP = canvasHeight - (TILE_HEIGHT * mapSize) - TILE_HEIGHT;
 
     paintZoneSelected.color = Palette.white;
     paintZoneSelected.style = PaintingStyle.stroke;
@@ -63,10 +61,9 @@ class MapPainter extends CustomPainter {
     required Canvas canvas,
   }) {
     final Tile tile = zone.tiles.first;
-    paintZoneSelected.strokeWidth = CANVAS_WIDTH / 700;
+    paintZoneSelected.strokeWidth = canvasWidth / 700;
 
-    final double i =
-        (CANVAS_WIDTH / 2) + ((tile.x - tile.y) * (TILE_WIDTH / 2));
+    final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (TILE_WIDTH / 2));
     final double j = TOP_GAP + ((tile.x + tile.y) * (TILE_HEIGHT / 2));
 
     final Path path = Path();
@@ -83,7 +80,7 @@ class MapPainter extends CustomPainter {
     required Canvas canvas,
   }) {
     final double i =
-        (CANVAS_WIDTH / 2) + ((tile.x - tile.y) * (MapPainter.TILE_WIDTH / 2));
+        (canvasWidth / 2) + ((tile.x - tile.y) * (MapPainter.TILE_WIDTH / 2));
     final double j =
         TOP_GAP + ((tile.x + tile.y) * (MapPainter.TILE_HEIGHT / 2));
 
@@ -149,8 +146,8 @@ class MapPainter extends CustomPainter {
     required Tile tile,
     required Offset offset,
   }) {
-    final double qx = (MapPainter.CANVAS_WIDTH / 2) +
-        ((tile.x - tile.y) * (MapPainter.TILE_WIDTH / 2));
+    final double qx =
+        (canvasWidth / 2) + ((tile.x - tile.y) * (MapPainter.TILE_WIDTH / 2));
     final double qy =
         MapPainter.TOP_GAP + ((tile.x + tile.y) * (MapPainter.TILE_HEIGHT / 2));
     // final double a = MapPainter.TILE_WIDTH / 2;
