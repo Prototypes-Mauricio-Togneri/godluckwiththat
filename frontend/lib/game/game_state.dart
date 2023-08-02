@@ -12,6 +12,7 @@ import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
+import 'package:gatewayguardians/ui/map_painter.dart';
 
 class GameState extends BaseState {
   int turn = 1;
@@ -25,6 +26,7 @@ class GameState extends BaseState {
   final List<Zone> zones = [];
   late final Colony colony;
 
+  MapPainter? mapPainter;
   Zone? selectedZone;
 
   GameState(this.jsonMatch) {
@@ -46,6 +48,10 @@ class GameState extends BaseState {
       zones: zones,
       freeVillagers: 5,
     );
+  }
+
+  void setMapPainter(MapPainter painter) {
+    mapPainter = painter;
   }
 
   void onKey(RawKeyEvent event) {

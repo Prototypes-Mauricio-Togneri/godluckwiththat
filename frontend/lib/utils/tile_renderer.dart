@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:gatewayguardians/models/tile.dart';
+import 'package:gatewayguardians/ui/map_painter.dart';
 import 'package:gatewayguardians/utils/images.dart';
 import 'package:gatewayguardians/utils/palette.dart';
-import 'package:gatewayguardians/widgets/map_widget.dart';
 
 class TileRenderer {
   final int x;
