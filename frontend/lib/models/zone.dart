@@ -55,17 +55,53 @@ class Zone {
   bool get canBeSelected =>
       !status.isHidden && tiles.any((tile) => tile.tileType.canSelected);
 
+  int get x => int.parse(id.split(',')[0]);
+
+  int get y => int.parse(id.split(',')[1]);
+
+  String get top => '$x,${y - 1}';
+
+  String get topLeft => '${x - 1},${y - 1}';
+
+  String get topRight => '${x + 1},${y - 1}';
+
+  String get left => '${x - 1},$y';
+
+  String get right => '${x + 1},$y';
+
+  String get bottom => '$x,${y + 1}';
+
+  String get bottomLeft => '${x - 1},${y + 1}';
+
+  String get bottomRight => '${x + 1},${y + 1}';
+
+  bool isAnyNeighbor(Zone zone) =>
+      (zone.id == top) ||
+      (zone.id == topLeft) ||
+      (zone.id == topRight) ||
+      (zone.id == left) ||
+      (zone.id == right) ||
+      (zone.id == bottom) ||
+      (zone.id == bottomLeft) ||
+      (zone.id == bottomRight);
+
+  bool isSideNeighbor(Zone zone) =>
+      (zone.id == top) ||
+      (zone.id == left) ||
+      (zone.id == right) ||
+      (zone.id == bottom);
+
   bool canBeExplored(Colony colony) {
     if (status == ZoneStatus.unexplored) {
-      /*final List<Zone> neighbors = colony.getAllNeighbors(this);
+      final List<Zone> neighbors = colony.getAllNeighbors(this);
 
       for (final Zone zone in neighbors) {
         if (zone.isUnexplored) {
           return true;
         }
-      }*/
+      }
 
-      return true; // TODO(momo): change to false
+      return false;
     } else {
       return false;
     }
@@ -73,15 +109,15 @@ class Zone {
 
   bool canBeClaimed(Colony colony) {
     if (status == ZoneStatus.explored) {
-      /*final List<Zone> neighbors = colony.getSideNeighbors(this);
+      final List<Zone> neighbors = colony.getSideNeighbors(this);
 
       for (final Zone zone in neighbors) {
         if (zone.isOwned) {
           return true;
         }
-      }*/
+      }
 
-      return true; // TODO(momo): change to false
+      return false;
     } else {
       return false;
     }
@@ -137,9 +173,14 @@ class Zone {
       if (action.passTurn()) {
         switch (action.actionType) {
           case ActionType.explore:
-            /*for (final Zone zone in colony.getAllNeighbors(this)) {
-              zone.status = ZoneStatus.explored;
-            }*/
+            for (final Zone zone in colony.getAllNeighbors(this)) {
+              if (!zone.tiles.first.tileType.canExplored) {
+                zone.status = ZoneStatus.explored;
+              } else if (zone.status.isHidden) {
+                zone.status = ZoneStatus.unexplored;
+              }
+            }
+            status = ZoneStatus.explored;
             colony.addFreeVillagers(action.villagers);
             actions.removeAt(0);
             break;
