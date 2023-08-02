@@ -41,18 +41,12 @@ class MapPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    for (int y = 0; y < mapSize; y++) {
-      for (int x = 0; x < mapSize; x++) {
-        final Zone? zone = state.colony.zoneById('$x,$y');
-
-        if (zone != null) {
-          for (final Tile tile in zone.tiles) {
-            renderTile(
-              tile: tile,
-              canvas: canvas,
-            );
-          }
-        }
+    for (final Zone zone in state.colony.zones) {
+      for (final Tile tile in zone.tiles) {
+        renderTile(
+          tile: tile,
+          canvas: canvas,
+        );
       }
     }
 
