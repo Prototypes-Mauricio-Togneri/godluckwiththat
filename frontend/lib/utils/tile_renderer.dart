@@ -1,14 +1,10 @@
 import 'dart:math';
 import 'dart:ui';
-import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/ui/map_painter.dart';
-import 'package:gatewayguardians/utils/images.dart';
-import 'package:gatewayguardians/utils/palette.dart';
 
 class TileRenderer {
   final int x;
   final int y;
-  final Paint paintImage = Paint();
 
   TileRenderer({
     required this.x,
@@ -39,65 +35,5 @@ class TileRenderer {
         sqrt(pow(offset.dx - qx, 2) + pow(offset.dy - qy, 2));
 
     return distance <= (MapPainter.TILE_HEIGHT / 2);
-  }
-
-  void render({
-    required Tile tile,
-    required Canvas canvas,
-    required Size size,
-    required double topGap,
-  }) {
-    paintImage.color = Palette.grey;
-    paintImage.style = PaintingStyle.fill;
-
-    final double i = (size.width / 2) + ((x - y) * (MapPainter.TILE_WIDTH / 2));
-    final double j = topGap + ((x + y) * (MapPainter.TILE_HEIGHT / 2));
-
-    final Path path = Path();
-    path.moveTo(i, j - (MapPainter.TILE_HEIGHT / 2));
-    path.lineTo(i + (MapPainter.TILE_WIDTH / 2), j);
-    path.lineTo(i, j + (MapPainter.TILE_HEIGHT / 2));
-    path.lineTo(i - (MapPainter.TILE_WIDTH / 2), j);
-    path.close();
-    canvas.drawPath(path, paintImage);
-
-    _drawImageFull(
-      canvas: canvas,
-      offset: Offset(
-        i - (MapPainter.TILE_WIDTH / 2),
-        j - (MapPainter.TILE_HEIGHT / 2),
-      ),
-      tileWidth: MapPainter.TILE_WIDTH,
-      tileHeight: MapPainter.TILE_HEIGHT,
-      image: Images.image(tile.tileType.sprite),
-    );
-
-    if (tile.patchType != null) {
-      _drawImageFull(
-        canvas: canvas,
-        offset: Offset(
-          i - (MapPainter.TILE_WIDTH / 2),
-          j - (MapPainter.TILE_HEIGHT / 2),
-        ),
-        tileWidth: MapPainter.TILE_WIDTH,
-        tileHeight: MapPainter.TILE_HEIGHT,
-        image: Images.image(tile.patchType!.sprite),
-      );
-    }
-  }
-
-  void _drawImageFull({
-    required Canvas canvas,
-    required Offset offset,
-    required double tileWidth,
-    required double tileHeight,
-    required Image image,
-  }) {
-    canvas.drawImageRect(
-      image,
-      Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-      Rect.fromLTWH(offset.dx, offset.dy, tileWidth, tileHeight),
-      paintImage,
-    );
   }
 }
