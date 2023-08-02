@@ -143,25 +143,40 @@ class MapPainter extends CustomPainter {
       image: Images.image(tile.tileType.sprite),
     );
 
-    if (zoneStatus.isExplored && (tile.patchType != null)) {
-      _drawImageFull(
-        canvas: canvas,
-        offset: Offset(
-          i - (tileWidth / 2),
-          j - (tileHeight / 2),
-        ),
-        tileWidth: tileWidth,
-        tileHeight: tileHeight,
-        image: Images.image(tile.patchType!.sprite),
-      );
-    }
-
-    if (zoneStatus.isUnexplored) {
+    if (zoneStatus.isExplored) {
+      if (tile.patchType != null) {
+        _drawImageFull(
+          canvas: canvas,
+          offset: Offset(
+            i - (tileWidth / 2),
+            j - (tileHeight / 2),
+          ),
+          tileWidth: tileWidth,
+          tileHeight: tileHeight,
+          image: Images.image(tile.patchType!.sprite),
+        );
+      }
+    } else if (zoneStatus.isUnexplored) {
       canvas.drawPath(path, paintTileUnexplored);
     }
   }
 
   void _drawImageFull({
+    required Canvas canvas,
+    required Offset offset,
+    required double tileWidth,
+    required double tileHeight,
+    required Image image,
+  }) {
+    canvas.drawImageRect(
+      image,
+      Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
+      Rect.fromLTWH(offset.dx, offset.dy, tileWidth, tileHeight),
+      paintTileImage,
+    );
+  }
+
+  void _drawImageHalf({
     required Canvas canvas,
     required Offset offset,
     required double tileWidth,
