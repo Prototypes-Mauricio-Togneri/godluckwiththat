@@ -100,10 +100,7 @@ class MapPainter extends CustomPainter {
       if (zone.building != null) {
         _drawImageHalf(
           canvas: canvas,
-          offset: Offset(
-            i - (tileWidth / 2),
-            j - (tileHeight / 2),
-          ),
+          offset: Offset(i, j),
           tileWidth: tileWidth,
           tileHeight: tileHeight,
           image: Images.image(zone.building!.buildingType.sprite),
@@ -202,9 +199,9 @@ class MapPainter extends CustomPainter {
       image,
       Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
       Rect.fromLTWH(
-        offset.dx + (tileWidth / 4),
-        offset.dy + (tileHeight / 4),
-        tileWidth / 2,
+        offset.dx - (image.width / 4),
+        offset.dy - (image.height / 4),
+        tileHeight / 2,
         tileHeight / 2,
       ),
       paintTileImage,
