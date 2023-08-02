@@ -14,6 +14,7 @@ class MapPainter extends CustomPainter {
   final Paint paintZone = Paint();
   final Paint paintZoneSelected = Paint();
   final Paint paintTileImage = Paint();
+  final Paint paintTileUnexplored = Paint();
 
   final int canvasWidth;
   final int canvasHeight;
@@ -40,6 +41,9 @@ class MapPainter extends CustomPainter {
 
     paintTileImage.color = Palette.grey;
     paintTileImage.style = PaintingStyle.fill;
+
+    paintTileUnexplored.color = Palette.grey.withAlpha(200);
+    paintTileUnexplored.style = PaintingStyle.fill;
   }
 
   @override
@@ -139,7 +143,7 @@ class MapPainter extends CustomPainter {
       image: Images.image(tile.tileType.sprite),
     );
 
-    if (tile.patchType != null) {
+    if (zoneStatus.isExplored && (tile.patchType != null)) {
       _drawImageFull(
         canvas: canvas,
         offset: Offset(
@@ -150,6 +154,10 @@ class MapPainter extends CustomPainter {
         tileHeight: tileHeight,
         image: Images.image(tile.patchType!.sprite),
       );
+    }
+
+    if (zoneStatus.isUnexplored) {
+      canvas.drawPath(path, paintTileUnexplored);
     }
   }
 
