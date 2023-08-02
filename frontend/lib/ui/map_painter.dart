@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/widgets.dart' hide Image;
+import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/models/zone.dart';
@@ -9,6 +10,7 @@ import 'package:gatewayguardians/utils/palette.dart';
 
 class MapPainter extends CustomPainter {
   final GameState state;
+  final Paint paintZone = Paint();
   final Paint paintZoneSelected = Paint();
   final Paint paintTileImage = Paint();
 
@@ -30,6 +32,8 @@ class MapPainter extends CustomPainter {
     tileHeight = tileWidth / 2;
     topGap = canvasHeight - (tileHeight * mapSize) - tileHeight;
 
+    paintZone.style = PaintingStyle.stroke;
+
     paintZoneSelected.color = Palette.white;
     paintZoneSelected.style = PaintingStyle.stroke;
 
@@ -48,8 +52,17 @@ class MapPainter extends CustomPainter {
       }
     }
 
+    for (final Zone zone in state.colony.zones) {
+      if (zone.isOwned) {
+        renderZone(
+          zone: zone,
+          canvas: canvas,
+        );
+      }
+    }
+
     if (state.selectedZone != null) {
-      renderZone(
+      renderZoneSelected(
         zone: state.selectedZone!,
         canvas: canvas,
       );
@@ -57,6 +70,26 @@ class MapPainter extends CustomPainter {
   }
 
   void renderZone({
+    required Zone zone,
+    required Canvas canvas,
+  }) {
+    final Tile tile = zone.tiles.first;
+    paintZone.color = Constants.PLAYER_COLOR;
+    paintZone.strokeWidth = canvasWidth / 500;
+
+    final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
+    final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
+
+    final Path path = Path();
+    path.moveTo(i, j - (tileHeight / 2));
+    path.lineTo(i + (tileWidth / 2), j);
+    path.lineTo(i, j + (tileHeight / 2));
+    path.lineTo(i - (tileWidth / 2), j);
+    path.close();
+    canvas.drawPath(path, paintZone);
+  }
+
+  void renderZoneSelected({
     required Zone zone,
     required Canvas canvas,
   }) {
