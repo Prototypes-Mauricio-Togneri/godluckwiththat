@@ -95,6 +95,21 @@ class MapPainter extends CustomPainter {
     path.lineTo(i - (tileWidth / 2), j);
     path.close();
     canvas.drawPath(path, paintZone);
+
+    if (zone.status.isExplored) {
+      if (zone.building != null) {
+        _drawImageHalf(
+          canvas: canvas,
+          offset: Offset(
+            i - (tileWidth / 2),
+            j - (tileHeight / 2),
+          ),
+          tileWidth: tileWidth,
+          tileHeight: tileHeight,
+          image: Images.image(zone.building!.buildingType.sprite),
+        );
+      }
+    }
   }
 
   void renderZoneSelected({
@@ -186,7 +201,12 @@ class MapPainter extends CustomPainter {
     canvas.drawImageRect(
       image,
       Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-      Rect.fromLTWH(offset.dx, offset.dy, tileWidth, tileHeight),
+      Rect.fromLTWH(
+        offset.dx + (tileWidth / 4),
+        offset.dy + (tileHeight / 4),
+        tileWidth / 2,
+        tileHeight / 2,
+      ),
       paintTileImage,
     );
   }

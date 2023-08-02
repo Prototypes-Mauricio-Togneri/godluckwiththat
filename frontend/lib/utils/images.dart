@@ -8,9 +8,12 @@ class Images {
   static Future load() async {
     await _load(Assets.IMAGES_TILES_GRASS);
     await _load(Assets.IMAGES_TILES_WATER);
+
     await _load(Assets.IMAGES_PATCHES_CROP_FIELD);
     await _load(Assets.IMAGES_PATCHES_FOREST);
     await _load(Assets.IMAGES_PATCHES_STONE_DEPOSIT);
+
+    await _load(Assets.IMAGES_BUILDINGS_MISC_HEADQUARTERS);
   }
 
   static Image image(String path) => _map[path]!;
