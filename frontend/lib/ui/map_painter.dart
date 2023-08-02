@@ -5,6 +5,7 @@ import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/types/zone_status.dart';
 import 'package:gatewayguardians/utils/images.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 
@@ -44,11 +45,14 @@ class MapPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     for (final Zone zone in state.colony.zones) {
-      for (final Tile tile in zone.tiles) {
-        renderTile(
-          tile: tile,
-          canvas: canvas,
-        );
+      if (!zone.status.isHidden) {
+        for (final Tile tile in zone.tiles) {
+          renderTile(
+            tile: tile,
+            canvas: canvas,
+            zoneStatus: zone.status,
+          );
+        }
       }
     }
 
@@ -111,6 +115,7 @@ class MapPainter extends CustomPainter {
   void renderTile({
     required Tile tile,
     required Canvas canvas,
+    required ZoneStatus zoneStatus,
   }) {
     final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
     final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));

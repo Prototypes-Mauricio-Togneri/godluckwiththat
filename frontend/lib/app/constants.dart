@@ -155,7 +155,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '1,0',
@@ -170,7 +170,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '2,0',
@@ -185,7 +185,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '3,0',
@@ -200,7 +200,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '4,0',
@@ -215,7 +215,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '5,0',
@@ -230,7 +230,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '6,0',
@@ -245,7 +245,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '0,1',
@@ -260,7 +260,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '1,1',
@@ -275,7 +275,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '2,1',
@@ -290,7 +290,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '3,1',
@@ -305,7 +305,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '4,1',
@@ -320,7 +320,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '5,1',
@@ -335,7 +335,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '6,1',
@@ -350,7 +350,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '0,2',
@@ -365,7 +365,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '1,2',
@@ -380,7 +380,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '2,2',
@@ -395,7 +395,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '3,2',
@@ -410,7 +410,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '4,2',
@@ -425,7 +425,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '5,2',
@@ -440,7 +440,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '6,2',
@@ -455,7 +455,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '0,3',
@@ -470,7 +470,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '1,3',
@@ -485,7 +485,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '2,3',
@@ -500,7 +500,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '3,3',
@@ -515,7 +515,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '4,3',
@@ -530,7 +530,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '5,3',
@@ -545,7 +545,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '6,3',
@@ -560,7 +560,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '0,4',
@@ -575,7 +575,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.explored,
       ),
       Zone(
         id: '1,4',
@@ -620,7 +620,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '4,4',
@@ -635,7 +635,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '5,4',
@@ -650,7 +650,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '6,4',
@@ -665,7 +665,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '0,5',
@@ -680,7 +680,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.explored,
       ),
       Zone(
         id: '1,5',
@@ -728,7 +728,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '4,5',
@@ -743,7 +743,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '5,5',
@@ -758,7 +758,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '6,5',
@@ -773,7 +773,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '0,6',
@@ -788,7 +788,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.explored,
       ),
       Zone(
         id: '1,6',
@@ -803,7 +803,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.explored,
       ),
       Zone(
         id: '2,6',
@@ -818,7 +818,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.explored,
       ),
       Zone(
         id: '3,6',
@@ -833,7 +833,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '4,6',
@@ -848,7 +848,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '5,6',
@@ -863,7 +863,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
       Zone(
         id: '6,6',
@@ -878,7 +878,7 @@ class Constants {
         actions: [],
         owner: null,
         building: null,
-        status: ZoneStatus.unexplored,
+        status: ZoneStatus.hidden,
       ),
     ];
   }
