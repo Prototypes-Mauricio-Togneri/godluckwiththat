@@ -93,10 +93,10 @@ class Zone {
 
   bool canBeExplored(Colony colony) {
     if (status == ZoneStatus.unexplored) {
-      final List<Zone> neighbors = colony.getAllNeighbors(this);
+      final List<Zone> neighbors = colony.getSideNeighbors(this);
 
       for (final Zone zone in neighbors) {
-        if (zone.isUnexplored) {
+        if (zone.isExplored) {
           return true;
         }
       }
