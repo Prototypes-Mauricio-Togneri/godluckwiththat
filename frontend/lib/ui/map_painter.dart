@@ -3,9 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/utils/palette.dart';
 
 class MapPainter extends CustomPainter {
   final GameState state;
+  final Paint paintZoneSelected = Paint();
 
   static int CANVAS_WIDTH = 0;
   static int CANVAS_HEIGHT = 0;
@@ -26,6 +28,9 @@ class MapPainter extends CustomPainter {
     TILE_WIDTH = CANVAS_WIDTH / (mapSize + 1);
     TILE_HEIGHT = TILE_WIDTH / 2;
     TOP_GAP = CANVAS_HEIGHT - (TILE_HEIGHT * mapSize) - TILE_HEIGHT;
+
+    paintZoneSelected.color = Palette.white;
+    paintZoneSelected.style = PaintingStyle.stroke;
   }
 
   @override
@@ -48,14 +53,31 @@ class MapPainter extends CustomPainter {
     }
 
     if (state.selectedZone != null) {
-      state.selectedZone!.renderer.render(
+      renderZone(
+        zone: state.selectedZone!,
         canvas: canvas,
-        canvasWidth: CANVAS_WIDTH,
-        tileWidth: TILE_WIDTH,
-        tileHeight: TILE_HEIGHT,
-        topGap: TOP_GAP,
       );
     }
+  }
+
+  void renderZone({
+    required Zone zone,
+    required Canvas canvas,
+  }) {
+    final Tile tile = zone.tiles.first;
+    paintZoneSelected.strokeWidth = CANVAS_WIDTH / 700;
+
+    final double i =
+        (CANVAS_WIDTH / 2) + ((tile.x - tile.y) * (TILE_WIDTH / 2));
+    final double j = TOP_GAP + ((tile.x + tile.y) * (TILE_HEIGHT / 2));
+
+    final Path path = Path();
+    path.moveTo(i, j - (TILE_HEIGHT / 2));
+    path.lineTo(i + (TILE_WIDTH / 2), j);
+    path.lineTo(i, j + (TILE_HEIGHT / 2));
+    path.lineTo(i - (TILE_WIDTH / 2), j);
+    path.close();
+    canvas.drawPath(path, paintZoneSelected);
   }
 
   @override
