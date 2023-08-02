@@ -135,6 +135,44 @@ class MapPainter extends CustomPainter {
     );
   }
 
+  bool isInsideZone({
+    required Zone zone,
+    required Offset offset,
+  }) =>
+      zone.tiles.any((element) => _isInsideTile(
+            tile: element,
+            offset: offset,
+          ));
+
+  // https://math.stackexchange.com/questions/312403/how-do-i-determine-if-a-point-is-within-a-rhombus
+  bool _isInsideTile({
+    required Tile tile,
+    required Offset offset,
+  }) {
+    final double qx = (MapPainter.CANVAS_WIDTH / 2) +
+        ((tile.x - tile.y) * (MapPainter.TILE_WIDTH / 2));
+    final double qy =
+        MapPainter.TOP_GAP + ((tile.x + tile.y) * (MapPainter.TILE_HEIGHT / 2));
+    // final double a = MapPainter.TILE_WIDTH / 2;
+    // final double b = MapPainter.TILE_HEIGHT / 2;
+
+    // Q = 0.5*(A + C);           // center point
+    // a = 0.5*distance(A,C);     // half-width (in the x-direction)
+    // b = 0.5*distance(B,D);     // half-height (y-direction)
+    // U = (C - A)/(2*a);         // unit vector in x-direction
+    // V = (D - B)/(2*b);         // unit vector in y-direction
+
+    // W = P - Q;
+    // xabs = abs(W*U);    // here W*U is the dot product of W and U
+    // yabs = abs(W*V);    // here W*V is the dot product of W and V
+    // if (xabs/a + yabs/b <= 1) then inside = true;
+
+    final double distance =
+        sqrt(pow(offset.dx - qx, 2) + pow(offset.dy - qy, 2));
+
+    return distance <= (MapPainter.TILE_HEIGHT / 2);
+  }
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

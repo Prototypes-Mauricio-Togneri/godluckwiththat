@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/models/action.dart';
@@ -52,9 +51,6 @@ class Zone {
   ResourceMap get claimCost => Resource.food(10).map;
 
   ResourceMap get trainVillagerCost => Resource.food(10).map;
-
-  bool isInside(Offset offset) =>
-      tiles.any((element) => element.renderer.isInside(offset));
 
   bool canBeExplored(Colony colony) {
     if (status == ZoneStatus.explored) {
