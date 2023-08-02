@@ -61,7 +61,7 @@ class MapPainter extends CustomPainter {
     required Canvas canvas,
   }) {
     final Tile tile = zone.tiles.first;
-    paintZoneSelected.strokeWidth = canvasWidth / 700;
+    paintZoneSelected.strokeWidth = canvasWidth / 500;
 
     final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
     final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
