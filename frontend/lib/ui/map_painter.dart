@@ -16,8 +16,8 @@ class MapPainter extends CustomPainter {
   final int canvasHeight;
   late final double tileWidth;
   late final double tileHeight;
-  static double TOP_GAP = 0;
-  int mapSize = 0;
+  late final double topGap;
+  late final int mapSize;
 
   MapPainter({
     required this.canvasWidth,
@@ -28,7 +28,7 @@ class MapPainter extends CustomPainter {
     mapSize = sqrt(state.colony.zones.length).toInt();
     tileWidth = canvasWidth / (mapSize + 1);
     tileHeight = tileWidth / 2;
-    TOP_GAP = canvasHeight - (tileHeight * mapSize) - tileHeight;
+    topGap = canvasHeight - (tileHeight * mapSize) - tileHeight;
 
     paintZoneSelected.color = Palette.white;
     paintZoneSelected.style = PaintingStyle.stroke;
@@ -64,7 +64,7 @@ class MapPainter extends CustomPainter {
     paintZoneSelected.strokeWidth = canvasWidth / 700;
 
     final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
-    final double j = TOP_GAP + ((tile.x + tile.y) * (tileHeight / 2));
+    final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
 
     final Path path = Path();
     path.moveTo(i, j - (tileHeight / 2));
@@ -80,7 +80,7 @@ class MapPainter extends CustomPainter {
     required Canvas canvas,
   }) {
     final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
-    final double j = TOP_GAP + ((tile.x + tile.y) * (tileHeight / 2));
+    final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
 
     final Path path = Path();
     path.moveTo(i, j - (tileHeight / 2));
@@ -145,8 +145,7 @@ class MapPainter extends CustomPainter {
     required Offset offset,
   }) {
     final double qx = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
-    final double qy =
-        MapPainter.TOP_GAP + ((tile.x + tile.y) * (tileHeight / 2));
+    final double qy = topGap + ((tile.x + tile.y) * (tileHeight / 2));
     // final double a = MapPainter.TILE_WIDTH / 2;
     // final double b = MapPainter.TILE_HEIGHT / 2;
 
