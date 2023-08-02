@@ -42,7 +42,7 @@ class GameState extends BaseState {
       color: Constants.PLAYER_COLOR,
       inventory: Inventory.fromResourceMap({
         ResourceType.villager: 5,
-        ResourceType.food: 50,
+        ResourceType.food: 200,
         ResourceType.wood: 200,
       }),
       zones: zones,
