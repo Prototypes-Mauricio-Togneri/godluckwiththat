@@ -46,7 +46,6 @@ class GameState extends BaseState {
         ResourceType.food: 200,
         ResourceType.wood: 200,
       }),
-      zones: zones,
       freeVillagers: 5,
     );
   }

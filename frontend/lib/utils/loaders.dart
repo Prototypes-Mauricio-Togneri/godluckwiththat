@@ -12,7 +12,6 @@ class Loaders {
         owner: jsonColony.owner,
         color: Colors.blue,
         inventory: Inventory.fromJson(jsonColony.inventory),
-        zones: [],
         freeVillagers: jsonColony.freeVillagers,
       );
 

@@ -5,21 +5,18 @@ import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/resource.dart';
-import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 
 class Colony {
   final String owner;
   final Color color;
   final Inventory inventory;
-  final List<Zone> zones;
   int freeVillagers;
 
   Colony({
     required this.owner,
     required this.color,
     required this.inventory,
-    required this.zones,
     required this.freeVillagers,
   });
 
@@ -51,16 +48,6 @@ class Colony {
     }*/
 
     return total + Constants.HEADQUARTERS_POPULATION;
-  }
-
-  Zone? zoneById(String id) {
-    for (final Zone zone in zones) {
-      if (zone.id == id) {
-        return zone;
-      }
-    }
-
-    return null;
   }
 
   int addFreeVillagers(int amount) {
