@@ -48,7 +48,7 @@ class MapPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     for (final Zone zone in state.colony.zones) {
-      if (!zone.status.isHidden) {
+      if (!zone.isHidden) {
         for (final Tile tile in zone.tiles) {
           renderTile(
             tile: tile,

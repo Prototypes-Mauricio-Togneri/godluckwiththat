@@ -34,12 +34,12 @@ class ZoneHud extends StatelessWidget {
             size: 16,
             color: Palette.white,
           ),
-          if (zone.status.isExplored)
+          if (zone.isExplored)
             ZoneExplored(
               state: state,
               zone: zone,
             )
-          else if (zone.status.isUnexplored)
+          else if (zone.isUnexplored)
             ZoneUnexplored(
               state: state,
               zone: zone,
