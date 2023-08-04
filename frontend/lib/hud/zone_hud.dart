@@ -2,6 +2,8 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/hud/building_hud.dart';
+import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/cancel_button.dart';
@@ -28,7 +30,7 @@ class ZoneHud extends StatelessWidget {
         children: [
           const VBox(20),
           Label(
-            text: zone.id,
+            text: 'Zone: ${zone.id}',
             size: 16,
             color: Palette.white,
           ),
@@ -181,38 +183,39 @@ class ZoneOwned extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Empty();
-    /*if (zone.building != null) {
-      return BuildingHud(
-        state: state,
-        zone: zone,
-        building: zone.building!,
-      );
-    } else {
-      if (zone.hasAction) {
-        return CancelButton(
-          state: state,
-          zone: zone,
-          action: zone.actions.first,
-        );
-      } else {
-        return Padding(
-          padding: const EdgeInsets.only(
-            top: 20,
-            left: 20,
-            right: 20,
+    return Column(
+      children: [
+        if (zone.hasAction)
+          CancelButton(
+            state: state,
+            zone: zone,
+            action: zone.actions.first,
+          )
+        else
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 20,
+              left: 20,
+              right: 20,
+            ),
+            child: PrimaryButton(
+              text: 'BUILD',
+              color: Palette.success,
+              icon: Icons.construction,
+              tooltipError: 'NO FREE VILLAGERS AVAILABLE',
+              onPressed: state.colony.hasFreeVillagers
+                  ? () => state.onBuild(zone)
+                  : null,
+            ),
           ),
-          child: PrimaryButton(
-            text: 'BUILD',
-            color: Palette.success,
-            icon: Icons.construction,
-            tooltipError: 'NO FREE VILLAGERS AVAILABLE',
-            onPressed: state.colony.hasFreeVillagers
-                ? () => state.onBuild(zone)
-                : null,
-          ),
-        );
-      }
-    }*/
+        for (Tile tile in zone.tiles)
+          if (tile.building != null)
+            BuildingHud(
+              state: state,
+              zone: zone,
+              building: tile.building!,
+            ),
+      ],
+    );
   }
 }
