@@ -29,7 +29,7 @@ class MapPainter extends CustomPainter {
     required this.state,
   }) {
     state.setMapPainter(this);
-    mapSize = sqrt(state.colony.zones.length).toInt();
+    mapSize = state.mapSize();
     tileWidth = canvasWidth / (mapSize + 1);
     tileHeight = tileWidth / 2;
     topGap = canvasHeight - (tileHeight * mapSize) - tileHeight;

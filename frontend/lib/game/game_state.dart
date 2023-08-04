@@ -50,6 +50,16 @@ class GameState extends BaseState {
     );
   }
 
+  int mapSize() {
+    int tiles = 0;
+
+    for (final Zone zone in zones) {
+      tiles += zone.tiles.length;
+    }
+
+    return sqrt(tiles).toInt();
+  }
+
   void setMapPainter(MapPainter painter) {
     mapPainter = painter;
   }
