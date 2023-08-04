@@ -61,6 +61,7 @@ class MapPainter extends CustomPainter {
 
     for (final Zone zone in state.zones) {
       renderZone(
+        state: state,
         zone: zone,
         canvas: canvas,
       );
@@ -68,6 +69,7 @@ class MapPainter extends CustomPainter {
 
     if (state.selectedZone != null) {
       renderZoneSelected(
+        state: state,
         zone: state.selectedZone!,
         canvas: canvas,
       );
@@ -75,6 +77,7 @@ class MapPainter extends CustomPainter {
   }
 
   void renderZone({
+    required GameState state,
     required Zone zone,
     required Canvas canvas,
   }) {
@@ -83,6 +86,7 @@ class MapPainter extends CustomPainter {
       paintZone.strokeWidth = canvasWidth / 500;
 
       renderZoneBorder(
+        state: state,
         zone: zone,
         canvas: canvas,
         paint: paintZone,
@@ -91,12 +95,14 @@ class MapPainter extends CustomPainter {
   }
 
   void renderZoneSelected({
+    required GameState state,
     required Zone zone,
     required Canvas canvas,
   }) {
     paintZoneSelected.strokeWidth = canvasWidth / 500;
 
     renderZoneBorder(
+      state: state,
       zone: zone,
       canvas: canvas,
       paint: paintZoneSelected,
@@ -104,6 +110,7 @@ class MapPainter extends CustomPainter {
   }
 
   void renderZoneBorder({
+    required GameState state,
     required Zone zone,
     required Canvas canvas,
     required Paint paint,
@@ -114,32 +121,48 @@ class MapPainter extends CustomPainter {
       final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
 
       // top
-      canvas.drawLine(
-        Offset(i, j - (tileHeight / 2)),
-        Offset(i + (tileWidth / 2), j),
-        paint,
-      );
+      final Zone? topNeighbor = state.topNeighbor(tile);
+
+      if (topNeighbor != zone) {
+        canvas.drawLine(
+          Offset(i, j - (tileHeight / 2)),
+          Offset(i + (tileWidth / 2), j),
+          paint,
+        );
+      }
 
       // right
-      canvas.drawLine(
-        Offset(i + (tileWidth / 2), j),
-        Offset(i, j + (tileHeight / 2)),
-        paint,
-      );
+      final Zone? rightNeighbor = state.rightNeighbor(tile);
+
+      if (rightNeighbor != zone) {
+        canvas.drawLine(
+          Offset(i + (tileWidth / 2), j),
+          Offset(i, j + (tileHeight / 2)),
+          paint,
+        );
+      }
 
       // bottom
-      canvas.drawLine(
-        Offset(i, j + (tileHeight / 2)),
-        Offset(i - (tileWidth / 2), j),
-        paint,
-      );
+      final Zone? bottomNeighbor = state.bottomNeighbor(tile);
+
+      if (bottomNeighbor != zone) {
+        canvas.drawLine(
+          Offset(i, j + (tileHeight / 2)),
+          Offset(i - (tileWidth / 2), j),
+          paint,
+        );
+      }
 
       // left
-      canvas.drawLine(
-        Offset(i - (tileWidth / 2), j),
-        Offset(i, j - (tileHeight / 2)),
-        paint,
-      );
+      final Zone? leftNeighbor = state.leftNeighbor(tile);
+
+      if (leftNeighbor != zone) {
+        canvas.drawLine(
+          Offset(i - (tileWidth / 2), j),
+          Offset(i, j - (tileHeight / 2)),
+          paint,
+        );
+      }
     }
   }
 

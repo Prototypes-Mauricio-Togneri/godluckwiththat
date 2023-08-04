@@ -91,6 +91,46 @@ class Zone {
     return false;
   }
 
+  bool isTopNeighbor(Tile tile) {
+    for (final Tile ownTile in tiles) {
+      if ((tile.id != ownTile.id) && tile.isTopNeighbor(ownTile)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  bool isBottomNeighbor(Tile tile) {
+    for (final Tile ownTile in tiles) {
+      if ((tile.id != ownTile.id) && tile.isBottomNeighbor(ownTile)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  bool isLeftNeighbor(Tile tile) {
+    for (final Tile ownTile in tiles) {
+      if ((tile.id != ownTile.id) && tile.isLeftNeighbor(ownTile)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  bool isRightNeighbor(Tile tile) {
+    for (final Tile ownTile in tiles) {
+      if ((tile.id != ownTile.id) && tile.isRightNeighbor(ownTile)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   bool canBeExplored(Colony colony) {
     if (status.isUnexplored) {
       final List<Zone> neighbors = colony.getSideNeighbors(this);

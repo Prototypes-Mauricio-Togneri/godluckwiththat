@@ -9,6 +9,7 @@ import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
+import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
@@ -58,6 +59,46 @@ class GameState extends BaseState {
     }
 
     return sqrt(tiles).toInt();
+  }
+
+  Zone? topNeighbor(Tile tile) {
+    for (final Zone zone in zones) {
+      if (zone.isTopNeighbor(tile)) {
+        return zone;
+      }
+    }
+
+    return null;
+  }
+
+  Zone? bottomNeighbor(Tile tile) {
+    for (final Zone zone in zones) {
+      if (zone.isBottomNeighbor(tile)) {
+        return zone;
+      }
+    }
+
+    return null;
+  }
+
+  Zone? leftNeighbor(Tile tile) {
+    for (final Zone zone in zones) {
+      if (zone.isLeftNeighbor(tile)) {
+        return zone;
+      }
+    }
+
+    return null;
+  }
+
+  Zone? rightNeighbor(Tile tile) {
+    for (final Zone zone in zones) {
+      if (zone.isRightNeighbor(tile)) {
+        return zone;
+      }
+    }
+
+    return null;
   }
 
   void setMapPainter(MapPainter painter) {

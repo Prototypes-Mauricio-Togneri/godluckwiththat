@@ -12,7 +12,7 @@ class Constants {
   static const String PLAYER_OWNER = 'player';
   static final Color PLAYER_COLOR = Colors.blue[900]!;
 
-  static final Color NEUTRAL_COLOR = Colors.grey[900]!;
+  static final Color NEUTRAL_COLOR = Colors.grey[700]!;
 
   static const int HOUSE_POPULATION = 10;
   static const int HEADQUARTERS_POPULATION = 10;

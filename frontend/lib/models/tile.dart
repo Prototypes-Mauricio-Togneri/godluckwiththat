@@ -54,4 +54,12 @@ class Tile {
       (tile.id == left) ||
       (tile.id == right) ||
       (tile.id == bottom);
+
+  bool isTopNeighbor(Tile tile) => tile.id == top;
+
+  bool isBottomNeighbor(Tile tile) => tile.id == bottom;
+
+  bool isLeftNeighbor(Tile tile) => tile.id == left;
+
+  bool isRightNeighbor(Tile tile) => tile.id == right;
 }
