@@ -78,22 +78,20 @@ class MapPainter extends CustomPainter {
     required Zone zone,
     required Canvas canvas,
   }) {
-    paintZone.color = zone.color;
-    paintZone.strokeWidth = canvasWidth / 500;
-
     for (final Tile tile in zone.tiles) {
       final double i =
           (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
       final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
 
       if (!zone.isHidden) {
-        final Path path = Path();
-        path.moveTo(i, j - (tileHeight / 2));
-        path.lineTo(i + (tileWidth / 2), j);
-        path.lineTo(i, j + (tileHeight / 2));
-        path.lineTo(i - (tileWidth / 2), j);
-        path.close();
-        canvas.drawPath(path, paintZone);
+        paintZone.color = zone.color;
+        paintZone.strokeWidth = canvasWidth / 500;
+
+        renderZoneBorder(
+          zone: zone,
+          canvas: canvas,
+          paint: paintZone,
+        );
       }
 
       if (tile.building != null) {
@@ -114,6 +112,18 @@ class MapPainter extends CustomPainter {
   }) {
     paintZoneSelected.strokeWidth = canvasWidth / 500;
 
+    renderZoneBorder(
+      zone: zone,
+      canvas: canvas,
+      paint: paintZoneSelected,
+    );
+  }
+
+  void renderZoneBorder({
+    required Zone zone,
+    required Canvas canvas,
+    required Paint paint,
+  }) {
     for (final Tile tile in zone.tiles) {
       final double i =
           (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
@@ -125,7 +135,7 @@ class MapPainter extends CustomPainter {
       path.lineTo(i, j + (tileHeight / 2));
       path.lineTo(i - (tileWidth / 2), j);
       path.close();
-      canvas.drawPath(path, paintZoneSelected);
+      canvas.drawPath(path, paint);
     }
   }
 
