@@ -173,7 +173,8 @@ class MapPainter extends CustomPainter {
     if (singleZone) {
       return (neighbor != zone);
     } else {
-      return (neighbor?.owner != zone.owner);
+      return (neighbor?.owner != zone.owner) ||
+          ((neighbor?.id != zone.id) && (zone.owner == null));
     }
   }
 
