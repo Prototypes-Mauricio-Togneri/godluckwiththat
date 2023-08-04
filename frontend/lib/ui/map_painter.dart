@@ -113,13 +113,33 @@ class MapPainter extends CustomPainter {
           (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
       final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
 
-      final Path path = Path();
-      path.moveTo(i, j - (tileHeight / 2));
-      path.lineTo(i + (tileWidth / 2), j);
-      path.lineTo(i, j + (tileHeight / 2));
-      path.lineTo(i - (tileWidth / 2), j);
-      path.close();
-      canvas.drawPath(path, paint);
+      // top
+      canvas.drawLine(
+        Offset(i, j - (tileHeight / 2)),
+        Offset(i + (tileWidth / 2), j),
+        paint,
+      );
+
+      // right
+      canvas.drawLine(
+        Offset(i + (tileWidth / 2), j),
+        Offset(i, j + (tileHeight / 2)),
+        paint,
+      );
+
+      // bottom
+      canvas.drawLine(
+        Offset(i, j + (tileHeight / 2)),
+        Offset(i - (tileWidth / 2), j),
+        paint,
+      );
+
+      // left
+      canvas.drawLine(
+        Offset(i - (tileWidth / 2), j),
+        Offset(i, j - (tileHeight / 2)),
+        paint,
+      );
     }
   }
 
