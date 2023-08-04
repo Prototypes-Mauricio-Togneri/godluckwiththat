@@ -90,6 +90,7 @@ class MapPainter extends CustomPainter {
         zone: zone,
         canvas: canvas,
         paint: paintZone,
+        singleZone: false,
       );
     }
   }
@@ -106,6 +107,7 @@ class MapPainter extends CustomPainter {
       zone: zone,
       canvas: canvas,
       paint: paintZoneSelected,
+      singleZone: true,
     );
   }
 
@@ -114,6 +116,7 @@ class MapPainter extends CustomPainter {
     required Zone zone,
     required Canvas canvas,
     required Paint paint,
+    required bool singleZone,
   }) {
     for (final Tile tile in zone.tiles) {
       final double i =
@@ -123,7 +126,7 @@ class MapPainter extends CustomPainter {
       // top
       final Zone? topNeighbor = state.topNeighbor(tile);
 
-      if (topNeighbor != zone) {
+      if (_shouldRenderZone(zone, topNeighbor, singleZone)) {
         canvas.drawLine(
           Offset(i, j - (tileHeight / 2)),
           Offset(i + (tileWidth / 2), j),
@@ -134,7 +137,7 @@ class MapPainter extends CustomPainter {
       // right
       final Zone? rightNeighbor = state.rightNeighbor(tile);
 
-      if (rightNeighbor != zone) {
+      if (_shouldRenderZone(zone, rightNeighbor, singleZone)) {
         canvas.drawLine(
           Offset(i + (tileWidth / 2), j),
           Offset(i, j + (tileHeight / 2)),
@@ -145,7 +148,7 @@ class MapPainter extends CustomPainter {
       // bottom
       final Zone? bottomNeighbor = state.bottomNeighbor(tile);
 
-      if (bottomNeighbor != zone) {
+      if (_shouldRenderZone(zone, bottomNeighbor, singleZone)) {
         canvas.drawLine(
           Offset(i, j + (tileHeight / 2)),
           Offset(i - (tileWidth / 2), j),
@@ -156,13 +159,21 @@ class MapPainter extends CustomPainter {
       // left
       final Zone? leftNeighbor = state.leftNeighbor(tile);
 
-      if (leftNeighbor != zone) {
+      if (_shouldRenderZone(zone, leftNeighbor, singleZone)) {
         canvas.drawLine(
           Offset(i - (tileWidth / 2), j),
           Offset(i, j - (tileHeight / 2)),
           paint,
         );
       }
+    }
+  }
+
+  bool _shouldRenderZone(Zone zone, Zone? neighbor, bool singleZone) {
+    if (singleZone) {
+      return (neighbor != zone);
+    } else {
+      return (neighbor?.owner != zone.owner);
     }
   }
 
