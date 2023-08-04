@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/models/action.dart';
@@ -53,6 +55,14 @@ class Zone {
 
   bool get canBeSelected =>
       !isHidden && tiles.any((tile) => tile.tileType.canSelected);
+
+  Color get color {
+    if (isOwned) {
+      return Constants.PLAYER_COLOR;
+    } else {
+      return Constants.NEUTRAL_COLOR;
+    }
+  }
 
   bool isAnyNeighbor(Zone zone) {
     for (final Tile otherTile in zone.tiles) {
