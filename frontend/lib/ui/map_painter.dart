@@ -115,19 +115,21 @@ class MapPainter extends CustomPainter {
     required Zone zone,
     required Canvas canvas,
   }) {
-    final Tile tile = zone.tiles.first;
     paintZoneSelected.strokeWidth = canvasWidth / 500;
 
-    final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
-    final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
+    for (final Tile tile in zone.tiles) {
+      final double i =
+          (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
+      final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
 
-    final Path path = Path();
-    path.moveTo(i, j - (tileHeight / 2));
-    path.lineTo(i + (tileWidth / 2), j);
-    path.lineTo(i, j + (tileHeight / 2));
-    path.lineTo(i - (tileWidth / 2), j);
-    path.close();
-    canvas.drawPath(path, paintZoneSelected);
+      final Path path = Path();
+      path.moveTo(i, j - (tileHeight / 2));
+      path.lineTo(i + (tileWidth / 2), j);
+      path.lineTo(i, j + (tileHeight / 2));
+      path.lineTo(i - (tileWidth / 2), j);
+      path.close();
+      canvas.drawPath(path, paintZoneSelected);
+    }
   }
 
   void renderTile({
