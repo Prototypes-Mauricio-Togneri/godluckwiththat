@@ -78,31 +78,15 @@ class MapPainter extends CustomPainter {
     required Zone zone,
     required Canvas canvas,
   }) {
-    for (final Tile tile in zone.tiles) {
-      final double i =
-          (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
-      final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
+    if (!zone.isHidden && !zone.isWater) {
+      paintZone.color = zone.color;
+      paintZone.strokeWidth = canvasWidth / 500;
 
-      if (!zone.isHidden && !zone.isWater) {
-        paintZone.color = zone.color;
-        paintZone.strokeWidth = canvasWidth / 500;
-
-        renderZoneBorder(
-          zone: zone,
-          canvas: canvas,
-          paint: paintZone,
-        );
-      }
-
-      if (tile.building != null) {
-        _drawImageHalf(
-          canvas: canvas,
-          offset: Offset(i, j),
-          tileWidth: tileWidth,
-          tileHeight: tileHeight,
-          image: Images.image(tile.building!.buildingType.sprite),
-        );
-      }
+      renderZoneBorder(
+        zone: zone,
+        canvas: canvas,
+        paint: paintZone,
+      );
     }
   }
 
@@ -147,14 +131,6 @@ class MapPainter extends CustomPainter {
     final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
     final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
 
-    final Path path = Path();
-    path.moveTo(i, j - (tileHeight / 2));
-    path.lineTo(i + (tileWidth / 2), j);
-    path.lineTo(i, j + (tileHeight / 2));
-    path.lineTo(i - (tileWidth / 2), j);
-    path.close();
-    canvas.drawPath(path, paintTileImage);
-
     _drawImageFull(
       canvas: canvas,
       offset: Offset(
@@ -179,7 +155,24 @@ class MapPainter extends CustomPainter {
           image: Images.image(tile.patchType!.sprite),
         );
       }
+
+      if (tile.building != null) {
+        _drawImageHalf(
+          canvas: canvas,
+          offset: Offset(i, j),
+          tileWidth: tileWidth,
+          tileHeight: tileHeight,
+          image: Images.image(tile.building!.buildingType.sprite),
+        );
+      }
     } else if (zoneStatus.isUnexplored) {
+      final Path path = Path();
+      path.moveTo(i, j - (tileHeight / 2));
+      path.lineTo(i + (tileWidth / 2), j);
+      path.lineTo(i, j + (tileHeight / 2));
+      path.lineTo(i - (tileWidth / 2), j);
+      path.close();
+
       canvas.drawPath(path, paintTileUnexplored);
     }
   }
