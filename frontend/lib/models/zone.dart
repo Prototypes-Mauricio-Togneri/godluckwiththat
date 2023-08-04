@@ -29,7 +29,7 @@ class Zone {
     required this.status,
   });
 
-  bool get isOwned => owner == Constants.PLAYER_OWNER;
+  bool get isOwn => owner == Constants.PLAYER_OWNER;
 
   bool get isNeutral => owner == null;
 
@@ -61,7 +61,7 @@ class Zone {
       !isHidden && tiles.any((tile) => tile.tileType.canSelected);
 
   Color get color {
-    if (isOwned) {
+    if (isOwn) {
       return Constants.PLAYER_COLOR;
     } else {
       return Constants.NEUTRAL_COLOR;
@@ -153,7 +153,7 @@ class Zone {
       final List<Zone> neighbors = state.getSideNeighbors(this);
 
       for (final Zone zone in neighbors) {
-        if (zone.isOwned) {
+        if (zone.isOwn) {
           return true;
         }
       }

@@ -60,11 +60,23 @@ class MapPainter extends CustomPainter {
     }
 
     for (final Zone zone in state.zones) {
-      renderZone(
-        state: state,
-        zone: zone,
-        canvas: canvas,
-      );
+      if (zone.isNeutral) {
+        renderZone(
+          state: state,
+          zone: zone,
+          canvas: canvas,
+        );
+      }
+    }
+
+    for (final Zone zone in state.zones) {
+      if (zone.isOwn) {
+        renderZone(
+          state: state,
+          zone: zone,
+          canvas: canvas,
+        );
+      }
     }
 
     if (state.selectedZone != null) {
