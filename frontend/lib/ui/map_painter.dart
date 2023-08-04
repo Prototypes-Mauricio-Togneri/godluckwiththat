@@ -83,7 +83,7 @@ class MapPainter extends CustomPainter {
           (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
       final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
 
-      if (!zone.isHidden) {
+      if (!zone.isHidden && !zone.isWater) {
         paintZone.color = zone.color;
         paintZone.strokeWidth = canvasWidth / 500;
 

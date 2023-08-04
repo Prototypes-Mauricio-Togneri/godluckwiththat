@@ -10,6 +10,7 @@ import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/types/action_type.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
+import 'package:gatewayguardians/types/tile_type.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
 
 class Zone {
@@ -52,6 +53,8 @@ class Zone {
   ResourceMap get claimCost => Resource.food(10).map;
 
   ResourceMap get trainVillagerCost => Resource.food(10).map;
+
+  bool get isWater => tiles.every((t) => t.tileType == TileType.water);
 
   bool get canBeSelected =>
       !isHidden && tiles.any((tile) => tile.tileType.canSelected);
