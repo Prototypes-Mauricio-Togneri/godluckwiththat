@@ -22,7 +22,6 @@ class Loaders {
       tiles: [],
       actions: [],
       owner: '',
-      building: null,
       status: jsonZone.status,
     );
 

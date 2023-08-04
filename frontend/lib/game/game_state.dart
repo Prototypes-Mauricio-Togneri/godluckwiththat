@@ -87,7 +87,7 @@ class GameState extends BaseState {
     required Zone zone,
     required BuildingType buildingType,
   }) {
-    zone.build(
+    zone.queueBuild(
       colony: colony,
       buildingType: buildingType,
     );
@@ -98,7 +98,7 @@ class GameState extends BaseState {
     required Zone zone,
     required Building building,
   }) {
-    zone.levelUp(
+    zone.queueLevelUp(
       colony: colony,
       building: building,
     );
@@ -109,7 +109,7 @@ class GameState extends BaseState {
     required Zone zone,
     required Building building,
   }) {
-    zone.destroy(
+    zone.queueDestroy(
       colony: colony,
       building: building,
     );
@@ -131,17 +131,17 @@ class GameState extends BaseState {
   }
 
   void explore(Zone zone) {
-    zone.explore(colony);
+    zone.queueExplore(colony);
     notify();
   }
 
   void claim(Zone zone) {
-    zone.claim(colony);
+    zone.queueClaim(colony);
     notify();
   }
 
   void trainVillager(Zone zone) {
-    zone.trainVillager(colony);
+    zone.queueTrainVillager(colony);
     notify();
   }
 

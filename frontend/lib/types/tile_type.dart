@@ -20,9 +20,7 @@ enum TileType {
     required this.sprite,
   });
 
-  bool get canSelected => this == grass;
-  //(this == desert) ||
-  //(this == snow);
+  bool get canSelected => canBeClaimed || canExplored;
 
   bool get canBeClaimed => this == grass;
   //(this == desert) ||

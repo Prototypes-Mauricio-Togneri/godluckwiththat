@@ -1,9 +1,9 @@
 enum ActionType {
   explore,
   claim,
-  train,
   build,
   levelUp,
+  train,
   destroy,
   attack;
 }

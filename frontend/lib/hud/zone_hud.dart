@@ -2,7 +2,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
-import 'package:gatewayguardians/hud/building_hud.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/cancel_button.dart';
@@ -182,7 +181,8 @@ class ZoneOwned extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (zone.building != null) {
+    return const Empty();
+    /*if (zone.building != null) {
       return BuildingHud(
         state: state,
         zone: zone,
@@ -213,6 +213,6 @@ class ZoneOwned extends StatelessWidget {
           ),
         );
       }
-    }
+    }*/
   }
 }

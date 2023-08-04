@@ -97,7 +97,7 @@ class MapPainter extends CustomPainter {
     canvas.drawPath(path, paintZone);
 
     if (zone.status.isExplored) {
-      if (zone.building != null) {
+      /*if (zone.building != null) {
         _drawImageHalf(
           canvas: canvas,
           offset: Offset(i, j),
@@ -105,7 +105,7 @@ class MapPainter extends CustomPainter {
           tileHeight: tileHeight,
           image: Images.image(zone.building!.buildingType.sprite),
         );
-      }
+      }*/
     }
   }
 

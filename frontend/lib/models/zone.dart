@@ -2,7 +2,6 @@ import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
-import 'package:gatewayguardians/models/buildings/producers/producer.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/resource.dart';
 import 'package:gatewayguardians/models/tile.dart';
@@ -16,7 +15,6 @@ class Zone {
   final List<Tile> tiles;
   final List<Action> actions;
   String? owner;
-  Building? building;
   ZoneStatus status;
 
   Zone({
@@ -24,7 +22,6 @@ class Zone {
     required this.tiles,
     required this.actions,
     required this.owner,
-    required this.building,
     required this.status,
   });
 
@@ -32,9 +29,11 @@ class Zone {
 
   bool get isNeutral => owner == null;
 
-  bool get isExplored => status == ZoneStatus.explored;
+  bool get isHidden => status.isHidden;
 
-  bool get isUnexplored => status == ZoneStatus.unexplored;
+  bool get isUnexplored => status.isUnexplored;
+
+  bool get isExplored => status.isExplored;
 
   bool get hasPatch => tiles.any((t) => t.hasPatch);
 
@@ -53,7 +52,7 @@ class Zone {
   ResourceMap get trainVillagerCost => Resource.food(10).map;
 
   bool get canBeSelected =>
-      !status.isHidden && tiles.any((tile) => tile.tileType.canSelected);
+      !isHidden && tiles.any((tile) => tile.tileType.canSelected);
 
   int get x => int.parse(id.split(',')[0]);
 
@@ -92,7 +91,7 @@ class Zone {
       (zone.id == bottom);
 
   bool canBeExplored(Colony colony) {
-    if (status == ZoneStatus.unexplored) {
+    if (status.isUnexplored) {
       final List<Zone> neighbors = colony.getSideNeighbors(this);
 
       for (final Zone zone in neighbors) {
@@ -108,7 +107,7 @@ class Zone {
   }
 
   bool canBeClaimed(Colony colony) {
-    if (status == ZoneStatus.explored) {
+    if (status.isExplored) {
       final List<Zone> neighbors = colony.getSideNeighbors(this);
 
       for (final Zone zone in neighbors) {
@@ -176,7 +175,7 @@ class Zone {
             for (final Zone zone in colony.getAllNeighbors(this)) {
               if (!zone.tiles.first.tileType.canExplored) {
                 zone.status = ZoneStatus.explored;
-              } else if (zone.status.isHidden) {
+              } else if (zone.isHidden) {
                 zone.status = ZoneStatus.unexplored;
               }
             }
@@ -196,19 +195,15 @@ class Zone {
             break;
           case ActionType.build:
             colony.addFreeVillagers(action.villagers);
-            building = Building.create(
-              buildingType: action.buildingType!,
-              level: 1,
-              villagers: 0,
-            );
+            action.tile!.building = action.building!;
             actions.removeAt(0);
             break;
           case ActionType.levelUp:
-            building!.level++;
+            action.tile!.building!.level++;
             actions.removeAt(0);
             break;
           case ActionType.destroy:
-            building = null;
+            action.tile!.building = null;
             actions.removeAt(0);
             break;
           case ActionType.attack:
@@ -216,59 +211,59 @@ class Zone {
             break;
         }
       }
-    } else if ((building != null) &&
+    } /* else if ((building != null) &&
         (building!.isProducer) &&
         (building!.hasVillagers)) {
       final Producer producer = building as Producer;
       colony.addResource(producer.produce());
-    }
+    }*/
   }
 
-  void build({
+  void queueExplore(Colony colony) {
+    colony.removeResources(explorationCost);
+    colony.removeFreeVillagers(1);
+    actions.add(Action.explore());
+  }
+
+  void queueClaim(Colony colony) {
+    colony.removeResources(claimCost);
+    colony.removeFreeVillagers(1);
+    actions.add(Action.claim());
+  }
+
+  void queueBuild({
     required Colony colony,
     required BuildingType buildingType,
   }) {
     final ResourceMap cost = buildingType.cost(1);
     colony.removeResources(cost);
     colony.removeFreeVillagers(1);
-    actions.add(Action.build(
+    /*actions.add(Action.build(
       buildingType: buildingType,
       cost: cost,
-    ));
+    ));*/
   }
 
-  void levelUp({
+  void queueLevelUp({
     required Colony colony,
     required Building building,
   }) {
     colony.removeResources(building.costNextLevel);
     actions.clear();
-    actions.add(Action.levelUp(building.costNextLevel));
+    //actions.add(Action.levelUp(building.costNextLevel));
   }
 
-  void destroy({
+  void queueTrainVillager(Colony colony) {
+    colony.removeResources(trainVillagerCost);
+    actions.add(Action.train(1));
+  }
+
+  void queueDestroy({
     required Colony colony,
     required Building building,
   }) {
     actions.clear();
-    actions.add(Action.destroy());
-  }
-
-  void explore(Colony colony) {
-    colony.removeResources(explorationCost);
-    colony.removeFreeVillagers(1);
-    actions.add(Action.explore());
-  }
-
-  void claim(Colony colony) {
-    colony.removeResources(claimCost);
-    colony.removeFreeVillagers(1);
-    actions.add(Action.claim());
-  }
-
-  void trainVillager(Colony colony) {
-    colony.removeResources(trainVillagerCost);
-    actions.add(Action.train(1));
+    //actions.add(Action.destroy());
   }
 
   void cancel({
