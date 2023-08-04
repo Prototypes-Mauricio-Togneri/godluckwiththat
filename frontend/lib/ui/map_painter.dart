@@ -170,11 +170,14 @@ class MapPainter extends CustomPainter {
   }
 
   bool _shouldRenderZone(Zone zone, Zone? neighbor, bool singleZone) {
-    if (singleZone) {
-      return (neighbor != zone);
+    if (neighbor?.id != zone.id) {
+      if (singleZone) {
+        return (neighbor != zone);
+      } else {
+        return (neighbor?.owner != zone.owner) || (zone.owner == null);
+      }
     } else {
-      return (neighbor?.owner != zone.owner) ||
-          ((neighbor?.id != zone.id) && (zone.owner == null));
+      return false;
     }
   }
 
