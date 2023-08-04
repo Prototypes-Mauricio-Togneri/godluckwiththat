@@ -54,41 +54,29 @@ class Zone {
   bool get canBeSelected =>
       !isHidden && tiles.any((tile) => tile.tileType.canSelected);
 
-  int get x => int.parse(id.split(',')[0]);
+  bool isAnyNeighbor(Zone zone) {
+    for (final Tile otherTile in zone.tiles) {
+      for (final Tile ownTile in tiles) {
+        if (ownTile.isAnyNeighbor(otherTile)) {
+          return true;
+        }
+      }
+    }
 
-  int get y => int.parse(id.split(',')[1]);
+    return false;
+  }
 
-  String get top => '$x,${y - 1}';
+  bool isSideNeighbor(Zone zone) {
+    for (final Tile otherTile in zone.tiles) {
+      for (final Tile ownTile in tiles) {
+        if (ownTile.isSideNeighbor(otherTile)) {
+          return true;
+        }
+      }
+    }
 
-  String get topLeft => '${x - 1},${y - 1}';
-
-  String get topRight => '${x + 1},${y - 1}';
-
-  String get left => '${x - 1},$y';
-
-  String get right => '${x + 1},$y';
-
-  String get bottom => '$x,${y + 1}';
-
-  String get bottomLeft => '${x - 1},${y + 1}';
-
-  String get bottomRight => '${x + 1},${y + 1}';
-
-  bool isAnyNeighbor(Zone zone) =>
-      (zone.id == top) ||
-      (zone.id == topLeft) ||
-      (zone.id == topRight) ||
-      (zone.id == left) ||
-      (zone.id == right) ||
-      (zone.id == bottom) ||
-      (zone.id == bottomLeft) ||
-      (zone.id == bottomRight);
-
-  bool isSideNeighbor(Zone zone) =>
-      (zone.id == top) ||
-      (zone.id == left) ||
-      (zone.id == right) ||
-      (zone.id == bottom);
+    return false;
+  }
 
   bool canBeExplored(Colony colony) {
     if (status.isUnexplored) {

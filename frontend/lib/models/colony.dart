@@ -75,7 +75,7 @@ class Colony {
     final List<Zone> result = [];
 
     for (final Zone zone in zones) {
-      if (center.isAnyNeighbor(zone)) {
+      if ((zone.id != center.id) && center.isAnyNeighbor(zone)) {
         result.add(zone);
       }
     }
@@ -87,7 +87,7 @@ class Colony {
     final List<Zone> result = [];
 
     for (final Zone zone in zones) {
-      if (center.isSideNeighbor(zone)) {
+      if ((zone.id != center.id) && center.isSideNeighbor(zone)) {
         result.add(zone);
       }
     }
