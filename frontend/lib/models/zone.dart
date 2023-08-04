@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
+import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
@@ -131,9 +132,9 @@ class Zone {
     return false;
   }
 
-  bool canBeExplored(Colony colony) {
+  bool canBeExplored(GameState state) {
     if (status.isUnexplored) {
-      final List<Zone> neighbors = colony.getSideNeighbors(this);
+      final List<Zone> neighbors = state.getSideNeighbors(this);
 
       for (final Zone zone in neighbors) {
         if (zone.isExplored) {
@@ -147,9 +148,9 @@ class Zone {
     }
   }
 
-  bool canBeClaimed(Colony colony) {
+  bool canBeClaimed(GameState state) {
     if (status.isExplored) {
-      final List<Zone> neighbors = colony.getSideNeighbors(this);
+      final List<Zone> neighbors = state.getSideNeighbors(this);
 
       for (final Zone zone in neighbors) {
         if (zone.isOwned) {
@@ -206,14 +207,14 @@ class Zone {
         BuildingType.fortress,
       ];
 
-  void update(Colony colony) {
+  void update(GameState state, Colony colony) {
     if (hasAction) {
       final Action action = actions.first;
 
       if (action.passTurn()) {
         switch (action.actionType) {
           case ActionType.explore:
-            for (final Zone zone in colony.getAllNeighbors(this)) {
+            for (final Zone zone in state.getAllNeighbors(this)) {
               if (!zone.tiles.first.tileType.canExplored) {
                 zone.status = ZoneStatus.explored;
               } else if (zone.isHidden) {

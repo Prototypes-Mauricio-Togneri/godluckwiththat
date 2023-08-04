@@ -63,30 +63,6 @@ class Colony {
     return null;
   }
 
-  List<Zone> getAllNeighbors(Zone center) {
-    final List<Zone> result = [];
-
-    for (final Zone zone in zones) {
-      if ((zone.id != center.id) && center.isAnyNeighbor(zone)) {
-        result.add(zone);
-      }
-    }
-
-    return result;
-  }
-
-  List<Zone> getSideNeighbors(Zone center) {
-    final List<Zone> result = [];
-
-    for (final Zone zone in zones) {
-      if ((zone.id != center.id) && center.isSideNeighbor(zone)) {
-        result.add(zone);
-      }
-    }
-
-    return result;
-  }
-
   int addFreeVillagers(int amount) {
     freeVillagers += amount;
 

@@ -108,7 +108,7 @@ class ZoneUnexplored extends StatelessWidget {
         zone: zone,
         action: zone.actions.first,
       );
-    } else if (zone.canBeExplored(state.colony)) {
+    } else if (zone.canBeExplored(state)) {
       return Padding(
         padding: const EdgeInsets.only(
           top: 20,
@@ -149,7 +149,7 @@ class ZoneNeutral extends StatelessWidget {
         zone: zone,
         action: zone.actions.first,
       );
-    } else if (zone.canBeClaimed(state.colony)) {
+    } else if (zone.canBeClaimed(state)) {
       return Padding(
         padding: const EdgeInsets.only(
           top: 20,
