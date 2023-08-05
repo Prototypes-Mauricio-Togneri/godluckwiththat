@@ -19,10 +19,10 @@ class LeftMenu extends StatelessWidget {
       child: Column(
         children: [
           ResourcesHud(state),
-          if (state.selectedZone != null)
+          if (state.selectedIsland != null)
             ZoneHud(
               state: state,
-              zone: state.selectedZone!,
+              zone: state.selectedIsland!,
             ),
           const Spacer(),
           MenuButtonHud(state),

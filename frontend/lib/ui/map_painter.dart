@@ -3,8 +3,6 @@ import 'dart:ui';
 import 'package:flutter/widgets.dart' hide Image;
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/tile.dart';
-import 'package:gatewayguardians/models/zone.dart';
-import 'package:gatewayguardians/types/zone_status.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 import 'package:gatewayguardians/utils/images.dart';
 import 'package:gatewayguardians/utils/palette.dart';

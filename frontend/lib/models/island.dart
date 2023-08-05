@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
@@ -11,37 +10,33 @@ import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/types/action_type.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
-import 'package:gatewayguardians/types/tile_type.dart';
-import 'package:gatewayguardians/types/zone_status.dart';
 
-class Zone {
+class Island {
   final String id;
   final List<Tile> tiles;
   final List<Action> actions;
+  final List<PatchType> patches;
+  final List<Building> buildings;
   String? owner;
-  ZoneStatus status;
 
-  Zone({
+  Island({
     required this.id,
     required this.tiles,
     required this.actions,
+    required this.patches,
+    required this.buildings,
     required this.owner,
-    required this.status,
   });
 
   bool get isOwn => owner == Constants.PLAYER_OWNER;
 
   bool get isNeutral => owner == null;
 
-  bool get isHidden => status.isHidden;
-
-  bool get isUnexplored => status.isUnexplored;
-
-  bool get isExplored => status.isExplored;
-
-  bool get hasPatch => tiles.any((t) => t.hasPatch);
-
   bool get hasAction => actions.isNotEmpty;
+
+  bool get hasPatches => patches.isNotEmpty;
+
+  bool hasPatch(PatchType type) => patches.any((p) => p == type);
 
   bool get hasActionDestroy =>
       actions.isNotEmpty && (actions.first.actionType == ActionType.destroy);
@@ -55,112 +50,13 @@ class Zone {
 
   ResourceMap get trainVillagerCost => Resource.food(10).map;
 
-  bool get isWater => tiles.every((t) => t.tileType == TileType.water);
-
-  bool get canBeSelected =>
-      !isHidden && tiles.any((tile) => tile.tileType.canSelected);
+  bool get canBeSelected => tiles.every((tile) => tile.isRevealed);
 
   Color get color {
     if (isOwn) {
       return Constants.PLAYER_COLOR;
     } else {
       return Constants.NEUTRAL_COLOR;
-    }
-  }
-
-  bool isAnyNeighbor(Zone zone) {
-    for (final Tile otherTile in zone.tiles) {
-      for (final Tile ownTile in tiles) {
-        if (ownTile.isAnyNeighbor(otherTile)) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
-
-  bool isSideNeighbor(Zone zone) {
-    for (final Tile otherTile in zone.tiles) {
-      for (final Tile ownTile in tiles) {
-        if (ownTile.isSideNeighbor(otherTile)) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
-
-  bool isTopNeighbor(Tile tile) {
-    for (final Tile ownTile in tiles) {
-      if ((tile.id != ownTile.id) && tile.isTopNeighbor(ownTile)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  bool isBottomNeighbor(Tile tile) {
-    for (final Tile ownTile in tiles) {
-      if ((tile.id != ownTile.id) && tile.isBottomNeighbor(ownTile)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  bool isLeftNeighbor(Tile tile) {
-    for (final Tile ownTile in tiles) {
-      if ((tile.id != ownTile.id) && tile.isLeftNeighbor(ownTile)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  bool isRightNeighbor(Tile tile) {
-    for (final Tile ownTile in tiles) {
-      if ((tile.id != ownTile.id) && tile.isRightNeighbor(ownTile)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  bool canBeExplored(GameState state) {
-    if (status.isUnexplored) {
-      final List<Zone> neighbors = state.getSideNeighbors(this);
-
-      for (final Zone zone in neighbors) {
-        if (zone.isExplored) {
-          return true;
-        }
-      }
-
-      return false;
-    } else {
-      return false;
-    }
-  }
-
-  bool canBeClaimed(GameState state) {
-    if (status.isExplored) {
-      final List<Zone> neighbors = state.getSideNeighbors(this);
-
-      for (final Zone zone in neighbors) {
-        if (zone.isOwn) {
-          return true;
-        }
-      }
-
-      return false;
-    } else {
-      return false;
     }
   }
 
@@ -172,15 +68,15 @@ class Zone {
   List<BuildingType> producers() {
     final List<BuildingType> result = [];
 
-    if (tiles.any((t) => t.hasPatchType(PatchType.crop_field))) {
+    if (hasPatch(PatchType.crop_field)) {
       result.add(BuildingType.farm);
     }
 
-    if (tiles.any((t) => t.hasPatchType(PatchType.forest))) {
+    if (hasPatch(PatchType.forest)) {
       result.add(BuildingType.woodcutter);
     }
 
-    if (tiles.any((t) => t.hasPatchType(PatchType.stone_deposit))) {
+    if (hasPatch(PatchType.stone_deposit)) {
       result.add(BuildingType.quarry);
     }
 
@@ -214,7 +110,7 @@ class Zone {
       if (action.passTurn()) {
         switch (action.actionType) {
           case ActionType.explore:
-            for (final Zone zone in state.getAllNeighbors(this)) {
+            /*for (final Zone zone in state.getAllNeighbors(this)) {
               if (!zone.tiles.first.tileType.canExplored) {
                 zone.status = ZoneStatus.explored;
               } else if (zone.isHidden) {
@@ -223,30 +119,30 @@ class Zone {
             }
             status = ZoneStatus.explored;
             colony.addFreeVillagers(action.villagers);
-            actions.removeAt(0);
+            actions.removeAt(0);*/
             break;
           case ActionType.claim:
-            colony.addFreeVillagers(action.villagers);
-            owner = Constants.PLAYER_OWNER;
-            actions.removeAt(0);
+            //colony.addFreeVillagers(action.villagers);
+            //owner = Constants.PLAYER_OWNER;
+            //actions.removeAt(0);
             break;
           case ActionType.train:
-            colony.addFreeVillagers(1);
-            colony.addResource(Resource.villager(1));
-            actions.removeAt(0);
+            //colony.addFreeVillagers(1);
+            //colony.addResource(Resource.villager(1));
+            //actions.removeAt(0);
             break;
           case ActionType.build:
-            colony.addFreeVillagers(action.villagers);
-            action.tile!.building = action.building!;
-            actions.removeAt(0);
+            //colony.addFreeVillagers(action.villagers);
+            //action.tile!.building = action.building!;
+            //actions.removeAt(0);
             break;
           case ActionType.levelUp:
-            action.tile!.building!.level++;
-            actions.removeAt(0);
+            //action.tile!.building!.level++;
+            //actions.removeAt(0);
             break;
           case ActionType.destroy:
-            action.tile!.building = null;
-            actions.removeAt(0);
+            //action.tile!.building = null;
+            //actions.removeAt(0);
             break;
           case ActionType.attack:
             // TODO(momo): implement

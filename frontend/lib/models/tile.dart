@@ -1,25 +1,26 @@
-import 'package:gatewayguardians/models/buildings/building.dart';
-import 'package:gatewayguardians/types/patch_type.dart';
 import 'package:gatewayguardians/types/tile_type.dart';
+import 'package:gatewayguardians/types/type_status.dart';
 
 class Tile {
   final int x;
   final int y;
-  final TileType tileType;
-  final PatchType? patchType;
-  Building? building;
+  final TileType type;
+  TileStatus status;
 
   Tile({
     required this.x,
     required this.y,
-    required this.tileType,
-    required this.patchType,
-    required this.building,
+    required this.type,
+    required this.status,
   });
 
-  bool get hasPatch => patchType != null;
+  bool get isGrass => type.isGrass;
 
-  bool hasPatchType(PatchType type) => patchType == type;
+  bool get isWater => type.isWater;
+
+  bool get isHidden => status.isHidden;
+
+  bool get isRevealed => status.isRevealed;
 
   String get id => '$x,$y';
 
@@ -40,24 +41,32 @@ class Tile {
   String get bottomRight => '${x + 1},${y + 1}';
 
   bool isAnyNeighbor(Tile tile) =>
-      (tile.id == top) ||
-      (tile.id == topLeft) ||
-      (tile.id == topRight) ||
-      (tile.id == left) ||
-      (tile.id == right) ||
-      (tile.id == bottom) ||
-      (tile.id == bottomLeft) ||
-      (tile.id == bottomRight);
+      isTopNeighbor(tile) ||
+      isTopLeftNeighbor(tile) ||
+      isTopRightNeighbor(tile) ||
+      isBottomNeighbor(tile) ||
+      isBottomLeftNeighbor(tile) ||
+      isBottomRightNeighbor(tile) ||
+      isLeftNeighbor(tile) ||
+      isRightNeighbor(tile);
 
   bool isSideNeighbor(Tile tile) =>
-      (tile.id == top) ||
-      (tile.id == left) ||
-      (tile.id == right) ||
-      (tile.id == bottom);
+      isTopNeighbor(tile) ||
+      isBottomNeighbor(tile) ||
+      isLeftNeighbor(tile) ||
+      isRightNeighbor(tile);
 
   bool isTopNeighbor(Tile tile) => tile.id == top;
 
+  bool isTopLeftNeighbor(Tile tile) => tile.id == topLeft;
+
+  bool isTopRightNeighbor(Tile tile) => tile.id == topRight;
+
   bool isBottomNeighbor(Tile tile) => tile.id == bottom;
+
+  bool isBottomLeftNeighbor(Tile tile) => tile.id == bottomLeft;
+
+  bool isBottomRightNeighbor(Tile tile) => tile.id == bottomRight;
 
   bool isLeftNeighbor(Tile tile) => tile.id == left;
 
