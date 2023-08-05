@@ -23,6 +23,8 @@ class MapPainter extends CustomPainter {
   late final double topGap;
   late final int mapSize;
 
+  static const double FOG_RATIO = 1.4;
+
   MapPainter({
     required this.canvasWidth,
     required this.canvasHeight,
@@ -56,7 +58,7 @@ class MapPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    _drawImageBackground(
+    _drawImage(
       canvas: canvas,
       center: Offset(canvasWidth / 2, canvasHeight / 2),
       width: canvasWidth.toDouble(),
@@ -64,11 +66,11 @@ class MapPainter extends CustomPainter {
       image: Images.image(Assets.IMAGES_MAPS_MAP1),
     );
 
-    _drawImageFull(
+    _drawImage(
       canvas: canvas,
       center: _tileCenter(0, 0),
-      width: tileWidth * 1.4,
-      height: tileHeight * 1.4,
+      width: tileWidth * FOG_RATIO,
+      height: tileHeight * FOG_RATIO,
       image: Images.image(Assets.IMAGES_TILES_FOG),
     );
 
@@ -272,22 +274,7 @@ class MapPainter extends CustomPainter {
     }
   }
 
-  void _drawImageBackground({
-    required Canvas canvas,
-    required Offset center,
-    required double width,
-    required double height,
-    required Image image,
-  }) {
-    canvas.drawImageRect(
-      image,
-      Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-      Rect.fromCenter(center: center, width: width, height: height),
-      paintTileImage,
-    );
-  }
-
-  void _drawImageFull({
+  void _drawImage({
     required Canvas canvas,
     required Offset center,
     required double width,
