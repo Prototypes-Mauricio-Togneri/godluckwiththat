@@ -5,6 +5,7 @@ import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/models/zone.dart';
 import 'package:gatewayguardians/types/zone_status.dart';
+import 'package:gatewayguardians/utils/assets.dart';
 import 'package:gatewayguardians/utils/images.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 
@@ -47,7 +48,15 @@ class MapPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    for (final Zone zone in state.zones) {
+    _drawImageBackground(
+      canvas: canvas,
+      offset: const Offset(0, 0),
+      width: canvasWidth.toDouble(),
+      height: canvasHeight.toDouble(),
+      image: Images.image(Assets.IMAGES_MAPS_MAP1),
+    );
+
+    /*for (final Zone zone in state.zones) {
       if (!zone.isHidden) {
         for (final Tile tile in zone.tiles) {
           renderTile(
@@ -85,7 +94,7 @@ class MapPainter extends CustomPainter {
         zone: state.selectedZone!,
         canvas: canvas,
       );
-    }
+    }*/
   }
 
   void renderZone({
@@ -245,6 +254,21 @@ class MapPainter extends CustomPainter {
 
       canvas.drawPath(path, paintTileUnexplored);
     }
+  }
+
+  void _drawImageBackground({
+    required Canvas canvas,
+    required Offset offset,
+    required double width,
+    required double height,
+    required Image image,
+  }) {
+    canvas.drawImageRect(
+      image,
+      Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
+      Rect.fromLTWH(offset.dx, offset.dy, width, height),
+      paintTileImage,
+    );
   }
 
   void _drawImageFull({

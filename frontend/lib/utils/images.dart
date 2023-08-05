@@ -6,6 +6,8 @@ class Images {
   static final Map<String, Image> _map = {};
 
   static Future load() async {
+    await _load(Assets.IMAGES_MAPS_MAP1);
+
     await _load(Assets.IMAGES_TILES_GRASS);
     await _load(Assets.IMAGES_TILES_WATER);
 

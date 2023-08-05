@@ -32,4 +32,5 @@ class Assets {
 	static const String IMAGES_PATCHES_STONE_DEPOSIT = './assets/images/patches/stone_deposit.png';
 	static const String IMAGES_PATCHES_FOREST = './assets/images/patches/forest.png';
 	static const String IMAGES_PATCHES_CROP_FIELD = './assets/images/patches/crop_field.png';
+	static const String IMAGES_MAPS_MAP1 = './assets/images/maps/map1.png';
 }
