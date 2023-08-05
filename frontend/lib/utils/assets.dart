@@ -1,6 +1,7 @@
 class Assets {
 	static const String AUDIO_SFX_AMMO1 = './assets/audio/sfx/ammo1.mp3';
 	static const String AUDIO_SFX_AMMO2 = './assets/audio/sfx/ammo2.mp3';
+	static const String IMAGES_TILES_FOG = './assets/images/tiles/fog.png';
 	static const String IMAGES_TILES_GRASS = './assets/images/tiles/grass.png';
 	static const String IMAGES_TILES_WATER = './assets/images/tiles/water.png';
 	static const String IMAGES_BUILDINGS_MISC_HEADQUARTERS = './assets/images/buildings/misc/headquarters.png';

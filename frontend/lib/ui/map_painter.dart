@@ -30,7 +30,7 @@ class MapPainter extends CustomPainter {
   }) {
     state.setMapPainter(this);
     mapSize = state.mapSize();
-    tileWidth = canvasWidth / (mapSize + 1);
+    tileWidth = canvasWidth / mapSize;
     tileHeight = tileWidth / 2;
     topGap = canvasHeight - (tileHeight * mapSize) - tileHeight;
 
@@ -46,14 +46,30 @@ class MapPainter extends CustomPainter {
     paintTileUnexplored.style = PaintingStyle.fill;
   }
 
+  Offset _tileCenter(int x, int y) {
+    final double gap = canvasHeight - (canvasWidth.toDouble() / 2);
+    final double i = (canvasWidth / 2) + ((x - y) * (tileWidth / 2));
+    final double j = (x + y) * (tileHeight / 2) + (gap / 2) + (tileHeight / 2);
+
+    return Offset(i, j);
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
     _drawImageBackground(
       canvas: canvas,
-      offset: const Offset(0, 0),
+      center: Offset(canvasWidth / 2, canvasHeight / 2),
       width: canvasWidth.toDouble(),
-      height: canvasHeight.toDouble(),
+      height: canvasWidth.toDouble() / 2,
       image: Images.image(Assets.IMAGES_MAPS_MAP1),
+    );
+
+    _drawImageFull(
+      canvas: canvas,
+      center: _tileCenter(0, 6),
+      width: tileWidth,
+      height: tileHeight,
+      image: Images.image(Assets.IMAGES_TILES_FOG),
     );
 
     /*for (final Zone zone in state.zones) {
@@ -210,7 +226,7 @@ class MapPainter extends CustomPainter {
     final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
     final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
 
-    _drawImageFull(
+    /*_drawImageFull(
       canvas: canvas,
       offset: Offset(
         i - (tileWidth / 2),
@@ -219,11 +235,11 @@ class MapPainter extends CustomPainter {
       tileWidth: tileWidth,
       tileHeight: tileHeight,
       image: Images.image(tile.tileType.sprite),
-    );
+    );*/
 
     if (zoneStatus.isExplored) {
       if (tile.patchType != null) {
-        _drawImageFull(
+        /*_drawImageFull(
           canvas: canvas,
           offset: Offset(
             i - (tileWidth / 2),
@@ -232,7 +248,7 @@ class MapPainter extends CustomPainter {
           tileWidth: tileWidth,
           tileHeight: tileHeight,
           image: Images.image(tile.patchType!.sprite),
-        );
+        );*/
       }
 
       if (tile.building != null) {
@@ -258,7 +274,7 @@ class MapPainter extends CustomPainter {
 
   void _drawImageBackground({
     required Canvas canvas,
-    required Offset offset,
+    required Offset center,
     required double width,
     required double height,
     required Image image,
@@ -266,22 +282,22 @@ class MapPainter extends CustomPainter {
     canvas.drawImageRect(
       image,
       Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-      Rect.fromLTWH(offset.dx, offset.dy, width, height),
+      Rect.fromCenter(center: center, width: width, height: height),
       paintTileImage,
     );
   }
 
   void _drawImageFull({
     required Canvas canvas,
-    required Offset offset,
-    required double tileWidth,
-    required double tileHeight,
+    required Offset center,
+    required double width,
+    required double height,
     required Image image,
   }) {
     canvas.drawImageRect(
       image,
       Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-      Rect.fromLTWH(offset.dx, offset.dy, tileWidth, tileHeight),
+      Rect.fromCenter(center: center, width: width, height: height),
       paintTileImage,
     );
   }

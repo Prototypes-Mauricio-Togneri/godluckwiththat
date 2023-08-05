@@ -8,6 +8,7 @@ class Images {
   static Future load() async {
     await _load(Assets.IMAGES_MAPS_MAP1);
 
+    await _load(Assets.IMAGES_TILES_FOG);
     await _load(Assets.IMAGES_TILES_GRASS);
     await _load(Assets.IMAGES_TILES_WATER);
 
