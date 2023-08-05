@@ -66,9 +66,9 @@ class MapPainter extends CustomPainter {
 
     _drawImageFull(
       canvas: canvas,
-      center: _tileCenter(0, 6),
-      width: tileWidth,
-      height: tileHeight,
+      center: _tileCenter(0, 0),
+      width: tileWidth * 1.4,
+      height: tileHeight * 1.4,
       image: Images.image(Assets.IMAGES_TILES_FOG),
     );
 
