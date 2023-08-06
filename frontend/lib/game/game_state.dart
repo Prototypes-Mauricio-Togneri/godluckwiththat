@@ -10,6 +10,7 @@ import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/island.dart';
+import 'package:gatewayguardians/models/player.dart';
 import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
@@ -41,8 +42,7 @@ class GameState extends BaseState {
     mapHeight = sqrt(islands.length).toInt();
 
     colony = Colony(
-      owner: Constants.PLAYER_OWNER,
-      color: Constants.PLAYER_COLOR,
+      owner: Player.you(),
       inventory: Inventory.fromResourceMap({
         ResourceType.villager: 5,
         ResourceType.food: 200,

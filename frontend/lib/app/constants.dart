@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:gatewayguardians/models/island.dart';
+import 'package:gatewayguardians/models/player.dart';
 import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/types/patch_type.dart';
 import 'package:gatewayguardians/types/tile_type.dart';
@@ -7,11 +7,6 @@ import 'package:gatewayguardians/types/type_status.dart';
 
 class Constants {
   static const String FONT_NAME = 'CustomFont';
-
-  static const String PLAYER_OWNER = 'player';
-  static final Color PLAYER_COLOR = Colors.blue[900]!;
-
-  static final Color NEUTRAL_COLOR = Colors.grey[700]!;
 
   static const int HOUSE_POPULATION = 10;
   static const int HEADQUARTERS_POPULATION = 10;
@@ -504,7 +499,7 @@ class Constants {
       actions: [],
       patches: [],
       buildings: [],
-      owner: null,
+      owner: Player.you(),
     ),
     Island(
       id: '2',

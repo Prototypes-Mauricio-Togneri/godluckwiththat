@@ -1,10 +1,10 @@
 import 'dart:ui';
-import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
+import 'package:gatewayguardians/models/player.dart';
 import 'package:gatewayguardians/models/resource.dart';
 import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/types/action_type.dart';
@@ -17,7 +17,7 @@ class Island {
   final List<Action> actions;
   final List<PatchType> patches;
   final List<Building> buildings;
-  String? owner;
+  Player? owner;
 
   Island({
     required this.id,
@@ -28,7 +28,7 @@ class Island {
     required this.owner,
   });
 
-  bool get isOwn => owner == Constants.PLAYER_OWNER;
+  bool get isOwn => (owner != null) && owner!.isOwn;
 
   bool get isNeutral => owner == null;
 
@@ -52,13 +52,7 @@ class Island {
 
   bool get canBeSelected => tiles.every((tile) => tile.isRevealed);
 
-  Color get color {
-    if (isOwn) {
-      return Constants.PLAYER_COLOR;
-    } else {
-      return Constants.NEUTRAL_COLOR;
-    }
-  }
+  Color get color => owner!.color;
 
   List<BuildingType> basic() => [
         BuildingType.house,

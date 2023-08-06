@@ -1,28 +1,25 @@
-import 'package:flutter/painting.dart';
 import 'package:gatewayguardians/app/constants.dart';
-import 'package:gatewayguardians/extensions/color_extension.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
+import 'package:gatewayguardians/models/player.dart';
 import 'package:gatewayguardians/models/resource.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 
 class Colony {
-  final String owner;
-  final Color color;
+  final Player owner;
   final Inventory inventory;
   int freeVillagers;
 
   Colony({
     required this.owner,
-    required this.color,
     required this.inventory,
     required this.freeVillagers,
   });
 
   bool get hasFreeVillagers => freeVillagers > 0;
 
-  bool get isOwned => owner == Constants.PLAYER_OWNER;
+  bool get isOwn => owner.isOwn;
 
   // resources generated per turn
   int productionOf(ResourceType resourceType) {
@@ -83,8 +80,8 @@ class Colony {
   bool hasResources(ResourceMap resources) => inventory.hasResources(resources);
 
   JsonColony get json => JsonColony(
-        owner: owner,
-        color: color.toHex(),
+        owner: '',
+        color: '',
         inventory: inventory.json,
         freeVillagers: freeVillagers,
       );

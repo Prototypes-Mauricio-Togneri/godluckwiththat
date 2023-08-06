@@ -78,28 +78,6 @@ class MapPainter extends CustomPainter {
       }
     }
 
-    /*for (final Island island in state.islands) {
-      if (!island.isHidden) {
-        for (final Tile tile in island.tiles) {
-          renderTile(
-            tile: tile,
-            canvas: canvas,
-            islandStatus: island.status,
-          );
-        }
-      }
-    }
-
-    for (final Island island in state.islands) {
-      if (island.isNeutral) {
-        renderIsland(
-          state: state,
-          island: island,
-          canvas: canvas,
-        );
-      }
-    }
-
     for (final Island island in state.islands) {
       if (island.isOwn) {
         renderIsland(
@@ -116,7 +94,7 @@ class MapPainter extends CustomPainter {
         island: state.selectedIsland!,
         canvas: canvas,
       );
-    }*/
+    }
   }
 
   void renderIsland({
