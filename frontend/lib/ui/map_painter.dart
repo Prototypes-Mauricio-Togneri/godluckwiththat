@@ -162,59 +162,6 @@ class MapPainter extends CustomPainter {
     }
   }
 
-  void renderTile({
-    required Tile tile,
-    required Canvas canvas,
-  }) {
-    //final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
-    //final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
-
-    /*_drawImageFull(
-      canvas: canvas,
-      offset: Offset(
-        i - (tileWidth / 2),
-        j - (tileHeight / 2),
-      ),
-      tileWidth: tileWidth,
-      tileHeight: tileHeight,
-      image: Images.image(tile.tileType.sprite),
-    );*/
-
-    /*if (islandStatus.isExplored) {
-      if (tile.patchType != null) {
-        _drawImageFull(
-          canvas: canvas,
-          offset: Offset(
-            i - (tileWidth / 2),
-            j - (tileHeight / 2),
-          ),
-          tileWidth: tileWidth,
-          tileHeight: tileHeight,
-          image: Images.image(tile.patchType!.sprite),
-        );
-      }
-
-      if (tile.building != null) {
-        _drawImageHalf(
-          canvas: canvas,
-          offset: Offset(i, j),
-          tileWidth: tileWidth,
-          tileHeight: tileHeight,
-          image: Images.image(tile.building!.buildingType.sprite),
-        );
-      }
-    } else if (islandStatus.isUnexplored) {
-      final Path path = Path();
-      path.moveTo(i, j - (tileHeight / 2));
-      path.lineTo(i + (tileWidth / 2), j);
-      path.lineTo(i, j + (tileHeight / 2));
-      path.lineTo(i - (tileWidth / 2), j);
-      path.close();
-
-      canvas.drawPath(path, paintTileUnexplored);
-    }*/
-  }
-
   void _drawImage({
     required Canvas canvas,
     required Offset center,
@@ -226,26 +173,6 @@ class MapPainter extends CustomPainter {
       image,
       Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
       Rect.fromCenter(center: center, width: width, height: height),
-      paintTileImage,
-    );
-  }
-
-  void _drawImageHalf({
-    required Canvas canvas,
-    required Offset offset,
-    required double tileWidth,
-    required double tileHeight,
-    required Image image,
-  }) {
-    canvas.drawImageRect(
-      image,
-      Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
-      Rect.fromLTWH(
-        offset.dx - (tileHeight / 3),
-        offset.dy - (tileHeight / 3),
-        tileHeight / 1.5,
-        tileHeight / 1.5,
-      ),
       paintTileImage,
     );
   }

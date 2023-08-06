@@ -73,21 +73,27 @@ class GameState extends BaseState {
   }
 
   void onTapDown(TapDownDetails details) {
+    final Island? island = islandClicked(details);
+
+    if ((island != null) && island.isRevealed && (selectedIsland != island)) {
+      selectedIsland = island;
+    } else {
+      selectedIsland = null;
+    }
+    notify();
+  }
+
+  Island? islandClicked(TapDownDetails details) {
     for (final Island island in islands) {
-      if (island.isRevealed &&
-          mapPainter!.isInsideIsland(
-            island: island,
-            offset: details.localPosition,
-          )) {
-        if (selectedIsland != island) {
-          selectedIsland = island;
-        } else {
-          selectedIsland = null;
-        }
-        notify();
-        break;
+      if (mapPainter!.isInsideIsland(
+        island: island,
+        offset: details.localPosition,
+      )) {
+        return island;
       }
     }
+
+    return null;
   }
 
   void onBuild(Island island) => BuildDialog.show(
