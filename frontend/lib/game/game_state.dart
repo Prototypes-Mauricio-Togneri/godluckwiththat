@@ -10,6 +10,7 @@ import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/island.dart';
+import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/ui/map_painter.dart';
@@ -23,6 +24,7 @@ class GameState extends BaseState {
   late final int mapHeight;
 
   final JsonMatch jsonMatch;
+  final List<Tile> tiles = [];
   final List<Island> islands = [];
   late final Colony colony;
 
@@ -32,6 +34,7 @@ class GameState extends BaseState {
   GameState(this.jsonMatch) {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
+    tiles.addAll(Constants.tiles);
     islands.addAll(Constants.islands);
 
     mapWidth = sqrt(islands.length).toInt();

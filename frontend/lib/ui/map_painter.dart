@@ -47,10 +47,11 @@ class MapPainter extends CustomPainter {
     paintTileUnexplored.style = PaintingStyle.fill;
   }
 
-  Offset _tileCenter(int x, int y) {
+  Offset _tileCenter(Tile tile) {
     final double gap = canvasHeight - (canvasWidth.toDouble() / 2);
-    final double i = (canvasWidth / 2) + ((x - y) * (tileWidth / 2));
-    final double j = (x + y) * (tileHeight / 2) + (gap / 2) + (tileHeight / 2);
+    final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
+    final double j =
+        (tile.x + tile.y) * (tileHeight / 2) + (gap / 2) + (tileHeight / 2);
 
     return Offset(i, j);
   }
@@ -65,13 +66,17 @@ class MapPainter extends CustomPainter {
       image: Images.image(Assets.IMAGES_MAPS_MAP1),
     );
 
-    _drawImage(
-      canvas: canvas,
-      center: _tileCenter(0, 0),
-      width: tileWidth * FOG_RATIO,
-      height: tileHeight * FOG_RATIO,
-      image: Images.image(Assets.IMAGES_TILES_FOG),
-    );
+    for (final Tile tile in state.tiles) {
+      if (tile.isHidden) {
+        _drawImage(
+          canvas: canvas,
+          center: _tileCenter(tile),
+          width: tileWidth * FOG_RATIO,
+          height: tileHeight * FOG_RATIO,
+          image: Images.image(Assets.IMAGES_TILES_FOG),
+        );
+      }
+    }
 
     /*for (final Island island in state.islands) {
       if (!island.isHidden) {

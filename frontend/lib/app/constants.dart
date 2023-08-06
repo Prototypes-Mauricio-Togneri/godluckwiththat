@@ -181,7 +181,7 @@ class Constants {
       status: TileStatus.hidden,
     ),
     Tile(
-      x: 4,
+      x: 5,
       y: 0,
       type: TileType.water,
       status: TileStatus.hidden,
@@ -193,7 +193,7 @@ class Constants {
       status: TileStatus.hidden,
     ),
     Tile(
-      x: 2,
+      x: 3,
       y: 1,
       type: TileType.water,
       status: TileStatus.hidden,
@@ -241,12 +241,6 @@ class Constants {
       status: TileStatus.hidden,
     ),
     Tile(
-      x: 6,
-      y: 2,
-      type: TileType.water,
-      status: TileStatus.hidden,
-    ),
-    Tile(
       x: 0,
       y: 3,
       type: TileType.water,
@@ -279,12 +273,6 @@ class Constants {
     Tile(
       x: 6,
       y: 3,
-      type: TileType.water,
-      status: TileStatus.hidden,
-    ),
-    Tile(
-      x: 0,
-      y: 4,
       type: TileType.water,
       status: TileStatus.hidden,
     ),
@@ -328,10 +316,10 @@ class Constants {
       x: 2,
       y: 5,
       type: TileType.water,
-      status: TileStatus.revealed,
+      status: TileStatus.hidden,
     ),
     Tile(
-      x: 4,
+      x: 3,
       y: 5,
       type: TileType.water,
       status: TileStatus.hidden,
@@ -343,7 +331,7 @@ class Constants {
       status: TileStatus.hidden,
     ),
     Tile(
-      x: 2,
+      x: 1,
       y: 6,
       type: TileType.water,
       status: TileStatus.revealed,
@@ -379,14 +367,8 @@ class Constants {
       status: TileStatus.revealed,
     ),
     Tile(
-      x: 1,
+      x: 2,
       y: 6,
-      type: TileType.grass,
-      status: TileStatus.revealed,
-    ),
-    Tile(
-      x: 3,
-      y: 5,
       type: TileType.grass,
       status: TileStatus.hidden,
     ),
@@ -397,8 +379,20 @@ class Constants {
       status: TileStatus.hidden,
     ),
     Tile(
+      x: 4,
+      y: 5,
+      type: TileType.grass,
+      status: TileStatus.hidden,
+    ),
+    Tile(
       x: 5,
       y: 5,
+      type: TileType.grass,
+      status: TileStatus.hidden,
+    ),
+    Tile(
+      x: 0,
+      y: 4,
       type: TileType.grass,
       status: TileStatus.hidden,
     ),
@@ -421,6 +415,12 @@ class Constants {
       status: TileStatus.hidden,
     ),
     Tile(
+      x: 2,
+      y: 1,
+      type: TileType.grass,
+      status: TileStatus.hidden,
+    ),
+    Tile(
       x: 1,
       y: 2,
       type: TileType.grass,
@@ -433,13 +433,13 @@ class Constants {
       status: TileStatus.hidden,
     ),
     Tile(
-      x: 3,
-      y: 1,
+      x: 6,
+      y: 2,
       type: TileType.grass,
       status: TileStatus.hidden,
     ),
     Tile(
-      x: 5,
+      x: 4,
       y: 0,
       type: TileType.grass,
       status: TileStatus.hidden,
@@ -460,9 +460,9 @@ class Constants {
         [1, 0],
         [2, 0],
         [3, 0],
-        [4, 0],
+        [5, 0],
         [0, 1],
-        [2, 1],
+        [3, 1],
         [4, 1],
         [5, 1],
         [6, 1],
@@ -470,14 +470,12 @@ class Constants {
         [2, 2],
         [3, 2],
         [4, 2],
-        [6, 2],
         [0, 3],
         [1, 3],
         [2, 3],
         [4, 3],
         [5, 3],
         [6, 3],
-        [0, 4],
         [2, 4],
         [3, 4],
         [4, 4],
@@ -485,9 +483,9 @@ class Constants {
         [0, 5],
         [1, 5],
         [2, 5],
-        [4, 5],
+        [3, 5],
         [6, 5],
-        [2, 6],
+        [1, 6],
         [3, 6],
         [4, 6],
         [5, 6],
@@ -501,21 +499,20 @@ class Constants {
     Island(
       id: '1',
       tiles: getTiles([
-        [0, 6],
-        [1, 6]
+        [0, 6]
       ]),
       actions: [],
-      patches: [PatchType.crop_field, PatchType.forest],
+      patches: [],
       buildings: [],
       owner: null,
     ),
     Island(
       id: '2',
       tiles: getTiles([
-        [3, 5]
+        [2, 6]
       ]),
       actions: [],
-      patches: [PatchType.forest],
+      patches: [PatchType.crop_field],
       buildings: [],
       owner: null,
     ),
@@ -523,20 +520,22 @@ class Constants {
       id: '3',
       tiles: getTiles([
         [5, 4],
+        [4, 5],
         [5, 5]
       ]),
       actions: [],
-      patches: [PatchType.forest, PatchType.crop_field],
+      patches: [PatchType.crop_field, PatchType.forest],
       buildings: [],
       owner: null,
     ),
     Island(
       id: '4',
       tiles: getTiles([
+        [0, 4],
         [1, 4]
       ]),
       actions: [],
-      patches: [PatchType.crop_field],
+      patches: [PatchType.forest],
       buildings: [],
       owner: null,
     ),
@@ -554,27 +553,19 @@ class Constants {
       id: '6',
       tiles: getTiles([
         [1, 1],
+        [2, 1],
         [1, 2]
       ]),
       actions: [],
-      patches: [PatchType.crop_field, PatchType.forest],
+      patches: [PatchType.forest, PatchType.crop_field],
       buildings: [],
       owner: null,
     ),
     Island(
       id: '7',
       tiles: getTiles([
-        [5, 2]
-      ]),
-      actions: [],
-      patches: [PatchType.crop_field],
-      buildings: [],
-      owner: null,
-    ),
-    Island(
-      id: '8',
-      tiles: getTiles([
-        [3, 1]
+        [5, 2],
+        [6, 2]
       ]),
       actions: [],
       patches: [PatchType.forest],
@@ -582,13 +573,22 @@ class Constants {
       owner: null,
     ),
     Island(
+      id: '8',
+      tiles: getTiles([
+        [4, 0]
+      ]),
+      actions: [],
+      patches: [PatchType.crop_field],
+      buildings: [],
+      owner: null,
+    ),
+    Island(
       id: '9',
       tiles: getTiles([
-        [5, 0],
         [6, 0]
       ]),
       actions: [],
-      patches: [PatchType.forest, PatchType.crop_field],
+      patches: [],
       buildings: [],
       owner: null,
     ),
