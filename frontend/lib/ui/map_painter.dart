@@ -326,8 +326,9 @@ class MapPainter extends CustomPainter {
     required Tile tile,
     required Offset offset,
   }) {
-    final double qx = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
-    final double qy = topGap + ((tile.x + tile.y) * (tileHeight / 2));
+    //final double qx = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
+    //final double qy = topGap + ((tile.x + tile.y) * (tileHeight / 2));
+    final Offset center = _tileCenter(tile);
     // final double a = MapPainter.TILE_WIDTH / 2;
     // final double b = MapPainter.TILE_HEIGHT / 2;
 
@@ -343,7 +344,7 @@ class MapPainter extends CustomPainter {
     // if (xabs/a + yabs/b <= 1) then inside = true;
 
     final double distance =
-        sqrt(pow(offset.dx - qx, 2) + pow(offset.dy - qy, 2));
+        sqrt(pow(offset.dx - center.dx, 2) + pow(offset.dy - center.dy, 2));
 
     return distance <= (tileHeight / 2);
   }

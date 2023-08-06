@@ -15,8 +15,8 @@ class Loaders {
         freeVillagers: jsonColony.freeVillagers,
       );
 
-  static Island zone(JsonZone jsonZone, Colony? colony) {
-    final Island zone = Island(
+  static Island island(JsonZone jsonZone, Colony? colony) {
+    final Island island = Island(
       id: '',
       tiles: [],
       actions: [],
@@ -26,13 +26,13 @@ class Loaders {
     );
 
     /*for (final JsonPatch jsonPatch in jsonZone.patches) {
-      zone.patches.add(Patch(
+      island.patches.add(Patch(
         patchType: jsonPatch.patchType,
         building: building(jsonPatch),
       ));
     }*/
 
-    return zone;
+    return island;
   }
 
   static Building? building(JsonPatch jsonPatch) {
