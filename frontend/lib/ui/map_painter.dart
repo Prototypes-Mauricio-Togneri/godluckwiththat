@@ -79,20 +79,24 @@ class MapPainter extends CustomPainter {
     }
 
     for (final Island island in state.islands) {
-      if (island.isOwn) {
+      if ((!island.isNeutral) && (island.isRevealed)) {
         renderIsland(
           state: state,
           island: island,
           canvas: canvas,
+          paint: paintIsland,
+          color: island.color,
         );
       }
     }
 
     if (state.selectedIsland != null) {
-      renderIslandSelected(
+      renderIsland(
         state: state,
         island: state.selectedIsland!,
         canvas: canvas,
+        paint: paintIslandSelected,
+        color: Palette.white,
       );
     }
   }
@@ -101,34 +105,17 @@ class MapPainter extends CustomPainter {
     required GameState state,
     required Island island,
     required Canvas canvas,
+    required Paint paint,
+    required Color color,
   }) {
-    /*if (!island.isHidden && !island.isWater) {
-      paintIsland.color = island.color;
-      paintIsland.strokeWidth = canvasWidth / 500;
-
-      renderIslandBorder(
-        state: state,
-        island: island,
-        canvas: canvas,
-        paint: paintIsland,
-        singleIsland: false,
-      );
-    }*/
-  }
-
-  void renderIslandSelected({
-    required GameState state,
-    required Island island,
-    required Canvas canvas,
-  }) {
-    paintIslandSelected.strokeWidth = canvasWidth / 500;
+    paint.color = color;
+    paint.strokeWidth = canvasWidth / 500;
 
     renderIslandBorder(
       state: state,
       island: island,
       canvas: canvas,
-      paint: paintIslandSelected,
-      singleIsland: true,
+      paint: paintIsland,
     );
   }
 
@@ -137,7 +124,6 @@ class MapPainter extends CustomPainter {
     required Island island,
     required Canvas canvas,
     required Paint paint,
-    required bool singleIsland,
   }) {
     /*for (final Tile tile in island.tiles) {
       final double i =

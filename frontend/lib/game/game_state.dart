@@ -74,7 +74,7 @@ class GameState extends BaseState {
 
   void onTapDown(TapDownDetails details) {
     for (final Island island in islands) {
-      if (island.canBeSelected &&
+      if (island.isRevealed &&
           mapPainter!.isInsideIsland(
             island: island,
             offset: details.localPosition,

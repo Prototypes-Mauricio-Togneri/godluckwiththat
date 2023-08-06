@@ -50,7 +50,7 @@ class Island {
 
   ResourceMap get trainVillagerCost => Resource.food(10).map;
 
-  bool get canBeSelected => tiles.every((tile) => tile.isRevealed);
+  bool get isRevealed => tiles.every((tile) => tile.isRevealed);
 
   Color get color => owner!.color;
 
