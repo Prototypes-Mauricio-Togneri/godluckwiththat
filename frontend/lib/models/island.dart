@@ -230,4 +230,44 @@ class Island {
 
     actions.remove(action);
   }
+
+  Tile? topNeighbor(Tile tile) {
+    for (final Tile tile in tiles) {
+      if (tile.isTopNeighbor(tile)) {
+        return tile;
+      }
+    }
+
+    return null;
+  }
+
+  Tile? bottomNeighbor(Tile tile) {
+    for (final Tile tile in tiles) {
+      if (tile.isBottomNeighbor(tile)) {
+        return tile;
+      }
+    }
+
+    return null;
+  }
+
+  Tile? leftNeighbor(Tile tile) {
+    for (final Tile tile in tiles) {
+      if (tile.isLeftNeighbor(tile)) {
+        return tile;
+      }
+    }
+
+    return null;
+  }
+
+  Tile? rightNeighbor(Tile tile) {
+    for (final Tile tile in tiles) {
+      if (tile.isRightNeighbor(tile)) {
+        return tile;
+      }
+    }
+
+    return null;
+  }
 }

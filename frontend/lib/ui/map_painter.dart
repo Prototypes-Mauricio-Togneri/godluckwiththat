@@ -111,29 +111,15 @@ class MapPainter extends CustomPainter {
     paint.color = color;
     paint.strokeWidth = canvasWidth / 500;
 
-    renderIslandBorder(
-      state: state,
-      island: island,
-      canvas: canvas,
-      paint: paintIsland,
-    );
-  }
-
-  void renderIslandBorder({
-    required GameState state,
-    required Island island,
-    required Canvas canvas,
-    required Paint paint,
-  }) {
-    /*for (final Tile tile in island.tiles) {
-      final double i =
-          (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
-      final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
+    for (final Tile tile in island.tiles) {
+      final Offset center = _tileCenter(tile);
+      final double i = center.dx;
+      final double j = center.dy;
 
       // top
-      final Island? topNeighbor = state.topNeighbor(tile);
+      final Tile? topNeighbor = island.topNeighbor(tile);
 
-      if (_shouldRenderIsland(island, topNeighbor, singleIsland)) {
+      if (topNeighbor == null) {
         canvas.drawLine(
           Offset(i, j - (tileHeight / 2)),
           Offset(i + (tileWidth / 2), j),
@@ -142,9 +128,9 @@ class MapPainter extends CustomPainter {
       }
 
       // right
-      final Island? rightNeighbor = state.rightNeighbor(tile);
+      final Tile? rightNeighbor = island.rightNeighbor(tile);
 
-      if (_shouldRenderIsland(island, rightNeighbor, singleIsland)) {
+      if (rightNeighbor == null) {
         canvas.drawLine(
           Offset(i + (tileWidth / 2), j),
           Offset(i, j + (tileHeight / 2)),
@@ -153,9 +139,9 @@ class MapPainter extends CustomPainter {
       }
 
       // bottom
-      final Island? bottomNeighbor = state.bottomNeighbor(tile);
+      final Tile? bottomNeighbor = island.bottomNeighbor(tile);
 
-      if (_shouldRenderIsland(island, bottomNeighbor, singleIsland)) {
+      if (bottomNeighbor == null) {
         canvas.drawLine(
           Offset(i, j + (tileHeight / 2)),
           Offset(i - (tileWidth / 2), j),
@@ -164,27 +150,15 @@ class MapPainter extends CustomPainter {
       }
 
       // left
-      final Island? leftNeighbor = state.leftNeighbor(tile);
+      final Tile? leftNeighbor = island.leftNeighbor(tile);
 
-      if (_shouldRenderIsland(island, leftNeighbor, singleIsland)) {
+      if (leftNeighbor == null) {
         canvas.drawLine(
           Offset(i - (tileWidth / 2), j),
           Offset(i, j - (tileHeight / 2)),
           paint,
         );
       }
-    }*/
-  }
-
-  bool _shouldRenderIsland(Island island, Island? neighbor, bool singleIsland) {
-    if (neighbor?.id != island.id) {
-      if (singleIsland) {
-        return (neighbor != island);
-      } else {
-        return (neighbor?.owner != island.owner) || (island.owner == null);
-      }
-    } else {
-      return false;
     }
   }
 
