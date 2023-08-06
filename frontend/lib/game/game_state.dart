@@ -52,15 +52,7 @@ class GameState extends BaseState {
     );
   }
 
-  int mapSize() {
-    int tiles = 0;
-
-    for (final Island island in islands) {
-      tiles += island.tiles.length;
-    }
-
-    return sqrt(tiles).toInt();
-  }
+  int mapSize() => sqrt(tiles.length).toInt();
 
   void setMapPainter(MapPainter painter) {
     mapPainter = painter;
