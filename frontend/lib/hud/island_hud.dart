@@ -1,22 +1,19 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
-import 'package:gatewayguardians/hud/building_hud.dart';
-import 'package:gatewayguardians/models/tile.dart';
-import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/models/island.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/cancel_button.dart';
 import 'package:gatewayguardians/widgets/label.dart';
 import 'package:gatewayguardians/widgets/primary_button.dart';
 
-class ZoneHud extends StatelessWidget {
+class IslandHud extends StatelessWidget {
   final GameState state;
-  final Zone zone;
+  final Island island;
 
-  const ZoneHud({
+  const IslandHud({
     required this.state,
-    required this.zone,
+    required this.island,
   });
 
   @override
@@ -30,20 +27,20 @@ class ZoneHud extends StatelessWidget {
         children: [
           const VBox(20),
           Label(
-            text: 'Zone: ${zone.id}',
+            text: 'Island: ${island.id}',
             size: 16,
             color: Palette.white,
           ),
-          if (zone.isExplored)
-            ZoneExplored(
+          /*if (island.isExplored)
+            IslandExplored(
               state: state,
-              zone: zone,
+              island: island,
             )
-          else if (zone.isUnexplored)
-            ZoneUnexplored(
+          else if (island.isUnexplored)
+            IslandUnexplored(
               state: state,
-              zone: zone,
-            ),
+              island: island,
+            ),*/
           const VBox(20),
         ],
       ),
@@ -51,13 +48,13 @@ class ZoneHud extends StatelessWidget {
   }
 }
 
-class ZoneExplored extends StatelessWidget {
+class IslandExplored extends StatelessWidget {
   final GameState state;
-  final Zone zone;
+  final Island island;
 
-  const ZoneExplored({
+  const IslandExplored({
     required this.state,
-    required this.zone,
+    required this.island,
   });
 
   @override
@@ -65,50 +62,50 @@ class ZoneExplored extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (zone.hasPatch) ...[
+        /*if (island.hasPatch) ...[
           const VBox(20),
           Label(
-            text: zone.tiles
+            text: island.tiles
                 .where((e) => e.patchType != null)
                 .map((e) => e.patchType)
                 .join(','),
             size: 16,
             color: Palette.white,
           ),
-        ],
-        if (zone.isNeutral)
-          ZoneNeutral(
+        ],*/
+        if (island.isNeutral)
+          IslandNeutral(
             state: state,
-            zone: zone,
+            island: island,
           )
         else
-          ZoneOwned(
+          IslandOwned(
             state: state,
-            zone: zone,
+            island: island,
           ),
       ],
     );
   }
 }
 
-class ZoneUnexplored extends StatelessWidget {
+class IslandUnexplored extends StatelessWidget {
   final GameState state;
-  final Zone zone;
+  final Island island;
 
-  const ZoneUnexplored({
+  const IslandUnexplored({
     required this.state,
-    required this.zone,
+    required this.island,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (zone.hasAction) {
+    if (island.hasAction) {
       return CancelButton(
         state: state,
-        zone: zone,
-        action: zone.actions.first,
+        island: island,
+        action: island.actions.first,
       );
-    } else if (zone.canBeExplored(state)) {
+    } /*else if (island.canBeExplored(state)) {
       return Padding(
         padding: const EdgeInsets.only(
           top: 20,
@@ -119,37 +116,38 @@ class ZoneUnexplored extends StatelessWidget {
           text: 'EXPLORE',
           color: Palette.success,
           icon: Icons.explore_outlined,
-          tooltipError: zone.explorationCost.join(),
+          tooltipError: island.explorationCost.join(),
           onPressed: state.colony.hasFreeVillagers &&
-                  state.colony.hasResources(zone.explorationCost)
-              ? () => state.explore(zone)
+                  state.colony.hasResources(island.explorationCost)
+              ? () => state.explore(island)
               : null,
         ),
       );
-    } else {
+    } */
+    else {
       return const Empty();
     }
   }
 }
 
-class ZoneNeutral extends StatelessWidget {
+class IslandNeutral extends StatelessWidget {
   final GameState state;
-  final Zone zone;
+  final Island island;
 
-  const ZoneNeutral({
+  const IslandNeutral({
     required this.state,
-    required this.zone,
+    required this.island,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (zone.hasAction) {
+    if (island.hasAction) {
       return CancelButton(
         state: state,
-        zone: zone,
-        action: zone.actions.first,
+        island: island,
+        action: island.actions.first,
       );
-    } else if (zone.canBeClaimed(state)) {
+    } /*else if (island.canBeClaimed(state)) {
       return Padding(
         padding: const EdgeInsets.only(
           top: 20,
@@ -160,36 +158,37 @@ class ZoneNeutral extends StatelessWidget {
           text: 'CLAIM',
           color: Palette.success,
           icon: Icons.flag,
-          tooltipError: zone.claimCost.join(),
-          onPressed: state.colony.hasResources(zone.claimCost)
-              ? () => state.claim(zone)
+          tooltipError: island.claimCost.join(),
+          onPressed: state.colony.hasResources(island.claimCost)
+              ? () => state.claim(island)
               : null,
         ),
       );
-    } else {
+    } */
+    else {
       return const Empty();
     }
   }
 }
 
-class ZoneOwned extends StatelessWidget {
+class IslandOwned extends StatelessWidget {
   final GameState state;
-  final Zone zone;
+  final Island island;
 
-  const ZoneOwned({
+  const IslandOwned({
     required this.state,
-    required this.zone,
+    required this.island,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (zone.hasAction)
+        if (island.hasAction)
           CancelButton(
             state: state,
-            zone: zone,
-            action: zone.actions.first,
+            island: island,
+            action: island.actions.first,
           )
         else
           Padding(
@@ -204,17 +203,17 @@ class ZoneOwned extends StatelessWidget {
               icon: Icons.construction,
               tooltipError: 'NO FREE VILLAGERS AVAILABLE',
               onPressed: state.colony.hasFreeVillagers
-                  ? () => state.onBuild(zone)
+                  ? () => state.onBuild(island)
                   : null,
             ),
           ),
-        for (Tile tile in zone.tiles)
+        /*for (Tile tile in island.tiles)
           if (tile.building != null)
             BuildingHud(
               state: state,
-              zone: zone,
+              island: island,
               building: tile.building!,
-            ),
+            ),*/
       ],
     );
   }

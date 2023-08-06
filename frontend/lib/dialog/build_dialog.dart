@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gatewayguardians/dialog/window_dialog.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
-import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/models/island.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 import 'package:gatewayguardians/utils/navigation.dart';
@@ -15,13 +15,13 @@ import 'package:gatewayguardians/widgets/primary_button.dart';
 
 class BuildDialog extends StatelessWidget {
   final GameState state;
-  final Zone zone;
+  final Island island;
 
-  const BuildDialog._(this.state, this.zone);
+  const BuildDialog._(this.state, this.island);
 
   static DialogController show({
     required GameState state,
-    required Zone zone,
+    required Island island,
   }) {
     final BuildContext context = Navigation.context;
 
@@ -29,7 +29,7 @@ class BuildDialog extends StatelessWidget {
       context: context,
       barrierDismissible: true,
       barrierColor: Palette.transparent,
-      builder: (context) => BuildDialog._(state, zone),
+      builder: (context) => BuildDialog._(state, island),
     );
 
     return DialogController(context);
@@ -45,46 +45,46 @@ class BuildDialog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (zone.basic().isNotEmpty)
+            if (island.basic().isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    for (final BuildingType buildingType in zone.basic())
+                    for (final BuildingType buildingType in island.basic())
                       DirectBuild(
                         state: state,
-                        zone: zone,
+                        island: island,
                         buildingType: buildingType,
                       ),
                   ],
                 ),
               ),
-            if (zone.producers().isNotEmpty)
+            if (island.producers().isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    for (final BuildingType buildingType in zone.producers())
+                    for (final BuildingType buildingType in island.producers())
                       DirectBuild(
                         state: state,
-                        zone: zone,
+                        island: island,
                         buildingType: buildingType,
                       ),
                   ],
                 ),
               ),
-            /*if (zone.military().isNotEmpty)
+            /*if (island.military().isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    for (final BuildingType buildingType in zone.military())
+                    for (final BuildingType buildingType in island.military())
                       DirectBuild(
                         state: state,
-                        zone: zone,
+                        island: island,
                         buildingType: buildingType,
                       ),
                   ],
@@ -99,12 +99,12 @@ class BuildDialog extends StatelessWidget {
 
 class DirectBuild extends StatelessWidget {
   final GameState state;
-  final Zone zone;
+  final Island island;
   final BuildingType buildingType;
 
   const DirectBuild({
     required this.state,
-    required this.zone,
+    required this.island,
     required this.buildingType,
   });
 
@@ -114,12 +114,12 @@ class DirectBuild extends StatelessWidget {
       padding: const EdgeInsets.only(right: 10),
       child: BuildingBlock(
         state: state,
-        zone: zone,
+        island: island,
         buildingType: buildingType,
         onBuild: () {
           Navigation.pop();
           state.build(
-            zone: zone,
+            island: island,
             buildingType: buildingType,
           );
         },
@@ -130,13 +130,13 @@ class DirectBuild extends StatelessWidget {
 
 class BuildingBlock extends StatelessWidget {
   final GameState state;
-  final Zone zone;
+  final Island island;
   final BuildingType buildingType;
   final VoidCallback onBuild;
 
   const BuildingBlock({
     required this.state,
-    required this.zone,
+    required this.island,
     required this.buildingType,
     required this.onBuild,
   });

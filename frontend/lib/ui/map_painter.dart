@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/widgets.dart' hide Image;
 import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/models/island.dart';
 import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 import 'package:gatewayguardians/utils/images.dart';
@@ -9,8 +10,8 @@ import 'package:gatewayguardians/utils/palette.dart';
 
 class MapPainter extends CustomPainter {
   final GameState state;
-  final Paint paintZone = Paint();
-  final Paint paintZoneSelected = Paint();
+  final Paint paintIsland = Paint();
+  final Paint paintIslandSelected = Paint();
   final Paint paintTileImage = Paint();
   final Paint paintTileUnexplored = Paint();
 
@@ -34,10 +35,10 @@ class MapPainter extends CustomPainter {
     tileHeight = tileWidth / 2;
     topGap = canvasHeight - (tileHeight * mapSize) - tileHeight;
 
-    paintZone.style = PaintingStyle.stroke;
+    paintIsland.style = PaintingStyle.stroke;
 
-    paintZoneSelected.color = Palette.white;
-    paintZoneSelected.style = PaintingStyle.stroke;
+    paintIslandSelected.color = Palette.white;
+    paintIslandSelected.style = PaintingStyle.stroke;
 
     paintTileImage.color = Palette.grey;
     paintTileImage.style = PaintingStyle.fill;
@@ -72,98 +73,98 @@ class MapPainter extends CustomPainter {
       image: Images.image(Assets.IMAGES_TILES_FOG),
     );
 
-    /*for (final Zone zone in state.zones) {
-      if (!zone.isHidden) {
-        for (final Tile tile in zone.tiles) {
+    /*for (final Island island in state.islands) {
+      if (!island.isHidden) {
+        for (final Tile tile in island.tiles) {
           renderTile(
             tile: tile,
             canvas: canvas,
-            zoneStatus: zone.status,
+            islandStatus: island.status,
           );
         }
       }
     }
 
-    for (final Zone zone in state.zones) {
-      if (zone.isNeutral) {
-        renderZone(
+    for (final Island island in state.islands) {
+      if (island.isNeutral) {
+        renderIsland(
           state: state,
-          zone: zone,
+          island: island,
           canvas: canvas,
         );
       }
     }
 
-    for (final Zone zone in state.zones) {
-      if (zone.isOwn) {
-        renderZone(
+    for (final Island island in state.islands) {
+      if (island.isOwn) {
+        renderIsland(
           state: state,
-          zone: zone,
+          island: island,
           canvas: canvas,
         );
       }
     }
 
-    if (state.selectedZone != null) {
-      renderZoneSelected(
+    if (state.selectedIsland != null) {
+      renderIslandSelected(
         state: state,
-        zone: state.selectedZone!,
+        island: state.selectedIsland!,
         canvas: canvas,
       );
     }*/
   }
 
-  void renderZone({
+  void renderIsland({
     required GameState state,
-    required Zone zone,
+    required Island island,
     required Canvas canvas,
   }) {
-    if (!zone.isHidden && !zone.isWater) {
-      paintZone.color = zone.color;
-      paintZone.strokeWidth = canvasWidth / 500;
+    /*if (!island.isHidden && !island.isWater) {
+      paintIsland.color = island.color;
+      paintIsland.strokeWidth = canvasWidth / 500;
 
-      renderZoneBorder(
+      renderIslandBorder(
         state: state,
-        zone: zone,
+        island: island,
         canvas: canvas,
-        paint: paintZone,
-        singleZone: false,
+        paint: paintIsland,
+        singleIsland: false,
       );
-    }
+    }*/
   }
 
-  void renderZoneSelected({
+  void renderIslandSelected({
     required GameState state,
-    required Zone zone,
+    required Island island,
     required Canvas canvas,
   }) {
-    paintZoneSelected.strokeWidth = canvasWidth / 500;
+    paintIslandSelected.strokeWidth = canvasWidth / 500;
 
-    renderZoneBorder(
+    renderIslandBorder(
       state: state,
-      zone: zone,
+      island: island,
       canvas: canvas,
-      paint: paintZoneSelected,
-      singleZone: true,
+      paint: paintIslandSelected,
+      singleIsland: true,
     );
   }
 
-  void renderZoneBorder({
+  void renderIslandBorder({
     required GameState state,
-    required Zone zone,
+    required Island island,
     required Canvas canvas,
     required Paint paint,
-    required bool singleZone,
+    required bool singleIsland,
   }) {
-    for (final Tile tile in zone.tiles) {
+    /*for (final Tile tile in island.tiles) {
       final double i =
           (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
       final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
 
       // top
-      final Zone? topNeighbor = state.topNeighbor(tile);
+      final Island? topNeighbor = state.topNeighbor(tile);
 
-      if (_shouldRenderZone(zone, topNeighbor, singleZone)) {
+      if (_shouldRenderIsland(island, topNeighbor, singleIsland)) {
         canvas.drawLine(
           Offset(i, j - (tileHeight / 2)),
           Offset(i + (tileWidth / 2), j),
@@ -172,9 +173,9 @@ class MapPainter extends CustomPainter {
       }
 
       // right
-      final Zone? rightNeighbor = state.rightNeighbor(tile);
+      final Island? rightNeighbor = state.rightNeighbor(tile);
 
-      if (_shouldRenderZone(zone, rightNeighbor, singleZone)) {
+      if (_shouldRenderIsland(island, rightNeighbor, singleIsland)) {
         canvas.drawLine(
           Offset(i + (tileWidth / 2), j),
           Offset(i, j + (tileHeight / 2)),
@@ -183,9 +184,9 @@ class MapPainter extends CustomPainter {
       }
 
       // bottom
-      final Zone? bottomNeighbor = state.bottomNeighbor(tile);
+      final Island? bottomNeighbor = state.bottomNeighbor(tile);
 
-      if (_shouldRenderZone(zone, bottomNeighbor, singleZone)) {
+      if (_shouldRenderIsland(island, bottomNeighbor, singleIsland)) {
         canvas.drawLine(
           Offset(i, j + (tileHeight / 2)),
           Offset(i - (tileWidth / 2), j),
@@ -194,24 +195,24 @@ class MapPainter extends CustomPainter {
       }
 
       // left
-      final Zone? leftNeighbor = state.leftNeighbor(tile);
+      final Island? leftNeighbor = state.leftNeighbor(tile);
 
-      if (_shouldRenderZone(zone, leftNeighbor, singleZone)) {
+      if (_shouldRenderIsland(island, leftNeighbor, singleIsland)) {
         canvas.drawLine(
           Offset(i - (tileWidth / 2), j),
           Offset(i, j - (tileHeight / 2)),
           paint,
         );
       }
-    }
+    }*/
   }
 
-  bool _shouldRenderZone(Zone zone, Zone? neighbor, bool singleZone) {
-    if (neighbor?.id != zone.id) {
-      if (singleZone) {
-        return (neighbor != zone);
+  bool _shouldRenderIsland(Island island, Island? neighbor, bool singleIsland) {
+    if (neighbor?.id != island.id) {
+      if (singleIsland) {
+        return (neighbor != island);
       } else {
-        return (neighbor?.owner != zone.owner) || (zone.owner == null);
+        return (neighbor?.owner != island.owner) || (island.owner == null);
       }
     } else {
       return false;
@@ -221,10 +222,9 @@ class MapPainter extends CustomPainter {
   void renderTile({
     required Tile tile,
     required Canvas canvas,
-    required ZoneStatus zoneStatus,
   }) {
-    final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
-    final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
+    //final double i = (canvasWidth / 2) + ((tile.x - tile.y) * (tileWidth / 2));
+    //final double j = topGap + ((tile.x + tile.y) * (tileHeight / 2));
 
     /*_drawImageFull(
       canvas: canvas,
@@ -237,9 +237,9 @@ class MapPainter extends CustomPainter {
       image: Images.image(tile.tileType.sprite),
     );*/
 
-    if (zoneStatus.isExplored) {
+    /*if (islandStatus.isExplored) {
       if (tile.patchType != null) {
-        /*_drawImageFull(
+        _drawImageFull(
           canvas: canvas,
           offset: Offset(
             i - (tileWidth / 2),
@@ -248,7 +248,7 @@ class MapPainter extends CustomPainter {
           tileWidth: tileWidth,
           tileHeight: tileHeight,
           image: Images.image(tile.patchType!.sprite),
-        );*/
+        );
       }
 
       if (tile.building != null) {
@@ -260,7 +260,7 @@ class MapPainter extends CustomPainter {
           image: Images.image(tile.building!.buildingType.sprite),
         );
       }
-    } else if (zoneStatus.isUnexplored) {
+    } else if (islandStatus.isUnexplored) {
       final Path path = Path();
       path.moveTo(i, j - (tileHeight / 2));
       path.lineTo(i + (tileWidth / 2), j);
@@ -269,7 +269,7 @@ class MapPainter extends CustomPainter {
       path.close();
 
       canvas.drawPath(path, paintTileUnexplored);
-    }
+    }*/
   }
 
   void _drawImage({
@@ -307,11 +307,11 @@ class MapPainter extends CustomPainter {
     );
   }
 
-  bool isInsideZone({
-    required Zone zone,
+  bool isInsideIsland({
+    required Island island,
     required Offset offset,
   }) =>
-      zone.tiles.any((tile) => _isInsideTile(
+      island.tiles.any((tile) => _isInsideTile(
             tile: tile,
             offset: offset,
           ));

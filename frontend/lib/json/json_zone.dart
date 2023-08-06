@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:gatewayguardians/json/json_patch.dart';
-import 'package:gatewayguardians/types/zone_status.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_zone.g.dart';
@@ -19,9 +18,6 @@ class JsonZone {
   @JsonKey(name: 'owner')
   final String owner;
 
-  @JsonKey(name: 'status')
-  final ZoneStatus status;
-
   @JsonKey(name: 'patches')
   final List<JsonPatch> patches;
 
@@ -34,7 +30,6 @@ class JsonZone {
     required this.x,
     required this.y,
     required this.owner,
-    required this.status,
     required this.patches,
   });
 

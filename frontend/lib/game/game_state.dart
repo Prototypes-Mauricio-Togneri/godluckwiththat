@@ -10,7 +10,6 @@ import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/island.dart';
-import 'package:gatewayguardians/models/tile.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/ui/map_painter.dart';
@@ -33,7 +32,7 @@ class GameState extends BaseState {
   GameState(this.jsonMatch) {
     totalTimeElapsed = jsonMatch.totalTimeElapsed;
 
-    islands.addAll(Constants.islands());
+    islands.addAll(Constants.islands);
 
     mapWidth = sqrt(islands.length).toInt();
     mapHeight = sqrt(islands.length).toInt();
@@ -53,75 +52,11 @@ class GameState extends BaseState {
   int mapSize() {
     int tiles = 0;
 
-    for (final Zone zone in islands) {
-      tiles += zone.tiles.length;
+    for (final Island island in islands) {
+      tiles += island.tiles.length;
     }
 
     return sqrt(tiles).toInt();
-  }
-
-  List<Zone> getAllNeighbors(Zone center) {
-    final List<Zone> result = [];
-
-    for (final Zone zone in islands) {
-      if ((zone.id != center.id) && center.isAnyNeighbor(zone)) {
-        result.add(zone);
-      }
-    }
-
-    return result;
-  }
-
-  List<Zone> getSideNeighbors(Zone center) {
-    final List<Zone> result = [];
-
-    for (final Zone zone in islands) {
-      if ((zone.id != center.id) && center.isSideNeighbor(zone)) {
-        result.add(zone);
-      }
-    }
-
-    return result;
-  }
-
-  Zone? topNeighbor(Tile tile) {
-    for (final Zone zone in islands) {
-      if (zone.isTopNeighbor(tile)) {
-        return zone;
-      }
-    }
-
-    return null;
-  }
-
-  Zone? bottomNeighbor(Tile tile) {
-    for (final Zone zone in islands) {
-      if (zone.isBottomNeighbor(tile)) {
-        return zone;
-      }
-    }
-
-    return null;
-  }
-
-  Zone? leftNeighbor(Tile tile) {
-    for (final Zone zone in islands) {
-      if (zone.isLeftNeighbor(tile)) {
-        return zone;
-      }
-    }
-
-    return null;
-  }
-
-  Zone? rightNeighbor(Tile tile) {
-    for (final Zone zone in islands) {
-      if (zone.isRightNeighbor(tile)) {
-        return zone;
-      }
-    }
-
-    return null;
   }
 
   void setMapPainter(MapPainter painter) {
@@ -135,14 +70,14 @@ class GameState extends BaseState {
   }
 
   void onTapDown(TapDownDetails details) {
-    for (final Zone zone in islands) {
-      if (zone.canBeSelected &&
-          mapPainter!.isInsideZone(
-            zone: zone,
+    for (final Island island in islands) {
+      if (island.canBeSelected &&
+          mapPainter!.isInsideIsland(
+            island: island,
             offset: details.localPosition,
           )) {
-        if (selectedIsland != zone) {
-          selectedIsland = zone;
+        if (selectedIsland != island) {
+          selectedIsland = island;
         } else {
           selectedIsland = null;
         }
@@ -152,16 +87,16 @@ class GameState extends BaseState {
     }
   }
 
-  void onBuild(Zone zone) => BuildDialog.show(
+  void onBuild(Island island) => BuildDialog.show(
         state: this,
-        zone: zone,
+        island: island,
       );
 
   void build({
-    required Zone zone,
+    required Island island,
     required BuildingType buildingType,
   }) {
-    zone.queueBuild(
+    island.queueBuild(
       colony: colony,
       buildingType: buildingType,
     );
@@ -169,10 +104,10 @@ class GameState extends BaseState {
   }
 
   void levelUp({
-    required Zone zone,
+    required Island island,
     required Building building,
   }) {
-    zone.queueLevelUp(
+    island.queueLevelUp(
       colony: colony,
       building: building,
     );
@@ -180,10 +115,10 @@ class GameState extends BaseState {
   }
 
   void destroy({
-    required Zone zone,
+    required Island island,
     required Building building,
   }) {
-    zone.queueDestroy(
+    island.queueDestroy(
       colony: colony,
       building: building,
     );
@@ -204,26 +139,26 @@ class GameState extends BaseState {
     }
   }
 
-  void explore(Zone zone) {
-    zone.queueExplore(colony);
+  void explore(Island island) {
+    island.queueExplore(colony);
     notify();
   }
 
-  void claim(Zone zone) {
-    zone.queueClaim(colony);
+  void claim(Island island) {
+    island.queueClaim(colony);
     notify();
   }
 
-  void trainVillager(Zone zone) {
-    zone.queueTrainVillager(colony);
+  void trainVillager(Island island) {
+    island.queueTrainVillager(colony);
     notify();
   }
 
   void cancel({
-    required Zone zone,
+    required Island island,
     required Action action,
   }) {
-    zone.cancel(
+    island.cancel(
       colony: colony,
       action: action,
     );
@@ -233,8 +168,8 @@ class GameState extends BaseState {
   void onPassTurn() {
     turn++;
 
-    for (final Zone zone in islands) {
-      zone.update(this, colony);
+    for (final Island island in islands) {
+      island.update(this, colony);
     }
 
     selectedIsland = null;

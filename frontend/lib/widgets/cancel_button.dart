@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart' hide Action;
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/action.dart';
-import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/models/island.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/primary_button.dart';
 
 class CancelButton extends StatelessWidget {
   final GameState state;
-  final Zone zone;
+  final Island island;
   final Action action;
 
   const CancelButton({
     required this.state,
-    required this.zone,
+    required this.island,
     required this.action,
   });
 
@@ -30,7 +30,7 @@ class CancelButton extends StatelessWidget {
         icon: Icons.do_not_disturb_on_outlined,
         tooltipError: null,
         onPressed: () => state.cancel(
-          zone: zone,
+          island: island,
           action: action,
         ),
       ),

@@ -5,7 +5,7 @@ import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/buildings/producers/producer.dart';
-import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/models/island.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/cancel_button.dart';
 import 'package:gatewayguardians/widgets/label.dart';
@@ -13,12 +13,12 @@ import 'package:gatewayguardians/widgets/primary_button.dart';
 
 class BuildingHud extends StatelessWidget {
   final GameState state;
-  final Zone zone;
+  final Island island;
   final Building building;
 
   const BuildingHud({
     required this.state,
-    required this.zone,
+    required this.island,
     required this.building,
   });
 
@@ -49,15 +49,15 @@ class BuildingHud extends StatelessWidget {
           if (building.isTrainer)
             TrainerBlock(
               state: state,
-              zone: zone,
+              island: island,
             ),
-          if (zone.hasActionDestroy || zone.hasActionLevelUp)
+          if (island.hasActionDestroy || island.hasActionLevelUp)
             CancelButton(
               state: state,
-              zone: zone,
-              action: zone.actions.first,
+              island: island,
+              action: island.actions.first,
             ),
-          if (!zone.hasAction)
+          if (!island.hasAction)
             Padding(
               padding: const EdgeInsets.only(
                 top: 20,
@@ -72,13 +72,13 @@ class BuildingHud extends StatelessWidget {
                 onPressed:
                     state.colony.inventory.hasResources(building.costNextLevel)
                         ? () => state.levelUp(
-                              zone: zone,
+                              island: island,
                               building: building,
                             )
                         : null,
               ),
             ),
-          if (!zone.hasAction && building.isDestroyable)
+          if (!island.hasAction && building.isDestroyable)
             Padding(
               padding: const EdgeInsets.only(
                 top: 20,
@@ -92,7 +92,7 @@ class BuildingHud extends StatelessWidget {
                 tooltipError: 'NO FREE VILLAGERS AVAILABLE',
                 onPressed: state.colony.hasFreeVillagers
                     ? () => state.destroy(
-                          zone: zone,
+                          island: island,
                           building: building,
                         )
                     : null,
@@ -166,11 +166,11 @@ class ProducerBlock extends StatelessWidget {
 
 class TrainerBlock extends StatelessWidget {
   final GameState state;
-  final Zone zone;
+  final Island island;
 
   const TrainerBlock({
     required this.state,
-    required this.zone,
+    required this.island,
   });
 
   @override
@@ -188,17 +188,17 @@ class TrainerBlock extends StatelessWidget {
             text: 'CREATE VILLAGER',
             color: Palette.success,
             icon: Icons.person,
-            tooltipError: zone.trainVillagerCost.join(),
-            onPressed: state.colony.hasResources(zone.trainVillagerCost)
-                ? () => state.trainVillager(zone)
+            tooltipError: island.trainVillagerCost.join(),
+            onPressed: state.colony.hasResources(island.trainVillagerCost)
+                ? () => state.trainVillager(island)
                 : null,
           ),
         ),
-        for (final Action action in zone.actions)
+        for (final Action action in island.actions)
           QueuedAction(
             text: 'CREATE VILLAGER',
             onTap: () => state.cancel(
-              zone: zone,
+              island: island,
               action: action,
             ),
           ),

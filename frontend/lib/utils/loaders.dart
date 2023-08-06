@@ -5,7 +5,7 @@ import 'package:gatewayguardians/json/json_zone.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
-import 'package:gatewayguardians/models/zone.dart';
+import 'package:gatewayguardians/models/island.dart';
 
 class Loaders {
   static Colony colony(JsonColony jsonColony) => Colony(
@@ -15,13 +15,14 @@ class Loaders {
         freeVillagers: jsonColony.freeVillagers,
       );
 
-  static Zone zone(JsonZone jsonZone, Colony? colony) {
-    final Zone zone = Zone(
+  static Island zone(JsonZone jsonZone, Colony? colony) {
+    final Island zone = Island(
       id: '',
       tiles: [],
       actions: [],
       owner: '',
-      status: jsonZone.status,
+      buildings: [],
+      patches: [],
     );
 
     /*for (final JsonPatch jsonPatch in jsonZone.patches) {

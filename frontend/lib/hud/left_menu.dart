@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/hud/island_hud.dart';
 import 'package:gatewayguardians/hud/menu_button_hud.dart';
 import 'package:gatewayguardians/hud/resources_hud.dart';
-import 'package:gatewayguardians/hud/zone_hud.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 
 class LeftMenu extends StatelessWidget {
@@ -20,9 +20,9 @@ class LeftMenu extends StatelessWidget {
         children: [
           ResourcesHud(state),
           if (state.selectedIsland != null)
-            ZoneHud(
+            IslandHud(
               state: state,
-              zone: state.selectedIsland!,
+              island: state.selectedIsland!,
             ),
           const Spacer(),
           MenuButtonHud(state),
