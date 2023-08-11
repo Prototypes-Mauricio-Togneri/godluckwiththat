@@ -17,7 +17,7 @@ class Label extends StatelessWidget {
     required this.text,
     this.color = Palette.white,
     this.size = 14,
-    this.weight = FontWeight.bold,
+    this.weight = FontWeight.normal,
     this.decoration = TextDecoration.none,
     this.align,
     this.overflow,
@@ -35,7 +35,7 @@ class Label extends StatelessWidget {
         maxLines: maxLines,
         style: TextStyle(
           color: color,
-          height: height,
+          height: 0.5,
           fontSize: size,
           fontWeight: weight,
           fontFamily: Constants.FONT_NAME,

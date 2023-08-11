@@ -14,6 +14,7 @@ class StoneView extends StatelessWidget {
       child: Label(
         text: 'STONE',
         color: Palette.white,
+        size: 40,
       ),
     );
   }

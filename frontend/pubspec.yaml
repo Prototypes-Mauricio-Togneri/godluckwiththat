@@ -41,7 +41,7 @@ flutter:
   fonts:
     - family: CustomFont
       fonts:
-        - asset: assets/fonts/Dulcinea-Serif-Bold.ttf
+        - asset: assets/fonts/instructions.ttf
 
   assets:
     - assets/audio/sfx/

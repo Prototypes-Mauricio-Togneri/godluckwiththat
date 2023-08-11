@@ -14,6 +14,7 @@ class WoodView extends StatelessWidget {
       child: Label(
         text: 'WOOD',
         color: Palette.white,
+        size: 40,
       ),
     );
   }

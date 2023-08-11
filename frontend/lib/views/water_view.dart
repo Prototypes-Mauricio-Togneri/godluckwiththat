@@ -14,6 +14,7 @@ class WaterView extends StatelessWidget {
       child: Label(
         text: 'WATER',
         color: Palette.white,
+        size: 40,
       ),
     );
   }

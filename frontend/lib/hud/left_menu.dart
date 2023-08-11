@@ -102,7 +102,7 @@ class MenuButton extends StatelessWidget {
                 ),
                 Label(
                   text: text.toUpperCase(),
-                  size: 16,
+                  size: 30,
                 ),
               ],
             ),

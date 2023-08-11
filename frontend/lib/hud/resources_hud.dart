@@ -113,14 +113,14 @@ class ResourceIndicator extends StatelessWidget {
       content: Label(
         text: tooltip,
         color: Palette.white,
-        size: 12,
+        size: 30,
       ),
       child: Padding(
         padding: const EdgeInsets.only(
           top: 5,
           bottom: 5,
-          left: 20,
-          right: 20,
+          left: 15,
+          right: 15,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -133,7 +133,7 @@ class ResourceIndicator extends StatelessWidget {
             const HBox(10),
             Label(
               text: value,
-              size: 14,
+              size: 30,
               color: textColor,
             ),
           ],

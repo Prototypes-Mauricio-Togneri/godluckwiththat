@@ -14,6 +14,7 @@ class FoodView extends StatelessWidget {
       child: Label(
         text: 'FOOD',
         color: Palette.white,
+        size: 40,
       ),
     );
   }
