@@ -21,7 +21,7 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        // TODO(momo): open main menu
+        state.onPop();
         return false;
       },
       child: CustomStatusBar(

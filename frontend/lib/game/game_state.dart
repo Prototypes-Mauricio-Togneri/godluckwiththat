@@ -5,6 +5,7 @@ import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
+import 'package:gatewayguardians/types/menu_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 
 class GameState extends BaseState {
@@ -29,9 +30,17 @@ class GameState extends BaseState {
     );
   }
 
-  void onKey(RawKeyEvent event) {
-    if (event.isKeyPressed(LogicalKeyboardKey.space) && !event.repeat) {}
+  void onPop() {
+    // TODO(momo): show main menu
   }
+
+  void onKey(RawKeyEvent event) {
+    if (event.isKeyPressed(LogicalKeyboardKey.escape) && !event.repeat) {
+      // TODO(momo): show main menu
+    }
+  }
+
+  void openMenu(MenuType menuType) {}
 
   void addVillager(Building building) {
     if (colony.hasFreeVillagers) {
