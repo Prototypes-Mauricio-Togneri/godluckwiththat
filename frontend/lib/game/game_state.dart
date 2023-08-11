@@ -1,5 +1,4 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
@@ -9,10 +8,8 @@ import 'package:gatewayguardians/types/menu_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 
 class GameState extends BaseState {
-  int turn = 1;
   num totalTimeElapsed = 0;
-  final FocusNode focusNode = FocusNode();
-
+  MenuType menuType = MenuType.headquarters;
   final JsonMatch jsonMatch;
   late final Colony colony;
 
@@ -40,7 +37,10 @@ class GameState extends BaseState {
     }
   }
 
-  void openMenu(MenuType menuType) {}
+  void openMenu(MenuType type) {
+    menuType = type;
+    notify();
+  }
 
   void addVillager(Building building) {
     if (colony.hasFreeVillagers) {

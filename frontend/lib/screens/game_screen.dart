@@ -4,7 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/hud/left_menu.dart';
 import 'package:gatewayguardians/json/json_match.dart';
+import 'package:gatewayguardians/types/menu_type.dart';
 import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/views/food_view.dart';
+import 'package:gatewayguardians/views/headquarters_view.dart';
+import 'package:gatewayguardians/views/stone_view.dart';
+import 'package:gatewayguardians/views/water_view.dart';
+import 'package:gatewayguardians/views/wood_view.dart';
 
 class GameScreen extends StatelessWidget {
   final GameState state;
@@ -33,12 +39,12 @@ class GameScreen extends StatelessWidget {
               state: state,
               builder: (context, state) => RawKeyboardListener(
                 autofocus: true,
-                focusNode: state.focusNode,
+                focusNode: FocusNode(),
                 onKey: state.onKey,
                 child: Row(
                   children: [
                     LeftMenu(state),
-                    const Expanded(child: Empty()),
+                    Expanded(child: _menuScreen(state.menuType)),
                   ],
                 ),
               ),
@@ -47,5 +53,20 @@ class GameScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _menuScreen(MenuType menuType) {
+    switch (menuType) {
+      case MenuType.headquarters:
+        return HeadquartersView(state);
+      case MenuType.water:
+        return WaterView(state);
+      case MenuType.food:
+        return FoodView(state);
+      case MenuType.wood:
+        return WoodView(state);
+      case MenuType.stone:
+        return StoneView(state);
+    }
   }
 }
