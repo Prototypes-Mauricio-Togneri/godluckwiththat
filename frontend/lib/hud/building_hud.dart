@@ -1,24 +1,18 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:flutter/material.dart' hide Action;
-import 'package:gatewayguardians/extensions/resource_map_extension.dart';
+import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
-import 'package:gatewayguardians/models/action.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/buildings/producers/producer.dart';
-import 'package:gatewayguardians/models/island.dart';
 import 'package:gatewayguardians/utils/palette.dart';
-import 'package:gatewayguardians/widgets/cancel_button.dart';
 import 'package:gatewayguardians/widgets/label.dart';
 import 'package:gatewayguardians/widgets/primary_button.dart';
 
 class BuildingHud extends StatelessWidget {
   final GameState state;
-  final Island island;
   final Building building;
 
   const BuildingHud({
     required this.state,
-    required this.island,
     required this.building,
   });
 
@@ -45,58 +39,6 @@ class BuildingHud extends StatelessWidget {
             ProducerBlock(
               state: state,
               building: building,
-            ),
-          if (building.isTrainer)
-            TrainerBlock(
-              state: state,
-              island: island,
-            ),
-          if (island.hasActionDestroy || island.hasActionLevelUp)
-            CancelButton(
-              state: state,
-              island: island,
-              action: island.actions.first,
-            ),
-          if (!island.hasAction)
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-              ),
-              child: PrimaryButton(
-                text: 'LEVEL UP',
-                color: Palette.success,
-                icon: Icons.arrow_circle_up_outlined,
-                tooltipError: building.costNextLevel.join(),
-                onPressed:
-                    state.colony.inventory.hasResources(building.costNextLevel)
-                        ? () => state.levelUp(
-                              island: island,
-                              building: building,
-                            )
-                        : null,
-              ),
-            ),
-          if (!island.hasAction && building.isDestroyable)
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-              ),
-              child: PrimaryButton(
-                text: 'DESTROY',
-                color: Palette.error,
-                icon: Icons.delete_forever,
-                tooltipError: 'NO FREE VILLAGERS AVAILABLE',
-                onPressed: state.colony.hasFreeVillagers
-                    ? () => state.destroy(
-                          island: island,
-                          building: building,
-                        )
-                    : null,
-              ),
             ),
         ],
       ),
@@ -166,20 +108,18 @@ class ProducerBlock extends StatelessWidget {
 
 class TrainerBlock extends StatelessWidget {
   final GameState state;
-  final Island island;
 
   const TrainerBlock({
     required this.state,
-    required this.island,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const VBox(20),
-        Padding(
+        VBox(20),
+        /*Padding(
           padding: const EdgeInsets.only(
             left: 20,
             right: 20,
@@ -201,7 +141,7 @@ class TrainerBlock extends StatelessWidget {
               island: island,
               action: action,
             ),
-          ),
+          ),*/
       ],
     );
   }

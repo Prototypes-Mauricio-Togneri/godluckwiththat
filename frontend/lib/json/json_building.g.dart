@@ -20,18 +20,9 @@ Map<String, dynamic> _$JsonBuildingToJson(JsonBuilding instance) =>
     };
 
 const _$BuildingTypeEnumMap = {
-  BuildingType.headquarters: 'headquarters',
   BuildingType.house: 'house',
   BuildingType.warehouse: 'warehouse',
-  BuildingType.farm: 'farm',
+  BuildingType.field: 'field',
   BuildingType.woodcutter: 'woodcutter',
   BuildingType.quarry: 'quarry',
-  BuildingType.copper_mine: 'copper_mine',
-  BuildingType.iron_mine: 'iron_mine',
-  BuildingType.gold_mine: 'gold_mine',
-  BuildingType.barracks: 'barracks',
-  BuildingType.archery: 'archery',
-  BuildingType.cavalry: 'cavalry',
-  BuildingType.workshop: 'workshop',
-  BuildingType.fortress: 'fortress',
 };

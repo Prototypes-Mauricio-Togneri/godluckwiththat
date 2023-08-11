@@ -1,25 +1,23 @@
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
+import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/inventory.dart';
-import 'package:gatewayguardians/models/player.dart';
 import 'package:gatewayguardians/models/resource.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 
 class Colony {
-  final Player owner;
   final Inventory inventory;
+  final List<Building> buildings;
   int freeVillagers;
 
   Colony({
-    required this.owner,
     required this.inventory,
+    required this.buildings,
     required this.freeVillagers,
   });
 
   bool get hasFreeVillagers => freeVillagers > 0;
-
-  bool get isOwn => owner.isOwn;
 
   // resources generated per turn
   int productionOf(ResourceType resourceType) {

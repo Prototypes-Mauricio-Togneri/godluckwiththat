@@ -5,7 +5,6 @@ import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/hud/left_menu.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/utils/palette.dart';
-import 'package:gatewayguardians/widgets/map_widget.dart';
 
 class GameScreen extends StatelessWidget {
   final GameState state;
@@ -39,7 +38,7 @@ class GameScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     LeftMenu(state),
-                    Expanded(child: MapWidget(state)),
+                    const Expanded(child: Empty()),
                   ],
                 ),
               ),

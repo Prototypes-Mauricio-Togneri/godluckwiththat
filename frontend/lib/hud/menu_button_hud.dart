@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/utils/palette.dart';
-import 'package:gatewayguardians/widgets/label.dart';
 
 class MenuButtonHud extends StatelessWidget {
   final GameState state;
@@ -24,27 +23,6 @@ class MenuButtonHud extends StatelessWidget {
                 icon: Icons.menu,
               ),
             ],
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              MenuButton(
-                color: Palette.error,
-                onTap: state.onPassTurn,
-                icon: Icons.forward,
-              ),
-            ],
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Label(
-            text: 'TURN ${state.turn}',
-            size: 18,
-            color: Palette.white,
           ),
         ),
       ],

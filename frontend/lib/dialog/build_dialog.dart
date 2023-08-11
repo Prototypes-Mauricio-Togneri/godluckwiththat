@@ -1,27 +1,18 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/dialog/window_dialog.dart';
-import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/game/game_state.dart';
-import 'package:gatewayguardians/models/island.dart';
 import 'package:gatewayguardians/types/building_type.dart';
-import 'package:gatewayguardians/utils/assets.dart';
 import 'package:gatewayguardians/utils/navigation.dart';
 import 'package:gatewayguardians/utils/palette.dart';
-import 'package:gatewayguardians/widgets/custom_tooltip.dart';
-import 'package:gatewayguardians/widgets/image_asset.dart';
-import 'package:gatewayguardians/widgets/label.dart';
-import 'package:gatewayguardians/widgets/primary_button.dart';
 
 class BuildDialog extends StatelessWidget {
   final GameState state;
-  final Island island;
 
-  const BuildDialog._(this.state, this.island);
+  const BuildDialog._(this.state);
 
   static DialogController show({
     required GameState state,
-    required Island island,
   }) {
     final BuildContext context = Navigation.context;
 
@@ -29,7 +20,7 @@ class BuildDialog extends StatelessWidget {
       context: context,
       barrierDismissible: true,
       barrierColor: Palette.transparent,
-      builder: (context) => BuildDialog._(state, island),
+      builder: (context) => BuildDialog._(state),
     );
 
     return DialogController(context);
@@ -37,15 +28,15 @@ class BuildDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WindowDialog(
+    return const WindowDialog(
       title: 'Build',
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (island.basic().isNotEmpty)
+            /*if (island.basic().isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Row(
@@ -74,7 +65,7 @@ class BuildDialog extends StatelessWidget {
                       ),
                   ],
                 ),
-              ),
+              ),*/
             /*if (island.military().isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
@@ -99,18 +90,17 @@ class BuildDialog extends StatelessWidget {
 
 class DirectBuild extends StatelessWidget {
   final GameState state;
-  final Island island;
   final BuildingType buildingType;
 
   const DirectBuild({
     required this.state,
-    required this.island,
     required this.buildingType,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return const Empty();
+    /*return Padding(
       padding: const EdgeInsets.only(right: 10),
       child: BuildingBlock(
         state: state,
@@ -124,11 +114,11 @@ class DirectBuild extends StatelessWidget {
           );
         },
       ),
-    );
+    );*/
   }
 }
 
-class BuildingBlock extends StatelessWidget {
+/*class BuildingBlock extends StatelessWidget {
   final GameState state;
   final Island island;
   final BuildingType buildingType;
@@ -219,4 +209,4 @@ class BuildingBlock extends StatelessWidget {
       ),
     );
   }
-}
+}*/

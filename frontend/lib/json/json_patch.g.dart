@@ -29,7 +29,8 @@ Map<String, dynamic> _$JsonPatchToJson(JsonPatch instance) {
 }
 
 const _$PatchTypeEnumMap = {
-  PatchType.crop_field: 'crop_field',
-  PatchType.forest: 'forest',
-  PatchType.stone_deposit: 'stone_deposit',
+  PatchType.water: 'water',
+  PatchType.food: 'food',
+  PatchType.wood: 'wood',
+  PatchType.stone: 'stone',
 };

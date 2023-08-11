@@ -28,8 +28,5 @@ const _$ResourceTypeEnumMap = {
   ResourceType.food: 'food',
   ResourceType.wood: 'wood',
   ResourceType.stone: 'stone',
-  ResourceType.copper: 'copper',
-  ResourceType.iron: 'iron',
-  ResourceType.gold: 'gold',
   ResourceType.villager: 'villager',
 };

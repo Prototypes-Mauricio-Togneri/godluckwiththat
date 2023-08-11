@@ -1,5 +1,4 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:gatewayguardians/utils/images.dart';
 import 'package:gatewayguardians/utils/navigation.dart';
 
 class SplashState extends BaseState {
@@ -9,7 +8,6 @@ class SplashState extends BaseState {
       onSuccess: _onUserAuthenticated,
       onError: _onUserNotAuthenticated,
     );*/
-    await Images.load();
     Navigation.homeScreen();
   }
 
