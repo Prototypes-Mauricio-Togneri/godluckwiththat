@@ -46,6 +46,8 @@ class GameState extends BaseState {
     notify();
   }
 
+  bool isSelected(MenuType type) => menuType == type;
+
   void addVillager(Building building) {
     if (colony.hasFreeVillagers) {
       building.addVillagers(colony.removeFreeVillagers(1));

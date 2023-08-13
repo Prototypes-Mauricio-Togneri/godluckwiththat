@@ -14,7 +14,7 @@ class LeftMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Palette.grey,
+      color: Palette.darkGrey,
       width: 300,
       height: double.infinity,
       child: Column(
@@ -22,32 +22,32 @@ class LeftMenu extends StatelessWidget {
           ResourcesHud(state),
           MenuButton(
             text: 'TOWN CENTER',
-            color: Palette.success,
             icon: Icons.location_city,
+            selected: state.isSelected(MenuType.headquarters),
             onPressed: () => state.openMenu(MenuType.headquarters),
           ),
           MenuButton(
             text: 'WATER',
-            color: Palette.success,
             icon: Icons.water_drop,
+            selected: state.isSelected(MenuType.water),
             onPressed: () => state.openMenu(MenuType.water),
           ),
           MenuButton(
             text: 'FOOD',
-            color: Palette.success,
             icon: Icons.restaurant,
+            selected: state.isSelected(MenuType.food),
             onPressed: () => state.openMenu(MenuType.food),
           ),
           MenuButton(
             text: 'WOOD',
-            color: Palette.success,
             icon: Icons.forest,
+            selected: state.isSelected(MenuType.wood),
             onPressed: () => state.openMenu(MenuType.wood),
           ),
           MenuButton(
             text: 'STONE',
-            color: Palette.success,
             icon: Icons.landscape,
+            selected: state.isSelected(MenuType.stone),
             onPressed: () => state.openMenu(MenuType.stone),
           ),
           const Spacer(),
@@ -61,13 +61,13 @@ class LeftMenu extends StatelessWidget {
 class MenuButton extends StatelessWidget {
   final String text;
   final IconData icon;
-  final Color color;
+  final bool selected;
   final VoidCallback onPressed;
 
   const MenuButton({
     required this.text,
     required this.icon,
-    required this.color,
+    required this.selected,
     required this.onPressed,
   });
 
@@ -76,7 +76,13 @@ class MenuButton extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 50,
-      color: color,
+      decoration: BoxDecoration(
+        color: selected ? Palette.lightGrey : Palette.transparent,
+        border: Border.all(
+          width: 3,
+          color: selected ? Palette.white : Palette.transparent,
+        ),
+      ),
       child: Material(
         color: Palette.transparent,
         child: InkWell(
