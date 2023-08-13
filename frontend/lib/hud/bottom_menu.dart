@@ -37,23 +37,23 @@ class TimeBlock extends StatelessWidget {
           color: Palette.lightGrey,
         ),
       ),
-      child: const Column(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          VBox(10),
+          const VBox(10),
           Label(
-            text: 'Day: 152',
+            text: 'Day: ${state.day}',
             color: Palette.white,
             size: 35,
           ),
-          VBox(10),
-          Label(
+          const VBox(10),
+          const Label(
             text: 'Summer',
             color: Palette.white,
             size: 35,
           ),
-          VBox(10),
+          const VBox(10),
         ],
       ),
     );

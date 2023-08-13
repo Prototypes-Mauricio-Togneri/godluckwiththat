@@ -1,6 +1,8 @@
 class Constants {
   static const String FONT_NAME = 'CustomFont';
 
+  static const int SECONDS_PER_DAY = 6;
+
   static const int HOUSE_POPULATION = 5;
   static const int HEADQUARTERS_POPULATION = 10;
 

@@ -86,7 +86,7 @@ class GameScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               TopMenu(gameState),
-                              Expanded(child: _menuScreen(gameState.menuType)),
+                              //Expanded(child: _menuScreen(gameState.menuType)),
                             ],
                           ),
                         ),

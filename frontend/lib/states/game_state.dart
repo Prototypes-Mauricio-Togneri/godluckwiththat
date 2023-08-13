@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/services.dart';
+import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
 import 'package:gatewayguardians/models/colony.dart';
@@ -29,6 +30,8 @@ class GameState extends BaseState {
     );
   }
 
+  int get day => totalTimeElapsed ~/ Constants.SECONDS_PER_DAY;
+
   void onPop() {
     // TODO(momo): show main menu
   }
@@ -41,6 +44,7 @@ class GameState extends BaseState {
 
   void update(double dt) {
     totalTimeElapsed += dt;
+    notify();
   }
 
   void openMenu(MenuType type) {
