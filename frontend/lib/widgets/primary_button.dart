@@ -93,7 +93,7 @@ class ButtonContent extends StatelessWidget {
                     ),
                   ),
                 Label(
-                  text: text.toUpperCase(),
+                  text: text,
                   size: textSize,
                 ),
               ],

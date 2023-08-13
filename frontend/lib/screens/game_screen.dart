@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gatewayguardians/hud/bottom_menu.dart';
 import 'package:gatewayguardians/hud/left_menu.dart';
+import 'package:gatewayguardians/hud/right_menu.dart';
 import 'package:gatewayguardians/hud/top_menu.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/states/game_state.dart';
@@ -80,16 +81,20 @@ class GameScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      StateProvider<GameState>(
-                        state: gameState,
-                        builder: (context, state) => Expanded(
-                          child: Column(
+                      Expanded(
+                        child: StateProvider<GameState>(
+                          state: gameState,
+                          builder: (context, state) => Column(
                             children: [
                               TopMenu(gameState),
                               Expanded(child: _menuScreen(gameState.menuType)),
                             ],
                           ),
                         ),
+                      ),
+                      StateProvider<GameState>(
+                        state: gameState,
+                        builder: (context, state) => RightMenu(state),
                       ),
                     ],
                   ),
