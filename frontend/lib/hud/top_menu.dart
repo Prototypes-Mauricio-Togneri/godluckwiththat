@@ -122,7 +122,7 @@ class ResourceBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Inventory inventory = state.colony.inventory;
-    final double production = state.colony.productionOf(ResourceType.food);
+    final double production = state.colony.productionOf(resourceType);
 
     return Column(
       mainAxisSize: MainAxisSize.min,

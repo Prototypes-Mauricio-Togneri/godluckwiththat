@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
@@ -12,6 +10,10 @@ class Colony {
   final Inventory inventory;
   final List<Building> buildings;
   int freeVillagers;
+  double waterProduction = 1.41;
+  double foodProduction = -0.52;
+  double woodProduction = 2.3;
+  double stoneProduction = 0.05;
 
   Colony({
     required this.inventory,
@@ -23,16 +25,19 @@ class Colony {
 
   // resources generated per turn
   double productionOf(ResourceType resourceType) {
-    final double total = Random().nextDouble() * 10;
-
     /*for (final Zone zone in zones) {
       if ((zone.building is Producer) &&
           (zone.building?.buildingType.produces == resourceType)) {
         total += (zone.building as Producer).resourcesPerTurn;
       }
     }*/
-
-    return total * (Random().nextBool() ? 1 : -1);
+    return switch (resourceType) {
+      ResourceType.water => waterProduction,
+      ResourceType.food => foodProduction,
+      ResourceType.wood => woodProduction,
+      ResourceType.stone => stoneProduction,
+      ResourceType.villager => 0,
+    };
   }
 
   int get populationLimit {

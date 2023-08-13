@@ -44,27 +44,29 @@ class GameState extends BaseState {
 
   void update(double dt) {
     totalTimeElapsed += dt;
-    //notify();
+    repaint();
   }
 
   void openMenu(MenuType type) {
     menuType = type;
-    notify();
+    repaint();
   }
 
   void addVillager(Building building) {
     if (colony.hasFreeVillagers) {
       building.addVillagers(colony.removeFreeVillagers(1));
-      notify();
+      repaint();
     }
   }
 
   void removeVillager(Building building) {
     if (building.hasVillagers) {
       building.removeVillagers(colony.addFreeVillagers(1));
-      notify();
+      repaint();
     }
   }
 
   void onOpenMainMenu() {}
+
+  void repaint() => Delayed.post(notify);
 }
