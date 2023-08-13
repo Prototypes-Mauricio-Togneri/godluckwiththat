@@ -73,7 +73,6 @@ class GameScreen extends StatelessWidget {
                                 builder: (context, state) => LeftMenu(state),
                               ),
                             ),
-                            const Spacer(),
                             StateProvider<GameState>(
                               state: gameState,
                               builder: (context, state) => BottomMenu(state),
