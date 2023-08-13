@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
@@ -20,8 +22,8 @@ class Colony {
   bool get hasFreeVillagers => freeVillagers > 0;
 
   // resources generated per turn
-  int productionOf(ResourceType resourceType) {
-    const int total = 0;
+  double productionOf(ResourceType resourceType) {
+    final double total = Random().nextDouble() * 10;
 
     /*for (final Zone zone in zones) {
       if ((zone.building is Producer) &&
@@ -30,7 +32,7 @@ class Colony {
       }
     }*/
 
-    return total;
+    return total * (Random().nextBool() ? 1 : -1);
   }
 
   int get populationLimit {

@@ -4,7 +4,9 @@ import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/utils/assets.dart';
+import 'package:gatewayguardians/utils/formatter.dart';
 import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/widgets/label.dart';
 import 'package:gatewayguardians/widgets/resource_indicator.dart';
 
 class TopMenu extends StatelessWidget {
@@ -38,25 +40,24 @@ class ResourcesHud extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ResourceIndicator(
-              sprite: ResourceType.water.sprite,
-              value: inventory.get(ResourceType.water).toString(),
-              tooltip: 'Water',
+            ResourceBlock(
+              state: state,
+              resourceType: ResourceType.water,
             ),
-            ResourceIndicator(
-              sprite: ResourceType.food.sprite,
-              value: inventory.get(ResourceType.food).toString(),
-              tooltip: 'Food',
+            const HBox(30),
+            ResourceBlock(
+              state: state,
+              resourceType: ResourceType.food,
             ),
-            ResourceIndicator(
-              sprite: ResourceType.wood.sprite,
-              value: inventory.get(ResourceType.wood).toString(),
-              tooltip: 'Wood',
+            const HBox(30),
+            ResourceBlock(
+              state: state,
+              resourceType: ResourceType.wood,
             ),
-            ResourceIndicator(
-              sprite: ResourceType.stone.sprite,
-              value: inventory.get(ResourceType.stone).toString(),
-              tooltip: 'Stone',
+            const HBox(30),
+            ResourceBlock(
+              state: state,
+              resourceType: ResourceType.stone,
             ),
           ],
         ),
@@ -104,6 +105,52 @@ class ResourcesHud extends StatelessWidget {
             ),
           ],
         ),*/
+      ],
+    );
+  }
+}
+
+class ResourceBlock extends StatelessWidget {
+  final GameState state;
+  final ResourceType resourceType;
+
+  const ResourceBlock({
+    required this.state,
+    required this.resourceType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final Inventory inventory = state.colony.inventory;
+    final double production = state.colony.productionOf(ResourceType.food);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        ResourceIndicator(
+          sprite: resourceType.sprite,
+          value: inventory.get(resourceType).toString(),
+          tooltip: resourceType.toString(),
+        ),
+        const VBox(5),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              (production >= 0)
+                  ? Icons.arrow_drop_up_sharp
+                  : Icons.arrow_drop_down_sharp,
+              color: (production >= 0) ? Palette.success : Palette.error,
+              size: 30,
+            ),
+            Label(
+              text: '${Formatter.production(production)}/day',
+              color: Palette.white,
+              size: 25,
+            ),
+          ],
+        ),
       ],
     );
   }
