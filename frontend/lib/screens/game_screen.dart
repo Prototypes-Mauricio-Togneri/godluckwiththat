@@ -8,9 +8,13 @@ import 'package:gatewayguardians/states/game_state.dart';
 import 'package:gatewayguardians/states/menu_state.dart';
 import 'package:gatewayguardians/types/menu_type.dart';
 import 'package:gatewayguardians/utils/palette.dart';
+import 'package:gatewayguardians/views/faith_view.dart';
 import 'package:gatewayguardians/views/food_view.dart';
 import 'package:gatewayguardians/views/headquarters_view.dart';
+import 'package:gatewayguardians/views/market_view.dart';
+import 'package:gatewayguardians/views/research_view.dart';
 import 'package:gatewayguardians/views/stone_view.dart';
+import 'package:gatewayguardians/views/warehouse_view.dart';
 import 'package:gatewayguardians/views/water_view.dart';
 import 'package:gatewayguardians/views/wood_view.dart';
 
@@ -84,18 +88,17 @@ class GameScreen extends StatelessWidget {
   }
 
   Widget _menuScreen(MenuType menuType) {
-    switch (menuType) {
-      case MenuType.headquarters:
-        return HeadquartersView(gameState);
-      case MenuType.water:
-        return WaterView(gameState);
-      case MenuType.food:
-        return FoodView(gameState);
-      case MenuType.wood:
-        return WoodView(gameState);
-      case MenuType.stone:
-        return StoneView(gameState);
-    }
+    return switch (menuType) {
+      MenuType.headquarters => HeadquartersView(gameState),
+      MenuType.water => WaterView(gameState),
+      MenuType.food => FoodView(gameState),
+      MenuType.wood => WoodView(gameState),
+      MenuType.stone => StoneView(gameState),
+      MenuType.faith => FaithView(gameState),
+      MenuType.warehouse => WarehouseView(gameState),
+      MenuType.market => MarketView(gameState),
+      MenuType.research => ResearchView(gameState)
+    };
   }
 }
 

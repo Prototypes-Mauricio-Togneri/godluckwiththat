@@ -3,5 +3,9 @@ enum MenuType {
   water,
   food,
   wood,
-  stone;
+  stone,
+  faith,
+  warehouse,
+  market,
+  research;
 }
