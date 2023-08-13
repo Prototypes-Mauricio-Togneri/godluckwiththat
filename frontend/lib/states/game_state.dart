@@ -44,7 +44,7 @@ class GameState extends BaseState {
 
   void update(double dt) {
     totalTimeElapsed += dt;
-    notify();
+    //notify();
   }
 
   void openMenu(MenuType type) {
