@@ -20,40 +20,56 @@ class LeftMenu extends StatelessWidget {
       child: Column(
         children: [
           ResourcesHud(state),
-          MenuButton(
-            text: 'TOWN CENTER',
-            icon: Icons.location_city,
-            selected: state.isSelected(MenuType.headquarters),
-            onPressed: () => state.openMenu(MenuType.headquarters),
-          ),
-          MenuButton(
-            text: 'WATER',
-            icon: Icons.water_drop,
-            selected: state.isSelected(MenuType.water),
-            onPressed: () => state.openMenu(MenuType.water),
-          ),
-          MenuButton(
-            text: 'FOOD',
-            icon: Icons.restaurant,
-            selected: state.isSelected(MenuType.food),
-            onPressed: () => state.openMenu(MenuType.food),
-          ),
-          MenuButton(
-            text: 'WOOD',
-            icon: Icons.forest,
-            selected: state.isSelected(MenuType.wood),
-            onPressed: () => state.openMenu(MenuType.wood),
-          ),
-          MenuButton(
-            text: 'STONE',
-            icon: Icons.landscape,
-            selected: state.isSelected(MenuType.stone),
-            onPressed: () => state.openMenu(MenuType.stone),
-          ),
+          MenuButtons(state),
           const Spacer(),
           MenuButtonHud(state),
         ],
       ),
+    );
+  }
+}
+
+class MenuButtons extends StatelessWidget {
+  final GameState state;
+
+  const MenuButtons(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        MenuButton(
+          text: 'TOWN CENTER',
+          icon: Icons.location_city,
+          selected: state.isSelected(MenuType.headquarters),
+          onPressed: () => state.openMenu(MenuType.headquarters),
+        ),
+        MenuButton(
+          text: 'WATER',
+          icon: Icons.water_drop,
+          selected: state.isSelected(MenuType.water),
+          onPressed: () => state.openMenu(MenuType.water),
+        ),
+        MenuButton(
+          text: 'FOOD',
+          icon: Icons.restaurant,
+          selected: state.isSelected(MenuType.food),
+          onPressed: () => state.openMenu(MenuType.food),
+        ),
+        MenuButton(
+          text: 'WOOD',
+          icon: Icons.forest,
+          selected: state.isSelected(MenuType.wood),
+          onPressed: () => state.openMenu(MenuType.wood),
+        ),
+        MenuButton(
+          text: 'STONE',
+          icon: Icons.landscape,
+          selected: state.isSelected(MenuType.stone),
+          onPressed: () => state.openMenu(MenuType.stone),
+        ),
+      ],
     );
   }
 }
