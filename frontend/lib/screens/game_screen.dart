@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gatewayguardians/hud/bottom_menu.dart';
 import 'package:gatewayguardians/hud/left_menu.dart';
 import 'package:gatewayguardians/hud/top_menu.dart';
 import 'package:gatewayguardians/json/json_match.dart';
@@ -61,9 +62,24 @@ class GameScreen extends StatelessWidget {
                   onKey: gameState.onKey,
                   child: Row(
                     children: [
-                      StateProvider<MenuState>(
-                        state: menuState,
-                        builder: (context, state) => LeftMenu(state),
+                      Container(
+                        color: Palette.darkGrey,
+                        height: double.infinity,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: StateProvider<MenuState>(
+                                state: menuState,
+                                builder: (context, state) => LeftMenu(state),
+                              ),
+                            ),
+                            const Spacer(),
+                            StateProvider<GameState>(
+                              state: gameState,
+                              builder: (context, state) => BottomMenu(state),
+                            ),
+                          ],
+                        ),
                       ),
                       StateProvider<GameState>(
                         state: gameState,
