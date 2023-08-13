@@ -52,6 +52,16 @@ class GameState extends BaseState {
     repaint();
   }
 
+  void onOpenMainMenu() {}
+
+  void repaint() => Delayed.post(notify);
+
+  // ======================================================================== \\
+
+  void onUpgradeHeadquarters() {
+    repaint();
+  }
+
   void addVillager(Building building) {
     if (colony.hasFreeVillagers) {
       building.addVillagers(colony.removeFreeVillagers(1));
@@ -65,8 +75,4 @@ class GameState extends BaseState {
       repaint();
     }
   }
-
-  void onOpenMainMenu() {}
-
-  void repaint() => Delayed.post(notify);
 }

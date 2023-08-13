@@ -18,7 +18,7 @@ class PrimaryButton extends StatelessWidget {
     required this.onPressed,
     required this.tooltipError,
     this.icon,
-    this.textSize = 14,
+    this.textSize = 30,
     this.expand = true,
   });
 
@@ -57,15 +57,15 @@ class ButtonContent extends StatelessWidget {
     required this.text,
     required this.color,
     required this.onPressed,
-    this.icon,
-    this.textSize = 14,
-    this.expand = true,
+    required this.icon,
+    required this.textSize,
+    required this.expand,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: expand ? double.infinity : 0,
+      width: expand ? double.infinity : null,
       height: 35,
       color: (onPressed != null) ? color : Palette.lightGrey,
       child: Material(
@@ -75,7 +75,7 @@ class ButtonContent extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(
               bottom: 1,
-              left: 15,
+              left: 10,
               right: 15,
             ),
             child: Row(
@@ -89,7 +89,7 @@ class ButtonContent extends StatelessWidget {
                     child: Icon(
                       icon,
                       color: Palette.white,
-                      size: textSize * 1.5,
+                      size: textSize,
                     ),
                   ),
                 Label(
