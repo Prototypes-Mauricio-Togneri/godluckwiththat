@@ -62,6 +62,10 @@ class GameState extends BaseState {
     repaint();
   }
 
+  void onCreateVillager() {
+    repaint();
+  }
+
   void addVillager(Building building) {
     if (colony.hasFreeVillagers) {
       building.addVillagers(colony.removeFreeVillagers(1));

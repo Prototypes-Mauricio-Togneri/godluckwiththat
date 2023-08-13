@@ -17,6 +17,8 @@ class HeadquartersView extends StatelessWidget {
       children: [
         const VBox(30),
         UpgradeSection(state),
+        const VBox(30),
+        CreateVillagerSection(state),
       ],
     );
   }
@@ -46,6 +48,30 @@ class UpgradeSection extends StatelessWidget {
           tooltipError: null,
           expand: false,
         ),
+      ],
+    );
+  }
+}
+
+class CreateVillagerSection extends StatelessWidget {
+  final GameState state;
+
+  const CreateVillagerSection(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        PrimaryButton(
+          text: 'Create Villager',
+          color: Palette.success,
+          icon: Icons.person,
+          onPressed: state.onUpgradeHeadquarters,
+          tooltipError: null,
+          expand: false,
+        ),
+        const HBox(20),
       ],
     );
   }
