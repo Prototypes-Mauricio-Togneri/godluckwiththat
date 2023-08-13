@@ -23,7 +23,6 @@ class Colony {
 
   bool get hasFreeVillagers => freeVillagers > 0;
 
-  // resources generated per turn
   double productionOf(ResourceType resourceType) {
     /*for (final Zone zone in zones) {
       if ((zone.building is Producer) &&

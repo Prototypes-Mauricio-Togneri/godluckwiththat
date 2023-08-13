@@ -82,29 +82,6 @@ class ResourcesHud extends StatelessWidget {
             ),
           ],
         ),
-        /*Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ResourceIndicator(
-              sprite: ResourceType.copper.sprite,
-              value: inventory.get(ResourceType.copper).toString(),
-              tooltip:
-                  'Copper: ${state.colony.productionOf(ResourceType.copper)} / turn',
-            ),
-            ResourceIndicator(
-              sprite: ResourceType.iron.sprite,
-              value: inventory.get(ResourceType.iron).toString(),
-              tooltip:
-                  'Iron: ${state.colony.productionOf(ResourceType.iron)} / turn',
-            ),
-            ResourceIndicator(
-              sprite: ResourceType.gold.sprite,
-              value: inventory.get(ResourceType.gold).toString(),
-              tooltip:
-                  'Gold: ${state.colony.productionOf(ResourceType.gold)} / turn',
-            ),
-          ],
-        ),*/
       ],
     );
   }
