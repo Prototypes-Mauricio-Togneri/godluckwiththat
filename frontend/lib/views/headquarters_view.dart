@@ -16,24 +16,35 @@ class HeadquartersView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const VBox(30),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Label(
-              text: 'Town Center level: 3',
-              color: Palette.white,
-              size: 35,
-            ),
-            const HBox(20),
-            PrimaryButton(
-              text: 'Upgrade',
-              color: Palette.success,
-              icon: Icons.keyboard_arrow_up,
-              onPressed: state.onUpgradeHeadquarters,
-              tooltipError: null,
-              expand: false,
-            ),
-          ],
+        UpgradeSection(state),
+      ],
+    );
+  }
+}
+
+class UpgradeSection extends StatelessWidget {
+  final GameState state;
+
+  const UpgradeSection(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Label(
+          text: 'Town Center level: 3',
+          color: Palette.white,
+          size: 35,
+        ),
+        const HBox(20),
+        PrimaryButton(
+          text: 'Upgrade',
+          color: Palette.success,
+          icon: Icons.keyboard_arrow_up,
+          onPressed: state.onUpgradeHeadquarters,
+          tooltipError: null,
+          expand: false,
         ),
       ],
     );
