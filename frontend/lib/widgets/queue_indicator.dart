@@ -7,10 +7,12 @@ import 'package:gatewayguardians/widgets/label.dart';
 class QueueIndicator extends StatelessWidget {
   final ResourceType resourceType;
   final String value;
+  final VoidCallback onTap;
 
   const QueueIndicator({
     required this.resourceType,
     required this.value,
+    required this.onTap,
   });
 
   @override
@@ -25,35 +27,41 @@ class QueueIndicator extends StatelessWidget {
           color: Palette.lightGrey,
         ),
       ),
-      child: Stack(
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                bottom: 8,
-                right: 8,
+      child: Material(
+        color: Palette.transparent,
+        child: InkWell(
+          onTap: onTap,
+          child: Stack(
+            children: [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 8,
+                    right: 8,
+                  ),
+                  child: ImageAsset(
+                    path: resourceType.sprite,
+                    size: 30,
+                  ),
+                ),
               ),
-              child: ImageAsset(
-                path: resourceType.sprite,
-                size: 30,
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 3,
+                    right: 3,
+                  ),
+                  child: Label(
+                    text: value,
+                    color: Palette.white,
+                    size: 25,
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                bottom: 3,
-                right: 3,
-              ),
-              child: Label(
-                text: value,
-                color: Palette.white,
-                size: 25,
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

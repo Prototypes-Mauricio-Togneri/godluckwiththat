@@ -74,9 +74,10 @@ class CreateVillagerSection extends StatelessWidget {
           expand: false,
         ),
         const HBox(20),
-        const QueueIndicator(
+        QueueIndicator(
           resourceType: ResourceType.villager,
           value: '3',
+          onTap: state.onRemoveVillagerQueue,
         ),
       ],
     );
