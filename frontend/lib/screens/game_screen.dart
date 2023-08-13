@@ -132,6 +132,7 @@ class _GameLoopState extends State<GameLoop>
   double previous = 0;
   double get currentTime =>
       DateTime.now().difference(_initialTime).inMilliseconds / 1000.0;
+  double accumulatedDt = 0;
 
   @override
   void initState() {
@@ -155,9 +156,13 @@ class _GameLoopState extends State<GameLoop>
       animation: _animation,
       builder: (context, child) {
         final double current = currentTime;
-        final double dt = current - previous;
-        widget.state.update(dt);
+        accumulatedDt += current - previous;
         previous = current;
+
+        if (accumulatedDt >= 1) {
+          widget.state.update(accumulatedDt);
+          accumulatedDt -= 1;
+        }
 
         return const Empty();
       },
