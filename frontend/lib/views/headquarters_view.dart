@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/game/game_state.dart';
+import 'package:gatewayguardians/states/game_state.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/hud/menu_button_hud.dart';
+import 'package:gatewayguardians/states/game_state.dart';
 import 'package:gatewayguardians/types/menu_type.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
