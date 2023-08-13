@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/game/game_state.dart';
 import 'package:gatewayguardians/hud/menu_button_hud.dart';
-import 'package:gatewayguardians/hud/resources_hud.dart';
 import 'package:gatewayguardians/types/menu_type.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
@@ -19,7 +18,6 @@ class LeftMenu extends StatelessWidget {
       height: double.infinity,
       child: Column(
         children: [
-          ResourcesHud(state),
           MenuButtons(state),
           const Spacer(),
           MenuButtonHud(state),

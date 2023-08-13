@@ -5,9 +5,22 @@ import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 import 'package:gatewayguardians/utils/palette.dart';
-import 'package:gatewayguardians/widgets/custom_tooltip.dart';
-import 'package:gatewayguardians/widgets/image_asset.dart';
-import 'package:gatewayguardians/widgets/label.dart';
+import 'package:gatewayguardians/widgets/resource_indicator.dart';
+
+class TopMenu extends StatelessWidget {
+  final GameState state;
+
+  const TopMenu(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Palette.darkGrey,
+      width: double.infinity,
+      child: ResourcesHud(state),
+    );
+  }
+}
 
 class ResourcesHud extends StatelessWidget {
   final GameState state;
@@ -26,26 +39,11 @@ class ResourcesHud extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ResourceIndicator(
-              sprite: ResourceType.villager.sprite,
-              value:
-                  '${inventory.get(ResourceType.villager)}/${state.colony.populationLimit}',
-              tooltip: 'Population',
-              textColor: (inventory.get(ResourceType.villager) ==
-                      state.colony.populationLimit)
-                  ? Palette.error
-                  : Palette.white,
+              sprite: ResourceType.water.sprite,
+              value: inventory.get(ResourceType.water).toString(),
+              tooltip:
+                  'Water: ${state.colony.productionOf(ResourceType.water)} / turn',
             ),
-            ResourceIndicator(
-              sprite: Assets.IMAGES_RESOURCES_IDLE,
-              value: state.colony.freeVillagers.toString(),
-              tooltip: 'Idle villagers',
-            ),
-          ],
-        ),
-        const VBox(10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
             ResourceIndicator(
               sprite: ResourceType.food.sprite,
               value: inventory.get(ResourceType.food).toString(),
@@ -63,6 +61,27 @@ class ResourcesHud extends StatelessWidget {
               value: inventory.get(ResourceType.stone).toString(),
               tooltip:
                   'Stone: ${state.colony.productionOf(ResourceType.stone)} / turn',
+            ),
+          ],
+        ),
+        const VBox(10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ResourceIndicator(
+              sprite: ResourceType.villager.sprite,
+              value:
+                  '${inventory.get(ResourceType.villager)}/${state.colony.populationLimit}',
+              tooltip: 'Population',
+              textColor: (inventory.get(ResourceType.villager) ==
+                      state.colony.populationLimit)
+                  ? Palette.error
+                  : Palette.white,
+            ),
+            ResourceIndicator(
+              sprite: Assets.IMAGES_RESOURCES_IDLE,
+              value: state.colony.freeVillagers.toString(),
+              tooltip: 'Idle villagers',
             ),
           ],
         ),
@@ -90,55 +109,6 @@ class ResourcesHud extends StatelessWidget {
           ],
         ),*/
       ],
-    );
-  }
-}
-
-class ResourceIndicator extends StatelessWidget {
-  final String sprite;
-  final String value;
-  final String tooltip;
-  final Color textColor;
-
-  const ResourceIndicator({
-    required this.sprite,
-    required this.value,
-    required this.tooltip,
-    this.textColor = Palette.white,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomTooltip(
-      content: Label(
-        text: tooltip,
-        color: Palette.white,
-        size: 30,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 5,
-          bottom: 5,
-          left: 15,
-          right: 15,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ImageAsset(
-              path: sprite,
-              size: 28,
-            ),
-            const HBox(10),
-            Label(
-              text: value,
-              size: 30,
-              color: textColor,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
