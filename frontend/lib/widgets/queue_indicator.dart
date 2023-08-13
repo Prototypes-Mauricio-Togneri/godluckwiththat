@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/image_asset.dart';
 import 'package:gatewayguardians/widgets/label.dart';
 
 class QueueIndicator extends StatelessWidget {
-  final ResourceType resourceType;
+  final String sprite;
   final String value;
   final VoidCallback onTap;
 
   const QueueIndicator({
-    required this.resourceType,
+    required this.sprite,
     required this.value,
     required this.onTap,
   });
@@ -40,7 +39,7 @@ class QueueIndicator extends StatelessWidget {
                     right: 8,
                   ),
                   child: ImageAsset(
-                    path: resourceType.sprite,
+                    path: sprite,
                     size: 30,
                   ),
                 ),

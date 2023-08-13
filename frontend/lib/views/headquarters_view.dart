@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/states/game_state.dart';
+import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
@@ -21,6 +22,10 @@ class HeadquartersView extends StatelessWidget {
         UpgradeSection(state),
         const VBox(30),
         CreateVillagerSection(state),
+        const VBox(30),
+        const HousingSection(),
+        const VBox(30),
+        BuildHouseSection(state),
       ],
     );
   }
@@ -75,9 +80,51 @@ class CreateVillagerSection extends StatelessWidget {
         ),
         const HBox(20),
         QueueIndicator(
-          resourceType: ResourceType.villager,
+          sprite: ResourceType.villager.sprite,
           value: '3',
           onTap: state.onRemoveVillagerQueue,
+        ),
+      ],
+    );
+  }
+}
+
+class HousingSection extends StatelessWidget {
+  const HousingSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Label(
+      text: 'Houses: 7 → 70',
+      color: Palette.white,
+      size: 35,
+    );
+  }
+}
+
+class BuildHouseSection extends StatelessWidget {
+  final GameState state;
+
+  const BuildHouseSection(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        PrimaryButton(
+          text: 'Build House',
+          color: Palette.success,
+          icon: Icons.construction,
+          onPressed: state.onBuildHouse,
+          tooltipError: null,
+          expand: false,
+        ),
+        const HBox(20),
+        QueueIndicator(
+          sprite: BuildingType.house.sprite,
+          value: '1',
+          onTap: state.onRemoveHouseQueue,
         ),
       ],
     );

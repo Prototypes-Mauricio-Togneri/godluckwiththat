@@ -70,6 +70,14 @@ class GameState extends BaseState {
     repaint();
   }
 
+  void onBuildHouse() {
+    repaint();
+  }
+
+  void onRemoveHouseQueue() {
+    repaint();
+  }
+
   void addVillager(Building building) {
     if (colony.hasFreeVillagers) {
       building.addVillagers(colony.removeFreeVillagers(1));
