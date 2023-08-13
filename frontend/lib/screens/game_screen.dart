@@ -5,6 +5,7 @@ import 'package:gatewayguardians/hud/left_menu.dart';
 import 'package:gatewayguardians/hud/top_menu.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/states/game_state.dart';
+import 'package:gatewayguardians/states/menu_state.dart';
 import 'package:gatewayguardians/types/menu_type.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/views/food_view.dart';
@@ -14,21 +15,32 @@ import 'package:gatewayguardians/views/water_view.dart';
 import 'package:gatewayguardians/views/wood_view.dart';
 
 class GameScreen extends StatelessWidget {
-  final GameState state;
+  final GameState gameState;
+  final MenuState menuState;
 
-  const GameScreen(this.state);
+  const GameScreen({
+    required this.gameState,
+    required this.menuState,
+  });
 
   factory GameScreen.instance(JsonMatch jsonMatch) {
-    final GameState state = GameState(jsonMatch);
+    final GameState gameState = GameState(jsonMatch);
+    final MenuState menuState = MenuState(
+      gameState: gameState,
+      menuType: MenuType.headquarters,
+    );
 
-    return GameScreen(state);
+    return GameScreen(
+      gameState: gameState,
+      menuState: menuState,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        state.onPop();
+        gameState.onPop();
         return false;
       },
       child: CustomStatusBar(
@@ -38,26 +50,29 @@ class GameScreen extends StatelessWidget {
           child: Scaffold(
             body: Stack(
               children: [
-                GameLoop(state),
-                StateProvider<GameState>(
-                  state: state,
-                  builder: (context, state) => RawKeyboardListener(
-                    autofocus: true,
-                    focusNode: FocusNode(),
-                    onKey: state.onKey,
-                    child: Row(
-                      children: [
-                        LeftMenu(state),
-                        Expanded(
+                GameLoop(gameState),
+                RawKeyboardListener(
+                  autofocus: true,
+                  focusNode: FocusNode(),
+                  onKey: gameState.onKey,
+                  child: Row(
+                    children: [
+                      StateProvider<MenuState>(
+                        state: menuState,
+                        builder: (context, state) => LeftMenu(state),
+                      ),
+                      StateProvider<GameState>(
+                        state: gameState,
+                        builder: (context, state) => Expanded(
                           child: Column(
                             children: [
-                              TopMenu(state),
-                              Expanded(child: _menuScreen(state.menuType)),
+                              TopMenu(gameState),
+                              Expanded(child: _menuScreen(gameState.menuType)),
                             ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -71,15 +86,15 @@ class GameScreen extends StatelessWidget {
   Widget _menuScreen(MenuType menuType) {
     switch (menuType) {
       case MenuType.headquarters:
-        return HeadquartersView(state);
+        return HeadquartersView(gameState);
       case MenuType.water:
-        return WaterView(state);
+        return WaterView(gameState);
       case MenuType.food:
-        return FoodView(state);
+        return FoodView(gameState);
       case MenuType.wood:
-        return WoodView(state);
+        return WoodView(gameState);
       case MenuType.stone:
-        return StoneView(state);
+        return StoneView(gameState);
     }
   }
 }

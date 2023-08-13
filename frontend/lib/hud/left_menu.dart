@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/hud/menu_button_hud.dart';
-import 'package:gatewayguardians/states/game_state.dart';
+import 'package:gatewayguardians/states/menu_state.dart';
 import 'package:gatewayguardians/types/menu_type.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
 
 class LeftMenu extends StatelessWidget {
-  final GameState state;
+  final MenuState state;
 
   const LeftMenu(this.state);
 
@@ -19,8 +18,6 @@ class LeftMenu extends StatelessWidget {
       child: Column(
         children: [
           MenuButtons(state),
-          const Spacer(),
-          MenuButtonHud(state),
         ],
       ),
     );
@@ -28,7 +25,7 @@ class LeftMenu extends StatelessWidget {
 }
 
 class MenuButtons extends StatelessWidget {
-  final GameState state;
+  final MenuState state;
 
   const MenuButtons(this.state);
 
@@ -41,31 +38,31 @@ class MenuButtons extends StatelessWidget {
           text: 'TOWN CENTER',
           icon: Icons.location_city,
           selected: state.isSelected(MenuType.headquarters),
-          onPressed: () => state.openMenu(MenuType.headquarters),
+          onPressed: () => state.onMenuSelected(MenuType.headquarters),
         ),
         MenuButton(
           text: 'WATER',
           icon: Icons.water_drop,
           selected: state.isSelected(MenuType.water),
-          onPressed: () => state.openMenu(MenuType.water),
+          onPressed: () => state.onMenuSelected(MenuType.water),
         ),
         MenuButton(
           text: 'FOOD',
           icon: Icons.restaurant,
           selected: state.isSelected(MenuType.food),
-          onPressed: () => state.openMenu(MenuType.food),
+          onPressed: () => state.onMenuSelected(MenuType.food),
         ),
         MenuButton(
           text: 'WOOD',
           icon: Icons.forest,
           selected: state.isSelected(MenuType.wood),
-          onPressed: () => state.openMenu(MenuType.wood),
+          onPressed: () => state.onMenuSelected(MenuType.wood),
         ),
         MenuButton(
           text: 'STONE',
           icon: Icons.landscape,
           selected: state.isSelected(MenuType.stone),
-          onPressed: () => state.openMenu(MenuType.stone),
+          onPressed: () => state.onMenuSelected(MenuType.stone),
         ),
       ],
     );
