@@ -41,26 +41,22 @@ class ResourcesHud extends StatelessWidget {
             ResourceIndicator(
               sprite: ResourceType.water.sprite,
               value: inventory.get(ResourceType.water).toString(),
-              tooltip:
-                  'Water: ${state.colony.productionOf(ResourceType.water)} / turn',
+              tooltip: 'Water',
             ),
             ResourceIndicator(
               sprite: ResourceType.food.sprite,
               value: inventory.get(ResourceType.food).toString(),
-              tooltip:
-                  'Food: ${state.colony.productionOf(ResourceType.food)} / turn',
+              tooltip: 'Food',
             ),
             ResourceIndicator(
               sprite: ResourceType.wood.sprite,
               value: inventory.get(ResourceType.wood).toString(),
-              tooltip:
-                  'Wood: ${state.colony.productionOf(ResourceType.wood)} / turn',
+              tooltip: 'Wood',
             ),
             ResourceIndicator(
               sprite: ResourceType.stone.sprite,
               value: inventory.get(ResourceType.stone).toString(),
-              tooltip:
-                  'Stone: ${state.colony.productionOf(ResourceType.stone)} / turn',
+              tooltip: 'Stone',
             ),
           ],
         ),
