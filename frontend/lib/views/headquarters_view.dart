@@ -1,9 +1,11 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:gatewayguardians/states/game_state.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
 import 'package:gatewayguardians/widgets/primary_button.dart';
+import 'package:gatewayguardians/widgets/queue_indicator.dart';
 
 class HeadquartersView extends StatelessWidget {
   final GameState state;
@@ -72,6 +74,10 @@ class CreateVillagerSection extends StatelessWidget {
           expand: false,
         ),
         const HBox(20),
+        const QueueIndicator(
+          resourceType: ResourceType.villager,
+          value: '3',
+        ),
       ],
     );
   }
