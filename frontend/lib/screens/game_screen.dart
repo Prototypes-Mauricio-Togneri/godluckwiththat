@@ -87,19 +87,17 @@ class GameScreen extends StatelessWidget {
     );
   }
 
-  Widget _menuScreen(MenuType menuType) {
-    return switch (menuType) {
-      MenuType.headquarters => HeadquartersView(gameState),
-      MenuType.water => WaterView(gameState),
-      MenuType.food => FoodView(gameState),
-      MenuType.wood => WoodView(gameState),
-      MenuType.stone => StoneView(gameState),
-      MenuType.faith => FaithView(gameState),
-      MenuType.warehouse => WarehouseView(gameState),
-      MenuType.market => MarketView(gameState),
-      MenuType.research => ResearchView(gameState)
-    };
-  }
+  Widget _menuScreen(MenuType menuType) => switch (menuType) {
+        MenuType.headquarters => HeadquartersView(gameState),
+        MenuType.water => WaterView(gameState),
+        MenuType.food => FoodView(gameState),
+        MenuType.wood => WoodView(gameState),
+        MenuType.stone => StoneView(gameState),
+        MenuType.faith => FaithView(gameState),
+        MenuType.warehouse => WarehouseView(gameState),
+        MenuType.market => MarketView(gameState),
+        MenuType.research => ResearchView(gameState)
+      };
 }
 
 class GameLoop extends StatefulWidget {
