@@ -15,11 +15,7 @@ class LeftMenu extends StatelessWidget {
       color: Palette.darkGrey,
       width: 300,
       height: double.infinity,
-      child: Column(
-        children: [
-          MenuButtons(state),
-        ],
-      ),
+      child: MenuButtons(state),
     );
   }
 }
