@@ -27,9 +27,9 @@ class GameScreen extends StatelessWidget {
   });
 
   factory GameScreen.instance(JsonMatch jsonMatch) {
-    final GameState gameState = GameState(jsonMatch);
+    final GameState state = GameState(jsonMatch);
 
-    return GameScreen(state: gameState);
+    return GameScreen(state: state);
   }
 
   @override
@@ -101,44 +101,55 @@ class _GameLoopState extends State<GameLoop>
         previous = current;
         widget.state.update(dt);
 
-        return Row(
-          children: [
-            Container(
-              color: Palette.darkGrey,
-              width: 300,
-              height: double.infinity,
-              child: Column(
-                children: [
-                  LeftMenu(widget.state),
-                  const Spacer(),
-                  BottomMenu(widget.state),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  TopMenu(widget.state),
-                  Expanded(child: _menuScreen(widget.state.menuType)),
-                ],
-              ),
-            ),
-            RightMenu(widget.state),
-          ],
-        );
+        return GameContent(widget.state);
       },
+    );
+  }
+}
+
+class GameContent extends StatelessWidget {
+  final GameState state;
+
+  const GameContent(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          color: Palette.darkGrey,
+          width: 300,
+          height: double.infinity,
+          child: Column(
+            children: [
+              LeftMenu(state),
+              const Spacer(),
+              BottomMenu(state),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              TopMenu(state),
+              Expanded(child: _menuScreen(state.menuType)),
+            ],
+          ),
+        ),
+        RightMenu(state),
+      ],
     );
   }
 
   Widget _menuScreen(MenuType menuType) => switch (menuType) {
-        MenuType.headquarters => HeadquartersView(widget.state),
-        MenuType.water => WaterView(widget.state),
-        MenuType.food => FoodView(widget.state),
-        MenuType.wood => WoodView(widget.state),
-        MenuType.stone => StoneView(widget.state),
-        MenuType.faith => FaithView(widget.state),
-        MenuType.warehouse => WarehouseView(widget.state),
-        MenuType.market => MarketView(widget.state),
-        MenuType.research => ResearchView(widget.state)
+        MenuType.headquarters => HeadquartersView(state),
+        MenuType.water => WaterView(state),
+        MenuType.food => FoodView(state),
+        MenuType.wood => WoodView(state),
+        MenuType.stone => StoneView(state),
+        MenuType.faith => FaithView(state),
+        MenuType.warehouse => WarehouseView(state),
+        MenuType.market => MarketView(state),
+        MenuType.research => ResearchView(state)
       };
 }
