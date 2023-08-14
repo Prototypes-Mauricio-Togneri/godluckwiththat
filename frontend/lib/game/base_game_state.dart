@@ -46,6 +46,7 @@ class BaseGameState extends BaseState {
 
   void update(double dt) {
     totalTimeElapsed += dt;
+    colony.update(dt);
     repaint();
   }
 

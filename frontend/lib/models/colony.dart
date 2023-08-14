@@ -29,6 +29,12 @@ class Colony {
 
   bool get hasFreeVillagers => freeVillagers > 0;
 
+  void update(double dt) {
+    for (final Building building in buildings) {
+      building.update(dt, this);
+    }
+  }
+
   double productionOf(ResourceType resourceType) {
     double total = 0;
 
