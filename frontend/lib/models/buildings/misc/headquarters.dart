@@ -4,7 +4,7 @@ import 'package:gatewayguardians/models/tasks/create_villager_task.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 
 class Headquarters extends Building {
-  List<CreateVillagerTask> tasks = [];
+  List<CreateVillagerTask> createVillagerTasks = [];
 
   Headquarters({
     required super.level,
@@ -14,14 +14,14 @@ class Headquarters extends Building {
         );
 
   void createVillager() {
-    tasks.add(CreateVillagerTask(6));
+    createVillagerTasks.add(CreateVillagerTask(6));
   }
 
   @override
   void update(double dt, Colony colony) {
     final List<CreateVillagerTask> unfinishedTasks = [];
 
-    for (final CreateVillagerTask task in tasks) {
+    for (final CreateVillagerTask task in createVillagerTasks) {
       if (task.update(dt)) {
         colony.createVillager();
       } else {
@@ -29,6 +29,6 @@ class Headquarters extends Building {
       }
     }
 
-    tasks = unfinishedTasks;
+    createVillagerTasks = unfinishedTasks;
   }
 }

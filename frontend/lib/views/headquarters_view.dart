@@ -78,12 +78,16 @@ class CreateVillagerSection extends StatelessWidget {
           tooltipError: null,
           expand: false,
         ),
-        const HBox(20),
-        QueueIndicator(
-          sprite: ResourceType.villager.sprite,
-          value: '3',
-          onTap: state.onRemoveVillagerQueue,
-        ),
+        if (state.colony.headquarters.createVillagerTasks.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: QueueIndicator(
+              sprite: ResourceType.villager.sprite,
+              value: state.colony.headquarters.createVillagerTasks.length
+                  .toString(),
+              onTap: state.onRemoveVillagerQueue,
+            ),
+          ),
       ],
     );
   }
