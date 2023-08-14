@@ -2,6 +2,8 @@ import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/buildings/misc/house.dart';
+import 'package:gatewayguardians/models/buildings/producers/producer.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/models/resource.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
@@ -13,7 +15,6 @@ class Colony {
   double waterProduction = 1.41;
   double foodProduction = -0.52;
   double woodProduction = 2.3;
-  double stoneProduction = 0.05;
 
   Colony({
     required this.inventory,
@@ -24,29 +25,25 @@ class Colony {
   bool get hasFreeVillagers => freeVillagers > 0;
 
   double productionOf(ResourceType resourceType) {
-    /*for (final Zone zone in zones) {
-      if ((zone.building is Producer) &&
-          (zone.building?.buildingType.produces == resourceType)) {
-        total += (zone.building as Producer).resourcesPerTurn;
+    double total = 0;
+
+    for (final Building building in buildings) {
+      if ((building is Producer) && (building.resourceType == resourceType)) {
+        total += building.production;
       }
-    }*/
-    return switch (resourceType) {
-      ResourceType.water => waterProduction,
-      ResourceType.food => foodProduction,
-      ResourceType.wood => woodProduction,
-      ResourceType.stone => stoneProduction,
-      ResourceType.villager => 0,
-    };
+    }
+
+    return total;
   }
 
   int get populationLimit {
-    const int total = 0;
+    int total = 0;
 
-    /*for (final Zone zone in zones) {
-      if (zone.building?.buildingType == BuildingType.house) {
+    for (final Building building in buildings) {
+      if (building is House) {
         total += Constants.HOUSE_POPULATION;
       }
-    }*/
+    }
 
     return total + Constants.HEADQUARTERS_POPULATION;
   }

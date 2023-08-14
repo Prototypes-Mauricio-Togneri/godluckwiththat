@@ -3,10 +3,12 @@ import 'package:gatewayguardians/models/buildings/misc/headquarters.dart';
 import 'package:gatewayguardians/models/buildings/misc/house.dart';
 import 'package:gatewayguardians/models/buildings/misc/warehouse.dart';
 import 'package:gatewayguardians/models/buildings/producers/field.dart';
+import 'package:gatewayguardians/models/buildings/producers/producer.dart';
 import 'package:gatewayguardians/models/buildings/producers/quarry.dart';
 import 'package:gatewayguardians/models/buildings/producers/well.dart';
 import 'package:gatewayguardians/models/buildings/producers/woodcutter.dart';
 import 'package:gatewayguardians/types/building_type.dart';
+import 'package:gatewayguardians/types/resource_type.dart';
 
 class Building {
   final BuildingType buildingType;
@@ -33,6 +35,12 @@ class Building {
     } else {
       return '$level';
     }
+  }
+
+  bool produces(ResourceType type) {
+    final Building building = this;
+
+    return (building is Producer) && (building.resourceType == type);
   }
 
   bool get isProducer =>

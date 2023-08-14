@@ -1,5 +1,4 @@
 import 'package:gatewayguardians/models/buildings/building.dart';
-import 'package:gatewayguardians/models/resource.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
 
@@ -11,11 +10,7 @@ class Producer extends Building {
     required this.resourceType,
     required super.level,
     required super.villagers,
-  }) : super(
-          buildingType: buildingType,
-        );
+  }) : super(buildingType: buildingType);
 
-  int get resourcesPerTurn => buildingType.productionRate * villagers;
-
-  Resource produce() => Resource(resourceType, resourcesPerTurn);
+  double get production => 1.1;
 }
