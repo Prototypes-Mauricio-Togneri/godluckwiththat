@@ -1,29 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/states/menu_state.dart';
+import 'package:gatewayguardians/states/game_state.dart';
 import 'package:gatewayguardians/types/menu_type.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/widgets/label.dart';
 
 class LeftMenu extends StatelessWidget {
-  final MenuState state;
+  final GameState state;
 
   const LeftMenu(this.state);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Palette.darkGrey,
-      width: 300,
-      height: double.infinity,
-      child: MenuButtons(state),
-    );
-  }
-}
-
-class MenuButtons extends StatelessWidget {
-  final MenuState state;
-
-  const MenuButtons(this.state);
 
   @override
   Widget build(BuildContext context) {

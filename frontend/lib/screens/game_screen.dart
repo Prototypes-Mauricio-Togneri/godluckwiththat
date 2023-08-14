@@ -7,7 +7,6 @@ import 'package:gatewayguardians/hud/right_menu.dart';
 import 'package:gatewayguardians/hud/top_menu.dart';
 import 'package:gatewayguardians/json/json_match.dart';
 import 'package:gatewayguardians/states/game_state.dart';
-import 'package:gatewayguardians/states/menu_state.dart';
 import 'package:gatewayguardians/types/menu_type.dart';
 import 'package:gatewayguardians/utils/palette.dart';
 import 'package:gatewayguardians/views/faith_view.dart';
@@ -21,32 +20,23 @@ import 'package:gatewayguardians/views/water_view.dart';
 import 'package:gatewayguardians/views/wood_view.dart';
 
 class GameScreen extends StatelessWidget {
-  final GameState gameState;
-  final MenuState menuState;
+  final GameState state;
 
   const GameScreen({
-    required this.gameState,
-    required this.menuState,
+    required this.state,
   });
 
   factory GameScreen.instance(JsonMatch jsonMatch) {
     final GameState gameState = GameState(jsonMatch);
-    final MenuState menuState = MenuState(
-      gameState: gameState,
-      menuType: MenuType.headquarters,
-    );
 
-    return GameScreen(
-      gameState: gameState,
-      menuState: menuState,
-    );
+    return GameScreen(state: gameState);
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        gameState.onPop();
+        state.onPop();
         return false;
       },
       child: CustomStatusBar(
@@ -54,70 +44,17 @@ class GameScreen extends StatelessWidget {
         statusBarColor: Palette.grey,
         child: SafeArea(
           child: Scaffold(
-            body: Stack(
-              children: [
-                GameLoop(gameState),
-                RawKeyboardListener(
-                  autofocus: true,
-                  focusNode: FocusNode(),
-                  onKey: gameState.onKey,
-                  child: Row(
-                    children: [
-                      Container(
-                        color: Palette.darkGrey,
-                        height: double.infinity,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: StateProvider<MenuState>(
-                                state: menuState,
-                                builder: (context, state) => LeftMenu(state),
-                              ),
-                            ),
-                            StateProvider<GameState>(
-                              state: gameState,
-                              builder: (context, state) => BottomMenu(state),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: StateProvider<GameState>(
-                          state: gameState,
-                          builder: (context, state) => Column(
-                            children: [
-                              TopMenu(gameState),
-                              Expanded(child: _menuScreen(gameState.menuType)),
-                            ],
-                          ),
-                        ),
-                      ),
-                      StateProvider<GameState>(
-                        state: gameState,
-                        builder: (context, state) => RightMenu(state),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            body: RawKeyboardListener(
+              autofocus: true,
+              focusNode: FocusNode(),
+              onKey: state.onKey,
+              child: GameLoop(state),
             ),
           ),
         ),
       ),
     );
   }
-
-  Widget _menuScreen(MenuType menuType) => switch (menuType) {
-        MenuType.headquarters => HeadquartersView(gameState),
-        MenuType.water => WaterView(gameState),
-        MenuType.food => FoodView(gameState),
-        MenuType.wood => WoodView(gameState),
-        MenuType.stone => StoneView(gameState),
-        MenuType.faith => FaithView(gameState),
-        MenuType.warehouse => WarehouseView(gameState),
-        MenuType.market => MarketView(gameState),
-        MenuType.research => ResearchView(gameState)
-      };
 }
 
 class GameLoop extends StatefulWidget {
@@ -164,8 +101,44 @@ class _GameLoopState extends State<GameLoop>
         previous = current;
         widget.state.update(dt);
 
-        return const Empty();
+        return Row(
+          children: [
+            Container(
+              color: Palette.darkGrey,
+              width: 300,
+              height: double.infinity,
+              child: Column(
+                children: [
+                  LeftMenu(widget.state),
+                  const Spacer(),
+                  BottomMenu(widget.state),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  TopMenu(widget.state),
+                  Expanded(child: _menuScreen(widget.state.menuType)),
+                ],
+              ),
+            ),
+            RightMenu(widget.state),
+          ],
+        );
       },
     );
   }
+
+  Widget _menuScreen(MenuType menuType) => switch (menuType) {
+        MenuType.headquarters => HeadquartersView(widget.state),
+        MenuType.water => WaterView(widget.state),
+        MenuType.food => FoodView(widget.state),
+        MenuType.wood => WoodView(widget.state),
+        MenuType.stone => StoneView(widget.state),
+        MenuType.faith => FaithView(widget.state),
+        MenuType.warehouse => WarehouseView(widget.state),
+        MenuType.market => MarketView(widget.state),
+        MenuType.research => ResearchView(widget.state)
+      };
 }

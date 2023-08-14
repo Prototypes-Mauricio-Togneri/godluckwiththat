@@ -32,6 +32,13 @@ class BaseGameState extends BaseState {
     );
   }
 
+  bool isSelected(MenuType type) => menuType == type;
+
+  void onMenuSelected(MenuType type) {
+    menuType = type;
+    notify();
+  }
+
   int get day => totalTimeElapsed ~/ Constants.SECONDS_PER_DAY;
 
   void onPop() {
@@ -57,5 +64,5 @@ class BaseGameState extends BaseState {
 
   void onOpenMainMenu() {}
 
-  void repaint() => Delayed.post(notify);
+  void repaint() {}
 }
