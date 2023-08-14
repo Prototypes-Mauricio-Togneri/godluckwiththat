@@ -74,7 +74,7 @@ class CreateVillagerSection extends StatelessWidget {
           text: 'Create Villager',
           color: Palette.success,
           icon: Icons.person,
-          onPressed: state.onUpgradeHeadquarters,
+          onPressed: state.onCreateVillager,
           tooltipError: null,
           expand: false,
         ),
