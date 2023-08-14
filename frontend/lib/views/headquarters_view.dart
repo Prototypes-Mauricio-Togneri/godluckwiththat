@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:gatewayguardians/models/tasks/create_villager_task.dart';
 import 'package:gatewayguardians/states/game_state.dart';
 import 'package:gatewayguardians/types/building_type.dart';
 import 'package:gatewayguardians/types/resource_type.dart';
@@ -67,6 +68,9 @@ class CreateVillagerSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<CreateVillagerTask> tasks =
+        state.colony.headquarters.createVillagerTasks;
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -78,13 +82,13 @@ class CreateVillagerSection extends StatelessWidget {
           tooltipError: null,
           expand: false,
         ),
-        if (state.colony.headquarters.createVillagerTasks.isNotEmpty)
+        if (tasks.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: QueueIndicator(
               sprite: ResourceType.villager.sprite,
-              value: state.colony.headquarters.createVillagerTasks.length
-                  .toString(),
+              progress: tasks[0].progress,
+              size: tasks.length,
               onTap: state.onRemoveVillagerQueue,
             ),
           ),
@@ -127,7 +131,8 @@ class BuildHouseSection extends StatelessWidget {
         const HBox(20),
         QueueIndicator(
           sprite: BuildingType.house.sprite,
-          value: '1',
+          progress: 0,
+          size: 1,
           onTap: state.onRemoveHouseQueue,
         ),
       ],

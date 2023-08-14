@@ -5,12 +5,14 @@ import 'package:gatewayguardians/widgets/label.dart';
 
 class QueueIndicator extends StatelessWidget {
   final String sprite;
-  final String value;
+  final double progress;
+  final int size;
   final VoidCallback onTap;
 
   const QueueIndicator({
     required this.sprite,
-    required this.value,
+    required this.progress,
+    required this.size,
     required this.onTap,
   });
 
@@ -32,11 +34,16 @@ class QueueIndicator extends StatelessWidget {
           onTap: onTap,
           child: Stack(
             children: [
+              Container(
+                width: 45 * progress,
+                height: 3,
+                color: Palette.success,
+              ),
               Center(
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    bottom: 8,
-                    right: 8,
+                    bottom: 0,
+                    right: 0,
                   ),
                   child: ImageAsset(
                     path: sprite,
@@ -52,7 +59,7 @@ class QueueIndicator extends StatelessWidget {
                     right: 3,
                   ),
                   child: Label(
-                    text: value,
+                    text: size.toString(),
                     color: Palette.white,
                     size: 25,
                   ),
