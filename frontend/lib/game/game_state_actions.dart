@@ -6,12 +6,13 @@ mixin GameStateActions on BaseGameState {
     repaint();
   }
 
-  void onCreateVillager() {
-    colony.headquarters.createVillager();
+  void onAddVillagerQueue() {
+    colony.headquarters.addVillagerQueue();
     repaint();
   }
 
   void onRemoveVillagerQueue() {
+    colony.headquarters.removeVillagerQueue();
     repaint();
   }
 
