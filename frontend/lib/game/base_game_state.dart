@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/services.dart';
 import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/json/json_match.dart';
+import 'package:gatewayguardians/models/buildings/misc/headquarters.dart';
 import 'package:gatewayguardians/models/colony.dart';
 import 'package:gatewayguardians/models/inventory.dart';
 import 'package:gatewayguardians/types/menu_type.dart';
@@ -24,7 +25,9 @@ class BaseGameState extends BaseState {
         ResourceType.wood: 300,
         ResourceType.stone: 400,
       }),
-      buildings: [],
+      buildings: [
+        Headquarters(level: 1),
+      ],
       freeVillagers: 5,
     );
   }

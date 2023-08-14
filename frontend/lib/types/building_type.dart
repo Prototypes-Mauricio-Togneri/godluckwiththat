@@ -4,6 +4,13 @@ import 'package:gatewayguardians/types/resource_type.dart';
 import 'package:gatewayguardians/utils/assets.dart';
 
 enum BuildingType {
+  headquarters(
+    sprite: Assets.IMAGES_BUILDINGS_MISC_HEADQUARTERS,
+    initialCost: {
+      ResourceType.wood: 2,
+    },
+    produces: null,
+  ),
   house(
     sprite: Assets.IMAGES_BUILDINGS_MISC_HOUSE,
     initialCost: {
@@ -63,6 +70,7 @@ enum BuildingType {
 
   ResourceMap cost(int level) {
     switch (this) {
+      case BuildingType.headquarters:
       case BuildingType.house:
       case BuildingType.warehouse:
         return {

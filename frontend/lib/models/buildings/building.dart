@@ -1,4 +1,5 @@
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
+import 'package:gatewayguardians/models/buildings/misc/headquarters.dart';
 import 'package:gatewayguardians/models/buildings/misc/house.dart';
 import 'package:gatewayguardians/models/buildings/misc/warehouse.dart';
 import 'package:gatewayguardians/models/buildings/producers/field.dart';
@@ -54,6 +55,10 @@ class Building {
     required int villagers,
   }) {
     switch (buildingType) {
+      case BuildingType.headquarters:
+        return Headquarters(
+          level: level,
+        );
       case BuildingType.house:
         return House(
           level: level,
