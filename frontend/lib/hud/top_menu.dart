@@ -61,7 +61,6 @@ class ResourcesHud extends StatelessWidget {
             ),
           ],
         ),
-        const VBox(10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -110,7 +109,6 @@ class ResourceBlock extends StatelessWidget {
           value: inventory.get(resourceType).toString(),
           tooltip: resourceType.toString(),
         ),
-        const VBox(5),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
