@@ -2,6 +2,7 @@ import 'package:gatewayguardians/app/constants.dart';
 import 'package:gatewayguardians/extensions/resource_map_extension.dart';
 import 'package:gatewayguardians/json/json_colony.dart';
 import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:gatewayguardians/models/buildings/misc/headquarters.dart';
 import 'package:gatewayguardians/models/buildings/misc/house.dart';
 import 'package:gatewayguardians/models/buildings/producers/producer.dart';
 import 'package:gatewayguardians/models/inventory.dart';
@@ -11,16 +12,20 @@ import 'package:gatewayguardians/types/resource_type.dart';
 class Colony {
   final Inventory inventory;
   final List<Building> buildings;
+  late final Headquarters headquarters;
   int freeVillagers;
-  double waterProduction = 1.41;
-  double foodProduction = -0.52;
-  double woodProduction = 2.3;
 
   Colony({
     required this.inventory,
     required this.buildings,
     required this.freeVillagers,
-  });
+  }) {
+    for (final Building building in buildings) {
+      if (building is Headquarters) {
+        headquarters = building;
+      }
+    }
+  }
 
   bool get hasFreeVillagers => freeVillagers > 0;
 

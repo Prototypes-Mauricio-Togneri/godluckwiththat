@@ -7,6 +7,7 @@ mixin GameStateActions on BaseGameState {
   }
 
   void onCreateVillager() {
+    colony.headquarters.createVillager();
     repaint();
   }
 

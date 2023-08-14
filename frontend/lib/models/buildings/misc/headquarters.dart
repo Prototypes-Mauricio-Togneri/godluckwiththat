@@ -8,4 +8,6 @@ class Headquarters extends Building {
           buildingType: BuildingType.headquarters,
           villagers: 0,
         );
+
+  void createVillager() {}
 }
