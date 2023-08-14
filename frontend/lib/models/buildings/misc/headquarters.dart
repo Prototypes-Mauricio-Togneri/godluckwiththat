@@ -23,7 +23,7 @@ class Headquarters extends Building {
 
     for (final CreateVillagerTask task in tasks) {
       if (task.update(dt)) {
-        colony.addFreeVillagers(1);
+        colony.createVillager();
       } else {
         unfinishedTasks.add(task);
       }

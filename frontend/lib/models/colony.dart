@@ -59,6 +59,12 @@ class Colony {
     return total + Constants.HEADQUARTERS_POPULATION;
   }
 
+  void createVillager() {
+    addFreeVillagers(1);
+    inventory.addResource(Resource.villager(1));
+    print('');
+  }
+
   int addFreeVillagers(int amount) {
     freeVillagers += amount;
 
