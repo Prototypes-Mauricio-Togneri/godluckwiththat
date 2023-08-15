@@ -106,6 +106,9 @@ class CreateVillagerSection extends StatelessWidget {
     final bool hasResources = inventory.hasResources(cost);
     final List<CreateVillagerTask> tasks =
         state.colony.headquarters.createVillagerTasks;
+    final bool maxPopulationReached =
+        (inventory.get(ResourceType.villager) + tasks.length) >=
+            state.colony.populationLimit;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -118,8 +121,9 @@ class CreateVillagerSection extends StatelessWidget {
             text: 'Create Villager',
             color: Palette.success,
             icon: Icons.person,
-            onPressed:
-                hasResources ? () => state.onAddVillagerQueue(cost) : null,
+            onPressed: (hasResources && !maxPopulationReached)
+                ? () => state.onAddVillagerQueue(cost)
+                : null,
             expand: false,
           ),
         ),
