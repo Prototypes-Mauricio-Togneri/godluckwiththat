@@ -1,3 +1,4 @@
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/game/base_game_state.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 
@@ -6,13 +7,15 @@ mixin GameStateActions on BaseGameState {
     repaint();
   }
 
-  void onAddVillagerQueue() {
+  void onAddVillagerQueue(ResourceMap cost) {
     colony.headquarters.addVillagerQueue();
+    colony.removeResources(cost);
     repaint();
   }
 
-  void onRemoveVillagerQueue() {
+  void onRemoveVillagerQueue(ResourceMap cost) {
     colony.headquarters.removeVillagerQueue();
+    colony.addResources(cost);
     repaint();
   }
 

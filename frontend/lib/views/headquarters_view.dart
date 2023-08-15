@@ -87,7 +87,9 @@ class CreateVillagerSection extends StatelessWidget {
             text: 'Create Villager',
             color: Palette.success,
             icon: Icons.person,
-            onPressed: hasResources ? state.onAddVillagerQueue : null,
+            onPressed: hasResources
+                ? () => state.onAddVillagerQueue(villagerCost)
+                : null,
             expand: false,
           ),
         ),
@@ -98,7 +100,7 @@ class CreateVillagerSection extends StatelessWidget {
               sprite: ResourceType.villager.sprite,
               progress: tasks[0].progress,
               size: tasks.length,
-              onTap: state.onRemoveVillagerQueue,
+              onTap: () => state.onRemoveVillagerQueue(villagerCost),
             ),
           ),
       ],
