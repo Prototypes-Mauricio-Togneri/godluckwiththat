@@ -51,20 +51,21 @@ class QueueIndicator extends StatelessWidget {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    bottom: 3,
-                    right: 3,
-                  ),
-                  child: Label(
-                    text: size.toString(),
-                    color: Palette.white,
-                    size: 25,
+              if (size != 0)
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 3,
+                      right: 3,
+                    ),
+                    child: Label(
+                      text: size.toString(),
+                      color: Palette.white,
+                      size: 25,
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ),

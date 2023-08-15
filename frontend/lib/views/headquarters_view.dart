@@ -79,7 +79,7 @@ class UpgradeSection extends StatelessWidget {
             child: QueueIndicator(
               sprite: ResourceType.villager.sprite,
               progress: task.progress,
-              size: 1,
+              size: 0,
               onTap: () => state.onRemoveUpgradeHeadquarters(upgradeCost),
             ),
           )
