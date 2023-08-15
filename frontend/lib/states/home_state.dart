@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:gatewayguardians/app/constants.dart';
-import 'package:gatewayguardians/json/json_match.dart';
-import 'package:gatewayguardians/storage/saved_matches_storage.dart';
-import 'package:gatewayguardians/utils/navigation.dart';
+import 'package:godluckwiththat/app/constants.dart';
+import 'package:godluckwiththat/json/json_match.dart';
+import 'package:godluckwiththat/storage/saved_matches_storage.dart';
+import 'package:godluckwiththat/utils/navigation.dart';
 
 class HomeState extends BaseState {
   @override

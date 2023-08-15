@@ -1,5 +1,5 @@
-import 'package:gatewayguardians/platform/platform_none.dart'
-    if (dart.library.html) 'package:gatewayguardians/platform/platform_web.dart';
+import 'package:godluckwiththat/platform/platform_none.dart'
+    if (dart.library.html) 'package:godluckwiththat/platform/platform_web.dart';
 
 class PlatformInitializer {
   static void init() {

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:gatewayguardians/app/constants.dart';
-import 'package:gatewayguardians/screens/splash_screen.dart';
-import 'package:gatewayguardians/utils/localizations.dart';
-import 'package:gatewayguardians/utils/navigation.dart';
-import 'package:gatewayguardians/utils/palette.dart';
-import 'package:gatewayguardians/utils/platform.dart';
+import 'package:godluckwiththat/app/constants.dart';
+import 'package:godluckwiththat/screens/splash_screen.dart';
+import 'package:godluckwiththat/utils/localizations.dart';
+import 'package:godluckwiththat/utils/navigation.dart';
+import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/utils/platform.dart';
 
-class GatewayGuardians extends StatelessWidget {
-  const GatewayGuardians();
+class GodLuckWithThat extends StatelessWidget {
+  const GodLuckWithThat();
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:gatewayguardians/utils/environment.dart';
-import 'package:gatewayguardians/utils/log.dart';
+import 'package:godluckwiththat/utils/environment.dart';
+import 'package:godluckwiththat/utils/log.dart';
 
 class CrashReporter {
   static void onError(Object error, StackTrace stackTrace) {

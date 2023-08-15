@@ -1,13 +1,13 @@
-import 'package:gatewayguardians/app/constants.dart';
-import 'package:gatewayguardians/extensions/resource_map_extension.dart';
-import 'package:gatewayguardians/json/json_colony.dart';
-import 'package:gatewayguardians/models/buildings/building.dart';
-import 'package:gatewayguardians/models/buildings/misc/headquarters.dart';
-import 'package:gatewayguardians/models/buildings/misc/house.dart';
-import 'package:gatewayguardians/models/buildings/producers/producer.dart';
-import 'package:gatewayguardians/models/inventory.dart';
-import 'package:gatewayguardians/models/resource.dart';
-import 'package:gatewayguardians/types/resource_type.dart';
+import 'package:godluckwiththat/app/constants.dart';
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
+import 'package:godluckwiththat/json/json_colony.dart';
+import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
+import 'package:godluckwiththat/models/buildings/misc/house.dart';
+import 'package:godluckwiththat/models/buildings/producers/producer.dart';
+import 'package:godluckwiththat/models/inventory.dart';
+import 'package:godluckwiththat/models/resource.dart';
+import 'package:godluckwiththat/types/resource_type.dart';
 
 class Colony {
   final Inventory inventory;

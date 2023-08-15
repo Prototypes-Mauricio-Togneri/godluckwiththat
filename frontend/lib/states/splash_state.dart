@@ -1,5 +1,5 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:gatewayguardians/utils/navigation.dart';
+import 'package:godluckwiththat/utils/navigation.dart';
 
 class SplashState extends BaseState {
   @override

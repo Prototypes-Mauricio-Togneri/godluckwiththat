@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:gatewayguardians/json/json_patch.dart';
+import 'package:godluckwiththat/json/json_patch.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_zone.g.dart';

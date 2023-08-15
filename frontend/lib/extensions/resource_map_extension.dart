@@ -1,6 +1,6 @@
-import 'package:gatewayguardians/models/inventory.dart';
-import 'package:gatewayguardians/models/resource.dart';
-import 'package:gatewayguardians/types/resource_type.dart';
+import 'package:godluckwiththat/models/inventory.dart';
+import 'package:godluckwiththat/models/resource.dart';
+import 'package:godluckwiththat/types/resource_type.dart';
 
 typedef ResourceMap = Map<ResourceType, int>;
 

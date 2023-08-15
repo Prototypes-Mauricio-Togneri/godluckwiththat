@@ -1,6 +1,6 @@
-import 'package:gatewayguardians/models/buildings/building.dart';
-import 'package:gatewayguardians/types/building_type.dart';
-import 'package:gatewayguardians/types/resource_type.dart';
+import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/types/resource_type.dart';
 
 class Producer extends Building {
   final ResourceType resourceType;

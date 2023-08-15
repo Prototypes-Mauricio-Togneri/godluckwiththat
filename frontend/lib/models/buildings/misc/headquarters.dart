@@ -1,7 +1,7 @@
-import 'package:gatewayguardians/models/buildings/building.dart';
-import 'package:gatewayguardians/models/colony.dart';
-import 'package:gatewayguardians/models/tasks/create_villager_task.dart';
-import 'package:gatewayguardians/types/building_type.dart';
+import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/models/colony.dart';
+import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
+import 'package:godluckwiththat/types/building_type.dart';
 
 class Headquarters extends Building {
   final List<CreateVillagerTask> createVillagerTasks = [];

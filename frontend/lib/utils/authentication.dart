@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gatewayguardians/utils/database.dart';
-import 'package:gatewayguardians/utils/error_handler.dart';
+import 'package:godluckwiththat/utils/database.dart';
+import 'package:godluckwiththat/utils/error_handler.dart';
 
 class Authentication {
   static User? currentUser() => FirebaseAuth.instance.currentUser;

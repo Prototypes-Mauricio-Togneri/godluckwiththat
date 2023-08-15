@@ -1,6 +1,6 @@
-import 'package:gatewayguardians/models/buildings/producers/producer.dart';
-import 'package:gatewayguardians/types/building_type.dart';
-import 'package:gatewayguardians/types/resource_type.dart';
+import 'package:godluckwiththat/models/buildings/producers/producer.dart';
+import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/types/resource_type.dart';
 
 class Well extends Producer {
   Well({

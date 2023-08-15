@@ -1,13 +1,13 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/models/tasks/create_villager_task.dart';
-import 'package:gatewayguardians/states/game_state.dart';
-import 'package:gatewayguardians/types/building_type.dart';
-import 'package:gatewayguardians/types/resource_type.dart';
-import 'package:gatewayguardians/utils/palette.dart';
-import 'package:gatewayguardians/widgets/label.dart';
-import 'package:gatewayguardians/widgets/primary_button.dart';
-import 'package:gatewayguardians/widgets/queue_indicator.dart';
+import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
+import 'package:godluckwiththat/states/game_state.dart';
+import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/label.dart';
+import 'package:godluckwiththat/widgets/primary_button.dart';
+import 'package:godluckwiththat/widgets/queue_indicator.dart';
 
 class HeadquartersView extends StatelessWidget {
   final GameState state;

@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:gatewayguardians/json/json_colony.dart';
-import 'package:gatewayguardians/json/json_map.dart';
-import 'package:gatewayguardians/json/json_zone.dart';
+import 'package:godluckwiththat/json/json_colony.dart';
+import 'package:godluckwiththat/json/json_map.dart';
+import 'package:godluckwiththat/json/json_zone.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_match.g.dart';

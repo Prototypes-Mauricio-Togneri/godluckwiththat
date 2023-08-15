@@ -1,5 +1,5 @@
-import 'package:gatewayguardians/models/buildings/building.dart';
-import 'package:gatewayguardians/types/building_type.dart';
+import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/types/building_type.dart';
 
 class Warehouse extends Building {
   Warehouse({

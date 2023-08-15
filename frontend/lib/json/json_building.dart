@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:gatewayguardians/types/building_type.dart';
+import 'package:godluckwiththat/types/building_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_building.g.dart';

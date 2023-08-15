@@ -1,13 +1,13 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/models/inventory.dart';
-import 'package:gatewayguardians/states/game_state.dart';
-import 'package:gatewayguardians/types/resource_type.dart';
-import 'package:gatewayguardians/utils/assets.dart';
-import 'package:gatewayguardians/utils/formatter.dart';
-import 'package:gatewayguardians/utils/palette.dart';
-import 'package:gatewayguardians/widgets/label.dart';
-import 'package:gatewayguardians/widgets/resource_indicator.dart';
+import 'package:godluckwiththat/models/inventory.dart';
+import 'package:godluckwiththat/states/game_state.dart';
+import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/utils/assets.dart';
+import 'package:godluckwiththat/utils/formatter.dart';
+import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/label.dart';
+import 'package:godluckwiththat/widgets/resource_indicator.dart';
 
 class TopMenu extends StatelessWidget {
   final GameState state;

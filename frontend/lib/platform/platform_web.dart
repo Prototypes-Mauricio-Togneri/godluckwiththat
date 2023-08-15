@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:gatewayguardians/platform/empty_url_strategy.dart';
-import 'package:gatewayguardians/platform/platform_base.dart';
+import 'package:godluckwiththat/platform/empty_url_strategy.dart';
+import 'package:godluckwiththat/platform/platform_base.dart';
 
 class PlatformMethods extends PlatformMethodsBase {
   @override

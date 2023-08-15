@@ -1,5 +1,5 @@
-import 'package:gatewayguardians/game/base_game_state.dart';
-import 'package:gatewayguardians/models/buildings/building.dart';
+import 'package:godluckwiththat/game/base_game_state.dart';
+import 'package:godluckwiththat/models/buildings/building.dart';
 
 mixin GameStateActions on BaseGameState {
   void onUpgradeHeadquarters() {

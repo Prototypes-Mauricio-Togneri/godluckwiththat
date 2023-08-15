@@ -1,10 +1,10 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gatewayguardians/utils/localizations.dart';
-import 'package:gatewayguardians/utils/navigation.dart';
-import 'package:gatewayguardians/utils/palette.dart';
-import 'package:gatewayguardians/widgets/label.dart';
+import 'package:godluckwiththat/utils/localizations.dart';
+import 'package:godluckwiththat/utils/navigation.dart';
+import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/label.dart';
 
 class WebInitialScreen extends StatelessWidget {
   const WebInitialScreen._();

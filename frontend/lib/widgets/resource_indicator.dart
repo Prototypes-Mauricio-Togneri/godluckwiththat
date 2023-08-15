@@ -1,9 +1,9 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/utils/palette.dart';
-import 'package:gatewayguardians/widgets/custom_tooltip.dart';
-import 'package:gatewayguardians/widgets/image_asset.dart';
-import 'package:gatewayguardians/widgets/label.dart';
+import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/custom_tooltip.dart';
+import 'package:godluckwiththat/widgets/image_asset.dart';
+import 'package:godluckwiththat/widgets/label.dart';
 
 class ResourceIndicator extends StatelessWidget {
   final String sprite;

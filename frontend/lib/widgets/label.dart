@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/app/constants.dart';
-import 'package:gatewayguardians/utils/palette.dart';
+import 'package:godluckwiththat/app/constants.dart';
+import 'package:godluckwiththat/utils/palette.dart';
 
 class Label extends StatelessWidget {
   final String text;

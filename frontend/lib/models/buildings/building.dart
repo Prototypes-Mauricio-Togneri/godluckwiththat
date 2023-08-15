@@ -1,13 +1,13 @@
-import 'package:gatewayguardians/extensions/resource_map_extension.dart';
-import 'package:gatewayguardians/models/buildings/misc/headquarters.dart';
-import 'package:gatewayguardians/models/buildings/misc/house.dart';
-import 'package:gatewayguardians/models/buildings/misc/warehouse.dart';
-import 'package:gatewayguardians/models/buildings/producers/field.dart';
-import 'package:gatewayguardians/models/buildings/producers/quarry.dart';
-import 'package:gatewayguardians/models/buildings/producers/well.dart';
-import 'package:gatewayguardians/models/buildings/producers/woodcutter.dart';
-import 'package:gatewayguardians/models/colony.dart';
-import 'package:gatewayguardians/types/building_type.dart';
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
+import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
+import 'package:godluckwiththat/models/buildings/misc/house.dart';
+import 'package:godluckwiththat/models/buildings/misc/warehouse.dart';
+import 'package:godluckwiththat/models/buildings/producers/field.dart';
+import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
+import 'package:godluckwiththat/models/buildings/producers/well.dart';
+import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
+import 'package:godluckwiththat/models/colony.dart';
+import 'package:godluckwiththat/types/building_type.dart';
 
 class Building {
   final BuildingType buildingType;

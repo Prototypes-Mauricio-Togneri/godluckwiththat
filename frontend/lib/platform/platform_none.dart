@@ -1,4 +1,4 @@
-import 'package:gatewayguardians/platform/platform_base.dart';
+import 'package:godluckwiththat/platform/platform_base.dart';
 
 class PlatformMethods extends PlatformMethodsBase {
   @override

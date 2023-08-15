@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/utils/palette.dart';
+import 'package:godluckwiththat/utils/palette.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
 class CustomTooltip extends StatelessWidget {

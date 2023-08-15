@@ -9,7 +9,7 @@ abstract class BaseLocalized {
 
 class ENLocalized extends BaseLocalized {
   @override
-  String get applicationName => 'Gateway Guardians';
+  String get applicationName => 'God Luck With That';
 
   @override
   String get splashWeb => 'Tap to start';
@@ -17,7 +17,7 @@ class ENLocalized extends BaseLocalized {
 
 class ESLocalized extends BaseLocalized {
   @override
-  String get applicationName => 'Gateway Guardians';
+  String get applicationName => 'God Luck With That';
 
   @override
   String get splashWeb => 'Tocar para empezar';

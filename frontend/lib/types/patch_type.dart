@@ -1,5 +1,5 @@
-import 'package:gatewayguardians/types/resource_type.dart';
-import 'package:gatewayguardians/utils/assets.dart';
+import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/utils/assets.dart';
 
 enum PatchType {
   water(

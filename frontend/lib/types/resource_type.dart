@@ -1,4 +1,4 @@
-import 'package:gatewayguardians/utils/assets.dart';
+import 'package:godluckwiththat/utils/assets.dart';
 
 enum ResourceType {
   water(sprite: Assets.IMAGES_RESOURCES_WATER),

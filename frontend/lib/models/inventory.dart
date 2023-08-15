@@ -1,7 +1,7 @@
-import 'package:gatewayguardians/extensions/resource_map_extension.dart';
-import 'package:gatewayguardians/models/resource.dart';
-import 'package:gatewayguardians/types/resource_type.dart';
-import 'package:gatewayguardians/utils/json.dart';
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
+import 'package:godluckwiththat/models/resource.dart';
+import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/utils/json.dart';
 
 typedef JsonInventory = Map<ResourceType, int>;
 

@@ -1,7 +1,7 @@
-import 'package:gatewayguardians/app/constants.dart';
-import 'package:gatewayguardians/extensions/resource_map_extension.dart';
-import 'package:gatewayguardians/types/resource_type.dart';
-import 'package:gatewayguardians/utils/assets.dart';
+import 'package:godluckwiththat/app/constants.dart';
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
+import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/utils/assets.dart';
 
 enum BuildingType {
   headquarters(

@@ -1,10 +1,10 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/json/json_match.dart';
-import 'package:gatewayguardians/screens/game_screen.dart';
-import 'package:gatewayguardians/screens/home_screen.dart';
-import 'package:gatewayguardians/screens/splash_screen.dart';
-import 'package:gatewayguardians/utils/locator.dart';
+import 'package:godluckwiththat/json/json_match.dart';
+import 'package:godluckwiththat/screens/game_screen.dart';
+import 'package:godluckwiththat/screens/home_screen.dart';
+import 'package:godluckwiththat/screens/splash_screen.dart';
+import 'package:godluckwiththat/utils/locator.dart';
 
 class Navigation {
   final Routes routes = Routes();

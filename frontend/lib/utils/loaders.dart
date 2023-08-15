@@ -1,8 +1,8 @@
-import 'package:gatewayguardians/json/json_colony.dart';
-import 'package:gatewayguardians/json/json_patch.dart';
-import 'package:gatewayguardians/models/buildings/building.dart';
-import 'package:gatewayguardians/models/colony.dart';
-import 'package:gatewayguardians/models/inventory.dart';
+import 'package:godluckwiththat/json/json_colony.dart';
+import 'package:godluckwiththat/json/json_patch.dart';
+import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/models/colony.dart';
+import 'package:godluckwiththat/models/inventory.dart';
 
 class Loaders {
   static Colony colony(JsonColony jsonColony) => Colony(

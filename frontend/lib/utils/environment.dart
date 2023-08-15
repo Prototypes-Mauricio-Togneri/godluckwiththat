@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:gatewayguardians/utils/platform.dart';
+import 'package:godluckwiththat/utils/platform.dart';
 
 class Environment {
   static const bool isDebug = kDebugMode;

@@ -1,10 +1,10 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:gatewayguardians/dialog/window_dialog.dart';
-import 'package:gatewayguardians/states/game_state.dart';
-import 'package:gatewayguardians/types/building_type.dart';
-import 'package:gatewayguardians/utils/navigation.dart';
-import 'package:gatewayguardians/utils/palette.dart';
+import 'package:godluckwiththat/dialog/window_dialog.dart';
+import 'package:godluckwiththat/states/game_state.dart';
+import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/utils/navigation.dart';
+import 'package:godluckwiththat/utils/palette.dart';
 
 class BuildDialog extends StatelessWidget {
   final GameState state;

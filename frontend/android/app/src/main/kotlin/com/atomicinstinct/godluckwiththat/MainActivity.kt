@@ -1,4 +1,4 @@
-package com.atomicinstinct.gatewayguardians
+package com.atomicinstinct.godluckwiththat
 
 import io.flutter.embedding.android.FlutterActivity
 

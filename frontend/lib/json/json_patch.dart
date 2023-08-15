@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:gatewayguardians/json/json_building.dart';
-import 'package:gatewayguardians/types/patch_type.dart';
+import 'package:godluckwiththat/json/json_building.dart';
+import 'package:godluckwiththat/types/patch_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'json_patch.g.dart';
