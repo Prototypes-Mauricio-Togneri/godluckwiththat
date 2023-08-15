@@ -1,7 +1,9 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
+import 'package:godluckwiththat/models/buildings/misc/house.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
 import 'package:godluckwiththat/models/tasks/upgrade_building_task.dart';
@@ -30,7 +32,7 @@ class HeadquartersView extends StatelessWidget {
         const VBox(30),
         CreateVillagerSection(state),
         const VBox(30),
-        const HousingSection(),
+        HousingSection(state),
         const VBox(30),
         BuildHouseSection(state),
       ],
@@ -139,15 +141,28 @@ class CreateVillagerSection extends StatelessWidget {
 }
 
 class HousingSection extends StatelessWidget {
-  const HousingSection();
+  final GameState state;
+
+  const HousingSection(this.state);
 
   @override
   Widget build(BuildContext context) {
-    return const Label(
-      text: 'Houses: 7 → 70',
-      color: Palette.white,
-      size: 35,
-    );
+    final List<House> houses = state.colony.getBuildings(House);
+    final int amount = houses.length;
+
+    if (amount == 0) {
+      return const Label(
+        text: 'No houses',
+        color: Palette.white,
+        size: 35,
+      );
+    } else {
+      return Label(
+        text: 'Houses: $amount → ${amount * Constants.HOUSE_POPULATION}',
+        color: Palette.white,
+        size: 35,
+      );
+    }
   }
 }
 

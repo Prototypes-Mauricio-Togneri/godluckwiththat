@@ -82,7 +82,9 @@ class PopulationBlock extends StatelessWidget {
           child: Center(
             child: Label(
               text: '${state.colony.freeVillagers.toString()} idle',
-              color: Palette.white,
+              color: state.colony.freeVillagers > 0
+                  ? Palette.error
+                  : Palette.success,
               size: 25,
             ),
           ),

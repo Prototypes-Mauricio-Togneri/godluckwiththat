@@ -29,6 +29,18 @@ class Colony {
 
   bool get hasFreeVillagers => freeVillagers > 0;
 
+  List<T> getBuildings<T extends Building>(Type type) {
+    final List<T> result = [];
+
+    for (final Building building in buildings) {
+      if (building is T) {
+        result.add(building);
+      }
+    }
+
+    return result;
+  }
+
   void update(double dt) {
     for (final Building building in buildings) {
       building.update(dt, this);
