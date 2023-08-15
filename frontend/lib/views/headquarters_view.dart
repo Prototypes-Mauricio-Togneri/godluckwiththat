@@ -53,7 +53,6 @@ class UpgradeSection extends StatelessWidget {
           color: Palette.success,
           icon: Icons.keyboard_arrow_up,
           onPressed: state.onUpgradeHeadquarters,
-          tooltipError: null,
           expand: false,
         ),
       ],
@@ -79,7 +78,6 @@ class CreateVillagerSection extends StatelessWidget {
           color: Palette.success,
           icon: Icons.person,
           onPressed: state.onAddVillagerQueue,
-          tooltipError: null,
           expand: false,
         ),
         if (tasks.isNotEmpty)
@@ -125,7 +123,6 @@ class BuildHouseSection extends StatelessWidget {
           color: Palette.success,
           icon: Icons.construction,
           onPressed: state.onBuildHouse,
-          tooltipError: null,
           expand: false,
         ),
         const HBox(20),

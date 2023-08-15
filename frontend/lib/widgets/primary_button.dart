@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/custom_tooltip.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 
 class PrimaryButton extends StatelessWidget {
@@ -8,7 +7,6 @@ class PrimaryButton extends StatelessWidget {
   final IconData? icon;
   final Color color;
   final VoidCallback? onPressed;
-  final String? tooltipError;
   final double textSize;
   final bool expand;
 
@@ -16,7 +14,6 @@ class PrimaryButton extends StatelessWidget {
     required this.text,
     required this.color,
     required this.onPressed,
-    required this.tooltipError,
     this.icon,
     this.textSize = 30,
     this.expand = true,
@@ -24,7 +21,7 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget button = ButtonContent(
+    return ButtonContent(
       text: text,
       icon: icon,
       color: color,
@@ -32,16 +29,6 @@ class PrimaryButton extends StatelessWidget {
       textSize: textSize,
       expand: expand,
     );
-
-    return ((tooltipError != null) && (onPressed == null))
-        ? CustomTooltip(
-            content: Label(
-              text: tooltipError!,
-              color: Palette.white,
-              size: 12,
-            ),
-            child: button)
-        : button;
   }
 }
 
