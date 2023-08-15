@@ -27,20 +27,17 @@ class Label extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 1),
-      child: Text(
-        text.toUpperCase(),
-        textAlign: align,
-        maxLines: maxLines,
-        style: TextStyle(
-          color: color,
-          height: 0.5,
-          fontSize: size,
-          fontWeight: weight,
-          fontFamily: Constants.FONT_NAME,
-          decoration: decoration,
-        ),
+    return Text(
+      text.toUpperCase(),
+      textAlign: align,
+      maxLines: maxLines,
+      style: TextStyle(
+        color: color,
+        height: 0.5,
+        fontSize: size,
+        fontWeight: weight,
+        fontFamily: Constants.FONT_NAME,
+        decoration: decoration,
       ),
     );
   }
