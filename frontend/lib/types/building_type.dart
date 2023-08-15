@@ -7,22 +7,23 @@ enum BuildingType {
   headquarters(
     sprite: Assets.IMAGES_BUILDINGS_MISC_HEADQUARTERS,
     initialCost: {
-      ResourceType.wood: 2,
+      ResourceType.wood: 100,
+      ResourceType.stone: 50,
     },
     produces: null,
   ),
   house(
     sprite: Assets.IMAGES_BUILDINGS_MISC_HOUSE,
     initialCost: {
-      ResourceType.wood: 2,
+      ResourceType.wood: 100,
     },
     produces: null,
   ),
   warehouse(
     sprite: Assets.IMAGES_BUILDINGS_MISC_WAREHOUSE,
     initialCost: {
-      ResourceType.wood: 20,
-      ResourceType.stone: 20,
+      ResourceType.wood: 200,
+      ResourceType.stone: 100,
     },
     produces: null,
   ),
@@ -30,28 +31,28 @@ enum BuildingType {
   well(
     sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_WELL,
     initialCost: {
-      ResourceType.wood: 5,
+      ResourceType.wood: 50,
     },
-    produces: ResourceType.food,
+    produces: ResourceType.water,
   ),
   field(
     sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_FIELD,
     initialCost: {
-      ResourceType.wood: 5,
+      ResourceType.wood: 100,
     },
     produces: ResourceType.food,
   ),
   woodcutter(
     sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_WOODCUTTER,
     initialCost: {
-      ResourceType.wood: 5,
+      ResourceType.wood: 150,
     },
     produces: ResourceType.wood,
   ),
   quarry(
     sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_QUARRY,
     initialCost: {
-      ResourceType.wood: 5,
+      ResourceType.wood: 200,
     },
     produces: ResourceType.stone,
   );
@@ -68,28 +69,7 @@ enum BuildingType {
 
   bool get isProducer => produces != null;
 
-  ResourceMap cost(int level) {
-    switch (this) {
-      case BuildingType.headquarters:
-      case BuildingType.house:
-      case BuildingType.warehouse:
-        return {
-          ResourceType.wood: level * 100,
-          ResourceType.stone: level * 10,
-        };
-      case BuildingType.well:
-      case BuildingType.field:
-      case BuildingType.woodcutter:
-      case BuildingType.quarry:
-        return {
-          ResourceType.wood: level * 100,
-        };
-    }
-  }
-
-  double constructionTime(int level) {
-    return 0;
-  }
+  ResourceMap cost(int level) => initialCost.multiply(level);
 
   int get productionRate {
     switch (this) {

@@ -14,6 +14,16 @@ extension ResourceMapExtension on ResourceMap {
   double get time =>
       resources().map((r) => r.amount).reduce((a, b) => a + b) / 10;
 
+  ResourceMap multiply(int factor) {
+    final ResourceMap result = {};
+
+    for (final Resource resource in resources()) {
+      result[resource.resourceType] = resource.amount * factor;
+    }
+
+    return result;
+  }
+
   String join() {
     String result = '';
 

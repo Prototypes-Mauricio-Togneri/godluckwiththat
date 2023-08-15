@@ -1,6 +1,5 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/misc/house.dart';
@@ -162,7 +161,7 @@ class HousingSection extends StatelessWidget {
       );
     } else {
       return Label(
-        text: 'Houses: $amount → ${amount * Constants.HOUSE_POPULATION}',
+        text: 'Houses: $amount',
         color: Palette.white,
         size: 35,
       );

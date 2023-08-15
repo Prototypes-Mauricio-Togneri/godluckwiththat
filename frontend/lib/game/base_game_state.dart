@@ -21,7 +21,7 @@ class BaseGameState extends BaseState {
       inventory: Inventory.fromResourceMap({
         ResourceType.villager: 5,
         ResourceType.water: 100,
-        ResourceType.food: 2000,
+        ResourceType.food: 200,
         ResourceType.wood: 300,
         ResourceType.stone: 400,
       }),
