@@ -8,6 +8,7 @@ import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/primary_button.dart';
 import 'package:godluckwiththat/widgets/queue_indicator.dart';
+import 'package:godluckwiththat/widgets/tooltip.dart';
 
 class HeadquartersView extends StatelessWidget {
   final GameState state;
@@ -73,12 +74,16 @@ class CreateVillagerSection extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        PrimaryButton(
-          text: 'Create Villager',
-          color: Palette.success,
-          icon: Icons.person,
-          onPressed: state.onAddVillagerQueue,
-          expand: false,
+        CostTooltip(
+          cost: state.villagerCost,
+          inventory: state.colony.inventory,
+          child: PrimaryButton(
+            text: 'Create Villager',
+            color: Palette.success,
+            icon: Icons.person,
+            onPressed: state.onAddVillagerQueue,
+            expand: false,
+          ),
         ),
         if (tasks.isNotEmpty)
           Padding(
