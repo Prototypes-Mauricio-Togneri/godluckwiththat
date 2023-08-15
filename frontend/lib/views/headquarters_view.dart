@@ -4,6 +4,7 @@ import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
+import 'package:godluckwiththat/models/tasks/upgrade_building_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
@@ -47,13 +48,13 @@ class UpgradeSection extends StatelessWidget {
     final Inventory inventory = state.colony.inventory;
     final ResourceMap upgradeCost = headquarters.upgradeCost;
     final bool hasResources = inventory.hasResources(upgradeCost);
-    //final UpgradeBuildingTask? task = headquarters.upgradeTask;
+    final UpgradeBuildingTask? task = headquarters.upgradeTask;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const Label(
-          text: 'Town Center level: 3',
+        Label(
+          text: 'Town Center level: ${headquarters.level}',
           color: Palette.white,
           size: 35,
         ),
@@ -65,13 +66,25 @@ class UpgradeSection extends StatelessWidget {
           child: PrimaryButton(
             text: 'Upgrade',
             color: Palette.success,
-            icon: Icons.keyboard_arrow_up,
+            icon: Icons.person,
             onPressed: hasResources
-                ? () => state.onUpgradeHeadquarters(upgradeCost)
+                ? () => state.onAddUpgradeHeadquarters(upgradeCost)
                 : null,
             expand: false,
           ),
         ),
+        if (task != null)
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: QueueIndicator(
+              sprite: ResourceType.villager.sprite,
+              progress: task.progress,
+              size: 1,
+              onTap: () => state.onRemoveUpgradeHeadquarters(upgradeCost),
+            ),
+          )
+        else
+          const HBox(65),
       ],
     );
   }

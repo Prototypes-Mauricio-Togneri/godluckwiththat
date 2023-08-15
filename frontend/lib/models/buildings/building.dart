@@ -35,7 +35,7 @@ class Building {
     upgradeTask ??= UpgradeBuildingTask(cost);
   }
 
-  void removeVillagerQueue() {
+  void removeUpgradeQueue() {
     upgradeTask = null;
   }
 

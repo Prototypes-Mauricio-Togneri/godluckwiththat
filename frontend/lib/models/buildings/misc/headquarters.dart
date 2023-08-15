@@ -18,7 +18,6 @@ class Headquarters extends Building {
     createVillagerTasks.add(CreateVillagerTask(cost));
   }
 
-  @override
   void removeVillagerQueue() {
     createVillagerTasks.removeAt(createVillagerTasks.length - 1);
   }
