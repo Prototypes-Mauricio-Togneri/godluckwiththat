@@ -48,5 +48,6 @@ flutter:
     - assets/images/
     - assets/images/buildings/misc/
     - assets/images/buildings/producers/
+    - assets/images/other/
     - assets/images/patches/
     - assets/images/resources/

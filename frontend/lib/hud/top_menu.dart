@@ -75,7 +75,7 @@ class ResourcesHud extends StatelessWidget {
                   : Palette.white,
             ),
             ResourceIndicator(
-              sprite: Assets.IMAGES_RESOURCES_IDLE,
+              sprite: Assets.IMAGES_OTHER_IDLE,
               value: state.colony.freeVillagers.toString(),
               tooltip: 'Idle villagers',
             ),

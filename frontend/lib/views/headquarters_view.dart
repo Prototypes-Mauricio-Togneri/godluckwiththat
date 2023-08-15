@@ -8,6 +8,7 @@ import 'package:godluckwiththat/models/tasks/upgrade_building_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/utils/assets.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/primary_button.dart';
@@ -67,7 +68,7 @@ class UpgradeSection extends StatelessWidget {
             text: 'Upgrade',
             color: Palette.success,
             icon: Icons.person,
-            onPressed: hasResources
+            onPressed: (task == null) && hasResources
                 ? () => state.onAddUpgradeHeadquarters(upgradeCost)
                 : null,
             expand: false,
@@ -77,7 +78,7 @@ class UpgradeSection extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: QueueIndicator(
-              sprite: ResourceType.villager.sprite,
+              sprite: Assets.IMAGES_OTHER_UPGRADE,
               progress: task.progress,
               size: 0,
               onTap: () => state.onRemoveUpgradeHeadquarters(upgradeCost),

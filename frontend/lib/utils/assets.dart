@@ -11,10 +11,11 @@ class Assets {
 	static const String IMAGES_BUILDINGS_PRODUCERS_FIELD = './assets/images/buildings/producers/field.png';
 	static const String IMAGES_RESOURCES_FOOD = './assets/images/resources/food.png';
 	static const String IMAGES_RESOURCES_VILLAGER = './assets/images/resources/villager.png';
-	static const String IMAGES_RESOURCES_IDLE = './assets/images/resources/idle.png';
 	static const String IMAGES_RESOURCES_STONE = './assets/images/resources/stone.png';
 	static const String IMAGES_RESOURCES_WOOD = './assets/images/resources/wood.png';
 	static const String IMAGES_RESOURCES_WATER = './assets/images/resources/water.png';
+	static const String IMAGES_OTHER_UPGRADE = './assets/images/other/upgrade.png';
+	static const String IMAGES_OTHER_IDLE = './assets/images/other/idle.png';
 	static const String IMAGES_PATCHES_FOOD = './assets/images/patches/food.png';
 	static const String IMAGES_PATCHES_STONE = './assets/images/patches/stone.png';
 	static const String IMAGES_PATCHES_WOOD = './assets/images/patches/wood.png';
