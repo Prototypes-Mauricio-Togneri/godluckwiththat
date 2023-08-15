@@ -1,6 +1,7 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/game/base_game_state.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/types/building_type.dart';
 
 mixin GameStateActions on BaseGameState {
   void onAddVillagerQueue(ResourceMap cost) {
@@ -28,6 +29,22 @@ mixin GameStateActions on BaseGameState {
     colony.addResources(cost);
     repaint();
   }
+
+  // ======================================================================== \\
+
+  void onAddConstructBuilding(ResourceMap cost, BuildingType buildingType) {
+    colony.headquarters.addConstructBuildingQueue(cost, buildingType);
+    colony.removeResources(cost);
+    repaint();
+  }
+
+  void onRemoveConstructBuilding(ResourceMap cost, BuildingType buildingType) {
+    colony.headquarters.removeConstructBuildingQueue(buildingType);
+    colony.addResources(cost);
+    repaint();
+  }
+
+  // ======================================================================== \\
 
   void onBuildHouse() {
     repaint();

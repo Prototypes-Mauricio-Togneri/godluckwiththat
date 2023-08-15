@@ -7,6 +7,7 @@ import 'package:godluckwiththat/models/buildings/misc/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/resource.dart';
+import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 class Colony {
@@ -74,7 +75,6 @@ class Colony {
   void createVillager() {
     addFreeVillagers(1);
     inventory.addResource(Resource.villager(1));
-    print('');
   }
 
   int addFreeVillagers(int amount) {
@@ -87,6 +87,14 @@ class Colony {
     freeVillagers -= amount;
 
     return amount;
+  }
+
+  void createBuilding(BuildingType buildingType) {
+    buildings.add(Building.create(
+      buildingType: buildingType,
+      level: 1,
+      villagers: 0,
+    ));
   }
 
   void addResource(Resource resource) {
