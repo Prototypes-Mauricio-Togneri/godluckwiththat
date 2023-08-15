@@ -15,7 +15,7 @@ class CustomTooltip extends StatelessWidget {
   const CustomTooltip({
     required this.content,
     required this.child,
-    this.wait = const Duration(milliseconds: 500),
+    this.wait = const Duration(milliseconds: 1000),
     this.padding = 10,
   });
 
@@ -38,11 +38,13 @@ class CustomTooltip extends StatelessWidget {
 class CostTooltip extends StatelessWidget {
   final ResourceMap cost;
   final Inventory inventory;
+  final bool showInstant;
   final Widget child;
 
   const CostTooltip({
     required this.cost,
     required this.inventory,
+    required this.showInstant,
     required this.child,
   });
 
@@ -50,6 +52,7 @@ class CostTooltip extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTooltip(
       padding: 0,
+      wait: showInstant ? Duration.zero : const Duration(milliseconds: 1000),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -57,6 +60,9 @@ class CostTooltip extends StatelessWidget {
             ResourceIndicator(
               sprite: resource.resourceType.sprite,
               value: resource.amount.toString(),
+              textColor: inventory.hasResource(resource)
+                  ? Palette.white
+                  : Palette.error,
             ),
         ],
       ),

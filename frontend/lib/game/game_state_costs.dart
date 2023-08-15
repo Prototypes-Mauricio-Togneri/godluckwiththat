@@ -5,6 +5,5 @@ import 'package:godluckwiththat/types/resource_type.dart';
 mixin GameStateCosts on BaseGameState {
   ResourceMap get villagerCost => {
         ResourceType.food: 50,
-        ResourceType.wood: 100,
       };
 }

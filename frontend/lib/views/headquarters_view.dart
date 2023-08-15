@@ -1,5 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
+import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -68,6 +70,9 @@ class CreateVillagerSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Inventory inventory = state.colony.inventory;
+    final ResourceMap villagerCost = state.villagerCost;
+    final bool hasResources = inventory.hasResources(villagerCost);
     final List<CreateVillagerTask> tasks =
         state.colony.headquarters.createVillagerTasks;
 
@@ -75,13 +80,14 @@ class CreateVillagerSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         CostTooltip(
-          cost: state.villagerCost,
-          inventory: state.colony.inventory,
+          cost: villagerCost,
+          inventory: inventory,
+          showInstant: !hasResources,
           child: PrimaryButton(
             text: 'Create Villager',
             color: Palette.success,
             icon: Icons.person,
-            onPressed: state.onAddVillagerQueue,
+            onPressed: hasResources ? state.onAddVillagerQueue : null,
             expand: false,
           ),
         ),
