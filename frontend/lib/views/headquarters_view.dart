@@ -102,7 +102,9 @@ class CreateVillagerSection extends StatelessWidget {
               size: tasks.length,
               onTap: () => state.onRemoveVillagerQueue(villagerCost),
             ),
-          ),
+          )
+        else
+          const HBox(65),
       ],
     );
   }
