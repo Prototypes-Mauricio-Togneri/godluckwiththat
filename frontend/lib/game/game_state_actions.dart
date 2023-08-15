@@ -3,12 +3,14 @@ import 'package:godluckwiththat/game/base_game_state.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 
 mixin GameStateActions on BaseGameState {
-  void onUpgradeHeadquarters() {
+  void onUpgradeHeadquarters(ResourceMap cost) {
+    colony.headquarters.addUpgradeQueue(cost);
+    colony.removeResources(cost);
     repaint();
   }
 
   void onAddVillagerQueue(ResourceMap cost) {
-    colony.headquarters.addVillagerQueue();
+    colony.headquarters.addVillagerQueue(cost);
     colony.removeResources(cost);
     repaint();
   }

@@ -1,16 +1,5 @@
-class CreateVillagerTask {
-  double totalTime;
-  double remainingTime = 0;
+import 'package:godluckwiththat/models/tasks/task.dart';
 
-  CreateVillagerTask(this.totalTime) {
-    remainingTime = totalTime;
-  }
-
-  double get progress => 1 - (remainingTime / totalTime);
-
-  bool update(double dt) {
-    remainingTime -= dt;
-
-    return remainingTime <= 0;
-  }
+class CreateVillagerTask extends Task {
+  CreateVillagerTask(super.cost);
 }

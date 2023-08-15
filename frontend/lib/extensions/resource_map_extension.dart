@@ -11,6 +11,9 @@ extension ResourceMapExtension on ResourceMap {
 
   int get(ResourceType resourceType) => this[resourceType] ?? 0;
 
+  double get time =>
+      resources().map((r) => r.amount).reduce((a, b) => a + b) / 10;
+
   String join() {
     String result = '';
 

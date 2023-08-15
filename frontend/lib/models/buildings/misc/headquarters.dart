@@ -1,3 +1,4 @@
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
@@ -13,16 +14,19 @@ class Headquarters extends Building {
           villagers: 0,
         );
 
-  void addVillagerQueue() {
-    createVillagerTasks.add(CreateVillagerTask(6));
+  void addVillagerQueue(ResourceMap cost) {
+    createVillagerTasks.add(CreateVillagerTask(cost));
   }
 
+  @override
   void removeVillagerQueue() {
     createVillagerTasks.removeAt(createVillagerTasks.length - 1);
   }
 
   @override
   void update(double dt, Colony colony) {
+    super.update(dt, colony);
+
     if (createVillagerTasks.isNotEmpty) {
       if (createVillagerTasks.first.update(dt)) {
         colony.createVillager();
