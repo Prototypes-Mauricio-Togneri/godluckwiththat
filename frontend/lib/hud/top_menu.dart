@@ -77,18 +77,13 @@ class PopulationBlock extends StatelessWidget {
               '${state.colony.inventory.get(ResourceType.villager)}/${state.colony.populationLimit}',
           tooltip: 'Population',
         ),
-        SizedBox(
-          height: 30,
-          child: Center(
-            child: Label(
-              text: '${state.colony.freeVillagers.toString()} idle',
-              color: state.colony.freeVillagers > 0
-                  ? Palette.error
-                  : Palette.success,
-              size: 25,
-            ),
-          ),
+        Label(
+          text: '${state.colony.freeVillagers.toString()} idle',
+          color:
+              state.colony.freeVillagers > 0 ? Palette.error : Palette.success,
+          size: 25,
         ),
+        const VBox(5),
       ],
     );
   }
@@ -117,26 +112,12 @@ class ResourceBlock extends StatelessWidget {
           value: inventory.get(resourceType).toString(),
           tooltip: resourceType.toString(),
         ),
-        SizedBox(
-          height: 30,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                (production >= 0)
-                    ? Icons.arrow_drop_up_sharp
-                    : Icons.arrow_drop_down_sharp,
-                color: (production >= 0) ? Palette.success : Palette.error,
-                size: 30,
-              ),
-              Label(
-                text: '${Formatter.production(production)}/day',
-                color: Palette.white,
-                size: 25,
-              ),
-            ],
-          ),
+        Label(
+          text: '${Formatter.production(production)}/day',
+          color: production > 0 ? Palette.success : Palette.error,
+          size: 25,
         ),
+        const VBox(5),
       ],
     );
   }
