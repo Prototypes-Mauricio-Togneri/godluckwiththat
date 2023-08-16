@@ -101,8 +101,10 @@ class WellEntry extends StatelessWidget {
           ),
           const HBox(50),
           Label(
-            text: 'Resources left: ${Formatter.resource(well.resourcesLeft)}',
-            color: Palette.white,
+            text: well.hasResourcesLeft
+                ? 'Resources left: ${Formatter.resource(well.resourcesLeft)}'
+                : 'Depleted',
+            color: well.hasResourcesLeft ? Palette.white : Palette.error,
             size: 35,
           ),
           const Spacer(),

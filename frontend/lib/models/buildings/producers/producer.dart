@@ -18,7 +18,9 @@ abstract class Producer extends Building {
     required super.villagers,
   }) : super(buildingType: buildingType);
 
-  double get production => productionRate * villagers;
+  bool get hasResourcesLeft => resourcesLeft > 1;
+
+  double get production => hasResourcesLeft ? (productionRate * villagers) : 0;
 
   double get productionRate;
 
@@ -26,7 +28,7 @@ abstract class Producer extends Building {
   void update(double dt, Colony colony) {
     super.update(dt, colony);
 
-    if (resourcesLeft > 0) {
+    if (hasResourcesLeft) {
       final double produced = production * (dt / Constants.SECONDS_PER_DAY);
       resourcesLeft -= produced;
       colony.addResource(Resource(resourceType, produced));
