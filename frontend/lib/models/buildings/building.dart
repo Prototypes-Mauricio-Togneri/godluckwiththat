@@ -78,12 +78,16 @@ class Building {
       (buildingType == BuildingType.woodcutter) ||
       (buildingType == BuildingType.quarry);
 
-  void addVillagers(int amount) {
-    villagers += amount;
+  void addVillager() {
+    if (colony.hasFreeVillagers && canHoldMoreVillagers) {
+      villagers += colony.removeFreeVillagers(1);
+    }
   }
 
-  void removeVillagers(int amount) {
-    villagers -= amount;
+  void removeVillagers() {
+    if (hasVillagers) {
+      villagers -= colony.addFreeVillagers(1);
+    }
   }
 
   void destroy() {}
