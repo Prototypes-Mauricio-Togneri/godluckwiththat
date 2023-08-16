@@ -39,7 +39,7 @@ class BaseGameState extends BaseState {
         colony: colony,
         level: 2,
         villagers: 0,
-        resourcesLeft: 5,
+        resourcesLeft: 100,
       ),
     ]);
   }
