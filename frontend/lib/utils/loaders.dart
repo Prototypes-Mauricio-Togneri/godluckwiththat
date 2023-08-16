@@ -14,6 +14,12 @@ class Loaders {
   static Building? building(JsonPatch jsonPatch) {
     if (jsonPatch.building != null) {
       return Building.create(
+        colony: colony(const JsonColony(
+          owner: '',
+          inventory: {},
+          freeVillagers: 0,
+          color: '',
+        )),
         buildingType: jsonPatch.building!.buildingType,
         level: jsonPatch.building!.level,
         villagers: jsonPatch.building!.workers,

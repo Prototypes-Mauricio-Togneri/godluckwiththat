@@ -120,6 +120,7 @@ class Colony {
     required int resourcesLeft,
   }) {
     buildings.add(Building.create(
+      colony: this,
       buildingType: buildingType,
       level: 1,
       villagers: 0,

@@ -27,16 +27,22 @@ class BaseGameState extends BaseState {
         ResourceType.wood: 300,
         ResourceType.stone: 400,
       }),
-      buildings: [
-        Headquarters(level: 1),
-        Well(
-          level: 2,
-          villagers: 0,
-          resourcesLeft: 500,
-        ),
-      ],
+      buildings: [],
       freeVillagers: 5,
     );
+
+    colony.buildings.addAll([
+      Headquarters(
+        colony: colony,
+        level: 1,
+      ),
+      Well(
+        colony: colony,
+        level: 2,
+        villagers: 0,
+        resourcesLeft: 500,
+      ),
+    ]);
   }
 
   bool isSelected(MenuType type) => menuType == type;

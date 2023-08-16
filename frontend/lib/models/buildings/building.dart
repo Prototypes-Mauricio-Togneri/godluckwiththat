@@ -13,12 +13,14 @@ import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 
 class Building {
+  final Colony colony;
   final BuildingType buildingType;
   int level;
   int villagers;
   UpgradeBuildingTask? upgradeTask;
 
   Building({
+    required this.colony,
     required this.buildingType,
     required this.level,
     required this.villagers,
@@ -83,6 +85,7 @@ class Building {
   void destroy() {}
 
   factory Building.create({
+    required Colony colony,
     required BuildingType buildingType,
     required int level,
     required int villagers,
@@ -91,36 +94,43 @@ class Building {
     switch (buildingType) {
       case BuildingType.headquarters:
         return Headquarters(
+          colony: colony,
           level: level,
         );
       case BuildingType.house:
         return House(
+          colony: colony,
           level: level,
         );
       case BuildingType.warehouse:
         return Warehouse(
+          colony: colony,
           level: level,
         );
       case BuildingType.well:
         return Well(
+          colony: colony,
           level: level,
           villagers: villagers,
           resourcesLeft: resourcesLeft,
         );
       case BuildingType.field:
         return Field(
+          colony: colony,
           level: level,
           villagers: villagers,
           resourcesLeft: resourcesLeft,
         );
       case BuildingType.woodcutter:
         return Woodcutter(
+          colony: colony,
           level: level,
           villagers: villagers,
           resourcesLeft: resourcesLeft,
         );
       case BuildingType.quarry:
         return Quarry(
+          colony: colony,
           level: level,
           villagers: villagers,
           resourcesLeft: resourcesLeft,

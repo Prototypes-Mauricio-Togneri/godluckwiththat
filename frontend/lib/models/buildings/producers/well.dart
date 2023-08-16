@@ -4,6 +4,7 @@ import 'package:godluckwiththat/types/resource_type.dart';
 
 class Well extends Producer {
   Well({
+    required super.colony,
     required super.level,
     required super.villagers,
     required super.resourcesLeft,

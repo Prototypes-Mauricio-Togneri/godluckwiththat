@@ -8,6 +8,7 @@ class Headquarters extends Building {
   final List<CreateVillagerTask> createVillagerTasks = [];
 
   Headquarters({
+    required super.colony,
     required super.level,
   }) : super(
           buildingType: BuildingType.headquarters,

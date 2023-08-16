@@ -4,6 +4,7 @@ import 'package:godluckwiththat/types/resource_type.dart';
 
 class Field extends Producer {
   Field({
+    required super.colony,
     required super.level,
     required super.villagers,
     required super.resourcesLeft,

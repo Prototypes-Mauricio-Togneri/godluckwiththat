@@ -10,6 +10,7 @@ class Producer extends Building {
     required BuildingType buildingType,
     required this.resourceType,
     required this.resourcesLeft,
+    required super.colony,
     required super.level,
     required super.villagers,
   }) : super(buildingType: buildingType);
