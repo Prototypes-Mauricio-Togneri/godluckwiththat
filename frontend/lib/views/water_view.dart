@@ -4,6 +4,7 @@ import 'package:godluckwiththat/models/buildings/producers/well.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/label.dart';
+import 'package:godluckwiththat/widgets/primary_button.dart';
 
 class WaterView extends StatelessWidget {
   final GameState state;
@@ -105,6 +106,14 @@ class WellEntry extends StatelessWidget {
             text: 'Resources left: ${well.resourcesLeft}',
             color: Palette.white,
             size: 35,
+          ),
+          const Spacer(),
+          PrimaryButton(
+            text: 'Destroy',
+            expand: false,
+            icon: Icons.delete,
+            color: Palette.error,
+            onPressed: well.destroy,
           ),
         ],
       ),

@@ -71,6 +71,8 @@ class Building {
     villagers -= amount;
   }
 
+  void destroy() {}
+
   factory Building.create({
     required BuildingType buildingType,
     required int level,
