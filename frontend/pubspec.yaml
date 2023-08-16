@@ -4,7 +4,7 @@ publish_to: none
 version: 0.0.1+1
 
 environment:
-  sdk: '>=3.0.6 <4.0.0'
+  sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
   get_it: ^7.6.0
@@ -15,10 +15,10 @@ dependencies:
   just_the_tooltip: ^0.0.12
   shared_preferences: ^2.2.0
 
-  cloud_firestore: ^4.8.4
-  firebase_core: ^2.15.0
-  firebase_auth: ^4.7.2
-  firebase_crashlytics: ^3.3.4
+  cloud_firestore: ^4.8.5
+  firebase_core: ^2.15.1
+  firebase_auth: ^4.7.3
+  firebase_crashlytics: ^3.3.5
 
   flutter:
     sdk: flutter

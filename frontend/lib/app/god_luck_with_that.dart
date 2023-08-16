@@ -16,6 +16,7 @@ class GodLuckWithThat extends StatelessWidget {
       title: ENLocalized().applicationName,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        useMaterial3: false,
         primaryColor: Palette.primary,
         primarySwatch: Palette.primary,
         scaffoldBackgroundColor: Palette.black,
