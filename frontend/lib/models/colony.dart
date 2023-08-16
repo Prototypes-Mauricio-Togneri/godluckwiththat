@@ -7,6 +7,7 @@ import 'package:godluckwiththat/models/buildings/misc/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/resource.dart';
+import 'package:godluckwiththat/models/tasks/construct_building.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
@@ -14,6 +15,7 @@ class Colony {
   final Inventory inventory;
   final List<Building> buildings;
   late final Headquarters headquarters;
+  final List<ConstructBuildingTask> buildHouseTasks = [];
   int freeVillagers;
 
   Colony({
@@ -43,6 +45,15 @@ class Colony {
   }
 
   void update(double dt) {
+    if (buildHouseTasks.isNotEmpty) {
+      final ConstructBuildingTask task = buildHouseTasks.first;
+
+      if (task.update(dt)) {
+        _createBuilding(task.buildingType);
+        buildHouseTasks.removeAt(0);
+      }
+    }
+
     for (final Building building in buildings) {
       building.update(dt, this);
     }
@@ -89,7 +100,19 @@ class Colony {
     return amount;
   }
 
-  void createBuilding(BuildingType buildingType) {
+  void addConstructBuildingQueue(ResourceMap cost, BuildingType buildingType) {
+    if (buildingType == BuildingType.house) {
+      buildHouseTasks.add(ConstructBuildingTask(cost, buildingType));
+    }
+  }
+
+  void removeConstructBuildingQueue(BuildingType buildingType) {
+    if (buildingType == BuildingType.house) {
+      buildHouseTasks.removeAt(buildHouseTasks.length - 1);
+    }
+  }
+
+  void _createBuilding(BuildingType buildingType) {
     buildings.add(Building.create(
       buildingType: buildingType,
       level: 1,

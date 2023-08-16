@@ -33,13 +33,13 @@ mixin GameStateActions on BaseGameState {
   // ======================================================================== \\
 
   void onAddConstructBuilding(ResourceMap cost, BuildingType buildingType) {
-    colony.headquarters.addConstructBuildingQueue(cost, buildingType);
+    colony.addConstructBuildingQueue(cost, buildingType);
     colony.removeResources(cost);
     repaint();
   }
 
   void onRemoveConstructBuilding(ResourceMap cost, BuildingType buildingType) {
-    colony.headquarters.removeConstructBuildingQueue(buildingType);
+    colony.removeConstructBuildingQueue(buildingType);
     colony.addResources(cost);
     repaint();
   }

@@ -179,8 +179,7 @@ class BuildHouseSection extends StatelessWidget {
     final Inventory inventory = state.colony.inventory;
     final ResourceMap cost = BuildingType.house.cost(1);
     final bool hasResources = inventory.hasResources(cost);
-    final List<ConstructBuildingTask> tasks =
-        state.colony.headquarters.buildHouseTasks;
+    final List<ConstructBuildingTask> tasks = state.colony.buildHouseTasks;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
