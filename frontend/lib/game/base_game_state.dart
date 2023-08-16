@@ -30,7 +30,7 @@ class BaseGameState extends BaseState {
       buildings: [
         Headquarters(level: 1),
         Well(
-          level: 1,
+          level: 2,
           villagers: 0,
           resourcesLeft: 500,
         ),

@@ -145,7 +145,7 @@ class WorkersSelector extends StatelessWidget {
         const HBox(10),
         Label(
           text: '${building.villagers}/${building.level}',
-          color: Palette.white,
+          color: building.villagersAmountColor,
           size: 35,
         ),
         const HBox(10),
@@ -177,7 +177,7 @@ class WorkerSelectorButton extends StatelessWidget {
     return Container(
       width: 45,
       height: 45,
-      color: color,
+      color: (onTap != null) ? color : Palette.lightGrey,
       child: Material(
         color: Palette.transparent,
         child: InkWell(

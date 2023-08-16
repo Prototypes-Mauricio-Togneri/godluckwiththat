@@ -10,6 +10,7 @@ import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/tasks/upgrade_building_task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/utils/palette.dart';
 
 class Building {
   final BuildingType buildingType;
@@ -25,9 +26,17 @@ class Building {
 
   bool get hasVillagers => villagers > 0;
 
-  bool get canHaveMoreVillagers => villagers < level;
-
   bool get canAddVillagers => level > villagers;
+
+  Color get villagersAmountColor {
+    if (villagers == 0) {
+      return Palette.error;
+    } else if (villagers == level) {
+      return Palette.success;
+    } else {
+      return Palette.white;
+    }
+  }
 
   ResourceMap get upgradeCost => buildingType.cost(level + 1);
 
