@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/services.dart';
 import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/json/json_match.dart';
+import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/producers/well.dart';
 import 'package:godluckwiththat/models/colony.dart';
@@ -60,15 +61,16 @@ class BaseGameState extends BaseState {
   void update(double dt) {
     totalTimeElapsed += dt;
     colony.update(dt);
-    repaint();
   }
 
   void openMenu(MenuType type) {
     menuType = type;
-    repaint();
   }
 
   void onOpenMainMenu() {}
 
-  void repaint() {}
+  bool canAddVillagers(Building building) =>
+      colony.hasFreeVillagers && building.canAddVillagers;
+
+  bool canRemoveVillagers(Building building) => building.hasVillagers;
 }

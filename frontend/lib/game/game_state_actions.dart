@@ -7,13 +7,11 @@ mixin GameStateActions on BaseGameState {
   void onAddVillagerQueue(ResourceMap cost) {
     colony.headquarters.addVillagerQueue(cost);
     colony.removeResources(cost);
-    repaint();
   }
 
   void onRemoveVillagerQueue(ResourceMap cost) {
     colony.headquarters.removeVillagerQueue();
     colony.addResources(cost);
-    repaint();
   }
 
   // ======================================================================== \\
@@ -21,13 +19,11 @@ mixin GameStateActions on BaseGameState {
   void onAddUpgradeHeadquarters(ResourceMap cost) {
     colony.headquarters.addUpgradeQueue(cost);
     colony.removeResources(cost);
-    repaint();
   }
 
   void onRemoveUpgradeHeadquarters(ResourceMap cost) {
     colony.headquarters.removeUpgradeQueue();
     colony.addResources(cost);
-    repaint();
   }
 
   // ======================================================================== \\
@@ -35,36 +31,24 @@ mixin GameStateActions on BaseGameState {
   void onAddConstructBuilding(ResourceMap cost, BuildingType buildingType) {
     colony.addConstructBuildingQueue(cost, buildingType);
     colony.removeResources(cost);
-    repaint();
   }
 
   void onRemoveConstructBuilding(ResourceMap cost, BuildingType buildingType) {
     colony.removeConstructBuildingQueue(buildingType);
     colony.addResources(cost);
-    repaint();
   }
 
   // ======================================================================== \\
 
-  void onBuildHouse() {
-    repaint();
-  }
-
-  void onRemoveHouseQueue() {
-    repaint();
-  }
-
   void onAddVillager(Building building) {
-    if (colony.hasFreeVillagers) {
+    if (colony.hasFreeVillagers && building.canAddVillagers) {
       building.addVillagers(colony.removeFreeVillagers(1));
-      repaint();
     }
   }
 
   void onRemoveVillager(Building building) {
     if (building.hasVillagers) {
       building.removeVillagers(colony.addFreeVillagers(1));
-      repaint();
     }
   }
 }

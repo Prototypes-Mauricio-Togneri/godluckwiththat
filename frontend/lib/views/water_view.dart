@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/producers/well.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
@@ -48,7 +49,7 @@ class WellSection extends StatelessWidget {
             size: 35,
           ),
           const VBox(20),
-          for (final Well well in wells) WellEntry(well),
+          for (final Well well in wells) WellEntry(state, well),
         ],
       );
     }
@@ -56,9 +57,10 @@ class WellSection extends StatelessWidget {
 }
 
 class WellEntry extends StatelessWidget {
+  final GameState state;
   final Well well;
 
-  const WellEntry(this.well);
+  const WellEntry(this.state, this.well);
 
   @override
   Widget build(BuildContext context) {
@@ -90,10 +92,8 @@ class WellEntry extends StatelessWidget {
           ),
           const HBox(20),
           WorkersSelector(
-            value: well.villagers,
-            max: well.level,
-            onIncrease: () => well.addVillagers(1),
-            onDecrease: () => well.removeVillagers(1),
+            state: state,
+            building: well,
           ),
           const HBox(50),
           Label(
@@ -122,16 +122,12 @@ class WellEntry extends StatelessWidget {
 }
 
 class WorkersSelector extends StatelessWidget {
-  final int value;
-  final int max;
-  final VoidCallback onIncrease;
-  final VoidCallback onDecrease;
+  final GameState state;
+  final Building building;
 
   const WorkersSelector({
-    required this.value,
-    required this.max,
-    required this.onIncrease,
-    required this.onDecrease,
+    required this.state,
+    required this.building,
   });
 
   @override
@@ -142,11 +138,13 @@ class WorkersSelector extends StatelessWidget {
         WorkerSelectorButton(
           icon: Icons.remove,
           color: Palette.error,
-          onTap: onDecrease,
+          onTap: state.canRemoveVillagers(building)
+              ? () => state.onRemoveVillager(building)
+              : null,
         ),
         const HBox(10),
         Label(
-          text: '$value/$max',
+          text: '${building.villagers}/${building.level}',
           color: Palette.white,
           size: 35,
         ),
@@ -154,7 +152,9 @@ class WorkersSelector extends StatelessWidget {
         WorkerSelectorButton(
           icon: Icons.add,
           color: Palette.success,
-          onTap: onIncrease,
+          onTap: state.canAddVillagers(building)
+              ? () => state.onAddVillager(building)
+              : null,
         ),
       ],
     );
@@ -164,7 +164,7 @@ class WorkersSelector extends StatelessWidget {
 class WorkerSelectorButton extends StatelessWidget {
   final IconData icon;
   final Color color;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const WorkerSelectorButton({
     required this.icon,
