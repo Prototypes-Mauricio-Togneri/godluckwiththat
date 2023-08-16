@@ -2,14 +2,14 @@ import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
-typedef ResourceMap = Map<ResourceType, int>;
+typedef ResourceMap = Map<ResourceType, double>;
 
 extension ResourceMapExtension on ResourceMap {
   Inventory get asInventory => Inventory.fromResourceMap(this);
 
   bool contains(ResourceType resourceType) => keys.contains(resourceType);
 
-  int get(ResourceType resourceType) => this[resourceType] ?? 0;
+  double get(ResourceType resourceType) => this[resourceType] ?? 0;
 
   double get time =>
       resources().map((r) => r.amount).reduce((a, b) => a + b) / 10;

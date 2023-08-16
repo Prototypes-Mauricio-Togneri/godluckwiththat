@@ -3,7 +3,7 @@ import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/json.dart';
 
-typedef JsonInventory = Map<ResourceType, int>;
+typedef JsonInventory = Map<ResourceType, double>;
 
 class Inventory {
   final ResourceMap _resources;
@@ -25,18 +25,18 @@ class Inventory {
 
   ResourceMap get resourceMap => _resources;
 
-  int get(ResourceType resourceType) => _resources.get(resourceType);
+  double get(ResourceType resourceType) => _resources.get(resourceType);
 
   Resource resource(ResourceType resourceType) =>
       Resource(resourceType, get(resourceType));
 
   void addResource(Resource resource) {
-    final int current = get(resource.resourceType);
+    final double current = get(resource.resourceType);
     _resources[resource.resourceType] = current + resource.amount;
   }
 
   void removeResource(Resource resource) {
-    final int current = get(resource.resourceType);
+    final double current = get(resource.resourceType);
     _resources[resource.resourceType] = current - resource.amount;
   }
 

@@ -6,4 +6,10 @@ class Formatter {
 
     return formatter.format(amount);
   }
+
+  static String resource(num amount) {
+    final NumberFormat formatter = NumberFormat('0');
+
+    return formatter.format(amount);
+  }
 }

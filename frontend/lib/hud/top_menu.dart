@@ -109,7 +109,7 @@ class ResourceBlock extends StatelessWidget {
       children: [
         ResourceIndicator(
           sprite: resourceType.sprite,
-          value: inventory.get(resourceType).toString(),
+          value: Formatter.resource(inventory.get(resourceType)),
           tooltip: resourceType.toString(),
         ),
         Label(

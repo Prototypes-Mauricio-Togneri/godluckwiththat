@@ -9,7 +9,7 @@ part of 'json_colony.dart';
 JsonColony _$JsonColonyFromJson(Map<String, dynamic> json) => JsonColony(
       owner: json['owner'] as String,
       inventory: (json['inventory'] as Map<String, dynamic>).map(
-        (k, e) => MapEntry($enumDecode(_$ResourceTypeEnumMap, k), e as int),
+        (k, e) => MapEntry($enumDecode(_$ResourceTypeEnumMap, k), e as double),
       ),
       freeVillagers: json['freeVillagers'] as int,
       color: json['color'] as String,

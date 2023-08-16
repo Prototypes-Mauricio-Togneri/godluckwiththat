@@ -3,7 +3,7 @@ import 'package:godluckwiththat/types/resource_type.dart';
 
 class Resource {
   final ResourceType resourceType;
-  final int amount;
+  final double amount;
 
   const Resource(this.resourceType, this.amount);
 
@@ -11,15 +11,15 @@ class Resource {
 
   factory Resource.one(ResourceType resourceType) => Resource(resourceType, 1);
 
-  factory Resource.water(int amount) => Resource(ResourceType.food, amount);
+  factory Resource.water(double amount) => Resource(ResourceType.food, amount);
 
-  factory Resource.food(int amount) => Resource(ResourceType.food, amount);
+  factory Resource.food(double amount) => Resource(ResourceType.food, amount);
 
-  factory Resource.wood(int amount) => Resource(ResourceType.wood, amount);
+  factory Resource.wood(double amount) => Resource(ResourceType.wood, amount);
 
-  factory Resource.stone(int amount) => Resource(ResourceType.stone, amount);
+  factory Resource.stone(double amount) => Resource(ResourceType.stone, amount);
 
-  factory Resource.villager(int amount) =>
+  factory Resource.villager(double amount) =>
       Resource(ResourceType.villager, amount);
 
   @override
