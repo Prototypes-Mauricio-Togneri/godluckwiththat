@@ -117,7 +117,7 @@ class Colony {
 
   void _createBuilding({
     required BuildingType buildingType,
-    required int resourcesLeft,
+    required double resourcesLeft,
   }) {
     buildings.add(Building.create(
       colony: this,

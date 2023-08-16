@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/producers/well.dart';
 import 'package:godluckwiththat/states/game_state.dart';
+import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/primary_button.dart';
@@ -100,7 +101,7 @@ class WellEntry extends StatelessWidget {
           ),
           const HBox(50),
           Label(
-            text: 'Resources left: ${well.resourcesLeft}',
+            text: 'Resources left: ${Formatter.resource(well.resourcesLeft)}',
             color: Palette.white,
             size: 35,
           ),

@@ -97,7 +97,7 @@ class Building {
     required BuildingType buildingType,
     required int level,
     required int villagers,
-    required int resourcesLeft,
+    required double resourcesLeft,
   }) {
     switch (buildingType) {
       case BuildingType.headquarters:

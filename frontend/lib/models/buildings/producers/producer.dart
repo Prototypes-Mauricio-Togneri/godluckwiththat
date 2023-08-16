@@ -7,7 +7,7 @@ import 'package:godluckwiththat/types/resource_type.dart';
 
 abstract class Producer extends Building {
   final ResourceType resourceType;
-  int resourcesLeft;
+  double resourcesLeft;
 
   Producer({
     required BuildingType buildingType,
@@ -26,7 +26,10 @@ abstract class Producer extends Building {
   void update(double dt, Colony colony) {
     super.update(dt, colony);
 
-    final double produced = production * (dt / Constants.SECONDS_PER_DAY);
-    colony.addResource(Resource(resourceType, produced));
+    if (resourcesLeft > 0) {
+      final double produced = production * (dt / Constants.SECONDS_PER_DAY);
+      resourcesLeft -= produced;
+      colony.addResource(Resource(resourceType, produced));
+    }
   }
 }
