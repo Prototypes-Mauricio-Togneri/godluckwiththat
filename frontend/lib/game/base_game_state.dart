@@ -68,9 +68,5 @@ class BaseGameState extends BaseState {
     colony.update(dt);
   }
 
-  void openMenu(MenuType type) {
-    menuType = type;
-  }
-
   void onOpenMainMenu() {}
 }
