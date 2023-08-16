@@ -1,4 +1,3 @@
-import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/assets.dart';
@@ -70,21 +69,6 @@ enum BuildingType {
   bool get isProducer => produces != null;
 
   ResourceMap cost(int level) => initialCost.multiply(level);
-
-  int get productionRate {
-    switch (this) {
-      case BuildingType.well:
-        return Constants.WATER_PRODUCTION_RATE;
-      case BuildingType.field:
-        return Constants.FIELD_PRODUCTION_RATE;
-      case BuildingType.woodcutter:
-        return Constants.WOODCUTTER_PRODUCTION_RATE;
-      case BuildingType.quarry:
-        return Constants.QUARRY_PRODUCTION_RATE;
-      default:
-        return 0;
-    }
-  }
 
   bool get canHostVillagers {
     switch (this) {

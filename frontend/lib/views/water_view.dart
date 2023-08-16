@@ -95,7 +95,7 @@ class WellEntry extends StatelessWidget {
           const HBox(50),
           Label(
             text: 'Production: ${well.production}/day',
-            color: Palette.white,
+            color: (well.production > 0) ? Palette.success : Palette.error,
             size: 35,
           ),
           const HBox(50),

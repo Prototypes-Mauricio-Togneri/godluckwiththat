@@ -6,10 +6,10 @@ class Constants {
   static const int HOUSE_POPULATION = 5;
   static const int HEADQUARTERS_POPULATION = 10;
 
-  static const int WATER_PRODUCTION_RATE = 10;
-  static const int FIELD_PRODUCTION_RATE = 10;
-  static const int WOODCUTTER_PRODUCTION_RATE = 10;
-  static const int QUARRY_PRODUCTION_RATE = 10;
+  static const double WELL_PRODUCTION_RATE = 1;
+  static const double FIELD_PRODUCTION_RATE = 1;
+  static const double WOODCUTTER_PRODUCTION_RATE = 1;
+  static const double QUARRY_PRODUCTION_RATE = 1;
 
   static const String EMPTY_MATCH = '''
 {
