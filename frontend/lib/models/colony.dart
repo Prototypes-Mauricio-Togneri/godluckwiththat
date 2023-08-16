@@ -49,7 +49,10 @@ class Colony {
       final ConstructBuildingTask task = buildHouseTasks.first;
 
       if (task.update(dt)) {
-        _createBuilding(task.buildingType);
+        _createBuilding(
+          buildingType: task.buildingType,
+          resourcesLeft: 0,
+        );
         buildHouseTasks.removeAt(0);
       }
     }
@@ -112,11 +115,15 @@ class Colony {
     }
   }
 
-  void _createBuilding(BuildingType buildingType) {
+  void _createBuilding({
+    required BuildingType buildingType,
+    required int resourcesLeft,
+  }) {
     buildings.add(Building.create(
       buildingType: buildingType,
       level: 1,
       villagers: 0,
+      resourcesLeft: resourcesLeft,
     ));
   }
 

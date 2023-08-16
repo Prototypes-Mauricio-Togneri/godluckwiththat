@@ -17,6 +17,7 @@ class Loaders {
         buildingType: jsonPatch.building!.buildingType,
         level: jsonPatch.building!.level,
         villagers: jsonPatch.building!.workers,
+        resourcesLeft: 0,
       );
     } else {
       return null;

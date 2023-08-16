@@ -6,6 +6,7 @@ class Woodcutter extends Producer {
   Woodcutter({
     required super.level,
     required super.villagers,
+    required super.resourcesLeft,
   }) : super(
           buildingType: BuildingType.woodcutter,
           resourceType: ResourceType.wood,

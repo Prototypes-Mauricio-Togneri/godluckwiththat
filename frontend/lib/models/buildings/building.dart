@@ -75,6 +75,7 @@ class Building {
     required BuildingType buildingType,
     required int level,
     required int villagers,
+    required int resourcesLeft,
   }) {
     switch (buildingType) {
       case BuildingType.headquarters:
@@ -93,21 +94,25 @@ class Building {
         return Well(
           level: level,
           villagers: villagers,
+          resourcesLeft: resourcesLeft,
         );
       case BuildingType.field:
         return Field(
           level: level,
           villagers: villagers,
+          resourcesLeft: resourcesLeft,
         );
       case BuildingType.woodcutter:
         return Woodcutter(
           level: level,
           villagers: villagers,
+          resourcesLeft: resourcesLeft,
         );
       case BuildingType.quarry:
         return Quarry(
           level: level,
           villagers: villagers,
+          resourcesLeft: resourcesLeft,
         );
     }
   }

@@ -6,6 +6,7 @@ class Field extends Producer {
   Field({
     required super.level,
     required super.villagers,
+    required super.resourcesLeft,
   }) : super(
           buildingType: BuildingType.field,
           resourceType: ResourceType.food,
