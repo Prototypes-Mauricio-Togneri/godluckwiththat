@@ -28,7 +28,7 @@ class Building {
 
   bool get hasVillagers => villagers > 0;
 
-  bool get canAddVillagers => level > villagers;
+  bool get canHoldMoreVillagers => level > villagers;
 
   Color get villagersAmountColor {
     if (villagers == 0) {
@@ -41,6 +41,10 @@ class Building {
   }
 
   ResourceMap get upgradeCost => buildingType.cost(level + 1);
+
+  bool get canAddVillagers => colony.hasFreeVillagers && canHoldMoreVillagers;
+
+  bool get canRemoveVillagers => hasVillagers;
 
   void addUpgradeQueue(ResourceMap cost) {
     upgradeTask ??= UpgradeBuildingTask(cost);

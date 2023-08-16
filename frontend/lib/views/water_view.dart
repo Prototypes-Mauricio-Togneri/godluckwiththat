@@ -138,7 +138,7 @@ class WorkersSelector extends StatelessWidget {
         WorkerSelectorButton(
           icon: Icons.remove,
           color: Palette.error,
-          onTap: state.canRemoveVillagers(building)
+          onTap: building.canRemoveVillagers
               ? () => state.onRemoveVillager(building)
               : null,
         ),
@@ -152,7 +152,7 @@ class WorkersSelector extends StatelessWidget {
         WorkerSelectorButton(
           icon: Icons.add,
           color: Palette.success,
-          onTap: state.canAddVillagers(building)
+          onTap: building.canAddVillagers
               ? () => state.onAddVillager(building)
               : null,
         ),

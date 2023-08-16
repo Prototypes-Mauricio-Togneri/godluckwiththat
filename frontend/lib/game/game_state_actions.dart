@@ -41,7 +41,7 @@ mixin GameStateActions on BaseGameState {
   // ======================================================================== \\
 
   void onAddVillager(Building building) {
-    if (colony.hasFreeVillagers && building.canAddVillagers) {
+    if (colony.hasFreeVillagers && building.canHoldMoreVillagers) {
       building.addVillagers(colony.removeFreeVillagers(1));
     }
   }
