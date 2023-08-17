@@ -1,4 +1,3 @@
-import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/resource.dart';
