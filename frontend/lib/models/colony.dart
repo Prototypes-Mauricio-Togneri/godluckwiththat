@@ -75,15 +75,19 @@ class Colony {
   }
 
   double consumptionOf(ResourceType resourceType) {
-    const double total = 0;
+    final double population = inventory.get(ResourceType.villager);
 
-    /*for (final Building building in buildings) {
-      if ((building is Producer) && (building.resourceType == resourceType)) {
-        total += building.production;
-      }
-    }*/
-
-    return total;
+    switch (resourceType) {
+      case ResourceType.water:
+        return population * Constants.WATER_CONSUMPTION_RATE;
+      case ResourceType.food:
+        return population * Constants.FOOD_CONSUMPTION_RATE;
+      case ResourceType.wood:
+        return population * Constants.WOOD_CONSUMPTION_RATE;
+      case ResourceType.stone:
+      case ResourceType.villager:
+        return 0;
+    }
   }
 
   double outputOf(ResourceType resourceType) =>

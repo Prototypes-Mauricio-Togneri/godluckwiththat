@@ -11,6 +11,10 @@ class Constants {
   static const double WOODCUTTER_PRODUCTION_RATE = 1;
   static const double QUARRY_PRODUCTION_RATE = 1;
 
+  static const double WATER_CONSUMPTION_RATE = 0.2;
+  static const double FOOD_CONSUMPTION_RATE = 0.2;
+  static const double WOOD_CONSUMPTION_RATE = 0.2;
+
   static const String EMPTY_MATCH = '''
 {
 	"version": 1,
