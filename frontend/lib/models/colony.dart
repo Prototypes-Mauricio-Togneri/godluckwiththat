@@ -14,7 +14,6 @@ import 'package:godluckwiththat/types/resource_type.dart';
 class Colony {
   final Inventory inventory;
   final List<Building> buildings;
-  late final Headquarters headquarters;
   final List<ConstructBuildingTask> buildHouseTasks = [];
   int freeVillagers;
 
@@ -22,15 +21,11 @@ class Colony {
     required this.inventory,
     required this.buildings,
     required this.freeVillagers,
-  }) {
-    for (final Building building in buildings) {
-      if (building is Headquarters) {
-        headquarters = building;
-      }
-    }
-  }
+  });
 
   bool get hasFreeVillagers => freeVillagers > 0;
+
+  Headquarters get headquarters => getBuildings<Headquarters>(Headquarters)[0];
 
   List<T> getBuildings<T extends Building>(Type type) {
     final List<T> result = [];

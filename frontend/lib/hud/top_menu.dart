@@ -123,13 +123,13 @@ class ResourceBlock extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Label(
-                  text: 'Production: $production/day',
+                  text: 'Production: ${Formatter.production(production)}/day',
                   color: Palette.white,
                   size: 25,
                 ),
                 const VBox(5),
                 Label(
-                  text: 'Consumption: $consumption/day',
+                  text: 'Consumption: ${Formatter.production(consumption)}/day',
                   color: Palette.white,
                   size: 25,
                 )
@@ -137,7 +137,7 @@ class ResourceBlock extends StatelessWidget {
             ),
             child: Label(
               text: '${Formatter.production(output)}/day',
-              color: production > 0 ? Palette.success : Palette.error,
+              color: output > 0 ? Palette.success : Palette.error,
               size: 25,
             ),
           ),
