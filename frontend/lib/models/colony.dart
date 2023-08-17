@@ -74,6 +74,21 @@ class Colony {
     return total;
   }
 
+  double consumptionOf(ResourceType resourceType) {
+    const double total = 0;
+
+    /*for (final Building building in buildings) {
+      if ((building is Producer) && (building.resourceType == resourceType)) {
+        total += building.production;
+      }
+    }*/
+
+    return total;
+  }
+
+  double outputOf(ResourceType resourceType) =>
+      productionOf(resourceType) - consumptionOf(resourceType);
+
   int get populationLimit {
     int total = 0;
 

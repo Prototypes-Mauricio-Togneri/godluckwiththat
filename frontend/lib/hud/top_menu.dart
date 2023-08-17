@@ -7,6 +7,7 @@ import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/resource_indicator.dart';
+import 'package:godluckwiththat/widgets/tooltip.dart';
 
 class TopMenu extends StatelessWidget {
   final GameState state;
@@ -102,23 +103,47 @@ class ResourceBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final Inventory inventory = state.colony.inventory;
     final double production = state.colony.productionOf(resourceType);
+    final double consumption = state.colony.consumptionOf(resourceType);
+    final double output = production - consumption;
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        ResourceIndicator(
-          sprite: resourceType.sprite,
-          value: Formatter.resource(inventory.get(resourceType)),
-          tooltip: resourceType.toString(),
-        ),
-        Label(
-          text: '${Formatter.production(production)}/day',
-          color: production > 0 ? Palette.success : Palette.error,
-          size: 25,
-        ),
-        const VBox(5),
-      ],
+    return SizedBox(
+      width: 150,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ResourceIndicator(
+            sprite: resourceType.sprite,
+            value: Formatter.resource(inventory.get(resourceType)),
+            tooltip: resourceType.toString(),
+          ),
+          CustomTooltip(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Label(
+                  text: 'Production: $production/day',
+                  color: Palette.white,
+                  size: 25,
+                ),
+                const VBox(5),
+                Label(
+                  text: 'Consumption: $consumption/day',
+                  color: Palette.white,
+                  size: 25,
+                )
+              ],
+            ),
+            child: Label(
+              text: '${Formatter.production(output)}/day',
+              color: production > 0 ? Palette.success : Palette.error,
+              size: 25,
+            ),
+          ),
+          const VBox(5),
+        ],
+      ),
     );
   }
 }
