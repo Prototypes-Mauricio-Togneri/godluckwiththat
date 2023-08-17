@@ -29,7 +29,7 @@ abstract class Producer extends Building {
     super.update(dt, colony);
 
     if (hasResourcesLeft) {
-      final double produced = production * (dt / Constants.SECONDS_PER_DAY);
+      final double produced = production * dt;
       resourcesLeft -= produced;
       colony.addResource(Resource(resourceType, produced));
     }

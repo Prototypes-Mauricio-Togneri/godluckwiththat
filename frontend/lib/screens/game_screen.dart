@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/hud/bottom_menu.dart';
 import 'package:godluckwiththat/hud/left_menu.dart';
 import 'package:godluckwiththat/hud/right_menu.dart';
@@ -99,7 +100,7 @@ class _GameLoopState extends State<GameLoop>
         final double current = currentTime;
         final double dt = current - previous;
         previous = current;
-        widget.state.update(dt);
+        widget.state.update(dt / Constants.SECONDS_PER_DAY);
 
         return GameContent(widget.state);
       },

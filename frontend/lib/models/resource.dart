@@ -11,7 +11,7 @@ class Resource {
 
   factory Resource.one(ResourceType resourceType) => Resource(resourceType, 1);
 
-  factory Resource.water(double amount) => Resource(ResourceType.food, amount);
+  factory Resource.water(double amount) => Resource(ResourceType.water, amount);
 
   factory Resource.food(double amount) => Resource(ResourceType.food, amount);
 

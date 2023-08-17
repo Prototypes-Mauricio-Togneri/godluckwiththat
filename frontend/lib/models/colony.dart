@@ -60,6 +60,15 @@ class Colony {
     for (final Building building in buildings) {
       building.update(dt, this);
     }
+
+    final double waterConsumption = consumptionOf(ResourceType.water) * dt;
+    inventory.removeResource(Resource.water(waterConsumption));
+
+    final double foodConsumption = consumptionOf(ResourceType.food) * dt;
+    inventory.removeResource(Resource.food(foodConsumption));
+
+    final double woodConsumption = consumptionOf(ResourceType.wood) * dt;
+    inventory.removeResource(Resource.wood(woodConsumption));
   }
 
   double productionOf(ResourceType resourceType) {

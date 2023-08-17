@@ -51,7 +51,7 @@ class BaseGameState extends BaseState {
     notify();
   }
 
-  int get day => totalTimeElapsed ~/ Constants.SECONDS_PER_DAY;
+  int get day => totalTimeElapsed.toInt();
 
   void onPop() {
     // TODO(momo): show main menu
