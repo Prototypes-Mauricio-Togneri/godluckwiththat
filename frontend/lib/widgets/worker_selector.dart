@@ -6,8 +6,12 @@ import 'package:godluckwiththat/widgets/label.dart';
 
 class WorkersSelector extends StatelessWidget {
   final Building building;
+  final double size;
 
-  const WorkersSelector(this.building);
+  const WorkersSelector({
+    required this.building,
+    required this.size,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class WorkersSelector extends StatelessWidget {
         Label(
           text: '${building.villagers}/${building.level}',
           color: building.villagersAmountColor,
-          size: 35,
+          size: size,
         ),
         const HBox(10),
         WorkerSelectorButton(

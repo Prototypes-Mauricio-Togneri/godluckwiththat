@@ -105,7 +105,10 @@ class WellEntry extends StatelessWidget {
             size: 30,
           ),
           const HBox(20),
-          WorkersSelector(well),
+          WorkersSelector(
+            building: well,
+            size: 30,
+          ),
           const HBox(30),
           Label(
             text: 'Production: ${well.production}/day',
