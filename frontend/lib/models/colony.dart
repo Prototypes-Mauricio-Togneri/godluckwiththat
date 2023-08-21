@@ -31,8 +31,8 @@ class Colony {
     final List<T> result = [];
 
     for (final Building building in buildings) {
-      if (building is T) {
-        result.add(building);
+      if (building.runtimeType == type) {
+        result.add(building as T);
       }
     }
 
