@@ -9,7 +9,7 @@ import 'package:godluckwiththat/widgets/image_asset.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/primary_button.dart';
 import 'package:godluckwiththat/widgets/upgrade_button.dart';
-import 'package:godluckwiththat/widgets/worker_selector.dart';
+import 'package:godluckwiththat/widgets/workers_selector.dart';
 
 class ProducerSection extends StatelessWidget {
   final GameState state;
