@@ -6,16 +6,15 @@ import 'package:godluckwiththat/models/buildings/misc/house.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/tasks/construct_building.dart';
 import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
-import 'package:godluckwiththat/models/tasks/upgrade_building_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
-import 'package:godluckwiththat/utils/assets.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/primary_button.dart';
 import 'package:godluckwiththat/widgets/queue_indicator.dart';
 import 'package:godluckwiththat/widgets/tooltip.dart';
+import 'package:godluckwiththat/widgets/upgrade_button.dart';
 
 class HeadquartersView extends StatelessWidget {
   final GameState state;
@@ -48,10 +47,6 @@ class UpgradeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Headquarters headquarters = state.colony.headquarters;
-    final Inventory inventory = state.colony.inventory;
-    final ResourceMap cost = headquarters.upgradeCost;
-    final bool hasResources = inventory.hasResources(cost);
-    final UpgradeBuildingTask? task = headquarters.upgradeTask;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -62,32 +57,7 @@ class UpgradeSection extends StatelessWidget {
           size: 35,
         ),
         const HBox(20),
-        CostTooltip(
-          cost: cost,
-          inventory: inventory,
-          showInstant: !hasResources,
-          child: PrimaryButton(
-            text: 'Upgrade',
-            color: Palette.success,
-            icon: Icons.person,
-            onPressed: (task == null) && hasResources
-                ? () => state.onAddUpgradeBuilding(headquarters, cost)
-                : null,
-            expand: false,
-          ),
-        ),
-        if (task != null)
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: QueueIndicator(
-              sprite: Assets.IMAGES_OTHER_UPGRADE,
-              progress: task.progress,
-              size: 0,
-              onTap: () => state.onRemoveUpgradeBuilding(headquarters, cost),
-            ),
-          )
-        else
-          const HBox(65),
+        UpgradeButton(state, headquarters),
       ],
     );
   }
