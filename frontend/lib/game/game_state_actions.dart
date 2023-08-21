@@ -1,5 +1,6 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/game/base_game_state.dart';
+import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 
 mixin GameStateActions on BaseGameState {
@@ -15,13 +16,13 @@ mixin GameStateActions on BaseGameState {
 
   // ======================================================================== \\
 
-  void onAddUpgradeHeadquarters(ResourceMap cost) {
-    colony.headquarters.addUpgradeQueue(cost);
+  void onAddUpgradeBuilding(Building building, ResourceMap cost) {
+    building.addUpgradeQueue(cost);
     colony.removeResources(cost);
   }
 
-  void onRemoveUpgradeHeadquarters(ResourceMap cost) {
-    colony.headquarters.removeUpgradeQueue();
+  void onRemoveUpgradeBuilding(Building building, ResourceMap cost) {
+    building.removeUpgradeQueue();
     colony.addResources(cost);
   }
 

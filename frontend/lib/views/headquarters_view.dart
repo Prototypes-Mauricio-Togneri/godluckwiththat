@@ -71,7 +71,7 @@ class UpgradeSection extends StatelessWidget {
             color: Palette.success,
             icon: Icons.person,
             onPressed: (task == null) && hasResources
-                ? () => state.onAddUpgradeHeadquarters(cost)
+                ? () => state.onAddUpgradeBuilding(headquarters, cost)
                 : null,
             expand: false,
           ),
@@ -83,7 +83,7 @@ class UpgradeSection extends StatelessWidget {
               sprite: Assets.IMAGES_OTHER_UPGRADE,
               progress: task.progress,
               size: 0,
-              onTap: () => state.onRemoveUpgradeHeadquarters(cost),
+              onTap: () => state.onRemoveUpgradeBuilding(headquarters, cost),
             ),
           )
         else
