@@ -8,7 +8,7 @@ class Assets {
 	static const String IMAGES_BUILDINGS_PRODUCERS_WELL = './assets/images/buildings/producers/well.png';
 	static const String IMAGES_BUILDINGS_PRODUCERS_QUARRY = './assets/images/buildings/producers/quarry.png';
 	static const String IMAGES_BUILDINGS_PRODUCERS_WOODCUTTER = './assets/images/buildings/producers/woodcutter.png';
-	static const String IMAGES_BUILDINGS_PRODUCERS_FIELD = './assets/images/buildings/producers/field.png';
+	static const String IMAGES_BUILDINGS_PRODUCERS_FARM = './assets/images/buildings/producers/farm.png';
 	static const String IMAGES_RESOURCES_FOOD = './assets/images/resources/food.png';
 	static const String IMAGES_RESOURCES_VILLAGER = './assets/images/resources/villager.png';
 	static const String IMAGES_RESOURCES_STONE = './assets/images/resources/stone.png';

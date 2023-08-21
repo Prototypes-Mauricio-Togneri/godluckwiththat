@@ -41,7 +41,7 @@ class EventsList extends StatelessWidget {
     return const Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        EventBlock(text: 'Field depleted'),
+        EventBlock(text: 'Farm depleted'),
         EventBlock(text: 'Villager created'),
         EventBlock(text: 'Exploration finished'),
       ],

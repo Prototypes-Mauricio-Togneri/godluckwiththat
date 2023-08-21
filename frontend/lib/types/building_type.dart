@@ -34,8 +34,8 @@ enum BuildingType {
     },
     produces: ResourceType.water,
   ),
-  field(
-    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_FIELD,
+  farm(
+    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_FARM,
     initialCost: {
       ResourceType.wood: 100,
     },
@@ -73,7 +73,7 @@ enum BuildingType {
   bool get canHostVillagers {
     switch (this) {
       case BuildingType.well:
-      case BuildingType.field:
+      case BuildingType.farm:
       case BuildingType.woodcutter:
       case BuildingType.quarry:
         return true;

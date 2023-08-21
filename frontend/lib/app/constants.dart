@@ -7,7 +7,7 @@ class Constants {
   static const int HEADQUARTERS_POPULATION = 10;
 
   static const double WELL_PRODUCTION_RATE = 1;
-  static const double FIELD_PRODUCTION_RATE = 1;
+  static const double FARM_PRODUCTION_RATE = 1;
   static const double WOODCUTTER_PRODUCTION_RATE = 1;
   static const double QUARRY_PRODUCTION_RATE = 1;
 

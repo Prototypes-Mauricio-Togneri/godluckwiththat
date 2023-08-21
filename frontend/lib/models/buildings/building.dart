@@ -3,7 +3,7 @@ import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/misc/house.dart';
 import 'package:godluckwiththat/models/buildings/misc/warehouse.dart';
-import 'package:godluckwiththat/models/buildings/producers/field.dart';
+import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/models/buildings/producers/well.dart';
 import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
@@ -74,7 +74,7 @@ class Building {
 
   bool get isProducer =>
       (buildingType == BuildingType.well) ||
-      (buildingType == BuildingType.field) ||
+      (buildingType == BuildingType.farm) ||
       (buildingType == BuildingType.woodcutter) ||
       (buildingType == BuildingType.quarry);
 
@@ -122,8 +122,8 @@ class Building {
           villagers: villagers,
           resourcesLeft: resourcesLeft,
         );
-      case BuildingType.field:
-        return Field(
+      case BuildingType.farm:
+        return Farm(
           colony: colony,
           level: level,
           villagers: villagers,
