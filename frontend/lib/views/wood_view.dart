@@ -1,4 +1,3 @@
-import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
 import 'package:godluckwiththat/states/game_state.dart';
@@ -12,17 +11,11 @@ class WoodView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const VBox(30),
-        ProducerSection(
-          state: state,
-          type: Woodcutter,
-          buildingType: BuildingType.woodcutter,
-          name: 'Woodcutters',
-        ),
-      ],
+    return ProducerSection(
+      state: state,
+      type: Woodcutter,
+      buildingType: BuildingType.woodcutter,
+      name: 'Woodcutters',
     );
   }
 }

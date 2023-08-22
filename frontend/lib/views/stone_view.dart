@@ -1,4 +1,3 @@
-import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/states/game_state.dart';
@@ -12,17 +11,11 @@ class StoneView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const VBox(30),
-        ProducerSection(
-          state: state,
-          type: Quarry,
-          buildingType: BuildingType.quarry,
-          name: 'Quarries',
-        ),
-      ],
+    return ProducerSection(
+      state: state,
+      type: Quarry,
+      buildingType: BuildingType.quarry,
+      name: 'Quarries',
     );
   }
 }

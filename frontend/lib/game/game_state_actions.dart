@@ -1,40 +1,65 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/game/base_game_state.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 
 mixin GameStateActions on BaseGameState {
-  void onAddVillagerQueue(ResourceMap cost) {
-    colony.headquarters.addVillagerQueue(cost);
+  void onAddVillagerTask(ResourceMap cost) {
+    colony.headquarters.addVillagerTask(cost);
     colony.removeResources(cost);
   }
 
-  void onRemoveVillagerQueue(ResourceMap cost) {
-    colony.headquarters.removeVillagerQueue();
+  void onRemoveVillagerTask(ResourceMap cost) {
+    colony.headquarters.removeVillagerTask();
     colony.addResources(cost);
   }
 
   // ======================================================================== \\
 
-  void onAddUpgradeBuilding(Building building, ResourceMap cost) {
-    building.addUpgradeQueue(cost);
+  void onAddUpgradeBuildingTask({
+    required Building building,
+    required ResourceMap cost,
+  }) {
+    building.addUpgradeTask(cost);
     colony.removeResources(cost);
   }
 
-  void onRemoveUpgradeBuilding(Building building, ResourceMap cost) {
-    building.removeUpgradeQueue();
+  void onRemoveUpgradeBuildingTask({
+    required Building building,
+    required ResourceMap cost,
+  }) {
+    building.removeUpgradeTask();
     colony.addResources(cost);
   }
 
   // ======================================================================== \\
 
-  void onAddConstructBuilding(ResourceMap cost, BuildingType buildingType) {
-    colony.addConstructBuildingQueue(cost, buildingType);
+  void onAddConstructBuildingTask({
+    required ResourceMap cost,
+    required BuildingType buildingType,
+  }) {
+    colony.addConstructBuildingTask(cost, buildingType);
     colony.removeResources(cost);
   }
 
-  void onRemoveConstructBuilding(ResourceMap cost, BuildingType buildingType) {
-    colony.removeConstructBuildingQueue(buildingType);
+  void onRemoveConstructBuildingTask({
+    required ResourceMap cost,
+    required BuildingType buildingType,
+  }) {
+    colony.removeConstructBuildingTask(buildingType);
     colony.addResources(cost);
+  }
+
+  // ======================================================================== \\
+
+  void onAddExplorationTask(ExplorationTask task) {
+    //colony.addConstructBuildingTask(cost, buildingType);
+    //colony.removeResources(cost);
+  }
+
+  void onRemoveExplorationTask(ExplorationTask task) {
+    //colony.removeConstructBuildingTask(buildingType);
+    //colony.addResources(cost);
   }
 }

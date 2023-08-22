@@ -15,6 +15,7 @@ class Assets {
 	static const String IMAGES_RESOURCES_WOOD = './assets/images/resources/wood.png';
 	static const String IMAGES_RESOURCES_WATER = './assets/images/resources/water.png';
 	static const String IMAGES_OTHER_UPGRADE = './assets/images/other/upgrade.png';
+	static const String IMAGES_OTHER_EXPLORATION = './assets/images/other/exploration.png';
 	static const String IMAGES_OTHER_IDLE = './assets/images/other/idle.png';
 	static const String IMAGES_PATCHES_FOOD = './assets/images/patches/food.png';
 	static const String IMAGES_PATCHES_STONE = './assets/images/patches/stone.png';

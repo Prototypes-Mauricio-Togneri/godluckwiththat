@@ -7,7 +7,8 @@ import 'package:godluckwiththat/models/buildings/misc/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/resource.dart';
-import 'package:godluckwiththat/models/tasks/construct_building.dart';
+import 'package:godluckwiththat/models/tasks/construct_building_task.dart';
+import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
@@ -15,6 +16,7 @@ class Colony {
   final Inventory inventory;
   final List<Building> buildings;
   final List<ConstructBuildingTask> buildHouseTasks = [];
+  final List<ExplorationTask> explorationTasks = [];
   int freeVillagers;
 
   Colony({
@@ -126,13 +128,16 @@ class Colony {
     return amount;
   }
 
-  void addConstructBuildingQueue(ResourceMap cost, BuildingType buildingType) {
+  void addConstructBuildingTask(ResourceMap cost, BuildingType buildingType) {
     if (buildingType == BuildingType.house) {
-      buildHouseTasks.add(ConstructBuildingTask(cost, buildingType));
+      buildHouseTasks.add(ConstructBuildingTask(
+        cost: cost,
+        buildingType: buildingType,
+      ));
     }
   }
 
-  void removeConstructBuildingQueue(BuildingType buildingType) {
+  void removeConstructBuildingTask(BuildingType buildingType) {
     if (buildingType == BuildingType.house) {
       buildHouseTasks.removeAt(buildHouseTasks.length - 1);
     }

@@ -1,10 +1,13 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
+import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/utils/assets.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/amount_selector.dart';
 import 'package:godluckwiththat/widgets/image_asset.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/primary_button.dart';
@@ -18,6 +21,37 @@ class ProducerSection extends StatelessWidget {
   final String name;
 
   const ProducerSection({
+    required this.state,
+    required this.type,
+    required this.buildingType,
+    required this.name,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const VBox(20),
+        BuildingsSection(
+          state: state,
+          type: type,
+          buildingType: buildingType,
+          name: name,
+        ),
+        const VBox(20),
+        ExplorationSection(state),
+      ],
+    );
+  }
+}
+
+class BuildingsSection extends StatelessWidget {
+  final GameState state;
+  final Type type;
+  final BuildingType buildingType;
+  final String name;
+
+  const BuildingsSection({
     required this.state,
     required this.type,
     required this.buildingType,
@@ -124,6 +158,112 @@ class ProducerEntry extends StatelessWidget {
             icon: Icons.delete,
             color: Palette.error,
             onPressed: producer.destroy,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ExplorationSection extends StatelessWidget {
+  final GameState state;
+
+  const ExplorationSection(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ImageAsset(
+              path: Assets.IMAGES_OTHER_EXPLORATION,
+              size: 40,
+            ),
+            HBox(10),
+            Label(
+              text: 'Explorations',
+              color: Palette.white,
+              size: 35,
+            ),
+          ],
+        ),
+        const VBox(20),
+        for (final ExplorationTask task in state.colony.explorationTasks)
+          ExplorationTaskEntry(state, task),
+        const VBox(20),
+        PrimaryButton(
+          text: 'Explore',
+          expand: false,
+          icon: Icons.explore,
+          color: Palette.success,
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
+}
+
+class ExplorationTaskEntry extends StatelessWidget {
+  final GameState state;
+  final ExplorationTask task;
+
+  const ExplorationTaskEntry(this.state, this.task);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        bottom: 20,
+        left: 20,
+        right: 20,
+      ),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: 2,
+          color: Palette.lightGrey,
+        ),
+      ),
+      child: Row(
+        children: [
+          const Label(
+            text: 'Villagers:',
+            color: Palette.white,
+            size: 30,
+          ),
+          const HBox(20),
+          AmountSelector(
+            text: '1',
+            color: Palette.white,
+            size: 30,
+            onRemove: () {},
+            onAdd: () {},
+          ),
+          const HBox(30),
+          const Label(
+            text: 'Days:',
+            color: Palette.white,
+            size: 30,
+          ),
+          const HBox(20),
+          AmountSelector(
+            text: '1',
+            color: Palette.white,
+            size: 30,
+            onRemove: () {},
+            onAdd: () {},
+          ),
+          const HBox(30),
+          const Spacer(),
+          PrimaryButton(
+            text: 'Cancel',
+            expand: false,
+            icon: Icons.close,
+            color: Palette.error,
+            onPressed: () => state.onRemoveExplorationTask(task),
           ),
         ],
       ),

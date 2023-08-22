@@ -4,7 +4,7 @@ import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/misc/house.dart';
 import 'package:godluckwiththat/models/inventory.dart';
-import 'package:godluckwiththat/models/tasks/construct_building.dart';
+import 'package:godluckwiththat/models/tasks/construct_building_task.dart';
 import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -91,7 +91,7 @@ class CreateVillagerSection extends StatelessWidget {
             color: Palette.success,
             icon: Icons.person,
             onPressed: (hasResources && !maxPopulationReached)
-                ? () => state.onAddVillagerQueue(cost)
+                ? () => state.onAddVillagerTask(cost)
                 : null,
             expand: false,
           ),
@@ -103,7 +103,7 @@ class CreateVillagerSection extends StatelessWidget {
               sprite: ResourceType.villager.sprite,
               progress: tasks[0].progress,
               size: tasks.length,
-              onTap: () => state.onRemoveVillagerQueue(cost),
+              onTap: () => state.onRemoveVillagerTask(cost),
             ),
           )
         else
@@ -163,7 +163,10 @@ class BuildHouseSection extends StatelessWidget {
             color: Palette.success,
             icon: Icons.construction,
             onPressed: hasResources
-                ? () => state.onAddConstructBuilding(cost, BuildingType.house)
+                ? () => state.onAddConstructBuildingTask(
+                      cost: cost,
+                      buildingType: BuildingType.house,
+                    )
                 : null,
             expand: false,
           ),
@@ -175,8 +178,10 @@ class BuildHouseSection extends StatelessWidget {
               sprite: BuildingType.house.sprite,
               progress: tasks[0].progress,
               size: tasks.length,
-              onTap: () =>
-                  state.onRemoveConstructBuilding(cost, BuildingType.house),
+              onTap: () => state.onRemoveConstructBuildingTask(
+                cost: cost,
+                buildingType: BuildingType.house,
+              ),
             ),
           )
         else

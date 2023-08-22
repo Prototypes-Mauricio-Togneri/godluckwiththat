@@ -15,11 +15,11 @@ class Headquarters extends Building {
           villagers: 0,
         );
 
-  void addVillagerQueue(ResourceMap cost) {
-    createVillagerTasks.add(CreateVillagerTask(cost));
+  void addVillagerTask(ResourceMap cost) {
+    createVillagerTasks.add(CreateVillagerTask(cost: cost));
   }
 
-  void removeVillagerQueue() {
+  void removeVillagerTask() {
     createVillagerTasks.removeAt(createVillagerTasks.length - 1);
   }
 

@@ -5,7 +5,9 @@ class Task {
   double totalTime = 0;
   double remainingTime = 0;
 
-  Task(this.cost) {
+  Task({
+    required this.cost,
+  }) {
     totalTime = cost.time;
     remainingTime = totalTime;
   }
