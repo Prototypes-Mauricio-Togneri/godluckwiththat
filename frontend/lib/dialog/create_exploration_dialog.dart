@@ -9,9 +9,10 @@ import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/primary_button.dart';
 
 class CreateExplorationDialog extends StatelessWidget {
-  final GameState state;
+  final GameState gameState;
+  final CreateExplorationState dialogState;
 
-  const CreateExplorationDialog._(this.state);
+  const CreateExplorationDialog._(this.gameState, this.dialogState);
 
   static DialogController show(GameState state) {
     final BuildContext context = Navigation.context;
@@ -20,7 +21,10 @@ class CreateExplorationDialog extends StatelessWidget {
       context: context,
       barrierDismissible: true,
       barrierColor: Palette.transparent,
-      builder: (context) => CreateExplorationDialog._(state),
+      builder: (context) => CreateExplorationDialog._(
+        state,
+        CreateExplorationState(state),
+      ),
     );
 
     return DialogController(context);
@@ -32,57 +36,97 @@ class CreateExplorationDialog extends StatelessWidget {
       title: 'New Exploration',
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Label(
-                  text: 'Villagers',
-                  color: Palette.white,
-                  size: 30,
-                ),
-                const Spacer(),
-                AmountSelector(
-                  text: '1',
-                  color: Palette.white,
-                  size: 30,
-                  onRemove: () {},
-                  onAdd: () {},
-                ),
-              ],
-            ),
-            const VBox(30),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Label(
-                  text: 'Days:',
-                  color: Palette.white,
-                  size: 30,
-                ),
-                const Spacer(),
-                AmountSelector(
-                  text: '1',
-                  color: Palette.white,
-                  size: 30,
-                  onRemove: () {},
-                  onAdd: () {},
-                ),
-              ],
-            ),
-            const VBox(30),
-            PrimaryButton(
-              text: 'Send',
-              expand: true,
-              color: Palette.success,
-              onPressed: () {},
-            ),
-          ],
+        child: StateProvider(
+          state: dialogState,
+          builder: (context, state) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Label(
+                    text: 'Villagers',
+                    color: Palette.white,
+                    size: 30,
+                  ),
+                  const Spacer(),
+                  AmountSelector(
+                    text: state.villagers.toString(),
+                    color: Palette.white,
+                    size: 30,
+                    onRemove: state.canRemoveVillagers
+                        ? state.decreaseVillagers
+                        : null,
+                    onAdd:
+                        state.canAddVillagers ? state.increaseVillagers : null,
+                  ),
+                ],
+              ),
+              const VBox(30),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Label(
+                    text: 'Days:',
+                    color: Palette.white,
+                    size: 30,
+                  ),
+                  const Spacer(),
+                  AmountSelector(
+                    text: state.days.toString(),
+                    color: Palette.white,
+                    size: 30,
+                    onRemove: state.canRemoveDays ? state.decreaseDays : null,
+                    onAdd: state.increaseDays,
+                  ),
+                ],
+              ),
+              const VBox(30),
+              PrimaryButton(
+                text: 'Send',
+                expand: true,
+                color: Palette.success,
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+}
+
+class CreateExplorationState extends BaseState {
+  final GameState state;
+  int villagers = 1;
+  int days = 1;
+
+  CreateExplorationState(this.state);
+
+  bool get canAddVillagers => villagers < state.colony.freeVillagers;
+
+  bool get canRemoveVillagers => villagers > 1;
+
+  void increaseVillagers() {
+    villagers++;
+    notify();
+  }
+
+  void decreaseVillagers() {
+    villagers--;
+    notify();
+  }
+
+  bool get canRemoveDays => days > 1;
+
+  void increaseDays() {
+    days++;
+    notify();
+  }
+
+  void decreaseDays() {
+    days--;
+    notify();
   }
 }

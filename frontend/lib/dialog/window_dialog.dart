@@ -19,7 +19,7 @@ class WindowDialog extends StatelessWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.zero,
       ),
-      backgroundColor: Palette.lightGrey,
+      backgroundColor: Palette.grey,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
