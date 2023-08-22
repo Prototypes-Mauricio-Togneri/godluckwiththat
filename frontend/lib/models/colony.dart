@@ -54,10 +54,16 @@ class Colony {
       }
     }
 
+    final List<ExplorationTask> explorationTasksToRemove = [];
+
     for (final ExplorationTask task in explorationTasks) {
       if (task.update(dt)) {
-        print('aaa');
+        explorationTasksToRemove.add(task);
       }
+    }
+
+    for (final ExplorationTask task in explorationTasksToRemove) {
+      explorationTasks.remove(task);
     }
 
     for (final Building building in buildings) {
