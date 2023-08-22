@@ -44,12 +44,12 @@ class ConfirmationDialog extends StatelessWidget {
     return DialogController(context);
   }
 
-  static DialogController destroyBuilding({
+  static DialogController cancelExploration({
     required VoidCallback onAccept,
   }) =>
       _show(
-        message: 'Destroy building?',
-        buttonAccept: 'Destroy',
+        message: 'Cancel exploration?',
+        buttonAccept: 'Cancel',
         buttonCancel: 'Cancel',
         onAccept: onAccept,
       );

@@ -1,5 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/dialog/confirmation_dialog.dart';
+import 'package:godluckwiththat/dialog/create_exploration_dialog.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
@@ -199,7 +201,7 @@ class ExplorationSection extends StatelessWidget {
           expand: false,
           icon: Icons.explore,
           color: Palette.success,
-          onPressed: () {},
+          onPressed: () => CreateExplorationDialog.show(state),
         ),
       ],
     );
@@ -263,10 +265,14 @@ class ExplorationTaskEntry extends StatelessWidget {
             expand: false,
             icon: Icons.close,
             color: Palette.error,
-            onPressed: () => state.onRemoveExplorationTask(task),
+            onPressed: _onCancel,
           ),
         ],
       ),
     );
   }
+
+  void _onCancel() => ConfirmationDialog.cancelExploration(
+        onAccept: () => state.onRemoveExplorationTask(task),
+      );
 }

@@ -39,7 +39,7 @@ class WindowDialog extends StatelessWidget {
                     child: Label(
                       text: title,
                       color: Palette.white,
-                      size: 12,
+                      size: 30,
                     ),
                   ),
                 ),
