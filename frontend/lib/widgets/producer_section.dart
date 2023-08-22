@@ -6,6 +6,7 @@ import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/types/patch_type.dart';
 import 'package:godluckwiththat/utils/assets.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
@@ -20,12 +21,14 @@ class ProducerSection extends StatelessWidget {
   final GameState state;
   final Type type;
   final BuildingType buildingType;
+  final PatchType patchType;
   final String name;
 
   const ProducerSection({
     required this.state,
     required this.type,
     required this.buildingType,
+    required this.patchType,
     required this.name,
   });
 
@@ -41,7 +44,7 @@ class ProducerSection extends StatelessWidget {
           name: name,
         ),
         const VBox(20),
-        ExplorationSection(state),
+        ExplorationSection(state, patchType),
       ],
     );
   }
@@ -169,8 +172,9 @@ class ProducerEntry extends StatelessWidget {
 
 class ExplorationSection extends StatelessWidget {
   final GameState state;
+  final PatchType patchType;
 
-  const ExplorationSection(this.state);
+  const ExplorationSection(this.state, this.patchType);
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +205,10 @@ class ExplorationSection extends StatelessWidget {
           expand: false,
           icon: Icons.explore,
           color: Palette.success,
-          onPressed: () => CreateExplorationDialog.show(state),
+          onPressed: () => CreateExplorationDialog.show(
+            patchType: patchType,
+            state: state,
+          ),
         ),
       ],
     );

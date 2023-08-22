@@ -143,6 +143,14 @@ class Colony {
     }
   }
 
+  void addExplorationTask(ExplorationTask task) {
+    explorationTasks.add(task);
+  }
+
+  void removeExplorationTask(ExplorationTask task) {
+    explorationTasks.remove(task);
+  }
+
   void _createBuilding({
     required BuildingType buildingType,
     required double resourcesLeft,

@@ -1,7 +1,10 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/dialog/window_dialog.dart';
+import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
+import 'package:godluckwiththat/types/patch_type.dart';
+import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/navigation.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/amount_selector.dart';
@@ -14,7 +17,10 @@ class CreateExplorationDialog extends StatelessWidget {
 
   const CreateExplorationDialog._(this.gameState, this.dialogState);
 
-  static DialogController show(GameState state) {
+  static DialogController show({
+    required PatchType patchType,
+    required GameState state,
+  }) {
     final BuildContext context = Navigation.context;
 
     showDialog(
@@ -23,7 +29,7 @@ class CreateExplorationDialog extends StatelessWidget {
       barrierColor: Palette.transparent,
       builder: (context) => CreateExplorationDialog._(
         state,
-        CreateExplorationState(state),
+        CreateExplorationState(patchType, state),
       ),
     );
 
@@ -87,7 +93,7 @@ class CreateExplorationDialog extends StatelessWidget {
                 text: 'Send',
                 expand: true,
                 color: Palette.success,
-                onPressed: () {},
+                onPressed: state.onSend,
               ),
             ],
           ),
@@ -98,11 +104,12 @@ class CreateExplorationDialog extends StatelessWidget {
 }
 
 class CreateExplorationState extends BaseState {
+  final PatchType patchType;
   final GameState state;
   int villagers = 1;
   int days = 1;
 
-  CreateExplorationState(this.state);
+  CreateExplorationState(this.patchType, this.state);
 
   bool get canAddVillagers => villagers < state.colony.freeVillagers;
 
@@ -128,5 +135,17 @@ class CreateExplorationState extends BaseState {
   void decreaseDays() {
     days--;
     notify();
+  }
+
+  void onSend() {
+    state.onAddExplorationTask(ExplorationTask(
+      cost: {
+        ResourceType.villager: (days + villagers).toDouble(),
+      },
+      patchType: patchType,
+      villagers: villagers,
+      days: days,
+    ));
+    Navigation.pop();
   }
 }

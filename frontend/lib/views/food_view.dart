@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/types/patch_type.dart';
 import 'package:godluckwiththat/widgets/producer_section.dart';
 
 class FoodView extends StatelessWidget {
@@ -15,6 +16,7 @@ class FoodView extends StatelessWidget {
       state: state,
       type: Farm,
       buildingType: BuildingType.farm,
+      patchType: PatchType.food,
       name: 'Farms',
     );
   }

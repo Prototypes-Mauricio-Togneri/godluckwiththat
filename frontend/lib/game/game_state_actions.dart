@@ -54,12 +54,12 @@ mixin GameStateActions on BaseGameState {
   // ======================================================================== \\
 
   void onAddExplorationTask(ExplorationTask task) {
-    //colony.addConstructBuildingTask(cost, buildingType);
-    //colony.removeResources(cost);
+    colony.addExplorationTask(task);
+    colony.removeFreeVillagers(task.villagers);
   }
 
   void onRemoveExplorationTask(ExplorationTask task) {
-    //colony.removeConstructBuildingTask(buildingType);
-    //colony.addResources(cost);
+    colony.removeExplorationTask(task);
+    colony.addFreeVillagers(task.villagers);
   }
 }

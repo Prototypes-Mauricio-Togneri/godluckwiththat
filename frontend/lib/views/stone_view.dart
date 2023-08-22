@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/types/patch_type.dart';
 import 'package:godluckwiththat/widgets/producer_section.dart';
 
 class StoneView extends StatelessWidget {
@@ -15,6 +16,7 @@ class StoneView extends StatelessWidget {
       state: state,
       type: Quarry,
       buildingType: BuildingType.quarry,
+      patchType: PatchType.stone,
       name: 'Quarries',
     );
   }
