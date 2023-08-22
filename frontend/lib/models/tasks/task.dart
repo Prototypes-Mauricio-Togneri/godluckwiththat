@@ -3,7 +3,7 @@ class Task {
   double remainingTime = 0;
 
   Task({
-    required double duration,
+    required double duration, // in days
   }) {
     totalTime = duration;
     remainingTime = totalTime;
