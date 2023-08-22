@@ -11,8 +11,12 @@ extension ResourceMapExtension on ResourceMap {
 
   double get(ResourceType resourceType) => this[resourceType] ?? 0;
 
-  double get time =>
-      resources().map((r) => r.amount).reduce((a, b) => a + b) / 10;
+  double get duration {
+    final resourcesAmount =
+        resources().map((r) => r.amount).reduce((a, b) => a + b);
+
+    return resourcesAmount / 100;
+  }
 
   ResourceMap multiply(int factor) {
     final ResourceMap result = {};

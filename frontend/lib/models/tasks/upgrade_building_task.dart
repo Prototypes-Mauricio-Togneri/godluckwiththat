@@ -1,7 +1,8 @@
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/tasks/task.dart';
 
 class UpgradeBuildingTask extends Task {
   UpgradeBuildingTask({
-    required super.cost,
-  });
+    required ResourceMap cost,
+  }) : super(duration: cost.duration);
 }

@@ -137,7 +137,7 @@ class CreateExplorationState extends BaseState {
   }
 
   void onSend() {
-    state.onAddExplorationTask(ExplorationTask.create(
+    state.onAddExplorationTask(ExplorationTask(
       patchType: patchType,
       villagers: villagers,
       days: days,

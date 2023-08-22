@@ -1,14 +1,11 @@
-import 'package:godluckwiththat/extensions/resource_map_extension.dart';
-
 class Task {
-  final ResourceMap cost;
   double totalTime = 0;
   double remainingTime = 0;
 
   Task({
-    required this.cost,
+    required double duration,
   }) {
-    totalTime = cost.time;
+    totalTime = duration;
     remainingTime = totalTime;
   }
 
