@@ -10,7 +10,6 @@ import 'package:godluckwiththat/types/patch_type.dart';
 import 'package:godluckwiththat/utils/assets.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/amount_selector.dart';
 import 'package:godluckwiththat/widgets/image_asset.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/primary_button.dart';
@@ -238,39 +237,28 @@ class ExplorationTaskEntry extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Label(
-            text: 'Villagers:',
+          Label(
+            text: 'Villagers: ${task.villagers}',
             color: Palette.white,
             size: 30,
-          ),
-          const HBox(20),
-          AmountSelector(
-            text: '1',
-            color: Palette.white,
-            size: 30,
-            onRemove: () {},
-            onAdd: () {},
           ),
           const HBox(30),
-          const Label(
-            text: 'Days:',
+          Label(
+            text: 'Days: ${task.days}',
             color: Palette.white,
             size: 30,
-          ),
-          const HBox(20),
-          AmountSelector(
-            text: '1',
-            color: Palette.white,
-            size: 30,
-            onRemove: () {},
-            onAdd: () {},
           ),
           const HBox(30),
+          Label(
+            text: 'Progress: ${Formatter.progress(task.progress)}',
+            color: Palette.white,
+            size: 30,
+          ),
           const Spacer(),
           PrimaryButton(
-            text: 'Cancel',
+            text: 'Stop',
             expand: false,
-            icon: Icons.close,
+            icon: Icons.cancel,
             color: Palette.error,
             onPressed: _onCancel,
           ),

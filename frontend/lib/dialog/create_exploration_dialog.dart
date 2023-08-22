@@ -4,7 +4,6 @@ import 'package:godluckwiththat/dialog/window_dialog.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/patch_type.dart';
-import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/navigation.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/amount_selector.dart';
@@ -138,10 +137,7 @@ class CreateExplorationState extends BaseState {
   }
 
   void onSend() {
-    state.onAddExplorationTask(ExplorationTask(
-      cost: {
-        ResourceType.villager: (days + villagers).toDouble(),
-      },
+    state.onAddExplorationTask(ExplorationTask.create(
       patchType: patchType,
       villagers: villagers,
       days: days,

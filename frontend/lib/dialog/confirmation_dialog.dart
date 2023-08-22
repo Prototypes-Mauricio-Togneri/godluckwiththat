@@ -48,8 +48,8 @@ class ConfirmationDialog extends StatelessWidget {
     required VoidCallback onAccept,
   }) =>
       _show(
-        message: 'Cancel exploration?',
-        buttonAccept: 'Cancel',
+        message: 'Stop exploration?',
+        buttonAccept: 'Stop',
         buttonCancel: 'Cancel',
         onAccept: onAccept,
       );
@@ -62,6 +62,7 @@ class ConfirmationDialog extends StatelessWidget {
       content: Label(
         text: message,
         color: Palette.white,
+        size: 30,
       ),
       actions: [
         Padding(
@@ -81,6 +82,7 @@ class ConfirmationDialog extends StatelessWidget {
             },
             child: Label(
               text: buttonCancel,
+              size: 30,
             ),
           ),
         ),
@@ -100,6 +102,7 @@ class ConfirmationDialog extends StatelessWidget {
             },
             child: Label(
               text: buttonAccept,
+              size: 30,
             ),
           ),
         ),

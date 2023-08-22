@@ -54,6 +54,12 @@ class Colony {
       }
     }
 
+    for (final ExplorationTask task in explorationTasks) {
+      if (task.update(dt)) {
+        print('aaa');
+      }
+    }
+
     for (final Building building in buildings) {
       building.update(dt, this);
     }

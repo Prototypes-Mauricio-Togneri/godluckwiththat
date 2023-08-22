@@ -12,4 +12,10 @@ class Formatter {
 
     return formatter.format(amount);
   }
+
+  static String progress(num amount) {
+    final NumberFormat formatter = NumberFormat('0');
+
+    return '${formatter.format(amount * 100)}%';
+  }
 }
