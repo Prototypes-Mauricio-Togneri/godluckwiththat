@@ -1,8 +1,8 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/game/base_game_state.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/models/tasks/construction_task.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
-import 'package:godluckwiththat/types/building_type.dart';
 
 mixin GameStateActions on BaseGameState {
   void onAddVillagerTask(ResourceMap cost) {
@@ -35,14 +35,16 @@ mixin GameStateActions on BaseGameState {
 
   // ======================================================================== \\
 
-  void onAddConstructionTask(BuildingType buildingType) {
-    colony.addConstructionTask(buildingType);
-    colony.removeResources(buildingType.initialCost);
+  void onAddConstructionTask(ConstructionTask task) {
+    colony.addConstructionTask(task);
+    colony.removeFreeVillagers(1);
+    colony.removeResources(task.buildingType.initialCost);
   }
 
-  void onRemoveConstructionTask(BuildingType buildingType) {
-    colony.removeConstructionTask(buildingType);
-    colony.addResources(buildingType.initialCost);
+  void onRemoveConstructionTask(ConstructionTask task) {
+    colony.removeConstructionTask(task);
+    colony.addFreeVillagers(1);
+    colony.addResources(task.buildingType.initialCost);
   }
 
   // ======================================================================== \\

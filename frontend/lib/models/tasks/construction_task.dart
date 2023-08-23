@@ -2,11 +2,12 @@ import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/tasks/task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 
-class ConstructBuildingTask extends Task {
+class ConstructionTask extends Task {
   final BuildingType buildingType;
+  final double resourcesAmount;
 
-  ConstructBuildingTask({
-    required ResourceMap cost,
+  ConstructionTask({
     required this.buildingType,
-  }) : super(duration: cost.duration);
+    required this.resourcesAmount,
+  }) : super(duration: buildingType.initialCost.duration);
 }

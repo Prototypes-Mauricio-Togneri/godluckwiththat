@@ -8,8 +8,9 @@ import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/patch.dart';
 import 'package:godluckwiththat/models/resource.dart';
-import 'package:godluckwiththat/models/tasks/construct_building_task.dart';
+import 'package:godluckwiththat/models/tasks/construction_task.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
+import 'package:godluckwiththat/models/tasks/task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/patch_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
@@ -18,7 +19,7 @@ class Colony {
   final Inventory inventory;
   final List<Building> buildings;
   final List<Patch> patches;
-  final List<ConstructBuildingTask> buildHouseTasks = [];
+  final List<ConstructionTask> constructionTasks = [];
   final List<ExplorationTask> explorationTasks = [];
   int freeVillagers;
 
@@ -58,19 +59,37 @@ class Colony {
   }
 
   void update(double dt) {
-    if (buildHouseTasks.isNotEmpty) {
-      final ConstructBuildingTask task = buildHouseTasks.first;
+    if (constructionTasks.isNotEmpty) {
+      final ConstructionTask task = constructionTasks.first;
 
       if (task.update(dt)) {
-        _createBuilding(
-          buildingType: task.buildingType,
-          resourcesLeft: 0,
-        );
-        buildHouseTasks.removeAt(0);
+        constructionTasks.removeAt(0);
       }
     }
 
-    _updateExplorationTasks(dt);
+    _updateTasks(
+      dt: dt,
+      tasks: constructionTasks,
+      callback: (task) {
+        _createBuilding(
+          buildingType: task.buildingType,
+          resourcesLeft: task.resourcesAmount,
+        );
+        addFreeVillagers(1);
+      },
+    );
+
+    _updateTasks(
+      dt: dt,
+      tasks: explorationTasks,
+      callback: (task) {
+        patches.add(Patch(
+          patchType: task.patchType,
+          amount: task.amount,
+        ));
+        addFreeVillagers(task.villagers);
+      },
+    );
 
     for (final Building building in buildings) {
       building.update(dt, this);
@@ -86,22 +105,22 @@ class Colony {
     inventory.removeResource(Resource.wood(woodConsumption));
   }
 
-  void _updateExplorationTasks(double dt) {
-    final List<ExplorationTask> explorationTasksToRemove = [];
+  void _updateTasks<T extends Task>({
+    required double dt,
+    required List<T> tasks,
+    required Function(T) callback,
+  }) {
+    final List<T> tasksToRemove = [];
 
-    for (final ExplorationTask task in explorationTasks) {
+    for (final T task in tasks) {
       if (task.update(dt)) {
-        patches.add(Patch(
-          patchType: task.patchType,
-          amount: task.amount,
-        ));
-        addFreeVillagers(task.villagers);
-        explorationTasksToRemove.add(task);
+        callback(task);
+        tasksToRemove.add(task);
       }
     }
 
-    for (final ExplorationTask task in explorationTasksToRemove) {
-      explorationTasks.remove(task);
+    for (final T task in tasksToRemove) {
+      tasks.remove(task);
     }
   }
 
@@ -165,19 +184,12 @@ class Colony {
     return amount;
   }
 
-  void addConstructionTask(BuildingType buildingType) {
-    if (buildingType == BuildingType.house) {
-      buildHouseTasks.add(ConstructBuildingTask(
-        cost: buildingType.initialCost,
-        buildingType: buildingType,
-      ));
-    }
+  void addConstructionTask(ConstructionTask task) {
+    constructionTasks.add(task);
   }
 
-  void removeConstructionTask(BuildingType buildingType) {
-    if (buildingType == BuildingType.house) {
-      buildHouseTasks.removeAt(buildHouseTasks.length - 1);
-    }
+  void removeConstructionTask(ConstructionTask task) {
+    constructionTasks.remove(task);
   }
 
   void addExplorationTask(ExplorationTask task) {

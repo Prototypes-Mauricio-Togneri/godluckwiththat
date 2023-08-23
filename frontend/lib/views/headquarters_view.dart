@@ -4,7 +4,7 @@ import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/misc/house.dart';
 import 'package:godluckwiththat/models/inventory.dart';
-import 'package:godluckwiththat/models/tasks/construct_building_task.dart';
+import 'package:godluckwiththat/models/tasks/construction_task.dart';
 import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -149,7 +149,7 @@ class BuildHouseSection extends StatelessWidget {
     final Inventory inventory = state.colony.inventory;
     final ResourceMap cost = BuildingType.house.cost(1);
     final bool hasResources = inventory.hasResources(cost);
-    final List<ConstructBuildingTask> tasks = state.colony.buildHouseTasks;
+    final List<ConstructionTask> tasks = state.colony.constructionTasks;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -163,7 +163,10 @@ class BuildHouseSection extends StatelessWidget {
             color: Palette.success,
             icon: Icons.construction,
             onPressed: hasResources
-                ? () => state.onAddConstructionTask(BuildingType.house)
+                ? () => state.onAddConstructionTask(ConstructionTask(
+                      buildingType: BuildingType.house,
+                      resourcesAmount: 0,
+                    ))
                 : null,
             expand: false,
           ),
@@ -175,7 +178,8 @@ class BuildHouseSection extends StatelessWidget {
               sprite: BuildingType.house.sprite,
               progress: tasks[0].progress,
               size: tasks.length,
-              onTap: () => state.onRemoveConstructionTask(BuildingType.house),
+              onTap:
+                  () {}, // => state.onRemoveConstructionTask(BuildingType.house),
             ),
           )
         else

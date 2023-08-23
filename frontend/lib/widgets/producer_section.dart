@@ -4,6 +4,7 @@ import 'package:godluckwiththat/dialog/confirmation_dialog.dart';
 import 'package:godluckwiththat/dialog/create_exploration_dialog.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/patch.dart';
+import 'package:godluckwiththat/models/tasks/construction_task.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -130,7 +131,10 @@ class PatchEntry extends StatelessWidget {
             icon: Icons.construction,
             color: Palette.success,
             onPressed: () => state.colony.hasFreeVillagers
-                ? state.onAddConstructionTask(patch.patchType.buildingType)
+                ? state.onAddConstructionTask(ConstructionTask(
+                    buildingType: patch.patchType.buildingType,
+                    resourcesAmount: patch.amount.toDouble(),
+                  ))
                 : null,
           ),
         ],
