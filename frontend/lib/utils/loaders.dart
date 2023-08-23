@@ -8,6 +8,7 @@ class Loaders {
   static Colony colony(JsonColony jsonColony) => Colony(
         inventory: Inventory.fromJson(jsonColony.inventory),
         buildings: [],
+        patches: [],
         freeVillagers: jsonColony.freeVillagers,
       );
 

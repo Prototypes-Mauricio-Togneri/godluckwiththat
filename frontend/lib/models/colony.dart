@@ -6,15 +6,18 @@ import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/misc/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/inventory.dart';
+import 'package:godluckwiththat/models/patch.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/models/tasks/construct_building_task.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/types/patch_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 class Colony {
   final Inventory inventory;
   final List<Building> buildings;
+  final List<Patch> patches;
   final List<ConstructBuildingTask> buildHouseTasks = [];
   final List<ExplorationTask> explorationTasks = [];
   int freeVillagers;
@@ -22,6 +25,7 @@ class Colony {
   Colony({
     required this.inventory,
     required this.buildings,
+    required this.patches,
     required this.freeVillagers,
   });
 
@@ -41,6 +45,18 @@ class Colony {
     return result;
   }
 
+  List<Patch> getPatches(PatchType patchType) {
+    final List<Patch> result = [];
+
+    for (final Patch patch in patches) {
+      if (patch.patchType == patchType) {
+        result.add(patch);
+      }
+    }
+
+    return result;
+  }
+
   void update(double dt) {
     if (buildHouseTasks.isNotEmpty) {
       final ConstructBuildingTask task = buildHouseTasks.first;
@@ -54,17 +70,7 @@ class Colony {
       }
     }
 
-    final List<ExplorationTask> explorationTasksToRemove = [];
-
-    for (final ExplorationTask task in explorationTasks) {
-      if (task.update(dt)) {
-        explorationTasksToRemove.add(task);
-      }
-    }
-
-    for (final ExplorationTask task in explorationTasksToRemove) {
-      explorationTasks.remove(task);
-    }
+    _updateExplorationTasks(dt);
 
     for (final Building building in buildings) {
       building.update(dt, this);
@@ -78,6 +84,25 @@ class Colony {
 
     final double woodConsumption = consumptionOf(ResourceType.wood) * dt;
     inventory.removeResource(Resource.wood(woodConsumption));
+  }
+
+  void _updateExplorationTasks(double dt) {
+    final List<ExplorationTask> explorationTasksToRemove = [];
+
+    for (final ExplorationTask task in explorationTasks) {
+      if (task.update(dt)) {
+        patches.add(Patch(
+          patchType: task.patchType,
+          amount: task.amount,
+        ));
+        addFreeVillagers(task.villagers);
+        explorationTasksToRemove.add(task);
+      }
+    }
+
+    for (final ExplorationTask task in explorationTasksToRemove) {
+      explorationTasks.remove(task);
+    }
   }
 
   double productionOf(ResourceType resourceType) {

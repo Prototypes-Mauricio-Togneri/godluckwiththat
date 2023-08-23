@@ -26,6 +26,7 @@ class BaseGameState extends BaseState {
         ResourceType.stone: 400,
       }),
       buildings: [],
+      patches: [],
       freeVillagers: 5,
     );
 

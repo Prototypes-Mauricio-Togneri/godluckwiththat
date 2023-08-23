@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/dialog/confirmation_dialog.dart';
 import 'package:godluckwiththat/dialog/create_exploration_dialog.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
+import 'package:godluckwiththat/models/patch.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -35,16 +36,106 @@ class ProducerSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const VBox(20),
+        PatchesSection(
+          state: state,
+          patchType: patchType,
+        ),
         BuildingsSection(
           state: state,
           type: type,
           buildingType: buildingType,
           name: name,
         ),
-        const VBox(20),
         ExplorationSection(state, patchType),
       ],
+    );
+  }
+}
+
+class PatchesSection extends StatelessWidget {
+  final GameState state;
+  final PatchType patchType;
+
+  const PatchesSection({
+    required this.state,
+    required this.patchType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Patch> patches = state.colony.getPatches(patchType);
+
+    if (patches.isEmpty) {
+      return const Empty();
+    } else {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const VBox(20),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ImageAsset(
+                path: patchType.sprite,
+                size: 40,
+              ),
+              const HBox(10),
+              const Label(
+                text: 'Patches',
+                color: Palette.white,
+                size: 35,
+              ),
+            ],
+          ),
+          const VBox(20),
+          for (final Patch patch in patches) PatchEntry(state, patch),
+        ],
+      );
+    }
+  }
+}
+
+class PatchEntry extends StatelessWidget {
+  final GameState state;
+  final Patch patch;
+
+  const PatchEntry(this.state, this.patch);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        bottom: 20,
+        left: 20,
+        right: 20,
+      ),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: 2,
+          color: Palette.lightGrey,
+        ),
+      ),
+      child: Row(
+        children: [
+          Label(
+            text: 'Amount: ${patch.amount}',
+            color: Palette.white,
+            size: 30,
+          ),
+          const Spacer(),
+          PrimaryButton(
+            text: 'Build',
+            expand: false,
+            icon: Icons.construction,
+            color: Palette.success,
+            onPressed: () => state.onAddConstructBuildingTask(
+              cost: patch.patchType.buildingType.initialCost,
+              buildingType: patch.patchType.buildingType,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -67,15 +158,19 @@ class BuildingsSection extends StatelessWidget {
     final List<Producer> buildings = state.colony.getBuildings(type);
 
     if (buildings.isEmpty) {
-      return Label(
-        text: 'No $name',
-        color: Palette.white,
-        size: 35,
+      return Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: Label(
+          text: 'No $name',
+          color: Palette.white,
+          size: 35,
+        ),
       );
     } else {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          const VBox(20),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -93,18 +188,18 @@ class BuildingsSection extends StatelessWidget {
           ),
           const VBox(20),
           for (final Producer producer in buildings)
-            ProducerEntry(state, producer),
+            BuildingEntry(state, producer),
         ],
       );
     }
   }
 }
 
-class ProducerEntry extends StatelessWidget {
+class BuildingEntry extends StatelessWidget {
   final GameState state;
   final Producer producer;
 
-  const ProducerEntry(this.state, this.producer);
+  const BuildingEntry(this.state, this.producer);
 
   @override
   Widget build(BuildContext context) {
@@ -180,6 +275,7 @@ class ExplorationSection extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        const VBox(20),
         const Row(
           mainAxisSize: MainAxisSize.min,
           children: [

@@ -11,4 +11,6 @@ class ExplorationTask extends Task {
     required this.villagers,
     required this.days,
   }) : super(duration: days.toDouble());
+
+  int get amount => (villagers + days) * 10;
 }
