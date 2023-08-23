@@ -163,10 +163,7 @@ class BuildHouseSection extends StatelessWidget {
             color: Palette.success,
             icon: Icons.construction,
             onPressed: hasResources
-                ? () => state.onAddConstructBuildingTask(
-                      cost: cost,
-                      buildingType: BuildingType.house,
-                    )
+                ? () => state.onAddConstructBuildingTask(BuildingType.house)
                 : null,
             expand: false,
           ),
@@ -178,10 +175,8 @@ class BuildHouseSection extends StatelessWidget {
               sprite: BuildingType.house.sprite,
               progress: tasks[0].progress,
               size: tasks.length,
-              onTap: () => state.onRemoveConstructBuildingTask(
-                cost: cost,
-                buildingType: BuildingType.house,
-              ),
+              onTap: () =>
+                  state.onRemoveConstructBuildingTask(BuildingType.house),
             ),
           )
         else

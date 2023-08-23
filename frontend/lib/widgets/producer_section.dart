@@ -130,10 +130,7 @@ class PatchEntry extends StatelessWidget {
             icon: Icons.construction,
             color: Palette.success,
             onPressed: () => state.colony.hasFreeVillagers
-                ? state.onAddConstructBuildingTask(
-                    cost: patch.patchType.buildingType.initialCost,
-                    buildingType: patch.patchType.buildingType,
-                  )
+                ? state.onAddConstructBuildingTask(patch.patchType.buildingType)
                 : null,
           ),
         ],

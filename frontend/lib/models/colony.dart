@@ -165,10 +165,10 @@ class Colony {
     return amount;
   }
 
-  void addConstructBuildingTask(ResourceMap cost, BuildingType buildingType) {
+  void addConstructBuildingTask(BuildingType buildingType) {
     if (buildingType == BuildingType.house) {
       buildHouseTasks.add(ConstructBuildingTask(
-        cost: cost,
+        cost: buildingType.initialCost,
         buildingType: buildingType,
       ));
     }
