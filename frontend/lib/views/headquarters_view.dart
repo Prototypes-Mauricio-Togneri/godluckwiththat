@@ -12,6 +12,7 @@ import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/primary_button.dart';
+import 'package:godluckwiththat/widgets/producer_section.dart';
 import 'package:godluckwiththat/widgets/queue_indicator.dart';
 import 'package:godluckwiththat/widgets/tooltip.dart';
 import 'package:godluckwiththat/widgets/upgrade_button.dart';
@@ -149,9 +150,10 @@ class BuildHouseSection extends StatelessWidget {
     final Inventory inventory = state.colony.inventory;
     final ResourceMap cost = BuildingType.house.cost(1);
     final bool hasResources = inventory.hasResources(cost);
-    final List<ConstructionTask> tasks = state.colony.constructionTasks;
+    final List<ConstructionTask> tasks =
+        state.colony.getConstructionTasks(BuildingType.house);
 
-    return Row(
+    return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         CostTooltip(
@@ -171,19 +173,9 @@ class BuildHouseSection extends StatelessWidget {
             expand: false,
           ),
         ),
-        if (tasks.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: QueueIndicator(
-              sprite: BuildingType.house.sprite,
-              progress: tasks[0].progress,
-              size: tasks.length,
-              onTap:
-                  () {}, // => state.onRemoveConstructionTask(BuildingType.house),
-            ),
-          )
-        else
-          const HBox(65),
+        const VBox(20),
+        for (final ConstructionTask task in tasks)
+          ConstructionTaskEntry(state, task),
       ],
     );
   }
