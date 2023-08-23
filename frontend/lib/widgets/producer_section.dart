@@ -6,6 +6,7 @@ import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/patch.dart';
+import 'package:godluckwiththat/models/tasks/construction_task.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -167,8 +168,10 @@ class BuildingsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Producer> buildings = state.colony.getBuildings(type);
+    final List<ConstructionTask> tasks =
+        state.colony.getConstructionTasks(buildingType);
 
-    if (buildings.isEmpty) {
+    if (buildings.isEmpty && tasks.isEmpty) {
       return Padding(
         padding: const EdgeInsets.only(top: 20),
         child: Label(
@@ -198,12 +201,61 @@ class BuildingsSection extends StatelessWidget {
             ],
           ),
           const VBox(20),
+          for (final ConstructionTask task in tasks)
+            ConstructionTaskEntry(state, task),
           for (final Producer producer in buildings)
             BuildingEntry(state, producer),
         ],
       );
     }
   }
+}
+
+class ConstructionTaskEntry extends StatelessWidget {
+  final GameState state;
+  final ConstructionTask task;
+
+  const ConstructionTaskEntry(this.state, this.task);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(
+        bottom: 20,
+        left: 20,
+        right: 20,
+      ),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: 2,
+          color: Palette.lightGrey,
+        ),
+      ),
+      child: Row(
+        children: [
+          Label(
+            text: 'Progress: ${Formatter.progress(task.progress)}',
+            color: Palette.white,
+            size: 30,
+          ),
+          const HBox(30),
+          const Spacer(),
+          PrimaryButton(
+            text: 'Stop',
+            expand: false,
+            icon: Icons.cancel,
+            color: Palette.error,
+            onPressed: _onCancel,
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _onCancel() => ConfirmationDialog.cancelExploration(
+        onAccept: () => state.onRemoveConstructionTask(task),
+      );
 }
 
 class BuildingEntry extends StatelessWidget {

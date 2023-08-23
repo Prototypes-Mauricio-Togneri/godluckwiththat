@@ -58,6 +58,18 @@ class Colony {
     return result;
   }
 
+  List<ConstructionTask> getConstructionTasks(BuildingType buildingType) {
+    final List<ConstructionTask> result = [];
+
+    for (final ConstructionTask task in constructionTasks) {
+      if (task.buildingType == buildingType) {
+        result.add(task);
+      }
+    }
+
+    return result;
+  }
+
   void update(double dt) {
     _updateTasks(
       dt: dt,
