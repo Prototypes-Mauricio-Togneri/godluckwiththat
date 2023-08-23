@@ -59,14 +59,6 @@ class Colony {
   }
 
   void update(double dt) {
-    if (constructionTasks.isNotEmpty) {
-      final ConstructionTask task = constructionTasks.first;
-
-      if (task.update(dt)) {
-        constructionTasks.removeAt(0);
-      }
-    }
-
     _updateTasks(
       dt: dt,
       tasks: constructionTasks,

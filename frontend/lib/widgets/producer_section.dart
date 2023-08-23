@@ -2,7 +2,9 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/dialog/confirmation_dialog.dart';
 import 'package:godluckwiththat/dialog/create_exploration_dialog.dart';
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
+import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/patch.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/states/game_state.dart';
@@ -14,6 +16,7 @@ import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/image_asset.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/primary_button.dart';
+import 'package:godluckwiththat/widgets/tooltip.dart';
 import 'package:godluckwiththat/widgets/upgrade_button.dart';
 import 'package:godluckwiththat/widgets/workers_selector.dart';
 
@@ -103,6 +106,10 @@ class PatchEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ResourceMap cost = patch.patchType.buildingType.initialCost;
+    final Inventory inventory = state.colony.inventory;
+    final bool hasResources = inventory.hasResources(cost);
+
     return Container(
       margin: const EdgeInsets.only(
         bottom: 20,
@@ -124,14 +131,19 @@ class PatchEntry extends StatelessWidget {
             size: 30,
           ),
           const Spacer(),
-          PrimaryButton(
-            text: 'Build',
-            expand: false,
-            icon: Icons.construction,
-            color: Palette.success,
-            onPressed: () => state.colony.hasFreeVillagers
-                ? state.onAddConstructionFromPatchTask(patch)
-                : null,
+          CostTooltip(
+            cost: cost,
+            inventory: inventory,
+            showInstant: !hasResources,
+            child: PrimaryButton(
+              text: 'Build',
+              expand: false,
+              icon: Icons.construction,
+              color: Palette.success,
+              onPressed: () => state.colony.hasFreeVillagers
+                  ? state.onAddConstructionFromPatchTask(patch)
+                  : null,
+            ),
           ),
         ],
       ),

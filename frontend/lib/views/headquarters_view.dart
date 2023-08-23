@@ -186,25 +186,5 @@ class BuildHouseSection extends StatelessWidget {
           const HBox(65),
       ],
     );
-
-    /*return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        PrimaryButton(
-          text: 'Build House',
-          color: Palette.success,
-          icon: Icons.construction,
-          onPressed: state.onBuildHouse,
-          expand: false,
-        ),
-        const HBox(20),
-        QueueIndicator(
-          sprite: BuildingType.house.sprite,
-          progress: 0,
-          size: 1,
-          onTap: state.onRemoveHouseQueue,
-        ),
-      ],
-    );*/
   }
 }
