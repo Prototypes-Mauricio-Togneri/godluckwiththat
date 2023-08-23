@@ -165,7 +165,7 @@ class Colony {
     return amount;
   }
 
-  void addConstructBuildingTask(BuildingType buildingType) {
+  void addConstructionTask(BuildingType buildingType) {
     if (buildingType == BuildingType.house) {
       buildHouseTasks.add(ConstructBuildingTask(
         cost: buildingType.initialCost,
@@ -174,7 +174,7 @@ class Colony {
     }
   }
 
-  void removeConstructBuildingTask(BuildingType buildingType) {
+  void removeConstructionTask(BuildingType buildingType) {
     if (buildingType == BuildingType.house) {
       buildHouseTasks.removeAt(buildHouseTasks.length - 1);
     }

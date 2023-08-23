@@ -35,13 +35,13 @@ mixin GameStateActions on BaseGameState {
 
   // ======================================================================== \\
 
-  void onAddConstructBuildingTask(BuildingType buildingType) {
-    colony.addConstructBuildingTask(buildingType);
+  void onAddConstructionTask(BuildingType buildingType) {
+    colony.addConstructionTask(buildingType);
     colony.removeResources(buildingType.initialCost);
   }
 
-  void onRemoveConstructBuildingTask(BuildingType buildingType) {
-    colony.removeConstructBuildingTask(buildingType);
+  void onRemoveConstructionTask(BuildingType buildingType) {
+    colony.removeConstructionTask(buildingType);
     colony.addResources(buildingType.initialCost);
   }
 
