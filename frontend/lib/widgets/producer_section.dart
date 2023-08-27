@@ -158,20 +158,10 @@ class BuildingsSection extends StatelessWidget {
     final List<ConstructionTask> tasks =
         state.colony.getConstructionTasks(buildingType);
 
-    if (buildings.isEmpty && tasks.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: Label(
-          text: 'No $name',
-          color: Palette.white,
-          size: 35,
-        ),
-      );
-    } else {
-      return Column(
+    return SectionGroup(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const VBox(20),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -187,14 +177,26 @@ class BuildingsSection extends StatelessWidget {
               ),
             ],
           ),
-          const VBox(20),
-          for (final ConstructionTask task in tasks)
-            ConstructionTaskEntry(state, task),
-          for (final Producer producer in buildings)
-            BuildingEntry(state, producer),
+          if (buildings.isEmpty && tasks.isEmpty)
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Label(
+                  text: 'No $name',
+                  color: Palette.lightGrey,
+                  size: 25,
+                ),
+              ),
+            )
+          else ...[
+            for (final ConstructionTask task in tasks)
+              ConstructionTaskEntry(state, task),
+            for (final Producer producer in buildings)
+              BuildingEntry(state, producer),
+          ]
         ],
-      );
-    }
+      ),
+    );
   }
 }
 
@@ -374,4 +376,22 @@ class ExplorationTaskEntry extends StatelessWidget {
   void _onCancel() => ConfirmationDialog.cancelExploration(
         onAccept: () => state.onRemoveExplorationTask(task),
       );
+}
+
+class SectionGroup extends StatelessWidget {
+  final Widget child;
+
+  const SectionGroup({
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
+      color: Palette.darkGrey,
+      child: child,
+    );
+  }
 }
