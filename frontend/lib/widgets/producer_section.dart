@@ -141,7 +141,7 @@ class PatchEntry extends StatelessWidget {
               expand: false,
               icon: Icons.construction,
               color: Palette.success,
-              onPressed: () => state.colony.hasFreeVillagers
+              onPressed: () => state.colony.hasFreeVillagers && hasResources
                   ? state.onAddConstructionFromPatchTask(patch)
                   : null,
             ),
@@ -274,6 +274,7 @@ class BuildingEntry extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
+        color: Palette.grey,
         border: Border.all(
           width: 2,
           color: Palette.lightGrey,
@@ -338,7 +339,7 @@ class ExplorationSection extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const VBox(20),
+        const VBox(50),
         const Row(
           mainAxisSize: MainAxisSize.min,
           children: [
