@@ -87,7 +87,7 @@ class Colony {
       dt: dt,
       tasks: explorationTasks,
       callback: (task) {
-        patches.add(Patch(
+        addPatch(Patch(
           patchType: task.patchType,
           amount: task.amount,
         ));
@@ -202,6 +202,14 @@ class Colony {
 
   void removeExplorationTask(ExplorationTask task) {
     explorationTasks.remove(task);
+  }
+
+  void addPatch(Patch patch) {
+    patches.add(patch);
+  }
+
+  void removePatch(Patch patch) {
+    patches.remove(patch);
   }
 
   void _createBuilding({

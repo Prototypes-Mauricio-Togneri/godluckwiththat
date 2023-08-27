@@ -1,7 +1,6 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/game/base_game_state.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
-import 'package:godluckwiththat/models/patch.dart';
 import 'package:godluckwiththat/models/tasks/construction_task.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 
@@ -36,21 +35,21 @@ mixin GameStateActions on BaseGameState {
 
   // ======================================================================== \\
 
-  void onAddConstructionFromPatchTask(Patch patch) {
-    colony.patches.remove(patch);
-    onAddConstructionTask(ConstructionTask(
-      buildingType: patch.patchType.buildingType,
-      resourcesAmount: patch.amount.toDouble(),
-    ));
-  }
-
   void onAddConstructionTask(ConstructionTask task) {
+    if (task.hasPatch) {
+      colony.removePatch(task.patch!);
+    }
+
     colony.addConstructionTask(task);
     colony.removeFreeVillagers(1);
     colony.removeResources(task.buildingType.initialCost);
   }
 
   void onRemoveConstructionTask(ConstructionTask task) {
+    if (task.hasPatch) {
+      colony.addPatch(task.patch!);
+    }
+
     colony.removeConstructionTask(task);
     colony.addFreeVillagers(1);
     colony.addResources(task.buildingType.initialCost);

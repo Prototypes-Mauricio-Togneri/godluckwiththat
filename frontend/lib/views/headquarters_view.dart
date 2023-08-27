@@ -168,6 +168,7 @@ class BuildHouseSection extends StatelessWidget {
                 ? () => state.onAddConstructionTask(ConstructionTask(
                       buildingType: BuildingType.house,
                       resourcesAmount: 0,
+                      patch: null,
                     ))
                 : null,
             expand: false,

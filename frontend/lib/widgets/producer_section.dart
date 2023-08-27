@@ -127,7 +127,7 @@ class PatchEntry extends StatelessWidget {
       child: Row(
         children: [
           Label(
-            text: 'Amount: ${patch.amount}',
+            text: '${patch.patchType.toString()} capacity: ${patch.amount}',
             color: Palette.white,
             size: 30,
           ),
@@ -142,7 +142,8 @@ class PatchEntry extends StatelessWidget {
               icon: Icons.construction,
               color: Palette.success,
               onPressed: () => state.colony.hasFreeVillagers && hasResources
-                  ? state.onAddConstructionFromPatchTask(patch)
+                  ? state
+                      .onAddConstructionTask(ConstructionTask.fromPatch(patch))
                   : null,
             ),
           ),
@@ -253,9 +254,9 @@ class ConstructionTaskEntry extends StatelessWidget {
     );
   }
 
-  void _onCancel() => ConfirmationDialog.cancelExploration(
-        onAccept: () => state.onRemoveConstructionTask(task),
-      );
+  void _onCancel() => ConfirmationDialog.cancelExploration(onAccept: _cancel);
+
+  void _cancel() => state.onRemoveConstructionTask(task);
 }
 
 class BuildingEntry extends StatelessWidget {
