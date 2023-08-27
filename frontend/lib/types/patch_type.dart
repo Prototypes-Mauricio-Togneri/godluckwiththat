@@ -41,6 +41,19 @@ enum PatchType {
     }
   }
 
+  String get patchesText {
+    switch (this) {
+      case PatchType.water:
+        return 'Water deposits';
+      case PatchType.food:
+        return 'Fields';
+      case PatchType.wood:
+        return 'Forest';
+      case PatchType.stone:
+        return 'Stone deposits';
+    }
+  }
+
   @override
   String toString() => name.replaceAll('_', ' ');
 }

@@ -84,8 +84,8 @@ class PatchesSection extends StatelessWidget {
                 size: 40,
               ),
               const HBox(10),
-              const Label(
-                text: 'Patches',
+              Label(
+                text: '${patchType.patchesText} discovered',
                 color: Palette.white,
                 size: 35,
               ),
