@@ -73,28 +73,28 @@ class PatchesSection extends StatelessWidget {
     if (patches.isEmpty) {
       return const Empty();
     } else {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const VBox(20),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ImageAsset(
-                path: patchType.sprite,
-                size: 40,
-              ),
-              const HBox(10),
-              Label(
-                text: '${patchType.patchesText} discovered',
-                color: Palette.white,
-                size: 35,
-              ),
-            ],
-          ),
-          const VBox(20),
-          for (final Patch patch in patches) PatchEntry(state, patch),
-        ],
+      return SectionGroup(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ImageAsset(
+                  path: patchType.sprite,
+                  size: 40,
+                ),
+                const HBox(10),
+                Label(
+                  text: '${patchType.patchesText} discovered',
+                  color: Palette.white,
+                  size: 35,
+                ),
+              ],
+            ),
+            for (final Patch patch in patches) PatchEntry(state, patch),
+          ],
+        ),
       );
     }
   }
@@ -178,16 +178,7 @@ class BuildingsSection extends StatelessWidget {
             ],
           ),
           if (buildings.isEmpty && tasks.isEmpty)
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Label(
-                  text: 'No $name',
-                  color: Palette.lightGrey,
-                  size: 25,
-                ),
-              ),
-            )
+            EmptyText('No $name')
           else ...[
             for (final ConstructionTask task in tasks)
               ConstructionTaskEntry(state, task),
@@ -296,40 +287,43 @@ class ExplorationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const VBox(50),
-        const Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ImageAsset(
-              path: Assets.IMAGES_OTHER_EXPLORATION,
-              size: 40,
-            ),
-            HBox(10),
-            Label(
-              text: 'Explorations',
-              color: Palette.white,
-              size: 35,
-            ),
-          ],
-        ),
-        const VBox(20),
-        for (final ExplorationTask task in state.colony.explorationTasks)
-          ExplorationTaskEntry(state, task),
-        const VBox(20),
-        PrimaryButton(
-          text: 'Explore',
-          expand: false,
-          icon: Icons.explore,
-          color: Palette.success,
-          onPressed: () => CreateExplorationDialog.show(
-            patchType: patchType,
-            state: state,
+    return SectionGroup(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ImageAsset(
+                path: Assets.IMAGES_OTHER_EXPLORATION,
+                size: 40,
+              ),
+              HBox(10),
+              Label(
+                text: 'Explorations',
+                color: Palette.white,
+                size: 35,
+              ),
+            ],
           ),
-        ),
-      ],
+          if (state.colony.explorationTasks.isEmpty)
+            const EmptyText('No explorations')
+          else
+            for (final ExplorationTask task in state.colony.explorationTasks)
+              ExplorationTaskEntry(state, task),
+          const VBox(20),
+          PrimaryButton(
+            text: 'Explore',
+            expand: false,
+            icon: Icons.explore,
+            color: Palette.success,
+            onPressed: () => CreateExplorationDialog.show(
+              patchType: patchType,
+              state: state,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -388,10 +382,34 @@ class SectionGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(20),
+      margin: const EdgeInsets.only(
+        top: 20,
+        left: 20,
+        right: 20,
+      ),
       padding: const EdgeInsets.all(20),
       color: Palette.darkGrey,
       child: child,
+    );
+  }
+}
+
+class EmptyText extends StatelessWidget {
+  final String text;
+
+  const EmptyText(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: Label(
+          text: text,
+          color: Palette.lightGrey,
+          size: 25,
+        ),
+      ),
     );
   }
 }
