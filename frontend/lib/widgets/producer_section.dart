@@ -355,6 +355,12 @@ class ExplorationTaskEntry extends StatelessWidget {
           color: Palette.white,
           size: 30,
         ),
+        const HBox(30),
+        Label(
+          text: 'Days left: ${Formatter.days(task.remainingTime.ceil())}',
+          color: Palette.white,
+          size: 30,
+        ),
         const Spacer(),
         PrimaryButton(
           text: 'Stop',
