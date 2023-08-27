@@ -11,9 +11,11 @@ class Task {
 
   double get progress => 1 - (remainingTime / totalTime);
 
+  bool get isCompleted => remainingTime <= 0;
+
   bool update(double dt) {
     remainingTime -= dt;
 
-    return remainingTime <= 0;
+    return isCompleted;
   }
 }

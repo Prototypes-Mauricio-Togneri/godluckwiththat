@@ -46,13 +46,15 @@ mixin GameStateActions on BaseGameState {
   }
 
   void onRemoveConstructionTask(ConstructionTask task) {
-    if (task.hasPatch) {
-      colony.addPatch(task.patch!);
-    }
+    if (!task.isCompleted) {
+      if (task.hasPatch) {
+        colony.addPatch(task.patch!);
+      }
 
-    colony.removeConstructionTask(task);
-    colony.addFreeVillagers(1);
-    colony.addResources(task.buildingType.initialCost);
+      colony.removeConstructionTask(task);
+      colony.addFreeVillagers(1);
+      colony.addResources(task.buildingType.initialCost);
+    }
   }
 
   // ======================================================================== \\
@@ -63,7 +65,9 @@ mixin GameStateActions on BaseGameState {
   }
 
   void onRemoveExplorationTask(ExplorationTask task) {
-    colony.removeExplorationTask(task);
-    colony.addFreeVillagers(task.villagers);
+    if (!task.isCompleted) {
+      colony.removeExplorationTask(task);
+      colony.addFreeVillagers(task.villagers);
+    }
   }
 }
