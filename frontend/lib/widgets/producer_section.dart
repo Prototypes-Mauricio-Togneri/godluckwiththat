@@ -219,9 +219,8 @@ class ConstructionTaskEntry extends StatelessWidget {
     );
   }
 
-  void _onCancel() => ConfirmationDialog.cancelExploration(onAccept: _cancel);
-
-  void _cancel() => state.onRemoveConstructionTask(task);
+  void _onCancel() => ConfirmationDialog.cancelConstruction(
+      onAccept: () => state.onRemoveConstructionTask(task));
 }
 
 class BuildingEntry extends StatelessWidget {

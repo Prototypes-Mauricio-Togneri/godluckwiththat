@@ -54,6 +54,16 @@ class ConfirmationDialog extends StatelessWidget {
         onAccept: onAccept,
       );
 
+  static DialogController cancelConstruction({
+    required VoidCallback onAccept,
+  }) =>
+      _show(
+        message: 'Stop construction?',
+        buttonAccept: 'Stop',
+        buttonCancel: 'Cancel',
+        onAccept: onAccept,
+      );
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
