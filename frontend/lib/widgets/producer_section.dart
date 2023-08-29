@@ -18,6 +18,7 @@ import 'package:godluckwiththat/widgets/image_asset.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/list_row.dart';
 import 'package:godluckwiththat/widgets/primary_button.dart';
+import 'package:godluckwiththat/widgets/section_group.dart';
 import 'package:godluckwiththat/widgets/tooltip.dart';
 import 'package:godluckwiththat/widgets/upgrade_button.dart';
 import 'package:godluckwiththat/widgets/workers_selector.dart';
@@ -375,28 +376,6 @@ class ExplorationTaskEntry extends StatelessWidget {
   void _onCancel() => ConfirmationDialog.cancelExploration(
         onAccept: () => state.onRemoveExplorationTask(task),
       );
-}
-
-class SectionGroup extends StatelessWidget {
-  final Widget child;
-
-  const SectionGroup({
-    required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(
-        top: 20,
-        left: 20,
-        right: 20,
-      ),
-      padding: const EdgeInsets.all(20),
-      color: Palette.darkGrey,
-      child: child,
-    );
-  }
 }
 
 class EmptyText extends StatelessWidget {

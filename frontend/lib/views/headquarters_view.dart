@@ -14,6 +14,7 @@ import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/primary_button.dart';
 import 'package:godluckwiththat/widgets/producer_section.dart';
 import 'package:godluckwiththat/widgets/queue_indicator.dart';
+import 'package:godluckwiththat/widgets/section_group.dart';
 import 'package:godluckwiththat/widgets/tooltip.dart';
 import 'package:godluckwiththat/widgets/upgrade_button.dart';
 
@@ -27,14 +28,9 @@ class HeadquartersView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const VBox(30),
         UpgradeSection(state),
-        const VBox(30),
         CreateVillagerSection(state),
-        const VBox(30),
         HousingSection(state),
-        const VBox(30),
-        BuildHouseSection(state),
       ],
     );
   }
@@ -49,17 +45,20 @@ class UpgradeSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final Headquarters headquarters = state.colony.headquarters;
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Label(
-          text: 'Town Center level: ${headquarters.level}',
-          color: Palette.white,
-          size: 35,
-        ),
-        const HBox(20),
-        UpgradeButton(state, headquarters),
-      ],
+    return SectionGroup(
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Label(
+            text: 'Town Center level: ${headquarters.level}',
+            color: Palette.white,
+            size: 35,
+          ),
+          const HBox(20),
+          UpgradeButton(state, headquarters),
+        ],
+      ),
     );
   }
 }
@@ -80,36 +79,39 @@ class CreateVillagerSection extends StatelessWidget {
         (inventory.get(ResourceType.villager) + tasks.length) >=
             state.colony.populationLimit;
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CostTooltip(
-          cost: cost,
-          inventory: inventory,
-          showInstant: !hasResources,
-          child: PrimaryButton(
-            text: 'Create Villager',
-            color: Palette.success,
-            icon: Icons.person,
-            onPressed: (hasResources && !maxPopulationReached)
-                ? () => state.onAddVillagerTask(cost)
-                : null,
-            expand: false,
-          ),
-        ),
-        if (tasks.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: QueueIndicator(
-              sprite: ResourceType.villager.sprite,
-              progress: tasks[0].progress,
-              size: tasks.length,
-              onTap: () => state.onRemoveVillagerTask(cost),
+    return SectionGroup(
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CostTooltip(
+            cost: cost,
+            inventory: inventory,
+            showInstant: !hasResources,
+            child: PrimaryButton(
+              text: 'Create Villager',
+              color: Palette.success,
+              icon: Icons.person,
+              onPressed: (hasResources && !maxPopulationReached)
+                  ? () => state.onAddVillagerTask(cost)
+                  : null,
+              expand: false,
             ),
-          )
-        else
-          const HBox(65),
-      ],
+          ),
+          if (tasks.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: QueueIndicator(
+                sprite: ResourceType.villager.sprite,
+                progress: tasks[0].progress,
+                size: tasks.length,
+                onTap: () => state.onRemoveVillagerTask(cost),
+              ),
+            )
+          else
+            const HBox(65),
+        ],
+      ),
     );
   }
 }
@@ -123,61 +125,44 @@ class HousingSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<House> houses = state.colony.getBuildings(House);
     final int amount = houses.length;
-
-    if (amount == 0) {
-      return const Label(
-        text: 'No houses',
-        color: Palette.white,
-        size: 35,
-      );
-    } else {
-      return Label(
-        text: 'Houses: $amount',
-        color: Palette.white,
-        size: 35,
-      );
-    }
-  }
-}
-
-class BuildHouseSection extends StatelessWidget {
-  final GameState state;
-
-  const BuildHouseSection(this.state);
-
-  @override
-  Widget build(BuildContext context) {
     final Inventory inventory = state.colony.inventory;
     final ResourceMap cost = BuildingType.house.cost(1);
     final bool hasResources = inventory.hasResources(cost);
     final List<ConstructionTask> tasks =
         state.colony.getConstructionTasks(BuildingType.house);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CostTooltip(
-          cost: cost,
-          inventory: inventory,
-          showInstant: !hasResources,
-          child: PrimaryButton(
-            text: 'Build House',
-            color: Palette.success,
-            icon: Icons.construction,
-            onPressed: hasResources
-                ? () => state.onAddConstructionTask(ConstructionTask(
-                      buildingType: BuildingType.house,
-                      resourcesAmount: 0,
-                      patch: null,
-                    ))
-                : null,
-            expand: false,
+    return SectionGroup(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Label(
+            text: 'Houses: $amount',
+            color: Palette.white,
+            size: 35,
           ),
-        ),
-        const VBox(20),
-        for (final ConstructionTask task in tasks)
-          ConstructionTaskEntry(state, task),
-      ],
+          const VBox(20),
+          CostTooltip(
+            cost: cost,
+            inventory: inventory,
+            showInstant: !hasResources,
+            child: PrimaryButton(
+              text: 'Build House',
+              color: Palette.success,
+              icon: Icons.construction,
+              onPressed: hasResources
+                  ? () => state.onAddConstructionTask(ConstructionTask(
+                        buildingType: BuildingType.house,
+                        resourcesAmount: 0,
+                        patch: null,
+                      ))
+                  : null,
+              expand: false,
+            ),
+          ),
+          for (final ConstructionTask task in tasks)
+            ConstructionTaskEntry(state, task),
+        ],
+      ),
     );
   }
 }
