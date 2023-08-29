@@ -1,8 +1,8 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/game/base_game_state.dart';
-import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/tasks/construction_task.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
+import 'package:godluckwiththat/models/tasks/upgrade_building_task.dart';
 
 mixin GameStateActions on BaseGameState {
   void onAddVillagerTask(ResourceMap cost) {
@@ -17,20 +17,14 @@ mixin GameStateActions on BaseGameState {
 
   // ======================================================================== \\
 
-  void onAddUpgradeBuildingTask({
-    required Building building,
-    required ResourceMap cost,
-  }) {
-    building.addUpgradeTask(cost);
-    colony.removeResources(cost);
+  void onAddUpgradeBuildingTask(UpgradeBuildingTask task) {
+    task.building.addUpgradeTask(task);
+    colony.removeResources(task.cost);
   }
 
-  void onRemoveUpgradeBuildingTask({
-    required Building building,
-    required ResourceMap cost,
-  }) {
-    building.removeUpgradeTask();
-    colony.addResources(cost);
+  void onRemoveUpgradeBuildingTask(UpgradeBuildingTask task) {
+    task.building.removeUpgradeTask();
+    colony.addResources(task.cost);
   }
 
   // ======================================================================== \\
@@ -42,7 +36,7 @@ mixin GameStateActions on BaseGameState {
 
     colony.addConstructionTask(task);
     colony.removeFreeVillagers(1);
-    colony.removeResources(task.buildingType.initialCost);
+    colony.removeResources(task.cost);
   }
 
   void onRemoveConstructionTask(ConstructionTask task) {
@@ -53,7 +47,7 @@ mixin GameStateActions on BaseGameState {
 
       colony.removeConstructionTask(task);
       colony.addFreeVillagers(1);
-      colony.addResources(task.buildingType.initialCost);
+      colony.addResources(task.cost);
     }
   }
 

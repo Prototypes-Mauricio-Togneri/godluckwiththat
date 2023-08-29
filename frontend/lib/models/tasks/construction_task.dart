@@ -12,7 +12,10 @@ class ConstructionTask extends Task {
     required this.buildingType,
     required this.resourcesAmount,
     required this.patch,
-  }) : super(duration: buildingType.initialCost.duration);
+  }) : super(
+          cost: buildingType.initialCost,
+          duration: buildingType.initialCost.duration,
+        );
 
   bool get hasPatch => patch != null;
 

@@ -10,7 +10,10 @@ class ExplorationTask extends Task {
     required this.patchType,
     required this.villagers,
     required this.days,
-  }) : super(duration: days.toDouble());
+  }) : super(
+          cost: {},
+          duration: days.toDouble(),
+        );
 
   int get amount => (villagers + days) * 10;
 }

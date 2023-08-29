@@ -46,8 +46,8 @@ class Building {
 
   bool get canRemoveVillagers => hasVillagers;
 
-  void addUpgradeTask(ResourceMap cost) {
-    upgradeTask ??= UpgradeBuildingTask(cost: cost);
+  void addUpgradeTask(UpgradeBuildingTask task) {
+    upgradeTask ??= task;
   }
 
   void removeUpgradeTask() {
