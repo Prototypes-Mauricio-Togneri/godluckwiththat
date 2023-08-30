@@ -31,6 +31,11 @@ abstract class Producer extends Building {
       final double produced = production * dt;
       resourcesLeft -= produced;
       colony.addResource(Resource(resourceType, produced));
+
+      if (!hasResourcesLeft) {
+        colony.addFreeVillagers(villagers);
+        villagers = 0;
+      }
     }
   }
 }

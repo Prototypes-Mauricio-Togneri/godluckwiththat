@@ -244,23 +244,25 @@ class BuildingEntry extends StatelessWidget {
           color: Palette.white,
           size: 30,
         ),
-        const HBox(30),
-        const Label(
-          text: 'Workers:',
-          color: Palette.white,
-          size: 30,
-        ),
-        const HBox(20),
-        WorkersSelector(
-          building: producer,
-          size: 30,
-        ),
-        const HBox(30),
-        Label(
-          text: 'Production: ${producer.production}/day',
-          color: (producer.production > 0) ? Palette.success : Palette.error,
-          size: 30,
-        ),
+        if (producer.hasResourcesLeft) ...[
+          const HBox(30),
+          const Label(
+            text: 'Workers:',
+            color: Palette.white,
+            size: 30,
+          ),
+          const HBox(20),
+          WorkersSelector(
+            building: producer,
+            size: 30,
+          ),
+          const HBox(30),
+          Label(
+            text: 'Production: ${producer.production}/day',
+            color: (producer.production > 0) ? Palette.success : Palette.error,
+            size: 30,
+          ),
+        ],
         const HBox(30),
         Label(
           text: producer.hasResourcesLeft
@@ -269,8 +271,10 @@ class BuildingEntry extends StatelessWidget {
           color: producer.hasResourcesLeft ? Palette.white : Palette.error,
           size: 30,
         ),
-        const HBox(30),
-        UpgradeButton(state, producer),
+        if (producer.hasResourcesLeft) ...[
+          const HBox(30),
+          UpgradeButton(state, producer),
+        ],
         const Spacer(),
         PrimaryButton(
           text: 'Destroy',
