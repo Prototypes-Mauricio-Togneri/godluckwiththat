@@ -30,7 +30,7 @@ class BaseGameState extends BaseState {
       freeVillagers: 5,
     );
 
-    colony.buildings.addAll([
+    colony.addBuildings([
       Headquarters(
         colony: colony,
         level: 1,
@@ -39,7 +39,7 @@ class BaseGameState extends BaseState {
         colony: colony,
         level: 1,
         villagers: 0,
-        resourcesLeft: 10,
+        resourcesLeft: 100,
       ),
     ]);
   }

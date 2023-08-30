@@ -212,6 +212,10 @@ class Colony {
     patches.remove(patch);
   }
 
+  void addBuildings(List<Building> list) {
+    buildings.addAll(list);
+  }
+
   void removeBuilding(Building building) {
     buildings.remove(building);
   }
