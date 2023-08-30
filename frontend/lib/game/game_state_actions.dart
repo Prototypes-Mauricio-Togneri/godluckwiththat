@@ -1,5 +1,6 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/game/base_game_state.dart';
+import 'package:godluckwiththat/models/event.dart';
 import 'package:godluckwiththat/models/tasks/construction_task.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/models/tasks/upgrade_building_task.dart';
@@ -63,5 +64,16 @@ mixin GameStateActions on BaseGameState {
       colony.removeExplorationTask(task);
       colony.addFreeVillagers(task.villagers);
     }
+  }
+
+  // ======================================================================== \\
+
+  void onEventSelected(Event event) {
+    onMenuSelected(event.menuType);
+    colony.removeEvent(event);
+  }
+
+  void onEventClosed(Event event) {
+    colony.removeEvent(event);
   }
 }

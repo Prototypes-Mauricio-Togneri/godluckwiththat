@@ -48,16 +48,17 @@ class EventsList extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        for (final Event event in state.colony.events) EventBlock(event),
+        for (final Event event in state.colony.events) EventBlock(state, event),
       ],
     );
   }
 }
 
 class EventBlock extends StatelessWidget {
+  final GameState state;
   final Event event;
 
-  const EventBlock(this.event);
+  const EventBlock(this.state, this.event);
 
   @override
   Widget build(BuildContext context) {
@@ -70,32 +71,39 @@ class EventBlock extends StatelessWidget {
           color: Palette.lightGrey,
         ),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                top: 10,
-                bottom: 10,
-                left: 15,
-                right: 15,
+      child: Material(
+        color: Palette.transparent,
+        child: InkWell(
+          onTap: () => state.onEventSelected(event),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10,
+                    bottom: 10,
+                    left: 15,
+                    right: 15,
+                  ),
+                  child: Label(
+                    text: event.title,
+                    size: 25,
+                  ),
+                ),
               ),
-              child: Label(
-                text: event.title,
-                size: 25,
+              IconButton(
+                splashRadius: 15,
+                onPressed: () => state.onEventClosed(event),
+                icon: const Icon(
+                  Icons.close,
+                  color: Palette.lightGrey,
+                  size: 20,
+                ),
               ),
-            ),
+            ],
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.close,
-              color: Palette.lightGrey,
-              size: 20,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
