@@ -37,7 +37,7 @@ class BaseGameState extends BaseState {
       ),
       Well(
         colony: colony,
-        level: 2,
+        level: 1,
         villagers: 0,
         resourcesLeft: 100,
       ),

@@ -14,7 +14,7 @@ class WorkersSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AmountSelector(
-      text: '${building.villagers}/${building.level}',
+      text: '${building.villagers}/${building.maxCapacity}',
       color: building.villagersAmountColor,
       size: size,
       onRemove: building.canRemoveVillagers ? building.removeVillagers : null,

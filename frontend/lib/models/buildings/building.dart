@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/misc/house.dart';
@@ -28,12 +29,14 @@ class Building {
 
   bool get hasVillagers => villagers > 0;
 
-  bool get canHoldMoreVillagers => level > villagers;
+  int get maxCapacity => level * Constants.BUILDING_CAPACITY_PER_LEVEL;
+
+  bool get canHoldMoreVillagers => maxCapacity > villagers;
 
   Color get villagersAmountColor {
     if (villagers == 0) {
       return Palette.error;
-    } else if (villagers == level) {
+    } else if (villagers == maxCapacity) {
       return Palette.success;
     } else {
       return Palette.white;
@@ -61,14 +64,6 @@ class Building {
         level++;
         upgradeTask = null;
       }
-    }
-  }
-
-  String get buildingLabel {
-    if (isProducer) {
-      return '$villagers/$level';
-    } else {
-      return '$level';
     }
   }
 
