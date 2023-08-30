@@ -14,6 +14,7 @@ import 'package:godluckwiththat/types/patch_type.dart';
 import 'package:godluckwiththat/utils/assets.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/empty_text.dart';
 import 'package:godluckwiththat/widgets/image_asset.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/list_row.dart';
@@ -392,24 +393,4 @@ class ExplorationTaskEntry extends StatelessWidget {
   void _onCancel() => ConfirmationDialog.cancelExploration(
         onAccept: () => state.onRemoveExplorationTask(task),
       );
-}
-
-class EmptyText extends StatelessWidget {
-  final String text;
-
-  const EmptyText(this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: Label(
-          text: text,
-          color: Palette.lightGrey,
-          size: 25,
-        ),
-      ),
-    );
-  }
 }

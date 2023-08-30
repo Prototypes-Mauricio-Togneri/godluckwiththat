@@ -5,6 +5,7 @@ import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/misc/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
+import 'package:godluckwiththat/models/event.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/patch.dart';
 import 'package:godluckwiththat/models/resource.dart';
@@ -21,6 +22,7 @@ class Colony {
   final List<Patch> patches;
   final List<ConstructionTask> constructionTasks = [];
   final List<ExplorationTask> explorationTasks = [];
+  final List<Event> events = [];
   int freeVillagers;
 
   Colony({
@@ -104,6 +106,7 @@ class Colony {
           amount: task.amount,
         ));
         addFreeVillagers(task.villagers);
+        addEvent(Event.explorationFinished(task));
       },
     );
 
@@ -230,6 +233,10 @@ class Colony {
 
   void removeBuilding(Building building) {
     buildings.remove(building);
+  }
+
+  void addEvent(Event event) {
+    events.add(event);
   }
 
   void _createBuilding({

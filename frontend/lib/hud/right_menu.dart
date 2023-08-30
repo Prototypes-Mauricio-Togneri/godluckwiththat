@@ -1,7 +1,9 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/models/event.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/empty_text.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 
 class RightMenu extends StatelessWidget {
@@ -17,14 +19,19 @@ class RightMenu extends StatelessWidget {
       height: double.infinity,
       child: Column(
         children: [
-          const VBox(10),
+          const VBox(20),
           const Label(
             text: 'Events',
             color: Palette.white,
             size: 40,
           ),
-          const VBox(10),
-          EventsList(state),
+          if (state.colony.events.isNotEmpty)
+            EventsList(state)
+          else ...[
+            const Spacer(),
+            const EmptyText('No events'),
+            const Spacer(),
+          ],
         ],
       ),
     );
@@ -38,29 +45,25 @@ class EventsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        EventBlock(text: 'Farm depleted'),
-        EventBlock(text: 'Villager created'),
-        EventBlock(text: 'Exploration finished'),
+        for (final Event event in state.colony.events) EventBlock(event),
       ],
     );
   }
 }
 
 class EventBlock extends StatelessWidget {
-  final String text;
+  final Event event;
 
-  const EventBlock({
-    required this.text,
-  });
+  const EventBlock(this.event);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 280,
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
         border: Border.all(
           width: 2,
@@ -79,7 +82,7 @@ class EventBlock extends StatelessWidget {
                 right: 15,
               ),
               child: Label(
-                text: text,
+                text: event.title,
                 size: 25,
               ),
             ),
