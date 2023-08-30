@@ -85,7 +85,10 @@ class Building {
     }
   }
 
-  void destroy() {}
+  void destroy() {
+    colony.removeBuilding(this);
+    colony.addFreeVillagers(villagers);
+  }
 
   factory Building.create({
     required Colony colony,

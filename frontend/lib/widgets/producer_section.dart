@@ -281,11 +281,15 @@ class BuildingEntry extends StatelessWidget {
           expand: false,
           icon: Icons.delete,
           color: Palette.error,
-          onPressed: producer.destroy,
+          onPressed: _onDestroy,
         ),
       ],
     );
   }
+
+  void _onDestroy() => ConfirmationDialog.destroyBuilding(
+        onAccept: producer.destroy,
+      );
 }
 
 class ExplorationSection extends StatelessWidget {

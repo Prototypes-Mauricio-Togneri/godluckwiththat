@@ -212,6 +212,10 @@ class Colony {
     patches.remove(patch);
   }
 
+  void removeBuilding(Building building) {
+    buildings.remove(building);
+  }
+
   void _createBuilding({
     required BuildingType buildingType,
     required double resourcesLeft,
