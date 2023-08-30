@@ -58,6 +58,18 @@ class Colony {
     return result;
   }
 
+  List<ExplorationTask> getExplorations(PatchType patchType) {
+    final List<ExplorationTask> result = [];
+
+    for (final ExplorationTask task in explorationTasks) {
+      if (task.patchType == patchType) {
+        result.add(task);
+      }
+    }
+
+    return result;
+  }
+
   List<ConstructionTask> getConstructionTasks(BuildingType buildingType) {
     final List<ConstructionTask> result = [];
 

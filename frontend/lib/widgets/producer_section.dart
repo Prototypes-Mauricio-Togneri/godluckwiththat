@@ -300,6 +300,9 @@ class ExplorationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<ExplorationTask> explorationTasks =
+        state.colony.getExplorations(patchType);
+
     return SectionGroup(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -319,10 +322,10 @@ class ExplorationSection extends StatelessWidget {
               ),
             ],
           ),
-          if (state.colony.explorationTasks.isEmpty)
+          if (explorationTasks.isEmpty)
             const EmptyText('No explorations')
           else
-            for (final ExplorationTask task in state.colony.explorationTasks)
+            for (final ExplorationTask task in explorationTasks)
               ExplorationTaskEntry(state, task),
           const VBox(20),
           PrimaryButton(
