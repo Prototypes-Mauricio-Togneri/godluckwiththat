@@ -2,7 +2,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:godluckwiththat/app/constants.dart';
-import 'package:godluckwiththat/hud/bottom_menu.dart';
 import 'package:godluckwiththat/hud/left_menu.dart';
 import 'package:godluckwiththat/hud/right_menu.dart';
 import 'package:godluckwiththat/hud/top_menu.dart';
@@ -117,18 +116,7 @@ class GameContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          color: Palette.darkGrey,
-          width: 300,
-          height: double.infinity,
-          child: Column(
-            children: [
-              LeftMenu(state),
-              const Spacer(),
-              BottomMenu(state),
-            ],
-          ),
-        ),
+        LeftMenu(state),
         Expanded(
           child: Column(
             children: [
