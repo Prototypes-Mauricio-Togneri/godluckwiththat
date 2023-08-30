@@ -126,7 +126,7 @@ class PatchEntry extends StatelessWidget {
           inventory: inventory,
           showInstant: !hasResources,
           child: PrimaryButton(
-            text: 'Build',
+            text: 'Build ${patch.patchType.buildingType.toString()}',
             expand: false,
             icon: Icons.construction,
             color: Palette.success,

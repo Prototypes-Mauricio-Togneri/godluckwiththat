@@ -15,5 +15,5 @@ class ExplorationTask extends Task {
           duration: days.toDouble(),
         );
 
-  int get amount => (villagers + days) * 10;
+  int get amount => villagers * days * 10;
 }
