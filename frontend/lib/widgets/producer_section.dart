@@ -266,7 +266,7 @@ class BuildingEntry extends StatelessWidget {
         const HBox(30),
         Label(
           text: producer.hasResourcesLeft
-              ? 'Resources left: ${Formatter.resource(producer.resourcesLeft)}'
+              ? 'Resources left: ${Formatter.resource(producer.resourcesLeft.ceil())}'
               : 'Depleted',
           color: producer.hasResourcesLeft ? Palette.white : Palette.error,
           size: 30,

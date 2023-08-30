@@ -17,7 +17,7 @@ abstract class Producer extends Building {
     required super.villagers,
   }) : super(buildingType: buildingType);
 
-  bool get hasResourcesLeft => resourcesLeft > 1;
+  bool get hasResourcesLeft => resourcesLeft > 0;
 
   double get production => hasResourcesLeft ? (productionRate * villagers) : 0;
 
