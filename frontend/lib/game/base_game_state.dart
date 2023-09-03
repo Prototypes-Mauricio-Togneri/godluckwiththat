@@ -2,7 +2,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/services.dart';
 import 'package:godluckwiththat/json/json_match.dart';
 import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
-import 'package:godluckwiththat/models/buildings/producers/well.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/types/menu_type.dart';
@@ -34,12 +33,6 @@ class BaseGameState extends BaseState {
       Headquarters(
         colony: colony,
         level: 1,
-      ),
-      Well(
-        colony: colony,
-        level: 1,
-        villagers: 0,
-        resourcesLeft: 100,
       ),
     ]);
   }
