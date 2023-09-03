@@ -1,5 +1,3 @@
-import 'package:godluckwiththat/models/tasks/construction_task.dart';
-import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/patch_type.dart';
 
@@ -14,8 +12,8 @@ enum MenuType {
   market,
   research;
 
-  static MenuType fromExploration(ExplorationTask task) {
-    switch (task.patchType) {
+  static MenuType fromPatchType(PatchType patchType) {
+    switch (patchType) {
       case PatchType.water:
         return water;
       case PatchType.food:
@@ -27,8 +25,8 @@ enum MenuType {
     }
   }
 
-  static MenuType fromConstruction(ConstructionTask task) {
-    switch (task.buildingType) {
+  static MenuType fromBuildingType(BuildingType buildingType) {
+    switch (buildingType) {
       case BuildingType.headquarters:
       case BuildingType.house:
         return headquarters;

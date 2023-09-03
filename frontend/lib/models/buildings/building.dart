@@ -9,6 +9,7 @@ import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/models/buildings/producers/well.dart';
 import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
 import 'package:godluckwiththat/models/colony.dart';
+import 'package:godluckwiththat/models/event.dart';
 import 'package:godluckwiththat/models/tasks/upgrade_building_task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/utils/palette.dart';
@@ -62,6 +63,7 @@ class Building {
     if (upgradeTask != null) {
       if (upgradeTask!.update(dt)) {
         level++;
+        colony.addEvent(Event.buildingUpgradeFinished(upgradeTask!));
         upgradeTask = null;
       }
     }

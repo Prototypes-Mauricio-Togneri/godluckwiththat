@@ -190,6 +190,7 @@ class Colony {
 
   void onCreateVillagerTaskFinished(CreateVillagerTask task) {
     addFreeVillagers(task.villagers);
+    addEvent(Event.villagerFinished());
     inventory.addResource(Resource.villager(task.villagers.toDouble()));
   }
 
