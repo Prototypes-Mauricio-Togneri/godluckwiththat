@@ -72,12 +72,13 @@ class CreateVillagerSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final Inventory inventory = state.colony.inventory;
     final ResourceMap cost = state.villagerCost;
-    final bool hasResources = inventory.hasResources(cost);
     final List<CreateVillagerTask> tasks =
         state.colony.headquarters.createVillagerTasks;
     final bool maxPopulationReached =
         (inventory.get(ResourceType.villager) + tasks.length) >=
             state.colony.populationLimit;
+    final bool canCreateVillager =
+        !maxPopulationReached && inventory.hasResources(cost);
 
     return SectionGroup(
       child: Row(
@@ -88,12 +89,12 @@ class CreateVillagerSection extends StatelessWidget {
           CostTooltip(
             cost: cost,
             inventory: inventory,
-            showInstant: !hasResources,
+            showInstant: !canCreateVillager,
             child: PrimaryButton(
               text: 'Create Villager',
               color: Palette.success,
               icon: Icons.person,
-              onPressed: (hasResources && !maxPopulationReached)
+              onPressed: canCreateVillager
                   ? () => state
                       .onAddCreateVillagerTask(CreateVillagerTask(cost: cost))
                   : null,
@@ -129,9 +130,10 @@ class HousingSection extends StatelessWidget {
     final int amount = houses.length;
     final Inventory inventory = state.colony.inventory;
     final ResourceMap cost = BuildingType.house.cost(1);
-    final bool hasResources = inventory.hasResources(cost);
     final List<ConstructionTask> tasks =
         state.colony.getConstructionTasks(BuildingType.house);
+    final bool canBuild =
+        state.colony.hasFreeVillagers && inventory.hasResources(cost);
 
     return SectionGroup(
       child: Column(
@@ -146,12 +148,12 @@ class HousingSection extends StatelessWidget {
           CostTooltip(
             cost: cost,
             inventory: inventory,
-            showInstant: !hasResources,
+            showInstant: !canBuild,
             child: PrimaryButton(
               text: 'Build House',
               color: Palette.success,
               icon: Icons.construction,
-              onPressed: hasResources
+              onPressed: canBuild
                   ? () => state.onAddConstructionTask(ConstructionTask(
                         buildingType: BuildingType.house,
                         resourcesAmount: 0,

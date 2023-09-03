@@ -112,7 +112,8 @@ class PatchEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     final ResourceMap cost = patch.patchType.buildingType.initialCost;
     final Inventory inventory = state.colony.inventory;
-    final bool hasResources = inventory.hasResources(cost);
+    final bool canBuild =
+        state.colony.hasFreeVillagers && inventory.hasResources(cost);
 
     return ListRow(
       children: [
@@ -125,13 +126,13 @@ class PatchEntry extends StatelessWidget {
         CostTooltip(
           cost: cost,
           inventory: inventory,
-          showInstant: !hasResources,
+          showInstant: !canBuild,
           child: PrimaryButton(
             text: 'Build ${patch.patchType.buildingType.toString()}',
             expand: false,
             icon: Icons.construction,
             color: Palette.success,
-            onPressed: () => state.colony.hasFreeVillagers && hasResources
+            onPressed: () => canBuild
                 ? state.onAddConstructionTask(ConstructionTask.fromPatch(patch))
                 : null,
           ),

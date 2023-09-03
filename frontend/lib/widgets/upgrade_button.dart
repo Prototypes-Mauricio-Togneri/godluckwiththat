@@ -21,8 +21,8 @@ class UpgradeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final Inventory inventory = state.colony.inventory;
     final ResourceMap cost = building.upgradeCost;
-    final bool hasResources = inventory.hasResources(cost);
     final UpgradeBuildingTask? task = building.upgradeTask;
+    final bool canUpgrade = (task == null) && inventory.hasResources(cost);
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -30,12 +30,12 @@ class UpgradeButton extends StatelessWidget {
         CostTooltip(
           cost: cost,
           inventory: inventory,
-          showInstant: !hasResources,
+          showInstant: !canUpgrade,
           child: PrimaryButton(
             text: 'Upgrade',
             color: Palette.success,
             icon: Icons.arrow_upward,
-            onPressed: (task == null) && hasResources
+            onPressed: canUpgrade
                 ? () => state.onAddUpgradeBuildingTask(UpgradeBuildingTask(
                       building: building,
                       cost: cost,

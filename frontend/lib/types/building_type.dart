@@ -14,7 +14,7 @@ enum BuildingType {
   house(
     sprite: Assets.IMAGES_BUILDINGS_MISC_HOUSE,
     initialCost: {
-      ResourceType.wood: 100,
+      ResourceType.wood: 50,
     },
     produces: null,
   ),
@@ -37,21 +37,21 @@ enum BuildingType {
   farm(
     sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_FARM,
     initialCost: {
-      ResourceType.wood: 100,
+      ResourceType.wood: 50,
     },
     produces: ResourceType.food,
   ),
   woodcutter(
     sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_WOODCUTTER,
     initialCost: {
-      ResourceType.wood: 150,
+      ResourceType.wood: 50,
     },
     produces: ResourceType.wood,
   ),
   quarry(
     sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_QUARRY,
     initialCost: {
-      ResourceType.wood: 200,
+      ResourceType.wood: 100,
     },
     produces: ResourceType.stone,
   );
