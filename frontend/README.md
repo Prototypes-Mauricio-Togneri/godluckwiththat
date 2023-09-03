@@ -3,4 +3,5 @@
 * Add faith resource
 * Build faith buildings
 * Assign people to pray
+* Apply seasons
 * Localize

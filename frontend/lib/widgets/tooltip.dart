@@ -4,7 +4,6 @@ import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/resource_indicator.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
