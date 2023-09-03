@@ -28,7 +28,7 @@ class HeadquartersView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        UpgradeSection(state),
+        //UpgradeSection(state),
         CreateVillagerSection(state),
         HousingSection(state),
       ],
@@ -84,6 +84,7 @@ class CreateVillagerSection extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const HBox(65),
           CostTooltip(
             cost: cost,
             inventory: inventory,

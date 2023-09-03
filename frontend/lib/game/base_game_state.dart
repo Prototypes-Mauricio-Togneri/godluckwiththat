@@ -10,7 +10,7 @@ import 'package:godluckwiththat/types/resource_type.dart';
 
 class BaseGameState extends BaseState {
   num totalTimeElapsed = 0;
-  MenuType menuType = MenuType.water;
+  MenuType menuType = MenuType.headquarters;
   final JsonMatch jsonMatch;
   late final Colony colony;
 
@@ -20,10 +20,10 @@ class BaseGameState extends BaseState {
     colony = Colony(
       inventory: Inventory.fromResourceMap({
         ResourceType.villager: 5,
-        ResourceType.water: 100,
-        ResourceType.food: 200,
+        ResourceType.water: 300,
+        ResourceType.food: 300,
         ResourceType.wood: 300,
-        ResourceType.stone: 400,
+        ResourceType.stone: 0,
       }),
       buildings: [],
       patches: [],

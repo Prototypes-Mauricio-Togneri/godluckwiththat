@@ -20,7 +20,7 @@ class Constants {
 {
 	"version": 1,
 	"id": "level1",
-	"totalTimeElapsed": 60,
+	"totalTimeElapsed": 1,
 	"level": 1,
   "map": {
     "path": "maps/chapter1",
