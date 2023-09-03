@@ -19,9 +19,9 @@ class BaseGameState extends BaseState {
     colony = Colony(
       inventory: Inventory.fromResourceMap({
         ResourceType.villager: 5,
-        ResourceType.water: 300,
-        ResourceType.food: 300,
-        ResourceType.wood: 300,
+        ResourceType.water: 50,
+        ResourceType.food: 100,
+        ResourceType.wood: 200,
         ResourceType.stone: 0,
       }),
       buildings: [],
