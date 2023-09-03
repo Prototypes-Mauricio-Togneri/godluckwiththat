@@ -90,6 +90,7 @@ class CreateVillagerSection extends StatelessWidget {
             cost: cost,
             inventory: inventory,
             showInstant: !canCreateVillager,
+            missingFreeVillagers: false,
             child: PrimaryButton(
               text: 'Create Villager',
               color: Palette.success,
@@ -149,6 +150,7 @@ class HousingSection extends StatelessWidget {
             cost: cost,
             inventory: inventory,
             showInstant: !canBuild,
+            missingFreeVillagers: !state.colony.hasFreeVillagers,
             child: PrimaryButton(
               text: 'Build House',
               color: Palette.success,

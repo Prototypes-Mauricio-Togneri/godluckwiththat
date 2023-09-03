@@ -31,6 +31,7 @@ class UpgradeButton extends StatelessWidget {
           cost: cost,
           inventory: inventory,
           showInstant: !canUpgrade,
+          missingFreeVillagers: false,
           child: PrimaryButton(
             text: 'Upgrade',
             color: Palette.success,

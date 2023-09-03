@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/resource.dart';
+import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/resource_indicator.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
@@ -39,12 +41,14 @@ class CostTooltip extends StatelessWidget {
   final ResourceMap cost;
   final Inventory inventory;
   final bool showInstant;
+  final bool missingFreeVillagers;
   final Widget child;
 
   const CostTooltip({
     required this.cost,
     required this.inventory,
     required this.showInstant,
+    required this.missingFreeVillagers,
     required this.child,
   });
 
@@ -56,6 +60,12 @@ class CostTooltip extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (missingFreeVillagers)
+            ResourceIndicator(
+              sprite: ResourceType.villager.sprite,
+              value: '0',
+              textColor: Palette.error,
+            ),
           for (final Resource resource in cost.resources())
             ResourceIndicator(
               sprite: resource.resourceType.sprite,

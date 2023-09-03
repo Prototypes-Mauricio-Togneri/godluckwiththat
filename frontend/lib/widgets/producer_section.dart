@@ -127,6 +127,7 @@ class PatchEntry extends StatelessWidget {
           cost: cost,
           inventory: inventory,
           showInstant: !canBuild,
+          missingFreeVillagers: !state.colony.hasFreeVillagers,
           child: PrimaryButton(
             text: 'Build ${patch.patchType.buildingType.toString()}',
             expand: false,
@@ -336,6 +337,7 @@ class ExplorationSection extends StatelessWidget {
             cost: const {},
             inventory: state.colony.inventory,
             showInstant: !canExplore,
+            missingFreeVillagers: !state.colony.hasFreeVillagers,
             child: PrimaryButton(
               text: 'Explore',
               expand: false,
