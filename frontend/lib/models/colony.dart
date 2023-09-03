@@ -10,6 +10,7 @@ import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/patch.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/models/tasks/construction_task.dart';
+import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/models/tasks/task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -93,7 +94,7 @@ class Colony {
           buildingType: task.buildingType,
           resourcesLeft: task.resourcesAmount,
         );
-        addFreeVillagers(1);
+        addFreeVillagers(task.villagers);
         addEvent(Event.constructionFinished(task));
       },
     );
@@ -187,9 +188,9 @@ class Colony {
     return total + Constants.HEADQUARTERS_POPULATION;
   }
 
-  void createVillager() {
-    addFreeVillagers(1);
-    inventory.addResource(Resource.villager(1));
+  void onCreateVillagerTaskFinished(CreateVillagerTask task) {
+    addFreeVillagers(task.villagers);
+    inventory.addResource(Resource.villager(task.villagers.toDouble()));
   }
 
   int addFreeVillagers(int amount) {

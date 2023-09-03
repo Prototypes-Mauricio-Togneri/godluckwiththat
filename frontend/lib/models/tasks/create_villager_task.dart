@@ -4,5 +4,8 @@ import 'package:godluckwiththat/models/tasks/task.dart';
 class CreateVillagerTask extends Task {
   CreateVillagerTask({
     required super.cost,
-  }) : super(duration: cost.duration);
+  }) : super(
+          villagers: 0,
+          duration: cost.duration,
+        );
 }

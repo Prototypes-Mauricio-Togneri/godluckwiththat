@@ -4,9 +4,11 @@ class Task {
   double totalTime = 0;
   double remainingTime = 0;
   final ResourceMap cost;
+  final int villagers;
 
   Task({
     required this.cost,
+    required this.villagers,
     required double duration, // in days
   }) {
     totalTime = duration;

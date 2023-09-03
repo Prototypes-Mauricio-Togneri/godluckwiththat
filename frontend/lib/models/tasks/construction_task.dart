@@ -14,6 +14,7 @@ class ConstructionTask extends Task {
     required this.patch,
   }) : super(
           cost: buildingType.initialCost,
+          villagers: 1,
           duration: buildingType.initialCost.duration,
         );
 

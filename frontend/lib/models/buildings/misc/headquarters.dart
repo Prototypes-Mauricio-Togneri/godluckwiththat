@@ -27,10 +27,13 @@ class Headquarters extends Building {
   void update(double dt, Colony colony) {
     super.update(dt, colony);
 
-    if (createVillagerTasks.isNotEmpty &&
-        createVillagerTasks.first.update(dt)) {
-      colony.createVillager();
-      createVillagerTasks.removeAt(0);
+    if (createVillagerTasks.isNotEmpty) {
+      final CreateVillagerTask task = createVillagerTasks.first;
+
+      if (task.update(dt)) {
+        colony.onCreateVillagerTaskFinished(task);
+        createVillagerTasks.removeAt(0);
+      }
     }
   }
 }

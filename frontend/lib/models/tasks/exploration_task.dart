@@ -3,12 +3,11 @@ import 'package:godluckwiththat/types/patch_type.dart';
 
 class ExplorationTask extends Task {
   final PatchType patchType;
-  final int villagers;
   final int days;
 
   ExplorationTask({
+    required super.villagers,
     required this.patchType,
-    required this.villagers,
     required this.days,
   }) : super(
           cost: {},

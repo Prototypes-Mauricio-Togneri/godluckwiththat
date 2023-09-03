@@ -36,7 +36,7 @@ mixin GameStateActions on BaseGameState {
     }
 
     colony.addConstructionTask(task);
-    colony.removeFreeVillagers(1);
+    colony.removeFreeVillagers(task.villagers);
     colony.removeResources(task.cost);
   }
 
@@ -47,7 +47,7 @@ mixin GameStateActions on BaseGameState {
       }
 
       colony.removeConstructionTask(task);
-      colony.addFreeVillagers(1);
+      colony.addFreeVillagers(task.villagers);
       colony.addResources(task.cost);
     }
   }
