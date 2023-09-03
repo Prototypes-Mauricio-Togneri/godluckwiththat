@@ -54,24 +54,24 @@ class LeftMenu extends StatelessWidget {
             selected: state.isSelected(MenuType.faith),
             onPressed: () => state.onMenuSelected(MenuType.faith),
           ),
-          MenuButton(
+          /*MenuButton(
             text: 'Warehouse',
             icon: Icons.warehouse,
             selected: state.isSelected(MenuType.warehouse),
             onPressed: () => state.onMenuSelected(MenuType.warehouse),
-          ),
-          MenuButton(
+          ),*/
+          /*MenuButton(
             text: 'Market',
             icon: Icons.balance,
             selected: state.isSelected(MenuType.market),
             onPressed: () => state.onMenuSelected(MenuType.market),
-          ),
-          MenuButton(
+          ),*/
+          /*MenuButton(
             text: 'Research',
             icon: Icons.science,
             selected: state.isSelected(MenuType.research),
             onPressed: () => state.onMenuSelected(MenuType.research),
-          ),
+          ),*/
           const Spacer(),
           BottomMenu(state),
         ],

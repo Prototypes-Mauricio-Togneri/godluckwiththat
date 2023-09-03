@@ -132,8 +132,9 @@ class PatchEntry extends StatelessWidget {
             expand: false,
             icon: Icons.construction,
             color: Palette.success,
-            onPressed: () => canBuild
-                ? state.onAddConstructionTask(ConstructionTask.fromPatch(patch))
+            onPressed: canBuild
+                ? () => state
+                    .onAddConstructionTask(ConstructionTask.fromPatch(patch))
                 : null,
           ),
         ),
@@ -304,6 +305,7 @@ class ExplorationSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<ExplorationTask> explorationTasks =
         state.colony.getExplorations(patchType);
+    final bool canExplore = state.colony.hasFreeVillagers;
 
     return SectionGroup(
       child: Column(
@@ -330,14 +332,21 @@ class ExplorationSection extends StatelessWidget {
             for (final ExplorationTask task in explorationTasks)
               ExplorationTaskEntry(state, task),
           const VBox(20),
-          PrimaryButton(
-            text: 'Explore',
-            expand: false,
-            icon: Icons.explore,
-            color: Palette.success,
-            onPressed: () => CreateExplorationDialog.show(
-              patchType: patchType,
-              state: state,
+          CostTooltip(
+            cost: const {},
+            inventory: state.colony.inventory,
+            showInstant: !canExplore,
+            child: PrimaryButton(
+              text: 'Explore',
+              expand: false,
+              icon: Icons.explore,
+              color: Palette.success,
+              onPressed: canExplore
+                  ? () => CreateExplorationDialog.show(
+                        patchType: patchType,
+                        state: state,
+                      )
+                  : null,
             ),
           ),
         ],
