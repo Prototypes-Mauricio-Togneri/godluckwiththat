@@ -30,10 +30,7 @@ class Colony {
     required this.buildings,
     required this.patches,
     required this.freeVillagers,
-  }) {
-    events.add(Event.explorationFinished(
-        ExplorationTask(patchType: PatchType.food, villagers: 1, days: 0)));
-  }
+  });
 
   bool get hasFreeVillagers => freeVillagers > 0;
 
@@ -97,6 +94,7 @@ class Colony {
           resourcesLeft: task.resourcesAmount,
         );
         addFreeVillagers(1);
+        addEvent(Event.constructionFinished(task));
       },
     );
 

@@ -1,3 +1,4 @@
+import 'package:godluckwiththat/models/tasks/construction_task.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/types/menu_type.dart';
 
@@ -13,5 +14,10 @@ class Event {
   factory Event.explorationFinished(ExplorationTask task) => Event._(
         title: '${task.patchType.toString()} exploration finished',
         menuType: MenuType.fromExploration(task),
+      );
+
+  factory Event.constructionFinished(ConstructionTask task) => Event._(
+        title: '${task.buildingType.toString()} construction finished',
+        menuType: MenuType.fromConstruction(task),
       );
 }
