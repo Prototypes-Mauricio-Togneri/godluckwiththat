@@ -5,7 +5,7 @@ class CreateVillagerTask extends Task {
   CreateVillagerTask({
     required super.cost,
   }) : super(
-          villagers: 0,
+          villagers: 1,
           duration: cost.duration,
         );
 }

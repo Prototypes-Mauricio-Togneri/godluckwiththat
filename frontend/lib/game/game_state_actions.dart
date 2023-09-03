@@ -1,19 +1,19 @@
-import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/game/base_game_state.dart';
 import 'package:godluckwiththat/models/event.dart';
 import 'package:godluckwiththat/models/tasks/construction_task.dart';
+import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/models/tasks/upgrade_building_task.dart';
 
 mixin GameStateActions on BaseGameState {
-  void onAddVillagerTask(ResourceMap cost) {
-    colony.headquarters.addVillagerTask(cost);
-    colony.removeResources(cost);
+  void onAddCreateVillagerTask(CreateVillagerTask task) {
+    colony.headquarters.addCreateVillagerTask(task);
+    colony.removeResources(task.cost);
   }
 
-  void onRemoveVillagerTask(ResourceMap cost) {
-    colony.headquarters.removeVillagerTask();
-    colony.addResources(cost);
+  void onRemoveCreateVillagerTask(CreateVillagerTask task) {
+    colony.headquarters.removeVillagerTask(task);
+    colony.addResources(task.cost);
   }
 
   // ======================================================================== \\

@@ -93,7 +93,8 @@ class CreateVillagerSection extends StatelessWidget {
               color: Palette.success,
               icon: Icons.person,
               onPressed: (hasResources && !maxPopulationReached)
-                  ? () => state.onAddVillagerTask(cost)
+                  ? () => state
+                      .onAddCreateVillagerTask(CreateVillagerTask(cost: cost))
                   : null,
               expand: false,
             ),
@@ -105,7 +106,7 @@ class CreateVillagerSection extends StatelessWidget {
                 sprite: ResourceType.villager.sprite,
                 progress: tasks[0].progress,
                 size: tasks.length,
-                onTap: () => state.onRemoveVillagerTask(cost),
+                onTap: () => state.onRemoveCreateVillagerTask(tasks.last),
               ),
             )
           else
