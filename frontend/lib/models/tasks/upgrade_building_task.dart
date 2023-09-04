@@ -10,6 +10,6 @@ class UpgradeBuildingTask extends Task {
     required super.cost,
   }) : super(
           villagers: 0,
-          duration: cost.duration,
+          duration: cost.duration * 10,
         );
 }

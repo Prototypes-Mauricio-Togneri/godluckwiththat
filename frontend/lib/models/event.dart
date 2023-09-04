@@ -1,6 +1,7 @@
 import 'package:godluckwiththat/models/tasks/construction_task.dart';
 import 'package:godluckwiththat/models/tasks/exploration_task.dart';
 import 'package:godluckwiththat/models/tasks/upgrade_building_task.dart';
+import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/menu_type.dart';
 
 class Event {
@@ -25,6 +26,11 @@ class Event {
   factory Event.buildingUpgradeFinished(UpgradeBuildingTask task) => Event._(
         title: '${task.building.buildingType.toString()} upgrade finished',
         menuType: MenuType.fromBuildingType(task.building.buildingType),
+      );
+
+  factory Event.buildingDepleted(BuildingType buildingType) => Event._(
+        title: '${buildingType.toString()} depleted',
+        menuType: MenuType.fromBuildingType(buildingType),
       );
 
   factory Event.villagerFinished() => const Event._(

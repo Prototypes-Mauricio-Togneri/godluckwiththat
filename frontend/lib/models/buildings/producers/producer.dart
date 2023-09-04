@@ -1,5 +1,6 @@
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/colony.dart';
+import 'package:godluckwiththat/models/event.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
@@ -34,6 +35,7 @@ abstract class Producer extends Building {
 
       if (!hasResourcesLeft) {
         colony.addFreeVillagers(villagers);
+        colony.addEvent(Event.buildingDepleted(buildingType));
         villagers = 0;
       }
     }
