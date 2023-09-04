@@ -25,12 +25,6 @@ class LeftMenu extends StatelessWidget {
             onPressed: () => state.onMenuSelected(MenuType.headquarters),
           ),
           MenuButton(
-            text: 'Water',
-            icon: Icons.water_drop,
-            selected: state.isSelected(MenuType.water),
-            onPressed: () => state.onMenuSelected(MenuType.water),
-          ),
-          MenuButton(
             text: 'Food',
             icon: Icons.restaurant,
             selected: state.isSelected(MenuType.food),
@@ -41,6 +35,12 @@ class LeftMenu extends StatelessWidget {
             icon: Icons.forest,
             selected: state.isSelected(MenuType.wood),
             onPressed: () => state.onMenuSelected(MenuType.wood),
+          ),
+          MenuButton(
+            text: 'Water',
+            icon: Icons.water_drop,
+            selected: state.isSelected(MenuType.water),
+            onPressed: () => state.onMenuSelected(MenuType.water),
           ),
           MenuButton(
             text: 'Stone',

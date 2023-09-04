@@ -134,9 +134,9 @@ class GameContent extends StatelessWidget {
 
   Widget _menuScreen(MenuType menuType) => switch (menuType) {
         MenuType.headquarters => HeadquartersView(state),
-        MenuType.water => WaterView(state),
         MenuType.food => FoodView(state),
         MenuType.wood => WoodView(state),
+        MenuType.water => WaterView(state),
         MenuType.stone => StoneView(state),
         MenuType.faith => FaithView(state),
         MenuType.warehouse => WarehouseView(state),

@@ -3,9 +3,9 @@ import 'package:godluckwiththat/types/patch_type.dart';
 
 enum MenuType {
   headquarters,
-  water,
   food,
   wood,
+  water,
   stone,
   faith,
   warehouse,
@@ -14,12 +14,12 @@ enum MenuType {
 
   static MenuType fromPatchType(PatchType patchType) {
     switch (patchType) {
-      case PatchType.water:
-        return water;
       case PatchType.food:
         return food;
       case PatchType.wood:
         return wood;
+      case PatchType.water:
+        return water;
       case PatchType.stone:
         return stone;
     }
@@ -32,12 +32,12 @@ enum MenuType {
         return headquarters;
       case BuildingType.warehouse:
         return warehouse;
-      case BuildingType.well:
-        return water;
       case BuildingType.farm:
         return food;
       case BuildingType.woodcutter:
         return wood;
+      case BuildingType.well:
+        return water;
       case BuildingType.quarry:
         return stone;
     }

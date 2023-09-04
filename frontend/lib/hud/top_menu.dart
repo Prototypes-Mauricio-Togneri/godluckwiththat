@@ -39,17 +39,17 @@ class ResourcesHud extends StatelessWidget {
         const HBox(30),
         ResourceBlock(
           state: state,
-          resourceType: ResourceType.water,
-        ),
-        const HBox(30),
-        ResourceBlock(
-          state: state,
           resourceType: ResourceType.food,
         ),
         const HBox(30),
         ResourceBlock(
           state: state,
           resourceType: ResourceType.wood,
+        ),
+        const HBox(30),
+        ResourceBlock(
+          state: state,
+          resourceType: ResourceType.water,
         ),
         const HBox(30),
         ResourceBlock(
