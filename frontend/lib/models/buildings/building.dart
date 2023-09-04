@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
-import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/misc/house.dart';
 import 'package:godluckwiththat/models/buildings/misc/warehouse.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
@@ -99,50 +98,46 @@ class Building {
     required int villagers,
     required double resourcesLeft,
   }) {
-    switch (buildingType) {
-      case BuildingType.headquarters:
-        return Headquarters(
-          colony: colony,
-          level: level,
-        );
-      case BuildingType.house:
-        return House(
-          colony: colony,
-          level: level,
-        );
-      case BuildingType.warehouse:
-        return Warehouse(
-          colony: colony,
-          level: level,
-        );
-      case BuildingType.well:
-        return Well(
-          colony: colony,
-          level: level,
-          villagers: villagers,
-          resourcesLeft: resourcesLeft,
-        );
-      case BuildingType.farm:
-        return Farm(
-          colony: colony,
-          level: level,
-          villagers: villagers,
-          resourcesLeft: resourcesLeft,
-        );
-      case BuildingType.woodcutter:
-        return Woodcutter(
-          colony: colony,
-          level: level,
-          villagers: villagers,
-          resourcesLeft: resourcesLeft,
-        );
-      case BuildingType.quarry:
-        return Quarry(
-          colony: colony,
-          level: level,
-          villagers: villagers,
-          resourcesLeft: resourcesLeft,
-        );
+    if (buildingType == BuildingType.house) {
+      return House(
+        colony: colony,
+        level: level,
+      );
+    } else if (buildingType == BuildingType.warehouse) {
+      return Warehouse(
+        colony: colony,
+        level: level,
+      );
+    } else if (buildingType == BuildingType.well) {
+      return Well(
+        colony: colony,
+        level: level,
+        villagers: villagers,
+        resourcesLeft: resourcesLeft,
+      );
+    } else if (buildingType == BuildingType.farm) {
+      return Farm(
+        colony: colony,
+        level: level,
+        villagers: villagers,
+        resourcesLeft: resourcesLeft,
+      );
+    } else if (buildingType == BuildingType.woodcutter) {
+      return Woodcutter(
+        colony: colony,
+        level: level,
+        villagers: villagers,
+        resourcesLeft: resourcesLeft,
+      );
+    } else if (buildingType == BuildingType.quarry) {
+      return Quarry(
+        colony: colony,
+        level: level,
+        villagers: villagers,
+        resourcesLeft: resourcesLeft,
+      );
+    } else {
+      throw Exception('Building type: $buildingType unknown');
     }
   }
 }
