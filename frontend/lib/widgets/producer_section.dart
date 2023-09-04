@@ -207,13 +207,13 @@ class ConstructionTaskEntry extends StatelessWidget {
     return ListRow(
       children: [
         Label(
-          text: 'Progress: ${Formatter.progress(task.progress)}',
+          text: 'Days left: ${Formatter.days(task.remainingTime.ceil())}',
           color: Palette.white,
           size: 30,
         ),
         const HBox(30),
         Label(
-          text: 'Days left: ${Formatter.days(task.remainingTime.ceil())}',
+          text: 'Progress: ${Formatter.progress(task.progress)}',
           color: Palette.white,
           size: 30,
         ),
@@ -368,25 +368,25 @@ class ExplorationTaskEntry extends StatelessWidget {
     return ListRow(
       children: [
         Label(
-          text: 'Villagers: ${task.villagers}',
+          text: 'Size: ${task.villagers} villagers',
           color: Palette.white,
           size: 30,
         ),
         const HBox(30),
         Label(
-          text: 'Days: ${task.days}',
-          color: Palette.white,
-          size: 30,
-        ),
-        const HBox(30),
-        Label(
-          text: 'Progress: ${Formatter.progress(task.progress)}',
+          text: 'Length: ${task.days} days',
           color: Palette.white,
           size: 30,
         ),
         const HBox(30),
         Label(
           text: 'Days left: ${Formatter.days(task.remainingTime.ceil())}',
+          color: Palette.white,
+          size: 30,
+        ),
+        const HBox(30),
+        Label(
+          text: 'Progress: ${Formatter.progress(task.progress)}',
           color: Palette.white,
           size: 30,
         ),

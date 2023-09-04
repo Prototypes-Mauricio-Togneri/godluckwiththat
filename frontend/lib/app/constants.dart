@@ -7,10 +7,10 @@ class Constants {
   static const int HEADQUARTERS_POPULATION = 10;
   static const int BUILDING_CAPACITY_PER_LEVEL = 5;
 
-  static const double WELL_PRODUCTION_RATE = 1;
-  static const double FARM_PRODUCTION_RATE = 3;
-  static const double WOODCUTTER_PRODUCTION_RATE = 2;
-  static const double QUARRY_PRODUCTION_RATE = 0.5;
+  static const double WELL_PRODUCTION_RATE = 0.5;
+  static const double FARM_PRODUCTION_RATE = 2;
+  static const double WOODCUTTER_PRODUCTION_RATE = 1;
+  static const double QUARRY_PRODUCTION_RATE = 0.25;
 
   static const double WATER_CONSUMPTION_RATE = 0.2;
   static const double FOOD_CONSUMPTION_RATE = 0.2;

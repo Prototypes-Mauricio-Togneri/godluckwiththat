@@ -15,7 +15,7 @@ class ConstructionTask extends Task {
   }) : super(
           cost: buildingType.initialCost,
           villagers: 1,
-          duration: buildingType.initialCost.duration,
+          duration: buildingType.initialCost.duration * 10,
         );
 
   bool get hasPatch => patch != null;
