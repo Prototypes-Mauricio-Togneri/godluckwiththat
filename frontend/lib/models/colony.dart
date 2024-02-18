@@ -65,7 +65,7 @@ class Colony {
       }
     }
 
-    return total;
+    return total + Constants.BASE_POPULATION_LIMIT;
   }
 
   /*void onCreateVillagerTaskFinished(CreateVillagerTask task) {

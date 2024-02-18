@@ -4,6 +4,7 @@ class Constants {
   static const int SECONDS_PER_DAY = 6;
 
   static const int HOUSE_POPULATION = 5;
+  static const int BASE_POPULATION_LIMIT = 5;
   static const int BUILDING_CAPACITY_PER_LEVEL = 5;
 
   static const double WELL_PRODUCTION_RATE = 0.5;
