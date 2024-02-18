@@ -87,7 +87,8 @@ class LeftSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResourceIndicator(
       sprite: trainer.resourceType.sprite,
-      value: '${trainer.resources}/${trainer.capacity}',
+      value:
+          '${Formatter.resource(trainer.resources)}/${Formatter.resource(trainer.maxResourceCapacity)}',
       textColor: Palette.black,
       textSize: 20,
       iconSize: 17,

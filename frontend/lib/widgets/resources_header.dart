@@ -92,27 +92,28 @@ class RightSection extends StatelessWidget {
         const VBox(10),
         LabeledText(
           label: 'Population:',
-          text: '${colony.totalPopulation}/${colony.populationLimit}',
+          text:
+              '${Formatter.resource(colony.totalPopulation)}/${Formatter.resource(colony.populationLimit)}',
         ),
         const VBox(10),
         LabeledText(
           label: 'Water:',
-          text: '${colony.inventory.get(ResourceType.water).toInt()}',
+          text: Formatter.resource(colony.inventory.get(ResourceType.water)),
         ),
         const VBox(10),
         LabeledText(
           label: 'Food:',
-          text: '${colony.inventory.get(ResourceType.food).toInt()}',
+          text: Formatter.resource(colony.inventory.get(ResourceType.food)),
         ),
         const VBox(10),
         LabeledText(
           label: 'Wood:',
-          text: '${colony.inventory.get(ResourceType.wood).toInt()}',
+          text: Formatter.resource(colony.inventory.get(ResourceType.wood)),
         ),
         const VBox(10),
         LabeledText(
           label: 'Stone:',
-          text: '${colony.inventory.get(ResourceType.stone).toInt()}',
+          text: Formatter.resource(colony.inventory.get(ResourceType.stone)),
         ),
       ],
     );

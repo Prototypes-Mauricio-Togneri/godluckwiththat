@@ -18,9 +18,7 @@ abstract class Producer extends Building {
 
   bool get hasVillagers => villagers > 0;
 
-  bool get canHoldMoreVillagers => maxCapacity > villagers;
-
-  int get maxCapacity => level * Constants.BUILDING_CAPACITY_PER_LEVEL;
+  bool get canHoldMoreVillagers => maxWorkersCapacity > villagers;
 
   bool get canAddVillagers => colony.hasFreeVillagers && canHoldMoreVillagers;
 
@@ -30,9 +28,11 @@ abstract class Producer extends Building {
 
   double get productionRate;
 
-  int get resources => colony.inventory.get(resourceType).toInt();
+  num get resources => colony.inventory.get(resourceType);
 
-  int get capacity => level * 100;
+  num get maxResourceCapacity => level * 100;
+
+  int get maxWorkersCapacity => level * Constants.BUILDING_CAPACITY_PER_LEVEL;
 
   @override
   bool get isProducer => true;
@@ -41,7 +41,7 @@ abstract class Producer extends Building {
   void update(double dt, Colony colony) {
     super.update(dt, colony);
 
-    if (resources < capacity) {
+    if (resources < maxResourceCapacity) {
       final double produced = production * dt;
       colony.inventory.addResource(Resource(resourceType, produced));
     }

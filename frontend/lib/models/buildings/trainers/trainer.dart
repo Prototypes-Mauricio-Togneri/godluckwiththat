@@ -12,9 +12,9 @@ abstract class Trainer extends Building {
     required super.level,
   });
 
-  int get resources => colony.inventory.get(resourceType).toInt();
+  num get resources => colony.inventory.get(resourceType);
 
-  int get capacity;
+  num get maxResourceCapacity;
 
   bool get canTrain => colony.totalPopulation < colony.populationLimit;
 

@@ -12,5 +12,5 @@ class House extends Trainer {
         );
 
   @override
-  int get capacity => colony.populationLimit;
+  int get maxResourceCapacity => colony.populationLimit;
 }
