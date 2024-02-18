@@ -47,6 +47,4 @@ class BaseGameState extends BaseState {
   void update(double dt) {
     colony.update(dt);
   }
-
-  void onOpenMainMenu() {}
 }
