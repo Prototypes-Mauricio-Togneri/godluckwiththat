@@ -6,12 +6,11 @@ import 'package:godluckwiththat/models/buildings/trainers/house.dart';
 import 'package:godluckwiththat/models/buildings/trainers/trainer.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/resource.dart';
-import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 class Colony {
   final Inventory inventory;
-  final Map<BuildingType, Building> buildings;
+  final List<Building> buildings;
   num daysElapsed;
   int freeVillagers;
 
@@ -28,22 +27,16 @@ class Colony {
 
   bool get hasFreeVillagers => freeVillagers > 0;
 
-  List<Producer> get producers => buildings.values
-      .where((b) => b.isProducer)
-      .map((b) => b as Producer)
-      .toList();
+  List<Producer> get producers =>
+      buildings.where((b) => b.isProducer).map((b) => b as Producer).toList();
 
-  List<Trainer> get trainers => buildings.values
-      .where((b) => b.isTrainer)
-      .map((b) => b as Trainer)
-      .toList();
-
-  T getBuilding<T extends Building>(BuildingType type) => buildings[type]! as T;
+  List<Trainer> get trainers =>
+      buildings.where((b) => b.isTrainer).map((b) => b as Trainer).toList();
 
   void update(double dt) {
     daysElapsed += dt;
 
-    for (final Building building in buildings.values) {
+    for (final Building building in buildings) {
       building.update(dt, this);
     }
   }
@@ -51,7 +44,7 @@ class Colony {
   double productionOf(ResourceType resourceType) {
     double total = 0;
 
-    for (final Building building in buildings.values) {
+    for (final Building building in buildings) {
       if ((building is Producer) && (building.resourceType == resourceType)) {
         total += building.production;
       }
@@ -65,7 +58,7 @@ class Colony {
   int get populationLimit {
     int total = 0;
 
-    for (final Building building in buildings.values) {
+    for (final Building building in buildings) {
       if (building is House) {
         total += Constants.HOUSE_POPULATION;
       }
@@ -87,13 +80,11 @@ class Colony {
   }
 
   void addBuildings(List<Building> list) {
-    for (final Building building in list) {
-      buildings[building.buildingType] = building;
-    }
+    buildings.addAll(list);
   }
 
   void removeBuilding(Building building) {
-    buildings.remove(building.buildingType);
+    buildings.remove(building);
   }
 
   /*void _createBuilding({
