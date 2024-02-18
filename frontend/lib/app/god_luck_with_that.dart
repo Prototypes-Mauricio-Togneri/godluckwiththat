@@ -5,7 +5,6 @@ import 'package:godluckwiththat/screens/splash_screen.dart';
 import 'package:godluckwiththat/utils/localizations.dart';
 import 'package:godluckwiththat/utils/navigation.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/utils/platform.dart';
 
 class GodLuckWithThat extends StatelessWidget {
   const GodLuckWithThat();
@@ -31,10 +30,7 @@ class GodLuckWithThat extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: Localized.locales,
-      home: _home(),
+      home: SplashScreen.instance(),
     );
   }
-
-  Widget _home() =>
-      Platform.isWeb ? SplashScreen.instance() : SplashScreen.instance();
 }

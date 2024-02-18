@@ -1,154 +1,49 @@
 import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
-import 'package:godluckwiththat/json/json_colony.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
-import 'package:godluckwiththat/models/buildings/misc/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/misc/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
-import 'package:godluckwiththat/models/event.dart';
 import 'package:godluckwiththat/models/inventory.dart';
-import 'package:godluckwiththat/models/patch.dart';
 import 'package:godluckwiththat/models/resource.dart';
-import 'package:godluckwiththat/models/tasks/construction_task.dart';
-import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
-import 'package:godluckwiththat/models/tasks/exploration_task.dart';
-import 'package:godluckwiththat/models/tasks/task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
-import 'package:godluckwiththat/types/patch_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 class Colony {
   final Inventory inventory;
-  final List<Building> buildings;
-  final List<Patch> patches;
-  final List<ConstructionTask> constructionTasks = [];
-  final List<ExplorationTask> explorationTasks = [];
-  final List<Event> events = [];
+  final Map<BuildingType, Building> buildings;
+  num daysElapsed;
   int freeVillagers;
 
   Colony({
     required this.inventory,
     required this.buildings,
-    required this.patches,
+    required this.daysElapsed,
     required this.freeVillagers,
   });
 
+  int get day => daysElapsed.toInt();
+
   bool get hasFreeVillagers => freeVillagers > 0;
 
-  Headquarters get headquarters => getBuildings<Headquarters>(Headquarters)[0];
+  List<Producer> get producers => buildings.values
+      .where((b) => b.isProducer)
+      .map((b) => b as Producer)
+      .toList();
 
-  List<T> getBuildings<T extends Building>(Type type) {
-    final List<T> result = [];
-
-    for (final Building building in buildings) {
-      if (building.runtimeType == type) {
-        result.add(building as T);
-      }
-    }
-
-    return result;
-  }
-
-  List<Patch> getPatches(PatchType patchType) {
-    final List<Patch> result = [];
-
-    for (final Patch patch in patches) {
-      if (patch.patchType == patchType) {
-        result.add(patch);
-      }
-    }
-
-    return result;
-  }
-
-  List<ExplorationTask> getExplorations(PatchType patchType) {
-    final List<ExplorationTask> result = [];
-
-    for (final ExplorationTask task in explorationTasks) {
-      if (task.patchType == patchType) {
-        result.add(task);
-      }
-    }
-
-    return result;
-  }
-
-  List<ConstructionTask> getConstructionTasks(BuildingType buildingType) {
-    final List<ConstructionTask> result = [];
-
-    for (final ConstructionTask task in constructionTasks) {
-      if (task.buildingType == buildingType) {
-        result.add(task);
-      }
-    }
-
-    return result;
-  }
+  T getBuilding<T extends Building>(BuildingType type) => buildings[type]! as T;
 
   void update(double dt) {
-    _updateTasks(
-      dt: dt,
-      tasks: constructionTasks,
-      callback: (task) {
-        _createBuilding(
-          buildingType: task.buildingType,
-          resourcesLeft: task.resourcesAmount,
-        );
-        addFreeVillagers(task.villagers);
-        addEvent(Event.constructionFinished(task));
-      },
-    );
+    daysElapsed += dt;
 
-    _updateTasks(
-      dt: dt,
-      tasks: explorationTasks,
-      callback: (task) {
-        addPatch(Patch(
-          patchType: task.patchType,
-          amount: task.amount,
-        ));
-        addFreeVillagers(task.villagers);
-        addEvent(Event.explorationFinished(task));
-      },
-    );
-
-    for (final Building building in buildings) {
+    for (final Building building in buildings.values) {
       building.update(dt, this);
-    }
-
-    final double waterConsumption = consumptionOf(ResourceType.water) * dt;
-    inventory.removeResource(Resource.water(waterConsumption));
-
-    final double foodConsumption = consumptionOf(ResourceType.food) * dt;
-    inventory.removeResource(Resource.food(foodConsumption));
-
-    final double woodConsumption = consumptionOf(ResourceType.wood) * dt;
-    inventory.removeResource(Resource.wood(woodConsumption));
-  }
-
-  void _updateTasks<T extends Task>({
-    required double dt,
-    required List<T> tasks,
-    required Function(T) callback,
-  }) {
-    final List<T> tasksToRemove = [];
-
-    for (final T task in tasks) {
-      if (task.update(dt)) {
-        callback(task);
-        tasksToRemove.add(task);
-      }
-    }
-
-    for (final T task in tasksToRemove) {
-      tasks.remove(task);
     }
   }
 
   double productionOf(ResourceType resourceType) {
     double total = 0;
 
-    for (final Building building in buildings) {
+    for (final Building building in buildings.values) {
       if ((building is Producer) && (building.resourceType == resourceType)) {
         total += building.production;
       }
@@ -157,42 +52,24 @@ class Colony {
     return total;
   }
 
-  double consumptionOf(ResourceType resourceType) {
-    final double population = inventory.get(ResourceType.villager);
-
-    switch (resourceType) {
-      case ResourceType.water:
-        return population * Constants.WATER_CONSUMPTION_RATE;
-      case ResourceType.food:
-        return population * Constants.FOOD_CONSUMPTION_RATE;
-      case ResourceType.wood:
-        return population * Constants.WOOD_CONSUMPTION_RATE;
-      case ResourceType.stone:
-      case ResourceType.villager:
-        return 0;
-    }
-  }
-
-  double outputOf(ResourceType resourceType) =>
-      productionOf(resourceType) - consumptionOf(resourceType);
+  double outputOf(ResourceType resourceType) => productionOf(resourceType);
 
   int get populationLimit {
     int total = 0;
 
-    for (final Building building in buildings) {
+    for (final Building building in buildings.values) {
       if (building is House) {
         total += Constants.HOUSE_POPULATION;
       }
     }
 
-    return total + Constants.HEADQUARTERS_POPULATION;
+    return total;
   }
 
-  void onCreateVillagerTaskFinished(CreateVillagerTask task) {
+  /*void onCreateVillagerTaskFinished(CreateVillagerTask task) {
     addFreeVillagers(task.villagers);
-    addEvent(Event.villagerFinished());
     inventory.addResource(Resource.villager(task.villagers.toDouble()));
-  }
+  }*/
 
   int addFreeVillagers(int amount) {
     freeVillagers += amount;
@@ -206,47 +83,17 @@ class Colony {
     return amount;
   }
 
-  void addConstructionTask(ConstructionTask task) {
-    constructionTasks.add(task);
-  }
-
-  void removeConstructionTask(ConstructionTask task) {
-    constructionTasks.remove(task);
-  }
-
-  void addExplorationTask(ExplorationTask task) {
-    explorationTasks.add(task);
-  }
-
-  void removeExplorationTask(ExplorationTask task) {
-    explorationTasks.remove(task);
-  }
-
-  void addPatch(Patch patch) {
-    patches.add(patch);
-  }
-
-  void removePatch(Patch patch) {
-    patches.remove(patch);
-  }
-
   void addBuildings(List<Building> list) {
-    buildings.addAll(list);
+    for (final Building building in list) {
+      buildings[building.buildingType] = building;
+    }
   }
 
   void removeBuilding(Building building) {
-    buildings.remove(building);
+    buildings.remove(building.buildingType);
   }
 
-  void addEvent(Event event) {
-    events.add(event);
-  }
-
-  void removeEvent(Event event) {
-    events.remove(event);
-  }
-
-  void _createBuilding({
+  /*void _createBuilding({
     required BuildingType buildingType,
     required double resourcesLeft,
   }) {
@@ -257,7 +104,7 @@ class Colony {
       villagers: 0,
       resourcesLeft: resourcesLeft,
     ));
-  }
+  }*/
 
   void addResource(Resource resource) {
     inventory.addResource(resource);
@@ -278,11 +125,4 @@ class Colony {
   bool hasResource(Resource resource) => inventory.hasResource(resource);
 
   bool hasResources(ResourceMap resources) => inventory.hasResources(resources);
-
-  JsonColony get json => JsonColony(
-        owner: '',
-        color: '',
-        inventory: inventory.json,
-        freeVillagers: freeVillagers,
-      );
 }

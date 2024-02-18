@@ -11,6 +11,9 @@ class Resource {
 
   factory Resource.one(ResourceType resourceType) => Resource(resourceType, 1);
 
+  factory Resource.villager(int amount) =>
+      Resource(ResourceType.villager, amount.toDouble());
+
   factory Resource.water(double amount) => Resource(ResourceType.water, amount);
 
   factory Resource.food(double amount) => Resource(ResourceType.food, amount);
@@ -18,9 +21,6 @@ class Resource {
   factory Resource.wood(double amount) => Resource(ResourceType.wood, amount);
 
   factory Resource.stone(double amount) => Resource(ResourceType.stone, amount);
-
-  factory Resource.villager(double amount) =>
-      Resource(ResourceType.villager, amount);
 
   @override
   String toString() => '$resourceType: $amount';

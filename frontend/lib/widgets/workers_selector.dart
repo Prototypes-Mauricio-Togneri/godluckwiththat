@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/amount_selector.dart';
 
 class WorkersSelector extends StatelessWidget {
@@ -15,7 +16,7 @@ class WorkersSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return AmountSelector(
       text: '${building.villagers}/${building.maxCapacity}',
-      color: building.villagersAmountColor,
+      color: (building.villagers == 0) ? Palette.error : Palette.black,
       size: size,
       onRemove: building.canRemoveVillagers ? building.removeVillagers : null,
       onAdd: building.canAddVillagers ? building.addVillager : null,

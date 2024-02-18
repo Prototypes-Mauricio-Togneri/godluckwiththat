@@ -1,43 +1,35 @@
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/colony.dart';
-import 'package:godluckwiththat/models/event.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 abstract class Producer extends Building {
   final ResourceType resourceType;
-  double resourcesLeft;
 
   Producer({
     required BuildingType buildingType,
     required this.resourceType,
-    required this.resourcesLeft,
     required super.colony,
     required super.level,
     required super.villagers,
   }) : super(buildingType: buildingType);
 
-  bool get hasResourcesLeft => resourcesLeft > 0;
-
-  double get production => hasResourcesLeft ? (productionRate * villagers) : 0;
+  double get production => productionRate * villagers;
 
   double get productionRate;
+
+  int get resources => colony.inventory.get(resourceType).toInt();
+
+  int get capacity => level * 100;
 
   @override
   void update(double dt, Colony colony) {
     super.update(dt, colony);
 
-    if (hasResourcesLeft) {
+    if (resources < capacity) {
       final double produced = production * dt;
-      resourcesLeft -= produced;
       colony.addResource(Resource(resourceType, produced));
-
-      if (!hasResourcesLeft) {
-        colony.addFreeVillagers(villagers);
-        colony.addEvent(Event.buildingDepleted(buildingType));
-        villagers = 0;
-      }
     }
   }
 }

@@ -1,6 +1,5 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/json/json_match.dart';
 import 'package:godluckwiththat/screens/game_screen.dart';
 import 'package:godluckwiththat/screens/home_screen.dart';
 import 'package:godluckwiththat/screens/splash_screen.dart';
@@ -60,9 +59,9 @@ class Navigation {
         ),
       );
 
-  static void matchScreen(JsonMatch jsonMatch) => push(
+  static void matchScreen() => push(
         FadeRoute(
-          GameScreen.instance(jsonMatch),
+          GameScreen.instance(),
           name: 'match',
         ),
       );

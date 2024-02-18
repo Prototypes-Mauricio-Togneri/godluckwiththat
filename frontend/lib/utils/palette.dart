@@ -16,4 +16,6 @@ class Palette {
   static const Color textBackground = Color(0xaa000000);
   static const Color screenBackground = Color(0x80000000);
   static const Color gameBackground = Color(0xff2f6eff);
+
+  static const Color producerBlock = Color(0xffd0d0d0);
 }

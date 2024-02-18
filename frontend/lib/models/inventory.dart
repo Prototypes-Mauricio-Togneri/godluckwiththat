@@ -1,14 +1,14 @@
+import 'dart:math';
+
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
-import 'package:godluckwiththat/utils/json.dart';
-
-typedef JsonInventory = Map<ResourceType, double>;
 
 class Inventory {
   final ResourceMap _resources;
+  final ResourceMap _capacities;
 
-  Inventory._(this._resources);
+  Inventory._(this._resources, this._capacities);
 
   List<Resource> get list =>
       _resources.entries.map((e) => Resource(e.key, e.value)).toList();
@@ -23,7 +23,8 @@ class Inventory {
     return true;
   }
 
-  ResourceMap get resourceMap => _resources;
+  double capacityOf(ResourceType resourceType) =>
+      _capacities[resourceType] ?? 0;
 
   double get(ResourceType resourceType) => _resources.get(resourceType);
 
@@ -32,7 +33,9 @@ class Inventory {
 
   void addResource(Resource resource) {
     final double current = get(resource.resourceType);
-    _resources[resource.resourceType] = current + resource.amount;
+    final double capacity = capacityOf(resource.resourceType);
+    _resources[resource.resourceType] =
+        min(current + resource.amount, capacity);
   }
 
   void removeResource(Resource resource) {
@@ -80,30 +83,21 @@ class Inventory {
     return true;
   }
 
-  JsonInventory get json => _resources;
+  factory Inventory.empty() => Inventory._({}, {});
 
-  factory Inventory.empty() => Inventory._({});
-
-  factory Inventory.fromResourceMap(ResourceMap map) {
+  factory Inventory.create({
+    required ResourceMap resources,
+    required ResourceMap capacities,
+  }) {
     final ResourceMap resourceMap = {};
+    final ResourceMap capacitiesMap = {};
 
-    for (final Resource resource in map.resources()) {
+    for (final Resource resource in resources.resources()) {
       resourceMap[resource.resourceType] = resource.amount;
+      capacitiesMap[resource.resourceType] =
+          capacities[resource.resourceType] ?? 0;
     }
 
-    return Inventory._(resourceMap);
+    return Inventory._(resourceMap, capacitiesMap);
   }
-
-  factory Inventory.fromJson(JsonInventory map) {
-    final ResourceMap resourceMap = {};
-
-    for (final Resource resource in map.resources()) {
-      resourceMap[resource.resourceType] = resource.amount;
-    }
-
-    return Inventory._(resourceMap);
-  }
-
-  @override
-  String toString() => Json.encode(_resources);
 }

@@ -23,7 +23,10 @@ class AmountSelector extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        AddRemoveButton.remove(onRemove),
+        AddRemoveButton.remove(
+          size: size * 2,
+          onTap: onRemove,
+        ),
         const HBox(10),
         Label(
           text: text,
@@ -31,7 +34,10 @@ class AmountSelector extends StatelessWidget {
           size: size,
         ),
         const HBox(10),
-        AddRemoveButton.add(onAdd),
+        AddRemoveButton.add(
+          size: size * 2,
+          onTap: onAdd,
+        ),
       ],
     );
   }

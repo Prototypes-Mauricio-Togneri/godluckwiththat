@@ -1,12 +1,9 @@
-import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 typedef ResourceMap = Map<ResourceType, double>;
 
 extension ResourceMapExtension on ResourceMap {
-  Inventory get asInventory => Inventory.fromResourceMap(this);
-
   bool contains(ResourceType resourceType) => keys.contains(resourceType);
 
   double get(ResourceType resourceType) => this[resourceType] ?? 0;

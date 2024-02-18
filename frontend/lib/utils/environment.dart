@@ -6,9 +6,9 @@ class Environment {
 
   static const bool isProd = !isDebug;
 
-  static final bool canShowBuildingIndicator = Platform.isDesktop;
-
   static final bool hasCrashReports = Platform.isMobileNative;
+
+  static final bool hasSmallScreen = Platform.isMobile;
 
   static String environment() => isDebug ? 'dev' : 'prod';
 

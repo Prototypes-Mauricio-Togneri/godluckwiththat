@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -16,7 +15,7 @@ class Locator {
       DeviceOrientation.portraitDown,
     ]);
 
-    await Firebase.initializeApp(
+    /*await Firebase.initializeApp(
       options: const FirebaseOptions(
         apiKey: 'AIzaSyAqdJALmU6x0eGQN6zx545hU3zPFoLWk1U',
         authDomain: 'godluckwiththat.firebaseapp.com',
@@ -26,7 +25,7 @@ class Locator {
         appId: '1:699860745717:web:959c0dd7e19fb9d10874bc',
         measurementId: 'G-YW85L356Y1',
       ),
-    );
+    );*/
 
     locator.registerSingleton<Navigation>(Navigation());
     PlatformInitializer.init();

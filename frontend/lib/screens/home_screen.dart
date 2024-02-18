@@ -1,8 +1,7 @@
-import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:godluckwiththat/states/home_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/game_container.dart';
 import 'package:godluckwiththat/widgets/primary_button.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -14,16 +13,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomStatusBar(
-      style: SystemUiOverlayStyle.light,
-      statusBarColor: Palette.grey,
-      child: SafeArea(
-        child: Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(
-              color: Palette.white,
-            ),
-          ),
+    return const GameContainer(
+      child: Center(
+        child: CircularProgressIndicator(
+          color: Palette.white,
         ),
       ),
     );

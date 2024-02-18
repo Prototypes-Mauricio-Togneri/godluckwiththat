@@ -4,21 +4,16 @@ publish_to: none
 version: 0.0.1+1
 
 environment:
-  sdk: '>=3.1.0 <4.0.0'
+  sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
-  get_it: ^7.6.2
-  logger: ^2.0.1
-  dafluta: ^5.1.1
+  get_it: ^7.6.7
+  logger: ^2.0.2+1
+  dafluta: ^5.2.0
   url_strategy: ^0.2.0
   json_annotation: ^4.8.1
   just_the_tooltip: ^0.0.12
-  shared_preferences: ^2.2.1
-
-  cloud_firestore: ^4.9.1
-  firebase_core: ^2.15.1
-  firebase_auth: ^4.9.0
-  firebase_crashlytics: ^3.3.5
+  shared_preferences: ^2.2.2
 
   flutter:
     sdk: flutter
@@ -29,10 +24,10 @@ dependencies:
 dev_dependencies:
   dalocale: ^2.4.2
   daassets: ^1.3.2
-  daunused: ^1.3.0
+  daunused: ^1.6.1
   dapublock: ^1.0.1
-  build_runner: ^2.4.6
-  flutter_lints: ^2.0.3
+  build_runner: ^2.4.8
+  flutter_lints: ^3.0.1
   json_serializable: ^6.7.1
 
 flutter:
@@ -41,7 +36,7 @@ flutter:
   fonts:
     - family: CustomFont
       fonts:
-        - asset: assets/fonts/instructions.ttf
+        - asset: assets/fonts/sono.ttf
 
   assets:
     - assets/audio/sfx/
@@ -49,5 +44,4 @@ flutter:
     - assets/images/buildings/misc/
     - assets/images/buildings/producers/
     - assets/images/other/
-    - assets/images/patches/
     - assets/images/resources/
