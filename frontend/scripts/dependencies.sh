@@ -4,6 +4,6 @@ set -e
 
 flutter pub upgrade
 flutter pub pub run dapublock:dapublock.dart .
-flutter pub pub run daunused:daunused.dart . lib/main.dart -- lib/main/main.dart lib/generated_plugin_registrant.dart
+flutter pub run daunused:daunused.dart . lib/main/* .dart_tool/*
 flutter pub outdated
 flutter pub upgrade --major-versions

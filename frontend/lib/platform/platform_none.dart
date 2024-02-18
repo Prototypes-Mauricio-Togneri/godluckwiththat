@@ -6,7 +6,4 @@ class PlatformMethods extends PlatformMethodsBase {
 
   @override
   void disableContextualMenu() {}
-
-  @override
-  void clipboard(String text) {}
 }
