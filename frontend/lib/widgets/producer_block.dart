@@ -59,7 +59,7 @@ class Header extends StatelessWidget {
           width: 20,
           height: 20,
           decoration: const BoxDecoration(
-            color: Palette.grey,
+            color: Palette.lightGrey,
             shape: BoxShape.circle,
           ),
           child: Center(
