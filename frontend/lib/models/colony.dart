@@ -19,9 +19,9 @@ class Colony {
     required this.freeVillagers,
   });
 
-  int get day => (daysElapsed.toInt()) + 1;
+  num get day => daysElapsed + 1;
 
-  int get year => (daysElapsed ~/ 365).floor() + 1;
+  num get year => (daysElapsed / 365).floor() + 1;
 
   bool get hasFreeVillagers => freeVillagers > 0;
 

@@ -1,3 +1,4 @@
+import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/resource.dart';
@@ -18,6 +19,8 @@ abstract class Producer extends Building {
   bool get hasVillagers => villagers > 0;
 
   bool get canHoldMoreVillagers => maxCapacity > villagers;
+
+  int get maxCapacity => level * Constants.BUILDING_CAPACITY_PER_LEVEL;
 
   bool get canAddVillagers => colony.hasFreeVillagers && canHoldMoreVillagers;
 

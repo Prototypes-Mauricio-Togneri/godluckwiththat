@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 
@@ -42,12 +43,12 @@ class LeftSection extends StatelessWidget {
           children: [
             LabeledText(
               label: 'Day:',
-              text: colony.day.toString(),
+              text: Formatter.days(colony.day),
             ),
             const HBox(15),
             LabeledText(
               label: 'Year:',
-              text: colony.year.toString(),
+              text: Formatter.years(colony.year),
             ),
           ],
         ),

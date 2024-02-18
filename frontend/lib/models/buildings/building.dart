@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
@@ -19,8 +18,6 @@ class Building {
     required this.buildingType,
     required this.level,
   });
-
-  int get maxCapacity => level * Constants.BUILDING_CAPACITY_PER_LEVEL;
 
   ResourceMap get upgradeCost => buildingType.cost(level + 1);
 
