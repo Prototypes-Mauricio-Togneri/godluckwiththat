@@ -5,7 +5,7 @@ import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/resource_indicator.dart';
+import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
 
 class UpgradeBuildingButton extends StatelessWidget {
   final Building building;

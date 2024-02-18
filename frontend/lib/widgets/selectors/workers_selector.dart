@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/amount_selector.dart';
+import 'package:godluckwiththat/widgets/selectors/amount_selector.dart';
 
 class WorkersSelector extends StatelessWidget {
   final Producer building;

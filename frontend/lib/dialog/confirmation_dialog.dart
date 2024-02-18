@@ -2,7 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/utils/navigation.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/label.dart';
+import 'package:godluckwiththat/widgets/labels/label.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   final String message;

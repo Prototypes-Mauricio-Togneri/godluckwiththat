@@ -5,12 +5,12 @@ import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/label.dart';
+import 'package:godluckwiththat/widgets/labels/labeled_text.dart';
 
-class ResourcesHeader extends StatelessWidget {
+class HeaderBlock extends StatelessWidget {
   final GameState state;
 
-  const ResourcesHeader(this.state);
+  const HeaderBlock(this.state);
 
   @override
   Widget build(BuildContext context) {
@@ -114,41 +114,6 @@ class RightSection extends StatelessWidget {
         LabeledText(
           label: 'Stone:',
           text: Formatter.resource(colony.inventory.get(ResourceType.stone)),
-        ),
-      ],
-    );
-  }
-}
-
-class LabeledText extends StatelessWidget {
-  final String label;
-  final String text;
-  final Color labelColor;
-  final Color textColor;
-
-  const LabeledText({
-    required this.label,
-    required this.text,
-    this.labelColor = Palette.black,
-    this.textColor = Palette.black,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Label(
-          text: label,
-          color: labelColor,
-          weight: FontWeight.bold,
-          size: 14,
-        ),
-        const HBox(5),
-        Label(
-          text: text,
-          color: textColor,
-          size: 14,
         ),
       ],
     );

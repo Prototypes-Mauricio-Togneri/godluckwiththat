@@ -6,8 +6,8 @@ import 'package:godluckwiththat/views/overview_view.dart';
 import 'package:godluckwiththat/views/research_view.dart';
 import 'package:godluckwiththat/views/resources_view.dart';
 import 'package:godluckwiththat/views/units_view.dart';
-import 'package:godluckwiththat/widgets/game_container.dart';
-import 'package:godluckwiththat/widgets/game_loop.dart';
+import 'package:godluckwiththat/widgets/misc/game_container.dart';
+import 'package:godluckwiththat/widgets/misc/game_loop.dart';
 
 class GameScreen extends StatelessWidget {
   final GameState state;

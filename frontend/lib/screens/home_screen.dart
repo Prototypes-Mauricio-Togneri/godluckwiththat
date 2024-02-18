@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/states/home_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/game_container.dart';
-import 'package:godluckwiththat/widgets/primary_button.dart';
+import 'package:godluckwiththat/widgets/buttons/primary_button.dart';
+import 'package:godluckwiththat/widgets/misc/game_container.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeState state;

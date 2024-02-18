@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/trainers/trainer.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/add_remove_button.dart';
-import 'package:godluckwiththat/widgets/label.dart';
-import 'package:godluckwiththat/widgets/resource_indicator.dart';
-import 'package:godluckwiththat/widgets/upgrade_building_button.dart';
+import 'package:godluckwiththat/widgets/buttons/add_remove_button.dart';
+import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
+import 'package:godluckwiththat/widgets/labels/label.dart';
+import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
 
 class TrainerBlock extends StatelessWidget {
   final Trainer trainer;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/label.dart';
+import 'package:godluckwiththat/widgets/labels/label.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
