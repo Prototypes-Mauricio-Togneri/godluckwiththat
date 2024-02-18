@@ -87,19 +87,6 @@ class Colony {
     buildings.remove(building);
   }
 
-  /*void _createBuilding({
-    required BuildingType buildingType,
-    required double resourcesLeft,
-  }) {
-    buildings.add(Building.create(
-      colony: this,
-      buildingType: buildingType,
-      level: 1,
-      villagers: 0,
-      resourcesLeft: resourcesLeft,
-    ));
-  }*/
-
   void addResource(Resource resource) {
     inventory.addResource(resource);
   }

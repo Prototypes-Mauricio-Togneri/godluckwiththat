@@ -33,7 +33,6 @@ class Label extends StatelessWidget {
       maxLines: maxLines,
       style: TextStyle(
         color: color,
-        //height: 0.2,
         fontSize: size,
         fontWeight: weight,
         fontFamily: Constants.FONT_NAME,
