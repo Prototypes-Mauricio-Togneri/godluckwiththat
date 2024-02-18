@@ -28,6 +28,8 @@ class Building {
 
   bool get isTrainer => false;
 
+  void upgrade() {}
+
   void destroy() {
     colony.removeBuilding(this);
   }
