@@ -1,11 +1,9 @@
 import 'package:godluckwiththat/app/constants.dart';
-import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/buildings/trainers/house.dart';
 import 'package:godluckwiththat/models/buildings/trainers/trainer.dart';
 import 'package:godluckwiththat/models/inventory.dart';
-import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 class Colony {
@@ -55,6 +53,10 @@ class Colony {
 
   double outputOf(ResourceType resourceType) => productionOf(resourceType);
 
+  int get totalPopulation {
+    return inventory.get(ResourceType.villager).toInt();
+  }
+
   int get populationLimit {
     int total = 0;
 
@@ -86,24 +88,4 @@ class Colony {
   void removeBuilding(Building building) {
     buildings.remove(building);
   }
-
-  void addResource(Resource resource) {
-    inventory.addResource(resource);
-  }
-
-  void removeResource(Resource resource) {
-    inventory.removeResource(resource);
-  }
-
-  void addResources(ResourceMap resources) {
-    inventory.addResources(resources.resources());
-  }
-
-  void removeResources(ResourceMap resources) {
-    inventory.removeResources(resources.resources());
-  }
-
-  bool hasResource(Resource resource) => inventory.hasResource(resource);
-
-  bool hasResources(ResourceMap resources) => inventory.hasResources(resources);
 }

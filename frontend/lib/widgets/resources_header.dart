@@ -91,8 +91,7 @@ class RightSection extends StatelessWidget {
         const VBox(10),
         LabeledText(
           label: 'Population:',
-          text:
-              '${colony.inventory.get(ResourceType.villager)}/${colony.populationLimit}',
+          text: '${colony.totalPopulation}/${colony.populationLimit}',
         ),
         const VBox(10),
         LabeledText(

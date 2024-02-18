@@ -12,17 +12,18 @@ abstract class Trainer extends Building {
     required super.level,
   });
 
-  int get resources;
+  int get resources => colony.inventory.get(resourceType).toInt();
 
   int get capacity;
 
-  bool get canTrain =>
-      colony.inventory.get(ResourceType.villager) < colony.populationLimit;
+  bool get canTrain => colony.totalPopulation < colony.populationLimit;
 
   @override
   bool get isTrainer => true;
 
   void train() {
-    colony.addResource(Resource.one(resourceType));
+    if (canTrain) {
+      colony.inventory.addResource(Resource.one(resourceType));
+    }
   }
 }

@@ -40,12 +40,12 @@ abstract class Producer extends Building {
 
     if (resources < capacity) {
       final double produced = production * dt;
-      colony.addResource(Resource(resourceType, produced));
+      colony.inventory.addResource(Resource(resourceType, produced));
     }
   }
 
   void addVillager() {
-    if (colony.hasFreeVillagers && canHoldMoreVillagers) {
+    if (canAddVillagers) {
       villagers += colony.removeFreeVillagers(1);
     }
   }

@@ -12,8 +12,5 @@ class House extends Trainer {
         );
 
   @override
-  int get resources => colony.inventory.get(ResourceType.villager).toInt();
-
-  @override
   int get capacity => colony.populationLimit;
 }
