@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/models/buildings/trainers/trainer.dart';
 import 'package:godluckwiththat/states/game_state.dart';
-import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/label.dart';
+import 'package:godluckwiththat/widgets/resources_header.dart';
+import 'package:godluckwiththat/widgets/trainer_block.dart';
 
 class UnitsView extends StatelessWidget {
   final GameState state;
@@ -10,9 +11,12 @@ class UnitsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Label(
-      text: 'UNITS',
-      color: Palette.black,
+    return Column(
+      children: [
+        ResourcesHeader(state),
+        for (final Trainer trainer in state.colony.trainers)
+          TrainerBlock(trainer),
+      ],
     );
   }
 }

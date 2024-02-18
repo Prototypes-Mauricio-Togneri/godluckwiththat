@@ -4,7 +4,7 @@ import 'package:godluckwiththat/utils/assets.dart';
 
 enum BuildingType {
   house(
-    sprite: Assets.IMAGES_BUILDINGS_MISC_HOUSE,
+    sprite: Assets.IMAGES_BUILDINGS_TRAINERS_HOUSE,
     initialCost: {
       ResourceType.wood: 50,
     },

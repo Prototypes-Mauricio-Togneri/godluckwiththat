@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/amount_selector.dart';
 
 class WorkersSelector extends StatelessWidget {
-  final Building building;
+  final Producer building;
   final double size;
 
   const WorkersSelector({

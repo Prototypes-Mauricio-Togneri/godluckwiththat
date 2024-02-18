@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
+import 'package:godluckwiththat/models/buildings/trainers/house.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
@@ -31,11 +32,15 @@ class BaseGameState extends BaseState {
     );
 
     colony.addBuildings([
+      House(
+        colony: colony,
+        level: 1,
+      ),
       Farm(
         colony: colony,
         level: 1,
         villagers: 0,
-      )
+      ),
     ]);
   }
 

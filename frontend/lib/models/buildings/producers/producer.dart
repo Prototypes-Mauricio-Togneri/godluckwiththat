@@ -1,19 +1,27 @@
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/resource.dart';
-import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 abstract class Producer extends Building {
   final ResourceType resourceType;
+  int villagers;
 
   Producer({
-    required BuildingType buildingType,
     required this.resourceType,
+    required this.villagers,
+    required super.buildingType,
     required super.colony,
     required super.level,
-    required super.villagers,
-  }) : super(buildingType: buildingType);
+  });
+
+  bool get hasVillagers => villagers > 0;
+
+  bool get canHoldMoreVillagers => maxCapacity > villagers;
+
+  bool get canAddVillagers => colony.hasFreeVillagers && canHoldMoreVillagers;
+
+  bool get canRemoveVillagers => hasVillagers;
 
   double get production => productionRate * villagers;
 
@@ -24,6 +32,9 @@ abstract class Producer extends Building {
   int get capacity => level * 100;
 
   @override
+  bool get isProducer => true;
+
+  @override
   void update(double dt, Colony colony) {
     super.update(dt, colony);
 
@@ -31,5 +42,22 @@ abstract class Producer extends Building {
       final double produced = production * dt;
       colony.addResource(Resource(resourceType, produced));
     }
+  }
+
+  void addVillager() {
+    if (colony.hasFreeVillagers && canHoldMoreVillagers) {
+      villagers += colony.removeFreeVillagers(1);
+    }
+  }
+
+  void removeVillagers() {
+    if (hasVillagers) {
+      villagers -= colony.addFreeVillagers(1);
+    }
+  }
+
+  @override
+  void destroy() {
+    colony.addFreeVillagers(villagers);
   }
 }

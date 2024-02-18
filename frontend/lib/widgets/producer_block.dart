@@ -149,7 +149,7 @@ class RightSection extends StatelessWidget {
         const VBox(5),
         ResourceIndicator(
           sprite: ResourceType.wood.sprite,
-          value: '10',
+          value: ((producer.level + 1) * 10).toString(),
           textColor: Palette.black,
           textSize: 15,
           iconSize: 15,
