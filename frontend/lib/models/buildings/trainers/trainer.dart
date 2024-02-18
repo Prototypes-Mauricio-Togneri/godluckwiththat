@@ -1,4 +1,5 @@
 import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 abstract class Trainer extends Building {
@@ -13,10 +14,15 @@ abstract class Trainer extends Building {
 
   int get resources;
 
-  int get capacity => level * 100;
+  int get capacity;
+
+  bool get canTrain =>
+      colony.inventory.get(ResourceType.villager) < colony.populationLimit;
 
   @override
   bool get isTrainer => true;
 
-  void train() {}
+  void train() {
+    colony.addResource(Resource.one(resourceType));
+  }
 }

@@ -74,11 +74,6 @@ class Colony {
     return total + Constants.BASE_POPULATION_LIMIT;
   }
 
-  /*void onCreateVillagerTaskFinished(CreateVillagerTask task) {
-    addFreeVillagers(task.villagers);
-    inventory.addResource(Resource.villager(task.villagers.toDouble()));
-  }*/
-
   int addFreeVillagers(int amount) {
     freeVillagers += amount;
 

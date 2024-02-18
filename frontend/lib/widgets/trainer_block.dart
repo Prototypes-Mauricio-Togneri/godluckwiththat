@@ -103,7 +103,7 @@ class MiddleSection extends StatelessWidget {
     return Center(
       child: AddRemoveButton.add(
         size: 40,
-        onTap: trainer.train,
+        onTap: trainer.canTrain ? trainer.train : null,
       ),
     );
   }
