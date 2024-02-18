@@ -19,11 +19,13 @@ class Colony {
     required this.freeVillagers,
   });
 
+  // =========================== TIME ELAPSED =============================== \\
+
   num get day => daysElapsed + 1;
 
   num get year => (daysElapsed / 365).floor() + 1;
 
-  bool get hasFreeVillagers => freeVillagers > 0;
+  // ============================ BUILDINGS ================================= \\
 
   List<Producer> get producers =>
       buildings.where((b) => b.isProducer).map((b) => b as Producer).toList();
@@ -51,11 +53,19 @@ class Colony {
     return total;
   }
 
-  double outputOf(ResourceType resourceType) => productionOf(resourceType);
-
-  int get totalPopulation {
-    return inventory.get(ResourceType.villager).toInt();
+  void addBuildings(List<Building> list) {
+    buildings.addAll(list);
   }
+
+  void removeBuilding(Building building) {
+    buildings.remove(building);
+  }
+
+  // =========================== POPULATION ================================= \\
+
+  bool get hasFreeVillagers => freeVillagers > 0;
+
+  int get totalPopulation => inventory.get(ResourceType.villager).toInt();
 
   int get populationLimit {
     int total = 0;
@@ -79,13 +89,5 @@ class Colony {
     freeVillagers -= amount;
 
     return amount;
-  }
-
-  void addBuildings(List<Building> list) {
-    buildings.addAll(list);
-  }
-
-  void removeBuilding(Building building) {
-    buildings.remove(building);
   }
 }
