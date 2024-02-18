@@ -1,7 +1,9 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
-import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/models/resource.dart';
+import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/label.dart';
 import 'package:godluckwiththat/widgets/resource_indicator.dart';
@@ -147,13 +149,14 @@ class RightSection extends StatelessWidget {
           ),
         ),
         const VBox(5),
-        ResourceIndicator(
-          sprite: ResourceType.wood.sprite,
-          value: ((producer.level + 1) * 10).toString(),
-          textColor: Palette.black,
-          textSize: 15,
-          iconSize: 15,
-        ),
+        for (final Resource resource in producer.upgradeCost.resources())
+          ResourceIndicator(
+            sprite: resource.resourceType.sprite,
+            value: Formatter.resource(resource.amount),
+            textColor: Palette.black,
+            textSize: 15,
+            iconSize: 15,
+          ),
       ],
     );
   }
