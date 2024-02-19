@@ -19,6 +19,10 @@ abstract class Trainer extends Building {
 
   ResourceMap get trainingCost;
 
+  bool get isEmptyOfResources => resources == 0;
+
+  bool get isFullOfResources => resources >= maxResourceCapacity;
+
   bool get canTrain =>
       (colony.totalPopulation < colony.populationLimit) &&
       colony.inventory.hasResources(trainingCost.resources());

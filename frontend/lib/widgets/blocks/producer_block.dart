@@ -92,8 +92,7 @@ class LeftSection extends StatelessWidget {
           sprite: producer.resourceType.sprite,
           value:
               '${Formatter.resource(producer.resources)}/${Formatter.resource(producer.maxResourceCapacity)}',
-          textColor: ((producer.resources == 0) ||
-                  producer.resources >= producer.maxResourceCapacity)
+          textColor: (producer.isEmptyOfResources || producer.isFullOfResources)
               ? Palette.error
               : Palette.black,
           textSize: 20,

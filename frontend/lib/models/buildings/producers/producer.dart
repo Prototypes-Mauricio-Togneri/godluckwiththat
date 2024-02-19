@@ -31,6 +31,10 @@ abstract class Producer extends Building {
 
   num get maxResourceCapacity => level * 100;
 
+  bool get isEmptyOfResources => resources == 0;
+
+  bool get isFullOfResources => resources >= maxResourceCapacity;
+
   int get maxWorkersCapacity => level * Constants.BUILDING_CAPACITY_PER_LEVEL;
 
   bool get canProduce => resources < maxResourceCapacity;
