@@ -153,7 +153,9 @@ class ProducerListContent extends StatelessWidget {
               ResourceIndicator(
                 sprite: resource.resourceType.sprite,
                 value: Formatter.resource(resource.amount),
-                textColor: Palette.black,
+                textColor: colony.inventory.hasResource(resource)
+                    ? Palette.black
+                    : Palette.error,
                 textSize: 15,
                 iconSize: 15,
               ),

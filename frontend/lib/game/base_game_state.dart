@@ -16,7 +16,7 @@ class BaseGameState extends BaseState {
           ResourceType.villager: 5,
           ResourceType.water: 10,
           ResourceType.food: 20,
-          ResourceType.wood: 30,
+          ResourceType.wood: 300,
           ResourceType.stone: 40,
         },
         capacities: {
