@@ -16,7 +16,6 @@ class ProducerBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Palette.producerBlock,
-      margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(15),
       child: Column(
         children: [
@@ -48,8 +47,8 @@ class Header extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Label(
-          text: producer.buildingType.name,
+        const Label(
+          text: 'LEVEL',
           color: Palette.black,
           weight: FontWeight.bold,
           size: 20,
