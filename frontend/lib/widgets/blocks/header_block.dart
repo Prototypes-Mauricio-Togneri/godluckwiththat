@@ -96,21 +96,45 @@ class RightSection extends StatelessWidget {
               '${Formatter.resource(colony.totalPopulation)}/${Formatter.resource(colony.populationLimit)}',
         ),
         const VBox(10),
-        LabeledText(
-          label: 'Food:',
-          text: Formatter.resource(colony.inventory.get(ResourceType.food)),
+        ResourceLabel(
+          colony: colony,
+          resourceType: ResourceType.food,
         ),
         const VBox(10),
-        LabeledText(
-          label: 'Wood:',
-          text: Formatter.resource(colony.inventory.get(ResourceType.wood)),
+        ResourceLabel(
+          colony: colony,
+          resourceType: ResourceType.wood,
         ),
         const VBox(10),
-        LabeledText(
-          label: 'Stone:',
-          text: Formatter.resource(colony.inventory.get(ResourceType.stone)),
+        ResourceLabel(
+          colony: colony,
+          resourceType: ResourceType.stone,
         ),
       ],
+    );
+  }
+}
+
+class ResourceLabel extends StatelessWidget {
+  final Colony colony;
+  final ResourceType resourceType;
+
+  const ResourceLabel({
+    required this.colony,
+    required this.resourceType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final num amount = colony.inventory.get(resourceType);
+    final num capacity = colony.inventory.capacityOf(resourceType);
+    final bool full = amount >= capacity;
+
+    return LabeledText(
+      label: '${resourceType.name}:',
+      text: '${Formatter.resource(amount)}/${Formatter.resource(capacity)}',
+      labelColor: full ? Palette.error : Palette.black,
+      textColor: full ? Palette.error : Palette.black,
     );
   }
 }

@@ -29,7 +29,7 @@ abstract class Producer extends Building {
 
   num get resources => colony.inventory.get(resourceType);
 
-  num get maxResourceCapacity => level * 100;
+  num get maxResourceCapacity => colony.inventory.capacityOf(resourceType);
 
   bool get isEmptyOfResources => resources == 0;
 

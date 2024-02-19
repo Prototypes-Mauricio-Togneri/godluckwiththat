@@ -1,11 +1,10 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
-import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
-import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
+import 'package:godluckwiththat/widgets/misc/image_asset.dart';
 import 'package:godluckwiththat/widgets/selectors/workers_selector.dart';
 
 class ProducerBlock extends StatelessWidget {
@@ -84,25 +83,18 @@ class LeftSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ResourceIndicator(
-          sprite: producer.resourceType.sprite,
-          value:
-              '${Formatter.resource(producer.resources)}/${Formatter.resource(producer.maxResourceCapacity)}',
-          textColor: (producer.isEmptyOfResources || producer.isFullOfResources)
-              ? Palette.error
-              : Palette.black,
-          textSize: 20,
-          iconSize: 17,
+        ImageAsset(
+          path: producer.resourceType.sprite,
+          size: 18,
         ),
-        const VBox(5),
+        const HBox(10),
         Label(
           text: '${producer.production}/day',
           color: (producer.production == 0) ? Palette.error : Palette.black,
-          size: 15,
+          size: 20,
         ),
       ],
     );
