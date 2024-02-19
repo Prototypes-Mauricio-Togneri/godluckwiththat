@@ -20,7 +20,7 @@ class Building {
 
   ResourceMap get upgradeCost => buildingType.cost(level + 1);
 
-  void update(double dt, Colony colony) {}
+  void update(double dt) {}
 
   bool get isProducer => false;
 

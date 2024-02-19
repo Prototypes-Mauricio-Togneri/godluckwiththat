@@ -37,7 +37,7 @@ class Colony {
     daysElapsed += dt;
 
     for (final Building building in buildings) {
-      building.update(dt, this);
+      building.update(dt);
     }
   }
 

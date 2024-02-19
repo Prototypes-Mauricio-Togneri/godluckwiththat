@@ -1,6 +1,5 @@
 import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
-import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
@@ -38,8 +37,8 @@ abstract class Producer extends Building {
   bool get isProducer => true;
 
   @override
-  void update(double dt, Colony colony) {
-    super.update(dt, colony);
+  void update(double dt) {
+    super.update(dt);
 
     if (resources < maxResourceCapacity) {
       final double produced = production * dt;
