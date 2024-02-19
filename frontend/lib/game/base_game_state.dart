@@ -1,6 +1,5 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
-import 'package:godluckwiththat/models/buildings/producers/well.dart';
 import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
 import 'package:godluckwiththat/models/buildings/trainers/house.dart';
 import 'package:godluckwiththat/models/colony.dart';
@@ -37,11 +36,6 @@ class BaseGameState extends BaseState {
       House(
         colony: colony,
         level: 1,
-      ),
-      Well(
-        colony: colony,
-        level: 1,
-        villagers: 0,
       ),
       Farm(
         colony: colony,

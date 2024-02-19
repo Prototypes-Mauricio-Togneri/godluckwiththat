@@ -97,11 +97,6 @@ class RightSection extends StatelessWidget {
         ),
         const VBox(10),
         LabeledText(
-          label: 'Water:',
-          text: Formatter.resource(colony.inventory.get(ResourceType.water)),
-        ),
-        const VBox(10),
-        LabeledText(
           label: 'Food:',
           text: Formatter.resource(colony.inventory.get(ResourceType.food)),
         ),

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
@@ -21,7 +20,6 @@ class Building {
 
   ResourceMap get upgradeCost => buildingType.cost(level + 1);
 
-  @mustCallSuper
   void update(double dt, Colony colony) {}
 
   bool get isProducer => false;
@@ -30,7 +28,12 @@ class Building {
 
   bool get canUpgrade => colony.inventory.hasResources(upgradeCost.resources());
 
-  void upgrade() {}
+  void upgrade() {
+    if (canUpgrade) {
+      colony.inventory.removeResources(upgradeCost.resources());
+      level++;
+    }
+  }
 
   void destroy() {
     colony.removeBuilding(this);
