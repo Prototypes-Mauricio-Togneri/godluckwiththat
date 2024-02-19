@@ -4,6 +4,7 @@ import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/buildings/trainers/house.dart';
 import 'package:godluckwiththat/models/buildings/trainers/trainer.dart';
 import 'package:godluckwiththat/models/inventory.dart';
+import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 class Colony {
@@ -51,6 +52,16 @@ class Colony {
     }
 
     return total;
+  }
+
+  void build(BuildingType buildingType) {
+    final Building building = Building.create(
+      colony: this,
+      buildingType: buildingType,
+      level: 1,
+      villagers: 0,
+    );
+    buildings.add(building);
   }
 
   void addBuildings(List<Building> list) {

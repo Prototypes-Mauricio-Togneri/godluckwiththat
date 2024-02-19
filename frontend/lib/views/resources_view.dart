@@ -1,12 +1,18 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
+import 'package:godluckwiththat/models/colony.dart';
+import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/blocks/header_block.dart';
 import 'package:godluckwiththat/widgets/blocks/producer_block.dart';
 import 'package:godluckwiththat/widgets/buttons/primary_button.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
+import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
 
 class ResourcesView extends StatelessWidget {
   final GameState state;
@@ -19,14 +25,17 @@ class ResourcesView extends StatelessWidget {
       children: [
         HeaderBlock(state),
         ProducerList(
+          colony: state.colony,
           buildingType: BuildingType.farm,
           producers: state.colony.producers,
         ),
         ProducerList(
+          colony: state.colony,
           buildingType: BuildingType.woodcutter,
           producers: state.colony.producers,
         ),
         ProducerList(
+          colony: state.colony,
           buildingType: BuildingType.quarry,
           producers: state.colony.producers,
         ),
@@ -36,10 +45,12 @@ class ResourcesView extends StatelessWidget {
 }
 
 class ProducerList extends StatefulWidget {
+  final Colony colony;
   final BuildingType buildingType;
   final List<Producer> producers;
 
   const ProducerList({
+    required this.colony,
     required this.buildingType,
     required this.producers,
   });
@@ -70,9 +81,11 @@ class _Content extends State<ProducerList> {
           canTapOnHeader: true,
           headerBuilder: (context, isExpanded) =>
               ProducerListHeader(widget.buildingType.name),
-          body: ProducerListContent(widget.producers
-              .where((e) => e.buildingType == widget.buildingType)
-              .toList()),
+          body: ProducerListContent(
+            colony: widget.colony,
+            buildingType: widget.buildingType,
+            producers: widget.producers,
+          ),
         ),
       ],
     );
@@ -102,31 +115,52 @@ class ProducerListHeader extends StatelessWidget {
 }
 
 class ProducerListContent extends StatelessWidget {
+  final Colony colony;
+  final BuildingType buildingType;
   final List<Producer> producers;
 
-  const ProducerListContent(this.producers);
+  const ProducerListContent({
+    required this.colony,
+    required this.buildingType,
+    required this.producers,
+  });
 
   @override
   Widget build(BuildContext context) {
-    if (producers.isEmpty) {
+    final Iterable<Producer> list =
+        producers.where((e) => e.buildingType == buildingType);
+
+    if (list.isEmpty) {
       return Container(
+        width: double.infinity,
         color: Palette.producerBlock,
         padding: const EdgeInsets.all(15),
-        child: Center(
-          child: PrimaryButton(
-            text: 'BUILD',
-            color: Palette.success,
-            onPressed: () {},
-            icon: Icons.construction,
-            textSize: 20,
-            expand: false,
-          ),
+        child: Column(
+          children: [
+            PrimaryButton(
+              text: 'BUILD',
+              color: Palette.success,
+              onPressed: () => colony.build(buildingType),
+              icon: Icons.construction,
+              textSize: 20,
+              expand: false,
+            ),
+            const VBox(10),
+            for (final Resource resource in buildingType.cost(1).resources())
+              ResourceIndicator(
+                sprite: resource.resourceType.sprite,
+                value: Formatter.resource(resource.amount),
+                textColor: Palette.black,
+                textSize: 15,
+                iconSize: 15,
+              ),
+          ],
         ),
       );
     } else {
       return Column(
         children: [
-          for (final Producer producer in producers) ProducerBlock(producer),
+          for (final Producer producer in list) ProducerBlock(producer),
         ],
       );
     }
