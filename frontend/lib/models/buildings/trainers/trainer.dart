@@ -1,3 +1,4 @@
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
@@ -16,7 +17,11 @@ abstract class Trainer extends Building {
 
   num get maxResourceCapacity;
 
-  bool get canTrain => colony.totalPopulation < colony.populationLimit;
+  ResourceMap get trainingCost;
+
+  bool get canTrain =>
+      (colony.totalPopulation < colony.populationLimit) &&
+      colony.inventory.hasResources(trainingCost.resources());
 
   @override
   bool get isTrainer => true;
@@ -24,6 +29,7 @@ abstract class Trainer extends Building {
   void train() {
     if (canTrain) {
       colony.inventory.addResource(Resource.one(resourceType));
+      colony.inventory.removeResources(trainingCost.resources());
     }
   }
 }

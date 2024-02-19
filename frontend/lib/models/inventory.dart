@@ -73,8 +73,8 @@ class Inventory {
   bool hasResource(Resource resource) =>
       get(resource.resourceType) >= resource.amount;
 
-  bool hasResources(ResourceMap map) {
-    for (final Resource resource in map.resources()) {
+  bool hasResources(List<Resource> resources) {
+    for (final Resource resource in resources) {
       if (!hasResource(resource)) {
         return false;
       }

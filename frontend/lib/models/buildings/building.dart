@@ -28,6 +28,8 @@ class Building {
 
   bool get isTrainer => false;
 
+  bool get canUpgrade => colony.inventory.hasResources(upgradeCost.resources());
+
   void upgrade() {}
 
   void destroy() {

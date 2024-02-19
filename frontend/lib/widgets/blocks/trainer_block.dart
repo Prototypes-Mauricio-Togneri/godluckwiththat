@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/trainers/trainer.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/buttons/add_remove_button.dart';
+import 'package:godluckwiththat/widgets/buttons/train_unit_button.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
 import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
@@ -103,10 +103,7 @@ class MiddleSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: AddRemoveButton.add(
-        size: 40,
-        onTap: trainer.canTrain ? trainer.train : null,
-      ),
+      child: TrainUnitButton(trainer),
     );
   }
 }

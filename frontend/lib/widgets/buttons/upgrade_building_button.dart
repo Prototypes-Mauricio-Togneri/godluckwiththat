@@ -5,6 +5,7 @@ import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/buttons/add_remove_button.dart';
 import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
 
 class UpgradeBuildingButton extends StatelessWidget {
@@ -17,17 +18,9 @@ class UpgradeBuildingButton extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          width: 40,
-          height: 40,
-          color: Palette.success,
-          child: const Center(
-            child: Icon(
-              Icons.arrow_upward,
-              color: Palette.white,
-              size: 20,
-            ),
-          ),
+        AddRemoveButton.upgrade(
+          size: 40,
+          onTap: building.canUpgrade ? building.upgrade : null,
         ),
         const VBox(5),
         for (final Resource resource in building.upgradeCost.resources())

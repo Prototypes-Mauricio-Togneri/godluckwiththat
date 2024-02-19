@@ -36,6 +36,17 @@ class AddRemoveButton extends StatelessWidget {
         onTap: onTap,
       );
 
+  factory AddRemoveButton.upgrade({
+    required double size,
+    required VoidCallback? onTap,
+  }) =>
+      AddRemoveButton(
+        icon: Icons.arrow_upward,
+        color: Palette.success,
+        size: size,
+        onTap: onTap,
+      );
+
   @override
   Widget build(BuildContext context) {
     return Container(
