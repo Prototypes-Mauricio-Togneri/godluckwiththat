@@ -141,7 +141,9 @@ class ProducerListContent extends StatelessWidget {
             PrimaryButton(
               text: 'BUILD',
               color: Palette.success,
-              onPressed: () => colony.build(buildingType),
+              onPressed: colony.canBuild(buildingType)
+                  ? () => colony.build(buildingType)
+                  : null,
               icon: Icons.construction,
               textSize: 20,
               expand: false,

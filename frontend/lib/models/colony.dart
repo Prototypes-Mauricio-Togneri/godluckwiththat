@@ -1,4 +1,5 @@
 import 'package:godluckwiththat/app/constants.dart';
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/buildings/trainers/house.dart';
@@ -54,14 +55,20 @@ class Colony {
     return total;
   }
 
+  bool canBuild(BuildingType buildingType) =>
+      inventory.hasResources(buildingType.cost(1).resources());
+
   void build(BuildingType buildingType) {
-    final Building building = Building.create(
-      colony: this,
-      buildingType: buildingType,
-      level: 1,
-      villagers: 0,
-    );
-    buildings.add(building);
+    if (canBuild(buildingType)) {
+      final Building building = Building.create(
+        colony: this,
+        buildingType: buildingType,
+        level: 1,
+        villagers: 0,
+      );
+      buildings.add(building);
+      inventory.removeResources(buildingType.cost(1).resources());
+    }
   }
 
   void addBuildings(List<Building> list) {
