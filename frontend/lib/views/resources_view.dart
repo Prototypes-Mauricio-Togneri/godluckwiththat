@@ -5,6 +5,7 @@ import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/blocks/header_block.dart';
 import 'package:godluckwiththat/widgets/blocks/producer_block.dart';
+import 'package:godluckwiththat/widgets/buttons/primary_button.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
 
 class ResourcesView extends StatelessWidget {
@@ -23,6 +24,10 @@ class ResourcesView extends StatelessWidget {
         ),
         ProducerList(
           buildingType: BuildingType.woodcutter,
+          producers: state.colony.producers,
+        ),
+        ProducerList(
+          buildingType: BuildingType.quarry,
           producers: state.colony.producers,
         ),
       ],
@@ -63,27 +68,67 @@ class _Content extends State<ProducerList> {
           backgroundColor: Palette.lightGrey,
           isExpanded: expanded,
           canTapOnHeader: true,
-          headerBuilder: (context, isExpanded) => Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Label(
-                text: widget.buildingType.name,
-                color: Palette.black,
-                weight: FontWeight.bold,
-                size: 20,
-              ),
-            ),
-          ),
-          body: Column(
-            children: [
-              for (final Producer producer in widget.producers
-                  .where((e) => e.buildingType == widget.buildingType))
-                ProducerBlock(producer),
-            ],
-          ),
+          headerBuilder: (context, isExpanded) =>
+              ProducerListHeader(widget.buildingType.name),
+          body: ProducerListContent(widget.producers
+              .where((e) => e.buildingType == widget.buildingType)
+              .toList()),
         ),
       ],
     );
+  }
+}
+
+class ProducerListHeader extends StatelessWidget {
+  final String title;
+
+  const ProducerListHeader(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10),
+        child: Label(
+          text: title,
+          color: Palette.black,
+          weight: FontWeight.bold,
+          size: 20,
+        ),
+      ),
+    );
+  }
+}
+
+class ProducerListContent extends StatelessWidget {
+  final List<Producer> producers;
+
+  const ProducerListContent(this.producers);
+
+  @override
+  Widget build(BuildContext context) {
+    if (producers.isEmpty) {
+      return Container(
+        color: Palette.producerBlock,
+        padding: const EdgeInsets.all(15),
+        child: Center(
+          child: PrimaryButton(
+            text: 'BUILD',
+            color: Palette.success,
+            onPressed: () {},
+            icon: Icons.construction,
+            textSize: 20,
+            expand: false,
+          ),
+        ),
+      );
+    } else {
+      return Column(
+        children: [
+          for (final Producer producer in producers) ProducerBlock(producer),
+        ],
+      );
+    }
   }
 }

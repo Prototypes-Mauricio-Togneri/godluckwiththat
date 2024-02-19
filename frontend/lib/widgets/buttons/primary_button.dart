@@ -76,7 +76,7 @@ class ButtonContent extends StatelessWidget {
                     child: Icon(
                       icon,
                       color: Palette.white,
-                      size: textSize / 2,
+                      size: textSize,
                     ),
                   ),
                 Label(
