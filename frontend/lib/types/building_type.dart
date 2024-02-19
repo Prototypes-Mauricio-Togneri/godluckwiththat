@@ -50,21 +50,7 @@ enum BuildingType {
     required this.produces,
   });
 
-  bool get isProducer => produces != null;
-
   ResourceMap cost(int level) => initialCost.multiply(level);
-
-  bool get canHostVillagers {
-    switch (this) {
-      case BuildingType.well:
-      case BuildingType.farm:
-      case BuildingType.woodcutter:
-      case BuildingType.quarry:
-        return true;
-      default:
-        return false;
-    }
-  }
 
   @override
   String toString() => name.replaceAll('_', ' ');
