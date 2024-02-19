@@ -17,60 +17,16 @@ class ProducerBlock extends StatelessWidget {
     return Container(
       color: Palette.producerBlock,
       padding: const EdgeInsets.all(15),
-      child: Column(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Header(producer),
-          const VBox(10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              LeftSection(producer),
-              Expanded(
-                child: MiddleSection(producer),
-              ),
-              RightSection(producer),
-            ],
+          LeftSection(producer),
+          Expanded(
+            child: MiddleSection(producer),
           ),
+          RightSection(producer),
         ],
       ),
-    );
-  }
-}
-
-class Header extends StatelessWidget {
-  final Producer producer;
-
-  const Header(this.producer);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Label(
-          text: 'LEVEL',
-          color: Palette.black,
-          weight: FontWeight.bold,
-          size: 20,
-        ),
-        const HBox(15),
-        Container(
-          width: 20,
-          height: 20,
-          decoration: const BoxDecoration(
-            color: Palette.lightGrey,
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Label(
-              text: producer.level.toString(),
-              color: Palette.white,
-              align: TextAlign.center,
-              size: 10,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
@@ -82,18 +38,51 @@ class LeftSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
+    return Column(
       children: [
-        ImageAsset(
-          path: producer.resourceType.sprite,
-          size: 18,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Label(
+              text: 'LEVEL',
+              color: Palette.black,
+              weight: FontWeight.bold,
+              size: 20,
+            ),
+            const HBox(15),
+            Container(
+              width: 20,
+              height: 20,
+              decoration: const BoxDecoration(
+                color: Palette.lightGrey,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Label(
+                  text: producer.level.toString(),
+                  color: Palette.white,
+                  align: TextAlign.center,
+                  size: 10,
+                ),
+              ),
+            ),
+          ],
         ),
-        const HBox(10),
-        Label(
-          text: '${producer.production}/day',
-          color: (producer.production == 0) ? Palette.error : Palette.black,
-          size: 20,
+        const VBox(5),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ImageAsset(
+              path: producer.resourceType.sprite,
+              size: 18,
+            ),
+            const HBox(10),
+            Label(
+              text: '${producer.production}/day',
+              color: (producer.production == 0) ? Palette.error : Palette.black,
+              size: 20,
+            ),
+          ],
         ),
       ],
     );

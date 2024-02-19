@@ -64,6 +64,10 @@ class _Content extends State<ProducerList> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Producer> list = widget.producers
+        .where((e) => e.buildingType == widget.buildingType)
+        .toList();
+
     return ExpansionPanelList(
       elevation: 0,
       dividerColor: Palette.transparent,
@@ -79,12 +83,12 @@ class _Content extends State<ProducerList> {
           backgroundColor: Palette.lightGrey,
           isExpanded: expanded,
           canTapOnHeader: true,
-          headerBuilder: (context, isExpanded) =>
-              ProducerListHeader(widget.buildingType.name),
+          headerBuilder: (context, isExpanded) => ProducerListHeader(
+              '${widget.buildingType.name} (${list.length})'),
           body: ProducerListContent(
             colony: widget.colony,
             buildingType: widget.buildingType,
-            producers: widget.producers,
+            producers: list,
           ),
         ),
       ],
@@ -127,10 +131,7 @@ class ProducerListContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Iterable<Producer> list =
-        producers.where((e) => e.buildingType == buildingType);
-
-    if (list.isEmpty) {
+    if (producers.isEmpty) {
       return Container(
         width: double.infinity,
         color: Palette.producerBlock,
@@ -160,7 +161,7 @@ class ProducerListContent extends StatelessWidget {
     } else {
       return Column(
         children: [
-          for (final Producer producer in list) ProducerBlock(producer),
+          for (final Producer producer in producers) ProducerBlock(producer),
         ],
       );
     }
