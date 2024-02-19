@@ -30,6 +30,10 @@ abstract class Trainer extends Building {
     if (canTrain) {
       colony.inventory.addResource(Resource.one(resourceType));
       colony.inventory.removeResources(trainingCost.resources());
+
+      if (resourceType == ResourceType.villager) {
+        colony.addFreeVillagers(1);
+      }
     }
   }
 }
