@@ -33,6 +33,8 @@ abstract class Producer extends Building {
 
   int get maxWorkersCapacity => level * Constants.BUILDING_CAPACITY_PER_LEVEL;
 
+  bool get canProduce => resources < maxResourceCapacity;
+
   @override
   bool get isProducer => true;
 
@@ -40,7 +42,7 @@ abstract class Producer extends Building {
   void update(double dt) {
     super.update(dt);
 
-    if (resources < maxResourceCapacity) {
+    if (canProduce) {
       final double produced = production * dt;
       colony.inventory.addResource(Resource(resourceType, produced));
     }
