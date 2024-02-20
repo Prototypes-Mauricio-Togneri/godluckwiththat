@@ -4,10 +4,10 @@ import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/widgets/blocks/header_block.dart';
 import 'package:godluckwiththat/widgets/blocks/trainer_block.dart';
 
-class UnitsView extends StatelessWidget {
+class HeadquartersView extends StatelessWidget {
   final GameState state;
 
-  const UnitsView(this.state);
+  const HeadquartersView(this.state);
 
   @override
   Widget build(BuildContext context) {

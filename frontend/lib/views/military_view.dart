@@ -3,16 +3,16 @@ import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
 
-class OverviewView extends StatelessWidget {
+class MilitaryView extends StatelessWidget {
   final GameState state;
 
-  const OverviewView(this.state);
+  const MilitaryView(this.state);
 
   @override
   Widget build(BuildContext context) {
     return const Center(
       child: Label(
-        text: 'OVERVIEW',
+        text: 'MILITARY',
         color: Palette.black,
       ),
     );

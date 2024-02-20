@@ -2,10 +2,10 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/views/overview_view.dart';
+import 'package:godluckwiththat/views/headquarters_view.dart';
+import 'package:godluckwiththat/views/military_view.dart';
 import 'package:godluckwiththat/views/research_view.dart';
 import 'package:godluckwiththat/views/resources_view.dart';
-import 'package:godluckwiththat/views/units_view.dart';
 import 'package:godluckwiththat/widgets/misc/game_container.dart';
 import 'package:godluckwiththat/widgets/misc/game_loop.dart';
 
@@ -37,7 +37,7 @@ class GameContent extends StatefulWidget {
 }
 
 class _GameContentState extends State<GameContent> {
-  int currentIndex = 2;
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -56,16 +56,16 @@ class _GameContentState extends State<GameContent> {
         unselectedFontSize: 12,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.summarize),
-            label: 'Overview',
+            icon: Icon(Icons.home),
+            label: 'Headquarters',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.dataset),
             label: 'Resources',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: 'Units',
+            icon: Icon(Icons.shield),
+            label: 'Military',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.science),
@@ -84,11 +84,11 @@ class _GameContentState extends State<GameContent> {
 
   Widget _body(int index) {
     if (currentIndex == 0) {
-      return OverviewView(widget.state);
+      return HeadquartersView(widget.state);
     } else if (currentIndex == 1) {
       return ResourcesView(widget.state);
     } else if (currentIndex == 2) {
-      return UnitsView(widget.state);
+      return MilitaryView(widget.state);
     } else if (currentIndex == 3) {
       return ResearchView(widget.state);
     } else {
