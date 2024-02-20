@@ -14,14 +14,12 @@ class BaseGameState extends BaseState {
       inventory: Inventory.create(
         resources: {
           ResourceType.villager: 5,
-          ResourceType.water: 10,
-          ResourceType.food: 20,
-          ResourceType.wood: 30,
-          ResourceType.stone: 40,
+          ResourceType.food: 100,
+          ResourceType.wood: 50,
+          ResourceType.stone: 30,
         },
         capacities: {
           ResourceType.villager: 10,
-          ResourceType.water: 100,
           ResourceType.food: 100,
           ResourceType.wood: 100,
           ResourceType.stone: 100,

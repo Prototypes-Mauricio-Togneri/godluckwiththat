@@ -1,7 +1,6 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
-import 'package:godluckwiththat/models/buildings/producers/well.dart';
 import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
 import 'package:godluckwiththat/models/buildings/trainers/house.dart';
 import 'package:godluckwiththat/models/colony.dart';
@@ -50,12 +49,6 @@ class Building {
         return House(
           colony: colony,
           level: level,
-        );
-      case BuildingType.well:
-        return Well(
-          colony: colony,
-          level: level,
-          villagers: villagers,
         );
       case BuildingType.farm:
         return Farm(

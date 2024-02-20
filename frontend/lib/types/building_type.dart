@@ -11,13 +11,6 @@ enum BuildingType {
     produces: null,
   ),
 
-  well(
-    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_WELL,
-    initialCost: {
-      ResourceType.wood: 50,
-    },
-    produces: ResourceType.water,
-  ),
   farm(
     sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_FARM,
     initialCost: {
