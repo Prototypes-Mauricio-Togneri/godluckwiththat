@@ -5,7 +5,7 @@ import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/buttons/add_remove_button.dart';
+import 'package:godluckwiththat/widgets/buttons/symbol_button.dart';
 import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
 
 class TrainUnitButton extends StatelessWidget {
@@ -18,7 +18,7 @@ class TrainUnitButton extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        AddRemoveButton.add(
+        SymbolButton.villager(
           size: 40,
           onTap: consumer.canTrain ? consumer.train : null,
         ),

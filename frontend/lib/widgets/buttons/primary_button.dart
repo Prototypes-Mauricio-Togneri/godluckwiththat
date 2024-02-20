@@ -53,7 +53,7 @@ class ButtonContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: expand ? double.infinity : null,
-      height: 45,
+      height: textSize * 3,
       color: (onPressed != null) ? color : Palette.lightGrey,
       child: Material(
         color: Palette.transparent,

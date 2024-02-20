@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/widgets/buttons/add_remove_button.dart';
+import 'package:godluckwiththat/widgets/buttons/symbol_button.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
 
 class AmountSelector extends StatelessWidget {
@@ -23,7 +23,7 @@ class AmountSelector extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        AddRemoveButton.remove(
+        SymbolButton.remove(
           size: size * 2,
           onTap: onRemove,
         ),
@@ -34,7 +34,7 @@ class AmountSelector extends StatelessWidget {
           size: size,
         ),
         const HBox(10),
-        AddRemoveButton.add(
+        SymbolButton.add(
           size: size * 2,
           onTap: onAdd,
         ),

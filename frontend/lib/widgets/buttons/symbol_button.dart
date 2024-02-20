@@ -1,46 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 
-class AddRemoveButton extends StatelessWidget {
+class SymbolButton extends StatelessWidget {
   final IconData icon;
   final Color color;
   final double size;
   final VoidCallback? onTap;
 
-  const AddRemoveButton({
+  const SymbolButton({
     required this.icon,
     required this.color,
     required this.size,
     required this.onTap,
   });
 
-  factory AddRemoveButton.add({
+  factory SymbolButton.add({
     required double size,
     required VoidCallback? onTap,
   }) =>
-      AddRemoveButton(
+      SymbolButton(
         icon: Icons.add,
         color: Palette.success,
         size: size,
         onTap: onTap,
       );
 
-  factory AddRemoveButton.remove({
+  factory SymbolButton.villager({
     required double size,
     required VoidCallback? onTap,
   }) =>
-      AddRemoveButton(
+      SymbolButton(
+        icon: Icons.person,
+        color: Palette.success,
+        size: size,
+        onTap: onTap,
+      );
+
+  factory SymbolButton.remove({
+    required double size,
+    required VoidCallback? onTap,
+  }) =>
+      SymbolButton(
         icon: Icons.remove,
         color: Palette.error,
         size: size,
         onTap: onTap,
       );
 
-  factory AddRemoveButton.upgrade({
+  factory SymbolButton.upgrade({
     required double size,
     required VoidCallback? onTap,
   }) =>
-      AddRemoveButton(
+      SymbolButton(
         icon: Icons.arrow_upward,
         color: Palette.success,
         size: size,

@@ -5,7 +5,7 @@ import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/buttons/add_remove_button.dart';
+import 'package:godluckwiththat/widgets/buttons/symbol_button.dart';
 import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
 
 class UpgradeBuildingButton extends StatelessWidget {
@@ -18,7 +18,7 @@ class UpgradeBuildingButton extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        AddRemoveButton.upgrade(
+        SymbolButton.upgrade(
           size: 40,
           onTap: building.canUpgrade ? building.upgrade : null,
         ),

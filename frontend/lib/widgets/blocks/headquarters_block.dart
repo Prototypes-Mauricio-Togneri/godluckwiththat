@@ -1,12 +1,10 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
-import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/buttons/train_unit_button.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
-import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
 
 class HeadquartersBlock extends StatelessWidget {
   final Consumer consumer;
@@ -25,10 +23,8 @@ class HeadquartersBlock extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              LeftSection(consumer),
-              Expanded(
-                child: MiddleSection(consumer),
-              ),
+              MiddleSection(consumer),
+              const Spacer(),
               RightSection(consumer),
             ],
           ),
@@ -76,26 +72,6 @@ class Header extends StatelessWidget {
   }
 }
 
-class LeftSection extends StatelessWidget {
-  final Consumer consumer;
-
-  const LeftSection(this.consumer);
-
-  @override
-  Widget build(BuildContext context) {
-    return ResourceIndicator(
-      sprite: consumer.resourceType.sprite,
-      value:
-          '${Formatter.resource(consumer.resources)}/${Formatter.resource(consumer.maxResourceCapacity)}',
-      textColor: (consumer.isEmptyOfResources || consumer.isFullOfResources)
-          ? Palette.error
-          : Palette.black,
-      textSize: 20,
-      iconSize: 17,
-    );
-  }
-}
-
 class MiddleSection extends StatelessWidget {
   final Consumer consumer;
 
@@ -103,8 +79,10 @@ class MiddleSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: TrainUnitButton(consumer),
+    return Row(
+      children: [
+        TrainUnitButton(consumer),
+      ],
     );
   }
 }
