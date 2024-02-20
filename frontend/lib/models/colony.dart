@@ -5,12 +5,16 @@ import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
 import 'package:godluckwiththat/models/buildings/consumers/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/inventory.dart';
+import 'package:godluckwiththat/models/resource.dart';
+import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
+import 'package:godluckwiththat/models/tasks/task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 class Colony {
   final Inventory inventory;
   final List<Building> buildings;
+  final List<CreateVillagerTask> villagerTasks = [];
   num daysElapsed;
   int freeVillagers;
 
@@ -37,14 +41,6 @@ class Colony {
 
   List<T> buildingsByType<T extends Building>(Type type) =>
       buildings.where((b) => b.runtimeType == type).map((e) => e as T).toList();
-
-  void update(double dt) {
-    daysElapsed += dt;
-
-    for (final Building building in buildings) {
-      building.update(dt);
-    }
-  }
 
   double productionOf(ResourceType resourceType) {
     double total = 0;
@@ -110,5 +106,43 @@ class Colony {
     freeVillagers -= amount;
 
     return amount;
+  }
+
+  // ============================= UPDATE =================================== \\
+
+  void update(double dt) {
+    daysElapsed += dt;
+
+    _updateTasks(
+      dt: dt,
+      tasks: villagerTasks,
+      callback: (task) {
+        inventory.addResource(Resource.one(ResourceType.villager));
+        addFreeVillagers(task.villagers);
+      },
+    );
+
+    for (final Building building in buildings) {
+      building.update(dt);
+    }
+  }
+
+  void _updateTasks<T extends Task>({
+    required double dt,
+    required List<T> tasks,
+    required Function(T) callback,
+  }) {
+    final List<T> tasksToRemove = [];
+
+    for (final T task in tasks) {
+      if (task.update(dt)) {
+        callback(task);
+        tasksToRemove.add(task);
+      }
+    }
+
+    for (final T task in tasksToRemove) {
+      tasks.remove(task);
+    }
   }
 }

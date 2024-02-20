@@ -19,4 +19,7 @@ class House extends Consumer {
   ResourceMap get trainingCost => {
         ResourceType.food: 50,
       };
+
+  @override
+  void train() {}
 }

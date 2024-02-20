@@ -1,6 +1,5 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
-import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 abstract class Consumer extends Building {
@@ -30,7 +29,9 @@ abstract class Consumer extends Building {
   @override
   bool get isConsumer => true;
 
-  void train() {
+  void train();
+
+  /*void train() {
     if (canTrain) {
       colony.inventory.addResource(Resource.one(resourceType));
       colony.inventory.removeResources(trainingCost.resources());
@@ -39,5 +40,5 @@ abstract class Consumer extends Building {
         colony.addFreeVillagers(1);
       }
     }
-  }
+  }*/
 }
