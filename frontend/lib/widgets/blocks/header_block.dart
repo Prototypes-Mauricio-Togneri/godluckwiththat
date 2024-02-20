@@ -126,8 +126,8 @@ class ResourceLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final num amount = colony.inventory.get(resourceType);
-    final num capacity = colony.inventory.capacityOf(resourceType);
+    final num amount = colony.resourceInventory.get(resourceType);
+    final num capacity = colony.resourceInventory.capacityOf(resourceType);
     final bool full = amount >= capacity;
 
     return LabeledText(

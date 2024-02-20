@@ -3,7 +3,7 @@ import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
 import 'package:godluckwiththat/models/colony.dart';
-import 'package:godluckwiththat/models/inventory.dart';
+import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 class BaseGameState extends BaseState {
@@ -11,7 +11,7 @@ class BaseGameState extends BaseState {
 
   BaseGameState() {
     colony = Colony(
-      inventory: Inventory.create(
+      resourceInventory: ResourceInventory.create(
         resources: {
           ResourceType.villager: 5,
           ResourceType.food: 100,

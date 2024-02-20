@@ -1,6 +1,5 @@
 import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
-import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 abstract class Producer extends Building {
@@ -27,9 +26,10 @@ abstract class Producer extends Building {
 
   double get productionRate;
 
-  num get resources => colony.inventory.get(resourceType);
+  num get resources => colony.resourceInventory.get(resourceType);
 
-  num get maxResourceCapacity => colony.inventory.capacityOf(resourceType);
+  num get maxResourceCapacity =>
+      colony.resourceInventory.capacityOf(resourceType);
 
   bool get isEmptyOfResources => resources == 0;
 
@@ -48,7 +48,7 @@ abstract class Producer extends Building {
 
     if (canProduce) {
       final double produced = production * dt;
-      colony.inventory.addResource(Resource(resourceType, produced));
+      colony.resourceInventory.add(resourceType, produced);
     }
   }
 

@@ -1,31 +1,26 @@
 import 'package:godluckwiththat/extensions/item_map_extension.dart';
-import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 typedef ResourceMap = ItemMap<ResourceType>;
 
-extension ResourceMapExtension on ResourceMap {
-  double get duration {
-    final resourcesAmount = list.map((r) => r.amount).reduce((a, b) => a + b);
+typedef ResourceMapEntry = MapEntry<ResourceType, num>;
 
-    return resourcesAmount / 100;
+extension ResourceMapExtension on ResourceMap {
+  num get duration {
+    num sum = 0;
+
+    for (final ResourceMapEntry item in entries) {
+      sum += item.value;
+    }
+
+    return sum / 100;
   }
 
   ResourceMap multiply(int factor) {
     final ResourceMap result = {};
 
-    for (final Resource resource in list) {
-      result[resource.resourceType] = resource.amount * factor;
-    }
-
-    return result;
-  }
-
-  List<Resource> get list {
-    final List<Resource> result = [];
-
-    for (final ResourceType resourceType in keys) {
-      result.add(Resource(resourceType, get(resourceType)));
+    for (final ResourceMapEntry item in entries) {
+      result[item.key] = item.value * factor;
     }
 
     return result;

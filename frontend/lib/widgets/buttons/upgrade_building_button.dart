@@ -2,7 +2,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
-import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/buttons/symbol_button.dart';
@@ -23,11 +22,11 @@ class UpgradeBuildingButton extends StatelessWidget {
           onTap: building.canUpgrade ? building.upgrade : null,
         ),
         const VBox(5),
-        for (final Resource resource in building.upgradeCost.list)
+        for (final ResourceMapEntry resource in building.upgradeCost.entries)
           ResourceIndicator(
-            sprite: resource.resourceType.sprite,
-            value: Formatter.resource(resource.amount),
-            textColor: building.colony.inventory.hasResource(resource)
+            sprite: resource.key.sprite,
+            value: Formatter.resource(resource.value),
+            textColor: building.colony.resourceInventory.hasItem(resource)
                 ? Palette.black
                 : Palette.error,
             textSize: 15,

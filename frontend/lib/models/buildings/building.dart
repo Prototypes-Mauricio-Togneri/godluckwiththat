@@ -26,11 +26,11 @@ class Building {
 
   bool get isConsumer => false;
 
-  bool get canUpgrade => colony.inventory.hasMapResources(upgradeCost);
+  bool get canUpgrade => colony.resourceInventory.hasItems(upgradeCost);
 
   void upgrade() {
     if (canUpgrade) {
-      colony.inventory.removeMapResources(upgradeCost);
+      colony.resourceInventory.removeItems(upgradeCost);
       level++;
     }
   }

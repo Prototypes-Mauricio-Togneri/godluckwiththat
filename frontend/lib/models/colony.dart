@@ -3,22 +3,21 @@ import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
 import 'package:godluckwiththat/models/buildings/consumers/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
-import 'package:godluckwiththat/models/inventory.dart';
-import 'package:godluckwiththat/models/resource.dart';
+import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
 import 'package:godluckwiththat/models/tasks/task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 class Colony {
-  final Inventory inventory;
+  final ResourceInventory resourceInventory;
   final List<Building> buildings;
   final List<CreateVillagerTask> villagerTasks = [];
   num daysElapsed;
   int freeVillagers;
 
   Colony({
-    required this.inventory,
+    required this.resourceInventory,
     required this.buildings,
     required this.daysElapsed,
     required this.freeVillagers,
@@ -54,7 +53,7 @@ class Colony {
   }
 
   bool canBuild(BuildingType buildingType) =>
-      inventory.hasMapResources(buildingType.cost(1));
+      resourceInventory.hasItems(buildingType.cost(1));
 
   void build(BuildingType buildingType) {
     if (canBuild(buildingType)) {
@@ -65,7 +64,7 @@ class Colony {
         villagers: 0,
       );
       buildings.add(building);
-      inventory.removeMapResources(buildingType.cost(1));
+      resourceInventory.removeItems(buildingType.cost(1));
     }
   }
 
@@ -81,7 +80,8 @@ class Colony {
 
   bool get hasFreeVillagers => freeVillagers > 0;
 
-  int get currentPopulation => inventory.get(ResourceType.villager).toInt();
+  int get currentPopulation =>
+      resourceInventory.get(ResourceType.villager).toInt();
 
   int get populationLimit {
     int total = 0;
@@ -116,7 +116,7 @@ class Colony {
       dt: dt,
       tasks: villagerTasks,
       callback: (task) {
-        inventory.addResource(Resource.one(ResourceType.villager));
+        resourceInventory.add(ResourceType.villager, 1);
         addFreeVillagers(task.villagers);
       },
     );

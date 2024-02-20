@@ -1,9 +1,11 @@
-typedef ItemMap<T> = Map<T, double>;
+typedef ItemMap<T> = Map<T, num>;
+
+typedef ItemMapEntry<T> = MapEntry<T, num>;
 
 extension ItemMapExtension<T> on ItemMap<T> {
   bool contains(T type) => keys.contains(type);
 
-  double get(T type) => this[type] ?? 0;
+  num get(T type) => this[type] ?? 0;
 
   String join() {
     String result = '';

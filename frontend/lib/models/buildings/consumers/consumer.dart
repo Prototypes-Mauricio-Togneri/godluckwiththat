@@ -19,7 +19,7 @@ abstract class Consumer extends Building {
         colony.currentPopulation + colony.villagerTasks.length;
 
     return (totalPopulation < colony.populationLimit) &&
-        colony.inventory.hasMapResources(trainingCost);
+        colony.resourceInventory.hasItems(trainingCost);
   }
 
   @override

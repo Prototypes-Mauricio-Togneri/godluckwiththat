@@ -22,7 +22,7 @@ class Headquarters extends Consumer {
   void train() {
     if (canTrain) {
       colony.villagerTasks.add(CreateVillagerTask(cost: trainingCost));
-      colony.inventory.removeMapResources(trainingCost);
+      colony.resourceInventory.removeItems(trainingCost);
     }
   }
 }

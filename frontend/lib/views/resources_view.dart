@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/colony.dart';
-import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
@@ -149,11 +148,12 @@ class ProducerListContent extends StatelessWidget {
               expand: false,
             ),
             const VBox(10),
-            for (final Resource resource in buildingType.cost(1).list)
+            for (final ResourceMapEntry resource
+                in buildingType.cost(1).entries)
               ResourceIndicator(
-                sprite: resource.resourceType.sprite,
-                value: Formatter.resource(resource.amount),
-                textColor: colony.inventory.hasResource(resource)
+                sprite: resource.key.sprite,
+                value: Formatter.resource(resource.value),
+                textColor: colony.resourceInventory.hasItem(resource)
                     ? Palette.black
                     : Palette.error,
                 textSize: 15,
