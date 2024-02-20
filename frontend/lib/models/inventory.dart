@@ -81,6 +81,9 @@ class Inventory {
     return true;
   }
 
+  bool hasMapResources(ResourceMap resources) =>
+      hasResources(resources.resources());
+
   factory Inventory.empty() => Inventory._({}, {});
 
   factory Inventory.create({

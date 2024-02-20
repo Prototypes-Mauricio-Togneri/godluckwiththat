@@ -1,5 +1,4 @@
 import 'package:godluckwiththat/app/constants.dart';
-import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
 import 'package:godluckwiththat/models/buildings/consumers/house.dart';
@@ -55,7 +54,7 @@ class Colony {
   }
 
   bool canBuild(BuildingType buildingType) =>
-      inventory.hasResources(buildingType.cost(1).resources());
+      inventory.hasMapResources(buildingType.cost(1));
 
   void build(BuildingType buildingType) {
     if (canBuild(buildingType)) {

@@ -12,22 +12,14 @@ abstract class Consumer extends Building {
     required super.level,
   });
 
-  num get resources => colony.inventory.get(resourceType);
-
-  num get maxResourceCapacity;
-
   ResourceMap get trainingCost;
-
-  bool get isEmptyOfResources => resources == 0;
-
-  bool get isFullOfResources => resources >= maxResourceCapacity;
 
   bool get canTrain {
     final int totalPopulation =
         colony.currentPopulation + colony.villagerTasks.length;
 
     return (totalPopulation < colony.populationLimit) &&
-        colony.inventory.hasResources(trainingCost.resources());
+        colony.inventory.hasMapResources(trainingCost);
   }
 
   @override

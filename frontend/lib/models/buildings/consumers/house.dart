@@ -13,9 +13,6 @@ class House extends Consumer {
         );
 
   @override
-  int get maxResourceCapacity => colony.populationLimit;
-
-  @override
   ResourceMap get trainingCost => {
         ResourceType.food: 50,
       };
