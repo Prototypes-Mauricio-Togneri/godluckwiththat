@@ -23,7 +23,7 @@ class UpgradeBuildingButton extends StatelessWidget {
           onTap: building.canUpgrade ? building.upgrade : null,
         ),
         const VBox(5),
-        for (final Resource resource in building.upgradeCost.resources())
+        for (final Resource resource in building.upgradeCost.list)
           ResourceIndicator(
             sprite: resource.resourceType.sprite,
             value: Formatter.resource(resource.amount),

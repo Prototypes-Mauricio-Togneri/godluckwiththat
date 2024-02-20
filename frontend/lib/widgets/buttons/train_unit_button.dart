@@ -23,7 +23,7 @@ class TrainUnitButton extends StatelessWidget {
           onTap: consumer.canTrain ? consumer.train : null,
         ),
         const VBox(5),
-        for (final Resource resource in consumer.trainingCost.resources())
+        for (final Resource resource in consumer.trainingCost.list)
           ResourceIndicator(
             sprite: resource.resourceType.sprite,
             value: Formatter.resource(resource.amount),

@@ -23,8 +23,7 @@ class Inventory {
     return true;
   }
 
-  double capacityOf(ResourceType resourceType) =>
-      _capacities.get(resourceType);
+  double capacityOf(ResourceType resourceType) => _capacities.get(resourceType);
 
   double get(ResourceType resourceType) => _resources.get(resourceType);
 
@@ -55,11 +54,10 @@ class Inventory {
     }
   }
 
-  void addMapResources(ResourceMap resources) =>
-      addResources(resources.resources());
+  void addMapResources(ResourceMap resources) => addResources(resources.list);
 
   void removeMapResources(ResourceMap resources) =>
-      removeResources(resources.resources());
+      removeResources(resources.list);
 
   void addInventory(Inventory inventory) => addResources(inventory.list);
 
@@ -81,8 +79,7 @@ class Inventory {
     return true;
   }
 
-  bool hasMapResources(ResourceMap resources) =>
-      hasResources(resources.resources());
+  bool hasMapResources(ResourceMap resources) => hasResources(resources.list);
 
   factory Inventory.empty() => Inventory._({}, {});
 
@@ -93,7 +90,7 @@ class Inventory {
     final ResourceMap resourceMap = {};
     final ResourceMap capacitiesMap = {};
 
-    for (final Resource resource in resources.resources()) {
+    for (final Resource resource in resources.list) {
       resourceMap[resource.resourceType] = resource.amount;
       capacitiesMap[resource.resourceType] =
           capacities[resource.resourceType] ?? 0;

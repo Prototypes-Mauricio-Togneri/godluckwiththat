@@ -149,7 +149,7 @@ class ProducerListContent extends StatelessWidget {
               expand: false,
             ),
             const VBox(10),
-            for (final Resource resource in buildingType.cost(1).resources())
+            for (final Resource resource in buildingType.cost(1).list)
               ResourceIndicator(
                 sprite: resource.resourceType.sprite,
                 value: Formatter.resource(resource.amount),

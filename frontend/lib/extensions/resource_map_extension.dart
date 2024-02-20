@@ -6,8 +6,7 @@ typedef ResourceMap = ItemMap<ResourceType>;
 
 extension ResourceMapExtension on ResourceMap {
   double get duration {
-    final resourcesAmount =
-        resources().map((r) => r.amount).reduce((a, b) => a + b);
+    final resourcesAmount = list.map((r) => r.amount).reduce((a, b) => a + b);
 
     return resourcesAmount / 100;
   }
@@ -15,14 +14,14 @@ extension ResourceMapExtension on ResourceMap {
   ResourceMap multiply(int factor) {
     final ResourceMap result = {};
 
-    for (final Resource resource in resources()) {
+    for (final Resource resource in list) {
       result[resource.resourceType] = resource.amount * factor;
     }
 
     return result;
   }
 
-  List<Resource> resources() {
+  List<Resource> get list {
     final List<Resource> result = [];
 
     for (final ResourceType resourceType in keys) {
