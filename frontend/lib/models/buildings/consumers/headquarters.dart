@@ -1,0 +1,22 @@
+import 'package:godluckwiththat/extensions/resource_map_extension.dart';
+import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
+import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/types/resource_type.dart';
+
+class Headquarters extends Consumer {
+  Headquarters({
+    required super.colony,
+    required super.level,
+  }) : super(
+          buildingType: BuildingType.headquarters,
+          resourceType: ResourceType.villager,
+        );
+
+  @override
+  int get maxResourceCapacity => colony.populationLimit;
+
+  @override
+  ResourceMap get trainingCost => {
+        ResourceType.food: 50,
+      };
+}

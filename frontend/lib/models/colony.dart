@@ -1,9 +1,9 @@
 import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
+import 'package:godluckwiththat/models/buildings/consumers/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
-import 'package:godluckwiththat/models/buildings/trainers/house.dart';
-import 'package:godluckwiththat/models/buildings/trainers/trainer.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
@@ -32,8 +32,11 @@ class Colony {
   List<Producer> get producers =>
       buildings.where((b) => b.isProducer).map((b) => b as Producer).toList();
 
-  List<Trainer> get trainers =>
-      buildings.where((b) => b.isTrainer).map((b) => b as Trainer).toList();
+  List<Consumer> get consumers =>
+      buildings.where((b) => b.isConsumer).map((b) => b as Consumer).toList();
+
+  List<T> buildingsByType<T extends Building>(Type type) =>
+      buildings.where((b) => b.runtimeType == type).map((e) => e as T).toList();
 
   void update(double dt) {
     daysElapsed += dt;

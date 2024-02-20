@@ -3,10 +3,10 @@ import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
-abstract class Trainer extends Building {
+abstract class Consumer extends Building {
   final ResourceType resourceType;
 
-  Trainer({
+  Consumer({
     required this.resourceType,
     required super.buildingType,
     required super.colony,
@@ -28,7 +28,7 @@ abstract class Trainer extends Building {
       colony.inventory.hasResources(trainingCost.resources());
 
   @override
-  bool get isTrainer => true;
+  bool get isConsumer => true;
 
   void train() {
     if (canTrain) {

@@ -1,8 +1,9 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
+import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
+import 'package:godluckwiththat/models/buildings/consumers/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
-import 'package:godluckwiththat/models/buildings/trainers/house.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 
@@ -23,7 +24,7 @@ class Building {
 
   bool get isProducer => false;
 
-  bool get isTrainer => false;
+  bool get isConsumer => false;
 
   bool get canUpgrade => colony.inventory.hasResources(upgradeCost.resources());
 
@@ -45,6 +46,11 @@ class Building {
     required int villagers,
   }) {
     switch (buildingType) {
+      case BuildingType.headquarters:
+        return Headquarters(
+          colony: colony,
+          level: level,
+        );
       case BuildingType.house:
         return House(
           colony: colony,

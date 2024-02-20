@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
-import 'package:godluckwiththat/models/buildings/trainers/house.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/inventory.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
@@ -31,7 +31,7 @@ class BaseGameState extends BaseState {
     );
 
     colony.addBuildings([
-      House(
+      Headquarters(
         colony: colony,
         level: 1,
       ),

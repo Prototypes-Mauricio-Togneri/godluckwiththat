@@ -1,7 +1,7 @@
 class Assets {
 	static const String AUDIO_SFX_AMMO1 = './assets/audio/sfx/ammo1.mp3';
 	static const String AUDIO_SFX_AMMO2 = './assets/audio/sfx/ammo2.mp3';
-	static const String IMAGES_BUILDINGS_TRAINERS_HOUSE = './assets/images/buildings/trainers/house.png';
+	static const String IMAGES_BUILDINGS_CONSUMERS_HOUSE = './assets/images/buildings/consumers/house.png';
 	static const String IMAGES_BUILDINGS_PRODUCERS_WELL = './assets/images/buildings/producers/well.png';
 	static const String IMAGES_BUILDINGS_PRODUCERS_QUARRY = './assets/images/buildings/producers/quarry.png';
 	static const String IMAGES_BUILDINGS_PRODUCERS_WOODCUTTER = './assets/images/buildings/producers/woodcutter.png';

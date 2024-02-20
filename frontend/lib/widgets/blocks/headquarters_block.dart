@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/models/buildings/trainers/trainer.dart';
+import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/buttons/train_unit_button.dart';
@@ -8,10 +8,10 @@ import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
 import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
 
-class TrainerBlock extends StatelessWidget {
-  final Trainer trainer;
+class HeadquartersBlock extends StatelessWidget {
+  final Consumer consumer;
 
-  const TrainerBlock(this.trainer);
+  const HeadquartersBlock(this.consumer);
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +20,16 @@ class TrainerBlock extends StatelessWidget {
       padding: const EdgeInsets.all(15),
       child: Column(
         children: [
-          Header(trainer),
+          Header(consumer),
           const VBox(10),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              LeftSection(trainer),
+              LeftSection(consumer),
               Expanded(
-                child: MiddleSection(trainer),
+                child: MiddleSection(consumer),
               ),
-              RightSection(trainer),
+              RightSection(consumer),
             ],
           ),
         ],
@@ -39,9 +39,9 @@ class TrainerBlock extends StatelessWidget {
 }
 
 class Header extends StatelessWidget {
-  final Trainer trainer;
+  final Consumer consumer;
 
-  const Header(this.trainer);
+  const Header(this.consumer);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class Header extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Label(
-          text: trainer.buildingType.name,
+          text: consumer.buildingType.name,
           color: Palette.black,
           weight: FontWeight.bold,
           size: 20,
@@ -64,7 +64,7 @@ class Header extends StatelessWidget {
           ),
           child: Center(
             child: Label(
-              text: trainer.level.toString(),
+              text: consumer.level.toString(),
               color: Palette.white,
               align: TextAlign.center,
               size: 10,
@@ -77,17 +77,17 @@ class Header extends StatelessWidget {
 }
 
 class LeftSection extends StatelessWidget {
-  final Trainer trainer;
+  final Consumer consumer;
 
-  const LeftSection(this.trainer);
+  const LeftSection(this.consumer);
 
   @override
   Widget build(BuildContext context) {
     return ResourceIndicator(
-      sprite: trainer.resourceType.sprite,
+      sprite: consumer.resourceType.sprite,
       value:
-          '${Formatter.resource(trainer.resources)}/${Formatter.resource(trainer.maxResourceCapacity)}',
-      textColor: (trainer.isEmptyOfResources || trainer.isFullOfResources)
+          '${Formatter.resource(consumer.resources)}/${Formatter.resource(consumer.maxResourceCapacity)}',
+      textColor: (consumer.isEmptyOfResources || consumer.isFullOfResources)
           ? Palette.error
           : Palette.black,
       textSize: 20,
@@ -97,25 +97,25 @@ class LeftSection extends StatelessWidget {
 }
 
 class MiddleSection extends StatelessWidget {
-  final Trainer trainer;
+  final Consumer consumer;
 
-  const MiddleSection(this.trainer);
+  const MiddleSection(this.consumer);
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: TrainUnitButton(trainer),
+      child: TrainUnitButton(consumer),
     );
   }
 }
 
 class RightSection extends StatelessWidget {
-  final Trainer trainer;
+  final Consumer consumer;
 
-  const RightSection(this.trainer);
+  const RightSection(this.consumer);
 
   @override
   Widget build(BuildContext context) {
-    return UpgradeBuildingButton(trainer);
+    return UpgradeBuildingButton(consumer);
   }
 }

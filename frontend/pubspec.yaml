@@ -42,6 +42,6 @@ flutter:
     - assets/audio/sfx/
     - assets/images/
     - assets/images/buildings/producers/
-    - assets/images/buildings/trainers/
+    - assets/images/buildings/consumers/
     - assets/images/other/
     - assets/images/resources/
