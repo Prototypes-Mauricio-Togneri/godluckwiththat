@@ -1,4 +1,4 @@
-import 'package:godluckwiththat/extensions/resource_map_extension.dart';
+import 'package:godluckwiththat/extensions/item_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/consumers/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';

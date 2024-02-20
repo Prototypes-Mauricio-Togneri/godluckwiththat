@@ -1,4 +1,4 @@
-import 'package:godluckwiththat/extensions/resource_map_extension.dart';
+import 'package:godluckwiththat/extensions/item_map_extension.dart';
 
 class Task {
   double totalTime = 0;

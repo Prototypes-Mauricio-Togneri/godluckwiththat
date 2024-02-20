@@ -1,13 +1,31 @@
 import 'package:godluckwiththat/models/resource.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
-typedef ResourceMap = Map<ResourceType, double>;
+typedef ItemMap<T> = Map<T, double>;
+
+extension ItemMapExtension<T> on ItemMap<T> {
+  bool contains(T type) => keys.contains(type);
+
+  double get(T type) => this[type] ?? 0;
+
+  String join() {
+    String result = '';
+
+    for (final T type in keys) {
+      if (result.isNotEmpty) {
+        result += '\n';
+      }
+
+      result += '$type: ${get(type)}';
+    }
+
+    return result;
+  }
+}
+
+typedef ResourceMap = ItemMap<ResourceType>;
 
 extension ResourceMapExtension on ResourceMap {
-  bool contains(ResourceType resourceType) => keys.contains(resourceType);
-
-  double get(ResourceType resourceType) => this[resourceType] ?? 0;
-
   double get duration {
     final resourcesAmount =
         resources().map((r) => r.amount).reduce((a, b) => a + b);
@@ -20,20 +38,6 @@ extension ResourceMapExtension on ResourceMap {
 
     for (final Resource resource in resources()) {
       result[resource.resourceType] = resource.amount * factor;
-    }
-
-    return result;
-  }
-
-  String join() {
-    String result = '';
-
-    for (final ResourceType resourceType in keys) {
-      if (result.isNotEmpty) {
-        result += '\n';
-      }
-
-      result += '$resourceType: ${get(resourceType)}';
     }
 
     return result;
