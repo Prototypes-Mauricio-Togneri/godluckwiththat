@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/utils/assets.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/misc/image_asset.dart';
 
 class SymbolButton extends StatelessWidget {
-  final IconData icon;
   final Color color;
   final double size;
   final VoidCallback? onTap;
+  final IconData? icon;
+  final String? sprite;
 
   const SymbolButton({
-    required this.icon,
     required this.color,
     required this.size,
     required this.onTap,
+    this.icon,
+    this.sprite,
   });
 
   factory SymbolButton.add({
@@ -30,7 +34,7 @@ class SymbolButton extends StatelessWidget {
     required VoidCallback? onTap,
   }) =>
       SymbolButton(
-        icon: Icons.person,
+        sprite: Assets.IMAGES_RESOURCES_VILLAGER,
         color: Palette.success,
         size: size,
         onTap: onTap,
@@ -69,11 +73,16 @@ class SymbolButton extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Center(
-            child: Icon(
-              icon,
-              color: Palette.white,
-              size: size * 2 / 3,
-            ),
+            child: (icon != null)
+                ? Icon(
+                    icon,
+                    color: Palette.white,
+                    size: size * 2 / 3,
+                  )
+                : ImageAsset(
+                    path: sprite!,
+                    size: size * 2 / 3,
+                  ),
           ),
         ),
       ),
