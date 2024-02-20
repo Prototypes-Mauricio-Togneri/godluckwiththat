@@ -55,17 +55,15 @@ class Inventory {
     }
   }
 
-  void add(Inventory inventory) {
-    for (final Resource resource in inventory.list) {
-      addResource(resource);
-    }
-  }
+  void addMapResources(ResourceMap resources) =>
+      addResources(resources.resources());
 
-  void remove(Inventory inventory) {
-    for (final Resource resource in inventory.list) {
-      removeResource(resource);
-    }
-  }
+  void removeMapResources(ResourceMap resources) =>
+      removeResources(resources.resources());
+
+  void addInventory(Inventory inventory) => addResources(inventory.list);
+
+  void removeInventory(Inventory inventory) => removeResources(inventory.list);
 
   bool hasResourceType(ResourceType resourceType) =>
       _resources[resourceType] != null;

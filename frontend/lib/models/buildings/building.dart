@@ -30,7 +30,7 @@ class Building {
 
   void upgrade() {
     if (canUpgrade) {
-      colony.inventory.removeResources(upgradeCost.resources());
+      colony.inventory.removeMapResources(upgradeCost);
       level++;
     }
   }

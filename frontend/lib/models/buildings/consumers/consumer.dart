@@ -22,9 +22,13 @@ abstract class Consumer extends Building {
 
   bool get isFullOfResources => resources >= maxResourceCapacity;
 
-  bool get canTrain =>
-      (colony.totalPopulation < colony.populationLimit) &&
-      colony.inventory.hasResources(trainingCost.resources());
+  bool get canTrain {
+    final int totalPopulation =
+        colony.currentPopulation + colony.villagerTasks.length;
+
+    return (totalPopulation < colony.populationLimit) &&
+        colony.inventory.hasResources(trainingCost.resources());
+  }
 
   @override
   bool get isConsumer => true;

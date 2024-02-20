@@ -66,7 +66,7 @@ class Colony {
         villagers: 0,
       );
       buildings.add(building);
-      inventory.removeResources(buildingType.cost(1).resources());
+      inventory.removeMapResources(buildingType.cost(1));
     }
   }
 
@@ -82,7 +82,7 @@ class Colony {
 
   bool get hasFreeVillagers => freeVillagers > 0;
 
-  int get totalPopulation => inventory.get(ResourceType.villager).toInt();
+  int get currentPopulation => inventory.get(ResourceType.villager).toInt();
 
   int get populationLimit {
     int total = 0;

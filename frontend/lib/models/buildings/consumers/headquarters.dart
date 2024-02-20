@@ -24,13 +24,8 @@ class Headquarters extends Consumer {
   @override
   void train() {
     if (canTrain) {
-      final ResourceMap cost = trainingCost;
-      colony.villagerTasks.add(CreateVillagerTask(cost: cost));
-      colony.inventory.removeResources(cost.resources());
-
-      /*if (resourceType == ResourceType.villager) {
-        colony.addFreeVillagers(1);
-      }*/
+      colony.villagerTasks.add(CreateVillagerTask(cost: trainingCost));
+      colony.inventory.removeMapResources(trainingCost);
     }
   }
 }
