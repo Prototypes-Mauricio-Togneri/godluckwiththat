@@ -10,9 +10,11 @@ class ResearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Label(
-      text: 'RESEARCH',
-      color: Palette.black,
+    return const Center(
+      child: Label(
+        text: 'RESEARCH',
+        color: Palette.black,
+      ),
     );
   }
 }

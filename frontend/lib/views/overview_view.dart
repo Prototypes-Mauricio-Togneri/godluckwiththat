@@ -10,9 +10,11 @@ class OverviewView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Label(
-      text: 'OVERVIEW',
-      color: Palette.black,
+    return const Center(
+      child: Label(
+        text: 'OVERVIEW',
+        color: Palette.black,
+      ),
     );
   }
 }

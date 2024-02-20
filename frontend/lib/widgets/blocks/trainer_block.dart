@@ -17,7 +17,6 @@ class TrainerBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Palette.producerBlock,
-      margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(15),
       child: Column(
         children: [
