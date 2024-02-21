@@ -4,7 +4,9 @@ import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
+import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/types/unit_type.dart';
 
 class BaseGameState extends BaseState {
   late final Colony colony;
@@ -13,16 +15,22 @@ class BaseGameState extends BaseState {
     colony = Colony(
       resourceInventory: ResourceInventory.create(
         resources: {
-          ResourceType.villager: 5,
           ResourceType.food: 100,
           ResourceType.wood: 50,
           ResourceType.stone: 30,
         },
         capacities: {
-          ResourceType.villager: 10,
           ResourceType.food: 100,
           ResourceType.wood: 100,
           ResourceType.stone: 100,
+        },
+      ),
+      unitInventory: UnitInventory.create(
+        units: {
+          UnitType.villager: 5,
+        },
+        capacities: {
+          UnitType.villager: 10,
         },
       ),
       buildings: [],

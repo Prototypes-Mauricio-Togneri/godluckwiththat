@@ -4,13 +4,16 @@ import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
 import 'package:godluckwiththat/models/buildings/consumers/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
+import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
 import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
 import 'package:godluckwiththat/models/tasks/task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/types/unit_type.dart';
 
 class Colony {
   final ResourceInventory resourceInventory;
+  final UnitInventory unitInventory;
   final List<Building> buildings;
   final List<CreateVillagerTask> villagerTasks = [];
   num daysElapsed;
@@ -18,6 +21,7 @@ class Colony {
 
   Colony({
     required this.resourceInventory,
+    required this.unitInventory,
     required this.buildings,
     required this.daysElapsed,
     required this.freeVillagers,
@@ -80,8 +84,7 @@ class Colony {
 
   bool get hasFreeVillagers => freeVillagers > 0;
 
-  int get currentPopulation =>
-      resourceInventory.get(ResourceType.villager).toInt();
+  int get currentPopulation => unitInventory.get(UnitType.villager).toInt();
 
   int get populationLimit {
     int total = 0;
@@ -116,7 +119,7 @@ class Colony {
       dt: dt,
       tasks: villagerTasks,
       callback: (task) {
-        resourceInventory.add(ResourceType.villager, 1);
+        unitInventory.add(UnitType.villager, 1);
         addFreeVillagers(task.villagers);
       },
     );

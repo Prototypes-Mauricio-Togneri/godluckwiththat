@@ -2,13 +2,13 @@ import 'dart:math';
 import 'package:godluckwiththat/extensions/item_map_extension.dart';
 
 class BaseInventory<K> {
-  final ItemMap<K> _stockpile;
+  final ItemMap<K> _items;
   final ItemMap<K> _capacities;
 
-  BaseInventory(this._stockpile, this._capacities);
+  BaseInventory(this._items, this._capacities);
 
   bool get isEmpty {
-    for (final ItemMapEntry<K> item in _stockpile.entries) {
+    for (final ItemMapEntry<K> item in _items.entries) {
       if (item.value != 0) {
         return false;
       }
@@ -19,17 +19,17 @@ class BaseInventory<K> {
 
   num capacityOf(K type) => _capacities.get(type);
 
-  num get(K type) => _stockpile.get(type);
+  num get(K type) => _items.get(type);
 
   void add(K type, num amount) {
     final num current = get(type);
     final num capacity = capacityOf(type);
-    _stockpile[type] = min(current + amount, capacity);
+    _items[type] = min(current + amount, capacity);
   }
 
   void remove(K type, num amount) {
     final num current = get(type);
-    _stockpile[type] = current - amount;
+    _items[type] = current - amount;
   }
 
   void addItem(ItemMapEntry<K> item) => add(item.key, item.value);
@@ -49,12 +49,12 @@ class BaseInventory<K> {
   }
 
   void addInventory(BaseInventory<K> inventory) =>
-      addItems(inventory._stockpile);
+      addItems(inventory._items);
 
   void removeInventory(BaseInventory<K> inventory) =>
-      removeItems(inventory._stockpile);
+      removeItems(inventory._items);
 
-  bool hasType(K type) => _stockpile[type] != null;
+  bool hasType(K type) => _items[type] != null;
 
   bool has(K type, num amount) => get(type) >= amount;
 

@@ -1,12 +1,12 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
-import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/types/unit_type.dart';
 
 abstract class Consumer extends Building {
-  final ResourceType resourceType;
+  final UnitType unitType;
 
   Consumer({
-    required this.resourceType,
+    required this.unitType,
     required super.buildingType,
     required super.colony,
     required super.level,

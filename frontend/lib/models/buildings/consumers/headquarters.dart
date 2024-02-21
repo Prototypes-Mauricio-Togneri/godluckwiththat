@@ -3,6 +3,7 @@ import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
 import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/types/unit_type.dart';
 
 class Headquarters extends Consumer {
   Headquarters({
@@ -10,7 +11,7 @@ class Headquarters extends Consumer {
     required super.level,
   }) : super(
           buildingType: BuildingType.headquarters,
-          resourceType: ResourceType.villager,
+          unitType: UnitType.villager,
         );
 
   @override
