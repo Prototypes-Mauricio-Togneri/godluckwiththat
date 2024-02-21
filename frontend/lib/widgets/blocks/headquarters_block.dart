@@ -23,7 +23,7 @@ class HeadquartersBlock extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MiddleSection(consumer),
+              LeftSection(consumer),
               const Spacer(),
               RightSection(consumer),
             ],
@@ -72,10 +72,10 @@ class Header extends StatelessWidget {
   }
 }
 
-class MiddleSection extends StatelessWidget {
+class LeftSection extends StatelessWidget {
   final Consumer consumer;
 
-  const MiddleSection(this.consumer);
+  const LeftSection(this.consumer);
 
   @override
   Widget build(BuildContext context) {
