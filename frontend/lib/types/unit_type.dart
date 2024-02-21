@@ -1,7 +1,7 @@
 import 'package:godluckwiththat/utils/assets.dart';
 
 enum UnitType {
-  villager(sprite: Assets.IMAGES_RESOURCES_VILLAGER);
+  villager(sprite: Assets.IMAGES_UNITS_VILLAGER);
 
   final String sprite;
 

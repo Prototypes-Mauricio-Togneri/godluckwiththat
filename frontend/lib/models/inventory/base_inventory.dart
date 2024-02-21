@@ -48,8 +48,7 @@ class BaseInventory<K> {
     }
   }
 
-  void addInventory(BaseInventory<K> inventory) =>
-      addItems(inventory._items);
+  void addInventory(BaseInventory<K> inventory) => addItems(inventory._items);
 
   void removeInventory(BaseInventory<K> inventory) =>
       removeItems(inventory._items);

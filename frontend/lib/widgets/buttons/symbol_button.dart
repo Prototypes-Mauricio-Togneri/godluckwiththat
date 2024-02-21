@@ -34,7 +34,7 @@ class SymbolButton extends StatelessWidget {
     required VoidCallback? onTap,
   }) =>
       SymbolButton(
-        sprite: Assets.IMAGES_RESOURCES_VILLAGER,
+        sprite: Assets.IMAGES_UNITS_VILLAGER,
         color: Palette.success,
         size: size,
         onTap: onTap,

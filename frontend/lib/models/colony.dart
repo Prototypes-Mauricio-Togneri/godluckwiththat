@@ -118,6 +118,7 @@ class Colony {
     _updateTasks(
       dt: dt,
       tasks: villagerTasks,
+      onlyFirst: true,
       callback: (task) {
         unitInventory.add(UnitType.villager, 1);
         addFreeVillagers(task.villagers);
@@ -132,19 +133,31 @@ class Colony {
   void _updateTasks<T extends Task>({
     required double dt,
     required List<T> tasks,
+    required bool onlyFirst,
     required Function(T) callback,
   }) {
-    final List<T> tasksToRemove = [];
+    if (tasks.isNotEmpty) {
+      final List<T> tasksToRemove = [];
 
-    for (final T task in tasks) {
-      if (task.update(dt)) {
-        callback(task);
-        tasksToRemove.add(task);
+      if (onlyFirst) {
+        final T first = tasks.first;
+
+        if (first.update(dt)) {
+          callback(first);
+          tasksToRemove.add(first);
+        }
+      } else {
+        for (final T task in tasks) {
+          if (task.update(dt)) {
+            callback(task);
+            tasksToRemove.add(task);
+          }
+        }
       }
-    }
 
-    for (final T task in tasksToRemove) {
-      tasks.remove(task);
+      for (final T task in tasksToRemove) {
+        tasks.remove(task);
+      }
     }
   }
 }
