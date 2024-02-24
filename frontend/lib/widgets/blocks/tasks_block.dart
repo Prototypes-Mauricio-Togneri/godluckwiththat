@@ -6,9 +6,11 @@ import 'package:godluckwiththat/widgets/labels/label.dart';
 
 class TasksBlock extends StatelessWidget {
   final List<Task> tasks;
+  final VoidCallback onTap;
 
   const TasksBlock({
     required this.tasks,
+    required this.onTap,
   });
 
   @override
@@ -18,33 +20,36 @@ class TasksBlock extends StatelessWidget {
     } else {
       final Task firstTask = tasks.first;
 
-      return Container(
-        width: 40,
-        height: 40,
-        color: Palette.lightGrey,
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.all(3),
-                child: Label(
-                  text: '${tasks.length}',
-                  color: Palette.black,
-                  size: 18,
-                  weight: FontWeight.bold,
+      return InkWell(
+        onTap: onTap,
+        child: Container(
+          width: 40,
+          height: 40,
+          color: Palette.lightGrey,
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(3),
+                  child: Label(
+                    text: '${tasks.length}',
+                    color: Palette.black,
+                    size: 18,
+                    weight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: 40,
-                height: 40 - (40 * firstTask.progress),
-                color: const Color(0x33000000),
-              ),
-            )
-          ],
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: 40,
+                  height: 40 - (40 * firstTask.progress),
+                  color: const Color(0x33000000),
+                ),
+              )
+            ],
+          ),
         ),
       );
     }

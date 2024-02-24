@@ -85,7 +85,10 @@ class LeftSection extends StatelessWidget {
       children: [
         TrainUnitButton(consumer),
         const HBox(10),
-        TasksBlock(tasks: consumer.colony.villagerTasks),
+        TasksBlock(
+          tasks: consumer.colony.villagerTasks,
+          onTap: consumer.colony.onCancelVillagersTask,
+        ),
       ],
     );
   }

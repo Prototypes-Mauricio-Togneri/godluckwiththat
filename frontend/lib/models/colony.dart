@@ -130,6 +130,16 @@ class Colony {
     }
   }
 
+  // ============================== TASKS =================================== \\
+
+  void onCancelVillagersTask() {
+    if (villagerTasks.isNotEmpty) {
+      final Task task = villagerTasks.last;
+      villagerTasks.remove(task);
+      resourceInventory.addItems(task.cost);
+    }
+  }
+
   void _updateTasks<T extends Task>({
     required double dt,
     required List<T> tasks,
