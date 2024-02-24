@@ -4,7 +4,7 @@
     * Building construction
     * Building improvement
 * Apply building depletion
-* Include water and food consumption
+* Include food consumption
 
 * Faith
     * Add faith resource

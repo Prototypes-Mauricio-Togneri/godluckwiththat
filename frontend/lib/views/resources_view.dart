@@ -131,36 +131,9 @@ class ProducerListContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (producers.isEmpty) {
-      return Container(
-        width: double.infinity,
-        color: Palette.producerBlock,
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            PrimaryButton(
-              text: 'BUILD',
-              color: Palette.success,
-              onPressed: colony.canBuild(buildingType)
-                  ? () => colony.build(buildingType)
-                  : null,
-              icon: Icons.construction,
-              textSize: 20,
-              expand: false,
-            ),
-            const VBox(10),
-            for (final ResourceMapEntry resource
-                in buildingType.cost(1).entries)
-              ResourceIndicator(
-                sprite: resource.key.sprite,
-                value: Formatter.resource(resource.value),
-                textColor: colony.resourceInventory.hasItem(resource)
-                    ? Palette.black
-                    : Palette.error,
-                textSize: 15,
-                iconSize: 15,
-              ),
-          ],
-        ),
+      return BuildProducerButton(
+        colony: colony,
+        buildingType: buildingType,
       );
     } else {
       return Column(
@@ -169,5 +142,49 @@ class ProducerListContent extends StatelessWidget {
         ],
       );
     }
+  }
+}
+
+class BuildProducerButton extends StatelessWidget {
+  final Colony colony;
+  final BuildingType buildingType;
+
+  const BuildProducerButton({
+    required this.colony,
+    required this.buildingType,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: Palette.producerBlock,
+      padding: const EdgeInsets.all(15),
+      child: Column(
+        children: [
+          PrimaryButton(
+            text: 'BUILD',
+            color: Palette.success,
+            onPressed: colony.canBuild(buildingType)
+                ? () => colony.build(buildingType)
+                : null,
+            icon: Icons.construction,
+            textSize: 20,
+            expand: false,
+          ),
+          const VBox(10),
+          for (final ResourceMapEntry resource in buildingType.cost(1).entries)
+            ResourceIndicator(
+              sprite: resource.key.sprite,
+              value: Formatter.resource(resource.value),
+              textColor: colony.resourceInventory.hasItem(resource)
+                  ? Palette.black
+                  : Palette.error,
+              textSize: 15,
+              iconSize: 15,
+            ),
+        ],
+      ),
+    );
   }
 }
