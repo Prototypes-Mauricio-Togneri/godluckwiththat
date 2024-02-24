@@ -67,8 +67,10 @@ class Colony {
     return total;
   }
 
+  bool get hasSlotsToBuild => territorySlotsUsed < territorySlotsTotal;
+
   bool canBuild(BuildingType buildingType) =>
-      resourceInventory.hasItems(buildingType.cost(1));
+      resourceInventory.hasItems(buildingType.cost(1)) && hasSlotsToBuild;
 
   void build(BuildingType buildingType) {
     if (canBuild(buildingType)) {
