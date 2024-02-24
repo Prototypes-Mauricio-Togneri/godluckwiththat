@@ -1,6 +1,7 @@
 import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
+import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/consumers/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
@@ -26,6 +27,16 @@ class Colony {
     required this.daysElapsed,
     required this.freeVillagers,
   });
+
+  // ============================ TERRITORY ================================= \\
+
+  int get territorySlotsUsed => buildings.length;
+
+  int get territorySlotsTotal {
+    final List<Headquarters> headquarters = buildingsByType(Headquarters);
+
+    return headquarters[0].level * Constants.SLOTS_PER_HEADQUARTER_LEVEL;
+  }
 
   // =========================== TIME ELAPSED =============================== \\
 

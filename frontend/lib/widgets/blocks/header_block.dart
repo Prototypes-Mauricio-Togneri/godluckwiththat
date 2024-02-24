@@ -53,6 +53,11 @@ class LeftSection extends StatelessWidget {
           ],
         ),
         const VBox(10),
+        LabeledText(
+          label: 'Colony size:',
+          text: '${colony.territorySlotsUsed}/${colony.territorySlotsTotal}',
+        ),
+        const VBox(10),
         const LabeledText(
           label: 'Season:',
           text: 'Summer',
