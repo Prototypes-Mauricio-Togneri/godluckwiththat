@@ -1,9 +1,5 @@
 # God Luck With That
 
-* Enqueue
-    * Building construction
-    * Building improvement
-* Apply building depletion
 * Include food consumption
 
 * Faith
@@ -26,3 +22,8 @@
 * Other
     * Apply seasons
     * Localize
+
+* Extra
+    * Queueing building construction
+    * Queueing building improvement
+    * Apply building depletion
