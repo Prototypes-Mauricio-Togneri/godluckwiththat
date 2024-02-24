@@ -39,6 +39,7 @@ class LeftSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,12 +48,12 @@ class LeftSection extends StatelessWidget {
               text: 'LEVEL',
               color: Palette.black,
               weight: FontWeight.bold,
-              size: 20,
+              size: 14,
             ),
-            const HBox(15),
+            const HBox(5),
             Container(
-              width: 20,
-              height: 20,
+              width: 14,
+              height: 14,
               decoration: const BoxDecoration(
                 color: Palette.lightGrey,
                 shape: BoxShape.circle,
@@ -62,7 +63,7 @@ class LeftSection extends StatelessWidget {
                   text: producer.level.toString(),
                   color: Palette.white,
                   align: TextAlign.center,
-                  size: 10,
+                  size: 6,
                 ),
               ),
             ),
@@ -80,7 +81,7 @@ class LeftSection extends StatelessWidget {
             Label(
               text: '${producer.production}/day',
               color: (producer.production == 0) ? Palette.error : Palette.black,
-              size: 20,
+              size: 14,
             ),
           ],
         ),

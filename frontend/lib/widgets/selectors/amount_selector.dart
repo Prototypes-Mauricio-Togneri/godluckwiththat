@@ -36,7 +36,7 @@ class AmountSelector extends StatelessWidget {
           children: [
             ImageAsset(
               path: image,
-              size: 20,
+              size: size,
             ),
             Label(
               text: text,
