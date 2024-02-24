@@ -49,7 +49,6 @@ class Header extends StatelessWidget {
           text: consumer.buildingType.name,
           color: Palette.black,
           weight: FontWeight.bold,
-          size: 14,
         ),
         const HBox(5),
         Container(

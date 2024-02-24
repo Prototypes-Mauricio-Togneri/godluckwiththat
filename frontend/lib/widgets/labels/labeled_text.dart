@@ -25,13 +25,11 @@ class LabeledText extends StatelessWidget {
           text: label,
           color: labelColor,
           weight: FontWeight.bold,
-          size: 14,
         ),
         const HBox(5),
         Label(
           text: text,
           color: textColor,
-          size: 14,
         ),
       ],
     );

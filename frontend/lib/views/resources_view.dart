@@ -110,7 +110,6 @@ class ProducerListHeader extends StatelessWidget {
           text: title,
           color: Palette.black,
           weight: FontWeight.bold,
-          size: 14,
         ),
       ),
     );
@@ -169,7 +168,6 @@ class BuildProducerButton extends StatelessWidget {
                 ? () => colony.build(buildingType)
                 : null,
             icon: Icons.construction,
-            textSize: 14,
             expand: false,
           ),
           const VBox(10),
@@ -180,8 +178,8 @@ class BuildProducerButton extends StatelessWidget {
               textColor: colony.resourceInventory.hasItem(resource)
                   ? Palette.black
                   : Palette.error,
-              textSize: 15,
-              iconSize: 15,
+              textSize: 14,
+              iconSize: 14,
             ),
         ],
       ),

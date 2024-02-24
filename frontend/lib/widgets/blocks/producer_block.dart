@@ -48,7 +48,6 @@ class LeftSection extends StatelessWidget {
               text: 'LEVEL',
               color: Palette.black,
               weight: FontWeight.bold,
-              size: 14,
             ),
             const HBox(5),
             Container(
@@ -81,7 +80,6 @@ class LeftSection extends StatelessWidget {
             Label(
               text: '${producer.production}/day',
               color: (producer.production == 0) ? Palette.error : Palette.black,
-              size: 14,
             ),
           ],
         ),
