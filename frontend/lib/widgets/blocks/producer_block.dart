@@ -15,8 +15,16 @@ class ProducerBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Palette.producerBlock,
       padding: const EdgeInsets.all(15),
+      decoration: const BoxDecoration(
+        color: Palette.producerBlock,
+        border: Border(
+          bottom: BorderSide(
+            width: 0.5,
+            color: Palette.lightGrey,
+          ),
+        ),
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -129,18 +129,15 @@ class ProducerListContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (producers.isEmpty) {
-      return BuildProducerButton(
-        colony: colony,
-        buildingType: buildingType,
-      );
-    } else {
-      return Column(
-        children: [
-          for (final Producer producer in producers) ProducerBlock(producer),
-        ],
-      );
-    }
+    return Column(
+      children: [
+        for (final Producer producer in producers) ProducerBlock(producer),
+        BuildProducerButton(
+          colony: colony,
+          buildingType: buildingType,
+        )
+      ],
+    );
   }
 }
 
@@ -158,7 +155,7 @@ class BuildProducerButton extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: Palette.producerBlock,
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(10),
       child: Column(
         children: [
           PrimaryButton(
