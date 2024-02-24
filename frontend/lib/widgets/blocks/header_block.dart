@@ -134,10 +134,13 @@ class ResourceLabel extends StatelessWidget {
     final num amount = colony.resourceInventory.get(resourceType);
     final num capacity = colony.resourceInventory.capacityOf(resourceType);
     final bool full = amount >= capacity;
+    final String production =
+        full ? 'FULL' : '${colony.productionOf(resourceType)}/day';
 
     return LabeledText(
       label: '${resourceType.name}:',
-      text: '${Formatter.resource(amount)}/${Formatter.resource(capacity)}',
+      text:
+          '${Formatter.resource(amount)}/${Formatter.resource(capacity)} ($production)',
       labelColor: full ? Palette.error : Palette.black,
       textColor: full ? Palette.error : Palette.black,
     );
