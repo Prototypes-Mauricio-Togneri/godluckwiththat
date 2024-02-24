@@ -16,7 +16,7 @@ class BaseGameState extends BaseState {
       resourceInventory: ResourceInventory.create(
         resources: {
           ResourceType.food: 100,
-          ResourceType.wood: 50,
+          ResourceType.wood: 250,
           ResourceType.stone: 30,
         },
         capacities: {

@@ -1,8 +1,8 @@
 # God Luck With That
 
 * Enqueue
-    * Villager creation
     * Building construction
+    * Building improvement
 * Apply building depletion
 * Include water and food consumption
 
