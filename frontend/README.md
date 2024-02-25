@@ -1,5 +1,9 @@
 # God Luck With That
 
+* Research: bow saw -> increases wood production per villager
+* Have individual warehouses for each resource (e.g. granary, silo, etc)
+* Houses behave as producers (i.e. can build many and upgrade them individually)
+* Headquarters -> Town center
 * Include food consumption
 
 * Faith
