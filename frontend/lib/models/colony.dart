@@ -1,8 +1,8 @@
 import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
-import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/consumers/house.dart';
+import 'package:godluckwiththat/models/buildings/consumers/town_center.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
@@ -32,11 +32,10 @@ class Colony {
 
   int get territorySlotsUsed => buildings.length;
 
-  int get territorySlotsTotal {
-    final List<Headquarters> headquarters = buildingsByType(Headquarters);
+  TownCenter get townCenter => buildingsByType<TownCenter>(TownCenter).first;
 
-    return headquarters[0].level * Constants.SLOTS_PER_HEADQUARTER_LEVEL;
-  }
+  int get territorySlotsTotal =>
+      townCenter.level * Constants.SLOTS_PER_TOWN_CENTER_LEVEL;
 
   // =========================== TIME ELAPSED =============================== \\
 

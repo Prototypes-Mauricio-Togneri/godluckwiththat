@@ -1,6 +1,6 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
-import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/consumers/house.dart';
+import 'package:godluckwiththat/models/buildings/consumers/town_center.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
@@ -46,8 +46,8 @@ class Building {
     required int villagers,
   }) {
     switch (buildingType) {
-      case BuildingType.headquarters:
-        return Headquarters(
+      case BuildingType.townCenter:
+        return TownCenter(
           colony: colony,
           level: level,
         );

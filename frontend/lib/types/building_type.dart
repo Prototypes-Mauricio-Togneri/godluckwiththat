@@ -3,7 +3,7 @@ import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/assets.dart';
 
 enum BuildingType {
-  headquarters(
+  townCenter(
     sprite: Assets.IMAGES_BUILDINGS_CONSUMERS_HOUSE,
     initialCost: {
       ResourceType.wood: 100,

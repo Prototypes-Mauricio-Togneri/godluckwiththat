@@ -2,10 +2,10 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/views/headquarters_view.dart';
 import 'package:godluckwiththat/views/military_view.dart';
 import 'package:godluckwiththat/views/research_view.dart';
 import 'package:godluckwiththat/views/resources_view.dart';
+import 'package:godluckwiththat/views/town_center_view.dart';
 import 'package:godluckwiththat/widgets/misc/game_container.dart';
 import 'package:godluckwiththat/widgets/misc/game_loop.dart';
 
@@ -84,7 +84,7 @@ class _GameContentState extends State<GameContent> {
 
   Widget _body(int index) {
     if (currentIndex == 0) {
-      return HeadquartersView(widget.state);
+      return TownCenterView(widget.state);
     } else if (currentIndex == 1) {
       return ResourcesView(widget.state);
     } else if (currentIndex == 2) {

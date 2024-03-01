@@ -7,10 +7,10 @@ import 'package:godluckwiththat/widgets/buttons/train_unit_button.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
 
-class HeadquartersBlock extends StatelessWidget {
+class TownCenterBlock extends StatelessWidget {
   final Consumer consumer;
 
-  const HeadquartersBlock(this.consumer);
+  const TownCenterBlock(this.consumer);
 
   @override
   Widget build(BuildContext context) {
