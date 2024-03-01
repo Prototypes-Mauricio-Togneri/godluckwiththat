@@ -57,19 +57,19 @@ class _GameContentState extends State<GameContent> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Headquarters',
+            label: 'TOWN CENTER',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.dataset),
-            label: 'Resources',
+            label: 'RESOURCES',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shield),
-            label: 'Military',
+            label: 'MILITARY',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.science),
-            label: 'Research',
+            label: 'RESEARCH',
           ),
         ],
       ),

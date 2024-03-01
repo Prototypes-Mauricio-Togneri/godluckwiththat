@@ -20,25 +20,27 @@ class ResourcesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        HeaderBlock(state),
-        ProducerList(
-          colony: state.colony,
-          buildingType: BuildingType.farm,
-          producers: state.colony.producers,
-        ),
-        ProducerList(
-          colony: state.colony,
-          buildingType: BuildingType.woodcutter,
-          producers: state.colony.producers,
-        ),
-        ProducerList(
-          colony: state.colony,
-          buildingType: BuildingType.quarry,
-          producers: state.colony.producers,
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          HeaderBlock(state),
+          ProducerList(
+            colony: state.colony,
+            buildingType: BuildingType.farm,
+            producers: state.colony.producers,
+          ),
+          ProducerList(
+            colony: state.colony,
+            buildingType: BuildingType.woodcutter,
+            producers: state.colony.producers,
+          ),
+          ProducerList(
+            colony: state.colony,
+            buildingType: BuildingType.quarry,
+            producers: state.colony.producers,
+          ),
+        ],
+      ),
     );
   }
 }
