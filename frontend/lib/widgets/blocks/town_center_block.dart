@@ -62,7 +62,7 @@ class Header extends StatelessWidget {
               text: consumer.level.toString(),
               color: Palette.white,
               align: TextAlign.center,
-              size: 6,
+              size: 8,
             ),
           ),
         ),
