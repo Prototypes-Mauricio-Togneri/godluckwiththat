@@ -25,8 +25,8 @@ enum BuildingType {
     },
     produces: ResourceType.food,
   ),
-  woodcutter(
-    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_WOODCUTTER,
+  loggingCamp(
+    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_LOGGING_CAMP,
     initialCost: {
       ResourceType.wood: 50,
     },

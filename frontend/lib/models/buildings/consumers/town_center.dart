@@ -14,7 +14,7 @@ class TownCenter extends Consumer {
 
   @override
   ResourceMap get trainingCost => UnitType.villager.cost;
-  
+
   @override
   void train() {
     if (canTrain) {

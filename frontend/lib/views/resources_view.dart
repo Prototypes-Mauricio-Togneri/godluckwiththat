@@ -31,7 +31,7 @@ class ResourcesView extends StatelessWidget {
           ),
           ProducerList(
             colony: state.colony,
-            buildingType: BuildingType.woodcutter,
+            buildingType: BuildingType.loggingCamp,
             producers: state.colony.producers,
           ),
           ProducerList(

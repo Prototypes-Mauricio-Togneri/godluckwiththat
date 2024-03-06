@@ -1,7 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:godluckwiththat/models/buildings/consumers/town_center.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
-import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
+import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
@@ -48,7 +48,7 @@ class BaseGameState extends BaseState {
         level: 1,
         villagers: 0,
       ),
-      Woodcutter(
+      LoggingCamp(
         colony: colony,
         level: 1,
         villagers: 0,

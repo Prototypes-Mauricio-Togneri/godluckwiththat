@@ -28,7 +28,7 @@ class Label extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text.toUpperCase(),
+      text,
       textAlign: align,
       maxLines: maxLines,
       style: TextStyle(

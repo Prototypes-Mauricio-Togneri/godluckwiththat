@@ -10,6 +10,6 @@ class Constants {
   static const int BUILDING_CAPACITY_PER_LEVEL = 5;
 
   static const double FARM_PRODUCTION_RATE = 0.3;
-  static const double WOODCUTTER_PRODUCTION_RATE = 0.16;
+  static const double LOGGING_CAMP_PRODUCTION_RATE = 0.16;
   static const double QUARRY_PRODUCTION_RATE = 0.04;
 }

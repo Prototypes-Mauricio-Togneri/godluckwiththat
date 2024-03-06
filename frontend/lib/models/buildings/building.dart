@@ -2,8 +2,8 @@ import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/consumers/house.dart';
 import 'package:godluckwiththat/models/buildings/consumers/town_center.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
+import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
-import 'package:godluckwiththat/models/buildings/producers/woodcutter.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 
@@ -62,8 +62,8 @@ class Building {
           level: level,
           villagers: villagers,
         );
-      case BuildingType.woodcutter:
-        return Woodcutter(
+      case BuildingType.loggingCamp:
+        return LoggingCamp(
           colony: colony,
           level: level,
           villagers: villagers,
