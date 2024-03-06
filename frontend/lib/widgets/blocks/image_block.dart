@@ -16,7 +16,7 @@ class ImageBlock extends StatelessWidget {
     return Container(
       width: size,
       height: size,
-      color: Palette.darkGrey,
+      color: Palette.grey,
       child: Center(
         child: ImageAsset(
           path: path,

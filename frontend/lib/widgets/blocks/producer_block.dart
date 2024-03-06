@@ -1,6 +1,7 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
+import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/blocks/image_block.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
@@ -95,7 +96,7 @@ class LeftSection extends StatelessWidget {
                 ),
                 const HBox(10),
                 Label(
-                  text: '${producer.production}/s',
+                  text: '${Formatter.production(producer.production)}/s',
                   color: (producer.production == 0)
                       ? Palette.error
                       : Palette.black,
