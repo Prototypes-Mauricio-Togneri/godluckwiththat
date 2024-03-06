@@ -6,8 +6,6 @@ import 'package:godluckwiththat/models/buildings/consumers/town_center.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
-import 'package:godluckwiththat/models/tasks/create_villager_task.dart';
-import 'package:godluckwiththat/models/tasks/task.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/types/unit_type.dart';
@@ -16,7 +14,6 @@ class Colony {
   final ResourceInventory resourceInventory;
   final UnitInventory unitInventory;
   final List<Building> buildings;
-  final List<CreateVillagerTask> villagerTasks = [];
   num daysElapsed;
   int freeVillagers;
 
@@ -122,64 +119,19 @@ class Colony {
     return amount;
   }
 
+  void createVillager() {
+    resourceInventory.removeItems(UnitType.villager.cost);
+    unitInventory.add(UnitType.villager, 1);
+    addFreeVillagers(1);
+  }
+
   // ============================= UPDATE =================================== \\
 
   void update(double dt) {
     daysElapsed += dt;
 
-    _updateTasks(
-      dt: dt,
-      tasks: villagerTasks,
-      onlyFirst: true,
-      callback: (task) {
-        unitInventory.add(UnitType.villager, 1);
-        addFreeVillagers(task.villagers);
-      },
-    );
-
     for (final Building building in buildings) {
       building.update(dt);
-    }
-  }
-
-  // ============================== TASKS =================================== \\
-
-  void onCancelVillagersTask() {
-    if (villagerTasks.isNotEmpty) {
-      final Task task = villagerTasks.last;
-      villagerTasks.remove(task);
-      resourceInventory.addItems(task.cost);
-    }
-  }
-
-  void _updateTasks<T extends Task>({
-    required double dt,
-    required List<T> tasks,
-    required bool onlyFirst,
-    required Function(T) callback,
-  }) {
-    if (tasks.isNotEmpty) {
-      final List<T> tasksToRemove = [];
-
-      if (onlyFirst) {
-        final T first = tasks.first;
-
-        if (first.update(dt)) {
-          callback(first);
-          tasksToRemove.add(first);
-        }
-      } else {
-        for (final T task in tasks) {
-          if (task.update(dt)) {
-            callback(task);
-            tasksToRemove.add(task);
-          }
-        }
-      }
-
-      for (final T task in tasksToRemove) {
-        tasks.remove(task);
-      }
     }
   }
 }
