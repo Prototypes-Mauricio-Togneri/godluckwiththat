@@ -34,7 +34,7 @@ class BaseGameState extends BaseState {
         },
       ),
       buildings: [],
-      daysElapsed: 0,
+      timeElapsed: 0,
       freeVillagers: 5,
     );
 

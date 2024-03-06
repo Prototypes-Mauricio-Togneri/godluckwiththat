@@ -86,7 +86,7 @@ class LeftSection extends StatelessWidget {
             ),
             const HBox(10),
             Label(
-              text: '${producer.production}/day',
+              text: '${producer.production}/s',
               color: (producer.production == 0) ? Palette.error : Palette.black,
             ),
           ],

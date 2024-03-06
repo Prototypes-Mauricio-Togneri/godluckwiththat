@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/screens/game_screen.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 
@@ -50,7 +49,7 @@ class _GameLoopState extends State<GameLoop>
         final double current = currentTime;
         final double dt = current - previous;
         previous = current;
-        widget.state.update(dt / Constants.SECONDS_PER_DAY);
+        widget.state.update(dt);
 
         return GameContent(widget.state);
       },

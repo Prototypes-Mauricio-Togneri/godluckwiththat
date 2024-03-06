@@ -14,14 +14,14 @@ class Colony {
   final ResourceInventory resourceInventory;
   final UnitInventory unitInventory;
   final List<Building> buildings;
-  num daysElapsed;
+  num timeElapsed;
   int freeVillagers;
 
   Colony({
     required this.resourceInventory,
     required this.unitInventory,
     required this.buildings,
-    required this.daysElapsed,
+    required this.timeElapsed,
     required this.freeVillagers,
   });
 
@@ -36,9 +36,9 @@ class Colony {
 
   // =========================== TIME ELAPSED =============================== \\
 
-  num get day => daysElapsed + 1;
+  num get day => (timeElapsed / Constants.SECONDS_PER_DAY) + 1;
 
-  num get year => (daysElapsed / 365).floor() + 1;
+  num get year => (day / 365).floor() + 1;
 
   // ============================ BUILDINGS ================================= \\
 
@@ -128,7 +128,7 @@ class Colony {
   // ============================= UPDATE =================================== \\
 
   void update(double dt) {
-    daysElapsed += dt;
+    timeElapsed += dt;
 
     for (final Building building in buildings) {
       building.update(dt);
