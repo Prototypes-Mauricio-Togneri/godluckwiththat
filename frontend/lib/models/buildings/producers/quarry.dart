@@ -11,8 +11,6 @@ class Quarry extends Producer {
   }) : super(
           buildingType: BuildingType.quarry,
           resourceType: ResourceType.stone,
+          productionRate: Constants.QUARRY_PRODUCTION_RATE,
         );
-
-  @override
-  double get productionRate => Constants.QUARRY_PRODUCTION_RATE;
 }

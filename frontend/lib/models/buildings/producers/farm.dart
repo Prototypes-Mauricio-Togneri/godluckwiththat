@@ -11,8 +11,6 @@ class Farm extends Producer {
   }) : super(
           buildingType: BuildingType.farm,
           resourceType: ResourceType.food,
+          productionRate: Constants.FARM_PRODUCTION_RATE,
         );
-
-  @override
-  double get productionRate => Constants.FARM_PRODUCTION_RATE;
 }

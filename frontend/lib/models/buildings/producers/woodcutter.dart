@@ -11,8 +11,6 @@ class Woodcutter extends Producer {
   }) : super(
           buildingType: BuildingType.woodcutter,
           resourceType: ResourceType.wood,
+          productionRate: Constants.WOODCUTTER_PRODUCTION_RATE,
         );
-
-  @override
-  double get productionRate => Constants.WOODCUTTER_PRODUCTION_RATE;
 }

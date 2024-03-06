@@ -21,6 +21,8 @@ class BaseInventory<K> {
 
   num get(K type) => _items.get(type);
 
+  bool canProduce(K type) => get(type) < capacityOf(type);
+
   void add(K type, num amount) {
     final num current = get(type);
     final num capacity = capacityOf(type);

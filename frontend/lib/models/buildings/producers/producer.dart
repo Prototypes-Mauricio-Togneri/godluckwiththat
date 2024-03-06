@@ -4,10 +4,12 @@ import 'package:godluckwiththat/types/resource_type.dart';
 
 abstract class Producer extends Building {
   final ResourceType resourceType;
+  final double productionRate;
   int villagers;
 
   Producer({
     required this.resourceType,
+    required this.productionRate,
     required this.villagers,
     required super.buildingType,
     required super.colony,
@@ -16,28 +18,16 @@ abstract class Producer extends Building {
 
   bool get hasVillagers => villagers > 0;
 
-  bool get canHoldMoreVillagers => maxWorkersCapacity > villagers;
+  int get maxWorkersCapacity => level * Constants.BUILDING_CAPACITY_PER_LEVEL;
 
-  bool get canAddVillagers => colony.hasFreeVillagers && canHoldMoreVillagers;
+  bool get canAddVillagers =>
+      colony.hasFreeVillagers && (maxWorkersCapacity > villagers);
 
   bool get canRemoveVillagers => hasVillagers;
 
   double get production => productionRate * villagers;
 
-  double get productionRate;
-
-  num get resources => colony.resourceInventory.get(resourceType);
-
-  num get maxResourceCapacity =>
-      colony.resourceInventory.capacityOf(resourceType);
-
-  bool get isEmptyOfResources => resources == 0;
-
-  bool get isFullOfResources => resources >= maxResourceCapacity;
-
-  int get maxWorkersCapacity => level * Constants.BUILDING_CAPACITY_PER_LEVEL;
-
-  bool get canProduce => resources < maxResourceCapacity;
+  bool get canProduce => colony.resourceInventory.canProduce(resourceType);
 
   @override
   bool get isProducer => true;
