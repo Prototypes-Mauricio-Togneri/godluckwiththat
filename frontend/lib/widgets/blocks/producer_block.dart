@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/blocks/image_block.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
 import 'package:godluckwiththat/widgets/misc/image_asset.dart';
@@ -46,48 +47,60 @@ class LeftSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Label(
-              text: 'LEVEL',
-              color: Palette.black,
-              weight: FontWeight.bold,
-            ),
-            const HBox(5),
-            Container(
-              width: 14,
-              height: 14,
-              decoration: const BoxDecoration(
-                color: Palette.lightGrey,
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Label(
-                  text: producer.level.toString(),
-                  color: Palette.white,
-                  align: TextAlign.center,
-                  size: 8,
-                ),
-              ),
-            ),
-          ],
+        ImageBlock(
+          path: producer.buildingType.sprite,
+          size: 40,
         ),
-        const VBox(5),
-        Row(
-          mainAxisSize: MainAxisSize.min,
+        const HBox(15),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImageAsset(
-              path: producer.resourceType.sprite,
-              size: 18,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Label(
+                  text: 'LEVEL',
+                  color: Palette.black,
+                  weight: FontWeight.bold,
+                ),
+                const HBox(5),
+                Container(
+                  width: 14,
+                  height: 14,
+                  decoration: const BoxDecoration(
+                    color: Palette.lightGrey,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Label(
+                      text: producer.level.toString(),
+                      color: Palette.white,
+                      align: TextAlign.center,
+                      size: 8,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const HBox(10),
-            Label(
-              text: '${producer.production}/s',
-              color: (producer.production == 0) ? Palette.error : Palette.black,
+            const VBox(5),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ImageAsset(
+                  path: producer.resourceType.sprite,
+                  size: 18,
+                ),
+                const HBox(10),
+                Label(
+                  text: '${producer.production}/s',
+                  color: (producer.production == 0)
+                      ? Palette.error
+                      : Palette.black,
+                ),
+              ],
             ),
           ],
         ),
