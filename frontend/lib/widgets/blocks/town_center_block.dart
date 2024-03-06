@@ -45,7 +45,7 @@ class Header extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Label(
-          text: consumer.buildingType.name,
+          text: consumer.buildingType.name.toUpperCase(),
           color: Palette.black,
           weight: FontWeight.bold,
         ),

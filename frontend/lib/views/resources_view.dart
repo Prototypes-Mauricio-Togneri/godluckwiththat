@@ -85,7 +85,7 @@ class _Content extends State<ProducerList> {
           isExpanded: expanded,
           canTapOnHeader: true,
           headerBuilder: (context, isExpanded) => ProducerListHeader(
-              '${widget.buildingType.name} (${list.length})'),
+              '${widget.buildingType.name.toUpperCase()} (${list.length})'),
           body: ProducerListContent(
             colony: widget.colony,
             buildingType: widget.buildingType,

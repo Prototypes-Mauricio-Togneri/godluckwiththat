@@ -42,35 +42,35 @@ class LeftSection extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             LabeledText(
-              label: 'Day:',
+              label: 'DAY:',
               text: Formatter.days(colony.day),
             ),
             const HBox(15),
             LabeledText(
-              label: 'Year:',
+              label: 'YEAR:',
               text: Formatter.years(colony.year),
             ),
           ],
         ),
         const VBox(10),
         LabeledText(
-          label: 'Colony size:',
+          label: 'COLONY SIZE:',
           text: '${colony.territorySlotsUsed}/${colony.territorySlotsTotal}',
         ),
         const VBox(10),
         const LabeledText(
-          label: 'Season:',
-          text: 'Summer',
+          label: 'SEASON:',
+          text: 'SUMMER',
         ),
         const VBox(10),
         const LabeledText(
-          label: 'Next challenge:',
-          text: '30 days',
+          label: 'NEXT CHALLENGE:',
+          text: '30 DAYS',
         ),
         const VBox(10),
         const LabeledText(
-          label: 'Next attack:',
-          text: '14 days',
+          label: 'NEXT ATTACK:',
+          text: '14 DAYS',
         ),
       ],
     );
@@ -88,7 +88,7 @@ class RightSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         LabeledText(
-          label: 'Idle villagers:',
+          label: 'IDLE VILLAGERS:',
           text: colony.freeVillagers.toString(),
           labelColor:
               (colony.freeVillagers > 0) ? Palette.error : Palette.black,
@@ -96,7 +96,7 @@ class RightSection extends StatelessWidget {
         ),
         const VBox(10),
         LabeledText(
-          label: 'Population:',
+          label: 'POPULATION:',
           text:
               '${Formatter.resource(colony.currentPopulation)}/${Formatter.resource(colony.populationLimit)}',
         ),
@@ -138,7 +138,7 @@ class ResourceLabel extends StatelessWidget {
         full ? 'FULL' : '${colony.productionOf(resourceType)}/s';
 
     return LabeledText(
-      label: '${resourceType.name}:',
+      label: '${resourceType.name.toUpperCase()}:',
       text:
           '${Formatter.resource(amount)}/${Formatter.resource(capacity)} ($production)',
       labelColor: full ? Palette.error : Palette.black,
