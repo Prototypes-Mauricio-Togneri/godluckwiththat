@@ -165,10 +165,10 @@ packages:
     dependency: "direct dev"
     description:
       name: daassets
-      sha256: "0ed5334924af3db1da0c779a7e56f45b64f270e64bf653637d50a436a9450936"
+      sha256: "4d6f6e6b9e533b28a25e77d328918029a498b88505951ee9b3a501e6292da802"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.5.0"
   dafluta:
     dependency: "direct main"
     description:
@@ -181,10 +181,10 @@ packages:
     dependency: "direct dev"
     description:
       name: dalocale
-      sha256: "7b6c810563cdb471afafaba65827a0274a16a1f9b0b8a6ae6163e0623ab47d69"
+      sha256: "9801913520453eba413c6ba557e0975b69f05310d44d1ac2ea73698a43c37c6a"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.2"
+    version: "2.5.0"
   dapublock:
     dependency: "direct dev"
     description:
@@ -344,14 +344,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.7.1"
-  just_the_tooltip:
-    dependency: "direct main"
-    description:
-      name: just_the_tooltip
-      sha256: "7a081133d57285bfb41b331f411006d57b433d7b35772e6155745f6a7a09cb82"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.12"
   lints:
     dependency: transitive
     description:
@@ -697,10 +689,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "464f5674532865248444b4c3daca12bd9bf2d7c47f759ce2617986e7229494a8"
+      sha256: "8cb58b45c47dcb42ab3651533626161d6b67a2921917d8d429791f76972b3480"
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.0"
+    version: "5.3.0"
   xdg_directories:
     dependency: transitive
     description:
@@ -718,5 +710,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.3.0 <4.0.0"
+  dart: ">=3.3.1 <4.0.0"
   flutter: ">=3.19.0"
