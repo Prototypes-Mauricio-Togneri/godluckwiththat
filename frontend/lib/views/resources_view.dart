@@ -39,6 +39,21 @@ class ResourcesView extends StatelessWidget {
             buildingType: BuildingType.quarry,
             producers: state.colony.producers,
           ),
+          ProducerList(
+            colony: state.colony,
+            buildingType: BuildingType.copperMine,
+            producers: state.colony.producers,
+          ),
+          ProducerList(
+            colony: state.colony,
+            buildingType: BuildingType.ironMine,
+            producers: state.colony.producers,
+          ),
+          ProducerList(
+            colony: state.colony,
+            buildingType: BuildingType.goldMine,
+            producers: state.colony.producers,
+          ),
         ],
       ),
     );

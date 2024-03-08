@@ -8,14 +8,12 @@ enum BuildingType {
     initialCost: {
       ResourceType.wood: 100,
     },
-    produces: null,
   ),
   house(
     sprite: Assets.IMAGES_BUILDINGS_CONSUMERS_HOUSE,
     initialCost: {
       ResourceType.wood: 50,
     },
-    produces: null,
   ),
 
   farm(
@@ -23,31 +21,44 @@ enum BuildingType {
     initialCost: {
       ResourceType.wood: 50,
     },
-    produces: ResourceType.food,
   ),
   loggingCamp(
     sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_LOGGING_CAMP,
     initialCost: {
       ResourceType.wood: 50,
     },
-    produces: ResourceType.wood,
   ),
   quarry(
     sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_QUARRY,
     initialCost: {
       ResourceType.wood: 100,
     },
-    produces: ResourceType.stone,
+  ),
+  copperMine(
+    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_QUARRY,
+    initialCost: {
+      ResourceType.wood: 100,
+    },
+  ),
+  ironMine(
+    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_QUARRY,
+    initialCost: {
+      ResourceType.wood: 100,
+    },
+  ),
+  goldMine(
+    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_QUARRY,
+    initialCost: {
+      ResourceType.wood: 100,
+    },
   );
 
   final String sprite;
   final ResourceMap initialCost;
-  final ResourceType? produces;
 
   const BuildingType({
     required this.sprite,
     required this.initialCost,
-    required this.produces,
   });
 
   ResourceMap cost(int level) => initialCost.multiply(level);

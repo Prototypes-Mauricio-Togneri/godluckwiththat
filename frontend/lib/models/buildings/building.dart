@@ -1,7 +1,10 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/consumers/house.dart';
 import 'package:godluckwiththat/models/buildings/consumers/town_center.dart';
+import 'package:godluckwiththat/models/buildings/producers/copper_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
+import 'package:godluckwiththat/models/buildings/producers/gold_mine.dart';
+import 'package:godluckwiththat/models/buildings/producers/iron_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/models/colony.dart';
@@ -70,6 +73,24 @@ class Building {
         );
       case BuildingType.quarry:
         return Quarry(
+          colony: colony,
+          level: level,
+          villagers: villagers,
+        );
+      case BuildingType.copperMine:
+        return CopperMine(
+          colony: colony,
+          level: level,
+          villagers: villagers,
+        );
+      case BuildingType.ironMine:
+        return IronMine(
+          colony: colony,
+          level: level,
+          villagers: villagers,
+        );
+      case BuildingType.goldMine:
+        return GoldMine(
           colony: colony,
           level: level,
           villagers: villagers,
