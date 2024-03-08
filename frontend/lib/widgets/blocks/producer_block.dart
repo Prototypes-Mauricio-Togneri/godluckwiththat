@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/blocks/image_block.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
+import 'package:godluckwiththat/widgets/images/image_asset.dart';
+import 'package:godluckwiththat/widgets/images/image_block.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
-import 'package:godluckwiththat/widgets/misc/image_asset.dart';
 import 'package:godluckwiththat/widgets/selectors/workers_selector.dart';
 
 class ProducerBlock extends StatelessWidget {

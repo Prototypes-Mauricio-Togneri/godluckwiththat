@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/misc/image_asset.dart';
+import 'package:godluckwiththat/widgets/images/image_asset.dart';
 
 class ImageBlock extends StatelessWidget {
   final String path;

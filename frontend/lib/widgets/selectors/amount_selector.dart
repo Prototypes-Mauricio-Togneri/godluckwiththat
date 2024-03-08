@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/widgets/buttons/symbol_button.dart';
+import 'package:godluckwiththat/widgets/images/image_asset.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
-import 'package:godluckwiththat/widgets/misc/image_asset.dart';
 
 class AmountSelector extends StatelessWidget {
   final String text;

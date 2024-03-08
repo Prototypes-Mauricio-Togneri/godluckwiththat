@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/utils/assets.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/misc/image_asset.dart';
+import 'package:godluckwiththat/widgets/images/image_asset.dart';
+import 'package:godluckwiththat/widgets/images/image_grayscale.dart';
 
 class SymbolButton extends StatelessWidget {
   final Color color;
@@ -64,6 +65,18 @@ class SymbolButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double dimensions = size * 2 / 3;
+    final Widget image = (icon != null)
+        ? Icon(
+            icon,
+            color: Palette.white,
+            size: dimensions,
+          )
+        : ImageAsset(
+            path: sprite!,
+            size: dimensions,
+          );
+
     return Container(
       width: size,
       height: size,
@@ -73,15 +86,11 @@ class SymbolButton extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Center(
-            child: (icon != null)
-                ? Icon(
-                    icon,
-                    color: Palette.white,
-                    size: size * 2 / 3,
-                  )
-                : ImageAsset(
-                    path: sprite!,
-                    size: size * 2 / 3,
+            child: (onTap != null)
+                ? image
+                : ImageGrayScale(
+                    size: dimensions,
+                    child: image,
                   ),
           ),
         ),
