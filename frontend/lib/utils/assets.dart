@@ -17,8 +17,6 @@ class Assets {
       'assets/images/resources/food.png';
   static const String IMAGES_RESOURCES_STONE =
       'assets/images/resources/stone.png';
-  static const String IMAGES_RESOURCES_WATER =
-      'assets/images/resources/water.png';
   static const String IMAGES_RESOURCES_WOOD =
       'assets/images/resources/wood.png';
   static const String IMAGES_UNITS_VILLAGER =
