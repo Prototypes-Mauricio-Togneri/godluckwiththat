@@ -35,7 +35,7 @@ flutter:
   fonts:
     - family: CustomFont
       fonts:
-        - asset: assets/fonts/SourceCodePro-Regular.ttf
+        - asset: assets/fonts/HellasCour-Regular.ttf
 
   assets:
     - assets/audio/sfx/
