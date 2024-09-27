@@ -17,7 +17,7 @@ class LeftMenu extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const LeftMenuTitle(),
+          LeftMenuTitle(state),
           LeftMenuRow(
             text: 'Worker created',
             icon: Icons.person,
@@ -70,24 +70,45 @@ class LeftMenu extends StatelessWidget {
 }
 
 class LeftMenuTitle extends StatelessWidget {
-  const LeftMenuTitle();
+  final GameState state;
+
+  const LeftMenuTitle(this.state);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Palette.darkGrey,
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Label(
-              text: 'Events',
-              weight: FontWeight.bold,
-            ),
+          Row(
+            children: [
+              const HBox(10),
+              const Expanded(
+                child: Label(
+                  text: 'Events',
+                  weight: FontWeight.bold,
+                ),
+              ),
+              const HBox(10),
+              Material(
+                color: Palette.transparent,
+                child: InkWell(
+                  onTap: state.onCleanAllEvents,
+                  child: const Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Icon(
+                      Icons.cleaning_services_outlined,
+                      size: 15,
+                      color: Palette.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          HorizontalDivider(color: Palette.lightGrey),
+          const HorizontalDivider(color: Palette.lightGrey),
         ],
       ),
     );

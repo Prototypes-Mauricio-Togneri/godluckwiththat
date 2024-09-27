@@ -27,6 +27,10 @@ class GameState extends BaseGameState {
     print('Upcoming');
   }
 
+  void onCleanAllEvents() {
+    print('Clean All Events');
+  }
+
   void onEvent() {
     print('Event');
   }
