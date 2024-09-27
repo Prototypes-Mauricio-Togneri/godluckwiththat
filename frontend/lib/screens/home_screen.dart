@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/states/home_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/buttons/primary_button.dart';
-import 'package:godluckwiththat/widgets/misc/game_container.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeState state;
@@ -13,11 +12,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GameContainer(
-      child: Center(
-        child: CircularProgressIndicator(
-          color: Palette.white,
-        ),
+    return const Center(
+      child: CircularProgressIndicator(
+        color: Palette.white,
       ),
     );
   }

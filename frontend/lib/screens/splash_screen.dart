@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/states/splash_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/misc/game_container.dart';
 
 class SplashScreen extends StatelessWidget {
   final SplashState state;
@@ -12,11 +11,9 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GameContainer(
-      child: Center(
-        child: CircularProgressIndicator(
-          color: Palette.white,
-        ),
+    return const Center(
+      child: CircularProgressIndicator(
+        color: Palette.white,
       ),
     );
   }
