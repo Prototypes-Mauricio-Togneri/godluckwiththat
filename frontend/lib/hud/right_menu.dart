@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
@@ -10,9 +11,75 @@ class RightMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return SizedBox(
+      width: 200,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const RightMenuTitle(),
+          RightMenuRow(
+            text: 'Raid attack in 12:34',
+            onPressed: state.onUpcoming,
+          ),
+          RightMenuRow(
+            text: 'Challenge ending in 34:56',
+            onPressed: state.onUpcoming,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RightMenuTitle extends StatelessWidget {
+  const RightMenuTitle();
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      color: Palette.black,
-      child: const Label(text: 'RIGHT MENU'),
+      color: Palette.darkGrey,
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Label(
+              text: 'Upcoming',
+              weight: FontWeight.bold,
+            ),
+          ),
+          HorizontalDivider(color: Palette.lightGrey),
+        ],
+      ),
+    );
+  }
+}
+
+class RightMenuRow extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const RightMenuRow({
+    required this.text,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Material(
+        color: Palette.grey,
+        child: InkWell(
+          onTap: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Label(text: text),
+          ),
+        ),
+      ),
     );
   }
 }

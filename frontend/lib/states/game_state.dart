@@ -22,4 +22,8 @@ class GameState extends BaseGameState {
   void onMenuMilitary() {
     print('Menu Military');
   }
+
+  void onUpcoming() {
+    print('Upcoming');
+  }
 }
