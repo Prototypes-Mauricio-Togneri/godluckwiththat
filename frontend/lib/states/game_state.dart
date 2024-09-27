@@ -26,4 +26,8 @@ class GameState extends BaseGameState {
   void onUpcoming() {
     print('Upcoming');
   }
+
+  void onEvent() {
+    print('Event');
+  }
 }

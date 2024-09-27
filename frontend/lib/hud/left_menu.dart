@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
@@ -10,9 +11,121 @@ class LeftMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return SizedBox(
+      width: 200,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const LeftMenuTitle(),
+          LeftMenuRow(
+            text: 'Worker created',
+            icon: Icons.person,
+            onPressed: state.onEvent,
+          ),
+          LeftMenuRow(
+            text: 'Winter coming',
+            icon: Icons.ac_unit,
+            onPressed: state.onEvent,
+          ),
+          LeftMenuRow(
+            text: 'Earthquake happened',
+            icon: Icons.warning,
+            onPressed: state.onEvent,
+          ),
+          LeftMenuRow(
+            text: 'Challenge completed',
+            icon: Icons.check,
+            onPressed: state.onEvent,
+          ),
+          LeftMenuRow(
+            text: 'Solider created',
+            icon: Icons.security,
+            onPressed: state.onEvent,
+          ),
+          LeftMenuRow(
+            text: 'Building created',
+            icon: Icons.home,
+            onPressed: state.onEvent,
+          ),
+          LeftMenuRow(
+            text: 'Research completed',
+            icon: Icons.science,
+            onPressed: state.onEvent,
+          ),
+          LeftMenuRow(
+            text: 'Population limit reached',
+            icon: Icons.group,
+            onPressed: state.onEvent,
+          ),
+          LeftMenuRow(
+            text: 'Territory slot reached',
+            icon: Icons.map,
+            onPressed: state.onEvent,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class LeftMenuTitle extends StatelessWidget {
+  const LeftMenuTitle();
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      color: Palette.black,
-      child: const Label(text: 'LEFT MENU'),
+      color: Palette.darkGrey,
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Label(
+              text: 'Events',
+              weight: FontWeight.bold,
+            ),
+          ),
+          HorizontalDivider(color: Palette.lightGrey),
+        ],
+      ),
+    );
+  }
+}
+
+class LeftMenuRow extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  const LeftMenuRow({
+    required this.text,
+    required this.icon,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Material(
+        color: Palette.grey,
+        child: InkWell(
+          onTap: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(icon, size: 15, color: Palette.white),
+                const HBox(10),
+                Expanded(child: Label(text: text)),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
