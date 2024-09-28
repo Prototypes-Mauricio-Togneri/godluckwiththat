@@ -4,6 +4,7 @@ import 'package:godluckwiththat/hud/left_menu.dart';
 import 'package:godluckwiththat/hud/right_menu.dart';
 import 'package:godluckwiththat/hud/top_menu.dart';
 import 'package:godluckwiththat/states/game_state.dart';
+import 'package:godluckwiththat/utils/assets.dart';
 import 'package:godluckwiththat/widgets/misc/game_loop.dart';
 
 class GameScreen extends StatelessWidget {
@@ -61,7 +62,12 @@ class MapView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.green,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(Assets.IMAGES_BACKGROUNDS_BACKGROUND),
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }

@@ -1,6 +1,8 @@
 class Assets {
   static const String AUDIO_SFX_AMMO1 = 'assets/audio/sfx/ammo1.mp3';
   static const String AUDIO_SFX_AMMO2 = 'assets/audio/sfx/ammo2.mp3';
+  static const String IMAGES_BACKGROUNDS_BACKGROUND =
+      'assets/images/backgrounds/background.jpg';
   static const String IMAGES_BUILDINGS_CONSUMERS_HOUSE =
       'assets/images/buildings/consumers/house.png';
   static const String IMAGES_BUILDINGS_PRODUCERS_FARM =
