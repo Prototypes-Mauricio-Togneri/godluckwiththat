@@ -8,6 +8,7 @@ class Label extends StatelessWidget {
   final double size;
   final FontWeight weight;
   final TextDecoration decoration;
+  final bool uppercase;
   final TextAlign? align;
   final TextOverflow? overflow;
   final int? maxLines;
@@ -16,9 +17,10 @@ class Label extends StatelessWidget {
   const Label({
     required this.text,
     this.color = Palette.white,
-    this.size = 14,
+    this.size = 12,
     this.weight = FontWeight.normal,
     this.decoration = TextDecoration.none,
+    this.uppercase = true,
     this.align,
     this.overflow,
     this.maxLines,
@@ -28,7 +30,7 @@ class Label extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text,
+      uppercase ? text.toUpperCase() : text,
       textAlign: align,
       maxLines: maxLines,
       style: TextStyle(

@@ -26,7 +26,7 @@ class BottomMenu extends StatelessWidget {
           ),
           const HBox(10),
           BottomMenuButton(
-            icon: Icons.science,
+            icon: Icons.school,
             onPressed: state.onMenuResearch,
           ),
           const HBox(10),
