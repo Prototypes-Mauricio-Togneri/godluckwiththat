@@ -26,6 +26,10 @@ class RightMenu extends StatelessWidget {
             text: 'Challenge ending in 34:56',
             onPressed: state.onUpcoming,
           ),
+          RightMenuRow(
+            text: 'Research finishing in 34:56',
+            onPressed: state.onUpcoming,
+          ),
         ],
       ),
     );
