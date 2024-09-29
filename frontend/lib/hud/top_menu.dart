@@ -229,9 +229,9 @@ class LimitsIndicator extends StatelessWidget {
             const HBox(10),
             ResourceIndicator(
               size: 80,
-              sprite: Assets.IMAGES_UNITS_VILLAGER,
+              sprite: Assets.IMAGES_OTHER_HOUSE,
               value:
-                  '${state.colony.currentPopulation}/${state.colony.populationLimit}',
+                  '${state.colony.territorySlotsUsed}/${state.colony.territorySlotsTotal}',
             ),
           ],
         ),

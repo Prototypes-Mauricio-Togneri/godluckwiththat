@@ -13,6 +13,7 @@ class Assets {
       'assets/images/buildings/producers/quarry.png';
   static const String IMAGES_BUILDINGS_PRODUCERS_WELL =
       'assets/images/buildings/producers/well.png';
+  static const String IMAGES_OTHER_HOUSE = 'assets/images/other/house.png';
   static const String IMAGES_OTHER_IDLE = 'assets/images/other/idle.png';
   static const String IMAGES_OTHER_UPGRADE = 'assets/images/other/upgrade.png';
   static const String IMAGES_RESOURCES_COPPER =
