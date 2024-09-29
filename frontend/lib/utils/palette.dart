@@ -8,6 +8,7 @@ class Palette {
 
   static Color backgroundTransparent1 = const Color(0xff000000).withAlpha(150);
   static Color backgroundTransparent2 = const Color(0xff1a1a1a).withAlpha(150);
+  static Color backgroundClose = const Color(0xFFCC4B4B);
 
   // TODO(momo): rename
   static const Color white = Colors.white;

@@ -34,7 +34,11 @@ class GameState extends BaseGameState {
     print('Clean All Events');
   }
 
-  void onEvent() {
+  void onEventSelected() {
     print('Event');
+  }
+
+  void onEventClosed() {
+    print('Event Closed');
   }
 }
