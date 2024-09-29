@@ -18,6 +18,10 @@ class LeftMenu extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           LeftMenuTitle(state),
+          HorizontalDivider(
+            color: Palette.divider1,
+            height: 1,
+          ),
           LeftMenuRow(
             text: 'Worker created',
             icon: Icons.person,
@@ -77,38 +81,31 @@ class LeftMenuTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Palette.darkGrey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+      color: Palette.backgroundTransparent1,
+      child: Row(
         children: [
-          Row(
-            children: [
-              const HBox(10),
-              const Expanded(
-                child: Label(
-                  text: 'Events',
-                  weight: FontWeight.bold,
-                ),
-              ),
-              const HBox(10),
-              Material(
-                color: Palette.transparent,
-                child: InkWell(
-                  onTap: state.onCleanAllEvents,
-                  child: const Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Icon(
-                      Icons.cleaning_services_outlined,
-                      size: 15,
-                      color: Palette.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          const HBox(10),
+          const Expanded(
+            child: Label(
+              text: 'Events',
+              weight: FontWeight.bold,
+            ),
           ),
-          const HorizontalDivider(color: Palette.lightGrey),
+          const HBox(10),
+          Material(
+            color: Palette.transparent,
+            child: InkWell(
+              onTap: state.onCleanAllEvents,
+              child: const Padding(
+                padding: EdgeInsets.all(10),
+                child: Icon(
+                  Icons.cleaning_services_outlined,
+                  size: 15,
+                  color: Palette.white,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -131,7 +128,7 @@ class LeftMenuRow extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Material(
-        color: Palette.grey,
+        color: Palette.backgroundTransparent2,
         child: InkWell(
           onTap: onPressed,
           child: Padding(
@@ -139,7 +136,11 @@ class LeftMenuRow extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(icon, size: 15, color: Palette.white),
+                Icon(
+                  icon,
+                  size: 12,
+                  color: Palette.white,
+                ),
                 const HBox(10),
                 Expanded(child: Label(text: text)),
               ],

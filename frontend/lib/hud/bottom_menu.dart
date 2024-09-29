@@ -57,10 +57,16 @@ class BottomMenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Palette.darkGrey,
+      color: Palette.backgroundTransparent1,
       child: InkWell(
         onTap: onPressed,
-        child: Padding(
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Palette.grey,
+              width: 1,
+            ),
+          ),
           padding: const EdgeInsets.all(10),
           child: Icon(
             icon,

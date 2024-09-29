@@ -42,7 +42,7 @@ class RightMenuTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Palette.darkGrey,
+      color: Palette.backgroundTransparent1,
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -75,7 +75,7 @@ class RightMenuRow extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Material(
-        color: Palette.grey,
+        color: Palette.backgroundTransparent2,
         child: InkWell(
           onTap: onPressed,
           child: Padding(
