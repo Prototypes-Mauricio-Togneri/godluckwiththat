@@ -81,7 +81,14 @@ class LeftMenuTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Palette.backgroundTransparent1,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            const Color(0xff7a5e00).withAlpha(150),
+            Palette.backgroundTransparent1,
+          ],
+        ),
+      ),
       child: Row(
         children: [
           const HBox(10),
