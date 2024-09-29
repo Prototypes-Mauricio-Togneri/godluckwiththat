@@ -16,7 +16,7 @@ class BaseGameState extends BaseState {
       resourceInventory: ResourceInventory.create(
         resources: {
           ResourceType.food: 80,
-          ResourceType.wood: 100,
+          ResourceType.wood: 90,
           ResourceType.stone: 30,
           ResourceType.copper: 20,
           ResourceType.iron: 10,
@@ -51,12 +51,12 @@ class BaseGameState extends BaseState {
       Farm(
         colony: colony,
         level: 1,
-        villagers: 0,
+        villagers: 2,
       ),
       LoggingCamp(
         colony: colony,
         level: 1,
-        villagers: 0,
+        villagers: 1,
       ),
     ]);
   }

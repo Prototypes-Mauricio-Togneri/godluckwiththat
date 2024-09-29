@@ -63,6 +63,5 @@ enum BuildingType {
 
   ResourceMap cost(int level) => initialCost.multiply(level);
 
-  @override
-  String toString() => name.replaceAll('_', ' ');
+  String get localized => name.replaceAll('_', ' ');
 }

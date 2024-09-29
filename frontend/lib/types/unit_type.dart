@@ -18,6 +18,5 @@ enum UnitType {
     required this.cost,
   });
 
-  @override
-  String toString() => name.replaceAll('_', ' ');
+  String get localized => name.replaceAll('_', ' ');
 }

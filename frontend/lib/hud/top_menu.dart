@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/assets.dart';
+import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/images/image_asset.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
@@ -93,18 +94,21 @@ class SeasonIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TopBarContainer(
-      size: 80,
-      child: Row(
-        children: [
-          Icon(
-            Icons.wb_sunny,
-            color: Colors.orange,
-            size: 12,
-          ),
-          HBox(5),
-          Label(text: 'Summer'),
-        ],
+    return const CustomTooltip(
+      content: SimpleTooltip('Season'),
+      child: TopBarContainer(
+        size: 80,
+        child: Row(
+          children: [
+            Icon(
+              Icons.wb_sunny,
+              color: Colors.orange,
+              size: 12,
+            ),
+            HBox(5),
+            Label(text: 'Summer'),
+          ],
+        ),
       ),
     );
   }
@@ -125,8 +129,13 @@ class ResourcesIndicator extends StatelessWidget {
           sprite: ResourceType.food.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.food)
-              .ceil()
+              .floor()
               .toString(),
+          tooltip: ComplexTooltip(
+            title: 'Food',
+            content:
+                '${Formatter.production(state.colony.productionOf(ResourceType.food))}/s',
+          ),
         ),
         const HBox(10),
         ResourceIndicator(
@@ -134,8 +143,13 @@ class ResourcesIndicator extends StatelessWidget {
           sprite: ResourceType.wood.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.wood)
-              .ceil()
+              .floor()
               .toString(),
+          tooltip: ComplexTooltip(
+            title: 'Wood',
+            content:
+                '${Formatter.production(state.colony.productionOf(ResourceType.wood))}/s',
+          ),
         ),
         const HBox(10),
         ResourceIndicator(
@@ -143,8 +157,9 @@ class ResourcesIndicator extends StatelessWidget {
           sprite: ResourceType.stone.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.stone)
-              .ceil()
+              .floor()
               .toString(),
+          tooltip: SimpleTooltip(ResourceType.stone.localized),
         ),
         const HBox(10),
         ResourceIndicator(
@@ -152,8 +167,9 @@ class ResourcesIndicator extends StatelessWidget {
           sprite: ResourceType.copper.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.copper)
-              .ceil()
+              .floor()
               .toString(),
+          tooltip: SimpleTooltip(ResourceType.copper.localized),
         ),
         const HBox(10),
         ResourceIndicator(
@@ -161,8 +177,9 @@ class ResourcesIndicator extends StatelessWidget {
           sprite: ResourceType.iron.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.iron)
-              .ceil()
+              .floor()
               .toString(),
+          tooltip: SimpleTooltip(ResourceType.iron.localized),
         ),
         const HBox(10),
         ResourceIndicator(
@@ -170,8 +187,9 @@ class ResourcesIndicator extends StatelessWidget {
           sprite: ResourceType.gold.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.gold)
-              .ceil()
+              .floor()
               .toString(),
+          tooltip: SimpleTooltip(ResourceType.gold.localized),
         ),
         const HBox(10),
         ResourceIndicator(
@@ -179,8 +197,9 @@ class ResourcesIndicator extends StatelessWidget {
           sprite: ResourceType.faith.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.faith)
-              .ceil()
+              .floor()
               .toString(),
+          tooltip: SimpleTooltip(ResourceType.faith.localized),
         ),
         const HBox(10),
         ResourceIndicator(
@@ -188,8 +207,9 @@ class ResourcesIndicator extends StatelessWidget {
           sprite: ResourceType.knowledge.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.knowledge)
-              .ceil()
+              .floor()
               .toString(),
+          tooltip: SimpleTooltip(ResourceType.knowledge.localized),
         ),
       ],
     );
@@ -200,19 +220,21 @@ class ResourceIndicator extends StatelessWidget {
   final double size;
   final String sprite;
   final String value;
+  final Widget tooltip;
   final Color color;
 
   const ResourceIndicator({
     required this.size,
     required this.sprite,
     required this.value,
+    required this.tooltip,
     this.color = Palette.white,
   });
 
   @override
   Widget build(BuildContext context) {
     return CustomTooltip(
-      content: const SimpleTooltip('Resource'),
+      content: tooltip,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -259,6 +281,7 @@ class LimitsIndicator extends StatelessWidget {
               sprite: Assets.IMAGES_UNITS_VILLAGER,
               value:
                   '${state.colony.currentPopulation}/${state.colony.populationLimit}',
+              tooltip: const SimpleTooltip('Population'),
             ),
             const HBox(5),
             ResourceIndicator(
@@ -266,6 +289,7 @@ class LimitsIndicator extends StatelessWidget {
               sprite: Assets.IMAGES_OTHER_IDLE,
               value: '${state.colony.freeVillagers}',
               color: Palette.error,
+              tooltip: const SimpleTooltip('Idle workers'),
             ),
             const HBox(10),
             ResourceIndicator(
@@ -273,6 +297,7 @@ class LimitsIndicator extends StatelessWidget {
               sprite: Assets.IMAGES_OTHER_HOUSE,
               value:
                   '${state.colony.territorySlotsUsed}/${state.colony.territorySlotsTotal}',
+              tooltip: const SimpleTooltip('Territory size'),
             ),
           ],
         ),

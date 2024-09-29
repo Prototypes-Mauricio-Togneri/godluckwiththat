@@ -21,16 +21,18 @@ class CustomTooltip extends StatelessWidget {
       waitDuration: const Duration(milliseconds: 500),
       borderRadius: const BorderRadius.all(Radius.circular(0)),
       backgroundColor: Palette.backgroundTransparent1,
+      tailBaseWidth: 20,
+      tailLength: 10,
       child: child,
     );
   }
 }
 
-class Tooltip extends StatelessWidget {
+class ComplexTooltip extends StatelessWidget {
   final String title;
   final String content;
 
-  const Tooltip({
+  const ComplexTooltip({
     required this.title,
     required this.content,
   });

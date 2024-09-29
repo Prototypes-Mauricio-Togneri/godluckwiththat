@@ -16,6 +16,5 @@ enum ResourceType {
     required this.sprite,
   });
 
-  @override
-  String toString() => name.replaceAll('_', ' ');
+  String get localized => name.replaceAll('_', ' ');
 }
