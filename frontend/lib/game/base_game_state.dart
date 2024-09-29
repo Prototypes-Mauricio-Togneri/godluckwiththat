@@ -18,6 +18,11 @@ class BaseGameState extends BaseState {
           ResourceType.food: 80,
           ResourceType.wood: 100,
           ResourceType.stone: 30,
+          ResourceType.copper: 20,
+          ResourceType.iron: 10,
+          ResourceType.gold: 5,
+          ResourceType.faith: 130,
+          ResourceType.knowledge: 150,
         },
         capacities: {
           ResourceType.food: 100,

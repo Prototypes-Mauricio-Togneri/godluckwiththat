@@ -6,7 +6,9 @@ enum ResourceType {
   stone(sprite: Assets.IMAGES_RESOURCES_STONE),
   copper(sprite: Assets.IMAGES_RESOURCES_COPPER),
   iron(sprite: Assets.IMAGES_RESOURCES_IRON),
-  gold(sprite: Assets.IMAGES_RESOURCES_GOLD);
+  gold(sprite: Assets.IMAGES_RESOURCES_GOLD),
+  faith(sprite: Assets.IMAGES_RESOURCES_FAITH),
+  knowledge(sprite: Assets.IMAGES_RESOURCES_KNOWLEDGE);
 
   final String sprite;
 

@@ -2,7 +2,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
-import 'package:godluckwiththat/utils/assets.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/images/image_asset.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
@@ -91,33 +90,43 @@ class ResourcesIndicator extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         ResourceIndicator(
-          sprite: Assets.IMAGES_RESOURCES_FOOD,
+          sprite: ResourceType.food.sprite,
           value: state.colony.resourceInventory.get(ResourceType.food),
         ),
         const HBox(10),
         ResourceIndicator(
-          sprite: Assets.IMAGES_RESOURCES_WOOD,
+          sprite: ResourceType.wood.sprite,
           value: state.colony.resourceInventory.get(ResourceType.wood),
         ),
         const HBox(10),
         ResourceIndicator(
-          sprite: Assets.IMAGES_RESOURCES_STONE,
+          sprite: ResourceType.stone.sprite,
           value: state.colony.resourceInventory.get(ResourceType.stone),
         ),
         const HBox(10),
         ResourceIndicator(
-          sprite: Assets.IMAGES_RESOURCES_COPPER,
+          sprite: ResourceType.copper.sprite,
           value: state.colony.resourceInventory.get(ResourceType.copper),
         ),
         const HBox(10),
         ResourceIndicator(
-          sprite: Assets.IMAGES_RESOURCES_IRON,
+          sprite: ResourceType.iron.sprite,
           value: state.colony.resourceInventory.get(ResourceType.iron),
         ),
         const HBox(10),
         ResourceIndicator(
-          sprite: Assets.IMAGES_RESOURCES_GOLD,
+          sprite: ResourceType.gold.sprite,
           value: state.colony.resourceInventory.get(ResourceType.gold),
+        ),
+        const HBox(10),
+        ResourceIndicator(
+          sprite: ResourceType.faith.sprite,
+          value: state.colony.resourceInventory.get(ResourceType.faith),
+        ),
+        const HBox(10),
+        ResourceIndicator(
+          sprite: ResourceType.knowledge.sprite,
+          value: state.colony.resourceInventory.get(ResourceType.knowledge),
         ),
       ],
     );

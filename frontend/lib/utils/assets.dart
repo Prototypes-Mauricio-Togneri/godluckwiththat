@@ -17,12 +17,16 @@ class Assets {
   static const String IMAGES_OTHER_UPGRADE = 'assets/images/other/upgrade.png';
   static const String IMAGES_RESOURCES_COPPER =
       'assets/images/resources/copper.png';
+  static const String IMAGES_RESOURCES_FAITH =
+      'assets/images/resources/faith.png';
   static const String IMAGES_RESOURCES_FOOD =
       'assets/images/resources/food.png';
   static const String IMAGES_RESOURCES_GOLD =
       'assets/images/resources/gold.png';
   static const String IMAGES_RESOURCES_IRON =
       'assets/images/resources/iron.png';
+  static const String IMAGES_RESOURCES_KNOWLEDGE =
+      'assets/images/resources/knowledge.png';
   static const String IMAGES_RESOURCES_STONE =
       'assets/images/resources/stone.png';
   static const String IMAGES_RESOURCES_WOOD =
