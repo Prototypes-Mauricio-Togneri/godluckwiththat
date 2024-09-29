@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/utils/assets.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/images/image_asset.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
@@ -23,6 +24,8 @@ class TopMenu extends StatelessWidget {
           SeasonIndicator(state),
           const HBox(50),
           ResourcesIndicator(state),
+          const HBox(50),
+          LimitsIndicator(state),
         ],
       ),
     );
@@ -90,43 +93,75 @@ class ResourcesIndicator extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         ResourceIndicator(
+          size: 70,
           sprite: ResourceType.food.sprite,
-          value: state.colony.resourceInventory.get(ResourceType.food),
+          value: state.colony.resourceInventory
+              .get(ResourceType.food)
+              .ceil()
+              .toString(),
         ),
         const HBox(10),
         ResourceIndicator(
+          size: 70,
           sprite: ResourceType.wood.sprite,
-          value: state.colony.resourceInventory.get(ResourceType.wood),
+          value: state.colony.resourceInventory
+              .get(ResourceType.wood)
+              .ceil()
+              .toString(),
         ),
         const HBox(10),
         ResourceIndicator(
+          size: 70,
           sprite: ResourceType.stone.sprite,
-          value: state.colony.resourceInventory.get(ResourceType.stone),
+          value: state.colony.resourceInventory
+              .get(ResourceType.stone)
+              .ceil()
+              .toString(),
         ),
         const HBox(10),
         ResourceIndicator(
+          size: 70,
           sprite: ResourceType.copper.sprite,
-          value: state.colony.resourceInventory.get(ResourceType.copper),
+          value: state.colony.resourceInventory
+              .get(ResourceType.copper)
+              .ceil()
+              .toString(),
         ),
         const HBox(10),
         ResourceIndicator(
+          size: 70,
           sprite: ResourceType.iron.sprite,
-          value: state.colony.resourceInventory.get(ResourceType.iron),
+          value: state.colony.resourceInventory
+              .get(ResourceType.iron)
+              .ceil()
+              .toString(),
         ),
         const HBox(10),
         ResourceIndicator(
+          size: 70,
           sprite: ResourceType.gold.sprite,
-          value: state.colony.resourceInventory.get(ResourceType.gold),
+          value: state.colony.resourceInventory
+              .get(ResourceType.gold)
+              .ceil()
+              .toString(),
         ),
         const HBox(10),
         ResourceIndicator(
+          size: 70,
           sprite: ResourceType.faith.sprite,
-          value: state.colony.resourceInventory.get(ResourceType.faith),
+          value: state.colony.resourceInventory
+              .get(ResourceType.faith)
+              .ceil()
+              .toString(),
         ),
         const HBox(10),
         ResourceIndicator(
+          size: 70,
           sprite: ResourceType.knowledge.sprite,
-          value: state.colony.resourceInventory.get(ResourceType.knowledge),
+          value: state.colony.resourceInventory
+              .get(ResourceType.knowledge)
+              .ceil()
+              .toString(),
         ),
       ],
     );
@@ -134,10 +169,12 @@ class ResourcesIndicator extends StatelessWidget {
 }
 
 class ResourceIndicator extends StatelessWidget {
+  final double size;
   final String sprite;
-  final num value;
+  final String value;
 
   const ResourceIndicator({
+    required this.size,
     required this.sprite,
     required this.value,
   });
@@ -149,7 +186,7 @@ class ResourceIndicator extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         TopBarContainer(
-          size: 70,
+          size: size,
           child: Row(
             children: [
               ImageAsset(
@@ -158,11 +195,45 @@ class ResourceIndicator extends StatelessWidget {
               ),
               const Spacer(),
               Label(
-                text: value.ceil().toString(),
+                text: value,
                 size: 15,
               ),
             ],
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class LimitsIndicator extends StatelessWidget {
+  final GameState state;
+
+  const LimitsIndicator(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ResourceIndicator(
+              size: 80,
+              sprite: Assets.IMAGES_UNITS_VILLAGER,
+              value:
+                  '${state.colony.currentPopulation}/${state.colony.populationLimit}',
+            ),
+            const HBox(10),
+            ResourceIndicator(
+              size: 80,
+              sprite: Assets.IMAGES_UNITS_VILLAGER,
+              value:
+                  '${state.colony.currentPopulation}/${state.colony.populationLimit}',
+            ),
+          ],
         ),
       ],
     );
