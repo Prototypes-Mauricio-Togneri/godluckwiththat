@@ -20,7 +20,7 @@ class Label extends StatelessWidget {
     this.size = 12,
     this.weight = FontWeight.normal,
     this.decoration = TextDecoration.none,
-    this.uppercase = true,
+    this.uppercase = false,
     this.align,
     this.overflow,
     this.maxLines,

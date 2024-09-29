@@ -101,9 +101,9 @@ class LeftMenuTitle extends StatelessWidget {
       child: Row(
         children: [
           const HBox(10),
-          const Expanded(
+          Expanded(
             child: Label(
-              text: 'Events',
+              text: 'Events'.toUpperCase(),
               weight: FontWeight.bold,
             ),
           ),
