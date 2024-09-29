@@ -9,7 +9,7 @@ class Palette {
   static Color backgroundTransparent1 = const Color(0xff000000).withAlpha(150);
   static Color backgroundTransparent2 = const Color(0xff1a1a1a).withAlpha(150);
   static Color backgroundClose = const Color(0xffcc4b4b);
-  static Color backgroundTopBar = const Color(0xff4e505d);
+  static Color backgroundTopBar = const Color(0xff25272c);
   static Color backgroundTopBarContainer = const Color(0xff393d45);
 
   // TODO(momo): rename
