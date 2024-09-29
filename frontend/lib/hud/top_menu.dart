@@ -22,11 +22,38 @@ class TopMenu extends StatelessWidget {
         children: [
           const HBox(5),
           SeasonIndicator(state),
-          const HBox(50),
+          const Spacer(),
           ResourcesIndicator(state),
-          const HBox(50),
+          const Spacer(),
           LimitsIndicator(state),
+          const Spacer(),
+          PauseButton(state.onPause),
         ],
+      ),
+    );
+  }
+}
+
+class PauseButton extends StatelessWidget {
+  final VoidCallback onPressed;
+
+  const PauseButton(this.onPressed);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Palette.transparent,
+      child: InkWell(
+        hoverColor: Palette.backgroundTransparent3.withAlpha(100),
+        onTap: onPressed,
+        child: const Padding(
+          padding: EdgeInsets.all(10),
+          child: Icon(
+            Icons.pause,
+            size: 15,
+            color: Palette.white,
+          ),
+        ),
       ),
     );
   }
@@ -172,11 +199,13 @@ class ResourceIndicator extends StatelessWidget {
   final double size;
   final String sprite;
   final String value;
+  final Color color;
 
   const ResourceIndicator({
     required this.size,
     required this.sprite,
     required this.value,
+    this.color = Palette.white,
   });
 
   @override
@@ -197,6 +226,7 @@ class ResourceIndicator extends StatelessWidget {
               Label(
                 text: value,
                 size: 15,
+                color: color,
               ),
             ],
           ),
@@ -225,6 +255,13 @@ class LimitsIndicator extends StatelessWidget {
               sprite: Assets.IMAGES_UNITS_VILLAGER,
               value:
                   '${state.colony.currentPopulation}/${state.colony.populationLimit}',
+            ),
+            const HBox(5),
+            ResourceIndicator(
+              size: 50,
+              sprite: Assets.IMAGES_OTHER_IDLE,
+              value: '${state.colony.freeVillagers}',
+              color: Palette.error,
             ),
             const HBox(10),
             ResourceIndicator(

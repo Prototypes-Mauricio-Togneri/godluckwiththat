@@ -3,6 +3,10 @@ import 'package:godluckwiththat/game/base_game_state.dart';
 class GameState extends BaseGameState {
   GameState();
 
+  void onPause() {
+    print('Pause');
+  }
+
   // TODO(momo): all buildings management in a single window
   void onMenuBuildings() {
     print('Menu Buildings');
