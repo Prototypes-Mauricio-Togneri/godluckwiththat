@@ -6,6 +6,7 @@ import 'package:godluckwiththat/utils/assets.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/images/image_asset.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
+import 'package:godluckwiththat/widgets/misc/custom_tooltip.dart';
 
 class TopMenu extends StatelessWidget {
   final GameState state;
@@ -210,28 +211,31 @@ class ResourceIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        TopBarContainer(
-          size: size,
-          child: Row(
-            children: [
-              ImageAsset(
-                path: sprite,
-                size: 15,
-              ),
-              const Spacer(),
-              Label(
-                text: value,
-                size: 15,
-                color: color,
-              ),
-            ],
+    return CustomTooltip(
+      content: const SimpleTooltip('Resource'),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TopBarContainer(
+            size: size,
+            child: Row(
+              children: [
+                ImageAsset(
+                  path: sprite,
+                  size: 15,
+                ),
+                const Spacer(),
+                Label(
+                  text: value,
+                  size: 15,
+                  color: color,
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

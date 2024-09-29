@@ -12,6 +12,7 @@ dependencies:
   dafluta: ^5.4.0
   url_strategy: ^0.3.0
   json_annotation: ^4.9.0
+  just_the_tooltip: ^0.0.12
   shared_preferences: ^2.3.2
 
   flutter:
