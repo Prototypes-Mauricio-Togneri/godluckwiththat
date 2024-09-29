@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
     <meta name="description" content="God Luck With That">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="god luck with that">
@@ -66,31 +66,11 @@
             }
         }
     </style>
-
-    <script>
-        const serviceWorkerVersion = "2630503394";
-    </script>
-    <script src="flutter.js" defer></script>
-
 </head>
 
 <body>
-
     <div id="loading" class="lds-dual-ring"></div>
-
-    <script>
-        window.addEventListener('load', function (ev) {
-            _flutter.loader.loadEntrypoint({
-                serviceWorker: {
-                    serviceWorkerVersion: serviceWorkerVersion,
-                }
-            }).then(function (engineInitializer) {
-                return engineInitializer.initializeEngine();
-            }).then(function (appRunner) {
-                return appRunner.runApp();
-            });
-        });
-    </script>
+    <script src="flutter_bootstrap.js" async></script>
 </body>
 
 </html>
