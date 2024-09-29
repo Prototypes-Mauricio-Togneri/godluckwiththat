@@ -12,7 +12,7 @@ class LeftMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 200,
+      width: 250,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
@@ -90,6 +90,7 @@ class LeftMenuTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 35,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [

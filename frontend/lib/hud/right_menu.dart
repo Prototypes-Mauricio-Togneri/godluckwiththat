@@ -12,12 +12,16 @@ class RightMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 200,
+      width: 250,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: [
           const RightMenuTitle(),
+          HorizontalDivider(
+            color: Palette.divider1,
+            height: 1,
+          ),
           RightMenuRow(
             text: 'Raid attack in 12:34',
             onPressed: state.onUpcoming,
@@ -42,20 +46,22 @@ class RightMenuTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Palette.backgroundTransparent1,
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Label(
-              text: 'Upcoming',
-              weight: FontWeight.bold,
-            ),
-          ),
-          HorizontalDivider(color: Palette.lightGrey),
-        ],
+      height: 35,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            const Color(0xff7a5e00).withAlpha(150),
+            Palette.backgroundTransparent1,
+          ],
+        ),
+      ),
+      child: const Padding(
+        padding: EdgeInsets.all(10),
+        child: Label(
+          text: 'Upcoming',
+          weight: FontWeight.bold,
+        ),
       ),
     );
   }
@@ -77,8 +83,10 @@ class RightMenuRow extends StatelessWidget {
       child: Material(
         color: Palette.backgroundTransparent2,
         child: InkWell(
+          hoverColor: Palette.backgroundTransparent1.withAlpha(50),
           onTap: onPressed,
-          child: Padding(
+          child: Container(
+            height: 35,
             padding: const EdgeInsets.all(10),
             child: Label(text: text),
           ),
