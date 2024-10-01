@@ -43,17 +43,20 @@ class PauseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Palette.transparent,
-      child: InkWell(
-        hoverColor: Palette.backgroundTransparent3.withAlpha(100),
-        onTap: onPressed,
-        child: const Padding(
-          padding: EdgeInsets.all(10),
-          child: Icon(
-            Icons.pause,
-            size: 15,
-            color: Palette.white,
+    return CustomTooltip(
+      content: const SimpleTooltip('Pause'),
+      child: Material(
+        color: Palette.transparent,
+        child: InkWell(
+          hoverColor: Palette.backgroundTransparent3.withAlpha(100),
+          onTap: onPressed,
+          child: const Padding(
+            padding: EdgeInsets.all(10),
+            child: Icon(
+              Icons.pause,
+              size: 15,
+              color: Palette.white,
+            ),
           ),
         ),
       ),
@@ -280,7 +283,7 @@ class LimitsIndicator extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ResourceIndicator(
-              size: 80,
+              size: 100,
               sprite: Assets.IMAGES_UNITS_VILLAGER,
               value:
                   '${state.colony.currentPopulation}/${state.colony.populationLimit}',
@@ -288,7 +291,7 @@ class LimitsIndicator extends StatelessWidget {
             ),
             const HBox(5),
             ResourceIndicator(
-              size: 50,
+              size: 70,
               sprite: Assets.IMAGES_OTHER_IDLE,
               value: '${state.colony.freeVillagers}',
               color: Palette.error,
@@ -296,11 +299,11 @@ class LimitsIndicator extends StatelessWidget {
             ),
             const HBox(10),
             ResourceIndicator(
-              size: 80,
+              size: 100,
               sprite: Assets.IMAGES_OTHER_HOUSE,
               value:
                   '${state.colony.territorySlotsUsed}/${state.colony.territorySlotsTotal}',
-              tooltip: const SimpleTooltip('Territory size'),
+              tooltip: const SimpleTooltip('Territory'),
             ),
           ],
         ),
