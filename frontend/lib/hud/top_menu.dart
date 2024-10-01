@@ -18,7 +18,7 @@ class TopMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 35,
+      height: 40,
       color: Palette.backgroundTopBar.withAlpha(200),
       child: Row(
         children: [
@@ -73,7 +73,7 @@ class TopBarContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 25,
+      height: 30,
       width: size,
       color: Palette.backgroundTopBarContainer,
       child: Align(
@@ -97,16 +97,19 @@ class SeasonIndicator extends StatelessWidget {
     return const CustomTooltip(
       content: SimpleTooltip('Season'),
       child: TopBarContainer(
-        size: 80,
+        size: 100,
         child: Row(
           children: [
             Icon(
               Icons.wb_sunny,
               color: Colors.orange,
-              size: 12,
+              size: 18,
             ),
             HBox(5),
-            Label(text: 'Summer'),
+            Label(
+              text: 'Summer',
+              size: 18,
+            ),
           ],
         ),
       ),
@@ -125,7 +128,7 @@ class ResourcesIndicator extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         ResourceIndicator(
-          size: 70,
+          size: 90,
           sprite: ResourceType.food.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.food)
@@ -139,7 +142,7 @@ class ResourcesIndicator extends StatelessWidget {
         ),
         const HBox(10),
         ResourceIndicator(
-          size: 70,
+          size: 90,
           sprite: ResourceType.wood.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.wood)
@@ -153,7 +156,7 @@ class ResourcesIndicator extends StatelessWidget {
         ),
         const HBox(10),
         ResourceIndicator(
-          size: 70,
+          size: 90,
           sprite: ResourceType.stone.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.stone)
@@ -163,7 +166,7 @@ class ResourcesIndicator extends StatelessWidget {
         ),
         const HBox(10),
         ResourceIndicator(
-          size: 70,
+          size: 90,
           sprite: ResourceType.copper.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.copper)
@@ -173,7 +176,7 @@ class ResourcesIndicator extends StatelessWidget {
         ),
         const HBox(10),
         ResourceIndicator(
-          size: 70,
+          size: 90,
           sprite: ResourceType.iron.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.iron)
@@ -183,7 +186,7 @@ class ResourcesIndicator extends StatelessWidget {
         ),
         const HBox(10),
         ResourceIndicator(
-          size: 70,
+          size: 90,
           sprite: ResourceType.gold.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.gold)
@@ -193,7 +196,7 @@ class ResourcesIndicator extends StatelessWidget {
         ),
         const HBox(10),
         ResourceIndicator(
-          size: 70,
+          size: 90,
           sprite: ResourceType.faith.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.faith)
@@ -203,7 +206,7 @@ class ResourcesIndicator extends StatelessWidget {
         ),
         const HBox(10),
         ResourceIndicator(
-          size: 70,
+          size: 90,
           sprite: ResourceType.knowledge.sprite,
           value: state.colony.resourceInventory
               .get(ResourceType.knowledge)
@@ -245,12 +248,12 @@ class ResourceIndicator extends StatelessWidget {
               children: [
                 ImageAsset(
                   path: sprite,
-                  size: 15,
+                  size: 18,
                 ),
                 const Spacer(),
                 Label(
                   text: value,
-                  size: 15,
+                  size: 18,
                   color: color,
                 ),
               ],

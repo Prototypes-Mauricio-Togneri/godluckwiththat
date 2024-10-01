@@ -9,8 +9,8 @@ OUTPUT="../website/public"
 rm -r ${OUTPUT}
 mkdir ${OUTPUT}
 cp -r build/web/** ${OUTPUT}
-cp -r "${OUTPUT}/assets/assets/audio" "${OUTPUT}/assets/"
-cp -r "${OUTPUT}/assets/assets/images" "${OUTPUT}/assets/"
+#cp -r "${OUTPUT}/assets/assets/audio" "${OUTPUT}/assets/"
+#cp -r "${OUTPUT}/assets/assets/images" "${OUTPUT}/assets/"
 
 cd ../website
 firebase deploy --only hosting
