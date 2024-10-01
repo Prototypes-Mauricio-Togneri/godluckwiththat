@@ -1,4 +1,5 @@
 import 'package:godluckwiththat/game/base_game_state.dart';
+import 'package:godluckwiththat/windows/buildings_window.dart';
 
 class GameState extends BaseGameState {
   GameState();
@@ -8,9 +9,7 @@ class GameState extends BaseGameState {
   }
 
   // TODO(momo): all buildings management in a single window
-  void onMenuBuildings() {
-    print('Menu Buildings');
-  }
+  void onMenuBuildings() => BuildingsWindow.show();
 
   // TODO(momo): all workers management in a single window
   void onMenuPopulation() {
