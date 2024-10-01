@@ -12,9 +12,11 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(
-        color: Palette.white,
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(
+          color: Palette.white,
+        ),
       ),
     );
   }
