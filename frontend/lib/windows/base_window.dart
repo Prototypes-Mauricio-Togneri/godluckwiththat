@@ -25,38 +25,49 @@ class BaseWindow extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              height: 35,
-              color: Colors.green,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Label(
-                      text: title,
-                      size: 15,
-                    ),
-                  ),
-                  const Align(
-                    alignment: Alignment.centerRight,
-                    child: Material(
-                      color: Palette.transparent,
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.close,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                        onPressed: Navigation.pop,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            Header(title),
             child,
           ],
         ),
+      ),
+    );
+  }
+}
+
+class Header extends StatelessWidget {
+  final String title;
+
+  const Header(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 35,
+      color: Colors.green,
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Label(
+              text: title,
+              size: 15,
+            ),
+          ),
+          const Align(
+            alignment: Alignment.centerRight,
+            child: Material(
+              color: Palette.transparent,
+              child: IconButton(
+                icon: Icon(
+                  Icons.close,
+                  color: Colors.white,
+                  size: 20,
+                ),
+                onPressed: Navigation.pop,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

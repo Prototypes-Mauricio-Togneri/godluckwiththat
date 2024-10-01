@@ -39,6 +39,11 @@ class BottomMenu extends StatelessWidget {
             icon: Icons.shield,
             onPressed: state.onMenuMilitary,
           ),
+          const HBox(10),
+          BottomMenuButton(
+            icon: Icons.balance,
+            onPressed: state.onMenuMarket,
+          ),
         ],
       ),
     );
