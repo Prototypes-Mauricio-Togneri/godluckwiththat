@@ -13,6 +13,31 @@ class Palette {
   static Color backgroundTopBar = const Color(0xff25272c);
   static Color backgroundTopBarContainer = const Color(0xff393d45);
 
+  static Color backgroundTooltip = const Color(0xff3F5062);
+
+  static Color backgroundWindow = const Color(0xff3d3240);
+  // 332B21
+  // 5D523D
+  // 584D39
+  // 675B44
+  // 836641
+
+  // 313D45
+  // 49463E
+  // 5E5A4E
+
+  // 251D2C
+  // 3B2D47
+
+  // 543613
+  // D4B171
+  // 6F5941
+
+  // 584245
+  // 89756A
+  // B89263
+  // FEE8D0
+
   // TODO(momo): rename
   static const Color white = Colors.white;
   static const Color black = Colors.black;
