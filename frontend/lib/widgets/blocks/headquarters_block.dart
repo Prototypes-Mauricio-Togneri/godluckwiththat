@@ -4,6 +4,7 @@ import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/buttons/train_unit_button.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
+import 'package:godluckwiththat/widgets/images/image_block.dart';
 
 class HeadquartersBlock extends StatelessWidget {
   final Headquarters headquarters;
@@ -15,18 +16,14 @@ class HeadquartersBlock extends StatelessWidget {
     return Container(
       color: Palette.producerBlock,
       padding: const EdgeInsets.all(15),
-      child: Column(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          //Header(consumer),
-          //const VBox(10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              LeftSection(headquarters),
-              const Spacer(),
-              RightSection(headquarters),
-            ],
-          ),
+          LeftSection(headquarters),
+          const Spacer(),
+          MiddleSection(headquarters),
+          const Spacer(),
+          RightSection(headquarters),
         ],
       ),
     );
@@ -37,6 +34,20 @@ class LeftSection extends StatelessWidget {
   final Consumer consumer;
 
   const LeftSection(this.consumer);
+
+  @override
+  Widget build(BuildContext context) {
+    return ImageBlock(
+      path: consumer.buildingType.sprite,
+      size: 70,
+    );
+  }
+}
+
+class MiddleSection extends StatelessWidget {
+  final Consumer consumer;
+
+  const MiddleSection(this.consumer);
 
   @override
   Widget build(BuildContext context) {

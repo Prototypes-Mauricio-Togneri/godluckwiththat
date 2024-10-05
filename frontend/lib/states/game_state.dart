@@ -2,7 +2,9 @@ import 'package:godluckwiththat/game/base_game_state.dart';
 import 'package:godluckwiththat/windows/buildings_window.dart';
 
 class GameState extends BaseGameState {
-  GameState();
+  GameState() {
+    colony.setState(this);
+  }
 
   void onPause() {
     print('Pause');

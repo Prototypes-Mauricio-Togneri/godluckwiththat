@@ -40,34 +40,37 @@ class BuildingsWindow extends StatelessWidget {
         width: Constants.BUILDING_BLOCK_WIDTH,
         height: (Constants.BUILDING_BLOCK_HEIGHT * 6) + 40,
         color: Colors.red,
-        child: TabbedContainer(
-          tabs: const [
-            TabData(title: 'Misc', icon: Icons.business_outlined),
-            TabData(title: 'Resources', icon: Icons.home),
-          ],
-          children: [
-            BuildingsColumn(
-              state: state,
-              buildingTypes: const [
-                BuildingType.headquarters,
-                BuildingType.house,
-                BuildingType.academy,
-                BuildingType.storehouse,
-                BuildingType.market,
-              ],
-            ),
-            BuildingsColumn(
-              state: state,
-              buildingTypes: const [
-                BuildingType.farm,
-                BuildingType.woodcutter,
-                BuildingType.quarry,
-                BuildingType.copperMine,
-                BuildingType.ironMine,
-                BuildingType.goldMine,
-              ],
-            ),
-          ],
+        child: StateProvider<GameState>(
+          state: state,
+          builder: (context, state) => TabbedContainer(
+            tabs: const [
+              TabData(title: 'Misc', icon: Icons.business_outlined),
+              TabData(title: 'Resources', icon: Icons.home),
+            ],
+            children: [
+              BuildingsColumn(
+                state: state,
+                buildingTypes: const [
+                  BuildingType.headquarters,
+                  BuildingType.house,
+                  BuildingType.academy,
+                  BuildingType.storehouse,
+                  BuildingType.market,
+                ],
+              ),
+              BuildingsColumn(
+                state: state,
+                buildingTypes: const [
+                  BuildingType.farm,
+                  BuildingType.woodcutter,
+                  BuildingType.quarry,
+                  BuildingType.copperMine,
+                  BuildingType.ironMine,
+                  BuildingType.goldMine,
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -118,10 +121,10 @@ class BuildingBlock extends StatelessWidget {
   }
 
   Widget get _widget {
-    if (building is Producer) {
-      return ProducerBlock(building as Producer);
-    } else if (building is Headquarters) {
+    if (building is Headquarters) {
       return HeadquartersBlock(building as Headquarters);
+    } else if (building is Producer) {
+      return ProducerBlock(building as Producer);
     } else {
       return const Empty();
     }

@@ -10,11 +10,13 @@ import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
+import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/types/unit_type.dart';
 
 class Colony {
+  late final GameState state;
   final ResourceInventory resources;
   final UnitInventory units;
   final Map<BuildingType, Building> buildings;
@@ -33,6 +35,10 @@ class Colony {
     required this.territorySlotsUsed,
     required this.warehouseCapacity,
   });
+
+  void setState(GameState state) {
+    this.state = state;
+  }
 
   // ============================ TERRITORY ================================= \\
 
@@ -106,6 +112,7 @@ class Colony {
       );
       buildings[buildingType] = building;
       resources.removeItems(buildingType.cost(1));
+      state.notify();
     }
   }
 
