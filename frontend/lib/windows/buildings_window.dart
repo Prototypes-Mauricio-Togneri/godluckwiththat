@@ -37,7 +37,7 @@ class BuildingsWindow extends StatelessWidget {
     return BaseWindow(
       title: 'Buildings',
       child: Container(
-        width: 400,
+        width: Constants.BUILDING_BLOCK_WIDTH,
         height: (Constants.BUILDING_BLOCK_HEIGHT * 6) + 40,
         color: Colors.red,
         child: TabbedContainer(
@@ -111,7 +111,7 @@ class BuildingBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Palette.primary,
-      width: 400,
+      width: Constants.BUILDING_BLOCK_WIDTH,
       height: Constants.BUILDING_BLOCK_HEIGHT,
       child: _widget,
     );

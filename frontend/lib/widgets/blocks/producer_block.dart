@@ -28,11 +28,13 @@ class ProducerBlock extends StatelessWidget {
         ),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           LeftSection(producer),
+          const Spacer(),
           MiddleSection(producer),
+          const Spacer(),
           RightSection(producer),
         ],
       ),
@@ -58,34 +60,20 @@ class LeftSection extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Label(
-                  text: 'LEVEL',
-                  color: Palette.black,
-                  weight: FontWeight.bold,
-                ),
-                const HBox(5),
-                Container(
-                  width: 14,
-                  height: 14,
-                  decoration: const BoxDecoration(
-                    color: Palette.lightGrey,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Label(
-                      text: producer.level.toString(),
-                      color: Palette.white,
-                      align: TextAlign.center,
-                      size: 8,
-                    ),
-                  ),
-                ),
-              ],
+            Label(
+              text: producer.buildingType.name,
+              color: Palette.black,
+              weight: FontWeight.bold,
+              size: 14,
             ),
-            const VBox(5),
+            const VBox(10),
+            Label(
+              text: 'LEVEL ${producer.level}',
+              color: Palette.black,
+              weight: FontWeight.bold,
+              size: 14,
+            ),
+            const VBox(10),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -99,6 +87,7 @@ class LeftSection extends StatelessWidget {
                   color: (producer.production == 0)
                       ? Palette.error
                       : Palette.black,
+                  size: 14,
                 ),
               ],
             ),

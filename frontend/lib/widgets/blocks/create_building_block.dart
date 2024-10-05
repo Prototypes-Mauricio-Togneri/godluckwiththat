@@ -21,7 +21,7 @@ class CreateBuildingBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 400,
+      width: Constants.BUILDING_BLOCK_WIDTH,
       height: Constants.BUILDING_BLOCK_HEIGHT,
       color: Palette.producerBlock,
       padding: const EdgeInsets.all(10),
