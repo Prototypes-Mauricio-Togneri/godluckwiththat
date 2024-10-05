@@ -9,6 +9,7 @@ import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/blocks/create_building_block.dart';
 import 'package:godluckwiththat/widgets/blocks/producer_block.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
+import 'package:godluckwiththat/widgets/tabs/tabbed_container.dart';
 import 'package:godluckwiththat/windows/base_window.dart';
 
 class BuildingsWindow extends StatelessWidget {
@@ -34,11 +35,14 @@ class BuildingsWindow extends StatelessWidget {
     return BaseWindow(
       title: 'Buildings',
       child: Container(
+        width: 400,
+        height: 600,
         color: Colors.red,
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+        child: TabbedContainer(
+          tabs: const [
+            TabData(title: 'Misc', icon: Icons.business_outlined),
+            TabData(title: 'Resources', icon: Icons.home),
+          ],
           children: [
             BuildingsColumn(
               state: state,
