@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/misc/custom_tooltip.dart';
+import 'package:godluckwiththat/widgets/misc/hovered.dart';
 
 class BottomMenu extends StatelessWidget {
   final GameState state;
@@ -76,18 +77,20 @@ class BottomMenuButton extends StatelessWidget {
         color: Palette.backgroundTransparent1,
         child: InkWell(
           onTap: onPressed,
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Palette.grey,
-                width: 1,
+          child: Hovered(
+            builder: (context, hovered) => Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: hovered ? Palette.borderHover : Palette.borderLevel1,
+                  width: 1,
+                ),
               ),
-            ),
-            padding: const EdgeInsets.all(10),
-            child: Icon(
-              icon,
-              size: 30,
-              color: Palette.white,
+              padding: const EdgeInsets.all(10),
+              child: Icon(
+                icon,
+                size: 30,
+                color: hovered ? Palette.iconHover : Palette.iconLevel1,
+              ),
             ),
           ),
         ),

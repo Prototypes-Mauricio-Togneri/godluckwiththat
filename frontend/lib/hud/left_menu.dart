@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
+import 'package:godluckwiththat/widgets/misc/hovered.dart';
 
 class LeftMenu extends StatelessWidget {
   final GameState state;
@@ -130,7 +131,7 @@ class LeftMenuTitle extends StatelessWidget {
   }
 }
 
-class LeftMenuRow extends StatefulWidget {
+class LeftMenuRow extends StatelessWidget {
   final String text;
   final IconData icon;
   final VoidCallback onSelected;
@@ -144,46 +145,33 @@ class LeftMenuRow extends StatefulWidget {
   });
 
   @override
-  State<LeftMenuRow> createState() => _LeftMenuRowState();
-}
-
-class _LeftMenuRowState extends State<LeftMenuRow> {
-  bool show = false;
-
-  @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (event) => setState(() {
-        show = true;
-      }),
-      onExit: (event) => setState(() {
-        show = false;
-      }),
-      child: Material(
+    return Hovered(
+      builder: (context, hovered) => Material(
         color: Palette.backgroundTransparent2,
         child: InkWell(
           hoverColor: Palette.backgroundTransparent1.withAlpha(50),
-          onTap: widget.onSelected,
+          onTap: onSelected,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               const HBox(10),
               Icon(
-                widget.icon,
+                icon,
                 size: 12,
                 color: Palette.white,
               ),
               const HBox(10),
-              Expanded(child: Label(text: widget.text)),
+              Expanded(child: Label(text: text)),
               SizedBox(
                 width: 35,
                 height: 35,
-                child: show
+                child: hovered
                     ? Material(
                         color: Palette.transparent,
                         child: InkWell(
                           hoverColor: Palette.backgroundClose.withAlpha(150),
-                          onTap: widget.onClosed,
+                          onTap: onClosed,
                           child: const Padding(
                             padding: EdgeInsets.all(10),
                             child: Icon(
