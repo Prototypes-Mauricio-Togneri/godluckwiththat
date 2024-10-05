@@ -187,7 +187,7 @@ class BuildProducerButton extends StatelessWidget {
             ResourceIndicator(
               sprite: resource.key.sprite,
               value: Formatter.resource(resource.value),
-              textColor: colony.resourceInventory.hasItem(resource)
+              textColor: colony.resources.hasItem(resource)
                   ? Palette.black
                   : Palette.error,
               textSize: 14,

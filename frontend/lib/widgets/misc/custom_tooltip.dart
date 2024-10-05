@@ -61,7 +61,7 @@ class ComplexTooltip extends StatelessWidget {
     required Colony colony,
     required ResourceType resourceType,
   }) {
-    final num amount = colony.resourceInventory.get(resourceType);
+    final num amount = colony.resources.get(resourceType);
     final num capacity = colony.warehouseCapacity;
     final bool full = amount >= capacity;
     final String production = full
@@ -79,7 +79,7 @@ class ComplexTooltip extends StatelessWidget {
     required Colony colony,
     required ResourceType resourceType,
   }) {
-    final num amount = colony.resourceInventory.get(resourceType);
+    final num amount = colony.resources.get(resourceType);
     final num capacity = colony.warehouseCapacity;
     final String full = amount >= capacity ? ' (FULL)' : '';
 

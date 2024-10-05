@@ -28,7 +28,7 @@ abstract class Producer extends Building {
   double get production => productionRate * workers;
 
   bool get canProduce =>
-      colony.resourceInventory.get(resourceType) < colony.warehouseCapacity;
+      colony.resources.get(resourceType) < colony.warehouseCapacity;
 
   @override
   bool get isProducer => true;
@@ -39,7 +39,7 @@ abstract class Producer extends Building {
 
     if (canProduce) {
       final double produced = production * dt;
-      colony.resourceInventory.add(resourceType, produced);
+      colony.resources.add(resourceType, produced);
     }
   }
 

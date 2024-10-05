@@ -133,10 +133,8 @@ class ResourcesIndicator extends StatelessWidget {
         ResourceIndicator(
           size: 90,
           sprite: ResourceType.food.sprite,
-          value: state.colony.resourceInventory
-              .get(ResourceType.food)
-              .floor()
-              .toString(),
+          value:
+              state.colony.resources.get(ResourceType.food).floor().toString(),
           tooltip: ComplexTooltip.resourceConsumable(
             colony: state.colony,
             resourceType: ResourceType.food,
@@ -146,10 +144,8 @@ class ResourcesIndicator extends StatelessWidget {
         ResourceIndicator(
           size: 90,
           sprite: ResourceType.wood.sprite,
-          value: state.colony.resourceInventory
-              .get(ResourceType.wood)
-              .floor()
-              .toString(),
+          value:
+              state.colony.resources.get(ResourceType.wood).floor().toString(),
           tooltip: ComplexTooltip.resourceConsumable(
             colony: state.colony,
             resourceType: ResourceType.wood,
@@ -159,10 +155,8 @@ class ResourcesIndicator extends StatelessWidget {
         ResourceIndicator(
           size: 90,
           sprite: ResourceType.stone.sprite,
-          value: state.colony.resourceInventory
-              .get(ResourceType.stone)
-              .floor()
-              .toString(),
+          value:
+              state.colony.resources.get(ResourceType.stone).floor().toString(),
           tooltip: ComplexTooltip.resourceNonConsumable(
             colony: state.colony,
             resourceType: ResourceType.stone,
@@ -172,7 +166,7 @@ class ResourcesIndicator extends StatelessWidget {
         ResourceIndicator(
           size: 90,
           sprite: ResourceType.copper.sprite,
-          value: state.colony.resourceInventory
+          value: state.colony.resources
               .get(ResourceType.copper)
               .floor()
               .toString(),
@@ -185,10 +179,8 @@ class ResourcesIndicator extends StatelessWidget {
         ResourceIndicator(
           size: 90,
           sprite: ResourceType.iron.sprite,
-          value: state.colony.resourceInventory
-              .get(ResourceType.iron)
-              .floor()
-              .toString(),
+          value:
+              state.colony.resources.get(ResourceType.iron).floor().toString(),
           tooltip: ComplexTooltip.resourceNonConsumable(
             colony: state.colony,
             resourceType: ResourceType.iron,
@@ -198,10 +190,8 @@ class ResourcesIndicator extends StatelessWidget {
         ResourceIndicator(
           size: 90,
           sprite: ResourceType.gold.sprite,
-          value: state.colony.resourceInventory
-              .get(ResourceType.gold)
-              .floor()
-              .toString(),
+          value:
+              state.colony.resources.get(ResourceType.gold).floor().toString(),
           tooltip: ComplexTooltip.resourceNonConsumable(
             colony: state.colony,
             resourceType: ResourceType.gold,
@@ -211,17 +201,15 @@ class ResourcesIndicator extends StatelessWidget {
         ResourceIndicator(
           size: 90,
           sprite: ResourceType.faith.sprite,
-          value: state.colony.resourceInventory
-              .get(ResourceType.faith)
-              .floor()
-              .toString(),
+          value:
+              state.colony.resources.get(ResourceType.faith).floor().toString(),
           tooltip: SimpleTooltip.resource(ResourceType.faith),
         ),
         const HBox(10),
         ResourceIndicator(
           size: 90,
           sprite: ResourceType.knowledge.sprite,
-          value: state.colony.resourceInventory
+          value: state.colony.resources
               .get(ResourceType.knowledge)
               .floor()
               .toString(),

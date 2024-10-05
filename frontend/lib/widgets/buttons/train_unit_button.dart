@@ -26,7 +26,7 @@ class TrainUnitButton extends StatelessWidget {
           ResourceIndicator(
             sprite: resource.key.sprite,
             value: Formatter.resource(resource.value),
-            textColor: consumer.colony.resourceInventory.hasItem(resource)
+            textColor: consumer.colony.resources.hasItem(resource)
                 ? Palette.black
                 : Palette.error,
             textSize: 14,

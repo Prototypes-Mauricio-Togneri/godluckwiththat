@@ -13,7 +13,7 @@ class BaseGameState extends BaseState {
 
   BaseGameState() {
     colony = Colony(
-      resourceInventory: ResourceInventory.create({
+      resources: ResourceInventory({
         ResourceType.food: 80,
         ResourceType.wood: 90,
         ResourceType.stone: 30,
@@ -23,7 +23,7 @@ class BaseGameState extends BaseState {
         ResourceType.faith: 130,
         ResourceType.knowledge: 150,
       }),
-      unitInventory: UnitInventory.create({
+      units: UnitInventory({
         UnitType.worker: 5,
       }),
       buildings: [],

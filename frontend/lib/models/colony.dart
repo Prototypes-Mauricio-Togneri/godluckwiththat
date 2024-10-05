@@ -11,15 +11,15 @@ import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/types/unit_type.dart';
 
 class Colony {
-  final ResourceInventory resourceInventory;
-  final UnitInventory unitInventory;
+  final ResourceInventory resources;
+  final UnitInventory units;
   final List<Building> buildings;
   num timeElapsed;
   int freeWorkers;
 
   Colony({
-    required this.resourceInventory,
-    required this.unitInventory,
+    required this.resources,
+    required this.units,
     required this.buildings,
     required this.timeElapsed,
     required this.freeWorkers,
@@ -68,7 +68,7 @@ class Colony {
   bool get hasSlotsToBuild => territorySlotsUsed < territorySlotsTotal;
 
   bool canBuild(BuildingType buildingType) =>
-      resourceInventory.hasItems(buildingType.cost(1)) && hasSlotsToBuild;
+      resources.hasItems(buildingType.cost(1)) && hasSlotsToBuild;
 
   void build(BuildingType buildingType) {
     if (canBuild(buildingType)) {
@@ -79,7 +79,7 @@ class Colony {
         workers: 0,
       );
       buildings.add(building);
-      resourceInventory.removeItems(buildingType.cost(1));
+      resources.removeItems(buildingType.cost(1));
     }
   }
 
@@ -95,7 +95,7 @@ class Colony {
 
   bool get hasFreeWorkers => freeWorkers > 0;
 
-  int get currentPopulation => unitInventory.get(UnitType.worker).toInt();
+  int get currentPopulation => units.get(UnitType.worker).toInt();
 
   int get populationLimit {
     int total = 0;
@@ -122,8 +122,8 @@ class Colony {
   }
 
   void createWorkers() {
-    resourceInventory.removeItems(UnitType.worker.cost);
-    unitInventory.add(UnitType.worker, 1);
+    resources.removeItems(UnitType.worker.cost);
+    units.add(UnitType.worker, 1);
     addFreeWorkers(1);
   }
 

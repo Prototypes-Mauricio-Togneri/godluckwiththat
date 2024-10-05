@@ -16,7 +16,7 @@ abstract class Consumer extends Building {
 
   bool get canTrain =>
       (colony.currentPopulation < colony.populationLimit) &&
-      colony.resourceInventory.hasItems(trainingCost);
+      colony.resources.hasItems(trainingCost);
 
   @override
   bool get isConsumer => true;
