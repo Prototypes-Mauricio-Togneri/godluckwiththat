@@ -25,8 +25,9 @@ class CreateBuildingBlock extends StatelessWidget {
       color: Palette.producerBlock,
       padding: const EdgeInsets.all(10),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           PrimaryButton(
             text: 'BUILD ${buildingType.name}',
