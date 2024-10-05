@@ -11,6 +11,7 @@ import 'package:godluckwiththat/utils/navigation.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/blocks/producer_block.dart';
 import 'package:godluckwiththat/widgets/buttons/primary_button.dart';
+import 'package:godluckwiththat/widgets/labels/label.dart';
 import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
 import 'package:godluckwiththat/windows/base_window.dart';
 
@@ -38,24 +39,29 @@ class BuildingsWindow extends StatelessWidget {
       title: 'Buildings',
       child: Container(
         color: Colors.red,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BuildingsColumn([
-              if (state.colony.hasBuilding(BuildingType.farm))
-                state.colony.farm,
-              if (state.colony.hasBuilding(BuildingType.loggingCamp))
-                state.colony.loggingCamp,
-              if (state.colony.hasBuilding(BuildingType.quarry))
-                state.colony.quarry,
-              if (state.colony.hasBuilding(BuildingType.copperMine))
-                state.colony.copperMine,
-              if (state.colony.hasBuilding(BuildingType.ironMine))
-                state.colony.ironMine,
-              if (state.colony.hasBuilding(BuildingType.goldMine))
-                state.colony.goldMine,
-            ]),
+            BuildingsColumn(
+              state: state,
+              buildingTypes: const [
+                BuildingType.townCenter,
+                BuildingType.house,
+              ],
+            ),
+            BuildingsColumn(
+              state: state,
+              buildingTypes: const [
+                BuildingType.farm,
+                BuildingType.loggingCamp,
+                BuildingType.quarry,
+                BuildingType.copperMine,
+                BuildingType.ironMine,
+                BuildingType.goldMine,
+              ],
+            ),
           ],
         ),
       ),
@@ -64,19 +70,45 @@ class BuildingsWindow extends StatelessWidget {
 }
 
 class BuildingsColumn extends StatelessWidget {
-  final List<Building> buildings;
+  final GameState state;
+  final List<BuildingType> buildingTypes;
 
-  const BuildingsColumn(this.buildings);
+  const BuildingsColumn({
+    required this.state,
+    required this.buildingTypes,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        for (final Building building in buildings)
-          ProducerBlock(building as Producer),
+        for (final BuildingType buildingType in buildingTypes)
+          if (state.colony.hasBuilding(buildingType))
+            BuildingBlock(state.colony.buildings[buildingType]!)
+          else
+            BuildProducerButton(
+              colony: state.colony,
+              buildingType: buildingType,
+            ),
       ],
     );
+  }
+}
+
+class BuildingBlock extends StatelessWidget {
+  final Building building;
+
+  const BuildingBlock(this.building);
+
+  @override
+  Widget build(BuildContext context) {
+    if (building is Producer) {
+      return ProducerBlock(building as Producer);
+    } else {
+      return Label(text: building.buildingType.name);
+    }
   }
 }
 
@@ -92,13 +124,12 @@ class BuildProducerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
       color: Palette.producerBlock,
       padding: const EdgeInsets.all(10),
       child: Column(
         children: [
           PrimaryButton(
-            text: 'BUILD',
+            text: 'BUILD ${buildingType.name}',
             color: Palette.success,
             onPressed: colony.canBuild(buildingType)
                 ? () => colony.build(buildingType)

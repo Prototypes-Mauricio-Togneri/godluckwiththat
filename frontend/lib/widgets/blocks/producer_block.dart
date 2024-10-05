@@ -29,11 +29,10 @@ class ProducerBlock extends StatelessWidget {
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           LeftSection(producer),
-          Expanded(
-            child: MiddleSection(producer),
-          ),
+          MiddleSection(producer),
           RightSection(producer),
         ],
       ),
