@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
@@ -5,6 +6,7 @@ import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/buttons/train_unit_button.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
 import 'package:godluckwiththat/widgets/images/image_block.dart';
+import 'package:godluckwiththat/widgets/labels/label.dart';
 
 class HeadquartersBlock extends StatelessWidget {
   final Headquarters headquarters;
@@ -37,9 +39,33 @@ class LeftSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ImageBlock(
-      path: consumer.buildingType.sprite,
-      size: 70,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ImageBlock(
+          path: consumer.buildingType.sprite,
+          size: 70,
+        ),
+        const HBox(15),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Label(
+              text: consumer.buildingType.name,
+              color: Palette.black,
+              weight: FontWeight.bold,
+              size: 14,
+            ),
+            const VBox(10),
+            Label(
+              text: 'LEVEL ${consumer.level}',
+              color: Palette.black,
+              weight: FontWeight.bold,
+              size: 14,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

@@ -145,6 +145,7 @@ class Colony {
     resources.removeItems(UnitType.worker.cost);
     units.add(UnitType.worker, 1);
     addFreeWorkers(1);
+    state.notify();
   }
 
   // ============================= UPDATE =================================== \\
