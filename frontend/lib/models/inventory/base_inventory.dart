@@ -1,11 +1,9 @@
-import 'dart:math';
 import 'package:godluckwiththat/extensions/item_map_extension.dart';
 
 class BaseInventory<K> {
   final ItemMap<K> _items;
-  final ItemMap<K> _capacities;
 
-  BaseInventory(this._items, this._capacities);
+  BaseInventory(this._items);
 
   bool get isEmpty {
     for (final ItemMapEntry<K> item in _items.entries) {
@@ -17,16 +15,10 @@ class BaseInventory<K> {
     return true;
   }
 
-  num capacityOf(K type) => _capacities.get(type);
-
   num get(K type) => _items.get(type);
 
-  bool canProduce(K type) => get(type) < capacityOf(type);
-
   void add(K type, num amount) {
-    final num current = get(type);
-    final num capacity = capacityOf(type);
-    _items[type] = min(current + amount, capacity);
+    _items[type] = get(type) + amount;
   }
 
   void remove(K type, num amount) {

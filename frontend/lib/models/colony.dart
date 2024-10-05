@@ -42,6 +42,8 @@ class Colony {
 
   // ============================ BUILDINGS ================================= \\
 
+  int get warehouseCapacity => 100;
+
   List<Producer> get producers =>
       buildings.where((b) => b.isProducer).map((b) => b as Producer).toList();
 
