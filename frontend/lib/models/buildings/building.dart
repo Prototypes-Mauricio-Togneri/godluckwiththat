@@ -46,7 +46,7 @@ class Building {
     required Colony colony,
     required BuildingType buildingType,
     required int level,
-    required int villagers,
+    required int workers,
   }) {
     switch (buildingType) {
       case BuildingType.townCenter:
@@ -63,37 +63,37 @@ class Building {
         return Farm(
           colony: colony,
           level: level,
-          villagers: villagers,
+          workers: workers,
         );
       case BuildingType.loggingCamp:
         return LoggingCamp(
           colony: colony,
           level: level,
-          villagers: villagers,
+          workers: workers,
         );
       case BuildingType.quarry:
         return Quarry(
           colony: colony,
           level: level,
-          villagers: villagers,
+          workers: workers,
         );
       case BuildingType.copperMine:
         return CopperMine(
           colony: colony,
           level: level,
-          villagers: villagers,
+          workers: workers,
         );
       case BuildingType.ironMine:
         return IronMine(
           colony: colony,
           level: level,
-          villagers: villagers,
+          workers: workers,
         );
       case BuildingType.goldMine:
         return GoldMine(
           colony: colony,
           level: level,
-          villagers: villagers,
+          workers: workers,
         );
     }
   }

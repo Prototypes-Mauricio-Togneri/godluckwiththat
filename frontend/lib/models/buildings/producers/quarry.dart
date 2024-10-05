@@ -7,7 +7,7 @@ class Quarry extends Producer {
   Quarry({
     required super.colony,
     required super.level,
-    required super.villagers,
+    required super.workers,
   }) : super(
           buildingType: BuildingType.quarry,
           resourceType: ResourceType.stone,

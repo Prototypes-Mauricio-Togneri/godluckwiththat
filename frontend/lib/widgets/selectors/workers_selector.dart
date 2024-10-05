@@ -18,12 +18,12 @@ class WorkersSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return AmountSelector(
       text:
-          '${Formatter.resource(building.villagers)}/${Formatter.resource(building.maxWorkersCapacity)}',
-      color: (building.villagers == 0) ? Palette.error : Palette.black,
+          '${Formatter.resource(building.workers)}/${Formatter.resource(building.maxWorkersCapacity)}',
+      color: (building.workers == 0) ? Palette.error : Palette.black,
       size: size,
-      image: Assets.IMAGES_UNITS_VILLAGER,
-      onRemove: building.canRemoveVillagers ? building.removeVillagers : null,
-      onAdd: building.canAddVillagers ? building.addVillager : null,
+      image: Assets.IMAGES_UNITS_WORKER,
+      onRemove: building.canRemoveWorkers ? building.removeWorkers : null,
+      onAdd: building.canAddWorkers ? building.addWorkers : null,
     );
   }
 }

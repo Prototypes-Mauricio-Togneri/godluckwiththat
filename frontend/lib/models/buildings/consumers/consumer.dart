@@ -28,8 +28,8 @@ abstract class Consumer extends Building {
       colony.inventory.addResource(Resource.one(resourceType));
       colony.inventory.removeResources(trainingCost.resources());
 
-      if (resourceType == ResourceType.villager) {
-        colony.addFreeVillagers(1);
+      if (resourceType == ResourceType.workers) {
+        colony.addFreeWorkers(1);
       }
     }
   }*/

@@ -32,6 +32,5 @@ class Assets {
       'assets/images/resources/stone.png';
   static const String IMAGES_RESOURCES_WOOD =
       'assets/images/resources/wood.png';
-  static const String IMAGES_UNITS_VILLAGER =
-      'assets/images/units/villager.png';
+  static const String IMAGES_UNITS_WORKER = 'assets/images/units/worker.png';
 }

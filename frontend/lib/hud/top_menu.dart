@@ -294,7 +294,7 @@ class LimitsIndicator extends StatelessWidget {
           children: [
             ResourceIndicator(
               size: 100,
-              sprite: Assets.IMAGES_UNITS_VILLAGER,
+              sprite: Assets.IMAGES_UNITS_WORKER,
               value:
                   '${Formatter.resource(state.colony.currentPopulation)}/${Formatter.resource(state.colony.populationLimit)}',
               tooltip: const SimpleTooltip('Population'),
@@ -303,8 +303,8 @@ class LimitsIndicator extends StatelessWidget {
             ResourceIndicator(
               size: 70,
               sprite: Assets.IMAGES_OTHER_IDLE,
-              value: '${state.colony.freeVillagers}',
-              color: (state.colony.freeVillagers > 0)
+              value: '${state.colony.freeWorkers}',
+              color: (state.colony.freeWorkers > 0)
                   ? Palette.error
                   : Palette.black,
               tooltip: const SimpleTooltip('Idle workers'),

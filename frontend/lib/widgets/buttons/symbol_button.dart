@@ -30,12 +30,12 @@ class SymbolButton extends StatelessWidget {
         onTap: onTap,
       );
 
-  factory SymbolButton.villager({
+  factory SymbolButton.worker({
     required double size,
     required VoidCallback? onTap,
   }) =>
       SymbolButton(
-        sprite: Assets.IMAGES_UNITS_VILLAGER,
+        sprite: Assets.IMAGES_UNITS_WORKER,
         color: Palette.success,
         size: size,
         onTap: onTap,

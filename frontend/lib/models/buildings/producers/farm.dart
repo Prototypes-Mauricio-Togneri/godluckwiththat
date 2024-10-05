@@ -7,7 +7,7 @@ class Farm extends Producer {
   Farm({
     required super.colony,
     required super.level,
-    required super.villagers,
+    required super.workers,
   }) : super(
           buildingType: BuildingType.farm,
           resourceType: ResourceType.food,

@@ -17,7 +17,7 @@ class TrainUnitButton extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SymbolButton.villager(
+        SymbolButton.worker(
           size: 40,
           onTap: consumer.canTrain ? consumer.train : null,
         ),

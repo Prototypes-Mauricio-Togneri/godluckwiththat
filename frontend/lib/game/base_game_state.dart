@@ -32,15 +32,15 @@ class BaseGameState extends BaseState {
       ),
       unitInventory: UnitInventory.create(
         units: {
-          UnitType.villager: 5,
+          UnitType.worker: 5,
         },
         capacities: {
-          UnitType.villager: 10,
+          UnitType.worker: 10,
         },
       ),
       buildings: [],
       timeElapsed: 0,
-      freeVillagers: 5,
+      freeWorkers: 5,
     );
 
     colony.addBuildings([
@@ -51,12 +51,12 @@ class BaseGameState extends BaseState {
       Farm(
         colony: colony,
         level: 1,
-        villagers: 2,
+        workers: 2,
       ),
       LoggingCamp(
         colony: colony,
         level: 1,
-        villagers: 1,
+        workers: 1,
       ),
     ]);
   }

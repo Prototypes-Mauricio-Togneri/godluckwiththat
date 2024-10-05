@@ -9,16 +9,16 @@ class TownCenter extends Consumer {
     required super.level,
   }) : super(
           buildingType: BuildingType.townCenter,
-          unitType: UnitType.villager,
+          unitType: UnitType.worker,
         );
 
   @override
-  ResourceMap get trainingCost => UnitType.villager.cost;
+  ResourceMap get trainingCost => UnitType.worker.cost;
 
   @override
   void train() {
     if (canTrain) {
-      colony.createVillager();
+      colony.createWorkers();
     }
   }
 }

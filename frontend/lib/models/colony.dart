@@ -15,14 +15,14 @@ class Colony {
   final UnitInventory unitInventory;
   final List<Building> buildings;
   num timeElapsed;
-  int freeVillagers;
+  int freeWorkers;
 
   Colony({
     required this.resourceInventory,
     required this.unitInventory,
     required this.buildings,
     required this.timeElapsed,
-    required this.freeVillagers,
+    required this.freeWorkers,
   });
 
   // ============================ TERRITORY ================================= \\
@@ -74,7 +74,7 @@ class Colony {
         colony: this,
         buildingType: buildingType,
         level: 1,
-        villagers: 0,
+        workers: 0,
       );
       buildings.add(building);
       resourceInventory.removeItems(buildingType.cost(1));
@@ -91,9 +91,9 @@ class Colony {
 
   // =========================== POPULATION ================================= \\
 
-  bool get hasFreeVillagers => freeVillagers > 0;
+  bool get hasFreeWorkers => freeWorkers > 0;
 
-  int get currentPopulation => unitInventory.get(UnitType.villager).toInt();
+  int get currentPopulation => unitInventory.get(UnitType.worker).toInt();
 
   int get populationLimit {
     int total = 0;
@@ -107,22 +107,22 @@ class Colony {
     return total + Constants.BASE_POPULATION_LIMIT;
   }
 
-  int addFreeVillagers(int amount) {
-    freeVillagers += amount;
+  int addFreeWorkers(int amount) {
+    freeWorkers += amount;
 
     return amount;
   }
 
-  int removeFreeVillagers(int amount) {
-    freeVillagers -= amount;
+  int removeFreeWorkers(int amount) {
+    freeWorkers -= amount;
 
     return amount;
   }
 
-  void createVillager() {
-    resourceInventory.removeItems(UnitType.villager.cost);
-    unitInventory.add(UnitType.villager, 1);
-    addFreeVillagers(1);
+  void createWorkers() {
+    resourceInventory.removeItems(UnitType.worker.cost);
+    unitInventory.add(UnitType.worker, 1);
+    addFreeWorkers(1);
   }
 
   // ============================= UPDATE =================================== \\

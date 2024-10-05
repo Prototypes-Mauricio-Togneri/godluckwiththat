@@ -5,27 +5,27 @@ import 'package:godluckwiththat/types/resource_type.dart';
 abstract class Producer extends Building {
   final ResourceType resourceType;
   final double productionRate;
-  int villagers;
+  int workers;
 
   Producer({
     required this.resourceType,
     required this.productionRate,
-    required this.villagers,
+    required this.workers,
     required super.buildingType,
     required super.colony,
     required super.level,
   });
 
-  bool get hasVillagers => villagers > 0;
+  bool get hasWorkers => workers > 0;
 
   int get maxWorkersCapacity => level * Constants.BUILDING_CAPACITY_PER_LEVEL;
 
-  bool get canAddVillagers =>
-      colony.hasFreeVillagers && (maxWorkersCapacity > villagers);
+  bool get canAddWorkers =>
+      colony.hasFreeWorkers && (maxWorkersCapacity > workers);
 
-  bool get canRemoveVillagers => hasVillagers;
+  bool get canRemoveWorkers => hasWorkers;
 
-  double get production => productionRate * villagers;
+  double get production => productionRate * workers;
 
   bool get canProduce => colony.resourceInventory.canProduce(resourceType);
 
@@ -42,20 +42,20 @@ abstract class Producer extends Building {
     }
   }
 
-  void addVillager() {
-    if (canAddVillagers) {
-      villagers += colony.removeFreeVillagers(1);
+  void addWorkers() {
+    if (canAddWorkers) {
+      workers += colony.removeFreeWorkers(1);
     }
   }
 
-  void removeVillagers() {
-    if (hasVillagers) {
-      villagers -= colony.addFreeVillagers(1);
+  void removeWorkers() {
+    if (hasWorkers) {
+      workers -= colony.addFreeWorkers(1);
     }
   }
 
   @override
   void destroy() {
-    colony.addFreeVillagers(villagers);
+    colony.addFreeWorkers(workers);
   }
 }

@@ -10,7 +10,7 @@ class House extends Consumer {
     required super.level,
   }) : super(
           buildingType: BuildingType.house,
-          unitType: UnitType.villager,
+          unitType: UnitType.worker,
         );
 
   @override

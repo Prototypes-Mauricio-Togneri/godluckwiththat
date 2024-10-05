@@ -3,8 +3,8 @@ import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/assets.dart';
 
 enum UnitType {
-  villager(
-    sprite: Assets.IMAGES_UNITS_VILLAGER,
+  worker(
+    sprite: Assets.IMAGES_UNITS_WORKER,
     cost: {
       ResourceType.food: 50,
     },

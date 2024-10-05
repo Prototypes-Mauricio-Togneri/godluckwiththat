@@ -7,7 +7,7 @@ class LoggingCamp extends Producer {
   LoggingCamp({
     required super.colony,
     required super.level,
-    required super.villagers,
+    required super.workers,
   }) : super(
           buildingType: BuildingType.loggingCamp,
           resourceType: ResourceType.wood,
