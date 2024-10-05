@@ -17,7 +17,7 @@ class HeadquartersBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Palette.producerBlock,
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -41,29 +41,18 @@ class LeftSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ImageBlock(
           path: consumer.buildingType.sprite,
-          size: 70,
+          size: 80,
         ),
         const HBox(15),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Label(
-              text: consumer.buildingType.name,
-              color: Palette.black,
-              weight: FontWeight.bold,
-              size: 14,
-            ),
-            const VBox(10),
-            Label(
-              text: 'LEVEL ${consumer.level}',
-              color: Palette.black,
-              weight: FontWeight.bold,
-              size: 14,
-            ),
-          ],
+        Label(
+          text: consumer.buildingType.name,
+          color: Palette.black,
+          weight: FontWeight.bold,
+          size: 14,
         ),
       ],
     );

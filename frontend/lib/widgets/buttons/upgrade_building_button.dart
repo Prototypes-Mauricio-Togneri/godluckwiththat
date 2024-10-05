@@ -5,6 +5,7 @@ import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/buttons/symbol_button.dart';
+import 'package:godluckwiththat/widgets/labels/label.dart';
 import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
 
 class UpgradeBuildingButton extends StatelessWidget {
@@ -17,6 +18,12 @@ class UpgradeBuildingButton extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        Label(
+          text: 'LEVEL ${building.level}',
+          color: Palette.black,
+          weight: FontWeight.bold,
+        ),
+        const VBox(5),
         SymbolButton.upgrade(
           size: 40,
           onTap: building.canUpgrade ? building.upgrade : null,

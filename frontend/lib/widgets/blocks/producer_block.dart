@@ -17,7 +17,7 @@ class ProducerBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(10),
       decoration: const BoxDecoration(
         color: Palette.producerBlock,
         border: Border(
@@ -54,7 +54,7 @@ class LeftSection extends StatelessWidget {
       children: [
         ImageBlock(
           path: producer.buildingType.sprite,
-          size: 70,
+          size: 80,
         ),
         const HBox(15),
         Column(
@@ -62,13 +62,6 @@ class LeftSection extends StatelessWidget {
           children: [
             Label(
               text: producer.buildingType.name,
-              color: Palette.black,
-              weight: FontWeight.bold,
-              size: 14,
-            ),
-            const VBox(10),
-            Label(
-              text: 'LEVEL ${producer.level}',
               color: Palette.black,
               weight: FontWeight.bold,
               size: 14,

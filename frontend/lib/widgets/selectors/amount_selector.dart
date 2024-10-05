@@ -38,6 +38,7 @@ class AmountSelector extends StatelessWidget {
               path: image,
               size: size,
             ),
+            const VBox(5),
             Label(
               text: text,
               color: color,
