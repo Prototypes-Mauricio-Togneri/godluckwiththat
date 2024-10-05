@@ -54,7 +54,7 @@ class Colony {
   Farm get farm => buildings[BuildingType.farm] as Farm;
 
   LoggingCamp get loggingCamp =>
-      buildings[BuildingType.loggingCamp] as LoggingCamp;
+      buildings[BuildingType.woodcutter] as LoggingCamp;
 
   Quarry get quarry => buildings[BuildingType.quarry] as Quarry;
 

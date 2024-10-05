@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
@@ -37,7 +38,7 @@ class BuildingsWindow extends StatelessWidget {
       title: 'Buildings',
       child: Container(
         width: 400,
-        height: 640,
+        height: (Constants.BUILDING_BLOCK_HEIGHT * 6) + 40,
         color: Colors.red,
         child: TabbedContainer(
           tabs: const [
@@ -59,7 +60,7 @@ class BuildingsWindow extends StatelessWidget {
               state: state,
               buildingTypes: const [
                 BuildingType.farm,
-                BuildingType.loggingCamp,
+                BuildingType.woodcutter,
                 BuildingType.quarry,
                 BuildingType.copperMine,
                 BuildingType.ironMine,
@@ -111,7 +112,7 @@ class BuildingBlock extends StatelessWidget {
     return Container(
       color: Palette.primary,
       width: 400,
-      height: 100,
+      height: Constants.BUILDING_BLOCK_HEIGHT,
       child: _widget,
     );
   }

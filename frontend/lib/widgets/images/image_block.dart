@@ -20,7 +20,7 @@ class ImageBlock extends StatelessWidget {
       child: Center(
         child: ImageAsset(
           path: path,
-          size: size * 0.7,
+          size: size,
         ),
       ),
     );

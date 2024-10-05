@@ -52,7 +52,7 @@ class LeftSection extends StatelessWidget {
       children: [
         ImageBlock(
           path: producer.buildingType.sprite,
-          size: 40,
+          size: 70,
         ),
         const HBox(15),
         Column(

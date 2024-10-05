@@ -72,8 +72,9 @@ flutter:
     - assets/audio/sfx/
     - assets/images/
     - assets/images/backgrounds/
-    - assets/images/buildings/producers/
-    - assets/images/buildings/consumers/
+    - assets/images/buildings/misc/
+    - assets/images/buildings/religious/
+    - assets/images/buildings/resources/
     - assets/images/other/
     - assets/images/resources/
     - assets/images/units/

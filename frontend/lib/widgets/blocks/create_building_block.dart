@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -21,7 +22,7 @@ class CreateBuildingBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 400,
-      height: 100,
+      height: Constants.BUILDING_BLOCK_HEIGHT,
       color: Palette.producerBlock,
       padding: const EdgeInsets.all(10),
       child: Column(

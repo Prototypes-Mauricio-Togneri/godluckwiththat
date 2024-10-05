@@ -4,68 +4,68 @@ import 'package:godluckwiththat/utils/assets.dart';
 
 enum BuildingType {
   headquarters(
-    sprite: Assets.IMAGES_BUILDINGS_CONSUMERS_HOUSE,
+    sprite: Assets.IMAGES_BUILDINGS_MISC_HEADQUARTERS,
     initialCost: {
       ResourceType.wood: 100,
     },
   ),
   house(
-    sprite: Assets.IMAGES_BUILDINGS_CONSUMERS_HOUSE,
+    sprite: Assets.IMAGES_BUILDINGS_MISC_HOUSE,
     initialCost: {
       ResourceType.wood: 50,
     },
   ),
   academy(
-    sprite: Assets.IMAGES_BUILDINGS_CONSUMERS_HOUSE,
+    sprite: Assets.IMAGES_BUILDINGS_MISC_ACADEMY,
     initialCost: {
       ResourceType.wood: 50,
     },
   ),
   storehouse(
-    sprite: Assets.IMAGES_BUILDINGS_CONSUMERS_HOUSE,
+    sprite: Assets.IMAGES_BUILDINGS_MISC_STOREHOUSE,
     initialCost: {
       ResourceType.wood: 50,
     },
   ),
   market(
-    sprite: Assets.IMAGES_BUILDINGS_CONSUMERS_HOUSE,
+    sprite: Assets.IMAGES_BUILDINGS_MISC_MARKET,
     initialCost: {
       ResourceType.wood: 50,
     },
   ),
 
   farm(
-    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_FARM,
+    sprite: Assets.IMAGES_BUILDINGS_RESOURCES_FARM,
     initialCost: {
       ResourceType.wood: 50,
     },
   ),
-  loggingCamp(
-    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_LOGGING_CAMP,
+  woodcutter(
+    sprite: Assets.IMAGES_BUILDINGS_RESOURCES_WOODCUTTER,
     initialCost: {
       ResourceType.wood: 50,
     },
   ),
   quarry(
-    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_QUARRY,
+    sprite: Assets.IMAGES_BUILDINGS_RESOURCES_QUARRY,
     initialCost: {
       ResourceType.wood: 100,
     },
   ),
   copperMine(
-    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_QUARRY,
+    sprite: Assets.IMAGES_BUILDINGS_RESOURCES_COPPER_MINE,
     initialCost: {
       ResourceType.wood: 100,
     },
   ),
   ironMine(
-    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_QUARRY,
+    sprite: Assets.IMAGES_BUILDINGS_RESOURCES_IRON_MINE,
     initialCost: {
       ResourceType.wood: 100,
     },
   ),
   goldMine(
-    sprite: Assets.IMAGES_BUILDINGS_PRODUCERS_QUARRY,
+    sprite: Assets.IMAGES_BUILDINGS_RESOURCES_GOLD_MINE,
     initialCost: {
       ResourceType.wood: 100,
     },

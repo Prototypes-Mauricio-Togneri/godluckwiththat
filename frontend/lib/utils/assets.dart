@@ -3,16 +3,36 @@ class Assets {
   static const String AUDIO_SFX_AMMO2 = 'assets/audio/sfx/ammo2.mp3';
   static const String IMAGES_BACKGROUNDS_BACKGROUND =
       'assets/images/backgrounds/background.jpg';
-  static const String IMAGES_BUILDINGS_CONSUMERS_HOUSE =
-      'assets/images/buildings/consumers/house.png';
-  static const String IMAGES_BUILDINGS_PRODUCERS_FARM =
-      'assets/images/buildings/producers/farm.png';
-  static const String IMAGES_BUILDINGS_PRODUCERS_LOGGING_CAMP =
-      'assets/images/buildings/producers/logging_camp.png';
-  static const String IMAGES_BUILDINGS_PRODUCERS_QUARRY =
-      'assets/images/buildings/producers/quarry.png';
-  static const String IMAGES_BUILDINGS_PRODUCERS_WELL =
-      'assets/images/buildings/producers/well.png';
+  static const String IMAGES_BUILDINGS_MISC_ACADEMY =
+      'assets/images/buildings/misc/academy.png';
+  static const String IMAGES_BUILDINGS_MISC_HEADQUARTERS =
+      'assets/images/buildings/misc/headquarters.png';
+  static const String IMAGES_BUILDINGS_MISC_HOUSE =
+      'assets/images/buildings/misc/house.png';
+  static const String IMAGES_BUILDINGS_MISC_MARKET =
+      'assets/images/buildings/misc/market.png';
+  static const String IMAGES_BUILDINGS_MISC_STOREHOUSE =
+      'assets/images/buildings/misc/storehouse.png';
+  static const String IMAGES_BUILDINGS_RELIGIOUS_ALTAR =
+      'assets/images/buildings/religious/altar.png';
+  static const String IMAGES_BUILDINGS_RELIGIOUS_MONUMENT =
+      'assets/images/buildings/religious/monument.png';
+  static const String IMAGES_BUILDINGS_RELIGIOUS_SHRINE =
+      'assets/images/buildings/religious/shrine.png';
+  static const String IMAGES_BUILDINGS_RELIGIOUS_TEMPLE =
+      'assets/images/buildings/religious/temple.png';
+  static const String IMAGES_BUILDINGS_RESOURCES_COPPER_MINE =
+      'assets/images/buildings/resources/copper_mine.png';
+  static const String IMAGES_BUILDINGS_RESOURCES_FARM =
+      'assets/images/buildings/resources/farm.png';
+  static const String IMAGES_BUILDINGS_RESOURCES_GOLD_MINE =
+      'assets/images/buildings/resources/gold_mine.png';
+  static const String IMAGES_BUILDINGS_RESOURCES_IRON_MINE =
+      'assets/images/buildings/resources/iron_mine.png';
+  static const String IMAGES_BUILDINGS_RESOURCES_QUARRY =
+      'assets/images/buildings/resources/quarry.png';
+  static const String IMAGES_BUILDINGS_RESOURCES_WOODCUTTER =
+      'assets/images/buildings/resources/woodcutter.png';
   static const String IMAGES_OTHER_HOUSE = 'assets/images/other/house.png';
   static const String IMAGES_OTHER_IDLE = 'assets/images/other/idle.png';
   static const String IMAGES_OTHER_UPGRADE = 'assets/images/other/upgrade.png';

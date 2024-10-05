@@ -9,7 +9,7 @@ class LoggingCamp extends Producer {
     required super.level,
     required super.workers,
   }) : super(
-          buildingType: BuildingType.loggingCamp,
+          buildingType: BuildingType.woodcutter,
           resourceType: ResourceType.wood,
           productionRate: Constants.LOGGING_CAMP_PRODUCTION_RATE,
         );
