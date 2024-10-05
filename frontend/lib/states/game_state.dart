@@ -9,7 +9,7 @@ class GameState extends BaseGameState {
   }
 
   // TODO(momo): all buildings management in a single window
-  void onMenuBuildings() => BuildingsWindow.show();
+  void onMenuBuildings() => BuildingsWindow.show(this);
 
   // TODO(momo): all workers management in a single window
   void onMenuPopulation() {

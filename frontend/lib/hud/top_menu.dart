@@ -137,10 +137,9 @@ class ResourcesIndicator extends StatelessWidget {
               .get(ResourceType.food)
               .floor()
               .toString(),
-          tooltip: ComplexTooltip(
-            title: 'Food',
-            content:
-                '${Formatter.production(state.colony.productionOf(ResourceType.food))}/s',
+          tooltip: ComplexTooltip.resourceConsumable(
+            colony: state.colony,
+            resourceType: ResourceType.food,
           ),
         ),
         const HBox(10),
@@ -151,10 +150,9 @@ class ResourcesIndicator extends StatelessWidget {
               .get(ResourceType.wood)
               .floor()
               .toString(),
-          tooltip: ComplexTooltip(
-            title: 'Wood',
-            content:
-                '${Formatter.production(state.colony.productionOf(ResourceType.wood))}/s',
+          tooltip: ComplexTooltip.resourceConsumable(
+            colony: state.colony,
+            resourceType: ResourceType.wood,
           ),
         ),
         const HBox(10),
@@ -165,7 +163,10 @@ class ResourcesIndicator extends StatelessWidget {
               .get(ResourceType.stone)
               .floor()
               .toString(),
-          tooltip: SimpleTooltip(ResourceType.stone.localized),
+          tooltip: ComplexTooltip.resourceNonConsumable(
+            colony: state.colony,
+            resourceType: ResourceType.stone,
+          ),
         ),
         const HBox(10),
         ResourceIndicator(
@@ -175,7 +176,10 @@ class ResourcesIndicator extends StatelessWidget {
               .get(ResourceType.copper)
               .floor()
               .toString(),
-          tooltip: SimpleTooltip(ResourceType.copper.localized),
+          tooltip: ComplexTooltip.resourceNonConsumable(
+            colony: state.colony,
+            resourceType: ResourceType.copper,
+          ),
         ),
         const HBox(10),
         ResourceIndicator(
@@ -185,7 +189,10 @@ class ResourcesIndicator extends StatelessWidget {
               .get(ResourceType.iron)
               .floor()
               .toString(),
-          tooltip: SimpleTooltip(ResourceType.iron.localized),
+          tooltip: ComplexTooltip.resourceNonConsumable(
+            colony: state.colony,
+            resourceType: ResourceType.iron,
+          ),
         ),
         const HBox(10),
         ResourceIndicator(
@@ -195,7 +202,10 @@ class ResourcesIndicator extends StatelessWidget {
               .get(ResourceType.gold)
               .floor()
               .toString(),
-          tooltip: SimpleTooltip(ResourceType.gold.localized),
+          tooltip: ComplexTooltip.resourceNonConsumable(
+            colony: state.colony,
+            resourceType: ResourceType.gold,
+          ),
         ),
         const HBox(10),
         ResourceIndicator(
@@ -205,7 +215,7 @@ class ResourcesIndicator extends StatelessWidget {
               .get(ResourceType.faith)
               .floor()
               .toString(),
-          tooltip: SimpleTooltip(ResourceType.faith.localized),
+          tooltip: SimpleTooltip.resource(ResourceType.faith),
         ),
         const HBox(10),
         ResourceIndicator(
@@ -215,7 +225,7 @@ class ResourcesIndicator extends StatelessWidget {
               .get(ResourceType.knowledge)
               .floor()
               .toString(),
-          tooltip: SimpleTooltip(ResourceType.knowledge.localized),
+          tooltip: SimpleTooltip.resource(ResourceType.knowledge),
         ),
       ],
     );
@@ -286,7 +296,7 @@ class LimitsIndicator extends StatelessWidget {
               size: 100,
               sprite: Assets.IMAGES_UNITS_VILLAGER,
               value:
-                  '${state.colony.currentPopulation}/${state.colony.populationLimit}',
+                  '${Formatter.resource(state.colony.currentPopulation)}/${Formatter.resource(state.colony.populationLimit)}',
               tooltip: const SimpleTooltip('Population'),
             ),
             const HBox(5),
@@ -294,7 +304,9 @@ class LimitsIndicator extends StatelessWidget {
               size: 70,
               sprite: Assets.IMAGES_OTHER_IDLE,
               value: '${state.colony.freeVillagers}',
-              color: Palette.error,
+              color: (state.colony.freeVillagers > 0)
+                  ? Palette.error
+                  : Palette.black,
               tooltip: const SimpleTooltip('Idle workers'),
             ),
             const HBox(10),

@@ -1,5 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/models/colony.dart';
+import 'package:godluckwiththat/types/resource_type.dart';
+import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
@@ -53,6 +56,39 @@ class ComplexTooltip extends StatelessWidget {
       ),
     );
   }
+
+  factory ComplexTooltip.resourceConsumable({
+    required Colony colony,
+    required ResourceType resourceType,
+  }) {
+    final num amount = colony.resourceInventory.get(resourceType);
+    final num capacity = colony.resourceInventory.capacityOf(resourceType);
+    final bool full = amount >= capacity;
+    final String production = full
+        ? 'FULL'
+        : '${Formatter.production(colony.productionOf(resourceType))}/s';
+
+    return ComplexTooltip(
+      title: resourceType.localized,
+      content:
+          '${Formatter.resource(amount)}/${Formatter.resource(capacity)} ($production)',
+    );
+  }
+
+  factory ComplexTooltip.resourceNonConsumable({
+    required Colony colony,
+    required ResourceType resourceType,
+  }) {
+    final num amount = colony.resourceInventory.get(resourceType);
+    final num capacity = colony.resourceInventory.capacityOf(resourceType);
+    final String full = amount >= capacity ? ' (FULL)' : '';
+
+    return ComplexTooltip(
+      title: resourceType.localized,
+      content:
+          '${Formatter.resource(amount)}/${Formatter.resource(capacity)}$full',
+    );
+  }
 }
 
 class SimpleTooltip extends StatelessWidget {
@@ -68,4 +104,7 @@ class SimpleTooltip extends StatelessWidget {
       child: Label(text: content),
     );
   }
+
+  factory SimpleTooltip.resource(ResourceType resourceType) =>
+      SimpleTooltip(resourceType.localized);
 }

@@ -7,7 +7,6 @@ import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/blocks/header_block.dart';
 import 'package:godluckwiththat/widgets/blocks/producer_block.dart';
 import 'package:godluckwiththat/widgets/buttons/primary_button.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
@@ -23,7 +22,6 @@ class ResourcesView extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          HeaderBlock(state),
           ProducerList(
             colony: state.colony,
             buildingType: BuildingType.farm,
