@@ -15,6 +15,7 @@ class Constants {
   static const double COPPER_MINE_PRODUCTION_RATE = 0.04;
   static const double IRON_MINE_PRODUCTION_RATE = 0.04;
   static const double GOLD_MINE_PRODUCTION_RATE = 0.04;
+  static const double ACADEMY_PRODUCTION_RATE = 0.02;
 
   static const double BUILDING_BLOCK_WIDTH = 500;
   static const double BUILDING_BLOCK_HEIGHT = 100;

@@ -1,6 +1,9 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
-import 'package:godluckwiththat/models/buildings/consumers/house.dart';
+import 'package:godluckwiththat/models/buildings/passive/house.dart';
+import 'package:godluckwiththat/models/buildings/passive/market.dart';
+import 'package:godluckwiththat/models/buildings/passive/storehouse.dart';
+import 'package:godluckwiththat/models/buildings/producers/academy.dart';
 import 'package:godluckwiththat/models/buildings/producers/copper_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/gold_mine.dart';
@@ -56,20 +59,18 @@ class Building {
           level: level,
         );
       case BuildingType.academy:
-        // TODO(momo): implement
-        return House(
+        return Academy(
           colony: colony,
           level: level,
+          workers: workers,
         );
       case BuildingType.storehouse:
-        // TODO(momo): implement
-        return House(
+        return Storehouse(
           colony: colony,
           level: level,
         );
       case BuildingType.market:
-        // TODO(momo): implement
-        return House(
+        return Market(
           colony: colony,
           level: level,
         );

@@ -46,12 +46,14 @@ abstract class Producer extends Building {
   void addWorkers() {
     if (canAddWorkers) {
       workers += colony.removeFreeWorkers(1);
+      colony.notify();
     }
   }
 
   void removeWorkers() {
     if (hasWorkers) {
       workers -= colony.addFreeWorkers(1);
+      colony.notify();
     }
   }
 }

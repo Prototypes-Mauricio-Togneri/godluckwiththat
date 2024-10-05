@@ -10,6 +10,7 @@ import 'package:godluckwiththat/utils/navigation.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/blocks/create_building_block.dart';
 import 'package:godluckwiththat/widgets/blocks/headquarters_block.dart';
+import 'package:godluckwiththat/widgets/blocks/passive_building_block.dart';
 import 'package:godluckwiththat/widgets/blocks/producer_block.dart';
 import 'package:godluckwiththat/widgets/tabs/tabbed_container.dart';
 import 'package:godluckwiththat/windows/base_window.dart';
@@ -126,7 +127,7 @@ class BuildingBlock extends StatelessWidget {
     } else if (building is Producer) {
       return ProducerBlock(building as Producer);
     } else {
-      return const Empty();
+      return PassiveBuildingBlock(building);
     }
   }
 }

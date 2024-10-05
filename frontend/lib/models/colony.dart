@@ -1,7 +1,7 @@
 import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
-import 'package:godluckwiththat/models/buildings/consumers/house.dart';
+import 'package:godluckwiththat/models/buildings/passive/house.dart';
 import 'package:godluckwiththat/models/buildings/producers/copper_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/gold_mine.dart';
@@ -112,7 +112,7 @@ class Colony {
       );
       buildings[buildingType] = building;
       resources.removeItems(buildingType.cost(1));
-      state.notify();
+      notify();
     }
   }
 
@@ -145,10 +145,12 @@ class Colony {
     resources.removeItems(UnitType.worker.cost);
     units.add(UnitType.worker, 1);
     addFreeWorkers(1);
-    state.notify();
+    notify();
   }
 
   // ============================= UPDATE =================================== \\
+
+  void notify() => state.notify();
 
   void update(double dt) {
     timeElapsed += dt;
