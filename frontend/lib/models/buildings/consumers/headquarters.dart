@@ -3,12 +3,12 @@ import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/unit_type.dart';
 
-class TownCenter extends Consumer {
-  TownCenter({
+class Headquarters extends Consumer {
+  Headquarters({
     required super.colony,
     required super.level,
   }) : super(
-          buildingType: BuildingType.townCenter,
+          buildingType: BuildingType.headquarters,
           unitType: UnitType.worker,
         );
 

@@ -1,5 +1,5 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:godluckwiththat/models/buildings/consumers/town_center.dart';
+import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/colony.dart';
@@ -35,7 +35,7 @@ class BaseGameState extends BaseState {
     );
 
     colony.buildings.addAll({
-      BuildingType.townCenter: TownCenter(
+      BuildingType.headquarters: Headquarters(
         colony: colony,
         level: 1,
       ),

@@ -1,14 +1,15 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/utils/navigation.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/blocks/create_building_block.dart';
+import 'package:godluckwiththat/widgets/blocks/headquarters_block.dart';
 import 'package:godluckwiththat/widgets/blocks/producer_block.dart';
-import 'package:godluckwiththat/widgets/labels/label.dart';
 import 'package:godluckwiththat/widgets/tabs/tabbed_container.dart';
 import 'package:godluckwiththat/windows/base_window.dart';
 
@@ -36,7 +37,7 @@ class BuildingsWindow extends StatelessWidget {
       title: 'Buildings',
       child: Container(
         width: 400,
-        height: 600,
+        height: 640,
         color: Colors.red,
         child: TabbedContainer(
           tabs: const [
@@ -47,8 +48,11 @@ class BuildingsWindow extends StatelessWidget {
             BuildingsColumn(
               state: state,
               buildingTypes: const [
-                BuildingType.townCenter,
+                BuildingType.headquarters,
                 BuildingType.house,
+                BuildingType.academy,
+                BuildingType.storehouse,
+                BuildingType.market,
               ],
             ),
             BuildingsColumn(
@@ -104,10 +108,21 @@ class BuildingBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Container(
+      color: Palette.primary,
+      width: 400,
+      height: 100,
+      child: _widget,
+    );
+  }
+
+  Widget get _widget {
     if (building is Producer) {
       return ProducerBlock(building as Producer);
+    } else if (building is Headquarters) {
+      return HeadquartersBlock(building as Headquarters);
     } else {
-      return Label(text: building.buildingType.name);
+      return const Empty();
     }
   }
 }

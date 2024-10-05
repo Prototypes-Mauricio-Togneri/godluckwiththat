@@ -81,25 +81,28 @@ class TabEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: selected ? Colors.blue : Colors.grey,
-      child: InkWell(
-        onTap: onSelected,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            children: [
-              Icon(
-                data.icon,
-                size: 12,
-                color: Palette.white,
-              ),
-              const HBox(5),
-              Label(
-                text: data.title,
-                color: Palette.white,
-              ),
-            ],
+    return SizedBox(
+      height: 40,
+      child: Material(
+        color: selected ? Colors.blue : Colors.grey,
+        child: InkWell(
+          onTap: onSelected,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              children: [
+                Icon(
+                  data.icon,
+                  size: 12,
+                  color: Palette.white,
+                ),
+                const HBox(5),
+                Label(
+                  text: data.title,
+                  color: Palette.white,
+                ),
+              ],
+            ),
           ),
         ),
       ),

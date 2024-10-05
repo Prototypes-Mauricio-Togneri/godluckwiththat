@@ -20,9 +20,13 @@ class CreateBuildingBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 400,
+      height: 100,
       color: Palette.producerBlock,
       padding: const EdgeInsets.all(10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.max,
         children: [
           PrimaryButton(
             text: 'BUILD ${buildingType.name}',

@@ -1,7 +1,7 @@
 import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
+import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/consumers/house.dart';
-import 'package:godluckwiththat/models/buildings/consumers/town_center.dart';
 import 'package:godluckwiththat/models/buildings/producers/copper_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/gold_mine.dart';
@@ -46,7 +46,8 @@ class Colony {
   bool hasBuilding(BuildingType buildingType) =>
       buildings.containsKey(buildingType);
 
-  TownCenter get townCenter => buildings[BuildingType.townCenter] as TownCenter;
+  Headquarters get townCenter =>
+      buildings[BuildingType.headquarters] as Headquarters;
 
   House get house => buildings[BuildingType.house] as House;
 

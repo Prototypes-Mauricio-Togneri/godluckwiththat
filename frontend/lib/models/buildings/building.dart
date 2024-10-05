@@ -1,6 +1,6 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
+import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/consumers/house.dart';
-import 'package:godluckwiththat/models/buildings/consumers/town_center.dart';
 import 'package:godluckwiththat/models/buildings/producers/copper_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/gold_mine.dart';
@@ -45,12 +45,30 @@ class Building {
     required int workers,
   }) {
     switch (buildingType) {
-      case BuildingType.townCenter:
-        return TownCenter(
+      case BuildingType.headquarters:
+        return Headquarters(
           colony: colony,
           level: level,
         );
       case BuildingType.house:
+        return House(
+          colony: colony,
+          level: level,
+        );
+      case BuildingType.academy:
+        // TODO(momo): implement
+        return House(
+          colony: colony,
+          level: level,
+        );
+      case BuildingType.storehouse:
+        // TODO(momo): implement
+        return House(
+          colony: colony,
+          level: level,
+        );
+      case BuildingType.market:
+        // TODO(momo): implement
         return House(
           colony: colony,
           level: level,
