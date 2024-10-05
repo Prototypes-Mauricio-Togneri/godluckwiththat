@@ -27,27 +27,29 @@ class BaseGameState extends BaseState {
       units: UnitInventory({
         UnitType.worker: 5,
       }),
-      buildings: {
-        BuildingType.townCenter: TownCenter(
-          colony: colony,
-          level: 1,
-        ),
-        BuildingType.farm: Farm(
-          colony: colony,
-          level: 1,
-          workers: 2,
-        ),
-        BuildingType.loggingCamp: LoggingCamp(
-          colony: colony,
-          level: 1,
-          workers: 1,
-        ),
-      },
+      buildings: {},
       timeElapsed: 0,
       freeWorkers: 5,
       territorySlotsUsed: 0,
       warehouseCapacity: 100,
     );
+
+    colony.buildings.addAll({
+      BuildingType.townCenter: TownCenter(
+        colony: colony,
+        level: 1,
+      ),
+      BuildingType.farm: Farm(
+        colony: colony,
+        level: 1,
+        workers: 2,
+      ),
+      BuildingType.loggingCamp: LoggingCamp(
+        colony: colony,
+        level: 1,
+        workers: 1,
+      ),
+    });
   }
 
   void update(double dt) {

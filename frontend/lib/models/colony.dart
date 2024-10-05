@@ -43,6 +43,9 @@ class Colony {
 
   // ============================ TERRITORY ================================= \\
 
+  bool hasBuilding(BuildingType buildingType) =>
+      buildings.containsKey(buildingType);
+
   TownCenter get townCenter => buildings[BuildingType.townCenter] as TownCenter;
 
   House get house => buildings[BuildingType.house] as House;
@@ -111,9 +114,12 @@ class Colony {
 
   int get currentPopulation => units.get(UnitType.worker).toInt();
 
-  int get populationLimit =>
-      Constants.BASE_POPULATION_LIMIT +
-      (house.level * Constants.HOUSE_POPULATION);
+  int get populationLimit {
+    final int houseLevel = hasBuilding(BuildingType.house) ? house.level : 0;
+
+    return Constants.BASE_POPULATION_LIMIT +
+        (houseLevel * Constants.HOUSE_POPULATION);
+  }
 
   int addFreeWorkers(int amount) {
     freeWorkers += amount;

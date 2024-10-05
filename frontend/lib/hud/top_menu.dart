@@ -25,7 +25,7 @@ class TopMenu extends StatelessWidget {
           const HBox(5),
           SeasonIndicator(state),
           const Spacer(),
-          ResourcesIndicator(state),
+          ResourcesSummary(state),
           const Spacer(),
           LimitsIndicator(state),
           const Spacer(),
@@ -120,17 +120,17 @@ class SeasonIndicator extends StatelessWidget {
   }
 }
 
-class ResourcesIndicator extends StatelessWidget {
+class ResourcesSummary extends StatelessWidget {
   final GameState state;
 
-  const ResourcesIndicator(this.state);
+  const ResourcesSummary(this.state);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ResourceIndicator(
+        ResourceSummary(
           size: 90,
           sprite: ResourceType.food.sprite,
           value:
@@ -141,7 +141,7 @@ class ResourcesIndicator extends StatelessWidget {
           ),
         ),
         const HBox(10),
-        ResourceIndicator(
+        ResourceSummary(
           size: 90,
           sprite: ResourceType.wood.sprite,
           value:
@@ -152,7 +152,7 @@ class ResourcesIndicator extends StatelessWidget {
           ),
         ),
         const HBox(10),
-        ResourceIndicator(
+        ResourceSummary(
           size: 90,
           sprite: ResourceType.stone.sprite,
           value:
@@ -163,7 +163,7 @@ class ResourcesIndicator extends StatelessWidget {
           ),
         ),
         const HBox(10),
-        ResourceIndicator(
+        ResourceSummary(
           size: 90,
           sprite: ResourceType.copper.sprite,
           value: state.colony.resources
@@ -176,7 +176,7 @@ class ResourcesIndicator extends StatelessWidget {
           ),
         ),
         const HBox(10),
-        ResourceIndicator(
+        ResourceSummary(
           size: 90,
           sprite: ResourceType.iron.sprite,
           value:
@@ -187,7 +187,7 @@ class ResourcesIndicator extends StatelessWidget {
           ),
         ),
         const HBox(10),
-        ResourceIndicator(
+        ResourceSummary(
           size: 90,
           sprite: ResourceType.gold.sprite,
           value:
@@ -198,7 +198,7 @@ class ResourcesIndicator extends StatelessWidget {
           ),
         ),
         const HBox(10),
-        ResourceIndicator(
+        ResourceSummary(
           size: 90,
           sprite: ResourceType.faith.sprite,
           value:
@@ -206,7 +206,7 @@ class ResourcesIndicator extends StatelessWidget {
           tooltip: SimpleTooltip.resource(ResourceType.faith),
         ),
         const HBox(10),
-        ResourceIndicator(
+        ResourceSummary(
           size: 90,
           sprite: ResourceType.knowledge.sprite,
           value: state.colony.resources
@@ -220,14 +220,14 @@ class ResourcesIndicator extends StatelessWidget {
   }
 }
 
-class ResourceIndicator extends StatelessWidget {
+class ResourceSummary extends StatelessWidget {
   final double size;
   final String sprite;
   final String value;
   final Widget tooltip;
   final Color color;
 
-  const ResourceIndicator({
+  const ResourceSummary({
     required this.size,
     required this.sprite,
     required this.value,
@@ -280,7 +280,7 @@ class LimitsIndicator extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ResourceIndicator(
+            ResourceSummary(
               size: 100,
               sprite: Assets.IMAGES_UNITS_WORKER,
               value:
@@ -288,7 +288,7 @@ class LimitsIndicator extends StatelessWidget {
               tooltip: const SimpleTooltip('Population'),
             ),
             const HBox(5),
-            ResourceIndicator(
+            ResourceSummary(
               size: 70,
               sprite: Assets.IMAGES_OTHER_IDLE,
               value: '${state.colony.freeWorkers}',
@@ -298,7 +298,7 @@ class LimitsIndicator extends StatelessWidget {
               tooltip: const SimpleTooltip('Idle workers'),
             ),
             const HBox(10),
-            ResourceIndicator(
+            ResourceSummary(
               size: 100,
               sprite: Assets.IMAGES_OTHER_HOUSE,
               value:
