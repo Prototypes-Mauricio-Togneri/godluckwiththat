@@ -5,6 +5,7 @@ import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
+import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/types/unit_type.dart';
 
@@ -26,27 +27,27 @@ class BaseGameState extends BaseState {
       units: UnitInventory({
         UnitType.worker: 5,
       }),
-      buildings: [],
+      buildings: {
+        BuildingType.townCenter: TownCenter(
+          colony: colony,
+          level: 1,
+        ),
+        BuildingType.farm: Farm(
+          colony: colony,
+          level: 1,
+          workers: 2,
+        ),
+        BuildingType.loggingCamp: LoggingCamp(
+          colony: colony,
+          level: 1,
+          workers: 1,
+        ),
+      },
       timeElapsed: 0,
       freeWorkers: 5,
+      territorySlotsUsed: 0,
+      warehouseCapacity: 100,
     );
-
-    colony.addBuildings([
-      TownCenter(
-        colony: colony,
-        level: 1,
-      ),
-      Farm(
-        colony: colony,
-        level: 1,
-        workers: 2,
-      ),
-      LoggingCamp(
-        colony: colony,
-        level: 1,
-        workers: 1,
-      ),
-    ]);
   }
 
   void update(double dt) {

@@ -19,10 +19,10 @@ class ResourcesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Column(
         children: [
-          ProducerList(
+          /*ProducerList(
             colony: state.colony,
             buildingType: BuildingType.farm,
             producers: state.colony.producers,
@@ -51,7 +51,7 @@ class ResourcesView extends StatelessWidget {
             colony: state.colony,
             buildingType: BuildingType.goldMine,
             producers: state.colony.producers,
-          ),
+          ),*/
         ],
       ),
     );

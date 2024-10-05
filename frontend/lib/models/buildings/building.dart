@@ -38,10 +38,6 @@ class Building {
     }
   }
 
-  void destroy() {
-    colony.removeBuilding(this);
-  }
-
   factory Building.create({
     required Colony colony,
     required BuildingType buildingType,

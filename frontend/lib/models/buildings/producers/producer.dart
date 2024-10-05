@@ -54,9 +54,4 @@ abstract class Producer extends Building {
       workers -= colony.addFreeWorkers(1);
     }
   }
-
-  @override
-  void destroy() {
-    colony.addFreeWorkers(workers);
-  }
 }

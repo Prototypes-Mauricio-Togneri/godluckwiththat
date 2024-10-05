@@ -1,9 +1,13 @@
 import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
-import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
 import 'package:godluckwiththat/models/buildings/consumers/house.dart';
 import 'package:godluckwiththat/models/buildings/consumers/town_center.dart';
-import 'package:godluckwiththat/models/buildings/producers/producer.dart';
+import 'package:godluckwiththat/models/buildings/producers/copper_mine.dart';
+import 'package:godluckwiththat/models/buildings/producers/farm.dart';
+import 'package:godluckwiththat/models/buildings/producers/gold_mine.dart';
+import 'package:godluckwiththat/models/buildings/producers/iron_mine.dart';
+import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
+import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -13,9 +17,12 @@ import 'package:godluckwiththat/types/unit_type.dart';
 class Colony {
   final ResourceInventory resources;
   final UnitInventory units;
-  final List<Building> buildings;
+  final Map<BuildingType, Building> buildings;
+
   num timeElapsed;
   int freeWorkers;
+  int territorySlotsUsed;
+  int warehouseCapacity;
 
   Colony({
     required this.resources,
@@ -23,16 +30,35 @@ class Colony {
     required this.buildings,
     required this.timeElapsed,
     required this.freeWorkers,
+    required this.territorySlotsUsed,
+    required this.warehouseCapacity,
   });
 
   // ============================ TERRITORY ================================= \\
 
-  int get territorySlotsUsed => buildings.length;
-
-  TownCenter get townCenter => buildingsByType<TownCenter>(TownCenter).first;
-
   int get territorySlotsTotal =>
       townCenter.level * Constants.SLOTS_PER_TOWN_CENTER_LEVEL;
+
+  bool get hasSlotsToBuild => territorySlotsUsed < territorySlotsTotal;
+
+  // ============================ TERRITORY ================================= \\
+
+  TownCenter get townCenter => buildings[BuildingType.townCenter] as TownCenter;
+
+  House get house => buildings[BuildingType.house] as House;
+
+  Farm get farm => buildings[BuildingType.farm] as Farm;
+
+  LoggingCamp get loggingCamp =>
+      buildings[BuildingType.loggingCamp] as LoggingCamp;
+
+  Quarry get quarry => buildings[BuildingType.quarry] as Quarry;
+
+  CopperMine get copperMine => buildings[BuildingType.copperMine] as CopperMine;
+
+  IronMine get ironMine => buildings[BuildingType.ironMine] as IronMine;
+
+  GoldMine get goldMine => buildings[BuildingType.goldMine] as GoldMine;
 
   // =========================== TIME ELAPSED =============================== \\
 
@@ -42,30 +68,26 @@ class Colony {
 
   // ============================ BUILDINGS ================================= \\
 
-  int get warehouseCapacity => 100;
-
-  List<Producer> get producers =>
-      buildings.where((b) => b.isProducer).map((b) => b as Producer).toList();
-
-  List<Consumer> get consumers =>
-      buildings.where((b) => b.isConsumer).map((b) => b as Consumer).toList();
-
-  List<T> buildingsByType<T extends Building>(Type type) =>
-      buildings.where((b) => b.runtimeType == type).map((e) => e as T).toList();
-
-  double productionOf(ResourceType resourceType) {
-    double total = 0;
-
-    for (final Building building in buildings) {
-      if ((building is Producer) && (building.resourceType == resourceType)) {
-        total += building.production;
-      }
+  num productionOf(ResourceType resourceType) {
+    switch (resourceType) {
+      case ResourceType.food:
+        return farm.production;
+      case ResourceType.wood:
+        return loggingCamp.production;
+      case ResourceType.stone:
+        return quarry.production;
+      case ResourceType.copper:
+        return copperMine.production;
+      case ResourceType.iron:
+        return ironMine.production;
+      case ResourceType.gold:
+        return goldMine.production;
+      case ResourceType.faith:
+        return 0; // TODO(momo): implement
+      case ResourceType.knowledge:
+        return 0; // (momo): implement
     }
-
-    return total;
   }
-
-  bool get hasSlotsToBuild => territorySlotsUsed < territorySlotsTotal;
 
   bool canBuild(BuildingType buildingType) =>
       resources.hasItems(buildingType.cost(1)) && hasSlotsToBuild;
@@ -78,17 +100,9 @@ class Colony {
         level: 1,
         workers: 0,
       );
-      buildings.add(building);
+      buildings[buildingType] = building;
       resources.removeItems(buildingType.cost(1));
     }
-  }
-
-  void addBuildings(List<Building> list) {
-    buildings.addAll(list);
-  }
-
-  void removeBuilding(Building building) {
-    buildings.remove(building);
   }
 
   // =========================== POPULATION ================================= \\
@@ -97,17 +111,9 @@ class Colony {
 
   int get currentPopulation => units.get(UnitType.worker).toInt();
 
-  int get populationLimit {
-    int total = 0;
-
-    for (final Building building in buildings) {
-      if (building is House) {
-        total += Constants.HOUSE_POPULATION;
-      }
-    }
-
-    return total + Constants.BASE_POPULATION_LIMIT;
-  }
+  int get populationLimit =>
+      Constants.BASE_POPULATION_LIMIT +
+      (house.level * Constants.HOUSE_POPULATION);
 
   int addFreeWorkers(int amount) {
     freeWorkers += amount;
@@ -132,7 +138,7 @@ class Colony {
   void update(double dt) {
     timeElapsed += dt;
 
-    for (final Building building in buildings) {
+    for (final Building building in buildings.values) {
       building.update(dt);
     }
   }
