@@ -18,7 +18,7 @@ class TrainUnitButton extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         SymbolButton.worker(
-          size: 40,
+          size: 50,
           onTap: consumer.canTrain ? consumer.train : null,
         ),
         const VBox(5),

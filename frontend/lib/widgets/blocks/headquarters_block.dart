@@ -25,9 +25,9 @@ class HeadquartersBlock extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           TopSection(headquarters),
-          const Spacer(),
+          const VBox(10),
           MiddleSection(headquarters),
-          const Spacer(),
+          const VBox(15),
           BottomSection(headquarters),
         ],
       ),
@@ -52,7 +52,7 @@ class TopSection extends StatelessWidget {
           weight: FontWeight.bold,
           size: 16,
         ),
-        const VBox(15),
+        const VBox(10),
         ImageBlock(
           path: consumer.buildingType.sprite,
           size: 100,
@@ -69,7 +69,9 @@ class MiddleSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TrainUnitButton(consumer);
+    return Center(
+      child: TrainUnitButton(consumer),
+    );
   }
 }
 
@@ -80,6 +82,8 @@ class BottomSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UpgradeBuildingButton(consumer);
+    return Center(
+      child: UpgradeBuildingButton(consumer),
+    );
   }
 }
