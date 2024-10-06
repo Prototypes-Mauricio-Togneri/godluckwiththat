@@ -55,15 +55,19 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        for (int i = 0; i < tabs.length; i++)
-          TabEntry(
-            data: tabs[i],
-            selected: i == currentIndex,
-            onSelected: () => onTabSelected(i),
-          ),
-      ],
+    return Container(
+      color: Palette.backgroundWindowTab,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          for (int i = 0; i < tabs.length; i++)
+            TabEntry(
+              data: tabs[i],
+              selected: i == currentIndex,
+              onSelected: () => onTabSelected(i),
+            ),
+        ],
+      ),
     );
   }
 }
@@ -84,7 +88,9 @@ class TabEntry extends StatelessWidget {
     return SizedBox(
       height: 40,
       child: Material(
-        color: selected ? Colors.red : Colors.grey,
+        color: selected
+            ? Palette.backgroundWindowTabSelected
+            : Palette.backgroundWindowTabUnselected,
         child: InkWell(
           onTap: onSelected,
           child: Padding(
@@ -94,12 +100,12 @@ class TabEntry extends StatelessWidget {
                 Icon(
                   data.icon,
                   size: 12,
-                  color: Palette.white,
+                  color: selected ? Palette.textHighlight : Palette.textLevel1,
                 ),
                 const HBox(5),
                 Label(
                   text: data.title,
-                  color: Palette.white,
+                  color: selected ? Palette.textHighlight : Palette.textLevel1,
                 ),
               ],
             ),

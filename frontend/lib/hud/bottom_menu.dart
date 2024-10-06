@@ -90,7 +90,7 @@ class BottomMenuButton extends StatelessWidget {
               child: Icon(
                 icon,
                 size: 30,
-                color: hovered ? Palette.iconHover : Palette.iconLevel1,
+                color: hovered ? Palette.iconHighlight : Palette.iconLevel1,
               ),
             ),
           ),

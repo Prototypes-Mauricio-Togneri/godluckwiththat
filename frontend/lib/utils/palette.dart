@@ -9,7 +9,10 @@ class Palette {
   static Color borderHighlight = const Color(0xffffc917);
   static Color borderLevel1 = const Color(0xff404040);
 
-  static Color iconHover = const Color(0xffffc917);
+  static Color textLevel1 = const Color(0xffffffff);
+  static Color textHighlight = const Color(0xffffc917);
+
+  static Color iconHighlight = const Color(0xffffc917);
   static Color iconLevel1 = const Color(0xffffffff);
   static Color iconLevel2 = const Color(0xffaaaaaa);
 
@@ -23,6 +26,9 @@ class Palette {
 
   static Color backgroundWindowHeader = const Color(0xff332b21);
   static Color backgroundWindowContent = const Color(0xff4b4033);
+  static Color backgroundWindowTabUnselected = const Color(0xFF776551);
+  static Color backgroundWindowTabSelected = const Color(0xFF978167);
+  static Color backgroundWindowTab = const Color(0xff332b21);
   // 3d3240
   // 332B21
   // 5D523D

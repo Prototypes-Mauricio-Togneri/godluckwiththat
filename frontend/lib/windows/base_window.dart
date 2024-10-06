@@ -54,6 +54,7 @@ class Header extends StatelessWidget {
             child: Label(
               text: title,
               size: 15,
+              weight: FontWeight.bold,
             ),
           ),
           Align(
