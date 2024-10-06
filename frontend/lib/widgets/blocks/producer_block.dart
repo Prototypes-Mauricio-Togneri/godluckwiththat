@@ -70,7 +70,7 @@ class TopSection extends StatelessWidget {
             Label(
               text: '${Formatter.production(producer.production)}/s',
               color: (producer.production == 0)
-                  ? Palette.error
+                  ? Palette.textError
                   : Palette.textLevel2,
               size: 12,
             ),

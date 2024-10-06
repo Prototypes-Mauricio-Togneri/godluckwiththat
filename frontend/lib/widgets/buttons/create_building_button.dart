@@ -48,7 +48,7 @@ class CreateBuildingButton extends StatelessWidget {
                   value: Formatter.resource(resource.value),
                   textColor: colony.resources.hasItem(resource)
                       ? Palette.textLevel2
-                      : Palette.error,
+                      : Palette.textError,
                   textSize: 12,
                   iconSize: 12,
                 ),

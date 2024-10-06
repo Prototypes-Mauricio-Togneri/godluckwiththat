@@ -4,7 +4,6 @@ class Palette {
   static const MaterialColor primary = Colors.blue;
   static const Color transparent = Colors.transparent;
   static const Color success = Colors.green;
-  static const Color error = Colors.red;
 
   static const Color divider1 = Color(0xff555555);
 
@@ -13,6 +12,7 @@ class Palette {
 
   static const Color textLevel1 = Color(0xffffffff);
   static const Color textLevel2 = Color(0xff000000);
+  static const Color textError = Color(0xffff0000);
   static const Color textHighlight = Color(0xffffc917);
 
   static const Color iconHighlight = Color(0xffffc917);
@@ -20,7 +20,8 @@ class Palette {
   static const Color iconLevel2 = Color(0xffaaaaaa);
   static const Color iconDisabled = Color(0xff888888);
 
-  static const Color buttonPrimary = Color(0xFF2080FF);
+  static const Color buttonPrimary = Color(0xff2080ff);
+  static const Color buttonError = Color(0xffff0000);
   static const Color buttonDisabled = Color(0xffa0a0a0);
 
   static const Color backgroundLevel1 = Color(0xff000000);

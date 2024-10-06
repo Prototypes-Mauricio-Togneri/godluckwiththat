@@ -302,7 +302,7 @@ class LimitsIndicator extends StatelessWidget {
               sprite: Assets.IMAGES_OTHER_IDLE,
               value: '${state.colony.freeWorkers}',
               color: (state.colony.freeWorkers > 0)
-                  ? Palette.error
+                  ? Palette.textError
                   : Palette.textLevel1,
               tooltip: const SimpleTooltip('Idle workers'),
             ),

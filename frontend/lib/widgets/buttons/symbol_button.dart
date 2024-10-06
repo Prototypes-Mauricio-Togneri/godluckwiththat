@@ -47,7 +47,7 @@ class SymbolButton extends StatelessWidget {
   }) =>
       SymbolButton(
         icon: Icons.remove,
-        color: Palette.error,
+        color: Palette.buttonError,
         size: size,
         onTap: onTap,
       );

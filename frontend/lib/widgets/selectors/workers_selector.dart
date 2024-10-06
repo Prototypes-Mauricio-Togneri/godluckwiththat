@@ -19,7 +19,7 @@ class WorkersSelector extends StatelessWidget {
     return AmountSelector(
       text:
           '${Formatter.resource(building.workers)}/${Formatter.resource(building.maxWorkersCapacity)}',
-      color: (building.workers == 0) ? Palette.error : Palette.textLevel2,
+      color: (building.workers == 0) ? Palette.textError : Palette.textLevel2,
       size: size,
       image: Assets.IMAGES_UNITS_WORKER,
       onRemove: building.canRemoveWorkers ? building.removeWorkers : null,
