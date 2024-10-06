@@ -18,7 +18,6 @@ class ProducerBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Palette.producerBlock,
         border: Border.all(
@@ -26,16 +25,42 @@ class ProducerBlock extends StatelessWidget {
           color: Palette.borderHighlight,
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TopSection(producer),
-          const VBox(10),
-          MiddleSection(producer),
-          const VBox(15),
-          BottomSection(producer),
-        ],
+      child: Material(
+        color: Palette.transparent,
+        child: InkWell(
+          onTap: () {
+            print(producer);
+          },
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TopSection(producer),
+                    const VBox(10),
+                    MiddleSection(producer),
+                    const VBox(15),
+                    BottomSection(producer),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Icon(
+                    Icons.info_rounded,
+                    color: Palette.iconLevel2,
+                    size: 15,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

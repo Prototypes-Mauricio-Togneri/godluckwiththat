@@ -38,7 +38,6 @@ enum BuildingType {
     sprite: Assets.IMAGES_BUILDINGS_RESOURCES_FARM,
     initialCost: {
       ResourceType.wood: 50,
-      ResourceType.stone: 50,
     },
   ),
   woodcutter(
@@ -57,18 +56,21 @@ enum BuildingType {
     sprite: Assets.IMAGES_BUILDINGS_RESOURCES_COPPER_MINE,
     initialCost: {
       ResourceType.wood: 100,
+      ResourceType.stone: 50,
     },
   ),
   ironMine(
     sprite: Assets.IMAGES_BUILDINGS_RESOURCES_IRON_MINE,
     initialCost: {
       ResourceType.wood: 100,
+      ResourceType.stone: 50,
     },
   ),
   goldMine(
     sprite: Assets.IMAGES_BUILDINGS_RESOURCES_GOLD_MINE,
     initialCost: {
       ResourceType.wood: 100,
+      ResourceType.stone: 50,
     },
   );
 
