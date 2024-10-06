@@ -38,8 +38,8 @@ class BuildingsWindow extends StatelessWidget {
     return BaseWindow(
       title: 'Buildings',
       child: Container(
-        width: Constants.BUILDING_BLOCK_WIDTH,
-        height: (Constants.BUILDING_BLOCK_HEIGHT * 6) + 40,
+        width: Constants.BUILDING_BLOCK_WIDTH * 3,
+        height: (Constants.BUILDING_BLOCK_HEIGHT * 2) + 40,
         color: Colors.red,
         child: StateProvider<GameState>(
           state: state,
@@ -49,25 +49,33 @@ class BuildingsWindow extends StatelessWidget {
               TabData(title: 'Resources', icon: Icons.home),
             ],
             children: [
-              BuildingsColumn(
+              BuildingsList(
                 state: state,
                 buildingTypes: const [
-                  BuildingType.headquarters,
-                  BuildingType.house,
-                  BuildingType.academy,
-                  BuildingType.storehouse,
-                  BuildingType.market,
+                  [
+                    BuildingType.headquarters,
+                    BuildingType.house,
+                    BuildingType.academy,
+                  ],
+                  [
+                    BuildingType.storehouse,
+                    BuildingType.market,
+                  ]
                 ],
               ),
-              BuildingsColumn(
+              BuildingsList(
                 state: state,
                 buildingTypes: const [
-                  BuildingType.farm,
-                  BuildingType.woodcutter,
-                  BuildingType.quarry,
-                  BuildingType.copperMine,
-                  BuildingType.ironMine,
-                  BuildingType.goldMine,
+                  [
+                    BuildingType.farm,
+                    BuildingType.woodcutter,
+                    BuildingType.quarry,
+                  ],
+                  [
+                    BuildingType.copperMine,
+                    BuildingType.ironMine,
+                    BuildingType.goldMine,
+                  ],
                 ],
               ),
             ],
@@ -78,11 +86,11 @@ class BuildingsWindow extends StatelessWidget {
   }
 }
 
-class BuildingsColumn extends StatelessWidget {
+class BuildingsList extends StatelessWidget {
   final GameState state;
-  final List<BuildingType> buildingTypes;
+  final List<List<BuildingType>> buildingTypes;
 
-  const BuildingsColumn({
+  const BuildingsList({
     required this.state,
     required this.buildingTypes,
   });
@@ -93,14 +101,20 @@ class BuildingsColumn extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        for (final BuildingType buildingType in buildingTypes)
-          if (state.colony.hasBuilding(buildingType))
-            BuildingBlock(state.colony.buildings[buildingType]!)
-          else
-            CreateBuildingBlock(
-              colony: state.colony,
-              buildingType: buildingType,
-            ),
+        for (final List<BuildingType> types in buildingTypes)
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (final BuildingType buildingType in types)
+                if (state.colony.hasBuilding(buildingType))
+                  BuildingBlock(state.colony.buildings[buildingType]!)
+                else
+                  CreateBuildingBlock(
+                    colony: state.colony,
+                    buildingType: buildingType,
+                  ),
+            ],
+          ),
       ],
     );
   }

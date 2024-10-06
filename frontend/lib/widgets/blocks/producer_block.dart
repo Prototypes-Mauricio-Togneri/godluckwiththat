@@ -27,7 +27,7 @@ class ProducerBlock extends StatelessWidget {
           ),
         ),
       ),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
