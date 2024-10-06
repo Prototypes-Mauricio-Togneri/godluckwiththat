@@ -48,6 +48,7 @@ class RightMenuTitle extends StatelessWidget {
     return Container(
       height: 35,
       width: double.infinity,
+      padding: const EdgeInsets.only(left: 10),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -56,8 +57,8 @@ class RightMenuTitle extends StatelessWidget {
           ],
         ),
       ),
-      child: const Padding(
-        padding: EdgeInsets.all(10),
+      child: const Align(
+        alignment: Alignment.centerLeft,
         child: Label(
           text: 'Upcoming',
           weight: FontWeight.bold,

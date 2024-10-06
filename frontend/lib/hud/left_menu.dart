@@ -54,6 +54,7 @@ class LeftMenuTitle extends StatelessWidget {
         ),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const HBox(10),
           Expanded(
