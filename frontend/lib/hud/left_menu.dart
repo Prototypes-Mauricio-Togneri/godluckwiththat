@@ -19,7 +19,7 @@ class LeftMenu extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           LeftMenuTitle(state),
-          HorizontalDivider(
+          const HorizontalDivider(
             color: Palette.divider1,
             height: 1,
           ),
@@ -115,8 +115,8 @@ class LeftMenuTitle extends StatelessWidget {
             child: InkWell(
               hoverColor: Palette.backgroundClose.withAlpha(150),
               onTap: state.onCleanAllEvents,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
+              child: const Padding(
+                padding: EdgeInsets.all(10),
                 child: Icon(
                   Icons.close,
                   size: 15,
@@ -172,8 +172,8 @@ class LeftMenuRow extends StatelessWidget {
                         child: InkWell(
                           hoverColor: Palette.backgroundClose.withAlpha(150),
                           onTap: onClosed,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
+                          child: const Padding(
+                            padding: EdgeInsets.all(10),
                             child: Icon(
                               Icons.close,
                               size: 15,

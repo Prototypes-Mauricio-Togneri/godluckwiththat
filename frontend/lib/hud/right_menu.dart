@@ -18,7 +18,7 @@ class RightMenu extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const RightMenuTitle(),
-          HorizontalDivider(
+          const HorizontalDivider(
             color: Palette.divider1,
             height: 1,
           ),

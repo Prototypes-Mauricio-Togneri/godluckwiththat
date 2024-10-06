@@ -57,7 +57,7 @@ class Header extends StatelessWidget {
               weight: FontWeight.bold,
             ),
           ),
-          Align(
+          const Align(
             alignment: Alignment.centerRight,
             child: Material(
               color: Palette.transparent,

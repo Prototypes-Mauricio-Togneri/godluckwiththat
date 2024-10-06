@@ -34,8 +34,8 @@ class ActiveBuildingBlock extends StatelessWidget {
                 child: child,
               ),
               if (onSelected != null)
-                Padding(
-                  padding: const EdgeInsets.all(5),
+                const Padding(
+                  padding: EdgeInsets.all(5),
                   child: Align(
                     alignment: Alignment.topRight,
                     child: Icon(

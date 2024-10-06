@@ -50,8 +50,8 @@ class PauseButton extends StatelessWidget {
         child: InkWell(
           hoverColor: Palette.backgroundTransparent3.withAlpha(100),
           onTap: onPressed,
-          child: Padding(
-            padding: const EdgeInsets.all(10),
+          child: const Padding(
+            padding: EdgeInsets.all(10),
             child: Icon(
               Icons.pause,
               size: 15,

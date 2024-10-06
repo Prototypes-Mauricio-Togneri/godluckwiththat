@@ -6,40 +6,40 @@ class Palette {
   static const Color success = Colors.green;
   static const Color error = Colors.red;
 
-  static Color divider1 = const Color(0xff555555);
+  static const Color divider1 = Color(0xff555555);
 
-  static Color borderHighlight = const Color(0xffffc917);
-  static Color borderLevel1 = const Color(0xff404040);
+  static const Color borderHighlight = Color(0xffffc917);
+  static const Color borderLevel1 = Color(0xff404040);
 
   static const Color textLevel1 = Color(0xffffffff);
-  static Color textLevel2 = const Color(0xff000000);
-  static Color textHighlight = const Color(0xffffc917);
+  static const Color textLevel2 = Color(0xff000000);
+  static const Color textHighlight = Color(0xffffc917);
 
-  static Color iconHighlight = const Color(0xffffc917);
-  static Color iconLevel1 = const Color(0xffffffff);
-  static Color iconLevel2 = const Color(0xffaaaaaa);
-  static Color iconDisabled = const Color(0xff888888);
+  static const Color iconHighlight = Color(0xffffc917);
+  static const Color iconLevel1 = Color(0xffffffff);
+  static const Color iconLevel2 = Color(0xffaaaaaa);
+  static const Color iconDisabled = Color(0xff888888);
 
-  static Color buttonPrimary = const Color(0xFF2080FF);
-  static Color buttonDisabled = const Color(0xffa0a0a0);
+  static const Color buttonPrimary = Color(0xFF2080FF);
+  static const Color buttonDisabled = Color(0xffa0a0a0);
 
-  static Color backgroundLevel1 = const Color(0xff000000);
+  static const Color backgroundLevel1 = Color(0xff000000);
 
   static Color backgroundTransparent1 = const Color(0xff000000).withAlpha(150);
   static Color backgroundTransparent2 = const Color(0xff1a1a1a).withAlpha(150);
   static Color backgroundTransparent3 = const Color(0xff555555).withAlpha(150);
-  static Color backgroundClose = const Color(0xffcc4b4b);
-  static Color backgroundTopBar = const Color(0xff25272c);
-  static Color backgroundTopBarContainer = const Color(0xff393d45);
+  static const Color backgroundClose = Color(0xffcc4b4b);
+  static const Color backgroundTopBar = Color(0xff25272c);
+  static const Color backgroundTopBarContainer = Color(0xff393d45);
   static Color backgroundTooltip = const Color(0xff1e252e).withAlpha(200);
 
   static const Color backgroundBuildingBlock = Color(0xFFC9A377);
 
-  static Color backgroundWindowHeader = const Color(0xff332b21);
-  static Color backgroundWindowContent = const Color(0xff4b4033);
-  static Color backgroundWindowTabUnselected = const Color(0xFF776551);
-  static Color backgroundWindowTabSelected = const Color(0xFF978167);
-  static Color backgroundWindowTab = const Color(0xff332b21);
+  static const Color backgroundWindowHeader = Color(0xff332b21);
+  static const Color backgroundWindowContent = Color(0xff4b4033);
+  static const Color backgroundWindowTabUnselected = Color(0xFF776551);
+  static const Color backgroundWindowTabSelected = Color(0xFF978167);
+  static const Color backgroundWindowTab = Color(0xff332b21);
   // 3d3240
   // 332B21
   // 5D523D
