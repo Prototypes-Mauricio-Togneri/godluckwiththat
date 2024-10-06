@@ -1,8 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/dialog/base_dialog.dart';
 import 'package:godluckwiththat/utils/navigation.dart';
 import 'package:godluckwiththat/utils/palette.dart';
-import 'package:godluckwiththat/widgets/labels/label.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   final String message;
@@ -56,57 +56,24 @@ class ConfirmationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      contentPadding: const EdgeInsets.fromLTRB(25, 20, 25, 25),
-      backgroundColor: Colors.grey,
-      content: Label(
-        text: message,
-        color: Palette.textLevel1,
-        size: 16,
-      ),
+    return BaseDialog(
+      message: message,
       actions: [
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 10,
-            right: 10,
-            bottom: 10,
-          ),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              backgroundColor: Palette.buttonPrimary,
-              minimumSize: const Size(0, 45),
-            ),
-            onPressed: () {
-              Navigation.pop();
-              onCancel?.call();
-            },
-            child: Label(
-              text: buttonCancel,
-              size: 14,
-            ),
-          ),
+        ActionData(
+          text: buttonCancel,
+          color: Palette.buttonPrimary,
+          onPressed: () {
+            Navigation.pop();
+            onCancel?.call();
+          },
         ),
-        Padding(
-          padding: const EdgeInsets.only(
-            right: 10,
-            bottom: 10,
-          ),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              backgroundColor: Palette.buttonError,
-              minimumSize: const Size(0, 45),
-            ),
-            onPressed: () {
-              Navigation.pop();
-              onAccept.call();
-            },
-            child: Label(
-              text: buttonAccept,
-              size: 14,
-            ),
-          ),
+        ActionData(
+          text: buttonAccept,
+          color: Palette.buttonError,
+          onPressed: () {
+            Navigation.pop();
+            onAccept.call();
+          },
         ),
       ],
     );
