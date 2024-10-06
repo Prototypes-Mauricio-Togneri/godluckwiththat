@@ -23,7 +23,7 @@ class CustomTooltip extends StatelessWidget {
       elevation: 0,
       waitDuration: const Duration(milliseconds: 500),
       borderRadius: const BorderRadius.all(Radius.circular(0)),
-      backgroundColor: Palette.backgroundTransparent1,
+      backgroundColor: Palette.backgroundTooltip,
       tailBaseWidth: 20,
       tailLength: 10,
       child: child,

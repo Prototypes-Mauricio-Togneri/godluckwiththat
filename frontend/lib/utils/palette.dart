@@ -19,9 +19,7 @@ class Palette {
   static Color backgroundClose = const Color(0xffcc4b4b);
   static Color backgroundTopBar = const Color(0xff25272c);
   static Color backgroundTopBarContainer = const Color(0xff393d45);
-
-  static Color backgroundTooltip = const Color(0xff3F5062);
-
+  static Color backgroundTooltip = const Color(0xff1e252e).withAlpha(200);
 
   static Color backgroundWindowHeader = const Color(0xff332b21);
   static Color backgroundWindowContent = const Color(0xff4b4033);
