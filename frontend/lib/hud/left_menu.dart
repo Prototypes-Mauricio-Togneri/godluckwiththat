@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/models/event.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
@@ -23,60 +24,12 @@ class LeftMenu extends StatelessWidget {
             color: Palette.divider1,
             height: 1,
           ),
-          LeftMenuRow(
-            text: 'Worker created',
-            icon: Icons.person,
-            onSelected: state.onEventSelected,
-            onClosed: state.onEventClosed,
-          ),
-          LeftMenuRow(
-            text: 'Winter coming',
-            icon: Icons.ac_unit,
-            onSelected: state.onEventSelected,
-            onClosed: state.onEventClosed,
-          ),
-          LeftMenuRow(
-            text: 'Earthquake happened',
-            icon: Icons.warning,
-            onSelected: state.onEventSelected,
-            onClosed: state.onEventClosed,
-          ),
-          LeftMenuRow(
-            text: 'Challenge completed',
-            icon: Icons.check,
-            onSelected: state.onEventSelected,
-            onClosed: state.onEventClosed,
-          ),
-          LeftMenuRow(
-            text: 'Solider created',
-            icon: Icons.security,
-            onSelected: state.onEventSelected,
-            onClosed: state.onEventClosed,
-          ),
-          LeftMenuRow(
-            text: 'Building created',
-            icon: Icons.home,
-            onSelected: state.onEventSelected,
-            onClosed: state.onEventClosed,
-          ),
-          LeftMenuRow(
-            text: 'Research completed',
-            icon: Icons.science,
-            onSelected: state.onEventSelected,
-            onClosed: state.onEventClosed,
-          ),
-          LeftMenuRow(
-            text: 'Population limit reached',
-            icon: Icons.group,
-            onSelected: state.onEventSelected,
-            onClosed: state.onEventClosed,
-          ),
-          LeftMenuRow(
-            text: 'Territory slot reached',
-            icon: Icons.map,
-            onSelected: state.onEventSelected,
-            onClosed: state.onEventClosed,
-          ),
+          for (final Event event in state.colony.events)
+            LeftMenuRow(
+              event: event,
+              onSelected: () => state.onEventSelected(event),
+              onClosed: () => state.onEventClosed(event),
+            ),
         ],
       ),
     );
@@ -132,14 +85,12 @@ class LeftMenuTitle extends StatelessWidget {
 }
 
 class LeftMenuRow extends StatelessWidget {
-  final String text;
-  final IconData icon;
+  final Event event;
   final VoidCallback onSelected;
   final VoidCallback onClosed;
 
   const LeftMenuRow({
-    required this.text,
-    required this.icon,
+    required this.event,
     required this.onSelected,
     required this.onClosed,
   });
@@ -157,12 +108,14 @@ class LeftMenuRow extends StatelessWidget {
             children: [
               const HBox(10),
               Icon(
-                icon,
+                event.icon,
                 size: 12,
                 color: Palette.iconLevel1,
               ),
               const HBox(10),
-              Expanded(child: Label(text: text)),
+              Expanded(
+                child: Label(text: event.summary),
+              ),
               SizedBox(
                 width: 35,
                 height: 35,

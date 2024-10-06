@@ -8,6 +8,7 @@ import 'package:godluckwiththat/models/buildings/producers/gold_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/iron_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
+import 'package:godluckwiththat/models/event.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
 import 'package:godluckwiththat/states/game_state.dart';
@@ -20,6 +21,7 @@ class Colony {
   final ResourceInventory resources;
   final UnitInventory units;
   final Map<BuildingType, Building> buildings;
+  final List<Event> events;
 
   num timeElapsed;
   int freeWorkers;
@@ -30,6 +32,7 @@ class Colony {
     required this.resources,
     required this.units,
     required this.buildings,
+    required this.events,
     required this.timeElapsed,
     required this.freeWorkers,
     required this.territorySlotsUsed,
@@ -38,6 +41,17 @@ class Colony {
 
   void setState(GameState state) {
     this.state = state;
+  }
+
+  // ============================== EVENTS ================================== \\
+
+  void onEventClosed(Event event) {
+    events.remove(event);
+    notify();
+  }
+
+  void onEventSelected(Event event) {
+    print('Event');
   }
 
   // ============================ TERRITORY ================================= \\

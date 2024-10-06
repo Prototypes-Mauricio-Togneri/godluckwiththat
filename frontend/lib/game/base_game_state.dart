@@ -9,6 +9,7 @@ import 'package:godluckwiththat/models/buildings/producers/iron_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/models/colony.dart';
+import 'package:godluckwiththat/models/event.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -34,6 +35,9 @@ class BaseGameState extends BaseState {
         UnitType.worker: 5,
       }),
       buildings: {},
+      events: [
+        WorkerCreatedEvent(),
+      ],
       timeElapsed: 0,
       freeWorkers: 5,
       territorySlotsUsed: 0,
