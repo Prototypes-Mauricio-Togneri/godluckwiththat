@@ -41,7 +41,7 @@ class BuildingsWindow extends StatelessWidget {
       child: Container(
         width: (Constants.BUILDING_BLOCK_WIDTH * 3) + 40,
         height: (Constants.BUILDING_BLOCK_HEIGHT * 2) + 70,
-        color: Palette.backgroundWindowContent,
+        color: Palette.backgroundWindowTabSelected,
         child: StateProvider<GameState>(
           state: state,
           builder: (context, state) => TabbedContainer(

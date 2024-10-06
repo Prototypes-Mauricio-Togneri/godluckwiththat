@@ -56,7 +56,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Palette.backgroundWindowHeader,
+      color: Palette.backgroundWindowContent,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [

@@ -37,8 +37,8 @@ class Palette {
 
   static const Color backgroundWindowHeader = Color(0xff332b21);
   static const Color backgroundWindowContent = Color(0xff4b4033);
-  static const Color backgroundWindowTabUnselected = Color(0xff776551);
-  static const Color backgroundWindowTabSelected = Color(0xff4b4033);
+  static const Color backgroundWindowTabUnselected = Color(0xFF615342);
+  static const Color backgroundWindowTabSelected = Color(0xff776551);
   // 3d3240
   // 332B21
   // 5D523D

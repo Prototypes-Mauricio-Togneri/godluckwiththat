@@ -23,7 +23,7 @@ class BaseWindow extends StatelessWidget {
           maxHeight: MediaQuery.of(context).size.height - 200,
         ),
         child: Container(
-          color: Palette.backgroundWindowHeader,
+          color: Palette.backgroundWindowContent,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
