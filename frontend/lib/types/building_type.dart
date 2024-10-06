@@ -38,6 +38,7 @@ enum BuildingType {
     sprite: Assets.IMAGES_BUILDINGS_RESOURCES_FARM,
     initialCost: {
       ResourceType.wood: 50,
+      ResourceType.stone: 50,
     },
   ),
   woodcutter(

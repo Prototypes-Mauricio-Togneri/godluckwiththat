@@ -31,9 +31,9 @@ class ProducerBlock extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           TopSection(producer),
-          const Spacer(),
+          const VBox(10),
           MiddleSection(producer),
-          const Spacer(),
+          const VBox(15),
           BottomSection(producer),
         ],
       ),
@@ -48,41 +48,33 @@ class TopSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        Label(
+          text: producer.buildingType.name,
+          color: Palette.black,
+          weight: FontWeight.bold,
+          size: 16,
+        ),
+        const VBox(10),
         ImageBlock(
           path: producer.buildingType.sprite,
-          size: 80,
+          size: 100,
         ),
-        const HBox(15),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        const VBox(10),
+        Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Label(
-              text: producer.buildingType.name,
-              color: Palette.black,
-              weight: FontWeight.bold,
-              size: 14,
+            ImageAsset(
+              path: producer.resourceType.sprite,
+              size: 20,
             ),
-            const VBox(10),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ImageAsset(
-                  path: producer.resourceType.sprite,
-                  size: 18,
-                ),
-                const HBox(10),
-                Label(
-                  text: '${Formatter.production(producer.production)}/s',
-                  color: (producer.production == 0)
-                      ? Palette.error
-                      : Palette.black,
-                  size: 12,
-                ),
-              ],
+            const HBox(10),
+            Label(
+              text: '${Formatter.production(producer.production)}/s',
+              color: (producer.production == 0) ? Palette.error : Palette.black,
+              size: 14,
             ),
           ],
         ),

@@ -25,15 +25,15 @@ class ResourceIndicator extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        ImageAsset(
+          path: sprite,
+          size: iconSize,
+        ),
+        HBox((textSize + iconSize) / 4),
         Label(
           text: value,
           size: textSize,
           color: textColor,
-        ),
-        HBox((textSize + iconSize) / 4),
-        ImageAsset(
-          path: sprite,
-          size: iconSize,
         ),
       ],
     );

@@ -15,30 +15,40 @@ class UpgradeBuildingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Label(
-          text: 'LEVEL ${building.level}',
-          color: Palette.black,
-          weight: FontWeight.bold,
-        ),
-        const VBox(5),
         SymbolButton.upgrade(
-          size: 40,
+          size: 50,
           onTap: building.canUpgrade ? building.upgrade : null,
         ),
-        const VBox(5),
-        for (final ResourceMapEntry resource in building.upgradeCost.entries)
-          ResourceIndicator(
-            sprite: resource.key.sprite,
-            value: Formatter.resource(resource.value),
-            textColor: building.colony.resources.hasItem(resource)
-                ? Palette.black
-                : Palette.error,
-            textSize: 14,
-            iconSize: 14,
-          ),
+        const HBox(10),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Label(
+              text: 'LEVEL ${building.level + 1}',
+              color: Palette.black,
+              weight: FontWeight.bold,
+            ),
+            const VBox(5),
+            for (final ResourceMapEntry resource
+                in building.upgradeCost.entries)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: ResourceIndicator(
+                  sprite: resource.key.sprite,
+                  value: Formatter.resource(resource.value),
+                  textColor: building.colony.resources.hasItem(resource)
+                      ? Palette.black
+                      : Palette.error,
+                  textSize: 14,
+                  iconSize: 14,
+                ),
+              ),
+          ],
+        ),
       ],
     );
   }
