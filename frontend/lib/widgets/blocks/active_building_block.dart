@@ -4,11 +4,11 @@ import 'package:godluckwiththat/utils/palette.dart';
 
 class ActiveBuildingBlock extends StatelessWidget {
   final Widget child;
-  final VoidCallback onSelected;
+  final VoidCallback? onSelected;
 
   const ActiveBuildingBlock({
     required this.child,
-    required this.onSelected,
+    this.onSelected,
   });
 
   @override
@@ -33,17 +33,18 @@ class ActiveBuildingBlock extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: child,
               ),
-              Padding(
-                padding: const EdgeInsets.all(5),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Icon(
-                    Icons.info_rounded,
-                    color: Palette.iconLevel1,
-                    size: 15,
+              if (onSelected != null)
+                Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Icon(
+                      Icons.info_rounded,
+                      color: Palette.iconLevel1,
+                      size: 15,
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ),

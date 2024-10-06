@@ -1,7 +1,11 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/blocks/active_building_block.dart';
+import 'package:godluckwiththat/widgets/images/image_block.dart';
+import 'package:godluckwiththat/widgets/images/image_grayscale.dart';
+import 'package:godluckwiththat/widgets/labels/label.dart';
 
 class UnavailableBuildingBlock extends StatelessWidget {
   final BuildingType buildingType;
@@ -10,16 +14,63 @@ class UnavailableBuildingBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Constants.BUILDING_BLOCK_WIDTH,
-      height: Constants.BUILDING_BLOCK_HEIGHT,
-      color: Palette.backgroundBuildingBlock,
-      padding: const EdgeInsets.all(10),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [],
+    return ImageGrayScale(
+      size: 0,
+      child: ActiveBuildingBlock(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TopSection(buildingType),
+            const Spacer(),
+            BottomSection(buildingType),
+            const Spacer(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TopSection extends StatelessWidget {
+  final BuildingType buildingType;
+
+  const TopSection(this.buildingType);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Label(
+          text: buildingType.name,
+          color: Palette.black,
+          weight: FontWeight.bold,
+          size: 14,
+        ),
+        const VBox(10),
+        ImageBlock(
+          path: buildingType.sprite,
+          size: 100,
+        ),
+      ],
+    );
+  }
+}
+
+class BottomSection extends StatelessWidget {
+  final BuildingType buildingType;
+
+  const BottomSection(this.buildingType);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Icon(
+        Icons.lock,
+        color: Palette.iconDisabled,
+        size: 80,
       ),
     );
   }

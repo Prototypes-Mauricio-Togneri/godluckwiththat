@@ -15,6 +15,7 @@ class Palette {
   static Color iconHighlight = const Color(0xffffc917);
   static Color iconLevel1 = const Color(0xffffffff);
   static Color iconLevel2 = const Color(0xffaaaaaa);
+  static Color iconDisabled = const Color(0xff888888);
 
   static Color backgroundTransparent1 = const Color(0xff000000).withAlpha(150);
   static Color backgroundTransparent2 = const Color(0xff1a1a1a).withAlpha(150);
