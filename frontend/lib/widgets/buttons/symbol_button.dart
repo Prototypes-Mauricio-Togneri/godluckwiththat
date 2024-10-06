@@ -25,7 +25,7 @@ class SymbolButton extends StatelessWidget {
   }) =>
       SymbolButton(
         icon: Icons.add,
-        color: Palette.success,
+        color: Palette.buttonEnabled,
         size: size,
         onTap: onTap,
       );
@@ -36,7 +36,7 @@ class SymbolButton extends StatelessWidget {
   }) =>
       SymbolButton(
         sprite: Assets.IMAGES_UNITS_WORKER,
-        color: Palette.success,
+        color: Palette.buttonEnabled,
         size: size,
         onTap: onTap,
       );
@@ -58,7 +58,7 @@ class SymbolButton extends StatelessWidget {
   }) =>
       SymbolButton(
         icon: Icons.arrow_upward,
-        color: Palette.success,
+        color: Palette.buttonEnabled,
         size: size,
         onTap: onTap,
       );
@@ -69,7 +69,7 @@ class SymbolButton extends StatelessWidget {
   }) =>
       SymbolButton(
         icon: Icons.construction,
-        color: Palette.success,
+        color: Palette.buttonEnabled,
         size: size,
         onTap: onTap,
       );
