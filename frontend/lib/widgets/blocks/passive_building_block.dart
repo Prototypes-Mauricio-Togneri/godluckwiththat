@@ -2,6 +2,7 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/blocks/active_building_block.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
 import 'package:godluckwiththat/widgets/images/image_block.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
@@ -13,64 +14,59 @@ class PassiveBuildingBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: const BoxDecoration(
-        color: Palette.backgroundBuildingBlock,
-        border: Border(
-          bottom: BorderSide(
-            width: 0.5,
-            color: Palette.lightGrey,
-          ),
-        ),
-      ),
-      child: Row(
+    return ActiveBuildingBlock(
+      onSelected: () {
+        print(building);
+      },
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          LeftSection(building),
+          TopSection(building),
           const Spacer(),
-          const Spacer(),
-          RightSection(building),
+          BottomSection(building),
         ],
       ),
     );
   }
 }
 
-class LeftSection extends StatelessWidget {
+class TopSection extends StatelessWidget {
   final Building building;
 
-  const LeftSection(this.building);
+  const TopSection(this.building);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        ImageBlock(
-          path: building.buildingType.sprite,
-          size: 80,
-        ),
-        const HBox(15),
         Label(
           text: building.buildingType.name,
           color: Palette.black,
           weight: FontWeight.bold,
           size: 14,
         ),
+        const VBox(10),
+        ImageBlock(
+          path: building.buildingType.sprite,
+          size: 100,
+        ),
       ],
     );
   }
 }
 
-class RightSection extends StatelessWidget {
+class BottomSection extends StatelessWidget {
   final Building building;
 
-  const RightSection(this.building);
+  const BottomSection(this.building);
 
   @override
   Widget build(BuildContext context) {
-    return UpgradeBuildingButton(building);
+    return Center(
+      child: UpgradeBuildingButton(building),
+    );
   }
 }

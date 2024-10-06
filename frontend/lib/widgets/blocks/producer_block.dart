@@ -28,7 +28,7 @@ class ProducerBlock extends StatelessWidget {
           TopSection(producer),
           const VBox(10),
           MiddleSection(producer),
-          const VBox(15),
+          const Spacer(),
           BottomSection(producer),
         ],
       ),

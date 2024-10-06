@@ -27,7 +27,7 @@ class HeadquartersBlock extends StatelessWidget {
           TopSection(headquarters),
           const VBox(10),
           MiddleSection(headquarters),
-          const VBox(15),
+          const Spacer(),
           BottomSection(headquarters),
         ],
       ),
