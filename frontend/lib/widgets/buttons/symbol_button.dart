@@ -80,7 +80,7 @@ class SymbolButton extends StatelessWidget {
     final Widget image = (icon != null)
         ? Icon(
             icon,
-            color: Palette.white,
+            color: Palette.iconLevel1,
             size: dimensions,
           )
         : ImageAsset(

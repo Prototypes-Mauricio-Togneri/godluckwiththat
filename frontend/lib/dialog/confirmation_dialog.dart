@@ -81,7 +81,7 @@ class ConfirmationDialog extends StatelessWidget {
       backgroundColor: Colors.grey,
       content: Label(
         text: message,
-        color: Palette.white,
+        color: Palette.textLevel1,
         size: 30,
       ),
       actions: [

@@ -29,7 +29,7 @@ class UpgradeBuildingButton extends StatelessWidget {
           children: [
             Label(
               text: 'LEVEL ${building.level + 1}',
-              color: Palette.black,
+              color: Palette.textLevel2,
               weight: FontWeight.bold,
             ),
             for (final ResourceMapEntry resource
@@ -40,7 +40,7 @@ class UpgradeBuildingButton extends StatelessWidget {
                   sprite: resource.key.sprite,
                   value: Formatter.resource(resource.value),
                   textColor: building.colony.resources.hasItem(resource)
-                      ? Palette.black
+                      ? Palette.textLevel2
                       : Palette.error,
                   textSize: 12,
                   iconSize: 12,

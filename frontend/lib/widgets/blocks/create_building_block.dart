@@ -52,7 +52,7 @@ class TopSection extends StatelessWidget {
       children: [
         Label(
           text: buildingType.name,
-          color: Palette.black,
+          color: Palette.textLevel2,
           weight: FontWeight.bold,
           size: 14,
         ),

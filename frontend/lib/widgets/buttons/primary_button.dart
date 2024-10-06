@@ -75,13 +75,14 @@ class ButtonContent extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 10),
                     child: Icon(
                       icon,
-                      color: Palette.white,
+                      color: Palette.iconLevel1,
                       size: textSize,
                     ),
                   ),
                 Label(
                   text: text,
                   size: textSize,
+                  color: Palette.textLevel1,
                 ),
               ],
             ),

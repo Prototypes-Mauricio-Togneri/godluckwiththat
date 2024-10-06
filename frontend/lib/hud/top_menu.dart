@@ -50,12 +50,12 @@ class PauseButton extends StatelessWidget {
         child: InkWell(
           hoverColor: Palette.backgroundTransparent3.withAlpha(100),
           onTap: onPressed,
-          child: const Padding(
-            padding: EdgeInsets.all(10),
+          child: Padding(
+            padding: const EdgeInsets.all(10),
             child: Icon(
               Icons.pause,
               size: 15,
-              color: Palette.white,
+              color: Palette.iconLevel1,
             ),
           ),
         ),
@@ -139,6 +139,7 @@ class ResourcesSummary extends StatelessWidget {
             colony: state.colony,
             resourceType: ResourceType.food,
           ),
+          color: Palette.textLevel1,
         ),
         const HBox(10),
         ResourceSummary(
@@ -150,6 +151,7 @@ class ResourcesSummary extends StatelessWidget {
             colony: state.colony,
             resourceType: ResourceType.wood,
           ),
+          color: Palette.textLevel1,
         ),
         const HBox(10),
         ResourceSummary(
@@ -161,6 +163,7 @@ class ResourcesSummary extends StatelessWidget {
             colony: state.colony,
             resourceType: ResourceType.stone,
           ),
+          color: Palette.textLevel1,
         ),
         const HBox(10),
         ResourceSummary(
@@ -174,6 +177,7 @@ class ResourcesSummary extends StatelessWidget {
             colony: state.colony,
             resourceType: ResourceType.copper,
           ),
+          color: Palette.textLevel1,
         ),
         const HBox(10),
         ResourceSummary(
@@ -185,6 +189,7 @@ class ResourcesSummary extends StatelessWidget {
             colony: state.colony,
             resourceType: ResourceType.iron,
           ),
+          color: Palette.textLevel1,
         ),
         const HBox(10),
         ResourceSummary(
@@ -196,6 +201,7 @@ class ResourcesSummary extends StatelessWidget {
             colony: state.colony,
             resourceType: ResourceType.gold,
           ),
+          color: Palette.textLevel1,
         ),
         const HBox(10),
         ResourceSummary(
@@ -204,6 +210,7 @@ class ResourcesSummary extends StatelessWidget {
           value:
               state.colony.resources.get(ResourceType.faith).floor().toString(),
           tooltip: SimpleTooltip.resource(ResourceType.faith),
+          color: Palette.textLevel1,
         ),
         const HBox(10),
         ResourceSummary(
@@ -214,6 +221,7 @@ class ResourcesSummary extends StatelessWidget {
               .floor()
               .toString(),
           tooltip: SimpleTooltip.resource(ResourceType.knowledge),
+          color: Palette.textLevel1,
         ),
       ],
     );
@@ -232,7 +240,7 @@ class ResourceSummary extends StatelessWidget {
     required this.sprite,
     required this.value,
     required this.tooltip,
-    this.color = Palette.white,
+    required this.color,
   });
 
   @override
@@ -285,6 +293,7 @@ class LimitsIndicator extends StatelessWidget {
               sprite: Assets.IMAGES_UNITS_WORKER,
               value:
                   '${Formatter.resource(state.colony.currentPopulation)}/${Formatter.resource(state.colony.populationLimit)}',
+              color: Palette.textLevel1,
               tooltip: const SimpleTooltip('Population'),
             ),
             const HBox(5),
@@ -294,7 +303,7 @@ class LimitsIndicator extends StatelessWidget {
               value: '${state.colony.freeWorkers}',
               color: (state.colony.freeWorkers > 0)
                   ? Palette.error
-                  : Palette.white,
+                  : Palette.textLevel1,
               tooltip: const SimpleTooltip('Idle workers'),
             ),
             const HBox(10),
@@ -303,6 +312,7 @@ class LimitsIndicator extends StatelessWidget {
               sprite: Assets.IMAGES_OTHER_HOUSE,
               value:
                   '${state.colony.territorySlotsUsed}/${state.colony.territorySlotsTotal}',
+              color: Palette.textLevel1,
               tooltip: const SimpleTooltip('Territory'),
             ),
           ],

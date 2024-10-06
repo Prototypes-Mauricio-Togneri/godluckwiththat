@@ -115,12 +115,12 @@ class LeftMenuTitle extends StatelessWidget {
             child: InkWell(
               hoverColor: Palette.backgroundClose.withAlpha(150),
               onTap: state.onCleanAllEvents,
-              child: const Padding(
-                padding: EdgeInsets.all(10),
+              child: Padding(
+                padding: const EdgeInsets.all(10),
                 child: Icon(
                   Icons.close,
                   size: 15,
-                  color: Palette.white,
+                  color: Palette.iconLevel1,
                 ),
               ),
             ),
@@ -159,7 +159,7 @@ class LeftMenuRow extends StatelessWidget {
               Icon(
                 icon,
                 size: 12,
-                color: Palette.white,
+                color: Palette.iconLevel1,
               ),
               const HBox(10),
               Expanded(child: Label(text: text)),
@@ -172,12 +172,12 @@ class LeftMenuRow extends StatelessWidget {
                         child: InkWell(
                           hoverColor: Palette.backgroundClose.withAlpha(150),
                           onTap: onClosed,
-                          child: const Padding(
-                            padding: EdgeInsets.all(10),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
                             child: Icon(
                               Icons.close,
                               size: 15,
-                              color: Palette.white,
+                              color: Palette.iconLevel1,
                             ),
                           ),
                         ),

@@ -49,7 +49,7 @@ class TopSection extends StatelessWidget {
       children: [
         Label(
           text: producer.buildingType.name,
-          color: Palette.black,
+          color: Palette.textLevel2,
           weight: FontWeight.bold,
           size: 14,
         ),
@@ -69,7 +69,9 @@ class TopSection extends StatelessWidget {
             const HBox(10),
             Label(
               text: '${Formatter.production(producer.production)}/s',
-              color: (producer.production == 0) ? Palette.error : Palette.black,
+              color: (producer.production == 0)
+                  ? Palette.error
+                  : Palette.textLevel2,
               size: 12,
             ),
           ],

@@ -11,7 +11,8 @@ class Palette {
   static Color borderHighlight = const Color(0xffffc917);
   static Color borderLevel1 = const Color(0xff404040);
 
-  static Color textLevel1 = const Color(0xffffffff);
+  static const Color textLevel1 = Color(0xffffffff);
+  static Color textLevel2 = const Color(0xff000000);
   static Color textHighlight = const Color(0xffffc917);
 
   static Color iconHighlight = const Color(0xffffc917);
@@ -21,6 +22,8 @@ class Palette {
 
   static Color buttonPrimary = const Color(0xFF2080FF);
   static Color buttonDisabled = const Color(0xffa0a0a0);
+
+  static Color backgroundLevel1 = const Color(0xff000000);
 
   static Color backgroundTransparent1 = const Color(0xff000000).withAlpha(150);
   static Color backgroundTransparent2 = const Color(0xff1a1a1a).withAlpha(150);
@@ -59,8 +62,4 @@ class Palette {
   // 89756A
   // B89263
   // FEE8D0
-
-  // TODO(momo): rename
-  static const Color white = Colors.white;
-  static const Color black = Colors.black;
 }
