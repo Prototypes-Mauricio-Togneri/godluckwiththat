@@ -13,7 +13,11 @@ import 'package:godluckwiththat/models/events/building_upgraded_event.dart';
 import 'package:godluckwiththat/models/events/challenge_result_event.dart';
 import 'package:godluckwiththat/models/events/disaster_result_event.dart';
 import 'package:godluckwiththat/models/events/military_unit_created_event.dart';
+import 'package:godluckwiththat/models/events/population_limit_reached_event.dart';
+import 'package:godluckwiththat/models/events/research_completed_event.dart';
+import 'package:godluckwiththat/models/events/resource_limit_reached_event.dart';
 import 'package:godluckwiththat/models/events/season_change_event.dart';
+import 'package:godluckwiththat/models/events/territory_limit_reached_event.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -48,6 +52,10 @@ class BaseGameState extends BaseState {
         ChallengeResultEvent(),
         MilitaryUnitCreatedEvent(),
         BuildingUpgradedEvent(),
+        ResearchCompletedEvent(),
+        PopulationLimitReachedEvent(),
+        TerritoryLimitReachedEvent(),
+        ResourceLimitReachedEvent(),
       ],
       timeElapsed: 0,
       freeWorkers: 5,
