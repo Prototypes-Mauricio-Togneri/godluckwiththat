@@ -34,13 +34,7 @@ flutter:
   uses-material-design: true
 
   fonts:
-    - family: CustomFont1
-      fonts:
-        - asset: assets/fonts/HellasCour-Regular.ttf
-    - family: CustomFont5
-      fonts:
-        - asset: assets/fonts/Montserrat.ttf
-    - family: CustomFont8
+    - family: CustomFont
       fonts:
         - asset: assets/fonts/Outfit.ttf
 

@@ -54,7 +54,7 @@ class TopSection extends StatelessWidget {
           text: buildingType.name,
           color: Palette.black,
           weight: FontWeight.bold,
-          size: 16,
+          size: 14,
         ),
         const VBox(10),
         ImageBlock(

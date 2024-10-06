@@ -51,7 +51,7 @@ class TopSection extends StatelessWidget {
           text: producer.buildingType.name,
           color: Palette.black,
           weight: FontWeight.bold,
-          size: 16,
+          size: 14,
         ),
         const VBox(10),
         ImageBlock(
@@ -70,7 +70,7 @@ class TopSection extends StatelessWidget {
             Label(
               text: '${Formatter.production(producer.production)}/s',
               color: (producer.production == 0) ? Palette.error : Palette.black,
-              size: 14,
+              size: 12,
             ),
           ],
         ),
@@ -89,7 +89,7 @@ class MiddleSection extends StatelessWidget {
     return Center(
       child: WorkersSelector(
         building: producer,
-        size: 20,
+        size: 18,
       ),
     );
   }

@@ -1,5 +1,5 @@
 class Constants {
-  static const String FONT_NAME = 'CustomFont5';
+  static const String FONT_NAME = 'CustomFont';
 
   static const int SECONDS_PER_DAY = 6;
 

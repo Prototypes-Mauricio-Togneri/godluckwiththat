@@ -110,7 +110,7 @@ class SeasonIndicator extends StatelessWidget {
             HBox(5),
             Label(
               text: 'Summer',
-              size: 16,
+              size: 14,
             ),
             HBox(5),
           ],
@@ -254,7 +254,7 @@ class ResourceSummary extends StatelessWidget {
                 const Spacer(),
                 Label(
                   text: value,
-                  size: 18,
+                  size: 16,
                   color: color,
                 ),
               ],

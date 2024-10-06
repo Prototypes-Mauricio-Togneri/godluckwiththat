@@ -29,8 +29,8 @@ class TrainUnitButton extends StatelessWidget {
             textColor: consumer.colony.resources.hasItem(resource)
                 ? Palette.black
                 : Palette.error,
-            textSize: 14,
-            iconSize: 14,
+            textSize: 12,
+            iconSize: 12,
           ),
       ],
     );

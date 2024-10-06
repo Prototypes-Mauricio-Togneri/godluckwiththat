@@ -17,7 +17,7 @@ class Label extends StatelessWidget {
   const Label({
     required this.text,
     this.color = Palette.white,
-    this.size = 12,
+    this.size = 10,
     this.weight = FontWeight.w700,
     this.decoration = TextDecoration.none,
     this.uppercase = true,
@@ -35,7 +35,7 @@ class Label extends StatelessWidget {
       maxLines: maxLines,
       style: TextStyle(
         color: color,
-        fontSize: size - 2,
+        fontSize: size,
         fontWeight: weight,
         fontFamily: Constants.FONT_NAME,
         decoration: decoration,
