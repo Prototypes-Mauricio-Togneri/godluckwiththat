@@ -81,7 +81,8 @@ class BottomMenuButton extends StatelessWidget {
             builder: (context, hovered) => Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: hovered ? Palette.borderHover : Palette.borderLevel1,
+                  color:
+                      hovered ? Palette.borderHighlight : Palette.borderLevel1,
                   width: 1,
                 ),
               ),

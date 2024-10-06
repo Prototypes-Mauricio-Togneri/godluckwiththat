@@ -22,12 +22,15 @@ class BaseWindow extends StatelessWidget {
           maxWidth: MediaQuery.of(context).size.width - 800,
           maxHeight: MediaQuery.of(context).size.height - 200,
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Header(title),
-            child,
-          ],
+        child: Container(
+          color: Palette.backgroundWindowContent,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Header(title),
+              child,
+            ],
+          ),
         ),
       ),
     );
@@ -43,7 +46,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 35,
-      color: Colors.green,
+      color: Palette.backgroundWindowHeader,
       child: Stack(
         children: [
           Align(
@@ -53,14 +56,14 @@ class Header extends StatelessWidget {
               size: 15,
             ),
           ),
-          const Align(
+          Align(
             alignment: Alignment.centerRight,
             child: Material(
               color: Palette.transparent,
               child: IconButton(
                 icon: Icon(
                   Icons.close,
-                  color: Colors.white,
+                  color: Palette.iconLevel1,
                   size: 20,
                 ),
                 onPressed: Navigation.pop,

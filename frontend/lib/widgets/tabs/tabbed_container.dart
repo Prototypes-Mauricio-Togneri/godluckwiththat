@@ -84,7 +84,7 @@ class TabEntry extends StatelessWidget {
     return SizedBox(
       height: 40,
       child: Material(
-        color: selected ? Colors.blue : Colors.grey,
+        color: selected ? Colors.red : Colors.grey,
         child: InkWell(
           onTap: onSelected,
           child: Padding(

@@ -40,7 +40,7 @@ class BuildingsWindow extends StatelessWidget {
       child: Container(
         width: Constants.BUILDING_BLOCK_WIDTH * 3,
         height: (Constants.BUILDING_BLOCK_HEIGHT * 2) + 40,
-        color: Colors.red,
+        color: Palette.backgroundWindowContent,
         child: StateProvider<GameState>(
           state: state,
           builder: (context, state) => TabbedContainer(
@@ -128,7 +128,7 @@ class BuildingBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Palette.primary,
+      color: Palette.backgroundWindowContent,
       width: Constants.BUILDING_BLOCK_WIDTH,
       height: Constants.BUILDING_BLOCK_HEIGHT,
       child: _widget,

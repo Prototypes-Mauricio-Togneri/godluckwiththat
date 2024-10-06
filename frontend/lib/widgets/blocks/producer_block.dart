@@ -17,40 +17,40 @@ class ProducerBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Palette.producerBlock,
-        border: Border(
-          bottom: BorderSide(
-            width: 0.5,
-            color: Palette.lightGrey,
-          ),
+        border: Border.all(
+          width: 2,
+          color: Palette.borderHighlight,
         ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          LeftSection(producer),
+          TopSection(producer),
           const Spacer(),
           MiddleSection(producer),
           const Spacer(),
-          RightSection(producer),
+          BottomSection(producer),
         ],
       ),
     );
   }
 }
 
-class LeftSection extends StatelessWidget {
+class TopSection extends StatelessWidget {
   final Producer producer;
 
-  const LeftSection(this.producer);
+  const TopSection(this.producer);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ImageBlock(
           path: producer.buildingType.sprite,
@@ -80,7 +80,7 @@ class LeftSection extends StatelessWidget {
                   color: (producer.production == 0)
                       ? Palette.error
                       : Palette.black,
-                  size: 14,
+                  size: 12,
                 ),
               ],
             ),
@@ -107,10 +107,10 @@ class MiddleSection extends StatelessWidget {
   }
 }
 
-class RightSection extends StatelessWidget {
+class BottomSection extends StatelessWidget {
   final Producer producer;
 
-  const RightSection(this.producer);
+  const BottomSection(this.producer);
 
   @override
   Widget build(BuildContext context) {

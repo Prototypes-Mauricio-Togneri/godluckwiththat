@@ -6,7 +6,7 @@ class Palette {
 
   static Color divider1 = const Color(0xff555555);
 
-  static Color borderHover = const Color(0xffffc917);
+  static Color borderHighlight = const Color(0xffffc917);
   static Color borderLevel1 = const Color(0xff404040);
 
   static Color iconHover = const Color(0xffffc917);
@@ -21,7 +21,10 @@ class Palette {
 
   static Color backgroundTooltip = const Color(0xff3F5062);
 
-  static Color backgroundWindow = const Color(0xff3d3240);
+
+  static Color backgroundWindowHeader = const Color(0xff332b21);
+  static Color backgroundWindowContent = const Color(0xff4b4033);
+  // 3d3240
   // 332B21
   // 5D523D
   // 584D39
