@@ -12,6 +12,7 @@ import 'package:godluckwiththat/widgets/blocks/create_building_block.dart';
 import 'package:godluckwiththat/widgets/blocks/headquarters_block.dart';
 import 'package:godluckwiththat/widgets/blocks/passive_building_block.dart';
 import 'package:godluckwiththat/widgets/blocks/producer_block.dart';
+import 'package:godluckwiththat/widgets/blocks/unavailable_building.dart';
 import 'package:godluckwiththat/widgets/tabs/tabbed_container.dart';
 import 'package:godluckwiththat/windows/base_window.dart';
 
@@ -139,11 +140,13 @@ class BuildingsList extends StatelessWidget {
   Widget _widget(BuildingType buildingType) {
     if (state.colony.hasBuilding(buildingType)) {
       return BuildingBlock(state.colony.getBuilding(buildingType));
-    } else {
+    } else if (state.colony.allowToBuild(buildingType)) {
       return CreateBuildingBlock(
         colony: state.colony,
         buildingType: buildingType,
       );
+    } else {
+      return UnavailableBuildingBlock(buildingType);
     }
   }
 }

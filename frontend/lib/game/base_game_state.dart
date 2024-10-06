@@ -1,8 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/passive/house.dart';
-import 'package:godluckwiththat/models/buildings/passive/market.dart';
-import 'package:godluckwiththat/models/buildings/passive/storehouse.dart';
 import 'package:godluckwiththat/models/buildings/producers/academy.dart';
 import 'package:godluckwiththat/models/buildings/producers/copper_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
@@ -55,14 +53,6 @@ class BaseGameState extends BaseState {
         colony: colony,
         level: 1,
         workers: 1,
-      ),
-      BuildingType.storehouse: Storehouse(
-        colony: colony,
-        level: 1,
-      ),
-      BuildingType.market: Market(
-        colony: colony,
-        level: 1,
       ),
       BuildingType.farm: Farm(
         colony: colony,

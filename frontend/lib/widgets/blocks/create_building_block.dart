@@ -6,6 +6,7 @@ import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/blocks/active_building_block.dart';
 import 'package:godluckwiththat/widgets/buttons/primary_button.dart';
 import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
 
@@ -20,37 +21,43 @@ class CreateBuildingBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Constants.BUILDING_BLOCK_WIDTH,
-      height: Constants.BUILDING_BLOCK_HEIGHT,
-      color: Palette.backgroundBuildingBlock,
-      padding: const EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          PrimaryButton(
-            text: 'BUILD ${buildingType.name}',
-            color: Palette.success,
-            onPressed: colony.canBuild(buildingType)
-                ? () => colony.build(buildingType)
-                : null,
-            icon: Icons.construction,
-            expand: false,
-          ),
-          const VBox(10),
-          for (final ResourceMapEntry resource in buildingType.cost(1).entries)
-            ResourceIndicator(
-              sprite: resource.key.sprite,
-              value: Formatter.resource(resource.value),
-              textColor: colony.resources.hasItem(resource)
-                  ? Palette.black
-                  : Palette.error,
-              textSize: 14,
-              iconSize: 14,
+    return ActiveBuildingBlock(
+      onSelected: () {
+        print(buildingType);
+      },
+      child: Container(
+        width: Constants.BUILDING_BLOCK_WIDTH,
+        height: Constants.BUILDING_BLOCK_HEIGHT,
+        color: Palette.backgroundBuildingBlock,
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            PrimaryButton(
+              text: 'BUILD ${buildingType.name}',
+              color: Palette.success,
+              onPressed: colony.canBuild(buildingType)
+                  ? () => colony.build(buildingType)
+                  : null,
+              icon: Icons.construction,
+              expand: false,
             ),
-        ],
+            const VBox(10),
+            for (final ResourceMapEntry resource
+                in buildingType.cost(1).entries)
+              ResourceIndicator(
+                sprite: resource.key.sprite,
+                value: Formatter.resource(resource.value),
+                textColor: colony.resources.hasItem(resource)
+                    ? Palette.black
+                    : Palette.error,
+                textSize: 14,
+                iconSize: 14,
+              ),
+          ],
+        ),
       ),
     );
   }
