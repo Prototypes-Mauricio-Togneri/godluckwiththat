@@ -45,7 +45,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 35,
+      height: 40,
       color: Palette.backgroundWindowHeader,
       child: Stack(
         children: [
@@ -53,21 +53,24 @@ class Header extends StatelessWidget {
             alignment: Alignment.center,
             child: Label(
               text: title,
-              size: 13,
+              size: 14,
               weight: FontWeight.bold,
             ),
           ),
           const Align(
             alignment: Alignment.centerRight,
             child: Material(
-              color: Palette.transparent,
-              child: IconButton(
-                icon: Icon(
-                  Icons.close,
-                  color: Palette.iconLevel1,
-                  size: 20,
+              color: Palette.backgroundClose,
+              child: InkWell(
+                onTap: Navigation.pop,
+                child: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Icon(
+                    Icons.close,
+                    color: Palette.iconLevel1,
+                    size: 25,
+                  ),
                 ),
-                onPressed: Navigation.pop,
               ),
             ),
           ),
