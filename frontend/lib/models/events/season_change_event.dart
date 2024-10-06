@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/events/event.dart';
 import 'package:godluckwiththat/types/event_type.dart';
 
-class WinterComingEvent extends Event {
-  WinterComingEvent() : super(eventType: EventType.winter_coming);
+class SeasonChangeEvent extends Event {
+  SeasonChangeEvent() : super(eventType: EventType.season_change_coming);
 
   @override
   String get summary => 'Winter coming';
