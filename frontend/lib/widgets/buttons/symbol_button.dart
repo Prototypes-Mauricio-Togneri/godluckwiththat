@@ -63,6 +63,17 @@ class SymbolButton extends StatelessWidget {
         onTap: onTap,
       );
 
+  factory SymbolButton.build({
+    required double size,
+    required VoidCallback? onTap,
+  }) =>
+      SymbolButton(
+        icon: Icons.construction,
+        color: Palette.success,
+        size: size,
+        onTap: onTap,
+      );
+
   @override
   Widget build(BuildContext context) {
     final double dimensions = size * 2 / 3;

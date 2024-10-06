@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 
 class ActiveBuildingBlock extends StatelessWidget {
@@ -13,6 +14,8 @@ class ActiveBuildingBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: Constants.BUILDING_BLOCK_WIDTH,
+      height: Constants.BUILDING_BLOCK_HEIGHT,
       decoration: BoxDecoration(
         color: Palette.backgroundBuildingBlock,
         border: Border.all(

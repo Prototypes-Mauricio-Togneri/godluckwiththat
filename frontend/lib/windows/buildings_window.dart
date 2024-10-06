@@ -139,7 +139,15 @@ class BuildingsList extends StatelessWidget {
 
   Widget _widget(BuildingType buildingType) {
     if (state.colony.hasBuilding(buildingType)) {
-      return BuildingBlock(state.colony.getBuilding(buildingType));
+      final Building building = state.colony.getBuilding(buildingType);
+
+      if (building is Headquarters) {
+        return HeadquartersBlock(building);
+      } else if (building is Producer) {
+        return ProducerBlock(building);
+      } else {
+        return PassiveBuildingBlock(building);
+      }
     } else if (state.colony.allowToBuild(buildingType)) {
       return CreateBuildingBlock(
         colony: state.colony,
@@ -147,32 +155,6 @@ class BuildingsList extends StatelessWidget {
       );
     } else {
       return UnavailableBuildingBlock(buildingType);
-    }
-  }
-}
-
-class BuildingBlock extends StatelessWidget {
-  final Building building;
-
-  const BuildingBlock(this.building);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Palette.backgroundWindowContent,
-      width: Constants.BUILDING_BLOCK_WIDTH,
-      height: Constants.BUILDING_BLOCK_HEIGHT,
-      child: _widget,
-    );
-  }
-
-  Widget get _widget {
-    if (building is Headquarters) {
-      return HeadquartersBlock(building as Headquarters);
-    } else if (building is Producer) {
-      return ProducerBlock(building as Producer);
-    } else {
-      return PassiveBuildingBlock(building);
     }
   }
 }
