@@ -9,6 +9,7 @@ import 'package:godluckwiththat/models/buildings/producers/iron_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/models/colony.dart';
+import 'package:godluckwiththat/models/events/disaster_result_event.dart';
 import 'package:godluckwiththat/models/events/winter_coming_event.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
@@ -40,6 +41,7 @@ class BaseGameState extends BaseState {
       events: [
         WorkerCreatedEvent(),
         WinterComingEvent(),
+        DisasterResultEvent(),
       ],
       timeElapsed: 0,
       freeWorkers: 5,
