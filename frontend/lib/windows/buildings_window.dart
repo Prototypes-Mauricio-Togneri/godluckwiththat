@@ -47,6 +47,7 @@ class BuildingsWindow extends StatelessWidget {
             tabs: const [
               TabData(title: 'Misc', icon: Icons.business_outlined),
               TabData(title: 'Resources', icon: Icons.home),
+              TabData(title: 'Religion', icon: Icons.church),
             ],
             children: [
               BuildingsList(
@@ -75,6 +76,19 @@ class BuildingsWindow extends StatelessWidget {
                     BuildingType.copperMine,
                     BuildingType.ironMine,
                     BuildingType.goldMine,
+                  ],
+                ],
+              ),
+              BuildingsList(
+                state: state,
+                buildingTypes: const [
+                  [
+                    BuildingType.altar,
+                    BuildingType.shrine,
+                    BuildingType.temple,
+                  ],
+                  [
+                    BuildingType.monument,
                   ],
                 ],
               ),

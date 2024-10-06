@@ -72,6 +72,35 @@ enum BuildingType {
       ResourceType.wood: 100,
       ResourceType.stone: 50,
     },
+  ),
+
+  altar(
+    sprite: Assets.IMAGES_BUILDINGS_RELIGIOUS_ALTAR,
+    initialCost: {
+      ResourceType.wood: 100,
+      ResourceType.stone: 50,
+    },
+  ),
+  shrine(
+    sprite: Assets.IMAGES_BUILDINGS_RELIGIOUS_SHRINE,
+    initialCost: {
+      ResourceType.wood: 100,
+      ResourceType.stone: 50,
+    },
+  ),
+  temple(
+    sprite: Assets.IMAGES_BUILDINGS_RELIGIOUS_TEMPLE,
+    initialCost: {
+      ResourceType.wood: 100,
+      ResourceType.stone: 50,
+    },
+  ),
+  monument(
+    sprite: Assets.IMAGES_BUILDINGS_RELIGIOUS_MONUMENT,
+    initialCost: {
+      ResourceType.wood: 100,
+      ResourceType.stone: 50,
+    },
   );
 
   final String sprite;
