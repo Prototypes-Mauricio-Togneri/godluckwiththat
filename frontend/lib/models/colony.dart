@@ -8,7 +8,7 @@ import 'package:godluckwiththat/models/buildings/producers/gold_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/iron_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
-import 'package:godluckwiththat/models/event.dart';
+import 'package:godluckwiththat/models/events/event.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
 import 'package:godluckwiththat/states/game_state.dart';
@@ -44,6 +44,11 @@ class Colony {
   }
 
   // ============================== EVENTS ================================== \\
+
+  void onAllEventsClosed() {
+    events.clear();
+    notify();
+  }
 
   void onEventClosed(Event event) {
     events.remove(event);

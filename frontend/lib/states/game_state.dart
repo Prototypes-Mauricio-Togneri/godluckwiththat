@@ -1,5 +1,5 @@
 import 'package:godluckwiththat/game/base_game_state.dart';
-import 'package:godluckwiththat/models/event.dart';
+import 'package:godluckwiththat/models/events/event.dart';
 import 'package:godluckwiththat/windows/buildings_window.dart';
 
 class GameState extends BaseGameState {
@@ -40,9 +40,7 @@ class GameState extends BaseGameState {
     print('Upcoming');
   }
 
-  void onCleanAllEvents() {
-    print('Clean All Events');
-  }
+  void onCleanAllEvents() => colony.onAllEventsClosed();
 
   void onEventSelected(Event event) => colony.onEventSelected(event);
 

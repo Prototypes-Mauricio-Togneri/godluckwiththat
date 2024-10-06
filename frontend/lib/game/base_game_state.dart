@@ -9,12 +9,14 @@ import 'package:godluckwiththat/models/buildings/producers/iron_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/models/colony.dart';
-import 'package:godluckwiththat/models/event.dart';
+import 'package:godluckwiththat/models/events/winter_coming_event.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/types/unit_type.dart';
+
+import '../models/events/worker_created_event.dart';
 
 class BaseGameState extends BaseState {
   late final Colony colony;
@@ -37,6 +39,7 @@ class BaseGameState extends BaseState {
       buildings: {},
       events: [
         WorkerCreatedEvent(),
+        WinterComingEvent(),
       ],
       timeElapsed: 0,
       freeWorkers: 5,
