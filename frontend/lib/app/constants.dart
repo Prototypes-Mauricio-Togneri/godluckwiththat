@@ -18,5 +18,5 @@ class Constants {
   static const double ACADEMY_PRODUCTION_RATE = 0.02;
 
   static const double BUILDING_BLOCK_WIDTH = 200;
-  static const double BUILDING_BLOCK_HEIGHT = 320;
+  static const double BUILDING_BLOCK_HEIGHT = 300;
 }

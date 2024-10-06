@@ -23,7 +23,7 @@ class CreateBuildingBlock extends StatelessWidget {
     return Container(
       width: Constants.BUILDING_BLOCK_WIDTH,
       height: Constants.BUILDING_BLOCK_HEIGHT,
-      color: Palette.producerBlock,
+      color: Palette.backgroundBuildingBlock,
       padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

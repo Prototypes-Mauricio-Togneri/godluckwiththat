@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/consumers/consumer.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/blocks/active_building_block.dart';
 import 'package:godluckwiththat/widgets/buttons/train_unit_button.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
 import 'package:godluckwiththat/widgets/images/image_block.dart';
@@ -15,44 +16,46 @@ class HeadquartersBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Palette.producerBlock,
-      padding: const EdgeInsets.all(10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+    return ActiveBuildingBlock(
+      onSelected: () {
+        print(headquarters);
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          LeftSection(headquarters),
+          TopSection(headquarters),
           const Spacer(),
           MiddleSection(headquarters),
           const Spacer(),
-          RightSection(headquarters),
+          BottomSection(headquarters),
         ],
       ),
     );
   }
 }
 
-class LeftSection extends StatelessWidget {
+class TopSection extends StatelessWidget {
   final Consumer consumer;
 
-  const LeftSection(this.consumer);
+  const TopSection(this.consumer);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ImageBlock(
-          path: consumer.buildingType.sprite,
-          size: 80,
-        ),
-        const HBox(15),
         Label(
           text: consumer.buildingType.name,
           color: Palette.black,
           weight: FontWeight.bold,
-          size: 14,
+          size: 16,
+        ),
+        const VBox(15),
+        ImageBlock(
+          path: consumer.buildingType.sprite,
+          size: 100,
         ),
       ],
     );
@@ -70,10 +73,10 @@ class MiddleSection extends StatelessWidget {
   }
 }
 
-class RightSection extends StatelessWidget {
+class BottomSection extends StatelessWidget {
   final Consumer consumer;
 
-  const RightSection(this.consumer);
+  const BottomSection(this.consumer);
 
   @override
   Widget build(BuildContext context) {

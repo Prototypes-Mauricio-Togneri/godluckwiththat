@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/blocks/active_building_block.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
 import 'package:godluckwiththat/widgets/images/image_asset.dart';
 import 'package:godluckwiththat/widgets/images/image_block.dart';
@@ -16,50 +17,20 @@ class ProducerBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Palette.producerBlock,
-        border: Border.all(
-          width: 2,
-          color: Palette.borderHighlight,
-        ),
-      ),
-      child: Material(
-        color: Palette.transparent,
-        child: InkWell(
-          onTap: () {
-            print(producer);
-          },
-          child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TopSection(producer),
-                    const VBox(10),
-                    MiddleSection(producer),
-                    const VBox(15),
-                    BottomSection(producer),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Icon(
-                    Icons.info_rounded,
-                    color: Palette.iconLevel2,
-                    size: 15,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+    return ActiveBuildingBlock(
+      onSelected: () {
+        print(producer);
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TopSection(producer),
+          const VBox(10),
+          MiddleSection(producer),
+          const VBox(15),
+          BottomSection(producer),
+        ],
       ),
     );
   }
@@ -74,6 +45,7 @@ class TopSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Label(
           text: producer.buildingType.name,
@@ -130,6 +102,8 @@ class BottomSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UpgradeBuildingButton(producer);
+    return Center(
+      child: UpgradeBuildingButton(producer),
+    );
   }
 }

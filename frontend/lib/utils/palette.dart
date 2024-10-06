@@ -24,6 +24,8 @@ class Palette {
   static Color backgroundTopBarContainer = const Color(0xff393d45);
   static Color backgroundTooltip = const Color(0xff1e252e).withAlpha(200);
 
+  static const Color backgroundBuildingBlock = Color(0xFFC9A377);
+
   static Color backgroundWindowHeader = const Color(0xff332b21);
   static Color backgroundWindowContent = const Color(0xff4b4033);
   static Color backgroundWindowTabUnselected = const Color(0xFF776551);
@@ -59,5 +61,4 @@ class Palette {
   static const Color lightGrey = Color(0xffa0a0a0);
   static const Color success = Colors.green;
   static const Color error = Colors.red;
-  static const Color producerBlock = Color(0xffe0e0e0);
 }

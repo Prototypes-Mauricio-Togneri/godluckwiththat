@@ -16,7 +16,7 @@ class PassiveBuildingBlock extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: const BoxDecoration(
-        color: Palette.producerBlock,
+        color: Palette.backgroundBuildingBlock,
         border: Border(
           bottom: BorderSide(
             width: 0.5,
