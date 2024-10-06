@@ -56,7 +56,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Palette.backgroundWindowTab,
+      color: Palette.backgroundWindowHeader,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -97,6 +97,7 @@ class TabEntry extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: Row(
               children: [
+                const HBox(5),
                 Icon(
                   data.icon,
                   size: 12,
@@ -106,7 +107,9 @@ class TabEntry extends StatelessWidget {
                 Label(
                   text: data.title,
                   color: selected ? Palette.textHighlight : Palette.textLevel1,
+                  size: 12,
                 ),
+                const HBox(5),
               ],
             ),
           ),

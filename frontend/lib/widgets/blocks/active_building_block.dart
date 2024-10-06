@@ -17,7 +17,7 @@ class ActiveBuildingBlock extends StatelessWidget {
       width: Constants.BUILDING_BLOCK_WIDTH,
       height: Constants.BUILDING_BLOCK_HEIGHT,
       decoration: BoxDecoration(
-        color: Palette.backgroundBuildingBlock,
+        color: Palette.backgroundCardBlock,
         border: Border.all(
           width: 2,
           color: Palette.borderHighlight,

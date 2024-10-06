@@ -19,7 +19,7 @@ class Palette {
   static const Color iconHighlight = Color(0xffffc917);
 
   static const Color buttonPrimary = Color(0xff2080ff);
-  static const Color buttonEnabled = Color(0xff00ff00);
+  static const Color buttonEnabled = Color(0xff009400);
   static const Color buttonDisabled = Color(0xffa0a0a0);
   static const Color buttonError = Color(0xffff0000);
 
@@ -28,18 +28,17 @@ class Palette {
   static Color backgroundTransparent1 = const Color(0xff000000).withAlpha(150);
   static Color backgroundTransparent2 = const Color(0xff1a1a1a).withAlpha(150);
   static Color backgroundTransparent3 = const Color(0xff555555).withAlpha(150);
+  static Color backgroundTooltip = const Color(0xff1e252e).withAlpha(200);
   static const Color backgroundClose = Color(0xffcc4b4b);
   static const Color backgroundTopBar = Color(0xff25272c);
   static const Color backgroundTopBarContainer = Color(0xff393d45);
-  static Color backgroundTooltip = const Color(0xff1e252e).withAlpha(200);
 
-  static const Color backgroundBuildingBlock = Color(0xFFC9A377);
+  static const Color backgroundCardBlock = Color(0xFFC9A377);
 
   static const Color backgroundWindowHeader = Color(0xff332b21);
   static const Color backgroundWindowContent = Color(0xff4b4033);
   static const Color backgroundWindowTabUnselected = Color(0xFF776551);
   static const Color backgroundWindowTabSelected = Color(0xFF978167);
-  static const Color backgroundWindowTab = Color(0xff332b21);
   // 3d3240
   // 332B21
   // 5D523D
