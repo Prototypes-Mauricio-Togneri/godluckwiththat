@@ -35,7 +35,7 @@ class UpgradeBuildingButton extends StatelessWidget {
             for (final ResourceMapEntry resource
                 in building.upgradeCost.entries)
               Padding(
-                padding: const EdgeInsets.only(top: 4),
+                padding: const EdgeInsets.only(top: 7),
                 child: ResourceIndicator(
                   sprite: resource.key.sprite,
                   value: Formatter.resource(resource.value),
