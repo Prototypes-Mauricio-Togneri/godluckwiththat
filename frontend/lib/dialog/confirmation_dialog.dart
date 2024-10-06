@@ -9,14 +9,14 @@ class ConfirmationDialog extends StatelessWidget {
   final String buttonAccept;
   final String buttonCancel;
   final VoidCallback onAccept;
-  final VoidCallback onCancel;
+  final VoidCallback? onCancel;
 
   const ConfirmationDialog._({
     required this.message,
     required this.buttonAccept,
     required this.buttonCancel,
     required this.onAccept,
-    required this.onCancel,
+    this.onCancel,
   });
 
   static DialogController _show({
@@ -37,39 +37,19 @@ class ConfirmationDialog extends StatelessWidget {
         buttonAccept: buttonAccept,
         buttonCancel: buttonCancel,
         onAccept: onAccept,
-        onCancel: onCancel ?? () {},
+        onCancel: onCancel,
       ),
     );
 
     return DialogController(context);
   }
 
-  static DialogController cancelExploration({
+  static DialogController clearAllEvents({
     required VoidCallback onAccept,
   }) =>
       _show(
-        message: 'Stop exploration?',
-        buttonAccept: 'Stop',
-        buttonCancel: 'Cancel',
-        onAccept: onAccept,
-      );
-
-  static DialogController cancelConstruction({
-    required VoidCallback onAccept,
-  }) =>
-      _show(
-        message: 'Stop construction?',
-        buttonAccept: 'Stop',
-        buttonCancel: 'Cancel',
-        onAccept: onAccept,
-      );
-
-  static DialogController destroyBuilding({
-    required VoidCallback onAccept,
-  }) =>
-      _show(
-        message: 'Destroy building?',
-        buttonAccept: 'Destroy',
+        message: 'Clear all events?',
+        buttonAccept: 'Clear',
         buttonCancel: 'Cancel',
         onAccept: onAccept,
       );
@@ -82,7 +62,7 @@ class ConfirmationDialog extends StatelessWidget {
       content: Label(
         text: message,
         color: Palette.textLevel1,
-        size: 30,
+        size: 16,
       ),
       actions: [
         Padding(
@@ -93,16 +73,17 @@ class ConfirmationDialog extends StatelessWidget {
           ),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
+              elevation: 0,
               backgroundColor: Palette.buttonPrimary,
               minimumSize: const Size(0, 45),
             ),
             onPressed: () {
               Navigation.pop();
-              onCancel.call();
+              onCancel?.call();
             },
             child: Label(
               text: buttonCancel,
-              size: 30,
+              size: 14,
             ),
           ),
         ),
@@ -113,7 +94,8 @@ class ConfirmationDialog extends StatelessWidget {
           ),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              //backgroundColor: Palette.error,
+              elevation: 0,
+              backgroundColor: Palette.buttonError,
               minimumSize: const Size(0, 45),
             ),
             onPressed: () {
@@ -122,7 +104,7 @@ class ConfirmationDialog extends StatelessWidget {
             },
             child: Label(
               text: buttonAccept,
-              size: 30,
+              size: 14,
             ),
           ),
         ),

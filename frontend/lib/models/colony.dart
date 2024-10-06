@@ -1,4 +1,5 @@
 import 'package:godluckwiththat/app/constants.dart';
+import 'package:godluckwiththat/dialog/confirmation_dialog.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/passive/house.dart';
@@ -45,10 +46,10 @@ class Colony {
 
   // ============================== EVENTS ================================== \\
 
-  void onAllEventsClosed() {
-    events.clear();
-    notify();
-  }
+  void onAllEventsClosed() => ConfirmationDialog.clearAllEvents(onAccept: () {
+        events.clear();
+        notify();
+      });
 
   void onEventClosed(Event event) {
     events.remove(event);
