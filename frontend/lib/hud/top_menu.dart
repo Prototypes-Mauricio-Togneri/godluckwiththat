@@ -65,12 +65,12 @@ class PauseButton extends StatelessWidget {
 }
 
 class TopBarContainer extends StatelessWidget {
-  final double size;
   final Widget child;
+  final double? size;
 
   const TopBarContainer({
-    required this.size,
     required this.child,
+    this.size,
   });
 
   @override
@@ -100,19 +100,19 @@ class SeasonIndicator extends StatelessWidget {
     return const CustomTooltip(
       content: SimpleTooltip('Season'),
       child: TopBarContainer(
-        size: 100,
         child: Row(
           children: [
             Icon(
               Icons.wb_sunny,
               color: Colors.orange,
-              size: 18,
+              size: 16,
             ),
             HBox(5),
             Label(
               text: 'Summer',
-              size: 18,
+              size: 16,
             ),
+            HBox(5),
           ],
         ),
       ),

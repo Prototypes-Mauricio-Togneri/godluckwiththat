@@ -37,36 +37,12 @@ flutter:
     - family: CustomFont1
       fonts:
         - asset: assets/fonts/HellasCour-Regular.ttf
-    - family: CustomFont2
-      fonts:
-        - asset: assets/fonts/ChivoMono.ttf
-    - family: CustomFont3
-      fonts:
-        - asset: assets/fonts/FragmentMono.ttf
-    - family: CustomFont4
-      fonts:
-        - asset: assets/fonts/Fredoka.ttf
     - family: CustomFont5
       fonts:
         - asset: assets/fonts/Montserrat.ttf
-    - family: CustomFont6
-      fonts:
-        - asset: assets/fonts/Mukta.ttf
-    - family: CustomFont7
-      fonts:
-        - asset: assets/fonts/OpenSans.ttf
     - family: CustomFont8
       fonts:
         - asset: assets/fonts/Outfit.ttf
-    - family: CustomFont9
-      fonts:
-        - asset: assets/fonts/RedditMono.ttf
-    - family: CustomFont10
-      fonts:
-        - asset: assets/fonts/SometypeMono.ttf
-    - family: CustomFont11
-      fonts:
-        - asset: assets/fonts/UbuntuMono.ttf
 
   assets:
     - assets/audio/sfx/
