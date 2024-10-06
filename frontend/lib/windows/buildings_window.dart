@@ -38,8 +38,8 @@ class BuildingsWindow extends StatelessWidget {
     return BaseWindow(
       title: 'Buildings',
       child: Container(
-        width: Constants.BUILDING_BLOCK_WIDTH * 3,
-        height: (Constants.BUILDING_BLOCK_HEIGHT * 2) + 40,
+        width: (Constants.BUILDING_BLOCK_WIDTH * 3) + 40,
+        height: (Constants.BUILDING_BLOCK_HEIGHT * 2) + 70,
         color: Palette.backgroundWindowContent,
         child: StateProvider<GameState>(
           state: state,
@@ -97,26 +97,40 @@ class BuildingsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        for (final List<BuildingType> types in buildingTypes)
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              for (final BuildingType buildingType in types)
-                if (state.colony.hasBuilding(buildingType))
-                  BuildingBlock(state.colony.buildings[buildingType]!)
-                else
-                  CreateBuildingBlock(
-                    colony: state.colony,
-                    buildingType: buildingType,
-                  ),
-            ],
-          ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10, right: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (final List<BuildingType> types in buildingTypes)
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (final BuildingType buildingType in types)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: _widget(buildingType),
+                    ),
+                ],
+              ),
+            ),
+        ],
+      ),
     );
+  }
+
+  Widget _widget(BuildingType buildingType) {
+    if (state.colony.hasBuilding(buildingType)) {
+      return BuildingBlock(state.colony.buildings[buildingType]!);
+    } else {
+      return CreateBuildingBlock(
+        colony: state.colony,
+        buildingType: buildingType,
+      );
+    }
   }
 }
 
