@@ -34,7 +34,6 @@ class ResourceIndicator extends StatelessWidget {
           text: value,
           size: textSize,
           color: textColor,
-          weight: FontWeight.bold,
         ),
       ],
     );

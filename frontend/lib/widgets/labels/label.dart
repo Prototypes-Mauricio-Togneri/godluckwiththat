@@ -18,7 +18,7 @@ class Label extends StatelessWidget {
     required this.text,
     this.color = Palette.white,
     this.size = 10,
-    this.weight = FontWeight.bold,
+    this.weight = FontWeight.normal,
     this.decoration = TextDecoration.none,
     this.uppercase = true,
     this.align,
@@ -36,7 +36,7 @@ class Label extends StatelessWidget {
       style: TextStyle(
         color: color,
         fontSize: size,
-        fontWeight: FontWeight.bold,
+        fontWeight: weight,
         fontFamily: Constants.FONT_NAME,
         decoration: decoration,
         letterSpacing: 1.1,
