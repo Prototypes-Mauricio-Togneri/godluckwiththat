@@ -78,7 +78,7 @@ class ConfirmationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       contentPadding: const EdgeInsets.fromLTRB(25, 20, 25, 25),
-      backgroundColor: Palette.grey,
+      backgroundColor: Colors.grey,
       content: Label(
         text: message,
         color: Palette.white,

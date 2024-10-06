@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/images/image_asset.dart';
 
 class ImageBlock extends StatelessWidget {
@@ -13,16 +12,9 @@ class ImageBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      color: Palette.grey,
-      child: Center(
-        child: ImageAsset(
-          path: path,
-          size: size,
-        ),
-      ),
+    return ImageAsset(
+      path: path,
+      size: size,
     );
   }
 }

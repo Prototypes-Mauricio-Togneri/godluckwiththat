@@ -31,10 +31,10 @@ class Content extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
+      /*decoration: BoxDecoration(
         color: Palette.grey,
         borderRadius: BorderRadius.circular(5),
-      ),
+      ),*/
       child: IntrinsicWidth(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

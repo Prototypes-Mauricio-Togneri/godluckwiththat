@@ -294,7 +294,7 @@ class LimitsIndicator extends StatelessWidget {
               value: '${state.colony.freeWorkers}',
               color: (state.colony.freeWorkers > 0)
                   ? Palette.error
-                  : Palette.black,
+                  : Palette.white,
               tooltip: const SimpleTooltip('Idle workers'),
             ),
             const HBox(10),
