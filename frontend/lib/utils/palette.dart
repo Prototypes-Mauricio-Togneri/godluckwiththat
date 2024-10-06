@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class Palette {
   static const MaterialColor primary = Colors.blue;
   static const Color transparent = Colors.transparent;
+  static const Color success = Colors.green;
+  static const Color error = Colors.red;
 
   static Color divider1 = const Color(0xff555555);
 
@@ -16,6 +18,9 @@ class Palette {
   static Color iconLevel1 = const Color(0xffffffff);
   static Color iconLevel2 = const Color(0xffaaaaaa);
   static Color iconDisabled = const Color(0xff888888);
+
+  static Color buttonPrimary = const Color(0xFF2080FF);
+  static Color buttonDisabled = const Color(0xffa0a0a0);
 
   static Color backgroundTransparent1 = const Color(0xff000000).withAlpha(150);
   static Color backgroundTransparent2 = const Color(0xff1a1a1a).withAlpha(150);
@@ -58,7 +63,4 @@ class Palette {
   // TODO(momo): rename
   static const Color white = Colors.white;
   static const Color black = Colors.black;
-  static const Color lightGrey = Color(0xffa0a0a0);
-  static const Color success = Colors.green;
-  static const Color error = Colors.red;
 }

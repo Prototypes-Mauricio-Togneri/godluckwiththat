@@ -91,7 +91,7 @@ class SymbolButton extends StatelessWidget {
     return Container(
       width: size,
       height: size,
-      color: (onTap != null) ? color : Palette.lightGrey,
+      color: (onTap != null) ? color : Palette.buttonDisabled,
       child: Material(
         color: Palette.transparent,
         child: InkWell(

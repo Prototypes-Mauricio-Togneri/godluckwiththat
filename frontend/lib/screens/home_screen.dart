@@ -43,19 +43,19 @@ class Content extends StatelessWidget {
             PrimaryButton(
               text: 'Continue',
               icon: Icons.play_arrow,
-              color: Palette.primary,
+              color: Palette.buttonPrimary,
               onPressed: state.onContinue,
             ),
             PrimaryButton(
               text: 'Settings',
               icon: Icons.settings,
-              color: Palette.primary,
+              color: Palette.buttonPrimary,
               onPressed: state.onSettings,
             ),
             PrimaryButton(
               text: 'Info',
               icon: Icons.info,
-              color: Palette.primary,
+              color: Palette.buttonPrimary,
               onPressed: state.onInfo,
             ),
           ],

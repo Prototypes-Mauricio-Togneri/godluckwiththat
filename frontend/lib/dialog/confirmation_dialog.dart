@@ -93,7 +93,7 @@ class ConfirmationDialog extends StatelessWidget {
           ),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Palette.primary,
+              backgroundColor: Palette.buttonPrimary,
               minimumSize: const Size(0, 45),
             ),
             onPressed: () {
