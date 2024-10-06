@@ -138,7 +138,7 @@ class BuildingsList extends StatelessWidget {
 
   Widget _widget(BuildingType buildingType) {
     if (state.colony.hasBuilding(buildingType)) {
-      return BuildingBlock(state.colony.buildings[buildingType]!);
+      return BuildingBlock(state.colony.getBuilding(buildingType));
     } else {
       return CreateBuildingBlock(
         colony: state.colony,

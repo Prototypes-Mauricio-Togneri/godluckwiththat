@@ -49,6 +49,8 @@ class Colony {
 
   // ============================ TERRITORY ================================= \\
 
+  T getBuilding<T>(BuildingType buildingType) => buildings[buildingType] as T;
+
   bool hasBuilding(BuildingType buildingType) =>
       buildings.containsKey(buildingType);
 
