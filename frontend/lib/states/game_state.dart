@@ -12,7 +12,6 @@ class GameState extends BaseGameState {
     print('Pause');
   }
 
-  // TODO(momo): all buildings management in a single window
   void onMenuBuildings() => BuildingsWindow.show(this);
 
   // TODO(momo): all workers management in a single window
@@ -20,7 +19,7 @@ class GameState extends BaseGameState {
     print('Menu Population');
   }
 
-  // TODO(momo): all resources management in a single window
+  // TODO(momo): all research management in a single window
   void onMenuResearch() {
     print('Menu Research');
   }
