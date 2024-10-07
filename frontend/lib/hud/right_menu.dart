@@ -82,7 +82,7 @@ class RightMenuRow extends StatelessWidget {
           hoverColor: Palette.backgroundTransparent1.withAlpha(50),
           onTap: onPressed,
           child: Container(
-            height: 35,
+            constraints: const BoxConstraints(minHeight: 35),
             padding: const EdgeInsets.all(10),
             child: Row(
               children: [
@@ -92,9 +92,11 @@ class RightMenuRow extends StatelessWidget {
                   color: Palette.iconLevel1,
                 ),
                 const HBox(10),
-                Label(
-                  text:
-                      '${upcoming.summary} in ${Formatter.time(upcoming.remainingTime)}',
+                Expanded(
+                  child: Label(
+                    text:
+                        '${upcoming.summary} in ${Formatter.time(upcoming.remainingTime)}',
+                  ),
                 ),
               ],
             ),

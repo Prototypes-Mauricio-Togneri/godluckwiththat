@@ -9,5 +9,5 @@ class BuildingUpgradedEvent extends Event {
   String get summary => 'Building upgraded';
 
   @override
-  IconData get icon => Icons.home;
+  IconData get icon => Icons.warehouse;
 }

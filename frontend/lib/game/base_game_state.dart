@@ -20,6 +20,7 @@ import 'package:godluckwiththat/models/events/territory_limit_reached_event.dart
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
 import 'package:godluckwiththat/models/upcoming/attack_upcoming.dart';
+import 'package:godluckwiththat/models/upcoming/building_upgrade.dart';
 import 'package:godluckwiththat/models/upcoming/challenge_upcoming.dart';
 import 'package:godluckwiththat/models/upcoming/research_upcoming.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -59,6 +60,7 @@ class BaseGameState extends BaseState {
         ChallengeUpcoming(remainingTime: 10),
         ResearchUpcoming(remainingTime: 50),
         AttackUpcoming(remainingTime: 140),
+        BuildingUpgradeUpcoming(remainingTime: 200),
       ],
       timeElapsed: 0,
       freeWorkers: 5,
