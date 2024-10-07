@@ -48,10 +48,11 @@ class GameContent extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: LeftMenu(state),
           ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: RightMenu(state),
-        ),
+        if (state.colony.upcoming.isNotEmpty)
+          Align(
+            alignment: Alignment.centerRight,
+            child: RightMenu(state),
+          ),
       ],
     );
   }

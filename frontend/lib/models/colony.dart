@@ -12,6 +12,7 @@ import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/models/events/event.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
+import 'package:godluckwiththat/models/upcoming/upcoming.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
@@ -23,6 +24,7 @@ class Colony {
   final UnitInventory units;
   final Map<BuildingType, Building> buildings;
   final List<Event> events;
+  final List<Upcoming> upcoming;
 
   num timeElapsed;
   int freeWorkers;
@@ -34,6 +36,7 @@ class Colony {
     required this.units,
     required this.buildings,
     required this.events,
+    required this.upcoming,
     required this.timeElapsed,
     required this.freeWorkers,
     required this.territorySlotsUsed,
@@ -58,6 +61,12 @@ class Colony {
 
   void onEventSelected(Event event) {
     print('Event');
+  }
+
+  // ============================= UPCOMING ================================= \\
+
+  void onUpcomingSelected(Upcoming upcoming) {
+    print('Upcoming');
   }
 
   // ============================ TERRITORY ================================= \\
@@ -206,6 +215,10 @@ class Colony {
 
     for (final Building building in buildings.values) {
       building.update(dt);
+    }
+
+    for (final Upcoming upcoming in upcoming) {
+      upcoming.update(dt);
     }
   }
 }

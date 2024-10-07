@@ -1,5 +1,6 @@
 import 'package:godluckwiththat/game/base_game_state.dart';
 import 'package:godluckwiththat/models/events/event.dart';
+import 'package:godluckwiththat/models/upcoming/upcoming.dart';
 import 'package:godluckwiththat/windows/buildings_window.dart';
 
 class GameState extends BaseGameState {
@@ -36,9 +37,8 @@ class GameState extends BaseGameState {
     print('Menu Market');
   }
 
-  void onUpcoming() {
-    print('Upcoming');
-  }
+  void onUpcomingSelected(Upcoming upcoming) =>
+      colony.onUpcomingSelected(upcoming);
 
   void onCleanAllEvents() => colony.onAllEventsClosed();
 

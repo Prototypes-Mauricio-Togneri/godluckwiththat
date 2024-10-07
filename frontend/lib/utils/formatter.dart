@@ -1,3 +1,4 @@
+import 'package:godluckwiththat/extensions/duration_extension.dart';
 import 'package:intl/intl.dart';
 
 class Formatter {
@@ -24,4 +25,6 @@ class Formatter {
 
     return formatter.format(amount);
   }
+
+  static String time(num amount) => Duration(seconds: amount.toInt()).formatted;
 }

@@ -1,6 +1,8 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/models/upcoming/upcoming.dart';
 import 'package:godluckwiththat/states/game_state.dart';
+import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
 
@@ -22,18 +24,11 @@ class RightMenu extends StatelessWidget {
             color: Palette.divider1,
             height: 1,
           ),
-          RightMenuRow(
-            text: 'Raid attack in 12:34',
-            onPressed: state.onUpcoming,
-          ),
-          RightMenuRow(
-            text: 'Challenge ending in 34:56',
-            onPressed: state.onUpcoming,
-          ),
-          RightMenuRow(
-            text: 'Research finishing in 34:56',
-            onPressed: state.onUpcoming,
-          ),
+          for (final upcoming in state.colony.upcoming)
+            RightMenuRow(
+              upcoming: upcoming,
+              onPressed: () => state.onUpcomingSelected(upcoming),
+            ),
         ],
       ),
     );
@@ -69,11 +64,11 @@ class RightMenuTitle extends StatelessWidget {
 }
 
 class RightMenuRow extends StatelessWidget {
-  final String text;
+  final Upcoming upcoming;
   final VoidCallback onPressed;
 
   const RightMenuRow({
-    required this.text,
+    required this.upcoming,
     required this.onPressed,
   });
 
@@ -89,7 +84,20 @@ class RightMenuRow extends StatelessWidget {
           child: Container(
             height: 35,
             padding: const EdgeInsets.all(10),
-            child: Label(text: text),
+            child: Row(
+              children: [
+                Icon(
+                  upcoming.icon,
+                  size: 12,
+                  color: Palette.iconLevel1,
+                ),
+                const HBox(10),
+                Label(
+                  text:
+                      '${upcoming.summary} in ${Formatter.time(upcoming.remainingTime)}',
+                ),
+              ],
+            ),
           ),
         ),
       ),
