@@ -10,8 +10,10 @@ abstract class Upcoming {
     required this.remainingTime,
   });
 
-  void update(double dt) {
+  bool update(double dt) {
     remainingTime -= dt;
+
+    return remainingTime <= 1;
   }
 
   String get summary;

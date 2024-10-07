@@ -217,8 +217,15 @@ class Colony {
       building.update(dt);
     }
 
-    for (final Upcoming upcoming in upcoming) {
-      upcoming.update(dt);
+    final List<Upcoming> pending = [...upcoming];
+
+    for (final Upcoming upcoming in pending) {
+      if (upcoming.update(dt)) {
+        pending.remove(upcoming);
+      }
     }
+
+    upcoming.clear();
+    upcoming.addAll(pending);
   }
 }
