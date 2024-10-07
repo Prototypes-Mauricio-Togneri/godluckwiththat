@@ -21,6 +21,7 @@ import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
 import 'package:godluckwiththat/models/upcoming/attack_upcoming.dart';
 import 'package:godluckwiththat/models/upcoming/challenge_upcoming.dart';
+import 'package:godluckwiththat/models/upcoming/research_upcoming.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/types/unit_type.dart';
@@ -56,7 +57,8 @@ class BaseGameState extends BaseState {
       ],
       upcoming: [
         ChallengeUpcoming(remainingTime: 10),
-        AttackUpcoming(remainingTime: 1000),
+        ResearchUpcoming(remainingTime: 50),
+        AttackUpcoming(remainingTime: 140),
       ],
       timeElapsed: 0,
       freeWorkers: 5,

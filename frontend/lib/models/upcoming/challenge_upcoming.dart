@@ -4,7 +4,7 @@ import 'package:godluckwiththat/types/upcoming_type.dart';
 
 class ChallengeUpcoming extends Upcoming {
   ChallengeUpcoming({required super.remainingTime})
-      : super(upcomingType: UpcomingType.attack);
+      : super(upcomingType: UpcomingType.challenge);
 
   @override
   String get summary => 'Challenge ending';

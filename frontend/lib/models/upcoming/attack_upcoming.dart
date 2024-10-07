@@ -7,7 +7,7 @@ class AttackUpcoming extends Upcoming {
       : super(upcomingType: UpcomingType.attack);
 
   @override
-  String get summary => 'Tribe attack';
+  String get summary => 'Tribe attack arriving';
 
   @override
   IconData get icon => Icons.security;
