@@ -64,7 +64,7 @@ class BaseGameState extends BaseState {
       ],
       timeElapsed: 0,
       freeWorkers: 5,
-      territorySlotsUsed: 0,
+      territorySlotsUsed: 12,
       warehouseCapacity: 100,
     );
 

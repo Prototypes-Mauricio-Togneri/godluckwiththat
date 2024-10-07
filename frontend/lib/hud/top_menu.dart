@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/assets.dart';
@@ -27,7 +28,7 @@ class TopMenu extends StatelessWidget {
           const Spacer(),
           ResourcesSummary(state),
           const Spacer(),
-          LimitsIndicator(state),
+          LimitsIndicator(state.colony),
           const Spacer(),
           PauseButton(state.onPause),
         ],
@@ -275,9 +276,9 @@ class ResourceSummary extends StatelessWidget {
 }
 
 class LimitsIndicator extends StatelessWidget {
-  final GameState state;
+  final Colony colony;
 
-  const LimitsIndicator(this.state);
+  const LimitsIndicator(this.colony);
 
   @override
   Widget build(BuildContext context) {
@@ -292,16 +293,18 @@ class LimitsIndicator extends StatelessWidget {
               size: 100,
               sprite: Assets.IMAGES_UNITS_WORKER,
               value:
-                  '${Formatter.resource(state.colony.currentPopulation)}/${Formatter.resource(state.colony.populationLimit)}',
-              color: Palette.textLevel1,
+                  '${Formatter.resource(colony.currentPopulation)}/${Formatter.resource(colony.populationLimit)}',
+              color: (colony.currentPopulation >= colony.populationLimit)
+                  ? Palette.textError
+                  : Palette.textLevel1,
               tooltip: const SimpleTooltip('Population'),
             ),
             const HBox(5),
             ResourceSummary(
               size: 70,
               sprite: Assets.IMAGES_OTHER_IDLE,
-              value: '${state.colony.freeWorkers}',
-              color: (state.colony.freeWorkers > 0)
+              value: '${colony.freeWorkers}',
+              color: (colony.freeWorkers > 0)
                   ? Palette.textError
                   : Palette.textLevel1,
               tooltip: const SimpleTooltip('Idle workers'),
@@ -311,8 +314,10 @@ class LimitsIndicator extends StatelessWidget {
               size: 100,
               sprite: Assets.IMAGES_OTHER_HOUSE,
               value:
-                  '${state.colony.territorySlotsUsed}/${state.colony.territorySlotsTotal}',
-              color: Palette.textLevel1,
+                  '${colony.territorySlotsUsed}/${colony.territorySlotsTotal}',
+              color: (colony.territorySlotsUsed >= colony.territorySlotsTotal)
+                  ? Palette.textError
+                  : Palette.textLevel1,
               tooltip: const SimpleTooltip('Territory'),
             ),
           ],

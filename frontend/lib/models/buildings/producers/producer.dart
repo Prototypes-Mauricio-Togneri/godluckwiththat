@@ -18,7 +18,7 @@ abstract class Producer extends Building {
 
   bool get hasWorkers => workers > 0;
 
-  int get maxWorkersCapacity => level * Constants.BUILDING_CAPACITY_PER_LEVEL;
+  int get maxWorkersCapacity => level * Constants.PRODUCER_CAPACITY_PER_LEVEL;
 
   bool get canAddWorkers =>
       colony.hasFreeWorkers && (maxWorkersCapacity > workers);
