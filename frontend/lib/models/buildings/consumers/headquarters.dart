@@ -33,6 +33,6 @@ class Headquarters extends Consumer {
 
   @override
   void trainUnit() {
-    colony.createWorkers();
+    colony.createWorker();
   }
 }

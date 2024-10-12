@@ -225,7 +225,7 @@ class Colony {
     return amount;
   }
 
-  void createWorkers() {
+  void createWorker() {
     resources.removeItems(UnitType.worker.cost);
     units.add(UnitType.worker, 1);
     addFreeWorkers(1);
