@@ -15,6 +15,8 @@ import 'package:godluckwiththat/models/future_events/future_event.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
 import 'package:godluckwiththat/models/past_events/past_event.dart';
+import 'package:godluckwiththat/models/past_events/population_limit_reached_event.dart';
+import 'package:godluckwiththat/models/past_events/territory_limit_reached_event.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
@@ -192,6 +194,10 @@ class Colony {
 
   void increaseTerritoryUsed() {
     territorySlotsUsed++;
+
+    if (territorySlotsUsed >= territorySlotsTotal) {
+      addPastEvent(TerritoryLimitReachedEvent());
+    }
   }
 
   // =========================== POPULATION ================================= \\
@@ -223,6 +229,11 @@ class Colony {
     resources.removeItems(UnitType.worker.cost);
     units.add(UnitType.worker, 1);
     addFreeWorkers(1);
+
+    if (totalWorkers >= populationLimit) {
+      addPastEvent(PopulationLimitReachedEvent());
+    }
+
     notify();
   }
 

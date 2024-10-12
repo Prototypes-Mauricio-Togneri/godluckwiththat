@@ -1,6 +1,5 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
-import 'package:godluckwiththat/models/past_events/population_limit_reached_event.dart';
 import 'package:godluckwiththat/types/unit_type.dart';
 
 abstract class Consumer extends Building {
@@ -25,11 +24,6 @@ abstract class Consumer extends Building {
   void train() {
     if (canTrain) {
       trainUnit();
-
-      if (colony.totalWorkers >= colony.populationLimit) {
-        colony.addPastEvent(PopulationLimitReachedEvent());
-      }
-
       colony.notify();
     }
   }
