@@ -30,12 +30,6 @@ class BottomMenu extends StatelessWidget {
           ),
           const HBox(10),
           BottomMenuButton(
-            icon: Icons.people,
-            tooltip: 'Population',
-            onPressed: state.onMenuPopulation,
-          ),
-          const HBox(10),
-          BottomMenuButton(
             icon: Icons.school,
             tooltip: 'Research',
             onPressed: state.onMenuResearch,
