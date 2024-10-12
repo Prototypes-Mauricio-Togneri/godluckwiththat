@@ -44,7 +44,7 @@ class BaseGameState extends BaseState {
         ResourceType.knowledge: 150,
       }),
       units: UnitInventory({
-        UnitType.worker: 5,
+        UnitType.worker: 12,
       }),
       buildings: {},
       pastEvents: [

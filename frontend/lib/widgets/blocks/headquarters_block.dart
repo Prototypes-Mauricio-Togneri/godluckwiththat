@@ -179,9 +179,23 @@ class PopulationInformation extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const Label(
+          text: 'Workers',
+          color: Palette.textLevel2,
+          weight: FontWeight.bold,
+          size: 12,
+        ),
+        const VBox(15),
         InformationRow(
-          label: 'Workers',
+          label: 'Total',
           value: Formatter.resource(colony.totalWorkers),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: InformationRow(
+            label: 'Idle',
+            value: Formatter.resource(colony.freeWorkers),
+          ),
         ),
         WorkersForBuilding(
           colony: colony,
@@ -222,13 +236,6 @@ class PopulationInformation extends StatelessWidget {
         WorkersForBuilding(
           colony: colony,
           buildingType: BuildingType.academy,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: InformationRow(
-            label: 'Idle',
-            value: Formatter.resource(colony.freeWorkers),
-          ),
         ),
       ],
     );

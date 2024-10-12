@@ -29,7 +29,7 @@ class UpgradeBuildingButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Label(
-              text: 'LEVEL ${building.level + 1}',
+              text: 'Level ${building.level + 1}',
               color: Palette.textLevel2,
               weight: FontWeight.bold,
             ),
