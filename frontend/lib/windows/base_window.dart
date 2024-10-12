@@ -1,15 +1,18 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/navigation.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
 
 class BaseWindow extends StatelessWidget {
   final String title;
+  final GameState state;
   final Widget child;
 
   const BaseWindow({
     required this.title,
+    required this.state,
     required this.child,
   });
 
@@ -24,11 +27,14 @@ class BaseWindow extends StatelessWidget {
           maxHeight: MediaQuery.of(context).size.height - 200,
         ),
         child: Container(
-          color: Palette.backgroundWindowContent,
+          color: Palette.backgroundWindowTabSelected,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Header(title),
+              Header(
+                state: state,
+                title: title,
+              ),
               child,
             ],
           ),
@@ -52,9 +58,13 @@ class BaseWindow extends StatelessWidget {
 }
 
 class Header extends StatelessWidget {
+  final GameState state;
   final String title;
 
-  const Header(this.title);
+  const Header({
+    required this.state,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -71,13 +81,13 @@ class Header extends StatelessWidget {
               weight: FontWeight.bold,
             ),
           ),
-          const Align(
+          Align(
             alignment: Alignment.centerRight,
             child: Material(
               color: Palette.backgroundClose,
               child: InkWell(
-                onTap: Navigation.pop,
-                child: Padding(
+                onTap: state.closeWindow,
+                child: const Padding(
                   padding: EdgeInsets.all(8),
                   child: Icon(
                     Icons.close,

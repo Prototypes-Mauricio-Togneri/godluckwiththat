@@ -53,6 +53,11 @@ class GameContent extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: RightMenu(state),
           ),
+        if (state.hasWindow)
+          Align(
+            alignment: Alignment.center,
+            child: state.currentWindow!,
+          ),
       ],
     );
   }

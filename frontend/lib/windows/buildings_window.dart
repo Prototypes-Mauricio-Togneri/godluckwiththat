@@ -18,13 +18,11 @@ class BuildingsWindow extends StatelessWidget {
 
   const BuildingsWindow(this.state);
 
-  static DialogController show(GameState state) =>
-      BaseWindow.show(BuildingsWindow(state));
-
   @override
   Widget build(BuildContext context) {
     return BaseWindow(
       title: 'Buildings',
+      state: state,
       child: Container(
         width: (Constants.BUILDING_BLOCK_WIDTH * 3) + 40,
         height: (Constants.BUILDING_BLOCK_HEIGHT * 2) + 70,
