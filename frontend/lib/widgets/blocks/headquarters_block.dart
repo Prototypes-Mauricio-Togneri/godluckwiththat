@@ -132,7 +132,7 @@ class UpgradeButton extends StatelessWidget {
       children: [
         SymbolButton.upgradeHeadquarters(
           size: 50,
-          onTap: headquarters.canUpgrade ? headquarters.upgrade : null,
+          onTap: headquarters.canImprove ? headquarters.improve : null,
         ),
         const HBox(10),
         Column(
@@ -144,7 +144,7 @@ class UpgradeButton extends StatelessWidget {
               weight: FontWeight.bold,
             ),
             for (final ResourceMapEntry resource
-                in headquarters.upgradeCost.entries)
+                in headquarters.improveCost.entries)
               Padding(
                 padding: const EdgeInsets.only(top: 7),
                 child: ResourceIndicator(

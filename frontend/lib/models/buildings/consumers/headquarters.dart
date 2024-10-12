@@ -19,6 +19,18 @@ class Headquarters extends Consumer {
   @override
   ResourceMap get trainingCost => UnitType.worker.cost;
 
+  ResourceMap get improveCost => type.next!.cost;
+
+  bool get canImprove => colony.resources.hasItems(improveCost);
+
+  void improve() {
+    if (canImprove) {
+      type = type.next!;
+      colony.resources.removeItems(improveCost);
+      colony.notify();
+    }
+  }
+
   @override
   void trainUnit() {
     colony.createWorkers();
