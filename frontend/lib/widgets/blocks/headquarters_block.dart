@@ -33,7 +33,6 @@ class HeadquartersBlock extends StatelessWidget {
             MiddleSection(state.colony.headquarters),
             const VBox(20),
             BottomSection(state.colony.headquarters),
-            UpgradeSection(state.colony.headquarters),
           ],
         ),
       ),
@@ -75,34 +74,23 @@ class BottomSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: UpgradeBuildingButton(headquarters),
-    );
-  }
-}
-
-class UpgradeSection extends StatelessWidget {
-  final Headquarters headquarters;
-
-  const UpgradeSection(this.headquarters);
-
-  @override
-  Widget build(BuildContext context) {
     final HeadquartersType? nextType = headquarters.type.next;
 
-    if (nextType != null) {
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: UpgradeButton(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        UpgradeBuildingButton(headquarters),
+        if (nextType != null) ...[
+          const VBox(20),
+          UpgradeButton(
             headquarters: headquarters,
             nextType: nextType,
           ),
-        ),
-      );
-    } else {
-      return const Empty();
-    }
+        ] else
+          const Empty(),
+      ],
+    );
   }
 }
 
