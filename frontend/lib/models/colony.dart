@@ -3,6 +3,8 @@ import 'package:godluckwiththat/dialog/confirmation_dialog.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/passive/house.dart';
+import 'package:godluckwiththat/models/buildings/producers/academy.dart';
+import 'package:godluckwiththat/models/buildings/producers/altar.dart';
 import 'package:godluckwiththat/models/buildings/producers/copper_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/farm.dart';
 import 'package:godluckwiththat/models/buildings/producers/gold_mine.dart';
@@ -101,6 +103,10 @@ class Colony {
 
   GoldMine get goldMine => buildings[BuildingType.goldMine] as GoldMine;
 
+  Academy get academy => buildings[BuildingType.academy] as Academy;
+
+  Altar get altar => buildings[BuildingType.altar] as Altar;
+
   // =========================== TIME ELAPSED =============================== \\
 
   num get day => (timeElapsed / Constants.SECONDS_PER_DAY) + 1;
@@ -124,9 +130,9 @@ class Colony {
       case ResourceType.gold:
         return goldMine.production;
       case ResourceType.faith:
-        return 0; // TODO(momo): implement
+        return altar.production; // TODO(momo): count shrines and temples
       case ResourceType.knowledge:
-        return 0; // (momo): implement
+        return academy.production;
     }
   }
 
