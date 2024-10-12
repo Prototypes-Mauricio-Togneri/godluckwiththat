@@ -11,9 +11,9 @@ import 'package:godluckwiththat/models/buildings/producers/gold_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/iron_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
-import 'package:godluckwiththat/models/events/event.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
+import 'package:godluckwiththat/models/past_events/event.dart';
 import 'package:godluckwiththat/models/upcoming/upcoming.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -26,7 +26,7 @@ class Colony {
   final ResourceInventory resources;
   final UnitInventory units;
   final Map<BuildingType, Building> buildings;
-  final List<Event> events;
+  final List<PastEvent> events;
   final List<Upcoming> upcoming;
 
   num timeElapsed;
@@ -57,12 +57,12 @@ class Colony {
         notify();
       });
 
-  void onEventClosed(Event event) {
+  void onEventClosed(PastEvent event) {
     events.remove(event);
     notify();
   }
 
-  void onEventSelected(Event event) {
+  void onEventSelected(PastEvent event) {
     print('Event');
   }
 

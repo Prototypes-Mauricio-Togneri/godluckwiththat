@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/models/events/event.dart';
+import 'package:godluckwiththat/models/past_events/event.dart';
 import 'package:godluckwiththat/types/event_type.dart';
 
-class BuildingUpgradedEvent extends Event {
+class BuildingUpgradedEvent extends PastEvent {
   BuildingUpgradedEvent() : super(eventType: EventType.building_upgraded);
 
   @override

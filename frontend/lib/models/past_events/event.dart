@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/types/event_type.dart';
 
-abstract class Event {
+abstract class PastEvent {
   final EventType eventType;
 
-  const Event({required this.eventType});
+  const PastEvent({required this.eventType});
 
   String get summary;
 

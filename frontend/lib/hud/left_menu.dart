@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/models/events/event.dart';
+import 'package:godluckwiththat/models/past_events/event.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
@@ -24,7 +24,7 @@ class LeftMenu extends StatelessWidget {
             color: Palette.divider1,
             height: 1,
           ),
-          for (final Event event in state.colony.events)
+          for (final PastEvent event in state.colony.events)
             LeftMenuRow(
               event: event,
               onSelected: () => state.onEventSelected(event),
@@ -86,7 +86,7 @@ class LeftMenuTitle extends StatelessWidget {
 }
 
 class LeftMenuRow extends StatelessWidget {
-  final Event event;
+  final PastEvent event;
   final VoidCallback onSelected;
   final VoidCallback onClosed;
 

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:godluckwiththat/game/base_game_state.dart';
-import 'package:godluckwiththat/models/events/event.dart';
+import 'package:godluckwiththat/models/past_events/event.dart';
 import 'package:godluckwiththat/models/upcoming/upcoming.dart';
 import 'package:godluckwiththat/widgets/blocks/headquarters_block.dart';
 import 'package:godluckwiththat/windows/base_window.dart';
@@ -49,9 +49,9 @@ class GameState extends BaseGameState {
 
   void onCleanAllEvents() => colony.onAllEventsClosed();
 
-  void onEventSelected(Event event) => colony.onEventSelected(event);
+  void onEventSelected(PastEvent event) => colony.onEventSelected(event);
 
-  void onEventClosed(Event event) => colony.onEventClosed(event);
+  void onEventClosed(PastEvent event) => colony.onEventClosed(event);
 
   void _showWindow(Widget widget) {
     currentWindow = widget;
