@@ -94,9 +94,12 @@ class RightMenuRow extends StatelessWidget {
                 const HBox(10),
                 Expanded(
                   child: Label(
-                    text:
-                        '${upcoming.summary} in ${Formatter.time(upcoming.remainingTime)}',
+                    text: upcoming.summary,
                   ),
+                ),
+                const HBox(10),
+                Label(
+                  text: Formatter.time(upcoming.remainingTime),
                 ),
               ],
             ),

@@ -7,7 +7,7 @@ class BuildingUpgradeUpcoming extends Upcoming {
       : super(upcomingType: UpcomingType.building_upgrade);
 
   @override
-  String get summary => 'Building upgrade completed';
+  String get summary => 'Building upgrade';
 
   @override
   IconData get icon => Icons.warehouse;
