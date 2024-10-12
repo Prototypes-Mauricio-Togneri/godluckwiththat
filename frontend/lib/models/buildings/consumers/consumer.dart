@@ -21,16 +21,12 @@ abstract class Consumer extends Building {
   @override
   bool get isConsumer => true;
 
-  void train();
-
-  /*void train() {
+  void train() {
     if (canTrain) {
-      colony.inventory.addResource(Resource.one(resourceType));
-      colony.inventory.removeResources(trainingCost.resources());
-
-      if (resourceType == ResourceType.workers) {
-        colony.addFreeWorkers(1);
-      }
+      trainUnit();
+      colony.notify();
     }
-  }*/
+  }
+
+  void trainUnit();
 }

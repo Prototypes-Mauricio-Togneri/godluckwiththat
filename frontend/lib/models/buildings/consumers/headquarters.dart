@@ -20,9 +20,7 @@ class Headquarters extends Consumer {
   ResourceMap get trainingCost => UnitType.worker.cost;
 
   @override
-  void train() {
-    if (canTrain) {
-      colony.createWorkers();
-    }
+  void trainUnit() {
+    colony.createWorkers();
   }
 }
