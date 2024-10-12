@@ -26,7 +26,7 @@ class TopMenu extends StatelessWidget {
           const HBox(5),
           SeasonIndicator(state),
           const Spacer(),
-          ResourcesSummary(state),
+          ResourcesSummary(state.colony),
           const Spacer(),
           LimitsIndicator(state.colony),
           const Spacer(),
@@ -122,9 +122,9 @@ class SeasonIndicator extends StatelessWidget {
 }
 
 class ResourcesSummary extends StatelessWidget {
-  final GameState state;
+  final Colony colony;
 
-  const ResourcesSummary(this.state);
+  const ResourcesSummary(this.colony);
 
   @override
   Widget build(BuildContext context) {
@@ -134,104 +134,140 @@ class ResourcesSummary extends StatelessWidget {
         ResourceSummary(
           size: 90,
           sprite: ResourceType.food.sprite,
-          value:
-              state.colony.resources.get(ResourceType.food).floor().toString(),
+          value: Formatter.resource(colony.resources.get(ResourceType.food)),
           tooltip: ComplexTooltip.storedResource(
-            colony: state.colony,
+            colony: colony,
             resourceType: ResourceType.food,
           ),
-          color: Palette.textLevel1,
+          color: _consumableResourceColor(
+            colony: colony,
+            resourceType: ResourceType.food,
+          ),
         ),
         const HBox(10),
         ResourceSummary(
           size: 90,
           sprite: ResourceType.wood.sprite,
-          value:
-              state.colony.resources.get(ResourceType.wood).floor().toString(),
+          value: Formatter.resource(colony.resources.get(ResourceType.wood)),
           tooltip: ComplexTooltip.storedResource(
-            colony: state.colony,
+            colony: colony,
             resourceType: ResourceType.wood,
           ),
-          color: Palette.textLevel1,
+          color: _consumableResourceColor(
+            colony: colony,
+            resourceType: ResourceType.wood,
+          ),
         ),
         const HBox(10),
         ResourceSummary(
           size: 90,
           sprite: ResourceType.stone.sprite,
-          value:
-              state.colony.resources.get(ResourceType.stone).floor().toString(),
+          value: Formatter.resource(colony.resources.get(ResourceType.stone)),
           tooltip: ComplexTooltip.storedResource(
-            colony: state.colony,
+            colony: colony,
             resourceType: ResourceType.stone,
           ),
-          color: Palette.textLevel1,
+          color: _storedResourceColor(
+            colony: colony,
+            resourceType: ResourceType.stone,
+          ),
         ),
         const HBox(10),
         ResourceSummary(
           size: 90,
           sprite: ResourceType.copper.sprite,
-          value: state.colony.resources
-              .get(ResourceType.copper)
-              .floor()
-              .toString(),
+          value: Formatter.resource(colony.resources.get(ResourceType.copper)),
           tooltip: ComplexTooltip.storedResource(
-            colony: state.colony,
+            colony: colony,
             resourceType: ResourceType.copper,
           ),
-          color: Palette.textLevel1,
+          color: _storedResourceColor(
+            colony: colony,
+            resourceType: ResourceType.copper,
+          ),
         ),
         const HBox(10),
         ResourceSummary(
           size: 90,
           sprite: ResourceType.iron.sprite,
-          value:
-              state.colony.resources.get(ResourceType.iron).floor().toString(),
+          value: Formatter.resource(colony.resources.get(ResourceType.iron)),
           tooltip: ComplexTooltip.storedResource(
-            colony: state.colony,
+            colony: colony,
             resourceType: ResourceType.iron,
           ),
-          color: Palette.textLevel1,
+          color: _storedResourceColor(
+            colony: colony,
+            resourceType: ResourceType.iron,
+          ),
         ),
         const HBox(10),
         ResourceSummary(
           size: 90,
           sprite: ResourceType.gold.sprite,
-          value:
-              state.colony.resources.get(ResourceType.gold).floor().toString(),
+          value: Formatter.resource(colony.resources.get(ResourceType.gold)),
           tooltip: ComplexTooltip.storedResource(
-            colony: state.colony,
+            colony: colony,
             resourceType: ResourceType.gold,
           ),
-          color: Palette.textLevel1,
+          color: _storedResourceColor(
+            colony: colony,
+            resourceType: ResourceType.gold,
+          ),
         ),
         const HBox(10),
         ResourceSummary(
           size: 90,
           sprite: ResourceType.faith.sprite,
-          value:
-              state.colony.resources.get(ResourceType.faith).floor().toString(),
+          value: Formatter.resource(colony.resources.get(ResourceType.faith)),
           tooltip: ComplexTooltip.unstoredResource(
-            colony: state.colony,
+            colony: colony,
             resourceType: ResourceType.faith,
           ),
-          color: Palette.textLevel1,
+          color: _storedResourceColor(
+            colony: colony,
+            resourceType: ResourceType.faith,
+          ),
         ),
         const HBox(10),
         ResourceSummary(
           size: 90,
           sprite: ResourceType.knowledge.sprite,
-          value: state.colony.resources
-              .get(ResourceType.knowledge)
-              .floor()
-              .toString(),
+          value:
+              Formatter.resource(colony.resources.get(ResourceType.knowledge)),
           tooltip: ComplexTooltip.unstoredResource(
-            colony: state.colony,
+            colony: colony,
             resourceType: ResourceType.knowledge,
           ),
-          color: Palette.textLevel1,
+          color: _storedResourceColor(
+            colony: colony,
+            resourceType: ResourceType.knowledge,
+          ),
         ),
       ],
     );
+  }
+
+  Color _consumableResourceColor({
+    required Colony colony,
+    required ResourceType resourceType,
+  }) {
+    final num amount = colony.resources.get(resourceType);
+    final num capacity = colony.warehouseCapacity;
+    final bool full = amount >= capacity;
+    final num production = colony.productionOf(resourceType);
+
+    return (full || production <= 0) ? Palette.textError : Palette.textLevel1;
+  }
+
+  Color _storedResourceColor({
+    required Colony colony,
+    required ResourceType resourceType,
+  }) {
+    final num amount = colony.resources.get(resourceType);
+    final num capacity = colony.warehouseCapacity;
+    final bool full = amount >= capacity;
+
+    return full ? Palette.textError : Palette.textLevel1;
   }
 }
 

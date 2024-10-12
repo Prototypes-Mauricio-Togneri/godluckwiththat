@@ -11,19 +11,7 @@ class Formatter {
   static String resource(num amount) {
     final NumberFormat formatter = NumberFormat('0');
 
-    return formatter.format(amount);
-  }
-
-  static String days(num amount) {
-    final NumberFormat formatter = NumberFormat('0');
-
-    return formatter.format(amount);
-  }
-
-  static String years(num amount) {
-    final NumberFormat formatter = NumberFormat('0');
-
-    return formatter.format(amount);
+    return formatter.format(amount.floor());
   }
 
   static String time(num amount) => Duration(seconds: amount.toInt()).formatted;
