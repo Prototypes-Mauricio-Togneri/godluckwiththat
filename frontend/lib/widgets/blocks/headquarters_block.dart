@@ -2,39 +2,14 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/states/game_state.dart';
-import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/buttons/train_unit_button.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
 import 'package:godluckwiththat/widgets/images/image_block.dart';
-import 'package:godluckwiththat/windows/base_window.dart';
 
-class HeadquartersWindow extends StatelessWidget {
+class HeadquartersBlock extends StatelessWidget {
   final GameState state;
 
-  const HeadquartersWindow(this.state);
-
-  static DialogController show(GameState state) =>
-      BaseWindow.show(HeadquartersWindow(state));
-
-  @override
-  Widget build(BuildContext context) {
-    return BaseWindow(
-      title: 'Headquarters',
-      child: Container(
-        color: Palette.backgroundWindowTabSelected,
-        child: StateProvider<GameState>(
-          state: state,
-          builder: (context, state) => Content(state),
-        ),
-      ),
-    );
-  }
-}
-
-class Content extends StatelessWidget {
-  final GameState state;
-
-  const Content(this.state);
+  const HeadquartersBlock(this.state);
 
   @override
   Widget build(BuildContext context) {
