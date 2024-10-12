@@ -20,19 +20,22 @@ class HeadquartersBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TopSection(state.colony.headquarters),
-          const VBox(20),
-          MiddleSection(state.colony.headquarters),
-          const VBox(20),
-          BottomSection(state.colony.headquarters),
-          UpgradeSection(state.colony.headquarters),
-        ],
+    return StateProvider<GameState>(
+      state: state,
+      builder: (context, state) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TopSection(state.colony.headquarters),
+            const VBox(20),
+            MiddleSection(state.colony.headquarters),
+            const VBox(20),
+            BottomSection(state.colony.headquarters),
+            UpgradeSection(state.colony.headquarters),
+          ],
+        ),
       ),
     );
   }
