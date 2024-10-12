@@ -16,7 +16,7 @@ class GameState extends BaseGameState {
   }
 
   void onMenuHeadquarters() => BaseWindow.show(BuildingDetailWindow(
-        title: 'Headquarters',
+        title: colony.headquarters.type.name,
         child: HeadquartersBlock(this),
       ));
 

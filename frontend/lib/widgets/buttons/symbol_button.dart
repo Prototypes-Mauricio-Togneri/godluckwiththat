@@ -63,6 +63,17 @@ class SymbolButton extends StatelessWidget {
         onTap: onTap,
       );
 
+  factory SymbolButton.upgradeHeadquarters({
+    required double size,
+    required VoidCallback? onTap,
+  }) =>
+      SymbolButton(
+        icon: Icons.home,
+        color: Palette.buttonEnabled,
+        size: size,
+        onTap: onTap,
+      );
+
   factory SymbolButton.build({
     required double size,
     required VoidCallback? onTap,

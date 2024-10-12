@@ -16,6 +16,7 @@ import 'package:godluckwiththat/models/buildings/producers/shrine.dart';
 import 'package:godluckwiththat/models/buildings/producers/temple.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/types/headquarters_type.dart';
 
 class Building {
   final Colony colony;
@@ -50,12 +51,14 @@ class Building {
     required BuildingType buildingType,
     required int level,
     required int workers,
+    HeadquartersType headquartersType = HeadquartersType.camp,
   }) {
     switch (buildingType) {
       case BuildingType.headquarters:
         return Headquarters(
           colony: colony,
           level: level,
+          type: headquartersType,
         );
       case BuildingType.house:
         return House(

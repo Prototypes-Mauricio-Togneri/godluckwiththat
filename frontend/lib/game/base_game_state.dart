@@ -24,6 +24,7 @@ import 'package:godluckwiththat/models/upcoming/building_upgrade.dart';
 import 'package:godluckwiththat/models/upcoming/challenge_upcoming.dart';
 import 'package:godluckwiththat/models/upcoming/research_upcoming.dart';
 import 'package:godluckwiththat/types/building_type.dart';
+import 'package:godluckwiththat/types/headquarters_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/types/unit_type.dart';
 
@@ -72,6 +73,7 @@ class BaseGameState extends BaseState {
       BuildingType.headquarters: Headquarters(
         colony: colony,
         level: 1,
+        type: HeadquartersType.camp,
       ),
       BuildingType.house: House(
         colony: colony,
