@@ -41,8 +41,9 @@ class Building {
 
   void upgrade() {
     if (canUpgrade) {
-      colony.resources.removeItems(upgradeCost);
       level++;
+      colony.resources.removeItems(upgradeCost);
+      colony.notify();
     }
   }
 

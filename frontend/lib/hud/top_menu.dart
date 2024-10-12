@@ -139,7 +139,7 @@ class ResourcesSummary extends StatelessWidget {
             colony: colony,
             resourceType: ResourceType.food,
           ),
-          color: _consumableResourceColor(
+          color: _storedResourceColor(
             colony: colony,
             resourceType: ResourceType.food,
           ),
@@ -153,7 +153,7 @@ class ResourcesSummary extends StatelessWidget {
             colony: colony,
             resourceType: ResourceType.wood,
           ),
-          color: _consumableResourceColor(
+          color: _storedResourceColor(
             colony: colony,
             resourceType: ResourceType.wood,
           ),
@@ -223,7 +223,7 @@ class ResourcesSummary extends StatelessWidget {
             colony: colony,
             resourceType: ResourceType.faith,
           ),
-          color: _storedResourceColor(
+          color: _unstoredResourceColor(
             colony: colony,
             resourceType: ResourceType.faith,
           ),
@@ -238,7 +238,7 @@ class ResourcesSummary extends StatelessWidget {
             colony: colony,
             resourceType: ResourceType.knowledge,
           ),
-          color: _storedResourceColor(
+          color: _unstoredResourceColor(
             colony: colony,
             resourceType: ResourceType.knowledge,
           ),
@@ -247,16 +247,13 @@ class ResourcesSummary extends StatelessWidget {
     );
   }
 
-  Color _consumableResourceColor({
+  Color _unstoredResourceColor({
     required Colony colony,
     required ResourceType resourceType,
   }) {
-    final num amount = colony.resources.get(resourceType);
-    final num capacity = colony.warehouseCapacity;
-    final bool full = amount >= capacity;
     final num production = colony.productionOf(resourceType);
 
-    return (full || production <= 0) ? Palette.textError : Palette.textLevel1;
+    return (production <= 0) ? Palette.textError : Palette.textLevel1;
   }
 
   Color _storedResourceColor({
@@ -266,8 +263,9 @@ class ResourcesSummary extends StatelessWidget {
     final num amount = colony.resources.get(resourceType);
     final num capacity = colony.warehouseCapacity;
     final bool full = amount >= capacity;
+    final num production = colony.productionOf(resourceType);
 
-    return full ? Palette.textError : Palette.textLevel1;
+    return (full || production <= 0) ? Palette.textError : Palette.textLevel1;
   }
 }
 
