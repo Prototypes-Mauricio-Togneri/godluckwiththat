@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/models/upcoming/upcoming.dart';
+import 'package:godluckwiththat/models/future_events/future_event.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
@@ -24,10 +24,10 @@ class RightMenu extends StatelessWidget {
             color: Palette.divider1,
             height: 1,
           ),
-          for (final upcoming in state.colony.upcoming)
+          for (final event in state.colony.futureEvents)
             RightMenuRow(
-              upcoming: upcoming,
-              onPressed: () => state.onUpcomingSelected(upcoming),
+              event: event,
+              onPressed: () => state.onFutureSelected(event),
             ),
         ],
       ),
@@ -64,11 +64,11 @@ class RightMenuTitle extends StatelessWidget {
 }
 
 class RightMenuRow extends StatelessWidget {
-  final Upcoming upcoming;
+  final FutureEvent event;
   final VoidCallback onPressed;
 
   const RightMenuRow({
-    required this.upcoming,
+    required this.event,
     required this.onPressed,
   });
 
@@ -87,19 +87,19 @@ class RightMenuRow extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  upcoming.icon,
+                  event.icon,
                   size: 12,
                   color: Palette.iconLevel1,
                 ),
                 const HBox(10),
                 Expanded(
                   child: Label(
-                    text: upcoming.summary,
+                    text: event.summary,
                   ),
                 ),
                 const HBox(10),
                 Label(
-                  text: Formatter.time(upcoming.remainingTime),
+                  text: Formatter.time(event.remainingTime),
                 ),
               ],
             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:godluckwiththat/game/base_game_state.dart';
-import 'package:godluckwiththat/models/past_events/event.dart';
-import 'package:godluckwiththat/models/upcoming/upcoming.dart';
+import 'package:godluckwiththat/models/future_events/future_event.dart';
+import 'package:godluckwiththat/models/past_events/past_event.dart';
 import 'package:godluckwiththat/widgets/blocks/headquarters_block.dart';
 import 'package:godluckwiththat/windows/base_window.dart';
 import 'package:godluckwiththat/windows/buildings_window.dart';
@@ -44,14 +44,15 @@ class GameState extends BaseGameState {
     print('Menu Market');
   }
 
-  void onUpcomingSelected(Upcoming upcoming) =>
-      colony.onUpcomingSelected(upcoming);
+  void onFutureSelected(FutureEvent event) =>
+      colony.onFutureEventSelected(event);
 
-  void onCleanAllEvents() => colony.onAllEventsClosed();
+  void onCleanAllPastEvents() => colony.onAllPastEventsClosed();
 
-  void onEventSelected(PastEvent event) => colony.onEventSelected(event);
+  void onPastEventSelected(PastEvent event) =>
+      colony.onPastEventSelected(event);
 
-  void onEventClosed(PastEvent event) => colony.onEventClosed(event);
+  void onPastEventClosed(PastEvent event) => colony.onPastEventClosed(event);
 
   void _showWindow(Widget widget) {
     currentWindow = widget;

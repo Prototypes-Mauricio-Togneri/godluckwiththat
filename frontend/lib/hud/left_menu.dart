@@ -1,6 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/models/past_events/event.dart';
+import 'package:godluckwiththat/models/past_events/past_event.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
@@ -24,11 +24,11 @@ class LeftMenu extends StatelessWidget {
             color: Palette.divider1,
             height: 1,
           ),
-          for (final PastEvent event in state.colony.events)
+          for (final PastEvent event in state.colony.pastEvents)
             LeftMenuRow(
               event: event,
-              onSelected: () => state.onEventSelected(event),
-              onClosed: () => state.onEventClosed(event),
+              onSelected: () => state.onPastEventSelected(event),
+              onClosed: () => state.onPastEventClosed(event),
             ),
         ],
       ),
@@ -68,7 +68,7 @@ class LeftMenuTitle extends StatelessWidget {
             color: Palette.transparent,
             child: InkWell(
               hoverColor: Palette.backgroundClose.withAlpha(150),
-              onTap: state.onCleanAllEvents,
+              onTap: state.onCleanAllPastEvents,
               child: const Padding(
                 padding: EdgeInsets.all(10),
                 child: Icon(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/types/event_type.dart';
+import 'package:godluckwiththat/types/past_event_type.dart';
 
 abstract class PastEvent {
-  final EventType eventType;
+  final PastEventType eventType;
 
   const PastEvent({required this.eventType});
 

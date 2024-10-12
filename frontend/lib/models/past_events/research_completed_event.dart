@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/models/past_events/event.dart';
-import 'package:godluckwiththat/types/event_type.dart';
+import 'package:godluckwiththat/models/past_events/past_event.dart';
+import 'package:godluckwiththat/types/past_event_type.dart';
 
 class ResearchCompletedEvent extends PastEvent {
-  ResearchCompletedEvent() : super(eventType: EventType.research_completed);
+  ResearchCompletedEvent() : super(eventType: PastEventType.research_completed);
 
   @override
   String get summary => 'Research completed';

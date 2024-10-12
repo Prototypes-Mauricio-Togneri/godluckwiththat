@@ -9,6 +9,10 @@ import 'package:godluckwiththat/models/buildings/producers/iron_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/models/colony.dart';
+import 'package:godluckwiththat/models/future_events/attack_event.dart';
+import 'package:godluckwiththat/models/future_events/building_event.dart';
+import 'package:godluckwiththat/models/future_events/challenge_event.dart';
+import 'package:godluckwiththat/models/future_events/research_event.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
 import 'package:godluckwiththat/models/past_events/building_upgraded_event.dart';
@@ -19,10 +23,6 @@ import 'package:godluckwiththat/models/past_events/research_completed_event.dart
 import 'package:godluckwiththat/models/past_events/resource_limit_reached_event.dart';
 import 'package:godluckwiththat/models/past_events/season_change_event.dart';
 import 'package:godluckwiththat/models/past_events/territory_limit_reached_event.dart';
-import 'package:godluckwiththat/models/upcoming/attack_upcoming.dart';
-import 'package:godluckwiththat/models/upcoming/building_upgrade.dart';
-import 'package:godluckwiththat/models/upcoming/challenge_upcoming.dart';
-import 'package:godluckwiththat/models/upcoming/research_upcoming.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/headquarters_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
@@ -47,7 +47,7 @@ class BaseGameState extends BaseState {
         UnitType.worker: 5,
       }),
       buildings: {},
-      events: [
+      pastEvents: [
         SeasonChangeEvent(),
         DisasterResultEvent(),
         ChallengeResultEvent(),
@@ -57,11 +57,11 @@ class BaseGameState extends BaseState {
         TerritoryLimitReachedEvent(),
         ResourceLimitReachedEvent(),
       ],
-      upcoming: [
-        ChallengeUpcoming(remainingTime: 10),
-        ResearchUpcoming(remainingTime: 50),
-        AttackUpcoming(remainingTime: 140),
-        BuildingUpgradeUpcoming(remainingTime: 200),
+      futureEvents: [
+        ChallengeEvent(remainingTime: 10),
+        ResearchEvent(remainingTime: 50),
+        AttackEvent(remainingTime: 140),
+        BuildingUpgradeEvent(remainingTime: 200),
       ],
       timeElapsed: 0,
       freeWorkers: 5,

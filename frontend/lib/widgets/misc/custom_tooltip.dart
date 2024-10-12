@@ -94,7 +94,7 @@ class SimpleTooltip extends StatelessWidget {
   Widget build(BuildContext context) {
     return JustTheTooltip(
       content: Container(
-        constraints: const BoxConstraints(maxWidth: 200),
+        constraints: const BoxConstraints(maxWidth: 300),
         padding: const EdgeInsets.all(10),
         child: Label(text: content),
       ),

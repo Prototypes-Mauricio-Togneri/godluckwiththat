@@ -1,4 +1,4 @@
-enum UpcomingType {
+enum FutureEventType {
   attack,
   challenge,
   research,

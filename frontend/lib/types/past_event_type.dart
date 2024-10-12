@@ -1,4 +1,4 @@
-enum EventType {
+enum PastEventType {
   season_change_coming,
   diaster_result,
   challenge_result,

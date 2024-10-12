@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/types/upcoming_type.dart';
+import 'package:godluckwiththat/types/future_event_type.dart';
 
-abstract class Upcoming {
-  final UpcomingType upcomingType;
+abstract class FutureEvent {
+  final FutureEventType eventType;
   num remainingTime;
 
-  Upcoming({
-    required this.upcomingType,
+  FutureEvent({
+    required this.eventType,
     required this.remainingTime,
   });
 

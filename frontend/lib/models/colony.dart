@@ -11,10 +11,10 @@ import 'package:godluckwiththat/models/buildings/producers/gold_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/iron_mine.dart';
 import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
 import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
+import 'package:godluckwiththat/models/future_events/future_event.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
-import 'package:godluckwiththat/models/past_events/event.dart';
-import 'package:godluckwiththat/models/upcoming/upcoming.dart';
+import 'package:godluckwiththat/models/past_events/past_event.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
@@ -26,8 +26,8 @@ class Colony {
   final ResourceInventory resources;
   final UnitInventory units;
   final Map<BuildingType, Building> buildings;
-  final List<PastEvent> events;
-  final List<Upcoming> upcoming;
+  final List<PastEvent> pastEvents;
+  final List<FutureEvent> futureEvents;
 
   num timeElapsed;
   int freeWorkers;
@@ -38,8 +38,8 @@ class Colony {
     required this.resources,
     required this.units,
     required this.buildings,
-    required this.events,
-    required this.upcoming,
+    required this.pastEvents,
+    required this.futureEvents,
     required this.timeElapsed,
     required this.freeWorkers,
     required this.territorySlotsUsed,
@@ -50,26 +50,27 @@ class Colony {
     this.state = state;
   }
 
-  // ============================== EVENTS ================================== \\
+  // =========================== PAST EVENTS ================================ \\
 
-  void onAllEventsClosed() => ConfirmationDialog.clearAllEvents(onAccept: () {
-        events.clear();
+  void onAllPastEventsClosed() =>
+      ConfirmationDialog.clearAllEvents(onAccept: () {
+        pastEvents.clear();
         notify();
       });
 
-  void onEventClosed(PastEvent event) {
-    events.remove(event);
+  void onPastEventClosed(PastEvent event) {
+    pastEvents.remove(event);
     notify();
   }
 
-  void onEventSelected(PastEvent event) {
+  void onPastEventSelected(PastEvent event) {
     print('Event');
   }
 
-  // ============================= UPCOMING ================================= \\
+  // ========================== FUTURE EVENTS =============================== \\
 
-  void onUpcomingSelected(Upcoming upcoming) {
-    print('Upcoming');
+  void onFutureEventSelected(FutureEvent event) {
+    print('Event');
   }
 
   // ============================ TERRITORY ================================= \\
@@ -228,15 +229,15 @@ class Colony {
       building.update(dt);
     }
 
-    final List<Upcoming> pending = [...upcoming];
+    final List<FutureEvent> pending = [...futureEvents];
 
-    for (final Upcoming upcoming in pending) {
-      if (upcoming.update(dt)) {
-        pending.remove(upcoming);
+    for (final FutureEvent event in pending) {
+      if (event.update(dt)) {
+        pending.remove(event);
       }
     }
 
-    upcoming.clear();
-    upcoming.addAll(pending);
+    futureEvents.clear();
+    futureEvents.addAll(pending);
   }
 }

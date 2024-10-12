@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/models/past_events/event.dart';
-import 'package:godluckwiththat/types/event_type.dart';
+import 'package:godluckwiththat/models/past_events/past_event.dart';
+import 'package:godluckwiththat/types/past_event_type.dart';
 
 class DisasterResultEvent extends PastEvent {
-  DisasterResultEvent() : super(eventType: EventType.diaster_result);
+  DisasterResultEvent() : super(eventType: PastEventType.diaster_result);
 
   @override
   String get summary => 'Earthquake happened';
