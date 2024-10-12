@@ -26,6 +26,7 @@ class CreateBuildingButton extends StatelessWidget {
       children: [
         SymbolButton.build(
           size: 50,
+          tooltip: 'Build ${buildingType.localized}',
           onTap: colony.canBuild(buildingType)
               ? () => colony.build(buildingType)
               : null,

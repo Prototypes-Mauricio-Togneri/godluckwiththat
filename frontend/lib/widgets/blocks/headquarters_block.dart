@@ -14,7 +14,6 @@ import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
 import 'package:godluckwiththat/widgets/images/image_block.dart';
 import 'package:godluckwiththat/widgets/labels/label.dart';
 import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
-import 'package:godluckwiththat/widgets/misc/custom_tooltip.dart';
 
 class HeadquartersBlock extends StatelessWidget {
   final GameState state;
@@ -84,9 +83,9 @@ class MiddleSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SimpleTooltip(
-        content: 'Create worker',
-        child: TrainUnitButton(headquarters),
+      child: TrainUnitButton(
+        consumer: headquarters,
+        tooltip: 'Create worker',
       ),
     );
   }
@@ -136,6 +135,7 @@ class UpgradeButton extends StatelessWidget {
       children: [
         SymbolButton.upgradeHeadquarters(
           size: 50,
+          tooltip: 'Upgrade to ${nextType.localized}',
           onTap: headquarters.canImprove ? headquarters.improve : null,
         ),
         const HBox(10),

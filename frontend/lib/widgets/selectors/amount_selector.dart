@@ -28,6 +28,7 @@ class AmountSelector extends StatelessWidget {
       children: [
         SymbolButton.remove(
           size: size * 2,
+          tooltip: 'Remove worker',
           onTap: onRemove,
         ),
         const HBox(10),
@@ -49,6 +50,7 @@ class AmountSelector extends StatelessWidget {
         const HBox(10),
         SymbolButton.add(
           size: size * 2,
+          tooltip: 'Add worker',
           onTap: onAdd,
         ),
       ],

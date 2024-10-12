@@ -21,6 +21,8 @@ class UpgradeBuildingButton extends StatelessWidget {
       children: [
         SymbolButton.upgrade(
           size: 50,
+          tooltip:
+              'Upgrade ${building.buildingType.localized} to level ${building.level + 1}',
           onTap: building.canUpgrade ? building.upgrade : null,
         ),
         const HBox(10),

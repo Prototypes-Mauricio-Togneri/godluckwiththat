@@ -9,8 +9,12 @@ import 'package:godluckwiththat/widgets/labels/resource_indicator.dart';
 
 class TrainUnitButton extends StatelessWidget {
   final Consumer consumer;
+  final String tooltip;
 
-  const TrainUnitButton(this.consumer);
+  const TrainUnitButton({
+    required this.consumer,
+    required this.tooltip,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +23,7 @@ class TrainUnitButton extends StatelessWidget {
       children: [
         SymbolButton.worker(
           size: 50,
+          tooltip: tooltip,
           onTap: consumer.canTrain ? consumer.train : null,
         ),
         const VBox(5),
