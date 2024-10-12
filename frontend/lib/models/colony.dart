@@ -93,8 +93,7 @@ class Colony {
 
   Farm get farm => buildings[BuildingType.farm] as Farm;
 
-  LoggingCamp get loggingCamp =>
-      buildings[BuildingType.woodcutter] as LoggingCamp;
+  Woodcutter get woodcutter => buildings[BuildingType.woodcutter] as Woodcutter;
 
   Quarry get quarry => buildings[BuildingType.quarry] as Quarry;
 
@@ -119,9 +118,7 @@ class Colony {
       case ResourceType.food:
         return hasBuilding(BuildingType.farm) ? farm.production : 0;
       case ResourceType.wood:
-        return hasBuilding(BuildingType.woodcutter)
-            ? loggingCamp.production
-            : 0;
+        return hasBuilding(BuildingType.woodcutter) ? woodcutter.production : 0;
       case ResourceType.stone:
         return hasBuilding(BuildingType.quarry) ? quarry.production : 0;
       case ResourceType.copper:
@@ -187,7 +184,7 @@ class Colony {
 
   bool get hasFreeWorkers => freeWorkers > 0;
 
-  int get currentPopulation => units.get(UnitType.worker).toInt();
+  int get totalWorkers => units.get(UnitType.worker).toInt();
 
   int get populationLimit {
     final int houseLevel = hasBuilding(BuildingType.house) ? house.level : 0;

@@ -299,8 +299,8 @@ class LimitsIndicator extends StatelessWidget {
               size: 100,
               sprite: Assets.IMAGES_UNITS_WORKER,
               value:
-                  '${Formatter.resource(colony.currentPopulation)}/${Formatter.resource(colony.populationLimit)}',
-              color: (colony.currentPopulation >= colony.populationLimit)
+                  '${Formatter.resource(colony.totalWorkers)}/${Formatter.resource(colony.populationLimit)}',
+              color: (colony.totalWorkers >= colony.populationLimit)
                   ? Palette.textError
                   : Palette.textLevel1,
               tooltip: const SimpleTooltip('Population'),

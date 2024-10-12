@@ -88,7 +88,7 @@ class Building {
           workers: workers,
         );
       case BuildingType.woodcutter:
-        return LoggingCamp(
+        return Woodcutter(
           colony: colony,
           level: level,
           workers: workers,

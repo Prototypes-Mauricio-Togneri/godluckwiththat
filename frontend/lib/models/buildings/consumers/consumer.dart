@@ -15,7 +15,7 @@ abstract class Consumer extends Building {
   ResourceMap get trainingCost;
 
   bool get canTrain =>
-      (colony.currentPopulation < colony.populationLimit) &&
+      (colony.totalWorkers < colony.populationLimit) &&
       colony.resources.hasItems(trainingCost);
 
   @override

@@ -89,7 +89,7 @@ class BaseGameState extends BaseState {
         level: 1,
         workers: 2,
       ),
-      BuildingType.woodcutter: LoggingCamp(
+      BuildingType.woodcutter: Woodcutter(
         colony: colony,
         level: 1,
         workers: 1,
