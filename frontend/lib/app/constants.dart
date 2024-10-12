@@ -6,7 +6,7 @@ class Constants {
   static const int HOUSE_POPULATION = 5;
   static const int BASE_POPULATION_LIMIT = 10;
 
-  static const int SLOTS_PER_TOWN_CENTER_LEVEL = 10;
+  static const int SLOTS_PER_HEADQUARTERS_LEVEL = 10;
   static const int PRODUCER_CAPACITY_PER_LEVEL = 5;
 
   // resources

@@ -19,6 +19,12 @@ class BottomMenu extends StatelessWidget {
         children: [
           BottomMenuButton(
             icon: Icons.home,
+            tooltip: 'Headquarters',
+            onPressed: state.onMenuHeadquarters,
+          ),
+          const HBox(10),
+          BottomMenuButton(
+            icon: Icons.apartment,
             tooltip: 'Buildings',
             onPressed: state.onMenuBuildings,
           ),

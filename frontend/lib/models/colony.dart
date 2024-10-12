@@ -19,6 +19,7 @@ import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/types/unit_type.dart';
+import 'package:godluckwiththat/utils/formatter.dart';
 
 class Colony {
   late final GameState state;
@@ -74,7 +75,7 @@ class Colony {
   // ============================ TERRITORY ================================= \\
 
   int get territorySlotsTotal =>
-      townCenter.level * Constants.SLOTS_PER_TOWN_CENTER_LEVEL;
+      headquarters.level * Constants.SLOTS_PER_HEADQUARTERS_LEVEL;
 
   bool get hasSlotsToBuild => territorySlotsUsed < territorySlotsTotal;
 
@@ -85,7 +86,7 @@ class Colony {
   bool hasBuilding(BuildingType buildingType) =>
       buildings.containsKey(buildingType);
 
-  Headquarters get townCenter =>
+  Headquarters get headquarters =>
       buildings[BuildingType.headquarters] as Headquarters;
 
   House get house => buildings[BuildingType.house] as House;
@@ -109,9 +110,7 @@ class Colony {
 
   // =========================== TIME ELAPSED =============================== \\
 
-  num get day => (timeElapsed / Constants.SECONDS_PER_DAY) + 1;
-
-  num get year => (day / 365).floor() + 1;
+  String get time => Formatter.time(timeElapsed);
 
   // ============================ BUILDINGS ================================= \\
 

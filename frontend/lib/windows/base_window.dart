@@ -1,3 +1,4 @@
+import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/utils/navigation.dart';
 import 'package:godluckwiththat/utils/palette.dart';
@@ -34,6 +35,19 @@ class BaseWindow extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  static DialogController show(Widget widget) {
+    final BuildContext context = Navigation.context;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      barrierColor: Palette.transparent,
+      builder: (context) => widget,
+    );
+
+    return DialogController(context);
   }
 }
 

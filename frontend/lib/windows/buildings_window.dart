@@ -2,14 +2,11 @@ import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
-import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
-import 'package:godluckwiththat/utils/navigation.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/blocks/create_building_block.dart';
-import 'package:godluckwiththat/widgets/blocks/headquarters_block.dart';
 import 'package:godluckwiththat/widgets/blocks/passive_building_block.dart';
 import 'package:godluckwiththat/widgets/blocks/producer_block.dart';
 import 'package:godluckwiththat/widgets/blocks/unavailable_building.dart';
@@ -21,18 +18,8 @@ class BuildingsWindow extends StatelessWidget {
 
   const BuildingsWindow(this.state);
 
-  static DialogController show(GameState state) {
-    final BuildContext context = Navigation.context;
-
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      barrierColor: Palette.transparent,
-      builder: (context) => BuildingsWindow(state),
-    );
-
-    return DialogController(context);
-  }
+  static DialogController show(GameState state) =>
+      BaseWindow.show(BuildingsWindow(state));
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +42,11 @@ class BuildingsWindow extends StatelessWidget {
                 state: state,
                 buildingTypes: const [
                   [
-                    BuildingType.headquarters,
                     BuildingType.house,
                     BuildingType.academy,
+                    BuildingType.storehouse,
                   ],
                   [
-                    BuildingType.storehouse,
                     BuildingType.market,
                   ]
                 ],
@@ -141,9 +127,7 @@ class BuildingsList extends StatelessWidget {
     if (state.colony.hasBuilding(buildingType)) {
       final Building building = state.colony.getBuilding(buildingType);
 
-      if (building is Headquarters) {
-        return HeadquartersBlock(building);
-      } else if (building is Producer) {
+      if (building is Producer) {
         return ProducerBlock(building);
       } else {
         return PassiveBuildingBlock(building);
