@@ -117,21 +117,25 @@ class Colony {
   num productionOf(ResourceType resourceType) {
     switch (resourceType) {
       case ResourceType.food:
-        return farm.production;
+        return hasBuilding(BuildingType.farm) ? farm.production : 0;
       case ResourceType.wood:
-        return loggingCamp.production;
+        return hasBuilding(BuildingType.woodcutter)
+            ? loggingCamp.production
+            : 0;
       case ResourceType.stone:
-        return quarry.production;
+        return hasBuilding(BuildingType.quarry) ? quarry.production : 0;
       case ResourceType.copper:
-        return copperMine.production;
+        return hasBuilding(BuildingType.copperMine) ? copperMine.production : 0;
       case ResourceType.iron:
-        return ironMine.production;
+        return hasBuilding(BuildingType.ironMine) ? ironMine.production : 0;
       case ResourceType.gold:
-        return goldMine.production;
+        return hasBuilding(BuildingType.goldMine) ? goldMine.production : 0;
       case ResourceType.faith:
-        return altar.production; // TODO(momo): count shrines and temples
+        return hasBuilding(BuildingType.altar)
+            ? altar.production
+            : 0; // TODO(momo): count shrines and temples
       case ResourceType.knowledge:
-        return academy.production;
+        return hasBuilding(BuildingType.academy) ? academy.production : 0;
     }
   }
 

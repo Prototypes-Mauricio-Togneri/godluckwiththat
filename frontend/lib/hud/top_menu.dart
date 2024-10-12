@@ -136,7 +136,7 @@ class ResourcesSummary extends StatelessWidget {
           sprite: ResourceType.food.sprite,
           value:
               state.colony.resources.get(ResourceType.food).floor().toString(),
-          tooltip: ComplexTooltip.resourceConsumable(
+          tooltip: ComplexTooltip.storedResource(
             colony: state.colony,
             resourceType: ResourceType.food,
           ),
@@ -148,7 +148,7 @@ class ResourcesSummary extends StatelessWidget {
           sprite: ResourceType.wood.sprite,
           value:
               state.colony.resources.get(ResourceType.wood).floor().toString(),
-          tooltip: ComplexTooltip.resourceConsumable(
+          tooltip: ComplexTooltip.storedResource(
             colony: state.colony,
             resourceType: ResourceType.wood,
           ),
@@ -160,7 +160,7 @@ class ResourcesSummary extends StatelessWidget {
           sprite: ResourceType.stone.sprite,
           value:
               state.colony.resources.get(ResourceType.stone).floor().toString(),
-          tooltip: ComplexTooltip.resourceNonConsumable(
+          tooltip: ComplexTooltip.storedResource(
             colony: state.colony,
             resourceType: ResourceType.stone,
           ),
@@ -174,7 +174,7 @@ class ResourcesSummary extends StatelessWidget {
               .get(ResourceType.copper)
               .floor()
               .toString(),
-          tooltip: ComplexTooltip.resourceNonConsumable(
+          tooltip: ComplexTooltip.storedResource(
             colony: state.colony,
             resourceType: ResourceType.copper,
           ),
@@ -186,7 +186,7 @@ class ResourcesSummary extends StatelessWidget {
           sprite: ResourceType.iron.sprite,
           value:
               state.colony.resources.get(ResourceType.iron).floor().toString(),
-          tooltip: ComplexTooltip.resourceNonConsumable(
+          tooltip: ComplexTooltip.storedResource(
             colony: state.colony,
             resourceType: ResourceType.iron,
           ),
@@ -198,7 +198,7 @@ class ResourcesSummary extends StatelessWidget {
           sprite: ResourceType.gold.sprite,
           value:
               state.colony.resources.get(ResourceType.gold).floor().toString(),
-          tooltip: ComplexTooltip.resourceNonConsumable(
+          tooltip: ComplexTooltip.storedResource(
             colony: state.colony,
             resourceType: ResourceType.gold,
           ),
@@ -210,7 +210,10 @@ class ResourcesSummary extends StatelessWidget {
           sprite: ResourceType.faith.sprite,
           value:
               state.colony.resources.get(ResourceType.faith).floor().toString(),
-          tooltip: SimpleTooltip.resource(ResourceType.faith),
+          tooltip: ComplexTooltip.unstoredResource(
+            colony: state.colony,
+            resourceType: ResourceType.faith,
+          ),
           color: Palette.textLevel1,
         ),
         const HBox(10),
@@ -221,7 +224,10 @@ class ResourcesSummary extends StatelessWidget {
               .get(ResourceType.knowledge)
               .floor()
               .toString(),
-          tooltip: SimpleTooltip.resource(ResourceType.knowledge),
+          tooltip: ComplexTooltip.unstoredResource(
+            colony: state.colony,
+            resourceType: ResourceType.knowledge,
+          ),
           color: Palette.textLevel1,
         ),
       ],

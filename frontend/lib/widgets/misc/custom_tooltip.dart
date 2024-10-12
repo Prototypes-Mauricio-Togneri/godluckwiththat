@@ -57,7 +57,7 @@ class ComplexTooltip extends StatelessWidget {
     );
   }
 
-  factory ComplexTooltip.resourceConsumable({
+  factory ComplexTooltip.storedResource({
     required Colony colony,
     required ResourceType resourceType,
   }) {
@@ -75,18 +75,17 @@ class ComplexTooltip extends StatelessWidget {
     );
   }
 
-  factory ComplexTooltip.resourceNonConsumable({
+  factory ComplexTooltip.unstoredResource({
     required Colony colony,
     required ResourceType resourceType,
   }) {
     final num amount = colony.resources.get(resourceType);
-    final num capacity = colony.warehouseCapacity;
-    final String full = amount >= capacity ? ' (FULL)' : '';
+    final String production =
+        '${Formatter.production(colony.productionOf(resourceType))}/s';
 
     return ComplexTooltip(
       title: resourceType.localized,
-      content:
-          '${Formatter.resource(amount)}/${Formatter.resource(capacity)}$full',
+      content: '${Formatter.resource(amount)} ($production)',
     );
   }
 }
