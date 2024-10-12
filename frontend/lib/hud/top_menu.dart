@@ -44,8 +44,8 @@ class PauseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTooltip(
-      content: const SimpleTooltip('Pause'),
+    return SimpleTooltip(
+      content: 'Pause',
       child: Material(
         color: Palette.transparent,
         child: InkWell(
@@ -98,8 +98,8 @@ class SeasonIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomTooltip(
-      content: SimpleTooltip('Season'),
+    return const SimpleTooltip(
+      content: 'Season',
       child: TopBarContainer(
         child: Row(
           children: [
@@ -131,116 +131,117 @@ class ResourcesSummary extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ResourceSummary(
-          size: 90,
-          sprite: ResourceType.food.sprite,
-          value: Formatter.resource(colony.resources.get(ResourceType.food)),
-          tooltip: ComplexTooltip.storedResource(
-            colony: colony,
-            resourceType: ResourceType.food,
-          ),
-          color: _storedResourceColor(
-            colony: colony,
-            resourceType: ResourceType.food,
-          ),
-        ),
-        const HBox(10),
-        ResourceSummary(
-          size: 90,
-          sprite: ResourceType.wood.sprite,
-          value: Formatter.resource(colony.resources.get(ResourceType.wood)),
-          tooltip: ComplexTooltip.storedResource(
-            colony: colony,
-            resourceType: ResourceType.wood,
-          ),
-          color: _storedResourceColor(
-            colony: colony,
-            resourceType: ResourceType.wood,
+        ComplexTooltip.storedResource(
+          colony: colony,
+          resourceType: ResourceType.food,
+          child: ResourceSummary(
+            size: 90,
+            sprite: ResourceType.food.sprite,
+            value: Formatter.resource(colony.resources.get(ResourceType.food)),
+            color: _storedResourceColor(
+              colony: colony,
+              resourceType: ResourceType.food,
+            ),
           ),
         ),
         const HBox(10),
-        ResourceSummary(
-          size: 90,
-          sprite: ResourceType.stone.sprite,
-          value: Formatter.resource(colony.resources.get(ResourceType.stone)),
-          tooltip: ComplexTooltip.storedResource(
-            colony: colony,
-            resourceType: ResourceType.stone,
-          ),
-          color: _storedResourceColor(
-            colony: colony,
-            resourceType: ResourceType.stone,
-          ),
-        ),
-        const HBox(10),
-        ResourceSummary(
-          size: 90,
-          sprite: ResourceType.copper.sprite,
-          value: Formatter.resource(colony.resources.get(ResourceType.copper)),
-          tooltip: ComplexTooltip.storedResource(
-            colony: colony,
-            resourceType: ResourceType.copper,
-          ),
-          color: _storedResourceColor(
-            colony: colony,
-            resourceType: ResourceType.copper,
+        ComplexTooltip.storedResource(
+          colony: colony,
+          resourceType: ResourceType.wood,
+          child: ResourceSummary(
+            size: 90,
+            sprite: ResourceType.wood.sprite,
+            value: Formatter.resource(colony.resources.get(ResourceType.wood)),
+            color: _storedResourceColor(
+              colony: colony,
+              resourceType: ResourceType.wood,
+            ),
           ),
         ),
         const HBox(10),
-        ResourceSummary(
-          size: 90,
-          sprite: ResourceType.iron.sprite,
-          value: Formatter.resource(colony.resources.get(ResourceType.iron)),
-          tooltip: ComplexTooltip.storedResource(
-            colony: colony,
-            resourceType: ResourceType.iron,
-          ),
-          color: _storedResourceColor(
-            colony: colony,
-            resourceType: ResourceType.iron,
-          ),
-        ),
-        const HBox(10),
-        ResourceSummary(
-          size: 90,
-          sprite: ResourceType.gold.sprite,
-          value: Formatter.resource(colony.resources.get(ResourceType.gold)),
-          tooltip: ComplexTooltip.storedResource(
-            colony: colony,
-            resourceType: ResourceType.gold,
-          ),
-          color: _storedResourceColor(
-            colony: colony,
-            resourceType: ResourceType.gold,
+        ComplexTooltip.storedResource(
+          colony: colony,
+          resourceType: ResourceType.stone,
+          child: ResourceSummary(
+            size: 90,
+            sprite: ResourceType.stone.sprite,
+            value: Formatter.resource(colony.resources.get(ResourceType.stone)),
+            color: _storedResourceColor(
+              colony: colony,
+              resourceType: ResourceType.stone,
+            ),
           ),
         ),
         const HBox(10),
-        ResourceSummary(
-          size: 90,
-          sprite: ResourceType.faith.sprite,
-          value: Formatter.resource(colony.resources.get(ResourceType.faith)),
-          tooltip: ComplexTooltip.unstoredResource(
-            colony: colony,
-            resourceType: ResourceType.faith,
-          ),
-          color: _unstoredResourceColor(
-            colony: colony,
-            resourceType: ResourceType.faith,
+        ComplexTooltip.storedResource(
+          colony: colony,
+          resourceType: ResourceType.copper,
+          child: ResourceSummary(
+            size: 90,
+            sprite: ResourceType.copper.sprite,
+            value:
+                Formatter.resource(colony.resources.get(ResourceType.copper)),
+            color: _storedResourceColor(
+              colony: colony,
+              resourceType: ResourceType.copper,
+            ),
           ),
         ),
         const HBox(10),
-        ResourceSummary(
-          size: 90,
-          sprite: ResourceType.knowledge.sprite,
-          value:
-              Formatter.resource(colony.resources.get(ResourceType.knowledge)),
-          tooltip: ComplexTooltip.unstoredResource(
-            colony: colony,
-            resourceType: ResourceType.knowledge,
+        ComplexTooltip.storedResource(
+          colony: colony,
+          resourceType: ResourceType.iron,
+          child: ResourceSummary(
+            size: 90,
+            sprite: ResourceType.iron.sprite,
+            value: Formatter.resource(colony.resources.get(ResourceType.iron)),
+            color: _storedResourceColor(
+              colony: colony,
+              resourceType: ResourceType.iron,
+            ),
           ),
-          color: _unstoredResourceColor(
-            colony: colony,
-            resourceType: ResourceType.knowledge,
+        ),
+        const HBox(10),
+        ComplexTooltip.storedResource(
+          colony: colony,
+          resourceType: ResourceType.gold,
+          child: ResourceSummary(
+            size: 90,
+            sprite: ResourceType.gold.sprite,
+            value: Formatter.resource(colony.resources.get(ResourceType.gold)),
+            color: _storedResourceColor(
+              colony: colony,
+              resourceType: ResourceType.gold,
+            ),
+          ),
+        ),
+        const HBox(10),
+        ComplexTooltip.unstoredResource(
+          colony: colony,
+          resourceType: ResourceType.faith,
+          child: ResourceSummary(
+            size: 90,
+            sprite: ResourceType.faith.sprite,
+            value: Formatter.resource(colony.resources.get(ResourceType.faith)),
+            color: _unstoredResourceColor(
+              colony: colony,
+              resourceType: ResourceType.faith,
+            ),
+          ),
+        ),
+        const HBox(10),
+        ComplexTooltip.unstoredResource(
+          colony: colony,
+          resourceType: ResourceType.knowledge,
+          child: ResourceSummary(
+            size: 90,
+            sprite: ResourceType.knowledge.sprite,
+            value: Formatter.resource(
+                colony.resources.get(ResourceType.knowledge)),
+            color: _unstoredResourceColor(
+              colony: colony,
+              resourceType: ResourceType.knowledge,
+            ),
           ),
         ),
       ],
@@ -273,44 +274,39 @@ class ResourceSummary extends StatelessWidget {
   final double size;
   final String sprite;
   final String value;
-  final Widget tooltip;
   final Color color;
 
   const ResourceSummary({
     required this.size,
     required this.sprite,
     required this.value,
-    required this.tooltip,
     required this.color,
   });
 
   @override
   Widget build(BuildContext context) {
-    return CustomTooltip(
-      content: tooltip,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          TopBarContainer(
-            size: size,
-            child: Row(
-              children: [
-                ImageAsset(
-                  path: sprite,
-                  size: 18,
-                ),
-                const Spacer(),
-                Label(
-                  text: value,
-                  size: 16,
-                  color: color,
-                ),
-              ],
-            ),
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        TopBarContainer(
+          size: size,
+          child: Row(
+            children: [
+              ImageAsset(
+                path: sprite,
+                size: 18,
+              ),
+              const Spacer(),
+              Label(
+                text: value,
+                size: 16,
+                color: color,
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -329,36 +325,42 @@ class LimitsIndicator extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ResourceSummary(
-              size: 100,
-              sprite: Assets.IMAGES_UNITS_WORKER,
-              value:
-                  '${Formatter.resource(colony.totalWorkers)}/${Formatter.resource(colony.populationLimit)}',
-              color: (colony.totalWorkers >= colony.populationLimit)
-                  ? Palette.textError
-                  : Palette.textLevel1,
-              tooltip: const SimpleTooltip('Population'),
+            SimpleTooltip(
+              content: 'Population',
+              child: ResourceSummary(
+                size: 100,
+                sprite: Assets.IMAGES_UNITS_WORKER,
+                value:
+                    '${Formatter.resource(colony.totalWorkers)}/${Formatter.resource(colony.populationLimit)}',
+                color: (colony.totalWorkers >= colony.populationLimit)
+                    ? Palette.textError
+                    : Palette.textLevel1,
+              ),
             ),
             const HBox(5),
-            ResourceSummary(
-              size: 70,
-              sprite: Assets.IMAGES_OTHER_IDLE,
-              value: '${colony.freeWorkers}',
-              color: (colony.freeWorkers > 0)
-                  ? Palette.textError
-                  : Palette.textLevel1,
-              tooltip: const SimpleTooltip('Idle workers'),
+            SimpleTooltip(
+              content: 'Idle workers',
+              child: ResourceSummary(
+                size: 70,
+                sprite: Assets.IMAGES_OTHER_IDLE,
+                value: '${colony.freeWorkers}',
+                color: (colony.freeWorkers > 0)
+                    ? Palette.textError
+                    : Palette.textLevel1,
+              ),
             ),
             const HBox(10),
-            ResourceSummary(
-              size: 100,
-              sprite: Assets.IMAGES_OTHER_HOUSE,
-              value:
-                  '${colony.territorySlotsUsed}/${colony.territorySlotsTotal}',
-              color: (colony.territorySlotsUsed >= colony.territorySlotsTotal)
-                  ? Palette.textError
-                  : Palette.textLevel1,
-              tooltip: const SimpleTooltip('Territory'),
+            SimpleTooltip(
+              content: 'Territory',
+              child: ResourceSummary(
+                size: 100,
+                sprite: Assets.IMAGES_OTHER_HOUSE,
+                value:
+                    '${colony.territorySlotsUsed}/${colony.territorySlotsTotal}',
+                color: (colony.territorySlotsUsed >= colony.territorySlotsTotal)
+                    ? Palette.textError
+                    : Palette.textLevel1,
+              ),
             ),
           ],
         ),

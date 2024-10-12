@@ -71,8 +71,8 @@ class BottomMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTooltip(
-      content: SimpleTooltip(tooltip),
+    return SimpleTooltip(
+      content: tooltip,
       child: Material(
         color: Palette.backgroundTransparent1,
         child: InkWell(
