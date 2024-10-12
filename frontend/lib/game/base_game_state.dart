@@ -15,14 +15,6 @@ import 'package:godluckwiththat/models/future_events/challenge_event.dart';
 import 'package:godluckwiththat/models/future_events/research_event.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
-import 'package:godluckwiththat/models/past_events/building_upgraded_event.dart';
-import 'package:godluckwiththat/models/past_events/challenge_result_event.dart';
-import 'package:godluckwiththat/models/past_events/disaster_result_event.dart';
-import 'package:godluckwiththat/models/past_events/population_limit_reached_event.dart';
-import 'package:godluckwiththat/models/past_events/research_completed_event.dart';
-import 'package:godluckwiththat/models/past_events/resource_limit_reached_event.dart';
-import 'package:godluckwiththat/models/past_events/season_change_event.dart';
-import 'package:godluckwiththat/models/past_events/territory_limit_reached_event.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/headquarters_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
@@ -47,16 +39,7 @@ class BaseGameState extends BaseState {
         UnitType.worker: 12,
       }),
       buildings: {},
-      pastEvents: [
-        SeasonChangeEvent(),
-        DisasterResultEvent(),
-        ChallengeResultEvent(),
-        BuildingUpgradedEvent(),
-        ResearchCompletedEvent(),
-        PopulationLimitReachedEvent(),
-        TerritoryLimitReachedEvent(),
-        ResourceLimitReachedEvent(),
-      ],
+      pastEvents: [],
       futureEvents: [
         ChallengeEvent(remainingTime: 10),
         ResearchEvent(remainingTime: 50),

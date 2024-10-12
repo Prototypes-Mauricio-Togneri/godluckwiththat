@@ -67,6 +67,11 @@ class Colony {
     print('Event');
   }
 
+  void addPastEvent(PastEvent event) {
+    pastEvents.add(event);
+    notify();
+  }
+
   // ========================== FUTURE EVENTS =============================== \\
 
   void onFutureEventSelected(FutureEvent event) {
