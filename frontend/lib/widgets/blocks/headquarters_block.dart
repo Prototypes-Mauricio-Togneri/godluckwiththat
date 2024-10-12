@@ -107,7 +107,7 @@ class BottomSection extends StatelessWidget {
         UpgradeBuildingButton(headquarters),
         if (nextType != null) ...[
           const VBox(20),
-          UpgradeButton(
+          ImproveBuildingButton(
             headquarters: headquarters,
             nextType: nextType,
           ),
@@ -118,11 +118,11 @@ class BottomSection extends StatelessWidget {
   }
 }
 
-class UpgradeButton extends StatelessWidget {
+class ImproveBuildingButton extends StatelessWidget {
   final Headquarters headquarters;
   final HeadquartersType nextType;
 
-  const UpgradeButton({
+  const ImproveBuildingButton({
     required this.headquarters,
     required this.nextType,
   });

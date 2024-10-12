@@ -167,6 +167,9 @@ class Colony {
   bool canBuild(BuildingType buildingType) =>
       resources.hasItems(buildingType.cost(1)) && hasSlotsToBuild;
 
+  bool canUpgrade(Building building) =>
+      resources.hasItems(building.upgradeCost) && hasSlotsToBuild;
+
   void build(BuildingType buildingType) {
     if (canBuild(buildingType)) {
       final Building building = Building.create(

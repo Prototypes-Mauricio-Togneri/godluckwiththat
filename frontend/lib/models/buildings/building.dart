@@ -37,7 +37,7 @@ class Building {
 
   bool get isConsumer => false;
 
-  bool get canUpgrade => colony.resources.hasItems(upgradeCost);
+  bool get canUpgrade => colony.canUpgrade(this);
 
   void upgrade() {
     if (canUpgrade) {
