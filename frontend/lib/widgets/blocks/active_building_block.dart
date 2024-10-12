@@ -25,28 +25,31 @@ class ActiveBuildingBlock extends StatelessWidget {
       ),
       child: Material(
         color: Palette.transparent,
-        child: InkWell(
-          onTap: onSelected,
-          child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: child,
-              ),
-              if (onSelected != null)
-                const Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Icon(
-                      Icons.info_rounded,
-                      color: Palette.iconLevel1,
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: child,
+            ),
+            if (onSelected != null)
+              Align(
+                alignment: Alignment.topRight,
+                child: GestureDetector(
+                  child: IconButton(
+                    iconSize: 15,
+                    padding: const EdgeInsets.all(8),
+                    constraints: const BoxConstraints(),
+                    splashRadius: 20,
+                    icon: const Icon(
+                      Icons.info_outline,
+                      color: Palette.iconLevel2,
                       size: 15,
                     ),
+                    onPressed: onSelected,
                   ),
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
       ),
     );

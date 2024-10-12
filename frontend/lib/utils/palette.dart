@@ -15,6 +15,7 @@ class Palette {
   static const Color textHighlight = Color(0xffffc917);
 
   static const Color iconLevel1 = Color(0xffffffff);
+  static const Color iconLevel2 = Color(0xff000000);
   static const Color iconDisabled = Color(0xff888888);
   static const Color iconHighlight = Color(0xffffc917);
 
