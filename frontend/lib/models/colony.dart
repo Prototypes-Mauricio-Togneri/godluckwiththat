@@ -176,8 +176,13 @@ class Colony {
       );
       buildings[buildingType] = building;
       resources.removeItems(buildingType.cost(1));
+      increaseTerritoryUsed();
       notify();
     }
+  }
+
+  void increaseTerritoryUsed() {
+    territorySlotsUsed++;
   }
 
   // =========================== POPULATION ================================= \\
