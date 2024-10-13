@@ -276,20 +276,25 @@ class InformationRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Label(
-          text: '$label:',
-          color: Palette.textLevel2,
-          weight: FontWeight.bold,
-        ),
-        const HBox(10),
-        Label(
-          text: value,
-          color: Palette.textLevel2,
-        ),
-      ],
+    return SizedBox(
+      width: 110,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+            child: Label(
+              text: label,
+              color: Palette.textLevel2,
+              weight: FontWeight.bold,
+            ),
+          ),
+          const HBox(10),
+          Label(
+            text: value,
+            color: Palette.textLevel2,
+          ),
+        ],
+      ),
     );
   }
 }
