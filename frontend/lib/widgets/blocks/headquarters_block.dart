@@ -265,7 +265,7 @@ class WorkersByBuilding extends StatelessWidget {
         padding: const EdgeInsets.only(top: 10),
         child: InformationRow(
           label: buildingType.localized,
-          value: Formatter.resource(colony.woodcutter.workers),
+          value: Formatter.resource(colony.getBuilding(buildingType).workers),
         ),
       );
     } else {
