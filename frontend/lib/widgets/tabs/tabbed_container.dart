@@ -94,13 +94,19 @@ class TabEntry extends StatelessWidget {
         child: InkWell(
           onTap: onSelected,
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.only(
+              left: 10,
+              right: 10,
+              bottom: 13,
+              top: 5,
+            ),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const HBox(5),
                 Icon(
                   data.icon,
-                  size: 12,
+                  size: 15,
                   color: selected ? Palette.textHighlight : Palette.textLevel1,
                 ),
                 const HBox(5),

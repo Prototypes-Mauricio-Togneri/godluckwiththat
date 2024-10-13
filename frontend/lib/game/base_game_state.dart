@@ -15,9 +15,9 @@ class BaseGameState extends BaseState {
   BaseGameState() {
     colony = Colony(
       resources: ResourceInventory({
-        ResourceType.food: 50,
+        ResourceType.food: 500,
         ResourceType.wood: 500,
-        ResourceType.stone: 0,
+        ResourceType.stone: 500,
         ResourceType.copper: 0,
         ResourceType.iron: 0,
         ResourceType.gold: 0,

@@ -7,6 +7,7 @@ import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/blocks/create_building_block.dart';
+import 'package:godluckwiththat/widgets/blocks/headquarters_block.dart';
 import 'package:godluckwiththat/widgets/blocks/passive_building_block.dart';
 import 'package:godluckwiththat/widgets/blocks/producer_block.dart';
 import 'package:godluckwiththat/widgets/blocks/unavailable_building.dart';
@@ -31,9 +32,18 @@ class BuildingsWindow extends StatelessWidget {
           state: state,
           builder: (context, state) => TabbedContainer(
             tabs: const [
-              TabData(title: 'Misc', icon: Icons.business_outlined),
-              TabData(title: 'Resources', icon: Icons.home),
-              TabData(title: 'Religion', icon: Icons.church),
+              TabData(
+                title: 'Misc',
+                icon: Icons.business_outlined,
+              ),
+              TabData(
+                title: 'Resources',
+                icon: Icons.widgets,
+              ),
+              TabData(
+                title: 'Religion',
+                icon: Icons.church,
+              ),
             ],
             children: [
               BuildingsList(
