@@ -197,43 +197,43 @@ class PopulationInformation extends StatelessWidget {
             value: Formatter.resource(colony.freeWorkers),
           ),
         ),
-        WorkersForBuilding(
+        WorkersByBuilding(
           colony: colony,
           buildingType: BuildingType.farm,
         ),
-        WorkersForBuilding(
+        WorkersByBuilding(
           colony: colony,
           buildingType: BuildingType.woodcutter,
         ),
-        WorkersForBuilding(
+        WorkersByBuilding(
           colony: colony,
           buildingType: BuildingType.quarry,
         ),
-        WorkersForBuilding(
+        WorkersByBuilding(
           colony: colony,
           buildingType: BuildingType.copperMine,
         ),
-        WorkersForBuilding(
+        WorkersByBuilding(
           colony: colony,
           buildingType: BuildingType.ironMine,
         ),
-        WorkersForBuilding(
+        WorkersByBuilding(
           colony: colony,
           buildingType: BuildingType.goldMine,
         ),
-        WorkersForBuilding(
+        WorkersByBuilding(
           colony: colony,
           buildingType: BuildingType.altar,
         ),
-        WorkersForBuilding(
+        WorkersByBuilding(
           colony: colony,
           buildingType: BuildingType.shrine,
         ),
-        WorkersForBuilding(
+        WorkersByBuilding(
           colony: colony,
           buildingType: BuildingType.temple,
         ),
-        WorkersForBuilding(
+        WorkersByBuilding(
           colony: colony,
           buildingType: BuildingType.academy,
         ),
@@ -242,11 +242,11 @@ class PopulationInformation extends StatelessWidget {
   }
 }
 
-class WorkersForBuilding extends StatelessWidget {
+class WorkersByBuilding extends StatelessWidget {
   final Colony colony;
   final BuildingType buildingType;
 
-  const WorkersForBuilding({
+  const WorkersByBuilding({
     required this.colony,
     required this.buildingType,
   });
