@@ -1,5 +1,6 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/models/buildings/producers/producer.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
@@ -67,7 +68,7 @@ class TopSection extends StatelessWidget {
             const HBox(10),
             Label(
               text:
-                  '${Formatter.production(producer.production)}${Formatter.PRODUCTION_RATE_UNIT}',
+                  '${Formatter.production(producer.production)}${Constants.PRODUCTION_RATE_UNIT_FORMATTED}',
               color: (producer.production == 0)
                   ? Palette.textError
                   : Palette.textLevel3,

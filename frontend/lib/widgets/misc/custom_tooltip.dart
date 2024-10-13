@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
@@ -64,12 +65,12 @@ class NewTooltip extends StatelessWidget {
     final bool full = amount >= capacity;
     final String production = full
         ? 'Full'.toUpperCase()
-        : '${Formatter.production(colony.productionOf(resourceType))}${Formatter.PRODUCTION_RATE_UNIT}';
+        : '${Formatter.production(colony.productionOf(resourceType))}${Constants.PRODUCTION_RATE_UNIT_FORMATTED}';
 
     return NewTooltip(
       content: [
         resourceType.localized.toUpperCase(),
-        '${Formatter.resource(amount)}/${Formatter.resource(capacity)} ($production)',
+        production,
       ],
       child: child,
     );
@@ -80,14 +81,13 @@ class NewTooltip extends StatelessWidget {
     required ResourceType resourceType,
     required Widget child,
   }) {
-    final num amount = colony.resources.get(resourceType);
     final String production =
-        '${Formatter.production(colony.productionOf(resourceType))}${Formatter.PRODUCTION_RATE_UNIT}';
+        '${Formatter.production(colony.productionOf(resourceType))}${Constants.PRODUCTION_RATE_UNIT_FORMATTED}';
 
     return NewTooltip(
       content: [
         resourceType.localized.toUpperCase(),
-        '${Formatter.resource(amount)} ($production)',
+        production,
       ],
       child: child,
     );

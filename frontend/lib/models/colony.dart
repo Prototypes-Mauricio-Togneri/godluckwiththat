@@ -119,7 +119,10 @@ class Colony {
 
   // ============================ BUILDINGS ================================= \\
 
-  num productionOf(ResourceType resourceType) {
+  num productionOf(ResourceType resourceType) =>
+      _baseProduction(resourceType) * Constants.PRODUCTION_RATE_MULTIPLIER;
+
+  num _baseProduction(ResourceType resourceType) {
     switch (resourceType) {
       case ResourceType.food:
         return hasBuilding(BuildingType.farm) ? farm.production : 0;

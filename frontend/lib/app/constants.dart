@@ -1,6 +1,9 @@
 class Constants {
   static const String FONT_NAME = 'CustomFont';
 
+  static const int PRODUCTION_RATE_MULTIPLIER = 60;
+  static const String PRODUCTION_RATE_UNIT_FORMATTED = '/min';
+
   static const int SECONDS_PER_DAY = 6;
 
   static const int HOUSE_POPULATION = 5;
