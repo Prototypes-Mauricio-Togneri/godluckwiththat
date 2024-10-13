@@ -89,7 +89,11 @@ class BaseGameState extends BaseState {
     int slots = 0;
 
     for (final Building building in buildings.values) {
-      slots += building.level;
+      if (building is Headquarters) {
+        slots += 1;
+      } else {
+        slots += building.level;
+      }
     }
 
     return slots;
