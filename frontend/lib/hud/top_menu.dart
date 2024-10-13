@@ -131,7 +131,7 @@ class ResourcesSummary extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ComplexTooltip.storedResource(
+        NewTooltip.storedResource(
           colony: colony,
           resourceType: ResourceType.food,
           child: ResourceSummary(
