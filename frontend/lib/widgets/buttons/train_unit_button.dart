@@ -32,7 +32,7 @@ class TrainUnitButton extends StatelessWidget {
             sprite: resource.key.sprite,
             value: Formatter.resource(resource.value),
             textColor: consumer.colony.resources.hasItem(resource)
-                ? Palette.textLevel2
+                ? Palette.textLevel3
                 : Palette.textError,
             textSize: 12,
             iconSize: 12,

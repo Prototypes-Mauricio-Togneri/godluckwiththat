@@ -47,7 +47,7 @@ class TopSection extends StatelessWidget {
       children: [
         Label(
           text: producer.buildingType.localized,
-          color: Palette.textLevel2,
+          color: Palette.textLevel3,
           weight: FontWeight.bold,
           size: 14,
         ),
@@ -69,7 +69,7 @@ class TopSection extends StatelessWidget {
               text: '${Formatter.production(producer.production)}/s',
               color: (producer.production == 0)
                   ? Palette.textError
-                  : Palette.textLevel2,
+                  : Palette.textLevel3,
               size: 12,
             ),
           ],

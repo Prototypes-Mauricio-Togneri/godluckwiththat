@@ -10,8 +10,8 @@ class Palette {
   static const Color borderLevel1 = Color(0xff404040);
 
   static const Color textLevel1 = Color(0xffffffff);
-  static const Color textLevelx = Color(0xff000000);
-  static const Color textLevel2 = Color(0xff000000);
+  static const Color textLevel2 = Color(0xff666666);
+  static const Color textLevel3 = Color(0xff000000);
   static const Color textError = Color(0xffff0000);
   static const Color textHighlight = Color(0xffffc917);
 
