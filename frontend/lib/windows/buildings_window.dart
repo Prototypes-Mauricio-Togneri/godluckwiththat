@@ -7,7 +7,6 @@ import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/utils/palette.dart';
 import 'package:godluckwiththat/widgets/blocks/create_building_block.dart';
-import 'package:godluckwiththat/widgets/blocks/headquarters_block.dart';
 import 'package:godluckwiththat/widgets/blocks/passive_building_block.dart';
 import 'package:godluckwiththat/widgets/blocks/producer_block.dart';
 import 'package:godluckwiththat/widgets/blocks/unavailable_building.dart';
