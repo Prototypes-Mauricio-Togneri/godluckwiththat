@@ -139,32 +139,8 @@ class Colony {
     }
   }
 
-  bool allowToBuild(BuildingType buildingType) {
-    switch (buildingType) {
-      // misc
-      case BuildingType.headquarters:
-      case BuildingType.house:
-      case BuildingType.storehouse:
-
-      // resources
-      case BuildingType.farm:
-      case BuildingType.woodcutter:
-      case BuildingType.quarry:
-      case BuildingType.copperMine:
-      case BuildingType.ironMine:
-      case BuildingType.goldMine:
-        return true;
-
-      // religion
-      case BuildingType.altar:
-      case BuildingType.shrine:
-        return true;
-
-      // other
-      default:
-        return false;
-    }
-  }
+  bool allowToBuild(BuildingType buildingType) =>
+      headquarters.type.canBuild(buildingType);
 
   bool canBuild(BuildingType buildingType) =>
       resources.hasItems(buildingType.cost(1)) && hasSlotsToBuild;

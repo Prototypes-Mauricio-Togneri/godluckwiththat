@@ -1,13 +1,6 @@
 import 'package:dafluta/dafluta.dart';
+import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
-import 'package:godluckwiththat/models/buildings/passive/house.dart';
-import 'package:godluckwiththat/models/buildings/producers/academy.dart';
-import 'package:godluckwiththat/models/buildings/producers/copper_mine.dart';
-import 'package:godluckwiththat/models/buildings/producers/farm.dart';
-import 'package:godluckwiththat/models/buildings/producers/gold_mine.dart';
-import 'package:godluckwiththat/models/buildings/producers/iron_mine.dart';
-import 'package:godluckwiththat/models/buildings/producers/logging_camp.dart';
-import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/future_events/attack_event.dart';
 import 'package:godluckwiththat/models/future_events/building_event.dart';
@@ -26,17 +19,17 @@ class BaseGameState extends BaseState {
   BaseGameState() {
     colony = Colony(
       resources: ResourceInventory({
-        ResourceType.food: 80,
-        ResourceType.wood: 90,
-        ResourceType.stone: 30,
-        ResourceType.copper: 20,
-        ResourceType.iron: 10,
-        ResourceType.gold: 5,
-        ResourceType.faith: 130,
-        ResourceType.knowledge: 150,
+        ResourceType.food: 50,
+        ResourceType.wood: 50,
+        ResourceType.stone: 0,
+        ResourceType.copper: 0,
+        ResourceType.iron: 0,
+        ResourceType.gold: 0,
+        ResourceType.faith: 0,
+        ResourceType.knowledge: 0,
       }),
       units: UnitInventory({
-        UnitType.worker: 12,
+        UnitType.worker: 5,
       }),
       buildings: {},
       pastEvents: [],
@@ -48,7 +41,7 @@ class BaseGameState extends BaseState {
       ],
       timeElapsed: 0,
       freeWorkers: 5,
-      territorySlotsUsed: 9,
+      territorySlotsUsed: 0,
       warehouseCapacity: 100,
     );
 
@@ -58,7 +51,7 @@ class BaseGameState extends BaseState {
         level: 1,
         type: HeadquartersType.camp,
       ),
-      BuildingType.house: House(
+      /*BuildingType.house: House(
         colony: colony,
         level: 1,
       ),
@@ -96,8 +89,19 @@ class BaseGameState extends BaseState {
         colony: colony,
         level: 1,
         workers: 1,
-      ),
+      ),*/
     });
+    colony.territorySlotsUsed = _territorySlotsUsed(colony.buildings);
+  }
+
+  int _territorySlotsUsed(Map<BuildingType, Building> buildings) {
+    int slots = 0;
+
+    for (final Building building in buildings.values) {
+      slots += building.level;
+    }
+
+    return slots;
   }
 
   void update(double dt) {

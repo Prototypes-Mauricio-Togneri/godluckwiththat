@@ -1,4 +1,5 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
+import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 
 enum HeadquartersType {
@@ -65,6 +66,46 @@ enum HeadquartersType {
           ResourceType.wood: 1600,
           ResourceType.stone: 800,
         };
+    }
+  }
+
+  bool canBuild(BuildingType buildingType) {
+    switch (buildingType) {
+      // misc
+      case BuildingType.headquarters:
+        return true;
+      case BuildingType.house:
+        return this == HeadquartersType.camp;
+      case BuildingType.academy:
+        return this == HeadquartersType.settlement;
+      case BuildingType.storehouse:
+        return this == HeadquartersType.village;
+      case BuildingType.market:
+        return this == HeadquartersType.city;
+
+      // resources
+      case BuildingType.farm:
+        return this == HeadquartersType.camp;
+      case BuildingType.woodcutter:
+        return this == HeadquartersType.camp;
+      case BuildingType.quarry:
+        return this == HeadquartersType.settlement;
+      case BuildingType.copperMine:
+        return this == HeadquartersType.village;
+      case BuildingType.ironMine:
+        return this == HeadquartersType.town;
+      case BuildingType.goldMine:
+        return this == HeadquartersType.city;
+
+      // religion
+      case BuildingType.altar:
+        return this == HeadquartersType.camp;
+      case BuildingType.shrine:
+        return this == HeadquartersType.settlement;
+      case BuildingType.temple:
+        return this == HeadquartersType.village;
+      case BuildingType.monument:
+        return this == HeadquartersType.town;
     }
   }
 }
