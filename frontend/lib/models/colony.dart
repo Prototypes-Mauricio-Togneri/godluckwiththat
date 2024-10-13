@@ -140,7 +140,7 @@ class Colony {
   }
 
   bool allowToBuild(BuildingType buildingType) =>
-      headquarters.type.canBuild(buildingType);
+      headquarters.type.allowToBuild(buildingType);
 
   bool canBuild(BuildingType buildingType) =>
       resources.hasItems(buildingType.cost(1)) && hasSlotsToBuild;

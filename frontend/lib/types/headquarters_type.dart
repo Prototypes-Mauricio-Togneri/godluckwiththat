@@ -69,7 +69,7 @@ enum HeadquartersType {
     }
   }
 
-  bool canBuild(BuildingType buildingType) {
+  bool allowToBuild(BuildingType buildingType) {
     final int requiredHeadquarters = buildingType.requires.index;
 
     return index >= requiredHeadquarters;
