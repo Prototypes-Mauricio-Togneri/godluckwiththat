@@ -56,16 +56,19 @@ class BuildingInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        TopSection(headquarters),
-        const VBox(20),
-        MiddleSection(headquarters),
-        const VBox(20),
-        BottomSection(headquarters),
-      ],
+    return SizedBox(
+      width: 150,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TopSection(headquarters),
+          const VBox(20),
+          MiddleSection(headquarters),
+          const VBox(20),
+          BottomSection(headquarters),
+        ],
+      ),
     );
   }
 }
@@ -77,9 +80,11 @@ class TopSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ImageBlock(
-      path: headquarters.buildingType.sprite,
-      size: 100,
+    return Center(
+      child: ImageBlock(
+        path: headquarters.buildingType.sprite,
+        size: 100,
+      ),
     );
   }
 }
