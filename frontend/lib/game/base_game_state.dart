@@ -2,10 +2,6 @@ import 'package:dafluta/dafluta.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/colony.dart';
-import 'package:godluckwiththat/models/future_events/attack_event.dart';
-import 'package:godluckwiththat/models/future_events/building_event.dart';
-import 'package:godluckwiththat/models/future_events/challenge_event.dart';
-import 'package:godluckwiththat/models/future_events/research_event.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
 import 'package:godluckwiththat/types/building_type.dart';
@@ -33,12 +29,7 @@ class BaseGameState extends BaseState {
       }),
       buildings: {},
       pastEvents: [],
-      futureEvents: [
-        ChallengeEvent(remainingTime: 10),
-        ResearchEvent(remainingTime: 50),
-        AttackEvent(remainingTime: 140),
-        BuildingUpgradeEvent(remainingTime: 200),
-      ],
+      futureEvents: [],
       timeElapsed: 0,
       freeWorkers: 5,
       territorySlotsUsed: 0,
