@@ -28,9 +28,7 @@ class HeadquartersBlock extends StatelessWidget {
       child: ActiveBuildingBlock(
         width: 340,
         height: 371,
-        onSelected: () {
-          print(state);
-        },
+        tooltip: BuildingType.headquarters.description,
         child: StateProvider<GameState>(
           state: state,
           builder: (context, state) => Padding(

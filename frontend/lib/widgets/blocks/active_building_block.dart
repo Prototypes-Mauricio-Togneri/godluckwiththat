@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:godluckwiththat/app/constants.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/misc/custom_tooltip.dart';
 
 class ActiveBuildingBlock extends StatelessWidget {
   final Widget child;
   final double width;
   final double height;
-  final VoidCallback? onSelected;
+  final String? tooltip;
 
   const ActiveBuildingBlock({
     required this.child,
     this.width = Constants.BUILDING_BLOCK_WIDTH,
     this.height = Constants.BUILDING_BLOCK_HEIGHT,
-    this.onSelected,
+    this.tooltip,
   });
 
   @override
@@ -35,21 +36,18 @@ class ActiveBuildingBlock extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               child: child,
             ),
-            if (onSelected != null)
+            if (tooltip != null)
               Align(
                 alignment: Alignment.topRight,
-                child: GestureDetector(
-                  child: IconButton(
-                    iconSize: 15,
-                    padding: const EdgeInsets.all(8),
-                    constraints: const BoxConstraints(),
-                    splashRadius: 20,
-                    icon: const Icon(
+                child: SimpleTooltip(
+                  content: tooltip!,
+                  child: const Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Icon(
                       Icons.info_outline,
                       color: Palette.iconLevel2,
                       size: 15,
                     ),
-                    onPressed: onSelected,
                   ),
                 ),
               ),

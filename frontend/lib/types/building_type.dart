@@ -113,4 +113,42 @@ enum BuildingType {
   ResourceMap cost(int level) => initialCost.multiply(level);
 
   String get localized => name.replaceAll('_', ' ');
+
+  String get description {
+    const String text =
+        'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+
+    switch (this) {
+      case BuildingType.headquarters:
+        return text;
+      case BuildingType.house:
+        return text;
+      case BuildingType.academy:
+        return text;
+      case BuildingType.storehouse:
+        return text;
+      case BuildingType.market:
+        return text;
+      case BuildingType.farm:
+        return text;
+      case BuildingType.woodcutter:
+        return text;
+      case BuildingType.quarry:
+        return text;
+      case BuildingType.copperMine:
+        return text;
+      case BuildingType.ironMine:
+        return text;
+      case BuildingType.goldMine:
+        return text;
+      case BuildingType.altar:
+        return text;
+      case BuildingType.shrine:
+        return text;
+      case BuildingType.temple:
+        return text;
+      case BuildingType.monument:
+        return text;
+    }
+  }
 }

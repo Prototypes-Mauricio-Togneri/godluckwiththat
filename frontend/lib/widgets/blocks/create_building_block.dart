@@ -20,9 +20,7 @@ class CreateBuildingBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ActiveBuildingBlock(
-      onSelected: () {
-        print(buildingType);
-      },
+      tooltip: buildingType.description,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,

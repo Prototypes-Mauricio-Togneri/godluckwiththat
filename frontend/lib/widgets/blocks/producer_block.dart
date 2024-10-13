@@ -18,9 +18,7 @@ class ProducerBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ActiveBuildingBlock(
-      onSelected: () {
-        print(producer);
-      },
+      tooltip: producer.buildingType.description,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,

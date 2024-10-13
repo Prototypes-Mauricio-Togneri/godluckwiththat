@@ -15,9 +15,7 @@ class PassiveBuildingBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ActiveBuildingBlock(
-      onSelected: () {
-        print(building);
-      },
+      tooltip: building.buildingType.description,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
