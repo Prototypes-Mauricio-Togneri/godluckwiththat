@@ -77,7 +77,6 @@ class BottomSection extends StatelessWidget {
           Label(
             text: 'Requires ${buildingType.requires.localized}',
             color: Palette.textLevel2,
-            size: 12,
           ),
         ],
       ),

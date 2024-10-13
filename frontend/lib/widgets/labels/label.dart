@@ -21,10 +21,10 @@ class Label extends StatelessWidget {
     this.weight = FontWeight.normal,
     this.decoration = TextDecoration.none,
     this.uppercase = true,
+    this.height = 1,
     this.align,
     this.overflow,
     this.maxLines,
-    this.height,
   });
 
   @override
@@ -40,7 +40,7 @@ class Label extends StatelessWidget {
         fontFamily: Constants.FONT_NAME,
         decoration: decoration,
         letterSpacing: 1.1,
-        height: 1,
+        height: height,
       ),
     );
   }

@@ -30,7 +30,10 @@ class ComplexTooltip extends StatelessWidget {
           children: [
             Label(text: title),
             const VBox(5),
-            Label(text: content),
+            Label(
+              text: content,
+              height: 1.2,
+            ),
           ],
         ),
       ),
@@ -97,7 +100,10 @@ class SimpleTooltip extends StatelessWidget {
       content: Container(
         constraints: const BoxConstraints(maxWidth: 300),
         padding: const EdgeInsets.all(10),
-        child: Label(text: content),
+        child: Label(
+          text: content,
+          height: 1.5,
+        ),
       ),
       elevation: 0,
       triggerMode: TooltipTriggerMode.tap,
