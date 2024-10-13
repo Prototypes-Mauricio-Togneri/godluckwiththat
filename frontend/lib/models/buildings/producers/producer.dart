@@ -5,6 +5,7 @@ import 'package:godluckwiththat/types/resource_type.dart';
 abstract class Producer extends Building {
   final ResourceType resourceType;
   final double productionRate;
+  final bool acceptsWorkers;
   int workers;
 
   Producer({
@@ -14,6 +15,7 @@ abstract class Producer extends Building {
     required super.buildingType,
     required super.colony,
     required super.level,
+    this.acceptsWorkers = true,
   });
 
   bool get hasWorkers => workers > 0;

@@ -11,11 +11,13 @@ class ComplexTooltip extends StatelessWidget {
   final String title;
   final String content;
   final Widget child;
+  final bool uppercase;
 
   const ComplexTooltip({
     required this.title,
     required this.content,
     required this.child,
+    this.uppercase = true,
   });
 
   @override
@@ -33,6 +35,7 @@ class ComplexTooltip extends StatelessWidget {
             Label(
               text: content,
               height: 1.2,
+              uppercase: uppercase,
             ),
           ],
         ),
@@ -58,10 +61,11 @@ class ComplexTooltip extends StatelessWidget {
     final bool full = amount >= capacity;
     final String production = full
         ? 'FULL'
-        : '${Formatter.production(colony.productionOf(resourceType))}/s';
+        : '${Formatter.production(colony.productionOf(resourceType))}${Formatter.PRODUCTION_RATE_UNIT}';
 
     return ComplexTooltip(
       title: resourceType.localized,
+      uppercase: false,
       content:
           '${Formatter.resource(amount)}/${Formatter.resource(capacity)} ($production)',
       child: child,
@@ -75,10 +79,11 @@ class ComplexTooltip extends StatelessWidget {
   }) {
     final num amount = colony.resources.get(resourceType);
     final String production =
-        '${Formatter.production(colony.productionOf(resourceType))}/s';
+        '${Formatter.production(colony.productionOf(resourceType))}${Formatter.PRODUCTION_RATE_UNIT}';
 
     return ComplexTooltip(
       title: resourceType.localized,
+      uppercase: false,
       content: '${Formatter.resource(amount)} ($production)',
       child: child,
     );

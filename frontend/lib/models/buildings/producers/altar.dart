@@ -12,5 +12,6 @@ class Altar extends Producer {
           buildingType: BuildingType.altar,
           resourceType: ResourceType.faith,
           productionRate: Constants.ALTAR_PRODUCTION_RATE,
+          acceptsWorkers: false,
         );
 }

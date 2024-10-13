@@ -2,6 +2,8 @@ import 'package:godluckwiththat/extensions/duration_extension.dart';
 import 'package:intl/intl.dart';
 
 class Formatter {
+  static const String PRODUCTION_RATE_UNIT = '/s';
+
   static String production(num amount) {
     final NumberFormat formatter = NumberFormat('#.##');
 

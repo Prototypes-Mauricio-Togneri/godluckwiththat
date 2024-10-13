@@ -66,11 +66,13 @@ class TopSection extends StatelessWidget {
             ),
             const HBox(10),
             Label(
-              text: '${Formatter.production(producer.production)}/s',
+              text:
+                  '${Formatter.production(producer.production)}${Formatter.PRODUCTION_RATE_UNIT}',
               color: (producer.production == 0)
                   ? Palette.textError
                   : Palette.textLevel3,
               size: 12,
+              uppercase: false,
             ),
           ],
         ),
@@ -86,12 +88,16 @@ class MiddleSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: WorkersSelector(
-        building: producer,
-        size: 18,
-      ),
-    );
+    if (producer.acceptsWorkers) {
+      return Center(
+        child: WorkersSelector(
+          building: producer,
+          size: 18,
+        ),
+      );
+    } else {
+      return const Empty();
+    }
   }
 }
 
