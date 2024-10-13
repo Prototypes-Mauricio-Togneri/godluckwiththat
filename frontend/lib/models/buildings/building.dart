@@ -41,9 +41,9 @@ class Building {
 
   void upgrade() {
     if (canUpgrade) {
-      level++;
       colony.increaseTerritoryUsed();
       colony.resources.removeItems(upgradeCost);
+      level++;
     }
   }
 
