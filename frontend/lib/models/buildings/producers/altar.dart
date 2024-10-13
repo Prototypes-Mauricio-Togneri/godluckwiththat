@@ -14,4 +14,7 @@ class Altar extends Producer {
           productionRate: Constants.ALTAR_PRODUCTION_RATE,
           acceptsWorkers: false,
         );
+
+  @override
+  double get production => productionRate * level;
 }
