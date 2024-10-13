@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:godluckwiththat/screens/game_screen.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 
 class GameLoop extends StatefulWidget {
   final GameState state;
+  final Widget content;
 
-  const GameLoop(this.state);
+  const GameLoop({
+    required this.state,
+    required this.content,
+  });
 
   @override
   State<GameLoop> createState() => _GameLoopState();
@@ -51,7 +54,7 @@ class _GameLoopState extends State<GameLoop>
         previous = current;
         widget.state.update(dt);
 
-        return GameContent(widget.state);
+        return widget.content;
       },
     );
   }

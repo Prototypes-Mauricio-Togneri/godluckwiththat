@@ -36,7 +36,7 @@ class CreateBuildingButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Label(
-              text: 'LEVEL 1',
+              text: 'Build',
               color: Palette.textLevel2,
               weight: FontWeight.bold,
             ),
