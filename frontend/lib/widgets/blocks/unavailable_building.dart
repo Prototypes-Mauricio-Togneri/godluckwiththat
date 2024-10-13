@@ -14,8 +14,7 @@ class UnavailableBuildingBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ImageGrayScale(
-      size: 0,
+    return Grayscale(
       child: ActiveBuildingBlock(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

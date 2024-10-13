@@ -125,12 +125,7 @@ class SymbolButton extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             child: Center(
-              child: (onTap != null)
-                  ? image
-                  : ImageGrayScale(
-                      size: dimensions,
-                      child: image,
-                    ),
+              child: (onTap != null) ? image : Grayscale(child: image),
             ),
           ),
         ),

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ImageGrayScale extends StatelessWidget {
+class Grayscale extends StatelessWidget {
   final Widget child;
-  final double size;
 
-  const ImageGrayScale({
+  const Grayscale({
     required this.child,
-    required this.size,
   });
 
   @override
