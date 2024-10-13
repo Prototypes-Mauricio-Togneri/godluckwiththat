@@ -24,7 +24,6 @@ abstract class Consumer extends Building {
   void train() {
     if (canTrain) {
       trainUnit();
-      colony.notify();
     }
   }
 

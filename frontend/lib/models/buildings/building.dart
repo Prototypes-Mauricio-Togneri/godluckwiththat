@@ -44,7 +44,6 @@ class Building {
       level++;
       colony.increaseTerritoryUsed();
       colony.resources.removeItems(upgradeCost);
-      colony.notify();
     }
   }
 

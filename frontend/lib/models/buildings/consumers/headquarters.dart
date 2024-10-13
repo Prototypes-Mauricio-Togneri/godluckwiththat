@@ -27,7 +27,6 @@ class Headquarters extends Consumer {
     if (canImprove) {
       type = type.next!;
       colony.resources.removeItems(improveCost);
-      colony.notify();
     }
   }
 

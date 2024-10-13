@@ -56,11 +56,9 @@ class GameState extends BaseGameState {
 
   void _showWindow(Widget widget) {
     currentWindow = widget;
-    notify();
   }
 
   void closeWindow() {
     currentWindow = null;
-    notify();
   }
 }

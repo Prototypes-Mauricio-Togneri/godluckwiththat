@@ -55,14 +55,10 @@ class Colony {
   // =========================== PAST EVENTS ================================ \\
 
   void onAllPastEventsClosed() =>
-      ConfirmationDialog.clearAllEvents(onAccept: () {
-        pastEvents.clear();
-        notify();
-      });
+      ConfirmationDialog.clearAllEvents(onAccept: pastEvents.clear);
 
   void onPastEventClosed(PastEvent event) {
     pastEvents.remove(event);
-    notify();
   }
 
   void onPastEventSelected(PastEvent event) {
@@ -71,7 +67,6 @@ class Colony {
 
   void addPastEvent(PastEvent event) {
     pastEvents.add(event);
-    notify();
   }
 
   // ========================== FUTURE EVENTS =============================== \\
@@ -188,7 +183,6 @@ class Colony {
       buildings[buildingType] = building;
       resources.removeItems(buildingType.cost(1));
       increaseTerritoryUsed();
-      notify();
     }
   }
 
@@ -233,13 +227,9 @@ class Colony {
     if (totalWorkers >= populationLimit) {
       addPastEvent(PopulationLimitReachedEvent());
     }
-
-    notify();
   }
 
   // ============================= UPDATE =================================== \\
-
-  void notify() => state.notify();
 
   void update(double dt) {
     timeElapsed += dt;
@@ -258,5 +248,6 @@ class Colony {
 
     futureEvents.clear();
     futureEvents.addAll(pending);
+    state.notify();
   }
 }
