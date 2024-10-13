@@ -86,6 +86,9 @@ class Colony {
 
   T getBuilding<T>(BuildingType buildingType) => buildings[buildingType] as T;
 
+  bool hasBuildingType<T>(Type type) =>
+      buildings.values.any((Building building) => building.runtimeType == type);
+
   bool hasBuilding(BuildingType buildingType) =>
       buildings.containsKey(buildingType);
 

@@ -1,5 +1,13 @@
 import 'package:dafluta/dafluta.dart';
 import 'package:flutter/material.dart';
+import 'package:godluckwiththat/models/buildings/producers/academy.dart';
+import 'package:godluckwiththat/models/buildings/producers/altar.dart';
+import 'package:godluckwiththat/models/buildings/producers/copper_mine.dart';
+import 'package:godluckwiththat/models/buildings/producers/gold_mine.dart';
+import 'package:godluckwiththat/models/buildings/producers/iron_mine.dart';
+import 'package:godluckwiththat/models/buildings/producers/quarry.dart';
+import 'package:godluckwiththat/models/buildings/producers/shrine.dart';
+import 'package:godluckwiththat/models/buildings/producers/temple.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/states/game_state.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
@@ -158,92 +166,116 @@ class ResourcesSummary extends StatelessWidget {
             ),
           ),
         ),
-        const HBox(10),
-        NewTooltip.storedResource(
-          colony: colony,
-          resourceType: ResourceType.stone,
-          child: ResourceSummary(
-            size: 90,
-            sprite: ResourceType.stone.sprite,
-            value: Formatter.resource(colony.resources.get(ResourceType.stone)),
-            color: _storedResourceColor(
+        if (colony.hasBuildingType(Quarry))
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: NewTooltip.storedResource(
               colony: colony,
               resourceType: ResourceType.stone,
+              child: ResourceSummary(
+                size: 90,
+                sprite: ResourceType.stone.sprite,
+                value: Formatter.resource(
+                    colony.resources.get(ResourceType.stone)),
+                color: _storedResourceColor(
+                  colony: colony,
+                  resourceType: ResourceType.stone,
+                ),
+              ),
             ),
           ),
-        ),
-        const HBox(10),
-        NewTooltip.storedResource(
-          colony: colony,
-          resourceType: ResourceType.copper,
-          child: ResourceSummary(
-            size: 90,
-            sprite: ResourceType.copper.sprite,
-            value:
-                Formatter.resource(colony.resources.get(ResourceType.copper)),
-            color: _storedResourceColor(
+        if (colony.hasBuildingType(CopperMine))
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: NewTooltip.storedResource(
               colony: colony,
               resourceType: ResourceType.copper,
+              child: ResourceSummary(
+                size: 90,
+                sprite: ResourceType.copper.sprite,
+                value: Formatter.resource(
+                    colony.resources.get(ResourceType.copper)),
+                color: _storedResourceColor(
+                  colony: colony,
+                  resourceType: ResourceType.copper,
+                ),
+              ),
             ),
           ),
-        ),
-        const HBox(10),
-        NewTooltip.storedResource(
-          colony: colony,
-          resourceType: ResourceType.iron,
-          child: ResourceSummary(
-            size: 90,
-            sprite: ResourceType.iron.sprite,
-            value: Formatter.resource(colony.resources.get(ResourceType.iron)),
-            color: _storedResourceColor(
+        if (colony.hasBuildingType(IronMine))
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: NewTooltip.storedResource(
               colony: colony,
               resourceType: ResourceType.iron,
+              child: ResourceSummary(
+                size: 90,
+                sprite: ResourceType.iron.sprite,
+                value:
+                    Formatter.resource(colony.resources.get(ResourceType.iron)),
+                color: _storedResourceColor(
+                  colony: colony,
+                  resourceType: ResourceType.iron,
+                ),
+              ),
             ),
           ),
-        ),
-        const HBox(10),
-        NewTooltip.storedResource(
-          colony: colony,
-          resourceType: ResourceType.gold,
-          child: ResourceSummary(
-            size: 90,
-            sprite: ResourceType.gold.sprite,
-            value: Formatter.resource(colony.resources.get(ResourceType.gold)),
-            color: _storedResourceColor(
+        if (colony.hasBuildingType(GoldMine))
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: NewTooltip.storedResource(
               colony: colony,
               resourceType: ResourceType.gold,
+              child: ResourceSummary(
+                size: 90,
+                sprite: ResourceType.gold.sprite,
+                value:
+                    Formatter.resource(colony.resources.get(ResourceType.gold)),
+                color: _storedResourceColor(
+                  colony: colony,
+                  resourceType: ResourceType.gold,
+                ),
+              ),
             ),
           ),
-        ),
-        const HBox(10),
-        NewTooltip.unstoredResource(
-          colony: colony,
-          resourceType: ResourceType.faith,
-          child: ResourceSummary(
-            size: 90,
-            sprite: ResourceType.faith.sprite,
-            value: Formatter.resource(colony.resources.get(ResourceType.faith)),
-            color: _unstoredResourceColor(
+        if (colony.hasBuildingType(Altar) ||
+            colony.hasBuildingType(Shrine) ||
+            colony.hasBuildingType(Temple))
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: NewTooltip.unstoredResource(
               colony: colony,
               resourceType: ResourceType.faith,
+              child: ResourceSummary(
+                size: 90,
+                sprite: ResourceType.faith.sprite,
+                value: Formatter.resource(
+                    colony.resources.get(ResourceType.faith)),
+                color: _unstoredResourceColor(
+                  colony: colony,
+                  resourceType: ResourceType.faith,
+                ),
+              ),
             ),
           ),
-        ),
-        const HBox(10),
-        NewTooltip.unstoredResource(
-          colony: colony,
-          resourceType: ResourceType.knowledge,
-          child: ResourceSummary(
-            size: 90,
-            sprite: ResourceType.knowledge.sprite,
-            value: Formatter.resource(
-                colony.resources.get(ResourceType.knowledge)),
-            color: _unstoredResourceColor(
+        if (colony.hasBuildingType(Academy))
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: NewTooltip.unstoredResource(
               colony: colony,
               resourceType: ResourceType.knowledge,
+              child: ResourceSummary(
+                size: 90,
+                sprite: ResourceType.knowledge.sprite,
+                value: Formatter.resource(
+                    colony.resources.get(ResourceType.knowledge)),
+                color: _unstoredResourceColor(
+                  colony: colony,
+                  resourceType: ResourceType.knowledge,
+                ),
+              ),
             ),
           ),
-        ),
       ],
     );
   }
