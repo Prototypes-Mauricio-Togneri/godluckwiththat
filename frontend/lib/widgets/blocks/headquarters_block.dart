@@ -190,12 +190,10 @@ class PopulationInformation extends StatelessWidget {
           label: 'Total',
           value: Formatter.resource(colony.totalWorkers),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: InformationRow(
-            label: 'Idle',
-            value: Formatter.resource(colony.freeWorkers),
-          ),
+        const VBox(10),
+        InformationRow(
+          label: 'Idle',
+          value: Formatter.resource(colony.freeWorkers),
         ),
         WorkersByBuilding(
           colony: colony,
