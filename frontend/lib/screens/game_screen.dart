@@ -49,24 +49,66 @@ class GameContent extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: BottomMenu(state),
           ),
-          if (state.colony.pastEvents.isNotEmpty)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: LeftMenu(state),
-            ),
-          if (state.colony.futureEvents.isNotEmpty)
-            Align(
-              alignment: Alignment.centerRight,
-              child: RightMenu(state),
-            ),
-          if (state.hasWindow)
-            Align(
-              alignment: Alignment.center,
-              child: state.currentWindow!,
-            ),
+          PastEvents(state),
+          FutureEvents(state),
+          CurrentWindow(state),
         ],
       ),
     );
+  }
+}
+
+class PastEvents extends StatelessWidget {
+  final GameState state;
+
+  const PastEvents(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    if (state.colony.pastEvents.isNotEmpty) {
+      return Align(
+        alignment: Alignment.centerLeft,
+        child: LeftMenu(state),
+      );
+    } else {
+      return const Empty();
+    }
+  }
+}
+
+class FutureEvents extends StatelessWidget {
+  final GameState state;
+
+  const FutureEvents(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    if (state.colony.futureEvents.isNotEmpty) {
+      return Align(
+        alignment: Alignment.centerRight,
+        child: RightMenu(state),
+      );
+    } else {
+      return const Empty();
+    }
+  }
+}
+
+class CurrentWindow extends StatelessWidget {
+  final GameState state;
+
+  const CurrentWindow(this.state);
+
+  @override
+  Widget build(BuildContext context) {
+    if (state.hasWindow) {
+      return Align(
+        alignment: Alignment.center,
+        child: state.currentWindow!,
+      );
+    } else {
+      return const Empty();
+    }
   }
 }
 
