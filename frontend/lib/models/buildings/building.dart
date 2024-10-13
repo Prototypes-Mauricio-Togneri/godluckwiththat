@@ -41,12 +41,9 @@ class Building {
 
   void upgrade() {
     if (canUpgrade) {
-      if (this is! Headquarters) {
-        colony.increaseTerritoryUsed();
-      }
-
       colony.resources.removeItems(upgradeCost);
       level++;
+      colony.recalculateVariables();
     }
   }
 

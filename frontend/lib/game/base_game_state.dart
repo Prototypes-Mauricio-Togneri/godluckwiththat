@@ -1,8 +1,5 @@
 import 'package:dafluta/dafluta.dart';
-import 'package:godluckwiththat/app/constants.dart';
-import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
-import 'package:godluckwiththat/models/buildings/passive/storehouse.dart';
 import 'package:godluckwiththat/models/colony.dart';
 import 'package:godluckwiththat/models/inventory/resource_inventory.dart';
 import 'package:godluckwiththat/models/inventory/unit_inventory.dart';
@@ -84,34 +81,6 @@ class BaseGameState extends BaseState {
         workers: 1,
       ),*/
     });
-    colony.territorySlotsUsed = _territorySlotsUsed(colony.buildings);
-    colony.resourcesCapacity = _resourcesCapacity(colony.buildings);
-  }
-
-  int _territorySlotsUsed(Map<BuildingType, Building> buildings) {
-    int result = 0;
-
-    for (final Building building in buildings.values) {
-      if (building is Headquarters) {
-        result += 1;
-      } else {
-        result += building.level;
-      }
-    }
-
-    return result;
-  }
-
-  int _resourcesCapacity(Map<BuildingType, Building> buildings) {
-    int result = Constants.BASE_RESOURCE_CAPACITY;
-
-    for (final Building building in buildings.values) {
-      if (building is Storehouse) {
-        result += building.level * Constants.RESOURCE_CAPACITY_PER_LEVEL;
-      }
-    }
-
-    return result;
   }
 
   void update(double dt) {

@@ -3,6 +3,7 @@ import 'package:godluckwiththat/dialog/confirmation_dialog.dart';
 import 'package:godluckwiththat/models/buildings/building.dart';
 import 'package:godluckwiththat/models/buildings/consumers/headquarters.dart';
 import 'package:godluckwiththat/models/buildings/passive/house.dart';
+import 'package:godluckwiththat/models/buildings/passive/storehouse.dart';
 import 'package:godluckwiththat/models/buildings/producers/academy.dart';
 import 'package:godluckwiththat/models/buildings/producers/altar.dart';
 import 'package:godluckwiththat/models/buildings/producers/copper_mine.dart';
@@ -50,6 +51,7 @@ class Colony {
 
   void setState(GameState state) {
     this.state = state;
+    recalculateVariables();
   }
 
   // =========================== PAST EVENTS ================================ \\
@@ -164,15 +166,7 @@ class Colony {
       );
       buildings[buildingType] = building;
       resources.removeItems(buildingType.cost(1));
-      increaseTerritoryUsed();
-    }
-  }
-
-  void increaseTerritoryUsed() {
-    territorySlotsUsed++;
-
-    if (territorySlotsUsed >= territorySlotsTotal) {
-      addPastEvent(TerritoryLimitReachedEvent());
+      recalculateVariables();
     }
   }
 
@@ -209,6 +203,43 @@ class Colony {
     if (totalWorkers >= populationLimit) {
       addPastEvent(PopulationLimitReachedEvent());
     }
+  }
+
+  // ============================ VARIABLES ================================= \\
+
+  void recalculateVariables() {
+    territorySlotsUsed = _territorySlotsUsed(buildings);
+    resourcesCapacity = _resourcesCapacity(buildings);
+
+    if (territorySlotsUsed >= territorySlotsTotal) {
+      addPastEvent(TerritoryLimitReachedEvent());
+    }
+  }
+
+  int _territorySlotsUsed(Map<BuildingType, Building> buildings) {
+    int result = 0;
+
+    for (final Building building in buildings.values) {
+      if (building is Headquarters) {
+        result += 1;
+      } else {
+        result += building.level;
+      }
+    }
+
+    return result;
+  }
+
+  int _resourcesCapacity(Map<BuildingType, Building> buildings) {
+    int result = Constants.BASE_RESOURCE_CAPACITY;
+
+    for (final Building building in buildings.values) {
+      if (building is Storehouse) {
+        result += building.level * Constants.RESOURCE_CAPACITY_PER_LEVEL;
+      }
+    }
+
+    return result;
   }
 
   // ============================= UPDATE =================================== \\
