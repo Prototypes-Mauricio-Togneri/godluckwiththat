@@ -61,7 +61,7 @@ class NewTooltip extends StatelessWidget {
     required Widget child,
   }) {
     final num amount = colony.resources.get(resourceType);
-    final num capacity = colony.warehouseCapacity;
+    final num capacity = colony.resourcesCapacity;
     final bool full = amount >= capacity;
     final String production = full
         ? 'Full'.toUpperCase()

@@ -34,7 +34,7 @@ class Colony {
   num timeElapsed;
   int freeWorkers;
   int territorySlotsUsed;
-  int warehouseCapacity;
+  int resourcesCapacity;
 
   Colony({
     required this.resources,
@@ -45,7 +45,7 @@ class Colony {
     required this.timeElapsed,
     required this.freeWorkers,
     required this.territorySlotsUsed,
-    required this.warehouseCapacity,
+    required this.resourcesCapacity,
   });
 
   void setState(GameState state) {

@@ -12,6 +12,9 @@ class Constants {
   static const int SLOTS_PER_HEADQUARTERS_LEVEL = 10;
   static const int PRODUCER_CAPACITY_PER_LEVEL = 5;
 
+  static const int BASE_RESOURCE_CAPACITY = 500;
+  static const int RESOURCE_CAPACITY_PER_LEVEL = 500;
+
   // resources
   static const double FARM_PRODUCTION_RATE = 0.3;
   static const double LOGGING_CAMP_PRODUCTION_RATE = 0.15;
@@ -28,6 +31,7 @@ class Constants {
   static const double SHRINE_PRODUCTION_RATE = 0.02;
   static const double TEMPLE_PRODUCTION_RATE = 0.04;
 
+  // ui
   static const double BUILDING_BLOCK_WIDTH = 200;
   static const double BUILDING_BLOCK_HEIGHT = 300;
 }

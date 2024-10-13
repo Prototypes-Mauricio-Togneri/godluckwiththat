@@ -294,7 +294,7 @@ class ResourcesSummary extends StatelessWidget {
     required ResourceType resourceType,
   }) {
     final num amount = colony.resources.get(resourceType);
-    final num capacity = colony.warehouseCapacity;
+    final num capacity = colony.resourcesCapacity;
     final bool full = amount >= capacity;
     final num production = colony.productionOf(resourceType);
 
