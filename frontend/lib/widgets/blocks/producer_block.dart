@@ -46,7 +46,7 @@ class TopSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Label(
-          text: producer.buildingType.name,
+          text: producer.buildingType.localized,
           color: Palette.textLevel2,
           weight: FontWeight.bold,
           size: 14,

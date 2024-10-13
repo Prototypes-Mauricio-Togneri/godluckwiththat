@@ -20,7 +20,7 @@ class GameState extends BaseGameState {
   }
 
   void onMenuHeadquarters() => _showWindow(BaseWindow(
-        title: colony.headquarters.type.name,
+        title: colony.headquarters.type.localized,
         state: this,
         child: HeadquartersBlock(this),
       ));

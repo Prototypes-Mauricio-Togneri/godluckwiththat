@@ -43,7 +43,7 @@ class TopSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Label(
-          text: buildingType.name,
+          text: buildingType.localized,
           color: Palette.textLevel2,
           weight: FontWeight.bold,
           size: 14,
@@ -65,11 +65,21 @@ class BottomSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Icon(
-        Icons.lock,
-        color: Palette.iconDisabled,
-        size: 80,
+    return Center(
+      child: Column(
+        children: [
+          const Icon(
+            Icons.lock,
+            color: Palette.iconDisabled,
+            size: 80,
+          ),
+          const VBox(10),
+          Label(
+            text: 'Requires ${buildingType.requires.localized}',
+            color: Palette.textLevel2,
+            size: 12,
+          ),
+        ],
       ),
     );
   }

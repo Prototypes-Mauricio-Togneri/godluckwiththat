@@ -1,34 +1,40 @@
 import 'package:godluckwiththat/extensions/resource_map_extension.dart';
+import 'package:godluckwiththat/types/headquarters_type.dart';
 import 'package:godluckwiththat/types/resource_type.dart';
 import 'package:godluckwiththat/utils/assets.dart';
 
 enum BuildingType {
   headquarters(
     sprite: Assets.IMAGES_BUILDINGS_MISC_HEADQUARTERS,
+    requires: HeadquartersType.camp,
     initialCost: {
       ResourceType.wood: 10,
     },
   ),
   house(
     sprite: Assets.IMAGES_BUILDINGS_MISC_HOUSE,
+    requires: HeadquartersType.camp,
     initialCost: {
       ResourceType.wood: 10,
     },
   ),
   academy(
     sprite: Assets.IMAGES_BUILDINGS_MISC_ACADEMY,
+    requires: HeadquartersType.settlement,
     initialCost: {
       ResourceType.wood: 20,
     },
   ),
   storehouse(
     sprite: Assets.IMAGES_BUILDINGS_MISC_STOREHOUSE,
+    requires: HeadquartersType.village,
     initialCost: {
       ResourceType.wood: 30,
     },
   ),
   market(
     sprite: Assets.IMAGES_BUILDINGS_MISC_MARKET,
+    requires: HeadquartersType.city,
     initialCost: {
       ResourceType.wood: 40,
     },
@@ -36,24 +42,28 @@ enum BuildingType {
 
   farm(
     sprite: Assets.IMAGES_BUILDINGS_RESOURCES_FARM,
+    requires: HeadquartersType.camp,
     initialCost: {
       ResourceType.wood: 10,
     },
   ),
   woodcutter(
     sprite: Assets.IMAGES_BUILDINGS_RESOURCES_WOODCUTTER,
+    requires: HeadquartersType.camp,
     initialCost: {
       ResourceType.wood: 10,
     },
   ),
   quarry(
     sprite: Assets.IMAGES_BUILDINGS_RESOURCES_QUARRY,
+    requires: HeadquartersType.settlement,
     initialCost: {
       ResourceType.wood: 20,
     },
   ),
   copperMine(
     sprite: Assets.IMAGES_BUILDINGS_RESOURCES_COPPER_MINE,
+    requires: HeadquartersType.village,
     initialCost: {
       ResourceType.wood: 30,
       ResourceType.stone: 20,
@@ -61,6 +71,7 @@ enum BuildingType {
   ),
   ironMine(
     sprite: Assets.IMAGES_BUILDINGS_RESOURCES_IRON_MINE,
+    requires: HeadquartersType.town,
     initialCost: {
       ResourceType.wood: 40,
       ResourceType.stone: 30,
@@ -68,6 +79,7 @@ enum BuildingType {
   ),
   goldMine(
     sprite: Assets.IMAGES_BUILDINGS_RESOURCES_GOLD_MINE,
+    requires: HeadquartersType.city,
     initialCost: {
       ResourceType.wood: 50,
       ResourceType.stone: 40,
@@ -76,12 +88,14 @@ enum BuildingType {
 
   altar(
     sprite: Assets.IMAGES_BUILDINGS_RELIGIOUS_ALTAR,
+    requires: HeadquartersType.camp,
     initialCost: {
       ResourceType.wood: 30,
     },
   ),
   shrine(
     sprite: Assets.IMAGES_BUILDINGS_RELIGIOUS_SHRINE,
+    requires: HeadquartersType.settlement,
     initialCost: {
       ResourceType.wood: 40,
       ResourceType.stone: 20,
@@ -89,6 +103,7 @@ enum BuildingType {
   ),
   temple(
     sprite: Assets.IMAGES_BUILDINGS_RELIGIOUS_TEMPLE,
+    requires: HeadquartersType.village,
     initialCost: {
       ResourceType.wood: 50,
       ResourceType.stone: 40,
@@ -96,6 +111,7 @@ enum BuildingType {
   ),
   monument(
     sprite: Assets.IMAGES_BUILDINGS_RELIGIOUS_MONUMENT,
+    requires: HeadquartersType.town,
     initialCost: {
       ResourceType.wood: 60,
       ResourceType.stone: 60,
@@ -104,10 +120,12 @@ enum BuildingType {
 
   final String sprite;
   final ResourceMap initialCost;
+  final HeadquartersType requires;
 
   const BuildingType({
     required this.sprite,
     required this.initialCost,
+    required this.requires,
   });
 
   ResourceMap cost(int level) => initialCost.multiply(level);

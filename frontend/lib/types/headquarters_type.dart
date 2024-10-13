@@ -70,7 +70,11 @@ enum HeadquartersType {
   }
 
   bool canBuild(BuildingType buildingType) {
-    switch (buildingType) {
+    final int requiredHeadquarters = buildingType.requires.index;
+
+    return index >= requiredHeadquarters;
+
+    /*switch (buildingType) {
       // misc
       case BuildingType.headquarters:
         return true;
@@ -106,6 +110,6 @@ enum HeadquartersType {
         return this == HeadquartersType.village;
       case BuildingType.monument:
         return this == HeadquartersType.town;
-    }
+    }*/
   }
 }
