@@ -8,6 +8,7 @@ import 'package:godluckwiththat/types/building_type.dart';
 import 'package:godluckwiththat/types/headquarters_type.dart';
 import 'package:godluckwiththat/utils/formatter.dart';
 import 'package:godluckwiththat/utils/palette.dart';
+import 'package:godluckwiththat/widgets/blocks/active_building_block.dart';
 import 'package:godluckwiththat/widgets/buttons/symbol_button.dart';
 import 'package:godluckwiththat/widgets/buttons/train_unit_button.dart';
 import 'package:godluckwiththat/widgets/buttons/upgrade_building_button.dart';
@@ -22,18 +23,28 @@ class HeadquartersBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StateProvider<GameState>(
-      state: state,
-      builder: (context, state) => Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BuildingInformation(state.colony.headquarters),
-            const HBox(30),
-            PopulationInformation(state.colony),
-          ],
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: ActiveBuildingBlock(
+        width: 340,
+        height: 371,
+        onSelected: () {
+          print(state);
+        },
+        child: StateProvider<GameState>(
+          state: state,
+          builder: (context, state) => Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BuildingInformation(state.colony.headquarters),
+                const HBox(30),
+                PopulationInformation(state.colony),
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -4,18 +4,22 @@ import 'package:godluckwiththat/utils/palette.dart';
 
 class ActiveBuildingBlock extends StatelessWidget {
   final Widget child;
+  final double width;
+  final double height;
   final VoidCallback? onSelected;
 
   const ActiveBuildingBlock({
     required this.child,
+    this.width = Constants.BUILDING_BLOCK_WIDTH,
+    this.height = Constants.BUILDING_BLOCK_HEIGHT,
     this.onSelected,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Constants.BUILDING_BLOCK_WIDTH,
-      height: Constants.BUILDING_BLOCK_HEIGHT,
+      width: width,
+      height: height,
       decoration: BoxDecoration(
         color: Palette.backgroundCardBlock,
         border: Border.all(
