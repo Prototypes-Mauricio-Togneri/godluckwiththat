@@ -71,7 +71,7 @@ class BottomMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleTooltip(
+    return NewTooltip.uppercase(
       content: tooltip,
       child: Material(
         color: Palette.backgroundTransparent1,

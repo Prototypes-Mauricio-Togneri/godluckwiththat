@@ -44,7 +44,7 @@ class PauseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleTooltip(
+    return NewTooltip.uppercase(
       content: 'Pause',
       child: Material(
         color: Palette.transparent,
@@ -98,9 +98,9 @@ class SeasonIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SimpleTooltip(
+    return NewTooltip.uppercase(
       content: 'Season',
-      child: TopBarContainer(
+      child: const TopBarContainer(
         child: Row(
           children: [
             Icon(
@@ -145,7 +145,7 @@ class ResourcesSummary extends StatelessWidget {
           ),
         ),
         const HBox(10),
-        ComplexTooltip.storedResource(
+        NewTooltip.storedResource(
           colony: colony,
           resourceType: ResourceType.wood,
           child: ResourceSummary(
@@ -159,7 +159,7 @@ class ResourcesSummary extends StatelessWidget {
           ),
         ),
         const HBox(10),
-        ComplexTooltip.storedResource(
+        NewTooltip.storedResource(
           colony: colony,
           resourceType: ResourceType.stone,
           child: ResourceSummary(
@@ -173,7 +173,7 @@ class ResourcesSummary extends StatelessWidget {
           ),
         ),
         const HBox(10),
-        ComplexTooltip.storedResource(
+        NewTooltip.storedResource(
           colony: colony,
           resourceType: ResourceType.copper,
           child: ResourceSummary(
@@ -188,7 +188,7 @@ class ResourcesSummary extends StatelessWidget {
           ),
         ),
         const HBox(10),
-        ComplexTooltip.storedResource(
+        NewTooltip.storedResource(
           colony: colony,
           resourceType: ResourceType.iron,
           child: ResourceSummary(
@@ -202,7 +202,7 @@ class ResourcesSummary extends StatelessWidget {
           ),
         ),
         const HBox(10),
-        ComplexTooltip.storedResource(
+        NewTooltip.storedResource(
           colony: colony,
           resourceType: ResourceType.gold,
           child: ResourceSummary(
@@ -216,7 +216,7 @@ class ResourcesSummary extends StatelessWidget {
           ),
         ),
         const HBox(10),
-        ComplexTooltip.unstoredResource(
+        NewTooltip.unstoredResource(
           colony: colony,
           resourceType: ResourceType.faith,
           child: ResourceSummary(
@@ -230,7 +230,7 @@ class ResourcesSummary extends StatelessWidget {
           ),
         ),
         const HBox(10),
-        ComplexTooltip.unstoredResource(
+        NewTooltip.unstoredResource(
           colony: colony,
           resourceType: ResourceType.knowledge,
           child: ResourceSummary(
@@ -325,7 +325,7 @@ class LimitsIndicator extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SimpleTooltip(
+            NewTooltip.uppercase(
               content: 'Population',
               child: ResourceSummary(
                 size: 100,
@@ -338,7 +338,7 @@ class LimitsIndicator extends StatelessWidget {
               ),
             ),
             const HBox(5),
-            SimpleTooltip(
+            NewTooltip.uppercase(
               content: 'Idle workers',
               child: ResourceSummary(
                 size: 70,
@@ -350,7 +350,7 @@ class LimitsIndicator extends StatelessWidget {
               ),
             ),
             const HBox(10),
-            SimpleTooltip(
+            NewTooltip.uppercase(
               content: 'Territory',
               child: ResourceSummary(
                 size: 100,

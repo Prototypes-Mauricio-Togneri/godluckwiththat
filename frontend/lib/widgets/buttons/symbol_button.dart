@@ -114,7 +114,7 @@ class SymbolButton extends StatelessWidget {
             size: dimensions,
           );
 
-    return SimpleTooltip(
+    return NewTooltip.uppercase(
       content: tooltip,
       child: Container(
         width: size,

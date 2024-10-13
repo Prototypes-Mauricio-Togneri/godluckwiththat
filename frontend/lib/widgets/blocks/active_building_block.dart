@@ -39,7 +39,7 @@ class ActiveBuildingBlock extends StatelessWidget {
             if (tooltip != null)
               Align(
                 alignment: Alignment.topRight,
-                child: SimpleTooltip(
+                child: NewTooltip.uppercase(
                   content: tooltip!,
                   child: const Padding(
                     padding: EdgeInsets.all(8),
