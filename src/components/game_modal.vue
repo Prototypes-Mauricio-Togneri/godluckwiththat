@@ -29,8 +29,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Jost:wght@300;400;500&display=swap');
-
 .modal-overlay {
   position: fixed;
   inset: 0;

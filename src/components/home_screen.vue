@@ -33,8 +33,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Jost:wght@300;400;500&display=swap');
-
 .home-screen {
   height: 100vh;
   display: flex;
