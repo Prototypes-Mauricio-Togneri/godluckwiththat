@@ -11,10 +11,10 @@ const showModal = ref(false)
     <header class="game-header">
       <span class="game-title">God Luck With That</span>
       <nav class="header-actions">
-        <button class="header-button" @click="showModal = true">
+        <button class="btn-gold header-button" @click="showModal = true">
           Open Modal
         </button>
-        <button class="header-button header-button--muted" @click="emit('quit')">
+        <button class="btn-gold header-button header-button--muted" @click="emit('quit')">
           Quit
         </button>
       </nav>
@@ -36,8 +36,8 @@ const showModal = ref(false)
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #0a0a0b;
-  color: #e8e0d0;
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 .game-header {
@@ -45,16 +45,16 @@ const showModal = ref(false)
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+  border-bottom: 1px solid rgba(var(--color-accent-rgb), 0.12);
   background: rgba(0, 0, 0, 0.3);
 }
 
 .game-title {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 1rem;
   letter-spacing: 0.05em;
-  color: rgba(212, 175, 55, 0.7);
+  color: rgba(var(--color-accent-rgb), 0.7);
 }
 
 .header-actions {
@@ -63,22 +63,9 @@ const showModal = ref(false)
 }
 
 .header-button {
-  font-family: 'Jost', sans-serif;
-  font-weight: 400;
   font-size: 0.8rem;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #e8e0d0;
-  background: transparent;
-  border: 1px solid rgba(212, 175, 55, 0.25);
   padding: 0.5rem 1.2rem;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.header-button:hover {
-  border-color: rgba(212, 175, 55, 0.7);
-  color: #d4af37;
 }
 
 .header-button--muted {
@@ -99,7 +86,7 @@ const showModal = ref(false)
 }
 
 .placeholder-text {
-  font-family: 'Jost', sans-serif;
+  font-family: var(--font-body);
   font-weight: 300;
   font-size: 0.9rem;
   letter-spacing: 0.1em;

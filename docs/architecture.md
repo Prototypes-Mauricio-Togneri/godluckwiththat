@@ -26,7 +26,12 @@ Vite + Vue 3 single-page application using Composition API (`<script setup>`). N
 
 - **Display/headings**: `Cinzel` (serif, Roman inscriptional) — weights 400, 700, 900
 - **Body/UI**: `Jost` (geometric sans-serif) — weights 300, 400, 500
-- Loaded via Google Fonts in component `<style scoped>` blocks
+- Loaded via Google Fonts `<link>` in `index.html`
+
+### Global Styles (`src/assets/styles.css`)
+
+- **CSS variables** on `:root`: `--color-bg`, `--color-bg-raised`, `--color-text`, `--color-accent`, `--color-accent-rgb`, `--font-display`, `--font-body`
+- **Shared classes**: `.btn-gold` — gold-bordered button base (font, color, border, hover). Components add sizing/spacing overrides in scoped styles.
 
 ## Code Style
 

@@ -11,7 +11,7 @@ An incremental game where you play as a god managing resources and followers.
 ```
 src/
 ├── assets/
-│   └── styles.css         → Global styles (CSS reset)
+│   └── styles.css         → Global styles (variables, reset, shared classes)
 ├── components/
 │   ├── home_screen.vue    → Title screen with start button
 │   ├── game_screen.vue    → Main game screen
@@ -44,6 +44,7 @@ Read these when working on specific areas:
 - **Minimalist Approach**: Prioritize extreme simplicity. Impact only the code strictly necessary for the task to avoid complexity and prevent breaking existing functionality.
 - **Maintainability Check**: Ensure the solution is readable, consistent, maintainable, simple, robust, and strictly follows the requested requirements.
 - **Centralized Constants**: Declare all magic constants in `src/constants.js` and reference them from there. Do not hardcode values directly in other files.
+- **Shared Styles**: When a CSS rule or value is repeated across `.vue` files, extract it into `src/assets/styles.css` (as a CSS variable, shared class, or both). Component-specific overrides stay in scoped `<style>` blocks.
 - **Root Cause Fixes**: If a bug exists, identify and fix the root cause. Do not apply temporary or partial fixes.
 - **Async Patterns**: Prefer `async` and `await` over `Promise` and `then` calls.
 - **UI/UX**: Always use the `frontend-design` skill when changing the UI.

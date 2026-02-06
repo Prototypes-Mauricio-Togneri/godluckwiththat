@@ -2,9 +2,43 @@
    CSS Variables
    ============================================ */
 
-/* Reset default browser styles */
+:root {
+    --color-bg: #0a0a0b;
+    --color-bg-raised: #141416;
+    --color-text: #e8e0d0;
+    --color-accent: #d4af37;
+    --color-accent-rgb: 212, 175, 55;
+    --font-display: 'Cinzel', serif;
+    --font-body: 'Jost', sans-serif;
+}
+
+/* ============================================
+   Reset
+   ============================================ */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* ============================================
+   Shared Components
+   ============================================ */
+
+/* Gold-bordered button used across screens */
+.btn-gold {
+    font-family: var(--font-body);
+    font-weight: 400;
+    text-transform: uppercase;
+    color: var(--color-text);
+    background: transparent;
+    border: 1px solid rgba(var(--color-accent-rgb), 0.3);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.btn-gold:hover {
+    border-color: rgba(var(--color-accent-rgb), 0.8);
+    color: var(--color-accent);
 }

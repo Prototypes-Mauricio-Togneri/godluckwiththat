@@ -21,7 +21,7 @@ onMounted(() => {
       <h2 class="modal-title">Modal Title</h2>
       <p class="modal-body">Modal content goes here.</p>
 
-      <button class="modal-close" @click="emit('close')">
+      <button class="btn-gold modal-close" @click="emit('close')">
         Close
       </button>
     </div>
@@ -47,8 +47,8 @@ onMounted(() => {
 }
 
 .modal-content {
-  background: #141416;
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  background: var(--color-bg-raised);
+  border: 1px solid rgba(var(--color-accent-rgb), 0.2);
   padding: 2.5rem;
   min-width: 340px;
   max-width: 90vw;
@@ -61,16 +61,16 @@ onMounted(() => {
 }
 
 .modal-title {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.3rem;
-  color: #e8e0d0;
+  color: var(--color-text);
   margin-bottom: 1rem;
   letter-spacing: 0.03em;
 }
 
 .modal-body {
-  font-family: 'Jost', sans-serif;
+  font-family: var(--font-body);
   font-weight: 300;
   font-size: 0.95rem;
   line-height: 1.6;
@@ -79,22 +79,12 @@ onMounted(() => {
 }
 
 .modal-close {
-  font-family: 'Jost', sans-serif;
-  font-weight: 400;
   font-size: 0.8rem;
   letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #e8e0d0;
-  background: transparent;
-  border: 1px solid rgba(212, 175, 55, 0.3);
   padding: 0.6rem 1.8rem;
-  cursor: pointer;
-  transition: all 0.25s ease;
 }
 
 .modal-close:hover {
-  border-color: rgba(212, 175, 55, 0.8);
-  color: #d4af37;
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.08);
+  box-shadow: 0 0 20px rgba(var(--color-accent-rgb), 0.08);
 }
 </style>

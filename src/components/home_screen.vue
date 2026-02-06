@@ -23,7 +23,7 @@ onMounted(() => {
         <span class="title-line">With That</span>
       </h1>
 
-      <button class="start-button" @click="emit('start')">
+      <button class="btn-gold start-button" @click="emit('start')">
         Start Game
       </button>
     </div>
@@ -39,7 +39,7 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #0a0a0b;
+  background: var(--color-bg);
   position: relative;
   overflow: hidden;
   opacity: 0;
@@ -60,8 +60,8 @@ onMounted(() => {
   height: 600px;
   background: radial-gradient(
     circle,
-    rgba(212, 175, 55, 0.08) 0%,
-    rgba(212, 175, 55, 0.03) 35%,
+    rgba(var(--color-accent-rgb), 0.08) 0%,
+    rgba(var(--color-accent-rgb), 0.03) 35%,
     transparent 70%
   );
   pointer-events: none;
@@ -76,23 +76,23 @@ onMounted(() => {
 }
 
 .prelude {
-  font-family: 'Jost', sans-serif;
+  font-family: var(--font-body);
   font-weight: 300;
   font-size: 0.85rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: rgba(212, 175, 55, 0.5);
+  color: rgba(var(--color-accent-rgb), 0.5);
   opacity: 0;
   animation: fade-up 0.8s ease 0.3s forwards;
 }
 
 .title {
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-display);
   font-weight: 900;
   font-size: clamp(2.8rem, 8vw, 5.5rem);
   line-height: 1.1;
   text-align: center;
-  color: #e8e0d0;
+  color: var(--color-text);
   letter-spacing: 0.02em;
 }
 
@@ -108,29 +108,19 @@ onMounted(() => {
 
 .title-line:nth-child(2) {
   animation-delay: 0.7s;
-  color: rgba(212, 175, 55, 0.85);
+  color: rgba(var(--color-accent-rgb), 0.85);
 }
 
 .start-button {
-  font-family: 'Jost', sans-serif;
-  font-weight: 400;
   font-size: 1rem;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #e8e0d0;
-  background: transparent;
-  border: 1px solid rgba(212, 175, 55, 0.3);
   padding: 0.9rem 2.8rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
   opacity: 0;
   animation: fade-up 0.6s ease 1s forwards;
 }
 
 .start-button:hover {
-  border-color: rgba(212, 175, 55, 0.8);
-  color: #d4af37;
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+  box-shadow: 0 0 30px rgba(var(--color-accent-rgb), 0.1);
 }
 
 .start-button:active {
@@ -140,7 +130,7 @@ onMounted(() => {
 .footer-note {
   position: absolute;
   bottom: 2rem;
-  font-family: 'Jost', sans-serif;
+  font-family: var(--font-body);
   font-weight: 300;
   font-size: 0.75rem;
   letter-spacing: 0.15em;
