@@ -1,14 +1,32 @@
 # Architecture & Design
 
-TO BE FILLED
+Vite + Vue 3 single-page application using Composition API (`<script setup>`). No Vue Router — screens switch via `v-if` on a `currentScreen` ref in `app.vue`.
+
+**Screen flow**: Home → Game (via `start` event) | Game → Home (via `quit` event)
+
+**Modal pattern**: Parent controls visibility with `v-if`. Modal component emits `close` on backdrop click (`.self` modifier) or close button. Mounts/unmounts cleanly.
 
 ## Visual Design
 
-TO BE FILLED
+**Theme**: Obsidian & Gold — dark backgrounds with warm gold accents, evoking divine/mythic atmosphere.
+
+**Colors**:
+- Background: `#0a0a0b` (near-black)
+- Text: `#e8e0d0` (warm parchment)
+- Accent: `#d4af37` / `rgba(212, 175, 55, ...)` (antiqued gold)
+- Modal overlay: `rgba(0, 0, 0, 0.75)` with `backdrop-filter: blur(4px)`
+- Muted UI: `rgba(255, 255, 255, 0.1–0.4)`
+
+**Effects**:
+- Title screen: staggered `fade-up` animations, radial gold glow behind title
+- Modal: fade-in overlay + upward slide on content box
+- Buttons: gold border intensifies on hover, subtle `box-shadow` glow
 
 ### Typography
 
-TO BE FILLED
+- **Display/headings**: `Cinzel` (serif, Roman inscriptional) — weights 400, 700, 900
+- **Body/UI**: `Jost` (geometric sans-serif) — weights 300, 400, 500
+- Loaded via Google Fonts in component `<style scoped>` blocks
 
 ## Code Style
 
@@ -23,7 +41,7 @@ TO BE FILLED
   - Variables: full descriptive names, avoid abbreviations
     - Allowed: `i`, `j` (loop counters), `x`, `y` (coordinates), `dx`, `dy` (deltas), `ctx` (canvas context)
     - Avoid: `p` (player), `em` (enemyManager), `el` (element), `sw` (switch), `m` (mine), etc.
-- All magic values in `main/constants.js`
+- All magic values in `src/constants.js`
 - Unused parameters: use `_`, `__`, `___`, etc.
 
 ### JavaScript Comment Conventions

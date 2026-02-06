@@ -17,7 +17,11 @@
       "Bash(./scripts/version.sh:*)",
       "Bash(find:*)",
       "Bash(do echo \"=== $f ===\")",
-      "Bash(python3 -m json.tool:*)"
+      "Bash(python3 -m json.tool:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(timeout 5 npx vite:*)"
     ]
   },
   "hooks": {

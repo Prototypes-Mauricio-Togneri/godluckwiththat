@@ -2,19 +2,25 @@
 
 ## What
 
-TO BE FILLED
+An incremental game where you play as a god managing resources and followers.
 
-**Stack**: TO BE FILLED
+**Stack**: Vite + Vue 3 (JavaScript, Composition API with `<script setup>`)
 
 **Structure**:
 
 ```
-public/
-├── css/             → Stylesheets
-├── img/
-│   └── ico/         → Icons
-├── js/
-└── index.html
+src/
+├── assets/
+│   └── styles.css         → Global styles (CSS reset)
+├── components/
+│   ├── home_screen.vue    → Title screen with start button
+│   ├── game_screen.vue    → Main game screen
+│   └── game_modal.vue     → Reusable modal overlay
+├── constants.js           → Centralized magic constants
+├── main.js                → Vue app entry point
+└── app.vue                → Root component (screen switching)
+index.html                 → Vite entry HTML (at repo root)
+vite.config.js             → Vite configuration
 ```
 
 ## Reference Docs
@@ -37,7 +43,7 @@ Read these when working on specific areas:
 - **Analytical Rigor**: Thoroughly review the codebase for relevant facts, styles, conventions, and abstractions. Before implementation, clearly identify what will change and what will remain untouched.
 - **Minimalist Approach**: Prioritize extreme simplicity. Impact only the code strictly necessary for the task to avoid complexity and prevent breaking existing functionality.
 - **Maintainability Check**: Ensure the solution is readable, consistent, maintainable, simple, robust, and strictly follows the requested requirements.
-- **Centralized Constants**: Declare all magic constants in `public/js/main/constants.js` and reference them from there. Do not hardcode values directly in other files.
+- **Centralized Constants**: Declare all magic constants in `src/constants.js` and reference them from there. Do not hardcode values directly in other files.
 - **Root Cause Fixes**: If a bug exists, identify and fix the root cause. Do not apply temporary or partial fixes.
 - **Async Patterns**: Prefer `async` and `await` over `Promise` and `then` calls.
 - **UI/UX**: Always use the `frontend-design` skill when changing the UI.
