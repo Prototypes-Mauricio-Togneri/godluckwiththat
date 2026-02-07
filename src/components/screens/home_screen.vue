@@ -1,18 +1,9 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-
 const emit = defineEmits(['start'])
-const visible = ref(false)
-
-onMounted(() => {
-  requestAnimationFrame(() => {
-    visible.value = true
-  })
-})
 </script>
 
 <template>
-  <div class="home-screen" :class="{ visible }">
+  <div class="home-screen">
     <div class="glow" />
 
     <div class="content">
@@ -38,12 +29,6 @@ onMounted(() => {
   background: var(--color-bg);
   position: relative;
   overflow: hidden;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-}
-
-.home-screen.visible {
-  opacity: 1;
 }
 
 /* Warm torchlight glow behind title */
@@ -78,8 +63,6 @@ onMounted(() => {
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: rgba(var(--color-accent-rgb), 0.5);
-  opacity: 0;
-  animation: fade-up 0.8s ease 0.3s forwards;
 }
 
 .title {
@@ -94,16 +77,9 @@ onMounted(() => {
 
 .title-line {
   display: block;
-  opacity: 0;
-  animation: fade-up 0.6s ease forwards;
-}
-
-.title-line:nth-child(1) {
-  animation-delay: 0.5s;
 }
 
 .title-line:nth-child(2) {
-  animation-delay: 0.7s;
   color: rgba(var(--color-accent-rgb), 0.85);
 }
 
@@ -111,8 +87,6 @@ onMounted(() => {
   font-size: 1rem;
   letter-spacing: 0.2em;
   padding: 0.9rem 2.8rem;
-  opacity: 0;
-  animation: fade-up 0.6s ease 1s forwards;
 }
 
 .start-button:hover {
@@ -132,23 +106,6 @@ onMounted(() => {
   letter-spacing: 0.15em;
   color: rgba(var(--color-text-rgb), 0.15);
   z-index: 1;
-  opacity: 0;
-  animation: fade-in 1s ease 1.4s forwards;
 }
 
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
 </style>
