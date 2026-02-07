@@ -16,16 +16,18 @@ Centered overlay with "PAUSED" title, decorative rule, and two stacked buttons:
 
 Top bar divided into 4 sections separated by decorative vertical dividers:
 
-1. **Season** — displays current season (warm/cold) with accent color
-2. **Resources** — food, wood, stone shown as `current/max` (flex: 1, centered)
-3. **Colony** — population (`current/max`), idle workers (count), territory (`current/max`) (flex: 1, centered)
-4. **Menu button** — hamburger icon (inline SVG), opens game modal
+1. **Season** — text label (`Cinzel`, small uppercase, muted accent) + value with accent color
+2. **Resources** — food, wood, stone each shown as icon image + `current/max` value (flex: 1, centered)
+3. **Colony** — population, idle workers, territory each shown as icon image + value (flex: 1, centered)
+4. **Menu button** — hamburger icon (inline SVG), opens pause modal
 
-Labels use `Cinzel` (display font, small uppercase, muted accent). Values use `Jost` (body font). All values sourced from `GameState` (see below), which initializes from `src/js/constants.js`.
+Resource/colony items use `<img>` icons from `public/img/` (no text labels). Values use `Jost` (body font). All values sourced from `GameState` (see below), which initializes from `src/js/constants.js`.
+
+**Keyboard**: Escape key toggles the pause modal (ignored when an `INPUT` or `TEXTAREA` is focused).
 
 ### Game State (`src/js/game_state.js`)
 
-Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity. Constructor receives a `Colony` instance. The `Colony` expects pre-constructed sub-model instances (e.g. `Resources`) from the caller. Cloned from the `createInitialColony()` Colony instance in `constants.js`.
+Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity. Constructor receives a `Colony` instance. The `Colony` expects pre-constructed sub-model instances (e.g. `Resources`) from the caller. Initialized via the `createInitialColony()` factory in `constants.js`, which returns a fresh `Colony` each call.
 
 **Structure**: `state.colony.{ season, idleWorkers, resources, production, stockpile, buildings }`
 
@@ -53,7 +55,7 @@ All initial values and stockpile caps declared as `createInitialColony()` (a `Co
 - Muted UI: `rgba(228, 213, 188, 0.1–0.4)` (parchment-toned)
 
 **Effects**:
-- Title screen: staggered `fade-up` animations, warm torchlight glow behind title
+- Title screen: warm torchlight glow behind title (radial gradient accent)
 - Modal: fade-in overlay + upward slide on content box, stone-like depth shadow
 - Buttons: bronze gradient background, border intensifies on hover, subtle `box-shadow` glow
 
@@ -66,7 +68,9 @@ All initial values and stockpile caps declared as `createInitialColony()` (a `Co
 ### Global Styles (`src/assets/styles.css`)
 
 - **CSS variables** on `:root`: `--color-bg`, `--color-bg-raised`, `--color-bg-surface`, `--color-text`, `--color-text-rgb`, `--color-accent`, `--color-accent-rgb`, `--color-border`, `--font-display`, `--font-body`
-- **Shared classes**: `.btn-gold` — bronze-gradient button base (font, color, gradient background, border, hover glow). Components add sizing/spacing overrides in scoped styles.
+- **Shared classes**:
+  - `.btn-gold` — bronze-gradient button base (font, color, gradient background, border, hover glow). Components add sizing/spacing overrides in scoped styles.
+  - `.tooltip` — CSS-only hover tooltip (positioned below element via `::after` pseudo-element reading `data-tooltip` attribute, fade-in transition).
 
 ## Code Style
 

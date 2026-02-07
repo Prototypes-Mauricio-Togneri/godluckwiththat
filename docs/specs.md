@@ -5,10 +5,10 @@ This document contains the specifications of the game, divided into sections.
 ## History
 
 - After a shipwreck, you and your tribe find yourselves in an unknown island
-- There you find a portal. When touching it, you summon the Gods
+- There you find a portal. When touching it, you summon the gods
 - They tell you that this portal is the only way to get back home
-- And the Gods are the only ones that can activate it
-- But in order for the Gods to do that, you have to prove your faith
+- And the gods are the only ones that can activate it
+- But in order for the gods to do that, you have to prove your faith
 - They will send you a series of challenges
   - If you complete a challenge, you will be blessed
   - If you fail a challenge, you will be punished
