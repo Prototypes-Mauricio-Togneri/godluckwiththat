@@ -1,8 +1,8 @@
 <script setup>
 import {
-  ref, reactive,
+  ref, reactive, onMounted, onUnmounted,
 } from 'vue'
-import GameModal from '../modals/game_modal.vue'
+import PauseModal from '../modals/pause_modal.vue'
 import GameState from '../../game_state.js'
 import {
   TOOLTIP_FOOD,
@@ -13,8 +13,18 @@ import {
   TOOLTIP_TERRITORY,
 } from '../../constants.js'
 
+const emit = defineEmits(['quit'])
 const showModal = ref(false)
 const state = reactive(new GameState())
+
+function handleKeydown(event) {
+  if (event.key === 'Escape') {
+    showModal.value = !showModal.value
+  }
+}
+
+onMounted(() => window.addEventListener('keydown', handleKeydown))
+onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 </script>
 
 <template>
@@ -80,9 +90,10 @@ const state = reactive(new GameState())
     <main class="game-content">
     </main>
 
-    <GameModal
+    <PauseModal
       v-if="showModal"
       @close="showModal = false"
+      @quit="emit('quit')"
     />
   </div>
 </template>

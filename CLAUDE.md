@@ -14,7 +14,7 @@ src/
 │   └── styles.css            → Global styles (variables, shared classes)
 ├── components/
 │   ├── modals/
-│   │   └── game_modal.vue    → Reusable modal overlay
+│   │   └── pause_modal.vue   → Pause menu modal
 │   └── screens/
 │       ├── home_screen.vue   → Title screen with start button
 │       └── game_screen.vue   → Main game screen

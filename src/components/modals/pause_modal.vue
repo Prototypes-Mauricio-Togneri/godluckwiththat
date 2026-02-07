@@ -3,7 +3,7 @@ import {
   ref, onMounted,
 } from 'vue'
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'quit'])
 const visible = ref(false)
 
 onMounted(() => {
@@ -20,12 +20,19 @@ onMounted(() => {
     @click.self="emit('close')"
   >
     <div class="modal-content">
-      <h2 class="modal-title">Modal Title</h2>
-      <p class="modal-body">Modal content goes here.</p>
+      <h2 class="modal-title">PAUSED</h2>
 
-      <button class="btn-gold modal-close" @click="emit('close')">
-        Close
-      </button>
+      <!-- Decorative rule -->
+      <span class="modal-rule" />
+
+      <div class="modal-actions">
+        <button class="btn-gold modal-btn" @click="emit('close')">
+          Continue
+        </button>
+        <button class="btn-gold modal-btn modal-btn--quit" @click="emit('quit')">
+          Quit
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -57,6 +64,9 @@ onMounted(() => {
   padding: 2.5rem;
   min-width: 340px;
   max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   transform: translateY(8px);
   transition: transform 0.25s ease;
 }
@@ -70,26 +80,55 @@ onMounted(() => {
   font-weight: 700;
   font-size: 1.3rem;
   color: var(--color-text);
-  margin-bottom: 1rem;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.18em;
 }
 
-.modal-body {
-  font-family: var(--font-body);
-  font-weight: 300;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: rgba(var(--color-text-rgb), 0.55);
-  margin-bottom: 2rem;
+/* Decorative horizontal divider */
+.modal-rule {
+  width: 3.5rem;
+  height: 1px;
+  margin: 1rem 0 1.5rem;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--color-accent-rgb), 0.35),
+    transparent
+  );
 }
 
-.modal-close {
+/* ---- Button column ---- */
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-self: stretch;
+}
+
+.modal-btn {
+  width: 100%;
   font-size: 0.8rem;
   letter-spacing: 0.15em;
   padding: 0.6rem 1.8rem;
 }
 
-.modal-close:hover {
+.modal-btn:hover {
   box-shadow: 0 0 20px rgba(var(--color-accent-rgb), 0.08);
+}
+
+/* Subdued quit button */
+.modal-btn--quit {
+  border-color: rgba(var(--color-accent-rgb), 0.12);
+  color: rgba(var(--color-text-rgb), 0.45);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--color-accent-rgb), 0.03),
+    rgba(var(--color-accent-rgb), 0.01)
+  );
+}
+
+.modal-btn--quit:hover {
+  color: var(--color-text);
+  border-color: rgba(var(--color-accent-rgb), 0.35);
 }
 </style>

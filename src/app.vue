@@ -15,7 +15,7 @@ function startGame() {
 
 <template>
   <HomeScreen v-if="currentScreen === 'home'" @start="startGame" />
-  <GameScreen v-else-if="currentScreen === 'game'" />
+  <GameScreen v-else-if="currentScreen === 'game'" @quit="currentScreen = 'home'" />
 </template>
 
 <style scoped>

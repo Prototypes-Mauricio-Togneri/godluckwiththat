@@ -18,7 +18,7 @@ This document contains the specifications of the game, divided into sections.
   - Build shrines
   - Build temples
   - Build monuments
-  - Accumulate certain amount of faith
+  - Accumulate faith
   - Offer tributes
     - Goods (various resources)
     - Human sacrifices (workers)
@@ -93,9 +93,6 @@ There are two types of resources: regular and special
 
 - Territory
   - Each building level takes up one territory slot
-  - Increasing the amount of slots comes with dangers
-    - More frequent attacks from enemies
-    - More expensive to maintain
   - Produced in
     - Headquarters
   - Consumed to

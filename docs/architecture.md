@@ -6,6 +6,12 @@ Vite + Vue 3 single-page application using Composition API (`<script setup>`). N
 
 **Modal pattern**: Parent controls visibility with `v-if`. Modal component emits `close` on backdrop click (`.self` modifier) or close button. Mounts/unmounts cleanly.
 
+### Pause Modal (`pause_modal.vue`)
+
+Centered overlay with "PAUSED" title, decorative rule, and two side-by-side buttons:
+- **Continue** — emits `close`, resumes the game
+- **Quit** — emits `quit`, bubbled through `game_screen.vue` to `app.vue` which switches back to the home screen
+
 ### Game Header (`game_screen.vue`)
 
 Top bar divided into 4 sections separated by decorative vertical dividers:
