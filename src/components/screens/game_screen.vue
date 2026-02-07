@@ -19,6 +19,7 @@ const showModal = ref(false)
 const state = reactive(new GameState(createInitialColony()))
 
 function handleKeydown(event) {
+  if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return
   if (event.key === 'Escape') {
     showModal.value = !showModal.value
   }
