@@ -55,16 +55,6 @@ const emit = defineEmits(['start'])
   gap: 2rem;
   z-index: 1;
 }
-
-.prelude {
-  font-family: var(--font-body);
-  font-weight: 300;
-  font-size: 0.85rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: rgba(var(--color-accent-rgb), 0.5);
-}
-
 .title {
   font-family: var(--font-display);
   font-weight: 900;
@@ -95,17 +85,6 @@ const emit = defineEmits(['start'])
 
 .start-button:active {
   transform: scale(0.97);
-}
-
-.footer-note {
-  position: absolute;
-  bottom: 2rem;
-  font-family: var(--font-body);
-  font-weight: 300;
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  color: rgba(var(--color-text-rgb), 0.15);
-  z-index: 1;
 }
 
 </style>
