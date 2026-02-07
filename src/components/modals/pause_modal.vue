@@ -1,15 +1,20 @@
 <script setup>
 import {
-  ref, onMounted,
+  ref, onMounted, onUnmounted,
 } from 'vue'
 
 const emit = defineEmits(['close', 'quit'])
 const visible = ref(false)
+let rafId = null
 
 onMounted(() => {
-  requestAnimationFrame(() => {
+  rafId = requestAnimationFrame(() => {
     visible.value = true
   })
+})
+
+onUnmounted(() => {
+  cancelAnimationFrame(rafId)
 })
 </script>
 
