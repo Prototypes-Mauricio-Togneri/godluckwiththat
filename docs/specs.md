@@ -20,9 +20,7 @@ This document contains the specifications of the game, divided into sections.
   - Build monuments
   - Accumulate faith
   - Offer tributes
-    - Goods (various resources)
-    - Human sacrifices (workers)
-    - Rituals (consume resources and people)
+    - Rituals (resources and people)
     - Recover relic (send military away)
 
 ## Colony
