@@ -26,11 +26,15 @@ export default [
     rules: {
       // Formatting rules
       '@stylistic/semi': ['error', 'never'],
-      '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
+      '@stylistic/quotes': ['error', 'single', {
+        avoidEscape: true,
+      }],
       '@stylistic/indent': ['error', 2],
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
       '@stylistic/no-trailing-spaces': 'error',
-      '@stylistic/no-multiple-empty-lines': ['error', { max: 1 }],
+      '@stylistic/no-multiple-empty-lines': ['error', {
+        max: 1,
+      }],
       '@stylistic/eol-last': ['error', 'always'],
       '@stylistic/space-before-function-paren': ['error', {
         anonymous: 'always',
@@ -40,10 +44,16 @@ export default [
       '@stylistic/space-infix-ops': 'error',
       '@stylistic/keyword-spacing': 'error',
       '@stylistic/space-before-blocks': 'error',
-      '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
+      '@stylistic/brace-style': ['error', '1tbs', {
+        allowSingleLine: true,
+      }],
       '@stylistic/object-curly-spacing': ['error', 'always'],
       '@stylistic/array-bracket-spacing': ['error', 'never'],
       '@stylistic/arrow-spacing': 'error',
+      '@stylistic/object-curly-newline': ['error', {
+        minProperties: 1,
+      }],
+      '@stylistic/object-property-newline': 'error',
 
       // Remove the old semi rule (replaced by @stylistic/semi)
       semi: 'off',

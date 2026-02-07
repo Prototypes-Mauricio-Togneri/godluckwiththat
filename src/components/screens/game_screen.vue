@@ -1,5 +1,7 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import {
+  ref, reactive,
+} from 'vue'
 import GameModal from '../modals/game_modal.vue'
 import GameState from '../../game_state.js'
 import {

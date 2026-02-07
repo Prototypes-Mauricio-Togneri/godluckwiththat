@@ -47,27 +47,70 @@ class GameState {
       },
 
       buildings: {
-        headquarters: { type: 'camp', level: 1 },
-        house: { level: 0 },
-        academy: { level: 0 },
-        storehouse: { level: 0 },
-        market: { level: 0 },
-        altar: { level: 0 },
-        shrine: { level: 0 },
-        temple: { level: 0 },
-        monument: { level: 0 },
-        farm: { level: 0 },
-        woodcutter: { level: 0 },
-        quarry: { level: 0 },
-        copperMine: { level: 0 },
-        ironMine: { level: 0 },
-        goldMine: { level: 0 },
-        barracks: { level: 0 },
-        archery: { level: 0 },
-        cavalry: { level: 0 },
-        workshop: { level: 0 },
-        wall: { level: 0 },
-        tower: { level: 0 },
+        headquarters: {
+          type: 'camp',
+          level: 1,
+        },
+        house: {
+          level: 0,
+        },
+        academy: {
+          level: 0,
+        },
+        storehouse: {
+          level: 0,
+        },
+        market: {
+          level: 0,
+        },
+        altar: {
+          level: 0,
+        },
+        shrine: {
+          level: 0,
+        },
+        temple: {
+          level: 0,
+        },
+        monument: {
+          level: 0,
+        },
+        farm: {
+          level: 0,
+        },
+        woodcutter: {
+          level: 0,
+        },
+        quarry: {
+          level: 0,
+        },
+        copperMine: {
+          level: 0,
+        },
+        ironMine: {
+          level: 0,
+        },
+        goldMine: {
+          level: 0,
+        },
+        barracks: {
+          level: 0,
+        },
+        archery: {
+          level: 0,
+        },
+        cavalry: {
+          level: 0,
+        },
+        workshop: {
+          level: 0,
+        },
+        wall: {
+          level: 0,
+        },
+        tower: {
+          level: 0,
+        },
       },
     }
   }

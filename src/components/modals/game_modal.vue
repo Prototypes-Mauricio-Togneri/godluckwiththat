@@ -1,5 +1,7 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import {
+  ref, onMounted,
+} from 'vue'
 
 const emit = defineEmits(['close'])
 const visible = ref(false)

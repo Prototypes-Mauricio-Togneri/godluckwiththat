@@ -1,5 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import {
+  ref,
+} from 'vue'
 import HomeScreen from './components/screens/home_screen.vue'
 import GameScreen from './components/screens/game_screen.vue'
 
