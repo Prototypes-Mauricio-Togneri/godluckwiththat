@@ -1,10 +1,14 @@
 import js from '@eslint/js'
 import pluginVue from 'eslint-plugin-vue'
+import stylistic from '@stylistic/eslint-plugin'
 
 export default [
   js.configs.recommended,
   ...pluginVue.configs['flat/recommended'],
   {
+    plugins: {
+      '@stylistic': stylistic,
+    },
     languageOptions: {
       globals: {
         // Browser globals
@@ -20,10 +24,31 @@ export default [
       },
     },
     rules: {
-      // Enforce no-semicolons convention
-      semi: ['error', 'never'],
+      // Formatting rules
+      '@stylistic/semi': ['error', 'never'],
+      '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
+      '@stylistic/indent': ['error', 2],
+      '@stylistic/comma-dangle': ['error', 'always-multiline'],
+      '@stylistic/no-trailing-spaces': 'error',
+      '@stylistic/no-multiple-empty-lines': ['error', { max: 1 }],
+      '@stylistic/eol-last': ['error', 'always'],
+      '@stylistic/space-before-function-paren': ['error', {
+        anonymous: 'always',
+        named: 'never',
+        asyncArrow: 'always',
+      }],
+      '@stylistic/space-infix-ops': 'error',
+      '@stylistic/keyword-spacing': 'error',
+      '@stylistic/space-before-blocks': 'error',
+      '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
+      '@stylistic/object-curly-spacing': ['error', 'always'],
+      '@stylistic/array-bracket-spacing': ['error', 'never'],
+      '@stylistic/arrow-spacing': 'error',
 
-      // Disable formatting-only rules (not real errors)
+      // Remove the old semi rule (replaced by @stylistic/semi)
+      semi: 'off',
+
+      // Disable formatting-only Vue rules
       'vue/max-attributes-per-line': 'off',
       'vue/singleline-html-element-content-newline': 'off',
       'vue/html-self-closing': 'off',
