@@ -25,7 +25,7 @@ Labels use `Cinzel` (display font, small uppercase, muted accent). Values use `J
 
 ### Game State (`src/js/game_state.js`)
 
-Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity. Constructor receives a `Colony` instance. The `Colony` expects pre-constructed sub-model instances (e.g. `Resources`) from the caller. Cloned from the `INITIAL_COLONY` Colony instance in `constants.js`.
+Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity. Constructor receives a `Colony` instance. The `Colony` expects pre-constructed sub-model instances (e.g. `Resources`) from the caller. Cloned from the `createInitialColony()` Colony instance in `constants.js`.
 
 **Structure**: `state.colony.{ season, idleWorkers, resources, production, stockpile, buildings }`
 
@@ -34,7 +34,7 @@ Central state container instantiated once per game session. Pure JS class wrappe
 - `stockpile` (`Stockpile`) — max capacity with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
 - `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level`). `Headquarters` also has `type`. Individual building classes live in `src/js/models/buildings/`.
 
-All initial values and stockpile caps declared as `INITIAL_COLONY` (a `Colony` instance) in `src/js/constants.js`.
+All initial values and stockpile caps declared as `createInitialColony()` (a `Colony` instance) in `src/js/constants.js`.
 
 **Tooltips** — Each resource and colony item has a CSS-only tooltip (`.tooltip` class + `data-tooltip` attribute). The `::after` pseudo-element renders tooltip text on hover with a fade-in transition. Tooltip texts are constants in `src/js/constants.js`. Shared `.tooltip` class defined in `src/assets/styles.css`.
 

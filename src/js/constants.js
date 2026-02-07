@@ -35,112 +35,114 @@ export const TOOLTIP_POPULATION = 'Population'
 export const TOOLTIP_IDLE_WORKERS = 'Idle Workers'
 export const TOOLTIP_TERRITORY = 'Territory'
 
-// Initial colony state — full data structure for a new game session
-export const INITIAL_COLONY = new Colony({
-  season: 'warm',
-  idleWorkers: 2,
+// Initial colony state — factory that returns a fresh Colony for each new game session
+export function createInitialColony() {
+  return new Colony({
+    season: 'warm',
+    idleWorkers: 2,
 
-  resources: new Resources({
-    territory: 1,
-    workers: 3,
-    food: 10,
-    wood: 5,
-    stone: 0,
-    copper: 0,
-    iron: 0,
-    gold: 0,
-    faith: 0,
-    knowledge: 0,
-  }),
+    resources: new Resources({
+      territory: 1,
+      workers: 3,
+      food: 10,
+      wood: 5,
+      stone: 0,
+      copper: 0,
+      iron: 0,
+      gold: 0,
+      faith: 0,
+      knowledge: 0,
+    }),
 
-  production: new Production({
-    food: 0,
-    wood: 0,
-    stone: 0,
-    copper: 0,
-    iron: 0,
-    gold: 0,
-    faith: 0,
-    knowledge: 0,
-  }),
+    production: new Production({
+      food: 0,
+      wood: 0,
+      stone: 0,
+      copper: 0,
+      iron: 0,
+      gold: 0,
+      faith: 0,
+      knowledge: 0,
+    }),
 
-  stockpile: new Stockpile({
-    territory: 5,
-    workers: 10,
-    food: 100,
-    wood: 100,
-    stone: 50,
-    copper: 100,
-    iron: 100,
-    gold: 100,
-    faith: 100,
-    knowledge: 100,
-  }),
+    stockpile: new Stockpile({
+      territory: 5,
+      workers: 10,
+      food: 100,
+      wood: 100,
+      stone: 50,
+      copper: 100,
+      iron: 100,
+      gold: 100,
+      faith: 100,
+      knowledge: 100,
+    }),
 
-  buildings: new Buildings({
-    headquarters: new Headquarters({
-      type: 'camp',
-      level: 1,
+    buildings: new Buildings({
+      headquarters: new Headquarters({
+        type: 'camp',
+        level: 1,
+      }),
+      house: new House({
+        level: 0,
+      }),
+      academy: new Academy({
+        level: 0,
+      }),
+      storehouse: new Storehouse({
+        level: 0,
+      }),
+      market: new Market({
+        level: 0,
+      }),
+      altar: new Altar({
+        level: 0,
+      }),
+      shrine: new Shrine({
+        level: 0,
+      }),
+      temple: new Temple({
+        level: 0,
+      }),
+      monument: new Monument({
+        level: 0,
+      }),
+      farm: new Farm({
+        level: 0,
+      }),
+      woodcutter: new Woodcutter({
+        level: 0,
+      }),
+      quarry: new Quarry({
+        level: 0,
+      }),
+      copperMine: new CopperMine({
+        level: 0,
+      }),
+      ironMine: new IronMine({
+        level: 0,
+      }),
+      goldMine: new GoldMine({
+        level: 0,
+      }),
+      barracks: new Barracks({
+        level: 0,
+      }),
+      archery: new Archery({
+        level: 0,
+      }),
+      cavalry: new Cavalry({
+        level: 0,
+      }),
+      workshop: new Workshop({
+        level: 0,
+      }),
+      wall: new Wall({
+        level: 0,
+      }),
+      tower: new Tower({
+        level: 0,
+      }),
     }),
-    house: new House({
-      level: 0,
-    }),
-    academy: new Academy({
-      level: 0,
-    }),
-    storehouse: new Storehouse({
-      level: 0,
-    }),
-    market: new Market({
-      level: 0,
-    }),
-    altar: new Altar({
-      level: 0,
-    }),
-    shrine: new Shrine({
-      level: 0,
-    }),
-    temple: new Temple({
-      level: 0,
-    }),
-    monument: new Monument({
-      level: 0,
-    }),
-    farm: new Farm({
-      level: 0,
-    }),
-    woodcutter: new Woodcutter({
-      level: 0,
-    }),
-    quarry: new Quarry({
-      level: 0,
-    }),
-    copperMine: new CopperMine({
-      level: 0,
-    }),
-    ironMine: new IronMine({
-      level: 0,
-    }),
-    goldMine: new GoldMine({
-      level: 0,
-    }),
-    barracks: new Barracks({
-      level: 0,
-    }),
-    archery: new Archery({
-      level: 0,
-    }),
-    cavalry: new Cavalry({
-      level: 0,
-    }),
-    workshop: new Workshop({
-      level: 0,
-    }),
-    wall: new Wall({
-      level: 0,
-    }),
-    tower: new Tower({
-      level: 0,
-    }),
-  }),
-})
+  })
+}
