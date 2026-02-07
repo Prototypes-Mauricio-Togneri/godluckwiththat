@@ -21,7 +21,6 @@ const showModal = ref(false)
     </header>
 
     <main class="game-content">
-      <p class="placeholder-text">Game content will appear here</p>
     </main>
 
     <GameModal
