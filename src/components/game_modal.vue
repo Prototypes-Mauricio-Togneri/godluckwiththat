@@ -49,6 +49,9 @@ onMounted(() => {
 .modal-content {
   background: var(--color-bg-raised);
   border: 1px solid rgba(var(--color-accent-rgb), 0.2);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(var(--color-accent-rgb), 0.06);
   padding: 2.5rem;
   min-width: 340px;
   max-width: 90vw;
@@ -74,7 +77,7 @@ onMounted(() => {
   font-weight: 300;
   font-size: 0.95rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(var(--color-text-rgb), 0.55);
   margin-bottom: 2rem;
 }
 

@@ -8,19 +8,22 @@ Vite + Vue 3 single-page application using Composition API (`<script setup>`). N
 
 ## Visual Design
 
-**Theme**: Obsidian & Gold — dark backgrounds with warm gold accents, evoking divine/mythic atmosphere.
+**Theme**: Earthy & Ancient — warm browns, parchment tones, and aged bronze accents, evoking a torchlit ancient settlement. Inspired by Forge of Empires, Tribal Wars 2, Goodgame Empire.
 
 **Colors**:
-- Background: `#0a0a0b` (near-black)
-- Text: `#e8e0d0` (warm parchment)
-- Accent: `#d4af37` / `rgba(212, 175, 55, ...)` (antiqued gold)
+- Background: `#16120e` (deep umber, aged wood by torchlight)
+- Raised surface: `#1e1a14` (dark walnut)
+- Panel surface: `#272119` (stone panel)
+- Text: `#e4d5bc` (warm parchment cream)
+- Accent: `#b8943e` / `rgba(184, 148, 62, ...)` (aged bronze)
+- Border: `rgba(184, 148, 62, 0.15)` (subtle warm border)
 - Modal overlay: `rgba(0, 0, 0, 0.75)` with `backdrop-filter: blur(4px)`
-- Muted UI: `rgba(255, 255, 255, 0.1–0.4)`
+- Muted UI: `rgba(228, 213, 188, 0.1–0.4)` (parchment-toned)
 
 **Effects**:
-- Title screen: staggered `fade-up` animations, radial gold glow behind title
-- Modal: fade-in overlay + upward slide on content box
-- Buttons: gold border intensifies on hover, subtle `box-shadow` glow
+- Title screen: staggered `fade-up` animations, warm torchlight glow behind title
+- Modal: fade-in overlay + upward slide on content box, stone-like depth shadow
+- Buttons: bronze gradient background, border intensifies on hover, subtle `box-shadow` glow
 
 ### Typography
 
@@ -30,8 +33,8 @@ Vite + Vue 3 single-page application using Composition API (`<script setup>`). N
 
 ### Global Styles (`src/assets/styles.css`)
 
-- **CSS variables** on `:root`: `--color-bg`, `--color-bg-raised`, `--color-text`, `--color-accent`, `--color-accent-rgb`, `--font-display`, `--font-body`
-- **Shared classes**: `.btn-gold` — gold-bordered button base (font, color, border, hover). Components add sizing/spacing overrides in scoped styles.
+- **CSS variables** on `:root`: `--color-bg`, `--color-bg-raised`, `--color-bg-surface`, `--color-text`, `--color-text-rgb`, `--color-accent`, `--color-accent-rgb`, `--color-border`, `--font-display`, `--font-body`
+- **Shared classes**: `.btn-gold` — bronze-gradient button base (font, color, gradient background, border, hover glow). Components add sizing/spacing overrides in scoped styles.
 
 ## Code Style
 

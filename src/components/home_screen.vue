@@ -50,18 +50,18 @@ onMounted(() => {
   opacity: 1;
 }
 
-/* Radial celestial glow behind title */
+/* Warm torchlight glow behind title */
 .glow {
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
+  width: 700px;
+  height: 700px;
   background: radial-gradient(
-    circle,
-    rgba(var(--color-accent-rgb), 0.08) 0%,
-    rgba(var(--color-accent-rgb), 0.03) 35%,
+    ellipse,
+    rgba(var(--color-accent-rgb), 0.1) 0%,
+    rgba(var(--color-accent-rgb), 0.04) 40%,
     transparent 70%
   );
   pointer-events: none;
@@ -134,7 +134,7 @@ onMounted(() => {
   font-weight: 300;
   font-size: 0.75rem;
   letter-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.15);
+  color: rgba(var(--color-text-rgb), 0.15);
   z-index: 1;
   opacity: 0;
   animation: fade-in 1s ease 1.4s forwards;

@@ -45,8 +45,9 @@ const showModal = ref(false)
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid rgba(var(--color-accent-rgb), 0.12);
-  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .game-title {
@@ -69,13 +70,13 @@ const showModal = ref(false)
 }
 
 .header-button--muted {
-  border-color: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(var(--color-text-rgb), 0.1);
+  color: rgba(var(--color-text-rgb), 0.4);
 }
 
 .header-button--muted:hover {
-  border-color: rgba(255, 255, 255, 0.3);
-  color: rgba(255, 255, 255, 0.7);
+  border-color: rgba(var(--color-text-rgb), 0.3);
+  color: rgba(var(--color-text-rgb), 0.7);
 }
 
 .game-content {
@@ -90,6 +91,6 @@ const showModal = ref(false)
   font-weight: 300;
   font-size: 0.9rem;
   letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.12);
+  color: rgba(var(--color-text-rgb), 0.12);
 }
 </style>

@@ -3,11 +3,14 @@
    ============================================ */
 
 :root {
-    --color-bg: #0a0a0b;
-    --color-bg-raised: #141416;
-    --color-text: #e8e0d0;
-    --color-accent: #d4af37;
-    --color-accent-rgb: 212, 175, 55;
+    --color-bg: #16120e;
+    --color-bg-raised: #1e1a14;
+    --color-bg-surface: #272119;
+    --color-text: #e4d5bc;
+    --color-text-rgb: 228, 213, 188;
+    --color-accent: #b8943e;
+    --color-accent-rgb: 184, 148, 62;
+    --color-border: rgba(184, 148, 62, 0.15);
     --font-display: 'Cinzel', serif;
     --font-body: 'Jost', sans-serif;
 }
@@ -26,19 +29,29 @@
    Shared Components
    ============================================ */
 
-/* Gold-bordered button used across screens */
+/* Bronze-bordered button used across screens */
 .btn-gold {
     font-family: var(--font-body);
     font-weight: 400;
     text-transform: uppercase;
     color: var(--color-text);
-    background: transparent;
-    border: 1px solid rgba(var(--color-accent-rgb), 0.3);
+    background: linear-gradient(
+        180deg,
+        rgba(var(--color-accent-rgb), 0.08),
+        rgba(var(--color-accent-rgb), 0.02)
+    );
+    border: 1px solid rgba(var(--color-accent-rgb), 0.25);
     cursor: pointer;
     transition: all 0.25s ease;
 }
 
 .btn-gold:hover {
-    border-color: rgba(var(--color-accent-rgb), 0.8);
+    background: linear-gradient(
+        180deg,
+        rgba(var(--color-accent-rgb), 0.15),
+        rgba(var(--color-accent-rgb), 0.05)
+    );
+    border-color: rgba(var(--color-accent-rgb), 0.6);
     color: var(--color-accent);
+    box-shadow: 0 0 12px rgba(var(--color-accent-rgb), 0.08);
 }

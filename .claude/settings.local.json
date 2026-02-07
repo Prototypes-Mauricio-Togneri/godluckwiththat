@@ -24,7 +24,8 @@
       "Bash(timeout 5 npx vite:*)",
       "Bash(npx vite build:*)",
       "Bash(npm run lint:*)",
-      "Bash(npx eslint:*)"
+      "Bash(npx eslint:*)",
+      "WebSearch"
     ]
   },
   "hooks": {

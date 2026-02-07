@@ -2,7 +2,7 @@
 
 ## What
 
-An incremental game where you play as a god managing resources and followers.
+A hybrid incremental strategy game. After a shipwreck on an unknown island, the player discovers an ancient portal guarded by Gods. To activate the portal and escape, the player must prove their faith by completing divine challenges — while building a colony, managing resources (Food, Wood, Stone, Copper, Iron, Gold), raising military, defending against native raids, and surviving natural disasters.
 
 **Stack**: Vite + Vue 3 (JavaScript, Composition API with `<script setup>`), ESLint + @stylistic
 
