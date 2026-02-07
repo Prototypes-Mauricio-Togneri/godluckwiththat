@@ -45,7 +45,11 @@ The colony is where the game takes place. It is where you will build your buildi
 The game cycles over two seasons: warm and cold. Each season has different characteristics that affect the colony in different ways. The season changes every certain amount of time.
 
 - Warm
+  - Food production is increased by 20%
+  - Wood consumption is decreased by 20%
 - Cold
+  - Food production is decreased by 20%
+  - Wood consumption is increased by 20%
 
 ## Resources
 
