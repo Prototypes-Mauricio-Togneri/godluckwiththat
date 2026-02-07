@@ -1,19 +1,8 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import GameModal from '../modals/game_modal.vue'
+import GameState from '../../game_state.js'
 import {
-  INITIAL_SEASON,
-  INITIAL_FOOD,
-  MAX_FOOD,
-  INITIAL_WOOD,
-  MAX_WOOD,
-  INITIAL_STONE,
-  MAX_STONE,
-  INITIAL_POPULATION,
-  MAX_POPULATION,
-  INITIAL_IDLE_WORKERS,
-  INITIAL_TERRITORY,
-  MAX_TERRITORY,
   TOOLTIP_FOOD,
   TOOLTIP_WOOD,
   TOOLTIP_STONE,
@@ -23,24 +12,7 @@ import {
 } from '../../constants.js'
 
 const showModal = ref(false)
-
-// Season
-const season = ref(INITIAL_SEASON)
-
-// Resources
-const food = ref(INITIAL_FOOD)
-const foodMax = ref(MAX_FOOD)
-const wood = ref(INITIAL_WOOD)
-const woodMax = ref(MAX_WOOD)
-const stone = ref(INITIAL_STONE)
-const stoneMax = ref(MAX_STONE)
-
-// Colony
-const population = ref(INITIAL_POPULATION)
-const populationMax = ref(MAX_POPULATION)
-const idleWorkers = ref(INITIAL_IDLE_WORKERS)
-const territory = ref(INITIAL_TERRITORY)
-const territoryMax = ref(MAX_TERRITORY)
+const state = reactive(new GameState())
 </script>
 
 <template>
@@ -49,7 +21,7 @@ const territoryMax = ref(MAX_TERRITORY)
       <!-- Season indicator -->
       <div class="header-section header-season">
         <span class="header-label">Season</span>
-        <span class="header-value header-value--season">{{ season }}</span>
+        <span class="header-value header-value--season">{{ state.colony.season }}</span>
       </div>
 
       <!-- Decorative divider -->
@@ -59,15 +31,15 @@ const territoryMax = ref(MAX_TERRITORY)
       <div class="header-section header-resources">
         <div class="header-resource tooltip" :data-tooltip="TOOLTIP_FOOD">
           <img class="resource-icon" src="/img/resources/food.png" alt="Food">
-          <span class="header-value">{{ food }}/{{ foodMax }}</span>
+          <span class="header-value">{{ state.colony.resources.food }}/{{ state.colony.storage.food }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="TOOLTIP_WOOD">
           <img class="resource-icon" src="/img/resources/wood.png" alt="Wood">
-          <span class="header-value">{{ wood }}/{{ woodMax }}</span>
+          <span class="header-value">{{ state.colony.resources.wood }}/{{ state.colony.storage.wood }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="TOOLTIP_STONE">
           <img class="resource-icon" src="/img/resources/stone.png" alt="Stone">
-          <span class="header-value">{{ stone }}/{{ stoneMax }}</span>
+          <span class="header-value">{{ state.colony.resources.stone }}/{{ state.colony.storage.stone }}</span>
         </div>
       </div>
 
@@ -78,15 +50,15 @@ const territoryMax = ref(MAX_TERRITORY)
       <div class="header-section header-colony">
         <div class="header-resource tooltip" :data-tooltip="TOOLTIP_POPULATION">
           <img class="resource-icon resource-icon--worker" src="/img/units/worker.png" alt="Population">
-          <span class="header-value">{{ population }}/{{ populationMax }}</span>
+          <span class="header-value">{{ state.colony.resources.workers }}/{{ state.colony.storage.workers }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="TOOLTIP_IDLE_WORKERS">
           <img class="resource-icon" src="/img/other/idle.png" alt="Idle workers">
-          <span class="header-value">{{ idleWorkers }}</span>
+          <span class="header-value">{{ state.colony.idleWorkers }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="TOOLTIP_TERRITORY">
           <img class="resource-icon resource-icon--territory" src="/img/other/territory.png" alt="Territory">
-          <span class="header-value">{{ territory }}/{{ territoryMax }}</span>
+          <span class="header-value">{{ state.colony.resources.territory }}/{{ state.colony.storage.territory }}</span>
         </div>
       </div>
 

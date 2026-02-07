@@ -19,6 +19,7 @@ src/
 │       ├── home_screen.vue   → Title screen with start button
 │       └── game_screen.vue   → Main game screen
 ├── constants.js              → Centralized magic constants
+├── game_state.js             → GameState class (colony data model)
 ├── main.js                   → Vue app entry point
 └── app.vue                   → Root component (screen switching)
 index.html                    → Vite entry HTML (at repo root)

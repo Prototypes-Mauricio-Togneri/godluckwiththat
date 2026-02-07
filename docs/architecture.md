@@ -15,7 +15,19 @@ Top bar divided into 4 sections separated by decorative vertical dividers:
 3. **Colony** — population (`current/max`), idle workers (count), territory (`current/max`) (flex: 1, centered)
 4. **Menu button** — hamburger icon (inline SVG), opens game modal
 
-Labels use `Cinzel` (display font, small uppercase, muted accent). Values use `Jost` (body font). All initial/max values sourced from `src/constants.js`.
+Labels use `Cinzel` (display font, small uppercase, muted accent). Values use `Jost` (body font). All values sourced from `GameState` (see below), which initializes from `src/constants.js`.
+
+### Game State (`src/game_state.js`)
+
+Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity.
+
+**Structure**: `state.colony.{ season, idleWorkers, resources, production, storage, buildings }`
+
+- `resources` / `storage` — parallel objects keyed by resource name (`food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`, `territory`, `workers`)
+- `production` — per-tick rates for producible resources (excludes `territory`, `workers`)
+- `buildings` — keyed by camelCase building name, each with `{ level }` (`headquarters` also has `{ type }`)
+
+All initial values and storage caps declared in `src/constants.js`.
 
 **Tooltips** — Each resource and colony item has a CSS-only tooltip (`.tooltip` class + `data-tooltip` attribute). The `::after` pseudo-element renders tooltip text on hover with a fade-in transition. Tooltip texts are constants in `src/constants.js`. Shared `.tooltip` class defined in `src/assets/styles.css`.
 
