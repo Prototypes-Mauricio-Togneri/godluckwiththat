@@ -135,15 +135,6 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
   gap: 2.5rem;
 }
 
-/* ---- Individual stat (label above value) ---- */
-
-.header-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.15rem;
-}
-
 /* ---- Resource stat (icon beside value) ---- */
 
 .header-resource {
