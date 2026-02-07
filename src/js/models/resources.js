@@ -1,5 +1,16 @@
 /**
  * Tracks current resource amounts for the colony.
+ *
+ * @property {number} territory - Controlled territory count
+ * @property {number} workers - Total worker population
+ * @property {number} food - Food supply
+ * @property {number} wood - Wood supply
+ * @property {number} stone - Stone supply
+ * @property {number} copper - Copper supply
+ * @property {number} iron - Iron supply
+ * @property {number} gold - Gold supply
+ * @property {number} faith - Faith supply
+ * @property {number} knowledge - Knowledge supply
  */
 class Resources {
   /**

@@ -2,6 +2,8 @@
  * Central game state container.
  * Wraps a Colony instance and will hold additional
  * session-level state (e.g. timers, events) as the game grows.
+ *
+ * @property {Colony} colony - Active colony instance
  */
 class GameState {
   /**

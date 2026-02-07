@@ -1,5 +1,14 @@
 /**
  * Tracks per-tick production rates for each resource.
+ *
+ * @property {number} food - Food production per tick
+ * @property {number} wood - Wood production per tick
+ * @property {number} stone - Stone production per tick
+ * @property {number} copper - Copper production per tick
+ * @property {number} iron - Iron production per tick
+ * @property {number} gold - Gold production per tick
+ * @property {number} faith - Faith production per tick
+ * @property {number} knowledge - Knowledge production per tick
  */
 class Production {
   /**

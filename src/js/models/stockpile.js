@@ -1,5 +1,16 @@
 /**
  * Tracks maximum stockpile capacity for each resource.
+ *
+ * @property {number} territory - Max territory capacity
+ * @property {number} workers - Max worker capacity
+ * @property {number} food - Max food storage
+ * @property {number} wood - Max wood storage
+ * @property {number} stone - Max stone storage
+ * @property {number} copper - Max copper storage
+ * @property {number} iron - Max iron storage
+ * @property {number} gold - Max gold storage
+ * @property {number} faith - Max faith storage
+ * @property {number} knowledge - Max knowledge storage
  */
 class Stockpile {
   /**

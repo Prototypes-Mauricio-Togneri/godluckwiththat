@@ -2,6 +2,8 @@ import Building from './building.js'
 
 /**
  * Colony headquarters building.
+ *
+ * @property {string} type - Headquarters progression type (e.g. 'camp')
  */
 class Headquarters extends Building {
   /**

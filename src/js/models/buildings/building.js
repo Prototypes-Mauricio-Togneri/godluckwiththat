@@ -1,5 +1,7 @@
 /**
  * Base class for all colony buildings.
+ *
+ * @property {number} level - Current building level
  */
 class Building {
   /**

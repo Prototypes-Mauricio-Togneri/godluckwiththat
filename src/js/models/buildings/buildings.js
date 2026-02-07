@@ -1,5 +1,27 @@
 /**
  * Container for all colony building instances.
+ *
+ * @property {Headquarters} headquarters - Main colony building
+ * @property {House} house - Worker housing
+ * @property {Academy} academy - Knowledge production
+ * @property {Storehouse} storehouse - Storage capacity upgrades
+ * @property {Market} market - Resource trading
+ * @property {Altar} altar - Faith building
+ * @property {Shrine} shrine - Faith building
+ * @property {Temple} temple - Faith building
+ * @property {Monument} monument - Faith building
+ * @property {Farm} farm - Food production
+ * @property {Woodcutter} woodcutter - Wood production
+ * @property {Quarry} quarry - Stone production
+ * @property {CopperMine} copperMine - Copper production
+ * @property {IronMine} ironMine - Iron production
+ * @property {GoldMine} goldMine - Gold production
+ * @property {Barracks} barracks - Military infantry
+ * @property {Archery} archery - Military ranged
+ * @property {Cavalry} cavalry - Military mounted
+ * @property {Workshop} workshop - Military siege
+ * @property {Wall} wall - Defensive structure
+ * @property {Tower} tower - Defensive structure
  */
 class Buildings {
   /**
