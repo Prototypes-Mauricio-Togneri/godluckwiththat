@@ -29,6 +29,13 @@ This document contains the specifications of the game, divided into sections.
 
 The colony is where the game takes place. It is where you will build your buildings, produce resources, assign workers, and perform research.
 
+- A colony can be upgraded to the following levels:
+  - Camp
+  - Settlement
+  - Village
+  - Town
+  - City
+
 - The colony can be improved by spending resources on
   - Buildings
   - Researches
@@ -125,14 +132,28 @@ Each building has a level that can be increased by spending resources.
 - Headquarters
   - Each level unlocks new buildings and researches
   - Increases the maximum amount of territory slots
-  - The higher the level, the more resources it produces.
+  - Workers cannot be assigned to this building
+  - The higher the level, the more resources it produces
 - House
+  - Produces workers
+  - Workers cannot be assigned to this building
+  - The higher the level, the more population the colony has
 - Academy
+  - Produces knowledge
+  - The higher the level
+    - The more workers it can have assigned
+    - The more knowledge it produces
 - Storehouse
+  - Increases the maximum amount of resources that can be stored
+  - Workers cannot be assigned to this building
+  - The higher the level, the more resources it can store
 - Market
+  - Allows to trade resources
+  - Workers cannot be assigned to this building
+  - The higher the level, the cheaper the trades
 - Altar
   - Give a fixed amount of faith per second
-  - It doesn’t need workers to produce faith
+  - Workers cannot be assigned to this building
   - Produce low amounts of faith
 - Shrine
   - Workers can be assigned/unassigned to pray
@@ -144,14 +165,38 @@ Each building has a level that can be increased by spending resources.
   - Produce high amounts of faith
 - Monument
   - They don't give faith
+  - Workers cannot be assigned to this building
   - Some challenges will require to increase their level
 - Farm
-  - The higher the level, the more resources it produces and the more workers it can have assigned
+  - Produces food
+  - The higher the level
+    - The more workers it can have assigned
+    - The more resources it produces
 - Woodcutter
+  - Produces wood
+  - The higher the level
+    - The more workers it can have assigned
+    - The more resources it produces
 - Quarry
+  - Produces stone
+  - The higher the level
+    - The more workers it can have assigned
+    - The more resources it produces
 - Copper Mine
+  - Produces copper
+  - The higher the level
+    - The more workers it can have assigned
+    - The more resources it produces
 - Iron Mine
+  - Produces iron
+  - The higher the level
+    - The more workers it can have assigned
+    - The more resources it produces
 - Gold Mine
+  - Produces gold
+  - The higher the level
+    - The more workers it can have assigned
+    - The more resources it produces
 - Barracks
 - Archery
 - Cavalry

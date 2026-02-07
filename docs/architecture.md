@@ -32,7 +32,7 @@ Central state container instantiated once per game session. Pure JS class wrappe
 - `resources` (`Resources`) — current amounts with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
 - `production` (`Production`) — per-tick rates with public fields: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
 - `stockpile` (`Stockpile`) — max capacity with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
-- `buildings` (`Buildings`) — public fields keyed by camelCase building name, each with `{ level }` (`headquarters` also has `{ type }`).
+- `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level`). `Headquarters` also has `type`. Individual building classes live in `src/js/models/buildings/`.
 
 All initial values and stockpile caps declared as `INITIAL_COLONY` (a `Colony` instance) in `src/js/constants.js`.
 

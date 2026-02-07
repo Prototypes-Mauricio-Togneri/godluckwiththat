@@ -23,7 +23,11 @@ src/
 │   ├── game_state.js         → GameState class (colony data model)
 │   ├── main.js               → Vue app entry point
 │   └── models/
-│       ├── buildings.js      → Buildings class (building levels & upgrades)
+│       ├── buildings/
+│       │   ├── building.js   → Base Building class (shared level field)
+│       │   ├── buildings.js  → Buildings container (holds all building instances)
+│       │   ├── headquarters.js → Headquarters (extends Building, adds type)
+│       │   └── *.js          → 20 building classes (extend Building)
 │       ├── colony.js         → Colony class (wraps all colony sub-models)
 │       ├── production.js     → Production class (per-tick rates)
 │       ├── resources.js      → Resources class (current amounts)

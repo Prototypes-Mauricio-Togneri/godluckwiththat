@@ -1,9 +1,9 @@
 /**
- * Tracks building data for the colony.
+ * Container for all colony building instances.
  */
 class Buildings {
   /**
-   * @param {Object} data - Initial building data keyed by building name
+   * @param {Object} data - Pre-constructed building instances keyed by name
    */
   constructor(data) {
     this.headquarters = data.headquarters

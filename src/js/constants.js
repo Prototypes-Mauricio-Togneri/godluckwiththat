@@ -1,4 +1,25 @@
-import Buildings from './models/buildings.js'
+import Academy from './models/buildings/academy.js'
+import Altar from './models/buildings/altar.js'
+import Archery from './models/buildings/archery.js'
+import Barracks from './models/buildings/barracks.js'
+import Buildings from './models/buildings/buildings.js'
+import Cavalry from './models/buildings/cavalry.js'
+import CopperMine from './models/buildings/copper_mine.js'
+import Farm from './models/buildings/farm.js'
+import GoldMine from './models/buildings/gold_mine.js'
+import Headquarters from './models/buildings/headquarters.js'
+import House from './models/buildings/house.js'
+import IronMine from './models/buildings/iron_mine.js'
+import Market from './models/buildings/market.js'
+import Monument from './models/buildings/monument.js'
+import Quarry from './models/buildings/quarry.js'
+import Shrine from './models/buildings/shrine.js'
+import Storehouse from './models/buildings/storehouse.js'
+import Temple from './models/buildings/temple.js'
+import Tower from './models/buildings/tower.js'
+import Wall from './models/buildings/wall.js'
+import Woodcutter from './models/buildings/woodcutter.js'
+import Workshop from './models/buildings/workshop.js'
 import Colony from './models/colony.js'
 import Production from './models/production.js'
 import Resources from './models/resources.js'
@@ -57,69 +78,69 @@ export const INITIAL_COLONY = new Colony({
   }),
 
   buildings: new Buildings({
-    headquarters: {
+    headquarters: new Headquarters({
       type: 'camp',
       level: 1,
-    },
-    house: {
+    }),
+    house: new House({
       level: 0,
-    },
-    academy: {
+    }),
+    academy: new Academy({
       level: 0,
-    },
-    storehouse: {
+    }),
+    storehouse: new Storehouse({
       level: 0,
-    },
-    market: {
+    }),
+    market: new Market({
       level: 0,
-    },
-    altar: {
+    }),
+    altar: new Altar({
       level: 0,
-    },
-    shrine: {
+    }),
+    shrine: new Shrine({
       level: 0,
-    },
-    temple: {
+    }),
+    temple: new Temple({
       level: 0,
-    },
-    monument: {
+    }),
+    monument: new Monument({
       level: 0,
-    },
-    farm: {
+    }),
+    farm: new Farm({
       level: 0,
-    },
-    woodcutter: {
+    }),
+    woodcutter: new Woodcutter({
       level: 0,
-    },
-    quarry: {
+    }),
+    quarry: new Quarry({
       level: 0,
-    },
-    copperMine: {
+    }),
+    copperMine: new CopperMine({
       level: 0,
-    },
-    ironMine: {
+    }),
+    ironMine: new IronMine({
       level: 0,
-    },
-    goldMine: {
+    }),
+    goldMine: new GoldMine({
       level: 0,
-    },
-    barracks: {
+    }),
+    barracks: new Barracks({
       level: 0,
-    },
-    archery: {
+    }),
+    archery: new Archery({
       level: 0,
-    },
-    cavalry: {
+    }),
+    cavalry: new Cavalry({
       level: 0,
-    },
-    workshop: {
+    }),
+    workshop: new Workshop({
       level: 0,
-    },
-    wall: {
+    }),
+    wall: new Wall({
       level: 0,
-    },
-    tower: {
+    }),
+    tower: new Tower({
       level: 0,
-    },
+    }),
   }),
 })
