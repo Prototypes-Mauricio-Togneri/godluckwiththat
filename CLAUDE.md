@@ -13,9 +13,11 @@ src/
 ├── assets/
 │   └── styles.css         → Global styles (variables, reset, shared classes)
 ├── components/
-│   ├── home_screen.vue    → Title screen with start button
-│   ├── game_screen.vue    → Main game screen
-│   └── game_modal.vue     → Reusable modal overlay
+│   ├── modals/
+│   │   └── game_modal.vue → Reusable modal overlay
+│   └── screens/
+│       ├── home_screen.vue → Title screen with start button
+│       └── game_screen.vue → Main game screen
 ├── constants.js           → Centralized magic constants
 ├── main.js                → Vue app entry point
 └── app.vue                → Root component (screen switching)

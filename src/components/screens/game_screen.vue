@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import GameModal from './game_modal.vue'
+import GameModal from '../modals/game_modal.vue'
 
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
