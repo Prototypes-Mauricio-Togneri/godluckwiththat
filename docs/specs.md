@@ -27,7 +27,8 @@ This document contains the specifications of the game, divided into sections.
 
 ## Colony
 
-- The game state is held by the so called "Colony"
+The colony is where the game takes place. It is where you will build your buildings, produce resources, assign workers, and perform research.
+
 - The colony can be improved by spending resources on
   - Buildings
   - Researches
@@ -36,7 +37,7 @@ This document contains the specifications of the game, divided into sections.
 
 ## Seasons
 
-The game progress over two seasons: warm and cold. Each season has different characteristics that affect the colony in different ways. The season changes every certain amount of time.
+The game cycles over two seasons: warm and cold. Each season has different characteristics that affect the colony in different ways. The season changes every certain amount of time.
 
 - Warm
 - Cold

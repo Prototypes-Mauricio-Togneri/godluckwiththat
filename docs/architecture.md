@@ -25,15 +25,16 @@ Labels use `Cinzel` (display font, small uppercase, muted accent). Values use `J
 
 ### Game State (`src/js/game_state.js`)
 
-Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity.
+Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity. Constructor receives a `Colony` instance which wraps each section in its dedicated class. The `Colony` is constructed from the raw `INITIAL_COLONY` object in `constants.js`.
 
 **Structure**: `state.colony.{ season, idleWorkers, resources, production, storage, buildings }`
 
-- `resources` / `storage` — parallel objects keyed by resource name (`food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`, `territory`, `workers`)
-- `production` — per-tick rates for producible resources (excludes `territory`, `workers`)
-- `buildings` — keyed by camelCase building name, each with `{ level }` (`headquarters` also has `{ type }`)
+- `resources` (`Resources`) — current amounts keyed by resource name (`food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`, `territory`, `workers`). Methods: `get`, `set`, `add`, `consume`, `canAfford`, `pay`.
+- `production` (`Production`) — per-tick rates for producible resources (excludes `territory`, `workers`). Methods: `get`, `set`, `add`, `reset`, `apply`.
+- `storage` (`Storage`) — max capacity per resource. Methods: `get`, `set`, `add`, `isFull`, `clamp`.
+- `buildings` (`Buildings`) — keyed by camelCase building name, each with `{ level }` (`headquarters` also has `{ type }`). Methods: `getLevel`, `upgrade`, `isBuilt`.
 
-All initial values and storage caps declared in `src/js/constants.js`.
+All initial values and storage caps declared as `INITIAL_COLONY` in `src/js/constants.js`.
 
 **Tooltips** — Each resource and colony item has a CSS-only tooltip (`.tooltip` class + `data-tooltip` attribute). The `::after` pseudo-element renders tooltip text on hover with a fade-in transition. Tooltip texts are constants in `src/js/constants.js`. Shared `.tooltip` class defined in `src/assets/styles.css`.
 

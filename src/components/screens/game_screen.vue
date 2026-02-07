@@ -4,7 +4,9 @@ import {
 } from 'vue'
 import PauseModal from '../modals/pause_modal.vue'
 import GameState from '../../js/game_state.js'
+import Colony from '../../js/models/colony.js'
 import {
+  INITIAL_COLONY,
   TOOLTIP_FOOD,
   TOOLTIP_WOOD,
   TOOLTIP_STONE,
@@ -15,7 +17,7 @@ import {
 
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
-const state = reactive(new GameState())
+const state = reactive(new GameState(new Colony(INITIAL_COLONY)))
 
 function handleKeydown(event) {
   if (event.key === 'Escape') {

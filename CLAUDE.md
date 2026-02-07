@@ -21,7 +21,13 @@ src/
 ├── js/
 │   ├── constants.js          → Centralized magic constants
 │   ├── game_state.js         → GameState class (colony data model)
-│   └── main.js               → Vue app entry point
+│   ├── main.js               → Vue app entry point
+│   └── models/
+│       ├── buildings.js      → Buildings class (building levels & upgrades)
+│       ├── colony.js         → Colony class (wraps all colony sub-models)
+│       ├── production.js     → Production class (per-tick rates)
+│       ├── resources.js      → Resources class (current amounts)
+│       └── storage.js        → Storage class (capacity caps)
 └── app.vue                   → Root component (screen switching)
 index.html                    → Vite entry HTML (at repo root)
 vite.config.js                → Vite configuration
