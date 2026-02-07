@@ -22,7 +22,8 @@
       "Bash(npm install:*)",
       "Bash(npm run build:*)",
       "Bash(timeout 5 npx vite:*)",
-      "Bash(npx vite build:*)"
+      "Bash(npx vite build:*)",
+      "Bash(npm run lint:*)"
     ]
   },
   "hooks": {
