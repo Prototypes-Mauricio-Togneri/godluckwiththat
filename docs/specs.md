@@ -91,14 +91,29 @@ There are two types of resources: regular and special
 
 - Territory
   - Each building level takes up one territory slot
-  - The level of the headquarters determines the maximum amount of slots
+  - Produced in
+    - Headquarters
+  - Consumed to
+    - Construct buildings
 - Workers
-  - Units of labor that can be assigned to specific buildings to produce resources
+  - Produced in
+    - Houses
+  - Consumed to
+    - Assigned to buildings to produce resources
   - A worker that is not assigned to any building is considered idle and doesn't produce anything
-- Knowledge: Produced in academies. Used to:
-  - Perform research
-- Faith: Produced in altars, shrines, temples and monuments. Used to:
-  - Complete challenges
+- Knowledge
+  - Produced in
+    - Academies
+  - Consumed to
+    - Perform research
+- Faith
+  - Produced in
+    - Altars
+    - Shrines
+    - Temples
+    - Monuments
+  - Consumed to
+    - Complete challenges
 
 ## Buildings
 
@@ -106,6 +121,7 @@ Each building has a level that can be increased by spending resources.
 
 - Headquarters
   - Each level unlocks new buildings and researches
+  - Increases the maximum amount of territory slots
   - The higher the level, the more resources it produces.
 - House
 - Academy
