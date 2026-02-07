@@ -11,19 +11,19 @@ A hybrid incremental strategy game. After a shipwreck on an unknown island, the 
 ```
 src/
 ├── assets/
-│   └── styles.css         → Global styles (variables, reset, shared classes)
+│   └── styles.css            → Global styles (variables, shared classes)
 ├── components/
 │   ├── modals/
-│   │   └── game_modal.vue → Reusable modal overlay
+│   │   └── game_modal.vue    → Reusable modal overlay
 │   └── screens/
-│       ├── home_screen.vue → Title screen with start button
-│       └── game_screen.vue → Main game screen
-├── constants.js           → Centralized magic constants
-├── main.js                → Vue app entry point
-└── app.vue                → Root component (screen switching)
-index.html                 → Vite entry HTML (at repo root)
-vite.config.js             → Vite configuration
-eslint.config.js           → ESLint configuration
+│       ├── home_screen.vue   → Title screen with start button
+│       └── game_screen.vue   → Main game screen
+├── constants.js              → Centralized magic constants
+├── main.js                   → Vue app entry point
+└── app.vue                   → Root component (screen switching)
+index.html                    → Vite entry HTML (at repo root)
+vite.config.js                → Vite configuration
+eslint.config.js              → ESLint configuration
 ```
 
 ## Reference Docs
