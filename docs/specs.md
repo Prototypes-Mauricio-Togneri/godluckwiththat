@@ -196,8 +196,26 @@ Each building has a level that can be increased by spending resources.
     - The more workers it can have assigned
     - The more resources it produces
 - Barracks
+  - Produces infantry units
+  - The higher the level
+    - The more infantry can be queued
+    - The more faster it produces them
 - Archery
+  - Produces archer units
+  - The higher the level
+    - The more archers can be queued
+    - The more faster it produces them
 - Cavalry
+  - Produces cavalry units
+  - The higher the level
+    - The more cavalry can be queued
+    - The more faster it produces them
 - Workshop
+  - Produces siege units
+  - The higher the level
+    - The more siege units can be queued
+    - The more faster it produces them
 - Wall
+  - The higher the level, the more defense it provides to the colony
 - Tower
+  - The higher the level, the more attack it provides to the colony
