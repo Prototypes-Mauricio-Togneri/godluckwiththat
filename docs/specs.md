@@ -35,46 +35,74 @@ This document contains the specifications of the game, divided into sections.
 ## Seasons
 
 The game progress over two seasons: warm and cold. Each season has different characteristics that affect the colony in different ways. The season changes every certain amount of time.
-  - Warm
-  - Cold
+
+- Warm
+- Cold
 
 ## Resources
 
-- Territory: Maximum amount of slots a colony has to create buildings
+There are two types of resources: regular and special
+
+### Regular
+
+- Food
+  - Produced in
+    - Farms
+  - Consumed to
+    - Create workers
+    - Create military units
+    - Maintain population alive
+    - Perform research
+- Wood
+  - Produced in
+    - Woodcutters
+  - Consumed to
+    - Construct buildings
+    - Create basic military units
+    - Maintain population alive
+    - Perform research
+- Stone
+  - Produced in
+    - Quarries
+  - Consumed to
+    - Construct buildings
+    - Perform research
+- Copper
+  - Produced in
+    - Copper mines
+  - Consumed to
+    - Create intermediary military units
+    - Perform research
+- Iron
+  - Produced in
+    - Iron mines
+  - Consumed to
+    - Create advance military units
+    - Perform research
+- Gold
+  - Produced in
+    - Gold mines
+  - Consumed to
+    - Create advance military units
+    - Perform research
+    - Trade in market
+
+## Special
+
+- Territory
+  - Each building level takes up one territory slot
+  - The level of the headquarters determines the maximum amount of slots
 - Workers
   - Units of labor that can be assigned to specific buildings to produce resources
   - A worker that is not assigned to any building is considered idle and doesn't produce anything
-- Food: Produced in farms. Used to:
-  - Create workers
-  - Create military units
-  - Maintain population alive
-  - Perform research
-- Wood: Produced in woodcutters. Used to:
-  - Construct buildings
-  - Create basic military units
-  - Maintain population alive
-  - Perform research
-- Stone: Produced in quaries. Used to:
-  - Construct buildings
-  - Perform research
-- Copper: Produced in copper mines. Used to:
-  - Create intermediary military units
-  - Perform research
-- Iron: Produced in iron mines. Used to:
-  - Create advance military units
-  - Perform research
-- Gold: Produced in gold mines. Used to:
-  - Create advance military units
-  - Perform research
-  - Trade in market
 - Knowledge: Produced in academies. Used to:
   - Perform research
 - Faith: Produced in altars, shrines, temples and monuments. Used to:
-  - Accomplish challenges
+  - Complete challenges
 
 ## Buildings
 
-Each building has a level that can be increased by spending resources. 
+Each building has a level that can be increased by spending resources.
 
 - Headquarters
   - Each level unlocks new buildings and researches
