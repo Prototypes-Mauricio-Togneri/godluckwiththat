@@ -5,7 +5,7 @@ This document contains the specifications of the game, divided into sections.
 ## History
 
 - After a shipwreck, you and your tribe find yourselves in an unknown island
-- There you find a portal. When touching it, you summon the gods
+- You discover an ancient portal that, upon touch, summons the gods
 - They tell you that this portal is the only way to get back home
 - And the gods are the only ones that can activate it
 - But in order for the gods to do that, you have to prove your faith
@@ -89,17 +89,17 @@ There are two types of resources
   - Produced in
     - Iron mines
   - Consumed to
-    - Create advance military units
+    - Create advanced military units
     - Perform research
 - Gold
   - Produced in
     - Gold mines
   - Consumed to
-    - Create advance military units
+    - Create advanced military units
     - Perform research
     - Trade in market
 
-## Special
+### Special
 
 - Territory
   - Each building level takes up one territory slot
@@ -135,7 +135,7 @@ Each building has a level that can be increased by spending resources.
   - Each level unlocks new buildings and researches
   - Increases the maximum amount of territory slots
   - Workers cannot be assigned to this building
-  - The higher the level, the more resources it produces
+  - The higher the level, the more territory it provides
 - House
   - Produces workers
   - Workers cannot be assigned to this building
@@ -150,25 +150,25 @@ Each building has a level that can be increased by spending resources.
   - Workers cannot be assigned to this building
   - The higher the level, the more resources it can store
 - Market
-  - Allows to trade resources
+  - Allows trading resources
   - Workers cannot be assigned to this building
   - The higher the level, the cheaper the trades
 - Altar
-  - Give a fixed amount of faith per second
+  - Produces a fixed amount of faith per second
   - Workers cannot be assigned to this building
-  - Produce low amounts of faith
+  - Produces low amounts of faith
 - Shrine
   - Workers can be assigned/unassigned to pray
-  - Produce medium amounts of faith
+  - Produces medium amounts of faith
 - Temple
   - Workers need to commit for certain time to stay and pray
-  - The higher the level of the temple, the more they stay
+  - The higher the level, the longer they stay
   - They cannot be removed until they finish
-  - Produce high amounts of faith
+  - Produces high amounts of faith
 - Monument
-  - They don't give faith
+  - Does not produce faith
   - Workers cannot be assigned to this building
-  - Some challenges will require to increase their level
+  - Some challenges require increasing its level
 - Farm
   - Produces food
   - The higher the level
@@ -203,23 +203,34 @@ Each building has a level that can be increased by spending resources.
   - Produces infantry units
   - The higher the level
     - The more infantry can be queued
-    - The more faster it produces them
+    - The faster it produces them
 - Archery
   - Produces archer units
   - The higher the level
     - The more archers can be queued
-    - The more faster it produces them
+    - The faster it produces them
 - Cavalry
   - Produces cavalry units
   - The higher the level
     - The more cavalry can be queued
-    - The more faster it produces them
+    - The faster it produces them
 - Workshop
   - Produces siege units
   - The higher the level
     - The more siege units can be queued
-    - The more faster it produces them
+    - The faster it produces them
 - Wall
   - The higher the level, the more defense it provides to the colony
 - Tower
   - The higher the level, the more attack it provides to the colony
+
+## Open Questions
+
+- **Food/Wood consumption**: Both are consumed to "maintain population alive". Is this a per-tick drain proportional to population? What happens when it runs out — do workers die, or does production stop?
+- **Territory mechanic**: "Each building level takes up one territory slot" — does upgrading from level 2→3 cost 1 territory, or does a level 3 building occupy 3 territory total?
+- **Worker production**: Houses "produce" workers — is this automatic per level (like HQ provides territory), or does it require spending resources to recruit?
+- **Building names**: "Archery" and "Cavalry" name the unit type, not the building. Consider "Archery Range" and "Stable"?
+- **Monument purpose**: If monuments don't produce faith and only exist for challenges, are they purely a resource sink? Can they have any passive benefit?
+- **Temple commitment**: Workers "commit for certain time" to stay and pray. Is this a cooldown? Do they count as assigned (non-idle) during this period?
+- **Colony type vs. level**: Is the colony level determined by HQ level, with the type name (Camp, Settlement, etc.) mapping to specific HQ levels?
+- **Idle workers**: The concept exists in code but isn't documented here. Should the spec describe idle worker mechanics?

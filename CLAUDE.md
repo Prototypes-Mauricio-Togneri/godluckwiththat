@@ -43,6 +43,7 @@ eslint.config.js              → ESLint configuration
 Read these when working on specific areas:
 
 - `docs/architecture.md` - Visual design (colors, typography, effects), class architecture with line references, game mechanics
+- `docs/specs.md` - Game specifications (history, resources, buildings, seasons, game progression)
 
 # Critical Instructions
 
