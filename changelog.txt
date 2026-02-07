@@ -1,0 +1,5 @@
+2026-02-07
+- Improved header bar
+
+2026-02-06
+- Created basic game structure

@@ -17,6 +17,8 @@ Top bar divided into 4 sections separated by decorative vertical dividers:
 
 Labels use `Cinzel` (display font, small uppercase, muted accent). Values use `Jost` (body font). All initial/max values sourced from `src/constants.js`.
 
+**Tooltips** — Each resource and colony item has a CSS-only tooltip (`.tooltip` class + `data-tooltip` attribute). The `::after` pseudo-element renders tooltip text on hover with a fade-in transition. Tooltip texts are constants in `src/constants.js`. Shared `.tooltip` class defined in `src/assets/styles.css`.
+
 ## Visual Design
 
 **Theme**: Earthy & Ancient — warm browns, parchment tones, and aged bronze accents, evoking a torchlit ancient settlement. Inspired by Forge of Empires, Tribal Wars 2, Goodgame Empire.

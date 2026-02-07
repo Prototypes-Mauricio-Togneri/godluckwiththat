@@ -14,6 +14,12 @@ import {
   INITIAL_IDLE_WORKERS,
   INITIAL_TERRITORY,
   MAX_TERRITORY,
+  TOOLTIP_FOOD,
+  TOOLTIP_WOOD,
+  TOOLTIP_STONE,
+  TOOLTIP_POPULATION,
+  TOOLTIP_IDLE_WORKERS,
+  TOOLTIP_TERRITORY,
 } from '../../constants.js'
 
 const showModal = ref(false)
@@ -51,15 +57,15 @@ const territoryMax = ref(MAX_TERRITORY)
 
       <!-- Resources -->
       <div class="header-section header-resources">
-        <div class="header-resource">
+        <div class="header-resource tooltip" :data-tooltip="TOOLTIP_FOOD">
           <img class="resource-icon" src="/img/resources/food.png" alt="Food">
           <span class="header-value">{{ food }}/{{ foodMax }}</span>
         </div>
-        <div class="header-resource">
+        <div class="header-resource tooltip" :data-tooltip="TOOLTIP_WOOD">
           <img class="resource-icon" src="/img/resources/wood.png" alt="Wood">
           <span class="header-value">{{ wood }}/{{ woodMax }}</span>
         </div>
-        <div class="header-resource">
+        <div class="header-resource tooltip" :data-tooltip="TOOLTIP_STONE">
           <img class="resource-icon" src="/img/resources/stone.png" alt="Stone">
           <span class="header-value">{{ stone }}/{{ stoneMax }}</span>
         </div>
@@ -70,15 +76,15 @@ const territoryMax = ref(MAX_TERRITORY)
 
       <!-- Colony info -->
       <div class="header-section header-colony">
-        <div class="header-resource">
+        <div class="header-resource tooltip" :data-tooltip="TOOLTIP_POPULATION">
           <img class="resource-icon resource-icon--worker" src="/img/units/worker.png" alt="Population">
           <span class="header-value">{{ population }}/{{ populationMax }}</span>
         </div>
-        <div class="header-resource">
+        <div class="header-resource tooltip" :data-tooltip="TOOLTIP_IDLE_WORKERS">
           <img class="resource-icon" src="/img/other/idle.png" alt="Idle workers">
           <span class="header-value">{{ idleWorkers }}</span>
         </div>
-        <div class="header-resource">
+        <div class="header-resource tooltip" :data-tooltip="TOOLTIP_TERRITORY">
           <img class="resource-icon resource-icon--territory" src="/img/other/territory.png" alt="Territory">
           <span class="header-value">{{ territory }}/{{ territoryMax }}</span>
         </div>
