@@ -46,6 +46,17 @@
     transition: all 0.25s ease;
 }
 
+.btn-gold:hover {
+    background: linear-gradient(
+        180deg,
+        rgba(var(--color-accent-rgb), 0.15),
+        rgba(var(--color-accent-rgb), 0.05)
+    );
+    border-color: rgba(var(--color-accent-rgb), 0.6);
+    color: var(--color-accent);
+    box-shadow: 0 0 12px rgba(var(--color-accent-rgb), 0.08);
+}
+
 /* Hover tooltip anchored below the element */
 .tooltip {
     position: relative;
@@ -76,15 +87,4 @@
 
 .tooltip:hover::after {
     opacity: 1;
-}
-
-.btn-gold:hover {
-    background: linear-gradient(
-        180deg,
-        rgba(var(--color-accent-rgb), 0.15),
-        rgba(var(--color-accent-rgb), 0.05)
-    );
-    border-color: rgba(var(--color-accent-rgb), 0.6);
-    color: var(--color-accent);
-    box-shadow: 0 0 12px rgba(var(--color-accent-rgb), 0.08);
 }
