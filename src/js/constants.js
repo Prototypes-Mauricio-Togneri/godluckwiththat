@@ -3,7 +3,7 @@ import Altar from './models/buildings/altar.js'
 import Archery from './models/buildings/archery.js'
 import Barracks from './models/buildings/barracks.js'
 import Buildings from './models/buildings/buildings.js'
-import Cavalry from './models/buildings/cavalry.js'
+import Stable from './models/buildings/stable.js'
 import CopperMine from './models/buildings/copper_mine.js'
 import Farm from './models/buildings/farm.js'
 import GoldMine from './models/buildings/gold_mine.js'
@@ -134,7 +134,7 @@ export function createInitialColony() {
       archery: new Archery({
         level: 0,
       }),
-      cavalry: new Cavalry({
+      stable: new Stable({
         level: 0,
       }),
       workshop: new Workshop({

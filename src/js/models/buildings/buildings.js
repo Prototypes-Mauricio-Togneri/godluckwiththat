@@ -18,7 +18,7 @@
  * @property {GoldMine} goldMine - Gold production
  * @property {Barracks} barracks - Military infantry
  * @property {Archery} archery - Military ranged
- * @property {Cavalry} cavalry - Military mounted
+ * @property {Stable} stable - Military mounted
  * @property {Workshop} workshop - Military siege
  * @property {Wall} wall - Defensive structure
  * @property {Tower} tower - Defensive structure
@@ -45,7 +45,7 @@ class Buildings {
     this.goldMine = data.goldMine
     this.barracks = data.barracks
     this.archery = data.archery
-    this.cavalry = data.cavalry
+    this.stable = data.stable
     this.workshop = data.workshop
     this.wall = data.wall
     this.tower = data.tower

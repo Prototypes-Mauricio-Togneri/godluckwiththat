@@ -3,7 +3,7 @@ import Building from './building.js'
 /**
  * Trains mounted units.
  */
-class Cavalry extends Building {
+class Stable extends Building {
   /**
    * @param {Object} data - Initial building data
    */
@@ -12,4 +12,4 @@ class Cavalry extends Building {
   }
 }
 
-export default Cavalry
+export default Stable
