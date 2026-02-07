@@ -51,16 +51,16 @@ const territoryMax = ref(MAX_TERRITORY)
 
       <!-- Resources -->
       <div class="header-section header-resources">
-        <div class="header-stat">
-          <span class="header-label">Food</span>
+        <div class="header-resource">
+          <img class="resource-icon" src="/img/resources/food.png" alt="Food">
           <span class="header-value">{{ food }}/{{ foodMax }}</span>
         </div>
-        <div class="header-stat">
-          <span class="header-label">Wood</span>
+        <div class="header-resource">
+          <img class="resource-icon" src="/img/resources/wood.png" alt="Wood">
           <span class="header-value">{{ wood }}/{{ woodMax }}</span>
         </div>
-        <div class="header-stat">
-          <span class="header-label">Stone</span>
+        <div class="header-resource">
+          <img class="resource-icon" src="/img/resources/stone.png" alt="Stone">
           <span class="header-value">{{ stone }}/{{ stoneMax }}</span>
         </div>
       </div>
@@ -70,16 +70,16 @@ const territoryMax = ref(MAX_TERRITORY)
 
       <!-- Colony info -->
       <div class="header-section header-colony">
-        <div class="header-stat">
-          <span class="header-label">Pop</span>
+        <div class="header-resource">
+          <img class="resource-icon" src="/img/units/worker.png" alt="Population">
           <span class="header-value">{{ population }}/{{ populationMax }}</span>
         </div>
-        <div class="header-stat">
-          <span class="header-label">Idle</span>
+        <div class="header-resource">
+          <img class="resource-icon" src="/img/other/idle.png" alt="Idle workers">
           <span class="header-value">{{ idleWorkers }}</span>
         </div>
-        <div class="header-stat">
-          <span class="header-label">Land</span>
+        <div class="header-resource">
+          <img class="resource-icon" src="/img/other/land.png" alt="Territory">
           <span class="header-value">{{ territory }}/{{ territoryMax }}</span>
         </div>
       </div>
@@ -140,6 +140,7 @@ const territoryMax = ref(MAX_TERRITORY)
 .header-colony {
   flex: 1;
   justify-content: center;
+  gap: 2.5rem;
 }
 
 /* ---- Individual stat (label above value) ---- */
@@ -151,11 +152,26 @@ const territoryMax = ref(MAX_TERRITORY)
   gap: 0.15rem;
 }
 
+/* ---- Resource stat (icon beside value) ---- */
+
+.header-resource {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.resource-icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
+}
+
 /* ---- Labels ---- */
 
 .header-label {
   font-family: var(--font-display);
-  font-size: 0.55rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -166,7 +182,7 @@ const territoryMax = ref(MAX_TERRITORY)
 
 .header-value {
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--color-text);
