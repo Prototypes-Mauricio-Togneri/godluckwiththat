@@ -44,7 +44,7 @@ The game cycles over two seasons: warm and cold. Each season has different chara
 
 ## Resources
 
-There are two types of resources: regular and special
+There are two types of resources
 
 ### Regular
 

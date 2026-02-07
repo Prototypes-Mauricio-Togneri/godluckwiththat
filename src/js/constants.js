@@ -1,3 +1,9 @@
+import Buildings from './models/buildings.js'
+import Colony from './models/colony.js'
+import Production from './models/production.js'
+import Resources from './models/resources.js'
+import Storage from './models/storage.js'
+
 // Centralized magic constants
 
 // Tooltips — header items
@@ -9,11 +15,11 @@ export const TOOLTIP_IDLE_WORKERS = 'Idle Workers'
 export const TOOLTIP_TERRITORY = 'Territory'
 
 // Initial colony state — full data structure for a new game session
-export const INITIAL_COLONY = {
+export const INITIAL_COLONY = new Colony({
   season: 'warm',
   idleWorkers: 2,
 
-  resources: {
+  resources: new Resources({
     territory: 1,
     workers: 3,
     food: 10,
@@ -24,9 +30,9 @@ export const INITIAL_COLONY = {
     gold: 0,
     faith: 0,
     knowledge: 0,
-  },
+  }),
 
-  production: {
+  production: new Production({
     food: 0,
     wood: 0,
     stone: 0,
@@ -35,9 +41,9 @@ export const INITIAL_COLONY = {
     gold: 0,
     faith: 0,
     knowledge: 0,
-  },
+  }),
 
-  storage: {
+  storage: new Storage({
     territory: 5,
     workers: 10,
     food: 100,
@@ -48,9 +54,9 @@ export const INITIAL_COLONY = {
     gold: 100,
     faith: 100,
     knowledge: 100,
-  },
+  }),
 
-  buildings: {
+  buildings: new Buildings({
     headquarters: {
       type: 'camp',
       level: 1,
@@ -115,5 +121,5 @@ export const INITIAL_COLONY = {
     tower: {
       level: 0,
     },
-  },
-}
+  }),
+})

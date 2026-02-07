@@ -1,43 +1,32 @@
 /**
  * Tracks building data for the colony.
- * Each building name is a direct property holding its data object.
  */
 class Buildings {
   /**
    * @param {Object} data - Initial building data keyed by building name
    */
   constructor(data) {
-    for (const key of Object.keys(data)) {
-      this[key] = {
-        ...data[key],
-      }
-    }
-  }
-
-  /**
-   * Returns the level of a building.
-   * @param {string} name - Building name
-   * @returns {number}
-   */
-  getLevel(name) {
-    return this[name].level
-  }
-
-  /**
-   * Increments a building's level by one.
-   * @param {string} name - Building name
-   */
-  upgrade(name) {
-    this[name].level += 1
-  }
-
-  /**
-   * Checks whether a building has been constructed (level > 0).
-   * @param {string} name - Building name
-   * @returns {boolean}
-   */
-  isBuilt(name) {
-    return this[name].level > 0
+    this.headquarters = data.headquarters
+    this.house = data.house
+    this.academy = data.academy
+    this.storehouse = data.storehouse
+    this.market = data.market
+    this.altar = data.altar
+    this.shrine = data.shrine
+    this.temple = data.temple
+    this.monument = data.monument
+    this.farm = data.farm
+    this.woodcutter = data.woodcutter
+    this.quarry = data.quarry
+    this.copperMine = data.copperMine
+    this.ironMine = data.ironMine
+    this.goldMine = data.goldMine
+    this.barracks = data.barracks
+    this.archery = data.archery
+    this.cavalry = data.cavalry
+    this.workshop = data.workshop
+    this.wall = data.wall
+    this.tower = data.tower
   }
 }
 

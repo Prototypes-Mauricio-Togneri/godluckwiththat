@@ -1,23 +1,18 @@
-import Resources from './resources.js'
-import Production from './production.js'
-import Storage from './storage.js'
-import Buildings from './buildings.js'
-
 /**
- * Colony data model. Wraps raw colony data into typed
- * sub-classes for resources, production, storage, and buildings.
+ * Colony data model. Wraps all colony sub-models
+ * (resources, production, storage, buildings).
  */
 class Colony {
   /**
-   * @param {Object} data - Raw colony data (e.g. INITIAL_COLONY from constants.js)
+   * @param {Object} data - Colony data with pre-constructed sub-model instances
    */
   constructor(data) {
     this.season = data.season
     this.idleWorkers = data.idleWorkers
-    this.resources = new Resources(data.resources)
-    this.production = new Production(data.production)
-    this.storage = new Storage(data.storage)
-    this.buildings = new Buildings(data.buildings)
+    this.resources = data.resources
+    this.production = data.production
+    this.storage = data.storage
+    this.buildings = data.buildings
   }
 }
 
