@@ -27,12 +27,15 @@ This document contains the specifications of the game, divided into sections.
 
 The colony is where the game takes place. It is where you will build your buildings, produce resources, assign workers, and perform research.
 
-- A colony can be upgraded to the following levels:
-  - Camp
-  - Settlement
-  - Village
-  - Town
-  - City
+- The colony type is a separate upgrade from the HQ level
+  - It changes the visual representation of the colony
+  - Each colony upgrade also unlocks buildings that previously couldn't be built
+  - Colony types, in order:
+    - Camp
+    - Settlement
+    - Village
+    - Town
+    - City
 
 - The colony can be improved by spending resources on
   - Buildings
@@ -102,17 +105,18 @@ There are two types of resources
 ### Special
 
 - Territory
-  - Each building level takes up one territory slot
+  - Each building level occupies one territory slot (e.g. a level 3 building occupies 3 slots total)
   - Produced in
     - Headquarters
   - Consumed to
-    - Construct buildings
+    - Construct and upgrade buildings
 - Workers
-  - Produced in
-    - Houses
+  - Recruited by spending food
+  - The maximum population is determined by the house level
   - Consumed to
     - Assigned to buildings to produce resources
-  - A worker that is not assigned to any building is considered idle and doesn't produce anything
+  - A worker that is not assigned to any building is considered idle
+    - Idle workers consume food to stay alive but don't produce anything, making them detrimental
 - Knowledge
   - Produced in
     - Academies
@@ -123,7 +127,8 @@ There are two types of resources
     - Altars
     - Shrines
     - Temples
-    - Monuments
+  - Granted as a one-time boost by
+    - Monuments (per level upgrade)
   - Consumed to
     - Complete challenges
 
@@ -137,9 +142,10 @@ Each building has a level that can be increased by spending resources.
   - Workers cannot be assigned to this building
   - The higher the level, the more territory it provides
 - House
-  - Produces workers
+  - Determines the maximum population (workers) the colony can have
+  - Workers are recruited by spending food, up to the population limit
   - Workers cannot be assigned to this building
-  - The higher the level, the more population the colony has
+  - The higher the level, the higher the population cap
 - Academy
   - Produces knowledge
   - The higher the level
@@ -161,12 +167,14 @@ Each building has a level that can be increased by spending resources.
   - Workers can be assigned/unassigned to pray
   - Produces medium amounts of faith
 - Temple
-  - Workers need to commit for certain time to stay and pray
-  - The higher the level, the longer they stay
+  - Workers commit for a certain time to stay and pray
+  - Committed workers count as assigned (non-idle) and cannot produce anything else
   - They cannot be removed until they finish
+  - Faith is only produced when a worker finishes their commitment
+  - The higher the level, the longer they stay
   - Produces high amounts of faith
 - Monument
-  - Does not produce faith
+  - Each level grants a one-time fixed amount of faith (not produced per second)
   - Workers cannot be assigned to this building
   - Some challenges require increasing its level
 - Farm
@@ -209,7 +217,7 @@ Each building has a level that can be increased by spending resources.
   - The higher the level
     - The more archers can be queued
     - The faster it produces them
-- Cavalry
+- Stable
   - Produces cavalry units
   - The higher the level
     - The more cavalry can be queued
@@ -223,14 +231,3 @@ Each building has a level that can be increased by spending resources.
   - The higher the level, the more defense it provides to the colony
 - Tower
   - The higher the level, the more attack it provides to the colony
-
-## Open Questions
-
-- **Food/Wood consumption**: Both are consumed to "maintain population alive". Is this a per-tick drain proportional to population? What happens when it runs out — do workers die, or does production stop?
-- **Territory mechanic**: "Each building level takes up one territory slot" — does upgrading from level 2→3 cost 1 territory, or does a level 3 building occupy 3 territory total?
-- **Worker production**: Houses "produce" workers — is this automatic per level (like HQ provides territory), or does it require spending resources to recruit?
-- **Building names**: "Archery" and "Cavalry" name the unit type, not the building. Consider "Archery Range" and "Stable"?
-- **Monument purpose**: If monuments don't produce faith and only exist for challenges, are they purely a resource sink? Can they have any passive benefit?
-- **Temple commitment**: Workers "commit for certain time" to stay and pray. Is this a cooldown? Do they count as assigned (non-idle) during this period?
-- **Colony type vs. level**: Is the colony level determined by HQ level, with the type name (Camp, Settlement, etc.) mapping to specific HQ levels?
-- **Idle workers**: The concept exists in code but isn't documented here. Should the spec describe idle worker mechanics?
