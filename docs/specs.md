@@ -28,15 +28,22 @@ This document contains the specifications of the game, divided into sections.
 ## Colony
 
 - The game state is held by the so called "Colony"
-- A colony has the following properties
-  - Season (warm, cold)
-  - Amount of idle workers
-  - Resources (explained later in this document)
+- The colony can be improved by spending resources on:
+  - Buildings
+  - Researches
+
+## Seasons
+
+The game progress over two seasons: warm and cold. Each season has different characteristics that affect the colony in different ways. The season changes every certain amount of time.
+  - Warm
+  - Cold
 
 ## Resources
 
 - Territory: Maximum amount of slots a colony has to create buildings
-- Workers: Units of labor that can be assigned to specific buildings to produce resources
+- Workers
+  - Units of labor that can be assigned to specific buildings to produce resources
+  - A worker that is not assigned to any building is considered idle and doesn't produce anything
 - Food: Produced in farms. Used to:
   - Create workers
   - Create military units
@@ -67,7 +74,11 @@ This document contains the specifications of the game, divided into sections.
 
 ## Buildings
 
+Each building has a level that can be increased by spending resources. 
+
 - Headquarters
+  - Each level unlocks new buildings and researches
+  - The higher the level, the more resources it produces.
 - House
 - Academy
 - Storehouse
@@ -88,6 +99,7 @@ This document contains the specifications of the game, divided into sections.
   - They don't give faith
   - Some challenges will require to increase their level
 - Farm
+  - The higher the level, the more resources it produces and the more workers it can have assigned
 - Woodcutter
 - Quarry
 - Copper Mine
