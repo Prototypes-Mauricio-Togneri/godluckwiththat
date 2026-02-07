@@ -3,7 +3,7 @@ import {
   ref, reactive, onMounted, onUnmounted,
 } from 'vue'
 import PauseModal from '../modals/pause_modal.vue'
-import GameState from '../../game_state.js'
+import GameState from '../../js/game_state.js'
 import {
   TOOLTIP_FOOD,
   TOOLTIP_WOOD,
@@ -11,7 +11,7 @@ import {
   TOOLTIP_POPULATION,
   TOOLTIP_IDLE_WORKERS,
   TOOLTIP_TERRITORY,
-} from '../../constants.js'
+} from '../../js/constants.js'
 
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
