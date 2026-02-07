@@ -35,7 +35,10 @@ export const TOOLTIP_POPULATION = 'Population'
 export const TOOLTIP_IDLE_WORKERS = 'Idle Workers'
 export const TOOLTIP_TERRITORY = 'Territory'
 
-// Initial colony state — factory that returns a fresh Colony for each new game session
+/**
+ * Creates a fresh Colony instance for a new game session.
+ * @returns {Colony} Fully initialized colony with default values
+ */
 export function createInitialColony() {
   return new Colony({
     season: 'warm',

@@ -1,3 +1,7 @@
+/**
+ * Vue application entry point.
+ * Creates and mounts the root App component.
+ */
 import {
   createApp,
 } from 'vue'
