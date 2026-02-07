@@ -1,9 +1,9 @@
 /**
- * Tracks maximum storage capacity for each resource.
+ * Tracks maximum stockpile capacity for each resource.
  */
-class Storage {
+class Stockpile {
   /**
-   * @param {Object} data - Initial storage caps keyed by resource name
+   * @param {Object} data - Initial stockpile caps keyed by resource name
    */
   constructor(data) {
     this.territory = data.territory
@@ -19,4 +19,4 @@ class Storage {
   }
 }
 
-export default Storage
+export default Stockpile

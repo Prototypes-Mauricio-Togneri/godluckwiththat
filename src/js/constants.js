@@ -2,7 +2,7 @@ import Buildings from './models/buildings.js'
 import Colony from './models/colony.js'
 import Production from './models/production.js'
 import Resources from './models/resources.js'
-import Storage from './models/storage.js'
+import Stockpile from './models/stockpile.js'
 
 // Centralized magic constants
 
@@ -43,7 +43,7 @@ export const INITIAL_COLONY = new Colony({
     knowledge: 0,
   }),
 
-  storage: new Storage({
+  stockpile: new Stockpile({
     territory: 5,
     workers: 10,
     food: 100,

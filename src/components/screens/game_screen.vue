@@ -45,15 +45,15 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
       <div class="header-section header-resources">
         <div class="header-resource tooltip" :data-tooltip="TOOLTIP_FOOD">
           <img class="resource-icon" src="/img/resources/food.png" alt="Food">
-          <span class="header-value">{{ state.colony.resources.food }}/{{ state.colony.storage.food }}</span>
+          <span class="header-value">{{ state.colony.resources.food }}/{{ state.colony.stockpile.food }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="TOOLTIP_WOOD">
           <img class="resource-icon" src="/img/resources/wood.png" alt="Wood">
-          <span class="header-value">{{ state.colony.resources.wood }}/{{ state.colony.storage.wood }}</span>
+          <span class="header-value">{{ state.colony.resources.wood }}/{{ state.colony.stockpile.wood }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="TOOLTIP_STONE">
           <img class="resource-icon" src="/img/resources/stone.png" alt="Stone">
-          <span class="header-value">{{ state.colony.resources.stone }}/{{ state.colony.storage.stone }}</span>
+          <span class="header-value">{{ state.colony.resources.stone }}/{{ state.colony.stockpile.stone }}</span>
         </div>
       </div>
 
@@ -64,7 +64,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
       <div class="header-section header-colony">
         <div class="header-resource tooltip" :data-tooltip="TOOLTIP_POPULATION">
           <img class="resource-icon resource-icon--worker" src="/img/units/worker.png" alt="Population">
-          <span class="header-value">{{ state.colony.resources.workers }}/{{ state.colony.storage.workers }}</span>
+          <span class="header-value">{{ state.colony.resources.workers }}/{{ state.colony.stockpile.workers }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="TOOLTIP_IDLE_WORKERS">
           <img class="resource-icon" src="/img/other/idle.png" alt="Idle workers">
@@ -72,7 +72,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
         </div>
         <div class="header-resource tooltip" :data-tooltip="TOOLTIP_TERRITORY">
           <img class="resource-icon resource-icon--territory" src="/img/other/territory.png" alt="Territory">
-          <span class="header-value">{{ state.colony.resources.territory }}/{{ state.colony.storage.territory }}</span>
+          <span class="header-value">{{ state.colony.resources.territory }}/{{ state.colony.stockpile.territory }}</span>
         </div>
       </div>
 

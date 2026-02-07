@@ -27,7 +27,7 @@ src/
 │       ├── colony.js         → Colony class (wraps all colony sub-models)
 │       ├── production.js     → Production class (per-tick rates)
 │       ├── resources.js      → Resources class (current amounts)
-│       └── storage.js        → Storage class (capacity caps)
+│       └── stockpile.js      → Stockpile class (capacity caps)
 └── app.vue                   → Root component (screen switching)
 index.html                    → Vite entry HTML (at repo root)
 vite.config.js                → Vite configuration
