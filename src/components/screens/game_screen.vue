@@ -71,7 +71,7 @@ const territoryMax = ref(MAX_TERRITORY)
       <!-- Colony info -->
       <div class="header-section header-colony">
         <div class="header-resource">
-          <img class="resource-icon" src="/img/units/worker.png" alt="Population">
+          <img class="resource-icon resource-icon--worker" src="/img/units/worker.png" alt="Population">
           <span class="header-value">{{ population }}/{{ populationMax }}</span>
         </div>
         <div class="header-resource">
@@ -79,7 +79,7 @@ const territoryMax = ref(MAX_TERRITORY)
           <span class="header-value">{{ idleWorkers }}</span>
         </div>
         <div class="header-resource">
-          <img class="resource-icon" src="/img/other/territory.png" alt="Territory">
+          <img class="resource-icon resource-icon--territory" src="/img/other/territory.png" alt="Territory">
           <span class="header-value">{{ territory }}/{{ territoryMax }}</span>
         </div>
       </div>
@@ -121,7 +121,7 @@ const territoryMax = ref(MAX_TERRITORY)
 .game-header {
   display: flex;
   align-items: center;
-  padding: 0.8rem 1.5rem;
+  padding: 0.45rem 1.5rem;
   gap: 1.25rem;
   border-bottom: 1px solid var(--color-border);
   background: var(--color-bg-surface);
@@ -165,6 +165,16 @@ const territoryMax = ref(MAX_TERRITORY)
   height: 1.3rem;
   object-fit: contain;
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
+}
+
+.resource-icon--worker {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.resource-icon--territory {
+  width: 1.7rem;
+  height: 1.7rem;
 }
 
 /* ---- Labels ---- */
