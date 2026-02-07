@@ -28,9 +28,11 @@ This document contains the specifications of the game, divided into sections.
 ## Colony
 
 - The game state is held by the so called "Colony"
-- The colony can be improved by spending resources on:
+- The colony can be improved by spending resources on
   - Buildings
   - Researches
+  - Military
+  - Challenges
 
 ## Seasons
 
@@ -91,6 +93,9 @@ There are two types of resources: regular and special
 
 - Territory
   - Each building level takes up one territory slot
+  - Increasing the amount of slots comes with dangers
+    - More frequent attacks from enemies
+    - More expensive to maintain
   - Produced in
     - Headquarters
   - Consumed to
