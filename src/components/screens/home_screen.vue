@@ -16,19 +16,15 @@ onMounted(() => {
     <div class="glow" />
 
     <div class="content">
-      <p class="prelude">an incremental game</p>
-
       <h1 class="title">
         <span class="title-line">God Luck</span>
         <span class="title-line">With That</span>
       </h1>
 
       <button class="btn-gold start-button" @click="emit('start')">
-        Start Game
+        PLAY
       </button>
     </div>
-
-    <p class="footer-note">A game of divine mismanagement</p>
   </div>
 </template>
 

@@ -79,7 +79,7 @@ const territoryMax = ref(MAX_TERRITORY)
           <span class="header-value">{{ idleWorkers }}</span>
         </div>
         <div class="header-resource">
-          <img class="resource-icon" src="/img/other/land.png" alt="Territory">
+          <img class="resource-icon" src="/img/other/territory.png" alt="Territory">
           <span class="header-value">{{ territory }}/{{ territoryMax }}</span>
         </div>
       </div>
