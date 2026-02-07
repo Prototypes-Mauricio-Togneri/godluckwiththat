@@ -2,9 +2,20 @@
 
 Vite + Vue 3 single-page application using Composition API (`<script setup>`). No Vue Router — screens switch via `v-if` on a `currentScreen` ref in `app.vue`.
 
-**Screen flow**: Home → Game (via `start` event) | Game → Home (via `quit` event)
+**Screen flow**: Home → Game (via `start` event)
 
 **Modal pattern**: Parent controls visibility with `v-if`. Modal component emits `close` on backdrop click (`.self` modifier) or close button. Mounts/unmounts cleanly.
+
+### Game Header (`game_screen.vue`)
+
+Top bar divided into 4 sections separated by decorative vertical dividers:
+
+1. **Season** — displays current season (warm/cold) with accent color
+2. **Resources** — food, wood, stone shown as `current/max` (flex: 1, centered)
+3. **Colony** — population (`current/max`), idle workers (count), territory (`current/max`) (flex: 1, centered)
+4. **Menu button** — hamburger icon (inline SVG), opens game modal
+
+Labels use `Cinzel` (display font, small uppercase, muted accent). Values use `Jost` (body font). All initial/max values sourced from `src/constants.js`.
 
 ## Visual Design
 

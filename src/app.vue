@@ -9,14 +9,11 @@ function startGame() {
   currentScreen.value = 'game'
 }
 
-function goHome() {
-  currentScreen.value = 'home'
-}
 </script>
 
 <template>
   <HomeScreen v-if="currentScreen === 'home'" @start="startGame" />
-  <GameScreen v-else-if="currentScreen === 'game'" @quit="goHome" />
+  <GameScreen v-else-if="currentScreen === 'game'" />
 </template>
 
 <style scoped>

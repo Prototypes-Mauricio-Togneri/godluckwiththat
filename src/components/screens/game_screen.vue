@@ -1,23 +1,100 @@
 <script setup>
 import { ref } from 'vue'
 import GameModal from '../modals/game_modal.vue'
+import {
+  INITIAL_SEASON,
+  INITIAL_FOOD,
+  MAX_FOOD,
+  INITIAL_WOOD,
+  MAX_WOOD,
+  INITIAL_STONE,
+  MAX_STONE,
+  INITIAL_POPULATION,
+  MAX_POPULATION,
+  INITIAL_IDLE_WORKERS,
+  INITIAL_TERRITORY,
+  MAX_TERRITORY,
+} from '../../constants.js'
 
-const emit = defineEmits(['quit'])
 const showModal = ref(false)
+
+// Season
+const season = ref(INITIAL_SEASON)
+
+// Resources
+const food = ref(INITIAL_FOOD)
+const foodMax = ref(MAX_FOOD)
+const wood = ref(INITIAL_WOOD)
+const woodMax = ref(MAX_WOOD)
+const stone = ref(INITIAL_STONE)
+const stoneMax = ref(MAX_STONE)
+
+// Colony
+const population = ref(INITIAL_POPULATION)
+const populationMax = ref(MAX_POPULATION)
+const idleWorkers = ref(INITIAL_IDLE_WORKERS)
+const territory = ref(INITIAL_TERRITORY)
+const territoryMax = ref(MAX_TERRITORY)
 </script>
 
 <template>
   <div class="game-screen">
     <header class="game-header">
-      <span class="game-title">God Luck With That</span>
-      <nav class="header-actions">
-        <button class="btn-gold header-button" @click="showModal = true">
-          Open Modal
-        </button>
-        <button class="btn-gold header-button header-button--muted" @click="emit('quit')">
-          Quit
-        </button>
-      </nav>
+      <!-- Season indicator -->
+      <div class="header-section header-season">
+        <span class="header-label">Season</span>
+        <span class="header-value header-value--season">{{ season }}</span>
+      </div>
+
+      <!-- Decorative divider -->
+      <span class="header-divider" />
+
+      <!-- Resources -->
+      <div class="header-section header-resources">
+        <div class="header-stat">
+          <span class="header-label">Food</span>
+          <span class="header-value">{{ food }}/{{ foodMax }}</span>
+        </div>
+        <div class="header-stat">
+          <span class="header-label">Wood</span>
+          <span class="header-value">{{ wood }}/{{ woodMax }}</span>
+        </div>
+        <div class="header-stat">
+          <span class="header-label">Stone</span>
+          <span class="header-value">{{ stone }}/{{ stoneMax }}</span>
+        </div>
+      </div>
+
+      <!-- Decorative divider -->
+      <span class="header-divider" />
+
+      <!-- Colony info -->
+      <div class="header-section header-colony">
+        <div class="header-stat">
+          <span class="header-label">Pop</span>
+          <span class="header-value">{{ population }}/{{ populationMax }}</span>
+        </div>
+        <div class="header-stat">
+          <span class="header-label">Idle</span>
+          <span class="header-value">{{ idleWorkers }}</span>
+        </div>
+        <div class="header-stat">
+          <span class="header-label">Land</span>
+          <span class="header-value">{{ territory }}/{{ territoryMax }}</span>
+        </div>
+      </div>
+
+      <!-- Decorative divider -->
+      <span class="header-divider" />
+
+      <!-- Menu button -->
+      <button class="btn-gold header-menu-button" @click="showModal = true">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="4" y1="6" x2="20" y2="6" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="18" x2="20" y2="18" />
+        </svg>
+      </button>
     </header>
 
     <main class="game-content">
@@ -39,57 +116,104 @@ const showModal = ref(false)
   color: var(--color-text);
 }
 
+/* ---- Header bar ---- */
+
 .game-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 1.5rem;
+  gap: 1.25rem;
   border-bottom: 1px solid var(--color-border);
   background: var(--color-bg-surface);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-.game-title {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1rem;
-  letter-spacing: 0.05em;
-  color: rgba(var(--color-accent-rgb), 0.7);
-}
+/* ---- Sections ---- */
 
-.header-actions {
+.header-section {
   display: flex;
-  gap: 0.75rem;
+  align-items: center;
+  gap: 1rem;
 }
 
-.header-button {
+.header-resources,
+.header-colony {
+  flex: 1;
+  justify-content: center;
+}
+
+/* ---- Individual stat (label above value) ---- */
+
+.header-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+/* ---- Labels ---- */
+
+.header-label {
+  font-family: var(--font-display);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(var(--color-accent-rgb), 0.45);
+}
+
+/* ---- Values ---- */
+
+.header-value {
+  font-family: var(--font-body);
   font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  padding: 0.5rem 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
 }
 
-.header-button--muted {
-  border-color: rgba(var(--color-text-rgb), 0.1);
-  color: rgba(var(--color-text-rgb), 0.4);
+.header-value--season {
+  text-transform: capitalize;
+  font-weight: 500;
+  color: rgba(var(--color-accent-rgb), 0.85);
 }
 
-.header-button--muted:hover {
-  border-color: rgba(var(--color-text-rgb), 0.3);
-  color: rgba(var(--color-text-rgb), 0.7);
+/* ---- Decorative dividers between sections ---- */
+
+.header-divider {
+  width: 1px;
+  height: 1.6rem;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(var(--color-accent-rgb), 0.2),
+    transparent
+  );
+  flex-shrink: 0;
 }
+
+/* ---- Menu button ---- */
+
+.header-menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.menu-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* ---- Main content area ---- */
 
 .game-content {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.placeholder-text {
-  font-family: var(--font-body);
-  font-weight: 300;
-  font-size: 0.9rem;
-  letter-spacing: 0.1em;
-  color: rgba(var(--color-text-rgb), 0.12);
 }
 </style>
