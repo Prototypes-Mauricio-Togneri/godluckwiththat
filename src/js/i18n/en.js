@@ -59,4 +59,31 @@ export const LOCALIZED_EN = {
   'headquarters.recruitWorker': 'Create worker',
   'headquarters.levelUp': 'Increase level',
   'headquarters.upgrade': 'Upgrade colony',
+
+  // Building help modal
+  'modal.buildingHelp.tooltip': 'Help',
+  'modal.buildingHelp.close': 'Close',
+
+  // Building descriptions
+  'buildingHelp.headquarters': 'The heart of your colony. Each level unlocks new buildings and researches, and increases your maximum territory.',
+  'buildingHelp.house': 'Shelters for your people. Each level increases the maximum population of workers you can recruit.',
+  'buildingHelp.academy': 'A place of learning. Assign workers here to produce knowledge, used for research.',
+  'buildingHelp.storehouse': 'Secure storage for your resources. Each level increases the maximum amount of resources you can stockpile.',
+  'buildingHelp.market': 'A trading hub. Allows exchanging resources. Higher levels offer cheaper trade rates.',
+  'buildingHelp.farm': 'Fertile fields that produce food. Assign workers here to feed your colony.',
+  'buildingHelp.woodcutter': 'A lumber camp that produces wood. Assign workers to gather timber for construction.',
+  'buildingHelp.quarry': 'A stone quarry. Assign workers to extract stone for building.',
+  'buildingHelp.copperMine': 'An underground mine that produces copper. Assign workers to extract copper for intermediate military units.',
+  'buildingHelp.ironMine': 'A deep mine that produces iron. Assign workers to extract iron for advanced military units.',
+  'buildingHelp.goldMine': 'A precious mine that produces gold. Assign workers to extract gold for trade and advanced units.',
+  'buildingHelp.altar': 'A sacred place that passively produces a small amount of faith over time. No workers needed.',
+  'buildingHelp.shrine': 'A holy site where workers can be assigned to pray, producing moderate amounts of faith.',
+  'buildingHelp.temple': 'A grand place of worship. Workers commit to pray for a set duration, producing large amounts of faith upon completion.',
+  'buildingHelp.monument': 'A divine structure. Each level grants a one-time boost of faith. Required for some divine challenges.',
+  'buildingHelp.barracks': 'Trains infantry units. Higher levels allow more units to be queued and faster training.',
+  'buildingHelp.archery': 'Trains archer units. Higher levels allow more archers to be queued and faster training.',
+  'buildingHelp.stable': 'Trains cavalry units. Higher levels allow more cavalry to be queued and faster training.',
+  'buildingHelp.workshop': 'Builds siege units. Higher levels allow more siege units to be queued and faster production.',
+  'buildingHelp.wall': 'Fortifications that protect your colony. Each level increases your defense.',
+  'buildingHelp.tower': 'Defensive structures that strike at enemies. Each level increases your attack power.',
 }

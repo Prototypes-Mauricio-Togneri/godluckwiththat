@@ -12,6 +12,10 @@ Centered overlay with "PAUSED" title, decorative rule, and two stacked buttons:
 - **Continue** — emits `close`, resumes the game
 - **Quit** — emits `quit`, bubbled through `game_screen.vue` to `app.vue` which switches back to the home screen
 
+### Building Help Modal (`building_help_modal.vue`)
+
+Centered overlay (same pattern as pause modal) showing information about a building. Rendered inside `base_card.vue` via `v-if` on a local `showHelp` ref. Props: `nameKey` (i18n key for the title) and `buildingKey` (indexes into `buildingHelp.{key}` for the description). Layout: uppercase building name title, decorative rule, description paragraph, and a "CLOSE" button. Emits `close` on backdrop click or button press.
+
 ### Game Header (`game_screen.vue`)
 
 Top bar divided into 4 sections separated by decorative vertical dividers:
@@ -39,7 +43,7 @@ Main content area displaying all 21 buildings in a 4-column layout. Each column 
 
 Per-building card components. Each receives `buildingKey`, `img`, and `building` (model instance) props.
 
-**`base_card.vue`** — Shared card layout: flex row (top-aligned) with thumbnail image (5.5rem, `drop-shadow`) and a level badge overlay (bottom-right, semi-transparent black background, `Jost` 0.75rem) showing the numeric level, building name (`Jost`, 0.95rem). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover. Accepts optional `nameKey` prop to override the default localization key. Provides a default `<slot>` inside `.building-info` for custom content.
+**`base_card.vue`** — Shared card layout: flex row (top-aligned) with thumbnail image (5.5rem, `drop-shadow`) and a level badge overlay (bottom-right, semi-transparent black background, `Jost` 0.75rem) showing the numeric level, building name (`Jost`, 0.95rem). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover. Accepts optional `nameKey` prop to override the default localization key. Provides a default `<slot>` inside `.building-info` for custom content. A `?` help icon button sits in the top-right corner of each card (circular, muted accent border, brightens on hover). Hovering shows a "Help" tooltip; clicking opens `BuildingHelpModal` with the building's name and description.
 
 **`headquarters_card.vue`** — Wraps `BaseCard`, passes a computed `nameKey` of `building.headquarters.${type}` to display the HQ type name (Camp, Settlement, etc.) instead of the generic building name. Injects `colony` (provided by `game_screen.vue`) for reactive access to resources, workers, and stockpile. Displays idle/total worker count and three action buttons:
 - **Recruit** — costs `WORKER_RECRUIT_COST` (50 food). Adds a worker and increments idle count. Disabled when food insufficient or worker stockpile cap reached.

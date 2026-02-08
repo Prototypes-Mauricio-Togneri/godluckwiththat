@@ -1,5 +1,6 @@
 <script setup>
-import {computed} from 'vue'
+import {computed, ref} from 'vue'
+import BuildingHelpModal from '../modals/building_help_modal.vue'
 import {t} from '../../js/i18n/localized.js'
 
 const props = defineProps({
@@ -22,10 +23,19 @@ const props = defineProps({
 })
 
 const displayNameKey = computed(() => props.nameKey || `building.${props.buildingKey}`)
+const showHelp = ref(false)
 </script>
 
 <template>
   <div class="building-card">
+    <button
+      class="help-btn tooltip"
+      :data-tooltip="t('modal.buildingHelp.tooltip')"
+      @click="showHelp = true"
+    >
+      ?
+    </button>
+
     <div class="building-thumb-wrapper">
       <img class="building-thumb" :src="img" :alt="t(displayNameKey)">
       <span class="building-level-badge">{{ building.level }}</span>
@@ -34,11 +44,19 @@ const displayNameKey = computed(() => props.nameKey || `building.${props.buildin
       <span class="building-name">{{ t(displayNameKey) }}</span>
       <slot />
     </div>
+
+    <BuildingHelpModal
+      v-if="showHelp"
+      :name-key="displayNameKey"
+      :building-key="buildingKey"
+      @close="showHelp = false"
+    />
   </div>
 </template>
 
 <style scoped>
 .building-card {
+  position: relative;
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
@@ -51,6 +69,36 @@ const displayNameKey = computed(() => props.nameKey || `building.${props.buildin
 
 .building-card:hover {
   border-color: rgba(var(--color-accent-rgb), 0.35);
+}
+
+/* Help icon — top-right corner */
+.help-btn {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 500;
+  line-height: 1;
+  color: rgba(var(--color-accent-rgb), 0.65);
+  background: none;
+  border: 1px solid rgba(var(--color-accent-rgb), 0.3);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  z-index: 1;
+}
+
+.help-btn:hover {
+  color: var(--color-accent);
+  border-color: rgba(var(--color-accent-rgb), 0.5);
+  background: rgba(var(--color-accent-rgb), 0.08);
 }
 
 .building-thumb-wrapper {

@@ -18,6 +18,7 @@ src/
 │   │   ├── headquarters_card.vue → Headquarters card (type-based name)
 │   │   └── *_card.vue        → 20 building cards (wrap base_card)
 │   ├── modals/
+│   │   ├── building_help_modal.vue → Building info modal (name, description, close)
 │   │   └── pause_modal.vue   → Pause menu modal
 │   └── screens/
 │       ├── home_screen.vue   → Title screen with start button

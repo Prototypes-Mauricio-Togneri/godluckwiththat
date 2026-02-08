@@ -59,4 +59,31 @@ export const LOCALIZED_ES = {
   'headquarters.recruitWorker': 'Crear trabajador',
   'headquarters.levelUp': 'Aumentar nivel',
   'headquarters.upgrade': 'Mejorar colonia',
+
+  // Building help modal
+  'modal.buildingHelp.tooltip': 'Ayuda',
+  'modal.buildingHelp.close': 'Cerrar',
+
+  // Building descriptions
+  'buildingHelp.headquarters': 'El corazón de tu colonia. Cada nivel desbloquea nuevos edificios e investigaciones, y aumenta tu territorio máximo.',
+  'buildingHelp.house': 'Refugio para tu gente. Cada nivel aumenta la población máxima de trabajadores que puedes reclutar.',
+  'buildingHelp.academy': 'Un lugar de aprendizaje. Asigna trabajadores aquí para producir conocimiento, utilizado para investigación.',
+  'buildingHelp.storehouse': 'Almacenamiento seguro para tus recursos. Cada nivel aumenta la cantidad máxima de recursos que puedes acumular.',
+  'buildingHelp.market': 'Un centro de comercio. Permite intercambiar recursos. Niveles más altos ofrecen tasas más baratas.',
+  'buildingHelp.farm': 'Campos fértiles que producen comida. Asigna trabajadores aquí para alimentar tu colonia.',
+  'buildingHelp.woodcutter': 'Un campamento maderero que produce madera. Asigna trabajadores para recolectar madera para la construcción.',
+  'buildingHelp.quarry': 'Una cantera que produce piedra. Asigna trabajadores para extraer piedra para la construcción.',
+  'buildingHelp.copperMine': 'Una mina subterránea que produce cobre. Asigna trabajadores para extraer cobre para unidades militares intermedias.',
+  'buildingHelp.ironMine': 'Una mina profunda que produce hierro. Asigna trabajadores para extraer hierro para unidades militares avanzadas.',
+  'buildingHelp.goldMine': 'Una mina preciosa que produce oro. Asigna trabajadores para extraer oro para el comercio y unidades avanzadas.',
+  'buildingHelp.altar': 'Un lugar sagrado que produce pasivamente una pequeña cantidad de fe con el tiempo. No necesita trabajadores.',
+  'buildingHelp.shrine': 'Un sitio sagrado donde se pueden asignar trabajadores para orar, produciendo cantidades moderadas de fe.',
+  'buildingHelp.temple': 'Un gran lugar de culto. Los trabajadores se comprometen a orar por un tiempo, produciendo grandes cantidades de fe al completar.',
+  'buildingHelp.monument': 'Una estructura divina. Cada nivel otorga un aumento único de fe. Requerido para algunos desafíos divinos.',
+  'buildingHelp.barracks': 'Entrena unidades de infantería. Niveles más altos permiten encolar más unidades y un entrenamiento más rápido.',
+  'buildingHelp.archery': 'Entrena unidades de arqueros. Niveles más altos permiten encolar más arqueros y un entrenamiento más rápido.',
+  'buildingHelp.stable': 'Entrena unidades de caballería. Niveles más altos permiten encolar más caballería y un entrenamiento más rápido.',
+  'buildingHelp.workshop': 'Construye unidades de asedio. Niveles más altos permiten encolar más unidades y una producción más rápida.',
+  'buildingHelp.wall': 'Fortificaciones que protegen tu colonia. Cada nivel aumenta tu defensa.',
+  'buildingHelp.tower': 'Estructuras defensivas que atacan a los enemigos. Cada nivel aumenta tu poder de ataque.',
 }
