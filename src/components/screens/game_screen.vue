@@ -23,7 +23,7 @@ import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import GameState from '@/js/game_state.js'
-import {createInitialColony, BUILDING_GRID} from '@/js/constants.js'
+import {createInitialColony, BUILDING_GRID, HQ_BUILDING_UNLOCKS, HQ_TYPES} from '@/js/constants.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
@@ -52,6 +52,15 @@ const CARD_COMPONENTS = {
 
 function getCardComponent(key) {
   return CARD_COMPONENTS[key]
+}
+
+function isBuildingLocked(buildingKey) {
+  if (buildingKey === 'headquarters') return false
+  const currentTypeIndex = HQ_TYPES.indexOf(state.colony.buildings.headquarters.type)
+  for (let i = 0; i <= currentTypeIndex; i++) {
+    if (HQ_BUILDING_UNLOCKS[HQ_TYPES[i]].includes(buildingKey)) return false
+  }
+  return true
 }
 
 const emit = defineEmits(['quit'])
@@ -134,14 +143,22 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
       <div v-for="column in BUILDING_GRID" :key="column.headerKey" class="building-column">
         <h2 class="column-header">{{ t(column.headerKey) }}</h2>
         <div class="column-cards">
-          <component
-            :is="getCardComponent(building.key)"
-            v-for="building in column.buildings"
-            :key="building.key"
-            :building-key="building.key"
-            :img="building.img"
-            :building="state.colony.buildings[building.key]"
-          />
+          <template v-for="building in column.buildings" :key="building.key">
+            <component
+              :is="getCardComponent(building.key)"
+              v-if="!isBuildingLocked(building.key)"
+              :building-key="building.key"
+              :img="building.img"
+              :building="state.colony.buildings[building.key]"
+            />
+            <div
+              v-else
+              class="building-card-locked tooltip"
+              :data-tooltip="t('building.locked')"
+            >
+              <img class="locked-icon" src="/img/other/lock.png" :alt="t('building.locked')">
+            </div>
+          </template>
         </div>
       </div>
     </main>
@@ -311,6 +328,27 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+/* Locked building placeholder — mirrors .building-card shell */
+.building-card-locked {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 0.75rem;
+  min-height: 6.7rem;
+  background: rgba(39, 33, 25, 0.3);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  opacity: 0.4;
+}
+
+.locked-icon {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+  filter: grayscale(1) drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
+  opacity: 0.35;
 }
 
 </style>

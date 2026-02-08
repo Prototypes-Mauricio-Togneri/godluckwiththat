@@ -37,6 +37,8 @@ Main content area displaying all 21 buildings in a 4-column layout. Each column 
 
 **Dynamic component resolution**: `game_screen.vue` maps building keys to card components via `CARD_COMPONENTS` (e.g. `headquarters → HeadquartersCard`), falling back to `BaseCard` for all others. Uses Vue's `<component :is>` in the grid loop.
 
+**Building unlock restrictions**: Buildings are locked/unlocked based on the headquarters type. The `HQ_BUILDING_UNLOCKS` constant in `constants.js` maps each HQ type to the building keys it unlocks (per-tier, non-cumulative). Headquarters is always unlocked. `game_screen.vue` checks each building via `isBuildingLocked()`, which iterates tiers up to the current HQ type index. Locked buildings render as a disabled placeholder card (same shell as `.building-card` but with `opacity: 0.4`) with a centered grayscale lock icon and a "Locked" tooltip, instead of the real card component.
+
 **Column headers**: Josefin Sans uppercase labels (1rem, brighter accent at 0.75 opacity) centered above each column with a bottom border separator and extra bottom spacing.
 
 ### Building Cards (`src/components/buildings/`)

@@ -38,6 +38,15 @@ export const HQ_TYPE_CITY = 'city'
 // Ordered headquarters progression (used for upgrade lookups)
 export const HQ_TYPES = [HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_VILLAGE, HQ_TYPE_TOWN, HQ_TYPE_CITY]
 
+// Buildings unlocked at each headquarters type (non-cumulative per tier)
+export const HQ_BUILDING_UNLOCKS = {
+  [HQ_TYPE_CAMP]: ['house', 'altar', 'farm', 'woodcutter'],
+  [HQ_TYPE_SETTLEMENT]: ['academy', 'shrine', 'quarry', 'barracks'],
+  [HQ_TYPE_VILLAGE]: ['storehouse', 'temple', 'copperMine', 'archery'],
+  [HQ_TYPE_TOWN]: ['monument', 'ironMine', 'stable', 'wall'],
+  [HQ_TYPE_CITY]: ['market', 'goldMine', 'workshop', 'tower'],
+}
+
 // Worker recruitment cost (always 50 food)
 export const WORKER_RECRUIT_COST = new Cost({
   food: 50,
