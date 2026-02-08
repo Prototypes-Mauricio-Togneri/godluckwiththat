@@ -1,6 +1,5 @@
 import Building from '@/js/models/buildings/building.js'
 import Cost from '@/js/models/cost.js'
-import {BUILDING_BUILD_COSTS} from '@/js/constants.js'
 
 /**
  * Generates faith for the colony.
@@ -13,13 +12,17 @@ class Altar extends Building {
     super(data)
   }
 
+  static baseCost = {
+    wood: 40,
+  }
+
   /**
    * Cost to level up from the given level.
    * @param {number} level - Current building level
    * @returns {Cost}
    */
   static levelUpCost(level) {
-    const base = BUILDING_BUILD_COSTS.altar
+    const base = Altar.baseCost
     return new Cost({
       wood: Math.floor(base.wood * (level + 1)),
     })
