@@ -1,6 +1,6 @@
 import Building from '@/js/models/buildings/building.js'
 import Cost from '@/js/models/cost.js'
-import {HQ_TYPES, HQ_LEVEL_UP_BASE_WOOD, HQ_LEVEL_UP_MULTIPLIER} from '@/js/constants.js'
+import {HQ_TYPES} from '@/js/constants.js'
 
 /**
  * Colony headquarters building.
@@ -16,6 +16,11 @@ class Headquarters extends Building {
     this.type = data.type // Headquarters progression type (e.g. 'camp')
   }
 
+  static baseCost = {
+    wood: 20,
+  }
+  static levelUpMultiplier = 2.5
+
   /**
    * Cost to increase HQ from the given level to the next.
    * Formula: wood = floor(BASE_WOOD * MULTIPLIER ^ (level - 1))
@@ -23,7 +28,7 @@ class Headquarters extends Building {
    * @returns {Cost}
    */
   static levelUpCost(level) {
-    const wood = Math.floor(HQ_LEVEL_UP_BASE_WOOD * Math.pow(HQ_LEVEL_UP_MULTIPLIER, level - 1))
+    const wood = Math.floor(Headquarters.baseCost.wood * Math.pow(Headquarters.levelUpMultiplier, level - 1))
     return new Cost({
       wood,
     })

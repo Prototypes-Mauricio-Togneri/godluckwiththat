@@ -52,10 +52,6 @@ export const WORKER_RECRUIT_COST = new Cost({
   food: 50,
 })
 
-// Headquarters level-up formula: wood = floor(BASE * MULTIPLIER ^ (level - 1))
-export const HQ_LEVEL_UP_BASE_WOOD = 20
-export const HQ_LEVEL_UP_MULTIPLIER = 2.5
-
 // Building class map — resolves building keys to their class constructors
 export const BUILDING_CLASS_MAP = {
   headquarters: Headquarters,
