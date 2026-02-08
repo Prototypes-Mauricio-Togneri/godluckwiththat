@@ -1,3 +1,4 @@
+import Cost from './models/cost.js'
 import Academy from './models/buildings/academy.js'
 import Altar from './models/buildings/altar.js'
 import Archery from './models/buildings/archery.js'
@@ -33,6 +34,18 @@ export const HQ_TYPE_SETTLEMENT = 'settlement'
 export const HQ_TYPE_VILLAGE = 'village'
 export const HQ_TYPE_TOWN = 'town'
 export const HQ_TYPE_CITY = 'city'
+
+// Ordered headquarters progression (used for upgrade lookups)
+export const HQ_TYPES = [HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_VILLAGE, HQ_TYPE_TOWN, HQ_TYPE_CITY]
+
+// Worker recruitment cost (always 50 food)
+export const WORKER_RECRUIT_COST = new Cost({
+  food: 50,
+})
+
+// Headquarters level-up formula: wood = floor(BASE * MULTIPLIER ^ (level - 1))
+export const HQ_LEVEL_UP_BASE_WOOD = 20
+export const HQ_LEVEL_UP_MULTIPLIER = 2.5
 
 // Building grid layout — column definitions for the game screen
 export const BUILDING_GRID = [
@@ -154,8 +167,8 @@ export function createInitialColony() {
     resources: new Resources({
       territory: 1,
       workers: 3,
-      food: 10,
-      wood: 5,
+      food: 120,
+      wood: 80,
       stone: 0,
       copper: 0,
       iron: 0,

@@ -54,4 +54,10 @@ export const LOCALIZED_ES = {
   'building.wall': 'Muralla',
   'building.tower': 'Torre',
   'building.level': 'Nv.',
+
+  // Headquarters actions
+  'headquarters.workers': 'Trabajadores',
+  'headquarters.recruitWorker': 'Reclutar',
+  'headquarters.levelUp': 'Subir Nivel',
+  'headquarters.upgrade': 'Mejorar',
 }

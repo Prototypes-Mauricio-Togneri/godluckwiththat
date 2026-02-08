@@ -57,6 +57,22 @@
     box-shadow: 0 0 12px rgba(var(--color-accent-rgb), 0.08);
 }
 
+.btn-gold:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.btn-gold:disabled:hover {
+    background: linear-gradient(
+        180deg,
+        rgba(var(--color-accent-rgb), 0.08),
+        rgba(var(--color-accent-rgb), 0.02)
+    );
+    border-color: rgba(var(--color-accent-rgb), 0.25);
+    color: var(--color-text);
+    box-shadow: none;
+}
+
 /* Hover tooltip anchored below the element */
 .tooltip {
     position: relative;

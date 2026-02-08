@@ -37,6 +37,7 @@ src/
 │       │   ├── headquarters.js → Headquarters (extends Building, adds type)
 │       │   └── *.js          → 20 building classes (extend Building)
 │       ├── colony.js         → Colony class (wraps all colony sub-models)
+│       ├── cost.js           → Cost class (multi-resource cost holder)
 │       ├── production.js     → Production class (per-tick rates)
 │       ├── resources.js      → Resources class (current amounts)
 │       └── stockpile.js      → Stockpile class (capacity caps)

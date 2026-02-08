@@ -41,7 +41,12 @@ Per-building card components. Each receives `buildingKey`, `img`, and `building`
 
 **`base_card.vue`** — Shared card layout: flex row with thumbnail image (5.5rem, `drop-shadow`), building name (`Jost`, 0.85rem), and level (`Jost`, 0.7rem, muted accent). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover. Accepts optional `nameKey` prop to override the default localization key. Provides a default `<slot>` inside `.building-info` for custom content.
 
-**`headquarters_card.vue`** — Wraps `BaseCard`, passes a computed `nameKey` of `building.headquarters.${type}` to display the HQ type name (Camp, Settlement, etc.) instead of the generic building name.
+**`headquarters_card.vue`** — Wraps `BaseCard`, passes a computed `nameKey` of `building.headquarters.${type}` to display the HQ type name (Camp, Settlement, etc.) instead of the generic building name. Injects `colony` (provided by `game_screen.vue`) for reactive access to resources, workers, and stockpile. Displays idle/total worker count and three action buttons:
+- **Recruit** — costs `WORKER_RECRUIT_COST` (50 food). Adds a worker and increments idle count. Disabled when food insufficient or worker stockpile cap reached.
+- **Level Up** — costs `Headquarters.levelUpCost(level)`. Increments building level. Disabled when resources insufficient.
+- **Upgrade** — costs `Headquarters.upgradeCost(type)`. Advances HQ type (e.g. camp → settlement). Hidden at max type (City). Disabled when resources insufficient.
+
+Each button shows its cost as small resource icons + amounts. Cost rendering iterates `Cost.entries()` for non-zero resource pairs.
 
 **Adding a new building card**: Create `{building}_card.vue` wrapping `BaseCard`, add custom content via the slot, and register it in the `CARD_COMPONENTS` map in `game_screen.vue`.
 
@@ -49,12 +54,15 @@ Per-building card components. Each receives `buildingKey`, `img`, and `building`
 
 Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity. Constructor receives a `Colony` instance. The `Colony` expects pre-constructed sub-model instances (e.g. `Resources`) from the caller. Initialized via the `createInitialColony()` factory in `constants.js`, which returns a fresh `Colony` each call.
 
+**Colony provide/inject**: `game_screen.vue` calls `provide('colony', state.colony)` so descendant components (e.g. `headquarters_card.vue`) can `inject('colony')` for direct reactive access to colony data without prop drilling.
+
 **Structure**: `state.colony.{ season, idleWorkers, resources, production, stockpile, buildings }`
 
 - `resources` (`Resources`) — current amounts with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
 - `production` (`Production`) — per-tick rates with public fields: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
 - `stockpile` (`Stockpile`) — max capacity with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
-- `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level`). `Headquarters` also has `type`. Individual building classes live in `src/js/models/buildings/`.
+- `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level`). `Headquarters` also has `type` and static methods `levelUpCost(level)`, `upgradeCost(type)`, `nextType(type)`. Individual building classes live in `src/js/models/buildings/`.
+- `Cost` (`src/js/models/cost.js`) — multi-resource cost holder with properties: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `knowledge`. Methods: `canAfford(resources)`, `deductFrom(resources)`, `entries()` (returns non-zero `[key, amount]` pairs).
 
 All initial values and stockpile caps declared as `createInitialColony()` (a `Colony` instance) in `src/js/constants.js`.
 
@@ -93,7 +101,7 @@ Each supported language has its own file (`en.js`, `es.js`) exporting a flat obj
 
 - **CSS variables** on `:root`: `--color-bg`, `--color-bg-raised`, `--color-bg-surface`, `--color-text`, `--color-text-rgb`, `--color-accent`, `--color-accent-rgb`, `--color-border`, `--font-display`, `--font-body`
 - **Shared classes**:
-  - `.btn-gold` — bronze-gradient button base (font, color, gradient background, border, hover glow). Components add sizing/spacing overrides in scoped styles.
+  - `.btn-gold` — bronze-gradient button base (font, color, gradient background, border, hover glow). Includes `:disabled` state (reduced opacity, `cursor: not-allowed`, hover neutralized). Components add sizing/spacing overrides in scoped styles.
   - `.tooltip` — CSS-only hover tooltip (positioned below element via `::after` pseudo-element reading `data-tooltip` attribute, fade-in transition).
 
 ## Code Style

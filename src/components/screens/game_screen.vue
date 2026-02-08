@@ -1,5 +1,5 @@
 <script setup>
-import {ref, reactive, onMounted, onUnmounted} from 'vue'
+import {ref, reactive, provide, onMounted, onUnmounted} from 'vue'
 import PauseModal from '../modals/pause_modal.vue'
 import HeadquartersCard from '../buildings/headquarters_card.vue'
 import HouseCard from '../buildings/house_card.vue'
@@ -57,6 +57,7 @@ function getCardComponent(key) {
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
 const state = reactive(new GameState(createInitialColony()))
+provide('colony', state.colony)
 
 function handleKeydown(event) {
   if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return
