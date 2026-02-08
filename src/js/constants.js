@@ -47,6 +47,9 @@ export const WORKER_RECRUIT_COST = new Cost({
 export const HQ_LEVEL_UP_BASE_WOOD = 20
 export const HQ_LEVEL_UP_MULTIPLIER = 2.5
 
+// Base path for building thumbnail images
+export const BUILDING_IMG_PATH = '/img/buildings/'
+
 // Building grid layout — column definitions for the game screen
 export const BUILDING_GRID = [
   {
@@ -54,23 +57,23 @@ export const BUILDING_GRID = [
     buildings: [
       {
         key: 'headquarters',
-        img: '/img/buildings/misc/headquarters.png',
+        img: 'misc/headquarters.png',
       },
       {
         key: 'house',
-        img: '/img/buildings/misc/house.png',
+        img: 'misc/house.png',
       },
       {
         key: 'academy',
-        img: '/img/buildings/misc/academy.png',
+        img: 'misc/academy.png',
       },
       {
         key: 'storehouse',
-        img: '/img/buildings/misc/storehouse.png',
+        img: 'misc/storehouse.png',
       },
       {
         key: 'market',
-        img: '/img/buildings/misc/market.png',
+        img: 'misc/market.png',
       },
     ],
   },
@@ -79,27 +82,27 @@ export const BUILDING_GRID = [
     buildings: [
       {
         key: 'farm',
-        img: '/img/buildings/resources/farm.png',
+        img: 'resources/farm.png',
       },
       {
         key: 'woodcutter',
-        img: '/img/buildings/resources/woodcutter.png',
+        img: 'resources/woodcutter.png',
       },
       {
         key: 'quarry',
-        img: '/img/buildings/resources/quarry.png',
+        img: 'resources/quarry.png',
       },
       {
         key: 'copperMine',
-        img: '/img/buildings/resources/copper_mine.png',
+        img: 'resources/copper_mine.png',
       },
       {
         key: 'ironMine',
-        img: '/img/buildings/resources/iron_mine.png',
+        img: 'resources/iron_mine.png',
       },
       {
         key: 'goldMine',
-        img: '/img/buildings/resources/gold_mine.png',
+        img: 'resources/gold_mine.png',
       },
     ],
   },
@@ -108,19 +111,19 @@ export const BUILDING_GRID = [
     buildings: [
       {
         key: 'altar',
-        img: '/img/buildings/religious/altar.png',
+        img: 'religious/altar.png',
       },
       {
         key: 'shrine',
-        img: '/img/buildings/religious/shrine.png',
+        img: 'religious/shrine.png',
       },
       {
         key: 'temple',
-        img: '/img/buildings/religious/temple.png',
+        img: 'religious/temple.png',
       },
       {
         key: 'monument',
-        img: '/img/buildings/religious/monument.png',
+        img: 'religious/monument.png',
       },
     ],
   },
@@ -129,27 +132,27 @@ export const BUILDING_GRID = [
     buildings: [
       {
         key: 'barracks',
-        img: '/img/buildings/military/barracks.png',
+        img: 'military/barracks.png',
       },
       {
         key: 'archery',
-        img: '/img/buildings/military/archery.png',
+        img: 'military/archery.png',
       },
       {
         key: 'stable',
-        img: '/img/buildings/military/stable.png',
+        img: 'military/stable.png',
       },
       {
         key: 'workshop',
-        img: '/img/buildings/military/workshop.png',
+        img: 'military/workshop.png',
       },
       {
         key: 'wall',
-        img: '/img/buildings/military/wall.png',
+        img: 'military/wall.png',
       },
       {
         key: 'tower',
-        img: '/img/buildings/military/tower.png',
+        img: 'military/tower.png',
       },
     ],
   },

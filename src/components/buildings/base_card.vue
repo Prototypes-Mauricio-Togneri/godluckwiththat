@@ -1,6 +1,7 @@
 <script setup>
 import {computed, ref} from 'vue'
 import BuildingHelpModal from '../modals/building_help_modal.vue'
+import {BUILDING_IMG_PATH} from '../../js/constants.js'
 import {t} from '../../js/i18n/localized.js'
 
 const props = defineProps({
@@ -37,7 +38,7 @@ const showHelp = ref(false)
     </button>
 
     <div class="building-thumb-wrapper">
-      <img class="building-thumb" :src="img" :alt="t(displayNameKey)">
+      <img class="building-thumb" :src="BUILDING_IMG_PATH + img" :alt="t(displayNameKey)">
       <span class="building-level-badge">{{ building.level }}</span>
     </div>
     <div class="building-info">
