@@ -212,22 +212,28 @@ Each building has a level that can be increased by spending resources.
   - The higher the level
     - The more infantry can be queued
     - The faster it produces them
+  - Workers cannot be assigned to this building
 - Archery
   - Produces archer units
   - The higher the level
     - The more archers can be queued
     - The faster it produces them
+  - Workers cannot be assigned to this building
 - Stable
   - Produces cavalry units
   - The higher the level
     - The more cavalry can be queued
     - The faster it produces them
+  - Workers cannot be assigned to this building
 - Workshop
   - Produces siege units
   - The higher the level
     - The more siege units can be queued
     - The faster it produces them
+  - Workers cannot be assigned to this building
 - Wall
   - The higher the level, the more defense it provides to the colony
+  - Workers cannot be assigned to this building
 - Tower
   - The higher the level, the more attack it provides to the colony
+  - Workers cannot be assigned to this building
