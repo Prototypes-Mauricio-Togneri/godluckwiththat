@@ -239,3 +239,8 @@
     object-fit: contain;
     filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.3));
 }
+
+.worker-count-text {
+    min-width: 2.5rem;
+    text-align: center;
+}

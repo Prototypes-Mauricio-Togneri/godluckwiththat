@@ -39,7 +39,7 @@ function unassign() {
     </span>
     <span class="worker-count">
       <img class="worker-count-icon" src="/img/units/worker.png" :alt="t('resource.idleWorkers')">
-      {{ building.workers }}/{{ maxWorkers }}
+      <span class="worker-count-text">{{ building.workers }}/{{ maxWorkers }}</span>
     </span>
     <span class="tooltip" :data-tooltip="t('worker.assign')">
       <button class="worker-btn worker-btn--plus" :disabled="!canAssign" @click="assign">
