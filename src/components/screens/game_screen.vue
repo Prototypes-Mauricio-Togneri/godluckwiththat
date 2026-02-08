@@ -1,9 +1,58 @@
 <script setup>
 import {ref, reactive, onMounted, onUnmounted} from 'vue'
 import PauseModal from '../modals/pause_modal.vue'
+import HeadquartersCard from '../buildings/headquarters_card.vue'
+import HouseCard from '../buildings/house_card.vue'
+import AcademyCard from '../buildings/academy_card.vue'
+import StorehouseCard from '../buildings/storehouse_card.vue'
+import MarketCard from '../buildings/market_card.vue'
+import FarmCard from '../buildings/farm_card.vue'
+import WoodcutterCard from '../buildings/woodcutter_card.vue'
+import QuarryCard from '../buildings/quarry_card.vue'
+import CopperMineCard from '../buildings/copper_mine_card.vue'
+import IronMineCard from '../buildings/iron_mine_card.vue'
+import GoldMineCard from '../buildings/gold_mine_card.vue'
+import AltarCard from '../buildings/altar_card.vue'
+import ShrineCard from '../buildings/shrine_card.vue'
+import TempleCard from '../buildings/temple_card.vue'
+import MonumentCard from '../buildings/monument_card.vue'
+import BarracksCard from '../buildings/barracks_card.vue'
+import ArcheryCard from '../buildings/archery_card.vue'
+import StableCard from '../buildings/stable_card.vue'
+import WorkshopCard from '../buildings/workshop_card.vue'
+import WallCard from '../buildings/wall_card.vue'
+import TowerCard from '../buildings/tower_card.vue'
 import GameState from '../../js/game_state.js'
 import {createInitialColony, BUILDING_GRID} from '../../js/constants.js'
 import {t} from '../../js/i18n/localized.js'
+
+const CARD_COMPONENTS = {
+  headquarters: HeadquartersCard,
+  house: HouseCard,
+  academy: AcademyCard,
+  storehouse: StorehouseCard,
+  market: MarketCard,
+  farm: FarmCard,
+  woodcutter: WoodcutterCard,
+  quarry: QuarryCard,
+  copperMine: CopperMineCard,
+  ironMine: IronMineCard,
+  goldMine: GoldMineCard,
+  altar: AltarCard,
+  shrine: ShrineCard,
+  temple: TempleCard,
+  monument: MonumentCard,
+  barracks: BarracksCard,
+  archery: ArcheryCard,
+  stable: StableCard,
+  workshop: WorkshopCard,
+  wall: WallCard,
+  tower: TowerCard,
+}
+
+function getCardComponent(key) {
+  return CARD_COMPONENTS[key]
+}
 
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
@@ -14,11 +63,6 @@ function handleKeydown(event) {
   if (event.key === 'Escape') {
     showModal.value = !showModal.value
   }
-}
-
-function buildingNameKey(key) {
-  if (key === 'headquarters') return `building.headquarters.${state.colony.buildings.headquarters.type}`
-  return `building.${key}`
 }
 
 onMounted(() => window.addEventListener('keydown', handleKeydown))
@@ -89,13 +133,14 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
       <div v-for="column in BUILDING_GRID" :key="column.headerKey" class="building-column">
         <h2 class="column-header">{{ t(column.headerKey) }}</h2>
         <div class="column-cards">
-          <div v-for="building in column.buildings" :key="building.key" class="building-card">
-            <img class="building-thumb" :src="building.img" :alt="t(buildingNameKey(building.key))">
-            <div class="building-info">
-              <span class="building-name">{{ t(buildingNameKey(building.key)) }}</span>
-              <span class="building-level">{{ t('building.level') }} {{ state.colony.buildings[building.key].level }}</span>
-            </div>
-          </div>
+          <component
+            :is="getCardComponent(building.key)"
+            v-for="building in column.buildings"
+            :key="building.key"
+            :building-key="building.key"
+            :img="building.img"
+            :building="state.colony.buildings[building.key]"
+          />
         </div>
       </div>
     </main>
@@ -267,56 +312,4 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
   gap: 0.5rem;
 }
 
-/* Individual building card */
-.building-card {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.6rem 0.75rem;
-  background: var(--color-bg-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  transition: border-color 0.2s ease;
-}
-
-.building-card:hover {
-  border-color: rgba(var(--color-accent-rgb), 0.35);
-}
-
-/* Building thumbnail */
-.building-thumb {
-  width: 5.5rem;
-  height: 5.5rem;
-  object-fit: contain;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
-  flex-shrink: 0;
-}
-
-/* Name and level wrapper */
-.building-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  min-width: 0;
-}
-
-/* Building name */
-.building-name {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: var(--color-text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Level display */
-.building-level {
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  font-weight: 300;
-  color: rgba(var(--color-accent-rgb), 0.65);
-  letter-spacing: 0.04em;
-}
 </style>

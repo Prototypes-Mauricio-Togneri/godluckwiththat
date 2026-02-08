@@ -31,9 +31,19 @@ Main content area displaying all 21 buildings in a 4-column layout. Each column 
 
 **Data source**: `BUILDING_GRID` constant from `constants.js` — array of column definitions, each with `headerKey` (i18n key) and `buildings` array of `{ key, img }` objects. The `key` indexes into both `state.colony.buildings[key]` for the level and `'building.' + key` for the localized name.
 
-**Card layout**: Flex row with thumbnail image (5.5rem, `drop-shadow`), building name (`Jost`, 0.85rem), and level (`Jost`, 0.7rem, muted accent). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover.
+**Dynamic component resolution**: `game_screen.vue` maps building keys to card components via `CARD_COMPONENTS` (e.g. `headquarters → HeadquartersCard`), falling back to `BaseCard` for all others. Uses Vue's `<component :is>` in the grid loop.
 
 **Column headers**: Josefin Sans uppercase labels (1rem, brighter accent at 0.75 opacity) centered above each column with a bottom border separator and extra bottom spacing.
+
+### Building Cards (`src/components/buildings/`)
+
+Per-building card components. Each receives `buildingKey`, `img`, and `building` (model instance) props.
+
+**`base_card.vue`** — Shared card layout: flex row with thumbnail image (5.5rem, `drop-shadow`), building name (`Jost`, 0.85rem), and level (`Jost`, 0.7rem, muted accent). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover. Accepts optional `nameKey` prop to override the default localization key. Provides a default `<slot>` inside `.building-info` for custom content.
+
+**`headquarters_card.vue`** — Wraps `BaseCard`, passes a computed `nameKey` of `building.headquarters.${type}` to display the HQ type name (Camp, Settlement, etc.) instead of the generic building name.
+
+**Adding a new building card**: Create `{building}_card.vue` wrapping `BaseCard`, add custom content via the slot, and register it in the `CARD_COMPONENTS` map in `game_screen.vue`.
 
 ### Game State (`src/js/game_state.js`)
 

@@ -13,6 +13,10 @@ src/
 ├── assets/
 │   └── styles.css            → Global styles (variables, shared classes)
 ├── components/
+│   ├── buildings/
+│   │   ├── base_card.vue     → Shared building card (thumbnail, name, level, slot)
+│   │   ├── headquarters_card.vue → Headquarters card (type-based name)
+│   │   └── *_card.vue        → 20 building cards (wrap base_card)
 │   ├── modals/
 │   │   └── pause_modal.vue   → Pause menu modal
 │   └── screens/
