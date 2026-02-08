@@ -145,20 +145,20 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 }
 
 .resource-icon {
-  width: 1.3rem;
-  height: 1.3rem;
+  width: 1.5rem;
+  height: 1.5rem;
   object-fit: contain;
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
 }
 
 .resource-icon--worker {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.7rem;
+  height: 1.7rem;
 }
 
 .resource-icon--territory {
-  width: 1.7rem;
-  height: 1.7rem;
+  width: 1.9rem;
+  height: 1.9rem;
 }
 
 /* ---- Labels ---- */
