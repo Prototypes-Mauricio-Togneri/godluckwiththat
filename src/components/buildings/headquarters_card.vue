@@ -58,7 +58,7 @@ function levelUp() {
 const isMaxType = computed(() => hq.value.type === HQ_TYPES[HQ_TYPES.length - 1])
 const upgradeCost = computed(() => Headquarters.upgradeCost(hq.value.type))
 const canUpgrade = computed(() => upgradeCost.value !== null && upgradeCost.value.canAfford(colony.resources))
-const upgradeCostEntries = computed(() => upgradeCost.value?.entries() ?? [])
+const upgradeCostEntries = computed(() => upgradeCost.value?.entries() ?? new Map())
 
 function upgradeType() {
   if (!canUpgrade.value) return

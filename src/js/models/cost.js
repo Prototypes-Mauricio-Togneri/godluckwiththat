@@ -53,42 +53,19 @@ class Cost {
   }
 
   /**
-   * Returns non-zero resource entries as [key, amount] pairs.
-   * @returns {Array<[string, number]>}
+   * Returns non-zero resource entries as a Map of key → amount.
+   * @returns {Map<string, number>}
    */
   entries() {
-    return [
-      [
-        'food',
-        this.food,
-      ],
-      [
-        'wood',
-        this.wood,
-      ],
-      [
-        'stone',
-        this.stone,
-      ],
-      [
-        'copper',
-        this.copper,
-      ],
-      [
-        'iron',
-        this.iron,
-      ],
-      [
-        'gold',
-        this.gold,
-      ],
-      [
-        'knowledge',
-        this.knowledge,
-      ],
-    ].filter(([
-      , amount,
-    ]) => amount > 0)
+    const map = new Map()
+    if (this.food > 0) map.set('food', this.food)
+    if (this.wood > 0) map.set('wood', this.wood)
+    if (this.stone > 0) map.set('stone', this.stone)
+    if (this.copper > 0) map.set('copper', this.copper)
+    if (this.iron > 0) map.set('iron', this.iron)
+    if (this.gold > 0) map.set('gold', this.gold)
+    if (this.knowledge > 0) map.set('knowledge', this.knowledge)
+    return map
   }
 }
 

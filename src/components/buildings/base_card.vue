@@ -40,7 +40,7 @@ const buildCost = computed(() =>
   isBuildable.value ? BUILDING_CLASS_MAP[props.buildingKey].levelUpCost(props.building.level) : null,
 )
 const canBuild = computed(() => buildCost.value !== null && buildCost.value.canAfford(colony.resources))
-const buildCostEntries = computed(() => buildCost.value?.entries() ?? [])
+const buildCostEntries = computed(() => buildCost.value?.entries() ?? new Map())
 
 function build() {
   if (!canBuild.value) return
