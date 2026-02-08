@@ -20,4 +20,34 @@ export const LOCALIZED_EN = {
   // Seasons
   'season.name': 'Season',
   'season.warm': 'Warm',
+
+  // Building groups
+  'buildingGroup.colony': 'Colony',
+  'buildingGroup.economy': 'Economy',
+  'buildingGroup.religion': 'Religion',
+  'buildingGroup.military': 'Military',
+
+  // Buildings
+  'building.headquarters': 'Headquarters',
+  'building.house': 'House',
+  'building.academy': 'Academy',
+  'building.storehouse': 'Storehouse',
+  'building.market': 'Market',
+  'building.farm': 'Farm',
+  'building.woodcutter': 'Woodcutter',
+  'building.quarry': 'Quarry',
+  'building.copperMine': 'Copper Mine',
+  'building.ironMine': 'Iron Mine',
+  'building.goldMine': 'Gold Mine',
+  'building.altar': 'Altar',
+  'building.shrine': 'Shrine',
+  'building.temple': 'Temple',
+  'building.monument': 'Monument',
+  'building.barracks': 'Barracks',
+  'building.archery': 'Archery',
+  'building.stable': 'Stable',
+  'building.workshop': 'Workshop',
+  'building.wall': 'Wall',
+  'building.tower': 'Tower',
+  'building.level': 'Lv.',
 }

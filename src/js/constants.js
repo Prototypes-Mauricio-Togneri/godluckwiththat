@@ -27,6 +27,114 @@ import Stockpile from './models/stockpile.js'
 
 // Centralized magic constants
 
+// Building grid layout — column definitions for the game screen
+export const BUILDING_GRID = [
+  {
+    headerKey: 'buildingGroup.colony',
+    buildings: [
+      {
+        key: 'headquarters',
+        img: '/img/buildings/misc/headquarters.png',
+      },
+      {
+        key: 'house',
+        img: '/img/buildings/misc/house.png',
+      },
+      {
+        key: 'academy',
+        img: '/img/buildings/misc/academy.png',
+      },
+      {
+        key: 'storehouse',
+        img: '/img/buildings/misc/storehouse.png',
+      },
+      {
+        key: 'market',
+        img: '/img/buildings/misc/market.png',
+      },
+    ],
+  },
+  {
+    headerKey: 'buildingGroup.economy',
+    buildings: [
+      {
+        key: 'farm',
+        img: '/img/buildings/resources/farm.png',
+      },
+      {
+        key: 'woodcutter',
+        img: '/img/buildings/resources/woodcutter.png',
+      },
+      {
+        key: 'quarry',
+        img: '/img/buildings/resources/quarry.png',
+      },
+      {
+        key: 'copperMine',
+        img: '/img/buildings/resources/copper_mine.png',
+      },
+      {
+        key: 'ironMine',
+        img: '/img/buildings/resources/iron_mine.png',
+      },
+      {
+        key: 'goldMine',
+        img: '/img/buildings/resources/gold_mine.png',
+      },
+    ],
+  },
+  {
+    headerKey: 'buildingGroup.religion',
+    buildings: [
+      {
+        key: 'altar',
+        img: '/img/buildings/religious/altar.png',
+      },
+      {
+        key: 'shrine',
+        img: '/img/buildings/religious/shrine.png',
+      },
+      {
+        key: 'temple',
+        img: '/img/buildings/religious/temple.png',
+      },
+      {
+        key: 'monument',
+        img: '/img/buildings/religious/monument.png',
+      },
+    ],
+  },
+  {
+    headerKey: 'buildingGroup.military',
+    buildings: [
+      {
+        key: 'barracks',
+        img: '/img/buildings/military/barracks.png',
+      },
+      {
+        key: 'archery',
+        img: '/img/buildings/military/archery.png',
+      },
+      {
+        key: 'stable',
+        img: '/img/buildings/military/stable.png',
+      },
+      {
+        key: 'workshop',
+        img: '/img/buildings/military/workshop.png',
+      },
+      {
+        key: 'wall',
+        img: '/img/buildings/military/wall.png',
+      },
+      {
+        key: 'tower',
+        img: '/img/buildings/military/tower.png',
+      },
+    ],
+  },
+]
+
 /**
  * Creates a fresh Colony instance for a new game session.
  * @returns {Colony} Fully initialized colony with default values

@@ -25,6 +25,16 @@ Resource/colony items use `<img>` icons from `public/img/` (no text labels). Val
 
 **Keyboard**: Escape key toggles the pause modal (ignored when an `INPUT` or `TEXTAREA` is focused).
 
+### Building Grid (`game_screen.vue`)
+
+Main content area displaying all 21 buildings in a 4-column layout. Each column represents a building category (Colony, Economy, Religion, Military) with a Cinzel uppercase header and vertically stacked building cards.
+
+**Data source**: `BUILDING_GRID` constant from `constants.js` — array of column definitions, each with `headerKey` (i18n key) and `buildings` array of `{ key, img }` objects. The `key` indexes into both `state.colony.buildings[key]` for the level and `'building.' + key` for the localized name.
+
+**Card layout**: Flex row with thumbnail image (2.5rem, `drop-shadow`), building name (`Jost`, 0.85rem), and level (`Jost`, 0.7rem, muted accent). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover.
+
+**Column headers**: Cinzel uppercase labels (matching `.header-label` style from the header bar) centered above each column with a bottom border separator.
+
 ### Game State (`src/js/game_state.js`)
 
 Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity. Constructor receives a `Colony` instance. The `Colony` expects pre-constructed sub-model instances (e.g. `Resources`) from the caller. Initialized via the `createInitialColony()` factory in `constants.js`, which returns a fresh `Colony` each call.

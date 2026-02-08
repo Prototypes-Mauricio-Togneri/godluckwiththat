@@ -20,4 +20,34 @@ export const LOCALIZED_ES = {
   // Seasons
   'season.name': 'Estación',
   'season.warm': 'Cálida',
+
+  // Building groups
+  'buildingGroup.colony': 'Colonia',
+  'buildingGroup.economy': 'Economía',
+  'buildingGroup.religion': 'Religión',
+  'buildingGroup.military': 'Militar',
+
+  // Buildings
+  'building.headquarters': 'Cuartel General',
+  'building.house': 'Casa',
+  'building.academy': 'Academia',
+  'building.storehouse': 'Almacén',
+  'building.market': 'Mercado',
+  'building.farm': 'Granja',
+  'building.woodcutter': 'Leñador',
+  'building.quarry': 'Cantera',
+  'building.copperMine': 'Mina de Cobre',
+  'building.ironMine': 'Mina de Hierro',
+  'building.goldMine': 'Mina de Oro',
+  'building.altar': 'Altar',
+  'building.shrine': 'Santuario',
+  'building.temple': 'Templo',
+  'building.monument': 'Monumento',
+  'building.barracks': 'Cuartel',
+  'building.archery': 'Arquería',
+  'building.stable': 'Establo',
+  'building.workshop': 'Taller',
+  'building.wall': 'Muralla',
+  'building.tower': 'Torre',
+  'building.level': 'Nv.',
 }

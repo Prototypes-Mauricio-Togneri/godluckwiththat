@@ -2,7 +2,7 @@
 import {ref, reactive, onMounted, onUnmounted} from 'vue'
 import PauseModal from '../modals/pause_modal.vue'
 import GameState from '../../js/game_state.js'
-import {createInitialColony} from '../../js/constants.js'
+import {createInitialColony, BUILDING_GRID} from '../../js/constants.js'
 import {t} from '../../js/i18n/localized.js'
 
 const emit = defineEmits(['quit'])
@@ -81,6 +81,18 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
     </header>
 
     <main class="game-content">
+      <div v-for="column in BUILDING_GRID" :key="column.headerKey" class="building-column">
+        <h2 class="column-header">{{ t(column.headerKey) }}</h2>
+        <div class="column-cards">
+          <div v-for="building in column.buildings" :key="building.key" class="building-card">
+            <img class="building-thumb" :src="building.img" :alt="t('building.' + building.key)">
+            <div class="building-info">
+              <span class="building-name">{{ t('building.' + building.key) }}</span>
+              <span class="building-level">{{ t('building.level') }} {{ state.colony.buildings[building.key].level }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <PauseModal
@@ -213,7 +225,91 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 .game-content {
   flex: 1;
   display: flex;
+  align-items: flex-start;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  overflow-y: auto;
+}
+
+/* ---- Building columns ---- */
+
+.building-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Column header — matches .header-label pattern */
+.column-header {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(var(--color-accent-rgb), 0.45);
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Card stack */
+.column-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Individual building card */
+.building-card {
+  display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  transition: border-color 0.2s ease;
+}
+
+.building-card:hover {
+  border-color: rgba(var(--color-accent-rgb), 0.35);
+}
+
+/* Building thumbnail */
+.building-thumb {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
+  flex-shrink: 0;
+}
+
+/* Name and level wrapper */
+.building-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+/* Building name */
+.building-name {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Level display */
+.building-level {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: rgba(var(--color-accent-rgb), 0.65);
+  letter-spacing: 0.04em;
 }
 </style>
