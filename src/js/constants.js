@@ -56,6 +56,116 @@ export const WORKER_RECRUIT_COST = new Cost({
 export const HQ_LEVEL_UP_BASE_WOOD = 20
 export const HQ_LEVEL_UP_MULTIPLIER = 2.5
 
+// Building class map — resolves building keys to their class constructors
+export const BUILDING_CLASS_MAP = {
+  headquarters: Headquarters,
+  house: House,
+  academy: Academy,
+  storehouse: Storehouse,
+  market: Market,
+  farm: Farm,
+  woodcutter: Woodcutter,
+  quarry: Quarry,
+  copperMine: CopperMine,
+  ironMine: IronMine,
+  goldMine: GoldMine,
+  altar: Altar,
+  shrine: Shrine,
+  temple: Temple,
+  monument: Monument,
+  barracks: Barracks,
+  archery: Archery,
+  stable: Stable,
+  workshop: Workshop,
+  wall: Wall,
+  tower: Tower,
+}
+
+// Base build costs per building (wood, optionally stone), scaled by unlock tier
+export const BUILDING_BUILD_COSTS = {
+  // Camp tier
+  house: {
+    wood: 30,
+  },
+  altar: {
+    wood: 40,
+  },
+  farm: {
+    wood: 25,
+  },
+  woodcutter: {
+    wood: 20,
+  },
+  // Settlement tier
+  academy: {
+    wood: 60,
+    stone: 30,
+  },
+  shrine: {
+    wood: 50,
+    stone: 25,
+  },
+  quarry: {
+    wood: 45,
+    stone: 20,
+  },
+  barracks: {
+    wood: 55,
+    stone: 25,
+  },
+  // Village tier
+  storehouse: {
+    wood: 80,
+    stone: 40,
+  },
+  temple: {
+    wood: 90,
+    stone: 50,
+  },
+  copperMine: {
+    wood: 70,
+    stone: 35,
+  },
+  archery: {
+    wood: 75,
+    stone: 40,
+  },
+  // Town tier
+  monument: {
+    wood: 120,
+    stone: 60,
+  },
+  ironMine: {
+    wood: 100,
+    stone: 50,
+  },
+  stable: {
+    wood: 110,
+    stone: 55,
+  },
+  wall: {
+    wood: 100,
+    stone: 50,
+  },
+  // City tier
+  market: {
+    wood: 150,
+    stone: 75,
+  },
+  goldMine: {
+    wood: 140,
+    stone: 70,
+  },
+  workshop: {
+    wood: 160,
+    stone: 80,
+  },
+  tower: {
+    wood: 150,
+    stone: 75,
+  },
+}
+
 // Base path for building thumbnail images
 export const BUILDING_IMG_PATH = '/img/buildings/'
 

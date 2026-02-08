@@ -1,4 +1,6 @@
 import Building from '@/js/models/buildings/building.js'
+import Cost from '@/js/models/cost.js'
+import {BUILDING_BUILD_COSTS} from '@/js/constants.js'
 
 /**
  * Provides housing for colony population.
@@ -9,6 +11,18 @@ class House extends Building {
    */
   constructor(data) {
     super(data)
+  }
+
+  /**
+   * Cost to level up from the given level.
+   * @param {number} level - Current building level
+   * @returns {Cost}
+   */
+  static levelUpCost(level) {
+    const base = BUILDING_BUILD_COSTS.house
+    return new Cost({
+      wood: Math.floor(base.wood * (level + 1)),
+    })
   }
 }
 

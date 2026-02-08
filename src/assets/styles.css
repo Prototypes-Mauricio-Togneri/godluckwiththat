@@ -104,3 +104,59 @@
 .tooltip:hover::after {
     opacity: 1;
 }
+
+/* Action row — icon button beside resource cost items */
+.action-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.action-btn-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+    object-fit: contain;
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4));
+}
+
+.action-cost {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.action-cost-item {
+    display: flex;
+    align-items: center;
+    gap: 0.12rem;
+}
+
+.action-cost-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    object-fit: contain;
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.3));
+}
+
+.action-cost-amount {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(var(--color-text-rgb), 0.8);
+    letter-spacing: 0.02em;
+}
+
+.action-cost-short {
+    color: #c45050;
+}

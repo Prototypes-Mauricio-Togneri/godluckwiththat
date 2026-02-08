@@ -54,6 +54,7 @@ export const LOCALIZED_ES = {
   'building.wall': 'Muralla',
   'building.tower': 'Torre',
   'building.locked': 'Bloqueado',
+  'building.build': 'Construir',
 
   // Headquarters actions
   'headquarters.workers': 'Trabajadores',

@@ -45,7 +45,7 @@ Main content area displaying all 21 buildings in a 4-column layout. Each column 
 
 Per-building card components. Each receives `buildingKey`, `img`, and `building` (model instance) props.
 
-**`base_card.vue`** — Shared card layout: flex row (top-aligned) with thumbnail image (5.5rem, `drop-shadow`) and a level badge overlay (bottom-right, semi-transparent black background, `Jost` 0.75rem) showing the numeric level, building name (`Jost`, 0.95rem). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover. Accepts optional `nameKey` prop to override the default localization key. Provides a default `<slot>` inside `.building-info` for custom content. A `?` help icon button sits in the top-right corner of each card (circular, muted accent border, brightens on hover). Hovering shows a "Help" tooltip; clicking opens `BuildingHelpModal` with the building's name and description.
+**`base_card.vue`** — Shared card layout: flex row (top-aligned) with thumbnail image (5.5rem, `drop-shadow`) and a level badge overlay (bottom-right, semi-transparent black background, `Jost` 0.75rem) showing the numeric level, building name (`Jost`, 0.95rem). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover. Accepts optional `nameKey` prop to override the default localization key. Provides a default `<slot>` inside `.building-info` for custom content. A `?` help icon button sits in the top-right corner of each card (circular, muted accent border, brightens on hover). Hovering shows a "Help" tooltip; clicking opens `BuildingHelpModal` with the building's name and description. Accepts `showBuildAction` prop (default `true`); when true and `building.level === 0`, shows a build action row (icon button + resource cost display) instead of the slot. Clicking the build button deducts the cost from colony resources and increments the building level. Cost is computed via `BUILDING_CLASS_MAP[key].levelUpCost(level)`.
 
 **`headquarters_card.vue`** — Wraps `BaseCard`, passes a computed `nameKey` of `building.headquarters.${type}` to display the HQ type name (Camp, Settlement, etc.) instead of the generic building name. Injects `colony` (provided by `game_screen.vue`) for reactive access to resources, workers, and stockpile. Displays idle/total worker count and three action buttons:
 - **Recruit** — costs `WORKER_RECRUIT_COST` (50 food). Adds a worker and increments idle count. Disabled when food insufficient or worker stockpile cap reached.
@@ -67,10 +67,10 @@ Central state container instantiated once per game session. Pure JS class wrappe
 - `resources` (`Resources`) — current amounts with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
 - `production` (`Production`) — per-tick rates with public fields: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
 - `stockpile` (`Stockpile`) — max capacity with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
-- `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level`). `Headquarters` also has `type` and static methods `levelUpCost(level)`, `upgradeCost(type)`, `nextType(type)`. Individual building classes live in `src/js/models/buildings/`.
+- `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level`). `Headquarters` also has `type` and static methods `levelUpCost(level)`, `upgradeCost(type)`, `nextType(type)`. All 20 non-HQ building classes also have a static `levelUpCost(level)` method that returns a `Cost` based on `BUILDING_BUILD_COSTS` (base wood/stone scaled by `level + 1`). Individual building classes live in `src/js/models/buildings/`.
 - `Cost` (`src/js/models/cost.js`) — multi-resource cost holder with properties: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `knowledge`. Methods: `canAfford(resources)`, `deductFrom(resources)`, `entries()` (returns non-zero `[key, amount]` pairs).
 
-All initial values and stockpile caps declared as `createInitialColony()` (a `Colony` instance) in `src/js/constants.js`.
+All initial values and stockpile caps declared as `createInitialColony()` (a `Colony` instance) in `src/js/constants.js`. `BUILDING_BUILD_COSTS` maps each non-HQ building key to `{ wood, stone? }` base costs (tier-scaled). `BUILDING_CLASS_MAP` maps all 21 building keys to their class constructors.
 
 **Tooltips** — Each resource and colony item has a CSS-only tooltip (`.tooltip` class + `data-tooltip` attribute). The `::after` pseudo-element renders tooltip text on hover with a fade-in transition. Shared `.tooltip` class defined in `src/assets/styles.css`.
 
@@ -109,6 +109,7 @@ Each supported language has its own file (`en.js`, `es.js`) exporting a flat obj
 - **Shared classes**:
   - `.btn-gold` — bronze-gradient button base (font, color, gradient background, border, hover glow). Includes `:disabled` state (reduced opacity, `cursor: not-allowed`, hover neutralized). Components add sizing/spacing overrides in scoped styles.
   - `.tooltip` — CSS-only hover tooltip (positioned below element via `::after` pseudo-element reading `data-tooltip` attribute, fade-in transition).
+  - `.action-row` — flex row for icon-button + cost display pairs. `.action-btn` (2.5rem square icon button), `.action-btn-icon` (1.6rem icon), `.action-cost` (cost container), `.action-cost-item` (icon + amount pair), `.action-cost-icon` (0.9rem resource icon), `.action-cost-amount` (0.75rem value text), `.action-cost-short` (red color `#c45050` when unaffordable).
 
 ## Code Style
 

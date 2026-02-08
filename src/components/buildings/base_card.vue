@@ -1,7 +1,7 @@
 <script setup>
-import {computed, ref} from 'vue'
+import {computed, inject, ref} from 'vue'
 import BuildingHelpModal from '@/components/modals/building_help_modal.vue'
-import {BUILDING_IMG_PATH} from '@/js/constants.js'
+import {BUILDING_CLASS_MAP, BUILDING_IMG_PATH} from '@/js/constants.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
@@ -21,10 +21,32 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  showBuildAction: {
+    type: Boolean,
+    default: true,
+  },
 })
+
+const colony = inject('colony')
 
 const displayNameKey = computed(() => props.nameKey || `building.${props.buildingKey}`)
 const showHelp = ref(false)
+
+// Build action (level 0 → 1)
+const isBuildable = computed(() =>
+  props.showBuildAction && props.building.level === 0 && props.buildingKey in BUILDING_CLASS_MAP,
+)
+const buildCost = computed(() =>
+  isBuildable.value ? BUILDING_CLASS_MAP[props.buildingKey].levelUpCost(props.building.level) : null,
+)
+const canBuild = computed(() => buildCost.value !== null && buildCost.value.canAfford(colony.resources))
+const buildCostEntries = computed(() => buildCost.value?.entries() ?? [])
+
+function build() {
+  if (!canBuild.value) return
+  buildCost.value.deductFrom(colony.resources)
+  colony.buildings[props.buildingKey].level += 1
+}
 </script>
 
 <template>
@@ -43,7 +65,20 @@ const showHelp = ref(false)
     </div>
     <div class="building-info">
       <span class="building-name">{{ t(displayNameKey) }}</span>
-      <slot />
+      <div v-if="isBuildable" class="action-row build-action">
+        <span class="tooltip" :data-tooltip="t('building.build') + ' ' + t(displayNameKey)">
+          <button class="btn-gold action-btn" :disabled="!canBuild" @click="build">
+            <img class="action-btn-icon" src="/img/other/build.png" :alt="t('building.build')">
+          </button>
+        </span>
+        <span class="action-cost">
+          <span v-for="[key, amount] in buildCostEntries" :key="key" class="action-cost-item">
+            <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
+            <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
+          </span>
+        </span>
+      </div>
+      <slot v-else />
     </div>
 
     <BuildingHelpModal
@@ -144,5 +179,9 @@ const showHelp = ref(false)
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.build-action {
+  margin-top: 0.25rem;
 }
 </style>

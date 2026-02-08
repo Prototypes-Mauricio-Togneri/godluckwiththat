@@ -68,51 +68,51 @@ function upgradeType() {
 </script>
 
 <template>
-  <BaseCard :building-key="buildingKey" :img="img" :building="building" :name-key="nameKey">
+  <BaseCard :building-key="buildingKey" :img="img" :building="building" :name-key="nameKey" :show-build-action="false">
     <div class="hq-workers">
       <span class="hq-workers-label">{{ t('headquarters.workers') }}</span>
       <span class="hq-workers-value">{{ idleWorkers }}<span class="hq-workers-sep">/</span>{{ totalWorkers }}</span>
     </div>
 
     <div class="hq-actions">
-      <div class="hq-action-row">
+      <div class="action-row">
         <span class="tooltip" :data-tooltip="t('headquarters.recruitWorker')">
-          <button class="btn-gold hq-btn" :disabled="!canRecruit" @click="recruitWorker">
-            <img class="hq-btn-icon" src="/img/units/worker.png" :alt="t('headquarters.recruitWorker')">
+          <button class="btn-gold action-btn" :disabled="!canRecruit" @click="recruitWorker">
+            <img class="action-btn-icon" src="/img/units/worker.png" :alt="t('headquarters.recruitWorker')">
           </button>
         </span>
-        <span class="hq-cost">
-          <span v-for="[key, amount] in recruitCostEntries" :key="key" class="hq-cost-item">
-            <img class="hq-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
-            <span class="hq-cost-amount" :class="{ 'hq-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
+        <span class="action-cost">
+          <span v-for="[key, amount] in recruitCostEntries" :key="key" class="action-cost-item">
+            <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
+            <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
           </span>
         </span>
       </div>
 
-      <div class="hq-action-row">
+      <div class="action-row">
         <span class="tooltip" :data-tooltip="t('headquarters.levelUp')">
-          <button class="btn-gold hq-btn" :disabled="!canLevelUp" @click="levelUp">
-            <img class="hq-btn-icon" src="/img/other/upgrade.png" :alt="t('headquarters.levelUp')">
+          <button class="btn-gold action-btn" :disabled="!canLevelUp" @click="levelUp">
+            <img class="action-btn-icon" src="/img/other/upgrade.png" :alt="t('headquarters.levelUp')">
           </button>
         </span>
-        <span class="hq-cost">
-          <span v-for="[key, amount] in levelUpCostEntries" :key="key" class="hq-cost-item">
-            <img class="hq-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
-            <span class="hq-cost-amount" :class="{ 'hq-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
+        <span class="action-cost">
+          <span v-for="[key, amount] in levelUpCostEntries" :key="key" class="action-cost-item">
+            <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
+            <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
           </span>
         </span>
       </div>
 
-      <div v-if="!isMaxType" class="hq-action-row">
+      <div v-if="!isMaxType" class="action-row">
         <span class="tooltip" :data-tooltip="t('headquarters.upgrade')">
-          <button class="btn-gold hq-btn" :disabled="!canUpgrade" @click="upgradeType">
-            <img class="hq-btn-icon" src="/img/other/headquarters_upgrade.png" :alt="t('headquarters.upgrade')">
+          <button class="btn-gold action-btn" :disabled="!canUpgrade" @click="upgradeType">
+            <img class="action-btn-icon" src="/img/other/headquarters_upgrade.png" :alt="t('headquarters.upgrade')">
           </button>
         </span>
-        <span class="hq-cost">
-          <span v-for="[key, amount] in upgradeCostEntries" :key="key" class="hq-cost-item">
-            <img class="hq-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
-            <span class="hq-cost-amount" :class="{ 'hq-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
+        <span class="action-cost">
+          <span v-for="[key, amount] in upgradeCostEntries" :key="key" class="action-cost-item">
+            <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
+            <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
           </span>
         </span>
       </div>
@@ -155,60 +155,5 @@ function upgradeType() {
   flex-direction: column;
   gap: 0.3rem;
   margin-top: 0.35rem;
-}
-
-.hq-action-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.hq-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  padding: 0;
-  border-radius: 4px;
-  flex-shrink: 0;
-}
-
-.hq-btn-icon {
-  width: 1.6rem;
-  height: 1.6rem;
-  object-fit: contain;
-  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4));
-}
-
-.hq-cost {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.hq-cost-item {
-  display: flex;
-  align-items: center;
-  gap: 0.12rem;
-}
-
-.hq-cost-icon {
-  width: 0.9rem;
-  height: 0.9rem;
-  object-fit: contain;
-  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.3));
-}
-
-.hq-cost-amount {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 400;
-  color: rgba(var(--color-text-rgb), 0.8);
-  letter-spacing: 0.02em;
-}
-
-.hq-cost-short {
-  color: #c45050;
 }
 </style>
