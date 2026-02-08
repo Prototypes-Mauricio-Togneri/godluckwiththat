@@ -254,7 +254,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
   text-transform: uppercase;
   color: rgba(var(--color-accent-rgb), 0.75);
   text-align: center;
-  padding-bottom: 0.75rem;
+  padding-bottom: 1.25rem;
   margin-bottom: 0.5rem;
   border-bottom: 1px solid var(--color-border);
 }

@@ -16,7 +16,7 @@ Centered overlay with "PAUSED" title, decorative rule, and two stacked buttons:
 
 Top bar divided into 4 sections separated by decorative vertical dividers:
 
-1. **Season** — text label (`Cinzel`, small uppercase, muted accent) + value with accent color
+1. **Season** — text label (`Josefin Sans`, small uppercase, muted accent) + value with accent color
 2. **Resources** — food, wood, stone each shown as icon image + `current/max` value (flex: 1, centered)
 3. **Colony** — population, idle workers, territory each shown as icon image + value (flex: 1, centered)
 4. **Menu button** — hamburger icon (inline SVG), opens pause modal
@@ -27,13 +27,13 @@ Resource/colony items use `<img>` icons from `public/img/` (no text labels). Val
 
 ### Building Grid (`game_screen.vue`)
 
-Main content area displaying all 21 buildings in a 4-column layout. Each column represents a building category (Colony, Economy, Religion, Military) with a Cinzel uppercase header and vertically stacked building cards.
+Main content area displaying all 21 buildings in a 4-column layout. Each column represents a building category (Colony, Economy, Religion, Military) with a Josefin Sans uppercase header and vertically stacked building cards.
 
 **Data source**: `BUILDING_GRID` constant from `constants.js` — array of column definitions, each with `headerKey` (i18n key) and `buildings` array of `{ key, img }` objects. The `key` indexes into both `state.colony.buildings[key]` for the level and `'building.' + key` for the localized name.
 
 **Card layout**: Flex row with thumbnail image (5.5rem, `drop-shadow`), building name (`Jost`, 0.85rem), and level (`Jost`, 0.7rem, muted accent). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover.
 
-**Column headers**: Cinzel uppercase labels (1rem, brighter accent at 0.75 opacity) centered above each column with a bottom border separator and extra bottom spacing.
+**Column headers**: Josefin Sans uppercase labels (1rem, brighter accent at 0.75 opacity) centered above each column with a bottom border separator and extra bottom spacing.
 
 ### Game State (`src/js/game_state.js`)
 
@@ -75,7 +75,7 @@ Each supported language has its own file (`en.js`, `es.js`) exporting a flat obj
 
 ### Typography
 
-- **Display/headings**: `Cinzel` (serif, Roman inscriptional) — weights 400, 700, 900
+- **Display/headings**: `Josefin Sans` (geometric vintage sans-serif) — weights 400, 600, 700
 - **Body/UI**: `Jost` (geometric sans-serif) — weights 300, 400, 500
 - Loaded via Google Fonts `<link>` in `index.html`
 

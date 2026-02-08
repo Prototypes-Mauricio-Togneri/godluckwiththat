@@ -10,8 +10,8 @@ const emit = defineEmits(['start'])
 
     <div class="content">
       <h1 class="title">
-        <span class="title-line">{{ t('screen.home.title.line1') }}</span>
-        <span class="title-line">{{ t('screen.home.title.line2') }}</span>
+        <span class="title-line">{{ t('screen.home.title.line1').toUpperCase() }}</span>
+        <span class="title-line">{{ t('screen.home.title.line2').toUpperCase() }}</span>
       </h1>
 
       <button class="btn-gold start-button" @click="emit('start')">
