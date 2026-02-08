@@ -114,8 +114,8 @@ function act() {
 /* Help icon — top-right corner */
 .help-btn {
   position: absolute;
-  top: 0.45rem;
-  right: 0.45rem;
+  top: 0.6rem;
+  right: 0.6rem;
   width: 1.25rem;
   height: 1.25rem;
   display: flex;
@@ -184,7 +184,7 @@ function act() {
 
 .building-name {
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 400;
   color: var(--color-text);
   white-space: nowrap;
