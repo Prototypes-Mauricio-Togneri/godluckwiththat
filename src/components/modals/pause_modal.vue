@@ -1,6 +1,6 @@
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue'
-import {t} from '../../js/i18n/en.js'
+import {t} from '../../js/i18n/localized.js'
 
 const emit = defineEmits(['close', 'quit'])
 const visible = ref(false)

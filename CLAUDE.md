@@ -22,7 +22,8 @@ src/
 │   ├── constants.js          → Centralized magic constants
 │   ├── game_state.js         → GameState class (colony data model)
 │   ├── i18n/
-│   │   └── en.js             → English locale strings + t() helper
+│   │   ├── en.js             → English locale strings
+│   │   └── localized.js      → t() lookup helper
 │   ├── main.js               → Vue app entry point
 │   └── models/
 │       ├── buildings/

@@ -3,7 +3,7 @@ import {ref, reactive, onMounted, onUnmounted} from 'vue'
 import PauseModal from '../modals/pause_modal.vue'
 import GameState from '../../js/game_state.js'
 import {createInitialColony} from '../../js/constants.js'
-import {t} from '../../js/i18n/en.js'
+import {t} from '../../js/i18n/localized.js'
 
 const emit = defineEmits(['quit'])
 const showModal = ref(false)

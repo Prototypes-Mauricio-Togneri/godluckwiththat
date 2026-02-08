@@ -40,9 +40,9 @@ All initial values and stockpile caps declared as `createInitialColony()` (a `Co
 
 **Tooltips** — Each resource and colony item has a CSS-only tooltip (`.tooltip` class + `data-tooltip` attribute). The `::after` pseudo-element renders tooltip text on hover with a fade-in transition. Shared `.tooltip` class defined in `src/assets/styles.css`.
 
-### Localization (`src/js/i18n/en.js`)
+### Localization (`src/js/i18n/`)
 
-All user-facing text is centralized in `LOCALIZED_EN`, a flat object with dot-notation keys (e.g. `'screen.home.play'`, `'resource.food'`, `'season.warm'`). A `t(key)` helper exported from the same file returns the localized string. Components import `t` and use it in templates (`{{ t('key') }}`) and bound attributes (`:alt="t('key')"`). No hardcoded display text in templates or JS.
+All user-facing text is centralized in `LOCALIZED_EN` (`en.js`), a flat object with dot-notation keys (e.g. `'screen.home.play'`, `'resource.food'`, `'season.warm'`). A `t(key)` helper exported from `localized.js` returns the localized string. Components import `t` from `localized.js` and use it in templates (`{{ t('key') }}`) and bound attributes (`:alt="t('key')"`). No hardcoded display text in templates or JS.
 
 ## Visual Design
 
