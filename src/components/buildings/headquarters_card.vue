@@ -1,9 +1,9 @@
 <script setup>
 import {computed, inject} from 'vue'
-import BaseCard from './base_card.vue'
-import Headquarters from '../../js/models/buildings/headquarters.js'
-import {WORKER_RECRUIT_COST, HQ_TYPES} from '../../js/constants.js'
-import {t} from '../../js/i18n/localized.js'
+import BaseCard from '@/components/buildings/base_card.vue'
+import Headquarters from '@/js/models/buildings/headquarters.js'
+import {WORKER_RECRUIT_COST, HQ_TYPES} from '@/js/constants.js'
+import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
   buildingKey: {

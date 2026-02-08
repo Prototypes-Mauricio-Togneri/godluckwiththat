@@ -1,5 +1,5 @@
-import {LOCALIZED_EN} from './en.js'
-import {LOCALIZED_ES} from './es.js'
+import {LOCALIZED_EN} from '@/js/i18n/en.js'
+import {LOCALIZED_ES} from '@/js/i18n/es.js'
 
 const LOCALES = {
   en: LOCALIZED_EN,

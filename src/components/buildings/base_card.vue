@@ -1,8 +1,8 @@
 <script setup>
 import {computed, ref} from 'vue'
-import BuildingHelpModal from '../modals/building_help_modal.vue'
-import {BUILDING_IMG_PATH} from '../../js/constants.js'
-import {t} from '../../js/i18n/localized.js'
+import BuildingHelpModal from '@/components/modals/building_help_modal.vue'
+import {BUILDING_IMG_PATH} from '@/js/constants.js'
+import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
   buildingKey: {

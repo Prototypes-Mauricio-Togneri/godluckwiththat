@@ -1,5 +1,5 @@
 <script setup>
-import {t} from '../../js/i18n/localized.js'
+import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits(['start'])
 </script>

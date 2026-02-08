@@ -1,4 +1,4 @@
-import Building from './building.js'
+import Building from '@/js/models/buildings/building.js'
 
 /**
  * Trains mounted units.

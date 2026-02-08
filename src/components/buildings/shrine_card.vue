@@ -1,5 +1,5 @@
 <script setup>
-import BaseCard from './base_card.vue'
+import BaseCard from '@/components/buildings/base_card.vue'
 
 defineProps({
   buildingKey: {

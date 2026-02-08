@@ -1,6 +1,6 @@
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue'
-import {t} from '../../js/i18n/localized.js'
+import {t} from '@/js/i18n/localized.js'
 
 defineProps({
   nameKey: {

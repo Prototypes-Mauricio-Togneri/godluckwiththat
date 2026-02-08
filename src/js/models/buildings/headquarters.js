@@ -1,6 +1,6 @@
-import Building from './building.js'
-import Cost from '../cost.js'
-import {HQ_TYPES, HQ_LEVEL_UP_BASE_WOOD, HQ_LEVEL_UP_MULTIPLIER} from '../../constants.js'
+import Building from '@/js/models/buildings/building.js'
+import Cost from '@/js/models/cost.js'
+import {HQ_TYPES, HQ_LEVEL_UP_BASE_WOOD, HQ_LEVEL_UP_MULTIPLIER} from '@/js/constants.js'
 
 /**
  * Colony headquarters building.
