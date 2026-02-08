@@ -60,7 +60,7 @@ function build() {
     </button>
 
     <div class="building-thumb-wrapper">
-      <img class="building-thumb" :src="BUILDING_IMG_PATH + img" :alt="t(displayNameKey)">
+      <img class="building-thumb" :class="{ 'building-thumb-unbuilt': building.level === 0 }" :src="BUILDING_IMG_PATH + img" :alt="t(displayNameKey)">
       <span class="building-level-badge">{{ building.level }}</span>
     </div>
     <div class="building-info">
@@ -148,6 +148,11 @@ function build() {
   height: 5.5rem;
   object-fit: contain;
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
+  transition: filter 0.3s ease;
+}
+
+.building-thumb-unbuilt {
+  filter: grayscale(1) drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
 }
 
 /* Level number overlay at bottom-right of thumbnail */
@@ -169,6 +174,7 @@ function build() {
   flex-direction: column;
   gap: 0.15rem;
   min-width: 0;
+  align-self: stretch;
 }
 
 .building-name {
@@ -182,6 +188,6 @@ function build() {
 }
 
 .build-action {
-  margin-top: 0.25rem;
+  margin-top: auto;
 }
 </style>
