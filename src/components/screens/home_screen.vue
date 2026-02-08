@@ -1,4 +1,8 @@
 <script setup>
+import {
+  t,
+} from '../../js/i18n/en.js'
+
 const emit = defineEmits(['start'])
 </script>
 
@@ -8,12 +12,12 @@ const emit = defineEmits(['start'])
 
     <div class="content">
       <h1 class="title">
-        <span class="title-line">God Luck</span>
-        <span class="title-line">With That</span>
+        <span class="title-line">{{ t('screen.home.title.line1') }}</span>
+        <span class="title-line">{{ t('screen.home.title.line2') }}</span>
       </h1>
 
       <button class="btn-gold start-button" @click="emit('start')">
-        PLAY
+        {{ t('screen.home.play') }}
       </button>
     </div>
   </div>

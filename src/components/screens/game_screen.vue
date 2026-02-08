@@ -6,13 +6,10 @@ import PauseModal from '../modals/pause_modal.vue'
 import GameState from '../../js/game_state.js'
 import {
   createInitialColony,
-  TOOLTIP_FOOD,
-  TOOLTIP_WOOD,
-  TOOLTIP_STONE,
-  TOOLTIP_POPULATION,
-  TOOLTIP_IDLE_WORKERS,
-  TOOLTIP_TERRITORY,
 } from '../../js/constants.js'
+import {
+  t,
+} from '../../js/i18n/en.js'
 
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
@@ -34,8 +31,8 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
     <header class="game-header">
       <!-- Season indicator -->
       <div class="header-section header-season">
-        <span class="header-label">Season</span>
-        <span class="header-value header-value--season">{{ state.colony.season }}</span>
+        <span class="header-label">{{ t('season.name') }}</span>
+        <span class="header-value header-value--season">{{ t('season.' + state.colony.season) }}</span>
       </div>
 
       <!-- Decorative divider -->
@@ -43,16 +40,16 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 
       <!-- Resources -->
       <div class="header-section header-resources">
-        <div class="header-resource tooltip" :data-tooltip="TOOLTIP_FOOD">
-          <img class="resource-icon" src="/img/resources/food.png" alt="Food">
+        <div class="header-resource tooltip" :data-tooltip="t('resource.food')">
+          <img class="resource-icon" src="/img/resources/food.png" :alt="t('resource.food')">
           <span class="header-value">{{ state.colony.resources.food }}/{{ state.colony.stockpile.food }}</span>
         </div>
-        <div class="header-resource tooltip" :data-tooltip="TOOLTIP_WOOD">
-          <img class="resource-icon" src="/img/resources/wood.png" alt="Wood">
+        <div class="header-resource tooltip" :data-tooltip="t('resource.wood')">
+          <img class="resource-icon" src="/img/resources/wood.png" :alt="t('resource.wood')">
           <span class="header-value">{{ state.colony.resources.wood }}/{{ state.colony.stockpile.wood }}</span>
         </div>
-        <div class="header-resource tooltip" :data-tooltip="TOOLTIP_STONE">
-          <img class="resource-icon" src="/img/resources/stone.png" alt="Stone">
+        <div class="header-resource tooltip" :data-tooltip="t('resource.stone')">
+          <img class="resource-icon" src="/img/resources/stone.png" :alt="t('resource.stone')">
           <span class="header-value">{{ state.colony.resources.stone }}/{{ state.colony.stockpile.stone }}</span>
         </div>
       </div>
@@ -62,16 +59,16 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 
       <!-- Colony info -->
       <div class="header-section header-colony">
-        <div class="header-resource tooltip" :data-tooltip="TOOLTIP_POPULATION">
-          <img class="resource-icon resource-icon--worker" src="/img/units/worker.png" alt="Population">
+        <div class="header-resource tooltip" :data-tooltip="t('resource.population')">
+          <img class="resource-icon resource-icon--worker" src="/img/units/worker.png" :alt="t('resource.population')">
           <span class="header-value">{{ state.colony.resources.workers }}/{{ state.colony.stockpile.workers }}</span>
         </div>
-        <div class="header-resource tooltip" :data-tooltip="TOOLTIP_IDLE_WORKERS">
-          <img class="resource-icon" src="/img/other/idle.png" alt="Idle workers">
+        <div class="header-resource tooltip" :data-tooltip="t('resource.idleWorkers')">
+          <img class="resource-icon" src="/img/other/idle.png" :alt="t('resource.idleWorkers')">
           <span class="header-value">{{ state.colony.idleWorkers }}</span>
         </div>
-        <div class="header-resource tooltip" :data-tooltip="TOOLTIP_TERRITORY">
-          <img class="resource-icon resource-icon--territory" src="/img/other/territory.png" alt="Territory">
+        <div class="header-resource tooltip" :data-tooltip="t('resource.territory')">
+          <img class="resource-icon resource-icon--territory" src="/img/other/territory.png" :alt="t('resource.territory')">
           <span class="header-value">{{ state.colony.resources.territory }}/{{ state.colony.stockpile.territory }}</span>
         </div>
       </div>
@@ -183,7 +180,6 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 }
 
 .header-value--season {
-  text-transform: capitalize;
   font-weight: 500;
   color: rgba(var(--color-accent-rgb), 0.85);
 }

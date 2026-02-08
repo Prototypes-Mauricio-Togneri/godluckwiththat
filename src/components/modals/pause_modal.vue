@@ -2,6 +2,9 @@
 import {
   ref, onMounted, onUnmounted,
 } from 'vue'
+import {
+  t,
+} from '../../js/i18n/en.js'
 
 const emit = defineEmits(['close', 'quit'])
 const visible = ref(false)
@@ -25,17 +28,17 @@ onUnmounted(() => {
     @click.self="emit('close')"
   >
     <div class="modal-content">
-      <h2 class="modal-title">PAUSED</h2>
+      <h2 class="modal-title">{{ t('modal.pause.title') }}</h2>
 
       <!-- Decorative rule -->
       <span class="modal-rule" />
 
       <div class="modal-actions">
         <button class="btn-gold modal-btn" @click="emit('close')">
-          Continue
+          {{ t('modal.pause.continue') }}
         </button>
         <button class="btn-gold modal-btn modal-btn--quit" @click="emit('quit')">
-          Quit
+          {{ t('modal.pause.quit') }}
         </button>
       </div>
     </div>
@@ -86,6 +89,7 @@ onUnmounted(() => {
   font-size: 1.3rem;
   color: var(--color-text);
   letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 /* Decorative horizontal divider */
