@@ -75,35 +75,47 @@ function upgradeType() {
     </div>
 
     <div class="hq-actions">
-      <button class="btn-gold hq-btn" :disabled="!canRecruit" @click="recruitWorker">
-        <span class="hq-btn-label">{{ t('headquarters.recruitWorker') }}</span>
+      <div class="hq-action-row">
+        <span class="tooltip" :data-tooltip="t('headquarters.recruitWorker')">
+          <button class="btn-gold hq-btn" :disabled="!canRecruit" @click="recruitWorker">
+            <img class="hq-btn-icon" src="/img/units/worker.png" :alt="t('headquarters.recruitWorker')">
+          </button>
+        </span>
         <span class="hq-cost">
           <span v-for="[key, amount] in recruitCostEntries" :key="key" class="hq-cost-item">
             <img class="hq-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
-            <span class="hq-cost-amount">{{ amount }}</span>
+            <span class="hq-cost-amount" :class="{ 'hq-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
           </span>
         </span>
-      </button>
+      </div>
 
-      <button class="btn-gold hq-btn" :disabled="!canLevelUp" @click="levelUp">
-        <span class="hq-btn-label">{{ t('headquarters.levelUp') }}</span>
+      <div class="hq-action-row">
+        <span class="tooltip" :data-tooltip="t('headquarters.levelUp')">
+          <button class="btn-gold hq-btn" :disabled="!canLevelUp" @click="levelUp">
+            <img class="hq-btn-icon" src="/img/other/upgrade.png" :alt="t('headquarters.levelUp')">
+          </button>
+        </span>
         <span class="hq-cost">
           <span v-for="[key, amount] in levelUpCostEntries" :key="key" class="hq-cost-item">
             <img class="hq-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
-            <span class="hq-cost-amount">{{ amount }}</span>
+            <span class="hq-cost-amount" :class="{ 'hq-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
           </span>
         </span>
-      </button>
+      </div>
 
-      <button v-if="!isMaxType" class="btn-gold hq-btn" :disabled="!canUpgrade" @click="upgradeType">
-        <span class="hq-btn-label">{{ t('headquarters.upgrade') }}</span>
+      <div v-if="!isMaxType" class="hq-action-row">
+        <span class="tooltip" :data-tooltip="t('headquarters.upgrade')">
+          <button class="btn-gold hq-btn" :disabled="!canUpgrade" @click="upgradeType">
+            <img class="hq-btn-icon" src="/img/other/headquarters_upgrade.png" :alt="t('headquarters.upgrade')">
+          </button>
+        </span>
         <span class="hq-cost">
           <span v-for="[key, amount] in upgradeCostEntries" :key="key" class="hq-cost-item">
             <img class="hq-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
-            <span class="hq-cost-amount">{{ amount }}</span>
+            <span class="hq-cost-amount" :class="{ 'hq-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
           </span>
         </span>
-      </button>
+      </div>
     </div>
   </BaseCard>
 </template>
@@ -118,7 +130,7 @@ function upgradeType() {
 
 .hq-workers-label {
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 300;
   color: rgba(var(--color-accent-rgb), 0.55);
   letter-spacing: 0.04em;
@@ -126,7 +138,7 @@ function upgradeType() {
 
 .hq-workers-value {
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: var(--color-text);
   letter-spacing: 0.02em;
@@ -141,24 +153,32 @@ function upgradeType() {
 .hq-actions {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.3rem;
   margin-top: 0.35rem;
+}
+
+.hq-action-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .hq-btn {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.4rem;
-  padding: 0.2rem 0.4rem;
-  font-size: 0.6rem;
-  letter-spacing: 0.08em;
-  border-radius: 3px;
-  line-height: 1;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border-radius: 4px;
+  flex-shrink: 0;
 }
 
-.hq-btn-label {
-  font-family: var(--font-body);
+.hq-btn-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4));
 }
 
 .hq-cost {
@@ -174,17 +194,21 @@ function upgradeType() {
 }
 
 .hq-cost-icon {
-  width: 0.8rem;
-  height: 0.8rem;
+  width: 0.9rem;
+  height: 0.9rem;
   object-fit: contain;
   filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.3));
 }
 
 .hq-cost-amount {
   font-family: var(--font-body);
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   font-weight: 400;
   color: rgba(var(--color-text-rgb), 0.8);
   letter-spacing: 0.02em;
+}
+
+.hq-cost-short {
+  color: #c45050;
 }
 </style>

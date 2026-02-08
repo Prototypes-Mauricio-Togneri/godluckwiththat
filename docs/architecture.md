@@ -39,14 +39,14 @@ Main content area displaying all 21 buildings in a 4-column layout. Each column 
 
 Per-building card components. Each receives `buildingKey`, `img`, and `building` (model instance) props.
 
-**`base_card.vue`** — Shared card layout: flex row with thumbnail image (5.5rem, `drop-shadow`), building name (`Jost`, 0.85rem), and level (`Jost`, 0.7rem, muted accent). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover. Accepts optional `nameKey` prop to override the default localization key. Provides a default `<slot>` inside `.building-info` for custom content.
+**`base_card.vue`** — Shared card layout: flex row (top-aligned) with thumbnail image (5.5rem, `drop-shadow`), building name (`Jost`, 0.95rem), and level (`Jost`, 0.8rem, muted accent). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover. Accepts optional `nameKey` prop to override the default localization key. Provides a default `<slot>` inside `.building-info` for custom content.
 
 **`headquarters_card.vue`** — Wraps `BaseCard`, passes a computed `nameKey` of `building.headquarters.${type}` to display the HQ type name (Camp, Settlement, etc.) instead of the generic building name. Injects `colony` (provided by `game_screen.vue`) for reactive access to resources, workers, and stockpile. Displays idle/total worker count and three action buttons:
 - **Recruit** — costs `WORKER_RECRUIT_COST` (50 food). Adds a worker and increments idle count. Disabled when food insufficient or worker stockpile cap reached.
 - **Level Up** — costs `Headquarters.levelUpCost(level)`. Increments building level. Disabled when resources insufficient.
 - **Upgrade** — costs `Headquarters.upgradeCost(type)`. Advances HQ type (e.g. camp → settlement). Hidden at max type (City). Disabled when resources insufficient.
 
-Each button shows its cost as small resource icons + amounts. Cost rendering iterates `Cost.entries()` for non-zero resource pairs.
+Each action is a horizontal row: a square icon-only button (2.5rem × 2.5rem) with the action image (`worker.png`, `upgrade.png`, `headquarters_upgrade.png`) + cost items displayed outside the button to its right. Buttons use the `.tooltip` class with localized `data-tooltip` for hover labels. Cost rendering iterates `Cost.entries()` for non-zero resource pairs.
 
 **Adding a new building card**: Create `{building}_card.vue` wrapping `BaseCard`, add custom content via the slot, and register it in the `CARD_COMPONENTS` map in `game_screen.vue`.
 

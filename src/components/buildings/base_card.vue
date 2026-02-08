@@ -38,7 +38,7 @@ const displayNameKey = computed(() => props.nameKey || `building.${props.buildin
 <style scoped>
 .building-card {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
   padding: 0.6rem 0.75rem;
   background: var(--color-bg-surface);
@@ -68,7 +68,7 @@ const displayNameKey = computed(() => props.nameKey || `building.${props.buildin
 
 .building-name {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 400;
   color: var(--color-text);
   white-space: nowrap;
@@ -78,7 +78,7 @@ const displayNameKey = computed(() => props.nameKey || `building.${props.buildin
 
 .building-level {
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 300;
   color: rgba(var(--color-accent-rgb), 0.65);
   letter-spacing: 0.04em;

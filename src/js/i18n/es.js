@@ -57,7 +57,7 @@ export const LOCALIZED_ES = {
 
   // Headquarters actions
   'headquarters.workers': 'Trabajadores',
-  'headquarters.recruitWorker': 'Reclutar',
-  'headquarters.levelUp': 'Subir Nivel',
-  'headquarters.upgrade': 'Mejorar',
+  'headquarters.recruitWorker': 'Crear trabajador',
+  'headquarters.levelUp': 'Aumentar nivel',
+  'headquarters.upgrade': 'Mejorar colonia',
 }
