@@ -248,13 +248,14 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 /* Column header — matches .header-label pattern */
 .column-header {
   font-family: var(--font-display);
-  font-size: 0.7rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(var(--color-accent-rgb), 0.45);
+  color: rgba(var(--color-accent-rgb), 0.75);
   text-align: center;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -283,8 +284,8 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 
 /* Building thumbnail */
 .building-thumb {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 5.5rem;
+  height: 5.5rem;
   object-fit: contain;
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
   flex-shrink: 0;

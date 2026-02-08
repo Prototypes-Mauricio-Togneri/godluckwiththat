@@ -31,9 +31,9 @@ Main content area displaying all 21 buildings in a 4-column layout. Each column 
 
 **Data source**: `BUILDING_GRID` constant from `constants.js` — array of column definitions, each with `headerKey` (i18n key) and `buildings` array of `{ key, img }` objects. The `key` indexes into both `state.colony.buildings[key]` for the level and `'building.' + key` for the localized name.
 
-**Card layout**: Flex row with thumbnail image (2.5rem, `drop-shadow`), building name (`Jost`, 0.85rem), and level (`Jost`, 0.7rem, muted accent). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover.
+**Card layout**: Flex row with thumbnail image (5.5rem, `drop-shadow`), building name (`Jost`, 0.85rem), and level (`Jost`, 0.7rem, muted accent). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover.
 
-**Column headers**: Cinzel uppercase labels (matching `.header-label` style from the header bar) centered above each column with a bottom border separator.
+**Column headers**: Cinzel uppercase labels (1rem, brighter accent at 0.75 opacity) centered above each column with a bottom border separator and extra bottom spacing.
 
 ### Game State (`src/js/game_state.js`)
 
