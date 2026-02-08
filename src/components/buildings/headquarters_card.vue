@@ -25,10 +25,6 @@ const hq = computed(() => colony.buildings[props.buildingKey])
 
 const nameKey = computed(() => `building.headquarters.${hq.value.type}`)
 
-// Worker display
-const totalWorkers = computed(() => colony.resources.workers)
-const idleWorkers = computed(() => colony.idleWorkers)
-
 // Recruit worker
 const canRecruit = computed(() =>
   WORKER_RECRUIT_COST.canAfford(colony.resources)
@@ -69,11 +65,6 @@ function upgradeType() {
 
 <template>
   <BaseCard :building-key="buildingKey" :img="img" :building="building" :name-key="nameKey" :show-build-action="false">
-    <div class="hq-workers">
-      <span class="hq-workers-label">{{ t('headquarters.workers') }}</span>
-      <span class="hq-workers-value">{{ idleWorkers }}<span class="hq-workers-sep">/</span>{{ totalWorkers }}</span>
-    </div>
-
     <div class="hq-actions">
       <div class="action-row">
         <span class="tooltip" :data-tooltip="t('headquarters.recruitWorker')">
@@ -121,35 +112,6 @@ function upgradeType() {
 </template>
 
 <style scoped>
-.hq-workers {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-top: 0.1rem;
-}
-
-.hq-workers-label {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 300;
-  color: rgba(var(--color-accent-rgb), 0.55);
-  letter-spacing: 0.04em;
-}
-
-.hq-workers-value {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--color-text);
-  letter-spacing: 0.02em;
-}
-
-.hq-workers-sep {
-  margin: 0 0.1rem;
-  color: rgba(var(--color-accent-rgb), 0.35);
-  font-weight: 300;
-}
-
 .hq-actions {
   display: flex;
   flex-direction: column;
