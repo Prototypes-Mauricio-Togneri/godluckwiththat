@@ -50,6 +50,7 @@ export default [
       '@stylistic/object-curly-spacing': ['error', 'always'],
       '@stylistic/array-bracket-spacing': ['error', 'never'],
       '@stylistic/arrow-spacing': 'error',
+      '@stylistic/key-spacing': 'error',
       '@stylistic/object-curly-newline': ['error', {
         minProperties: 1,
       }],
