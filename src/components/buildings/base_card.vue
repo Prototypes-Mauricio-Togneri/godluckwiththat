@@ -26,10 +26,12 @@ const displayNameKey = computed(() => props.nameKey || `building.${props.buildin
 
 <template>
   <div class="building-card">
-    <img class="building-thumb" :src="img" :alt="t(displayNameKey)">
+    <div class="building-thumb-wrapper">
+      <img class="building-thumb" :src="img" :alt="t(displayNameKey)">
+      <span class="building-level-badge">{{ building.level }}</span>
+    </div>
     <div class="building-info">
       <span class="building-name">{{ t(displayNameKey) }}</span>
-      <span class="building-level">{{ t('building.level') }} {{ building.level }}</span>
       <slot />
     </div>
   </div>
@@ -51,12 +53,31 @@ const displayNameKey = computed(() => props.nameKey || `building.${props.buildin
   border-color: rgba(var(--color-accent-rgb), 0.35);
 }
 
+.building-thumb-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
 .building-thumb {
+  display: block;
   width: 5.5rem;
   height: 5.5rem;
   object-fit: contain;
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
-  flex-shrink: 0;
+}
+
+/* Level number overlay at bottom-right of thumbnail */
+.building-level-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--color-text);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.3rem 0.4rem;
 }
 
 .building-info {
@@ -74,13 +95,5 @@ const displayNameKey = computed(() => props.nameKey || `building.${props.buildin
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.building-level {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 300;
-  color: rgba(var(--color-accent-rgb), 0.65);
-  letter-spacing: 0.04em;
 }
 </style>

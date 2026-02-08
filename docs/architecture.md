@@ -39,7 +39,7 @@ Main content area displaying all 21 buildings in a 4-column layout. Each column 
 
 Per-building card components. Each receives `buildingKey`, `img`, and `building` (model instance) props.
 
-**`base_card.vue`** — Shared card layout: flex row (top-aligned) with thumbnail image (5.5rem, `drop-shadow`), building name (`Jost`, 0.95rem), and level (`Jost`, 0.8rem, muted accent). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover. Accepts optional `nameKey` prop to override the default localization key. Provides a default `<slot>` inside `.building-info` for custom content.
+**`base_card.vue`** — Shared card layout: flex row (top-aligned) with thumbnail image (5.5rem, `drop-shadow`) and a level badge overlay (bottom-right, semi-transparent black background, `Jost` 0.75rem) showing the numeric level, building name (`Jost`, 0.95rem). Cards use `--color-bg-surface` background with `--color-border` that intensifies on hover. Accepts optional `nameKey` prop to override the default localization key. Provides a default `<slot>` inside `.building-info` for custom content.
 
 **`headquarters_card.vue`** — Wraps `BaseCard`, passes a computed `nameKey` of `building.headquarters.${type}` to display the HQ type name (Camp, Settlement, etc.) instead of the generic building name. Injects `colony` (provided by `game_screen.vue`) for reactive access to resources, workers, and stockpile. Displays idle/total worker count and three action buttons:
 - **Recruit** — costs `WORKER_RECRUIT_COST` (50 food). Adds a worker and increments idle count. Disabled when food insufficient or worker stockpile cap reached.
