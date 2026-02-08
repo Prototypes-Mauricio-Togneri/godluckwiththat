@@ -1,7 +1,5 @@
 <script setup>
-import {
-  t,
-} from '../../js/i18n/en.js'
+import { t } from '../../js/i18n/en.js'
 
 const emit = defineEmits(['start'])
 </script>

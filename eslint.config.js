@@ -53,7 +53,16 @@ export default [
       '@stylistic/key-spacing': 'error',
       '@stylistic/no-multi-spaces': 'error',
       '@stylistic/object-curly-newline': ['error', {
-        minProperties: 1,
+        ImportDeclaration: 'never',
+        ExportDeclaration: {
+          minProperties: 1,
+        },
+        ObjectExpression: {
+          minProperties: 1,
+        },
+        ObjectPattern: {
+          minProperties: 1,
+        },
       }],
       '@stylistic/object-property-newline': 'error',
 
