@@ -231,7 +231,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
   flex: 1;
   display: flex;
   align-items: flex-start;
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem 1.5rem;
   gap: 1.5rem;
   overflow-y: auto;
 }
@@ -251,11 +251,12 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.14em;
+  line-height: 1;
   text-transform: uppercase;
   color: rgba(var(--color-accent-rgb), 0.75);
   text-align: center;
-  padding-bottom: 1.25rem;
-  margin-bottom: 0.5rem;
+  padding-bottom: 0.85rem;
+  margin-bottom: 0.25rem;
   border-bottom: 1px solid var(--color-border);
 }
 
