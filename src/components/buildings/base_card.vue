@@ -32,19 +32,18 @@ const colony = inject('colony')
 const displayNameKey = computed(() => props.nameKey || `building.${props.buildingKey}`)
 const showHelp = ref(false)
 
-// Build action (level 0 → 1)
-const isBuildable = computed(() =>
-  props.showBuildAction && props.building.level === 0 && props.buildingKey in BUILDING_CLASS_MAP,
+// Build / level-up action
+const hasAction = computed(() => props.showBuildAction && props.buildingKey in BUILDING_CLASS_MAP)
+const isBuildable = computed(() => hasAction.value && props.building.level === 0)
+const actionCost = computed(() =>
+  hasAction.value ? BUILDING_CLASS_MAP[props.buildingKey].levelUpCost(props.building.level) : null,
 )
-const buildCost = computed(() =>
-  isBuildable.value ? BUILDING_CLASS_MAP[props.buildingKey].levelUpCost(props.building.level) : null,
-)
-const canBuild = computed(() => buildCost.value !== null && buildCost.value.canAfford(colony.resources))
-const buildCostEntries = computed(() => buildCost.value?.entries() ?? new Map())
+const canAct = computed(() => actionCost.value !== null && actionCost.value.canAfford(colony.resources))
+const actionCostEntries = computed(() => actionCost.value?.entries() ?? new Map())
 
-function build() {
-  if (!canBuild.value) return
-  buildCost.value.deductFrom(colony.resources)
+function act() {
+  if (!canAct.value) return
+  actionCost.value.deductFrom(colony.resources)
   colony.buildings[props.buildingKey].level += 1
 }
 </script>
@@ -65,20 +64,20 @@ function build() {
     </div>
     <div class="building-info">
       <span class="building-name">{{ t(displayNameKey) }}</span>
-      <div v-if="isBuildable" class="action-row build-action">
-        <span class="tooltip" :data-tooltip="t('building.build') + ' ' + t(displayNameKey)">
-          <button class="btn-gold action-btn" :disabled="!canBuild" @click="build">
-            <img class="action-btn-icon" src="/img/other/build.png" :alt="t('building.build')">
+      <slot v-if="!isBuildable" />
+      <div v-if="hasAction" class="action-row build-action">
+        <span class="tooltip" :data-tooltip="isBuildable ? t('building.build') + ' ' + t(displayNameKey) : t('building.levelUp')">
+          <button class="btn-gold action-btn" :disabled="!canAct" @click="act">
+            <img class="action-btn-icon" :src="isBuildable ? '/img/other/build.png' : '/img/other/upgrade.png'" :alt="isBuildable ? t('building.build') : t('building.levelUp')">
           </button>
         </span>
         <span class="action-cost">
-          <span v-for="[key, amount] in buildCostEntries" :key="key" class="action-cost-item">
+          <span v-for="[key, amount] in actionCostEntries" :key="key" class="action-cost-item">
             <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
             <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
           </span>
         </span>
       </div>
-      <slot v-else />
     </div>
 
     <BuildingHelpModal
