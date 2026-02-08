@@ -2,7 +2,10 @@
 import {ref, onMounted, onUnmounted} from 'vue'
 import {t} from '@/js/i18n/localized.js'
 
-const emit = defineEmits(['close', 'quit'])
+const emit = defineEmits([
+  'close',
+  'quit',
+])
 const visible = ref(false)
 let rafId = null
 

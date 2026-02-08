@@ -58,14 +58,37 @@ class Cost {
    */
   entries() {
     return [
-      ['food', this.food],
-      ['wood', this.wood],
-      ['stone', this.stone],
-      ['copper', this.copper],
-      ['iron', this.iron],
-      ['gold', this.gold],
-      ['knowledge', this.knowledge],
-    ].filter(([, amount]) => amount > 0)
+      [
+        'food',
+        this.food,
+      ],
+      [
+        'wood',
+        this.wood,
+      ],
+      [
+        'stone',
+        this.stone,
+      ],
+      [
+        'copper',
+        this.copper,
+      ],
+      [
+        'iron',
+        this.iron,
+      ],
+      [
+        'gold',
+        this.gold,
+      ],
+      [
+        'knowledge',
+        this.knowledge,
+      ],
+    ].filter(([
+      , amount,
+    ]) => amount > 0)
   }
 }
 
