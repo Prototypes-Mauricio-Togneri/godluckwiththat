@@ -25,7 +25,7 @@ src/
 │       └── game_screen.vue   → Main game screen
 ├── js/
 │   ├── constants.js          → Centralized magic constants
-│   ├── game_state.js         → GameState class (colony data model)
+│   ├── game_state.js         → GameState class (meta + colony data model)
 │   ├── i18n/
 │   │   ├── en.js             → English locale strings
 │   │   ├── es.js             → Spanish locale strings
@@ -37,6 +37,7 @@ src/
 │       │   ├── buildings.js  → Buildings container (holds all building instances)
 │       │   ├── headquarters.js → Headquarters (extends Building, adds type)
 │       │   └── *.js          → 20 building classes (extend Building)
+│       ├── meta.js           → Meta class (version, timestamps, challenges)
 │       ├── colony.js         → Colony class (wraps all colony sub-models)
 │       ├── cost.js           → Cost class (multi-resource cost holder)
 │       ├── production.js     → Production class (per-tick rates)

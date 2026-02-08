@@ -58,11 +58,11 @@ Each action is a horizontal row: a square icon-only button (2.5rem × 2.5rem) wi
 
 ### Game State (`src/js/game_state.js`)
 
-Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity. Constructor receives a `Colony` instance. The `Colony` expects pre-constructed sub-model instances (e.g. `Resources`) from the caller. Initialized via the `createInitialColony()` factory in `constants.js`, which returns a fresh `Colony` each call.
+Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity. Constructor receives a `Meta` instance (first) and a `Colony` instance (second). `Meta` tracks save version, creation/update timestamps, and challenge count. `Colony` expects pre-constructed sub-model instances (e.g. `Resources`) from the caller. Initialized via `createInitialMeta()` and `createInitialColony()` factories in `constants.js`.
 
 **Colony provide/inject**: `game_screen.vue` calls `provide('colony', state.colony)` so descendant components (e.g. `headquarters_card.vue`) can `inject('colony')` for direct reactive access to colony data without prop drilling.
 
-**Structure**: `state.colony.{ season, idleWorkers, resources, production, stockpile, buildings }`
+**Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }` and `state.colony.{ season, idleWorkers, resources, production, stockpile, buildings }`
 
 - `resources` (`Resources`) — current amounts with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
 - `production` (`Production`) — per-tick rates with public fields: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
@@ -70,7 +70,7 @@ Central state container instantiated once per game session. Pure JS class wrappe
 - `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level`). `Headquarters` also has `type`, static properties `baseCost` and `levelUpMultiplier`, and static methods `levelUpCost(level)`, `upgradeCost(type)`, `nextType(type)`. All 20 non-HQ building classes also have a static `baseCost` property (`{ wood, stone? }`) and a static `levelUpCost(level)` method that returns a `Cost` (base wood/stone scaled by `level + 1`). Individual building classes live in `src/js/models/buildings/`.
 - `Cost` (`src/js/models/cost.js`) — multi-resource cost holder with properties: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `knowledge`. Methods: `canAfford(resources)`, `deductFrom(resources)`, `entries()` (returns a `Map<string, number>` of non-zero resources).
 
-All initial values and stockpile caps declared as `createInitialColony()` (a `Colony` instance) in `src/js/constants.js`. `BUILDING_CLASS_MAP` maps all 21 building keys to their class constructors.
+All initial values declared via `createInitialMeta()` (a `Meta` instance) and `createInitialColony()` (a `Colony` instance) in `src/js/constants.js`. `BUILDING_CLASS_MAP` maps all 21 building keys to their class constructors.
 
 **Tooltips** — Each resource and colony item has a CSS-only tooltip (`.tooltip` class + `data-tooltip` attribute). The `::after` pseudo-element renders tooltip text on hover with a fade-in transition. Shared `.tooltip` class defined in `src/assets/styles.css`.
 

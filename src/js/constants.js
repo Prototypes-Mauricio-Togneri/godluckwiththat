@@ -22,6 +22,7 @@ import Wall from '@/js/models/buildings/wall.js'
 import Woodcutter from '@/js/models/buildings/woodcutter.js'
 import Workshop from '@/js/models/buildings/workshop.js'
 import Colony from '@/js/models/colony.js'
+import Meta from '@/js/models/meta.js'
 import Production from '@/js/models/production.js'
 import Resources from '@/js/models/resources.js'
 import Stockpile from '@/js/models/stockpile.js'
@@ -218,6 +219,19 @@ export const BUILDING_GRID = [
     ],
   },
 ]
+
+/**
+ * Creates a fresh Meta instance for a new game session.
+ * @returns {Meta} Initialized meta with current timestamps
+ */
+export function createInitialMeta() {
+  return new Meta({
+    version: 1,
+    createdDateTime: new Date(),
+    updatedDateTime: new Date(),
+    numberOfChallenges: 10,
+  })
+}
 
 /**
  * Creates a fresh Colony instance for a new game session.

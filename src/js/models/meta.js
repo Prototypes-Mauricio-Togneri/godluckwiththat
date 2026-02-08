@@ -1,0 +1,22 @@
+/**
+ * Game metadata. Tracks save version, timestamps,
+ * and challenge configuration.
+ *
+ * @property {number} version - Save format version
+ * @property {Date} createdDateTime - When the game was created
+ * @property {Date} updatedDateTime - When the game was last updated
+ * @property {number} numberOfChallenges - Total divine challenges
+ */
+class Meta {
+  /**
+   * @param {Object} data - Meta data
+   */
+  constructor(data) {
+    this.version = data.version
+    this.createdDateTime = data.createdDateTime
+    this.updatedDateTime = data.updatedDateTime
+    this.numberOfChallenges = data.numberOfChallenges
+  }
+}
+
+export default Meta
