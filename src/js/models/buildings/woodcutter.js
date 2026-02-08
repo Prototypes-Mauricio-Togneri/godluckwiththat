@@ -13,7 +13,7 @@ class Woodcutter extends Building {
   }
 
   static baseCost = {
-    wood: 20,
+    wood: 10,
   }
 
   /**

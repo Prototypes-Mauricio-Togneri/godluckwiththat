@@ -13,7 +13,7 @@ class Farm extends Building {
   }
 
   static baseCost = {
-    wood: 25,
+    wood: 10,
   }
 
   /**
