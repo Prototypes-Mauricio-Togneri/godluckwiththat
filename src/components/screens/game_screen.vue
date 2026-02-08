@@ -1,9 +1,9 @@
 <script setup>
-import { ref, reactive, onMounted, onUnmounted } from 'vue'
+import {ref, reactive, onMounted, onUnmounted} from 'vue'
 import PauseModal from '../modals/pause_modal.vue'
 import GameState from '../../js/game_state.js'
-import { createInitialColony } from '../../js/constants.js'
-import { t } from '../../js/i18n/en.js'
+import {createInitialColony} from '../../js/constants.js'
+import {t} from '../../js/i18n/en.js'
 
 const emit = defineEmits(['quit'])
 const showModal = ref(false)

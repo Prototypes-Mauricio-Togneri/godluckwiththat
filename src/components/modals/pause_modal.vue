@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import { t } from '../../js/i18n/en.js'
+import {ref, onMounted, onUnmounted} from 'vue'
+import {t} from '../../js/i18n/en.js'
 
 const emit = defineEmits(['close', 'quit'])
 const visible = ref(false)
