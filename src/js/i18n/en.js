@@ -58,7 +58,7 @@ export const LOCALIZED_EN = {
   'building.levelUp': 'Increase level',
 
   // Headquarters actions
-  'headquarters.recruitWorker': 'Create worker',
+  'house.recruitWorker': 'Create worker',
   'headquarters.levelUp': 'Increase level',
   'headquarters.upgrade': 'Upgrade colony',
 
