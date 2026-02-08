@@ -16,6 +16,7 @@ src/
 │   ├── buildings/
 │   │   ├── base_card.vue     → Shared building card (thumbnail, name, level, slot)
 │   │   ├── headquarters_card.vue → Headquarters card (type-based name)
+│   │   ├── worker_assignment_row.vue → Worker +/- controls (used by base_card)
 │   │   └── *_card.vue        → 20 building cards (wrap base_card)
 │   ├── modals/
 │   │   ├── building_help_modal.vue → Building info modal (name, description, close)

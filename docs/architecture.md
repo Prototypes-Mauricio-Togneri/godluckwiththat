@@ -56,6 +56,8 @@ Per-building card components. Each receives `buildingKey`, `img`, and `building`
 
 Each action is a horizontal row: a square icon-only button (2.5rem × 2.5rem) with the action image (`worker.png`, `upgrade.png`, `headquarters_upgrade.png`) + cost items displayed outside the button to its right. Buttons use the `.tooltip` class with localized `data-tooltip` for hover labels. Cost rendering iterates `Cost.entries()` (a `Map<string, number>` of non-zero resources).
 
+**`worker_assignment_row.vue`** — Reusable component rendered by `base_card.vue` for buildings in `WORKER_ASSIGNABLE_BUILDINGS` (academy, shrine, temple, farm, woodcutter, quarry, copperMine, ironMine, goldMine). Displays a red minus button, worker icon with `current/max` count, and green plus button. Max workers = `level × WORKERS_PER_LEVEL` (5). Injects `colony` to transfer workers between `colony.idleWorkers` and `building.workers`. Minus disabled at 0 workers; plus disabled when no idle workers or at capacity.
+
 **Adding a new building card**: Create `{building}_card.vue` wrapping `BaseCard`, add custom content via the slot, and register it in the `CARD_COMPONENTS` map in `game_screen.vue`.
 
 ### Game State (`src/js/game_state.js`)
@@ -69,7 +71,7 @@ Central state container instantiated once per game session. Pure JS class wrappe
 - `resources` (`Resources`) — current amounts with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
 - `production` (`Production`) — per-tick rates with public fields: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
 - `stockpile` (`Stockpile`) — max capacity with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
-- `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level`). `Headquarters` also has `type`, static properties `baseCost` and `levelUpMultiplier`, and static methods `levelUpCost(level)`, `upgradeCost(type)`, `nextType(type)`. All 20 non-HQ building classes also have a static `baseCost` property (`{ wood, stone? }`) and a static `levelUpCost(level)` method that returns a `Cost` (base wood/stone scaled by `level + 1`). Individual building classes live in `src/js/models/buildings/`.
+- `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level` and `workers`, where `workers` defaults to 0). `Headquarters` also has `type`, static properties `baseCost` and `levelUpMultiplier`, and static methods `levelUpCost(level)`, `upgradeCost(type)`, `nextType(type)`. All 20 non-HQ building classes also have a static `baseCost` property (`{ wood, stone? }`) and a static `levelUpCost(level)` method that returns a `Cost` (base wood/stone scaled by `level + 1`). Individual building classes live in `src/js/models/buildings/`.
 - `Cost` (`src/js/models/cost.js`) — multi-resource cost holder with properties: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `knowledge`. Methods: `canAfford(resources)`, `deductFrom(resources)`, `entries()` (returns a `Map<string, number>` of non-zero resources).
 
 All initial values declared via `createInitialMeta()` (a `Meta` instance) and `createInitialColony()` (a `Colony` instance) in `src/js/constants.js`. `BUILDING_CLASS_MAP` maps all 21 building keys to their class constructors.
@@ -113,6 +115,7 @@ Each supported language has its own file (`en.js`, `es.js`) exporting a flat obj
   - `.tooltip` — CSS-only hover tooltip (positioned below element via `::after` pseudo-element reading `data-tooltip` attribute, fade-in transition).
   - `.action-row` — flex row for icon-button + cost display pairs. `.action-btn` (2.5rem square icon button), `.action-btn-icon` (1.6rem icon), `.action-cost` (cost container), `.action-cost-item` (icon + amount pair), `.action-cost-icon` (0.9rem resource icon), `.action-cost-amount` (0.75rem value text), `.action-cost-short` (red color `#c45050` when unaffordable).
   - `.slot-actions` — flex row wrapper for action groups inside building card slots. Uses `margin-top: auto` to bottom-align with thumbnail, `justify-content: space-between` for side-by-side dual-button layout, `align-items: flex-end` for bottom alignment.
+  - `.worker-row` — flex row for worker assignment controls. `.worker-btn` (2.5rem square ghost button), `.worker-btn--minus` (red `#c45050`), `.worker-btn--plus` (green `#50a850`), `.worker-count` (icon + text, 0.95rem), `.worker-count-icon` (1.4rem worker icon).
 
 ## Code Style
 

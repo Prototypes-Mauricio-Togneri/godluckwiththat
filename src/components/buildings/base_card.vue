@@ -1,7 +1,8 @@
 <script setup>
 import {computed, inject, ref} from 'vue'
 import BuildingHelpModal from '@/components/modals/building_help_modal.vue'
-import {BUILDING_CLASS_MAP, BUILDING_IMG_PATH} from '@/js/constants.js'
+import WorkerAssignmentRow from '@/components/buildings/worker_assignment_row.vue'
+import {BUILDING_CLASS_MAP, BUILDING_IMG_PATH, WORKER_ASSIGNABLE_BUILDINGS} from '@/js/constants.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
@@ -40,6 +41,7 @@ const actionCost = computed(() =>
 )
 const canAct = computed(() => actionCost.value !== null && actionCost.value.canAfford(colony.resources))
 const actionCostEntries = computed(() => actionCost.value?.entries() ?? new Map())
+const isWorkerAssignable = computed(() => WORKER_ASSIGNABLE_BUILDINGS.has(props.buildingKey))
 
 function act() {
   if (!canAct.value) return
@@ -78,6 +80,7 @@ function act() {
             </span>
           </span>
         </div>
+        <WorkerAssignmentRow v-if="isWorkerAssignable && !isBuildable" :building-key="buildingKey" />
         <slot v-if="!isBuildable" />
       </div>
     </div>

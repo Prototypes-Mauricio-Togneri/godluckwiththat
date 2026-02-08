@@ -168,3 +168,74 @@
     justify-content: space-between;
     margin-top: auto;
 }
+
+/* Worker assignment row — minus/plus buttons with centered count */
+.worker-row {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.worker-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1;
+    background: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    flex-shrink: 0;
+}
+
+.worker-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.worker-btn--minus {
+    color: #c45050;
+    border: 1px solid rgba(196, 80, 80, 0.3);
+}
+
+.worker-btn--minus:hover:not(:disabled) {
+    background: rgba(196, 80, 80, 0.12);
+    border-color: rgba(196, 80, 80, 0.6);
+    box-shadow: 0 0 8px rgba(196, 80, 80, 0.1);
+}
+
+.worker-btn--plus {
+    color: #50a850;
+    border: 1px solid rgba(80, 168, 80, 0.3);
+}
+
+.worker-btn--plus:hover:not(:disabled) {
+    background: rgba(80, 168, 80, 0.12);
+    border-color: rgba(80, 168, 80, 0.6);
+    box-shadow: 0 0 8px rgba(80, 168, 80, 0.1);
+}
+
+.worker-count {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0 0.35rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: rgba(var(--color-text-rgb), 0.85);
+    letter-spacing: 0.02em;
+}
+
+.worker-count-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    object-fit: contain;
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.3));
+}

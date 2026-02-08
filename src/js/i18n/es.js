@@ -57,6 +57,10 @@ export const LOCALIZED_ES = {
   'building.build': 'Construir',
   'building.levelUp': 'Aumentar nivel',
 
+  // Worker assignment
+  'worker.assign': 'Asignar trabajador',
+  'worker.unassign': 'Desasignar trabajador',
+
   // Headquarters actions
   'house.recruitWorker': 'Crear trabajador',
   'headquarters.levelUp': 'Aumentar nivel',

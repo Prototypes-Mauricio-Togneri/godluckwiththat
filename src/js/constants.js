@@ -84,6 +84,22 @@ export const WORKER_RECRUIT_COST = new Cost({
   food: 50,
 })
 
+// Number of worker slots gained per building level
+export const WORKERS_PER_LEVEL = 5
+
+// Buildings that accept worker assignments
+export const WORKER_ASSIGNABLE_BUILDINGS = new Set([
+  'academy',
+  'shrine',
+  'temple',
+  'farm',
+  'woodcutter',
+  'quarry',
+  'copperMine',
+  'ironMine',
+  'goldMine',
+])
+
 // Building class map — resolves building keys to their class constructors
 export const BUILDING_CLASS_MAP = {
   headquarters: Headquarters,
