@@ -269,14 +269,14 @@ export function createInitialColony() {
     stockpile: new Stockpile({
       territory: 5,
       workers: 10,
-      food: 100,
+      food: 200,
       wood: 100,
-      stone: 50,
-      copper: 100,
-      iron: 100,
-      gold: 100,
-      faith: 100,
-      knowledge: 100,
+      stone: 0,
+      copper: 0,
+      iron: 0,
+      gold: 0,
+      faith: 0,
+      knowledge: 0,
     }),
 
     buildings: new Buildings({
