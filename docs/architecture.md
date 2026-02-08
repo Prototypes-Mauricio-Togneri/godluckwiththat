@@ -42,7 +42,7 @@ All initial values and stockpile caps declared as `createInitialColony()` (a `Co
 
 ### Localization (`src/js/i18n/`)
 
-All user-facing text is centralized in `LOCALIZED_EN` (`en.js`), a flat object with dot-notation keys (e.g. `'screen.home.play'`, `'resource.food'`, `'season.warm'`). A `t(key)` helper exported from `localized.js` returns the localized string. Components import `t` from `localized.js` and use it in templates (`{{ t('key') }}`) and bound attributes (`:alt="t('key')"`). No hardcoded display text in templates or JS.
+Each supported language has its own file (`en.js`, `es.js`) exporting a flat object with dot-notation keys (e.g. `'screen.home.play'`, `'resource.food'`, `'season.warm'`). At startup, `localized.js` reads `navigator.language`, resolves it to a supported locale (defaulting to English), and exports a `t(key)` helper that looks up strings from the resolved locale. Components import `t` from `localized.js` and use it in templates (`{{ t('key') }}`) and bound attributes (`:alt="t('key')"`). No hardcoded display text in templates or JS.
 
 ## Visual Design
 

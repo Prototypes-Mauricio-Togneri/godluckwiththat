@@ -23,7 +23,8 @@ src/
 │   ├── game_state.js         → GameState class (colony data model)
 │   ├── i18n/
 │   │   ├── en.js             → English locale strings
-│   │   └── localized.js      → t() lookup helper
+│   │   ├── es.js             → Spanish locale strings
+│   │   └── localized.js      → Browser language detection + t() helper
 │   ├── main.js               → Vue app entry point
 │   └── models/
 │       ├── buildings/
