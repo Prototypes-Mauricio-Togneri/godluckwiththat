@@ -28,7 +28,11 @@ export const LOCALIZED_EN = {
   'buildingGroup.military': 'Military',
 
   // Buildings
-  'building.headquarters': 'Headquarters',
+  'building.headquarters.camp': 'Camp',
+  'building.headquarters.settlement': 'Settlement',
+  'building.headquarters.village': 'Village',
+  'building.headquarters.town': 'Town',
+  'building.headquarters.city': 'City',
   'building.house': 'House',
   'building.academy': 'Academy',
   'building.storehouse': 'Storehouse',

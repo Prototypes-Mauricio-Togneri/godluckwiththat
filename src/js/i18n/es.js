@@ -28,7 +28,11 @@ export const LOCALIZED_ES = {
   'buildingGroup.military': 'Militar',
 
   // Buildings
-  'building.headquarters': 'Cuartel General',
+  'building.headquarters.camp': 'Campamento',
+  'building.headquarters.settlement': 'Asentamiento',
+  'building.headquarters.village': 'Aldea',
+  'building.headquarters.town': 'Pueblo',
+  'building.headquarters.city': 'Ciudad',
   'building.house': 'Casa',
   'building.academy': 'Academia',
   'building.storehouse': 'Almacén',

@@ -16,6 +16,11 @@ function handleKeydown(event) {
   }
 }
 
+function buildingNameKey(key) {
+  if (key === 'headquarters') return `building.headquarters.${state.colony.buildings.headquarters.type}`
+  return `building.${key}`
+}
+
 onMounted(() => window.addEventListener('keydown', handleKeydown))
 onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 </script>
@@ -85,9 +90,9 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
         <h2 class="column-header">{{ t(column.headerKey) }}</h2>
         <div class="column-cards">
           <div v-for="building in column.buildings" :key="building.key" class="building-card">
-            <img class="building-thumb" :src="building.img" :alt="t('building.' + building.key)">
+            <img class="building-thumb" :src="building.img" :alt="t(buildingNameKey(building.key))">
             <div class="building-info">
-              <span class="building-name">{{ t('building.' + building.key) }}</span>
+              <span class="building-name">{{ t(buildingNameKey(building.key)) }}</span>
               <span class="building-level">{{ t('building.level') }} {{ state.colony.buildings[building.key].level }}</span>
             </div>
           </div>

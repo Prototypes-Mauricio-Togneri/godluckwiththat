@@ -27,6 +27,13 @@ import Stockpile from './models/stockpile.js'
 
 // Centralized magic constants
 
+// Headquarters progression types (colony upgrades)
+export const HQ_TYPE_CAMP = 'camp'
+export const HQ_TYPE_SETTLEMENT = 'settlement'
+export const HQ_TYPE_VILLAGE = 'village'
+export const HQ_TYPE_TOWN = 'town'
+export const HQ_TYPE_CITY = 'city'
+
 // Building grid layout — column definitions for the game screen
 export const BUILDING_GRID = [
   {
@@ -183,7 +190,7 @@ export function createInitialColony() {
 
     buildings: new Buildings({
       headquarters: new Headquarters({
-        type: 'camp',
+        type: HQ_TYPE_CAMP,
         level: 1,
       }),
       house: new House({
