@@ -64,19 +64,21 @@ function act() {
     </div>
     <div class="building-info">
       <span class="building-name">{{ t(displayNameKey) }}</span>
-      <slot v-if="!isBuildable" />
-      <div v-if="hasAction" class="action-row build-action">
-        <span class="tooltip" :data-tooltip="isBuildable ? t('building.build') + ' ' + t(displayNameKey) : t('building.levelUp')">
-          <button class="btn-gold action-btn" :disabled="!canAct" @click="act">
-            <img class="action-btn-icon" :src="isBuildable ? '/img/other/build.png' : '/img/other/upgrade.png'" :alt="isBuildable ? t('building.build') : t('building.levelUp')">
-          </button>
-        </span>
-        <span class="action-cost">
-          <span v-for="[key, amount] in actionCostEntries" :key="key" class="action-cost-item">
-            <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
-            <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
+      <div v-if="hasAction || !isBuildable" class="slot-actions">
+        <div v-if="hasAction" class="action-row">
+          <span class="tooltip" :data-tooltip="isBuildable ? t('building.build') + ' ' + t(displayNameKey) : t('building.levelUp')">
+            <button class="btn-gold action-btn" :disabled="!canAct" @click="act">
+              <img class="action-btn-icon" :src="isBuildable ? '/img/other/build.png' : '/img/other/upgrade.png'" :alt="isBuildable ? t('building.build') : t('building.levelUp')">
+            </button>
           </span>
-        </span>
+          <span class="action-cost">
+            <span v-for="[key, amount] in actionCostEntries" :key="key" class="action-cost-item">
+              <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
+              <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
+            </span>
+          </span>
+        </div>
+        <slot v-if="!isBuildable" />
       </div>
     </div>
 
@@ -169,6 +171,7 @@ function act() {
 }
 
 .building-info {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
@@ -184,9 +187,5 @@ function act() {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.build-action {
-  margin-top: auto;
 }
 </style>

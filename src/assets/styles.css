@@ -160,3 +160,11 @@
 .action-cost-short {
     color: #c45050;
 }
+
+/* Slot actions — flex row wrapper for action groups inside building card slots */
+.slot-actions {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: auto;
+}

@@ -51,43 +51,33 @@ function upgradeType() {
 
 <template>
   <BaseCard :building-key="buildingKey" :img="img" :building="building" :name-key="nameKey" :show-build-action="false">
-    <div class="hq-actions">
-      <div class="action-row">
-        <span class="tooltip" :data-tooltip="t('headquarters.levelUp')">
-          <button class="btn-gold action-btn" :disabled="!canLevelUp" @click="levelUp">
-            <img class="action-btn-icon" src="/img/other/upgrade.png" :alt="t('headquarters.levelUp')">
-          </button>
+    <div class="action-row">
+      <span class="tooltip" :data-tooltip="t('headquarters.levelUp')">
+        <button class="btn-gold action-btn" :disabled="!canLevelUp" @click="levelUp">
+          <img class="action-btn-icon" src="/img/other/upgrade.png" :alt="t('headquarters.levelUp')">
+        </button>
+      </span>
+      <span class="action-cost">
+        <span v-for="[key, amount] in levelUpCostEntries" :key="key" class="action-cost-item">
+          <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
+          <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
         </span>
-        <span class="action-cost">
-          <span v-for="[key, amount] in levelUpCostEntries" :key="key" class="action-cost-item">
-            <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
-            <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
-          </span>
-        </span>
-      </div>
+      </span>
+    </div>
 
-      <div v-if="!isMaxType" class="action-row">
-        <span class="tooltip" :data-tooltip="t('headquarters.upgrade')">
-          <button class="btn-gold action-btn" :disabled="!canUpgrade" @click="upgradeType">
-            <img class="action-btn-icon" src="/img/other/headquarters_upgrade.png" :alt="t('headquarters.upgrade')">
-          </button>
+    <div v-if="!isMaxType" class="action-row">
+      <span class="tooltip" :data-tooltip="t('headquarters.upgrade')">
+        <button class="btn-gold action-btn" :disabled="!canUpgrade" @click="upgradeType">
+          <img class="action-btn-icon" src="/img/other/headquarters_upgrade.png" :alt="t('headquarters.upgrade')">
+        </button>
+      </span>
+      <span class="action-cost">
+        <span v-for="[key, amount] in upgradeCostEntries" :key="key" class="action-cost-item">
+          <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
+          <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
         </span>
-        <span class="action-cost">
-          <span v-for="[key, amount] in upgradeCostEntries" :key="key" class="action-cost-item">
-            <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
-            <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
-          </span>
-        </span>
-      </div>
+      </span>
     </div>
   </BaseCard>
 </template>
 
-<style scoped>
-.hq-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  margin-top: 0.35rem;
-}
-</style>
