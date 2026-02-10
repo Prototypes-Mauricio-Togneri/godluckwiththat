@@ -95,7 +95,7 @@ export const BUILDING_BASE_COSTS = {
 // Exponential multiplier for HQ level-up cost: floor(base × multiplier^(level-1))
 export const HQ_LEVEL_UP_MULTIPLIER = 2.5
 
-// Resource cost to upgrade HQ type (keyed by current type)
+// Resource cost to upgrade HQ type (keyed by type)
 export const HQ_UPGRADE_COSTS = {
   [HQ_TYPE_CAMP]: new Cost({
     wood: 200,
