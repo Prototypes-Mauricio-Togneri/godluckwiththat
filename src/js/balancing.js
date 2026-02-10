@@ -168,10 +168,10 @@ export const ALTAR_FAITH_RATE = 0.1
 export const HOUSE_BASE_POPULATION = 5
 export const HOUSE_POPULATION_PER_LEVEL = 5
 
+// Number of worker slots gained per building level
+export const WORKERS_PER_LEVEL = 5
+
 // Worker recruitment cost (always food)
 export const WORKER_RECRUIT_COST = new Cost({
   food: 50,
 })
-
-// Number of worker slots gained per building level
-export const WORKERS_PER_LEVEL = 5
