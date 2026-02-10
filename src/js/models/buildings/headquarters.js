@@ -38,10 +38,7 @@ class Headquarters extends Building {
    * @returns {Cost|null} Cost for the upgrade, or null if already at max type
    */
   static upgradeCost(currentType) {
-    const index = HQ_TYPES.indexOf(currentType)
-    if (index < 0 || index >= HQ_TYPES.length - 1) return null
-
-    return new Cost(HQ_UPGRADE_COSTS[index])
+    return HQ_UPGRADE_COSTS[currentType] ?? null
   }
 
   /**

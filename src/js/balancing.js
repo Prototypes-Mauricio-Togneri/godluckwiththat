@@ -2,7 +2,7 @@
 // Consumed by constants.js, building classes, game_state.js, and
 // UI components.
 
-import {RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/constants.js'
+import {HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/constants.js'
 import Cost from '@/js/models/cost.js'
 
 // ── Building Base Costs ─────────────────────────────────────────────
@@ -95,31 +95,31 @@ export const BUILDING_BASE_COSTS = {
 // Exponential multiplier for HQ level-up cost: floor(base × multiplier^(level-1))
 export const HQ_LEVEL_UP_MULTIPLIER = 2.5
 
-// Resource cost to upgrade HQ type (indexed by current type position)
-export const HQ_UPGRADE_COSTS = [
-  {
+// Resource cost to upgrade HQ type (keyed by current type)
+export const HQ_UPGRADE_COSTS = {
+  [HQ_TYPE_CAMP]: new Cost({
     wood: 200,
     stone: 100,
-  },
-  {
+  }),
+  [HQ_TYPE_SETTLEMENT]: new Cost({
     wood: 500,
     stone: 250,
     copper: 100,
-  },
-  {
+  }),
+  [HQ_TYPE_VILLAGE]: new Cost({
     wood: 1000,
     stone: 500,
     copper: 250,
     iron: 100,
-  },
-  {
+  }),
+  [HQ_TYPE_TOWN]: new Cost({
     wood: 2000,
     stone: 1000,
     copper: 500,
     iron: 250,
     gold: 100,
-  },
-]
+  }),
+}
 
 // ── Production ──────────────────────────────────────────────────────
 
