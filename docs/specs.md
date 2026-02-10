@@ -31,11 +31,11 @@ The colony is where the game takes place. It is where you will build your buildi
   - It changes the visual representation of the colony
   - Each colony upgrade also unlocks buildings that previously couldn't be built
   - Colony types, in order:
-    - Camp
-    - Settlement
-    - Village
-    - Town
-    - City
+    - Camp → unlocks: House, Altar, Farm, Woodcutter
+    - Settlement → unlocks: Academy, Shrine, Quarry, Barracks
+    - Village → unlocks: Storehouse, Temple, Copper Mine, Archery
+    - Town → unlocks: Monument, Iron Mine, Stable, Wall
+    - City → unlocks: Market, Gold Mine, Workshop, Tower
 
 - The colony can be improved by spending resources on
   - Buildings
