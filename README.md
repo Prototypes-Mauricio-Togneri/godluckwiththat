@@ -3,4 +3,6 @@
 [Web site](https://god-luck-with-that.web.app)
 
 - Display resources produced per minute
-- Produce resources differently per season
+- Season modifiers (warm/cold production effects)
+- Territory consumption (building level = territory slot)
+- Worker food consumption (idle workers drain food)

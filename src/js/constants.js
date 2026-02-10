@@ -1,3 +1,4 @@
+import {INITIAL_IDLE_WORKERS, INITIAL_RESOURCES, INITIAL_STOCKPILE, WORKER_RECRUIT_FOOD_COST} from '@/js/balancing.js'
 import Cost from '@/js/models/cost.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
@@ -79,17 +80,10 @@ export const HQ_BUILDING_UNLOCKS = {
   ],
 }
 
-// House population cap: base + level × per-level bonus
-export const HOUSE_BASE_POPULATION = 5
-export const HOUSE_POPULATION_PER_LEVEL = 5
-
 // Worker recruitment cost (always 50 food)
 export const WORKER_RECRUIT_COST = new Cost({
-  food: 50,
+  food: WORKER_RECRUIT_FOOD_COST,
 })
-
-// Number of worker slots gained per building level
-export const WORKERS_PER_LEVEL = 5
 
 // Buildings that accept worker assignments
 export const WORKER_ASSIGNABLE_BUILDINGS = new Set([
@@ -103,48 +97,6 @@ export const WORKER_ASSIGNABLE_BUILDINGS = new Set([
   'ironMine',
   'goldMine',
 ])
-
-// Game loop tick interval in milliseconds
-export const TICK_INTERVAL_MS = 1000
-
-// Base production rates per worker per second (building key → resource + rate)
-export const PRODUCTION_RATES = {
-  farm: {
-    resource: 'food',
-    rate: 0.5,
-  },
-  woodcutter: {
-    resource: 'wood',
-    rate: 0.3,
-  },
-  quarry: {
-    resource: 'stone',
-    rate: 0.2,
-  },
-  copperMine: {
-    resource: 'copper',
-    rate: 0.15,
-  },
-  ironMine: {
-    resource: 'iron',
-    rate: 0.1,
-  },
-  goldMine: {
-    resource: 'gold',
-    rate: 0.05,
-  },
-  academy: {
-    resource: 'knowledge',
-    rate: 0.1,
-  },
-  shrine: {
-    resource: 'faith',
-    rate: 0.15,
-  },
-}
-
-// Altar passive faith production per level per second (no workers needed)
-export const ALTAR_FAITH_RATE = 0.1
 
 // Building class map — resolves building keys to their class constructors
 export const BUILDING_CLASS_MAP = {
@@ -302,20 +254,9 @@ export function createInitialMeta() {
 export function createInitialColony() {
   return new Colony({
     season: 'warm',
-    idleWorkers: 5,
+    idleWorkers: INITIAL_IDLE_WORKERS,
 
-    resources: new Resources({
-      territory: 1,
-      workers: 5,
-      food: 120,
-      wood: 80,
-      stone: 0,
-      copper: 0,
-      iron: 0,
-      gold: 0,
-      faith: 0,
-      knowledge: 0,
-    }),
+    resources: new Resources(INITIAL_RESOURCES),
 
     production: new Production({
       food: 0,
@@ -328,18 +269,7 @@ export function createInitialColony() {
       knowledge: 0,
     }),
 
-    stockpile: new Stockpile({
-      territory: 5,
-      workers: 5,
-      food: 200,
-      wood: 100,
-      stone: 0,
-      copper: 0,
-      iron: 0,
-      gold: 0,
-      faith: 0,
-      knowledge: 0,
-    }),
+    stockpile: new Stockpile(INITIAL_STOCKPILE),
 
     buildings: new Buildings({
       headquarters: new Headquarters({

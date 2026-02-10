@@ -1,3 +1,4 @@
+import {BUILDING_BASE_COSTS} from '@/js/balancing.js'
 import Building from '@/js/models/buildings/building.js'
 import Cost from '@/js/models/cost.js'
 
@@ -12,10 +13,7 @@ class Monument extends Building {
     super(data)
   }
 
-  static baseCost = {
-    wood: 120,
-    stone: 60,
-  }
+  static baseCost = BUILDING_BASE_COSTS.monument
 
   /**
    * Cost to level up from the given level.

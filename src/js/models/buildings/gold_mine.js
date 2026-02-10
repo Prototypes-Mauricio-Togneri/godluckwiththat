@@ -1,3 +1,4 @@
+import {BUILDING_BASE_COSTS} from '@/js/balancing.js'
 import Building from '@/js/models/buildings/building.js'
 import Cost from '@/js/models/cost.js'
 
@@ -12,10 +13,7 @@ class GoldMine extends Building {
     super(data)
   }
 
-  static baseCost = {
-    wood: 140,
-    stone: 70,
-  }
+  static baseCost = BUILDING_BASE_COSTS.goldMine
 
   /**
    * Cost to level up from the given level.

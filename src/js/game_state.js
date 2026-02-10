@@ -1,4 +1,4 @@
-import {ALTAR_FAITH_RATE, HOUSE_BASE_POPULATION, HOUSE_POPULATION_PER_LEVEL, PRODUCTION_RATES} from '@/js/constants.js'
+import {ALTAR_FAITH_RATE, HOUSE_BASE_POPULATION, HOUSE_POPULATION_PER_LEVEL, PRODUCTION_RATES} from '@/js/balancing.js'
 
 /**
  * Central game state container.

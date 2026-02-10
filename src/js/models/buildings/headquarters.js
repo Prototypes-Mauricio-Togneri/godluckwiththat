@@ -1,3 +1,4 @@
+import {BUILDING_BASE_COSTS, HQ_LEVEL_UP_MULTIPLIER, HQ_UPGRADE_COSTS} from '@/js/balancing.js'
 import Building from '@/js/models/buildings/building.js'
 import Cost from '@/js/models/cost.js'
 import {HQ_TYPES} from '@/js/constants.js'
@@ -16,10 +17,8 @@ class Headquarters extends Building {
     this.type = data.type // Headquarters progression type (e.g. 'camp')
   }
 
-  static baseCost = {
-    wood: 20,
-  }
-  static levelUpMultiplier = 2.5
+  static baseCost = BUILDING_BASE_COSTS.headquarters
+  static levelUpMultiplier = HQ_LEVEL_UP_MULTIPLIER
 
   /**
    * Cost to increase HQ from the given level to the next.
@@ -43,31 +42,7 @@ class Headquarters extends Building {
     const index = HQ_TYPES.indexOf(currentType)
     if (index < 0 || index >= HQ_TYPES.length - 1) return null
 
-    const costs = [
-      new Cost({
-        wood: 200,
-        stone: 100,
-      }),
-      new Cost({
-        wood: 500,
-        stone: 250,
-        copper: 100,
-      }),
-      new Cost({
-        wood: 1000,
-        stone: 500,
-        copper: 250,
-        iron: 100,
-      }),
-      new Cost({
-        wood: 2000,
-        stone: 1000,
-        copper: 500,
-        iron: 250,
-        gold: 100,
-      }),
-    ]
-    return costs[index]
+    return new Cost(HQ_UPGRADE_COSTS[index])
   }
 
   /**

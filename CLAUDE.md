@@ -25,7 +25,8 @@ src/
 │       ├── home_screen.vue   → Title screen with start button
 │       └── game_screen.vue   → Main game screen
 ├── js/
-│   ├── constants.js          → Centralized magic constants
+│   ├── balancing.js          → Game balancing values (costs, rates, formulas)
+│   ├── constants.js          → Structural constants (maps, enums, factories)
 │   ├── game_state.js         → GameState class (meta + colony data model + update loop)
 │   ├── i18n/
 │   │   ├── en.js             → English locale strings
@@ -71,7 +72,7 @@ Read these when working on specific areas:
 - **Analytical Rigor**: Thoroughly review the codebase for relevant facts, styles, conventions, and abstractions. Before implementation, clearly identify what will change and what will remain untouched.
 - **Minimalist Approach**: Prioritize extreme simplicity. Impact only the code strictly necessary for the task to avoid complexity and prevent breaking existing functionality.
 - **Maintainability Check**: Ensure the solution is readable, consistent, maintainable, simple, robust, and strictly follows the requested requirements.
-- **Centralized Constants**: Declare all magic constants in `src/js/constants.js` and reference them from there. Do not hardcode values directly in other files.
+- **Centralized Constants**: Declare numeric balancing values (costs, rates, formulas, initial state) in `src/js/balancing.js` and structural constants (class maps, enums, sets, factory functions) in `src/js/constants.js`. Do not hardcode values directly in other files.
 - **Localization**: All user-facing text goes in every locale file under `src/js/i18n/`. Use the `t(key)` helper to reference strings. Keys use flat dot-notation with lowerCamelCase segments (e.g. `'resource.idleWorkers'`).
 - **Imports**: Always use the `@` path alias (mapped to `src/`) for imports. Do not use relative paths (`./`, `../`).
 - **Shared Styles**: When a CSS rule or value is repeated across `.vue` files, extract it into `src/assets/styles.css` (as a CSS variable, shared class, or both). Component-specific overrides stay in scoped `<style>` blocks.

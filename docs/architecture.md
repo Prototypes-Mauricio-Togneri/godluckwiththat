@@ -25,7 +25,7 @@ Top bar divided into 4 sections separated by decorative vertical dividers:
 3. **Colony** — population, idle workers, territory each shown as icon image + value (flex: 1, centered)
 4. **Menu button** — hamburger icon (inline SVG), opens pause modal
 
-Resource/colony items use `<img>` icons from `public/img/` (no text labels). Values use `Jost` (body font). All values sourced from `GameState` (see below), which initializes from `src/js/constants.js`.
+Resource/colony items use `<img>` icons from `public/img/` (no text labels). Values use `Jost` (body font). All values sourced from `GameState` (see below), which initializes from `src/js/constants.js` (factories) using values from `src/js/balancing.js`.
 
 **Keyboard**: Escape key toggles the pause modal (ignored when an `INPUT` or `TEXTAREA` is focused).
 
@@ -74,17 +74,17 @@ Central state container instantiated once per game session. Pure JS class wrappe
 - `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level` and `workers`, where `workers` defaults to 0). `Headquarters` also has `type`, static properties `baseCost` and `levelUpMultiplier`, and static methods `levelUpCost(level)`, `upgradeCost(type)`, `nextType(type)`. All 20 non-HQ building classes also have a static `baseCost` property (`{ wood, stone? }`) and a static `levelUpCost(level)` method that returns a `Cost` (base wood/stone scaled by `level + 1`). Individual building classes live in `src/js/models/buildings/`.
 - `Cost` (`src/js/models/cost.js`) — multi-resource cost holder with properties: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `knowledge`. Methods: `canAfford(resources)`, `deductFrom(resources)`, `entries()` (returns a `Map<string, number>` of non-zero resources).
 
-All initial values declared via `createInitialMeta()` (a `Meta` instance) and `createInitialColony()` (a `Colony` instance) in `src/js/constants.js`. `BUILDING_CLASS_MAP` maps all 21 building keys to their class constructors.
+All initial values declared via `createInitialMeta()` (a `Meta` instance) and `createInitialColony()` (a `Colony` instance) in `src/js/constants.js`, using numeric values from `src/js/balancing.js`. `BUILDING_CLASS_MAP` maps all 21 building keys to their class constructors.
 
 ### Tick System (`GameState.update()` in `src/js/game_state.js`)
 
 Core game loop that generates resources over time. `game_screen.vue` runs a `setInterval` (1 second) that calls `state.update(deltaSec)` with the elapsed time since the last tick (via `performance.now()`). Delta time naturally handles backgrounded tabs — when the tab returns, the first tick applies the full accumulated time.
 
-**Stockpile recalculation**: Each tick recalculates `stockpile.workers` from the house level: `HOUSE_BASE_POPULATION + house.level × HOUSE_POPULATION_PER_LEVEL` (constants.js).
+**Stockpile recalculation**: Each tick recalculates `stockpile.workers` from the house level: `HOUSE_BASE_POPULATION + house.level × HOUSE_POPULATION_PER_LEVEL` (balancing.js).
 
-**Production formula**: For each building in `PRODUCTION_RATES` (constants.js), production rate = `workers × baseRate`. Altar is passive: `level × ALTAR_FAITH_RATE`. Rates are stored on `colony.production` (per-second) for UI display, then scaled by `deltaSec` when applied to `colony.resources`. Resources are capped at `colony.stockpile` limits after application.
+**Production formula**: For each building in `PRODUCTION_RATES` (balancing.js), production rate = `workers × baseRate`. Altar is passive: `level × ALTAR_FAITH_RATE`. Rates are stored on `colony.production` (per-second) for UI display, then scaled by `deltaSec` when applied to `colony.resources`. Resources are capped at `colony.stockpile` limits after application.
 
-**Base rates** (per worker per second): farm→food 0.5, woodcutter→wood 0.3, quarry→stone 0.2, copperMine→copper 0.15, ironMine→iron 0.1, goldMine→gold 0.05, academy→knowledge 0.1, shrine→faith 0.15. Altar→faith 0.1/level/sec (passive).
+**Base rates** (per worker per second): farm→food 0.5, woodcutter→wood 0.3, quarry→stone 0.2, copperMine→copper 0.15, ironMine→iron 0.1, goldMine→gold 0.05, academy→knowledge 0.1, shrine→faith 0.15. Altar→faith 0.1/level/sec (passive). All values defined in `src/js/balancing.js`.
 
 **Tooltips** — Each resource and colony item has a CSS-only tooltip (`.tooltip` class + `data-tooltip` attribute). The `::after` pseudo-element renders tooltip text on hover with a fade-in transition. Shared `.tooltip` class defined in `src/assets/styles.css`.
 
@@ -141,7 +141,7 @@ Each supported language has its own file (`en.js`, `es.js`) exporting a flat obj
   - Variables: full descriptive names, avoid abbreviations
     - Allowed: `i`, `j` (loop counters), `x`, `y` (coordinates), `dx`, `dy` (deltas), `ctx` (canvas context)
     - Avoid: `p` (player), `em` (enemyManager), `el` (element), `sw` (switch), `m` (mine), etc.
-- All magic values in `src/js/constants.js`
+- Numeric balancing values in `src/js/balancing.js`, structural constants in `src/js/constants.js`
 - Unused parameters: use `_`, `__`, `___`, etc.
 
 ### JavaScript Comment Conventions
