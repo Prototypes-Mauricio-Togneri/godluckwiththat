@@ -2,6 +2,7 @@
 // Consumed by constants.js, building classes, game_state.js, and
 // UI components.
 
+import {RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/constants.js'
 import Cost from '@/js/models/cost.js'
 
 // ── Building Base Costs ─────────────────────────────────────────────
@@ -125,35 +126,35 @@ export const HQ_UPGRADE_COSTS = [
 // Base production rates per worker per second (building key → resource + rate)
 export const PRODUCTION_RATES = {
   farm: {
-    resource: 'food',
+    resource: RESOURCE_FOOD,
     rate: 0.5,
   },
   woodcutter: {
-    resource: 'wood',
+    resource: RESOURCE_WOOD,
     rate: 0.3,
   },
   quarry: {
-    resource: 'stone',
+    resource: RESOURCE_STONE,
     rate: 0.2,
   },
   copperMine: {
-    resource: 'copper',
+    resource: RESOURCE_COPPER,
     rate: 0.15,
   },
   ironMine: {
-    resource: 'iron',
+    resource: RESOURCE_IRON,
     rate: 0.1,
   },
   goldMine: {
-    resource: 'gold',
+    resource: RESOURCE_GOLD,
     rate: 0.05,
   },
   academy: {
-    resource: 'knowledge',
+    resource: RESOURCE_KNOWLEDGE,
     rate: 0.1,
   },
   shrine: {
-    resource: 'faith',
+    resource: RESOURCE_FAITH,
     rate: 0.15,
   },
 }
