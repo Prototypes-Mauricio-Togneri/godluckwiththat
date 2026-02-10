@@ -15,15 +15,13 @@ class House extends Building {
     super(data)
   }
 
-  static baseCost = BUILDING_BASE_COSTS.house
-
   /**
    * Cost to level up from the given level.
    * @param {number} level - Current building level
    * @returns {Cost}
    */
   static levelUpCost(level) {
-    const base = House.baseCost
+    const base = BUILDING_BASE_COSTS.house
     return new Cost({
       wood: Math.floor(base.wood * (level + 1)),
     })

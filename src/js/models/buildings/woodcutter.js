@@ -15,15 +15,13 @@ class Woodcutter extends Building {
     super(data)
   }
 
-  static baseCost = BUILDING_BASE_COSTS.woodcutter
-
   /**
    * Cost to level up from the given level.
    * @param {number} level - Current building level
    * @returns {Cost}
    */
   static levelUpCost(level) {
-    const base = Woodcutter.baseCost
+    const base = BUILDING_BASE_COSTS.woodcutter
     return new Cost({
       wood: Math.floor(base.wood * (level + 1)),
     })
