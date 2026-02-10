@@ -113,11 +113,12 @@ Each supported language has its own file (`en.js`, `es.js`) exporting a flat obj
 
 - **Display/headings**: `Josefin Sans` (geometric vintage sans-serif) — weights 400, 600, 700
 - **Body/UI**: `Jost` (geometric sans-serif) — weights 300, 400, 500
+- **Numeric**: `Azeret Mono` (geometric monospace) — weights 400, 500. Used for all numeric displays (resource counts, building levels, costs, worker counts).
 - Loaded via Google Fonts `<link>` in `index.html`
 
 ### Global Styles (`src/assets/styles.css`)
 
-- **CSS variables** on `:root`: `--color-bg`, `--color-bg-raised`, `--color-bg-surface`, `--color-text`, `--color-text-rgb`, `--color-accent`, `--color-accent-rgb`, `--color-border`, `--font-display`, `--font-body`
+- **CSS variables** on `:root`: `--color-bg`, `--color-bg-raised`, `--color-bg-surface`, `--color-text`, `--color-text-rgb`, `--color-accent`, `--color-accent-rgb`, `--color-border`, `--font-display`, `--font-body`, `--font-numeric`
 - **Shared classes**:
   - `.btn-gold` — bronze-gradient button base (font, color, gradient background, border, hover glow). Includes `:disabled` state (reduced opacity, `cursor: not-allowed`, hover neutralized). Components add sizing/spacing overrides in scoped styles.
   - `.tooltip` — CSS-only hover tooltip (positioned below element via `::after` pseudo-element reading `data-tooltip` attribute, fade-in transition).

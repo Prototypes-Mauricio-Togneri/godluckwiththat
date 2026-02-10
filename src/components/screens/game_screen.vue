@@ -264,7 +264,7 @@ onUnmounted(() => {
 /* ---- Values ---- */
 
 .header-value {
-  font-family: var(--font-body);
+  font-family: var(--font-numeric);
   font-size: 0.95rem;
   font-weight: 400;
   letter-spacing: 0.04em;
@@ -272,6 +272,7 @@ onUnmounted(() => {
 }
 
 .header-value--season {
+  font-family: var(--font-body);
   font-weight: 500;
   color: rgba(var(--color-accent-rgb), 0.85);
 }

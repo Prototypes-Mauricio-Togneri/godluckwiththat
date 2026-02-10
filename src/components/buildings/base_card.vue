@@ -164,7 +164,7 @@ function act() {
   position: absolute;
   bottom: 0;
   right: 0;
-  font-family: var(--font-body);
+  font-family: var(--font-numeric);
   font-size: 0.9rem;
   font-weight: 500;
   line-height: 1;

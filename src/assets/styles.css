@@ -13,6 +13,7 @@
     --color-border: rgba(184, 148, 62, 0.15);
     --font-display: 'Josefin Sans', sans-serif;
     --font-body: 'Jost', sans-serif;
+    --font-numeric: 'Azeret Mono', monospace;
 }
 
 /* ============================================
@@ -150,7 +151,7 @@
 }
 
 .action-cost-amount {
-    font-family: var(--font-body);
+    font-family: var(--font-numeric);
     font-size: 0.75rem;
     font-weight: 400;
     color: rgba(var(--color-text-rgb), 0.8);
@@ -226,7 +227,7 @@
     align-items: center;
     gap: 0.25rem;
     padding: 0 0.35rem;
-    font-family: var(--font-body);
+    font-family: var(--font-numeric);
     font-size: 0.95rem;
     font-weight: 400;
     color: rgba(var(--color-text-rgb), 0.85);
