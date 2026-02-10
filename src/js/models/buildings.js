@@ -28,27 +28,27 @@ class Buildings {
    * @param {Object} data - Pre-constructed building instances keyed by name
    */
   constructor(data) {
-    this.headquarters = data.headquarters
-    this.house = data.house
-    this.academy = data.academy
-    this.storehouse = data.storehouse
-    this.market = data.market
-    this.altar = data.altar
-    this.shrine = data.shrine
-    this.temple = data.temple
-    this.monument = data.monument
-    this.farm = data.farm
-    this.woodcutter = data.woodcutter
-    this.quarry = data.quarry
-    this.copperMine = data.copperMine
-    this.ironMine = data.ironMine
-    this.goldMine = data.goldMine
-    this.barracks = data.barracks
-    this.archery = data.archery
-    this.stable = data.stable
-    this.workshop = data.workshop
-    this.wall = data.wall
-    this.tower = data.tower
+    this.headquarters = data.headquarters // Main colony building
+    this.house = data.house // Worker housing
+    this.academy = data.academy // Knowledge production
+    this.storehouse = data.storehouse // Storage capacity upgrades
+    this.market = data.market // Resource trading
+    this.altar = data.altar // Passive faith generation
+    this.shrine = data.shrine // Worker-based faith production
+    this.temple = data.temple // Advanced faith production
+    this.monument = data.monument // Divine structure
+    this.farm = data.farm // Food production
+    this.woodcutter = data.woodcutter // Wood production
+    this.quarry = data.quarry // Stone production
+    this.copperMine = data.copperMine // Copper production
+    this.ironMine = data.ironMine // Iron production
+    this.goldMine = data.goldMine // Gold production
+    this.barracks = data.barracks // Infantry training
+    this.archery = data.archery // Ranged unit training
+    this.stable = data.stable // Mounted unit training
+    this.workshop = data.workshop // Siege equipment
+    this.wall = data.wall // Defensive fortification
+    this.tower = data.tower // Defensive ranged structure
   }
 }
 

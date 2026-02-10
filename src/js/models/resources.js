@@ -17,16 +17,16 @@ class Resources {
    * @param {Object} data - Initial resource values keyed by name
    */
   constructor(data) {
-    this.territory = data.territory
-    this.workers = data.workers
-    this.food = data.food
-    this.wood = data.wood
-    this.stone = data.stone
-    this.copper = data.copper
-    this.iron = data.iron
-    this.gold = data.gold
-    this.faith = data.faith
-    this.knowledge = data.knowledge
+    this.territory = data.territory // Controlled territory count
+    this.workers = data.workers // Total worker population
+    this.food = data.food // Food supply
+    this.wood = data.wood // Wood supply
+    this.stone = data.stone // Stone supply
+    this.copper = data.copper // Copper supply
+    this.iron = data.iron // Iron supply
+    this.gold = data.gold // Gold supply
+    this.faith = data.faith // Faith supply
+    this.knowledge = data.knowledge // Knowledge supply
   }
 
 }

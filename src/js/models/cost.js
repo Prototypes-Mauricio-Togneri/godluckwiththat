@@ -17,13 +17,13 @@ class Cost {
    * @param {Object} data - Resource amounts (omitted keys default to 0)
    */
   constructor(data = {}) {
-    this.food = data.food ?? 0
-    this.wood = data.wood ?? 0
-    this.stone = data.stone ?? 0
-    this.copper = data.copper ?? 0
-    this.iron = data.iron ?? 0
-    this.gold = data.gold ?? 0
-    this.knowledge = data.knowledge ?? 0
+    this.food = data.food ?? 0 // Food cost (default 0)
+    this.wood = data.wood ?? 0 // Wood cost (default 0)
+    this.stone = data.stone ?? 0 // Stone cost (default 0)
+    this.copper = data.copper ?? 0 // Copper cost (default 0)
+    this.iron = data.iron ?? 0 // Iron cost (default 0)
+    this.gold = data.gold ?? 0 // Gold cost (default 0)
+    this.knowledge = data.knowledge ?? 0 // Knowledge cost (default 0)
   }
 
   /**

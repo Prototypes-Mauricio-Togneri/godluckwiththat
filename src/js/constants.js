@@ -26,7 +26,7 @@ import Production from '@/js/models/production.js'
 import Resources from '@/js/models/resources.js'
 import Stockpile from '@/js/models/stockpile.js'
 
-// Centralized magic constants
+// Structural constants — class maps, enums, sets, and factory functions.
 
 // Tick interval in milliseconds
 export const TICK_INTERVAL = 1000

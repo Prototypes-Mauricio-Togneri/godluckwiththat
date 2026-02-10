@@ -14,12 +14,12 @@ class Colony {
    * @param {Object} data - Colony data with pre-constructed sub-model instances
    */
   constructor(data) {
-    this.season = data.season
-    this.idleWorkers = data.idleWorkers
-    this.resources = data.resources
-    this.production = data.production
-    this.stockpile = data.stockpile
-    this.buildings = data.buildings
+    this.season = data.season // Current season
+    this.idleWorkers = data.idleWorkers // Workers not assigned to buildings
+    this.resources = data.resources // Current resource amounts
+    this.production = data.production // Per-tick production rates
+    this.stockpile = data.stockpile // Maximum storage capacities
+    this.buildings = data.buildings // All building instances
   }
 }
 

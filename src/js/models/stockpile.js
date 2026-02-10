@@ -17,16 +17,16 @@ class Stockpile {
    * @param {Object} data - Initial stockpile caps keyed by resource name
    */
   constructor(data) {
-    this.territory = data.territory
-    this.workers = data.workers
-    this.food = data.food
-    this.wood = data.wood
-    this.stone = data.stone
-    this.copper = data.copper
-    this.iron = data.iron
-    this.gold = data.gold
-    this.faith = data.faith
-    this.knowledge = data.knowledge
+    this.territory = data.territory // Max territory capacity
+    this.workers = data.workers // Max worker capacity
+    this.food = data.food // Max food storage
+    this.wood = data.wood // Max wood storage
+    this.stone = data.stone // Max stone storage
+    this.copper = data.copper // Max copper storage
+    this.iron = data.iron // Max iron storage
+    this.gold = data.gold // Max gold storage
+    this.faith = data.faith // Max faith storage
+    this.knowledge = data.knowledge // Max knowledge storage
   }
 }
 

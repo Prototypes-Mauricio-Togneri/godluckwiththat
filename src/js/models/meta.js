@@ -12,10 +12,10 @@ class Meta {
    * @param {Object} data - Meta data
    */
   constructor(data) {
-    this.version = data.version
-    this.createdDateTime = data.createdDateTime
-    this.updatedDateTime = data.updatedDateTime
-    this.numberOfChallenges = data.numberOfChallenges
+    this.version = data.version // Save format version
+    this.createdDateTime = data.createdDateTime // When the game was created
+    this.updatedDateTime = data.updatedDateTime // When the game was last updated
+    this.numberOfChallenges = data.numberOfChallenges // Total divine challenges
   }
 }
 

@@ -14,8 +14,8 @@ class GameState {
    * @param {Colony} colony - Colony instance
    */
   constructor(meta, colony) {
-    this.meta = meta
-    this.colony = colony
+    this.meta = meta // Game metadata (version, timestamps, challenges)
+    this.colony = colony // Active colony instance
   }
 
   /**
