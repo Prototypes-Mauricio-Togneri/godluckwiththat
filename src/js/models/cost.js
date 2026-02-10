@@ -1,4 +1,4 @@
-import {RES_COPPER, RES_FOOD, RES_GOLD, RES_IRON, RES_KNOWLEDGE, RES_STONE, RES_WOOD} from '@/js/constants.js'
+import {RESOURCE_COPPER, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/constants.js'
 
 /**
  * Multi-resource cost holder.
@@ -60,13 +60,13 @@ class Cost {
    */
   entries() {
     const map = new Map()
-    if (this.food > 0) map.set(RES_FOOD, this.food)
-    if (this.wood > 0) map.set(RES_WOOD, this.wood)
-    if (this.stone > 0) map.set(RES_STONE, this.stone)
-    if (this.copper > 0) map.set(RES_COPPER, this.copper)
-    if (this.iron > 0) map.set(RES_IRON, this.iron)
-    if (this.gold > 0) map.set(RES_GOLD, this.gold)
-    if (this.knowledge > 0) map.set(RES_KNOWLEDGE, this.knowledge)
+    if (this.food > 0) map.set(RESOURCE_FOOD, this.food)
+    if (this.wood > 0) map.set(RESOURCE_WOOD, this.wood)
+    if (this.stone > 0) map.set(RESOURCE_STONE, this.stone)
+    if (this.copper > 0) map.set(RESOURCE_COPPER, this.copper)
+    if (this.iron > 0) map.set(RESOURCE_IRON, this.iron)
+    if (this.gold > 0) map.set(RESOURCE_GOLD, this.gold)
+    if (this.knowledge > 0) map.set(RESOURCE_KNOWLEDGE, this.knowledge)
     return map
   }
 }
