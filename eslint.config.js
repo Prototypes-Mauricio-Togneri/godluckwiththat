@@ -22,6 +22,7 @@ export default [
         requestAnimationFrame: 'readonly',
         cancelAnimationFrame: 'readonly',
         navigator: 'readonly',
+        performance: 'readonly',
       },
     },
     rules: {

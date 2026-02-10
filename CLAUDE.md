@@ -26,7 +26,7 @@ src/
 │       └── game_screen.vue   → Main game screen
 ├── js/
 │   ├── constants.js          → Centralized magic constants
-│   ├── game_state.js         → GameState class (meta + colony data model)
+│   ├── game_state.js         → GameState class (meta + colony data model + update loop)
 │   ├── i18n/
 │   │   ├── en.js             → English locale strings
 │   │   ├── es.js             → Spanish locale strings

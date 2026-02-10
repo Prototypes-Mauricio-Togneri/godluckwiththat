@@ -23,7 +23,7 @@ import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import GameState from '@/js/game_state.js'
-import {createInitialColony, createInitialMeta, BUILDING_GRID, HQ_BUILDING_UNLOCKS, HQ_TYPES} from '@/js/constants.js'
+import {createInitialColony, createInitialMeta, BUILDING_GRID, HQ_BUILDING_UNLOCKS, HQ_TYPES, TICK_INTERVAL_MS} from '@/js/constants.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
@@ -68,6 +68,16 @@ const showModal = ref(false)
 const state = reactive(new GameState(createInitialMeta(), createInitialColony()))
 provide('colony', state.colony)
 
+let tickTimer = null
+let lastTickTime = 0
+
+function gameTick() {
+  const now = performance.now()
+  const delta = (now - lastTickTime) / 1000
+  lastTickTime = now
+  state.update(delta)
+}
+
 function handleKeydown(event) {
   if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return
   if (event.key === 'Escape') {
@@ -75,8 +85,16 @@ function handleKeydown(event) {
   }
 }
 
-onMounted(() => window.addEventListener('keydown', handleKeydown))
-onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown)
+  lastTickTime = performance.now()
+  tickTimer = setInterval(gameTick, TICK_INTERVAL_MS)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown)
+  clearInterval(tickTimer)
+})
 </script>
 
 <template>
@@ -95,15 +113,15 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
       <div class="header-section header-resources">
         <div class="header-resource tooltip" :data-tooltip="t('resource.food')">
           <img class="resource-icon" src="/img/resources/food.png" :alt="t('resource.food')">
-          <span class="header-value">{{ state.colony.resources.food }}/{{ state.colony.stockpile.food }}</span>
+          <span class="header-value">{{ Math.floor(state.colony.resources.food) }}/{{ state.colony.stockpile.food }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.wood')">
           <img class="resource-icon" src="/img/resources/wood.png" :alt="t('resource.wood')">
-          <span class="header-value">{{ state.colony.resources.wood }}/{{ state.colony.stockpile.wood }}</span>
+          <span class="header-value">{{ Math.floor(state.colony.resources.wood) }}/{{ state.colony.stockpile.wood }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.stone')">
           <img class="resource-icon" src="/img/resources/stone.png" :alt="t('resource.stone')">
-          <span class="header-value">{{ state.colony.resources.stone }}/{{ state.colony.stockpile.stone }}</span>
+          <span class="header-value">{{ Math.floor(state.colony.resources.stone) }}/{{ state.colony.stockpile.stone }}</span>
         </div>
       </div>
 
@@ -114,7 +132,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
       <div class="header-section header-colony">
         <div class="header-resource tooltip" :data-tooltip="t('resource.population')">
           <img class="resource-icon resource-icon--worker" src="/img/units/worker.png" :alt="t('resource.population')">
-          <span class="header-value">{{ state.colony.resources.workers }}/{{ state.colony.stockpile.workers }}</span>
+          <span class="header-value">{{ Math.floor(state.colony.resources.workers) }}/{{ state.colony.stockpile.workers }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.idleWorkers')">
           <img class="resource-icon" src="/img/other/idle.png" :alt="t('resource.idleWorkers')">
@@ -122,7 +140,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.territory')">
           <img class="resource-icon resource-icon--territory" src="/img/other/territory.png" :alt="t('resource.territory')">
-          <span class="header-value">{{ state.colony.resources.territory }}/{{ state.colony.stockpile.territory }}</span>
+          <span class="header-value">{{ Math.floor(state.colony.resources.territory) }}/{{ state.colony.stockpile.territory }}</span>
         </div>
       </div>
 

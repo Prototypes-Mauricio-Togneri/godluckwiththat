@@ -100,6 +100,48 @@ export const WORKER_ASSIGNABLE_BUILDINGS = new Set([
   'goldMine',
 ])
 
+// Game loop tick interval in milliseconds
+export const TICK_INTERVAL_MS = 1000
+
+// Base production rates per worker per second (building key → resource + rate)
+export const PRODUCTION_RATES = {
+  farm: {
+    resource: 'food',
+    rate: 0.5,
+  },
+  woodcutter: {
+    resource: 'wood',
+    rate: 0.3,
+  },
+  quarry: {
+    resource: 'stone',
+    rate: 0.2,
+  },
+  copperMine: {
+    resource: 'copper',
+    rate: 0.15,
+  },
+  ironMine: {
+    resource: 'iron',
+    rate: 0.1,
+  },
+  goldMine: {
+    resource: 'gold',
+    rate: 0.05,
+  },
+  academy: {
+    resource: 'knowledge',
+    rate: 0.1,
+  },
+  shrine: {
+    resource: 'faith',
+    rate: 0.15,
+  },
+}
+
+// Altar passive faith production per level per second (no workers needed)
+export const ALTAR_FAITH_RATE = 0.1
+
 // Building class map — resolves building keys to their class constructors
 export const BUILDING_CLASS_MAP = {
   headquarters: Headquarters,

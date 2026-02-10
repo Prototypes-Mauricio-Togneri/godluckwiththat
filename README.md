@@ -6,3 +6,4 @@
 - Produce resources
 - Display resources updated
 - Display resources produced per minute
+- Produce resources differently per season

@@ -76,6 +76,14 @@ Central state container instantiated once per game session. Pure JS class wrappe
 
 All initial values declared via `createInitialMeta()` (a `Meta` instance) and `createInitialColony()` (a `Colony` instance) in `src/js/constants.js`. `BUILDING_CLASS_MAP` maps all 21 building keys to their class constructors.
 
+### Tick System (`GameState.update()` in `src/js/game_state.js`)
+
+Core game loop that generates resources over time. `game_screen.vue` runs a `setInterval` (1 second) that calls `state.update(deltaSec)` with the elapsed time since the last tick (via `performance.now()`). Delta time naturally handles backgrounded tabs — when the tab returns, the first tick applies the full accumulated time.
+
+**Production formula**: For each building in `PRODUCTION_RATES` (constants.js), production rate = `workers × baseRate`. Altar is passive: `level × ALTAR_FAITH_RATE`. Rates are stored on `colony.production` (per-second) for UI display, then scaled by `deltaSec` when applied to `colony.resources`. Resources are capped at `colony.stockpile` limits after application.
+
+**Base rates** (per worker per second): farm→food 0.5, woodcutter→wood 0.3, quarry→stone 0.2, copperMine→copper 0.15, ironMine→iron 0.1, goldMine→gold 0.05, academy→knowledge 0.1, shrine→faith 0.15. Altar→faith 0.1/level/sec (passive).
+
 **Tooltips** — Each resource and colony item has a CSS-only tooltip (`.tooltip` class + `data-tooltip` attribute). The `::after` pseudo-element renders tooltip text on hover with a fade-in transition. Shared `.tooltip` class defined in `src/assets/styles.css`.
 
 ### Localization (`src/js/i18n/`)
