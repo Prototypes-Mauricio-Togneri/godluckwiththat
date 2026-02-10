@@ -9,6 +9,8 @@ import {HQ_TYPES} from '@/js/constants.js'
  * @property {string} type - Headquarters progression type (e.g. 'camp')
  */
 class Headquarters extends Building {
+  static ID = 'headquarters'
+
   /**
    * @param {Object} data - Initial headquarters data with level and type
    */

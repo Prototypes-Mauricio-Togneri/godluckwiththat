@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Produces copper for the colony.
  */
 class CopperMine extends Building {
+  static ID = 'copperMine'
+
   /**
    * @param {Object} data - Initial building data
    */

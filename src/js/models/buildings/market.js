@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Enables resource trading.
  */
 class Market extends Building {
+  static ID = 'market'
+
   /**
    * @param {Object} data - Initial building data
    */

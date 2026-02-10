@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Grand structure honoring the Gods.
  */
 class Monument extends Building {
+  static ID = 'monument'
+
   /**
    * @param {Object} data - Initial building data
    */

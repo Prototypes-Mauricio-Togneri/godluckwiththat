@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Generates knowledge for the colony.
  */
 class Academy extends Building {
+  static ID = 'academy'
+
   /**
    * @param {Object} data - Initial building data
    */

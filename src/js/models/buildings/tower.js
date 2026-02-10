@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Defensive ranged structure.
  */
 class Tower extends Building {
+  static ID = 'tower'
+
   /**
    * @param {Object} data - Initial building data
    */

@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Trains ranged units.
  */
 class Archery extends Building {
+  static ID = 'archery'
+
   /**
    * @param {Object} data - Initial building data
    */

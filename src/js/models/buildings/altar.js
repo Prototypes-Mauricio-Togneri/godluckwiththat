@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Generates faith for the colony.
  */
 class Altar extends Building {
+  static ID = 'altar'
+
   /**
    * @param {Object} data - Initial building data
    */

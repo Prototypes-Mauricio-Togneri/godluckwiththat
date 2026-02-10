@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Sacred building that amplifies faith.
  */
 class Shrine extends Building {
+  static ID = 'shrine'
+
   /**
    * @param {Object} data - Initial building data
    */

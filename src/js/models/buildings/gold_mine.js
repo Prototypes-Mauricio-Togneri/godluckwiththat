@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Produces gold for the colony.
  */
 class GoldMine extends Building {
+  static ID = 'goldMine'
+
   /**
    * @param {Object} data - Initial building data
    */

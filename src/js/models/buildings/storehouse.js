@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Increases resource stockpile capacity.
  */
 class Storehouse extends Building {
+  static ID = 'storehouse'
+
   /**
    * @param {Object} data - Initial building data
    */

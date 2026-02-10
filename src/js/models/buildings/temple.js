@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Advanced faith building.
  */
 class Temple extends Building {
+  static ID = 'temple'
+
   /**
    * @param {Object} data - Initial building data
    */

@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Trains infantry units.
  */
 class Barracks extends Building {
+  static ID = 'barracks'
+
   /**
    * @param {Object} data - Initial building data
    */

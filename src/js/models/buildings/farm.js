@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Produces food for the colony.
  */
 class Farm extends Building {
+  static ID = 'farm'
+
   /**
    * @param {Object} data - Initial building data
    */

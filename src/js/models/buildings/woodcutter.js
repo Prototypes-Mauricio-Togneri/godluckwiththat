@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Produces wood for the colony.
  */
 class Woodcutter extends Building {
+  static ID = 'woodcutter'
+
   /**
    * @param {Object} data - Initial building data
    */

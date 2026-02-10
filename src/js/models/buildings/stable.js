@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Trains mounted units.
  */
 class Stable extends Building {
+  static ID = 'stable'
+
   /**
    * @param {Object} data - Initial building data
    */

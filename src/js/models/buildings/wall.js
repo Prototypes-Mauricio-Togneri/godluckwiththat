@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Defensive fortification.
  */
 class Wall extends Building {
+  static ID = 'wall'
+
   /**
    * @param {Object} data - Initial building data
    */

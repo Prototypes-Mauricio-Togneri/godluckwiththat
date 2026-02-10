@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Produces iron for the colony.
  */
 class IronMine extends Building {
+  static ID = 'ironMine'
+
   /**
    * @param {Object} data - Initial building data
    */

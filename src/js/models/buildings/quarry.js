@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Produces stone for the colony.
  */
 class Quarry extends Building {
+  static ID = 'quarry'
+
   /**
    * @param {Object} data - Initial building data
    */

@@ -6,6 +6,8 @@ import Cost from '@/js/models/cost.js'
  * Provides housing for colony population.
  */
 class House extends Building {
+  static ID = 'house'
+
   /**
    * @param {Object} data - Initial building data
    */
