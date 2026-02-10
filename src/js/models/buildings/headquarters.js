@@ -1,4 +1,4 @@
-import {BUILDING_BASE_COSTS, HQ_LEVEL_UP_MULTIPLIER, HQ_UPGRADE_COSTS} from '@/js/balancing.js'
+import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS, HQ_UPGRADE_COSTS} from '@/js/balancing.js'
 import Building from '@/js/models/buildings/building.js'
 import Cost from '@/js/models/cost.js'
 import {HQ_TYPES} from '@/js/constants.js'
@@ -26,7 +26,7 @@ class Headquarters extends Building {
    * @returns {Cost}
    */
   static levelUpCost(level) {
-    const wood = Math.floor(BUILDING_BASE_COSTS.headquarters.wood * Math.pow(HQ_LEVEL_UP_MULTIPLIER, level - 1))
+    const wood = Math.floor(BUILDING_BASE_COSTS.headquarters.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.headquarters, level - 1))
     return new Cost({
       wood,
     })

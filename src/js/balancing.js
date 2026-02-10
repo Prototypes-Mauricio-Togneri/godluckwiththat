@@ -90,10 +90,34 @@ export const BUILDING_BASE_COSTS = {
   },
 }
 
-// ── Headquarters ────────────────────────────────────────────────────
+// ── Level-Up Multipliers ────────────────────────────────────────────
 
-// Exponential multiplier for HQ level-up cost: floor(base × multiplier^(level-1))
-export const HQ_LEVEL_UP_MULTIPLIER = 2.5
+// Exponential multiplier per building for level-up cost:
+//   HQ (starts at level 1): floor(base × multiplier^(level-1))
+//   Others (start at level 0): floor(base × multiplier^level)
+export const BUILDING_LEVEL_UP_MULTIPLIERS = {
+  headquarters: 2.5,
+  house: 1.5,
+  academy: 1.5,
+  storehouse: 1.5,
+  market: 1.5,
+  farm: 1.5,
+  woodcutter: 1.5,
+  quarry: 1.5,
+  copperMine: 1.5,
+  ironMine: 1.5,
+  goldMine: 1.5,
+  altar: 1.5,
+  shrine: 1.5,
+  temple: 1.5,
+  monument: 1.5,
+  barracks: 1.5,
+  archery: 1.5,
+  stable: 1.5,
+  workshop: 1.5,
+  wall: 1.5,
+  tower: 1.5,
+}
 
 // Resource cost to upgrade HQ type (keyed by type)
 export const HQ_UPGRADE_COSTS = {
