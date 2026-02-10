@@ -79,6 +79,10 @@ export const HQ_BUILDING_UNLOCKS = {
   ],
 }
 
+// House population cap: base + level × per-level bonus
+export const HOUSE_BASE_POPULATION = 5
+export const HOUSE_POPULATION_PER_LEVEL = 5
+
 // Worker recruitment cost (always 50 food)
 export const WORKER_RECRUIT_COST = new Cost({
   food: 50,
@@ -298,11 +302,11 @@ export function createInitialMeta() {
 export function createInitialColony() {
   return new Colony({
     season: 'warm',
-    idleWorkers: 3,
+    idleWorkers: 5,
 
     resources: new Resources({
       territory: 1,
-      workers: 3,
+      workers: 5,
       food: 120,
       wood: 80,
       stone: 0,
@@ -326,7 +330,7 @@ export function createInitialColony() {
 
     stockpile: new Stockpile({
       territory: 5,
-      workers: 10,
+      workers: 5,
       food: 200,
       wood: 100,
       stone: 0,
