@@ -30,6 +30,16 @@ import Stockpile from '@/js/models/stockpile.js'
 
 // Centralized magic constants
 
+// Resource names
+export const RES_FOOD = 'food'
+export const RES_WOOD = 'wood'
+export const RES_STONE = 'stone'
+export const RES_COPPER = 'copper'
+export const RES_IRON = 'iron'
+export const RES_GOLD = 'gold'
+export const RES_KNOWLEDGE = 'knowledge'
+export const RES_FAITH = 'faith'
+
 // Headquarters progression types (colony upgrades)
 export const HQ_TYPE_CAMP = 'camp'
 export const HQ_TYPE_SETTLEMENT = 'settlement'

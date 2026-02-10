@@ -1,3 +1,5 @@
+import {RES_COPPER, RES_FOOD, RES_GOLD, RES_IRON, RES_KNOWLEDGE, RES_STONE, RES_WOOD} from '@/js/constants.js'
+
 /**
  * Multi-resource cost holder.
  * Represents a cost (or price) expressed as a combination of resources.
@@ -58,13 +60,13 @@ class Cost {
    */
   entries() {
     const map = new Map()
-    if (this.food > 0) map.set('food', this.food)
-    if (this.wood > 0) map.set('wood', this.wood)
-    if (this.stone > 0) map.set('stone', this.stone)
-    if (this.copper > 0) map.set('copper', this.copper)
-    if (this.iron > 0) map.set('iron', this.iron)
-    if (this.gold > 0) map.set('gold', this.gold)
-    if (this.knowledge > 0) map.set('knowledge', this.knowledge)
+    if (this.food > 0) map.set(RES_FOOD, this.food)
+    if (this.wood > 0) map.set(RES_WOOD, this.wood)
+    if (this.stone > 0) map.set(RES_STONE, this.stone)
+    if (this.copper > 0) map.set(RES_COPPER, this.copper)
+    if (this.iron > 0) map.set(RES_IRON, this.iron)
+    if (this.gold > 0) map.set(RES_GOLD, this.gold)
+    if (this.knowledge > 0) map.set(RES_KNOWLEDGE, this.knowledge)
     return map
   }
 }
