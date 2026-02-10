@@ -19,8 +19,6 @@ class Headquarters extends Building {
     this.type = data.type // Headquarters progression type (e.g. 'camp')
   }
 
-  static levelUpMultiplier = HQ_LEVEL_UP_MULTIPLIER
-
   /**
    * Cost to increase HQ from the given level to the next.
    * Formula: wood = floor(BASE_WOOD * MULTIPLIER ^ (level - 1))
@@ -28,7 +26,7 @@ class Headquarters extends Building {
    * @returns {Cost}
    */
   static levelUpCost(level) {
-    const wood = Math.floor(BUILDING_BASE_COSTS.headquarters.wood * Math.pow(Headquarters.levelUpMultiplier, level - 1))
+    const wood = Math.floor(BUILDING_BASE_COSTS.headquarters.wood * Math.pow(HQ_LEVEL_UP_MULTIPLIER, level - 1))
     return new Cost({
       wood,
     })

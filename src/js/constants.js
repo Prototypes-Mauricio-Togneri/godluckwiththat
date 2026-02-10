@@ -1,5 +1,3 @@
-import {INITIAL_IDLE_WORKERS, INITIAL_RESOURCES, INITIAL_STOCKPILE, WORKER_RECRUIT_FOOD_COST} from '@/js/balancing.js'
-import Cost from '@/js/models/cost.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
 import Archery from '@/js/models/buildings/archery.js'
@@ -29,6 +27,9 @@ import Resources from '@/js/models/resources.js'
 import Stockpile from '@/js/models/stockpile.js'
 
 // Centralized magic constants
+
+// Tick interval in milliseconds
+export const TICK_INTERVAL = 1000
 
 // Resource names
 export const RESOURCE_FOOD = 'food'
@@ -89,16 +90,6 @@ export const HQ_BUILDING_UNLOCKS = {
     Tower.ID,
   ],
 }
-
-// ── Game Loop ───────────────────────────────────────────────────────
-
-// Tick interval in milliseconds
-export const TICK_INTERVAL_MS = 1000
-
-// Worker recruitment cost (always food)
-export const WORKER_RECRUIT_COST = new Cost({
-  food: WORKER_RECRUIT_FOOD_COST,
-})
 
 // Buildings that accept worker assignments
 export const WORKER_ASSIGNABLE_BUILDINGS = new Set([

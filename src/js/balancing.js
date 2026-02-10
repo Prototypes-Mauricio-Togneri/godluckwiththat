@@ -1,6 +1,8 @@
-// Game balancing values — all tunable numeric constants in one place.
-// No class imports; purely data. Consumed by constants.js, building
-// classes, game_state.js, and UI components.
+// Game balancing values — all tunable constants in one place.
+// Consumed by constants.js, building classes, game_state.js, and
+// UI components.
+
+import Cost from '@/js/models/cost.js'
 
 // ── Building Base Costs ─────────────────────────────────────────────
 
@@ -165,8 +167,10 @@ export const ALTAR_FAITH_RATE = 0.1
 export const HOUSE_BASE_POPULATION = 5
 export const HOUSE_POPULATION_PER_LEVEL = 5
 
-// Food cost to recruit one worker
-export const WORKER_RECRUIT_FOOD_COST = 50
+// Worker recruitment cost (always food)
+export const WORKER_RECRUIT_COST = new Cost({
+  food: 50,
+})
 
 // Number of worker slots gained per building level
 export const WORKERS_PER_LEVEL = 5
