@@ -298,7 +298,7 @@ export function createInitialMeta() {
 export function createInitialColony() {
   return new Colony({
     season: 'warm',
-    idleWorkers: 2,
+    idleWorkers: 3,
 
     resources: new Resources({
       territory: 1,
