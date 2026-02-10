@@ -1,7 +1,7 @@
 <script setup>
 import {computed, inject} from 'vue'
 import BaseCard from '@/components/buildings/base_card.vue'
-import {WORKER_RECRUIT_COST} from '@/js/constants.js'
+import {WORKER_RECRUIT_COST} from '@/js/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
 defineProps({

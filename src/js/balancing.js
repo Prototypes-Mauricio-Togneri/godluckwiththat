@@ -170,38 +170,3 @@ export const WORKER_RECRUIT_FOOD_COST = 50
 
 // Number of worker slots gained per building level
 export const WORKERS_PER_LEVEL = 5
-
-// ── Game Loop ───────────────────────────────────────────────────────
-
-// Tick interval in milliseconds
-export const TICK_INTERVAL_MS = 1000
-
-// ── Initial Colony State ────────────────────────────────────────────
-
-export const INITIAL_IDLE_WORKERS = 5
-
-export const INITIAL_RESOURCES = {
-  territory: 1,
-  workers: 5,
-  food: 120,
-  wood: 80,
-  stone: 0,
-  copper: 0,
-  iron: 0,
-  gold: 0,
-  faith: 0,
-  knowledge: 0,
-}
-
-export const INITIAL_STOCKPILE = {
-  territory: 5,
-  workers: 5,
-  food: 200,
-  wood: 100,
-  stone: 0,
-  copper: 0,
-  iron: 0,
-  gold: 0,
-  faith: 0,
-  knowledge: 0,
-}

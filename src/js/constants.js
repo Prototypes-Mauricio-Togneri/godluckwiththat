@@ -90,7 +90,12 @@ export const HQ_BUILDING_UNLOCKS = {
   ],
 }
 
-// Worker recruitment cost (always 50 food)
+// ── Game Loop ───────────────────────────────────────────────────────
+
+// Tick interval in milliseconds
+export const TICK_INTERVAL_MS = 1000
+
+// Worker recruitment cost (always food)
 export const WORKER_RECRUIT_COST = new Cost({
   food: WORKER_RECRUIT_FOOD_COST,
 })
@@ -264,9 +269,20 @@ export function createInitialMeta() {
 export function createInitialColony() {
   return new Colony({
     season: 'warm',
-    idleWorkers: INITIAL_IDLE_WORKERS,
+    idleWorkers: 5,
 
-    resources: new Resources(INITIAL_RESOURCES),
+    resources: new Resources({
+      territory: 1,
+      workers: 5,
+      food: 120,
+      wood: 80,
+      stone: 0,
+      copper: 0,
+      iron: 0,
+      gold: 0,
+      faith: 0,
+      knowledge: 0,
+    }),
 
     production: new Production({
       food: 0,
@@ -279,7 +295,18 @@ export function createInitialColony() {
       knowledge: 0,
     }),
 
-    stockpile: new Stockpile(INITIAL_STOCKPILE),
+    stockpile: new Stockpile({
+      territory: 5,
+      workers: 5,
+      food: 200,
+      wood: 100,
+      stone: 0,
+      copper: 0,
+      iron: 0,
+      gold: 0,
+      faith: 0,
+      knowledge: 0,
+    }),
 
     buildings: new Buildings({
       [Headquarters.ID]: new Headquarters({

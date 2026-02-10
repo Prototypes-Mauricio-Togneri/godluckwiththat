@@ -23,8 +23,7 @@ import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import GameState from '@/js/game_state.js'
-import {TICK_INTERVAL_MS} from '@/js/balancing.js'
-import {createInitialColony, createInitialMeta, BUILDING_GRID, HQ_BUILDING_UNLOCKS, HQ_TYPES} from '@/js/constants.js'
+import {createInitialColony, createInitialMeta, BUILDING_GRID, HQ_BUILDING_UNLOCKS, HQ_TYPES, TICK_INTERVAL_MS} from '@/js/constants.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
