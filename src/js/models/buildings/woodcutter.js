@@ -16,14 +16,13 @@ class Woodcutter extends Producer {
   }
 
   /**
-   * Cost to level up from the given level.
-   * @param {number} level - Current building level
+   * Cost to level up from the current level.
    * @returns {Cost}
    */
-  static levelUpCost(level) {
+  levelUpCost() {
     const base = BUILDING_BASE_COSTS.woodcutter
     return new Cost({
-      wood: Math.floor(base.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.woodcutter, level)),
+      wood: Math.floor(base.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.woodcutter, this.level)),
     })
   }
 }

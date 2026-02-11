@@ -28,13 +28,12 @@ class Headquarters extends Building {
   }
 
   /**
-   * Cost to increase HQ from the given level to the next.
+   * Cost to increase HQ from the current level to the next.
    * Formula: wood = floor(BASE_WOOD * MULTIPLIER ^ (level - 1))
-   * @param {number} level - Current headquarters level
    * @returns {Cost}
    */
-  static levelUpCost(level) {
-    const wood = Math.floor(BUILDING_BASE_COSTS.headquarters.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.headquarters, level - 1))
+  levelUpCost() {
+    const wood = Math.floor(BUILDING_BASE_COSTS.headquarters.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.headquarters, this.level - 1))
     return new Cost({
       wood,
     })

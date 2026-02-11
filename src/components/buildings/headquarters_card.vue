@@ -27,7 +27,7 @@ const hq = computed(() => colony.buildings[props.buildingKey])
 const nameKey = computed(() => `building.headquarters.${hq.value.type}`)
 
 // Level up
-const levelUpCost = computed(() => Headquarters.levelUpCost(hq.value.level))
+const levelUpCost = computed(() => hq.value.levelUpCost())
 const canLevelUp = computed(() => colony.resources.canAfford(levelUpCost.value))
 const levelUpCostEntries = computed(() => levelUpCost.value.entries())
 

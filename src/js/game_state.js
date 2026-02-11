@@ -1,5 +1,5 @@
 import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, WORKER_RECRUIT_COST, WORKERS_PER_LEVEL} from '@/js/balancing.js'
-import {BUILDING_CLASS_MAP, SEASON_COLD, SEASON_WARM} from '@/js/constants.js'
+import {SEASON_COLD, SEASON_WARM} from '@/js/constants.js'
 import Headquarters from '@/js/models/buildings/headquarters.js'
 
 /**
@@ -117,7 +117,7 @@ class GameState {
       resources, stockpile, buildings,
     } = this.colony
     const building = buildings[buildingKey]
-    const cost = BUILDING_CLASS_MAP[buildingKey].levelUpCost(building.level)
+    const cost = building.levelUpCost()
     if (!resources.canAfford(cost) || resources.territory >= stockpile.territory) return
     resources.deduct(cost)
     building.level += 1
@@ -133,7 +133,7 @@ class GameState {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
-    const cost = Headquarters.levelUpCost(hq.level)
+    const cost = hq.levelUpCost()
     if (!resources.canAfford(cost)) return
     resources.deduct(cost)
     hq.level += 1

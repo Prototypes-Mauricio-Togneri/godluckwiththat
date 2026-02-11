@@ -28,10 +28,10 @@ class House extends Building {
     return HOUSE_BASE_POPULATION + this.level * HOUSE_POPULATION_PER_LEVEL
   }
 
-  static levelUpCost(level) {
+  levelUpCost() {
     const base = BUILDING_BASE_COSTS.house
     return new Cost({
-      wood: Math.floor(base.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.house, level)),
+      wood: Math.floor(base.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.house, this.level)),
     })
   }
 }

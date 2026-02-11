@@ -16,15 +16,14 @@ class CopperMine extends Producer {
   }
 
   /**
-   * Cost to level up from the given level.
-   * @param {number} level - Current building level
+   * Cost to level up from the current level.
    * @returns {Cost}
    */
-  static levelUpCost(level) {
+  levelUpCost() {
     const base = BUILDING_BASE_COSTS.copperMine
     return new Cost({
-      wood: Math.floor(base.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.copperMine, level)),
-      stone: Math.floor(base.stone * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.copperMine, level)),
+      wood: Math.floor(base.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.copperMine, this.level)),
+      stone: Math.floor(base.stone * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.copperMine, this.level)),
     })
   }
 }

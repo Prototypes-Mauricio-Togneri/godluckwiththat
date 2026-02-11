@@ -39,7 +39,7 @@ const showHelp = ref(false)
 const hasAction = computed(() => props.showBuildAction && props.buildingKey in BUILDING_CLASS_MAP)
 const isBuildable = computed(() => hasAction.value && props.building.level === 0)
 const actionCost = computed(() =>
-  hasAction.value ? BUILDING_CLASS_MAP[props.buildingKey].levelUpCost(props.building.level) : null,
+  hasAction.value ? props.building.levelUpCost() : null,
 )
 const territoryFull = computed(() => colony.resources.territory >= colony.stockpile.territory)
 const canAct = computed(() => actionCost.value !== null && !territoryFull.value && colony.resources.canAfford(actionCost.value))

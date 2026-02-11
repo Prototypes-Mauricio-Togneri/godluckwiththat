@@ -16,15 +16,14 @@ class Archery extends Building {
   }
 
   /**
-   * Cost to level up from the given level.
-   * @param {number} level - Current building level
+   * Cost to level up from the current level.
    * @returns {Cost}
    */
-  static levelUpCost(level) {
+  levelUpCost() {
     const base = BUILDING_BASE_COSTS.archery
     return new Cost({
-      wood: Math.floor(base.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.archery, level)),
-      stone: Math.floor(base.stone * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.archery, level)),
+      wood: Math.floor(base.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.archery, this.level)),
+      stone: Math.floor(base.stone * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.archery, this.level)),
     })
   }
 }
