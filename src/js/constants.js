@@ -258,7 +258,7 @@ export function createInitialColony() {
     idleWorkers: 5,
 
     resources: new Resources({
-      territory: 1,
+      territory: 0,
       workers: 5,
       food: 50,
       wood: 50,

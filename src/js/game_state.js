@@ -31,7 +31,8 @@ class GameState {
       resources, production, stockpile, buildings,
     } = this.colony
 
-    // Recalculate stockpile caps from building levels
+    // Recalculate territory used and stockpile caps from building levels
+    resources.territory = buildings.totalLevels()
     stockpile.territory = buildings.headquarters.territoryCap()
     stockpile.workers = buildings.house.populationCap()
     stockpile.food = buildings.storehouse.storageCap()

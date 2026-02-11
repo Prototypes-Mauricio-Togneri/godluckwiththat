@@ -50,6 +50,14 @@ class Buildings {
     this.wall = data.wall // Defensive fortification
     this.tower = data.tower // Defensive ranged structure
   }
+
+  /**
+   * Returns the sum of all building levels (i.e. total territory used).
+   * @returns {number}
+   */
+  totalLevels() {
+    return Object.values(this).reduce((sum, b) => sum + b.level, 0) - this.headquarters.level
+  }
 }
 
 export default Buildings

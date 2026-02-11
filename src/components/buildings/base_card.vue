@@ -41,7 +41,8 @@ const isBuildable = computed(() => hasAction.value && props.building.level === 0
 const actionCost = computed(() =>
   hasAction.value ? BUILDING_CLASS_MAP[props.buildingKey].levelUpCost(props.building.level) : null,
 )
-const canAct = computed(() => actionCost.value !== null && actionCost.value.canAfford(colony.resources))
+const territoryFull = computed(() => colony.resources.territory >= colony.stockpile.territory)
+const canAct = computed(() => actionCost.value !== null && !territoryFull.value && actionCost.value.canAfford(colony.resources))
 const actionCostEntries = computed(() => actionCost.value?.entries() ?? new Map())
 const isWorkerAssignable = computed(() => props.building instanceof Producer)
 
@@ -49,6 +50,7 @@ function act() {
   if (!canAct.value) return
   actionCost.value.deductFrom(colony.resources)
   colony.buildings[props.buildingKey].level += 1
+  colony.resources.territory += 1
   onAction()
 }
 </script>
