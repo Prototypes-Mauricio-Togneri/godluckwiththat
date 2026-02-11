@@ -126,42 +126,42 @@ onUnmounted(() => {
 
       <!-- Resources -->
       <div class="header-section header-resources">
-        <div class="header-resource tooltip" :data-tooltip="t('resource.food')">
+        <div v-if="state.colony.buildings.farm.level > 0 || state.colony.resources.food > 0" class="header-resource tooltip" :data-tooltip="t('resource.food')">
           <img class="resource-icon" src="/img/resources/food.png" :alt="t('resource.food')">
-          <span class="header-value">{{ Math.floor(state.colony.resources.food) }}/{{ state.colony.stockpile.food }}</span>
+          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.food) >= state.colony.stockpile.food }">{{ Math.floor(state.colony.resources.food) }}/{{ state.colony.stockpile.food }}</span>
           <span class="production-rate" :class="rateClass(state.colony.production.food)">{{ formatRate(state.colony.production.food) }}</span>
         </div>
-        <div class="header-resource tooltip" :data-tooltip="t('resource.wood')">
+        <div v-if="state.colony.buildings.woodcutter.level > 0 || state.colony.resources.wood > 0" class="header-resource tooltip" :data-tooltip="t('resource.wood')">
           <img class="resource-icon" src="/img/resources/wood.png" :alt="t('resource.wood')">
-          <span class="header-value">{{ Math.floor(state.colony.resources.wood) }}/{{ state.colony.stockpile.wood }}</span>
+          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.wood) >= state.colony.stockpile.wood }">{{ Math.floor(state.colony.resources.wood) }}/{{ state.colony.stockpile.wood }}</span>
           <span class="production-rate" :class="rateClass(state.colony.production.wood)">{{ formatRate(state.colony.production.wood) }}</span>
         </div>
-        <div class="header-resource tooltip" :data-tooltip="t('resource.stone')">
+        <div v-if="state.colony.buildings.quarry.level > 0 || state.colony.resources.stone > 0" class="header-resource tooltip" :data-tooltip="t('resource.stone')">
           <img class="resource-icon" src="/img/resources/stone.png" :alt="t('resource.stone')">
-          <span class="header-value">{{ Math.floor(state.colony.resources.stone) }}/{{ state.colony.stockpile.stone }}</span>
+          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.stone) >= state.colony.stockpile.stone }">{{ Math.floor(state.colony.resources.stone) }}/{{ state.colony.stockpile.stone }}</span>
           <span class="production-rate" :class="rateClass(state.colony.production.stone)">{{ formatRate(state.colony.production.stone) }}</span>
         </div>
-        <div class="header-resource tooltip" :data-tooltip="t('resource.copper')">
+        <div v-if="state.colony.buildings.copperMine.level > 0 || state.colony.resources.copper > 0" class="header-resource tooltip" :data-tooltip="t('resource.copper')">
           <img class="resource-icon" src="/img/resources/copper.png" :alt="t('resource.copper')">
-          <span class="header-value">{{ Math.floor(state.colony.resources.copper) }}/{{ state.colony.stockpile.copper }}</span>
+          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.copper) >= state.colony.stockpile.copper }">{{ Math.floor(state.colony.resources.copper) }}/{{ state.colony.stockpile.copper }}</span>
           <span class="production-rate" :class="rateClass(state.colony.production.copper)">{{ formatRate(state.colony.production.copper) }}</span>
         </div>
-        <div class="header-resource tooltip" :data-tooltip="t('resource.iron')">
+        <div v-if="state.colony.buildings.ironMine.level > 0 || state.colony.resources.iron > 0" class="header-resource tooltip" :data-tooltip="t('resource.iron')">
           <img class="resource-icon" src="/img/resources/iron.png" :alt="t('resource.iron')">
-          <span class="header-value">{{ Math.floor(state.colony.resources.iron) }}/{{ state.colony.stockpile.iron }}</span>
+          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.iron) >= state.colony.stockpile.iron }">{{ Math.floor(state.colony.resources.iron) }}/{{ state.colony.stockpile.iron }}</span>
           <span class="production-rate" :class="rateClass(state.colony.production.iron)">{{ formatRate(state.colony.production.iron) }}</span>
         </div>
-        <div class="header-resource tooltip" :data-tooltip="t('resource.gold')">
+        <div v-if="state.colony.buildings.goldMine.level > 0 || state.colony.resources.gold > 0" class="header-resource tooltip" :data-tooltip="t('resource.gold')">
           <img class="resource-icon" src="/img/resources/gold.png" :alt="t('resource.gold')">
-          <span class="header-value">{{ Math.floor(state.colony.resources.gold) }}/{{ state.colony.stockpile.gold }}</span>
+          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.gold) >= state.colony.stockpile.gold }">{{ Math.floor(state.colony.resources.gold) }}/{{ state.colony.stockpile.gold }}</span>
           <span class="production-rate" :class="rateClass(state.colony.production.gold)">{{ formatRate(state.colony.production.gold) }}</span>
         </div>
-        <div class="header-resource tooltip" :data-tooltip="t('resource.knowledge')">
+        <div v-if="state.colony.buildings.academy.level > 0 || state.colony.resources.knowledge > 0" class="header-resource tooltip" :data-tooltip="t('resource.knowledge')">
           <img class="resource-icon" src="/img/resources/knowledge.png" :alt="t('resource.knowledge')">
           <span class="header-value">{{ Math.floor(state.colony.resources.knowledge) }}</span>
           <span class="production-rate" :class="rateClass(state.colony.production.knowledge)">{{ formatRate(state.colony.production.knowledge) }}</span>
         </div>
-        <div class="header-resource tooltip" :data-tooltip="t('resource.faith')">
+        <div v-if="state.colony.buildings.altar.level > 0 || state.colony.buildings.shrine.level > 0 || state.colony.buildings.temple.level > 0 || state.colony.buildings.monument.level > 0 || state.colony.resources.faith > 0" class="header-resource tooltip" :data-tooltip="t('resource.faith')">
           <img class="resource-icon" src="/img/resources/faith.png" :alt="t('resource.faith')">
           <span class="header-value">{{ Math.floor(state.colony.resources.faith) }}</span>
           <span class="production-rate" :class="rateClass(state.colony.production.faith)">{{ formatRate(state.colony.production.faith) }}</span>

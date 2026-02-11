@@ -255,8 +255,8 @@ export function createInitialColony() {
     resources: new Resources({
       territory: 1,
       workers: 5,
-      food: 100,
-      wood: 80,
+      food: 50,
+      wood: 50,
       stone: 0,
       copper: 0,
       iron: 0,
