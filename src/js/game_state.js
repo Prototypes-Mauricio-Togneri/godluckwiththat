@@ -1,4 +1,4 @@
-import {ALTAR_FAITH_RATE, HOUSE_BASE_POPULATION, HOUSE_POPULATION_PER_LEVEL, PRODUCTION_RATES} from '@/js/balancing.js'
+import {ALTAR_FAITH_RATE, PRODUCTION_RATES} from '@/js/balancing.js'
 
 /**
  * Central game state container.
@@ -31,7 +31,7 @@ class GameState {
     } = this.colony
 
     // Recalculate population cap from house level
-    stockpile.workers = HOUSE_BASE_POPULATION + buildings.house.level * HOUSE_POPULATION_PER_LEVEL
+    stockpile.workers = buildings.house.populationCap()
 
     // Reset production rates to zero
     production.food = 0

@@ -1,4 +1,4 @@
-import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS} from '@/js/balancing.js'
+import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS, HOUSE_BASE_POPULATION, HOUSE_POPULATION_PER_LEVEL} from '@/js/balancing.js'
 import Building from '@/js/models/buildings/building.js'
 import Cost from '@/js/models/cost.js'
 
@@ -20,6 +20,14 @@ class House extends Building {
    * @param {number} level - Current building level
    * @returns {Cost}
    */
+  /**
+   * Maximum population capacity at the current level.
+   * @returns {number}
+   */
+  populationCap() {
+    return HOUSE_BASE_POPULATION + this.level * HOUSE_POPULATION_PER_LEVEL
+  }
+
   static levelUpCost(level) {
     const base = BUILDING_BASE_COSTS.house
     return new Cost({

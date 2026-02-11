@@ -80,7 +80,7 @@ All initial values declared via `createInitialMeta()` (a `Meta` instance) and `c
 
 Core game loop that generates resources over time. `game_screen.vue` runs a `setInterval` (1 second) that calls `state.update(deltaSec)` with the elapsed time since the last tick (via `performance.now()`). Delta time naturally handles backgrounded tabs — when the tab returns, the first tick applies the full accumulated time.
 
-**Stockpile recalculation**: Each tick recalculates `stockpile.workers` from the house level: `HOUSE_BASE_POPULATION + house.level × HOUSE_POPULATION_PER_LEVEL` (balancing.js).
+**Stockpile recalculation**: Each tick recalculates `stockpile.workers` via `buildings.house.populationCap()` (house.js), which returns `HOUSE_BASE_POPULATION + level × HOUSE_POPULATION_PER_LEVEL` (balancing.js).
 
 **Production formula**: For each building in `PRODUCTION_RATES` (balancing.js), production rate = `workers × baseRate`. Altar is passive: `level × ALTAR_FAITH_RATE`. Rates are stored on `colony.production` (per-second) for UI display, then scaled by `deltaSec` when applied to `colony.resources`. Resources are capped at `colony.stockpile` limits after application.
 
