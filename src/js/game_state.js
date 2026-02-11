@@ -1,4 +1,4 @@
-import {PRODUCTION_RATES} from '@/js/balancing.js'
+import {PRODUCTION_RATES, SEASON_DURATION} from '@/js/balancing.js'
 
 /**
  * Central game state container.
@@ -92,6 +92,13 @@ class GameState {
     resources.gold = Math.max(0, resources.gold)
     resources.faith = Math.max(0, resources.faith)
     resources.knowledge = Math.max(0, resources.knowledge)
+
+    // Advance season timer
+    this.colony.seasonElapsed += delta
+    if (this.colony.seasonElapsed >= SEASON_DURATION) {
+      this.colony.seasonElapsed -= SEASON_DURATION
+      this.colony.season = this.colony.season === 'warm' ? 'cold' : 'warm'
+    }
   }
 }
 

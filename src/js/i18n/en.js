@@ -26,6 +26,7 @@ export const LOCALIZED_EN = {
   // Seasons
   'season.name': 'Season',
   'season.warm': 'Warm',
+  'season.cold': 'Cold',
 
   // Building groups
   'buildingGroup.colony': 'Colony',

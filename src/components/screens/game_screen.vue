@@ -24,6 +24,7 @@ import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import GameState from '@/js/game_state.js'
 import {createInitialColony, createInitialMeta, BUILDING_GRID, HQ_BUILDING_UNLOCKS, HQ_TYPES, SECONDS_PER_MINUTE, TICK_INTERVAL} from '@/js/constants.js'
+import {SEASON_DURATION} from '@/js/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
@@ -66,6 +67,18 @@ function rateClass(ratePerSecond) {
   if (perMinute > 0) return 'production-rate--positive'
   if (perMinute < 0) return 'production-rate--negative'
   return 'production-rate--zero'
+}
+
+function seasonProgress() {
+  return state.colony.seasonElapsed / SEASON_DURATION
+}
+
+function seasonEmoji() {
+  return state.colony.season === 'warm' ? '\u2600\uFE0F' : '\u2744\uFE0F'
+}
+
+function seasonTooltip() {
+  return `${t('season.name')}: ${t('season.' + state.colony.season)}`
 }
 
 function isBuildingLocked(buildingKey) {
@@ -116,9 +129,11 @@ onUnmounted(() => {
   <div class="game-screen">
     <header class="game-header">
       <!-- Season indicator -->
-      <div class="header-section header-season">
-        <span class="header-label">{{ t('season.name') }}</span>
-        <span class="header-value header-value--season">{{ t('season.' + state.colony.season) }}</span>
+      <div class="header-section header-season tooltip" :data-tooltip="seasonTooltip()">
+        <span class="season-emoji">{{ seasonEmoji() }}</span>
+        <div class="season-track" :class="'season-track--' + state.colony.season">
+          <div class="season-fill" :style="{ width: (seasonProgress() * 100) + '%' }" />
+        </div>
       </div>
 
       <!-- Decorative divider -->
@@ -261,6 +276,11 @@ onUnmounted(() => {
   gap: 1rem;
 }
 
+.header-season {
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
 .header-resources {
   flex: 1;
   justify-content: center;
@@ -299,15 +319,36 @@ onUnmounted(() => {
   height: 1.9rem;
 }
 
-/* ---- Labels ---- */
+/* ---- Season indicator ---- */
 
-.header-label {
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(var(--color-accent-rgb), 0.45);
+.season-emoji {
+  font-size: 1.1rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.4));
+}
+
+.season-track {
+  width: 5.5rem;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.season-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s linear;
+}
+
+.season-track--warm .season-fill {
+  background: linear-gradient(90deg, #b8943e, #d4a843);
+  box-shadow: 0 0 6px rgba(184, 148, 62, 0.4);
+}
+
+.season-track--cold .season-fill {
+  background: linear-gradient(90deg, #5b8fb9, #7ec8e3);
+  box-shadow: 0 0 6px rgba(126, 200, 227, 0.35);
 }
 
 /* ---- Values ---- */
@@ -322,12 +363,6 @@ onUnmounted(() => {
 
 .header-value--alert {
   color: #c0392b;
-}
-
-.header-value--season {
-  font-family: var(--font-body);
-  font-weight: 500;
-  color: rgba(var(--color-accent-rgb), 0.85);
 }
 
 /* ---- Decorative dividers between sections ---- */

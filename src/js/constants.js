@@ -250,6 +250,7 @@ export function createInitialMeta() {
 export function createInitialColony() {
   return new Colony({
     season: 'warm',
+    seasonElapsed: 0,
     idleWorkers: 5,
 
     resources: new Resources({

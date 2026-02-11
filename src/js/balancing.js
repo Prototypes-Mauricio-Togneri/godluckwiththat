@@ -212,3 +212,8 @@ export const STOREHOUSE_CAPACITY_PER_LEVEL = 100
 
 // HQ territory capacity: level × perLevel
 export const HQ_TERRITORY_PER_LEVEL = 10
+
+// ── Seasons ─────────────────────────────────────────────────────────
+
+// Duration of each season in seconds (warm / cold)
+export const SEASON_DURATION = 120

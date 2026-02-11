@@ -3,6 +3,7 @@
  * (resources, production, stockpile, buildings).
  *
  * @property {string} season - Current season
+ * @property {number} seasonElapsed - Seconds elapsed in current season
  * @property {number} idleWorkers - Workers not assigned to buildings
  * @property {Resources} resources - Current resource amounts
  * @property {Production} production - Per-tick production rates
@@ -15,6 +16,7 @@ class Colony {
    */
   constructor(data) {
     this.season = data.season // Current season
+    this.seasonElapsed = data.seasonElapsed // Seconds elapsed in current season
     this.idleWorkers = data.idleWorkers // Workers not assigned to buildings
     this.resources = data.resources // Current resource amounts
     this.production = data.production // Per-tick production rates

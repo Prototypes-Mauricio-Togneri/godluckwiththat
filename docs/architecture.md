@@ -66,7 +66,7 @@ Central state container instantiated once per game session. Pure JS class wrappe
 
 **Colony provide/inject**: `game_screen.vue` calls `provide('colony', state.colony)` so descendant components (e.g. `headquarters_card.vue`, `house_card.vue`) can `inject('colony')` for direct reactive access to colony data without prop drilling.
 
-**Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }` and `state.colony.{ season, idleWorkers, resources, production, stockpile, buildings }`
+**Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }` and `state.colony.{ season, seasonElapsed, idleWorkers, resources, production, stockpile, buildings }`
 
 - `resources` (`Resources`) — current amounts with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
 - `production` (`Production`) — per-tick rates with public fields: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
