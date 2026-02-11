@@ -208,6 +208,5 @@ export const STOREHOUSE_CAPACITY_PER_LEVEL = 100
 
 // ── Territory ───────────────────────────────────────────────────────
 
-// HQ territory capacity: base + level × perLevel
-export const HQ_BASE_TERRITORY = 10
+// HQ territory capacity: level × perLevel
 export const HQ_TERRITORY_PER_LEVEL = 10
