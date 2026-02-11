@@ -16,6 +16,7 @@ export const LOCALIZED_ES = {
   'resource.population': 'Población',
   'resource.idleWorkers': 'Trabajadores libres',
   'resource.territory': 'Territorio',
+  'resource.perMinute': '/m',
 
   // Seasons
   'season.name': 'Estación',

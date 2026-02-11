@@ -23,7 +23,7 @@ import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import GameState from '@/js/game_state.js'
-import {createInitialColony, createInitialMeta, BUILDING_GRID, HQ_BUILDING_UNLOCKS, HQ_TYPES, TICK_INTERVAL} from '@/js/constants.js'
+import {createInitialColony, createInitialMeta, BUILDING_GRID, HQ_BUILDING_UNLOCKS, HQ_TYPES, SECONDS_PER_MINUTE, TICK_INTERVAL} from '@/js/constants.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
@@ -52,6 +52,20 @@ const CARD_COMPONENTS = {
 
 function getCardComponent(key) {
   return CARD_COMPONENTS[key]
+}
+
+function formatRate(ratePerSecond) {
+  const perMinute = Math.round(ratePerSecond * SECONDS_PER_MINUTE)
+  if (perMinute > 0) return `+${perMinute}${t('resource.perMinute')}`
+  if (perMinute < 0) return `-${Math.abs(perMinute)}${t('resource.perMinute')}`
+  return `0${t('resource.perMinute')}`
+}
+
+function rateClass(ratePerSecond) {
+  const perMinute = Math.round(ratePerSecond * SECONDS_PER_MINUTE)
+  if (perMinute > 0) return 'production-rate--positive'
+  if (perMinute < 0) return 'production-rate--negative'
+  return 'production-rate--zero'
 }
 
 function isBuildingLocked(buildingKey) {
@@ -114,14 +128,17 @@ onUnmounted(() => {
         <div class="header-resource tooltip" :data-tooltip="t('resource.food')">
           <img class="resource-icon" src="/img/resources/food.png" :alt="t('resource.food')">
           <span class="header-value">{{ Math.floor(state.colony.resources.food) }}/{{ state.colony.stockpile.food }}</span>
+          <span class="production-rate" :class="rateClass(state.colony.production.food)">{{ formatRate(state.colony.production.food) }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.wood')">
           <img class="resource-icon" src="/img/resources/wood.png" :alt="t('resource.wood')">
           <span class="header-value">{{ Math.floor(state.colony.resources.wood) }}/{{ state.colony.stockpile.wood }}</span>
+          <span class="production-rate" :class="rateClass(state.colony.production.wood)">{{ formatRate(state.colony.production.wood) }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.stone')">
           <img class="resource-icon" src="/img/resources/stone.png" :alt="t('resource.stone')">
           <span class="header-value">{{ Math.floor(state.colony.resources.stone) }}/{{ state.colony.stockpile.stone }}</span>
+          <span class="production-rate" :class="rateClass(state.colony.production.stone)">{{ formatRate(state.colony.production.stone) }}</span>
         </div>
       </div>
 

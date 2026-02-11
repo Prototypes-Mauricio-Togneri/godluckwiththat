@@ -16,6 +16,7 @@ export const LOCALIZED_EN = {
   'resource.population': 'Population',
   'resource.idleWorkers': 'Idle Workers',
   'resource.territory': 'Territory',
+  'resource.perMinute': '/m',
 
   // Seasons
   'season.name': 'Season',

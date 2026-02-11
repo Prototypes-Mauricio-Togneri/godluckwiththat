@@ -2,6 +2,7 @@
 
 [Web site](https://god-luck-with-that.web.app)
 
+- Don't show resources if the building is not built
 - Display resources produced per minute
 - Season modifiers (warm/cold production effects)
 - Territory consumption (building level = territory slot)

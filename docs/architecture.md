@@ -21,7 +21,7 @@ Centered overlay (same pattern as pause modal) showing information about a build
 Top bar divided into 4 sections separated by decorative vertical dividers:
 
 1. **Season** — text label (`Josefin Sans`, small uppercase, muted accent) + value with accent color
-2. **Resources** — food, wood, stone each shown as icon image + `current/max` value (flex: 1, centered)
+2. **Resources** — food, wood, stone each shown as icon image + `current/max` value + per-minute production rate indicator (flex: 1, centered). Rate shows green `▲ N/m` when positive, red `▼ N/m` when negative, red `0/m` when zero. Computed from `colony.production` (per-second) × `SECONDS_PER_MINUTE` (60).
 3. **Colony** — population, idle workers, territory each shown as icon image + value (flex: 1, centered)
 4. **Menu button** — hamburger icon (inline SVG), opens pause modal
 
@@ -127,6 +127,7 @@ Each supported language has its own file (`en.js`, `es.js`) exporting a flat obj
   - `.action-row` — flex row for icon-button + cost display pairs. `.action-btn` (2.5rem square icon button), `.action-btn-icon` (1.6rem icon), `.action-cost` (cost container), `.action-cost-item` (icon + amount pair), `.action-cost-icon` (0.9rem resource icon), `.action-cost-amount` (0.75rem value text), `.action-cost-short` (red color `#c45050` when unaffordable).
   - `.slot-actions` — flex row wrapper for action groups inside building card slots. Uses `margin-top: auto` to bottom-align with thumbnail, `justify-content: space-between` for side-by-side dual-button layout, `align-items: flex-end` for bottom alignment.
   - `.worker-row` — flex row for worker assignment controls. `.worker-btn` (2.5rem square ghost button), `.worker-btn--minus` (red `#c45050`), `.worker-btn--plus` (green `#50a850`), `.worker-count` (icon + text, 0.95rem), `.worker-count-icon` (1.4rem worker icon).
+  - `.production-rate` — per-minute rate indicator (0.8rem numeric font). `.production-rate--positive` (green `#50a850`), `.production-rate--negative` / `.production-rate--zero` (red `#c45050`).
 
 ## Code Style
 

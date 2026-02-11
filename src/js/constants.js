@@ -31,6 +31,9 @@ import Stockpile from '@/js/models/stockpile.js'
 // Tick interval in milliseconds
 export const TICK_INTERVAL = 1000
 
+// Seconds-per-minute conversion for production rate display
+export const SECONDS_PER_MINUTE = 60
+
 // Resource names
 export const RESOURCE_FOOD = 'food'
 export const RESOURCE_WOOD = 'wood'

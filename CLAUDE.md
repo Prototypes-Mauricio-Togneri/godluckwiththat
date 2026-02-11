@@ -84,4 +84,4 @@ Read these when working on specific areas:
 
 - **Mental Execution**: Before finalizing your response, simulate the code path mentally and identify edge cases, failure modes, and race conditions.
 - **Lint**: After editing code, run `npm run lint -- --fix` and fix any remaining errors before considering the task complete.
-- **Maintenance**: Always check if the files `CLAUDE.md` and `docs/architecture.md` are up-to-date after making changes. If not, update them accordingly.
+- **Maintenance**: Always check if the files `CLAUDE.md`, `docs/architecture.md`, and `docs/specs.md` are up-to-date after making changes. If not, update them accordingly.
