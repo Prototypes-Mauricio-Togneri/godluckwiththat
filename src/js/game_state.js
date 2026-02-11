@@ -76,13 +76,22 @@ class GameState {
     resources.knowledge += production.knowledge * delta
 
     // Cap resources at stockpile limits
-    // TODO: cannot go under zero
     resources.food = Math.min(resources.food, stockpile.food)
     resources.wood = Math.min(resources.wood, stockpile.wood)
     resources.stone = Math.min(resources.stone, stockpile.stone)
     resources.copper = Math.min(resources.copper, stockpile.copper)
     resources.iron = Math.min(resources.iron, stockpile.iron)
     resources.gold = Math.min(resources.gold, stockpile.gold)
+
+    // Ensure no resource goes below zero
+    resources.food = Math.max(0, resources.food)
+    resources.wood = Math.max(0, resources.wood)
+    resources.stone = Math.max(0, resources.stone)
+    resources.copper = Math.max(0, resources.copper)
+    resources.iron = Math.max(0, resources.iron)
+    resources.gold = Math.max(0, resources.gold)
+    resources.faith = Math.max(0, resources.faith)
+    resources.knowledge = Math.max(0, resources.knowledge)
   }
 }
 
