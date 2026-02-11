@@ -1,11 +1,11 @@
 import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS} from '@/js/balancing.js'
-import Building from '@/js/models/buildings/building.js'
+import Producer from '@/js/models/buildings/producer.js'
 import Cost from '@/js/models/cost.js'
 
 /**
  * Produces stone for the colony.
  */
-class Quarry extends Building {
+class Quarry extends Producer {
   static ID = 'quarry'
 
   /**

@@ -36,9 +36,10 @@ src/
 │   └── models/
 │       ├── buildings/
 │       │   ├── building.js   → Base Building class (shared level field)
+│       │   ├── producer.js   → Producer class (extends Building, adds workers)
 │       │   ├── buildings.js  → Buildings container (holds all building instances)
 │       │   ├── headquarters.js → Headquarters (extends Building, adds type)
-│       │   └── *.js          → 20 building classes (extend Building)
+│       │   └── *.js          → 20 building classes (extend Building or Producer)
 │       ├── meta.js           → Meta class (version, timestamps, challenges)
 │       ├── colony.js         → Colony class (wraps all colony sub-models)
 │       ├── cost.js           → Cost class (multi-resource cost holder)

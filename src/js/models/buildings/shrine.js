@@ -1,11 +1,11 @@
 import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS} from '@/js/balancing.js'
-import Building from '@/js/models/buildings/building.js'
+import Producer from '@/js/models/buildings/producer.js'
 import Cost from '@/js/models/cost.js'
 
 /**
  * Sacred building that amplifies faith.
  */
-class Shrine extends Building {
+class Shrine extends Producer {
   static ID = 'shrine'
 
   /**

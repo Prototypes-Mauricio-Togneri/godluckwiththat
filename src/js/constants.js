@@ -94,19 +94,6 @@ export const HQ_BUILDING_UNLOCKS = {
   ],
 }
 
-// Buildings that accept worker assignments
-export const WORKER_ASSIGNABLE_BUILDINGS = new Set([
-  Academy.ID,
-  Shrine.ID,
-  Temple.ID,
-  Farm.ID,
-  Woodcutter.ID,
-  Quarry.ID,
-  CopperMine.ID,
-  IronMine.ID,
-  GoldMine.ID,
-])
-
 // Building class map — resolves building keys to their class constructors
 export const BUILDING_CLASS_MAP = {
   [Headquarters.ID]: Headquarters,
