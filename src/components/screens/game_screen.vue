@@ -141,6 +141,31 @@ onUnmounted(() => {
           <span class="header-value">{{ Math.floor(state.colony.resources.stone) }}/{{ state.colony.stockpile.stone }}</span>
           <span class="production-rate" :class="rateClass(state.colony.production.stone)">{{ formatRate(state.colony.production.stone) }}</span>
         </div>
+        <div class="header-resource tooltip" :data-tooltip="t('resource.copper')">
+          <img class="resource-icon" src="/img/resources/copper.png" :alt="t('resource.copper')">
+          <span class="header-value">{{ Math.floor(state.colony.resources.copper) }}/{{ state.colony.stockpile.copper }}</span>
+          <span class="production-rate" :class="rateClass(state.colony.production.copper)">{{ formatRate(state.colony.production.copper) }}</span>
+        </div>
+        <div class="header-resource tooltip" :data-tooltip="t('resource.iron')">
+          <img class="resource-icon" src="/img/resources/iron.png" :alt="t('resource.iron')">
+          <span class="header-value">{{ Math.floor(state.colony.resources.iron) }}/{{ state.colony.stockpile.iron }}</span>
+          <span class="production-rate" :class="rateClass(state.colony.production.iron)">{{ formatRate(state.colony.production.iron) }}</span>
+        </div>
+        <div class="header-resource tooltip" :data-tooltip="t('resource.gold')">
+          <img class="resource-icon" src="/img/resources/gold.png" :alt="t('resource.gold')">
+          <span class="header-value">{{ Math.floor(state.colony.resources.gold) }}/{{ state.colony.stockpile.gold }}</span>
+          <span class="production-rate" :class="rateClass(state.colony.production.gold)">{{ formatRate(state.colony.production.gold) }}</span>
+        </div>
+        <div class="header-resource tooltip" :data-tooltip="t('resource.knowledge')">
+          <img class="resource-icon" src="/img/resources/knowledge.png" :alt="t('resource.knowledge')">
+          <span class="header-value">{{ Math.floor(state.colony.resources.knowledge) }}</span>
+          <span class="production-rate" :class="rateClass(state.colony.production.knowledge)">{{ formatRate(state.colony.production.knowledge) }}</span>
+        </div>
+        <div class="header-resource tooltip" :data-tooltip="t('resource.faith')">
+          <img class="resource-icon" src="/img/resources/faith.png" :alt="t('resource.faith')">
+          <span class="header-value">{{ Math.floor(state.colony.resources.faith) }}</span>
+          <span class="production-rate" :class="rateClass(state.colony.production.faith)">{{ formatRate(state.colony.production.faith) }}</span>
+        </div>
       </div>
 
       <!-- Decorative divider -->
@@ -236,11 +261,17 @@ onUnmounted(() => {
   gap: 1rem;
 }
 
-.header-resources,
-.header-colony {
+.header-resources {
   flex: 1;
   justify-content: center;
-  gap: 2.5rem;
+  gap: 2.25rem;
+}
+
+.header-colony {
+  justify-content: space-evenly;
+  gap: 1.5rem;
+  flex-shrink: 0;
+  min-width: 18rem;
 }
 
 /* ---- Resource stat (icon beside value) ---- */

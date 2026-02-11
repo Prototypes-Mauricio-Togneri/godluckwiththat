@@ -15,6 +15,11 @@ export const LOCALIZED_EN = {
   'resource.stone': 'Stone',
   'resource.population': 'Population',
   'resource.idleWorkers': 'Idle Workers',
+  'resource.copper': 'Copper',
+  'resource.iron': 'Iron',
+  'resource.gold': 'Gold',
+  'resource.knowledge': 'Knowledge',
+  'resource.faith': 'Faith',
   'resource.territory': 'Territory',
   'resource.perMinute': '/m',
 

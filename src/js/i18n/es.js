@@ -15,6 +15,11 @@ export const LOCALIZED_ES = {
   'resource.stone': 'Piedra',
   'resource.population': 'Población',
   'resource.idleWorkers': 'Trabajadores libres',
+  'resource.copper': 'Cobre',
+  'resource.iron': 'Hierro',
+  'resource.gold': 'Oro',
+  'resource.knowledge': 'Conocimiento',
+  'resource.faith': 'Fe',
   'resource.territory': 'Territorio',
   'resource.perMinute': '/m',
 
