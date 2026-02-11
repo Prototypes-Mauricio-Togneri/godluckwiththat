@@ -30,8 +30,15 @@ class GameState {
       resources, production, stockpile, buildings,
     } = this.colony
 
-    // Recalculate population cap from house level
+    // Recalculate stockpile caps from building levels
+    stockpile.territory = buildings.headquarters.territoryCap()
     stockpile.workers = buildings.house.populationCap()
+    stockpile.food = buildings.storehouse.storageCap()
+    stockpile.wood = buildings.storehouse.storageCap()
+    stockpile.stone = buildings.storehouse.storageCap()
+    stockpile.copper = buildings.storehouse.storageCap()
+    stockpile.iron = buildings.storehouse.storageCap()
+    stockpile.gold = buildings.storehouse.storageCap()
 
     // Reset production rates to zero
     production.food = 0
@@ -76,8 +83,6 @@ class GameState {
     resources.copper = Math.min(resources.copper, stockpile.copper)
     resources.iron = Math.min(resources.iron, stockpile.iron)
     resources.gold = Math.min(resources.gold, stockpile.gold)
-    resources.faith = Math.min(resources.faith, stockpile.faith)
-    resources.knowledge = Math.min(resources.knowledge, stockpile.knowledge)
   }
 }
 

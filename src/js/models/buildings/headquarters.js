@@ -1,4 +1,4 @@
-import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS, HQ_UPGRADE_COSTS} from '@/js/balancing.js'
+import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS, HQ_BASE_TERRITORY, HQ_TERRITORY_PER_LEVEL, HQ_UPGRADE_COSTS} from '@/js/balancing.js'
 import Building from '@/js/models/buildings/building.js'
 import Cost from '@/js/models/cost.js'
 import {HQ_TYPES} from '@/js/constants.js'
@@ -17,6 +17,14 @@ class Headquarters extends Building {
   constructor(data) {
     super(data)
     this.type = data.type // Headquarters progression type (e.g. 'camp')
+  }
+
+  /**
+   * Maximum territory capacity at the current level.
+   * @returns {number}
+   */
+  territoryCap() {
+    return HQ_BASE_TERRITORY + this.level * HQ_TERRITORY_PER_LEVEL
   }
 
   /**

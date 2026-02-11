@@ -9,8 +9,6 @@
  * @property {number} copper - Max copper storage
  * @property {number} iron - Max iron storage
  * @property {number} gold - Max gold storage
- * @property {number} faith - Max faith storage
- * @property {number} knowledge - Max knowledge storage
  */
 class Stockpile {
   /**
@@ -25,8 +23,6 @@ class Stockpile {
     this.copper = data.copper // Max copper storage
     this.iron = data.iron // Max iron storage
     this.gold = data.gold // Max gold storage
-    this.faith = data.faith // Max faith storage
-    this.knowledge = data.knowledge // Max knowledge storage
   }
 }
 

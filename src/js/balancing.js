@@ -199,3 +199,15 @@ export const WORKERS_PER_LEVEL = 5
 export const WORKER_RECRUIT_COST = new Cost({
   food: 50,
 })
+
+// ── Stockpile ───────────────────────────────────────────────────────
+
+// Storehouse resource capacity: base + level × perLevel
+export const STOREHOUSE_BASE_CAPACITY = 100
+export const STOREHOUSE_CAPACITY_PER_LEVEL = 100
+
+// ── Territory ───────────────────────────────────────────────────────
+
+// HQ territory capacity: base + level × perLevel
+export const HQ_BASE_TERRITORY = 10
+export const HQ_TERRITORY_PER_LEVEL = 10
