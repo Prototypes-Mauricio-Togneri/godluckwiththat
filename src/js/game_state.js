@@ -1,4 +1,4 @@
-import {ALTAR_FAITH_RATE, PRODUCTION_RATES} from '@/js/balancing.js'
+import {PRODUCTION_RATES} from '@/js/balancing.js'
 
 /**
  * Central game state container.
@@ -50,20 +50,19 @@ class GameState {
     production.faith = 0
     production.knowledge = 0
 
-    // Compute worker-based production rates (per second)
+    // Compute production rates (per second)
     for (const [
       buildingKey,
       config,
     ] of Object.entries(PRODUCTION_RATES)) {
       const building = buildings[buildingKey]
-      if (building.level > 0 && building.workers > 0) {
-        production[config.resource] += building.workers * config.rate
+      if (building.level > 0) {
+        if (config.passive) {
+          production[config.resource] += building.level * config.rate
+        } else if (building.workers > 0) {
+          production[config.resource] += building.workers * config.rate
+        }
       }
-    }
-
-    // Altar passive faith production (level-based, no workers)
-    if (buildings.altar.level > 0) {
-      production.faith += buildings.altar.level * ALTAR_FAITH_RATE
     }
 
     // Apply production to resources, scaled by delta time

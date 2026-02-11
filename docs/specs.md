@@ -247,6 +247,5 @@ The file contains:
 - **Building base costs** (`BUILDING_BASE_COSTS`) — The base resource cost (wood, stone, etc.) for each building, used in level-up cost formulas.
 - **Level-up multipliers** (`BUILDING_LEVEL_UP_MULTIPLIERS`) — Exponential multiplier per building that scales the base cost each level. Formula: `floor(base × multiplier ^ level)`. The headquarters uses `multiplier ^ (level - 1)` since it starts at level 1.
 - **HQ upgrade costs** (`HQ_UPGRADE_COSTS`) — Fixed resource costs to upgrade the colony type (Camp → Settlement → Village → Town → City).
-- **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, shrines).
-- **Altar faith rate** (`ALTAR_FAITH_RATE`) — Passive faith production per altar level per second (no workers needed).
+- **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, shrines). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.
 - **Population & workers** — House population formula values (`HOUSE_BASE_POPULATION`, `HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), and worker recruitment cost (`WORKER_RECRUIT_COST`).

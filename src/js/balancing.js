@@ -181,10 +181,12 @@ export const PRODUCTION_RATES = {
     resource: RESOURCE_FAITH,
     rate: 0.15,
   },
+  altar: {
+    resource: RESOURCE_FAITH,
+    rate: 0.1,
+    passive: true,
+  },
 }
-
-// Altar passive faith production per level per second (no workers needed)
-export const ALTAR_FAITH_RATE = 0.1
 
 // ── Population & Workers ────────────────────────────────────────────
 
