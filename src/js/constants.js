@@ -51,6 +51,10 @@ export const HQ_TYPE_VILLAGE = 'village'
 export const HQ_TYPE_TOWN = 'town'
 export const HQ_TYPE_CITY = 'city'
 
+// Season identifiers
+export const SEASON_WARM = 'warm'
+export const SEASON_COLD = 'cold'
+
 // Ordered headquarters progression (used for upgrade lookups)
 export const HQ_TYPES = [
   HQ_TYPE_CAMP,
@@ -249,7 +253,7 @@ export function createInitialMeta() {
  */
 export function createInitialColony() {
   return new Colony({
-    season: 'warm',
+    season: SEASON_WARM,
     seasonElapsed: 0,
     idleWorkers: 5,
 

@@ -23,7 +23,7 @@ import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import GameState from '@/js/game_state.js'
-import {createInitialColony, createInitialMeta, BUILDING_GRID, HQ_BUILDING_UNLOCKS, HQ_TYPES, SECONDS_PER_MINUTE, TICK_INTERVAL} from '@/js/constants.js'
+import {createInitialColony, createInitialMeta, BUILDING_GRID, HQ_BUILDING_UNLOCKS, HQ_TYPES, SEASON_WARM, SECONDS_PER_MINUTE, TICK_INTERVAL} from '@/js/constants.js'
 import {SEASON_DURATION} from '@/js/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -74,7 +74,7 @@ function seasonProgress() {
 }
 
 function seasonEmoji() {
-  return state.colony.season === 'warm' ? '\u2600\uFE0F' : '\u2744\uFE0F'
+  return state.colony.season === SEASON_WARM ? '\u2600\uFE0F' : '\u2744\uFE0F'
 }
 
 function seasonTooltip() {

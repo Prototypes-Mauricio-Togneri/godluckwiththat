@@ -1,4 +1,5 @@
-import {PRODUCTION_RATES, SEASON_DURATION} from '@/js/balancing.js'
+import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER} from '@/js/balancing.js'
+import {SEASON_COLD, SEASON_WARM} from '@/js/constants.js'
 
 /**
  * Central game state container.
@@ -65,6 +66,10 @@ class GameState {
       }
     }
 
+    // Apply seasonal modifier to food production
+    const seasonMod = this.colony.season === SEASON_WARM ? SEASON_WARM_FOOD_MODIFIER : SEASON_COLD_FOOD_MODIFIER
+    production.food *= 1 + seasonMod
+
     // Apply production to resources, scaled by delta time
     resources.food += production.food * delta
     resources.wood += production.wood * delta
@@ -97,7 +102,7 @@ class GameState {
     this.colony.seasonElapsed += delta
     if (this.colony.seasonElapsed >= SEASON_DURATION) {
       this.colony.seasonElapsed -= SEASON_DURATION
-      this.colony.season = this.colony.season === 'warm' ? 'cold' : 'warm'
+      this.colony.season = this.colony.season === SEASON_WARM ? SEASON_COLD : SEASON_WARM
     }
   }
 }
