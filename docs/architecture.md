@@ -64,7 +64,7 @@ Each action is a horizontal row: a square icon-only button (2.5rem × 2.5rem) wi
 
 Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity. Constructor receives a `Meta` instance (first) and a `Colony` instance (second). `Meta` tracks save version, creation/update timestamps, and challenge count. `Colony` expects pre-constructed sub-model instances (e.g. `Resources`) from the caller. Initialized via `createInitialMeta()` and `createInitialColony()` factories in `constants.js`.
 
-**Colony provide/inject**: `game_screen.vue` calls `provide('colony', state.colony)` so descendant components (e.g. `headquarters_card.vue`, `house_card.vue`) can `inject('colony')` for direct reactive access to colony data without prop drilling.
+**Provide/inject**: `game_screen.vue` calls `provide('colony', state.colony)` and `provide('gameState', state)`. Components `inject('colony')` for reactive reads and `inject('gameState')` to call mutation methods (`levelUpBuilding`, `levelUpHeadquarters`, `upgradeHeadquarters`, `assignWorker`, `unassignWorker`).
 
 **Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }` and `state.colony.{ season, seasonElapsed, idleWorkers, resources, production, stockpile, buildings }`
 
@@ -75,6 +75,17 @@ Central state container instantiated once per game session. Pure JS class wrappe
 - `Cost` (`src/js/models/cost.js`) — multi-resource cost holder with properties: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `knowledge`. Methods: `canAfford(resources)`, `deductFrom(resources)`, `entries()` (returns a `Map<string, number>` of non-zero resources).
 
 All initial values declared via `createInitialMeta()` (a `Meta` instance) and `createInitialColony()` (a `Colony` instance) in `src/js/constants.js`, using numeric values from `src/js/balancing.js`. `BUILDING_CLASS_MAP` maps all 21 building keys to their class constructors.
+
+### Player Actions (`GameState` methods in `src/js/game_state.js`)
+
+All game state mutations are centralised in `GameState`. Each method guards preconditions, applies the mutation, and calls `this.update(0)` to recalculate derived values.
+
+- `levelUpBuilding(buildingKey)` — deducts `levelUpCost`, increments `level` and `territory`. Blocked when territory is full.
+- `levelUpHeadquarters()` — deducts `levelUpCost`, increments HQ `level` (no territory cost, since HQ increases max territory).
+- `upgradeHeadquarters()` — deducts `upgradeCost`, advances HQ `type` to the next progression tier.
+- `recruitWorker()` — deducts `WORKER_RECRUIT_COST`, increments `resources.workers` and `colony.idleWorkers`. Blocked when can't afford or at population cap.
+- `assignWorker(buildingKey)` — moves one idle worker to the building. Blocked when no idle workers or building at max workers (`level × WORKERS_PER_LEVEL`).
+- `unassignWorker(buildingKey)` — moves one worker from the building back to idle.
 
 ### Tick System (`GameState.update()` in `src/js/game_state.js`)
 

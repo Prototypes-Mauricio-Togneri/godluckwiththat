@@ -30,7 +30,7 @@ const props = defineProps({
 })
 
 const colony = inject('colony')
-const onAction = inject('onAction')
+const gameState = inject('gameState')
 
 const displayNameKey = computed(() => props.nameKey || `building.${props.buildingKey}`)
 const showHelp = ref(false)
@@ -48,10 +48,7 @@ const isWorkerAssignable = computed(() => props.building instanceof Producer)
 
 function act() {
   if (!canAct.value) return
-  actionCost.value.deductFrom(colony.resources)
-  colony.buildings[props.buildingKey].level += 1
-  colony.resources.territory += 1
-  onAction()
+  gameState.levelUpBuilding(props.buildingKey)
 }
 </script>
 

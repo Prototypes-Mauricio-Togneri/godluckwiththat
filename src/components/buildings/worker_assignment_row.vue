@@ -11,7 +11,7 @@ const props = defineProps({
 })
 
 const colony = inject('colony')
-const onAction = inject('onAction')
+const gameState = inject('gameState')
 
 const building = computed(() => colony.buildings[props.buildingKey])
 const maxWorkers = computed(() => building.value.level * WORKERS_PER_LEVEL)
@@ -20,16 +20,12 @@ const canUnassign = computed(() => building.value.workers > 0)
 
 function assign() {
   if (!canAssign.value) return
-  colony.buildings[props.buildingKey].workers += 1
-  colony.idleWorkers -= 1
-  onAction()
+  gameState.assignWorker(props.buildingKey)
 }
 
 function unassign() {
   if (!canUnassign.value) return
-  colony.buildings[props.buildingKey].workers -= 1
-  colony.idleWorkers += 1
-  onAction()
+  gameState.unassignWorker(props.buildingKey)
 }
 </script>
 

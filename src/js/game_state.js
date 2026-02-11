@@ -1,5 +1,6 @@
-import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER} from '@/js/balancing.js'
-import {SEASON_COLD, SEASON_WARM} from '@/js/constants.js'
+import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, WORKER_RECRUIT_COST, WORKERS_PER_LEVEL} from '@/js/balancing.js'
+import {BUILDING_CLASS_MAP, SEASON_COLD, SEASON_WARM} from '@/js/constants.js'
+import Headquarters from '@/js/models/buildings/headquarters.js'
 
 /**
  * Central game state container.
@@ -105,6 +106,92 @@ class GameState {
       this.colony.seasonElapsed -= SEASON_DURATION
       this.colony.season = this.colony.season === SEASON_WARM ? SEASON_COLD : SEASON_WARM
     }
+  }
+
+  /**
+   * Levels up a non-HQ building: deducts cost, increments level and territory.
+   * @param {string} buildingKey - Key in colony.buildings
+   */
+  levelUpBuilding(buildingKey) {
+    const {
+      resources, stockpile, buildings,
+    } = this.colony
+    const building = buildings[buildingKey]
+    const cost = BUILDING_CLASS_MAP[buildingKey].levelUpCost(building.level)
+    if (!cost.canAfford(resources) || resources.territory >= stockpile.territory) return
+    cost.deductFrom(resources)
+    building.level += 1
+    resources.territory += 1
+    this.update(0)
+  }
+
+  /**
+   * Levels up the headquarters: deducts cost, increments level (no territory cost).
+   */
+  levelUpHeadquarters() {
+    const {
+      resources, buildings,
+    } = this.colony
+    const hq = buildings.headquarters
+    const cost = Headquarters.levelUpCost(hq.level)
+    if (!cost.canAfford(resources)) return
+    cost.deductFrom(resources)
+    hq.level += 1
+    this.update(0)
+  }
+
+  /**
+   * Upgrades the headquarters to the next type: deducts cost, advances type.
+   */
+  upgradeHeadquarters() {
+    const {
+      resources, buildings,
+    } = this.colony
+    const hq = buildings.headquarters
+    const cost = Headquarters.upgradeCost(hq.type)
+    if (!cost || !cost.canAfford(resources)) return
+    cost.deductFrom(resources)
+    hq.type = Headquarters.nextType(hq.type)
+    this.update(0)
+  }
+
+  /**
+   * Recruits a new worker: deducts food cost, increments worker count.
+   */
+  recruitWorker() {
+    const {
+      resources, stockpile,
+    } = this.colony
+    if (!WORKER_RECRUIT_COST.canAfford(resources) || resources.workers >= stockpile.workers) return
+    WORKER_RECRUIT_COST.deductFrom(resources)
+    resources.workers += 1
+    this.colony.idleWorkers += 1
+    this.update(0)
+  }
+
+  /**
+   * Assigns one idle worker to a building.
+   * @param {string} buildingKey - Key in colony.buildings
+   */
+  assignWorker(buildingKey) {
+    const building = this.colony.buildings[buildingKey]
+    const maxWorkers = building.level * WORKERS_PER_LEVEL
+    if (this.colony.idleWorkers <= 0 || building.workers >= maxWorkers) return
+    building.workers += 1
+    this.colony.idleWorkers -= 1
+    this.update(0)
+  }
+
+  /**
+   * Unassigns one worker from a building back to idle.
+   * @param {string} buildingKey - Key in colony.buildings
+   */
+  unassignWorker(buildingKey) {
+    const building = this.colony.buildings[buildingKey]
+    if (building.workers <= 0) return
+    building.workers -= 1
+    this.colony.idleWorkers += 1
+    this.update(0)
   }
 }
 

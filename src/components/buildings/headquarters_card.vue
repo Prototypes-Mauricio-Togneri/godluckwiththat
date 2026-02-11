@@ -21,7 +21,7 @@ const props = defineProps({
 })
 
 const colony = inject('colony')
-const onAction = inject('onAction')
+const gameState = inject('gameState')
 const hq = computed(() => colony.buildings[props.buildingKey])
 
 const nameKey = computed(() => `building.headquarters.${hq.value.type}`)
@@ -33,9 +33,7 @@ const levelUpCostEntries = computed(() => levelUpCost.value.entries())
 
 function levelUp() {
   if (!canLevelUp.value) return
-  levelUpCost.value.deductFrom(colony.resources)
-  hq.value.level += 1
-  onAction()
+  gameState.levelUpHeadquarters()
 }
 
 // Upgrade type
@@ -46,9 +44,7 @@ const upgradeCostEntries = computed(() => upgradeCost.value?.entries() ?? new Ma
 
 function upgradeType() {
   if (!canUpgrade.value) return
-  upgradeCost.value.deductFrom(colony.resources)
-  hq.value.type = Headquarters.nextType(hq.value.type)
-  onAction()
+  gameState.upgradeHeadquarters()
 }
 </script>
 

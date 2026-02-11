@@ -94,7 +94,7 @@ const emit = defineEmits(['quit'])
 const showModal = ref(false)
 const state = reactive(new GameState(createInitialMeta(), createInitialColony()))
 provide('colony', state.colony)
-provide('onAction', () => state.update(0))
+provide('gameState', state)
 
 let tickTimer = null
 let lastTickTime = 0
