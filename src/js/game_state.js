@@ -1,6 +1,5 @@
 import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, WORKER_RECRUIT_COST, WORKERS_PER_LEVEL} from '@/js/balancing.js'
 import {SEASON_COLD, SEASON_WARM} from '@/js/constants.js'
-import Headquarters from '@/js/models/buildings/headquarters.js'
 
 /**
  * Central game state container.
@@ -148,10 +147,10 @@ class GameState {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
-    const cost = Headquarters.upgradeCost(hq.type)
+    const cost = hq.upgradeCost()
     if (!cost || !resources.canAfford(cost)) return
     resources.deduct(cost)
-    hq.type = Headquarters.nextType(hq.type)
+    hq.type = hq.nextType()
     this.update(0)
   }
 

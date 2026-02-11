@@ -1,7 +1,6 @@
 <script setup>
 import {computed, inject} from 'vue'
 import BaseCard from '@/components/buildings/base_card.vue'
-import Headquarters from '@/js/models/buildings/headquarters.js'
 import {HQ_TYPES} from '@/js/constants.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -38,7 +37,7 @@ function levelUp() {
 
 // Upgrade type
 const isMaxType = computed(() => hq.value.type === HQ_TYPES[HQ_TYPES.length - 1])
-const upgradeCost = computed(() => Headquarters.upgradeCost(hq.value.type))
+const upgradeCost = computed(() => hq.value.upgradeCost())
 const canUpgrade = computed(() => upgradeCost.value !== null && colony.resources.canAfford(upgradeCost.value))
 const upgradeCostEntries = computed(() => upgradeCost.value?.entries() ?? new Map())
 

@@ -41,20 +41,18 @@ class Headquarters extends Building {
 
   /**
    * Cost to upgrade headquarters to the next progression type.
-   * @param {string} currentType - Current HQ type (e.g. 'camp')
    * @returns {Cost|null} Cost for the upgrade, or null if already at max type
    */
-  static upgradeCost(currentType) {
-    return HQ_UPGRADE_COSTS[currentType] ?? null
+  upgradeCost() {
+    return HQ_UPGRADE_COSTS[this.type] ?? null
   }
 
   /**
    * Next headquarters progression type.
-   * @param {string} currentType - Current HQ type
    * @returns {string|null} Next type, or null if already at max
    */
-  static nextType(currentType) {
-    const index = HQ_TYPES.indexOf(currentType)
+  nextType() {
+    const index = HQ_TYPES.indexOf(this.type)
     if (index < 0 || index >= HQ_TYPES.length - 1) return null
     return HQ_TYPES[index + 1]
   }
