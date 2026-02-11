@@ -21,6 +21,7 @@ const props = defineProps({
 })
 
 const colony = inject('colony')
+const onAction = inject('onAction')
 const hq = computed(() => colony.buildings[props.buildingKey])
 
 const nameKey = computed(() => `building.headquarters.${hq.value.type}`)
@@ -34,6 +35,7 @@ function levelUp() {
   if (!canLevelUp.value) return
   levelUpCost.value.deductFrom(colony.resources)
   hq.value.level += 1
+  onAction()
 }
 
 // Upgrade type
@@ -46,6 +48,7 @@ function upgradeType() {
   if (!canUpgrade.value) return
   upgradeCost.value.deductFrom(colony.resources)
   hq.value.type = Headquarters.nextType(hq.value.type)
+  onAction()
 }
 </script>
 

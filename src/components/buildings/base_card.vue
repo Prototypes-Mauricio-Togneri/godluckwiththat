@@ -30,6 +30,7 @@ const props = defineProps({
 })
 
 const colony = inject('colony')
+const onAction = inject('onAction')
 
 const displayNameKey = computed(() => props.nameKey || `building.${props.buildingKey}`)
 const showHelp = ref(false)
@@ -48,6 +49,7 @@ function act() {
   if (!canAct.value) return
   actionCost.value.deductFrom(colony.resources)
   colony.buildings[props.buildingKey].level += 1
+  onAction()
 }
 </script>
 

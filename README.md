@@ -2,7 +2,6 @@
 
 [Web site](https://god-luck-with-that.web.app)
 
-- Update bar directly if action is made
 - Resources in red if stockpile is full
 - Don't show resources if the building is not built
 - Season modifiers (warm/cold production effects)
