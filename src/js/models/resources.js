@@ -29,6 +29,34 @@ class Resources {
     this.knowledge = data.knowledge // Knowledge supply
   }
 
+  /**
+   * @param {Cost} cost - Cost to check against current resources
+   * @returns {boolean} True if every cost field is <= the corresponding resource
+   */
+  canAfford(cost) {
+    return cost.food <= this.food
+      && cost.wood <= this.wood
+      && cost.stone <= this.stone
+      && cost.copper <= this.copper
+      && cost.iron <= this.iron
+      && cost.gold <= this.gold
+      && cost.knowledge <= this.knowledge
+  }
+
+  /**
+   * Subtracts the given cost from these resources in place.
+   * @param {Cost} cost - Cost to deduct
+   */
+  deduct(cost) {
+    this.food -= cost.food
+    this.wood -= cost.wood
+    this.stone -= cost.stone
+    this.copper -= cost.copper
+    this.iron -= cost.iron
+    this.gold -= cost.gold
+    this.knowledge -= cost.knowledge
+  }
+
 }
 
 export default Resources

@@ -24,7 +24,7 @@ const gameState = inject('gameState')
 
 // Recruit worker
 const canRecruit = computed(() =>
-  WORKER_RECRUIT_COST.canAfford(colony.resources)
+  colony.resources.canAfford(WORKER_RECRUIT_COST)
   && colony.resources.workers < colony.stockpile.workers,
 )
 const recruitCostEntries = computed(() => WORKER_RECRUIT_COST.entries())

@@ -27,34 +27,6 @@ class Cost {
   }
 
   /**
-   * @param {Resources} resources - Colony resource amounts to check against
-   * @returns {boolean} True if every cost field is <= the corresponding resource
-   */
-  canAfford(resources) {
-    return this.food <= resources.food
-      && this.wood <= resources.wood
-      && this.stone <= resources.stone
-      && this.copper <= resources.copper
-      && this.iron <= resources.iron
-      && this.gold <= resources.gold
-      && this.knowledge <= resources.knowledge
-  }
-
-  /**
-   * Subtracts this cost from the given resources in place.
-   * @param {Resources} resources - Colony resource amounts to deduct from
-   */
-  deductFrom(resources) {
-    resources.food -= this.food
-    resources.wood -= this.wood
-    resources.stone -= this.stone
-    resources.copper -= this.copper
-    resources.iron -= this.iron
-    resources.gold -= this.gold
-    resources.knowledge -= this.knowledge
-  }
-
-  /**
    * Returns non-zero resource entries as a Map of key → amount.
    * @returns {Map<string, number>}
    */

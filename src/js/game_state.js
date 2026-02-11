@@ -118,8 +118,8 @@ class GameState {
     } = this.colony
     const building = buildings[buildingKey]
     const cost = BUILDING_CLASS_MAP[buildingKey].levelUpCost(building.level)
-    if (!cost.canAfford(resources) || resources.territory >= stockpile.territory) return
-    cost.deductFrom(resources)
+    if (!resources.canAfford(cost) || resources.territory >= stockpile.territory) return
+    resources.deduct(cost)
     building.level += 1
     resources.territory += 1
     this.update(0)
@@ -134,8 +134,8 @@ class GameState {
     } = this.colony
     const hq = buildings.headquarters
     const cost = Headquarters.levelUpCost(hq.level)
-    if (!cost.canAfford(resources)) return
-    cost.deductFrom(resources)
+    if (!resources.canAfford(cost)) return
+    resources.deduct(cost)
     hq.level += 1
     this.update(0)
   }
@@ -149,8 +149,8 @@ class GameState {
     } = this.colony
     const hq = buildings.headquarters
     const cost = Headquarters.upgradeCost(hq.type)
-    if (!cost || !cost.canAfford(resources)) return
-    cost.deductFrom(resources)
+    if (!cost || !resources.canAfford(cost)) return
+    resources.deduct(cost)
     hq.type = Headquarters.nextType(hq.type)
     this.update(0)
   }
@@ -162,8 +162,8 @@ class GameState {
     const {
       resources, stockpile,
     } = this.colony
-    if (!WORKER_RECRUIT_COST.canAfford(resources) || resources.workers >= stockpile.workers) return
-    WORKER_RECRUIT_COST.deductFrom(resources)
+    if (!resources.canAfford(WORKER_RECRUIT_COST) || resources.workers >= stockpile.workers) return
+    resources.deduct(WORKER_RECRUIT_COST)
     resources.workers += 1
     this.colony.idleWorkers += 1
     this.update(0)

@@ -42,7 +42,7 @@ const actionCost = computed(() =>
   hasAction.value ? BUILDING_CLASS_MAP[props.buildingKey].levelUpCost(props.building.level) : null,
 )
 const territoryFull = computed(() => colony.resources.territory >= colony.stockpile.territory)
-const canAct = computed(() => actionCost.value !== null && !territoryFull.value && actionCost.value.canAfford(colony.resources))
+const canAct = computed(() => actionCost.value !== null && !territoryFull.value && colony.resources.canAfford(actionCost.value))
 const actionCostEntries = computed(() => actionCost.value?.entries() ?? new Map())
 const isWorkerAssignable = computed(() => props.building instanceof Producer)
 
