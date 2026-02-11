@@ -2,8 +2,9 @@
 
 [Web site](https://god-luck-with-that.web.app)
 
+- Update bar directly if action is made
+- Resources in red if stockpile is full
 - Don't show resources if the building is not built
-- Display resources produced per minute
 - Season modifiers (warm/cold production effects)
 - Territory consumption (building level = territory slot)
 - Worker food consumption (idle workers drain food)
