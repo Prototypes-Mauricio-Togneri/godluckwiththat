@@ -3,6 +3,7 @@
 [Web site](https://god-luck-with-that.web.app)
 
 - Resources
+  - Wrap each resource in a card
   - Show: "Full in [TIME]" or "Empty in [TIME]"
   - Show progress bar in each resource to indicate how full it is
 
@@ -22,3 +23,5 @@
     - research
     - building_upgrade
     - next_quest
+
+- Create tutorial (build a farm, create a worker, etc)
