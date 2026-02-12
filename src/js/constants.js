@@ -30,7 +30,6 @@ import Stockpile from '@/js/models/stockpile.js'
 
 // Tick interval in milliseconds
 export const TICK_INTERVAL = 1000
-export const SEASON_TICK_INTERVAL = 100
 
 // Seconds-per-minute conversion for production rate display
 export const SECONDS_PER_MINUTE = 60
