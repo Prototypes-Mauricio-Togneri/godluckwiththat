@@ -245,14 +245,14 @@ Each building has a level that can be increased by spending resources.
 
 ## Difficulties
 Players have to choose between:
-- Balancing production chains
-  - Overproducing one resource can lead to shortages in others and it's a waste of productivity that could have been directed somewhere else
+- Balance production chains
+  - Overproducing one resource leads to shortages in others
 - Grow population
-  - Increasing the population allows for more economic growth but it consumes more resources to keep the population alive
+  - More population enables economic growth but consumes more resources to sustain
 - Grow military
-  - Anticipate the incoming wave by preparing to block the attack. Players must have enough defenses to stop it but avoid using too many resources in defenses that otherwise could have been used for other purposes
+  - Stronger defenses protect against raids but divert resources from economic growth
 - Expand territory
-  - This requires a balance because the expansion causes more frequent attacks from enemies
+  - More territory enables economic growth but provokes more frequent enemy attacks
 - Research new technologies
   - Unlocking upgrades costs resources and time, delaying other priorities
 - Adapt to seasons
