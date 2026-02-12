@@ -23,7 +23,7 @@ import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import GameState from '@/js/game_state.js'
-import {createInitialColony, createInitialMeta, BUILDING_GRID, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, SEASON_WARM, SECONDS_PER_MINUTE, TICK_INTERVAL} from '@/js/constants.js'
+import {createInitialColony, createInitialMeta, BUILDING_GRID, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, SEASON_TICK_INTERVAL, SEASON_WARM, SECONDS_PER_MINUTE, TICK_INTERVAL} from '@/js/constants.js'
 import {SEASON_DURATION} from '@/js/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -107,12 +107,21 @@ provide('gameState', state)
 
 let tickTimer = null
 let lastTickTime = 0
+let seasonTickTimer = null
+let lastSeasonTickTime = 0
 
 function gameTick() {
   const now = performance.now()
   const delta = (now - lastTickTime) / 1000
   lastTickTime = now
   state.update(delta)
+}
+
+function seasonTick() {
+  const now = performance.now()
+  const delta = (now - lastSeasonTickTime) / 1000
+  lastSeasonTickTime = now
+  state.advanceSeason(delta)
 }
 
 function handleKeydown(event) {
@@ -124,13 +133,17 @@ function handleKeydown(event) {
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeydown)
-  lastTickTime = performance.now()
+  const now = performance.now()
+  lastTickTime = now
+  lastSeasonTickTime = now
   tickTimer = setInterval(gameTick, TICK_INTERVAL)
+  seasonTickTimer = setInterval(seasonTick, SEASON_TICK_INTERVAL)
 })
 
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
   clearInterval(tickTimer)
+  clearInterval(seasonTickTimer)
 })
 </script>
 
@@ -365,7 +378,7 @@ onUnmounted(() => {
 .season-fill {
   height: 100%;
   border-radius: 2px;
-  transition: width 0.3s linear;
+  transition: width 0.1s linear;
 }
 
 .season-track--warm .season-fill {

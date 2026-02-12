@@ -132,7 +132,13 @@ class GameState {
       production.wood -= resources.workers * WORKER_WOOD_CONSUMPTION * (1 + woodSeasonMod)
     }
 
-    // Advance season timer
+  }
+
+  /**
+   * Advances the season elapsed timer and flips season when duration is reached.
+   * @param {number} delta - Seconds since last season tick
+   */
+  advanceSeason(delta) {
     this.colony.seasonElapsed += delta
     if (this.colony.seasonElapsed >= SEASON_DURATION) {
       this.colony.seasonElapsed -= SEASON_DURATION
