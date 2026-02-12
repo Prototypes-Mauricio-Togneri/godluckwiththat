@@ -36,7 +36,6 @@ export const BUILDING_BASE_COSTS = {
   },
   quarry: {
     wood: 45,
-    stone: 20,
   },
   copperMine: {
     wood: 70,
