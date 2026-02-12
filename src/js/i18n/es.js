@@ -70,7 +70,7 @@ export const LOCALIZED_ES = {
 
   // Headquarters actions
   'house.recruitWorker': 'Crear trabajador',
-  'headquarters.levelUp': 'Aumentar nivel',
+  'headquarters.expandTerritory': 'Expandir territorio',
   'headquarters.upgrade': 'Mejorar colonia',
 
   // Building help modal

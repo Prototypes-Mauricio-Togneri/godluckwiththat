@@ -27,6 +27,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  showLevel: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const colony = inject('colony')
@@ -64,7 +68,7 @@ function act() {
 
     <div class="building-thumb-wrapper">
       <img class="building-thumb" :class="{ 'building-thumb-unbuilt': building.level === 0 }" :src="BUILDING_IMG_PATH + img" :alt="t(displayNameKey)">
-      <span class="building-level-badge">{{ building.level }}</span>
+      <span v-if="showLevel" class="building-level-badge">{{ building.level }}</span>
     </div>
     <div class="building-info">
       <span class="building-name">{{ t(displayNameKey) }}</span>

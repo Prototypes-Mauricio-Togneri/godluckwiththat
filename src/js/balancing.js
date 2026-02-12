@@ -10,6 +10,7 @@ import Cost from '@/js/models/cost.js'
 // Base resource cost per building (used in levelUpCost formulas)
 export const BUILDING_BASE_COSTS = {
   headquarters: {
+    food: 15,
     wood: 20,
   },
   house: {

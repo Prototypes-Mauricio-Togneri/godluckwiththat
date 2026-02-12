@@ -33,8 +33,12 @@ class Headquarters extends Building {
    * @returns {Cost}
    */
   levelUpCost() {
-    const wood = Math.floor(BUILDING_BASE_COSTS.headquarters.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.headquarters, this.level - 1))
+    const base = BUILDING_BASE_COSTS.headquarters
+    const mult = Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.headquarters, this.level - 1)
+    const food = Math.floor(base.food * mult)
+    const wood = Math.floor(base.wood * mult)
     return new Cost({
+      food,
       wood,
     })
   }
