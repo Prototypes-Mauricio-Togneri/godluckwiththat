@@ -21,7 +21,7 @@ export const LOCALIZED_EN = {
   'resource.knowledge': 'Knowledge',
   'resource.faith': 'Faith',
   'resource.territory': 'Territory',
-  'resource.perMinute': '/m',
+  'resource.perMinute': '/min',
 
   // Seasons
   'season.name': 'Season',
