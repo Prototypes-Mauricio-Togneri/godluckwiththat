@@ -131,7 +131,6 @@ class GameState {
       production.food -= resources.workers * WORKER_FOOD_CONSUMPTION
       production.wood -= resources.workers * WORKER_WOOD_CONSUMPTION * (1 + woodSeasonMod)
     }
-
   }
 
   /**
