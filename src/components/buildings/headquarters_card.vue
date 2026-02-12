@@ -49,20 +49,6 @@ function upgradeType() {
 
 <template>
   <BaseCard :building-key="buildingKey" :img="img" :building="building" :name-key="nameKey" :show-build-action="false" :show-level="false">
-    <div class="action-row">
-      <span class="tooltip" :data-tooltip="t('headquarters.expandTerritory')">
-        <button class="btn-gold action-btn" :disabled="!canLevelUp" @click="levelUp">
-          <img class="action-btn-icon" src="/img/other/territory.png" :alt="t('headquarters.expandTerritory')">
-        </button>
-      </span>
-      <span class="action-cost">
-        <span v-for="[key, amount] in levelUpCostEntries" :key="key" class="action-cost-item">
-          <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
-          <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
-        </span>
-      </span>
-    </div>
-
     <div v-if="!isMaxType" class="action-row">
       <span class="tooltip" :data-tooltip="t('headquarters.upgrade')">
         <button class="btn-gold action-btn" :disabled="!canUpgrade" @click="upgradeType">
@@ -71,6 +57,20 @@ function upgradeType() {
       </span>
       <span class="action-cost">
         <span v-for="[key, amount] in upgradeCostEntries" :key="key" class="action-cost-item">
+          <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
+          <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
+        </span>
+      </span>
+    </div>
+
+    <div class="action-row">
+      <span class="tooltip" :data-tooltip="t('headquarters.expandTerritory')">
+        <button class="btn-gold action-btn" :disabled="!canLevelUp" @click="levelUp">
+          <img class="action-btn-icon" src="/img/other/territory.png" :alt="t('headquarters.expandTerritory')">
+        </button>
+      </span>
+      <span class="action-cost">
+        <span v-for="[key, amount] in levelUpCostEntries" :key="key" class="action-cost-item">
           <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
           <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
         </span>
