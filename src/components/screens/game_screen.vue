@@ -101,6 +101,7 @@ function isResourceVisible(resource) {
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
 const state = reactive(new GameState(createInitialMeta(), createInitialColony()))
+state.update(0)
 provide('colony', state.colony)
 provide('gameState', state)
 

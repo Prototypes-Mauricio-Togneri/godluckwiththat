@@ -1,4 +1,4 @@
-import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, WORKER_RECRUIT_COST, WORKERS_PER_LEVEL} from '@/js/balancing.js'
+import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/balancing.js'
 import {SEASON_COLD, SEASON_WARM} from '@/js/constants.js'
 
 /**
@@ -81,6 +81,32 @@ class GameState {
     resources.faith += production.faith * delta
     resources.knowledge += production.knowledge * delta
 
+    // Worker consumption (food + wood upkeep)
+    if (delta > 0 && resources.workers > 0) {
+      const totalWorkers = resources.workers
+      const foodCost = WORKER_FOOD_CONSUMPTION * delta
+      const woodCost = WORKER_WOOD_CONSUMPTION * delta
+
+      // Calculate deaths from each resource independently
+      const foodDeaths = resources.food >= totalWorkers * foodCost
+        ? 0
+        : totalWorkers - Math.floor(resources.food / foodCost)
+      const woodDeaths = resources.wood >= totalWorkers * woodCost
+        ? 0
+        : totalWorkers - Math.floor(resources.wood / woodCost)
+
+      const workersToKill = Math.max(foodDeaths, woodDeaths)
+      const surviving = totalWorkers - workersToKill
+
+      // Deduct resources for surviving workers
+      resources.food = Math.max(0, resources.food - surviving * foodCost)
+      resources.wood = Math.max(0, resources.wood - surviving * woodCost)
+
+      if (workersToKill > 0) {
+        this._killWorkers(workersToKill)
+      }
+    }
+
     // Cap resources at stockpile limits
     resources.food = Math.min(resources.food, stockpile.food)
     resources.wood = Math.min(resources.wood, stockpile.wood)
@@ -98,6 +124,12 @@ class GameState {
     resources.gold = Math.max(0, resources.gold)
     resources.faith = Math.max(0, resources.faith)
     resources.knowledge = Math.max(0, resources.knowledge)
+
+    // Include worker upkeep in displayed production rates
+    if (resources.workers > 0) {
+      production.food -= resources.workers * WORKER_FOOD_CONSUMPTION
+      production.wood -= resources.workers * WORKER_WOOD_CONSUMPTION
+    }
 
     // Advance season timer
     this.colony.seasonElapsed += delta
@@ -191,6 +223,44 @@ class GameState {
     building.workers -= 1
     this.colony.idleWorkers += 1
     this.update(0)
+  }
+
+  /**
+   * Removes workers from the colony (starvation).
+   * Kills idle workers first, then unassigns from buildings
+   * with the most workers.
+   * @param {number} count - Number of workers to remove
+   */
+  _killWorkers(count) {
+    const {
+      resources, buildings,
+    } = this.colony
+    let remaining = count
+
+    // Kill idle workers first
+    const idleKilled = Math.min(remaining, this.colony.idleWorkers)
+    this.colony.idleWorkers -= idleKilled
+    remaining -= idleKilled
+
+    // Kill assigned workers (from buildings with the most workers first)
+    while (remaining > 0) {
+      let maxWorkers = 0
+      let targetKey = null
+      for (const [
+        key,
+        building,
+      ] of Object.entries(buildings)) {
+        if ('workers' in building && building.workers > maxWorkers) {
+          maxWorkers = building.workers
+          targetKey = key
+        }
+      }
+      if (!targetKey) break
+      buildings[targetKey].workers -= 1
+      remaining -= 1
+    }
+
+    resources.workers -= count
   }
 }
 

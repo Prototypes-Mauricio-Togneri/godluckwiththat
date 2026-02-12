@@ -113,10 +113,13 @@ There are two types of resources
 - Workers
   - Recruited by spending food
   - The maximum population is determined by the house level
+  - All workers (idle and assigned) consume food and wood each tick to stay alive
+    - If the colony cannot feed or shelter all workers, those it cannot sustain die (idle workers first, then from the most-staffed buildings)
+    - Food and wood shortages are evaluated independently; the higher death count is applied
   - Consumed to
     - Assigned to buildings to produce resources
   - A worker that is not assigned to any building is considered idle
-    - Idle workers consume food to stay alive but don't produce anything, making them detrimental
+    - Idle workers don't produce anything, making them detrimental
 - Knowledge
   - Produced in
     - Academies
@@ -248,4 +251,4 @@ The file contains:
 - **Level-up multipliers** (`BUILDING_LEVEL_UP_MULTIPLIERS`) — Exponential multiplier per building that scales the base cost each level. Formula: `floor(base × multiplier ^ level)`. The headquarters uses `multiplier ^ (level - 1)` since it starts at level 1.
 - **HQ upgrade costs** (`HQ_UPGRADE_COSTS`) — Fixed resource costs to upgrade the colony type (Camp → Settlement → Village → Town → City).
 - **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, shrines). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.
-- **Population & workers** — House population formula values (`HOUSE_BASE_POPULATION`, `HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), and worker recruitment cost (`WORKER_RECRUIT_COST`).
+- **Population & workers** — House population formula values (`HOUSE_BASE_POPULATION`, `HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), worker recruitment cost (`WORKER_RECRUIT_COST`), and worker upkeep rates (`WORKER_FOOD_CONSUMPTION`, `WORKER_WOOD_CONSUMPTION`).

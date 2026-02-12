@@ -202,6 +202,12 @@ export const WORKER_RECRUIT_COST = new Cost({
   food: 50,
 })
 
+// ── Worker Upkeep ─────────────────────────────────────────────────────
+
+// Resource consumed per worker per second
+export const WORKER_FOOD_CONSUMPTION = 0.01
+export const WORKER_WOOD_CONSUMPTION = 0.01
+
 // ── Stockpile ───────────────────────────────────────────────────────
 
 // Storehouse resource capacity: base + level × perLevel
