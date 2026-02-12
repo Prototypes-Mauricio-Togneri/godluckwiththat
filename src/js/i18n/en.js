@@ -23,6 +23,9 @@ export const LOCALIZED_EN = {
   'resource.territory': 'Territory',
   'resource.perMinute': '/min',
 
+  // Year
+  'year.label': 'Year',
+
   // Seasons
   'season.name': 'Season',
   'season.warm': 'Warm',

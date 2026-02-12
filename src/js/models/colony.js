@@ -2,6 +2,7 @@
  * Colony data model. Wraps all colony sub-models
  * (resources, production, stockpile, buildings).
  *
+ * @property {number} year - Current year (starts at 1, increments every warm+cold cycle)
  * @property {string} season - Current season
  * @property {number} seasonElapsed - Seconds elapsed in current season
  * @property {number} idleWorkers - Workers not assigned to buildings
@@ -15,6 +16,7 @@ class Colony {
    * @param {Object} data - Colony data with pre-constructed sub-model instances
    */
   constructor(data) {
+    this.year = data.year // Current year (increments every warm+cold cycle)
     this.season = data.season // Current season
     this.seasonElapsed = data.seasonElapsed // Seconds elapsed in current season
     this.idleWorkers = data.idleWorkers // Workers not assigned to buildings

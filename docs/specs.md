@@ -43,7 +43,9 @@ The colony is where the game takes place. It is where you will build your buildi
   - Military
   - Challenges
 
-## Seasons
+## Years & Seasons
+
+The game tracks time in years. A year consists of one warm season followed by one cold season. Years start at 1 and increment each time a cold season ends and a new warm season begins.
 
 The game cycles over two seasons: warm and cold. Each season has different characteristics that affect the colony in different ways. The season changes every certain amount of time.
 

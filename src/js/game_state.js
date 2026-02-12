@@ -136,6 +136,7 @@ class GameState {
     this.colony.seasonElapsed += delta
     if (this.colony.seasonElapsed >= SEASON_DURATION) {
       this.colony.seasonElapsed -= SEASON_DURATION
+      if (this.colony.season === SEASON_COLD) this.colony.year++
       this.colony.season = this.colony.season === SEASON_WARM ? SEASON_COLD : SEASON_WARM
     }
   }

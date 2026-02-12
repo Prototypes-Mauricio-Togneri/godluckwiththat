@@ -20,7 +20,7 @@ Centered overlay (same pattern as pause modal) showing information about a build
 
 Top bar divided into 4 sections separated by decorative vertical dividers:
 
-1. **Season** — text label (`Josefin Sans`, small uppercase, muted accent) + value with accent color
+1. **Year & Season** — year label (`Josefin Sans`, small uppercase, muted) with numeric value (`Azeret Mono`), season emoji, and season progress bar
 2. **Resources** — food, wood, stone each shown as icon image + `current/max` value + per-minute production rate indicator (flex: 1, centered). Rate shows green `▲ N/m` when positive, red `▼ N/m` when negative, red `0/m` when zero. Computed from `colony.production` (per-second) × `SECONDS_PER_MINUTE` (60).
 3. **Colony** — population, idle workers, territory each shown as icon image + value (flex: 1, centered)
 4. **Menu button** — hamburger icon (inline SVG), opens pause modal
@@ -66,7 +66,7 @@ Central state container instantiated once per game session. Pure JS class wrappe
 
 **Provide/inject**: `game_screen.vue` calls `provide('colony', state.colony)` and `provide('gameState', state)`. Components `inject('colony')` for reactive reads and `inject('gameState')` to call mutation methods (`levelUpBuilding`, `levelUpHeadquarters`, `upgradeHeadquarters`, `assignWorker`, `unassignWorker`).
 
-**Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }` and `state.colony.{ season, seasonElapsed, idleWorkers, resources, production, stockpile, buildings }`
+**Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }` and `state.colony.{ year, season, seasonElapsed, idleWorkers, resources, production, stockpile, buildings }`
 
 - `resources` (`Resources`) — current amounts with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`. Methods: `canAfford(cost)` (returns `true` if all cost fields are covered), `deduct(cost)` (subtracts cost fields in place).
 - `production` (`Production`) — per-tick rates with public fields: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.

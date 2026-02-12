@@ -137,6 +137,9 @@ onUnmounted(() => {
 <template>
   <div class="game-screen">
     <header class="game-header">
+      <!-- Year indicator -->
+      <span class="header-year">{{ t('year.label') }} <span class="header-year-num">{{ state.colony.year }}</span></span>
+
       <!-- Season indicator -->
       <div class="header-section header-season tooltip" :data-tooltip="seasonTooltip()">
         <span class="season-emoji">{{ seasonEmoji() }}</span>
@@ -288,6 +291,21 @@ onUnmounted(() => {
 .header-season {
   gap: 0.5rem;
   flex-shrink: 0;
+}
+
+.header-year {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(var(--color-text-rgb), 0.55);
+  margin-right: 1em;
+}
+
+.header-year-num {
+  font-family: var(--font-numeric);
+  color: var(--color-text);
+  margin-left: 0.5em;
 }
 
 .header-resources {

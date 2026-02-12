@@ -23,6 +23,9 @@ export const LOCALIZED_ES = {
   'resource.territory': 'Territorio',
   'resource.perMinute': '/min',
 
+  // Year
+  'year.label': 'Año',
+
   // Seasons
   'season.name': 'Estación',
   'season.warm': 'Cálida',
