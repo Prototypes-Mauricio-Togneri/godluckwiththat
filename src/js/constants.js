@@ -98,6 +98,22 @@ export const HQ_BUILDING_UNLOCKS = {
   ],
 }
 
+// Resources unlocked at each headquarters type (non-cumulative per tier)
+export const HQ_RESOURCE_UNLOCKS = {
+  [HQ_TYPE_CAMP]: [
+    RESOURCE_FOOD,
+    RESOURCE_WOOD,
+    RESOURCE_FAITH,
+  ],
+  [HQ_TYPE_SETTLEMENT]: [
+    RESOURCE_STONE,
+    RESOURCE_KNOWLEDGE,
+  ],
+  [HQ_TYPE_VILLAGE]: [RESOURCE_COPPER],
+  [HQ_TYPE_TOWN]: [RESOURCE_IRON],
+  [HQ_TYPE_CITY]: [RESOURCE_GOLD],
+}
+
 // Building class map — resolves building keys to their class constructors
 export const BUILDING_CLASS_MAP = {
   [Headquarters.ID]: Headquarters,

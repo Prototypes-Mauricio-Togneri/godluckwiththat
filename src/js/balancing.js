@@ -122,26 +122,25 @@ export const BUILDING_LEVEL_UP_MULTIPLIERS = {
 // Resource cost to upgrade HQ type (keyed by type)
 export const HQ_UPGRADE_COSTS = {
   [HQ_TYPE_CAMP]: new Cost({
-    wood: 200,
-    stone: 100,
+    wood: 500,
   }),
   [HQ_TYPE_SETTLEMENT]: new Cost({
-    wood: 500,
-    stone: 250,
+    wood: 1000,
+    stone: 500,
     copper: 100,
   }),
   [HQ_TYPE_VILLAGE]: new Cost({
-    wood: 1000,
-    stone: 500,
-    copper: 250,
-    iron: 100,
+    wood: 5000,
+    stone: 2000,
+    copper: 1000,
+    iron: 500,
   }),
   [HQ_TYPE_TOWN]: new Cost({
-    wood: 2000,
-    stone: 1000,
-    copper: 500,
-    iron: 250,
-    gold: 100,
+    wood: 10000,
+    stone: 5000,
+    copper: 2000,
+    iron: 1000,
+    gold: 500,
   }),
 }
 
