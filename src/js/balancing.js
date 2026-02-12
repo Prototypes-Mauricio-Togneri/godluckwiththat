@@ -205,8 +205,8 @@ export const WORKER_RECRUIT_COST = new Cost({
 // ── Worker Upkeep ─────────────────────────────────────────────────────
 
 // Resource consumed per worker per second
-export const WORKER_FOOD_CONSUMPTION = 0.01
-export const WORKER_WOOD_CONSUMPTION = 0.01
+export const WORKER_FOOD_CONSUMPTION = 0.1
+export const WORKER_WOOD_CONSUMPTION = 0.1
 
 // ── Stockpile ───────────────────────────────────────────────────────
 
