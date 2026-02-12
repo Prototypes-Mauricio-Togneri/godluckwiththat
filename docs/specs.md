@@ -250,8 +250,11 @@ Players have to choose between:
 - Research new technologies
 - Grow military
 - Expand territory
+- Adapt to seasons
 - Prepare for disasters
 - Complete the challenges of the gods
+
+## Other
 - Overproducing one resource can lead to shortages in others and it’s a waste of productivity that could have been directed somewhere else
 - Anticipate the incoming wave by preparing to block the attack. Players must have enough defenses to stop it but avoid using too many resources in defenses that otherwise could have been used for other purposes
 - Must expand their territory in order to achieve the objectives. But it requires a balance because the expansion comes with potential problems
