@@ -227,3 +227,7 @@ export const SEASON_DURATION = 120
 // Fractional modifier applied to food production per season
 export const SEASON_WARM_FOOD_MODIFIER = 0.2
 export const SEASON_COLD_FOOD_MODIFIER = -0.2
+
+// Fractional modifier applied to wood consumption per season
+export const SEASON_WARM_WOOD_MODIFIER = -0.2
+export const SEASON_COLD_WOOD_MODIFIER = 0.2

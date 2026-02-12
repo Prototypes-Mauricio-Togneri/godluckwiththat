@@ -1,4 +1,4 @@
-import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/balancing.js'
+import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/balancing.js'
 import {SEASON_COLD, SEASON_WARM} from '@/js/constants.js'
 
 /**
@@ -82,10 +82,11 @@ class GameState {
     resources.knowledge += production.knowledge * delta
 
     // Worker consumption (food + wood upkeep)
+    const woodSeasonMod = this.colony.season === SEASON_WARM ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
     if (delta > 0 && resources.workers > 0) {
       const totalWorkers = resources.workers
       const foodCost = WORKER_FOOD_CONSUMPTION * delta
-      const woodCost = WORKER_WOOD_CONSUMPTION * delta
+      const woodCost = WORKER_WOOD_CONSUMPTION * (1 + woodSeasonMod) * delta
 
       // Calculate deaths from each resource independently
       const foodDeaths = resources.food >= totalWorkers * foodCost
@@ -128,7 +129,7 @@ class GameState {
     // Include worker upkeep in displayed production rates
     if (resources.workers > 0) {
       production.food -= resources.workers * WORKER_FOOD_CONSUMPTION
-      production.wood -= resources.workers * WORKER_WOOD_CONSUMPTION
+      production.wood -= resources.workers * WORKER_WOOD_CONSUMPTION * (1 + woodSeasonMod)
     }
 
     // Advance season timer
