@@ -254,9 +254,13 @@ Players have to choose between:
 - Expand territory
   - This requires a balance because the expansion causes more frequent attacks from enemies
 - Research new technologies
+  - Unlocking upgrades costs resources and time, delaying other priorities
 - Adapt to seasons
+  - Seasonal changes affect production rates, requiring players to plan ahead and stockpile accordingly
 - Prepare for disasters
+  - Random catastrophic events can destroy buildings or resources, so players must keep reserves without over-hoarding
 - Complete the challenges of the gods
+  - Divine challenges require specific resources or milestones, forcing players to divert effort from other goals
 
 ## Balancing
 
