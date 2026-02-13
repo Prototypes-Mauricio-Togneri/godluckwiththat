@@ -104,6 +104,7 @@
 
 .tooltip:hover::after {
     opacity: 1;
+    transition-delay: 1s;
 }
 
 /* Action row — icon button beside resource cost items */
