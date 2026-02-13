@@ -1,5 +1,5 @@
 import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
-import {EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
+import {BOUNDED_RESOURCES, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_LIMIT_EVENT_CONFIG, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
 
 /**
  * Central game state container.
@@ -20,6 +20,12 @@ class GameState {
     this.meta = meta // Game metadata (version, timestamps, challenges)
     this.colony = colony // Active colony instance
     this.events = events // Ephemeral event log (not persisted)
+
+    // Track which bounded resources are currently at their stockpile cap
+    // (initialized from current state so loading a save doesn't immediately fire events)
+    this._resourcesAtCap = new Set(
+      BOUNDED_RESOURCES.filter(r => colony.resources[r] >= colony.stockpile[r]),
+    )
   }
 
   /**
@@ -118,6 +124,23 @@ class GameState {
     resources.copper = Math.min(resources.copper, stockpile.copper)
     resources.iron = Math.min(resources.iron, stockpile.iron)
     resources.gold = Math.min(resources.gold, stockpile.gold)
+
+    // Fire events for resources that just reached their stockpile cap
+    for (const r of BOUNDED_RESOURCES) {
+      if (resources[r] >= stockpile[r]) {
+        if (!this._resourcesAtCap.has(r)) {
+          this._resourcesAtCap.add(r)
+          const config = RESOURCE_LIMIT_EVENT_CONFIG[r]
+          this.events.addPast({
+            type: EVENT_TYPE_RESOURCE_LIMIT_REACHED,
+            textKey: config.textKey,
+            icon: config.icon,
+          })
+        }
+      } else {
+        this._resourcesAtCap.delete(r)
+      }
+    }
 
     // Ensure no resource goes below zero
     resources.food = Math.max(0, resources.food)

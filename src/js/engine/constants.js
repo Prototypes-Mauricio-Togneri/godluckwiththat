@@ -78,6 +78,45 @@ export const SEASON_COLD = 'cold'
 export const EVENT_TYPE_SEASON_CHANGED = 'season_changed'
 export const EVENT_TYPE_POPULATION_LIMIT_REACHED = 'population_limit_reached'
 export const EVENT_TYPE_TERRITORY_LIMIT_REACHED = 'territory_limit_reached'
+export const EVENT_TYPE_RESOURCE_LIMIT_REACHED = 'resource_limit_reached'
+
+// Bounded resources (subject to stockpile caps)
+export const BOUNDED_RESOURCES = [
+  RESOURCE_FOOD,
+  RESOURCE_WOOD,
+  RESOURCE_STONE,
+  RESOURCE_COPPER,
+  RESOURCE_IRON,
+  RESOURCE_GOLD,
+]
+
+// Config for resource-limit-reached events (textKey + icon per bounded resource)
+export const RESOURCE_LIMIT_EVENT_CONFIG = {
+  [RESOURCE_FOOD]: {
+    textKey: 'event.foodLimitReached',
+    icon: 'resources/food.png',
+  },
+  [RESOURCE_WOOD]: {
+    textKey: 'event.woodLimitReached',
+    icon: 'resources/wood.png',
+  },
+  [RESOURCE_STONE]: {
+    textKey: 'event.stoneLimitReached',
+    icon: 'resources/stone.png',
+  },
+  [RESOURCE_COPPER]: {
+    textKey: 'event.copperLimitReached',
+    icon: 'resources/copper.png',
+  },
+  [RESOURCE_IRON]: {
+    textKey: 'event.ironLimitReached',
+    icon: 'resources/iron.png',
+  },
+  [RESOURCE_GOLD]: {
+    textKey: 'event.goldLimitReached',
+    icon: 'resources/gold.png',
+  },
+}
 
 // Ordered headquarters progression (used for upgrade lookups)
 export const HQ_TYPES = [
