@@ -78,6 +78,15 @@ export const LOCALIZED_ES = {
   'headquarters.expandTerritory': 'Expandir territorio',
   'headquarters.upgrade': 'Mejorar colonia',
 
+  // Events
+  'events.title': 'Eventos',
+  'events.future': 'Próximos',
+  'events.past': 'Historial',
+  'events.empty': 'Sin eventos',
+  'event.nativeRaid': 'Ataque nativo inminente',
+  'event.coldSeason': 'La estación fría ha comenzado',
+  'event.buildingDestroyed': 'Un edificio fue dañado',
+
   // Building help modal
   'modal.buildingHelp.tooltip': 'Ayuda',
   'modal.buildingHelp.close': 'Cerrar',

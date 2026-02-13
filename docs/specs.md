@@ -243,6 +243,16 @@ Each building has a level that can be increased by spending resources.
   - The higher the level, the more attack it provides to the colony
   - Workers cannot be assigned to this building
 
+## Events
+
+The game displays an event log as a column alongside the building columns. Events inform the player of upcoming threats and past occurrences.
+
+- **Future events** — warn about incoming events (e.g. enemy raids, disasters). Each shows a countdown timer that ticks down in real time. When the countdown reaches zero, the trigger logic (not yet implemented) decides what happens.
+- **Past events** — inform about things that have already happened (e.g. season changed, raid repelled). Displayed in a muted style.
+- All events can be dismissed by the player (close button).
+- Events are ephemeral — they are not saved and reset on page refresh.
+- The events column is always visible in the game screen.
+
 ## Difficulties
 Players have to choose between:
 - Balance production chains

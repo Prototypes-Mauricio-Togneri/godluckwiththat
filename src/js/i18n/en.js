@@ -78,6 +78,15 @@ export const LOCALIZED_EN = {
   'headquarters.expandTerritory': 'Expand territory',
   'headquarters.upgrade': 'Upgrade colony',
 
+  // Events
+  'events.title': 'Events',
+  'events.future': 'Upcoming',
+  'events.past': 'History',
+  'events.empty': 'No events',
+  'event.nativeRaid': 'Native raid incoming',
+  'event.coldSeason': 'Cold season has begun',
+  'event.buildingDestroyed': 'A building was damaged',
+
   // Building help modal
   'modal.buildingHelp.tooltip': 'Help',
   'modal.buildingHelp.close': 'Close',

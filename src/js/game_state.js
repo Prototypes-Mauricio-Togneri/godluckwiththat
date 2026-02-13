@@ -8,15 +8,18 @@ import {SEASON_COLD, SEASON_WARM} from '@/js/constants.js'
  *
  * @property {Meta} meta - Game metadata (version, timestamps, challenges)
  * @property {Colony} colony - Active colony instance
+ * @property {Events} events - Ephemeral event log (not persisted)
  */
 class GameState {
   /**
    * @param {Meta} meta - Meta instance
    * @param {Colony} colony - Colony instance
+   * @param {Events} events - Events instance
    */
-  constructor(meta, colony) {
+  constructor(meta, colony, events) {
     this.meta = meta // Game metadata (version, timestamps, challenges)
     this.colony = colony // Active colony instance
+    this.events = events // Ephemeral event log (not persisted)
   }
 
   /**
@@ -131,6 +134,9 @@ class GameState {
       production.food -= resources.workers * WORKER_FOOD_CONSUMPTION
       production.wood -= resources.workers * WORKER_WOOD_CONSUMPTION * (1 + woodSeasonMod)
     }
+
+    // Tick event countdowns
+    this.events.tick(delta)
   }
 
   /**

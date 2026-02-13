@@ -1,5 +1,5 @@
 <script setup>
-import {ref, reactive, provide, onMounted, onUnmounted} from 'vue'
+import {ref, reactive, computed, provide, onMounted, onUnmounted} from 'vue'
 import PauseModal from '@/components/modals/pause_modal.vue'
 import HeadquartersCard from '@/components/buildings/headquarters_card.vue'
 import HouseCard from '@/components/buildings/house_card.vue'
@@ -23,7 +23,7 @@ import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import GameState from '@/js/game_state.js'
-import {createInitialColony, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, SEASON_WARM, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/constants.js'
+import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, SEASON_WARM, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/constants.js'
 import {SEASON_DURATION} from '@/js/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -140,10 +140,13 @@ function isResourceVisible(resource) {
 
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
-const state = reactive(new GameState(createInitialMeta(), createInitialColony()))
+const state = reactive(new GameState(createInitialMeta(), createInitialColony(), createInitialEvents()))
 state.update(0)
 provide('colony', state.colony)
 provide('gameState', state)
+
+const futureEvents = computed(() => state.events.future())
+const pastEvents = computed(() => state.events.past())
 
 let tickTimer = null
 let lastTickTime = 0
@@ -291,6 +294,41 @@ onUnmounted(() => {
             </div>
           </template>
         </div>
+      </div>
+
+      <!-- Events column -->
+      <div class="events-column">
+        <h2 class="column-header">{{ t('events.title') }}</h2>
+
+        <!-- Future events -->
+        <div v-if="futureEvents.length" class="events-section">
+          <h3 class="events-section-label">{{ t('events.future') }}</h3>
+          <div class="events-list">
+            <div v-for="event in futureEvents" :key="event.id" class="event-row">
+              <img class="event-icon" :src="'/img/' + event.icon" :alt="t(event.textKey)">
+              <span class="event-text">{{ t(event.textKey) }}</span>
+              <span class="event-countdown">{{ formatTime(event.remainingSeconds) }}</span>
+              <button class="event-dismiss" @click="state.events.dismiss(event.id)">&times;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Past events -->
+        <div v-if="pastEvents.length" class="events-section">
+          <h3 class="events-section-label">{{ t('events.past') }}</h3>
+          <div class="events-list">
+            <div v-for="event in pastEvents" :key="event.id" class="event-row event-row--past">
+              <img class="event-icon" :src="'/img/' + event.icon" :alt="t(event.textKey)">
+              <span class="event-text">{{ t(event.textKey) }}</span>
+              <button class="event-dismiss" @click="state.events.dismiss(event.id)">&times;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty state -->
+        <p v-if="!futureEvents.length && !pastEvents.length" class="events-empty">
+          {{ t('events.empty') }}
+        </p>
       </div>
     </main>
 
@@ -525,6 +563,123 @@ onUnmounted(() => {
   object-fit: contain;
   filter: grayscale(1) drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
   opacity: 0.35;
+}
+
+/* ---- Events column ---- */
+
+.events-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.events-section-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(var(--color-text-rgb), 0.4);
+  padding-bottom: 0.35rem;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.event-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.55rem;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-left: 2px solid rgba(var(--color-accent-rgb), 0.4);
+  border-radius: 4px;
+  transition: border-color 0.2s ease;
+}
+
+.event-row:hover {
+  border-color: rgba(var(--color-accent-rgb), 0.35);
+  border-left-color: rgba(var(--color-accent-rgb), 0.7);
+}
+
+.event-row--past {
+  border-left-color: transparent;
+  opacity: 0.45;
+}
+
+.event-row--past:hover {
+  border-left-color: transparent;
+  opacity: 0.6;
+}
+
+.event-icon {
+  width: 1.4rem;
+  height: 1.4rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
+  flex-shrink: 0;
+}
+
+.event-text {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.event-countdown {
+  font-family: var(--font-numeric);
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--color-accent);
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.event-dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.3rem;
+  height: 1.3rem;
+  padding: 0 0 1px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1;
+  color: rgba(var(--color-text-rgb), 0.25);
+  background: none;
+  border: 1px solid rgba(var(--color-text-rgb), 0.08);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.event-dismiss:hover {
+  color: #c45050;
+  border-color: rgba(196, 80, 80, 0.4);
+  background: rgba(196, 80, 80, 0.1);
+}
+
+.events-empty {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: rgba(var(--color-text-rgb), 0.3);
+  text-align: center;
+  padding: 2rem 0;
+  letter-spacing: 0.02em;
 }
 
 </style>

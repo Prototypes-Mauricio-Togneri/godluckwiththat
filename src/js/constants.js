@@ -21,6 +21,7 @@ import Wall from '@/js/models/buildings/wall.js'
 import Woodcutter from '@/js/models/buildings/woodcutter.js'
 import Workshop from '@/js/models/buildings/workshop.js'
 import Colony from '@/js/models/colony.js'
+import Events from '@/js/models/events.js'
 import Meta from '@/js/models/meta.js'
 import Production from '@/js/models/production.js'
 import Resources from '@/js/models/resources.js'
@@ -394,4 +395,26 @@ export function createInitialColony() {
       }),
     }),
   })
+}
+
+/**
+ * Creates a pre-populated Events instance for a new game session.
+ * @returns {Events} Events with sample future and past events
+ */
+export function createInitialEvents() {
+  const events = new Events()
+  events.addFuture({
+    textKey: 'event.nativeRaid',
+    icon: 'buildings/military/barracks.png',
+    remainingSeconds: 90,
+  })
+  events.addPast({
+    textKey: 'event.coldSeason',
+    icon: 'resources/food.png',
+  })
+  events.addPast({
+    textKey: 'event.buildingDestroyed',
+    icon: 'other/build.png',
+  })
+  return events
 }
