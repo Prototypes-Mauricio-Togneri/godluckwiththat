@@ -410,11 +410,7 @@ export function createInitialEvents() {
   })
   events.addPast({
     textKey: 'event.coldSeason',
-    icon: 'resources/food.png',
-  })
-  events.addPast({
-    textKey: 'event.buildingDestroyed',
-    icon: 'other/build.png',
+    icon: 'seasons/cold.png',
   })
   return events
 }

@@ -113,8 +113,8 @@ function seasonProgress() {
   return state.colony.seasonElapsed / SEASON_DURATION
 }
 
-function seasonEmoji() {
-  return state.colony.season === SEASON_WARM ? '\u2600\uFE0F' : '\u2744\uFE0F'
+function seasonIcon() {
+  return state.colony.season === SEASON_WARM ? '/img/seasons/warm.png' : '/img/seasons/cold.png'
 }
 
 function seasonTooltip() {
@@ -204,7 +204,7 @@ onUnmounted(() => {
 
       <!-- Season indicator -->
       <div class="header-section header-season tooltip" :data-tooltip="seasonTooltip()">
-        <span class="season-emoji">{{ seasonEmoji() }}</span>
+        <img class="season-icon" :src="seasonIcon()" alt="">
         <div class="season-track" :class="'season-track--' + state.colony.season">
           <div class="season-fill" :style="{ width: (seasonProgress() * 100) + '%' }" />
         </div>
@@ -428,9 +428,9 @@ onUnmounted(() => {
 
 /* ---- Season indicator ---- */
 
-.season-emoji {
-  font-size: 1.1rem;
-  line-height: 1;
+.season-icon {
+  width: 1.25rem;
+  height: 1.25rem;
   filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.4));
 }
 
@@ -607,8 +607,8 @@ onUnmounted(() => {
 }
 
 .event-icon {
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.1rem;
+  height: 1.1rem;
   object-fit: contain;
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
   flex-shrink: 0;
