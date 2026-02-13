@@ -13,8 +13,6 @@
     - challenge_result
     - building_upgraded
     - research_completed
-    - population_limit_reached
     - resource_limit_reached
-    - territory_limit_reached
 
 - Create tutorial (build a farm, create a worker, etc)
