@@ -168,7 +168,7 @@ Each supported language has its own file (`en.js`, `es.js`) exporting a flat obj
   - `.slot-actions` — flex row wrapper for action groups inside building card slots. Uses `margin-top: auto` to bottom-align with thumbnail, `justify-content: space-between` for side-by-side dual-button layout, `align-items: flex-end` for bottom alignment.
   - `.worker-row` — flex row for worker assignment controls. `.worker-btn` (2rem square ghost button), `.worker-btn--minus` (red `#c45050`), `.worker-btn--plus` (green `#50a850`), `.worker-count` (icon + text, 0.95rem), `.worker-count-icon` (1.4rem worker icon).
   - `.production-rate` — per-minute rate indicator (0.8rem numeric font). `.production-rate--positive` (green `#50a850`), `.production-rate--negative` / `.production-rate--zero` (red `#c45050`).
-  - `.resource-box` — bordered container for header resource items (subtle bronze gradient, `position: relative`). `.resource-bar` (3px progress track at bottom), `.resource-bar-fill--positive` (green), `.resource-bar-fill--negative` (red). `.resource-tooltip` (HTML-based rich tooltip with flex-column layout), `.resource-tooltip-rate` (monospace rate), `.resource-tooltip-time` (subdued time estimate).
+  - `.resource-box` — bordered container for header resource items (subtle bronze gradient, `position: relative`). `.resource-bar` (4px progress track at bottom), `.resource-bar-fill--positive` (green), `.resource-bar-fill--negative` (red). `.resource-tooltip` (HTML-based rich tooltip with flex-column layout), `.resource-tooltip-rate` (monospace rate), `.resource-tooltip-time` (subdued time estimate).
 
 ## Code Style
 

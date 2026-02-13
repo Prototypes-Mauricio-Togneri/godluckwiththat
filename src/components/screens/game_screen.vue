@@ -226,7 +226,7 @@ onUnmounted(() => {
         <template v-for="resource in HEADER_RESOURCES" :key="resource">
           <div v-if="isResourceVisible(resource)" class="resource-box">
             <img class="resource-icon" :src="'/img/resources/' + resource + '.png'" :alt="t('resource.' + resource)">
-            <span class="header-value" :class="{ 'header-value--alert': isBounded(resource) && Math.floor(state.colony.resources[resource]) >= state.colony.stockpile[resource] }">
+            <span class="header-value" :class="{ 'header-value--alert': isBounded(resource) && Math.floor(state.colony.resources[resource]) >= state.colony.stockpile[resource], 'header-value--zero': Math.floor(state.colony.resources[resource]) === 0 }">
               {{ Math.floor(state.colony.resources[resource]) }}<template v-if="isBounded(resource)">/{{ state.colony.stockpile[resource] }}</template>
             </span>
 
@@ -430,20 +430,20 @@ onUnmounted(() => {
 }
 
 .resource-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
   object-fit: contain;
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
 }
 
 .resource-icon--worker {
-  width: 1.7rem;
-  height: 1.7rem;
+  width: 1.4rem;
+  height: 1.4rem;
 }
 
 .resource-icon--territory {
-  width: 1.9rem;
-  height: 1.9rem;
+  width: 1.55rem;
+  height: 1.55rem;
 }
 
 /* ---- Season indicator ---- */
@@ -481,7 +481,7 @@ onUnmounted(() => {
 
 .header-value {
   font-family: var(--font-numeric);
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--color-text);
@@ -489,6 +489,10 @@ onUnmounted(() => {
 
 .header-value--alert {
   color: #c0392b;
+}
+
+.header-value--zero {
+  color: #c45050;
 }
 
 /* ---- Decorative dividers between sections ---- */
