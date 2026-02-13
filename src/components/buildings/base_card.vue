@@ -154,8 +154,8 @@ function act() {
 
 .building-thumb {
   display: block;
-  width: 5.5rem;
-  height: 5.5rem;
+  width: 4.5rem;
+  height: 4.5rem;
   object-fit: contain;
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
   transition: filter 0.3s ease;
@@ -171,7 +171,7 @@ function act() {
   bottom: 0;
   right: 0;
   font-family: var(--font-numeric);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 500;
   line-height: 1;
   color: var(--color-text);
