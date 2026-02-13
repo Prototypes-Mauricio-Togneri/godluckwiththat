@@ -24,13 +24,22 @@ const emit = defineEmits([
 const visible = ref(false)
 let rafId = null
 
+function handleKeydown(event) {
+  if (event.key === 'Escape') {
+    event.stopImmediatePropagation()
+    emit('close')
+  }
+}
+
 onMounted(() => {
+  window.addEventListener('keydown', handleKeydown, true)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
 })
 
 onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown, true)
   cancelAnimationFrame(rafId)
 })
 </script>
