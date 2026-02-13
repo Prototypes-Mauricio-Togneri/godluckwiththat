@@ -108,7 +108,7 @@ Ephemeral event system for notifying the player of upcoming threats and past occ
 
 Called from `GameState.update()` at the end of each tick via `this.events.tick(delta)`.
 
-**UI**: Displayed as a 5th column in `game_screen.vue` alongside the 4 building columns (all `flex: 1`, equal width). Two sub-sections: "Upcoming" (future events with gold countdown timer) and "History" (past events, faded). Each event row shows icon + text + countdown (future only) + dismiss button. Future events have a gold left-border accent; past events are muted at 0.45 opacity. Empty state shown when no events exist.
+**UI**: Displayed as a 5th column in `game_screen.vue` alongside the 4 building columns (all `flex: 1`, equal width). Two sub-sections: "Upcoming" (future events with gold countdown timer) and "History" (past events). Both use the same row style: icon + text + dismiss button, with a gold left-border accent. Future events additionally show a countdown timer. Empty state shown when no events exist.
 
 ### Tick System (`GameState.update()` in `src/js/engine/game_state.js`)
 

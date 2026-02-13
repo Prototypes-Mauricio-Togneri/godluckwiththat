@@ -308,7 +308,6 @@ onUnmounted(() => {
               <img class="event-icon" :src="'/img/' + event.icon" :alt="t(event.textKey)">
               <span class="event-text">{{ t(event.textKey) }}</span>
               <span class="event-countdown">{{ formatTime(event.remainingSeconds) }}</span>
-              <button class="event-dismiss" @click="state.events.dismiss(event.id)">&times;</button>
             </div>
           </div>
         </div>
@@ -317,7 +316,7 @@ onUnmounted(() => {
         <div v-if="pastEvents.length" class="events-section">
           <h3 class="events-section-label">{{ t('events.past') }}</h3>
           <div class="events-list">
-            <div v-for="event in pastEvents" :key="event.id" class="event-row event-row--past">
+            <div v-for="event in pastEvents" :key="event.id" class="event-row">
               <img class="event-icon" :src="'/img/' + event.icon" :alt="t(event.textKey)">
               <span class="event-text">{{ t(event.textKey) }}</span>
               <button class="event-dismiss" @click="state.events.dismiss(event.id)">&times;</button>
@@ -605,16 +604,6 @@ onUnmounted(() => {
 .event-row:hover {
   border-color: rgba(var(--color-accent-rgb), 0.35);
   border-left-color: rgba(var(--color-accent-rgb), 0.7);
-}
-
-.event-row--past {
-  border-left-color: transparent;
-  opacity: 0.45;
-}
-
-.event-row--past:hover {
-  border-left-color: transparent;
-  opacity: 0.6;
 }
 
 .event-icon {
