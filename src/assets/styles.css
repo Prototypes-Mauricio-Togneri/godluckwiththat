@@ -104,6 +104,9 @@
 
 .tooltip:hover::after {
     opacity: 1;
+}
+
+.tooltip--delayed:hover::after {
     transition-delay: 1s;
 }
 

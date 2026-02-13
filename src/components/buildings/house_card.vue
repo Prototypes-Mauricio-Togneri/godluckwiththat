@@ -38,7 +38,7 @@ function recruitWorker() {
 <template>
   <BaseCard :building-key="buildingKey" :img="img" :building="building">
     <div class="action-row">
-      <span class="tooltip" :data-tooltip="t('house.recruitWorker')">
+      <span class="tooltip tooltip--delayed" :data-tooltip="t('house.recruitWorker')">
         <button class="btn-gold action-btn" :disabled="!canRecruit" @click="recruitWorker">
           <img class="action-btn-icon" src="/img/units/worker.png" :alt="t('house.recruitWorker')">
         </button>

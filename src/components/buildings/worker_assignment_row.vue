@@ -31,7 +31,7 @@ function unassign() {
 
 <template>
   <div class="worker-row">
-    <span class="tooltip" :data-tooltip="t('worker.unassign')">
+    <span class="tooltip tooltip--delayed" :data-tooltip="t('worker.unassign')">
       <button class="worker-btn worker-btn--minus" :disabled="!canUnassign" @click="unassign">
         &minus;
       </button>
@@ -40,7 +40,7 @@ function unassign() {
       <img class="worker-count-icon" src="/img/units/worker.png" :alt="t('resource.idleWorkers')">
       <span class="worker-count-text" :class="{'worker-count-text--zero': building.workers === 0}">{{ building.workers }}/{{ maxWorkers }}</span>
     </span>
-    <span class="tooltip" :data-tooltip="t('worker.assign')">
+    <span class="tooltip tooltip--delayed" :data-tooltip="t('worker.assign')">
       <button class="worker-btn worker-btn--plus" :disabled="!canAssign" @click="assign">
         +
       </button>

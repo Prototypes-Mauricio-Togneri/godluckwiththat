@@ -59,7 +59,7 @@ function act() {
 <template>
   <div class="building-card">
     <button
-      class="help-btn tooltip"
+      class="help-btn tooltip tooltip--delayed"
       :data-tooltip="t('modal.buildingHelp.tooltip')"
       @click="showHelp = true"
     >
@@ -74,7 +74,7 @@ function act() {
       <span class="building-name">{{ t(displayNameKey) }}</span>
       <div v-if="hasAction || !isBuildable" class="slot-actions">
         <div v-if="hasAction" class="action-row">
-          <span class="tooltip" :data-tooltip="isBuildable ? t('building.build') + ' ' + t(displayNameKey) : t('building.levelUp')">
+          <span class="tooltip tooltip--delayed" :data-tooltip="isBuildable ? t('building.build') + ' ' + t(displayNameKey) : t('building.levelUp')">
             <button class="btn-gold action-btn" :disabled="!canAct" @click="act">
               <img class="action-btn-icon" :src="isBuildable ? '/img/other/build.png' : '/img/other/upgrade.png'" :alt="isBuildable ? t('building.build') : t('building.levelUp')">
             </button>

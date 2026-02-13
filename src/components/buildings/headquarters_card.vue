@@ -50,7 +50,7 @@ function upgradeType() {
 <template>
   <BaseCard :building-key="buildingKey" :img="img" :building="building" :name-key="nameKey" :show-build-action="false" :show-level="false">
     <div v-if="!isMaxType" class="action-row">
-      <span class="tooltip" :data-tooltip="t('headquarters.upgrade')">
+      <span class="tooltip tooltip--delayed" :data-tooltip="t('headquarters.upgrade')">
         <button class="btn-gold action-btn" :disabled="!canUpgrade" @click="upgradeType">
           <img class="action-btn-icon" src="/img/other/upgrade.png" :alt="t('headquarters.upgrade')">
         </button>
@@ -64,7 +64,7 @@ function upgradeType() {
     </div>
 
     <div class="action-row">
-      <span class="tooltip" :data-tooltip="t('headquarters.expandTerritory')">
+      <span class="tooltip tooltip--delayed" :data-tooltip="t('headquarters.expandTerritory')">
         <button class="btn-gold action-btn" :disabled="!canLevelUp" @click="levelUp">
           <img class="action-btn-icon" src="/img/other/territory.png" :alt="t('headquarters.expandTerritory')">
         </button>

@@ -295,7 +295,7 @@ onUnmounted(() => {
             />
             <div
               v-else
-              class="building-card-locked tooltip"
+              class="building-card-locked tooltip tooltip--delayed"
               :data-tooltip="t('building.locked')"
             >
               <img class="locked-icon" src="/img/other/lock.png" :alt="t('building.locked')">
