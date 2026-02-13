@@ -402,15 +402,5 @@ export function createInitialColony() {
  * @returns {Events} Events with sample future and past events
  */
 export function createInitialEvents() {
-  const events = new Events()
-  events.addFuture({
-    textKey: 'event.nativeRaid',
-    icon: 'buildings/military/barracks.png',
-    remainingSeconds: 90,
-  })
-  events.addPast({
-    textKey: 'event.coldSeason',
-    icon: 'seasons/cold.png',
-  })
-  return events
+  return new Events()
 }
