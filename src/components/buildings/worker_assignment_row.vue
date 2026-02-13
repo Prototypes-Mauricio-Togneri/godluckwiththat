@@ -1,6 +1,6 @@
 <script setup>
 import {computed, inject} from 'vue'
-import {WORKERS_PER_LEVEL} from '@/js/balancing.js'
+import {WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({

@@ -1,4 +1,4 @@
-import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_PER_LEVEL} from '@/js/balancing.js'
+import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_PER_LEVEL} from '@/js/engine/balancing.js'
 import Building from '@/js/models/buildings/building.js'
 import Cost from '@/js/models/cost.js'
 

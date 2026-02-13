@@ -1,4 +1,4 @@
-import Event from '@/js/models/event.js'
+import Event from '@/js/models/events/event.js'
 
 /**
  * Container for all active game events.

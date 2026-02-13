@@ -25,7 +25,7 @@ Top bar divided into 4 sections separated by decorative vertical dividers:
 3. **Colony** — population, idle workers, territory each shown as icon image + value (flex: 1, centered)
 4. **Menu button** — hamburger icon (inline SVG), opens pause modal
 
-Resource/colony items use `<img>` icons from `public/img/` (no text labels). Values use `Azeret Mono` (numeric font). All values sourced from `GameState` (see below), which initializes from `src/js/constants.js` (factories) using values from `src/js/balancing.js`.
+Resource/colony items use `<img>` icons from `public/img/` (no text labels). Values use `Azeret Mono` (numeric font). All values sourced from `GameState` (see below), which initializes from `src/js/engine/constants.js` (factories) using values from `src/js/engine/balancing.js`.
 
 **Keyboard**: Escape key toggles the pause modal (ignored when an `INPUT` or `TEXTAREA` is focused).
 
@@ -60,7 +60,7 @@ Each action is a horizontal row: a square icon-only button (2.5rem × 2.5rem) wi
 
 **Adding a new building card**: Create `{building}_card.vue` wrapping `BaseCard`, add custom content via the slot, and register it in the `CARD_COMPONENTS` map in `game_screen.vue`.
 
-### Game State (`src/js/game_state.js`)
+### Game State (`src/js/engine/game_state.js`)
 
 Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity. Constructor receives a `Meta` instance (first) and a `Colony` instance (second). `Meta` tracks save version, creation/update timestamps, and challenge count. `Colony` expects pre-constructed sub-model instances (e.g. `Resources`) from the caller. Initialized via `createInitialMeta()` and `createInitialColony()` factories in `constants.js`.
 
@@ -74,9 +74,9 @@ Central state container instantiated once per game session. Pure JS class wrappe
 - `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level`) or `Producer` (extends `Building`, adds `workers` defaulting to 0). Instance method `totalLevels()` returns the sum of all building levels excluding headquarters (used as current territory count). The 9 worker-assignable buildings (academy, shrine, temple, farm, woodcutter, quarry, copperMine, ironMine, goldMine) extend `Producer`; all others extend `Building` directly. `Headquarters` also has `type`, instance method `territoryCap()`, and static methods `upgradeCost(type)`, `nextType(type)`. All 21 building classes (including HQ) have a static `ID` property (the camelCase key, e.g. `'farm'`, `'copperMine'`) used throughout `constants.js` to avoid hardcoded strings. All 21 building classes have an instance method `levelUpCost()` that returns a `Cost` using base costs from `BUILDING_BASE_COSTS` and exponential multipliers from `BUILDING_LEVEL_UP_MULTIPLIERS` (HQ: `base × m^(level-1)`, others: `base × m^level`). Individual building classes live in `src/js/models/buildings/`.
 - `Cost` (`src/js/models/cost.js`) — multi-resource cost holder with properties: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `knowledge`. Methods: `entries()` (returns a `Map<string, number>` of non-zero resources).
 
-All initial values declared via `createInitialMeta()` (a `Meta` instance) and `createInitialColony()` (a `Colony` instance) in `src/js/constants.js`, using numeric values from `src/js/balancing.js`. `BUILDING_CLASS_MAP` maps all 21 building keys to their class constructors.
+All initial values declared via `createInitialMeta()` (a `Meta` instance) and `createInitialColony()` (a `Colony` instance) in `src/js/engine/constants.js`, using numeric values from `src/js/engine/balancing.js`. `BUILDING_CLASS_MAP` maps all 21 building keys to their class constructors.
 
-### Player Actions (`GameState` methods in `src/js/game_state.js`)
+### Player Actions (`GameState` methods in `src/js/engine/game_state.js`)
 
 All game state mutations are centralised in `GameState`. Each method guards preconditions, applies the mutation, and calls `this.update(0)` to recalculate derived values.
 
@@ -88,7 +88,7 @@ All game state mutations are centralised in `GameState`. Each method guards prec
 - `unassignWorker(buildingKey)` — moves one worker from the building back to idle.
 - `_killWorkers(count)` — removes workers from the colony (starvation). Kills idle workers first, then unassigns from buildings with the most workers. Decrements `resources.workers`.
 
-### Events (`src/js/models/event.js`, `src/js/models/events.js`)
+### Events (`src/js/models/events/event.js`, `src/js/models/events/events.js`)
 
 Ephemeral event system for notifying the player of upcoming threats and past occurrences. Events live on `GameState.events` (not `Colony`) and are **not persisted** in save data — they reset on page refresh.
 
@@ -106,17 +106,17 @@ Called from `GameState.update()` at the end of each tick via `this.events.tick(d
 
 **UI**: Displayed as a 5th column in `game_screen.vue` alongside the 4 building columns (all `flex: 1`, equal width). Two sub-sections: "Upcoming" (future events with gold countdown timer) and "History" (past events, faded). Each event row shows icon + text + countdown (future only) + dismiss button. Future events have a gold left-border accent; past events are muted at 0.45 opacity. Empty state shown when no events exist.
 
-### Tick System (`GameState.update()` in `src/js/game_state.js`)
+### Tick System (`GameState.update()` in `src/js/engine/game_state.js`)
 
 Core game loop that generates resources over time. `game_screen.vue` runs a main `setInterval` (1 second, `TICK_INTERVAL`) that calls `state.update(deltaSec)` for production/consumption, and a `requestAnimationFrame` loop (~60 fps) that calls `state.advanceSeason(deltaSec)` to increment `colony.seasonElapsed` for smooth progress-bar animation. Both use `performance.now()` for delta calculation. Delta time naturally handles backgrounded tabs — when the tab returns, the first tick applies the full accumulated time.
 
-**Territory & stockpile recalculation**: Each tick recalculates `resources.territory` via `buildings.totalLevels()` (sum of all building levels — each level occupies one territory slot), then recalculates all stockpile caps from building levels: `stockpile.workers` via `buildings.house.populationCap()` (`HOUSE_BASE_POPULATION + level × HOUSE_POPULATION_PER_LEVEL`), `stockpile.territory` via `buildings.headquarters.territoryCap()` (`level × HQ_TERRITORY_PER_LEVEL`), and all 6 resource caps (food, wood, stone, copper, iron, gold) via `buildings.storehouse.storageCap()` (`STOREHOUSE_BASE_CAPACITY + level × STOREHOUSE_CAPACITY_PER_LEVEL`). All balancing values in `src/js/balancing.js`. Building level-ups (except HQ) are blocked when `resources.territory >= stockpile.territory`; HQ is exempt since it is the only building that increases max territory.
+**Territory & stockpile recalculation**: Each tick recalculates `resources.territory` via `buildings.totalLevels()` (sum of all building levels — each level occupies one territory slot), then recalculates all stockpile caps from building levels: `stockpile.workers` via `buildings.house.populationCap()` (`HOUSE_BASE_POPULATION + level × HOUSE_POPULATION_PER_LEVEL`), `stockpile.territory` via `buildings.headquarters.territoryCap()` (`level × HQ_TERRITORY_PER_LEVEL`), and all 6 resource caps (food, wood, stone, copper, iron, gold) via `buildings.storehouse.storageCap()` (`STOREHOUSE_BASE_CAPACITY + level × STOREHOUSE_CAPACITY_PER_LEVEL`). All balancing values in `src/js/engine/balancing.js`. Building level-ups (except HQ) are blocked when `resources.territory >= stockpile.territory`; HQ is exempt since it is the only building that increases max territory.
 
 **Production formula**: For each building in `PRODUCTION_RATES` (balancing.js), production rate = `workers × baseRate`. Passive buildings (e.g. altar, flagged `passive: true`) use `level × rate` instead. After base rates are computed, food production is modified by season: warm applies `×(1 + SEASON_WARM_FOOD_MODIFIER)` (+20%) and cold applies `×(1 + SEASON_COLD_FOOD_MODIFIER)` (−20%). Rates are stored on `colony.production` (per-second) for UI display, then scaled by `deltaSec` when applied to `colony.resources`. Resources (except faith and knowledge, which are unbounded) are capped at `colony.stockpile` limits after application.
 
 **Worker consumption**: After production gains, every worker (idle and assigned) consumes `WORKER_FOOD_CONSUMPTION` food/sec and `WORKER_WOOD_CONSUMPTION` wood/sec (scaled by delta). If resources are insufficient, food and wood shortages are evaluated independently: `deaths = totalWorkers − floor(available / costPerWorker)`. The higher death count is applied (not the sum). Surviving workers' consumption is deducted normally. Deaths remove idle workers first, then from buildings with the most assigned workers (via `_killWorkers`). Skipped when `delta === 0` or no workers exist.
 
-**Base rates** (per worker per second): farm→food 0.5, woodcutter→wood 0.3, quarry→stone 0.2, copperMine→copper 0.15, ironMine→iron 0.1, goldMine→gold 0.05, academy→knowledge 0.1, shrine→faith 0.15. Altar→faith 0.1/level/sec (passive). All values defined in `src/js/balancing.js`.
+**Base rates** (per worker per second): farm→food 0.5, woodcutter→wood 0.3, quarry→stone 0.2, copperMine→copper 0.15, ironMine→iron 0.1, goldMine→gold 0.05, academy→knowledge 0.1, shrine→faith 0.15. Altar→faith 0.1/level/sec (passive). All values defined in `src/js/engine/balancing.js`.
 
 **Tooltips** — Colony items (population, idle workers, territory) use CSS-only tooltips (`.tooltip` class + `data-tooltip` attribute). Resource items use HTML-based rich tooltips (`.resource-tooltip` inside `.resource-box`) that display the resource name, colored production rate, and time estimate on hover. Both tooltip styles are defined in `src/assets/styles.css`.
 
@@ -175,7 +175,7 @@ Each supported language has its own file (`en.js`, `es.js`) exporting a flat obj
   - Variables: full descriptive names, avoid abbreviations
     - Allowed: `i`, `j` (loop counters), `x`, `y` (coordinates), `dx`, `dy` (deltas), `ctx` (canvas context)
     - Avoid: `p` (player), `em` (enemyManager), `el` (element), `sw` (switch), `m` (mine), etc.
-- Numeric balancing values in `src/js/balancing.js`, structural constants in `src/js/constants.js`
+- Numeric balancing values in `src/js/engine/balancing.js`, structural constants in `src/js/engine/constants.js`
 - Unused parameters: use `_`, `__`, `___`, etc.
 
 ### JavaScript Comment Conventions

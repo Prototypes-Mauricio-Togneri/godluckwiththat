@@ -2,7 +2,7 @@
 import {computed, inject, ref} from 'vue'
 import BuildingHelpModal from '@/components/modals/building_help_modal.vue'
 import WorkerAssignmentRow from '@/components/buildings/worker_assignment_row.vue'
-import {BUILDING_CLASS_MAP, BUILDING_IMG_PATH} from '@/js/constants.js'
+import {BUILDING_CLASS_MAP, BUILDING_IMG_PATH} from '@/js/engine/constants.js'
 import Producer from '@/js/models/buildings/producer.js'
 import {t} from '@/js/i18n/localized.js'
 

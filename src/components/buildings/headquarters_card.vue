@@ -1,7 +1,7 @@
 <script setup>
 import {computed, inject} from 'vue'
 import BaseCard from '@/components/buildings/base_card.vue'
-import {HQ_TYPES} from '@/js/constants.js'
+import {HQ_TYPES} from '@/js/engine/constants.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({

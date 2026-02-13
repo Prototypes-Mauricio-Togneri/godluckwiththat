@@ -1,7 +1,7 @@
-import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS, HQ_TERRITORY_PER_LEVEL, HQ_UPGRADE_COSTS} from '@/js/balancing.js'
+import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS, HQ_TERRITORY_PER_LEVEL, HQ_UPGRADE_COSTS} from '@/js/engine/balancing.js'
 import Building from '@/js/models/buildings/building.js'
 import Cost from '@/js/models/cost.js'
-import {HQ_TYPES} from '@/js/constants.js'
+import {HQ_TYPES} from '@/js/engine/constants.js'
 
 /**
  * Colony headquarters building.

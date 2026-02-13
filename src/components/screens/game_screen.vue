@@ -22,9 +22,9 @@ import StableCard from '@/components/buildings/stable_card.vue'
 import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
-import GameState from '@/js/game_state.js'
-import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, SEASON_WARM, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/constants.js'
-import {SEASON_DURATION} from '@/js/balancing.js'
+import GameState from '@/js/engine/game_state.js'
+import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, SEASON_WARM, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
+import {SEASON_DURATION} from '@/js/engine/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {

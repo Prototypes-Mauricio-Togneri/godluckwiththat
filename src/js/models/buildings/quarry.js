@@ -1,4 +1,4 @@
-import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS} from '@/js/balancing.js'
+import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS} from '@/js/engine/balancing.js'
 import Producer from '@/js/models/buildings/producer.js'
 import Cost from '@/js/models/cost.js'
 
