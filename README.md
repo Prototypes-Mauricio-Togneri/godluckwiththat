@@ -2,17 +2,15 @@
 
 [Web site](https://god-luck-with-that.web.app)
 
-- Events
-  - Right bar (future events)
-    - attack_incoming
-    - challenge_deadline
-    - research_timeout
-    - building_upgrade_timeout
-  - Left bar (past events)
-    - disaster_result
-    - challenge_result
-    - building_upgraded
-    - research_completed
-    - worker_died
+- Future events
+  - building_timeout
+  - challenge_timeout
+  - attack_incoming
+  - research_timeout
+- Past events
+  - worker_died
+  - building_completed
+  - disaster_result
+  - research_completed
 
 - Create tutorial (build a farm, create a worker, etc)
