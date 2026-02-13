@@ -88,19 +88,23 @@ All game state mutations are centralised in `GameState`. Each method guards prec
 - `unassignWorker(buildingKey)` — moves one worker from the building back to idle.
 - `_killWorkers(count)` — removes workers from the colony (starvation). Kills idle workers first, then unassigns from buildings with the most workers. Decrements `resources.workers`.
 
-### Events (`src/js/models/events/event.js`, `src/js/models/events/events.js`)
+### Events (`src/js/models/events/event.js`, `event_future.js`, `event_past.js`, `events.js`)
 
 Ephemeral event system for notifying the player of upcoming threats and past occurrences. Events live on `GameState.events` (not `Colony`) and are **not persisted** in save data — they reset on page refresh.
 
-**`Event`** — Single event instance with fields: `id` (auto-assigned), `textKey` (i18n key), `icon` (image path relative to `/img/`), `remainingSeconds` (countdown for future events, 0 for past), `past` (boolean).
+**`Event`** — Abstract base class with common fields: `id` (auto-assigned), `textKey` (i18n key), `icon` (image path relative to `/img/`).
+
+**`EventFuture`** — Extends `Event`. Adds `remainingSeconds` (countdown until event fires).
+
+**`EventPast`** — Extends `Event`. No additional fields.
 
 **`Events`** — Array-backed container with methods:
-- `addFuture({ textKey, icon, remainingSeconds })` — creates a future event with countdown
-- `addPast({ textKey, icon })` — creates a past event
+- `addFuture({ textKey, icon, remainingSeconds })` — creates an `EventFuture` with countdown
+- `addPast({ textKey, icon })` — creates an `EventPast`
 - `dismiss(id)` — removes event by id (uses `splice` for Vue reactivity)
-- `future()` — returns future events sorted by `remainingSeconds` ascending
-- `past()` — returns past events sorted by `id` descending (most recent first)
-- `tick(delta)` — decrements `remainingSeconds` on future events, clamps at 0 (does not auto-convert to past)
+- `future()` — returns `EventFuture` items sorted by `remainingSeconds` ascending
+- `past()` — returns `EventPast` items sorted by `id` descending (most recent first)
+- `tick(delta)` — decrements `remainingSeconds` on `EventFuture` items, clamps at 0 (does not auto-convert to past)
 
 Called from `GameState.update()` at the end of each tick via `this.events.tick(delta)`.
 

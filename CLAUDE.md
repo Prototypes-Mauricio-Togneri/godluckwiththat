@@ -42,7 +42,9 @@ src/
 │       │   ├── headquarters.js → Headquarters (extends Building, adds type)
 │       │   └── *.js          → 20 building classes (extend Building or Producer)
 │       ├── events/
-│       │   ├── event.js      → Event class (single event instance)
+│       │   ├── event.js      → Event base class (id, textKey, icon)
+│       │   ├── event_future.js → EventFuture (extends Event, adds remainingSeconds)
+│       │   ├── event_past.js → EventPast (extends Event)
 │       │   └── events.js     → Events container (add/dismiss/tick)
 │       ├── meta.js           → Meta class (version, timestamps, challenges)
 │       ├── colony.js         → Colony class (wraps all colony sub-models)

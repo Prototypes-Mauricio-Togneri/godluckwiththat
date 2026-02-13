@@ -1,10 +1,11 @@
-import Event from '@/js/models/events/event.js'
+import EventFuture from '@/js/models/events/event_future.js'
+import EventPast from '@/js/models/events/event_past.js'
 
 /**
  * Container for all active game events.
  * Events are ephemeral session-level data, not persisted in save data.
  *
- * @property {Event[]} items - All current events (future and past)
+ * @property {(EventFuture|EventPast)[]} items - All current events
  */
 class Events {
   constructor() {
@@ -18,15 +19,14 @@ class Events {
 	 * @param {string} data.textKey - i18n key
 	 * @param {string} data.icon - Image path relative to /img/
 	 * @param {number} data.remainingSeconds - Countdown duration
-	 * @returns {Event}
+	 * @returns {EventFuture}
 	 */
   addFuture(data) {
-    const event = new Event({
+    const event = new EventFuture({
       id: this._nextId++,
       textKey: data.textKey,
       icon: data.icon,
       remainingSeconds: data.remainingSeconds,
-      past: false,
     })
     this.items.push(event)
     return event
@@ -37,15 +37,13 @@ class Events {
 	 * @param {Object} data
 	 * @param {string} data.textKey - i18n key
 	 * @param {string} data.icon - Image path relative to /img/
-	 * @returns {Event}
+	 * @returns {EventPast}
 	 */
   addPast(data) {
-    const event = new Event({
+    const event = new EventPast({
       id: this._nextId++,
       textKey: data.textKey,
       icon: data.icon,
-      remainingSeconds: 0,
-      past: true,
     })
     this.items.push(event)
     return event
@@ -62,18 +60,18 @@ class Events {
 
   /**
 	 * Returns future events sorted by remaining seconds ascending.
-	 * @returns {Event[]}
+	 * @returns {EventFuture[]}
 	 */
   future() {
-    return this.items.filter(e => !e.past).sort((a, b) => a.remainingSeconds - b.remainingSeconds)
+    return this.items.filter(e => e instanceof EventFuture).sort((a, b) => a.remainingSeconds - b.remainingSeconds)
   }
 
   /**
 	 * Returns past events sorted by ID descending (most recent first).
-	 * @returns {Event[]}
+	 * @returns {EventPast[]}
 	 */
   past() {
-    return this.items.filter(e => e.past).sort((a, b) => b.id - a.id)
+    return this.items.filter(e => e instanceof EventPast).sort((a, b) => b.id - a.id)
   }
 
   /**
@@ -83,7 +81,7 @@ class Events {
 	 */
   tick(delta) {
     for (const event of this.items) {
-      if (!event.past && event.remainingSeconds > 0) {
+      if (event instanceof EventFuture && event.remainingSeconds > 0) {
         event.remainingSeconds = Math.max(0, event.remainingSeconds - delta)
       }
     }
