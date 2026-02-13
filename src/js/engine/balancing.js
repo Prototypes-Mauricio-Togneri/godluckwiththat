@@ -221,7 +221,7 @@ export const HQ_TERRITORY_PER_LEVEL = 10
 // ── Seasons ─────────────────────────────────────────────────────────
 
 // Duration of each season in seconds (warm / cold)
-export const SEASON_DURATION = 120
+export const SEASON_DURATION = 10
 
 // Fractional modifier applied to food production per season
 export const SEASON_WARM_FOOD_MODIFIER = 0.2

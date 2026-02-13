@@ -83,9 +83,8 @@ export const LOCALIZED_ES = {
   'events.future': 'Próximos',
   'events.past': 'Historial',
   'events.empty': 'Sin eventos',
-  'event.nativeRaid': 'Ataque nativo inminente',
+  'event.warmSeason': 'La estación cálida ha comenzado',
   'event.coldSeason': 'La estación fría ha comenzado',
-  'event.buildingDestroyed': 'Un edificio fue dañado',
 
   // Building help modal
   'modal.buildingHelp.tooltip': 'Ayuda',

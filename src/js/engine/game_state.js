@@ -149,6 +149,11 @@ class GameState {
       this.colony.seasonElapsed -= SEASON_DURATION
       if (this.colony.season === SEASON_COLD) this.colony.year++
       this.colony.season = this.colony.season === SEASON_WARM ? SEASON_COLD : SEASON_WARM
+      const isWarm = this.colony.season === SEASON_WARM
+      this.events.addPast({
+        textKey: isWarm ? 'event.warmSeason' : 'event.coldSeason',
+        icon: `seasons/${isWarm ? 'warm' : 'cold'}.png`,
+      })
     }
   }
 

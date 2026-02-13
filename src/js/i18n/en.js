@@ -83,9 +83,8 @@ export const LOCALIZED_EN = {
   'events.future': 'Upcoming',
   'events.past': 'History',
   'events.empty': 'No events',
-  'event.nativeRaid': 'Native raid incoming',
+  'event.warmSeason': 'Warm season has begun',
   'event.coldSeason': 'Cold season has begun',
-  'event.buildingDestroyed': 'A building was damaged',
 
   // Building help modal
   'modal.buildingHelp.tooltip': 'Help',
