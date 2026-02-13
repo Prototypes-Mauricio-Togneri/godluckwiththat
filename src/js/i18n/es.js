@@ -85,6 +85,14 @@ export const LOCALIZED_ES = {
   'events.empty': 'Sin eventos',
   'event.warmSeason': 'La estación cálida ha comenzado',
   'event.coldSeason': 'La estación fría ha comenzado',
+  'event.populationLimitReached': 'Límite de población alcanzado',
+  'event.territoryLimitReached': 'Límite de territorio alcanzado',
+  'events.clearAll': 'Borrar todo',
+  'events.clearAllConfirm': 'Borrar',
+  'events.clearAllTitle': 'Borrar historial',
+  'events.clearAllDescription': '¿Estás seguro de que quieres borrar todos los eventos pasados?',
+  'modal.confirm': 'Confirmar',
+  'modal.cancel': 'Cancelar',
 
   // Building help modal
   'modal.buildingHelp.tooltip': 'Ayuda',

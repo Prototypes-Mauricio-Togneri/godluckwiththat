@@ -63,6 +63,13 @@ class Events {
   }
 
   /**
+	 * Removes all past events.
+	 */
+  dismissAllPast() {
+    this.items = this.items.filter(e => !(e instanceof EventPast))
+  }
+
+  /**
 	 * Returns future events sorted by remaining seconds ascending.
 	 * @returns {EventFuture[]}
 	 */

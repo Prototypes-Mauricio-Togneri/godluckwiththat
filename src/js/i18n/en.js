@@ -85,6 +85,14 @@ export const LOCALIZED_EN = {
   'events.empty': 'No events',
   'event.warmSeason': 'Warm season has begun',
   'event.coldSeason': 'Cold season has begun',
+  'event.populationLimitReached': 'Population limit reached',
+  'event.territoryLimitReached': 'Territory limit reached',
+  'events.clearAll': 'Clear all',
+  'events.clearAllConfirm': 'Clear',
+  'events.clearAllTitle': 'Clear history',
+  'events.clearAllDescription': 'Are you sure you want to clear all past events?',
+  'modal.confirm': 'Confirm',
+  'modal.cancel': 'Cancel',
 
   // Building help modal
   'modal.buildingHelp.tooltip': 'Help',

@@ -16,6 +16,10 @@ Centered overlay with "PAUSED" title, decorative rule, and two stacked buttons:
 
 Centered overlay (same pattern as pause modal) showing information about a building. Rendered inside `base_card.vue` via `v-if` on a local `showHelp` ref. Props: `nameKey` (i18n key for the title) and `buildingKey` (indexes into `buildingHelp.{key}` for the description). Layout: uppercase building name title, decorative rule, description paragraph, and a "CLOSE" button. Emits `close` on backdrop click or button press.
 
+### Confirm Modal (`confirm_modal.vue`)
+
+Reusable confirmation dialog (same overlay pattern). Props: `titleKey` and `descriptionKey` (i18n keys). Layout: uppercase title, decorative rule, description paragraph, and a side-by-side button row — subdued "CANCEL" (gold) and red-styled "CONFIRM". Emits `confirm` or `close`. Used by `game_screen.vue` for the "Clear all" past events action.
+
 ### Game Header (`game_screen.vue`)
 
 Top bar divided into 4 sections separated by decorative vertical dividers:

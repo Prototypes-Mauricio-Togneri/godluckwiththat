@@ -1,5 +1,6 @@
 <script setup>
 import {ref, reactive, computed, provide, onMounted, onUnmounted} from 'vue'
+import ConfirmModal from '@/components/modals/confirm_modal.vue'
 import PauseModal from '@/components/modals/pause_modal.vue'
 import HeadquartersCard from '@/components/buildings/headquarters_card.vue'
 import HouseCard from '@/components/buildings/house_card.vue'
@@ -147,6 +148,13 @@ provide('gameState', state)
 
 const futureEvents = computed(() => state.events.future())
 const pastEvents = computed(() => state.events.past())
+
+const showClearConfirm = ref(false)
+
+function clearAllPast() {
+  state.events.dismissAllPast()
+  showClearConfirm.value = false
+}
 
 let tickTimer = null
 let lastTickTime = 0
@@ -314,7 +322,10 @@ onUnmounted(() => {
 
         <!-- Past events -->
         <div v-if="pastEvents.length" class="events-section">
-          <h3 class="events-section-label">{{ t('events.past') }}</h3>
+          <div class="events-section-header">
+            <h3 class="events-section-label">{{ t('events.past') }}</h3>
+            <button class="events-clear-btn" @click="showClearConfirm = true">{{ t('events.clearAll') }}</button>
+          </div>
           <div class="events-list">
             <div v-for="event in pastEvents" :key="event.id" class="event-row">
               <img class="event-icon" :src="'/img/' + event.icon" :alt="t(event.textKey)">
@@ -335,6 +346,15 @@ onUnmounted(() => {
       v-if="showModal"
       @close="showModal = false"
       @quit="emit('quit')"
+    />
+
+    <ConfirmModal
+      v-if="showClearConfirm"
+      title-key="events.clearAllTitle"
+      description-key="events.clearAllDescription"
+      confirm-key="events.clearAllConfirm"
+      @confirm="clearAllPast"
+      @close="showClearConfirm = false"
     />
   </div>
 </template>
@@ -571,6 +591,35 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+.events-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 0.35rem;
+}
+
+.events-section-header .events-section-label {
+  padding-bottom: 0;
+}
+
+.events-clear-btn {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(196, 80, 80, 0.5);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.events-clear-btn:hover {
+  color: #c45050;
 }
 
 .events-section-label {

@@ -76,6 +76,8 @@ export const SEASON_COLD = 'cold'
 
 // Event types
 export const EVENT_TYPE_SEASON_CHANGED = 'season_changed'
+export const EVENT_TYPE_POPULATION_LIMIT_REACHED = 'population_limit_reached'
+export const EVENT_TYPE_TERRITORY_LIMIT_REACHED = 'territory_limit_reached'
 
 // Ordered headquarters progression (used for upgrade lookups)
 export const HQ_TYPES = [

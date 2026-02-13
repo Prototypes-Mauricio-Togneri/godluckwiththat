@@ -1,5 +1,5 @@
 import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
-import {EVENT_TYPE_SEASON_CHANGED, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
+import {EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
 
 /**
  * Central game state container.
@@ -172,6 +172,13 @@ class GameState {
     resources.deduct(cost)
     building.level += 1
     resources.territory += 1
+    if (resources.territory >= stockpile.territory) {
+      this.events.addPast({
+        type: EVENT_TYPE_TERRITORY_LIMIT_REACHED,
+        textKey: 'event.territoryLimitReached',
+        icon: 'other/territory.png',
+      })
+    }
     this.update(0)
   }
 
@@ -216,6 +223,13 @@ class GameState {
     resources.deduct(WORKER_RECRUIT_COST)
     resources.workers += 1
     this.colony.idleWorkers += 1
+    if (resources.workers >= stockpile.workers) {
+      this.events.addPast({
+        type: EVENT_TYPE_POPULATION_LIMIT_REACHED,
+        textKey: 'event.populationLimitReached',
+        icon: 'units/worker.png',
+      })
+    }
     this.update(0)
   }
 
