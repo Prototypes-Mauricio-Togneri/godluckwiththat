@@ -21,7 +21,7 @@ Centered overlay (same pattern as pause modal) showing information about a build
 Top bar divided into 4 sections separated by decorative vertical dividers:
 
 1. **Year & Season** — year label (`Josefin Sans`, small uppercase, muted) with numeric value (`Azeret Mono`), season emoji, and season progress bar
-2. **Resources** — food, wood, stone each shown as icon image + `current/max` value + per-minute production rate indicator (flex: 1, centered). Rate shows green `▲ N/m` when positive, red `▼ N/m` when negative, red `0/m` when zero. Computed from `colony.production` (per-second) × `SECONDS_PER_MINUTE` (60).
+2. **Resources** — iterated via `HEADER_RESOURCES` constant (`v-for` loop). Each resource rendered as a `.resource-box` (bordered container from `styles.css`) with icon image + `current/max` value (unbounded resources like knowledge and faith show only `current`). Bounded resources (food, wood, stone, copper, iron, gold) have a 3px progress bar at the bottom showing capacity fill percentage — green when production is positive, red when zero or negative. Production rate is not shown inline; instead, hovering a resource box reveals a rich HTML tooltip (`.resource-tooltip`) displaying the resource name, colored per-minute rate (green/red), and a time estimate ("Full in MM:SS" or "Empty in MM:SS") when the rate is nonzero. `UNBOUNDED_RESOURCES` set in `constants.js` controls which resources skip the progress bar and "full in" estimate.
 3. **Colony** — population, idle workers, territory each shown as icon image + value (flex: 1, centered)
 4. **Menu button** — hamburger icon (inline SVG), opens pause modal
 
@@ -100,7 +100,7 @@ Core game loop that generates resources over time. `game_screen.vue` runs a main
 
 **Base rates** (per worker per second): farm→food 0.5, woodcutter→wood 0.3, quarry→stone 0.2, copperMine→copper 0.15, ironMine→iron 0.1, goldMine→gold 0.05, academy→knowledge 0.1, shrine→faith 0.15. Altar→faith 0.1/level/sec (passive). All values defined in `src/js/balancing.js`.
 
-**Tooltips** — Each resource and colony item has a CSS-only tooltip (`.tooltip` class + `data-tooltip` attribute). The `::after` pseudo-element renders tooltip text on hover with a fade-in transition. Shared `.tooltip` class defined in `src/assets/styles.css`.
+**Tooltips** — Colony items (population, idle workers, territory) use CSS-only tooltips (`.tooltip` class + `data-tooltip` attribute). Resource items use HTML-based rich tooltips (`.resource-tooltip` inside `.resource-box`) that display the resource name, colored production rate, and time estimate on hover. Both tooltip styles are defined in `src/assets/styles.css`.
 
 ### Localization (`src/js/i18n/`)
 
@@ -142,6 +142,7 @@ Each supported language has its own file (`en.js`, `es.js`) exporting a flat obj
   - `.slot-actions` — flex row wrapper for action groups inside building card slots. Uses `margin-top: auto` to bottom-align with thumbnail, `justify-content: space-between` for side-by-side dual-button layout, `align-items: flex-end` for bottom alignment.
   - `.worker-row` — flex row for worker assignment controls. `.worker-btn` (2.5rem square ghost button), `.worker-btn--minus` (red `#c45050`), `.worker-btn--plus` (green `#50a850`), `.worker-count` (icon + text, 0.95rem), `.worker-count-icon` (1.4rem worker icon).
   - `.production-rate` — per-minute rate indicator (0.8rem numeric font). `.production-rate--positive` (green `#50a850`), `.production-rate--negative` / `.production-rate--zero` (red `#c45050`).
+  - `.resource-box` — bordered container for header resource items (subtle bronze gradient, `position: relative`). `.resource-bar` (3px progress track at bottom), `.resource-bar-fill--positive` (green), `.resource-bar-fill--negative` (red). `.resource-tooltip` (HTML-based rich tooltip with flex-column layout), `.resource-tooltip-rate` (monospace rate), `.resource-tooltip-time` (subdued time estimate).
 
 ## Code Style
 

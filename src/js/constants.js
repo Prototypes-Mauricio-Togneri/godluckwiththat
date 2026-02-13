@@ -44,6 +44,24 @@ export const RESOURCE_GOLD = 'gold'
 export const RESOURCE_KNOWLEDGE = 'knowledge'
 export const RESOURCE_FAITH = 'faith'
 
+// Ordered resource keys shown in the game header
+export const HEADER_RESOURCES = [
+  RESOURCE_FOOD,
+  RESOURCE_WOOD,
+  RESOURCE_STONE,
+  RESOURCE_COPPER,
+  RESOURCE_IRON,
+  RESOURCE_GOLD,
+  RESOURCE_KNOWLEDGE,
+  RESOURCE_FAITH,
+]
+
+// Resources without a stockpile capacity (no progress bar, no "full in" estimate)
+export const UNBOUNDED_RESOURCES = new Set([
+  RESOURCE_KNOWLEDGE,
+  RESOURCE_FAITH,
+])
+
 // Headquarters progression types (colony upgrades)
 export const HQ_TYPE_CAMP = 'camp'
 export const HQ_TYPE_SETTLEMENT = 'settlement'

@@ -22,6 +22,8 @@ export const LOCALIZED_EN = {
   'resource.faith': 'Faith',
   'resource.territory': 'Territory',
   'resource.perMinute': '/min',
+  'resource.fullIn': 'Full in',
+  'resource.emptyIn': 'Empty in',
 
   // Year
   'year.label': 'Year',

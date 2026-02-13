@@ -23,7 +23,7 @@ import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import GameState from '@/js/game_state.js'
-import {createInitialColony, createInitialMeta, BUILDING_GRID, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, SEASON_WARM, SECONDS_PER_MINUTE, TICK_INTERVAL} from '@/js/constants.js'
+import {createInitialColony, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, SEASON_WARM, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/constants.js'
 import {SEASON_DURATION} from '@/js/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -67,6 +67,46 @@ function rateClass(ratePerSecond) {
   if (perMinute > 0) return 'production-rate--positive'
   if (perMinute < 0) return 'production-rate--negative'
   return 'production-rate--zero'
+}
+
+function isBounded(resource) {
+  return !UNBOUNDED_RESOURCES.has(resource)
+}
+
+function resourceFillPercent(resource) {
+  const current = state.colony.resources[resource]
+  const capacity = state.colony.stockpile[resource]
+  if (!capacity) return 0
+  return Math.min(100, (current / capacity) * 100)
+}
+
+function formatTime(totalSeconds) {
+  const seconds = Math.floor(totalSeconds)
+  if (seconds < 0) return null
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+  const secs = seconds % 60
+  const pad = n => String(n).padStart(2, '0')
+  if (hours > 0) return `${hours}:${pad(minutes)}:${pad(secs)}`
+  return `${pad(minutes)}:${pad(secs)}`
+}
+
+function timeEstimate(resource) {
+  const rate = state.colony.production[resource]
+  if (Math.round(rate * SECONDS_PER_MINUTE) === 0) return null
+  const current = state.colony.resources[resource]
+
+  if (isBounded(resource) && rate > 0) {
+    const capacity = state.colony.stockpile[resource]
+    if (current >= capacity) return null
+    return `${t('resource.fullIn')} ${formatTime((capacity - current) / rate)}`
+  }
+
+  if (rate < 0 && current > 0) {
+    return `${t('resource.emptyIn')} ${formatTime(current / Math.abs(rate))}`
+  }
+
+  return null
 }
 
 function seasonProgress() {
@@ -172,46 +212,30 @@ onUnmounted(() => {
 
       <!-- Resources -->
       <div class="header-section header-resources">
-        <div v-if="isResourceVisible('food')" class="header-resource tooltip" :data-tooltip="t('resource.food')">
-          <img class="resource-icon" src="/img/resources/food.png" :alt="t('resource.food')">
-          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.food) >= state.colony.stockpile.food }">{{ Math.floor(state.colony.resources.food) }}/{{ state.colony.stockpile.food }}</span>
-          <span class="production-rate" :class="rateClass(state.colony.production.food)">{{ formatRate(state.colony.production.food) }}</span>
-        </div>
-        <div v-if="isResourceVisible('wood')" class="header-resource tooltip" :data-tooltip="t('resource.wood')">
-          <img class="resource-icon" src="/img/resources/wood.png" :alt="t('resource.wood')">
-          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.wood) >= state.colony.stockpile.wood }">{{ Math.floor(state.colony.resources.wood) }}/{{ state.colony.stockpile.wood }}</span>
-          <span class="production-rate" :class="rateClass(state.colony.production.wood)">{{ formatRate(state.colony.production.wood) }}</span>
-        </div>
-        <div v-if="isResourceVisible('stone')" class="header-resource tooltip" :data-tooltip="t('resource.stone')">
-          <img class="resource-icon" src="/img/resources/stone.png" :alt="t('resource.stone')">
-          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.stone) >= state.colony.stockpile.stone }">{{ Math.floor(state.colony.resources.stone) }}/{{ state.colony.stockpile.stone }}</span>
-          <span class="production-rate" :class="rateClass(state.colony.production.stone)">{{ formatRate(state.colony.production.stone) }}</span>
-        </div>
-        <div v-if="isResourceVisible('copper')" class="header-resource tooltip" :data-tooltip="t('resource.copper')">
-          <img class="resource-icon" src="/img/resources/copper.png" :alt="t('resource.copper')">
-          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.copper) >= state.colony.stockpile.copper }">{{ Math.floor(state.colony.resources.copper) }}/{{ state.colony.stockpile.copper }}</span>
-          <span class="production-rate" :class="rateClass(state.colony.production.copper)">{{ formatRate(state.colony.production.copper) }}</span>
-        </div>
-        <div v-if="isResourceVisible('iron')" class="header-resource tooltip" :data-tooltip="t('resource.iron')">
-          <img class="resource-icon" src="/img/resources/iron.png" :alt="t('resource.iron')">
-          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.iron) >= state.colony.stockpile.iron }">{{ Math.floor(state.colony.resources.iron) }}/{{ state.colony.stockpile.iron }}</span>
-          <span class="production-rate" :class="rateClass(state.colony.production.iron)">{{ formatRate(state.colony.production.iron) }}</span>
-        </div>
-        <div v-if="isResourceVisible('gold')" class="header-resource tooltip" :data-tooltip="t('resource.gold')">
-          <img class="resource-icon" src="/img/resources/gold.png" :alt="t('resource.gold')">
-          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.gold) >= state.colony.stockpile.gold }">{{ Math.floor(state.colony.resources.gold) }}/{{ state.colony.stockpile.gold }}</span>
-          <span class="production-rate" :class="rateClass(state.colony.production.gold)">{{ formatRate(state.colony.production.gold) }}</span>
-        </div>
-        <div v-if="isResourceVisible('knowledge')" class="header-resource tooltip" :data-tooltip="t('resource.knowledge')">
-          <img class="resource-icon" src="/img/resources/knowledge.png" :alt="t('resource.knowledge')">
-          <span class="header-value">{{ Math.floor(state.colony.resources.knowledge) }}</span>
-          <span class="production-rate" :class="rateClass(state.colony.production.knowledge)">{{ formatRate(state.colony.production.knowledge) }}</span>
-        </div>
-        <div v-if="isResourceVisible('faith')" class="header-resource tooltip" :data-tooltip="t('resource.faith')">
-          <img class="resource-icon" src="/img/resources/faith.png" :alt="t('resource.faith')">
-          <span class="header-value">{{ Math.floor(state.colony.resources.faith) }}</span>
-          <span class="production-rate" :class="rateClass(state.colony.production.faith)">{{ formatRate(state.colony.production.faith) }}</span>
-        </div>
+        <template v-for="resource in HEADER_RESOURCES" :key="resource">
+          <div v-if="isResourceVisible(resource)" class="resource-box">
+            <img class="resource-icon" :src="'/img/resources/' + resource + '.png'" :alt="t('resource.' + resource)">
+            <span class="header-value" :class="{ 'header-value--alert': isBounded(resource) && Math.floor(state.colony.resources[resource]) >= state.colony.stockpile[resource] }">
+              {{ Math.floor(state.colony.resources[resource]) }}<template v-if="isBounded(resource)">/{{ state.colony.stockpile[resource] }}</template>
+            </span>
+
+            <!-- Progress bar (bounded resources only) -->
+            <div v-if="isBounded(resource)" class="resource-bar">
+              <div
+                class="resource-bar-fill"
+                :class="state.colony.production[resource] > 0 ? 'resource-bar-fill--positive' : 'resource-bar-fill--negative'"
+                :style="{ width: resourceFillPercent(resource) + '%' }"
+              />
+            </div>
+
+            <!-- Rich tooltip -->
+            <div class="resource-tooltip">
+              <span>{{ t('resource.' + resource) }}</span>
+              <span class="resource-tooltip-rate" :class="rateClass(state.colony.production[resource])">{{ formatRate(state.colony.production[resource]) }}</span>
+              <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
+            </div>
+          </div>
+        </template>
       </div>
 
       <!-- Decorative divider -->
@@ -330,7 +354,7 @@ onUnmounted(() => {
 .header-resources {
   flex: 1;
   justify-content: center;
-  gap: 2.25rem;
+  gap: 0.5rem;
 }
 
 .header-colony {

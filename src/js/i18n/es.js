@@ -22,6 +22,8 @@ export const LOCALIZED_ES = {
   'resource.faith': 'Fe',
   'resource.territory': 'Territorio',
   'resource.perMinute': '/min',
+  'resource.fullIn': 'Lleno en',
+  'resource.emptyIn': 'Vacío en',
 
   // Year
   'year.label': 'Año',

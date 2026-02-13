@@ -267,3 +267,105 @@
 .production-rate--zero {
     color: #c45050;
 }
+
+/* Resource box — compact bordered container for header resource items */
+.resource-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.55rem 0.45rem;
+    background: linear-gradient(
+        180deg,
+        rgba(var(--color-accent-rgb), 0.05),
+        rgba(0, 0, 0, 0.12)
+    );
+    border: 1px solid rgba(var(--color-accent-rgb), 0.12);
+    border-radius: 4px;
+}
+
+.resource-box:hover {
+    border-color: rgba(var(--color-accent-rgb), 0.3);
+    background: linear-gradient(
+        180deg,
+        rgba(var(--color-accent-rgb), 0.08),
+        rgba(0, 0, 0, 0.1)
+    );
+}
+
+/* Progress bar track — thin strip at the bottom of each resource box */
+.resource-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 0 0 3px 3px;
+    overflow: hidden;
+}
+
+/* Progress bar fill — shared base */
+.resource-bar-fill {
+    height: 100%;
+    border-radius: 0 0 3px 3px;
+    transition: width 1s ease;
+}
+
+.resource-bar-fill--positive {
+    background: linear-gradient(90deg, #3d8a3d, #50a850);
+    box-shadow: 0 0 5px rgba(80, 168, 80, 0.35);
+}
+
+.resource-bar-fill--negative {
+    background: linear-gradient(90deg, #a83c3c, #c45050);
+    box-shadow: 0 0 5px rgba(196, 80, 80, 0.35);
+}
+
+/* Rich tooltip — HTML-based multi-line tooltip below resource boxes */
+.resource-tooltip {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--color-text);
+    background: var(--color-bg-surface);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.25);
+    border-radius: 4px;
+    padding: 0.35rem 0.6rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+}
+
+.resource-box:hover .resource-tooltip {
+    opacity: 1;
+}
+
+/* Tooltip production rate line */
+.resource-tooltip-rate {
+    font-family: var(--font-numeric);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+/* Tooltip time estimate line */
+.resource-tooltip-time {
+    font-family: var(--font-numeric);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: rgba(var(--color-text-rgb), 0.55);
+}
