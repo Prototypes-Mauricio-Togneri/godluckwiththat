@@ -57,10 +57,10 @@ export const HEADER_RESOURCES = [
 ]
 
 // Resources without a stockpile capacity (no progress bar, no "full in" estimate)
-export const UNBOUNDED_RESOURCES = new Set([
+export const UNBOUNDED_RESOURCES = [
   RESOURCE_KNOWLEDGE,
   RESOURCE_FAITH,
-])
+]
 
 // Headquarters progression types (colony upgrades)
 export const HQ_TYPE_CAMP = 'camp'

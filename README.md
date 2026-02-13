@@ -2,11 +2,6 @@
 
 [Web site](https://god-luck-with-that.web.app)
 
-- Resources
-  - Wrap each resource in a card
-  - Show: "Full in [TIME]" or "Empty in [TIME]"
-  - Show progress bar in each resource to indicate how full it is
-
 - Events
   - Left bar (past events)
     - season_change_coming

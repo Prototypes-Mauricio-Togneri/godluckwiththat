@@ -70,7 +70,7 @@ function rateClass(ratePerSecond) {
 }
 
 function isBounded(resource) {
-  return !UNBOUNDED_RESOURCES.has(resource)
+  return !UNBOUNDED_RESOURCES.includes(resource)
 }
 
 function resourceFillPercent(resource) {
