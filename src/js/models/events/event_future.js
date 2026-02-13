@@ -9,6 +9,7 @@ class EventFuture extends Event {
   /**
 	 * @param {Object} data
 	 * @param {number} data.id
+	 * @param {string} data.type
 	 * @param {string} data.textKey
 	 * @param {string} data.icon
 	 * @param {number} data.remainingSeconds

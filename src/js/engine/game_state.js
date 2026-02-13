@@ -1,5 +1,5 @@
 import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
-import {SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
+import {EVENT_TYPE_SEASON_CHANGED, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
 
 /**
  * Central game state container.
@@ -151,6 +151,7 @@ class GameState {
       this.colony.season = this.colony.season === SEASON_WARM ? SEASON_COLD : SEASON_WARM
       const isWarm = this.colony.season === SEASON_WARM
       this.events.addPast({
+        type: EVENT_TYPE_SEASON_CHANGED,
         textKey: isWarm ? 'event.warmSeason' : 'event.coldSeason',
         icon: `seasons/${isWarm ? 'warm' : 'cold'}.png`,
       })

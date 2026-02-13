@@ -16,6 +16,7 @@ class Events {
   /**
 	 * Adds a new future event with a countdown.
 	 * @param {Object} data
+	 * @param {string} data.type - Event type constant
 	 * @param {string} data.textKey - i18n key
 	 * @param {string} data.icon - Image path relative to /img/
 	 * @param {number} data.remainingSeconds - Countdown duration
@@ -24,6 +25,7 @@ class Events {
   addFuture(data) {
     const event = new EventFuture({
       id: this._nextId++,
+      type: data.type,
       textKey: data.textKey,
       icon: data.icon,
       remainingSeconds: data.remainingSeconds,
@@ -35,6 +37,7 @@ class Events {
   /**
 	 * Adds a new past event (no countdown).
 	 * @param {Object} data
+	 * @param {string} data.type - Event type constant
 	 * @param {string} data.textKey - i18n key
 	 * @param {string} data.icon - Image path relative to /img/
 	 * @returns {EventPast}
@@ -42,6 +45,7 @@ class Events {
   addPast(data) {
     const event = new EventPast({
       id: this._nextId++,
+      type: data.type,
       textKey: data.textKey,
       icon: data.icon,
     })

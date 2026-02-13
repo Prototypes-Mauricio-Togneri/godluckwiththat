@@ -74,6 +74,9 @@ export const HQ_TYPE_CITY = 'city'
 export const SEASON_WARM = 'warm'
 export const SEASON_COLD = 'cold'
 
+// Event types
+export const EVENT_TYPE_SEASON_CHANGED = 'season_changed'
+
 // Ordered headquarters progression (used for upgrade lookups)
 export const HQ_TYPES = [
   HQ_TYPE_CAMP,

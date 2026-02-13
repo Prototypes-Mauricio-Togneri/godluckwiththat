@@ -7,6 +7,7 @@ class EventPast extends Event {
   /**
 	 * @param {Object} data
 	 * @param {number} data.id
+	 * @param {string} data.type
 	 * @param {string} data.textKey
 	 * @param {string} data.icon
 	 */

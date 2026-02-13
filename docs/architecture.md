@@ -92,15 +92,15 @@ All game state mutations are centralised in `GameState`. Each method guards prec
 
 Ephemeral event system for notifying the player of upcoming threats and past occurrences. Events live on `GameState.events` (not `Colony`) and are **not persisted** in save data — they reset on page refresh.
 
-**`Event`** — Abstract base class with common fields: `id` (auto-assigned), `textKey` (i18n key), `icon` (image path relative to `/img/`).
+**`Event`** — Abstract base class with common fields: `id` (auto-assigned), `type` (event type constant, e.g. `EVENT_TYPE_SEASON_CHANGED`), `textKey` (i18n key), `icon` (image path relative to `/img/`).
 
 **`EventFuture`** — Extends `Event`. Adds `remainingSeconds` (countdown until event fires).
 
 **`EventPast`** — Extends `Event`. No additional fields.
 
 **`Events`** — Array-backed container with methods:
-- `addFuture({ textKey, icon, remainingSeconds })` — creates an `EventFuture` with countdown
-- `addPast({ textKey, icon })` — creates an `EventPast`
+- `addFuture({ type, textKey, icon, remainingSeconds })` — creates an `EventFuture` with countdown
+- `addPast({ type, textKey, icon })` — creates an `EventPast`
 - `dismiss(id)` — removes event by id (uses `splice` for Vue reactivity)
 - `future()` — returns `EventFuture` items sorted by `remainingSeconds` ascending
 - `past()` — returns `EventPast` items sorted by `id` descending (most recent first)
