@@ -9,7 +9,6 @@
     - research_timeout
     - building_upgrade_timeout
   - Left bar (past events)
-    - season_changed
     - disaster_result
     - challenge_result
     - building_upgraded
