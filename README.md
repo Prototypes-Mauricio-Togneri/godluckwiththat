@@ -13,6 +13,6 @@
     - challenge_result
     - building_upgraded
     - research_completed
-    - resource_limit_reached
+    - worker_died
 
 - Create tutorial (build a farm, create a worker, etc)
