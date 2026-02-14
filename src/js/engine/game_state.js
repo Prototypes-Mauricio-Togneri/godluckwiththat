@@ -1,4 +1,4 @@
-import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
+import {MAX_WORKER_DEATHS_PER_TICK, PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
 import {BOUNDED_RESOURCES, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_LIMIT_EVENT_CONFIG, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
 
 /**
@@ -77,8 +77,11 @@ class GameState {
     }
 
     // Apply seasonal modifier to food production
-    const seasonMod = this.colony.season === SEASON_WARM ? SEASON_WARM_FOOD_MODIFIER : SEASON_COLD_FOOD_MODIFIER
-    production.food *= 1 + seasonMod
+    const foodSeasonMod = this.colony.season === SEASON_WARM ? SEASON_WARM_FOOD_MODIFIER : SEASON_COLD_FOOD_MODIFIER
+    production.food *= 1 + foodSeasonMod
+
+    // Apply seasonal modifier to wood production
+    const woodSeasonMod = this.colony.season === SEASON_WARM ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
 
     // Apply production to resources, scaled by delta time
     resources.food += production.food * delta
@@ -91,7 +94,6 @@ class GameState {
     resources.knowledge += production.knowledge * delta
 
     // Worker consumption (food + wood upkeep)
-    const woodSeasonMod = this.colony.season === SEASON_WARM ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
     if (delta > 0 && resources.workers > 0) {
       const totalWorkers = resources.workers
       const foodCost = WORKER_FOOD_CONSUMPTION * delta
@@ -105,7 +107,7 @@ class GameState {
         ? 0
         : totalWorkers - Math.floor(resources.wood / woodCost)
 
-      const workersToKill = Math.max(foodDeaths, woodDeaths)
+      const workersToKill = Math.min(Math.max(foodDeaths, woodDeaths), MAX_WORKER_DEATHS_PER_TICK)
       const surviving = totalWorkers - workersToKill
 
       // Deduct resources for surviving workers
