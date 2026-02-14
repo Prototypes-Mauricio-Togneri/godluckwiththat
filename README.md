@@ -1,6 +1,6 @@
 # God Luck With That
 
-[Web site](https://god-luck-with-that.web.app)
+[Website](https://god-luck-with-that.web.app)
 
 - Show event when production rate is negative
 
