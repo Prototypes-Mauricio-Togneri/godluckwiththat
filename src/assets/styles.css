@@ -284,7 +284,7 @@
 /* Production rate indicator — colored rate beside resource values */
 .production-rate {
     font-family: var(--font-numeric);
-    font-size: 0.8rem;
+    font-size: 0.65rem;
     font-weight: 400;
     letter-spacing: 0.02em;
     margin-left: 0.3rem;
@@ -382,14 +382,6 @@
 
 .resource-box:hover .resource-tooltip {
     opacity: 1;
-}
-
-/* Tooltip production rate line */
-.resource-tooltip-rate {
-    font-family: var(--font-numeric);
-    font-size: 0.75rem;
-    font-weight: 400;
-    letter-spacing: 0.02em;
 }
 
 /* Tooltip time estimate line */

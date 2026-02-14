@@ -59,7 +59,7 @@ function getCardComponent(key) {
 
 function formatRate(ratePerSecond) {
   const perMinute = Math.round(ratePerSecond * SECONDS_PER_MINUTE)
-  if (perMinute > 0) return `+${perMinute}${t('resource.perMinute')}`
+  if (perMinute > 0) return `${perMinute}${t('resource.perMinute')}`
   if (perMinute < 0) return `-${Math.abs(perMinute)}${t('resource.perMinute')}`
   return `0${t('resource.perMinute')}`
 }
@@ -232,6 +232,7 @@ onUnmounted(() => {
             <span class="header-value" :class="{ 'header-value--alert': isBounded(resource) && Math.floor(state.colony.resources[resource]) >= state.colony.stockpile[resource], 'header-value--zero': Math.floor(state.colony.resources[resource]) === 0 }">
               {{ Math.floor(state.colony.resources[resource]) }}<template v-if="isBounded(resource)">/{{ state.colony.stockpile[resource] }}</template>
             </span>
+            <span class="production-rate" :class="rateClass(state.colony.production[resource])">{{ formatRate(state.colony.production[resource]) }}</span>
 
             <!-- Progress bar (bounded resources only) -->
             <div v-if="isBounded(resource)" class="resource-bar">
@@ -245,7 +246,6 @@ onUnmounted(() => {
             <!-- Rich tooltip -->
             <div class="resource-tooltip">
               <span>{{ t('resource.' + resource) }}</span>
-              <span class="resource-tooltip-rate" :class="rateClass(state.colony.production[resource])">{{ formatRate(state.colony.production[resource]) }}</span>
               <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
             </div>
           </div>
