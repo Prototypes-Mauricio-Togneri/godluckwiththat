@@ -1,4 +1,4 @@
-import {BUILDING_UPGRADES, HQ_UPGRADE_BUILD_TIMES, MAX_WORKER_DEATHS_PER_TICK, PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
+import {MAX_WORKER_DEATHS_PER_TICK, PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, IMG_RESOURCE_FOOD, IMG_RESOURCE_WOOD, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, EVENT_TYPE_WORKER_DIED_FOOD, EVENT_TYPE_WORKER_DIED_WOOD, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
 import {t} from '@/js/i18n/localized.js'
@@ -280,10 +280,7 @@ class GameState {
     if (!resources.canAfford(cost) || resources.territory >= stockpile.territory) return
     resources.deduct(cost)
 
-    const {
-      buildTime,
-    } = BUILDING_UPGRADES[buildingKey]
-    const duration = buildTime.base + buildTime.perLevel * building.level
+    const duration = cost.toSeconds()
     building.constructionDuration = duration
     building.constructionRemaining = duration
 
@@ -321,10 +318,7 @@ class GameState {
     if (!resources.canAfford(cost)) return
     resources.deduct(cost)
 
-    const {
-      buildTime,
-    } = BUILDING_UPGRADES.headquarters
-    const duration = buildTime.base + buildTime.perLevel * hq.level
+    const duration = cost.toSeconds()
     hq.constructionDuration = duration
     hq.constructionRemaining = duration
 
@@ -352,7 +346,7 @@ class GameState {
     if (!cost || !resources.canAfford(cost)) return
     resources.deduct(cost)
 
-    const duration = HQ_UPGRADE_BUILD_TIMES[hq.type]
+    const duration = cost.toSeconds()
     hq.upgradeDuration = duration
     hq.upgradeRemaining = duration
 

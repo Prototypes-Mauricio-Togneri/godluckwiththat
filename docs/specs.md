@@ -139,7 +139,7 @@ There are two types of resources
 
 ## Buildings
 
-Each building has a level that can be increased by spending resources. Building and upgrading takes time — resources are deducted immediately when construction starts, but the level increments only after a construction timer expires. Build time scales with the building's current level (`base + perLevel × level`). During construction, buildings continue producing at their current level. Territory is reserved immediately for buildings under construction.
+Each building has a level that can be increased by spending resources. Building and upgrading takes time — resources are deducted immediately when construction starts, but the level increments only after a construction timer expires. Build time is derived from the upgrade cost via `Cost.toSeconds()`, which sums each resource amount multiplied by its time weight (defined in `RESOURCE_TIME_WEIGHTS`). During construction, buildings continue producing at their current level. Territory is reserved immediately for buildings under construction.
 
 - Headquarters
   - Each level unlocks new buildings and researches
@@ -278,8 +278,8 @@ All tunable numeric constants are centralized in `src/js/balancing.js`. This fil
 
 The file contains:
 
-- **Building upgrades** (`BUILDING_UPGRADES`) — Per-building upgrade config with three sub-keys: `cost` (base resource cost), `costMultiplier` (exponential scaling factor per level; formula: `floor(cost × costMultiplier^level)`, HQ uses `costMultiplier^(level-1)` since it starts at level 1), and `buildTime` (`{ base, perLevel }` in seconds; formula: `base + perLevel × currentLevel`).
+- **Building upgrades** (`BUILDING_UPGRADES`) — Per-building upgrade config with two sub-keys: `cost` (base resource cost) and `costMultiplier` (exponential scaling factor per level; formula: `floor(cost × costMultiplier^level)`, HQ uses `costMultiplier^(level-1)` since it starts at level 1). Build time is derived from the level-up cost via `Cost.toSeconds()`.
 - **HQ upgrade costs** (`HQ_UPGRADE_COSTS`) — Fixed resource costs to upgrade the colony type (Camp → Settlement → Village → Town → City).
 - **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, shrines). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.
 - **Population & workers** — House population formula values (`HOUSE_BASE_POPULATION`, `HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), worker recruitment cost (`WORKER_RECRUIT_COST`), worker upkeep rates (`WORKER_FOOD_CONSUMPTION`, `WORKER_WOOD_CONSUMPTION`), and starvation death cap (`MAX_WORKER_DEATHS_PER_TICK`).
-- **HQ upgrade build times** (`HQ_UPGRADE_BUILD_TIMES`) — Flat values keyed by the current HQ type for type upgrade duration.
+- **Resource time weights** (`RESOURCE_TIME_WEIGHTS`) — Per-resource time weight in seconds, used by `Cost.toSeconds()` to derive build duration from resource costs.

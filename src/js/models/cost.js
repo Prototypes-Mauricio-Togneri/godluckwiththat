@@ -1,3 +1,4 @@
+import {RESOURCE_TIME_WEIGHTS} from '@/js/engine/balancing.js'
 import {RESOURCE_COPPER, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/constants.js'
 
 /**
@@ -40,6 +41,22 @@ class Cost {
     if (this.gold > 0) map.set(RESOURCE_GOLD, this.gold)
     if (this.knowledge > 0) map.set(RESOURCE_KNOWLEDGE, this.knowledge)
     return map
+  }
+
+  /**
+   * Derives a build time in seconds from the weighted sum of resource costs.
+   * Each resource unit contributes its weight from RESOURCE_TIME_WEIGHTS.
+   * @returns {number} Total time in seconds
+   */
+  toSeconds() {
+    let seconds = 0
+    for (const [
+      resource,
+      amount,
+    ] of this.entries()) {
+      seconds += amount * (RESOURCE_TIME_WEIGHTS[resource] ?? 0)
+    }
+    return seconds
   }
 }
 

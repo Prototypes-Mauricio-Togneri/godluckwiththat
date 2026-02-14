@@ -5,13 +5,25 @@
 import {HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/constants.js'
 import Cost from '@/js/models/cost.js'
 
+// ── Build Time ──────────────────────────────────────────────────────
+// Time weight per resource unit (seconds). Used by Cost.toSeconds() to
+// derive construction duration from resource costs.
+export const RESOURCE_TIME_WEIGHTS = {
+  [RESOURCE_FOOD]: 1,
+  [RESOURCE_WOOD]: 2,
+  [RESOURCE_STONE]: 3,
+  [RESOURCE_COPPER]: 4,
+  [RESOURCE_IRON]: 5,
+  [RESOURCE_GOLD]: 6,
+  [RESOURCE_KNOWLEDGE]: 7,
+}
+
 // ── Building Upgrades ─────────────────────────────────────────────
-// Per-building upgrade config: base cost, exponential cost multiplier, and build time.
+// Per-building upgrade config: base cost and exponential cost multiplier.
 // cost: base resource cost (used in levelUpCost formulas)
 // costMultiplier: exponential scaling factor per level
 //   HQ (starts at level 1): floor(cost × costMultiplier^(level-1))
 //   Others (start at level 0): floor(cost × costMultiplier^level)
-// buildTime: construction duration in seconds (base + perLevel × currentLevel)
 export const BUILDING_UPGRADES = {
   headquarters: {
     cost: {
@@ -19,20 +31,12 @@ export const BUILDING_UPGRADES = {
       wood: 20,
     },
     costMultiplier: 2.5,
-    buildTime: {
-      base: 5,
-      perLevel: 3,
-    },
   },
   house: {
     cost: {
-      wood: 30,
+      wood: 10,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 3,
-      perLevel: 2,
-    },
   },
   academy: {
     cost: {
@@ -40,10 +44,6 @@ export const BUILDING_UPGRADES = {
       stone: 30,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 5,
-      perLevel: 3,
-    },
   },
   storehouse: {
     cost: {
@@ -51,10 +51,6 @@ export const BUILDING_UPGRADES = {
       stone: 40,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 5,
-      perLevel: 3,
-    },
   },
   market: {
     cost: {
@@ -62,40 +58,24 @@ export const BUILDING_UPGRADES = {
       stone: 75,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 8,
-      perLevel: 4,
-    },
   },
   farm: {
     cost: {
-      wood: 10,
+      wood: 5,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 3,
-      perLevel: 2,
-    },
   },
   woodcutter: {
     cost: {
-      wood: 10,
+      wood: 5,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 3,
-      perLevel: 2,
-    },
   },
   quarry: {
     cost: {
       wood: 45,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 4,
-      perLevel: 2,
-    },
   },
   copperMine: {
     cost: {
@@ -103,10 +83,6 @@ export const BUILDING_UPGRADES = {
       stone: 35,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 5,
-      perLevel: 3,
-    },
   },
   ironMine: {
     cost: {
@@ -114,10 +90,6 @@ export const BUILDING_UPGRADES = {
       stone: 50,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 6,
-      perLevel: 3,
-    },
   },
   goldMine: {
     cost: {
@@ -125,20 +97,12 @@ export const BUILDING_UPGRADES = {
       stone: 70,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 8,
-      perLevel: 4,
-    },
   },
   altar: {
     cost: {
       wood: 40,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 4,
-      perLevel: 2,
-    },
   },
   shrine: {
     cost: {
@@ -146,10 +110,6 @@ export const BUILDING_UPGRADES = {
       stone: 25,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 5,
-      perLevel: 3,
-    },
   },
   temple: {
     cost: {
@@ -157,10 +117,6 @@ export const BUILDING_UPGRADES = {
       stone: 50,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 6,
-      perLevel: 3,
-    },
   },
   monument: {
     cost: {
@@ -168,10 +124,6 @@ export const BUILDING_UPGRADES = {
       stone: 60,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 7,
-      perLevel: 4,
-    },
   },
   barracks: {
     cost: {
@@ -179,10 +131,6 @@ export const BUILDING_UPGRADES = {
       stone: 25,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 5,
-      perLevel: 3,
-    },
   },
   archery: {
     cost: {
@@ -190,10 +138,6 @@ export const BUILDING_UPGRADES = {
       stone: 40,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 6,
-      perLevel: 3,
-    },
   },
   stable: {
     cost: {
@@ -201,10 +145,6 @@ export const BUILDING_UPGRADES = {
       stone: 55,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 7,
-      perLevel: 4,
-    },
   },
   workshop: {
     cost: {
@@ -212,10 +152,6 @@ export const BUILDING_UPGRADES = {
       stone: 80,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 8,
-      perLevel: 4,
-    },
   },
   wall: {
     cost: {
@@ -223,10 +159,6 @@ export const BUILDING_UPGRADES = {
       stone: 50,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 6,
-      perLevel: 3,
-    },
   },
   tower: {
     cost: {
@@ -234,10 +166,6 @@ export const BUILDING_UPGRADES = {
       stone: 75,
     },
     costMultiplier: 1.5,
-    buildTime: {
-      base: 8,
-      perLevel: 4,
-    },
   },
 }
 
@@ -353,11 +281,3 @@ export const SEASON_COLD_FOOD_MODIFIER = -0.2
 // Fractional modifier applied to wood consumption per season
 export const SEASON_WARM_WOOD_MODIFIER = -0.2
 export const SEASON_COLD_WOOD_MODIFIER = 0.2
-
-// Build time for HQ type upgrade (seconds, keyed by current type being upgraded FROM)
-export const HQ_UPGRADE_BUILD_TIMES = {
-  [HQ_TYPE_CAMP]: 10,
-  [HQ_TYPE_SETTLEMENT]: 15,
-  [HQ_TYPE_VILLAGE]: 20,
-  [HQ_TYPE_TOWN]: 30,
-}
