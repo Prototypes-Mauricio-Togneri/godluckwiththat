@@ -2,7 +2,6 @@
 
 [Web site](https://god-luck-with-that.web.app)
 
-- Show production rate in resource box
 - Show event when production rate is negative
 
 - Future events
