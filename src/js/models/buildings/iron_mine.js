@@ -21,11 +21,11 @@ class IronMine extends Producer {
    */
   levelUpCost() {
     const {
-      cost, multiplier,
+      cost, costMultiplier,
     } = BUILDING_UPGRADES.ironMine
     return new Cost({
-      wood: Math.floor(cost.wood * Math.pow(multiplier, this.level)),
-      stone: Math.floor(cost.stone * Math.pow(multiplier, this.level)),
+      wood: Math.floor(cost.wood * Math.pow(costMultiplier, this.level)),
+      stone: Math.floor(cost.stone * Math.pow(costMultiplier, this.level)),
     })
   }
 }

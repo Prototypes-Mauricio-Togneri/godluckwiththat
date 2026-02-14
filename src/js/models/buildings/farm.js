@@ -21,10 +21,10 @@ class Farm extends Producer {
    */
   levelUpCost() {
     const {
-      cost, multiplier,
+      cost, costMultiplier,
     } = BUILDING_UPGRADES.farm
     return new Cost({
-      wood: Math.floor(cost.wood * Math.pow(multiplier, this.level)),
+      wood: Math.floor(cost.wood * Math.pow(costMultiplier, this.level)),
     })
   }
 }

@@ -36,9 +36,9 @@ class Headquarters extends Building {
    */
   levelUpCost() {
     const {
-      cost, multiplier,
+      cost, costMultiplier,
     } = BUILDING_UPGRADES.headquarters
-    const mult = Math.pow(multiplier, this.level - 1)
+    const mult = Math.pow(costMultiplier, this.level - 1)
     const food = Math.floor(cost.food * mult)
     const wood = Math.floor(cost.wood * mult)
     return new Cost({

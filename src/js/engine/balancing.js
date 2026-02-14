@@ -6,11 +6,11 @@ import {HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESOURC
 import Cost from '@/js/models/cost.js'
 
 // ── Building Upgrades ─────────────────────────────────────────────
-// Per-building upgrade config: base cost, exponential multiplier, and build time.
+// Per-building upgrade config: base cost, exponential cost multiplier, and build time.
 // cost: base resource cost (used in levelUpCost formulas)
-// multiplier: exponential scaling factor per level
-//   HQ (starts at level 1): floor(cost × multiplier^(level-1))
-//   Others (start at level 0): floor(cost × multiplier^level)
+// costMultiplier: exponential scaling factor per level
+//   HQ (starts at level 1): floor(cost × costMultiplier^(level-1))
+//   Others (start at level 0): floor(cost × costMultiplier^level)
 // buildTime: construction duration in seconds (base + perLevel × currentLevel)
 export const BUILDING_UPGRADES = {
   headquarters: {
@@ -18,7 +18,7 @@ export const BUILDING_UPGRADES = {
       food: 15,
       wood: 20,
     },
-    multiplier: 2.5,
+    costMultiplier: 2.5,
     buildTime: {
       base: 5,
       perLevel: 3,
@@ -28,7 +28,7 @@ export const BUILDING_UPGRADES = {
     cost: {
       wood: 30,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 3,
       perLevel: 2,
@@ -39,7 +39,7 @@ export const BUILDING_UPGRADES = {
       wood: 60,
       stone: 30,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 5,
       perLevel: 3,
@@ -50,7 +50,7 @@ export const BUILDING_UPGRADES = {
       wood: 80,
       stone: 40,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 5,
       perLevel: 3,
@@ -61,7 +61,7 @@ export const BUILDING_UPGRADES = {
       wood: 150,
       stone: 75,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 8,
       perLevel: 4,
@@ -71,7 +71,7 @@ export const BUILDING_UPGRADES = {
     cost: {
       wood: 10,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 3,
       perLevel: 2,
@@ -81,7 +81,7 @@ export const BUILDING_UPGRADES = {
     cost: {
       wood: 10,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 3,
       perLevel: 2,
@@ -91,7 +91,7 @@ export const BUILDING_UPGRADES = {
     cost: {
       wood: 45,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 4,
       perLevel: 2,
@@ -102,7 +102,7 @@ export const BUILDING_UPGRADES = {
       wood: 70,
       stone: 35,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 5,
       perLevel: 3,
@@ -113,7 +113,7 @@ export const BUILDING_UPGRADES = {
       wood: 100,
       stone: 50,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 6,
       perLevel: 3,
@@ -124,7 +124,7 @@ export const BUILDING_UPGRADES = {
       wood: 140,
       stone: 70,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 8,
       perLevel: 4,
@@ -134,7 +134,7 @@ export const BUILDING_UPGRADES = {
     cost: {
       wood: 40,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 4,
       perLevel: 2,
@@ -145,7 +145,7 @@ export const BUILDING_UPGRADES = {
       wood: 50,
       stone: 25,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 5,
       perLevel: 3,
@@ -156,7 +156,7 @@ export const BUILDING_UPGRADES = {
       wood: 90,
       stone: 50,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 6,
       perLevel: 3,
@@ -167,7 +167,7 @@ export const BUILDING_UPGRADES = {
       wood: 120,
       stone: 60,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 7,
       perLevel: 4,
@@ -178,7 +178,7 @@ export const BUILDING_UPGRADES = {
       wood: 55,
       stone: 25,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 5,
       perLevel: 3,
@@ -189,7 +189,7 @@ export const BUILDING_UPGRADES = {
       wood: 75,
       stone: 40,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 6,
       perLevel: 3,
@@ -200,7 +200,7 @@ export const BUILDING_UPGRADES = {
       wood: 110,
       stone: 55,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 7,
       perLevel: 4,
@@ -211,7 +211,7 @@ export const BUILDING_UPGRADES = {
       wood: 160,
       stone: 80,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 8,
       perLevel: 4,
@@ -222,7 +222,7 @@ export const BUILDING_UPGRADES = {
       wood: 100,
       stone: 50,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 6,
       perLevel: 3,
@@ -233,7 +233,7 @@ export const BUILDING_UPGRADES = {
       wood: 150,
       stone: 75,
     },
-    multiplier: 1.5,
+    costMultiplier: 1.5,
     buildTime: {
       base: 8,
       perLevel: 4,

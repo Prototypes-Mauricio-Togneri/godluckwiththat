@@ -278,7 +278,7 @@ All tunable numeric constants are centralized in `src/js/balancing.js`. This fil
 
 The file contains:
 
-- **Building upgrades** (`BUILDING_UPGRADES`) — Per-building upgrade config with three sub-keys: `cost` (base resource cost), `multiplier` (exponential scaling factor per level; formula: `floor(cost × multiplier^level)`, HQ uses `multiplier^(level-1)` since it starts at level 1), and `buildTime` (`{ base, perLevel }` in seconds; formula: `base + perLevel × currentLevel`).
+- **Building upgrades** (`BUILDING_UPGRADES`) — Per-building upgrade config with three sub-keys: `cost` (base resource cost), `costMultiplier` (exponential scaling factor per level; formula: `floor(cost × costMultiplier^level)`, HQ uses `costMultiplier^(level-1)` since it starts at level 1), and `buildTime` (`{ base, perLevel }` in seconds; formula: `base + perLevel × currentLevel`).
 - **HQ upgrade costs** (`HQ_UPGRADE_COSTS`) — Fixed resource costs to upgrade the colony type (Camp → Settlement → Village → Town → City).
 - **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, shrines). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.
 - **Population & workers** — House population formula values (`HOUSE_BASE_POPULATION`, `HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), worker recruitment cost (`WORKER_RECRUIT_COST`), worker upkeep rates (`WORKER_FOOD_CONSUMPTION`, `WORKER_WOOD_CONSUMPTION`), and starvation death cap (`MAX_WORKER_DEATHS_PER_TICK`).
