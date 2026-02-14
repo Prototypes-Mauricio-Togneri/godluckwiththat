@@ -25,7 +25,6 @@ class Quarry extends Producer {
     } = BUILDING_UPGRADES.quarry
     return new Cost({
       wood: Math.floor(cost.wood * Math.pow(costMultiplier, this.level)),
-      stone: Math.floor(cost.stone * Math.pow(costMultiplier, this.level)),
     })
   }
 }

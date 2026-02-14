@@ -200,19 +200,19 @@ export const HQ_UPGRADE_COSTS = {
 export const PRODUCTION_RATES = {
   farm: {
     resource: RESOURCE_FOOD,
-    rate: 0.5,
+    rate: 1,
   },
   woodcutter: {
     resource: RESOURCE_WOOD,
-    rate: 0.3,
+    rate: 0.5,
   },
   quarry: {
     resource: RESOURCE_STONE,
-    rate: 0.2,
+    rate: 0.3,
   },
   copperMine: {
     resource: RESOURCE_COPPER,
-    rate: 0.15,
+    rate: 0.2,
   },
   ironMine: {
     resource: RESOURCE_IRON,
