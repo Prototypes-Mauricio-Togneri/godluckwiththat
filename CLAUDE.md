@@ -27,7 +27,7 @@ src/
 │       └── game_screen.vue   → Main game screen
 ├── js/
 │   ├── engine/
-│   │   ├── assets.js         → Asset path constants (centralized image paths)
+│   │   ├── assets.js         → Asset path constants (auto-generated, do not edit manually)
 │   │   ├── balancing.js      → Game balancing values (costs, rates, build times, formulas)
 │   │   ├── constants.js      → Structural constants (maps, enums, factories)
 │   │   ├── game_state.js     → GameState class (meta + colony data model + update loop)
@@ -55,6 +55,8 @@ src/
 │       ├── resources.js      → Resources class (current amounts)
 │       └── stockpile.js      → Stockpile class (capacity caps)
 └── app.vue                   → Root component (screen switching)
+scripts/
+└── generate-assets.js        → Generates assets.js from public/img/ files
 index.html                    → Vite entry HTML (at repo root)
 vite.config.js                → Vite configuration
 eslint.config.js              → ESLint configuration
@@ -82,6 +84,7 @@ Read these when working on specific areas:
 - **Minimalist Approach**: Prioritize extreme simplicity. Impact only the code strictly necessary for the task to avoid complexity and prevent breaking existing functionality.
 - **Maintainability Check**: Ensure the solution is readable, consistent, maintainable, simple, robust, and strictly follows the requested requirements.
 - **Centralized Constants**: Declare numeric balancing values (costs, rates, formulas, initial state) in `src/js/engine/balancing.js` and structural constants (class maps, enums, sets, factory functions) in `src/js/engine/constants.js`. Do not hardcode values directly in other files.
+- **Asset Paths**: All image paths from `public/` are centralized in `src/js/engine/assets.js`. This file is auto-generated — run `npm run generate-assets` after adding or removing files in `public/`. Do not edit `assets.js` manually.
 - **Localization**: All user-facing text goes in every locale file under `src/js/i18n/`. Use the `t(key)` helper to reference strings. Keys use flat dot-notation with lowerCamelCase segments (e.g. `'resource.idleWorkers'`).
 - **Imports**: Always use the `@` path alias (mapped to `src/`) for imports. Do not use relative paths (`./`, `../`).
 - **Shared Styles**: When a CSS rule or value is repeated across `.vue` files, extract it into `src/assets/styles.css` (as a CSS variable, shared class, or both). Component-specific overrides stay in scoped `<style>` blocks.
