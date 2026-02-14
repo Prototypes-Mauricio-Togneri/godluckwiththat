@@ -21,7 +21,7 @@ export const LOCALIZED_ES = {
   'resource.knowledge': 'Conocimiento',
   'resource.faith': 'Fe',
   'resource.territory': 'Territorio',
-  'resource.perMinute': '/m',
+  'resource.perSecond': '/s',
   'resource.fullIn': 'Lleno en',
   'resource.emptyIn': 'Vacío en',
 

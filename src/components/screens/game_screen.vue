@@ -58,16 +58,16 @@ function getCardComponent(key) {
 }
 
 function formatRate(ratePerSecond) {
-  const perMinute = Math.round(ratePerSecond * SECONDS_PER_MINUTE)
-  if (perMinute > 0) return `${perMinute}${t('resource.perMinute')}`
-  if (perMinute < 0) return `-${Math.abs(perMinute)}${t('resource.perMinute')}`
-  return `0${t('resource.perMinute')}`
+  const value = Math.round(ratePerSecond * 10) / 10
+  if (value > 0) return `${value.toFixed(1)}${t('resource.perSecond')}`
+  if (value < 0) return `-${Math.abs(value).toFixed(1)}${t('resource.perSecond')}`
+  return `0.0${t('resource.perSecond')}`
 }
 
 function rateClass(ratePerSecond) {
-  const perMinute = Math.round(ratePerSecond * SECONDS_PER_MINUTE)
-  if (perMinute > 0) return 'production-rate--positive'
-  if (perMinute < 0) return 'production-rate--negative'
+  const value = Math.round(ratePerSecond * 10) / 10
+  if (value > 0) return 'production-rate--positive'
+  if (value < 0) return 'production-rate--negative'
   return 'production-rate--zero'
 }
 
