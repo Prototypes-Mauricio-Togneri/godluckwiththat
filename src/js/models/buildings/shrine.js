@@ -1,6 +1,5 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
 import Producer from '@/js/models/buildings/producer.js'
-import Cost from '@/js/models/cost.js'
 
 /**
  * Sacred building that amplifies faith.
@@ -21,12 +20,9 @@ class Shrine extends Producer {
    */
   levelUpCost() {
     const {
-      cost, costMultiplier,
+      cost, multiplier,
     } = BUILDING_UPGRADES.shrine
-    return new Cost({
-      wood: Math.floor(cost.wood * Math.pow(costMultiplier, this.level)),
-      stone: Math.floor(cost.stone * Math.pow(costMultiplier, this.level)),
-    })
+    return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }
 

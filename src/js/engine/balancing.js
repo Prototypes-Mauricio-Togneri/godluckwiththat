@@ -21,151 +21,149 @@ export const RESOURCE_TIME_WEIGHTS = {
 // ── Building Upgrades ─────────────────────────────────────────────
 // Per-building upgrade config: base cost and exponential cost multiplier.
 // cost: base resource cost (used in levelUpCost formulas)
-// costMultiplier: exponential scaling factor per level
-//   HQ (starts at level 1): floor(cost × costMultiplier^(level-1))
-//   Others (start at level 0): floor(cost × costMultiplier^level)
+// multiplier: exponential scaling factor per level
 export const BUILDING_UPGRADES = {
   headquarters: {
-    cost: {
+    cost: new Cost({
       food: 15,
       wood: 20,
-    },
-    costMultiplier: 2.5,
+    }),
+    multiplier: 2.5,
   },
   house: {
-    cost: {
+    cost: new Cost({
       wood: 10,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   academy: {
-    cost: {
+    cost: new Cost({
       wood: 60,
       stone: 30,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   storehouse: {
-    cost: {
+    cost: new Cost({
       wood: 80,
       stone: 40,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   market: {
-    cost: {
+    cost: new Cost({
       wood: 150,
       stone: 75,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   farm: {
-    cost: {
+    cost: new Cost({
       wood: 5,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   woodcutter: {
-    cost: {
+    cost: new Cost({
       wood: 5,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   quarry: {
-    cost: {
+    cost: new Cost({
       wood: 45,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   copperMine: {
-    cost: {
+    cost: new Cost({
       wood: 70,
       stone: 35,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   ironMine: {
-    cost: {
+    cost: new Cost({
       wood: 100,
       stone: 50,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   goldMine: {
-    cost: {
+    cost: new Cost({
       wood: 140,
       stone: 70,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   altar: {
-    cost: {
+    cost: new Cost({
       wood: 40,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   shrine: {
-    cost: {
+    cost: new Cost({
       wood: 50,
       stone: 25,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   temple: {
-    cost: {
+    cost: new Cost({
       wood: 90,
       stone: 50,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   monument: {
-    cost: {
+    cost: new Cost({
       wood: 120,
       stone: 60,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   barracks: {
-    cost: {
+    cost: new Cost({
       wood: 55,
       stone: 25,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   archery: {
-    cost: {
+    cost: new Cost({
       wood: 75,
       stone: 40,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   stable: {
-    cost: {
+    cost: new Cost({
       wood: 110,
       stone: 55,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   workshop: {
-    cost: {
+    cost: new Cost({
       wood: 160,
       stone: 80,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   wall: {
-    cost: {
+    cost: new Cost({
       wood: 100,
       stone: 50,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
   tower: {
-    cost: {
+    cost: new Cost({
       wood: 150,
       stone: 75,
-    },
-    costMultiplier: 1.5,
+    }),
+    multiplier: 1.5,
   },
 }
 

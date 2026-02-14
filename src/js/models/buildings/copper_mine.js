@@ -1,6 +1,5 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
 import Producer from '@/js/models/buildings/producer.js'
-import Cost from '@/js/models/cost.js'
 
 /**
  * Produces copper for the colony.
@@ -21,12 +20,9 @@ class CopperMine extends Producer {
    */
   levelUpCost() {
     const {
-      cost, costMultiplier,
+      cost, multiplier,
     } = BUILDING_UPGRADES.copperMine
-    return new Cost({
-      wood: Math.floor(cost.wood * Math.pow(costMultiplier, this.level)),
-      stone: Math.floor(cost.stone * Math.pow(costMultiplier, this.level)),
-    })
+    return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }
 

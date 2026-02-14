@@ -2,6 +2,12 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- If button is disabled -> make resources 50% opacity
+- If button disabled -> Show why its disabled
+  - Insufficient resources
+  - Max territory reached
+  - Max population reached
+
 - Future events
   - challenge_timeout
   - research_timeout

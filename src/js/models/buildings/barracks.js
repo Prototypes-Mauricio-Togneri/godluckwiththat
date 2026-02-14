@@ -1,6 +1,5 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
 import Building from '@/js/models/buildings/building.js'
-import Cost from '@/js/models/cost.js'
 
 /**
  * Trains infantry units.
@@ -21,12 +20,9 @@ class Barracks extends Building {
    */
   levelUpCost() {
     const {
-      cost, costMultiplier,
+      cost, multiplier,
     } = BUILDING_UPGRADES.barracks
-    return new Cost({
-      wood: Math.floor(cost.wood * Math.pow(costMultiplier, this.level)),
-      stone: Math.floor(cost.stone * Math.pow(costMultiplier, this.level)),
-    })
+    return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }
 

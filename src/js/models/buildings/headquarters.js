@@ -1,6 +1,5 @@
 import {BUILDING_UPGRADES, HQ_TERRITORY_PER_LEVEL, HQ_UPGRADE_COSTS} from '@/js/engine/balancing.js'
 import Building from '@/js/models/buildings/building.js'
-import Cost from '@/js/models/cost.js'
 import {HQ_TYPES} from '@/js/engine/constants.js'
 
 /**
@@ -36,15 +35,9 @@ class Headquarters extends Building {
    */
   levelUpCost() {
     const {
-      cost, costMultiplier,
+      cost, multiplier,
     } = BUILDING_UPGRADES.headquarters
-    const mult = Math.pow(costMultiplier, this.level - 1)
-    const food = Math.floor(cost.food * mult)
-    const wood = Math.floor(cost.wood * mult)
-    return new Cost({
-      food,
-      wood,
-    })
+    return cost.multiply(Math.pow(multiplier, this.level - 1)).floor()
   }
 
   /**

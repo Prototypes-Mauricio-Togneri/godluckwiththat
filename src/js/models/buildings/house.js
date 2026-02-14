@@ -1,6 +1,5 @@
 import {BUILDING_UPGRADES, HOUSE_BASE_POPULATION, HOUSE_POPULATION_PER_LEVEL} from '@/js/engine/balancing.js'
 import Building from '@/js/models/buildings/building.js'
-import Cost from '@/js/models/cost.js'
 
 /**
  * Provides housing for colony population.
@@ -16,11 +15,6 @@ class House extends Building {
   }
 
   /**
-   * Cost to level up from the given level.
-   * @param {number} level - Current building level
-   * @returns {Cost}
-   */
-  /**
    * Maximum population capacity at the current level.
    * @returns {number}
    */
@@ -28,13 +22,15 @@ class House extends Building {
     return HOUSE_BASE_POPULATION + this.level * HOUSE_POPULATION_PER_LEVEL
   }
 
+  /**
+   * Cost to level up from the current level.
+   * @returns {Cost}
+   */
   levelUpCost() {
     const {
-      cost, costMultiplier,
+      cost, multiplier,
     } = BUILDING_UPGRADES.house
-    return new Cost({
-      wood: Math.floor(cost.wood * Math.pow(costMultiplier, this.level)),
-    })
+    return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }
 

@@ -44,6 +44,39 @@ class Cost {
   }
 
   /**
+   * Returns a new Cost with each resource multiplied by the given factor.
+   * @param {number} factor - Multiplier to apply to every resource
+   * @returns {Cost}
+   */
+  multiply(factor) {
+    return new Cost({
+      food: this.food * factor,
+      wood: this.wood * factor,
+      stone: this.stone * factor,
+      copper: this.copper * factor,
+      iron: this.iron * factor,
+      gold: this.gold * factor,
+      knowledge: this.knowledge * factor,
+    })
+  }
+
+  /**
+   * Returns a new Cost with each resource floored to the nearest integer.
+   * @returns {Cost}
+   */
+  floor() {
+    return new Cost({
+      food: Math.floor(this.food),
+      wood: Math.floor(this.wood),
+      stone: Math.floor(this.stone),
+      copper: Math.floor(this.copper),
+      iron: Math.floor(this.iron),
+      gold: Math.floor(this.gold),
+      knowledge: Math.floor(this.knowledge),
+    })
+  }
+
+  /**
    * Derives a build time in seconds from the weighted sum of resource costs.
    * Each resource unit contributes its weight from RESOURCE_TIME_WEIGHTS.
    * @returns {number} Total time in seconds
