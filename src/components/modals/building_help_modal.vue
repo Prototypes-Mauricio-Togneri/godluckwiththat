@@ -82,7 +82,7 @@ onUnmounted(() => {
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(var(--color-accent-rgb), 0.06);
-  padding: 2.5rem;
+  padding: 1.75rem 2.5rem 1.5rem;
   min-width: 340px;
   max-width: 420px;
   display: flex;
@@ -129,7 +129,8 @@ onUnmounted(() => {
 }
 
 .modal-btn {
-  width: 100%;
+  align-self: stretch;
+  margin-inline: -1rem;
   font-size: 0.8rem;
   letter-spacing: 0.15em;
   padding: 0.6rem 1.8rem;
