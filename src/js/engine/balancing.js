@@ -90,6 +90,96 @@ export const BUILDING_BASE_COSTS = {
   },
 }
 
+// ── Build Times ───────────────────────────────────────────────────────
+
+// Construction duration per building: base + perLevel × currentLevel (seconds)
+export const BUILDING_BUILD_TIMES = {
+  headquarters: {
+    base: 5,
+    perLevel: 3,
+  },
+  house: {
+    base: 3,
+    perLevel: 2,
+  },
+  academy: {
+    base: 5,
+    perLevel: 3,
+  },
+  storehouse: {
+    base: 5,
+    perLevel: 3,
+  },
+  market: {
+    base: 8,
+    perLevel: 4,
+  },
+  farm: {
+    base: 3,
+    perLevel: 2,
+  },
+  woodcutter: {
+    base: 3,
+    perLevel: 2,
+  },
+  quarry: {
+    base: 4,
+    perLevel: 2,
+  },
+  copperMine: {
+    base: 5,
+    perLevel: 3,
+  },
+  ironMine: {
+    base: 6,
+    perLevel: 3,
+  },
+  goldMine: {
+    base: 8,
+    perLevel: 4,
+  },
+  altar: {
+    base: 4,
+    perLevel: 2,
+  },
+  shrine: {
+    base: 5,
+    perLevel: 3,
+  },
+  temple: {
+    base: 6,
+    perLevel: 3,
+  },
+  monument: {
+    base: 7,
+    perLevel: 4,
+  },
+  barracks: {
+    base: 5,
+    perLevel: 3,
+  },
+  archery: {
+    base: 6,
+    perLevel: 3,
+  },
+  stable: {
+    base: 7,
+    perLevel: 4,
+  },
+  workshop: {
+    base: 8,
+    perLevel: 4,
+  },
+  wall: {
+    base: 6,
+    perLevel: 3,
+  },
+  tower: {
+    base: 8,
+    perLevel: 4,
+  },
+}
+
 // ── Level-Up Multipliers ────────────────────────────────────────────
 
 // Exponential multiplier per building for level-up cost:
@@ -231,96 +321,6 @@ export const SEASON_COLD_FOOD_MODIFIER = -0.2
 // Fractional modifier applied to wood consumption per season
 export const SEASON_WARM_WOOD_MODIFIER = -0.2
 export const SEASON_COLD_WOOD_MODIFIER = 0.2
-
-// ── Build Times ───────────────────────────────────────────────────────
-
-// Construction duration per building: base + perLevel × currentLevel (seconds)
-export const BUILDING_BUILD_TIMES = {
-  headquarters: {
-    base: 5,
-    perLevel: 3,
-  },
-  house: {
-    base: 3,
-    perLevel: 2,
-  },
-  academy: {
-    base: 5,
-    perLevel: 3,
-  },
-  storehouse: {
-    base: 5,
-    perLevel: 3,
-  },
-  market: {
-    base: 8,
-    perLevel: 4,
-  },
-  farm: {
-    base: 3,
-    perLevel: 2,
-  },
-  woodcutter: {
-    base: 3,
-    perLevel: 2,
-  },
-  quarry: {
-    base: 4,
-    perLevel: 2,
-  },
-  copperMine: {
-    base: 5,
-    perLevel: 3,
-  },
-  ironMine: {
-    base: 6,
-    perLevel: 3,
-  },
-  goldMine: {
-    base: 8,
-    perLevel: 4,
-  },
-  altar: {
-    base: 4,
-    perLevel: 2,
-  },
-  shrine: {
-    base: 5,
-    perLevel: 3,
-  },
-  temple: {
-    base: 6,
-    perLevel: 3,
-  },
-  monument: {
-    base: 7,
-    perLevel: 4,
-  },
-  barracks: {
-    base: 5,
-    perLevel: 3,
-  },
-  archery: {
-    base: 6,
-    perLevel: 3,
-  },
-  stable: {
-    base: 7,
-    perLevel: 4,
-  },
-  workshop: {
-    base: 8,
-    perLevel: 4,
-  },
-  wall: {
-    base: 6,
-    perLevel: 3,
-  },
-  tower: {
-    base: 8,
-    perLevel: 4,
-  },
-}
 
 // Build time for HQ type upgrade (seconds, keyed by current type being upgraded FROM)
 export const HQ_UPGRADE_BUILD_TIMES = {
