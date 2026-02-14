@@ -128,11 +128,11 @@ class GameState {
     resources.gold = Math.min(resources.gold, stockpile.gold)
 
     // Fire events for resources that just reached their stockpile cap
-    for (const r of BOUNDED_RESOURCES) {
-      if (resources[r] >= stockpile[r]) {
-        if (!this._resourcesAtCap.has(r)) {
-          this._resourcesAtCap.add(r)
-          const config = RESOURCE_LIMIT_EVENT_CONFIG[r]
+    for (const resource of BOUNDED_RESOURCES) {
+      if (resources[resource] >= stockpile[resource]) {
+        if (!this._resourcesAtCap.has(resource)) {
+          this._resourcesAtCap.add(resource)
+          const config = RESOURCE_LIMIT_EVENT_CONFIG[resource]
           this.events.addPast({
             type: EVENT_TYPE_RESOURCE_LIMIT_REACHED,
             textKey: config.textKey,
@@ -140,7 +140,7 @@ class GameState {
           })
         }
       } else {
-        this._resourcesAtCap.delete(r)
+        this._resourcesAtCap.delete(resource)
       }
     }
 

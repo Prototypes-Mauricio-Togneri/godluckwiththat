@@ -58,7 +58,7 @@ class Events {
 	 * @param {number} id
 	 */
   dismiss(id) {
-    const index = this.items.findIndex(e => e.id === id)
+    const index = this.items.findIndex(event => event.id === id)
     if (index !== -1) this.items.splice(index, 1)
   }
 
@@ -66,7 +66,7 @@ class Events {
 	 * Removes all past events.
 	 */
   dismissAllPast() {
-    this.items = this.items.filter(e => !(e instanceof EventPast))
+    this.items = this.items.filter(event => !(event instanceof EventPast))
   }
 
   /**
@@ -74,7 +74,7 @@ class Events {
 	 * @returns {EventFuture[]}
 	 */
   future() {
-    return this.items.filter(e => e instanceof EventFuture).sort((a, b) => a.remainingSeconds - b.remainingSeconds)
+    return this.items.filter(event => event instanceof EventFuture).sort((a, b) => a.remainingSeconds - b.remainingSeconds)
   }
 
   /**
@@ -82,7 +82,7 @@ class Events {
 	 * @returns {EventPast[]}
 	 */
   past() {
-    return this.items.filter(e => e instanceof EventPast).sort((a, b) => b.id - a.id)
+    return this.items.filter(event => event instanceof EventPast).sort((a, b) => b.id - a.id)
   }
 
   /**

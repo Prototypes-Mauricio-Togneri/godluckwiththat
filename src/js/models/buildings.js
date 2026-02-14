@@ -56,7 +56,7 @@ class Buildings {
    * @returns {number}
    */
   totalLevels() {
-    return Object.values(this).reduce((sum, b) => sum + b.level, 0) - this.headquarters.level
+    return Object.values(this).reduce((sum, building) => sum + building.level, 0) - this.headquarters.level
   }
 }
 
