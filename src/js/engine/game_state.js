@@ -1,6 +1,7 @@
 import {BUILDING_BUILD_TIMES, HQ_UPGRADE_BUILD_TIMES, MAX_WORKER_DEATHS_PER_TICK, PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, IMG_RESOURCE_FOOD, IMG_RESOURCE_WOOD, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
-import {BOUNDED_RESOURCES, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, EVENT_TYPE_WORKER_DIED_FOOD, EVENT_TYPE_WORKER_DIED_WOOD, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
+import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, EVENT_TYPE_WORKER_DIED_FOOD, EVENT_TYPE_WORKER_DIED_WOOD, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
+import {t} from '@/js/i18n/localized.js'
 
 /**
  * Central game state container.
@@ -229,12 +230,31 @@ class GameState {
     const {
       buildings,
     } = this.colony
-    for (const building of Object.values(buildings)) {
+    for (const [
+      key,
+      building,
+    ] of Object.entries(buildings)) {
       if (building.constructionRemaining > 0) {
         building.constructionRemaining = Math.max(0, building.constructionRemaining - delta)
         if (building.constructionRemaining === 0) {
           building.level += 1
           building.constructionDuration = 0
+          if (key === 'headquarters') {
+            this.events.convertToPast(key, {
+              type: EVENT_TYPE_BUILDING_UPGRADE,
+              textKey: 'event.territoryExpanded',
+              icon: IMG_OTHER_TERRITORY,
+              buildingKey: key,
+            })
+          } else {
+            this.events.convertToPast(key, {
+              type: EVENT_TYPE_BUILDING_UPGRADE,
+              textKey: 'event.buildingUpgraded',
+              icon: BUILDING_IMAGE_MAP[key],
+              params: [this._buildingName(key)],
+              buildingKey: key,
+            })
+          }
         }
       }
     }
@@ -267,6 +287,15 @@ class GameState {
     building.constructionDuration = duration
     building.constructionRemaining = duration
 
+    this.events.addFuture({
+      type: EVENT_TYPE_BUILDING_UPGRADE,
+      textKey: 'event.buildingUpgrading',
+      icon: BUILDING_IMAGE_MAP[buildingKey],
+      params: [this._buildingName(buildingKey).toLowerCase()],
+      buildingKey,
+      remainingSeconds: duration,
+    })
+
     this.update(0)
 
     // Fire territory event after update recalculates territory with pending
@@ -296,6 +325,14 @@ class GameState {
     const duration = config.base + config.perLevel * hq.level
     hq.constructionDuration = duration
     hq.constructionRemaining = duration
+
+    this.events.addFuture({
+      type: EVENT_TYPE_BUILDING_UPGRADE,
+      textKey: 'event.territoryExpanding',
+      icon: IMG_OTHER_TERRITORY,
+      buildingKey: 'headquarters',
+      remainingSeconds: duration,
+    })
 
     this.update(0)
   }
@@ -364,6 +401,18 @@ class GameState {
     building.workers -= 1
     this.colony.idleWorkers += 1
     this.update(0)
+  }
+
+  /**
+   * Returns the localized display name for a building.
+   * @param {string} buildingKey
+   * @returns {string}
+   */
+  _buildingName(buildingKey) {
+    if (buildingKey === 'headquarters') {
+      return t('building.headquarters.' + this.colony.buildings.headquarters.type)
+    }
+    return t('building.' + buildingKey)
   }
 
   /**

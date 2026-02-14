@@ -15,7 +15,13 @@ const strings = LOCALES[browserLang] ?? LOCALES.en // Resolved string table
 
 /**
  * Returns the localized string for the given key.
+ * Supports positional parameters: t('key', 'val0', 'val1') replaces {0}, {1}, etc.
  * @param {string} key - Dot-notation i18n key (e.g. 'resource.food')
+ * @param {...string} params - Positional replacement values
  * @returns {string} Localized string
  */
-export const t = key => strings[key]
+export const t = (key, ...params) => {
+  const str = strings[key]
+  if (params.length === 0) return str
+  return str.replace(/\{(\d+)\}/g, (_, index) => params[index] ?? '')
+}

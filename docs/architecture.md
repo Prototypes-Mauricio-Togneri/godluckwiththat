@@ -96,15 +96,16 @@ All game state mutations are centralised in `GameState`. Each method guards prec
 
 Ephemeral event system for notifying the player of upcoming threats and past occurrences. Events live on `GameState.events` (not `Colony`) and are **not persisted** in save data — they reset on page refresh.
 
-**`Event`** — Abstract base class with common fields: `id` (auto-assigned), `type` (event type constant, e.g. `EVENT_TYPE_SEASON_CHANGED`), `textKey` (i18n key), `icon` (full image path from `assets.js`, e.g. `IMG_RESOURCE_FOOD`).
+**`Event`** — Abstract base class with common fields: `id` (auto-assigned), `type` (event type constant, e.g. `EVENT_TYPE_SEASON_CHANGED`, `EVENT_TYPE_BUILDING_UPGRADE`), `textKey` (i18n key), `icon` (full image path from `assets.js`, e.g. `IMG_RESOURCE_FOOD`), `params` (string array for positional i18n interpolation, default `[]`), `buildingKey` (building key for construction event lookup, default `null`).
 
 **`EventFuture`** — Extends `Event`. Adds `remainingSeconds` (countdown until event fires).
 
 **`EventPast`** — Extends `Event`. No additional fields.
 
 **`Events`** — Array-backed container with methods:
-- `addFuture({ type, textKey, icon, remainingSeconds })` — creates an `EventFuture` with countdown
-- `addPast({ type, textKey, icon })` — creates an `EventPast`
+- `addFuture({ type, textKey, icon, params, buildingKey, remainingSeconds })` — creates an `EventFuture` with countdown
+- `addPast({ type, textKey, icon, params, buildingKey })` — creates an `EventPast`
+- `convertToPast(buildingKey, data)` — finds the future event matching `buildingKey`, removes it, and adds a past event with the given data
 - `dismiss(id)` — removes event by id (uses `splice` for Vue reactivity)
 - `future()` — returns `EventFuture` items sorted by `remainingSeconds` ascending
 - `past()` — returns `EventPast` items sorted by `id` descending (most recent first)
@@ -118,7 +119,7 @@ Called from `GameState.update()` at the end of each tick via `this.events.tick(d
 
 Core game loop that generates resources over time. `game_screen.vue` runs a main `setInterval` (1 second, `TICK_INTERVAL`) that calls `state.update(deltaSec)` for production/consumption, and a `requestAnimationFrame` loop (~60 fps, `progressTick`) that calls `state.advanceSeason(deltaSec)` and `state.advanceConstruction(deltaSec)` for smooth visual progress. Both use `performance.now()` for delta calculation. Delta time naturally handles backgrounded tabs — when the tab returns, the first tick applies the full accumulated time.
 
-**Construction timers**: `advanceConstruction(delta)` runs inside the `requestAnimationFrame` loop (`progressTick`) for smooth visual progress (~60 fps). It decrements `constructionRemaining` on all buildings; when a timer reaches zero, the building's level increments and `constructionDuration` resets. The HQ type upgrade timer (`upgradeRemaining`) is ticked separately; on completion, `hq.type` advances to the next tier. The next `update()` call (1-second interval) picks up the new level for stockpile/production recalculation.
+**Construction timers**: `advanceConstruction(delta)` runs inside the `requestAnimationFrame` loop (`progressTick`) for smooth visual progress (~60 fps). It decrements `constructionRemaining` on all buildings; when a timer reaches zero, the building's level increments, `constructionDuration` resets, and the corresponding future event is converted to a past event via `events.convertToPast()`. The HQ type upgrade timer (`upgradeRemaining`) is ticked separately; on completion, `hq.type` advances to the next tier (no event fired for type upgrades). The next `update()` call (1-second interval) picks up the new level for stockpile/production recalculation.
 
 **Territory & stockpile recalculation**: Each tick recalculates `resources.territory` via `buildings.totalLevels() + buildings.pendingTerritory()` (sum of all building levels plus buildings under construction — each counts as one territory slot), then recalculates all stockpile caps from building levels: `stockpile.workers` via `buildings.house.populationCap()` (`HOUSE_BASE_POPULATION + level × HOUSE_POPULATION_PER_LEVEL`), `stockpile.territory` via `buildings.headquarters.territoryCap()` (`level × HQ_TERRITORY_PER_LEVEL`), and all 6 resource caps (food, wood, stone, copper, iron, gold) via `buildings.storehouse.storageCap()` (`STOREHOUSE_BASE_CAPACITY + level × STOREHOUSE_CAPACITY_PER_LEVEL`). All balancing values in `src/js/engine/balancing.js`. Building level-ups (except HQ) are blocked when `resources.territory >= stockpile.territory`; HQ is exempt since it is the only building that increases max territory.
 
@@ -134,7 +135,7 @@ Core game loop that generates resources over time. `game_screen.vue` runs a main
 
 ### Localization (`src/js/i18n/`)
 
-Each supported language has its own file (`en.js`, `es.js`) exporting a flat object with dot-notation keys (e.g. `'screen.home.play'`, `'resource.food'`, `'season.warm'`). At startup, `localized.js` reads `navigator.language`, resolves it to a supported locale (defaulting to English), and exports a `t(key)` helper that looks up strings from the resolved locale. Components import `t` from `localized.js` and use it in templates (`{{ t('key') }}`) and bound attributes (`:alt="t('key')"`). No hardcoded display text in templates or JS.
+Each supported language has its own file (`en.js`, `es.js`) exporting a flat object with dot-notation keys (e.g. `'screen.home.play'`, `'resource.food'`, `'season.warm'`). At startup, `localized.js` reads `navigator.language`, resolves it to a supported locale (defaulting to English), and exports a `t(key, ...params)` helper that looks up strings from the resolved locale. When `params` are provided, positional placeholders (`{0}`, `{1}`, etc.) in the string are replaced with the corresponding values. Components import `t` from `localized.js` and use it in templates (`{{ t('key') }}`, `{{ t('key', param0) }}`) and bound attributes (`:alt="t('key')"`). No hardcoded display text in templates or JS.
 
 ## Visual Design
 

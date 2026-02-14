@@ -316,8 +316,8 @@ onUnmounted(() => {
           <h3 class="events-section-label">{{ t('events.future') }}</h3>
           <div class="events-list">
             <div v-for="event in futureEvents" :key="event.id" class="event-row">
-              <img class="event-icon" :src="event.icon" :alt="t(event.textKey)">
-              <span class="event-text">{{ t(event.textKey) }}</span>
+              <img class="event-icon" :src="event.icon" :alt="t(event.textKey, ...event.params)">
+              <span class="event-text">{{ t(event.textKey, ...event.params) }}</span>
               <span class="event-countdown">{{ formatTime(event.remainingSeconds) }}</span>
             </div>
           </div>
@@ -331,8 +331,8 @@ onUnmounted(() => {
           </div>
           <div class="events-list">
             <div v-for="event in pastEvents" :key="event.id" class="event-row">
-              <img class="event-icon" :src="event.icon" :alt="t(event.textKey)">
-              <span class="event-text">{{ t(event.textKey) }}</span>
+              <img class="event-icon" :src="event.icon" :alt="t(event.textKey, ...event.params)">
+              <span class="event-text">{{ t(event.textKey, ...event.params) }}</span>
               <button class="event-dismiss" @click="state.events.dismiss(event.id)">&times;</button>
             </div>
           </div>

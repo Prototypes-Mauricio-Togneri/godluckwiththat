@@ -28,6 +28,8 @@ class Events {
       type: data.type,
       textKey: data.textKey,
       icon: data.icon,
+      params: data.params,
+      buildingKey: data.buildingKey,
       remainingSeconds: data.remainingSeconds,
     })
     this.items.push(event)
@@ -48,9 +50,25 @@ class Events {
       type: data.type,
       textKey: data.textKey,
       icon: data.icon,
+      params: data.params,
+      buildingKey: data.buildingKey,
     })
     this.items.push(event)
     return event
+  }
+
+  /**
+	 * Finds the future event for the given building key, removes it,
+	 * and adds a new past event with the provided data.
+	 * @param {string} buildingKey - Building key to match
+	 * @param {Object} data - Past event data (type, textKey, icon, params)
+	 */
+  convertToPast(buildingKey, data) {
+    const index = this.items.findIndex(
+      event => event instanceof EventFuture && event.buildingKey === buildingKey,
+    )
+    if (index !== -1) this.items.splice(index, 1)
+    this.addPast(data)
   }
 
   /**

@@ -93,6 +93,7 @@ export const EVENT_TYPE_RESOURCE_LIMIT_REACHED = 'resource_limit_reached'
 export const EVENT_TYPE_WORKER_DIED_FOOD = 'worker_died_food'
 export const EVENT_TYPE_WORKER_DIED_WOOD = 'worker_died_wood'
 export const EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION = 'resource_negative_production'
+export const EVENT_TYPE_BUILDING_UPGRADE = 'building_upgrade'
 
 // Config for resource-limit-reached events (textKey + icon per bounded resource)
 export const RESOURCE_LIMIT_EVENT_CONFIG = {
@@ -341,6 +342,14 @@ export const BUILDING_GRID = [
     ],
   },
 ]
+
+// Building image lookup by key (for event icons)
+export const BUILDING_IMAGE_MAP = Object.fromEntries(
+  BUILDING_GRID.flatMap(column => column.buildings.map(b => [
+    b.key,
+    b.img,
+  ])),
+)
 
 /**
  * Creates a fresh Meta instance for a new game session.
