@@ -27,7 +27,8 @@
       "Bash(npx eslint:*)",
       "WebSearch",
       "Bash(ls:*)",
-      "Bash(npm run generate-assets:*)"
+      "Bash(npm run generate-assets:*)",
+      "Bash(npm outdated:*)"
     ]
   },
   "hooks": {
