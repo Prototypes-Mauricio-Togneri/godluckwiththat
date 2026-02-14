@@ -8,7 +8,6 @@
   - attack_incoming
   - research_timeout
 - Past events
-  - worker_died
   - building_completed
   - disaster_result
   - research_completed
