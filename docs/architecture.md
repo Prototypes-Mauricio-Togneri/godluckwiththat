@@ -111,13 +111,13 @@ Ephemeral event system for notifying the player of upcoming threats and past occ
 - `past()` — returns `EventPast` items sorted by `id` descending (most recent first)
 - `tick(delta)` — decrements `remainingSeconds` on `EventFuture` items, clamps at 0 (does not auto-convert to past)
 
-Called from `GameState.update()` at the end of each tick via `this.events.tick(delta)`.
+Called from the `progressTick` loop (`requestAnimationFrame`, ~60 fps) in `game_screen.vue` via `state.events.tick(delta)`, alongside `advanceSeason` and `advanceConstruction`. The `gameTick` fallback also calls it to cover backgrounded tabs where `requestAnimationFrame` pauses.
 
 **UI**: Displayed as a 5th column in `game_screen.vue` alongside the 4 building columns (all `flex: 1`, equal width). Two sub-sections: "Upcoming" (future events with gold countdown timer) and "History" (past events). Both use the same row style: icon + text + dismiss button, with a gold left-border accent. Future events additionally show a countdown timer. Empty state shown when no events exist.
 
 ### Tick System (`GameState.update()` in `src/js/engine/game_state.js`)
 
-Core game loop that generates resources over time. `game_screen.vue` runs a main `setInterval` (1 second, `TICK_INTERVAL`) that calls `state.update(deltaSec)` for production/consumption, and a `requestAnimationFrame` loop (~60 fps, `progressTick`) that calls `state.advanceSeason(deltaSec)` and `state.advanceConstruction(deltaSec)` for smooth visual progress. Both use `performance.now()` for delta calculation. Delta time naturally handles backgrounded tabs — when the tab returns, the first tick applies the full accumulated time.
+Core game loop that generates resources over time. `game_screen.vue` runs a main `setInterval` (1 second, `TICK_INTERVAL`) that calls `state.update(deltaSec)` for production/consumption, and a `requestAnimationFrame` loop (~60 fps, `progressTick`) that calls `state.advanceSeason(deltaSec)`, `state.advanceConstruction(deltaSec)`, and `state.events.tick(deltaSec)` for smooth visual progress. Both use `performance.now()` for delta calculation. Delta time naturally handles backgrounded tabs — when the tab returns, the first tick applies the full accumulated time.
 
 **Construction timers**: `advanceConstruction(delta)` runs inside the `requestAnimationFrame` loop (`progressTick`) for smooth visual progress (~60 fps). It decrements `constructionRemaining` on all buildings; when a timer reaches zero, the building's level increments, `constructionDuration` resets, and the corresponding future event is converted to a past event via `events.convertToPast()`. The HQ type upgrade timer (`upgradeRemaining`) is ticked separately; on completion, `hq.type` advances to the next tier (no event fired for type upgrades). The next `update()` call (1-second interval) picks up the new level for stockpile/production recalculation.
 

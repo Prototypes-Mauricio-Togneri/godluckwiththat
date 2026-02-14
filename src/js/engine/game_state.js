@@ -197,8 +197,6 @@ class GameState {
       }
     }
 
-    // Tick event countdowns
-    this.events.tick(delta)
   }
 
   /**

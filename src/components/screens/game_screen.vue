@@ -173,6 +173,7 @@ function gameTick() {
   lastProgressTickTime = now
   state.advanceSeason(progressDelta)
   state.advanceConstruction(progressDelta)
+  state.events.tick(progressDelta)
 }
 
 function progressTick() {
@@ -181,6 +182,7 @@ function progressTick() {
   lastProgressTickTime = now
   state.advanceSeason(delta)
   state.advanceConstruction(delta)
+  state.events.tick(delta)
   progressAnimFrame = requestAnimationFrame(progressTick)
 }
 
