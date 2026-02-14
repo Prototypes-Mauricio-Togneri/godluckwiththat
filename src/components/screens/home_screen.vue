@@ -1,7 +1,11 @@
 <script setup>
+import {onMounted} from 'vue'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits(['start'])
+
+// TODO: temporary auto-start for development
+onMounted(() => emit('start'))
 </script>
 
 <template>
