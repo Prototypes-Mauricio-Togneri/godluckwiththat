@@ -5,12 +5,12 @@
 - Future events
   - building_timeout
   - challenge_timeout
-  - attack_incoming
   - research_timeout
+  - attack_incoming
 - Past events
   - building_completed
-  - disaster_result
   - research_completed
+  - disaster_result
 
 - Create tutorial
   - Season has changed -> Explain their effects on production and upkeep
