@@ -79,6 +79,8 @@ export const EVENT_TYPE_SEASON_CHANGED = 'season_changed'
 export const EVENT_TYPE_POPULATION_LIMIT_REACHED = 'population_limit_reached'
 export const EVENT_TYPE_TERRITORY_LIMIT_REACHED = 'territory_limit_reached'
 export const EVENT_TYPE_RESOURCE_LIMIT_REACHED = 'resource_limit_reached'
+export const EVENT_TYPE_WORKER_DIED_FOOD = 'worker_died_food'
+export const EVENT_TYPE_WORKER_DIED_WOOD = 'worker_died_wood'
 
 // Bounded resources (subject to stockpile caps)
 export const BOUNDED_RESOURCES = [

@@ -256,7 +256,7 @@ onUnmounted(() => {
       <div class="header-section header-colony">
         <div class="header-resource tooltip" :data-tooltip="t('resource.population')">
           <img class="resource-icon resource-icon--worker" src="/img/units/worker.png" :alt="t('resource.population')">
-          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.workers) >= state.colony.stockpile.workers }">{{ Math.floor(state.colony.resources.workers) }}/{{ state.colony.stockpile.workers }}</span>
+          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.workers) >= state.colony.stockpile.workers, 'header-value--zero': state.colony.resources.workers === 0 }">{{ Math.floor(state.colony.resources.workers) }}/{{ state.colony.stockpile.workers }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.idleWorkers')">
           <img class="resource-icon" src="/img/other/idle.png" :alt="t('resource.idleWorkers')">

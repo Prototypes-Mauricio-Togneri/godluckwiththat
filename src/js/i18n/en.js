@@ -93,6 +93,8 @@ export const LOCALIZED_EN = {
   'event.copperLimitReached': 'Copper storage is full',
   'event.ironLimitReached': 'Iron storage is full',
   'event.goldLimitReached': 'Gold storage is full',
+  'event.workerDiedFood': 'A worker has starved',
+  'event.workerDiedWood': 'A worker has frozen',
   'events.clearAll': 'Clear all',
   'events.clearAllConfirm': 'Clear',
   'events.clearAllTitle': 'Clear history',

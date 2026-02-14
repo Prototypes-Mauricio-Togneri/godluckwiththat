@@ -93,6 +93,8 @@ export const LOCALIZED_ES = {
   'event.copperLimitReached': 'Almacén de cobre lleno',
   'event.ironLimitReached': 'Almacén de hierro lleno',
   'event.goldLimitReached': 'Almacén de oro lleno',
+  'event.workerDiedFood': 'Un trabajador ha muerto de hambre',
+  'event.workerDiedWood': 'Un trabajador ha muerto de frío',
   'events.clearAll': 'Borrar todo',
   'events.clearAllConfirm': 'Borrar',
   'events.clearAllTitle': 'Borrar historial',

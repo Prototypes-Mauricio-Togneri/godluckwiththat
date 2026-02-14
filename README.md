@@ -13,4 +13,8 @@
   - disaster_result
   - research_completed
 
-- Create tutorial (build a farm, create a worker, etc)
+- Create tutorial
+  - Season has changed -> Explain their effects on production and upkeep
+  - Build a farm
+  - Assign workers
+  - Create a worker
