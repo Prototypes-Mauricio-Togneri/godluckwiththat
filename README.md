@@ -2,6 +2,8 @@
 
 [Web site](https://god-luck-with-that.web.app)
 
+- Assets dictionary
+
 - Future events
   - building_timeout
   - challenge_timeout

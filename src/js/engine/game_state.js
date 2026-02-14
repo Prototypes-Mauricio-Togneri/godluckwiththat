@@ -40,27 +40,6 @@ class GameState {
       resources, production, stockpile, buildings,
     } = this.colony
 
-    // Tick construction timers (before recalculating stockpile/territory)
-    if (delta > 0) {
-      for (const building of Object.values(buildings)) {
-        if (building.constructionRemaining > 0) {
-          building.constructionRemaining = Math.max(0, building.constructionRemaining - delta)
-          if (building.constructionRemaining === 0) {
-            building.level += 1
-            building.constructionDuration = 0
-          }
-        }
-      }
-      const hq = buildings.headquarters
-      if (hq.upgradeRemaining > 0) {
-        hq.upgradeRemaining = Math.max(0, hq.upgradeRemaining - delta)
-        if (hq.upgradeRemaining === 0) {
-          hq.type = hq.nextType()
-          hq.upgradeDuration = 0
-        }
-      }
-    }
-
     // Recalculate territory used and stockpile caps from building levels
     resources.territory = buildings.totalLevels() + buildings.pendingTerritory()
     stockpile.territory = buildings.headquarters.territoryCap()
@@ -215,6 +194,35 @@ class GameState {
         textKey: isWarm ? 'event.warmSeason' : 'event.coldSeason',
         icon: `seasons/${isWarm ? 'warm' : 'cold'}.png`,
       })
+    }
+  }
+
+  /**
+   * Advances construction timers for all buildings and the HQ type upgrade.
+   * When a timer reaches zero, applies the upgrade (level increment or type advance).
+   * Driven by requestAnimationFrame for smooth visual progress.
+   * @param {number} delta - Seconds since last progress tick
+   */
+  advanceConstruction(delta) {
+    const {
+      buildings,
+    } = this.colony
+    for (const building of Object.values(buildings)) {
+      if (building.constructionRemaining > 0) {
+        building.constructionRemaining = Math.max(0, building.constructionRemaining - delta)
+        if (building.constructionRemaining === 0) {
+          building.level += 1
+          building.constructionDuration = 0
+        }
+      }
+    }
+    const hq = buildings.headquarters
+    if (hq.upgradeRemaining > 0) {
+      hq.upgradeRemaining = Math.max(0, hq.upgradeRemaining - delta)
+      if (hq.upgradeRemaining === 0) {
+        hq.type = hq.nextType()
+        hq.upgradeDuration = 0
+      }
     }
   }
 

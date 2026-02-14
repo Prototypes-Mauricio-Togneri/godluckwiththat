@@ -158,8 +158,8 @@ function clearAllPast() {
 
 let tickTimer = null
 let lastTickTime = 0
-let seasonAnimFrame = null
-let lastSeasonTickTime = 0
+let progressAnimFrame = null
+let lastProgressTickTime = 0
 
 function gameTick() {
   const now = performance.now()
@@ -167,18 +167,20 @@ function gameTick() {
   lastTickTime = now
   state.update(delta)
 
-  // Advance season from main tick too — covers backgrounded tabs where requestAnimationFrame pauses
-  const seasonDelta = (now - lastSeasonTickTime) / 1000
-  lastSeasonTickTime = now
-  state.advanceSeason(seasonDelta)
+  // Advance smooth progress from main tick too — covers backgrounded tabs where requestAnimationFrame pauses
+  const progressDelta = (now - lastProgressTickTime) / 1000
+  lastProgressTickTime = now
+  state.advanceSeason(progressDelta)
+  state.advanceConstruction(progressDelta)
 }
 
-function seasonTick() {
+function progressTick() {
   const now = performance.now()
-  const delta = (now - lastSeasonTickTime) / 1000
-  lastSeasonTickTime = now
+  const delta = (now - lastProgressTickTime) / 1000
+  lastProgressTickTime = now
   state.advanceSeason(delta)
-  seasonAnimFrame = requestAnimationFrame(seasonTick)
+  state.advanceConstruction(delta)
+  progressAnimFrame = requestAnimationFrame(progressTick)
 }
 
 function handleKeydown(event) {
@@ -192,15 +194,15 @@ onMounted(() => {
   window.addEventListener('keydown', handleKeydown)
   const now = performance.now()
   lastTickTime = now
-  lastSeasonTickTime = now
+  lastProgressTickTime = now
   tickTimer = setInterval(gameTick, TICK_INTERVAL)
-  seasonAnimFrame = requestAnimationFrame(seasonTick)
+  progressAnimFrame = requestAnimationFrame(progressTick)
 })
 
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
   clearInterval(tickTimer)
-  cancelAnimationFrame(seasonAnimFrame)
+  cancelAnimationFrame(progressAnimFrame)
 })
 </script>
 

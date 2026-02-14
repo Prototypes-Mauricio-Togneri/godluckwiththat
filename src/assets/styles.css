@@ -182,7 +182,6 @@
     right: auto;
     width: var(--progress);
     background: rgba(184, 148, 62, 0.25);
-    transition: width 1s linear;
 }
 
 .action-btn-time {
