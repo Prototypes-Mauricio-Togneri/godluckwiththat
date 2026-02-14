@@ -5,208 +5,240 @@
 import {HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/constants.js'
 import Cost from '@/js/models/cost.js'
 
-// ── Building Base Costs ─────────────────────────────────────────────
-
-// Base resource cost per building (used in levelUpCost formulas)
-export const BUILDING_BASE_COSTS = {
+// ── Building Upgrades ─────────────────────────────────────────────
+// Per-building upgrade config: base cost, exponential multiplier, and build time.
+// cost: base resource cost (used in levelUpCost formulas)
+// multiplier: exponential scaling factor per level
+//   HQ (starts at level 1): floor(cost × multiplier^(level-1))
+//   Others (start at level 0): floor(cost × multiplier^level)
+// buildTime: construction duration in seconds (base + perLevel × currentLevel)
+export const BUILDING_UPGRADES = {
   headquarters: {
-    food: 15,
-    wood: 20,
+    cost: {
+      food: 15,
+      wood: 20,
+    },
+    multiplier: 2.5,
+    buildTime: {
+      base: 5,
+      perLevel: 3,
+    },
   },
   house: {
-    wood: 30,
+    cost: {
+      wood: 30,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 3,
+      perLevel: 2,
+    },
   },
   academy: {
-    wood: 60,
-    stone: 30,
+    cost: {
+      wood: 60,
+      stone: 30,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 5,
+      perLevel: 3,
+    },
   },
   storehouse: {
-    wood: 80,
-    stone: 40,
+    cost: {
+      wood: 80,
+      stone: 40,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 5,
+      perLevel: 3,
+    },
   },
   market: {
-    wood: 150,
-    stone: 75,
+    cost: {
+      wood: 150,
+      stone: 75,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 8,
+      perLevel: 4,
+    },
   },
   farm: {
-    wood: 10,
+    cost: {
+      wood: 10,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 3,
+      perLevel: 2,
+    },
   },
   woodcutter: {
-    wood: 10,
+    cost: {
+      wood: 10,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 3,
+      perLevel: 2,
+    },
   },
   quarry: {
-    wood: 45,
+    cost: {
+      wood: 45,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 4,
+      perLevel: 2,
+    },
   },
   copperMine: {
-    wood: 70,
-    stone: 35,
+    cost: {
+      wood: 70,
+      stone: 35,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 5,
+      perLevel: 3,
+    },
   },
   ironMine: {
-    wood: 100,
-    stone: 50,
+    cost: {
+      wood: 100,
+      stone: 50,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 6,
+      perLevel: 3,
+    },
   },
   goldMine: {
-    wood: 140,
-    stone: 70,
+    cost: {
+      wood: 140,
+      stone: 70,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 8,
+      perLevel: 4,
+    },
   },
   altar: {
-    wood: 40,
+    cost: {
+      wood: 40,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 4,
+      perLevel: 2,
+    },
   },
   shrine: {
-    wood: 50,
-    stone: 25,
+    cost: {
+      wood: 50,
+      stone: 25,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 5,
+      perLevel: 3,
+    },
   },
   temple: {
-    wood: 90,
-    stone: 50,
+    cost: {
+      wood: 90,
+      stone: 50,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 6,
+      perLevel: 3,
+    },
   },
   monument: {
-    wood: 120,
-    stone: 60,
+    cost: {
+      wood: 120,
+      stone: 60,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 7,
+      perLevel: 4,
+    },
   },
   barracks: {
-    wood: 55,
-    stone: 25,
+    cost: {
+      wood: 55,
+      stone: 25,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 5,
+      perLevel: 3,
+    },
   },
   archery: {
-    wood: 75,
-    stone: 40,
+    cost: {
+      wood: 75,
+      stone: 40,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 6,
+      perLevel: 3,
+    },
   },
   stable: {
-    wood: 110,
-    stone: 55,
+    cost: {
+      wood: 110,
+      stone: 55,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 7,
+      perLevel: 4,
+    },
   },
   workshop: {
-    wood: 160,
-    stone: 80,
+    cost: {
+      wood: 160,
+      stone: 80,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 8,
+      perLevel: 4,
+    },
   },
   wall: {
-    wood: 100,
-    stone: 50,
+    cost: {
+      wood: 100,
+      stone: 50,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 6,
+      perLevel: 3,
+    },
   },
   tower: {
-    wood: 150,
-    stone: 75,
+    cost: {
+      wood: 150,
+      stone: 75,
+    },
+    multiplier: 1.5,
+    buildTime: {
+      base: 8,
+      perLevel: 4,
+    },
   },
-}
-
-// ── Build Times ───────────────────────────────────────────────────────
-
-// Construction duration per building: base + perLevel × currentLevel (seconds)
-export const BUILDING_BUILD_TIMES = {
-  headquarters: {
-    base: 5,
-    perLevel: 3,
-  },
-  house: {
-    base: 3,
-    perLevel: 2,
-  },
-  academy: {
-    base: 5,
-    perLevel: 3,
-  },
-  storehouse: {
-    base: 5,
-    perLevel: 3,
-  },
-  market: {
-    base: 8,
-    perLevel: 4,
-  },
-  farm: {
-    base: 3,
-    perLevel: 2,
-  },
-  woodcutter: {
-    base: 3,
-    perLevel: 2,
-  },
-  quarry: {
-    base: 4,
-    perLevel: 2,
-  },
-  copperMine: {
-    base: 5,
-    perLevel: 3,
-  },
-  ironMine: {
-    base: 6,
-    perLevel: 3,
-  },
-  goldMine: {
-    base: 8,
-    perLevel: 4,
-  },
-  altar: {
-    base: 4,
-    perLevel: 2,
-  },
-  shrine: {
-    base: 5,
-    perLevel: 3,
-  },
-  temple: {
-    base: 6,
-    perLevel: 3,
-  },
-  monument: {
-    base: 7,
-    perLevel: 4,
-  },
-  barracks: {
-    base: 5,
-    perLevel: 3,
-  },
-  archery: {
-    base: 6,
-    perLevel: 3,
-  },
-  stable: {
-    base: 7,
-    perLevel: 4,
-  },
-  workshop: {
-    base: 8,
-    perLevel: 4,
-  },
-  wall: {
-    base: 6,
-    perLevel: 3,
-  },
-  tower: {
-    base: 8,
-    perLevel: 4,
-  },
-}
-
-// ── Level-Up Multipliers ────────────────────────────────────────────
-
-// Exponential multiplier per building for level-up cost:
-//   HQ (starts at level 1): floor(base × multiplier^(level-1))
-//   Others (start at level 0): floor(base × multiplier^level)
-export const BUILDING_LEVEL_UP_MULTIPLIERS = {
-  headquarters: 2.5,
-  house: 1.5,
-  academy: 1.5,
-  storehouse: 1.5,
-  market: 1.5,
-  farm: 1.5,
-  woodcutter: 1.5,
-  quarry: 1.5,
-  copperMine: 1.5,
-  ironMine: 1.5,
-  goldMine: 1.5,
-  altar: 1.5,
-  shrine: 1.5,
-  temple: 1.5,
-  monument: 1.5,
-  barracks: 1.5,
-  archery: 1.5,
-  stable: 1.5,
-  workshop: 1.5,
-  wall: 1.5,
-  tower: 1.5,
 }
 
 // Resource cost to upgrade HQ type (keyed by type)

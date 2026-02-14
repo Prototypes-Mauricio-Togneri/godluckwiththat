@@ -1,4 +1,4 @@
-import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS} from '@/js/engine/balancing.js'
+import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
 import Producer from '@/js/models/buildings/producer.js'
 import Cost from '@/js/models/cost.js'
 
@@ -20,10 +20,12 @@ class Quarry extends Producer {
    * @returns {Cost}
    */
   levelUpCost() {
-    const base = BUILDING_BASE_COSTS.quarry
+    const {
+      cost, multiplier,
+    } = BUILDING_UPGRADES.quarry
     return new Cost({
-      wood: Math.floor(base.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.quarry, this.level)),
-      stone: Math.floor(base.stone * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.quarry, this.level)),
+      wood: Math.floor(cost.wood * Math.pow(multiplier, this.level)),
+      stone: Math.floor(cost.stone * Math.pow(multiplier, this.level)),
     })
   }
 }

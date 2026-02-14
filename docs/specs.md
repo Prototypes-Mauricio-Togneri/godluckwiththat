@@ -278,9 +278,8 @@ All tunable numeric constants are centralized in `src/js/balancing.js`. This fil
 
 The file contains:
 
-- **Building base costs** (`BUILDING_BASE_COSTS`) — The base resource cost (wood, stone, etc.) for each building, used in level-up cost formulas.
-- **Level-up multipliers** (`BUILDING_LEVEL_UP_MULTIPLIERS`) — Exponential multiplier per building that scales the base cost each level. Formula: `floor(base × multiplier ^ level)`. The headquarters uses `multiplier ^ (level - 1)` since it starts at level 1.
+- **Building upgrades** (`BUILDING_UPGRADES`) — Per-building upgrade config with three sub-keys: `cost` (base resource cost), `multiplier` (exponential scaling factor per level; formula: `floor(cost × multiplier^level)`, HQ uses `multiplier^(level-1)` since it starts at level 1), and `buildTime` (`{ base, perLevel }` in seconds; formula: `base + perLevel × currentLevel`).
 - **HQ upgrade costs** (`HQ_UPGRADE_COSTS`) — Fixed resource costs to upgrade the colony type (Camp → Settlement → Village → Town → City).
 - **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, shrines). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.
 - **Population & workers** — House population formula values (`HOUSE_BASE_POPULATION`, `HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), worker recruitment cost (`WORKER_RECRUIT_COST`), worker upkeep rates (`WORKER_FOOD_CONSUMPTION`, `WORKER_WOOD_CONSUMPTION`), and starvation death cap (`MAX_WORKER_DEATHS_PER_TICK`).
-- **Build times** (`BUILDING_BUILD_TIMES`) — Construction duration per building: `{ base, perLevel }` in seconds. Formula: `base + perLevel × currentLevel`. HQ type upgrade times (`HQ_UPGRADE_BUILD_TIMES`) are flat values keyed by the current HQ type.
+- **HQ upgrade build times** (`HQ_UPGRADE_BUILD_TIMES`) — Flat values keyed by the current HQ type for type upgrade duration.

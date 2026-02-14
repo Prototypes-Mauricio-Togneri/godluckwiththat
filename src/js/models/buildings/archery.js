@@ -1,4 +1,4 @@
-import {BUILDING_BASE_COSTS, BUILDING_LEVEL_UP_MULTIPLIERS} from '@/js/engine/balancing.js'
+import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
 import Building from '@/js/models/buildings/building.js'
 import Cost from '@/js/models/cost.js'
 
@@ -20,10 +20,12 @@ class Archery extends Building {
    * @returns {Cost}
    */
   levelUpCost() {
-    const base = BUILDING_BASE_COSTS.archery
+    const {
+      cost, multiplier,
+    } = BUILDING_UPGRADES.archery
     return new Cost({
-      wood: Math.floor(base.wood * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.archery, this.level)),
-      stone: Math.floor(base.stone * Math.pow(BUILDING_LEVEL_UP_MULTIPLIERS.archery, this.level)),
+      wood: Math.floor(cost.wood * Math.pow(multiplier, this.level)),
+      stone: Math.floor(cost.stone * Math.pow(multiplier, this.level)),
     })
   }
 }
