@@ -139,7 +139,7 @@ There are two types of resources
 
 ## Buildings
 
-Each building has a level that can be increased by spending resources.
+Each building has a level that can be increased by spending resources. Building and upgrading takes time — resources are deducted immediately when construction starts, but the level increments only after a construction timer expires. Build time scales with the building's current level (`base + perLevel × level`). During construction, buildings continue producing at their current level. Territory is reserved immediately for buildings under construction.
 
 - Headquarters
   - Each level unlocks new buildings and researches
@@ -283,3 +283,4 @@ The file contains:
 - **HQ upgrade costs** (`HQ_UPGRADE_COSTS`) — Fixed resource costs to upgrade the colony type (Camp → Settlement → Village → Town → City).
 - **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, shrines). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.
 - **Population & workers** — House population formula values (`HOUSE_BASE_POPULATION`, `HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), worker recruitment cost (`WORKER_RECRUIT_COST`), worker upkeep rates (`WORKER_FOOD_CONSUMPTION`, `WORKER_WOOD_CONSUMPTION`), and starvation death cap (`MAX_WORKER_DEATHS_PER_TICK`).
+- **Build times** (`BUILDING_BUILD_TIMES`) — Construction duration per building: `{ base, perLevel }` in seconds. Formula: `base + perLevel × currentLevel`. HQ type upgrade times (`HQ_UPGRADE_BUILD_TIMES`) are flat values keyed by the current HQ type.

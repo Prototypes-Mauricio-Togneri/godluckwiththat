@@ -17,6 +17,8 @@ class Headquarters extends Building {
   constructor(data) {
     super(data)
     this.type = data.type // Headquarters progression type (e.g. 'camp')
+    this.upgradeRemaining = data.upgradeRemaining ?? 0 // Seconds left for type upgrade (0 = idle)
+    this.upgradeDuration = data.upgradeDuration ?? 0 // Total type upgrade duration (for progress %)
   }
 
   /**

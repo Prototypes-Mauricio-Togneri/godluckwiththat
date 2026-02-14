@@ -46,9 +46,27 @@ const actionCost = computed(() =>
   hasAction.value ? props.building.levelUpCost() : null,
 )
 const territoryFull = computed(() => colony.resources.territory >= colony.stockpile.territory)
-const canAct = computed(() => actionCost.value !== null && !territoryFull.value && colony.resources.canAfford(actionCost.value))
+const isConstructing = computed(() => props.building.constructionRemaining > 0)
+const canAct = computed(() =>
+  actionCost.value !== null
+  && !territoryFull.value
+  && !isConstructing.value
+  && colony.resources.canAfford(actionCost.value),
+)
 const actionCostEntries = computed(() => actionCost.value?.entries() ?? new Map())
 const isWorkerAssignable = computed(() => props.building instanceof Producer)
+
+const constructionProgress = computed(() => {
+  if (!isConstructing.value || props.building.constructionDuration === 0) return 0
+  return 1 - props.building.constructionRemaining / props.building.constructionDuration
+})
+
+function formatTime(seconds) {
+  const total = Math.ceil(seconds)
+  const m = Math.floor(total / 60)
+  const s = total % 60
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+}
 
 function act() {
   if (!canAct.value) return
@@ -57,7 +75,7 @@ function act() {
 </script>
 
 <template>
-  <div class="building-card">
+  <div class="building-card" :class="{ 'building-card--constructing': isConstructing }">
     <button
       class="help-btn tooltip tooltip--delayed"
       :data-tooltip="t('modal.buildingHelp.tooltip')"
@@ -75,11 +93,18 @@ function act() {
       <div v-if="hasAction || !isBuildable" class="slot-actions">
         <div v-if="hasAction" class="action-row">
           <span class="tooltip tooltip--delayed" :data-tooltip="isBuildable ? t('building.build') + ' ' + t(displayNameKey) : t('building.levelUp')">
-            <button class="btn-gold action-btn" :disabled="!canAct" @click="act">
-              <img class="action-btn-icon" :src="isBuildable ? '/img/other/build.png' : '/img/other/upgrade.png'" :alt="isBuildable ? t('building.build') : t('building.levelUp')">
+            <button
+              class="btn-gold action-btn"
+              :class="{ 'action-btn--constructing': isConstructing }"
+              :style="isConstructing ? { '--progress': (constructionProgress * 100) + '%' } : undefined"
+              :disabled="!canAct"
+              @click="act"
+            >
+              <img v-if="!isConstructing" class="action-btn-icon" :src="isBuildable ? '/img/other/build.png' : '/img/other/upgrade.png'" :alt="isBuildable ? t('building.build') : t('building.levelUp')">
+              <span v-else class="action-btn-time">{{ formatTime(building.constructionRemaining) }}</span>
             </button>
           </span>
-          <span class="action-cost">
+          <span v-if="!isConstructing" class="action-cost">
             <span v-for="[key, amount] in actionCostEntries" :key="key" class="action-cost-item">
               <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
               <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
@@ -115,6 +140,10 @@ function act() {
 
 .building-card:hover {
   border-color: rgba(var(--color-accent-rgb), 0.35);
+}
+
+.building-card--constructing {
+  border-color: rgba(var(--color-accent-rgb), 0.25);
 }
 
 /* Help icon — top-right corner */

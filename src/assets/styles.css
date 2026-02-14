@@ -166,6 +166,34 @@
     color: #c45050;
 }
 
+/* Construction progress — button becomes a progress indicator during build/upgrade */
+.action-btn--constructing {
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    min-width: 2rem;
+    padding: 0 0.4rem;
+}
+
+.action-btn--constructing::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    right: auto;
+    width: var(--progress);
+    background: rgba(184, 148, 62, 0.25);
+    transition: width 1s linear;
+}
+
+.action-btn-time {
+    position: relative;
+    font-family: var(--font-numeric);
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--color-text);
+    letter-spacing: 0.03em;
+}
+
 /* Slot actions — flex row wrapper for action groups inside building card slots */
 .slot-actions {
     display: flex;

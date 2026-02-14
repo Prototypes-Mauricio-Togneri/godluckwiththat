@@ -9,6 +9,8 @@ class Building {
    */
   constructor(data) {
     this.level = data.level // Current building level
+    this.constructionRemaining = data.constructionRemaining ?? 0 // Seconds left (0 = not constructing)
+    this.constructionDuration = data.constructionDuration ?? 0 // Total duration (for progress %)
   }
 }
 

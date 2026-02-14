@@ -1,4 +1,4 @@
-import {MAX_WORKER_DEATHS_PER_TICK, PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
+import {BUILDING_BUILD_TIMES, HQ_UPGRADE_BUILD_TIMES, MAX_WORKER_DEATHS_PER_TICK, PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
 import {BOUNDED_RESOURCES, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, EVENT_TYPE_WORKER_DIED_FOOD, EVENT_TYPE_WORKER_DIED_WOOD, RESOURCE_LIMIT_EVENT_CONFIG, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
 
 /**
@@ -40,8 +40,29 @@ class GameState {
       resources, production, stockpile, buildings,
     } = this.colony
 
+    // Tick construction timers (before recalculating stockpile/territory)
+    if (delta > 0) {
+      for (const building of Object.values(buildings)) {
+        if (building.constructionRemaining > 0) {
+          building.constructionRemaining = Math.max(0, building.constructionRemaining - delta)
+          if (building.constructionRemaining === 0) {
+            building.level += 1
+            building.constructionDuration = 0
+          }
+        }
+      }
+      const hq = buildings.headquarters
+      if (hq.upgradeRemaining > 0) {
+        hq.upgradeRemaining = Math.max(0, hq.upgradeRemaining - delta)
+        if (hq.upgradeRemaining === 0) {
+          hq.type = hq.nextType()
+          hq.upgradeDuration = 0
+        }
+      }
+    }
+
     // Recalculate territory used and stockpile caps from building levels
-    resources.territory = buildings.totalLevels()
+    resources.territory = buildings.totalLevels() + buildings.pendingTerritory()
     stockpile.territory = buildings.headquarters.territoryCap()
     stockpile.workers = buildings.house.populationCap()
     stockpile.food = buildings.storehouse.storageCap()
@@ -206,11 +227,19 @@ class GameState {
       resources, stockpile, buildings,
     } = this.colony
     const building = buildings[buildingKey]
+    if (building.constructionRemaining > 0) return
     const cost = building.levelUpCost()
     if (!resources.canAfford(cost) || resources.territory >= stockpile.territory) return
     resources.deduct(cost)
-    building.level += 1
-    resources.territory += 1
+
+    const config = BUILDING_BUILD_TIMES[buildingKey]
+    const duration = config.base + config.perLevel * building.level
+    building.constructionDuration = duration
+    building.constructionRemaining = duration
+
+    this.update(0)
+
+    // Fire territory event after update recalculates territory with pending
     if (resources.territory >= stockpile.territory) {
       this.events.addPast({
         type: EVENT_TYPE_TERRITORY_LIMIT_REACHED,
@@ -218,7 +247,6 @@ class GameState {
         icon: 'other/territory.png',
       })
     }
-    this.update(0)
   }
 
   /**
@@ -229,10 +257,16 @@ class GameState {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
+    if (hq.constructionRemaining > 0 || hq.upgradeRemaining > 0) return
     const cost = hq.levelUpCost()
     if (!resources.canAfford(cost)) return
     resources.deduct(cost)
-    hq.level += 1
+
+    const config = BUILDING_BUILD_TIMES.headquarters
+    const duration = config.base + config.perLevel * hq.level
+    hq.constructionDuration = duration
+    hq.constructionRemaining = duration
+
     this.update(0)
   }
 
@@ -244,10 +278,15 @@ class GameState {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
+    if (hq.constructionRemaining > 0 || hq.upgradeRemaining > 0) return
     const cost = hq.upgradeCost()
     if (!cost || !resources.canAfford(cost)) return
     resources.deduct(cost)
-    hq.type = hq.nextType()
+
+    const duration = HQ_UPGRADE_BUILD_TIMES[hq.type]
+    hq.upgradeDuration = duration
+    hq.upgradeRemaining = duration
+
     this.update(0)
   }
 

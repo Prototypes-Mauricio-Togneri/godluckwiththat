@@ -58,6 +58,21 @@ class Buildings {
   totalLevels() {
     return Object.values(this).reduce((sum, building) => sum + building.level, 0) - this.headquarters.level
   }
+
+  /**
+   * Returns the count of non-HQ buildings currently under construction.
+   * Each counts as one reserved territory slot.
+   * @returns {number}
+   */
+  pendingTerritory() {
+    return Object.entries(this).reduce((sum, [
+      key,
+      building,
+    ]) => {
+      if (key === 'headquarters') return sum
+      return sum + (building.constructionRemaining > 0 ? 1 : 0)
+    }, 0)
+  }
 }
 
 export default Buildings
