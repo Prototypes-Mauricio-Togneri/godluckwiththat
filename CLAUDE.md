@@ -27,6 +27,7 @@ src/
 │       └── game_screen.vue   → Main game screen
 ├── js/
 │   ├── engine/
+│   │   ├── assets.js         → Asset path constants (centralized image paths)
 │   │   ├── balancing.js      → Game balancing values (costs, rates, build times, formulas)
 │   │   ├── constants.js      → Structural constants (maps, enums, factories)
 │   │   ├── game_state.js     → GameState class (meta + colony data model + update loop)

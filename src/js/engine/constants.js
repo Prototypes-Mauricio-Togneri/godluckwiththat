@@ -1,3 +1,4 @@
+import {IMG_BUILDING_ACADEMY, IMG_BUILDING_ALTAR, IMG_BUILDING_ARCHERY, IMG_BUILDING_BARRACKS, IMG_BUILDING_COPPER_MINE, IMG_BUILDING_FARM, IMG_BUILDING_GOLD_MINE, IMG_BUILDING_HEADQUARTERS, IMG_BUILDING_HOUSE, IMG_BUILDING_IRON_MINE, IMG_BUILDING_MARKET, IMG_BUILDING_MONUMENT, IMG_BUILDING_QUARRY, IMG_BUILDING_SHRINE, IMG_BUILDING_STABLE, IMG_BUILDING_STOREHOUSE, IMG_BUILDING_TEMPLE, IMG_BUILDING_TOWER, IMG_BUILDING_WALL, IMG_BUILDING_WOODCUTTER, IMG_BUILDING_WORKSHOP, IMG_RESOURCE_COPPER, IMG_RESOURCE_FOOD, IMG_RESOURCE_GOLD, IMG_RESOURCE_IRON, IMG_RESOURCE_STONE, IMG_RESOURCE_WOOD} from '@/js/engine/assets.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
 import Archery from '@/js/models/buildings/archery.js'
@@ -57,6 +58,16 @@ export const HEADER_RESOURCES = [
   RESOURCE_FAITH,
 ]
 
+// Bounded resources (subject to stockpile caps)
+export const BOUNDED_RESOURCES = [
+  RESOURCE_FOOD,
+  RESOURCE_WOOD,
+  RESOURCE_STONE,
+  RESOURCE_COPPER,
+  RESOURCE_IRON,
+  RESOURCE_GOLD,
+]
+
 // Resources without a stockpile capacity (no progress bar, no "full in" estimate)
 export const UNBOUNDED_RESOURCES = [
   RESOURCE_KNOWLEDGE,
@@ -82,41 +93,31 @@ export const EVENT_TYPE_RESOURCE_LIMIT_REACHED = 'resource_limit_reached'
 export const EVENT_TYPE_WORKER_DIED_FOOD = 'worker_died_food'
 export const EVENT_TYPE_WORKER_DIED_WOOD = 'worker_died_wood'
 
-// Bounded resources (subject to stockpile caps)
-export const BOUNDED_RESOURCES = [
-  RESOURCE_FOOD,
-  RESOURCE_WOOD,
-  RESOURCE_STONE,
-  RESOURCE_COPPER,
-  RESOURCE_IRON,
-  RESOURCE_GOLD,
-]
-
 // Config for resource-limit-reached events (textKey + icon per bounded resource)
 export const RESOURCE_LIMIT_EVENT_CONFIG = {
   [RESOURCE_FOOD]: {
     textKey: 'event.foodLimitReached',
-    icon: 'resources/food.png',
+    icon: IMG_RESOURCE_FOOD,
   },
   [RESOURCE_WOOD]: {
     textKey: 'event.woodLimitReached',
-    icon: 'resources/wood.png',
+    icon: IMG_RESOURCE_WOOD,
   },
   [RESOURCE_STONE]: {
     textKey: 'event.stoneLimitReached',
-    icon: 'resources/stone.png',
+    icon: IMG_RESOURCE_STONE,
   },
   [RESOURCE_COPPER]: {
     textKey: 'event.copperLimitReached',
-    icon: 'resources/copper.png',
+    icon: IMG_RESOURCE_COPPER,
   },
   [RESOURCE_IRON]: {
     textKey: 'event.ironLimitReached',
-    icon: 'resources/iron.png',
+    icon: IMG_RESOURCE_IRON,
   },
   [RESOURCE_GOLD]: {
     textKey: 'event.goldLimitReached',
-    icon: 'resources/gold.png',
+    icon: IMG_RESOURCE_GOLD,
   },
 }
 
@@ -204,9 +205,6 @@ export const BUILDING_CLASS_MAP = {
   [Tower.ID]: Tower,
 }
 
-// Base path for building thumbnail images
-export const BUILDING_IMG_PATH = '/img/buildings/'
-
 // Building grid layout — column definitions for the game screen
 export const BUILDING_GRID = [
   {
@@ -214,23 +212,23 @@ export const BUILDING_GRID = [
     buildings: [
       {
         key: Headquarters.ID,
-        img: 'misc/headquarters.png',
+        img: IMG_BUILDING_HEADQUARTERS,
       },
       {
         key: House.ID,
-        img: 'misc/house.png',
+        img: IMG_BUILDING_HOUSE,
       },
       {
         key: Academy.ID,
-        img: 'misc/academy.png',
+        img: IMG_BUILDING_ACADEMY,
       },
       {
         key: Storehouse.ID,
-        img: 'misc/storehouse.png',
+        img: IMG_BUILDING_STOREHOUSE,
       },
       {
         key: Market.ID,
-        img: 'misc/market.png',
+        img: IMG_BUILDING_MARKET,
       },
     ],
   },
@@ -239,27 +237,27 @@ export const BUILDING_GRID = [
     buildings: [
       {
         key: Farm.ID,
-        img: 'resources/farm.png',
+        img: IMG_BUILDING_FARM,
       },
       {
         key: Woodcutter.ID,
-        img: 'resources/woodcutter.png',
+        img: IMG_BUILDING_WOODCUTTER,
       },
       {
         key: Quarry.ID,
-        img: 'resources/quarry.png',
+        img: IMG_BUILDING_QUARRY,
       },
       {
         key: CopperMine.ID,
-        img: 'resources/copper_mine.png',
+        img: IMG_BUILDING_COPPER_MINE,
       },
       {
         key: IronMine.ID,
-        img: 'resources/iron_mine.png',
+        img: IMG_BUILDING_IRON_MINE,
       },
       {
         key: GoldMine.ID,
-        img: 'resources/gold_mine.png',
+        img: IMG_BUILDING_GOLD_MINE,
       },
     ],
   },
@@ -268,19 +266,19 @@ export const BUILDING_GRID = [
     buildings: [
       {
         key: Altar.ID,
-        img: 'religious/altar.png',
+        img: IMG_BUILDING_ALTAR,
       },
       {
         key: Shrine.ID,
-        img: 'religious/shrine.png',
+        img: IMG_BUILDING_SHRINE,
       },
       {
         key: Temple.ID,
-        img: 'religious/temple.png',
+        img: IMG_BUILDING_TEMPLE,
       },
       {
         key: Monument.ID,
-        img: 'religious/monument.png',
+        img: IMG_BUILDING_MONUMENT,
       },
     ],
   },
@@ -289,27 +287,27 @@ export const BUILDING_GRID = [
     buildings: [
       {
         key: Barracks.ID,
-        img: 'military/barracks.png',
+        img: IMG_BUILDING_BARRACKS,
       },
       {
         key: Archery.ID,
-        img: 'military/archery.png',
+        img: IMG_BUILDING_ARCHERY,
       },
       {
         key: Stable.ID,
-        img: 'military/stable.png',
+        img: IMG_BUILDING_STABLE,
       },
       {
         key: Workshop.ID,
-        img: 'military/workshop.png',
+        img: IMG_BUILDING_WORKSHOP,
       },
       {
         key: Wall.ID,
-        img: 'military/wall.png',
+        img: IMG_BUILDING_WALL,
       },
       {
         key: Tower.ID,
-        img: 'military/tower.png',
+        img: IMG_BUILDING_TOWER,
       },
     ],
   },

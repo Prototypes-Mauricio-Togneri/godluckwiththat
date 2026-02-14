@@ -1,5 +1,6 @@
 <script setup>
 import {computed, inject} from 'vue'
+import {IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -37,7 +38,7 @@ function unassign() {
       </button>
     </span>
     <span class="worker-count">
-      <img class="worker-count-icon" src="/img/units/worker.png" :alt="t('resource.idleWorkers')">
+      <img class="worker-count-icon" :src="IMG_UNIT_WORKER" :alt="t('resource.idleWorkers')">
       <span class="worker-count-text" :class="{'worker-count-text--zero': building.workers === 0}">{{ building.workers }}/{{ maxWorkers }}</span>
     </span>
     <span class="tooltip tooltip--delayed" :data-tooltip="t('worker.assign')">

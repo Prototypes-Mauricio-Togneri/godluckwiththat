@@ -1,4 +1,5 @@
 import {BUILDING_BUILD_TIMES, HQ_UPGRADE_BUILD_TIMES, MAX_WORKER_DEATHS_PER_TICK, PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
+import {IMG_OTHER_TERRITORY, IMG_RESOURCE_FOOD, IMG_RESOURCE_WOOD, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {BOUNDED_RESOURCES, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, EVENT_TYPE_WORKER_DIED_FOOD, EVENT_TYPE_WORKER_DIED_WOOD, RESOURCE_LIMIT_EVENT_CONFIG, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
 
 /**
@@ -120,14 +121,14 @@ class GameState {
           this.events.addPast({
             type: EVENT_TYPE_WORKER_DIED_FOOD,
             textKey: 'event.workerDiedFood',
-            icon: 'resources/food.png',
+            icon: IMG_RESOURCE_FOOD,
           })
         }
         if (woodDeaths > 0) {
           this.events.addPast({
             type: EVENT_TYPE_WORKER_DIED_WOOD,
             textKey: 'event.workerDiedWood',
-            icon: 'resources/wood.png',
+            icon: IMG_RESOURCE_WOOD,
           })
         }
       }
@@ -192,7 +193,7 @@ class GameState {
       this.events.addPast({
         type: EVENT_TYPE_SEASON_CHANGED,
         textKey: isWarm ? 'event.warmSeason' : 'event.coldSeason',
-        icon: `seasons/${isWarm ? 'warm' : 'cold'}.png`,
+        icon: isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD,
       })
     }
   }
@@ -252,7 +253,7 @@ class GameState {
       this.events.addPast({
         type: EVENT_TYPE_TERRITORY_LIMIT_REACHED,
         textKey: 'event.territoryLimitReached',
-        icon: 'other/territory.png',
+        icon: IMG_OTHER_TERRITORY,
       })
     }
   }
@@ -313,7 +314,7 @@ class GameState {
       this.events.addPast({
         type: EVENT_TYPE_POPULATION_LIMIT_REACHED,
         textKey: 'event.populationLimitReached',
-        icon: 'units/worker.png',
+        icon: IMG_UNIT_WORKER,
       })
     }
     this.update(0)

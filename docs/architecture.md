@@ -37,7 +37,7 @@ Resource/colony items use `<img>` icons from `public/img/` (no text labels). Val
 
 Main content area displaying all 21 buildings in a 4-column layout. Each column represents a building category (Colony, Economy, Religion, Military) with a Josefin Sans uppercase header and vertically stacked building cards.
 
-**Data source**: `BUILDING_GRID` constant from `constants.js` — array of column definitions, each with `headerKey` (i18n key) and `buildings` array of `{ key, img }` objects. The `img` is a relative path (e.g. `'misc/house.png'`) resolved at render time by prepending the `BUILDING_IMG_PATH` constant (`'/img/buildings/'`). The `key` indexes into both `state.colony.buildings[key]` for the level and `'building.' + key` for the localized name.
+**Data source**: `BUILDING_GRID` constant from `constants.js` — array of column definitions, each with `headerKey` (i18n key) and `buildings` array of `{ key, img }` objects. The `img` is a full path constant from `assets.js` (e.g. `IMG_BUILDING_HOUSE` → `'/img/buildings/misc/house.png'`). The `key` indexes into both `state.colony.buildings[key]` for the level and `'building.' + key` for the localized name.
 
 **Dynamic component resolution**: `game_screen.vue` maps all 21 building keys to dedicated card components via `CARD_COMPONENTS` (e.g. `headquarters → HeadquartersCard`). Uses Vue's `<component :is>` in the grid loop.
 
@@ -96,7 +96,7 @@ All game state mutations are centralised in `GameState`. Each method guards prec
 
 Ephemeral event system for notifying the player of upcoming threats and past occurrences. Events live on `GameState.events` (not `Colony`) and are **not persisted** in save data — they reset on page refresh.
 
-**`Event`** — Abstract base class with common fields: `id` (auto-assigned), `type` (event type constant, e.g. `EVENT_TYPE_SEASON_CHANGED`), `textKey` (i18n key), `icon` (image path relative to `/img/`).
+**`Event`** — Abstract base class with common fields: `id` (auto-assigned), `type` (event type constant, e.g. `EVENT_TYPE_SEASON_CHANGED`), `textKey` (i18n key), `icon` (full image path from `assets.js`, e.g. `IMG_RESOURCE_FOOD`).
 
 **`EventFuture`** — Extends `Event`. Adds `remainingSeconds` (countdown until event fires).
 

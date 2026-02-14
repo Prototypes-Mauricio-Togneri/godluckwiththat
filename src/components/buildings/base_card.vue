@@ -2,7 +2,8 @@
 import {computed, inject, ref} from 'vue'
 import BuildingHelpModal from '@/components/modals/building_help_modal.vue'
 import WorkerAssignmentRow from '@/components/buildings/worker_assignment_row.vue'
-import {BUILDING_CLASS_MAP, BUILDING_IMG_PATH} from '@/js/engine/constants.js'
+import {IMG_OTHER_BUILD, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
+import {BUILDING_CLASS_MAP} from '@/js/engine/constants.js'
 import Producer from '@/js/models/buildings/producer.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -85,7 +86,7 @@ function act() {
     </button>
 
     <div class="building-thumb-wrapper">
-      <img class="building-thumb" :class="{ 'building-thumb-unbuilt': building.level === 0 }" :src="BUILDING_IMG_PATH + img" :alt="t(displayNameKey)">
+      <img class="building-thumb" :class="{ 'building-thumb-unbuilt': building.level === 0 }" :src="img" :alt="t(displayNameKey)">
       <span v-if="showLevel" class="building-level-badge">{{ building.level }}</span>
     </div>
     <div class="building-info">
@@ -100,13 +101,13 @@ function act() {
               :disabled="!canAct"
               @click="act"
             >
-              <img v-if="!isConstructing" class="action-btn-icon" :src="isBuildable ? '/img/other/build.png' : '/img/other/upgrade.png'" :alt="isBuildable ? t('building.build') : t('building.levelUp')">
+              <img v-if="!isConstructing" class="action-btn-icon" :src="isBuildable ? IMG_OTHER_BUILD : IMG_OTHER_UPGRADE" :alt="isBuildable ? t('building.build') : t('building.levelUp')">
               <span v-else class="action-btn-time">{{ formatTime(building.constructionRemaining) }}</span>
             </button>
           </span>
           <span v-if="!isConstructing" class="action-cost">
             <span v-for="[key, amount] in actionCostEntries" :key="key" class="action-cost-item">
-              <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
+              <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
               <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
             </span>
           </span>

@@ -18,7 +18,7 @@ class Events {
 	 * @param {Object} data
 	 * @param {string} data.type - Event type constant
 	 * @param {string} data.textKey - i18n key
-	 * @param {string} data.icon - Image path relative to /img/
+	 * @param {string} data.icon - Full image path (e.g. '/img/resources/food.png')
 	 * @param {number} data.remainingSeconds - Countdown duration
 	 * @returns {EventFuture}
 	 */
@@ -39,7 +39,7 @@ class Events {
 	 * @param {Object} data
 	 * @param {string} data.type - Event type constant
 	 * @param {string} data.textKey - i18n key
-	 * @param {string} data.icon - Image path relative to /img/
+	 * @param {string} data.icon - Full image path (e.g. '/img/resources/food.png')
 	 * @returns {EventPast}
 	 */
   addPast(data) {

@@ -1,6 +1,7 @@
 <script setup>
 import {computed, inject} from 'vue'
 import BaseCard from '@/components/buildings/base_card.vue'
+import {IMG_OTHER_TERRITORY, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {HQ_TYPES} from '@/js/engine/constants.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -78,13 +79,13 @@ function upgradeType() {
           :disabled="!canUpgrade"
           @click="upgradeType"
         >
-          <img v-if="!isUpgrading" class="action-btn-icon" src="/img/other/upgrade.png" :alt="t('headquarters.upgrade')">
+          <img v-if="!isUpgrading" class="action-btn-icon" :src="IMG_OTHER_UPGRADE" :alt="t('headquarters.upgrade')">
           <span v-else class="action-btn-time">{{ formatTime(hq.upgradeRemaining) }}</span>
         </button>
       </span>
       <span v-if="!isUpgrading" class="action-cost">
         <span v-for="[key, amount] in upgradeCostEntries" :key="key" class="action-cost-item">
-          <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
+          <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
           <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
         </span>
       </span>
@@ -99,13 +100,13 @@ function upgradeType() {
           :disabled="!canLevelUp"
           @click="levelUp"
         >
-          <img v-if="!isLevelingUp" class="action-btn-icon" src="/img/other/territory.png" :alt="t('headquarters.expandTerritory')">
+          <img v-if="!isLevelingUp" class="action-btn-icon" :src="IMG_OTHER_TERRITORY" :alt="t('headquarters.expandTerritory')">
           <span v-else class="action-btn-time">{{ formatTime(hq.constructionRemaining) }}</span>
         </button>
       </span>
       <span v-if="!isLevelingUp" class="action-cost">
         <span v-for="[key, amount] in levelUpCostEntries" :key="key" class="action-cost-item">
-          <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
+          <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
           <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
         </span>
       </span>

@@ -1,6 +1,7 @@
 <script setup>
 import {computed, inject} from 'vue'
 import BaseCard from '@/components/buildings/base_card.vue'
+import {IMG_RESOURCE_MAP, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {WORKER_RECRUIT_COST} from '@/js/engine/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -40,12 +41,12 @@ function recruitWorker() {
     <div class="action-row">
       <span class="tooltip tooltip--delayed" :data-tooltip="t('house.recruitWorker')">
         <button class="btn-gold action-btn" :disabled="!canRecruit" @click="recruitWorker">
-          <img class="action-btn-icon" src="/img/units/worker.png" :alt="t('house.recruitWorker')">
+          <img class="action-btn-icon" :src="IMG_UNIT_WORKER" :alt="t('house.recruitWorker')">
         </button>
       </span>
       <span class="action-cost">
         <span v-for="[key, amount] in recruitCostEntries" :key="key" class="action-cost-item">
-          <img class="action-cost-icon" :src="`/img/resources/${key}.png`" :alt="t(`resource.${key}`)">
+          <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
           <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
         </span>
       </span>

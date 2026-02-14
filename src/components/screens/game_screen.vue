@@ -24,6 +24,7 @@ import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import GameState from '@/js/engine/game_state.js'
+import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, SEASON_WARM, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION} from '@/js/engine/balancing.js'
 import {t} from '@/js/i18n/localized.js'
@@ -115,7 +116,7 @@ function seasonProgress() {
 }
 
 function seasonIcon() {
-  return state.colony.season === SEASON_WARM ? '/img/seasons/warm.png' : '/img/seasons/cold.png'
+  return state.colony.season === SEASON_WARM ? IMG_SEASON_WARM : IMG_SEASON_COLD
 }
 
 function seasonTooltip() {
@@ -227,7 +228,7 @@ onUnmounted(() => {
       <div class="header-section header-resources">
         <template v-for="resource in HEADER_RESOURCES" :key="resource">
           <div v-if="isResourceVisible(resource)" class="resource-box">
-            <img class="resource-icon" :src="'/img/resources/' + resource + '.png'" :alt="t('resource.' + resource)">
+            <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
             <span class="header-value" :class="{ 'header-value--alert': isBounded(resource) && Math.floor(state.colony.resources[resource]) >= state.colony.stockpile[resource], 'header-value--zero': Math.floor(state.colony.resources[resource]) === 0 }">
               {{ Math.floor(state.colony.resources[resource]) }}<template v-if="isBounded(resource)">/{{ state.colony.stockpile[resource] }}</template>
             </span>
@@ -257,15 +258,15 @@ onUnmounted(() => {
       <!-- Colony info -->
       <div class="header-section header-colony">
         <div class="header-resource tooltip" :data-tooltip="t('resource.population')">
-          <img class="resource-icon resource-icon--worker" src="/img/units/worker.png" :alt="t('resource.population')">
+          <img class="resource-icon resource-icon--worker" :src="IMG_UNIT_WORKER" :alt="t('resource.population')">
           <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.workers) >= state.colony.stockpile.workers, 'header-value--zero': state.colony.resources.workers === 0 }">{{ Math.floor(state.colony.resources.workers) }}/{{ state.colony.stockpile.workers }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.idleWorkers')">
-          <img class="resource-icon" src="/img/other/idle.png" :alt="t('resource.idleWorkers')">
+          <img class="resource-icon" :src="IMG_OTHER_IDLE" :alt="t('resource.idleWorkers')">
           <span class="header-value" :class="{ 'header-value--alert': state.colony.idleWorkers > 0 }">{{ state.colony.idleWorkers }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.territory')">
-          <img class="resource-icon resource-icon--territory" src="/img/other/territory.png" :alt="t('resource.territory')">
+          <img class="resource-icon resource-icon--territory" :src="IMG_OTHER_TERRITORY" :alt="t('resource.territory')">
           <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.territory) >= state.colony.stockpile.territory }">{{ Math.floor(state.colony.resources.territory) }}/{{ state.colony.stockpile.territory }}</span>
         </div>
       </div>
@@ -300,7 +301,7 @@ onUnmounted(() => {
               class="building-card-locked tooltip tooltip--delayed"
               :data-tooltip="t('building.locked')"
             >
-              <img class="locked-icon" src="/img/other/lock.png" :alt="t('building.locked')">
+              <img class="locked-icon" :src="IMG_OTHER_LOCK" :alt="t('building.locked')">
             </div>
           </template>
         </div>
@@ -315,7 +316,7 @@ onUnmounted(() => {
           <h3 class="events-section-label">{{ t('events.future') }}</h3>
           <div class="events-list">
             <div v-for="event in futureEvents" :key="event.id" class="event-row">
-              <img class="event-icon" :src="'/img/' + event.icon" :alt="t(event.textKey)">
+              <img class="event-icon" :src="event.icon" :alt="t(event.textKey)">
               <span class="event-text">{{ t(event.textKey) }}</span>
               <span class="event-countdown">{{ formatTime(event.remainingSeconds) }}</span>
             </div>
@@ -330,7 +331,7 @@ onUnmounted(() => {
           </div>
           <div class="events-list">
             <div v-for="event in pastEvents" :key="event.id" class="event-row">
-              <img class="event-icon" :src="'/img/' + event.icon" :alt="t(event.textKey)">
+              <img class="event-icon" :src="event.icon" :alt="t(event.textKey)">
               <span class="event-text">{{ t(event.textKey) }}</span>
               <button class="event-dismiss" @click="state.events.dismiss(event.id)">&times;</button>
             </div>
