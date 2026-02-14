@@ -1,6 +1,6 @@
 import {BUILDING_BUILD_TIMES, HQ_UPGRADE_BUILD_TIMES, MAX_WORKER_DEATHS_PER_TICK, PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, IMG_RESOURCE_FOOD, IMG_RESOURCE_WOOD, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
-import {BOUNDED_RESOURCES, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, EVENT_TYPE_WORKER_DIED_FOOD, EVENT_TYPE_WORKER_DIED_WOOD, RESOURCE_LIMIT_EVENT_CONFIG, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
+import {BOUNDED_RESOURCES, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, EVENT_TYPE_WORKER_DIED_FOOD, EVENT_TYPE_WORKER_DIED_WOOD, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
 
 /**
  * Central game state container.
@@ -27,6 +27,10 @@ class GameState {
     this._resourcesAtCap = new Set(
       BOUNDED_RESOURCES.filter(r => colony.resources[r] >= colony.stockpile[r]),
     )
+
+    // Track which bounded resources currently have negative net production
+    // (initialized empty — production is 0 before the first update tick)
+    this._resourcesNegativeProduction = new Set()
   }
 
   /**
@@ -173,6 +177,23 @@ class GameState {
     if (resources.workers > 0) {
       production.food -= resources.workers * WORKER_FOOD_CONSUMPTION
       production.wood -= resources.workers * WORKER_WOOD_CONSUMPTION * (1 + woodSeasonMod)
+    }
+
+    // Fire events for resources whose net production just went negative
+    for (const resource of BOUNDED_RESOURCES) {
+      if (production[resource] < 0) {
+        if (!this._resourcesNegativeProduction.has(resource)) {
+          this._resourcesNegativeProduction.add(resource)
+          const config = RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG[resource]
+          this.events.addPast({
+            type: EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION,
+            textKey: config.textKey,
+            icon: config.icon,
+          })
+        }
+      } else {
+        this._resourcesNegativeProduction.delete(resource)
+      }
     }
 
     // Tick event countdowns

@@ -92,6 +92,7 @@ export const EVENT_TYPE_TERRITORY_LIMIT_REACHED = 'territory_limit_reached'
 export const EVENT_TYPE_RESOURCE_LIMIT_REACHED = 'resource_limit_reached'
 export const EVENT_TYPE_WORKER_DIED_FOOD = 'worker_died_food'
 export const EVENT_TYPE_WORKER_DIED_WOOD = 'worker_died_wood'
+export const EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION = 'resource_negative_production'
 
 // Config for resource-limit-reached events (textKey + icon per bounded resource)
 export const RESOURCE_LIMIT_EVENT_CONFIG = {
@@ -117,6 +118,34 @@ export const RESOURCE_LIMIT_EVENT_CONFIG = {
   },
   [RESOURCE_GOLD]: {
     textKey: 'event.goldLimitReached',
+    icon: IMG_RESOURCE_GOLD,
+  },
+}
+
+// Config for negative-production events (textKey + icon per bounded resource)
+export const RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG = {
+  [RESOURCE_FOOD]: {
+    textKey: 'event.foodNegativeProduction',
+    icon: IMG_RESOURCE_FOOD,
+  },
+  [RESOURCE_WOOD]: {
+    textKey: 'event.woodNegativeProduction',
+    icon: IMG_RESOURCE_WOOD,
+  },
+  [RESOURCE_STONE]: {
+    textKey: 'event.stoneNegativeProduction',
+    icon: IMG_RESOURCE_STONE,
+  },
+  [RESOURCE_COPPER]: {
+    textKey: 'event.copperNegativeProduction',
+    icon: IMG_RESOURCE_COPPER,
+  },
+  [RESOURCE_IRON]: {
+    textKey: 'event.ironNegativeProduction',
+    icon: IMG_RESOURCE_IRON,
+  },
+  [RESOURCE_GOLD]: {
+    textKey: 'event.goldNegativeProduction',
     icon: IMG_RESOURCE_GOLD,
   },
 }
