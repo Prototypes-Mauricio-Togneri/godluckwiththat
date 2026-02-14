@@ -3,14 +3,11 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Future events
-  - building_timeout
   - challenge_timeout
   - research_timeout
   - attack_incoming
 - Past events
-  - building_completed
   - research_completed
-  - disaster_result
 
 - Create tutorial
   - Season has changed -> Explain their effects on production and upkeep

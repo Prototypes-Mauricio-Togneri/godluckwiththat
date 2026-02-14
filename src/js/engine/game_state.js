@@ -247,7 +247,7 @@ class GameState {
           } else {
             this.events.convertToPast(key, {
               type: EVENT_TYPE_BUILDING_UPGRADE,
-              textKey: 'event.buildingUpgraded',
+              textKey: building.level === 1 ? 'event.buildingBuilt' : 'event.buildingUpgraded',
               icon: BUILDING_IMAGE_MAP[key],
               params: [this._buildingName(key)],
               buildingKey: key,
@@ -284,9 +284,10 @@ class GameState {
     building.constructionDuration = duration
     building.constructionRemaining = duration
 
+    const isNewBuilding = building.level === 0
     this.events.addFuture({
       type: EVENT_TYPE_BUILDING_UPGRADE,
-      textKey: 'event.buildingUpgrading',
+      textKey: isNewBuilding ? 'event.buildingBuilding' : 'event.buildingUpgrading',
       icon: BUILDING_IMAGE_MAP[buildingKey],
       params: [this._buildingName(buildingKey).toLowerCase()],
       buildingKey,
