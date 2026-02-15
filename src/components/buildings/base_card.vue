@@ -48,12 +48,21 @@ const actionCost = computed(() =>
 )
 const territoryFull = computed(() => colony.resources.territory >= colony.stockpile.territory)
 const isConstructing = computed(() => props.building.constructionRemaining > 0)
-const canAct = computed(() =>
+const canActBeforeAfford = computed(() =>
   actionCost.value !== null
   && !territoryFull.value
-  && !isConstructing.value
+  && !isConstructing.value,
+)
+const canAfford = computed(() =>
+  actionCost.value !== null
   && colony.resources.canAfford(actionCost.value),
 )
+const canAct = computed(() => canActBeforeAfford.value && canAfford.value)
+
+const actionTooltip = computed(() => {
+  if (canActBeforeAfford.value && !canAfford.value) return t('building.insufficientResources')
+  return isBuildable.value ? t('building.build') + ' ' + t(displayNameKey.value) : t('building.levelUp')
+})
 const actionCostEntries = computed(() => actionCost.value?.entries() ?? new Map())
 const isWorkerAssignable = computed(() => props.building instanceof Producer)
 
@@ -93,7 +102,7 @@ function act() {
       <span class="building-name">{{ t(displayNameKey) }}</span>
       <div v-if="hasAction || !isBuildable" class="slot-actions">
         <div v-if="hasAction" class="action-row">
-          <span class="tooltip tooltip--delayed" :data-tooltip="isBuildable ? t('building.build') + ' ' + t(displayNameKey) : t('building.levelUp')">
+          <span class="tooltip tooltip--delayed" :data-tooltip="actionTooltip">
             <button
               class="btn-gold action-btn"
               :class="{ 'action-btn--constructing': isConstructing }"

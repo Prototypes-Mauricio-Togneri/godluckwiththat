@@ -48,8 +48,13 @@ function formatTime(seconds) {
 
 // Level up
 const levelUpCost = computed(() => hq.value.levelUpCost())
-const canLevelUp = computed(() => !isBusy.value && colony.resources.canAfford(levelUpCost.value))
+const canAffordLevelUp = computed(() => colony.resources.canAfford(levelUpCost.value))
+const canLevelUp = computed(() => !isBusy.value && canAffordLevelUp.value)
 const levelUpCostEntries = computed(() => levelUpCost.value.entries())
+const levelUpTooltip = computed(() => {
+  if (!isBusy.value && !canAffordLevelUp.value) return t('building.insufficientResources')
+  return t('headquarters.expandTerritory')
+})
 
 function levelUp() {
   if (!canLevelUp.value) return
@@ -59,7 +64,12 @@ function levelUp() {
 // Upgrade type
 const isMaxType = computed(() => hq.value.type === HQ_TYPES[HQ_TYPES.length - 1])
 const upgradeCost = computed(() => hq.value.upgradeCost())
-const canUpgrade = computed(() => !isBusy.value && upgradeCost.value !== null && colony.resources.canAfford(upgradeCost.value))
+const canAffordUpgrade = computed(() => upgradeCost.value !== null && colony.resources.canAfford(upgradeCost.value))
+const canUpgrade = computed(() => !isBusy.value && canAffordUpgrade.value)
+const upgradeTooltip = computed(() => {
+  if (!isBusy.value && upgradeCost.value !== null && !canAffordUpgrade.value) return t('building.insufficientResources')
+  return t('headquarters.upgrade')
+})
 const upgradeCostEntries = computed(() => upgradeCost.value?.entries() ?? new Map())
 
 function upgradeType() {
@@ -71,7 +81,7 @@ function upgradeType() {
 <template>
   <BaseCard :building-key="buildingKey" :img="img" :building="building" :name-key="nameKey" :show-build-action="false" :show-level="false">
     <div v-if="!isMaxType" class="action-row">
-      <span class="tooltip tooltip--delayed" :data-tooltip="t('headquarters.upgrade')">
+      <span class="tooltip tooltip--delayed" :data-tooltip="upgradeTooltip">
         <button
           class="btn-gold action-btn"
           :class="{ 'action-btn--constructing': isUpgrading }"
@@ -92,7 +102,7 @@ function upgradeType() {
     </div>
 
     <div class="action-row">
-      <span class="tooltip tooltip--delayed" :data-tooltip="t('headquarters.expandTerritory')">
+      <span class="tooltip tooltip--delayed" :data-tooltip="levelUpTooltip">
         <button
           class="btn-gold action-btn"
           :class="{ 'action-btn--constructing': isLevelingUp }"

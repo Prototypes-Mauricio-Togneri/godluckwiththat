@@ -24,10 +24,14 @@ const colony = inject('colony')
 const gameState = inject('gameState')
 
 // Recruit worker
-const canRecruit = computed(() =>
-  colony.resources.canAfford(WORKER_RECRUIT_COST)
-  && colony.resources.workers < colony.stockpile.workers,
-)
+const canAffordRecruit = computed(() => colony.resources.canAfford(WORKER_RECRUIT_COST))
+const canRecruitBeforeAfford = computed(() => colony.resources.workers < colony.stockpile.workers)
+const canRecruit = computed(() => canAffordRecruit.value && canRecruitBeforeAfford.value)
+
+const recruitTooltip = computed(() => {
+  if (canRecruitBeforeAfford.value && !canAffordRecruit.value) return t('building.insufficientResources')
+  return t('house.recruitWorker')
+})
 const recruitCostEntries = computed(() => WORKER_RECRUIT_COST.entries())
 
 function recruitWorker() {
@@ -39,7 +43,7 @@ function recruitWorker() {
 <template>
   <BaseCard :building-key="buildingKey" :img="img" :building="building">
     <div class="action-row">
-      <span class="tooltip tooltip--delayed" :data-tooltip="t('house.recruitWorker')">
+      <span class="tooltip tooltip--delayed" :data-tooltip="recruitTooltip">
         <button class="btn-gold action-btn" :disabled="!canRecruit" @click="recruitWorker">
           <img class="action-btn-icon" :src="IMG_UNIT_WORKER" :alt="t('house.recruitWorker')">
         </button>

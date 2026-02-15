@@ -3,6 +3,8 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Show what buildings are unlocked
+- Tooltip: "Upgrade to [HQ type]"
+- No tooltip if in progress
 
 - If button disabled -> Show why its disabled
   - Insufficient resources

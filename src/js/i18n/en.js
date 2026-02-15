@@ -68,6 +68,7 @@ export const LOCALIZED_EN = {
   'building.locked': 'Locked',
   'building.build': 'Build',
   'building.levelUp': 'Increase level',
+  'building.insufficientResources': 'Insufficient resources',
 
   // Worker assignment
   'worker.assign': 'Assign worker',
