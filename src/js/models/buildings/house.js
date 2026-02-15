@@ -1,4 +1,4 @@
-import {BUILDING_UPGRADES, HOUSE_BASE_POPULATION, HOUSE_POPULATION_PER_LEVEL} from '@/js/engine/balancing.js'
+import {BUILDING_UPGRADES, HOUSE_POPULATION_PER_LEVEL} from '@/js/engine/balancing.js'
 import {BUILDING_HOUSE} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
@@ -18,7 +18,7 @@ class House extends Building {
    * @returns {number}
    */
   populationCap() {
-    return HOUSE_BASE_POPULATION + this.level * HOUSE_POPULATION_PER_LEVEL
+    return this.level * HOUSE_POPULATION_PER_LEVEL
   }
 
   /**

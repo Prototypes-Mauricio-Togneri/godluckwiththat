@@ -237,8 +237,7 @@ export const PRODUCTION_RATES = {
 
 // ── Population & Workers ────────────────────────────────────────────
 
-// House population cap: base + level × perLevel
-export const HOUSE_BASE_POPULATION = 5
+// House population cap: level × perLevel
 export const HOUSE_POPULATION_PER_LEVEL = 5
 
 // Number of worker slots gained per building level
