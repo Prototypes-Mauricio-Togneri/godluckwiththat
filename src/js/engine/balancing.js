@@ -173,22 +173,16 @@ export const HQ_UPGRADE_COSTS = {
     wood: 300,
   }),
   [HQ_TYPE_SETTLEMENT]: new Cost({
-    wood: 1000,
-    stone: 500,
-    copper: 100,
+    wood: 500,
+    stone: 300,
   }),
   [HQ_TYPE_VILLAGE]: new Cost({
-    wood: 5000,
-    stone: 2000,
-    copper: 1000,
-    iron: 500,
+    stone: 1000,
+    copper: 500,
   }),
   [HQ_TYPE_TOWN]: new Cost({
-    wood: 10000,
-    stone: 5000,
     copper: 2000,
     iron: 1000,
-    gold: 500,
   }),
 }
 
