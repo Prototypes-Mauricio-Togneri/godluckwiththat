@@ -1,11 +1,12 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_MONUMENT} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
  * Grand structure honoring the Gods.
  */
 class Monument extends Building {
-  static ID = 'monument'
+  static ID = BUILDING_MONUMENT
 
   /**
    * @param {Object} data - Initial building data
@@ -21,7 +22,7 @@ class Monument extends Building {
   levelUpCost() {
     const {
       cost, multiplier,
-    } = BUILDING_UPGRADES.monument
+    } = BUILDING_UPGRADES[BUILDING_MONUMENT]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }

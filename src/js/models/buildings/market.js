@@ -1,11 +1,12 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_MARKET} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
  * Enables resource trading.
  */
 class Market extends Building {
-  static ID = 'market'
+  static ID = BUILDING_MARKET
 
   /**
    * @param {Object} data - Initial building data
@@ -21,7 +22,7 @@ class Market extends Building {
   levelUpCost() {
     const {
       cost, multiplier,
-    } = BUILDING_UPGRADES.market
+    } = BUILDING_UPGRADES[BUILDING_MARKET]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }

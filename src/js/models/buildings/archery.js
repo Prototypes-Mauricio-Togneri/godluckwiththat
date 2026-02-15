@@ -1,11 +1,12 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_ARCHERY} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
  * Trains ranged units.
  */
 class Archery extends Building {
-  static ID = 'archery'
+  static ID = BUILDING_ARCHERY
 
   /**
    * @param {Object} data - Initial building data
@@ -21,7 +22,7 @@ class Archery extends Building {
   levelUpCost() {
     const {
       cost, multiplier,
-    } = BUILDING_UPGRADES.archery
+    } = BUILDING_UPGRADES[BUILDING_ARCHERY]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }

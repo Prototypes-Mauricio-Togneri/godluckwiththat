@@ -1,11 +1,12 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_TOWER} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
  * Defensive ranged structure.
  */
 class Tower extends Building {
-  static ID = 'tower'
+  static ID = BUILDING_TOWER
 
   /**
    * @param {Object} data - Initial building data
@@ -21,7 +22,7 @@ class Tower extends Building {
   levelUpCost() {
     const {
       cost, multiplier,
-    } = BUILDING_UPGRADES.tower
+    } = BUILDING_UPGRADES[BUILDING_TOWER]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }

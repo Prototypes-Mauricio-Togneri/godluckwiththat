@@ -2,6 +2,8 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- What other enums can we create?
+
 - Show rate below resources?
   - [RATE][PROGRESS_BAR]
 

@@ -2,7 +2,7 @@
 // Consumed by constants.js, building classes, game_state.js, and
 // UI components.
 
-import {HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
+import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_SHRINE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
 import Cost from '@/js/models/cost.js'
 
 // ── Build Time ──────────────────────────────────────────────────────
@@ -23,142 +23,142 @@ export const RESOURCE_TIME_WEIGHTS = {
 // cost: base resource cost (used in levelUpCost formulas)
 // multiplier: exponential scaling factor per level
 export const BUILDING_UPGRADES = {
-  headquarters: {
+  [BUILDING_HEADQUARTERS]: {
     cost: new Cost({
       food: 15,
       wood: 20,
     }),
     multiplier: 2.5,
   },
-  house: {
+  [BUILDING_HOUSE]: {
     cost: new Cost({
       wood: 10,
     }),
     multiplier: 1.5,
   },
-  academy: {
+  [BUILDING_ACADEMY]: {
     cost: new Cost({
       wood: 60,
       stone: 30,
     }),
     multiplier: 1.5,
   },
-  storehouse: {
+  [BUILDING_STOREHOUSE]: {
     cost: new Cost({
       wood: 80,
       stone: 40,
     }),
     multiplier: 1.5,
   },
-  market: {
+  [BUILDING_MARKET]: {
     cost: new Cost({
       wood: 150,
       stone: 75,
     }),
     multiplier: 1.5,
   },
-  farm: {
+  [BUILDING_FARM]: {
     cost: new Cost({
       wood: 5,
     }),
     multiplier: 1.5,
   },
-  woodcutter: {
+  [BUILDING_WOODCUTTER]: {
     cost: new Cost({
       wood: 5,
     }),
     multiplier: 1.5,
   },
-  quarry: {
+  [BUILDING_QUARRY]: {
     cost: new Cost({
       wood: 45,
     }),
     multiplier: 1.5,
   },
-  copperMine: {
+  [BUILDING_COPPER_MINE]: {
     cost: new Cost({
       wood: 70,
       stone: 35,
     }),
     multiplier: 1.5,
   },
-  ironMine: {
+  [BUILDING_IRON_MINE]: {
     cost: new Cost({
       wood: 100,
       stone: 50,
     }),
     multiplier: 1.5,
   },
-  goldMine: {
+  [BUILDING_GOLD_MINE]: {
     cost: new Cost({
       wood: 140,
       stone: 70,
     }),
     multiplier: 1.5,
   },
-  altar: {
+  [BUILDING_ALTAR]: {
     cost: new Cost({
       wood: 40,
     }),
     multiplier: 1.5,
   },
-  shrine: {
+  [BUILDING_SHRINE]: {
     cost: new Cost({
       wood: 50,
       stone: 25,
     }),
     multiplier: 1.5,
   },
-  temple: {
+  [BUILDING_TEMPLE]: {
     cost: new Cost({
       wood: 90,
       stone: 50,
     }),
     multiplier: 1.5,
   },
-  monument: {
+  [BUILDING_MONUMENT]: {
     cost: new Cost({
       wood: 120,
       stone: 60,
     }),
     multiplier: 1.5,
   },
-  barracks: {
+  [BUILDING_BARRACKS]: {
     cost: new Cost({
       wood: 55,
       stone: 25,
     }),
     multiplier: 1.5,
   },
-  archery: {
+  [BUILDING_ARCHERY]: {
     cost: new Cost({
       wood: 75,
       stone: 40,
     }),
     multiplier: 1.5,
   },
-  stable: {
+  [BUILDING_STABLE]: {
     cost: new Cost({
       wood: 110,
       stone: 55,
     }),
     multiplier: 1.5,
   },
-  workshop: {
+  [BUILDING_WORKSHOP]: {
     cost: new Cost({
       wood: 160,
       stone: 80,
     }),
     multiplier: 1.5,
   },
-  wall: {
+  [BUILDING_WALL]: {
     cost: new Cost({
       wood: 100,
       stone: 50,
     }),
     multiplier: 1.5,
   },
-  tower: {
+  [BUILDING_TOWER]: {
     cost: new Cost({
       wood: 150,
       stone: 75,
@@ -196,39 +196,39 @@ export const HQ_UPGRADE_COSTS = {
 
 // Base production rates per worker per second (building key → resource + rate)
 export const PRODUCTION_RATES = {
-  farm: {
+  [BUILDING_FARM]: {
     resource: RESOURCE_FOOD,
     rate: 1,
   },
-  woodcutter: {
+  [BUILDING_WOODCUTTER]: {
     resource: RESOURCE_WOOD,
     rate: 0.5,
   },
-  quarry: {
+  [BUILDING_QUARRY]: {
     resource: RESOURCE_STONE,
     rate: 0.3,
   },
-  copperMine: {
+  [BUILDING_COPPER_MINE]: {
     resource: RESOURCE_COPPER,
     rate: 0.2,
   },
-  ironMine: {
+  [BUILDING_IRON_MINE]: {
     resource: RESOURCE_IRON,
     rate: 0.1,
   },
-  goldMine: {
+  [BUILDING_GOLD_MINE]: {
     resource: RESOURCE_GOLD,
     rate: 0.05,
   },
-  academy: {
+  [BUILDING_ACADEMY]: {
     resource: RESOURCE_KNOWLEDGE,
     rate: 0.1,
   },
-  shrine: {
+  [BUILDING_SHRINE]: {
     resource: RESOURCE_FAITH,
     rate: 0.15,
   },
-  altar: {
+  [BUILDING_ALTAR]: {
     resource: RESOURCE_FAITH,
     rate: 0.1,
     passive: true,

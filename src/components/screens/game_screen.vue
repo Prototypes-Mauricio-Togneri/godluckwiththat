@@ -27,30 +27,31 @@ import GameState from '@/js/engine/game_state.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION} from '@/js/engine/balancing.js'
+import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_SHRINE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
-  headquarters: HeadquartersCard,
-  house: HouseCard,
-  academy: AcademyCard,
-  storehouse: StorehouseCard,
-  market: MarketCard,
-  farm: FarmCard,
-  woodcutter: WoodcutterCard,
-  quarry: QuarryCard,
-  copperMine: CopperMineCard,
-  ironMine: IronMineCard,
-  goldMine: GoldMineCard,
-  altar: AltarCard,
-  shrine: ShrineCard,
-  temple: TempleCard,
-  monument: MonumentCard,
-  barracks: BarracksCard,
-  archery: ArcheryCard,
-  stable: StableCard,
-  workshop: WorkshopCard,
-  wall: WallCard,
-  tower: TowerCard,
+  [BUILDING_HEADQUARTERS]: HeadquartersCard,
+  [BUILDING_HOUSE]: HouseCard,
+  [BUILDING_ACADEMY]: AcademyCard,
+  [BUILDING_STOREHOUSE]: StorehouseCard,
+  [BUILDING_MARKET]: MarketCard,
+  [BUILDING_FARM]: FarmCard,
+  [BUILDING_WOODCUTTER]: WoodcutterCard,
+  [BUILDING_QUARRY]: QuarryCard,
+  [BUILDING_COPPER_MINE]: CopperMineCard,
+  [BUILDING_IRON_MINE]: IronMineCard,
+  [BUILDING_GOLD_MINE]: GoldMineCard,
+  [BUILDING_ALTAR]: AltarCard,
+  [BUILDING_SHRINE]: ShrineCard,
+  [BUILDING_TEMPLE]: TempleCard,
+  [BUILDING_MONUMENT]: MonumentCard,
+  [BUILDING_BARRACKS]: BarracksCard,
+  [BUILDING_ARCHERY]: ArcheryCard,
+  [BUILDING_STABLE]: StableCard,
+  [BUILDING_WORKSHOP]: WorkshopCard,
+  [BUILDING_WALL]: WallCard,
+  [BUILDING_TOWER]: TowerCard,
 }
 
 function getCardComponent(key) {
@@ -124,7 +125,7 @@ function seasonTooltip() {
 }
 
 function isBuildingLocked(buildingKey) {
-  if (buildingKey === 'headquarters') return false
+  if (buildingKey === BUILDING_HEADQUARTERS) return false
   const currentTypeIndex = HQ_TYPES.indexOf(state.colony.buildings.headquarters.type)
   for (let i = 0; i <= currentTypeIndex; i++) {
     if (HQ_BUILDING_UNLOCKS[HQ_TYPES[i]].includes(buildingKey)) return false

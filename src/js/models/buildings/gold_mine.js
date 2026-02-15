@@ -1,11 +1,12 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_GOLD_MINE} from '@/js/engine/enums.js'
 import Producer from '@/js/models/buildings/producer.js'
 
 /**
  * Produces gold for the colony.
  */
 class GoldMine extends Producer {
-  static ID = 'goldMine'
+  static ID = BUILDING_GOLD_MINE
 
   /**
    * @param {Object} data - Initial building data
@@ -21,7 +22,7 @@ class GoldMine extends Producer {
   levelUpCost() {
     const {
       cost, multiplier,
-    } = BUILDING_UPGRADES.goldMine
+    } = BUILDING_UPGRADES[BUILDING_GOLD_MINE]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }

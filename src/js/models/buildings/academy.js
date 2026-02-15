@@ -1,11 +1,12 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_ACADEMY} from '@/js/engine/enums.js'
 import Producer from '@/js/models/buildings/producer.js'
 
 /**
  * Generates knowledge for the colony.
  */
 class Academy extends Producer {
-  static ID = 'academy'
+  static ID = BUILDING_ACADEMY
 
   /**
    * @param {Object} data - Initial building data
@@ -21,7 +22,7 @@ class Academy extends Producer {
   levelUpCost() {
     const {
       cost, multiplier,
-    } = BUILDING_UPGRADES.academy
+    } = BUILDING_UPGRADES[BUILDING_ACADEMY]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }

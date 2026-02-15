@@ -1,11 +1,12 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_STABLE} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
  * Trains mounted units.
  */
 class Stable extends Building {
-  static ID = 'stable'
+  static ID = BUILDING_STABLE
 
   /**
    * @param {Object} data - Initial building data
@@ -21,7 +22,7 @@ class Stable extends Building {
   levelUpCost() {
     const {
       cost, multiplier,
-    } = BUILDING_UPGRADES.stable
+    } = BUILDING_UPGRADES[BUILDING_STABLE]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }

@@ -1,7 +1,7 @@
 import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
-import {EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, SEASON_COLD, SEASON_WARM} from '@/js/engine/enums.js'
+import {BUILDING_HEADQUARTERS, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, SEASON_COLD, SEASON_WARM} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -208,7 +208,7 @@ class GameState {
         if (building.constructionRemaining === 0) {
           building.level += 1
           building.constructionDuration = 0
-          if (key === 'headquarters') {
+          if (key === BUILDING_HEADQUARTERS) {
             this.events.convertToPast(key, {
               type: EVENT_TYPE_BUILDING_UPGRADE,
               textKey: 'event.territoryExpanded',
@@ -298,7 +298,7 @@ class GameState {
       type: EVENT_TYPE_BUILDING_UPGRADE,
       textKey: 'event.territoryExpanding',
       icon: IMG_OTHER_TERRITORY,
-      buildingKey: 'headquarters',
+      buildingKey: BUILDING_HEADQUARTERS,
       remainingSeconds: duration,
     })
 
@@ -376,7 +376,7 @@ class GameState {
    * @returns {string}
    */
   _buildingName(buildingKey) {
-    if (buildingKey === 'headquarters') {
+    if (buildingKey === BUILDING_HEADQUARTERS) {
       return t('building.headquarters.' + this.colony.buildings.headquarters.type)
     }
     return t('building.' + buildingKey)

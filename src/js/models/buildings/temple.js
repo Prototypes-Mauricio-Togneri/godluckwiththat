@@ -1,11 +1,12 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_TEMPLE} from '@/js/engine/enums.js'
 import Producer from '@/js/models/buildings/producer.js'
 
 /**
  * Advanced faith building.
  */
 class Temple extends Producer {
-  static ID = 'temple'
+  static ID = BUILDING_TEMPLE
 
   /**
    * @param {Object} data - Initial building data
@@ -21,7 +22,7 @@ class Temple extends Producer {
   levelUpCost() {
     const {
       cost, multiplier,
-    } = BUILDING_UPGRADES.temple
+    } = BUILDING_UPGRADES[BUILDING_TEMPLE]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }

@@ -1,11 +1,12 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_ALTAR} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
  * Generates faith for the colony.
  */
 class Altar extends Building {
-  static ID = 'altar'
+  static ID = BUILDING_ALTAR
 
   /**
    * @param {Object} data - Initial building data
@@ -21,7 +22,7 @@ class Altar extends Building {
   levelUpCost() {
     const {
       cost, multiplier,
-    } = BUILDING_UPGRADES.altar
+    } = BUILDING_UPGRADES[BUILDING_ALTAR]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }

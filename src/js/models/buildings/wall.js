@@ -1,11 +1,12 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_WALL} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
  * Defensive fortification.
  */
 class Wall extends Building {
-  static ID = 'wall'
+  static ID = BUILDING_WALL
 
   /**
    * @param {Object} data - Initial building data
@@ -21,7 +22,7 @@ class Wall extends Building {
   levelUpCost() {
     const {
       cost, multiplier,
-    } = BUILDING_UPGRADES.wall
+    } = BUILDING_UPGRADES[BUILDING_WALL]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }

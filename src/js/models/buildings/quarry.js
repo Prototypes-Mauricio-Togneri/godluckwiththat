@@ -1,11 +1,12 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_QUARRY} from '@/js/engine/enums.js'
 import Producer from '@/js/models/buildings/producer.js'
 
 /**
  * Produces stone for the colony.
  */
 class Quarry extends Producer {
-  static ID = 'quarry'
+  static ID = BUILDING_QUARRY
 
   /**
    * @param {Object} data - Initial building data
@@ -21,7 +22,7 @@ class Quarry extends Producer {
   levelUpCost() {
     const {
       cost, multiplier,
-    } = BUILDING_UPGRADES.quarry
+    } = BUILDING_UPGRADES[BUILDING_QUARRY]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }

@@ -1,11 +1,12 @@
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_WORKSHOP} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
  * Crafts siege equipment.
  */
 class Workshop extends Building {
-  static ID = 'workshop'
+  static ID = BUILDING_WORKSHOP
 
   /**
    * @param {Object} data - Initial building data
@@ -21,7 +22,7 @@ class Workshop extends Building {
   levelUpCost() {
     const {
       cost, multiplier,
-    } = BUILDING_UPGRADES.workshop
+    } = BUILDING_UPGRADES[BUILDING_WORKSHOP]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }

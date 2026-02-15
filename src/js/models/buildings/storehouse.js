@@ -1,11 +1,12 @@
 import {BUILDING_UPGRADES, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_PER_LEVEL} from '@/js/engine/balancing.js'
+import {BUILDING_STOREHOUSE} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
  * Increases resource stockpile capacity.
  */
 class Storehouse extends Building {
-  static ID = 'storehouse'
+  static ID = BUILDING_STOREHOUSE
 
   /**
    * @param {Object} data - Initial building data
@@ -29,7 +30,7 @@ class Storehouse extends Building {
   levelUpCost() {
     const {
       cost, multiplier,
-    } = BUILDING_UPGRADES.storehouse
+    } = BUILDING_UPGRADES[BUILDING_STOREHOUSE]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
   }
 }
