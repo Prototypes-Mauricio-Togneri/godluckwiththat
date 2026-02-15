@@ -90,8 +90,6 @@ export const EVENT_TYPE_SEASON_CHANGED = 'season_changed'
 export const EVENT_TYPE_POPULATION_LIMIT_REACHED = 'population_limit_reached'
 export const EVENT_TYPE_TERRITORY_LIMIT_REACHED = 'territory_limit_reached'
 export const EVENT_TYPE_RESOURCE_LIMIT_REACHED = 'resource_limit_reached'
-export const EVENT_TYPE_WORKER_DIED_FOOD = 'worker_died_food'
-export const EVENT_TYPE_WORKER_DIED_WOOD = 'worker_died_wood'
 export const EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION = 'resource_negative_production'
 export const EVENT_TYPE_BUILDING_UPGRADE = 'building_upgrade'
 
@@ -364,11 +362,130 @@ export function createInitialMeta() {
   })
 }
 
+export function createInitialColony() {
+  return createInitialColonyBasic()
+}
+
 /**
  * Creates a fresh Colony instance for a new game session.
  * @returns {Colony} Fully initialized colony with default values
  */
-export function createInitialColony() {
+export function createInitialColonyBasic() {
+  return new Colony({
+    year: 1,
+    season: SEASON_WARM,
+    seasonElapsed: 0,
+    idleWorkers: 0,
+
+    resources: new Resources({
+      territory: 0,
+      workers: 0,
+      food: 100,
+      wood: 100,
+      stone: 0,
+      copper: 0,
+      iron: 0,
+      gold: 0,
+      faith: 0,
+      knowledge: 0,
+    }),
+
+    production: new Production({
+      food: 0,
+      wood: 0,
+      stone: 0,
+      copper: 0,
+      iron: 0,
+      gold: 0,
+      faith: 0,
+      knowledge: 0,
+    }),
+
+    stockpile: new Stockpile({
+      territory: 0,
+      workers: 0,
+      food: 0,
+      wood: 0,
+      stone: 0,
+      copper: 0,
+      iron: 0,
+      gold: 0,
+    }),
+
+    buildings: new Buildings({
+      [Headquarters.ID]: new Headquarters({
+        type: HQ_TYPE_CAMP,
+        level: 5,
+      }),
+      [House.ID]: new House({
+        level: 0,
+      }),
+      [Academy.ID]: new Academy({
+        level: 0,
+      }),
+      [Storehouse.ID]: new Storehouse({
+        level: 0,
+      }),
+      [Market.ID]: new Market({
+        level: 0,
+      }),
+      [Altar.ID]: new Altar({
+        level: 0,
+      }),
+      [Shrine.ID]: new Shrine({
+        level: 0,
+      }),
+      [Temple.ID]: new Temple({
+        level: 0,
+      }),
+      [Monument.ID]: new Monument({
+        level: 0,
+      }),
+      [Farm.ID]: new Farm({
+        level: 0,
+      }),
+      [Woodcutter.ID]: new Woodcutter({
+        level: 0,
+      }),
+      [Quarry.ID]: new Quarry({
+        level: 0,
+      }),
+      [CopperMine.ID]: new CopperMine({
+        level: 0,
+      }),
+      [IronMine.ID]: new IronMine({
+        level: 0,
+      }),
+      [GoldMine.ID]: new GoldMine({
+        level: 0,
+      }),
+      [Barracks.ID]: new Barracks({
+        level: 0,
+      }),
+      [Archery.ID]: new Archery({
+        level: 0,
+      }),
+      [Stable.ID]: new Stable({
+        level: 0,
+      }),
+      [Workshop.ID]: new Workshop({
+        level: 0,
+      }),
+      [Wall.ID]: new Wall({
+        level: 0,
+      }),
+      [Tower.ID]: new Tower({
+        level: 0,
+      }),
+    }),
+  })
+}
+
+/**
+ * Creates a fresh Colony instance for a new game session.
+ * @returns {Colony} Fully initialized colony with default values
+ */
+export function createInitialColonyAdvanced() {
   return new Colony({
     year: 1,
     season: SEASON_WARM,

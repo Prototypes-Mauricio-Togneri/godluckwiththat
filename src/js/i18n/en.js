@@ -102,8 +102,6 @@ export const LOCALIZED_EN = {
   'event.copperNegativeProduction': 'Copper production is negative',
   'event.ironNegativeProduction': 'Iron production is negative',
   'event.goldNegativeProduction': 'Gold production is negative',
-  'event.workerDiedFood': 'A worker has starved',
-  'event.workerDiedWood': 'A worker has frozen',
   'event.buildingBuilding': 'Building {0}',
   'event.buildingBuilt': '{0} has been built',
   'event.buildingUpgrading': 'Upgrading {0}',

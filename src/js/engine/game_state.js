@@ -1,6 +1,6 @@
-import {MAX_WORKER_DEATHS_PER_TICK, PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
-import {IMG_OTHER_TERRITORY, IMG_RESOURCE_FOOD, IMG_RESOURCE_WOOD, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
-import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, EVENT_TYPE_WORKER_DIED_FOOD, EVENT_TYPE_WORKER_DIED_WOOD, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
+import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
+import {IMG_OTHER_TERRITORY, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
+import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -32,6 +32,7 @@ class GameState {
     // Track which bounded resources currently have negative net production
     // (initialized empty — production is 0 before the first update tick)
     this._resourcesNegativeProduction = new Set()
+
   }
 
   /**
@@ -86,7 +87,7 @@ class GameState {
     const foodSeasonMod = this.colony.season === SEASON_WARM ? SEASON_WARM_FOOD_MODIFIER : SEASON_COLD_FOOD_MODIFIER
     production.food *= 1 + foodSeasonMod
 
-    // Apply seasonal modifier to wood production
+    // Seasonal modifier for wood consumption
     const woodSeasonMod = this.colony.season === SEASON_WARM ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
 
     // Apply production to resources, scaled by delta time
@@ -102,41 +103,10 @@ class GameState {
     // Worker consumption (food + wood upkeep)
     if (delta > 0 && resources.workers > 0) {
       const totalWorkers = resources.workers
-      const foodCost = WORKER_FOOD_CONSUMPTION * delta
-      const woodCost = WORKER_WOOD_CONSUMPTION * (1 + woodSeasonMod) * delta
-
-      // Calculate deaths from each resource independently
-      const foodDeaths = resources.food >= totalWorkers * foodCost
-        ? 0
-        : totalWorkers - Math.floor(resources.food / foodCost)
-      const woodDeaths = resources.wood >= totalWorkers * woodCost
-        ? 0
-        : totalWorkers - Math.floor(resources.wood / woodCost)
-
-      const workersToKill = Math.min(Math.max(foodDeaths, woodDeaths), MAX_WORKER_DEATHS_PER_TICK)
-      const surviving = totalWorkers - workersToKill
-
-      // Deduct resources for surviving workers
-      resources.food = Math.max(0, resources.food - surviving * foodCost)
-      resources.wood = Math.max(0, resources.wood - surviving * woodCost)
-
-      if (workersToKill > 0) {
-        this._killWorkers(workersToKill)
-        if (foodDeaths > 0) {
-          this.events.addPast({
-            type: EVENT_TYPE_WORKER_DIED_FOOD,
-            textKey: 'event.workerDiedFood',
-            icon: IMG_RESOURCE_FOOD,
-          })
-        }
-        if (woodDeaths > 0) {
-          this.events.addPast({
-            type: EVENT_TYPE_WORKER_DIED_WOOD,
-            textKey: 'event.workerDiedWood',
-            icon: IMG_RESOURCE_WOOD,
-          })
-        }
-      }
+      const foodCost = totalWorkers * WORKER_FOOD_CONSUMPTION * delta
+      const woodCost = totalWorkers * WORKER_WOOD_CONSUMPTION * (1 + woodSeasonMod) * delta
+      resources.food = Math.max(0, resources.food - foodCost)
+      resources.wood = Math.max(0, resources.wood - woodCost)
     }
 
     // Cap resources at stockpile limits
@@ -412,43 +382,6 @@ class GameState {
     return t('building.' + buildingKey)
   }
 
-  /**
-   * Removes workers from the colony (starvation).
-   * Kills idle workers first, then unassigns from buildings
-   * with the most workers.
-   * @param {number} count - Number of workers to remove
-   */
-  _killWorkers(count) {
-    const {
-      resources, buildings,
-    } = this.colony
-    let remaining = count
-
-    // Kill idle workers first
-    const idleKilled = Math.min(remaining, this.colony.idleWorkers)
-    this.colony.idleWorkers -= idleKilled
-    remaining -= idleKilled
-
-    // Kill assigned workers (from buildings with the most workers first)
-    while (remaining > 0) {
-      let maxWorkers = 0
-      let targetKey = null
-      for (const [
-        key,
-        building,
-      ] of Object.entries(buildings)) {
-        if ('workers' in building && building.workers > maxWorkers) {
-          maxWorkers = building.workers
-          targetKey = key
-        }
-      }
-      if (!targetKey) break
-      buildings[targetKey].workers -= 1
-      remaining -= 1
-    }
-
-    resources.workers -= count
-  }
 }
 
 export default GameState

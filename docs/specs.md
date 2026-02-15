@@ -115,9 +115,8 @@ There are two types of resources
 - Workers
   - Recruited by spending food
   - The maximum population is determined by the house level
-  - All workers (idle and assigned) consume food and wood each tick to stay alive
-    - If the colony cannot feed or shelter all workers, those it cannot sustain die (idle workers first, then from the most-staffed buildings)
-    - Food and wood shortages are evaluated independently; the higher death count is applied
+  - All workers (idle and assigned) consume food and wood each tick
+    - If resources are insufficient, they are clamped to 0 (no penalty currently)
   - Consumed to
     - Assigned to buildings to produce resources
   - A worker that is not assigned to any building is considered idle
@@ -281,5 +280,5 @@ The file contains:
 - **Building upgrades** (`BUILDING_UPGRADES`) — Per-building upgrade config with two sub-keys: `cost` (base resource cost) and `multiplier` (exponential scaling factor per level; formula: `floor(cost × multiplier^level)`, HQ uses `multiplier^(level-1)` since it starts at level 1). Build time is derived from the level-up cost via `Cost.toSeconds()`.
 - **HQ upgrade costs** (`HQ_UPGRADE_COSTS`) — Fixed resource costs to upgrade the colony type (Camp → Settlement → Village → Town → City).
 - **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, shrines). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.
-- **Population & workers** — House population formula values (`HOUSE_BASE_POPULATION`, `HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), worker recruitment cost (`WORKER_RECRUIT_COST`), worker upkeep rates (`WORKER_FOOD_CONSUMPTION`, `WORKER_WOOD_CONSUMPTION`), and starvation death cap (`MAX_WORKER_DEATHS_PER_TICK`).
+- **Population & workers** — House population formula values (`HOUSE_BASE_POPULATION`, `HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), worker recruitment cost (`WORKER_RECRUIT_COST`), worker upkeep rates (`WORKER_FOOD_CONSUMPTION`, `WORKER_WOOD_CONSUMPTION`).
 - **Resource time weights** (`RESOURCE_TIME_WEIGHTS`) — Per-resource time weight in seconds, used by `Cost.toSeconds()` to derive build duration from resource costs.

@@ -4,7 +4,9 @@
 
 - Show rate below resources?
   - [RATE][PROGRESS_BAR]
-- Alternative to kill workers?
+- Rephrase
+  - Food production alert
+  - Wood production alert
 
 - Future events
   - challenge_timeout

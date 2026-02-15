@@ -90,8 +90,6 @@ All game state mutations are centralised in `GameState`. Each method guards prec
 - `recruitWorker()` — deducts `WORKER_RECRUIT_COST`, increments `resources.workers` and `colony.idleWorkers`. Blocked when can't afford or at population cap.
 - `assignWorker(buildingKey)` — moves one idle worker to the building. Blocked when no idle workers or building at max workers (`level × WORKERS_PER_LEVEL`).
 - `unassignWorker(buildingKey)` — moves one worker from the building back to idle.
-- `_killWorkers(count)` — removes workers from the colony (starvation). Kills idle workers first, then unassigns from buildings with the most workers. Decrements `resources.workers`.
-
 ### Events (`src/js/models/events/event.js`, `event_future.js`, `event_past.js`, `events.js`)
 
 Ephemeral event system for notifying the player of upcoming threats and past occurrences. Events live on `GameState.events` (not `Colony`) and are **not persisted** in save data — they reset on page refresh.
@@ -125,7 +123,7 @@ Core game loop that generates resources over time. `game_screen.vue` runs a main
 
 **Production formula**: For each building in `PRODUCTION_RATES` (balancing.js), production rate = `workers × baseRate`. Passive buildings (e.g. altar, flagged `passive: true`) use `level × rate` instead. After base rates are computed, food production is modified by season: warm applies `×(1 + SEASON_WARM_FOOD_MODIFIER)` (+20%) and cold applies `×(1 + SEASON_COLD_FOOD_MODIFIER)` (−20%). Rates are stored on `colony.production` (per-second) for UI display, then scaled by `deltaSec` when applied to `colony.resources`. Resources (except faith and knowledge, which are unbounded) are capped at `colony.stockpile` limits after application.
 
-**Worker consumption**: After production gains, every worker (idle and assigned) consumes `WORKER_FOOD_CONSUMPTION` food/sec and `WORKER_WOOD_CONSUMPTION` wood/sec (scaled by delta). If resources are insufficient, food and wood shortages are evaluated independently: `deaths = totalWorkers − floor(available / costPerWorker)`. The higher death count is applied (not the sum), then capped at `MAX_WORKER_DEATHS_PER_TICK` to prevent mass die-offs. Surviving workers' consumption is deducted normally (clamped to 0). Deaths remove idle workers first, then from buildings with the most assigned workers (via `_killWorkers`). Skipped when `delta === 0` or no workers exist.
+**Worker consumption**: After production gains, every worker (idle and assigned) consumes `WORKER_FOOD_CONSUMPTION` food/sec and `WORKER_WOOD_CONSUMPTION` wood/sec (wood scaled by seasonal modifier). If resources are insufficient, they are clamped to 0 — there is currently no penalty for resource shortages. Skipped when `delta === 0` or no workers exist.
 
 **Negative production detection**: After net production is finalized (including worker upkeep subtraction), a `_resourcesNegativeProduction` Set tracks which bounded resources currently have negative net production. When a resource transitions from non-negative to negative, a past event fires (using `RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG` from `constants.js`). When it recovers to non-negative, it is removed from the set so future drops can re-trigger. This follows the same edge-detection pattern as `_resourcesAtCap`.
 
