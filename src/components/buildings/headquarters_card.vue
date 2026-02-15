@@ -52,6 +52,7 @@ const canAffordLevelUp = computed(() => colony.resources.canAfford(levelUpCost.v
 const canLevelUp = computed(() => !isBusy.value && canAffordLevelUp.value)
 const levelUpCostEntries = computed(() => levelUpCost.value.entries())
 const levelUpTooltip = computed(() => {
+  if (isLevelingUp.value) return ''
   if (!isBusy.value && !canAffordLevelUp.value) return t('building.insufficientResources')
   return t('headquarters.expandTerritory')
 })
@@ -67,6 +68,7 @@ const upgradeCost = computed(() => hq.value.upgradeCost())
 const canAffordUpgrade = computed(() => upgradeCost.value !== null && colony.resources.canAfford(upgradeCost.value))
 const canUpgrade = computed(() => !isBusy.value && canAffordUpgrade.value)
 const upgradeTooltip = computed(() => {
+  if (isUpgrading.value) return ''
   if (!isBusy.value && upgradeCost.value !== null && !canAffordUpgrade.value) return t('building.insufficientResources')
   return t('headquarters.upgrade')
 })

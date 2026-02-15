@@ -59,6 +59,7 @@ const canAfford = computed(() =>
 const canAct = computed(() => canActBase.value && !territoryFull.value && canAfford.value)
 
 const actionTooltip = computed(() => {
+  if (isConstructing.value) return ''
   if (canActBase.value && !canAfford.value) return t('building.insufficientResources')
   if (canActBase.value && territoryFull.value) return t('building.maxTerritoryReached')
   return isBuildable.value ? t('building.build') + ' ' + t(displayNameKey.value) : t('building.levelUp')

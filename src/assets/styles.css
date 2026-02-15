@@ -106,6 +106,10 @@
     opacity: 1;
 }
 
+.tooltip[data-tooltip=""]::after {
+    display: none;
+}
+
 .tooltip--delayed:hover::after {
     transition-delay: 1s;
 }
