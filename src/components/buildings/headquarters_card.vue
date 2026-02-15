@@ -81,7 +81,7 @@ function upgradeType() {
 <template>
   <BaseCard :building-key="buildingKey" :img="img" :building="building" :name-key="nameKey" :show-build-action="false" :show-level="false">
     <div v-if="!isMaxType" class="action-row">
-      <span class="tooltip tooltip--delayed" :data-tooltip="upgradeTooltip">
+      <span class="tooltip" :class="{ 'tooltip--delayed': canUpgrade }" :data-tooltip="upgradeTooltip">
         <button
           class="btn-gold action-btn"
           :class="{ 'action-btn--constructing': isUpgrading }"
@@ -102,7 +102,7 @@ function upgradeType() {
     </div>
 
     <div class="action-row">
-      <span class="tooltip tooltip--delayed" :data-tooltip="levelUpTooltip">
+      <span class="tooltip" :class="{ 'tooltip--delayed': canLevelUp }" :data-tooltip="levelUpTooltip">
         <button
           class="btn-gold action-btn"
           :class="{ 'action-btn--constructing': isLevelingUp }"

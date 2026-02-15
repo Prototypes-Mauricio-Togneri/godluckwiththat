@@ -102,7 +102,7 @@ function act() {
       <span class="building-name">{{ t(displayNameKey) }}</span>
       <div v-if="hasAction || !isBuildable" class="slot-actions">
         <div v-if="hasAction" class="action-row">
-          <span class="tooltip tooltip--delayed" :data-tooltip="actionTooltip">
+          <span class="tooltip" :class="{ 'tooltip--delayed': canAct }" :data-tooltip="actionTooltip">
             <button
               class="btn-gold action-btn"
               :class="{ 'action-btn--constructing': isConstructing }"
