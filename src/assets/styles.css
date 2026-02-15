@@ -139,6 +139,11 @@
     display: flex;
     align-items: center;
     gap: 0.35rem;
+    transition: opacity 0.25s ease;
+}
+
+.action-row:has(.action-btn:disabled) .action-cost {
+    opacity: 0.35;
 }
 
 .action-cost-item {
