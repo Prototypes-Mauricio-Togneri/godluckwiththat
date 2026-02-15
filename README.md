@@ -5,6 +5,7 @@
 - Show what buildings are unlocked
 - Tooltip: "Upgrade to [HQ type]"
 - No tooltip if in progress
+- Allow to create workers when upgrading house
 
 - If button disabled -> Show why its disabled
   - Insufficient resources

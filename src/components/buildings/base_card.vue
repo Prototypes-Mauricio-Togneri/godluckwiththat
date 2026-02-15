@@ -48,19 +48,19 @@ const actionCost = computed(() =>
 )
 const territoryFull = computed(() => colony.resources.territory >= colony.stockpile.territory)
 const isConstructing = computed(() => props.building.constructionRemaining > 0)
-const canActBeforeAfford = computed(() =>
+const canActBase = computed(() =>
   actionCost.value !== null
-  && !territoryFull.value
   && !isConstructing.value,
 )
 const canAfford = computed(() =>
   actionCost.value !== null
   && colony.resources.canAfford(actionCost.value),
 )
-const canAct = computed(() => canActBeforeAfford.value && canAfford.value)
+const canAct = computed(() => canActBase.value && !territoryFull.value && canAfford.value)
 
 const actionTooltip = computed(() => {
-  if (canActBeforeAfford.value && !canAfford.value) return t('building.insufficientResources')
+  if (canActBase.value && !canAfford.value) return t('building.insufficientResources')
+  if (canActBase.value && territoryFull.value) return t('building.maxTerritoryReached')
   return isBuildable.value ? t('building.build') + ' ' + t(displayNameKey.value) : t('building.levelUp')
 })
 const actionCostEntries = computed(() => actionCost.value?.entries() ?? new Map())
