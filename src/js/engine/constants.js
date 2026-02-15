@@ -373,17 +373,17 @@ export function createInitialColony() {
     year: 1,
     season: SEASON_WARM,
     seasonElapsed: 0,
-    idleWorkers: 5,
+    idleWorkers: 0,
 
     resources: new Resources({
       territory: 0,
-      workers: 5,
-      food: 50,
-      wood: 50,
-      stone: 0,
-      copper: 0,
-      iron: 0,
-      gold: 0,
+      workers: 60,
+      food: 1000,
+      wood: 1000,
+      stone: 1000,
+      copper: 1000,
+      iron: 1000,
+      gold: 1000,
       faith: 0,
       knowledge: 0,
     }),
@@ -400,29 +400,29 @@ export function createInitialColony() {
     }),
 
     stockpile: new Stockpile({
-      territory: 20,
-      workers: 5,
-      food: 100,
-      wood: 100,
-      stone: 100,
-      copper: 100,
-      iron: 100,
-      gold: 100,
+      territory: 0,
+      workers: 0,
+      food: 0,
+      wood: 0,
+      stone: 0,
+      copper: 0,
+      iron: 0,
+      gold: 0,
     }),
 
     buildings: new Buildings({
       [Headquarters.ID]: new Headquarters({
         type: HQ_TYPE_CITY,
-        level: 1,
+        level: 5,
       }),
       [House.ID]: new House({
-        level: 0,
+        level: 15,
       }),
       [Academy.ID]: new Academy({
         level: 0,
       }),
       [Storehouse.ID]: new Storehouse({
-        level: 0,
+        level: 5,
       }),
       [Market.ID]: new Market({
         level: 0,
@@ -440,22 +440,28 @@ export function createInitialColony() {
         level: 0,
       }),
       [Farm.ID]: new Farm({
-        level: 0,
+        level: 2,
+        workers: 10,
       }),
       [Woodcutter.ID]: new Woodcutter({
-        level: 0,
+        level: 2,
+        workers: 10,
       }),
       [Quarry.ID]: new Quarry({
-        level: 0,
+        level: 2,
+        workers: 10,
       }),
       [CopperMine.ID]: new CopperMine({
-        level: 0,
+        level: 2,
+        workers: 10,
       }),
       [IronMine.ID]: new IronMine({
-        level: 0,
+        level: 2,
+        workers: 10,
       }),
       [GoldMine.ID]: new GoldMine({
-        level: 0,
+        level: 2,
+        workers: 10,
       }),
       [Barracks.ID]: new Barracks({
         level: 0,
