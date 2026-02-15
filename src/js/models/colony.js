@@ -1,3 +1,5 @@
+import {SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
+
 /**
  * Colony data model. Wraps all colony sub-models
  * (resources, production, stockpile, buildings).
@@ -25,6 +27,9 @@ class Colony {
     this.stockpile = data.stockpile // Maximum storage capacities
     this.buildings = data.buildings // All building instances
   }
+
+  get isWarmSeason() { return this.season === SEASON_WARM }
+  get isColdSeason() { return this.season === SEASON_COLD }
 }
 
 export default Colony

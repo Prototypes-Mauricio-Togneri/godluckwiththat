@@ -84,11 +84,11 @@ class GameState {
     }
 
     // Seasonal modifier to food production
-    const foodSeasonMod = this.colony.season === SEASON_WARM ? SEASON_WARM_FOOD_MODIFIER : SEASON_COLD_FOOD_MODIFIER
+    const foodSeasonMod = this.colony.isWarmSeason ? SEASON_WARM_FOOD_MODIFIER : SEASON_COLD_FOOD_MODIFIER
     production.food *= 1 + foodSeasonMod
 
     // Seasonal modifier for wood consumption
-    const woodSeasonMod = this.colony.season === SEASON_WARM ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
+    const woodSeasonMod = this.colony.isWarmSeason ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
 
     // Apply production to resources, scaled by delta time
     resources.food += production.food * delta
@@ -177,9 +177,9 @@ class GameState {
     this.colony.seasonElapsed += delta
     if (this.colony.seasonElapsed >= SEASON_DURATION) {
       this.colony.seasonElapsed -= SEASON_DURATION
-      if (this.colony.season === SEASON_COLD) this.colony.year++
-      this.colony.season = this.colony.season === SEASON_WARM ? SEASON_COLD : SEASON_WARM
-      const isWarm = this.colony.season === SEASON_WARM
+      if (this.colony.isColdSeason) this.colony.year++
+      this.colony.season = this.colony.isWarmSeason ? SEASON_COLD : SEASON_WARM
+      const isWarm = this.colony.isWarmSeason
       this.events.addPast({
         type: EVENT_TYPE_SEASON_CHANGED,
         textKey: isWarm ? 'event.warmSeason' : 'event.coldSeason',
