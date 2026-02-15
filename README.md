@@ -6,6 +6,11 @@
 
 - If button disabled -> Show why its disabled
   - Insufficient resources
+    - Build
+    - Increase level
+    - Upgrade HQ
+    - Expand territory
+    - Create worker
   - Max territory reached
   - Max population reached
 
