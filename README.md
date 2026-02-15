@@ -2,6 +2,10 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Show rate below resources?
+  - [RATE][PROGRESS_BAR]
+- Alternative to kill workers?
+
 - Future events
   - challenge_timeout
   - research_timeout
