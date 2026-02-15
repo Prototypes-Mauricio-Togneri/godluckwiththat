@@ -9,13 +9,13 @@ import Cost from '@/js/models/cost.js'
 // Time weight per resource unit (seconds). Used by Cost.toSeconds() to
 // derive construction duration from resource costs.
 export const RESOURCE_TIME_WEIGHTS = {
-  [RESOURCE_FOOD]: 1,
-  [RESOURCE_WOOD]: 2,
-  [RESOURCE_STONE]: 3,
-  [RESOURCE_COPPER]: 4,
-  [RESOURCE_IRON]: 5,
-  [RESOURCE_GOLD]: 6,
-  [RESOURCE_KNOWLEDGE]: 7,
+  [RESOURCE_FOOD]: 0.2,
+  [RESOURCE_WOOD]: 0.4,
+  [RESOURCE_STONE]: 0.6,
+  [RESOURCE_COPPER]: 0.8,
+  [RESOURCE_IRON]: 1,
+  [RESOURCE_GOLD]: 1.2,
+  [RESOURCE_KNOWLEDGE]: 1.4,
 }
 
 // ── Building Upgrades ─────────────────────────────────────────────

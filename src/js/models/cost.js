@@ -89,7 +89,7 @@ class Cost {
     ] of this.entries()) {
       seconds += amount * (RESOURCE_TIME_WEIGHTS[resource] ?? 0)
     }
-    return seconds
+    return Math.floor(seconds)
   }
 }
 
