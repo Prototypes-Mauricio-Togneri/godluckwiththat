@@ -1,5 +1,5 @@
 import {IMG_BUILDING_ACADEMY, IMG_BUILDING_ALTAR, IMG_BUILDING_ARCHERY, IMG_BUILDING_BARRACKS, IMG_BUILDING_COPPER_MINE, IMG_BUILDING_FARM, IMG_BUILDING_GOLD_MINE, IMG_BUILDING_HEADQUARTERS, IMG_BUILDING_HOUSE, IMG_BUILDING_IRON_MINE, IMG_BUILDING_MARKET, IMG_BUILDING_MONUMENT, IMG_BUILDING_QUARRY, IMG_BUILDING_SHRINE, IMG_BUILDING_STABLE, IMG_BUILDING_STOREHOUSE, IMG_BUILDING_TEMPLE, IMG_BUILDING_TOWER, IMG_BUILDING_WALL, IMG_BUILDING_WOODCUTTER, IMG_BUILDING_WORKSHOP, IMG_RESOURCE_COPPER, IMG_RESOURCE_FOOD, IMG_RESOURCE_GOLD, IMG_RESOURCE_IRON, IMG_RESOURCE_STONE, IMG_RESOURCE_WOOD} from '@/js/engine/assets.js'
-import {HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD, SEASON_WARM} from '@/js/engine/enums.js'
+import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_SHRINE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD, SEASON_WARM} from '@/js/engine/enums.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
 import Archery from '@/js/models/buildings/archery.js'
@@ -133,34 +133,34 @@ export const HQ_TYPES = [
 // Buildings unlocked at each headquarters type (non-cumulative per tier)
 export const HQ_BUILDING_UNLOCKS = {
   [HQ_TYPE_CAMP]: [
-    House.ID,
-    Altar.ID,
-    Farm.ID,
-    Woodcutter.ID,
+    BUILDING_HOUSE,
+    BUILDING_ALTAR,
+    BUILDING_FARM,
+    BUILDING_WOODCUTTER,
   ],
   [HQ_TYPE_SETTLEMENT]: [
-    Academy.ID,
-    Shrine.ID,
-    Quarry.ID,
-    Barracks.ID,
+    BUILDING_ACADEMY,
+    BUILDING_SHRINE,
+    BUILDING_QUARRY,
+    BUILDING_BARRACKS,
   ],
   [HQ_TYPE_VILLAGE]: [
-    Storehouse.ID,
-    Temple.ID,
-    CopperMine.ID,
-    Archery.ID,
+    BUILDING_STOREHOUSE,
+    BUILDING_TEMPLE,
+    BUILDING_COPPER_MINE,
+    BUILDING_ARCHERY,
   ],
   [HQ_TYPE_TOWN]: [
-    Monument.ID,
-    IronMine.ID,
-    Stable.ID,
-    Wall.ID,
+    BUILDING_MONUMENT,
+    BUILDING_IRON_MINE,
+    BUILDING_STABLE,
+    BUILDING_WALL,
   ],
   [HQ_TYPE_CITY]: [
-    Market.ID,
-    GoldMine.ID,
-    Workshop.ID,
-    Tower.ID,
+    BUILDING_MARKET,
+    BUILDING_GOLD_MINE,
+    BUILDING_WORKSHOP,
+    BUILDING_TOWER,
   ],
 }
 
@@ -182,27 +182,27 @@ export const HQ_RESOURCE_UNLOCKS = {
 
 // Building class map — resolves building keys to their class constructors
 export const BUILDING_CLASS_MAP = {
-  [Headquarters.ID]: Headquarters,
-  [House.ID]: House,
-  [Academy.ID]: Academy,
-  [Storehouse.ID]: Storehouse,
-  [Market.ID]: Market,
-  [Farm.ID]: Farm,
-  [Woodcutter.ID]: Woodcutter,
-  [Quarry.ID]: Quarry,
-  [CopperMine.ID]: CopperMine,
-  [IronMine.ID]: IronMine,
-  [GoldMine.ID]: GoldMine,
-  [Altar.ID]: Altar,
-  [Shrine.ID]: Shrine,
-  [Temple.ID]: Temple,
-  [Monument.ID]: Monument,
-  [Barracks.ID]: Barracks,
-  [Archery.ID]: Archery,
-  [Stable.ID]: Stable,
-  [Workshop.ID]: Workshop,
-  [Wall.ID]: Wall,
-  [Tower.ID]: Tower,
+  [BUILDING_HEADQUARTERS]: Headquarters,
+  [BUILDING_HOUSE]: House,
+  [BUILDING_ACADEMY]: Academy,
+  [BUILDING_STOREHOUSE]: Storehouse,
+  [BUILDING_MARKET]: Market,
+  [BUILDING_FARM]: Farm,
+  [BUILDING_WOODCUTTER]: Woodcutter,
+  [BUILDING_QUARRY]: Quarry,
+  [BUILDING_COPPER_MINE]: CopperMine,
+  [BUILDING_IRON_MINE]: IronMine,
+  [BUILDING_GOLD_MINE]: GoldMine,
+  [BUILDING_ALTAR]: Altar,
+  [BUILDING_SHRINE]: Shrine,
+  [BUILDING_TEMPLE]: Temple,
+  [BUILDING_MONUMENT]: Monument,
+  [BUILDING_BARRACKS]: Barracks,
+  [BUILDING_ARCHERY]: Archery,
+  [BUILDING_STABLE]: Stable,
+  [BUILDING_WORKSHOP]: Workshop,
+  [BUILDING_WALL]: Wall,
+  [BUILDING_TOWER]: Tower,
 }
 
 // Building grid layout — column definitions for the game screen
@@ -211,23 +211,23 @@ export const BUILDING_GRID = [
     headerKey: 'buildingGroup.colony',
     buildings: [
       {
-        key: Headquarters.ID,
+        key: BUILDING_HEADQUARTERS,
         img: IMG_BUILDING_HEADQUARTERS,
       },
       {
-        key: House.ID,
+        key: BUILDING_HOUSE,
         img: IMG_BUILDING_HOUSE,
       },
       {
-        key: Academy.ID,
+        key: BUILDING_ACADEMY,
         img: IMG_BUILDING_ACADEMY,
       },
       {
-        key: Storehouse.ID,
+        key: BUILDING_STOREHOUSE,
         img: IMG_BUILDING_STOREHOUSE,
       },
       {
-        key: Market.ID,
+        key: BUILDING_MARKET,
         img: IMG_BUILDING_MARKET,
       },
     ],
@@ -236,27 +236,27 @@ export const BUILDING_GRID = [
     headerKey: 'buildingGroup.economy',
     buildings: [
       {
-        key: Farm.ID,
+        key: BUILDING_FARM,
         img: IMG_BUILDING_FARM,
       },
       {
-        key: Woodcutter.ID,
+        key: BUILDING_WOODCUTTER,
         img: IMG_BUILDING_WOODCUTTER,
       },
       {
-        key: Quarry.ID,
+        key: BUILDING_QUARRY,
         img: IMG_BUILDING_QUARRY,
       },
       {
-        key: CopperMine.ID,
+        key: BUILDING_COPPER_MINE,
         img: IMG_BUILDING_COPPER_MINE,
       },
       {
-        key: IronMine.ID,
+        key: BUILDING_IRON_MINE,
         img: IMG_BUILDING_IRON_MINE,
       },
       {
-        key: GoldMine.ID,
+        key: BUILDING_GOLD_MINE,
         img: IMG_BUILDING_GOLD_MINE,
       },
     ],
@@ -265,19 +265,19 @@ export const BUILDING_GRID = [
     headerKey: 'buildingGroup.religion',
     buildings: [
       {
-        key: Altar.ID,
+        key: BUILDING_ALTAR,
         img: IMG_BUILDING_ALTAR,
       },
       {
-        key: Shrine.ID,
+        key: BUILDING_SHRINE,
         img: IMG_BUILDING_SHRINE,
       },
       {
-        key: Temple.ID,
+        key: BUILDING_TEMPLE,
         img: IMG_BUILDING_TEMPLE,
       },
       {
-        key: Monument.ID,
+        key: BUILDING_MONUMENT,
         img: IMG_BUILDING_MONUMENT,
       },
     ],
@@ -286,27 +286,27 @@ export const BUILDING_GRID = [
     headerKey: 'buildingGroup.military',
     buildings: [
       {
-        key: Barracks.ID,
+        key: BUILDING_BARRACKS,
         img: IMG_BUILDING_BARRACKS,
       },
       {
-        key: Archery.ID,
+        key: BUILDING_ARCHERY,
         img: IMG_BUILDING_ARCHERY,
       },
       {
-        key: Stable.ID,
+        key: BUILDING_STABLE,
         img: IMG_BUILDING_STABLE,
       },
       {
-        key: Workshop.ID,
+        key: BUILDING_WORKSHOP,
         img: IMG_BUILDING_WORKSHOP,
       },
       {
-        key: Wall.ID,
+        key: BUILDING_WALL,
         img: IMG_BUILDING_WALL,
       },
       {
-        key: Tower.ID,
+        key: BUILDING_TOWER,
         img: IMG_BUILDING_TOWER,
       },
     ],
@@ -385,68 +385,68 @@ export function createInitialColonyBasic() {
     }),
 
     buildings: new Buildings({
-      [Headquarters.ID]: new Headquarters({
+      [BUILDING_HEADQUARTERS]: new Headquarters({
         type: HQ_TYPE_CAMP,
         level: 5,
       }),
-      [House.ID]: new House({
+      [BUILDING_HOUSE]: new House({
         level: 0,
       }),
-      [Academy.ID]: new Academy({
+      [BUILDING_ACADEMY]: new Academy({
         level: 0,
       }),
-      [Storehouse.ID]: new Storehouse({
+      [BUILDING_STOREHOUSE]: new Storehouse({
         level: 0,
       }),
-      [Market.ID]: new Market({
+      [BUILDING_MARKET]: new Market({
         level: 0,
       }),
-      [Altar.ID]: new Altar({
+      [BUILDING_ALTAR]: new Altar({
         level: 0,
       }),
-      [Shrine.ID]: new Shrine({
+      [BUILDING_SHRINE]: new Shrine({
         level: 0,
       }),
-      [Temple.ID]: new Temple({
+      [BUILDING_TEMPLE]: new Temple({
         level: 0,
       }),
-      [Monument.ID]: new Monument({
+      [BUILDING_MONUMENT]: new Monument({
         level: 0,
       }),
-      [Farm.ID]: new Farm({
+      [BUILDING_FARM]: new Farm({
         level: 0,
       }),
-      [Woodcutter.ID]: new Woodcutter({
+      [BUILDING_WOODCUTTER]: new Woodcutter({
         level: 0,
       }),
-      [Quarry.ID]: new Quarry({
+      [BUILDING_QUARRY]: new Quarry({
         level: 0,
       }),
-      [CopperMine.ID]: new CopperMine({
+      [BUILDING_COPPER_MINE]: new CopperMine({
         level: 0,
       }),
-      [IronMine.ID]: new IronMine({
+      [BUILDING_IRON_MINE]: new IronMine({
         level: 0,
       }),
-      [GoldMine.ID]: new GoldMine({
+      [BUILDING_GOLD_MINE]: new GoldMine({
         level: 0,
       }),
-      [Barracks.ID]: new Barracks({
+      [BUILDING_BARRACKS]: new Barracks({
         level: 0,
       }),
-      [Archery.ID]: new Archery({
+      [BUILDING_ARCHERY]: new Archery({
         level: 0,
       }),
-      [Stable.ID]: new Stable({
+      [BUILDING_STABLE]: new Stable({
         level: 0,
       }),
-      [Workshop.ID]: new Workshop({
+      [BUILDING_WORKSHOP]: new Workshop({
         level: 0,
       }),
-      [Wall.ID]: new Wall({
+      [BUILDING_WALL]: new Wall({
         level: 0,
       }),
-      [Tower.ID]: new Tower({
+      [BUILDING_TOWER]: new Tower({
         level: 0,
       }),
     }),
@@ -500,74 +500,74 @@ export function createInitialColonyAdvanced() {
     }),
 
     buildings: new Buildings({
-      [Headquarters.ID]: new Headquarters({
+      [BUILDING_HEADQUARTERS]: new Headquarters({
         type: HQ_TYPE_CITY,
         level: 5,
       }),
-      [House.ID]: new House({
+      [BUILDING_HOUSE]: new House({
         level: 15,
       }),
-      [Academy.ID]: new Academy({
+      [BUILDING_ACADEMY]: new Academy({
         level: 0,
       }),
-      [Storehouse.ID]: new Storehouse({
+      [BUILDING_STOREHOUSE]: new Storehouse({
         level: 5,
       }),
-      [Market.ID]: new Market({
+      [BUILDING_MARKET]: new Market({
         level: 0,
       }),
-      [Altar.ID]: new Altar({
+      [BUILDING_ALTAR]: new Altar({
         level: 0,
       }),
-      [Shrine.ID]: new Shrine({
+      [BUILDING_SHRINE]: new Shrine({
         level: 0,
       }),
-      [Temple.ID]: new Temple({
+      [BUILDING_TEMPLE]: new Temple({
         level: 0,
       }),
-      [Monument.ID]: new Monument({
+      [BUILDING_MONUMENT]: new Monument({
         level: 0,
       }),
-      [Farm.ID]: new Farm({
+      [BUILDING_FARM]: new Farm({
         level: 2,
         workers: 10,
       }),
-      [Woodcutter.ID]: new Woodcutter({
+      [BUILDING_WOODCUTTER]: new Woodcutter({
         level: 2,
         workers: 10,
       }),
-      [Quarry.ID]: new Quarry({
+      [BUILDING_QUARRY]: new Quarry({
         level: 2,
         workers: 10,
       }),
-      [CopperMine.ID]: new CopperMine({
+      [BUILDING_COPPER_MINE]: new CopperMine({
         level: 2,
         workers: 10,
       }),
-      [IronMine.ID]: new IronMine({
+      [BUILDING_IRON_MINE]: new IronMine({
         level: 2,
         workers: 10,
       }),
-      [GoldMine.ID]: new GoldMine({
+      [BUILDING_GOLD_MINE]: new GoldMine({
         level: 2,
         workers: 10,
       }),
-      [Barracks.ID]: new Barracks({
+      [BUILDING_BARRACKS]: new Barracks({
         level: 0,
       }),
-      [Archery.ID]: new Archery({
+      [BUILDING_ARCHERY]: new Archery({
         level: 0,
       }),
-      [Stable.ID]: new Stable({
+      [BUILDING_STABLE]: new Stable({
         level: 0,
       }),
-      [Workshop.ID]: new Workshop({
+      [BUILDING_WORKSHOP]: new Workshop({
         level: 0,
       }),
-      [Wall.ID]: new Wall({
+      [BUILDING_WALL]: new Wall({
         level: 0,
       }),
-      [Tower.ID]: new Tower({
+      [BUILDING_TOWER]: new Tower({
         level: 0,
       }),
     }),
