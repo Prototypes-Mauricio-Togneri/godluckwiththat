@@ -15,7 +15,9 @@ class Producer extends Building {
     this.workers = data.workers ?? 0 // Assigned workers (default 0)
   }
 
-  get maxWorkers() { return this.level * WORKERS_PER_LEVEL }
+  get maxWorkers() {
+    return this.level * WORKERS_PER_LEVEL
+  }
 }
 
 export default Producer

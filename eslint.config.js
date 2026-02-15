@@ -46,9 +46,7 @@ export default [
       '@stylistic/space-infix-ops': 'error',
       '@stylistic/keyword-spacing': 'error',
       '@stylistic/space-before-blocks': 'error',
-      '@stylistic/brace-style': ['error', '1tbs', {
-        allowSingleLine: true,
-      }],
+      '@stylistic/brace-style': ['error', '1tbs'],
       '@stylistic/object-curly-spacing': ['error', 'never'],
       '@stylistic/array-bracket-spacing': ['error', 'never'],
       '@stylistic/array-bracket-newline': ['error', {

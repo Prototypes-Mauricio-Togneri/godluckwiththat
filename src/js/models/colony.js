@@ -28,8 +28,13 @@ class Colony {
     this.buildings = data.buildings // All building instances
   }
 
-  get isWarmSeason() { return this.season === SEASON_WARM }
-  get isColdSeason() { return this.season === SEASON_COLD }
+  get isWarmSeason() {
+    return this.season === SEASON_WARM
+  }
+
+  get isColdSeason() {
+    return this.season === SEASON_COLD
+  }
 }
 
 export default Colony
