@@ -6,8 +6,6 @@ import Producer from '@/js/models/buildings/producer.js'
  * Generates knowledge for the colony.
  */
 class Academy extends Producer {
-  static ID = BUILDING_ACADEMY
-
   /**
    * @param {Object} data - Initial building data
    */

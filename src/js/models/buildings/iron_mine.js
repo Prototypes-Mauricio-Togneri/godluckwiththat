@@ -6,8 +6,6 @@ import Producer from '@/js/models/buildings/producer.js'
  * Produces iron for the colony.
  */
 class IronMine extends Producer {
-  static ID = BUILDING_IRON_MINE
-
   /**
    * @param {Object} data - Initial building data
    */

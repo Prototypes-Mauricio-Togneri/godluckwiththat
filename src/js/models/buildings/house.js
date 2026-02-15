@@ -6,8 +6,6 @@ import Building from '@/js/models/buildings/building.js'
  * Provides housing for colony population.
  */
 class House extends Building {
-  static ID = BUILDING_HOUSE
-
   /**
    * @param {Object} data - Initial building data
    */

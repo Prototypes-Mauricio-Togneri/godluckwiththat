@@ -6,8 +6,6 @@ import Producer from '@/js/models/buildings/producer.js'
  * Produces food for the colony.
  */
 class Farm extends Producer {
-  static ID = BUILDING_FARM
-
   /**
    * @param {Object} data - Initial building data
    */

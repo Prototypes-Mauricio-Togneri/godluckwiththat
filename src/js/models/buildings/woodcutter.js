@@ -6,8 +6,6 @@ import Producer from '@/js/models/buildings/producer.js'
  * Produces wood for the colony.
  */
 class Woodcutter extends Producer {
-  static ID = BUILDING_WOODCUTTER
-
   /**
    * @param {Object} data - Initial building data
    */

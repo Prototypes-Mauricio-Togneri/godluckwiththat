@@ -6,8 +6,6 @@ import Building from '@/js/models/buildings/building.js'
  * Enables resource trading.
  */
 class Market extends Building {
-  static ID = BUILDING_MARKET
-
   /**
    * @param {Object} data - Initial building data
    */

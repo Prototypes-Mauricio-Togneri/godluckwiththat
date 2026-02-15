@@ -6,8 +6,6 @@ import Building from '@/js/models/buildings/building.js'
  * Trains ranged units.
  */
 class Archery extends Building {
-  static ID = BUILDING_ARCHERY
-
   /**
    * @param {Object} data - Initial building data
    */

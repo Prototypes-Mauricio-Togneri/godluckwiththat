@@ -6,8 +6,6 @@ import Building from '@/js/models/buildings/building.js'
  * Trains infantry units.
  */
 class Barracks extends Building {
-  static ID = BUILDING_BARRACKS
-
   /**
    * @param {Object} data - Initial building data
    */

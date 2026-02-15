@@ -6,8 +6,6 @@ import Building from '@/js/models/buildings/building.js'
  * Defensive fortification.
  */
 class Wall extends Building {
-  static ID = BUILDING_WALL
-
   /**
    * @param {Object} data - Initial building data
    */

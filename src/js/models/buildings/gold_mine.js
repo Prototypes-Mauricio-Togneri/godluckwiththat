@@ -6,8 +6,6 @@ import Producer from '@/js/models/buildings/producer.js'
  * Produces gold for the colony.
  */
 class GoldMine extends Producer {
-  static ID = BUILDING_GOLD_MINE
-
   /**
    * @param {Object} data - Initial building data
    */

@@ -6,8 +6,6 @@ import Building from '@/js/models/buildings/building.js'
  * Increases resource stockpile capacity.
  */
 class Storehouse extends Building {
-  static ID = BUILDING_STOREHOUSE
-
   /**
    * @param {Object} data - Initial building data
    */

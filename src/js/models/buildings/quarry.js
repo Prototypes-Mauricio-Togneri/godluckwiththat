@@ -6,8 +6,6 @@ import Producer from '@/js/models/buildings/producer.js'
  * Produces stone for the colony.
  */
 class Quarry extends Producer {
-  static ID = BUILDING_QUARRY
-
   /**
    * @param {Object} data - Initial building data
    */

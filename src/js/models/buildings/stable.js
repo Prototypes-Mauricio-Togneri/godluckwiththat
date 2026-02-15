@@ -6,8 +6,6 @@ import Building from '@/js/models/buildings/building.js'
  * Trains mounted units.
  */
 class Stable extends Building {
-  static ID = BUILDING_STABLE
-
   /**
    * @param {Object} data - Initial building data
    */

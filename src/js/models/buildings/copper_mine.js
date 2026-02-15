@@ -6,8 +6,6 @@ import Producer from '@/js/models/buildings/producer.js'
  * Produces copper for the colony.
  */
 class CopperMine extends Producer {
-  static ID = BUILDING_COPPER_MINE
-
   /**
    * @param {Object} data - Initial building data
    */

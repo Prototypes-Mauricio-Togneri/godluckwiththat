@@ -6,8 +6,6 @@ import Producer from '@/js/models/buildings/producer.js'
  * Sacred building that amplifies faith.
  */
 class Shrine extends Producer {
-  static ID = BUILDING_SHRINE
-
   /**
    * @param {Object} data - Initial building data
    */

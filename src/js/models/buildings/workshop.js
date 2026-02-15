@@ -6,8 +6,6 @@ import Building from '@/js/models/buildings/building.js'
  * Crafts siege equipment.
  */
 class Workshop extends Building {
-  static ID = BUILDING_WORKSHOP
-
   /**
    * @param {Object} data - Initial building data
    */

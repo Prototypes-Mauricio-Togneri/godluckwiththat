@@ -6,8 +6,6 @@ import Building from '@/js/models/buildings/building.js'
  * Grand structure honoring the Gods.
  */
 class Monument extends Building {
-  static ID = BUILDING_MONUMENT
-
   /**
    * @param {Object} data - Initial building data
    */

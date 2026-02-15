@@ -6,8 +6,6 @@ import Building from '@/js/models/buildings/building.js'
  * Defensive ranged structure.
  */
 class Tower extends Building {
-  static ID = BUILDING_TOWER
-
   /**
    * @param {Object} data - Initial building data
    */

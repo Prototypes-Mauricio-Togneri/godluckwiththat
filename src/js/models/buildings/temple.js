@@ -6,8 +6,6 @@ import Producer from '@/js/models/buildings/producer.js'
  * Advanced faith building.
  */
 class Temple extends Producer {
-  static ID = BUILDING_TEMPLE
-
   /**
    * @param {Object} data - Initial building data
    */
