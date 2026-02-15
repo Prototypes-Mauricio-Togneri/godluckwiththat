@@ -70,6 +70,7 @@ export const LOCALIZED_EN = {
   'building.levelUp': 'Increase level',
   'building.insufficientResources': 'Insufficient resources',
   'building.maxTerritoryReached': 'Max territory reached',
+  'building.maxPopulationReached': 'Max population reached',
 
   // Worker assignment
   'worker.assign': 'Assign worker',
