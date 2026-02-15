@@ -11,6 +11,10 @@ defineProps({
     type: String,
     required: true,
   },
+  img: {
+    type: String,
+    required: true,
+  },
 })
 
 const emit = defineEmits(['close'])
@@ -45,11 +49,11 @@ onUnmounted(() => {
   >
     <div class="modal-content">
       <h2 class="modal-title">{{ t(nameKey) }}</h2>
-
-      <!-- Decorative rule -->
       <span class="modal-rule" />
-
-      <p class="modal-description">{{ t('buildingHelp.' + buildingKey) }}</p>
+      <div class="modal-body">
+        <img class="modal-thumb" :src="img" :alt="t(nameKey)">
+        <p class="modal-description">{{ t('buildingHelp.' + buildingKey) }}</p>
+      </div>
 
       <button class="btn-gold modal-btn" @click="emit('close')">
         {{ t('modal.buildingHelp.close') }}
@@ -82,12 +86,11 @@ onUnmounted(() => {
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(var(--color-accent-rgb), 0.06);
-  padding: 1.75rem 2.5rem 1.5rem;
+  padding: 1.75rem 2rem 1.5rem;
   min-width: 340px;
-  max-width: 420px;
+  max-width: 480px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   transform: translateY(8px);
   transition: transform 0.25s ease;
 }
@@ -103,13 +106,14 @@ onUnmounted(() => {
   color: var(--color-text);
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  align-self: center;
 }
 
-/* Decorative horizontal divider */
 .modal-rule {
+  display: block;
   width: 3.5rem;
   height: 1px;
-  margin: 1rem 0 1.5rem;
+  margin: 0.75rem auto 1.25rem;
   background: linear-gradient(
     90deg,
     transparent,
@@ -118,19 +122,32 @@ onUnmounted(() => {
   );
 }
 
+.modal-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.modal-thumb {
+  width: 9rem;
+  height: 9rem;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 12px rgba(var(--color-accent-rgb), 0.15));
+}
+
 .modal-description {
   font-family: var(--font-body);
   font-size: 1.05rem;
   font-weight: 300;
   line-height: 1.6;
   color: rgba(var(--color-text-rgb), 0.75);
-  text-align: center;
-  margin-bottom: 1.5rem;
 }
 
 .modal-btn {
+  margin-top: 1.5rem;
   align-self: stretch;
-  margin-inline: -1rem;
   font-size: 0.8rem;
   letter-spacing: 0.15em;
   padding: 0.6rem 1.8rem;

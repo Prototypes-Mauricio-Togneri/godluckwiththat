@@ -131,6 +131,7 @@ function act() {
       v-if="showHelp"
       :name-key="displayNameKey"
       :building-key="buildingKey"
+      :img="img"
       @close="showHelp = false"
     />
   </div>
