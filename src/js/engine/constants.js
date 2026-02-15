@@ -1,4 +1,5 @@
 import {IMG_BUILDING_ACADEMY, IMG_BUILDING_ALTAR, IMG_BUILDING_ARCHERY, IMG_BUILDING_BARRACKS, IMG_BUILDING_COPPER_MINE, IMG_BUILDING_FARM, IMG_BUILDING_GOLD_MINE, IMG_BUILDING_HEADQUARTERS, IMG_BUILDING_HOUSE, IMG_BUILDING_IRON_MINE, IMG_BUILDING_MARKET, IMG_BUILDING_MONUMENT, IMG_BUILDING_QUARRY, IMG_BUILDING_SHRINE, IMG_BUILDING_STABLE, IMG_BUILDING_STOREHOUSE, IMG_BUILDING_TEMPLE, IMG_BUILDING_TOWER, IMG_BUILDING_WALL, IMG_BUILDING_WOODCUTTER, IMG_BUILDING_WORKSHOP, IMG_RESOURCE_COPPER, IMG_RESOURCE_FOOD, IMG_RESOURCE_GOLD, IMG_RESOURCE_IRON, IMG_RESOURCE_STONE, IMG_RESOURCE_WOOD} from '@/js/engine/assets.js'
+import {HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD, SEASON_WARM} from '@/js/engine/enums.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
 import Archery from '@/js/models/buildings/archery.js'
@@ -28,23 +29,13 @@ import Production from '@/js/models/production.js'
 import Resources from '@/js/models/resources.js'
 import Stockpile from '@/js/models/stockpile.js'
 
-// Structural constants — class maps, enums, sets, and factory functions.
+// Structural constants — class maps, sets, and factory functions.
 
 // Tick interval in milliseconds
 export const TICK_INTERVAL = 1000
 
 // Seconds-per-minute conversion for production rate display
 export const SECONDS_PER_MINUTE = 60
-
-// Resource names
-export const RESOURCE_FOOD = 'food'
-export const RESOURCE_WOOD = 'wood'
-export const RESOURCE_STONE = 'stone'
-export const RESOURCE_COPPER = 'copper'
-export const RESOURCE_IRON = 'iron'
-export const RESOURCE_GOLD = 'gold'
-export const RESOURCE_KNOWLEDGE = 'knowledge'
-export const RESOURCE_FAITH = 'faith'
 
 // Ordered resource keys shown in the game header
 export const HEADER_RESOURCES = [
@@ -73,25 +64,6 @@ export const UNBOUNDED_RESOURCES = [
   RESOURCE_KNOWLEDGE,
   RESOURCE_FAITH,
 ]
-
-// Headquarters progression types (colony upgrades)
-export const HQ_TYPE_CAMP = 'camp'
-export const HQ_TYPE_SETTLEMENT = 'settlement'
-export const HQ_TYPE_VILLAGE = 'village'
-export const HQ_TYPE_TOWN = 'town'
-export const HQ_TYPE_CITY = 'city'
-
-// Season identifiers
-export const SEASON_WARM = 'warm'
-export const SEASON_COLD = 'cold'
-
-// Event types
-export const EVENT_TYPE_SEASON_CHANGED = 'season_changed'
-export const EVENT_TYPE_POPULATION_LIMIT_REACHED = 'population_limit_reached'
-export const EVENT_TYPE_TERRITORY_LIMIT_REACHED = 'territory_limit_reached'
-export const EVENT_TYPE_RESOURCE_LIMIT_REACHED = 'resource_limit_reached'
-export const EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION = 'resource_negative_production'
-export const EVENT_TYPE_BUILDING_UPGRADE = 'building_upgrade'
 
 // Config for resource-limit-reached events (textKey + icon per bounded resource)
 export const RESOURCE_LIMIT_EVENT_CONFIG = {

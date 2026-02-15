@@ -187,7 +187,7 @@ Each supported language has its own file (`en.js`, `es.js`) exporting a flat obj
   - Variables: full descriptive names, avoid abbreviations
     - Allowed: `i`, `j` (loop counters), `x`, `y` (coordinates), `dx`, `dy` (deltas), `ctx` (canvas context)
     - Avoid: `p` (player), `em` (enemyManager), `el` (element), `sw` (switch), `m` (mine), etc.
-- Numeric balancing values in `src/js/engine/balancing.js`, structural constants in `src/js/engine/constants.js`
+- Numeric balancing values in `src/js/engine/balancing.js`, structural constants in `src/js/engine/constants.js`, pure string enums in `src/js/engine/enums.js` (re-exported by `constants.js`)
 - Unused parameters: use `_`, `__`, `___`, etc.
 
 ### JavaScript Comment Conventions

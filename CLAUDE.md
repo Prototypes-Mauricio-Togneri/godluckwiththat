@@ -30,6 +30,7 @@ src/
 │   │   ├── assets.js         → Asset path constants (auto-generated, do not edit manually)
 │   │   ├── balancing.js      → Game balancing values (costs, rates, build times, formulas)
 │   │   ├── constants.js      → Structural constants (maps, enums, factories)
+│   │   ├── enums.js          → Pure string enums (resource/HQ/season/event types)
 │   │   ├── game_state.js     → GameState class (meta + colony data model + update loop)
 │   │   └── main.js           → Vue app entry point
 │   ├── i18n/

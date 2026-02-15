@@ -1,4 +1,4 @@
-import {SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
+import {SEASON_COLD, SEASON_WARM} from '@/js/engine/enums.js'
 
 /**
  * Colony data model. Wraps all colony sub-models
