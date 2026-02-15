@@ -4,9 +4,6 @@
 
 - Show rate below resources?
   - [RATE][PROGRESS_BAR]
-- Rephrase
-  - Food production alert
-  - Wood production alert
 
 - Future events
   - challenge_timeout
