@@ -9,13 +9,13 @@ import Cost from '@/js/models/cost.js'
 // Time weight per resource unit (seconds). Used by Cost.toSeconds() to
 // derive construction duration from resource costs.
 export const RESOURCE_TIME_WEIGHTS = {
-  [RESOURCE_FOOD]: 0.2,
-  [RESOURCE_WOOD]: 0.4,
-  [RESOURCE_STONE]: 0.6,
-  [RESOURCE_COPPER]: 0.8,
-  [RESOURCE_IRON]: 1,
-  [RESOURCE_GOLD]: 1.2,
-  [RESOURCE_KNOWLEDGE]: 1.4,
+  [RESOURCE_FOOD]: 0.1,
+  [RESOURCE_WOOD]: 0.1,
+  [RESOURCE_STONE]: 0.1,
+  [RESOURCE_COPPER]: 0.1,
+  [RESOURCE_IRON]: 0.1,
+  [RESOURCE_GOLD]: 0.1,
+  [RESOURCE_KNOWLEDGE]: 0.1,
 }
 
 // ── Building Upgrades ─────────────────────────────────────────────
@@ -25,14 +25,14 @@ export const RESOURCE_TIME_WEIGHTS = {
 export const BUILDING_UPGRADES = {
   [BUILDING_HEADQUARTERS]: {
     cost: new Cost({
-      food: 15,
-      wood: 20,
+      food: 20,
+      wood: 50,
     }),
-    multiplier: 2.5,
+    multiplier: 1.5,
   },
   [BUILDING_HOUSE]: {
     cost: new Cost({
-      wood: 10,
+      wood: 20,
     }),
     multiplier: 1.5,
   },
@@ -59,13 +59,13 @@ export const BUILDING_UPGRADES = {
   },
   [BUILDING_FARM]: {
     cost: new Cost({
-      wood: 5,
+      wood: 20,
     }),
     multiplier: 1.5,
   },
   [BUILDING_WOODCUTTER]: {
     cost: new Cost({
-      wood: 5,
+      wood: 20,
     }),
     multiplier: 1.5,
   },
@@ -170,7 +170,7 @@ export const BUILDING_UPGRADES = {
 // Resource cost to upgrade HQ type (keyed by type)
 export const HQ_UPGRADE_COSTS = {
   [HQ_TYPE_CAMP]: new Cost({
-    wood: 500,
+    wood: 300,
   }),
   [HQ_TYPE_SETTLEMENT]: new Cost({
     wood: 1000,
