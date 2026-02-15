@@ -4,7 +4,6 @@
 
 - Show what buildings are unlocked
 
-- If button is disabled -> make resources 50% opacity
 - If button disabled -> Show why its disabled
   - Insufficient resources
   - Max territory reached
