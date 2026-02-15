@@ -83,7 +83,7 @@ class GameState {
       }
     }
 
-    // Apply seasonal modifier to food production
+    // Seasonal modifier to food production
     const foodSeasonMod = this.colony.season === SEASON_WARM ? SEASON_WARM_FOOD_MODIFIER : SEASON_COLD_FOOD_MODIFIER
     production.food *= 1 + foodSeasonMod
 
