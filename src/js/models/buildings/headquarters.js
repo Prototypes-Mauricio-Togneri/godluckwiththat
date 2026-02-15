@@ -20,6 +20,9 @@ class Headquarters extends Building {
     this.upgradeDuration = data.upgradeDuration ?? 0 // Total type upgrade duration (for progress %)
   }
 
+  get isUpgrading() { return this.upgradeRemaining > 0 }
+  get isMaxType() { return this.type === HQ_TYPES[HQ_TYPES.length - 1] }
+
   /**
    * Maximum territory capacity at the current level.
    * @returns {number}

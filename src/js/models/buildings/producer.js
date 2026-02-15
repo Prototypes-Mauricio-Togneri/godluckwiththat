@@ -1,3 +1,4 @@
+import {WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
@@ -13,6 +14,8 @@ class Producer extends Building {
     super(data)
     this.workers = data.workers ?? 0 // Assigned workers (default 0)
   }
+
+  get maxWorkers() { return this.level * WORKERS_PER_LEVEL }
 }
 
 export default Producer

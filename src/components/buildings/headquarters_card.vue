@@ -2,7 +2,6 @@
 import {computed, inject} from 'vue'
 import BaseCard from '@/components/buildings/base_card.vue'
 import {IMG_OTHER_TERRITORY, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
-import {HQ_TYPES} from '@/js/engine/constants.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
@@ -27,12 +26,12 @@ const hq = computed(() => colony.buildings[props.buildingKey])
 const nameKey = computed(() => `building.headquarters.${hq.value.type}`)
 
 // Construction state
-const isLevelingUp = computed(() => hq.value.constructionRemaining > 0)
+const isLevelingUp = computed(() => hq.value.isConstructing)
 const levelUpProgress = computed(() => {
   if (!isLevelingUp.value || hq.value.constructionDuration === 0) return 0
   return 1 - hq.value.constructionRemaining / hq.value.constructionDuration
 })
-const isUpgrading = computed(() => hq.value.upgradeRemaining > 0)
+const isUpgrading = computed(() => hq.value.isUpgrading)
 const upgradeProgress = computed(() => {
   if (!isUpgrading.value || hq.value.upgradeDuration === 0) return 0
   return 1 - hq.value.upgradeRemaining / hq.value.upgradeDuration
@@ -63,11 +62,8 @@ function levelUp() {
 }
 
 // Upgrade type
-const isMaxType = computed(() => hq.value.type === HQ_TYPES[HQ_TYPES.length - 1])
-const nextType = computed(() => {
-  const i = HQ_TYPES.indexOf(hq.value.type)
-  return i < HQ_TYPES.length - 1 ? HQ_TYPES[i + 1] : null
-})
+const isMaxType = computed(() => hq.value.isMaxType)
+const nextType = computed(() => hq.value.nextType())
 const upgradeLabel = computed(() =>
   nextType.value ? t('headquarters.upgrade', t(`building.headquarters.${nextType.value}`).toLowerCase()) : '',
 )

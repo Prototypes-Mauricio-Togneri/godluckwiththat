@@ -1,7 +1,6 @@
 <script setup>
 import {computed, inject} from 'vue'
 import {IMG_UNIT_WORKER} from '@/js/engine/assets.js'
-import {WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
@@ -15,7 +14,7 @@ const colony = inject('colony')
 const gameState = inject('gameState')
 
 const building = computed(() => colony.buildings[props.buildingKey])
-const maxWorkers = computed(() => building.value.level * WORKERS_PER_LEVEL)
+const maxWorkers = computed(() => building.value.maxWorkers)
 const canAssign = computed(() => colony.idleWorkers > 0 && building.value.workers < maxWorkers.value)
 const canUnassign = computed(() => building.value.workers > 0)
 

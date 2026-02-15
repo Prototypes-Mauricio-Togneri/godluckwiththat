@@ -1,4 +1,4 @@
-import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
+import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, SEASON_COLD, SEASON_WARM} from '@/js/engine/constants.js'
 import {t} from '@/js/i18n/localized.js'
@@ -202,7 +202,7 @@ class GameState {
       key,
       building,
     ] of Object.entries(buildings)) {
-      if (building.constructionRemaining > 0) {
+      if (building.isConstructing) {
         building.constructionRemaining = Math.max(0, building.constructionRemaining - delta)
         if (building.constructionRemaining === 0) {
           building.level += 1
@@ -227,7 +227,7 @@ class GameState {
       }
     }
     const hq = buildings.headquarters
-    if (hq.upgradeRemaining > 0) {
+    if (hq.isUpgrading) {
       hq.upgradeRemaining = Math.max(0, hq.upgradeRemaining - delta)
       if (hq.upgradeRemaining === 0) {
         hq.type = hq.nextType()
@@ -245,7 +245,7 @@ class GameState {
       resources, stockpile, buildings,
     } = this.colony
     const building = buildings[buildingKey]
-    if (building.constructionRemaining > 0) return
+    if (building.isConstructing) return
     const cost = building.levelUpCost()
     if (!resources.canAfford(cost) || resources.territory >= stockpile.territory) return
     resources.deduct(cost)
@@ -254,7 +254,7 @@ class GameState {
     building.constructionDuration = duration
     building.constructionRemaining = duration
 
-    const isNewBuilding = building.level === 0
+    const isNewBuilding = building.isUnbuilt
     this.events.addFuture({
       type: EVENT_TYPE_BUILDING_UPGRADE,
       textKey: isNewBuilding ? 'event.buildingBuilding' : 'event.buildingUpgrading',
@@ -284,7 +284,7 @@ class GameState {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
-    if (hq.constructionRemaining > 0 || hq.upgradeRemaining > 0) return
+    if (hq.isConstructing || hq.isUpgrading) return
     const cost = hq.levelUpCost()
     if (!resources.canAfford(cost)) return
     resources.deduct(cost)
@@ -312,7 +312,7 @@ class GameState {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
-    if (hq.constructionRemaining > 0 || hq.upgradeRemaining > 0) return
+    if (hq.isConstructing || hq.isUpgrading) return
     const cost = hq.upgradeCost()
     if (!cost || !resources.canAfford(cost)) return
     resources.deduct(cost)
@@ -351,8 +351,7 @@ class GameState {
    */
   assignWorker(buildingKey) {
     const building = this.colony.buildings[buildingKey]
-    const maxWorkers = building.level * WORKERS_PER_LEVEL
-    if (this.colony.idleWorkers <= 0 || building.workers >= maxWorkers) return
+    if (this.colony.idleWorkers <= 0 || building.workers >= building.maxWorkers) return
     building.workers += 1
     this.colony.idleWorkers -= 1
     this.update(0)

@@ -42,12 +42,12 @@ const showHelp = ref(false)
 
 // Build / level-up action
 const hasAction = computed(() => props.showBuildAction && props.buildingKey in BUILDING_CLASS_MAP)
-const isBuildable = computed(() => hasAction.value && props.building.level === 0)
+const isBuildable = computed(() => hasAction.value && props.building.isUnbuilt)
 const actionCost = computed(() =>
   hasAction.value ? props.building.levelUpCost() : null,
 )
 const territoryFull = computed(() => colony.resources.territory >= colony.stockpile.territory)
-const isConstructing = computed(() => props.building.constructionRemaining > 0)
+const isConstructing = computed(() => props.building.isConstructing)
 const canActBase = computed(() =>
   actionCost.value !== null
   && !isConstructing.value,
@@ -96,7 +96,7 @@ function act() {
     </button>
 
     <div class="building-thumb-wrapper">
-      <img class="building-thumb" :class="{ 'building-thumb-unbuilt': building.level === 0 }" :src="img" :alt="t(displayNameKey)">
+      <img class="building-thumb" :class="{ 'building-thumb-unbuilt': building.isUnbuilt }" :src="img" :alt="t(displayNameKey)">
       <span v-if="showLevel" class="building-level-badge">{{ building.level }}</span>
     </div>
     <div class="building-info">

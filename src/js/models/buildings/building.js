@@ -12,6 +12,10 @@ class Building {
     this.constructionRemaining = data.constructionRemaining ?? 0 // Seconds left (0 = not constructing)
     this.constructionDuration = data.constructionDuration ?? 0 // Total duration (for progress %)
   }
+
+  get isUnbuilt() { return this.level === 0 }
+
+  get isConstructing() { return this.constructionRemaining > 0 }
 }
 
 export default Building
