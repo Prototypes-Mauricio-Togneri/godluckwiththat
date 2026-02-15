@@ -79,7 +79,7 @@ export const LOCALIZED_ES = {
   // Headquarters actions
   'house.recruitWorker': 'Crear trabajador',
   'headquarters.expandTerritory': 'Expandir territorio',
-  'headquarters.upgrade': 'Mejorar colonia',
+  'headquarters.upgrade': 'Mejorar a {0}',
 
   // Events
   'events.title': 'Eventos',

@@ -379,7 +379,7 @@ export function createInitialColony() {
       territory: 0,
       workers: 5,
       food: 50,
-      wood: 500,
+      wood: 50,
       stone: 0,
       copper: 0,
       iron: 0,
@@ -412,7 +412,7 @@ export function createInitialColony() {
 
     buildings: new Buildings({
       [Headquarters.ID]: new Headquarters({
-        type: HQ_TYPE_CAMP,
+        type: HQ_TYPE_CITY,
         level: 1,
       }),
       [House.ID]: new House({

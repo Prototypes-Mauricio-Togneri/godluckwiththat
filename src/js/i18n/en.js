@@ -79,7 +79,7 @@ export const LOCALIZED_EN = {
   // Headquarters actions
   'house.recruitWorker': 'Create worker',
   'headquarters.expandTerritory': 'Expand territory',
-  'headquarters.upgrade': 'Upgrade colony',
+  'headquarters.upgrade': 'Upgrade to {0}',
 
   // Events
   'events.title': 'Events',

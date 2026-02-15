@@ -64,13 +64,20 @@ function levelUp() {
 
 // Upgrade type
 const isMaxType = computed(() => hq.value.type === HQ_TYPES[HQ_TYPES.length - 1])
+const nextType = computed(() => {
+  const i = HQ_TYPES.indexOf(hq.value.type)
+  return i < HQ_TYPES.length - 1 ? HQ_TYPES[i + 1] : null
+})
+const upgradeLabel = computed(() =>
+  nextType.value ? t('headquarters.upgrade', t(`building.headquarters.${nextType.value}`).toLowerCase()) : '',
+)
 const upgradeCost = computed(() => hq.value.upgradeCost())
 const canAffordUpgrade = computed(() => upgradeCost.value !== null && colony.resources.canAfford(upgradeCost.value))
 const canUpgrade = computed(() => !isBusy.value && canAffordUpgrade.value)
 const upgradeTooltip = computed(() => {
   if (isUpgrading.value) return ''
   if (!isBusy.value && upgradeCost.value !== null && !canAffordUpgrade.value) return t('building.insufficientResources')
-  return t('headquarters.upgrade')
+  return upgradeLabel.value
 })
 const upgradeCostEntries = computed(() => upgradeCost.value?.entries() ?? new Map())
 
@@ -91,7 +98,7 @@ function upgradeType() {
           :disabled="!canUpgrade"
           @click="upgradeType"
         >
-          <img v-if="!isUpgrading" class="action-btn-icon" :src="IMG_OTHER_UPGRADE" :alt="t('headquarters.upgrade')">
+          <img v-if="!isUpgrading" class="action-btn-icon" :src="IMG_OTHER_UPGRADE" :alt="upgradeLabel">
           <span v-else class="action-btn-time">{{ formatTime(hq.upgradeRemaining) }}</span>
         </button>
       </span>

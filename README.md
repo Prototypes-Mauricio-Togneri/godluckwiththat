@@ -3,8 +3,6 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Show what buildings are unlocked
-- Tooltip: "Upgrade to [HQ type]"
-- No tooltip if in progress
 
 - Future events
   - challenge_timeout
