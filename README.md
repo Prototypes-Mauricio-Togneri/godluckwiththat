@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Show what buildings are unlocked
-
 - Future events
   - challenge_timeout
   - research_timeout
@@ -16,3 +14,4 @@
   - Build a farm
   - Assign workers
   - Create a worker
+  - Show what buildings are unlocked when upgrading HQ
