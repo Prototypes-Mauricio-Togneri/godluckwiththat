@@ -3,6 +3,7 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Show resoruces next to buttons one on top of the other?
+- Make cards height variable to fit max 7
 
 - Show rate below resources?
   - [RATE][PROGRESS_BAR]
