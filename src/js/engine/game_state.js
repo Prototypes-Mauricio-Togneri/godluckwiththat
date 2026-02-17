@@ -209,20 +209,11 @@ class GameState {
           building.level += 1
           building.constructionDuration = 0
 
-          /* CURRENTLY NOT USED BECAUSE IT POLLUTES THE EVENT LOG */
           if (key === BUILDING_HEADQUARTERS) {
             this.events.convertToPast(key, {
               type: EVENT_TYPE_BUILDING_UPGRADE,
               textKey: 'event.territoryExpanded',
               icon: IMG_OTHER_TERRITORY,
-              buildingKey: key,
-            })
-          } else {
-            this.events.convertToPast(key, {
-              type: EVENT_TYPE_BUILDING_UPGRADE,
-              textKey: building.level === 1 ? 'event.buildingBuilt' : 'event.buildingUpgraded',
-              icon: BUILDING_IMAGE_MAP[key],
-              params: [this._buildingName(key)],
               buildingKey: key,
             })
           }
