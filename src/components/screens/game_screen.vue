@@ -58,6 +58,24 @@ function getCardComponent(key) {
   return CARD_COMPONENTS[key]
 }
 
+const NUMBER_SUFFIXES = [
+  '',
+  'K',
+  'M',
+  'B',
+  'T',
+]
+
+function formatNumber(n) {
+  const floored = Math.floor(n)
+  if (floored < 1000) return String(floored)
+  const tier = Math.min(Math.floor(Math.log10(floored) / 3), NUMBER_SUFFIXES.length - 1)
+  const scaled = floored / Math.pow(1000, tier)
+  const fixed = scaled.toFixed(1)
+  const short = fixed.endsWith('.0') ? fixed.slice(0, -2) : fixed
+  return short + NUMBER_SUFFIXES[tier]
+}
+
 function formatRate(ratePerSecond) {
   const value = Math.round(ratePerSecond * 10) / 10
   if (value > 0) return `${value.toFixed(1)}${t('resource.perSecond')}`
@@ -233,7 +251,7 @@ onUnmounted(() => {
           <div v-if="isResourceVisible(resource)" class="resource-box">
             <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
             <span class="header-value" :class="{ 'header-value--alert': isBounded(resource) && Math.floor(state.colony.resources[resource]) >= state.colony.stockpile[resource], 'header-value--zero': Math.floor(state.colony.resources[resource]) === 0 }">
-              {{ Math.floor(state.colony.resources[resource]) }}<template v-if="isBounded(resource)">/{{ state.colony.stockpile[resource] }}</template>
+              {{ formatNumber(state.colony.resources[resource]) }}<template v-if="isBounded(resource)">/{{ formatNumber(state.colony.stockpile[resource]) }}</template>
             </span>
             <span class="production-rate" :class="rateClass(state.colony.production[resource])">{{ formatRate(state.colony.production[resource]) }}</span>
 
@@ -262,7 +280,7 @@ onUnmounted(() => {
       <div class="header-section header-colony">
         <div class="header-resource tooltip" :data-tooltip="t('resource.population')">
           <img class="resource-icon resource-icon--worker" :src="IMG_UNIT_WORKER" :alt="t('resource.population')">
-          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.workers) >= state.colony.stockpile.workers, 'header-value--zero': state.colony.resources.workers === 0 }">{{ Math.floor(state.colony.resources.workers) }}/{{ state.colony.stockpile.workers }}</span>
+          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.workers) >= state.colony.stockpile.workers, 'header-value--zero': state.colony.resources.workers === 0 }">{{ formatNumber(state.colony.resources.workers) }}/{{ formatNumber(state.colony.stockpile.workers) }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.idleWorkers')">
           <img class="resource-icon" :src="IMG_OTHER_IDLE" :alt="t('resource.idleWorkers')">
@@ -270,7 +288,7 @@ onUnmounted(() => {
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.territory')">
           <img class="resource-icon resource-icon--territory" :src="IMG_OTHER_TERRITORY" :alt="t('resource.territory')">
-          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.territory) >= state.colony.stockpile.territory }">{{ Math.floor(state.colony.resources.territory) }}/{{ state.colony.stockpile.territory }}</span>
+          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.territory) >= state.colony.stockpile.territory }">{{ formatNumber(state.colony.resources.territory) }}/{{ formatNumber(state.colony.stockpile.territory) }}</span>
         </div>
       </div>
 
