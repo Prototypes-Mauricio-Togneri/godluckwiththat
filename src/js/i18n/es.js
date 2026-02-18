@@ -24,7 +24,7 @@ export const LOCALIZED_ES = {
   'resource.perSecond': '/s',
   'resource.fullIn': 'Lleno en',
   'resource.emptyIn': 'Vacío en',
-  'resource.maxCapacity': 'Capacidad máxima',
+  'resource.maxCapacity': 'Capacidad',
 
   // Year
   'year.label': 'Año',

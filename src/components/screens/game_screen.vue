@@ -249,16 +249,18 @@ onUnmounted(() => {
       <div class="header-section header-resources">
         <template v-for="resource in HEADER_RESOURCES" :key="resource">
           <div v-if="isResourceVisible(resource)" class="resource-box">
-            <!-- Row 1: icon + current amount + rate -->
+            <!-- Row 1: icon + current amount -->
             <div class="resource-row-top">
               <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
               <span class="header-value" :class="{ 'header-value--alert': isBounded(resource) && Math.floor(state.colony.resources[resource]) >= state.colony.stockpile[resource], 'header-value--zero': Math.floor(state.colony.resources[resource]) === 0 }">
                 {{ formatNumber(state.colony.resources[resource]) }}
               </span>
-              <span class="production-rate" :class="rateClass(state.colony.production[resource])">{{ formatRate(state.colony.production[resource]) }}</span>
             </div>
 
-            <!-- Row 2: full-width progress bar (bounded only) -->
+            <!-- Row 2: production rate -->
+            <span class="production-rate" :class="rateClass(state.colony.production[resource])">{{ formatRate(state.colony.production[resource]) }}</span>
+
+            <!-- Row 3: full-width progress bar (bounded only) -->
             <div v-if="isBounded(resource)" class="resource-row-bottom">
               <div class="resource-bar">
                 <div
