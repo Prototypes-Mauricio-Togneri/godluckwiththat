@@ -6,6 +6,7 @@
   - Territory expanded -> REMOVE -> Max territory reached
   - Storage upgraded -> REMOVE -> Storage full
   - Positive production rate -> REMOVE -> Negative production rate
+  - New season -> REMOVE -> Old season
 
 - Future events
   - challenge_timeout
