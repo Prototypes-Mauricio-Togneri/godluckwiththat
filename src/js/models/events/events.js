@@ -72,6 +72,17 @@ class Events {
   }
 
   /**
+	 * Removes a future event by its building key.
+	 * @param {string} buildingKey - Building key to match
+	 */
+  dismissFuture(buildingKey) {
+    const index = this.items.findIndex(
+      event => event instanceof EventFuture && event.buildingKey === buildingKey,
+    )
+    if (index !== -1) this.items.splice(index, 1)
+  }
+
+  /**
 	 * Removes an event by its ID.
 	 * @param {number} id
 	 */

@@ -216,6 +216,8 @@ class GameState {
               icon: IMG_OTHER_TERRITORY,
               buildingKey: key,
             })
+          } else {
+            this.events.dismissFuture(key)
           }
         }
       }

@@ -2,8 +2,8 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Show rate below resources?
-  - [RATE][PROGRESS_BAR]
+- When a past event that trumps another past event, remove the old one
+  - Territory expanded -> REMOVE -> Max territory reached
 
 - Future events
   - challenge_timeout
