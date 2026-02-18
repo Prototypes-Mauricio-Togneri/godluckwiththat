@@ -300,6 +300,7 @@
     font-variant-numeric: tabular-nums;
     margin-top: -1px;
     margin-left: auto;
+    text-align: right;
 }
 
 .production-rate--positive {

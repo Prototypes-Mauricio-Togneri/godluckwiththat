@@ -468,7 +468,7 @@ export function createInitialColonyAdvanced() {
       territory: 0,
       workers: 60,
       food: 1000,
-      wood: 1000,
+      wood: 123456,
       stone: 1000,
       copper: 1000,
       iron: 1000,
@@ -511,7 +511,7 @@ export function createInitialColonyAdvanced() {
         level: 0,
       }),
       [BUILDING_STOREHOUSE]: new Storehouse({
-        level: 5,
+        level: 5005,
       }),
       [BUILDING_MARKET]: new Market({
         level: 0,
@@ -533,8 +533,8 @@ export function createInitialColonyAdvanced() {
         workers: 10,
       }),
       [BUILDING_WOODCUTTER]: new Woodcutter({
-        level: 2,
-        workers: 10,
+        level: 200,
+        workers: 2000,
       }),
       [BUILDING_QUARRY]: new Quarry({
         level: 2,
