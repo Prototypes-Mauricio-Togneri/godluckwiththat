@@ -260,10 +260,11 @@ onUnmounted(() => {
             <!-- Row 2: production rate -->
             <span class="production-rate" :class="rateClass(state.colony.production[resource])">{{ formatRate(state.colony.production[resource]) }}</span>
 
-            <!-- Row 3: full-width progress bar (bounded only) -->
-            <div v-if="isBounded(resource)" class="resource-row-bottom">
-              <div class="resource-bar">
+            <!-- Row 3: progress bar track (always rendered for alignment; fill bounded only) -->
+            <div class="resource-row-bottom">
+              <div class="resource-bar" :class="{ 'resource-bar--hidden': !isBounded(resource) }">
                 <div
+                  v-if="isBounded(resource)"
                   class="resource-bar-fill"
                   :class="state.colony.production[resource] > 0 ? 'resource-bar-fill--positive' : 'resource-bar-fill--negative'"
                   :style="{ width: resourceFillPercent(resource) + '%' }"

@@ -357,6 +357,10 @@
     overflow: hidden;
 }
 
+.resource-bar--hidden {
+    background: transparent;
+}
+
 /* Progress bar fill — shared base */
 .resource-bar-fill {
     height: 100%;
