@@ -298,6 +298,8 @@
     letter-spacing: 0.02em;
     min-width: 8ch;
     font-variant-numeric: tabular-nums;
+    margin-top: -1px;
+    margin-left: auto;
 }
 
 .production-rate--positive {
