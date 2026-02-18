@@ -108,7 +108,7 @@ function formatTime(totalSeconds) {
   const minutes = Math.floor((seconds % 3600) / 60)
   const secs = seconds % 60
   const pad = n => String(n).padStart(2, '0')
-  if (hours > 0) return `${hours}:${pad(minutes)}:${pad(secs)}`
+  if (hours > 0) return `${pad(hours)}:${pad(minutes)}:${pad(secs)}`
   return `${pad(minutes)}:${pad(secs)}`
 }
 
@@ -249,24 +249,30 @@ onUnmounted(() => {
       <div class="header-section header-resources">
         <template v-for="resource in HEADER_RESOURCES" :key="resource">
           <div v-if="isResourceVisible(resource)" class="resource-box">
-            <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
-            <span class="header-value" :class="{ 'header-value--alert': isBounded(resource) && Math.floor(state.colony.resources[resource]) >= state.colony.stockpile[resource], 'header-value--zero': Math.floor(state.colony.resources[resource]) === 0 }">
-              {{ formatNumber(state.colony.resources[resource]) }}<template v-if="isBounded(resource)">/{{ formatNumber(state.colony.stockpile[resource]) }}</template>
-            </span>
-            <span class="production-rate" :class="rateClass(state.colony.production[resource])">{{ formatRate(state.colony.production[resource]) }}</span>
+            <!-- Row 1: icon + current amount + rate -->
+            <div class="resource-row-top">
+              <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
+              <span class="header-value" :class="{ 'header-value--alert': isBounded(resource) && Math.floor(state.colony.resources[resource]) >= state.colony.stockpile[resource], 'header-value--zero': Math.floor(state.colony.resources[resource]) === 0 }">
+                {{ formatNumber(state.colony.resources[resource]) }}
+              </span>
+              <span class="production-rate" :class="rateClass(state.colony.production[resource])">{{ formatRate(state.colony.production[resource]) }}</span>
+            </div>
 
-            <!-- Progress bar (bounded resources only) -->
-            <div v-if="isBounded(resource)" class="resource-bar">
-              <div
-                class="resource-bar-fill"
-                :class="state.colony.production[resource] > 0 ? 'resource-bar-fill--positive' : 'resource-bar-fill--negative'"
-                :style="{ width: resourceFillPercent(resource) + '%' }"
-              />
+            <!-- Row 2: full-width progress bar (bounded only) -->
+            <div v-if="isBounded(resource)" class="resource-row-bottom">
+              <div class="resource-bar">
+                <div
+                  class="resource-bar-fill"
+                  :class="state.colony.production[resource] > 0 ? 'resource-bar-fill--positive' : 'resource-bar-fill--negative'"
+                  :style="{ width: resourceFillPercent(resource) + '%' }"
+                />
+              </div>
             </div>
 
             <!-- Rich tooltip -->
             <div class="resource-tooltip">
               <span>{{ t('resource.' + resource) }}</span>
+              <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(state.colony.stockpile[resource]) }}</span>
               <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
             </div>
           </div>
@@ -436,6 +442,7 @@ onUnmounted(() => {
 .header-resources {
   flex: 1;
   justify-content: center;
+  align-items: stretch;
   gap: 0.5rem;
 }
 
@@ -510,6 +517,9 @@ onUnmounted(() => {
   font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--color-text);
+  min-width: 6ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 
 .header-value--alert {
