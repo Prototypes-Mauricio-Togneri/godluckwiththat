@@ -4,6 +4,8 @@
 
 - When a past event that trumps another past event, remove the old one
   - Territory expanded -> REMOVE -> Max territory reached
+  - Storage upgraded -> REMOVE -> Storage full
+  - Positive production rate -> REMOVE -> Negative production rate
 
 - Future events
   - challenge_timeout
