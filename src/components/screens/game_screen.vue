@@ -394,7 +394,7 @@ onUnmounted(() => {
 
 <style scoped>
 .game-screen {
-  --thumb-h: calc((100vh - 18.1rem - 16px) / 6);
+  --thumb-h: calc((100vh - 19.1rem - 16px) / 6);
   height: 100vh;
   display: flex;
   flex-direction: column;

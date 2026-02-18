@@ -335,7 +335,7 @@ export function createInitialMeta() {
 }
 
 export function createInitialColony() {
-  return createInitialColonyAdvanced()
+  return createInitialColonyBasic()
 }
 
 /**
@@ -511,7 +511,7 @@ export function createInitialColonyAdvanced() {
         level: 0,
       }),
       [BUILDING_STOREHOUSE]: new Storehouse({
-        level: 5005,
+        level: 5,
       }),
       [BUILDING_MARKET]: new Market({
         level: 0,
@@ -533,8 +533,8 @@ export function createInitialColonyAdvanced() {
         workers: 10,
       }),
       [BUILDING_WOODCUTTER]: new Woodcutter({
-        level: 200,
-        workers: 2000,
+        level: 2,
+        workers: 10,
       }),
       [BUILDING_QUARRY]: new Quarry({
         level: 2,
