@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Show resoruces next to buttons one on top of the other?
-
 - Show rate below resources?
   - [RATE][PROGRESS_BAR]
 
