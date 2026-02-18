@@ -385,6 +385,7 @@ onUnmounted(() => {
 
 <style scoped>
 .game-screen {
+  --thumb-h: calc((100vh - 18.1rem - 16px) / 6);
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -554,10 +555,10 @@ onUnmounted(() => {
 .game-content {
   flex: 1;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   padding: 1.25rem 1.5rem 1.5rem;
   gap: 1.5rem;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 /* ---- Building columns ---- */
@@ -584,10 +585,11 @@ onUnmounted(() => {
   border-bottom: 1px solid var(--color-border);
 }
 
-/* Card stack */
+/* Card stack — 6 equal rows so every card gets 1/6 of available height */
 .column-cards {
-  display: flex;
-  flex-direction: column;
+  flex: 1;
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
   gap: 0.5rem;
 }
 
@@ -597,7 +599,8 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   padding: 0.6rem 0.75rem;
-  min-height: 6.7rem;
+  min-height: 0;
+  overflow: hidden;
   background: rgba(39, 33, 25, 0.3);
   border: 1px solid var(--color-border);
   border-radius: 4px;

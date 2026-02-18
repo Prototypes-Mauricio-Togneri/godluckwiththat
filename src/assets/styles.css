@@ -202,11 +202,11 @@
     letter-spacing: 0.03em;
 }
 
-/* Slot actions — flex row wrapper for action groups inside building card slots */
+/* Slot actions — stacked wrapper for action groups inside building card slots */
 .slot-actions {
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 0.25rem;
     margin-top: auto;
 }
 

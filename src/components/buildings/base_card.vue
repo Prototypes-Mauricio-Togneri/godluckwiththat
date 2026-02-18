@@ -144,6 +144,8 @@ function act() {
   align-items: flex-start;
   gap: 0.75rem;
   padding: 0.6rem 0.75rem;
+  min-height: 0;
+  overflow: hidden;
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: 4px;
@@ -195,8 +197,8 @@ function act() {
 
 .building-thumb {
   display: block;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: var(--thumb-h);
+  height: var(--thumb-h);
   object-fit: contain;
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
   transition: filter 0.3s ease;
