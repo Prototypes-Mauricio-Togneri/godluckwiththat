@@ -2,9 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- When a past event that trumps another past event, remove the old one
-  - Positive production rate -> REMOVE -> Negative production rate
-
 - Future events
   - challenge_timeout
   - research_timeout
