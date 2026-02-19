@@ -102,6 +102,16 @@ class Events {
   }
 
   /**
+	 * Removes all past events matching the given text key.
+	 * @param {string} textKey - i18n key to match
+	 */
+  dismissPastByTextKey(textKey) {
+    this.items = this.items.filter(
+      event => !(event instanceof EventPast && event.textKey === textKey),
+    )
+  }
+
+  /**
 	 * Removes all past events.
 	 */
   dismissAllPast() {

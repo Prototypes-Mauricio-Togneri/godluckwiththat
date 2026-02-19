@@ -163,8 +163,10 @@ class GameState {
             icon: config.icon,
           })
         }
-      } else {
+      } else if (this._resourcesNegativeProduction.has(resource)) {
         this._resourcesNegativeProduction.delete(resource)
+        const config = RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG[resource]
+        this.events.dismissPastByTextKey(config.textKey)
       }
     }
 
