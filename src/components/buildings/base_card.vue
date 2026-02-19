@@ -145,7 +145,6 @@ function act() {
   gap: 0.75rem;
   padding: 0.6rem 0.75rem;
   min-height: 0;
-  overflow: hidden;
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: 4px;
