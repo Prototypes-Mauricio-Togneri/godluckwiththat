@@ -231,15 +231,15 @@ onUnmounted(() => {
 <template>
   <div class="game-screen">
     <header class="game-header">
-      <!-- Year indicator -->
-      <span class="header-year">{{ t('year.label') }} <span class="header-year-num">{{ state.colony.year }}</span></span>
-
-      <!-- Season indicator -->
-      <div class="header-section header-season tooltip" :data-tooltip="seasonTooltip()">
-        <img class="season-icon" :src="seasonIcon()" alt="">
-        <div class="season-track" :class="'season-track--' + state.colony.season">
-          <div class="season-fill" :style="{ width: (seasonProgress() * 100) + '%' }" />
+      <!-- Season & year indicator -->
+      <div class="header-season-group">
+        <div class="header-section header-season tooltip" :data-tooltip="seasonTooltip()">
+          <img class="season-icon" :src="seasonIcon()" alt="">
+          <div class="season-track" :class="'season-track--' + state.colony.season">
+            <div class="season-fill" :style="{ width: (seasonProgress() * 100) + '%' }" />
+          </div>
         </div>
+        <span class="header-year">{{ t('year.label') }} <span class="header-year-num">{{ state.colony.year }}</span></span>
       </div>
 
       <!-- Decorative divider -->
@@ -427,13 +427,20 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
+.header-season-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
 .header-year {
   font-family: var(--font-display);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: rgba(var(--color-text-rgb), 0.55);
-  margin-right: 1em;
 }
 
 .header-year-num {
