@@ -220,15 +220,21 @@ export const LOCALIZED_EN = {
   'research.trading5': 'Caravans',
 
   // Research names — Disasters
-  'research.floods1': 'Sandbags',
-  'research.floods2': 'Levees',
-  'research.floods3': 'Flood Barriers',
-  'research.health1': 'Herbal Medicine',
-  'research.health2': 'Sanitation',
-  'research.health3': 'Hospital',
-  'research.earthquakes1': 'Braced Foundations',
-  'research.earthquakes2': 'Reinforced Structures',
-  'research.earthquakes3': 'Seismic Engineering',
+  'research.floods1': 'Flood Control',
+  'research.floods2': 'Canal Networks',
+  'research.floods3': 'Reservoirs',
+  'research.floods4': 'River Embankments',
+  'research.floods5': 'Dams',
+  'research.health1': 'Pest Control',
+  'research.health2': 'Medicinal Herbs',
+  'research.health3': 'Sewerage',
+  'research.health4': 'Quarantine Zones',
+  'research.health5': 'Sanitation',
+  'research.earthquakes1': 'Architecture',
+  'research.earthquakes2': 'Masonry',
+  'research.earthquakes3': 'Deep Foundations',
+  'research.earthquakes4': 'Fortification',
+  'research.earthquakes5': 'Reinforced Walls',
 
   // Research names — Resources
   'research.foodProduction1': 'Crop Rotation',
@@ -258,9 +264,11 @@ export const LOCALIZED_EN = {
   'research.storage4': 'Silos',
 
   // Research names — Religion
-  'research.faith1': 'Meditation',
-  'research.faith2': 'Rituals',
-  'research.faith3': 'Sacred Texts',
+  'research.faith1': 'Spirituality',
+  'research.faith2': 'Meditation',
+  'research.faith3': 'Symbolism',
+  'research.faith4': 'Illumination',
+  'research.faith5': 'Salvation',
 
   // Research events
   'event.researchInProgress': 'Researching {0}',

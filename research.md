@@ -19,7 +19,7 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
 | Category | Subcategories | Bonus Effects |
 |----------|--------------|---------------|
 | General | Transportation, Construction, Expansion, Trading | +% worker productivity, -% construction time, -% expansion cost, -% trade fees |
-| Disasters | Floods, Health, Earthquakes | -% flood impact, -% disease impact, -% earthquake/tornado impact |
+| Disasters | Floods, Health, Earthquakes | -% flood impact, -% disease impact, -% earthquake impact |
 | Resources | Food prod., Food cons., Wood prod., Wood cons., Mining, Knowledge, Storage | +/- % production/consumption rates, +% warehouse capacity |
 | Religion | Faith | +% faith production |
 | Military | TBD | TBD |
