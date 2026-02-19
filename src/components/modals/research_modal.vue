@@ -74,7 +74,10 @@ onUnmounted(() => {
           :key="sub.key"
           class="research-subcategory"
         >
-          <h3 class="subcategory-label">{{ t('research.subcategory.' + sub.key) }}</h3>
+          <h3 class="subcategory-label">
+            {{ t('research.subcategory.' + sub.key) }}
+            <span class="subcategory-effect">&mdash; {{ t('research.effect.' + sub.key) }}</span>
+          </h3>
           <div class="research-chain">
             <template v-for="(rKey, idx) in sub.researches" :key="rKey">
               <span v-if="idx > 0" class="chain-connector" />
@@ -234,6 +237,15 @@ onUnmounted(() => {
   margin-bottom: 0.5rem;
 }
 
+.subcategory-effect {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: rgba(var(--color-text-rgb), 0.55);
+}
+
 /* ── Research chain (horizontal) ─────────────────────────── */
 
 .research-chain {
@@ -329,7 +341,7 @@ onUnmounted(() => {
 
 .node-name {
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--color-text);
   line-height: 1.2;
@@ -344,7 +356,7 @@ onUnmounted(() => {
 .node-cost {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.35rem;
   flex-wrap: wrap;
   margin-top: 0.15rem;
 }
@@ -352,21 +364,22 @@ onUnmounted(() => {
 .node-cost-item {
   display: flex;
   align-items: center;
-  gap: 0.1rem;
+  gap: 0.12rem;
 }
 
 .node-cost-icon {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 0.9rem;
+  height: 0.9rem;
   object-fit: contain;
   filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.3));
 }
 
 .node-cost-amount {
   font-family: var(--font-numeric);
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   font-weight: 400;
-  color: rgba(var(--color-text-rgb), 0.65);
+  color: rgba(var(--color-text-rgb), 0.8);
+  letter-spacing: 0.02em;
 }
 
 /* ── Close button ────────────────────────────────────────── */

@@ -180,6 +180,23 @@ export const LOCALIZED_EN = {
   'research.subcategory.storage': 'Storage',
   'research.subcategory.faith': 'Faith',
 
+  // Research subcategory effects
+  'research.effect.transportation': 'Increases worker productivity',
+  'research.effect.construction': 'Reduces construction time',
+  'research.effect.expansion': 'Reduces expansion cost',
+  'research.effect.trading': 'Reduces trade fees',
+  'research.effect.floods': 'Reduces flood impact',
+  'research.effect.health': 'Reduces disease impact',
+  'research.effect.earthquakes': 'Reduces earthquake impact',
+  'research.effect.foodProduction': 'Increases food production',
+  'research.effect.foodConsumption': 'Reduces food consumption',
+  'research.effect.woodProduction': 'Increases wood production',
+  'research.effect.woodConsumption': 'Reduces wood consumption',
+  'research.effect.mining': 'Increases mining production',
+  'research.effect.knowledgeProduction': 'Increases knowledge production',
+  'research.effect.storage': 'Increases storage capacity',
+  'research.effect.faith': 'Increases faith production',
+
   // Research names — Misc
   'research.transportation1': 'Footpaths',
   'research.transportation2': 'Dirt Roads',

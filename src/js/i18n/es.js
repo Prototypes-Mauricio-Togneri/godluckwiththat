@@ -180,6 +180,23 @@ export const LOCALIZED_ES = {
   'research.subcategory.storage': 'Almacenamiento',
   'research.subcategory.faith': 'Fe',
 
+  // Research subcategory effects
+  'research.effect.transportation': 'Aumenta la productividad de los trabajadores',
+  'research.effect.construction': 'Reduce el tiempo de construcción',
+  'research.effect.expansion': 'Reduce el coste de expansión',
+  'research.effect.trading': 'Reduce las tarifas comerciales',
+  'research.effect.floods': 'Reduce el impacto de inundaciones',
+  'research.effect.health': 'Reduce el impacto de enfermedades',
+  'research.effect.earthquakes': 'Reduce el impacto de terremotos',
+  'research.effect.foodProduction': 'Aumenta la producción de comida',
+  'research.effect.foodConsumption': 'Reduce el consumo de comida',
+  'research.effect.woodProduction': 'Aumenta la producción de madera',
+  'research.effect.woodConsumption': 'Reduce el consumo de madera',
+  'research.effect.mining': 'Aumenta la producción minera',
+  'research.effect.knowledgeProduction': 'Aumenta la producción de conocimiento',
+  'research.effect.storage': 'Aumenta la capacidad de almacenamiento',
+  'research.effect.faith': 'Aumenta la producción de fe',
+
   // Research names — Misc
   'research.transportation1': 'Senderos',
   'research.transportation2': 'Caminos de tierra',
