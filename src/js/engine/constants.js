@@ -335,7 +335,7 @@ export function createInitialMeta() {
 }
 
 export function createInitialColony() {
-  return createInitialColonyBasic()
+  return createInitialColonyAdvanced()
 }
 
 /**
@@ -508,7 +508,7 @@ export function createInitialColonyAdvanced() {
         level: 15,
       }),
       [BUILDING_ACADEMY]: new Academy({
-        level: 0,
+        level: 1,
       }),
       [BUILDING_STOREHOUSE]: new Storehouse({
         level: 5,
