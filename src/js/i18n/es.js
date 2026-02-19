@@ -198,9 +198,11 @@ export const LOCALIZED_ES = {
   'research.effect.faith': 'Aumenta la producción de fe',
 
   // Research names — Misc
-  'research.transportation1': 'Senderos',
-  'research.transportation2': 'Caminos de tierra',
-  'research.transportation3': 'Caminos de piedra',
+  'research.transportation1': 'Rueda',
+  'research.transportation2': 'Carretilla',
+  'research.transportation3': 'Carro de mano',
+  'research.transportation4': 'Vagón',
+  'research.transportation5': 'Caminos',
   'research.construction1': 'Herramientas básicas',
   'research.construction2': 'Andamiaje',
   'research.construction3': 'Albañilería avanzada',
@@ -255,9 +257,11 @@ export const LOCALIZED_ES = {
   'research.faith3': 'Textos sagrados',
 
   // Research descriptions
-  'researchHelp.transportation1': 'Los senderos básicos mejoran el movimiento de los trabajadores.',
-  'researchHelp.transportation2': 'Los caminos mejorados permiten a los trabajadores viajar más rápido.',
-  'researchHelp.transportation3': 'Los caminos pavimentados mejoran enormemente la eficiencia del transporte.',
+  'researchHelp.transportation1': 'Una rueda simple para facilitar el transporte de mercancías.',
+  'researchHelp.transportation2': 'Un carro empujado a mano para cargas más pesadas.',
+  'researchHelp.transportation3': 'Un carro más grande que pueden tirar los trabajadores.',
+  'researchHelp.transportation4': 'Un vagón resistente para transportar grandes cantidades.',
+  'researchHelp.transportation5': 'Los caminos pavimentados mejoran enormemente la eficiencia del transporte.',
   'researchHelp.construction1': 'Mejores herramientas aceleran la construcción.',
   'researchHelp.construction2': 'Las técnicas de andamiaje reducen el tiempo de construcción.',
   'researchHelp.construction3': 'La albañilería avanzada acelera significativamente la construcción.',

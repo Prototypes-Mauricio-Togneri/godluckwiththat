@@ -198,9 +198,11 @@ export const LOCALIZED_EN = {
   'research.effect.faith': 'Increases faith production',
 
   // Research names — Misc
-  'research.transportation1': 'Footpaths',
-  'research.transportation2': 'Dirt Roads',
-  'research.transportation3': 'Stone Roads',
+  'research.transportation1': 'Wheel',
+  'research.transportation2': 'Wheelbarrow',
+  'research.transportation3': 'Handcart',
+  'research.transportation4': 'Wagon',
+  'research.transportation5': 'Roads',
   'research.construction1': 'Basic Tools',
   'research.construction2': 'Scaffolding',
   'research.construction3': 'Advanced Masonry',
@@ -255,9 +257,11 @@ export const LOCALIZED_EN = {
   'research.faith3': 'Sacred Texts',
 
   // Research descriptions
-  'researchHelp.transportation1': 'Basic paths between buildings improve worker movement.',
-  'researchHelp.transportation2': 'Improved roads allow workers to travel faster.',
-  'researchHelp.transportation3': 'Paved roads greatly improve transportation efficiency.',
+  'researchHelp.transportation1': 'A simple wheel to ease the transport of goods.',
+  'researchHelp.transportation2': 'A cart pushed by hand to carry heavier loads.',
+  'researchHelp.transportation3': 'A larger cart that can be pulled by workers.',
+  'researchHelp.transportation4': 'A sturdy wagon for hauling large quantities.',
+  'researchHelp.transportation5': 'Paved roads greatly improve transportation efficiency.',
   'researchHelp.construction1': 'Better tools speed up construction.',
   'researchHelp.construction2': 'Scaffolding techniques reduce construction time.',
   'researchHelp.construction3': 'Advanced masonry significantly accelerates building.',

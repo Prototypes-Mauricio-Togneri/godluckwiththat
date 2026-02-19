@@ -287,7 +287,6 @@ onUnmounted(() => {
   gap: 0.2rem;
   padding: 0.55rem 0.7rem;
   min-width: 130px;
-  max-width: 160px;
   background: rgba(var(--color-accent-rgb), 0.03);
   border: 1px solid rgba(var(--color-accent-rgb), 0.12);
   border-radius: 4px;
@@ -357,7 +356,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin-top: 0.15rem;
 }
 
