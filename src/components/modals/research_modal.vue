@@ -24,30 +24,6 @@ function nodeStatus(key, researches, index) {
   return 'available'
 }
 
-function lockReason(key, researches, index) {
-  if (index > 0 && !colony.researches.isCompleted(researches[index - 1])) {
-    return t('research.prerequisiteRequired')
-  }
-  if (colony.buildings.academy.level < RESEARCH_DEFINITIONS[key].academyLevel) {
-    return t('research.academyRequired', RESEARCH_DEFINITIONS[key].academyLevel)
-  }
-  return ''
-}
-
-function formatDuration(seconds) {
-  const mins = Math.floor(seconds / 60)
-  const secs = seconds % 60
-  const pad = n => String(n).padStart(2, '0')
-  return `${pad(mins)}:${pad(secs)}`
-}
-
-function bonusText(key) {
-  const def = RESEARCH_DEFINITIONS[key]
-  if (!def?.bonus) return ''
-  const percent = Math.round(def.bonus.value * 100)
-  return t('bonus.' + def.bonus.type, percent)
-}
-
 function handleKeydown(event) {
   if (event.key === 'Escape') {
     event.stopImmediatePropagation()
@@ -110,7 +86,6 @@ onUnmounted(() => {
                   <span class="node-name">{{ t('research.' + rKey) }}</span>
                   <span v-if="nodeStatus(rKey, sub.researches, idx) === 'completed'" class="node-check">&#10003;</span>
                 </div>
-                <span class="node-bonus">{{ bonusText(rKey) }}</span>
                 <div class="node-cost">
                   <div
                     v-for="[resource, amount] in RESEARCH_DEFINITIONS[rKey].cost.entries()"
@@ -120,15 +95,6 @@ onUnmounted(() => {
                     <img class="node-cost-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
                     <span class="node-cost-amount">{{ amount }}</span>
                   </div>
-                </div>
-                <span class="node-duration">{{ formatDuration(RESEARCH_DEFINITIONS[rKey].duration) }}</span>
-
-                <!-- Rich tooltip on hover -->
-                <div class="node-tooltip">
-                  <p class="node-tooltip-desc">{{ t('researchHelp.' + rKey) }}</p>
-                  <p v-if="nodeStatus(rKey, sub.researches, idx) === 'locked'" class="node-tooltip-lock">
-                    {{ lockReason(rKey, sub.researches, idx) }}
-                  </p>
                 </div>
               </div>
             </template>
@@ -375,14 +341,6 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
-.node-bonus {
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 300;
-  color: rgba(var(--color-text-rgb), 0.55);
-  line-height: 1.2;
-}
-
 .node-cost {
   display: flex;
   align-items: center;
@@ -409,53 +367,6 @@ onUnmounted(() => {
   font-size: 0.62rem;
   font-weight: 400;
   color: rgba(var(--color-text-rgb), 0.65);
-}
-
-.node-duration {
-  font-family: var(--font-numeric);
-  font-size: 0.62rem;
-  font-weight: 400;
-  color: rgba(var(--color-text-rgb), 0.4);
-}
-
-/* ── Node tooltip ────────────────────────────────────────── */
-
-.node-tooltip {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 180px;
-  max-width: 240px;
-  background: var(--color-bg-surface);
-  border: 1px solid rgba(var(--color-accent-rgb), 0.25);
-  border-radius: 4px;
-  padding: 0.45rem 0.6rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  z-index: 110;
-}
-
-.research-node:hover .node-tooltip {
-  opacity: 1;
-}
-
-.node-tooltip-desc {
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 300;
-  line-height: 1.4;
-  color: rgba(var(--color-text-rgb), 0.7);
-}
-
-.node-tooltip-lock {
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 400;
-  color: #c45050;
-  margin-top: 0.25rem;
 }
 
 /* ── Close button ────────────────────────────────────────── */
