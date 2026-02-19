@@ -181,6 +181,7 @@ class GameState {
       if (this.colony.isColdSeason) this.colony.year++
       this.colony.season = this.colony.isWarmSeason ? SEASON_COLD : SEASON_WARM
       const isWarm = this.colony.isWarmSeason
+      this.events.dismissPastByType(EVENT_TYPE_SEASON_CHANGED)
       this.events.addPast({
         type: EVENT_TYPE_SEASON_CHANGED,
         textKey: isWarm ? 'event.warmSeason' : 'event.coldSeason',
