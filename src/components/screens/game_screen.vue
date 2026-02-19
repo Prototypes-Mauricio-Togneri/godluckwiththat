@@ -308,7 +308,7 @@ onUnmounted(() => {
       <span class="header-divider" />
 
       <!-- Research button -->
-      <button class="btn-gold header-research-button tooltip" :data-tooltip="t('research.title')" @click="showResearchModal = true">
+      <button v-if="state.colony.buildings.academy.level > 0" class="btn-gold header-research-button tooltip" :data-tooltip="t('research.title')" @click="showResearchModal = true">
         <img class="research-btn-icon" :src="IMG_RESOURCE_KNOWLEDGE" alt="">
       </button>
 
