@@ -278,7 +278,7 @@ export const SEASON_COLD_WOOD_MODIFIER = 0.2
 // bonus: { type: BONUS_* enum, value: fractional modifier (additive) }
 
 export const RESEARCH_DEFINITIONS = {
-  // ── Misc — Transportation (+% worker productivity) ──
+  // ── General — Transportation (+% worker productivity) ──
   [RESEARCH_TRANSPORTATION_1]: {
     cost: new Cost({
       knowledge: 50,
@@ -343,7 +343,7 @@ export const RESEARCH_DEFINITIONS = {
     },
   },
 
-  // ── Misc — Construction (-% construction time) ──
+  // ── General — Construction (-% construction time) ──
   [RESEARCH_CONSTRUCTION_1]: {
     cost: new Cost({
       knowledge: 60,
@@ -409,7 +409,7 @@ export const RESEARCH_DEFINITIONS = {
     },
   },
 
-  // ── Misc — Expansion (-% expansion cost) ──
+  // ── General — Expansion (-% expansion cost) ──
   [RESEARCH_EXPANSION_1]: {
     cost: new Cost({
       knowledge: 80,
@@ -475,7 +475,7 @@ export const RESEARCH_DEFINITIONS = {
     },
   },
 
-  // ── Misc — Trading (-% trade fees) ──
+  // ── General — Trading (-% trade fees) ──
   [RESEARCH_TRADING_1]: {
     cost: new Cost({
       knowledge: 100,

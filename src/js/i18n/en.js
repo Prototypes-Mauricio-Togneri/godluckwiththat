@@ -157,7 +157,7 @@ export const LOCALIZED_EN = {
   'research.duration': 'Duration',
 
   // Research categories
-  'research.category.misc': 'Misc',
+  'research.category.general': 'General',
   'research.category.prevention': 'Prevention',
   'research.category.resources': 'Resources',
   'research.category.religion': 'Religion',
@@ -197,7 +197,7 @@ export const LOCALIZED_EN = {
   'research.effect.storage': 'Increases storage capacity',
   'research.effect.faith': 'Increases faith production',
 
-  // Research names — Misc
+  // Research names — General
   'research.transportation1': 'Wheel',
   'research.transportation2': 'Wheelbarrow',
   'research.transportation3': 'Handcart',

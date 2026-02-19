@@ -55,7 +55,7 @@ export const EVENT_TYPE_BUILDING_UPGRADE = 'building_upgrade'
 export const EVENT_TYPE_RESEARCH_COMPLETE = 'research_complete'
 
 // Research categories
-export const RESEARCH_CATEGORY_MISC = 'misc'
+export const RESEARCH_CATEGORY_GENERAL = 'general'
 export const RESEARCH_CATEGORY_PREVENTION = 'prevention'
 export const RESEARCH_CATEGORY_RESOURCES = 'resources'
 export const RESEARCH_CATEGORY_RELIGION = 'religion'
@@ -78,7 +78,7 @@ export const RESEARCH_SUBCATEGORY_KNOWLEDGE_PRODUCTION = 'knowledgeProduction'
 export const RESEARCH_SUBCATEGORY_STORAGE = 'storage'
 export const RESEARCH_SUBCATEGORY_FAITH = 'faith'
 
-// Research keys — Misc
+// Research keys — General
 export const RESEARCH_TRANSPORTATION_1 = 'transportation1'
 export const RESEARCH_TRANSPORTATION_2 = 'transportation2'
 export const RESEARCH_TRANSPORTATION_3 = 'transportation3'
