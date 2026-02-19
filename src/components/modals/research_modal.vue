@@ -75,8 +75,8 @@ onUnmounted(() => {
     @click.self="emit('close')"
   >
     <div class="research-modal">
+      <button class="modal-close-x" @click="emit('close')">&#10005;</button>
       <h2 class="modal-title">{{ t('research.title') }}</h2>
-      <span class="modal-rule" />
 
       <!-- Tab bar -->
       <div class="research-tabs">
@@ -135,10 +135,6 @@ onUnmounted(() => {
           </div>
         </div>
       </div>
-
-      <button class="btn-gold modal-close-btn" @click="emit('close')">
-        {{ t('research.close') }}
-      </button>
     </div>
   </div>
 </template>
@@ -166,12 +162,13 @@ onUnmounted(() => {
 /* ── Modal container ─────────────────────────────────────── */
 
 .research-modal {
+  position: relative;
   background: var(--color-bg-raised);
   border: 1px solid rgba(var(--color-accent-rgb), 0.2);
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(var(--color-accent-rgb), 0.06);
-  padding: 1.75rem 2rem 1.5rem;
+  padding: 1rem 2rem 1.5rem;
   width: 90vw;
   max-width: 960px;
   max-height: 85vh;
@@ -190,24 +187,12 @@ onUnmounted(() => {
 .modal-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.3rem;
+  font-size: 1rem;
   color: var(--color-text);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   align-self: center;
-}
-
-.modal-rule {
-  display: block;
-  width: 3.5rem;
-  height: 1px;
-  margin: 0.75rem auto 1.25rem;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(var(--color-accent-rgb), 0.35),
-    transparent
-  );
+  margin-bottom: 1.25rem;
 }
 
 /* ── Tab bar ─────────────────────────────────────────────── */
@@ -475,15 +460,28 @@ onUnmounted(() => {
 
 /* ── Close button ────────────────────────────────────────── */
 
-.modal-close-btn {
-  margin-top: 1.25rem;
-  align-self: center;
-  font-size: 0.8rem;
-  letter-spacing: 0.15em;
-  padding: 0.6rem 2.5rem;
+.modal-close-x {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: rgba(180, 60, 60, 0.12);
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: rgba(var(--color-text-rgb), 0.45);
+  font-size: 0.85rem;
+  line-height: 1;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.modal-close-btn:hover {
-  box-shadow: 0 0 20px rgba(var(--color-accent-rgb), 0.08);
+.modal-close-x:hover {
+  color: #c45050;
+  border-color: rgba(180, 60, 60, 0.4);
 }
 </style>
