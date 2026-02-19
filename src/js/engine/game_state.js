@@ -216,6 +216,7 @@ class GameState {
               icon: IMG_OTHER_TERRITORY,
               buildingKey: key,
             })
+            this.events.dismissPastByType(EVENT_TYPE_TERRITORY_LIMIT_REACHED)
           } else {
             this.events.dismissFuture(key)
           }

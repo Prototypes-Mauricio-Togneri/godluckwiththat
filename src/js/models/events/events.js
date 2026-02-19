@@ -92,6 +92,16 @@ class Events {
   }
 
   /**
+	 * Removes all past events matching the given type.
+	 * @param {string} type - Event type constant
+	 */
+  dismissPastByType(type) {
+    this.items = this.items.filter(
+      event => !(event instanceof EventPast && event.type === type),
+    )
+  }
+
+  /**
 	 * Removes all past events.
 	 */
   dismissAllPast() {

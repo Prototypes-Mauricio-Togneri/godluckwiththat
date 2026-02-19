@@ -104,6 +104,7 @@ Ephemeral event system for notifying the player of upcoming threats and past occ
 - `addFuture({ type, textKey, icon, params, buildingKey, remainingSeconds })` — creates an `EventFuture` with countdown
 - `addPast({ type, textKey, icon, params, buildingKey })` — creates an `EventPast`
 - `convertToPast(buildingKey, data)` — finds the future event matching `buildingKey`, removes it, and adds a past event with the given data
+- `dismissPastByType(type)` — removes all past events matching the given type
 - `dismiss(id)` — removes event by id (uses `splice` for Vue reactivity)
 - `future()` — returns `EventFuture` items sorted by `remainingSeconds` ascending
 - `past()` — returns `EventPast` items sorted by `id` descending (most recent first)
