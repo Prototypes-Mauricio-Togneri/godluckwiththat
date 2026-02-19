@@ -2,6 +2,8 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Come up with the military research
+
 - Future events
   - challenge_timeout
   - research_timeout
