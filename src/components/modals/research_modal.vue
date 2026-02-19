@@ -140,7 +140,7 @@ onUnmounted(() => {
   padding: 1rem 2rem 1.5rem;
   width: 90vw;
   max-width: 960px;
-  max-height: 85vh;
+  max-height: 89vh;
   display: flex;
   flex-direction: column;
   transform: translateY(8px);
