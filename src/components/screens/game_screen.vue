@@ -71,7 +71,7 @@ function formatNumber(n) {
   if (floored < 1000) return String(floored)
   const tier = Math.min(Math.floor(Math.log10(floored) / 3), NUMBER_SUFFIXES.length - 1)
   const scaled = floored / Math.pow(1000, tier)
-  const fixed = scaled.toFixed(1)
+  const fixed = (Math.floor(scaled * 10) / 10).toFixed(1)
   const short = fixed.endsWith('.0') ? fixed.slice(0, -2) : fixed
   return short + NUMBER_SUFFIXES[tier]
 }
