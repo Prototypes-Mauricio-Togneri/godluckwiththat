@@ -26,6 +26,7 @@ class Colony {
     this.production = data.production // Per-tick production rates
     this.stockpile = data.stockpile // Maximum storage capacities
     this.buildings = data.buildings // All building instances
+    this.researches = data.researches // Research progress (completed + active)
   }
 
   get isWarmSeason() {

@@ -2,7 +2,7 @@
 // Consumed by constants.js, building classes, game_state.js, and
 // UI components.
 
-import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_SHRINE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
+import {BONUS_CONSTRUCTION_TIME, BONUS_DISEASE_IMPACT, BONUS_EARTHQUAKE_IMPACT, BONUS_EXPANSION_COST, BONUS_FAITH_PRODUCTION, BONUS_FLOOD_IMPACT, BONUS_FOOD_CONSUMPTION, BONUS_FOOD_PRODUCTION, BONUS_KNOWLEDGE_PRODUCTION, BONUS_MINING_PRODUCTION, BONUS_STORAGE_CAPACITY, BONUS_TRADE_FEES, BONUS_WOOD_CONSUMPTION, BONUS_WOOD_PRODUCTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_SHRINE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESEARCH_CONSTRUCTION_1, RESEARCH_CONSTRUCTION_2, RESEARCH_CONSTRUCTION_3, RESEARCH_EARTHQUAKES_1, RESEARCH_EARTHQUAKES_2, RESEARCH_EARTHQUAKES_3, RESEARCH_EXPANSION_1, RESEARCH_EXPANSION_2, RESEARCH_EXPANSION_3, RESEARCH_FAITH_1, RESEARCH_FAITH_2, RESEARCH_FAITH_3, RESEARCH_FLOODS_1, RESEARCH_FLOODS_2, RESEARCH_FLOODS_3, RESEARCH_FOOD_CONSUMPTION_1, RESEARCH_FOOD_CONSUMPTION_2, RESEARCH_FOOD_CONSUMPTION_3, RESEARCH_FOOD_PRODUCTION_1, RESEARCH_FOOD_PRODUCTION_2, RESEARCH_FOOD_PRODUCTION_3, RESEARCH_FOOD_PRODUCTION_4, RESEARCH_HEALTH_1, RESEARCH_HEALTH_2, RESEARCH_HEALTH_3, RESEARCH_KNOWLEDGE_PRODUCTION_1, RESEARCH_KNOWLEDGE_PRODUCTION_2, RESEARCH_KNOWLEDGE_PRODUCTION_3, RESEARCH_MINING_1, RESEARCH_MINING_2, RESEARCH_MINING_3, RESEARCH_MINING_4, RESEARCH_STORAGE_1, RESEARCH_STORAGE_2, RESEARCH_STORAGE_3, RESEARCH_STORAGE_4, RESEARCH_TRADING_1, RESEARCH_TRADING_2, RESEARCH_TRADING_3, RESEARCH_TRANSPORTATION_1, RESEARCH_TRANSPORTATION_2, RESEARCH_TRANSPORTATION_3, RESEARCH_WOOD_CONSUMPTION_1, RESEARCH_WOOD_CONSUMPTION_2, RESEARCH_WOOD_CONSUMPTION_3, RESEARCH_WOOD_PRODUCTION_1, RESEARCH_WOOD_PRODUCTION_2, RESEARCH_WOOD_PRODUCTION_3, RESEARCH_WOOD_PRODUCTION_4, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
 import Cost from '@/js/models/cost.js'
 
 // ── Build Time ──────────────────────────────────────────────────────
@@ -271,3 +271,655 @@ export const SEASON_COLD_FOOD_MODIFIER = -0.2
 // Fractional modifier applied to wood consumption per season
 export const SEASON_WARM_WOOD_MODIFIER = -0.2
 export const SEASON_COLD_WOOD_MODIFIER = 0.2
+
+// ── Research ──────────────────────────────────────────────────────────
+// Research definitions keyed by RESEARCH_* enum.
+// cost: resources paid upfront | duration: seconds | academyLevel: min Academy level
+// bonus: { type: BONUS_* enum, value: fractional modifier (additive) }
+
+export const RESEARCH_DEFINITIONS = {
+  // ── Misc — Transportation (+% worker productivity) ──
+  [RESEARCH_TRANSPORTATION_1]: {
+    cost: new Cost({
+      knowledge: 50,
+      wood: 30,
+    }),
+    duration: 60,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_WORKER_PRODUCTIVITY,
+      value: 0.05,
+    },
+  },
+  [RESEARCH_TRANSPORTATION_2]: {
+    cost: new Cost({
+      knowledge: 150,
+      wood: 80,
+    }),
+    duration: 120,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_WORKER_PRODUCTIVITY,
+      value: 0.05,
+    },
+  },
+  [RESEARCH_TRANSPORTATION_3]: {
+    cost: new Cost({
+      knowledge: 400,
+      wood: 200,
+      stone: 100,
+    }),
+    duration: 240,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_WORKER_PRODUCTIVITY,
+      value: 0.05,
+    },
+  },
+
+  // ── Misc — Construction (-% construction time) ──
+  [RESEARCH_CONSTRUCTION_1]: {
+    cost: new Cost({
+      knowledge: 60,
+      wood: 40,
+    }),
+    duration: 60,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_CONSTRUCTION_TIME,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_CONSTRUCTION_2]: {
+    cost: new Cost({
+      knowledge: 180,
+      wood: 100,
+      stone: 50,
+    }),
+    duration: 120,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_CONSTRUCTION_TIME,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_CONSTRUCTION_3]: {
+    cost: new Cost({
+      knowledge: 500,
+      wood: 250,
+      stone: 120,
+    }),
+    duration: 300,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_CONSTRUCTION_TIME,
+      value: 0.10,
+    },
+  },
+
+  // ── Misc — Expansion (-% expansion cost) ──
+  [RESEARCH_EXPANSION_1]: {
+    cost: new Cost({
+      knowledge: 80,
+      wood: 60,
+    }),
+    duration: 90,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_EXPANSION_COST,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_EXPANSION_2]: {
+    cost: new Cost({
+      knowledge: 200,
+      wood: 120,
+      stone: 60,
+    }),
+    duration: 180,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_EXPANSION_COST,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_EXPANSION_3]: {
+    cost: new Cost({
+      knowledge: 500,
+      wood: 300,
+      stone: 150,
+    }),
+    duration: 360,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_EXPANSION_COST,
+      value: 0.10,
+    },
+  },
+
+  // ── Misc — Trading (-% trade fees) ──
+  [RESEARCH_TRADING_1]: {
+    cost: new Cost({
+      knowledge: 100,
+      gold: 20,
+    }),
+    duration: 90,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_TRADE_FEES,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_TRADING_2]: {
+    cost: new Cost({
+      knowledge: 250,
+      gold: 50,
+    }),
+    duration: 180,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_TRADE_FEES,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_TRADING_3]: {
+    cost: new Cost({
+      knowledge: 600,
+      gold: 100,
+    }),
+    duration: 360,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_TRADE_FEES,
+      value: 0.10,
+    },
+  },
+
+  // ── Prevention — Floods (-% flood impact) ──
+  [RESEARCH_FLOODS_1]: {
+    cost: new Cost({
+      knowledge: 80,
+      stone: 50,
+    }),
+    duration: 90,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_FLOOD_IMPACT,
+      value: 0.15,
+    },
+  },
+  [RESEARCH_FLOODS_2]: {
+    cost: new Cost({
+      knowledge: 200,
+      stone: 120,
+    }),
+    duration: 180,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_FLOOD_IMPACT,
+      value: 0.15,
+    },
+  },
+  [RESEARCH_FLOODS_3]: {
+    cost: new Cost({
+      knowledge: 500,
+      stone: 250,
+      iron: 50,
+    }),
+    duration: 360,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_FLOOD_IMPACT,
+      value: 0.20,
+    },
+  },
+
+  // ── Prevention — Health (-% disease impact) ──
+  [RESEARCH_HEALTH_1]: {
+    cost: new Cost({
+      knowledge: 80,
+      food: 60,
+    }),
+    duration: 90,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_DISEASE_IMPACT,
+      value: 0.15,
+    },
+  },
+  [RESEARCH_HEALTH_2]: {
+    cost: new Cost({
+      knowledge: 200,
+      food: 150,
+    }),
+    duration: 180,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_DISEASE_IMPACT,
+      value: 0.15,
+    },
+  },
+  [RESEARCH_HEALTH_3]: {
+    cost: new Cost({
+      knowledge: 500,
+      food: 300,
+      copper: 50,
+    }),
+    duration: 360,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_DISEASE_IMPACT,
+      value: 0.20,
+    },
+  },
+
+  // ── Prevention — Earthquakes (-% earthquake/tornado impact) ──
+  [RESEARCH_EARTHQUAKES_1]: {
+    cost: new Cost({
+      knowledge: 80,
+      stone: 60,
+    }),
+    duration: 90,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_EARTHQUAKE_IMPACT,
+      value: 0.15,
+    },
+  },
+  [RESEARCH_EARTHQUAKES_2]: {
+    cost: new Cost({
+      knowledge: 200,
+      stone: 150,
+      wood: 80,
+    }),
+    duration: 180,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_EARTHQUAKE_IMPACT,
+      value: 0.15,
+    },
+  },
+  [RESEARCH_EARTHQUAKES_3]: {
+    cost: new Cost({
+      knowledge: 500,
+      stone: 300,
+      iron: 50,
+    }),
+    duration: 360,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_EARTHQUAKE_IMPACT,
+      value: 0.20,
+    },
+  },
+
+  // ── Resources — Food Production (+% food production) ──
+  [RESEARCH_FOOD_PRODUCTION_1]: {
+    cost: new Cost({
+      knowledge: 50,
+      food: 40,
+    }),
+    duration: 60,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_FOOD_PRODUCTION,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_FOOD_PRODUCTION_2]: {
+    cost: new Cost({
+      knowledge: 150,
+      food: 100,
+    }),
+    duration: 120,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_FOOD_PRODUCTION,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_FOOD_PRODUCTION_3]: {
+    cost: new Cost({
+      knowledge: 400,
+      food: 250,
+      wood: 80,
+    }),
+    duration: 240,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_FOOD_PRODUCTION,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_FOOD_PRODUCTION_4]: {
+    cost: new Cost({
+      knowledge: 800,
+      food: 500,
+      copper: 100,
+    }),
+    duration: 480,
+    academyLevel: 4,
+    bonus: {
+      type: BONUS_FOOD_PRODUCTION,
+      value: 0.10,
+    },
+  },
+
+  // ── Resources — Food Consumption (-% food consumption) ──
+  [RESEARCH_FOOD_CONSUMPTION_1]: {
+    cost: new Cost({
+      knowledge: 60,
+      food: 50,
+    }),
+    duration: 90,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_FOOD_CONSUMPTION,
+      value: 0.05,
+    },
+  },
+  [RESEARCH_FOOD_CONSUMPTION_2]: {
+    cost: new Cost({
+      knowledge: 180,
+      food: 120,
+    }),
+    duration: 180,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_FOOD_CONSUMPTION,
+      value: 0.05,
+    },
+  },
+  [RESEARCH_FOOD_CONSUMPTION_3]: {
+    cost: new Cost({
+      knowledge: 450,
+      food: 300,
+      wood: 100,
+    }),
+    duration: 300,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_FOOD_CONSUMPTION,
+      value: 0.05,
+    },
+  },
+
+  // ── Resources — Wood Production (+% wood production) ──
+  [RESEARCH_WOOD_PRODUCTION_1]: {
+    cost: new Cost({
+      knowledge: 50,
+      wood: 40,
+    }),
+    duration: 60,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_WOOD_PRODUCTION,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_WOOD_PRODUCTION_2]: {
+    cost: new Cost({
+      knowledge: 150,
+      wood: 100,
+    }),
+    duration: 120,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_WOOD_PRODUCTION,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_WOOD_PRODUCTION_3]: {
+    cost: new Cost({
+      knowledge: 400,
+      wood: 250,
+      stone: 80,
+    }),
+    duration: 240,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_WOOD_PRODUCTION,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_WOOD_PRODUCTION_4]: {
+    cost: new Cost({
+      knowledge: 800,
+      wood: 500,
+      iron: 100,
+    }),
+    duration: 480,
+    academyLevel: 4,
+    bonus: {
+      type: BONUS_WOOD_PRODUCTION,
+      value: 0.10,
+    },
+  },
+
+  // ── Resources — Wood Consumption (-% wood consumption) ──
+  [RESEARCH_WOOD_CONSUMPTION_1]: {
+    cost: new Cost({
+      knowledge: 60,
+      wood: 50,
+    }),
+    duration: 90,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_WOOD_CONSUMPTION,
+      value: 0.05,
+    },
+  },
+  [RESEARCH_WOOD_CONSUMPTION_2]: {
+    cost: new Cost({
+      knowledge: 180,
+      wood: 120,
+    }),
+    duration: 180,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_WOOD_CONSUMPTION,
+      value: 0.05,
+    },
+  },
+  [RESEARCH_WOOD_CONSUMPTION_3]: {
+    cost: new Cost({
+      knowledge: 450,
+      wood: 300,
+      stone: 100,
+    }),
+    duration: 300,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_WOOD_CONSUMPTION,
+      value: 0.05,
+    },
+  },
+
+  // ── Resources — Mining (+% stone/copper/iron/gold production) ──
+  [RESEARCH_MINING_1]: {
+    cost: new Cost({
+      knowledge: 60,
+      stone: 40,
+    }),
+    duration: 90,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_MINING_PRODUCTION,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_MINING_2]: {
+    cost: new Cost({
+      knowledge: 180,
+      stone: 100,
+      copper: 30,
+    }),
+    duration: 180,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_MINING_PRODUCTION,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_MINING_3]: {
+    cost: new Cost({
+      knowledge: 450,
+      stone: 250,
+      iron: 50,
+    }),
+    duration: 300,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_MINING_PRODUCTION,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_MINING_4]: {
+    cost: new Cost({
+      knowledge: 900,
+      stone: 500,
+      gold: 50,
+    }),
+    duration: 480,
+    academyLevel: 4,
+    bonus: {
+      type: BONUS_MINING_PRODUCTION,
+      value: 0.10,
+    },
+  },
+
+  // ── Resources — Knowledge Production (+% knowledge production) ──
+  [RESEARCH_KNOWLEDGE_PRODUCTION_1]: {
+    cost: new Cost({
+      knowledge: 80,
+      wood: 50,
+    }),
+    duration: 90,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_KNOWLEDGE_PRODUCTION,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_KNOWLEDGE_PRODUCTION_2]: {
+    cost: new Cost({
+      knowledge: 200,
+      wood: 120,
+      stone: 60,
+    }),
+    duration: 180,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_KNOWLEDGE_PRODUCTION,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_KNOWLEDGE_PRODUCTION_3]: {
+    cost: new Cost({
+      knowledge: 500,
+      wood: 250,
+      copper: 80,
+    }),
+    duration: 300,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_KNOWLEDGE_PRODUCTION,
+      value: 0.10,
+    },
+  },
+
+  // ── Resources — Storage (+% warehouse capacity) ──
+  [RESEARCH_STORAGE_1]: {
+    cost: new Cost({
+      knowledge: 60,
+      wood: 50,
+      stone: 30,
+    }),
+    duration: 90,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_STORAGE_CAPACITY,
+      value: 0.15,
+    },
+  },
+  [RESEARCH_STORAGE_2]: {
+    cost: new Cost({
+      knowledge: 180,
+      wood: 120,
+      stone: 80,
+    }),
+    duration: 180,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_STORAGE_CAPACITY,
+      value: 0.15,
+    },
+  },
+  [RESEARCH_STORAGE_3]: {
+    cost: new Cost({
+      knowledge: 450,
+      wood: 300,
+      stone: 150,
+    }),
+    duration: 300,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_STORAGE_CAPACITY,
+      value: 0.15,
+    },
+  },
+  [RESEARCH_STORAGE_4]: {
+    cost: new Cost({
+      knowledge: 900,
+      wood: 500,
+      stone: 300,
+      iron: 80,
+    }),
+    duration: 480,
+    academyLevel: 4,
+    bonus: {
+      type: BONUS_STORAGE_CAPACITY,
+      value: 0.15,
+    },
+  },
+
+  // ── Religion — Faith (+% faith production) ──
+  [RESEARCH_FAITH_1]: {
+    cost: new Cost({
+      knowledge: 60,
+      wood: 40,
+    }),
+    duration: 90,
+    academyLevel: 1,
+    bonus: {
+      type: BONUS_FAITH_PRODUCTION,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_FAITH_2]: {
+    cost: new Cost({
+      knowledge: 180,
+      wood: 100,
+      stone: 50,
+    }),
+    duration: 180,
+    academyLevel: 2,
+    bonus: {
+      type: BONUS_FAITH_PRODUCTION,
+      value: 0.10,
+    },
+  },
+  [RESEARCH_FAITH_3]: {
+    cost: new Cost({
+      knowledge: 450,
+      wood: 250,
+      stone: 120,
+    }),
+    duration: 300,
+    academyLevel: 3,
+    bonus: {
+      type: BONUS_FAITH_PRODUCTION,
+      value: 0.10,
+    },
+  },
+}
