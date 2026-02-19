@@ -96,5 +96,6 @@ Read these when working on specific areas:
 ## Verification
 
 - **Mental Execution**: Before finalizing your response, simulate the code path mentally and identify edge cases, failure modes, and race conditions.
+- **Code Review Policy**: After completing all code changes for a task, and before responding to the user, run /review-code.
 - **Lint**: After editing code, run `npm run lint -- --fix` and fix any remaining errors before considering the task complete.
 - **Maintenance**: Always check if the files `CLAUDE.md`, `docs/architecture.md`, and `docs/specs.md` are up-to-date after making changes. If not, update them accordingly.
