@@ -158,7 +158,7 @@ export const LOCALIZED_EN = {
 
   // Research categories
   'research.category.general': 'General',
-  'research.category.prevention': 'Prevention',
+  'research.category.disasters': 'Disasters',
   'research.category.resources': 'Resources',
   'research.category.religion': 'Religion',
   'research.category.military': 'Military',
@@ -219,7 +219,7 @@ export const LOCALIZED_EN = {
   'research.trading4': 'Currency',
   'research.trading5': 'Caravans',
 
-  // Research names — Prevention
+  // Research names — Disasters
   'research.floods1': 'Sandbags',
   'research.floods2': 'Levees',
   'research.floods3': 'Flood Barriers',

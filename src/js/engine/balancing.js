@@ -539,7 +539,7 @@ export const RESEARCH_DEFINITIONS = {
     },
   },
 
-  // ── Prevention — Floods (-% flood impact) ──
+  // ── Disasters — Floods (-% flood impact) ──
   [RESEARCH_FLOODS_1]: {
     cost: new Cost({
       knowledge: 80,
@@ -578,7 +578,7 @@ export const RESEARCH_DEFINITIONS = {
     },
   },
 
-  // ── Prevention — Health (-% disease impact) ──
+  // ── Disasters — Health (-% disease impact) ──
   [RESEARCH_HEALTH_1]: {
     cost: new Cost({
       knowledge: 80,
@@ -617,7 +617,7 @@ export const RESEARCH_DEFINITIONS = {
     },
   },
 
-  // ── Prevention — Earthquakes (-% earthquake/tornado impact) ──
+  // ── Disasters — Earthquakes (-% earthquake/tornado impact) ──
   [RESEARCH_EARTHQUAKES_1]: {
     cost: new Cost({
       knowledge: 80,

@@ -4,7 +4,7 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
 
 ## Design
 
-- **5 categories** (tabs): General, Prevention, Resources, Religion, Military
+- **5 categories** (tabs): General, Disasters, Resources, Religion, Military
 - **Subcategories** within each category form linear research chains
 - **Cost**: Knowledge + other resources (paid upfront when starting)
 - **Duration**: Fixed timer per research (not affected by workers)
@@ -19,7 +19,7 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
 | Category | Subcategories | Bonus Effects |
 |----------|--------------|---------------|
 | General | Transportation, Construction, Expansion, Trading | +% worker productivity, -% construction time, -% expansion cost, -% trade fees |
-| Prevention | Floods, Health, Earthquakes | -% flood impact, -% disease impact, -% earthquake/tornado impact |
+| Disasters | Floods, Health, Earthquakes | -% flood impact, -% disease impact, -% earthquake/tornado impact |
 | Resources | Food prod., Food cons., Wood prod., Wood cons., Mining, Knowledge, Storage | +/- % production/consumption rates, +% warehouse capacity |
 | Religion | Faith | +% faith production |
 | Military | TBD | TBD |

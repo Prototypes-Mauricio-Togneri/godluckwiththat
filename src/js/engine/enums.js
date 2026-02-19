@@ -56,7 +56,7 @@ export const EVENT_TYPE_RESEARCH_COMPLETE = 'research_complete'
 
 // Research categories
 export const RESEARCH_CATEGORY_GENERAL = 'general'
-export const RESEARCH_CATEGORY_PREVENTION = 'prevention'
+export const RESEARCH_CATEGORY_DISASTERS = 'disasters'
 export const RESEARCH_CATEGORY_RESOURCES = 'resources'
 export const RESEARCH_CATEGORY_RELIGION = 'religion'
 export const RESEARCH_CATEGORY_MILITARY = 'military'
@@ -100,7 +100,7 @@ export const RESEARCH_TRADING_3 = 'trading3'
 export const RESEARCH_TRADING_4 = 'trading4'
 export const RESEARCH_TRADING_5 = 'trading5'
 
-// Research keys — Prevention
+// Research keys — Disasters
 export const RESEARCH_FLOODS_1 = 'floods1'
 export const RESEARCH_FLOODS_2 = 'floods2'
 export const RESEARCH_FLOODS_3 = 'floods3'
