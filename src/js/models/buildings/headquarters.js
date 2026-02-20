@@ -19,10 +19,12 @@ class Headquarters extends Building {
     this.upgradeDuration = data.upgradeDuration ?? 0 // Total type upgrade duration (for progress %)
   }
 
+  /** @returns {boolean} Whether a type upgrade is in progress */
   get isUpgrading() {
     return this.upgradeRemaining > 0
   }
 
+  /** @returns {boolean} Whether the headquarters is at the highest type */
   get isMaxType() {
     return this.type === HQ_TYPES[HQ_TYPES.length - 1]
   }

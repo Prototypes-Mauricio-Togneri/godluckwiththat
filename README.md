@@ -2,6 +2,7 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Vertical research chains?
 - Come up with the military research
 - Create constant for how much a research acts (e.g. 10% increase in production)
 - Use those constants in the research descriptions

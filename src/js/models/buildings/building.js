@@ -13,10 +13,12 @@ class Building {
     this.constructionDuration = data.constructionDuration ?? 0 // Total duration (for progress %)
   }
 
+  /** @returns {boolean} Whether the building has not been built yet */
   get isUnbuilt() {
     return this.level === 0
   }
 
+  /** @returns {boolean} Whether the building is currently under construction */
   get isConstructing() {
     return this.constructionRemaining > 0
   }
