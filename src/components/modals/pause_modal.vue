@@ -1,5 +1,6 @@
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue'
+import audio from '@/js/engine/audio.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits([
@@ -7,7 +8,19 @@ const emit = defineEmits([
   'quit',
 ])
 const visible = ref(false)
+const musicEnabled = ref(audio._musicEnabled)
+const soundEnabled = ref(audio._soundEnabled)
 let rafId = null
+
+function toggleMusic() {
+  musicEnabled.value = !musicEnabled.value
+  audio.setMusicEnabled(musicEnabled.value)
+}
+
+function toggleSound() {
+  soundEnabled.value = !soundEnabled.value
+  audio.setSoundEnabled(soundEnabled.value)
+}
 
 onMounted(() => {
   rafId = requestAnimationFrame(() => {
@@ -31,6 +44,29 @@ onUnmounted(() => {
 
       <!-- Decorative rule -->
       <span class="modal-rule" />
+
+      <div class="toggle-group">
+        <div class="toggle-row">
+          <span class="toggle-label">{{ t('modal.pause.music') }}</span>
+          <button
+            class="toggle-switch"
+            :class="{ active: musicEnabled }"
+            @click="toggleMusic"
+          >
+            <span class="toggle-knob" />
+          </button>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">{{ t('modal.pause.sound') }}</span>
+          <button
+            class="toggle-switch"
+            :class="{ active: soundEnabled }"
+            @click="toggleSound"
+          >
+            <span class="toggle-knob" />
+          </button>
+        </div>
+      </div>
 
       <div class="modal-actions">
         <button class="btn-gold modal-btn" @click="emit('close')">
@@ -102,6 +138,67 @@ onUnmounted(() => {
     rgba(var(--color-accent-rgb), 0.35),
     transparent
   );
+}
+
+/* ---- Toggle rows ---- */
+
+.toggle-group {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+  margin-inline: -1rem;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 0.25rem;
+}
+
+.toggle-label {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(var(--color-text-rgb), 0.6);
+}
+
+.toggle-switch {
+  position: relative;
+  width: 2.4rem;
+  height: 1.3rem;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+  background: rgba(var(--color-accent-rgb), 0.06);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0;
+}
+
+.toggle-switch.active {
+  background: rgba(var(--color-accent-rgb), 0.25);
+  border-color: rgba(var(--color-accent-rgb), 0.5);
+}
+
+.toggle-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(1.3rem - 6px);
+  height: calc(1.3rem - 6px);
+  border-radius: 50%;
+  background: rgba(var(--color-text-rgb), 0.3);
+  transition: all 0.25s ease;
+}
+
+.toggle-switch.active .toggle-knob {
+  left: calc(100% - 1.3rem + 4px);
+  background: var(--color-accent);
+  box-shadow: 0 0 6px rgba(var(--color-accent-rgb), 0.4);
 }
 
 /* ---- Button column ---- */

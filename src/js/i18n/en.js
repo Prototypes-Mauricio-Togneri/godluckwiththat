@@ -8,6 +8,8 @@ export const LOCALIZED_EN = {
   'modal.pause.title': 'Paused',
   'modal.pause.continue': 'Continue',
   'modal.pause.quit': 'Quit',
+  'modal.pause.music': 'Music',
+  'modal.pause.sound': 'Sound',
 
   // Resources
   'resource.food': 'Food',

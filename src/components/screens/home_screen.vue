@@ -4,8 +4,10 @@ import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits(['start'])
 
-// TODO: temporary auto-start for development
-onMounted(() => emit('start'))
+onMounted(() => {
+  // TODO: temporary auto-start for development
+  if (window.location.hostname === 'localhost') emit('start')
+})
 </script>
 
 <template>
