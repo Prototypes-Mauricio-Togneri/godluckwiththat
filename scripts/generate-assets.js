@@ -1,14 +1,17 @@
 /**
- * Scans public/img/ and generates src/js/engine/assets.js with named constants
- * for every image file. Run via: npm run generate-assets
+ * Scans public/img/, public/audio/sound/, and public/audio/music/ and generates
+ * src/js/engine/assets.js with named constants for every image, sound, and music file.
+ * Run via: npm run generate-assets
  */
 
-import {readdirSync, statSync, writeFileSync} from 'node:fs'
+import {existsSync, readdirSync, statSync, writeFileSync} from 'node:fs'
 import {basename, dirname, extname, join, relative} from 'node:path'
 import {fileURLToPath} from 'node:url'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const IMG_DIR = join(ROOT, 'public', 'img')
+const SND_DIR = join(ROOT, 'public', 'audio', 'sound')
+const MUS_DIR = join(ROOT, 'public', 'audio', 'music')
 const OUTPUT = join(ROOT, 'src', 'js', 'engine', 'assets.js')
 
 // Group display names keyed by directory path relative to img/
@@ -88,8 +91,12 @@ for (const file of allFiles) {
   groups.get(key).push(file)
 }
 
+// Collect audio files
+const soundFiles = existsSync(SND_DIR) ? collectFiles(SND_DIR) : []
+const musicFiles = existsSync(MUS_DIR) ? collectFiles(MUS_DIR) : []
+
 // Build output
-const lines = ['// Asset path constants — centralized references to all public image files.']
+const lines = ['// Asset path constants — centralized references to all public image, sound, and music files.']
 const resourceEntries = []
 
 for (const [
@@ -130,7 +137,32 @@ if (resourceEntries.length > 0) {
   lines.push('}')
 }
 
+// Sounds
+if (soundFiles.length > 0) {
+  lines.push('')
+  lines.push('// Sounds')
+  for (const file of soundFiles) {
+    const withoutExt = basename(file, extname(file))
+    const name = 'SND_' + withoutExt.toUpperCase()
+    const sndPath = '/audio/sound/' + file
+    lines.push(`export const ${name} = '${sndPath}'`)
+  }
+}
+
+// Music
+if (musicFiles.length > 0) {
+  lines.push('')
+  lines.push('// Music')
+  for (const file of musicFiles) {
+    const withoutExt = basename(file, extname(file))
+    const name = 'MUS_' + withoutExt.toUpperCase()
+    const musPath = '/audio/music/' + file
+    lines.push(`export const ${name} = '${musPath}'`)
+  }
+}
+
 lines.push('')
 
+const totalAssets = allFiles.length + soundFiles.length + musicFiles.length
 writeFileSync(OUTPUT, lines.join('\n'))
-console.log(`Generated ${OUTPUT} (${allFiles.length} assets)`)
+console.log(`Generated ${OUTPUT} (${totalAssets} assets)`)

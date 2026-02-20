@@ -1,4 +1,4 @@
-// Asset path constants — centralized references to all public image files.
+// Asset path constants — centralized references to all public image, sound, and music files.
 
 // Resources
 export const IMG_RESOURCE_COPPER = '/img/resources/copper.png'
@@ -67,3 +67,11 @@ export const IMG_RESOURCE_MAP = {
   stone: IMG_RESOURCE_STONE,
   wood: IMG_RESOURCE_WOOD,
 }
+
+// Sounds
+export const SND_BUILDING_CREATED = '/audio/sound/building_created.mp3'
+export const SND_UNDER_ATTACK = '/audio/sound/under_attack.mp3'
+export const SND_WORKER_CREATED = '/audio/sound/worker_created.mp3'
+
+// Music
+export const MUS_MUSIC = '/audio/music/music.mp3'

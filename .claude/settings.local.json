@@ -28,7 +28,9 @@
       "WebSearch",
       "Bash(ls:*)",
       "Bash(npm run generate-assets:*)",
-      "Bash(npm outdated:*)"
+      "Bash(npm outdated:*)",
+      "Bash(node:*)",
+      "Bash(git -C /home/max/Repositories/atomic/godluckwiththat status --short public/audio/)"
     ]
   },
   "hooks": {
