@@ -325,7 +325,7 @@ export const BUILDING_IMAGE_MAP = Object.fromEntries(
 // Per-file audio configuration (volume 0.0–1.0)
 export const AUDIO_CONFIG = {
   [SND_BUILDING_CREATED]: {
-    volume: 0.5,
+    volume: 1,
   },
   [SND_UNDER_ATTACK]: {
     volume: 0.7,
