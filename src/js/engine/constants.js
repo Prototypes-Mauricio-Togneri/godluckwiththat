@@ -333,13 +333,13 @@ export const BUILDING_IMAGE_MAP = Object.fromEntries(
 
 // Per-file audio configuration (volume 0.0–1.0)
 export const AUDIO_CONFIG = {
-  [SND_BUILDING_CREATED]: {
+  [SND_BUILDING_CREATED]: { // OK
     volume: 1,
   },
-  [SND_HEADQUARTERS_UPGRADED]: {
+  [SND_HEADQUARTERS_UPGRADED]: { // OK
     volume: 1,
   },
-  [SND_TERRITORY_EXPANDED]: {
+  [SND_TERRITORY_EXPANDED]: { // OK
     volume: 0.8,
   },
   [SND_NOTIFICATION_ALERT]: {
@@ -579,7 +579,7 @@ export function createInitialColonyBasic() {
       territory: 0,
       workers: 0,
       food: 200,
-      wood: 100,
+      wood: 500,
       stone: 0,
       copper: 0,
       iron: 0,
