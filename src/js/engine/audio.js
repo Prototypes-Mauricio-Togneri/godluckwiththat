@@ -11,6 +11,20 @@ class Audio {
     this._soundEnabled = storage.soundEnabled // Whether sounds are on (persisted)
     this._music = null // Current HTMLAudioElement for music
     this._musicPath = null // Asset path of the current music track
+    this._cache = new Map() // Preloaded HTMLAudioElements keyed by asset path
+  }
+
+  /**
+   * Preloads all audio files from AUDIO_CONFIG into the cache.
+   * Call once at app startup so playback is instant.
+   */
+  preload() {
+    for (const assetPath of Object.keys(AUDIO_CONFIG)) {
+      const el = new window.Audio(assetPath)
+      el.preload = 'auto'
+      el.load()
+      this._cache.set(assetPath, el)
+    }
   }
 
   /**
@@ -19,7 +33,8 @@ class Audio {
    */
   playSound(assetPath) {
     if (!this._soundEnabled) return
-    const el = new window.Audio(assetPath)
+    const cached = this._cache.get(assetPath)
+    const el = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(assetPath)
     el.volume = this._volume(assetPath)
     el.play().catch(() => {})
   }
@@ -32,7 +47,8 @@ class Audio {
     this._musicPath = assetPath
     if (!this._musicEnabled) return
     if (this._music && !this._music.paused) return
-    this._music = new window.Audio(assetPath)
+    const cached = this._cache.get(assetPath)
+    this._music = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(assetPath)
     this._music.loop = true
     this._music.volume = this._volume(assetPath)
     this._music.play().catch(() => {})
@@ -73,7 +89,8 @@ class Audio {
     this._musicEnabled = enabled
     storage.musicEnabled = enabled
     if (enabled && this._musicPath && !this._music) {
-      this._music = new window.Audio(this._musicPath)
+      const cached = this._cache.get(this._musicPath)
+      this._music = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(this._musicPath)
       this._music.loop = true
       this._music.volume = this._volume(this._musicPath)
       this._music.play().catch(() => {})
