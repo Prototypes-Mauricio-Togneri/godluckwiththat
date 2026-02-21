@@ -2,6 +2,7 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Preload audio
 - Auto create workers from buildings
 - Sound when assigning/unassigning workers
 
