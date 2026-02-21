@@ -333,13 +333,13 @@ export const BUILDING_IMAGE_MAP = Object.fromEntries(
 
 // Per-file audio configuration (volume 0.0–1.0)
 export const AUDIO_CONFIG = {
-  [SND_BUILDING_CREATED]: { // OK
+  [SND_BUILDING_CREATED]: {
     volume: 1,
   },
-  [SND_HEADQUARTERS_UPGRADED]: { // OK
+  [SND_HEADQUARTERS_UPGRADED]: {
     volume: 1,
   },
-  [SND_TERRITORY_EXPANDED]: { // OK
+  [SND_TERRITORY_EXPANDED]: {
     volume: 0.8,
   },
   [SND_NOTIFICATION_ALERT]: {
@@ -358,7 +358,7 @@ export const AUDIO_CONFIG = {
     volume: 0.5,
   },
   [SND_WORKER_FOOD]: {
-    volume: 0.3,
+    volume: 0.1,
   },
   [SND_WORKER_WOOD]: {
     volume: 0.3,
