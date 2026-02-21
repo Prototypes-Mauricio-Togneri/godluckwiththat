@@ -37,8 +37,10 @@ function handleNodeClick(key, status) {
 }
 
 function formatTime(seconds) {
-  const m = Math.floor(seconds / 60)
+  const h = Math.floor(seconds / 3600)
+  const m = Math.floor((seconds % 3600) / 60)
   const s = Math.floor(seconds % 60)
+  if (h > 0) return h + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0')
   return m + ':' + String(s).padStart(2, '0')
 }
 
@@ -110,19 +112,22 @@ onUnmounted(() => {
                 <div class="node-header">
                   <span class="node-name">{{ t('research.' + rKey) }}</span>
                   <span v-if="nodeStatus(rKey, sub.researches, idx) === 'completed'" class="node-check">&#10003;</span>
-                  <span v-else-if="nodeStatus(rKey, sub.researches, idx) === 'active'" class="node-timer">
+                </div>
+                <div class="node-second-row">
+                  <span v-if="nodeStatus(rKey, sub.researches, idx) === 'active'" class="node-timer">
                     {{ formatTime(colony.researches.getActive(rKey).remainingSeconds) }}
                   </span>
-                </div>
-                <div v-if="nodeStatus(rKey, sub.researches, idx) !== 'active'" class="node-cost">
-                  <div
-                    v-for="[resource, amount] in RESEARCH_DEFINITIONS[rKey].cost.entries()"
-                    :key="resource"
-                    class="node-cost-item"
-                  >
-                    <img class="node-cost-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
-                    <span class="node-cost-amount">{{ amount }}</span>
-                  </div>
+                  <template v-else-if="nodeStatus(rKey, sub.researches, idx) !== 'completed'">
+                    <div
+                      v-for="[resource, amount] in RESEARCH_DEFINITIONS[rKey].cost.entries()"
+                      :key="resource"
+                      class="node-cost-item"
+                    >
+                      <img class="node-cost-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
+                      <span class="node-cost-amount">{{ amount }}</span>
+                    </div>
+                  </template>
+                  <span v-else class="node-cost-placeholder">&nbsp;</span>
                 </div>
               </div>
             </template>
@@ -326,9 +331,9 @@ onUnmounted(() => {
 /* ── Node states ─────────────────────────────────────────── */
 
 .research-node--completed {
-  border-color: rgba(var(--color-accent-rgb), 0.35);
-  background: rgba(var(--color-accent-rgb), 0.07);
-  box-shadow: 0 0 8px rgba(var(--color-accent-rgb), 0.08);
+  border-color: rgba(80, 160, 80, 0.4);
+  background: rgba(80, 160, 80, 0.05);
+  justify-content: center;
 }
 
 .research-node--active {
@@ -382,8 +387,8 @@ onUnmounted(() => {
 }
 
 .node-check {
-  font-size: 0.7rem;
-  color: var(--color-accent);
+  font-size: 1.1rem;
+  color: rgba(80, 160, 80, 0.8);
   flex-shrink: 0;
 }
 
@@ -395,12 +400,17 @@ onUnmounted(() => {
   letter-spacing: 0.04em;
 }
 
-.node-cost {
+.node-second-row {
   display: flex;
   align-items: center;
   gap: 0.35rem;
   flex-wrap: nowrap;
   margin-top: 0.15rem;
+  min-height: 0.9rem;
+}
+
+.node-cost-placeholder {
+  font-size: 0.75rem;
 }
 
 .node-cost-item {
