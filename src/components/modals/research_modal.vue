@@ -111,13 +111,13 @@ onUnmounted(() => {
               >
                 <div class="node-header">
                   <span class="node-name">{{ t('research.' + rKey) }}</span>
-                  <span v-if="nodeStatus(rKey, sub.researches, idx) === 'completed'" class="node-check">&#10003;</span>
                 </div>
                 <div class="node-second-row">
-                  <span v-if="nodeStatus(rKey, sub.researches, idx) === 'active'" class="node-timer">
+                  <span v-if="nodeStatus(rKey, sub.researches, idx) === 'completed'" class="node-check">&#10003;</span>
+                  <span v-else-if="nodeStatus(rKey, sub.researches, idx) === 'active'" class="node-timer">
                     {{ formatTime(colony.researches.getActive(rKey).remainingSeconds) }}
                   </span>
-                  <template v-else-if="nodeStatus(rKey, sub.researches, idx) !== 'completed'">
+                  <template v-else>
                     <div
                       v-for="[resource, amount] in RESEARCH_DEFINITIONS[rKey].cost.entries()"
                       :key="resource"
@@ -127,7 +127,6 @@ onUnmounted(() => {
                       <span class="node-cost-amount">{{ amount }}</span>
                     </div>
                   </template>
-                  <span v-else class="node-cost-placeholder">&nbsp;</span>
                 </div>
               </div>
             </template>
@@ -333,7 +332,6 @@ onUnmounted(() => {
 .research-node--completed {
   border-color: rgba(80, 160, 80, 0.4);
   background: rgba(80, 160, 80, 0.05);
-  justify-content: center;
 }
 
 .research-node--active {
@@ -407,10 +405,6 @@ onUnmounted(() => {
   flex-wrap: nowrap;
   margin-top: 0.15rem;
   min-height: 0.9rem;
-}
-
-.node-cost-placeholder {
-  font-size: 0.75rem;
 }
 
 .node-cost-item {
