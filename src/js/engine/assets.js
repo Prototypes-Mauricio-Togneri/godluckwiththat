@@ -74,8 +74,11 @@ export const IMG_RESOURCE_MAP = {
 
 // Sounds
 export const SND_BUILDING_CREATED = '/audio/sound/building_created.mp3'
+export const SND_HEADQUARTERS_UPGRADED = '/audio/sound/headquarters_upgraded.wav'
 export const SND_NOTIFICATION = '/audio/sound/notification.mp3'
+export const SND_NOTIFICATION_SEASON = '/audio/sound/notification_season.mp3'
 export const SND_RESEARCH_COMPLETED = '/audio/sound/research_completed.wav'
+export const SND_TERRITORY_EXPANDED = '/audio/sound/territory_expanded.wav'
 export const SND_UNDER_ATTACK = '/audio/sound/under_attack.mp3'
 export const SND_WORKER_CREATED = '/audio/sound/worker_created.mp3'
 export const SND_WORKER_FOOD = '/audio/sound/worker_food.mp3'
