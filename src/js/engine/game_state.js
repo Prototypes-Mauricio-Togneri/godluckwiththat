@@ -464,13 +464,6 @@ class GameState {
     for (const key of completed) {
       researches.complete(key)
       this.events.dismissFutureByResearchKey(key)
-      this.events.addPast({
-        type: EVENT_TYPE_RESEARCH_COMPLETE,
-        textKey: 'event.researchCompleted',
-        icon: IMG_RESOURCE_KNOWLEDGE,
-        params: [t('research.' + key)],
-        researchKey: key,
-      })
       audio.playSound(SND_RESEARCH_COMPLETED)
     }
   }

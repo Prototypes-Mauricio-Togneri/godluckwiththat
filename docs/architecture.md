@@ -101,7 +101,7 @@ All game state mutations are centralised in `GameState`. Each method guards prec
 - `_recruit()` — shared helper: deducts `WORKER_RECRUIT_COST`, increments `resources.workers`, plays sound, fires population-limit event if at cap. Returns `boolean`.
 - `_playAssignSound(buildingKey)` — plays building-specific worker assignment sound (farm/woodcutter).
 - `startResearch(key)` — validates preconditions (not active/completed, academy level met, can afford), deducts cost, starts timer via `colony.researches.start()`, creates a future event (`EVENT_TYPE_RESEARCH_COMPLETE`). Blocked when prerequisites not met or insufficient resources.
-- `advanceResearch(delta)` — decrements `remainingSeconds` on all active researches. When a timer reaches zero, calls `researches.complete(key)`, dismisses the future event, creates a past event, and plays `SND_RESEARCH_COMPLETED`. Collects completed keys before processing to avoid mutating the Map during iteration.
+- `advanceResearch(delta)` — decrements `remainingSeconds` on all active researches. When a timer reaches zero, calls `researches.complete(key)`, dismisses the future event, and plays `SND_RESEARCH_COMPLETED`. Collects completed keys before processing to avoid mutating the Map during iteration.
 ### Events (`src/js/models/events/event.js`, `event_future.js`, `event_past.js`, `events.js`)
 
 Ephemeral event system for notifying the player of upcoming threats and past occurrences. Events live on `GameState.events` (not `Colony`) and are **not persisted** in save data — they reset on page refresh.

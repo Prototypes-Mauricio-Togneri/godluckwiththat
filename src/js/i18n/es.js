@@ -287,5 +287,4 @@ export const LOCALIZED_ES = {
 
   // Research events
   'event.researchInProgress': 'Investigando {0}',
-  'event.researchCompleted': 'Investigación de {0} completada',
 }
