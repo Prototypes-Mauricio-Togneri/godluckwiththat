@@ -13,6 +13,7 @@ class Audio {
     this._music = null // Current HTMLAudioElement for music
     this._musicPath = null // Asset path of the current music track
     this._cache = new Map() // Preloaded HTMLAudioElements keyed by asset path
+    this._activeSounds = new Map() // Currently playing sound elements keyed by asset path
   }
 
   /**
@@ -34,8 +35,18 @@ class Audio {
    */
   playSound(assetPath) {
     if (!this._soundEnabled) return
-    const cached = this._cache.get(assetPath)
-    const el = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(assetPath)
+    let el = this._activeSounds.get(assetPath)
+    if (el) {
+      el.pause()
+      el.currentTime = 0
+    } else {
+      const cached = this._cache.get(assetPath)
+      el = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(assetPath)
+      this._activeSounds.set(assetPath, el)
+    }
+    el.addEventListener('ended', () => this._activeSounds.delete(assetPath), {
+      once: true,
+    })
     el.volume = this._volume(assetPath)
     el.play().catch(() => {})
   }
