@@ -339,22 +339,8 @@ class GameState {
    * Recruits a new worker: deducts food cost, increments worker count.
    */
   recruitWorker() {
-    const {
-      resources, stockpile,
-    } = this.colony
-    if (!resources.canAfford(WORKER_RECRUIT_COST) || resources.workers >= stockpile.workers) return
-    resources.deduct(WORKER_RECRUIT_COST)
-    resources.workers += 1
+    if (!this._recruit()) return
     this.colony.idleWorkers += 1
-    audio.playSound(SND_WORKER_CREATED)
-    if (resources.workers >= stockpile.workers) {
-      this.events.addPast({
-        type: EVENT_TYPE_POPULATION_LIMIT_REACHED,
-        textKey: 'event.populationLimitReached',
-        icon: IMG_UNIT_WORKER,
-      })
-      audio.playSound(SND_NOTIFICATION_ALERT)
-    }
     this.update(0)
   }
 
@@ -367,9 +353,53 @@ class GameState {
     if (this.colony.idleWorkers <= 0 || building.workers >= building.maxWorkers) return
     building.workers += 1
     this.colony.idleWorkers -= 1
+    this._playAssignSound(buildingKey)
+    this.update(0)
+  }
+
+  /**
+   * Recruits a new worker and assigns it directly to a building.
+   * @param {string} buildingKey - Key in colony.buildings
+   */
+  recruitAndAssignWorker(buildingKey) {
+    const building = this.colony.buildings[buildingKey]
+    if (building.workers >= building.maxWorkers) return
+    if (!this._recruit()) return
+    building.workers += 1
+    this._playAssignSound(buildingKey)
+    this.update(0)
+  }
+
+  /**
+   * Shared recruit logic: deducts cost, increments worker count, plays sound, fires event.
+   * @returns {boolean} true if recruitment succeeded
+   */
+  _recruit() {
+    const {
+      resources, stockpile,
+    } = this.colony
+    if (!resources.canAfford(WORKER_RECRUIT_COST) || resources.workers >= stockpile.workers) return false
+    resources.deduct(WORKER_RECRUIT_COST)
+    resources.workers += 1
+    audio.playSound(SND_WORKER_CREATED)
+    if (resources.workers >= stockpile.workers) {
+      this.events.addPast({
+        type: EVENT_TYPE_POPULATION_LIMIT_REACHED,
+        textKey: 'event.populationLimitReached',
+        icon: IMG_UNIT_WORKER,
+      })
+      audio.playSound(SND_NOTIFICATION_ALERT)
+    }
+    return true
+  }
+
+  /**
+   * Plays the building-specific worker assignment sound.
+   * @param {string} buildingKey
+   */
+  _playAssignSound(buildingKey) {
     if (buildingKey === BUILDING_FARM) audio.playSound(SND_WORKER_FOOD)
     else if (buildingKey === BUILDING_WOODCUTTER) audio.playSound(SND_WORKER_WOOD)
-    this.update(0)
   }
 
   /**

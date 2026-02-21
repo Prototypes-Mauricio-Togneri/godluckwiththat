@@ -60,7 +60,7 @@ Per-building card components. Each receives `buildingKey`, `img`, and `building`
 
 Each action is a horizontal row: a square icon-only button (2.5rem × 2.5rem) with the action image (`worker.png`, `upgrade.png`, `territory.png`) + cost items displayed outside the button to its right. Buttons use the `.tooltip` class with localized `data-tooltip` for hover labels. Cost rendering iterates `Cost.entries()` (a `Map<string, number>` of non-zero resources).
 
-**`worker_assignment_row.vue`** — Reusable component rendered by `base_card.vue` for `Producer` buildings (academy, shrine, temple, farm, woodcutter, quarry, copperMine, ironMine, goldMine) via `instanceof Producer` check. Displays a red minus button, worker icon with `current/max` count, and green plus button. Max workers = `level × WORKERS_PER_LEVEL` (5). Injects `colony` to transfer workers between `colony.idleWorkers` and `building.workers`. Minus disabled at 0 workers; plus disabled when no idle workers or at capacity.
+**`worker_assignment_row.vue`** — Reusable component rendered by `base_card.vue` for `Producer` buildings (academy, shrine, temple, farm, woodcutter, quarry, copperMine, ironMine, goldMine) via `instanceof Producer` check. Displays a red minus button, worker icon with `current/max` count, and green plus button. Max workers = `level × WORKERS_PER_LEVEL` (5). Injects `colony` to transfer workers between `colony.idleWorkers` and `building.workers`. Minus disabled at 0 workers; plus disabled when at building capacity and no idle workers available and cannot recruit (no afford or at population cap). When pressed, plus uses an idle worker if available; otherwise recruits a new worker (spending `WORKER_RECRUIT_COST`) and assigns it directly.
 
 **Adding a new building card**: Create `{building}_card.vue` wrapping `BaseCard`, add custom content via the slot, and register it in the `CARD_COMPONENTS` map in `game_screen.vue`.
 
@@ -68,7 +68,7 @@ Each action is a horizontal row: a square icon-only button (2.5rem × 2.5rem) wi
 
 Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity. Constructor receives a `Meta` instance (first) and a `Colony` instance (second). `Meta` tracks save version, creation/update timestamps, and challenge count. `Colony` expects pre-constructed sub-model instances (e.g. `Resources`) from the caller. Initialized via `createInitialMeta()` and `createInitialColony()` factories in `constants.js`.
 
-**Provide/inject**: `game_screen.vue` calls `provide('colony', state.colony)`, `provide('gameState', state)`, and `provide('openResearchModal', fn)`. Components `inject('colony')` for reactive reads, `inject('gameState')` to call mutation methods (`levelUpBuilding`, `levelUpHeadquarters`, `upgradeHeadquarters`, `assignWorker`, `unassignWorker`), and `inject('openResearchModal')` to open the research modal (used by `academy_card.vue`).
+**Provide/inject**: `game_screen.vue` calls `provide('colony', state.colony)`, `provide('gameState', state)`, and `provide('openResearchModal', fn)`. Components `inject('colony')` for reactive reads, `inject('gameState')` to call mutation methods (`levelUpBuilding`, `levelUpHeadquarters`, `upgradeHeadquarters`, `assignWorker`, `unassignWorker`, `recruitAndAssignWorker`), and `inject('openResearchModal')` to open the research modal (used by `academy_card.vue`).
 
 **Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }`, `state.colony.{ year, season, seasonElapsed, idleWorkers, resources, production, stockpile, buildings }`, and `state.events` (ephemeral event log, see Events section)
 
@@ -87,9 +87,12 @@ All game state mutations are centralised in `GameState`. Each method guards prec
 - `levelUpBuilding(buildingKey)` — deducts `levelUpCost`, starts a construction timer (`constructionRemaining`). Territory is reserved immediately via `pendingTerritory()`. Level increments when the timer reaches zero. Blocked when territory is full or already constructing.
 - `levelUpHeadquarters()` — deducts `levelUpCost`, starts a construction timer. Level increments on completion. Blocked when HQ is busy (either timer active).
 - `upgradeHeadquarters()` — deducts `upgradeCost`, starts a type upgrade timer (`upgradeRemaining`). HQ type advances on completion. Blocked when HQ is busy.
-- `recruitWorker()` — deducts `WORKER_RECRUIT_COST`, increments `resources.workers` and `colony.idleWorkers`. Blocked when can't afford or at population cap.
+- `recruitWorker()` — delegates to `_recruit()`, then increments `colony.idleWorkers`. Blocked when can't afford or at population cap.
 - `assignWorker(buildingKey)` — moves one idle worker to the building. Blocked when no idle workers or building at max workers (`level × WORKERS_PER_LEVEL`).
 - `unassignWorker(buildingKey)` — moves one worker from the building back to idle.
+- `recruitAndAssignWorker(buildingKey)` — delegates to `_recruit()`, then assigns the worker directly to the building. Blocked when can't afford, at population cap, or building at max workers.
+- `_recruit()` — shared helper: deducts `WORKER_RECRUIT_COST`, increments `resources.workers`, plays sound, fires population-limit event if at cap. Returns `boolean`.
+- `_playAssignSound(buildingKey)` — plays building-specific worker assignment sound (farm/woodcutter).
 ### Events (`src/js/models/events/event.js`, `event_future.js`, `event_past.js`, `events.js`)
 
 Ephemeral event system for notifying the player of upcoming threats and past occurrences. Events live on `GameState.events` (not `Colony`) and are **not persisted** in save data — they reset on page refresh.

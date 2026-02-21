@@ -2,6 +2,7 @@
 import {computed, inject} from 'vue'
 import {IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
+import {WORKER_RECRUIT_COST} from '@/js/engine/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
@@ -16,13 +17,24 @@ const gameState = inject('gameState')
 
 const building = computed(() => colony.buildings[props.buildingKey])
 const maxWorkers = computed(() => building.value.maxWorkers)
-const canAssign = computed(() => colony.idleWorkers > 0 && building.value.workers < maxWorkers.value)
+const canRecruit = computed(() =>
+  colony.resources.workers < colony.stockpile.workers
+  && colony.resources.canAfford(WORKER_RECRUIT_COST),
+)
+const canAssign = computed(() =>
+  building.value.workers < maxWorkers.value
+  && (colony.idleWorkers > 0 || canRecruit.value),
+)
 const canUnassign = computed(() => building.value.workers > 0)
 
 function assign() {
   if (!canAssign.value) return
   playTap()
-  gameState.assignWorker(props.buildingKey)
+  if (colony.idleWorkers > 0) {
+    gameState.assignWorker(props.buildingKey)
+  } else {
+    gameState.recruitAndAssignWorker(props.buildingKey)
+  }
 }
 
 function unassign() {
