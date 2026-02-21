@@ -122,8 +122,11 @@ function act() {
             </span>
           </span>
         </div>
-        <WorkerAssignmentRow v-if="isWorkerAssignable && !isBuildable" :building-key="buildingKey" />
-        <slot v-if="!isBuildable" />
+        <div v-if="isWorkerAssignable && !isBuildable" class="worker-slot-row">
+          <WorkerAssignmentRow :building-key="buildingKey" />
+          <slot />
+        </div>
+        <slot v-else-if="!isBuildable" />
       </div>
     </div>
 
@@ -228,6 +231,11 @@ function act() {
   gap: 0.15rem;
   min-width: 0;
   align-self: stretch;
+}
+
+.worker-slot-row {
+  display: flex;
+  align-items: center;
 }
 
 .building-name {

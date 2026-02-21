@@ -25,7 +25,7 @@ import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import GameState from '@/js/engine/game_state.js'
-import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_KNOWLEDGE, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
+import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION} from '@/js/engine/balancing.js'
 import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_SHRINE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
@@ -171,14 +171,17 @@ const emit = defineEmits(['quit'])
 const showModal = ref(false)
 const state = reactive(new GameState(createInitialMeta(), createInitialColony(), createInitialEvents()))
 state.update(0)
+const showClearConfirm = ref(false)
+const showResearchModal = ref(false)
+
 provide('colony', state.colony)
 provide('gameState', state)
+provide('openResearchModal', () => {
+  showResearchModal.value = true
+})
 
 const futureEvents = computed(() => state.events.future())
 const pastEvents = computed(() => state.events.past())
-
-const showClearConfirm = ref(false)
-const showResearchModal = ref(false)
 
 function clearAllPast() {
   state.events.dismissAllPast()
@@ -310,14 +313,6 @@ onUnmounted(() => {
           <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.territory) >= state.colony.stockpile.territory }">{{ formatNumber(state.colony.resources.territory) }}/{{ formatNumber(state.colony.stockpile.territory) }}</span>
         </div>
       </div>
-
-      <!-- Decorative divider -->
-      <span class="header-divider" />
-
-      <!-- Research button -->
-      <button v-if="state.colony.buildings.academy.level > 0" class="btn-gold header-research-button tooltip" :data-tooltip="t('research.title')" @click="showResearchModal = true">
-        <img class="research-btn-icon" :src="IMG_RESOURCE_KNOWLEDGE" alt="">
-      </button>
 
       <!-- Decorative divider -->
       <span class="header-divider" />
@@ -575,24 +570,6 @@ onUnmounted(() => {
     transparent
   );
   flex-shrink: 0;
-}
-
-/* ---- Research button ---- */
-
-.header-research-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.4rem;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.research-btn-icon {
-  width: 1.1rem;
-  height: 1.1rem;
-  object-fit: contain;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
 }
 
 /* ---- Menu button ---- */
