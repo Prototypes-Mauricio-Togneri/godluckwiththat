@@ -17,16 +17,16 @@ class Resources {
    * @param {Object} data - Initial resource values keyed by name
    */
   constructor(data) {
-    this.territory = data.territory // Controlled territory count
-    this.workers = data.workers // Total worker population
-    this.food = data.food // Food supply
-    this.wood = data.wood // Wood supply
-    this.stone = data.stone // Stone supply
-    this.copper = data.copper // Copper supply
-    this.iron = data.iron // Iron supply
-    this.gold = data.gold // Gold supply
-    this.faith = data.faith // Faith supply
-    this.knowledge = data.knowledge // Knowledge supply
+    this.territory = data.territory ?? 0 // Controlled territory count
+    this.workers = data.workers ?? 0 // Total worker population
+    this.food = data.food ?? 0 // Food supply
+    this.wood = data.wood ?? 0 // Wood supply
+    this.stone = data.stone ?? 0 // Stone supply
+    this.copper = data.copper ?? 0 // Copper supply
+    this.iron = data.iron ?? 0 // Iron supply
+    this.gold = data.gold ?? 0 // Gold supply
+    this.faith = data.faith ?? 0 // Faith supply
+    this.knowledge = data.knowledge ?? 0 // Knowledge supply
   }
 
   /**
@@ -48,13 +48,13 @@ class Resources {
    * @param {Cost} cost - Cost to deduct
    */
   deduct(cost) {
-    this.food -= cost.food
-    this.wood -= cost.wood
-    this.stone -= cost.stone
-    this.copper -= cost.copper
-    this.iron -= cost.iron
-    this.gold -= cost.gold
-    this.knowledge -= cost.knowledge
+    this.food = Math.max(0, this.food - cost.food)
+    this.wood = Math.max(0, this.wood - cost.wood)
+    this.stone = Math.max(0, this.stone - cost.stone)
+    this.copper = Math.max(0, this.copper - cost.copper)
+    this.iron = Math.max(0, this.iron - cost.iron)
+    this.gold = Math.max(0, this.gold - cost.gold)
+    this.knowledge = Math.max(0, this.knowledge - cost.knowledge)
   }
 
 }

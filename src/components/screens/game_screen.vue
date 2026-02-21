@@ -231,6 +231,7 @@ function handleKeydown(event) {
 }
 
 onMounted(() => {
+  // Bubble phase: modals register in capture phase so they intercept Escape first
   window.addEventListener('keydown', handleKeydown)
   const now = performance.now()
   lastTickTime = now

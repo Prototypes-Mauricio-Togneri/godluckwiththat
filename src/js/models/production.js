@@ -15,14 +15,14 @@ class Production {
    * @param {Object} data - Initial production rates keyed by resource name
    */
   constructor(data) {
-    this.food = data.food // Food production per second
-    this.wood = data.wood // Wood production per second
-    this.stone = data.stone // Stone production per second
-    this.copper = data.copper // Copper production per second
-    this.iron = data.iron // Iron production per second
-    this.gold = data.gold // Gold production per second
-    this.faith = data.faith // Faith production per second
-    this.knowledge = data.knowledge // Knowledge production per second
+    this.food = data.food ?? 0 // Food production per second
+    this.wood = data.wood ?? 0 // Wood production per second
+    this.stone = data.stone ?? 0 // Stone production per second
+    this.copper = data.copper ?? 0 // Copper production per second
+    this.iron = data.iron ?? 0 // Iron production per second
+    this.gold = data.gold ?? 0 // Gold production per second
+    this.faith = data.faith ?? 0 // Faith production per second
+    this.knowledge = data.knowledge ?? 0 // Knowledge production per second
   }
 }
 

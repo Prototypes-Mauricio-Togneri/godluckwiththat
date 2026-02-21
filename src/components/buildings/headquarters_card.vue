@@ -50,7 +50,7 @@ function formatTime(seconds) {
 const levelUpCost = computed(() => hq.value.levelUpCost())
 const canAffordLevelUp = computed(() => colony.resources.canAfford(levelUpCost.value))
 const canLevelUp = computed(() => !isBusy.value && canAffordLevelUp.value)
-const levelUpCostEntries = computed(() => levelUpCost.value.entries())
+const levelUpCostEntries = computed(() => levelUpCost.value?.entries() ?? new Map())
 const levelUpTooltip = computed(() => {
   if (isLevelingUp.value) return ''
   if (!isBusy.value && !canAffordLevelUp.value) return t('building.insufficientResources')

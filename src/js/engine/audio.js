@@ -44,11 +44,11 @@ class Audio {
       el = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(assetPath)
       this._activeSounds.set(assetPath, el)
     }
-    el.addEventListener('ended', () => this._activeSounds.delete(assetPath), {
-      once: true,
-    })
+    const cleanup = () => this._activeSounds.delete(assetPath)
+    el.addEventListener('ended', cleanup, { once: true })
+    el.addEventListener('error', cleanup, { once: true })
     el.volume = this._volume(assetPath)
-    el.play().catch(() => {})
+    el.play().catch(cleanup)
   }
 
   /**
@@ -63,7 +63,7 @@ class Audio {
     this._music = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(assetPath)
     this._music.loop = true
     this._music.volume = this._volume(assetPath)
-    this._music.play().catch(() => {})
+    this._music.play().catch(e => import.meta.env.DEV && console.warn('Audio play failed:', e))
   }
 
   /**
@@ -90,7 +90,7 @@ class Audio {
    */
   resumeMusic() {
     if (!this._music) return
-    this._music.play().catch(() => {})
+    this._music.play().catch(e => import.meta.env.DEV && console.warn('Audio play failed:', e))
   }
 
   /**
@@ -105,7 +105,7 @@ class Audio {
       this._music = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(this._musicPath)
       this._music.loop = true
       this._music.volume = this._volume(this._musicPath)
-      this._music.play().catch(() => {})
+      this._music.play().catch(e => import.meta.env.DEV && console.warn('Audio play failed:', e))
     }
     if (!enabled && this._music) {
       this._music.pause()

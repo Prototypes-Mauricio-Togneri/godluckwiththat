@@ -63,7 +63,7 @@ onUnmounted(() => {
         <button class="btn-gold modal-btn modal-btn--cancel" @click="playTap(); emit('close')">
           {{ t('modal.cancel') }}
         </button>
-        <button class="modal-btn modal-btn--confirm" @click="playTap(); emit('confirm')">
+        <button class="btn-gold modal-btn modal-btn--confirm" @click="playTap(); emit('confirm')">
           {{ t(confirmKey) }}
         </button>
       </div>

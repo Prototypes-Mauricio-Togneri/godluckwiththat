@@ -31,7 +31,14 @@
       "Bash(npm outdated:*)",
       "Bash(node:*)",
       "Bash(git -C /home/max/Repositories/atomic/godluckwiththat status --short public/audio/)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(echo === Checking the t\\(\\) function signature ===:*)",
+      "Bash(fi)",
+      "Bash(head:*)",
+      "Bash(echo === CSS unit consistency analysis ===:*)",
+      "Bash(echo === CSS Variables count \\(fixed\\) ===:*)",
+      "Bash(while read val)",
+      "Bash(do echo \"=== Value ''$val'' used by: ===\")"
     ]
   },
   "hooks": {
