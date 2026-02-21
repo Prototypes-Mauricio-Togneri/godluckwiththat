@@ -50,6 +50,7 @@ export const IMG_UNIT_WORKER = '/img/units/worker.png'
 export const IMG_ICO_FAVICON = '/img/ico/favicon.ico'
 
 // Other
+export const IMG_OTHER_BALANCE = '/img/other/balance.png'
 export const IMG_OTHER_BUILD = '/img/other/build.png'
 export const IMG_OTHER_COIN = '/img/other/coin.png'
 export const IMG_OTHER_IDLE = '/img/other/idle.png'
