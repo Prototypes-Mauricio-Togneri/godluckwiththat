@@ -26,7 +26,7 @@ import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import GameState from '@/js/engine/game_state.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_KNOWLEDGE, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
-import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
+import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION} from '@/js/engine/balancing.js'
 import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_SHRINE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
@@ -141,6 +141,13 @@ function seasonIcon() {
 
 function seasonTooltip() {
   return `${t('season.name')}: ${t('season.' + state.colony.season)}`
+}
+
+function getBuildingImg(building) {
+  if (building.key === BUILDING_HEADQUARTERS) {
+    return IMG_BUILDING_HEADQUARTERS_MAP[state.colony.buildings.headquarters.type]
+  }
+  return building.img
 }
 
 function isBuildingLocked(buildingKey) {
@@ -334,7 +341,7 @@ onUnmounted(() => {
               :is="getCardComponent(building.key)"
               v-if="!isBuildingLocked(building.key)"
               :building-key="building.key"
-              :img="building.img"
+              :img="getBuildingImg(building)"
               :building="state.colony.buildings[building.key]"
             />
             <div

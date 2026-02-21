@@ -12,7 +12,11 @@ export const IMG_RESOURCE_WOOD = '/img/resources/wood.png'
 
 // Buildings — misc
 export const IMG_BUILDING_ACADEMY = '/img/buildings/misc/academy.png'
-export const IMG_BUILDING_HEADQUARTERS = '/img/buildings/misc/headquarters.png'
+export const IMG_BUILDING_HEADQUARTERS_CAMP = '/img/buildings/misc/headquarters_camp.png'
+export const IMG_BUILDING_HEADQUARTERS_CITY = '/img/buildings/misc/headquarters_city.png'
+export const IMG_BUILDING_HEADQUARTERS_SETTLEMENT = '/img/buildings/misc/headquarters_settlement.png'
+export const IMG_BUILDING_HEADQUARTERS_TOWN = '/img/buildings/misc/headquarters_town.png'
+export const IMG_BUILDING_HEADQUARTERS_VILLAGE = '/img/buildings/misc/headquarters_village.png'
 export const IMG_BUILDING_HOUSE = '/img/buildings/misc/house.png'
 export const IMG_BUILDING_MARKET = '/img/buildings/misc/market.png'
 export const IMG_BUILDING_STOREHOUSE = '/img/buildings/misc/storehouse.png'
