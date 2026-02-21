@@ -8,6 +8,7 @@
  * @property {string} icon - Full image path (e.g. '/img/resources/food.png')
  * @property {string[]} params - Positional values for i18n interpolation
  * @property {string|null} buildingKey - Building key (for construction event lookup)
+ * @property {string|null} researchKey - Research key (for research event lookup)
  */
 class Event {
   /**
@@ -18,6 +19,7 @@ class Event {
 	 * @param {string} data.icon
 	 * @param {string[]} [data.params]
 	 * @param {string} [data.buildingKey]
+	 * @param {string} [data.researchKey]
 	 */
   constructor(data) {
     this.id = data.id
@@ -26,6 +28,7 @@ class Event {
     this.icon = data.icon
     this.params = data.params ?? []
     this.buildingKey = data.buildingKey ?? null
+    this.researchKey = data.researchKey ?? null
   }
 }
 

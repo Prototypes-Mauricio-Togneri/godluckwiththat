@@ -1,8 +1,8 @@
-import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
-import {IMG_OTHER_TERRITORY, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_TERRITORY_EXPANDED, SND_WORKER_CREATED, SND_WORKER_FOOD, SND_WORKER_WOOD} from '@/js/engine/assets.js'
+import {PRODUCTION_RATES, RESEARCH_DEFINITIONS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import {IMG_BUILDING_ACADEMY, IMG_OTHER_TERRITORY, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_WORKER_CREATED, SND_WORKER_FOOD, SND_WORKER_WOOD} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
 import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
-import {BUILDING_FARM, BUILDING_HEADQUARTERS, BUILDING_STOREHOUSE, BUILDING_WOODCUTTER, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, SEASON_COLD, SEASON_WARM} from '@/js/engine/enums.js'
+import {BUILDING_FARM, BUILDING_HEADQUARTERS, BUILDING_STOREHOUSE, BUILDING_WOODCUTTER, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, SEASON_COLD, SEASON_WARM} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -412,6 +412,67 @@ class GameState {
     building.workers -= 1
     this.colony.idleWorkers += 1
     this.update(0)
+  }
+
+  /**
+   * Starts a research: validates preconditions, deducts cost, begins timer, creates future event.
+   * @param {string} key - Research key from enums
+   */
+  startResearch(key) {
+    const {
+      resources, buildings, researches,
+    } = this.colony
+    if (researches.isActive(key) || researches.isCompleted(key)) return
+    const def = RESEARCH_DEFINITIONS[key]
+    if (!def) return
+    if (buildings.academy.level < def.academyLevel) return
+    if (!resources.canAfford(def.cost)) return
+
+    resources.deduct(def.cost)
+    researches.start(key, def.duration)
+
+    this.events.addFuture({
+      type: EVENT_TYPE_RESEARCH_COMPLETE,
+      textKey: 'event.researchInProgress',
+      icon: IMG_BUILDING_ACADEMY,
+      params: [t('research.' + key).toLowerCase()],
+      researchKey: key,
+      remainingSeconds: def.duration,
+    })
+
+    this.update(0)
+  }
+
+  /**
+   * Advances research timers and handles completion.
+   * @param {number} delta - Seconds since last tick
+   */
+  advanceResearch(delta) {
+    const {
+      researches,
+    } = this.colony
+    const completed = []
+    for (const [
+      key,
+      entry,
+    ] of researches.active) {
+      entry.remainingSeconds = Math.max(0, entry.remainingSeconds - delta)
+      if (entry.remainingSeconds === 0) {
+        completed.push(key)
+      }
+    }
+    for (const key of completed) {
+      researches.complete(key)
+      this.events.dismissFutureByResearchKey(key)
+      this.events.addPast({
+        type: EVENT_TYPE_RESEARCH_COMPLETE,
+        textKey: 'event.researchCompleted',
+        icon: IMG_BUILDING_ACADEMY,
+        params: [t('research.' + key).toLowerCase()],
+        researchKey: key,
+      })
+      audio.playSound(SND_RESEARCH_COMPLETED)
+    }
   }
 
   /**

@@ -8,6 +8,7 @@ import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits(['close'])
 const colony = inject('colony')
+const gameState = inject('gameState')
 const visible = ref(false)
 let rafId = null
 
@@ -23,6 +24,22 @@ function nodeStatus(key, researches, index) {
   if (index > 0 && !colony.researches.isCompleted(researches[index - 1])) return 'locked'
   if (colony.buildings.academy.level < RESEARCH_DEFINITIONS[key].academyLevel) return 'locked'
   return 'available'
+}
+
+function canAfford(key) {
+  return colony.resources.canAfford(RESEARCH_DEFINITIONS[key].cost)
+}
+
+function handleNodeClick(key, status) {
+  if (status !== 'available' || !canAfford(key)) return
+  playTap()
+  gameState.startResearch(key)
+}
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60)
+  const s = Math.floor(seconds % 60)
+  return m + ':' + String(s).padStart(2, '0')
 }
 
 function handleKeydown(event) {
@@ -84,13 +101,20 @@ onUnmounted(() => {
               <span v-if="idx > 0" class="chain-connector" />
               <div
                 class="research-node"
-                :class="'research-node--' + nodeStatus(rKey, sub.researches, idx)"
+                :class="[
+                  'research-node--' + nodeStatus(rKey, sub.researches, idx),
+                  { 'research-node--unaffordable': nodeStatus(rKey, sub.researches, idx) === 'available' && !canAfford(rKey) },
+                ]"
+                @click="handleNodeClick(rKey, nodeStatus(rKey, sub.researches, idx))"
               >
                 <div class="node-header">
                   <span class="node-name">{{ t('research.' + rKey) }}</span>
                   <span v-if="nodeStatus(rKey, sub.researches, idx) === 'completed'" class="node-check">&#10003;</span>
+                  <span v-else-if="nodeStatus(rKey, sub.researches, idx) === 'active'" class="node-timer">
+                    {{ formatTime(colony.researches.getActive(rKey).remainingSeconds) }}
+                  </span>
                 </div>
-                <div class="node-cost">
+                <div v-if="nodeStatus(rKey, sub.researches, idx) !== 'active'" class="node-cost">
                   <div
                     v-for="[resource, amount] in RESEARCH_DEFINITIONS[rKey].cost.entries()"
                     :key="resource"
@@ -295,7 +319,7 @@ onUnmounted(() => {
   transition: all 0.2s ease;
 }
 
-.research-node:hover {
+.research-node:not(.research-node--locked):hover {
   border-color: rgba(var(--color-accent-rgb), 0.3);
 }
 
@@ -320,15 +344,24 @@ onUnmounted(() => {
 .research-node--available {
   border-color: rgba(var(--color-accent-rgb), 0.25);
   background: rgba(var(--color-accent-rgb), 0.05);
+  cursor: pointer;
+}
+
+.research-node--available:hover {
+  border-color: rgba(var(--color-accent-rgb), 0.5);
+  background: rgba(var(--color-accent-rgb), 0.1);
+}
+
+.research-node--unaffordable {
+  cursor: not-allowed;
+}
+
+.research-node--unaffordable .node-cost-amount {
+  color: rgba(196, 80, 80, 0.7);
 }
 
 .research-node--locked {
   opacity: 0.35;
-  pointer-events: auto;
-}
-
-.research-node--locked:hover {
-  opacity: 0.55;
 }
 
 /* ── Node content ────────────────────────────────────────── */
@@ -352,6 +385,14 @@ onUnmounted(() => {
   font-size: 0.7rem;
   color: var(--color-accent);
   flex-shrink: 0;
+}
+
+.node-timer {
+  font-family: var(--font-numeric);
+  font-size: 0.7rem;
+  color: rgba(var(--color-accent-rgb), 0.8);
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
 }
 
 .node-cost {

@@ -30,6 +30,7 @@ class Events {
       icon: data.icon,
       params: data.params,
       buildingKey: data.buildingKey,
+      researchKey: data.researchKey,
       remainingSeconds: data.remainingSeconds,
     })
     this.items.push(event)
@@ -52,6 +53,7 @@ class Events {
       icon: data.icon,
       params: data.params,
       buildingKey: data.buildingKey,
+      researchKey: data.researchKey,
     })
     this.items.push(event)
     return event
@@ -78,6 +80,17 @@ class Events {
   dismissFuture(buildingKey) {
     const index = this.items.findIndex(
       event => event instanceof EventFuture && event.buildingKey === buildingKey,
+    )
+    if (index !== -1) this.items.splice(index, 1)
+  }
+
+  /**
+	 * Removes a future event by its research key.
+	 * @param {string} researchKey - Research key to match
+	 */
+  dismissFutureByResearchKey(researchKey) {
+    const index = this.items.findIndex(
+      event => event instanceof EventFuture && event.researchKey === researchKey,
     )
     if (index !== -1) this.items.splice(index, 1)
   }

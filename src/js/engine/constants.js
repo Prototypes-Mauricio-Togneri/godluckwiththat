@@ -709,7 +709,7 @@ export function createInitialColonyAdvanced() {
       iron: 1000,
       gold: 1000,
       faith: 0,
-      knowledge: 0,
+      knowledge: 50,
     }),
 
     production: new Production({

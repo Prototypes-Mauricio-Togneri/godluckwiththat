@@ -100,21 +100,24 @@ All game state mutations are centralised in `GameState`. Each method guards prec
 - `recruitAndAssignWorker(buildingKey)` — delegates to `_recruit()`, then assigns the worker directly to the building. Blocked when can't afford, at population cap, or building at max workers.
 - `_recruit()` — shared helper: deducts `WORKER_RECRUIT_COST`, increments `resources.workers`, plays sound, fires population-limit event if at cap. Returns `boolean`.
 - `_playAssignSound(buildingKey)` — plays building-specific worker assignment sound (farm/woodcutter).
+- `startResearch(key)` — validates preconditions (not active/completed, academy level met, can afford), deducts cost, starts timer via `colony.researches.start()`, creates a future event (`EVENT_TYPE_RESEARCH_COMPLETE`). Blocked when prerequisites not met or insufficient resources.
+- `advanceResearch(delta)` — decrements `remainingSeconds` on all active researches. When a timer reaches zero, calls `researches.complete(key)`, dismisses the future event, creates a past event, and plays `SND_RESEARCH_COMPLETED`. Collects completed keys before processing to avoid mutating the Map during iteration.
 ### Events (`src/js/models/events/event.js`, `event_future.js`, `event_past.js`, `events.js`)
 
 Ephemeral event system for notifying the player of upcoming threats and past occurrences. Events live on `GameState.events` (not `Colony`) and are **not persisted** in save data — they reset on page refresh.
 
-**`Event`** — Abstract base class with common fields: `id` (auto-assigned), `type` (event type constant, e.g. `EVENT_TYPE_SEASON_CHANGED`, `EVENT_TYPE_BUILDING_UPGRADE`), `textKey` (i18n key), `icon` (full image path from `assets.js`, e.g. `IMG_RESOURCE_FOOD`), `params` (string array for positional i18n interpolation, default `[]`), `buildingKey` (building key for construction event lookup, default `null`).
+**`Event`** — Abstract base class with common fields: `id` (auto-assigned), `type` (event type constant, e.g. `EVENT_TYPE_SEASON_CHANGED`, `EVENT_TYPE_BUILDING_UPGRADE`), `textKey` (i18n key), `icon` (full image path from `assets.js`, e.g. `IMG_RESOURCE_FOOD`), `params` (string array for positional i18n interpolation, default `[]`), `buildingKey` (building key for construction event lookup, default `null`), `researchKey` (research key for research event lookup, default `null`).
 
 **`EventFuture`** — Extends `Event`. Adds `remainingSeconds` (countdown until event fires).
 
 **`EventPast`** — Extends `Event`. No additional fields.
 
 **`Events`** — Array-backed container with methods:
-- `addFuture({ type, textKey, icon, params, buildingKey, remainingSeconds })` — creates an `EventFuture` with countdown
-- `addPast({ type, textKey, icon, params, buildingKey })` — creates an `EventPast`
+- `addFuture({ type, textKey, icon, params, buildingKey, researchKey, remainingSeconds })` — creates an `EventFuture` with countdown
+- `addPast({ type, textKey, icon, params, buildingKey, researchKey })` — creates an `EventPast`
 - `convertToPast(buildingKey, data)` — finds the future event matching `buildingKey`, removes it, and adds a past event with the given data
 - `dismissFuture(buildingKey)` — removes a future event by building key (used when non-HQ buildings complete construction)
+- `dismissFutureByResearchKey(researchKey)` — removes a future event by research key (used when research completes)
 - `dismiss(id)` — removes event by id (uses `splice` for Vue reactivity)
 - `dismissPastByType(type)` — removes all past events matching the given type
 - `dismissPastByTextKey(textKey)` — removes all past events matching the given i18n key (used for negative production recovery)
@@ -129,7 +132,7 @@ Called from the `progressTick` loop (`requestAnimationFrame`, ~60 fps) in `game_
 
 ### Tick System (`GameState.update()` in `src/js/engine/game_state.js`)
 
-Core game loop that generates resources over time. `game_screen.vue` runs a main `setInterval` (1 second, `TICK_INTERVAL`) that calls `state.update(deltaSec)` for production/consumption, and a `requestAnimationFrame` loop (~60 fps, `progressTick`) that calls `state.advanceSeason(deltaSec)`, `state.advanceConstruction(deltaSec)`, and `state.events.tick(deltaSec)` for smooth visual progress. Both use `performance.now()` for delta calculation. Delta time naturally handles backgrounded tabs — when the tab returns, the first tick applies the full accumulated time.
+Core game loop that generates resources over time. `game_screen.vue` runs a main `setInterval` (1 second, `TICK_INTERVAL`) that calls `state.update(deltaSec)` for production/consumption, and a `requestAnimationFrame` loop (~60 fps, `progressTick`) that calls `state.advanceSeason(deltaSec)`, `state.advanceConstruction(deltaSec)`, `state.advanceResearch(deltaSec)`, and `state.events.tick(deltaSec)` for smooth visual progress. Both use `performance.now()` for delta calculation. Delta time naturally handles backgrounded tabs — when the tab returns, the first tick applies the full accumulated time.
 
 **Construction timers**: `advanceConstruction(delta)` runs inside the `requestAnimationFrame` loop (`progressTick`) for smooth visual progress (~60 fps). It decrements `constructionRemaining` on all buildings; when a timer reaches zero, the building's level increments and `constructionDuration` resets. For HQ territory expansion, the future event is converted to a past event via `events.convertToPast()`. For all other buildings, the future event is simply removed via `events.dismissFuture(key)`. When a storehouse completes, all resource-limit past events are dismissed. The HQ type upgrade timer (`upgradeRemaining`) is ticked separately; on completion, `hq.type` advances to the next tier (no event fired for type upgrades). The next `update()` call (1-second interval) picks up the new level for stockpile/production recalculation.
 
