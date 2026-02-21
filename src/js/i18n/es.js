@@ -146,6 +146,9 @@ export const LOCALIZED_ES = {
   'buildingHelp.wall': 'Fortificaciones que protegen tu colonia. Cada nivel aumenta tu defensa.',
   'buildingHelp.tower': 'Estructuras defensivas que atacan a los enemigos. Cada nivel aumenta tu poder de ataque.',
 
+  // Market modal
+  'market.title': 'Mercado',
+
   // Research modal
   'research.title': 'Investigación',
   'research.close': 'Cerrar',

@@ -747,7 +747,7 @@ export function createInitialColonyAdvanced() {
         level: 5,
       }),
       [BUILDING_MARKET]: new Market({
-        level: 0,
+        level: 1,
       }),
       [BUILDING_ALTAR]: new Altar({
         level: 0,

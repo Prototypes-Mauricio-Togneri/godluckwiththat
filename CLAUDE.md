@@ -21,6 +21,7 @@ src/
 │   ├── modals/
 │   │   ├── building_help_modal.vue → Building info modal (name, description, close)
 │   │   ├── confirm_modal.vue → Confirmation dialog (title, description, confirm/cancel)
+│   │   ├── market_modal.vue  → Market modal (placeholder for trading UI)
 │   │   └── pause_modal.vue   → Pause menu modal
 │   └── screens/
 │       ├── home_screen.vue   → Title screen with start button

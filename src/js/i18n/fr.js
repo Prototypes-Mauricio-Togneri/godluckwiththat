@@ -146,6 +146,9 @@ export const LOCALIZED_FR = {
   'buildingHelp.wall': 'Des fortifications qui protègent votre colonie. Chaque niveau augmente votre défense.',
   'buildingHelp.tower': 'Des structures défensives qui attaquent les ennemis. Chaque niveau augmente votre puissance d\'attaque.',
 
+  // Market modal
+  'market.title': 'Marché',
+
   // Research modal
   'research.title': 'Recherche',
   'research.close': 'Fermer',

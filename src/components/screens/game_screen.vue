@@ -2,6 +2,7 @@
 import {ref, reactive, computed, provide, onMounted, onUnmounted} from 'vue'
 import ConfirmModal from '@/components/modals/confirm_modal.vue'
 import PauseModal from '@/components/modals/pause_modal.vue'
+import MarketModal from '@/components/modals/market_modal.vue'
 import ResearchModal from '@/components/modals/research_modal.vue'
 import HeadquartersCard from '@/components/buildings/headquarters_card.vue'
 import HouseCard from '@/components/buildings/house_card.vue'
@@ -174,11 +175,15 @@ const state = reactive(new GameState(createInitialMeta(), createInitialColony(),
 state.update(0)
 const showClearConfirm = ref(false)
 const showResearchModal = ref(false)
+const showMarketModal = ref(false)
 
 provide('colony', state.colony)
 provide('gameState', state)
 provide('openResearchModal', () => {
   showResearchModal.value = true
+})
+provide('openMarketModal', () => {
+  showMarketModal.value = true
 })
 
 const futureEvents = computed(() => state.events.future())
@@ -407,6 +412,11 @@ onUnmounted(() => {
     <ResearchModal
       v-if="showResearchModal"
       @close="showResearchModal = false"
+    />
+
+    <MarketModal
+      v-if="showMarketModal"
+      @close="showMarketModal = false"
     />
   </div>
 </template>

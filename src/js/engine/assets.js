@@ -51,6 +51,7 @@ export const IMG_ICO_FAVICON = '/img/ico/favicon.ico'
 
 // Other
 export const IMG_OTHER_BUILD = '/img/other/build.png'
+export const IMG_OTHER_COIN = '/img/other/coin.png'
 export const IMG_OTHER_IDLE = '/img/other/idle.png'
 export const IMG_OTHER_LOCK = '/img/other/lock.png'
 export const IMG_OTHER_TERRITORY = '/img/other/territory.png'

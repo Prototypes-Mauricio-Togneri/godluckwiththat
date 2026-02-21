@@ -123,12 +123,13 @@ function act() {
               <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
             </span>
           </span>
+          <slot v-if="!isWorkerAssignable && !isBuildable" />
         </div>
         <div v-if="isWorkerAssignable && !isBuildable" class="worker-slot-row">
           <WorkerAssignmentRow :building-key="buildingKey" />
-          <slot />
+          <slot v-if="isWorkerAssignable" />
         </div>
-        <slot v-else-if="!isBuildable" />
+        <slot v-if="!hasAction && !isBuildable" />
       </div>
     </div>
 

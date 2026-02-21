@@ -146,6 +146,9 @@ export const LOCALIZED_EN = {
   'buildingHelp.wall': 'Fortifications that protect your colony. Each level increases your defense.',
   'buildingHelp.tower': 'Defensive structures that strike at enemies. Each level increases your attack power.',
 
+  // Market modal
+  'market.title': 'Market',
+
   // Research modal
   'research.title': 'Research',
   'research.close': 'Close',
