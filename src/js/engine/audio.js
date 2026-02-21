@@ -136,6 +136,9 @@ class Audio {
 const audio = new Audio()
 export default audio
 
+/**
+ * Plays the button tap sound effect.
+ */
 export function playTap() {
   audio.playSound(SND_BUTTON_TAP)
 }

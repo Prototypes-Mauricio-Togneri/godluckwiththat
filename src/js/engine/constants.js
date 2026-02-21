@@ -563,6 +563,10 @@ export function createInitialMeta() {
   })
 }
 
+/**
+ * Creates the colony used for a new game session.
+ * @returns {Colony} Fully initialized colony
+ */
 export function createInitialColony() {
   return createInitialColonyAdvanced()
 }

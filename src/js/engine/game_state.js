@@ -7,8 +7,8 @@ import {t} from '@/js/i18n/localized.js'
 
 /**
  * Central game state container.
- * Wraps Meta and Colony instances and will hold additional
- * session-level state (e.g. timers, events) as the game grows.
+ * Wraps Meta, Colony, and Events instances. Holds the core game loop
+ * (production, seasons, construction) and all player action methods.
  *
  * @property {Meta} meta - Game metadata (version, timestamps, challenges)
  * @property {Colony} colony - Active colony instance

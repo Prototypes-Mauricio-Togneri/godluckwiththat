@@ -7,6 +7,8 @@ import {HQ_TYPES} from '@/js/engine/constants.js'
  * Colony headquarters building.
  *
  * @property {string} type - Headquarters progression type (e.g. 'camp')
+ * @property {number} upgradeRemaining - Seconds left for type upgrade (0 = idle)
+ * @property {number} upgradeDuration - Total type upgrade duration (for progress calculation)
  */
 class Headquarters extends Building {
   /**

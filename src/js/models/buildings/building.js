@@ -2,6 +2,8 @@
  * Base class for all colony buildings.
  *
  * @property {number} level - Current building level
+ * @property {number} constructionRemaining - Seconds left in construction (0 = idle)
+ * @property {number} constructionDuration - Total construction time (for progress calculation)
  */
 class Building {
   /**
