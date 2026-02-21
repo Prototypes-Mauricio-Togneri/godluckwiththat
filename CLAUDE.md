@@ -36,6 +36,7 @@ src/
 │   ├── i18n/
 │   │   ├── en.js             → English locale strings
 │   │   ├── es.js             → Spanish locale strings
+│   │   ├── fr.js             → French locale strings
 │   │   └── localized.js      → Browser language detection + t() helper
 │   └── models/
 │       ├── buildings/
