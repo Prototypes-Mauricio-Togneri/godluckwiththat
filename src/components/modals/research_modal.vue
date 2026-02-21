@@ -3,7 +3,7 @@ import {ref, inject, computed, onMounted, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
 import {RESEARCH_TREE} from '@/js/engine/constants.js'
 import {RESEARCH_DEFINITIONS} from '@/js/engine/balancing.js'
-import {IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
+import {IMG_OTHER_COMPLETED, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits(['close'])
@@ -40,8 +40,8 @@ function formatTime(seconds) {
   const h = Math.floor(seconds / 3600)
   const m = Math.floor((seconds % 3600) / 60)
   const s = Math.floor(seconds % 60)
-  if (h > 0) return h + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0')
-  return m + ':' + String(s).padStart(2, '0')
+  if (h > 0) return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0')
+  return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0')
 }
 
 function handleKeydown(event) {
@@ -113,7 +113,7 @@ onUnmounted(() => {
                   <span class="node-name">{{ t('research.' + rKey) }}</span>
                 </div>
                 <div class="node-second-row">
-                  <span v-if="nodeStatus(rKey, sub.researches, idx) === 'completed'" class="node-check">&#10003;</span>
+                  <img v-if="nodeStatus(rKey, sub.researches, idx) === 'completed'" class="node-check" :src="IMG_OTHER_COMPLETED" alt="">
                   <span v-else-if="nodeStatus(rKey, sub.researches, idx) === 'active'" class="node-timer">
                     {{ formatTime(colony.researches.getActive(rKey).remainingSeconds) }}
                   </span>
@@ -323,7 +323,7 @@ onUnmounted(() => {
   transition: all 0.2s ease;
 }
 
-.research-node:not(.research-node--locked):hover {
+.research-node:not(.research-node--locked):not(.research-node--completed):hover {
   border-color: rgba(var(--color-accent-rgb), 0.3);
 }
 
@@ -385,17 +385,18 @@ onUnmounted(() => {
 }
 
 .node-check {
-  font-size: 1.1rem;
-  color: rgba(80, 160, 80, 0.8);
+  width: 0.9rem;
+  height: 0.9rem;
+  object-fit: contain;
   flex-shrink: 0;
 }
 
 .node-timer {
   font-family: var(--font-numeric);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 400;
   color: rgba(var(--color-accent-rgb), 0.8);
-  flex-shrink: 0;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
 }
 
 .node-second-row {
