@@ -1,6 +1,7 @@
 <script setup>
 import {computed, inject} from 'vue'
 import {IMG_UNIT_WORKER} from '@/js/engine/assets.js'
+import {playTap} from '@/js/engine/audio.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
@@ -20,11 +21,13 @@ const canUnassign = computed(() => building.value.workers > 0)
 
 function assign() {
   if (!canAssign.value) return
+  playTap()
   gameState.assignWorker(props.buildingKey)
 }
 
 function unassign() {
   if (!canUnassign.value) return
+  playTap()
   gameState.unassignWorker(props.buildingKey)
 }
 </script>

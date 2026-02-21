@@ -1,3 +1,4 @@
+import {SND_BUTTON_TAP} from '@/js/engine/assets.js'
 import {AUDIO_CONFIG} from '@/js/engine/constants.js'
 import storage from '@/js/engine/storage.js'
 
@@ -121,4 +122,9 @@ class Audio {
   }
 }
 
-export default new Audio()
+const audio = new Audio()
+export default audio
+
+export function playTap() {
+  audio.playSound(SND_BUTTON_TAP)
+}

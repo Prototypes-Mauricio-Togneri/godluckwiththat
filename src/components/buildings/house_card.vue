@@ -2,6 +2,7 @@
 import {computed, inject} from 'vue'
 import BaseCard from '@/components/buildings/base_card.vue'
 import {IMG_RESOURCE_MAP, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
+import {playTap} from '@/js/engine/audio.js'
 import {WORKER_RECRUIT_COST} from '@/js/engine/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -37,6 +38,7 @@ const recruitCostEntries = computed(() => WORKER_RECRUIT_COST.entries())
 
 function recruitWorker() {
   if (!canRecruit.value) return
+  playTap()
   gameState.recruitWorker()
 }
 </script>

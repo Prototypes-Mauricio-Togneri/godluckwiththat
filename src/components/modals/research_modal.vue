@@ -1,5 +1,6 @@
 <script setup>
 import {ref, inject, computed, onMounted, onUnmounted} from 'vue'
+import {playTap} from '@/js/engine/audio.js'
 import {RESEARCH_TREE} from '@/js/engine/constants.js'
 import {RESEARCH_DEFINITIONS} from '@/js/engine/balancing.js'
 import {IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
@@ -51,7 +52,7 @@ onUnmounted(() => {
     @click.self="emit('close')"
   >
     <div class="research-modal">
-      <button class="modal-close-x" @click="emit('close')">&#10005;</button>
+      <button class="modal-close-x" @click="playTap(); emit('close')">&#10005;</button>
       <h2 class="modal-title">{{ t('research.title') }}</h2>
 
       <!-- Tab bar -->
@@ -61,7 +62,7 @@ onUnmounted(() => {
           :key="cat.category"
           class="research-tab"
           :class="{ 'research-tab--active': activeTab === cat.category }"
-          @click="activeTab = cat.category"
+          @click="playTap(); activeTab = cat.category"
         >
           {{ t('research.category.' + cat.category) }}
         </button>

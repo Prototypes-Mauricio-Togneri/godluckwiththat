@@ -3,6 +3,7 @@ import {computed, inject, ref} from 'vue'
 import BuildingHelpModal from '@/components/modals/building_help_modal.vue'
 import WorkerAssignmentRow from '@/components/buildings/worker_assignment_row.vue'
 import {IMG_OTHER_BUILD, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
+import {playTap} from '@/js/engine/audio.js'
 import {BUILDING_CLASS_MAP} from '@/js/engine/constants.js'
 import Producer from '@/js/models/buildings/producer.js'
 import {t} from '@/js/i18n/localized.js'
@@ -81,6 +82,7 @@ function formatTime(seconds) {
 
 function act() {
   if (!canAct.value) return
+  playTap()
   gameState.levelUpBuilding(props.buildingKey)
 }
 </script>
@@ -90,7 +92,7 @@ function act() {
     <button
       class="help-btn tooltip tooltip--delayed"
       :data-tooltip="t('modal.buildingHelp.tooltip')"
-      @click="showHelp = true"
+      @click="playTap(); showHelp = true"
     >
       ?
     </button>

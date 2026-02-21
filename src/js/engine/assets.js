@@ -74,6 +74,7 @@ export const IMG_RESOURCE_MAP = {
 
 // Sounds
 export const SND_BUILDING_CREATED = '/audio/sound/building_created.mp3'
+export const SND_BUTTON_TAP = '/audio/sound/button_tap.mp3'
 export const SND_HEADQUARTERS_UPGRADED = '/audio/sound/headquarters_upgraded.mp3'
 export const SND_NOTIFICATION_ALERT = '/audio/sound/notification_alert.mp3'
 export const SND_NOTIFICATION_SEASON = '/audio/sound/notification_season.mp3'

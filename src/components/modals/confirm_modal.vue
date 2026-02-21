@@ -1,5 +1,6 @@
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue'
+import {playTap} from '@/js/engine/audio.js'
 import {t} from '@/js/i18n/localized.js'
 
 defineProps({
@@ -59,10 +60,10 @@ onUnmounted(() => {
       <p class="modal-description">{{ t(descriptionKey) }}</p>
 
       <div class="modal-actions">
-        <button class="btn-gold modal-btn modal-btn--cancel" @click="emit('close')">
+        <button class="btn-gold modal-btn modal-btn--cancel" @click="playTap(); emit('close')">
           {{ t('modal.cancel') }}
         </button>
-        <button class="modal-btn modal-btn--confirm" @click="emit('confirm')">
+        <button class="modal-btn modal-btn--confirm" @click="playTap(); emit('confirm')">
           {{ t(confirmKey) }}
         </button>
       </div>

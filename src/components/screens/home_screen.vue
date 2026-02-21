@@ -1,5 +1,6 @@
 <script setup>
 import {onMounted} from 'vue'
+import {playTap} from '@/js/engine/audio.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits(['start'])
@@ -20,7 +21,7 @@ onMounted(() => {
         <span class="title-line">{{ t('screen.home.title.line2').toUpperCase() }}</span>
       </h1>
 
-      <button class="btn-gold start-button" @click="emit('start')">
+      <button class="btn-gold start-button" @click="playTap(); emit('start')">
         {{ t('screen.home.play') }}
       </button>
     </div>

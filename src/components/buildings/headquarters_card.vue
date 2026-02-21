@@ -2,6 +2,7 @@
 import {computed, inject} from 'vue'
 import BaseCard from '@/components/buildings/base_card.vue'
 import {IMG_OTHER_TERRITORY, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
+import {playTap} from '@/js/engine/audio.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
@@ -58,6 +59,7 @@ const levelUpTooltip = computed(() => {
 
 function levelUp() {
   if (!canLevelUp.value) return
+  playTap()
   gameState.levelUpHeadquarters()
 }
 
@@ -79,6 +81,7 @@ const upgradeCostEntries = computed(() => upgradeCost.value?.entries() ?? new Ma
 
 function upgradeType() {
   if (!canUpgrade.value) return
+  playTap()
   gameState.upgradeHeadquarters()
 }
 </script>

@@ -1,6 +1,6 @@
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue'
-import audio from '@/js/engine/audio.js'
+import audio, {playTap} from '@/js/engine/audio.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits([
@@ -13,11 +13,13 @@ const soundEnabled = ref(audio._soundEnabled)
 let rafId = null
 
 function toggleMusic() {
+  playTap()
   musicEnabled.value = !musicEnabled.value
   audio.setMusicEnabled(musicEnabled.value)
 }
 
 function toggleSound() {
+  playTap()
   soundEnabled.value = !soundEnabled.value
   audio.setSoundEnabled(soundEnabled.value)
 }
@@ -69,10 +71,10 @@ onUnmounted(() => {
       </div>
 
       <div class="modal-actions">
-        <button class="btn-gold modal-btn" @click="emit('close')">
+        <button class="btn-gold modal-btn" @click="playTap(); emit('close')">
           {{ t('modal.pause.continue') }}
         </button>
-        <button class="btn-gold modal-btn modal-btn--quit" @click="emit('quit')">
+        <button class="btn-gold modal-btn modal-btn--quit" @click="playTap(); emit('quit')">
           {{ t('modal.pause.quit') }}
         </button>
       </div>

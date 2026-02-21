@@ -24,6 +24,7 @@ import StableCard from '@/components/buildings/stable_card.vue'
 import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
+import {playTap} from '@/js/engine/audio.js'
 import GameState from '@/js/engine/game_state.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
@@ -318,7 +319,7 @@ onUnmounted(() => {
       <span class="header-divider" />
 
       <!-- Menu button -->
-      <button class="btn-gold header-menu-button" @click="showModal = true">
+      <button class="btn-gold header-menu-button" @click="playTap(); showModal = true">
         <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <line x1="4" y1="6" x2="20" y2="6" />
           <line x1="4" y1="12" x2="20" y2="12" />
@@ -370,13 +371,13 @@ onUnmounted(() => {
         <div v-if="pastEvents.length" class="events-section">
           <div class="events-section-header">
             <h3 class="events-section-label">{{ t('events.past') }}</h3>
-            <button class="events-clear-btn" @click="showClearConfirm = true">{{ t('events.clearAll') }}</button>
+            <button class="events-clear-btn" @click="playTap(); showClearConfirm = true">{{ t('events.clearAll') }}</button>
           </div>
           <div class="events-list">
             <div v-for="event in pastEvents" :key="event.id" class="event-row">
               <img class="event-icon" :src="event.icon" :alt="t(event.textKey, ...event.params)">
               <span class="event-text">{{ t(event.textKey, ...event.params) }}</span>
-              <button class="event-dismiss" @click="state.events.dismiss(event.id)">&times;</button>
+              <button class="event-dismiss" @click="playTap(); state.events.dismiss(event.id)">&times;</button>
             </div>
           </div>
         </div>
