@@ -70,6 +70,7 @@ export const IMG_RESOURCE_MAP = {
 
 // Sounds
 export const SND_BUILDING_CREATED = '/audio/sound/building_created.mp3'
+export const SND_NOTIFICATION = '/audio/sound/notification.mp3'
 export const SND_UNDER_ATTACK = '/audio/sound/under_attack.mp3'
 export const SND_WORKER_CREATED = '/audio/sound/worker_created.mp3'
 
