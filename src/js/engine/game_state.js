@@ -1,8 +1,8 @@
 import {PRODUCTION_RATES, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
-import {IMG_OTHER_TERRITORY, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_NOTIFICATION, SND_WORKER_CREATED} from '@/js/engine/assets.js'
+import {IMG_OTHER_TERRITORY, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_TERRITORY_EXPANDED, SND_WORKER_CREATED, SND_WORKER_FOOD, SND_WORKER_WOOD} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
 import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
-import {BUILDING_HEADQUARTERS, BUILDING_STOREHOUSE, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, SEASON_COLD, SEASON_WARM} from '@/js/engine/enums.js'
+import {BUILDING_FARM, BUILDING_HEADQUARTERS, BUILDING_STOREHOUSE, BUILDING_WOODCUTTER, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, SEASON_COLD, SEASON_WARM} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -130,6 +130,7 @@ class GameState {
             textKey: config.textKey,
             icon: config.icon,
           })
+          audio.playSound(SND_NOTIFICATION_ALERT)
         }
       } else {
         this._resourcesAtCap.delete(resource)
@@ -163,6 +164,7 @@ class GameState {
             textKey: config.textKey,
             icon: config.icon,
           })
+          audio.playSound(SND_NOTIFICATION_ALERT)
         }
       } else if (this._resourcesNegativeProduction.has(resource)) {
         this._resourcesNegativeProduction.delete(resource)
@@ -184,6 +186,7 @@ class GameState {
       if (this.colony.isColdSeason) this.colony.year++
       this.colony.season = this.colony.isWarmSeason ? SEASON_COLD : SEASON_WARM
       const isWarm = this.colony.isWarmSeason
+      audio.playSound(SND_NOTIFICATION_SEASON)
       this.events.dismissPastByType(EVENT_TYPE_SEASON_CHANGED)
       this.events.addPast({
         type: EVENT_TYPE_SEASON_CHANGED,
@@ -220,7 +223,7 @@ class GameState {
               icon: IMG_OTHER_TERRITORY,
               buildingKey: key,
             })
-            audio.playSound(SND_NOTIFICATION)
+            audio.playSound(SND_TERRITORY_EXPANDED)
             this.events.dismissPastByType(EVENT_TYPE_TERRITORY_LIMIT_REACHED)
           } else {
             audio.playSound(SND_BUILDING_CREATED)
@@ -238,6 +241,7 @@ class GameState {
       if (hq.upgradeRemaining === 0) {
         hq.type = hq.nextType()
         hq.upgradeDuration = 0
+        audio.playSound(SND_HEADQUARTERS_UPGRADED)
       }
     }
   }
@@ -279,6 +283,7 @@ class GameState {
         textKey: 'event.territoryLimitReached',
         icon: IMG_OTHER_TERRITORY,
       })
+      audio.playSound(SND_NOTIFICATION_ALERT)
     }
   }
 
@@ -348,6 +353,7 @@ class GameState {
         textKey: 'event.populationLimitReached',
         icon: IMG_UNIT_WORKER,
       })
+      audio.playSound(SND_NOTIFICATION_ALERT)
     }
     this.update(0)
   }
@@ -361,6 +367,8 @@ class GameState {
     if (this.colony.idleWorkers <= 0 || building.workers >= building.maxWorkers) return
     building.workers += 1
     this.colony.idleWorkers -= 1
+    if (buildingKey === BUILDING_FARM) audio.playSound(SND_WORKER_FOOD)
+    else if (buildingKey === BUILDING_WOODCUTTER) audio.playSound(SND_WORKER_WOOD)
     this.update(0)
   }
 
