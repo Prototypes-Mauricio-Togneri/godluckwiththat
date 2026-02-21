@@ -118,8 +118,9 @@ onUnmounted(() => {
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(4px);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: 5.5vh;
   z-index: 100;
   opacity: 0;
   transition: opacity 0.2s ease;
