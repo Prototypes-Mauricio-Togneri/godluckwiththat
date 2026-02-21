@@ -273,7 +273,7 @@ Players have to choose between:
 
 ## Balancing
 
-All tunable numeric constants are centralized in `src/js/balancing.js`. This file is the single source of truth for game economy values and is consumed by building classes, `constants.js`, `game_state.js`, and UI components. When adjusting the game's difficulty or economy, only this file should need to change.
+All tunable numeric constants are centralized in `src/js/engine/balancing.js`. This file is the single source of truth for game economy values and is consumed by building classes, `constants.js`, `game_state.js`, and UI components. When adjusting the game's difficulty or economy, only this file should need to change.
 
 The file contains:
 

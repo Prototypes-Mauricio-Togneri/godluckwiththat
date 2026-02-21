@@ -22,18 +22,21 @@ src/
 │   │   ├── building_help_modal.vue → Building info modal (name, description, close)
 │   │   ├── confirm_modal.vue → Confirmation dialog (title, description, confirm/cancel)
 │   │   ├── market_modal.vue  → Market modal (placeholder for trading UI)
-│   │   └── pause_modal.vue   → Pause menu modal
+│   │   ├── pause_modal.vue   → Pause menu modal (audio toggles, continue, quit)
+│   │   └── research_modal.vue → Research tree modal (tabbed categories, chain nodes)
 │   └── screens/
 │       ├── home_screen.vue   → Title screen with start button
 │       └── game_screen.vue   → Main game screen
 ├── js/
 │   ├── engine/
 │   │   ├── assets.js         → Asset path constants (auto-generated, do not edit manually)
+│   │   ├── audio.js          → Audio manager (preload, play sound/music, persist prefs)
 │   │   ├── balancing.js      → Game balancing values (costs, rates, build times, formulas)
 │   │   ├── constants.js      → Structural constants (maps, enums, factories)
-│   │   ├── enums.js          → Pure string enums (resource/HQ/season/event types)
+│   │   ├── enums.js          → Pure string enums (resource/HQ/season/event/research/bonus types)
 │   │   ├── game_state.js     → GameState class (meta + colony data model + update loop)
-│   │   └── main.js           → Vue app entry point
+│   │   ├── main.js           → Vue app entry point
+│   │   └── storage.js        → localStorage wrapper (audio preferences)
 │   ├── i18n/
 │   │   ├── en.js             → English locale strings
 │   │   ├── es.js             → Spanish locale strings
@@ -53,6 +56,7 @@ src/
 │       │   └── events.js     → Events container (add/dismiss/tick)
 │       ├── meta.js           → Meta class (version, timestamps, challenges)
 │       ├── colony.js         → Colony class (wraps all colony sub-models)
+│       ├── researches.js     → Researches class (completed set, active map, bonuses)
 │       ├── cost.js           → Cost class (multi-resource cost holder)
 │       ├── production.js     → Production class (per-tick rates)
 │       ├── resources.js      → Resources class (current amounts)

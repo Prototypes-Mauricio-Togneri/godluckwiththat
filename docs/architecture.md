@@ -8,17 +8,19 @@ Vite + Vue 3 single-page application using Composition API (`<script setup>`). N
 
 ### Pause Modal (`pause_modal.vue`)
 
-Centered overlay with "PAUSED" title, decorative rule, and two stacked buttons:
+Centered overlay with "PAUSED" title, decorative rule, audio toggles, and two stacked buttons:
+- **Music toggle** — on/off switch, persisted via `storage.musicEnabled`
+- **Sound toggle** — on/off switch, persisted via `storage.soundEnabled`
 - **Continue** — emits `close`, resumes the game
 - **Quit** — emits `quit`, bubbled through `game_screen.vue` to `app.vue` which switches back to the home screen
 
 ### Building Help Modal (`building_help_modal.vue`)
 
-Centered overlay (same pattern as pause modal) showing information about a building. Rendered inside `base_card.vue` via `v-if` on a local `showHelp` ref. Props: `nameKey` (i18n key for the title) and `buildingKey` (indexes into `buildingHelp.{key}` for the description). Layout: uppercase building name title, decorative rule, description paragraph, and a "CLOSE" button. Emits `close` on backdrop click or button press.
+Centered overlay (same pattern as pause modal) showing information about a building. Rendered inside `base_card.vue` via `v-if` on a local `showHelp` ref. Props: `nameKey` (i18n key for the title), `buildingKey` (indexes into `buildingHelp.{key}` for the description), and `img` (building thumbnail path). Layout: uppercase building name title, decorative rule, horizontal body with large thumbnail image (9rem) alongside description paragraph, and a "CLOSE" button. Emits `close` on backdrop click, button press, or Escape key.
 
 ### Confirm Modal (`confirm_modal.vue`)
 
-Reusable confirmation dialog (same overlay pattern). Props: `titleKey` and `descriptionKey` (i18n keys). Layout: uppercase title, decorative rule, description paragraph, and a side-by-side button row — subdued "CANCEL" (gold) and red-styled "CONFIRM". Emits `confirm` or `close`. Used by `game_screen.vue` for the "Clear all" past events action.
+Reusable confirmation dialog (same overlay pattern). Props: `titleKey` and `descriptionKey` (i18n keys), optional `confirmKey` (i18n key for confirm button text, default `'modal.confirm'`). Layout: uppercase title, decorative rule, description paragraph, and a side-by-side button row — subdued "CANCEL" (gold) and red-styled "CONFIRM". Emits `confirm` or `close`. Used by `game_screen.vue` for the "Clear all" past events action.
 
 ### Market Modal (`market_modal.vue`)
 
@@ -57,7 +59,7 @@ Per-building card components. Each receives `buildingKey`, `img`, and `building`
 
 **`headquarters_card.vue`** — Wraps `BaseCard` with `:show-level="false"` (level badge hidden), passes a computed `nameKey` of `building.headquarters.${type}` to display the HQ type name (Camp, Settlement, etc.) instead of the generic building name. Injects `colony` (provided by `game_screen.vue`) for reactive access to resources and stockpile. Displays two action buttons:
 - **Expand Territory** — territory icon, "Expand territory" tooltip. Costs `hq.levelUpCost()` (food + wood). Starts a construction timer; level increments on completion. Disabled when resources insufficient or HQ is busy (either timer active).
-- **Upgrade** — costs `Headquarters.upgradeCost(type)`. Starts a construction timer; advances HQ type on completion. Hidden at max type (City). Disabled when resources insufficient or HQ is busy. Both action buttons become progress indicators (gold fill overlay + countdown) while their timer is active. The two timers are mutually exclusive.
+- **Upgrade** — costs `hq.upgradeCost()`. Starts a construction timer; advances HQ type on completion. Hidden at max type (City). Disabled when resources insufficient or HQ is busy. Both action buttons become progress indicators (gold fill overlay + countdown) while their timer is active. The two timers are mutually exclusive.
 
 **`house_card.vue`** — Wraps `BaseCard`. When built (level > 0), displays a recruit worker action button. Injects `colony` for reactive access to resources, workers, and stockpile.
 - **Recruit** — costs `WORKER_RECRUIT_COST` (50 food). Adds a worker and increments idle count. Disabled when food insufficient or worker stockpile cap reached.
@@ -74,12 +76,13 @@ Central state container instantiated once per game session. Pure JS class wrappe
 
 **Provide/inject**: `game_screen.vue` calls `provide('colony', state.colony)`, `provide('gameState', state)`, `provide('openResearchModal', fn)`, and `provide('openMarketModal', fn)`. Components `inject('colony')` for reactive reads, `inject('gameState')` to call mutation methods (`levelUpBuilding`, `levelUpHeadquarters`, `upgradeHeadquarters`, `assignWorker`, `unassignWorker`, `recruitAndAssignWorker`), `inject('openResearchModal')` to open the research modal (used by `academy_card.vue`), and `inject('openMarketModal')` to open the market modal (used by `market_card.vue`).
 
-**Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }`, `state.colony.{ year, season, seasonElapsed, idleWorkers, resources, production, stockpile, buildings }`, and `state.events` (ephemeral event log, see Events section)
+**Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }`, `state.colony.{ year, season, seasonElapsed, idleWorkers, resources, production, stockpile, buildings, researches }`, and `state.events` (ephemeral event log, see Events section)
 
 - `resources` (`Resources`) — current amounts with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`. Methods: `canAfford(cost)` (returns `true` if all cost fields are covered), `deduct(cost)` (subtracts cost fields in place).
 - `production` (`Production`) — per-tick rates with public fields: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
 - `stockpile` (`Stockpile`) — max capacity with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`. Faith and knowledge are unbounded (no stockpile cap).
-- `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level`, `constructionRemaining`, `constructionDuration`) or `Producer` (extends `Building`, adds `workers` defaulting to 0). `constructionRemaining > 0` means the building is under construction; `constructionDuration` stores the total build time for progress calculation. Instance method `totalLevels()` returns the sum of all building levels excluding headquarters (used as current territory count). Instance method `pendingTerritory()` returns the count of non-HQ buildings currently under construction (used to reserve territory). The 9 worker-assignable buildings (academy, shrine, temple, farm, woodcutter, quarry, copperMine, ironMine, goldMine) extend `Producer`; all others extend `Building` directly. `Headquarters` also has `type`, `upgradeRemaining`, `upgradeDuration` (for type upgrade timer), instance method `territoryCap()`, and static methods `upgradeCost(type)`, `nextType(type)`. All 21 building keys are defined as `BUILDING_*` enums in `enums.js` (e.g. `BUILDING_FARM`, `BUILDING_COPPER_MINE`) and used as computed-property keys throughout `constants.js`, `balancing.js`, and `game_screen.vue`. All 21 building classes have an instance method `levelUpCost()` that returns a `Cost` using `cost` and `multiplier` from `BUILDING_UPGRADES` (HQ: `cost × m^(level-1)`, others: `cost × m^level`). Individual building classes live in `src/js/models/buildings/`.
+- `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level`, `constructionRemaining`, `constructionDuration`) or `Producer` (extends `Building`, adds `workers` defaulting to 0). `constructionRemaining > 0` means the building is under construction; `constructionDuration` stores the total build time for progress calculation. Instance method `totalLevels()` returns the sum of all building levels excluding headquarters (used as current territory count). Instance method `pendingTerritory()` returns the count of non-HQ buildings currently under construction (used to reserve territory). The 9 worker-assignable buildings (academy, shrine, temple, farm, woodcutter, quarry, copperMine, ironMine, goldMine) extend `Producer`; all others extend `Building` directly. `Headquarters` also has `type`, `upgradeRemaining`, `upgradeDuration` (for type upgrade timer), instance methods `territoryCap()`, `upgradeCost()` (returns `Cost|null` based on current type), and `nextType()` (returns next type string or `null`). All 21 building keys are defined as `BUILDING_*` enums in `enums.js` (e.g. `BUILDING_FARM`, `BUILDING_COPPER_MINE`) and used as computed-property keys throughout `constants.js`, `balancing.js`, and `game_screen.vue`. All 21 building classes have an instance method `levelUpCost()` that returns a `Cost` using `cost` and `multiplier` from `BUILDING_UPGRADES` (HQ: `cost × m^(level-1)`, others: `cost × m^level`). Individual building classes live in `src/js/models/buildings/`.
+- `researches` (`Researches`) — research state tracking with `completed` (`Set<string>` of research keys), `active` (`Map<string, {remainingSeconds, duration}>` for in-progress researches). Methods: `isCompleted(key)`, `isActive(key)`, `getActive(key)`, `start(key, duration)`, `complete(key)`, `completedBonuses()` (aggregates `BONUS_*` values from completed researches), `toJSON()`.
 - `Cost` (`src/js/models/cost.js`) — multi-resource cost holder with properties: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `knowledge`. Methods: `entries()` (returns a `Map<string, number>` of non-zero resources), `multiply(factor)` (returns a new `Cost` with each resource multiplied by `factor`), `floor()` (returns a new `Cost` with each resource floored), `toSeconds()` (derives build time in seconds from resource weights defined in `RESOURCE_TIME_WEIGHTS`).
 
 All initial values declared via `createInitialMeta()` (a `Meta` instance) and `createInitialColony()` (a `Colony` instance) in `src/js/engine/constants.js`, using numeric values from `src/js/engine/balancing.js`. `BUILDING_CLASS_MAP` maps all 21 building keys to their class constructors.
@@ -111,8 +114,11 @@ Ephemeral event system for notifying the player of upcoming threats and past occ
 - `addFuture({ type, textKey, icon, params, buildingKey, remainingSeconds })` — creates an `EventFuture` with countdown
 - `addPast({ type, textKey, icon, params, buildingKey })` — creates an `EventPast`
 - `convertToPast(buildingKey, data)` — finds the future event matching `buildingKey`, removes it, and adds a past event with the given data
-- `dismissPastByType(type)` — removes all past events matching the given type
+- `dismissFuture(buildingKey)` — removes a future event by building key (used when non-HQ buildings complete construction)
 - `dismiss(id)` — removes event by id (uses `splice` for Vue reactivity)
+- `dismissPastByType(type)` — removes all past events matching the given type
+- `dismissPastByTextKey(textKey)` — removes all past events matching the given i18n key (used for negative production recovery)
+- `dismissAllPast()` — removes all past events
 - `future()` — returns `EventFuture` items sorted by `remainingSeconds` ascending
 - `past()` — returns `EventPast` items sorted by `id` descending (most recent first)
 - `tick(delta)` — decrements `remainingSeconds` on `EventFuture` items, clamps at 0 (does not auto-convert to past)
@@ -125,17 +131,17 @@ Called from the `progressTick` loop (`requestAnimationFrame`, ~60 fps) in `game_
 
 Core game loop that generates resources over time. `game_screen.vue` runs a main `setInterval` (1 second, `TICK_INTERVAL`) that calls `state.update(deltaSec)` for production/consumption, and a `requestAnimationFrame` loop (~60 fps, `progressTick`) that calls `state.advanceSeason(deltaSec)`, `state.advanceConstruction(deltaSec)`, and `state.events.tick(deltaSec)` for smooth visual progress. Both use `performance.now()` for delta calculation. Delta time naturally handles backgrounded tabs — when the tab returns, the first tick applies the full accumulated time.
 
-**Construction timers**: `advanceConstruction(delta)` runs inside the `requestAnimationFrame` loop (`progressTick`) for smooth visual progress (~60 fps). It decrements `constructionRemaining` on all buildings; when a timer reaches zero, the building's level increments, `constructionDuration` resets, and the corresponding future event is converted to a past event via `events.convertToPast()`. The HQ type upgrade timer (`upgradeRemaining`) is ticked separately; on completion, `hq.type` advances to the next tier (no event fired for type upgrades). The next `update()` call (1-second interval) picks up the new level for stockpile/production recalculation.
+**Construction timers**: `advanceConstruction(delta)` runs inside the `requestAnimationFrame` loop (`progressTick`) for smooth visual progress (~60 fps). It decrements `constructionRemaining` on all buildings; when a timer reaches zero, the building's level increments and `constructionDuration` resets. For HQ territory expansion, the future event is converted to a past event via `events.convertToPast()`. For all other buildings, the future event is simply removed via `events.dismissFuture(key)`. When a storehouse completes, all resource-limit past events are dismissed. The HQ type upgrade timer (`upgradeRemaining`) is ticked separately; on completion, `hq.type` advances to the next tier (no event fired for type upgrades). The next `update()` call (1-second interval) picks up the new level for stockpile/production recalculation.
 
 **Territory & stockpile recalculation**: Each tick recalculates `resources.territory` via `buildings.totalLevels() + buildings.pendingTerritory()` (sum of all building levels plus buildings under construction — each counts as one territory slot), then recalculates all stockpile caps from building levels: `stockpile.workers` via `buildings.house.populationCap()` (`level × HOUSE_POPULATION_PER_LEVEL`), `stockpile.territory` via `buildings.headquarters.territoryCap()` (`level × HQ_TERRITORY_PER_LEVEL`), and all 6 resource caps (food, wood, stone, copper, iron, gold) via `buildings.storehouse.storageCap()` (`STOREHOUSE_BASE_CAPACITY + level × STOREHOUSE_CAPACITY_PER_LEVEL`). All balancing values in `src/js/engine/balancing.js`. Building level-ups (except HQ) are blocked when `resources.territory >= stockpile.territory`; HQ is exempt since it is the only building that increases max territory.
 
 **Production formula**: For each building in `PRODUCTION_RATES` (balancing.js), production rate = `workers × baseRate`. Passive buildings (e.g. altar, flagged `passive: true`) use `level × rate` instead. After base rates are computed, food production is modified by season: warm applies `×(1 + SEASON_WARM_FOOD_MODIFIER)` (+20%) and cold applies `×(1 + SEASON_COLD_FOOD_MODIFIER)` (−20%). Rates are stored on `colony.production` (per-second) for UI display, then scaled by `deltaSec` when applied to `colony.resources`. Resources (except faith and knowledge, which are unbounded) are capped at `colony.stockpile` limits after application.
 
-**Worker consumption**: After production gains, every worker (idle and assigned) consumes `WORKER_FOOD_CONSUMPTION` food/sec and `WORKER_WOOD_CONSUMPTION` wood/sec (wood scaled by seasonal modifier). If resources are insufficient, they are clamped to 0 — there is currently no penalty for resource shortages. Skipped when `delta === 0` or no workers exist.
+**Worker consumption**: After production gains, every worker (idle and assigned) consumes `WORKER_FOOD_CONSUMPTION` food/sec and `WORKER_WOOD_CONSUMPTION` wood/sec. Wood consumption is scaled by seasonal modifier: `×(1 + SEASON_WARM_WOOD_MODIFIER)` (−20% in warm) and `×(1 + SEASON_COLD_WOOD_MODIFIER)` (+20% in cold). If resources are insufficient, they are clamped to 0 — there is currently no penalty for resource shortages. Skipped when `delta === 0` or no workers exist.
 
-**Negative production detection**: After net production is finalized (including worker upkeep subtraction), a `_resourcesNegativeProduction` Set tracks which bounded resources currently have negative net production. When a resource transitions from non-negative to negative, a past event fires (using `RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG` from `constants.js`). When it recovers to non-negative, it is removed from the set so future drops can re-trigger. This follows the same edge-detection pattern as `_resourcesAtCap`.
+**Negative production detection**: After net production is finalized (including worker upkeep subtraction), a `_resourcesNegativeProduction` Set tracks which bounded resources currently have negative net production. When a resource transitions from non-negative to negative, a past event fires (using `RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG` from `constants.js`). When it recovers to non-negative, the corresponding past event is removed via `events.dismissPastByTextKey()` and the resource is removed from the set so future drops can re-trigger. This follows the same edge-detection pattern as `_resourcesAtCap`.
 
-**Base rates** (per worker per second): farm→food 0.5, woodcutter→wood 0.3, quarry→stone 0.2, copperMine→copper 0.15, ironMine→iron 0.1, goldMine→gold 0.05, academy→knowledge 0.1, shrine→faith 0.15. Altar→faith 0.1/level/sec (passive). All values defined in `src/js/engine/balancing.js`.
+**Base rates** (per worker per second): farm→food 1.0, woodcutter→wood 0.5, quarry→stone 0.3, copperMine→copper 0.2, ironMine→iron 0.1, goldMine→gold 0.05, academy→knowledge 0.1, shrine→faith 0.15. Altar→faith 0.1/level/sec (passive). All values defined in `src/js/engine/balancing.js`.
 
 **Tooltips** — Colony items (population, idle workers, territory) use CSS-only tooltips (`.tooltip` class + `data-tooltip` attribute). Resource items use HTML-based rich tooltips (`.resource-tooltip` inside `.resource-box`) that display the resource name, colored production rate, and time estimate on hover. Both tooltip styles are defined in `src/assets/styles.css`.
 
@@ -146,6 +152,32 @@ Each supported language has its own file (`en.js`, `es.js`, `fr.js`) exporting a
 ### Assets (`src/js/engine/assets.js`)
 
 Auto-generated by `scripts/generate-assets.js` (`npm run generate-assets`). Scans `public/img/`, `public/audio/sound/`, and `public/audio/music/` and exports named constants with prefixes: `IMG_` for images, `SND_` for sound effects, `MUS_` for music tracks. Also exports `IMG_RESOURCE_MAP` for dynamic resource image lookups. Do not edit `assets.js` manually.
+
+### Audio (`src/js/engine/audio.js`)
+
+Singleton `Audio` class managing sound effects and background music. Preloads all audio files from `AUDIO_CONFIG` (in `constants.js`) at startup. Per-asset volume levels are configured in `AUDIO_CONFIG`. Preferences (music/sound enabled) are persisted via `Storage`.
+
+**Methods**: `preload()`, `playSound(assetPath)` (one-shot effect), `playMusic(assetPath)` (looping background), `stopMusic()`, `pauseMusic()`, `resumeMusic()`, `setMusicEnabled(enabled)`, `setSoundEnabled(enabled)`.
+
+**Helper**: `playTap()` — exported shortcut that plays the button tap sound effect (`SND_BUTTON_TAP`). Used by all interactive UI components.
+
+### Storage (`src/js/engine/storage.js`)
+
+Thin `localStorage` wrapper for persisting user preferences. Exposes `musicEnabled` and `soundEnabled` as getter/setter pairs (default `true`). Used by `Audio` to persist toggle state across sessions.
+
+### Research System
+
+Research is an academy-gated tech tree providing cumulative bonus modifiers.
+
+**Model** (`src/js/models/researches.js`) — `Researches` class with `completed` (`Set<string>`), `active` (`Map<string, {remainingSeconds, duration}>`). Methods: `isCompleted(key)`, `isActive(key)`, `getActive(key)`, `start(key, duration)`, `complete(key)`, `completedBonuses()` (aggregates `BONUS_*` values), `toJSON()`. Stored on `colony.researches`.
+
+**Enums** (`enums.js`) — `RESEARCH_CATEGORY_*` (5 categories: general, disasters, resources, religion, military), `RESEARCH_SUBCATEGORY_*` (13 subcategories, e.g. transportation, construction, floods, food production), `RESEARCH_*` keys (5 tiers per subcategory, e.g. `RESEARCH_TRANSPORTATION_1` through `_5`), `BONUS_*` types (15, e.g. `BONUS_WORKER_PRODUCTIVITY`, `BONUS_CONSTRUCTION_TIME`, `BONUS_FOOD_PRODUCTION`).
+
+**Definitions** (`balancing.js`) — `RESEARCH_DEFINITIONS` maps each `RESEARCH_*` key to `{ cost: Cost, duration: seconds, academyLevel: number, bonus: { type: BONUS_*, value: number } }`. Each tier within a subcategory requires a higher academy level and costs more resources.
+
+**Tree** (`constants.js`) — `RESEARCH_TREE` is an ordered array of `{ category, subcategories: [{ key, researches: [research keys] }] }` used by the research modal for layout.
+
+**Modal** (`research_modal.vue`) — Tabbed overlay with category tabs at top, scrollable subcategory sections below. Each subcategory displays a horizontal chain of research nodes connected by arrows. Node states: `completed` (gold border + checkmark), `active` (pulsing glow), `available` (brighter border), `locked` (dimmed). Each node shows name and resource cost icons. Opened via `inject('openResearchModal')` from `academy_card.vue`. Emits `close` on backdrop click, close button, or Escape key.
 
 ## Visual Design
 
