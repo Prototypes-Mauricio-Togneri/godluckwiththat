@@ -561,7 +561,7 @@ export function createInitialMeta() {
 }
 
 export function createInitialColony() {
-  return createInitialColonyBasic()
+  return createInitialColonyAdvanced()
 }
 
 /**
