@@ -125,6 +125,7 @@ function act() {
           </span>
           <slot v-if="!isWorkerAssignable && !isBuildable" />
         </div>
+        <slot v-if="hasAction && !isWorkerAssignable && !isBuildable" name="below-action" />
         <div v-if="isWorkerAssignable && !isBuildable" class="worker-slot-row">
           <WorkerAssignmentRow :building-key="buildingKey" />
           <slot v-if="isWorkerAssignable" />

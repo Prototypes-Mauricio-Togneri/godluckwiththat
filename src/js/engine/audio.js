@@ -45,8 +45,12 @@ class Audio {
       this._activeSounds.set(assetPath, el)
     }
     const cleanup = () => this._activeSounds.delete(assetPath)
-    el.addEventListener('ended', cleanup, { once: true })
-    el.addEventListener('error', cleanup, { once: true })
+    el.addEventListener('ended', cleanup, {
+      once: true,
+    })
+    el.addEventListener('error', cleanup, {
+      once: true,
+    })
     el.volume = this._volume(assetPath)
     el.play().catch(cleanup)
   }

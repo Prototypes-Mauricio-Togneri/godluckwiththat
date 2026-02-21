@@ -45,19 +45,21 @@ function recruitWorker() {
 
 <template>
   <BaseCard :building-key="buildingKey" :img="img" :building="building">
-    <div class="action-row">
-      <span class="tooltip" :class="{ 'tooltip--delayed': canRecruit }" :data-tooltip="recruitTooltip">
-        <button class="btn-gold action-btn" :disabled="!canRecruit" @click="recruitWorker">
-          <img class="action-btn-icon" :src="IMG_UNIT_WORKER" :alt="t('house.recruitWorker')">
-        </button>
-      </span>
-      <span class="action-cost">
-        <span v-for="[key, amount] in recruitCostEntries" :key="key" class="action-cost-item">
-          <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
-          <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
+    <template #below-action>
+      <div class="action-row">
+        <span class="tooltip" :class="{ 'tooltip--delayed': canRecruit }" :data-tooltip="recruitTooltip">
+          <button class="btn-gold action-btn" :disabled="!canRecruit" @click="recruitWorker">
+            <img class="action-btn-icon" :src="IMG_UNIT_WORKER" :alt="t('house.recruitWorker')">
+          </button>
         </span>
-      </span>
-    </div>
+        <span class="action-cost">
+          <span v-for="[key, amount] in recruitCostEntries" :key="key" class="action-cost-item">
+            <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
+            <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
+          </span>
+        </span>
+      </div>
+    </template>
   </BaseCard>
 </template>
 
