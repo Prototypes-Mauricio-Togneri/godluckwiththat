@@ -212,7 +212,6 @@ class GameState {
         if (building.constructionRemaining === 0) {
           building.level += 1
           building.constructionDuration = 0
-          audio.playSound(SND_BUILDING_CREATED)
 
           if (key === BUILDING_HEADQUARTERS) {
             this.events.convertToPast(key, {
@@ -224,6 +223,7 @@ class GameState {
             audio.playSound(SND_NOTIFICATION)
             this.events.dismissPastByType(EVENT_TYPE_TERRITORY_LIMIT_REACHED)
           } else {
+            audio.playSound(SND_BUILDING_CREATED)
             this.events.dismissFuture(key)
             if (key === BUILDING_STOREHOUSE) {
               this.events.dismissPastByType(EVENT_TYPE_RESOURCE_LIMIT_REACHED)
