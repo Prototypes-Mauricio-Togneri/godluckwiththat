@@ -65,9 +65,10 @@ onUnmounted(() => {
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(var(--color-accent-rgb), 0.06);
-  padding: 1.75rem 2rem 1.5rem;
-  min-width: 340px;
-  max-width: 480px;
+  padding: 1rem 2rem 1.5rem;
+  width: 90vw;
+  max-width: 960px;
+  max-height: 89vh;
   display: flex;
   flex-direction: column;
   transform: translateY(8px);
