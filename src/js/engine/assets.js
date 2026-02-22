@@ -85,6 +85,7 @@ export const SND_TERRITORY_EXPANDED = '/audio/sound/territory_expanded.mp3'
 export const SND_UNDER_ATTACK = '/audio/sound/under_attack.mp3'
 export const SND_WORKER_CREATED = '/audio/sound/worker_created.mp3'
 export const SND_WORKER_FOOD = '/audio/sound/worker_food.mp3'
+export const SND_WORKER_MINE = '/audio/sound/worker_mine.mp3'
 export const SND_WORKER_WOOD = '/audio/sound/worker_wood.mp3'
 
 // Music
