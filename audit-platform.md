@@ -1,9 +1,3 @@
-### `src/js/engine/audio.js` (lines 10, 55, 70)
-
-Audio preloaded eagerly before any user gesture. On iOS Safari, `HTMLAudioElement.play()` before a gesture is silently rejected. `el.load()` in `preload()` may stall on mobile.
-
-**Fix:** Move `preload()` to after first user interaction. Consider `AudioContext.resume()` pattern gated behind a user gesture.
-
 ### `src/assets/styles.css` (line 153)
 
 `:has()` pseudo-class used for cost dimming. Not supported in Firefox ESR 115 (still potentially in use). Vite does not polyfill CSS.

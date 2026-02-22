@@ -8,6 +8,7 @@ import audio from '@/js/engine/audio.js'
 const currentScreen = ref('home')
 
 function startGame() {
+  audio.preload()
   currentScreen.value = 'game'
   audio.playMusic(MUS_MUSIC)
 }
