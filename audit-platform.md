@@ -1,9 +1,3 @@
-### `src/js/engine/audio.js` (lines 62-71, 95-98)
-
-Music `play()` errors suppressed. No retry on iOS Safari background/foreground transitions; audio stops silently.
-
-**Fix:** Add `visibilitychange` listener to call `resumeMusic()` when document becomes visible.
-
 ### `src/components/screens/game_screen.vue` (lines 234-407)
 
 Horizontal flex layout with 6 side-by-side columns, no responsive breakpoints. Completely unusable on phones and narrow tablets.

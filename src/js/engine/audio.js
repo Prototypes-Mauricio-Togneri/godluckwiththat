@@ -14,6 +14,12 @@ class Audio {
     this._musicPath = null // Asset path of the current music track
     this._cache = new Map() // Preloaded HTMLAudioElements keyed by asset path
     this._activeSounds = new Map() // Currently playing sound elements keyed by asset path
+    this._gamePaused = false // Whether music was paused by game logic (not the browser)
+
+    // Resume music after iOS Safari suspends audio in background tabs
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && this._musicEnabled && !this._gamePaused) this.resumeMusic()
+    })
   }
 
   /**
@@ -86,6 +92,7 @@ class Audio {
    */
   pauseMusic() {
     if (!this._music) return
+    this._gamePaused = true
     this._music.pause()
   }
 
@@ -94,6 +101,7 @@ class Audio {
    */
   resumeMusic() {
     if (!this._music) return
+    this._gamePaused = false
     this._music.play().catch(e => import.meta.env.DEV && console.warn('Audio play failed:', e))
   }
 

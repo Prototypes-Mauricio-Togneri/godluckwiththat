@@ -166,7 +166,7 @@ Shared display formatters.
 
 ### Audio (`src/js/engine/audio.js`)
 
-Singleton `Audio` class managing sound effects and background music. Preloads all audio files from `AUDIO_CONFIG` (in `constants.js`) at startup. Per-asset volume levels are configured in `AUDIO_CONFIG`. Preferences (music/sound enabled) are persisted via `Storage`.
+Singleton `Audio` class managing sound effects and background music. Preloads all audio files from `AUDIO_CONFIG` (in `constants.js`) at startup. Per-asset volume levels are configured in `AUDIO_CONFIG`. Preferences (music/sound enabled) are persisted via `Storage`. Registers a `visibilitychange` listener to auto-resume music when the tab becomes visible (workaround for iOS Safari suspending audio in background tabs). A `_gamePaused` flag prevents auto-resume from overriding intentional pauses by game logic.
 
 **Methods**: `preload()`, `playSound(assetPath)` (one-shot effect), `playMusic(assetPath)` (looping background), `stopMusic()`, `pauseMusic()`, `resumeMusic()`, `setMusicEnabled(enabled)`, `setSoundEnabled(enabled)`.
 
