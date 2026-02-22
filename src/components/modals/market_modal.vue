@@ -334,6 +334,10 @@ onUnmounted(() => {
   min-width: 3.5rem;
 }
 
+.trade-btn:disabled .trade-btn-value {
+  color: rgba(var(--color-text-rgb), 0.25);
+}
+
 .trade-btn:disabled::after {
   transition: none;
   opacity: 0;

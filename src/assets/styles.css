@@ -62,18 +62,28 @@
 }
 
 .btn-gold:disabled {
-    opacity: 0.35;
+    color: rgba(var(--color-text-rgb), 0.35);
+    border-color: rgba(var(--color-accent-rgb), 0.1);
+    background: linear-gradient(
+        180deg,
+        rgba(var(--color-accent-rgb), 0.03),
+        rgba(var(--color-accent-rgb), 0.01)
+    );
     cursor: not-allowed;
+}
+
+.btn-gold:disabled img {
+    opacity: 0.35;
 }
 
 .btn-gold:disabled:hover {
     background: linear-gradient(
         180deg,
-        rgba(var(--color-accent-rgb), 0.08),
-        rgba(var(--color-accent-rgb), 0.02)
+        rgba(var(--color-accent-rgb), 0.03),
+        rgba(var(--color-accent-rgb), 0.01)
     );
-    border-color: rgba(var(--color-accent-rgb), 0.25);
-    color: var(--color-text);
+    border-color: rgba(var(--color-accent-rgb), 0.1);
+    color: rgba(var(--color-text-rgb), 0.35);
     box-shadow: none;
 }
 
