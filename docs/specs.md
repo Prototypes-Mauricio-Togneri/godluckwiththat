@@ -166,9 +166,14 @@ Each building has a level that can be increased by spending resources. Building 
   - Workers cannot be assigned to this building
   - The higher the level, the more resources it can store
 - Market
-  - Allows trading resources
+  - Allows trading Food, Wood, Stone, Copper, and Iron for Gold (buy or sell in lots of 100)
+  - Base gold prices per 100: Food=100, Wood=100, Stone=130, Copper=150, Iron=200
+  - Default 30% trade fee: buy costs `price × 1.30`, sell returns `price × 0.70`
+  - Buying raises the resource price by 3 gold; selling lowers it by 3 gold (AoE2-style)
+  - Price floor: minimum 20 gold (sell floor ~14 gold at max fee). Price cap: 9999
   - Workers cannot be assigned to this building
-  - The higher the level, the cheaper the trades
+  - The higher the level, the cheaper the trades (-3% fee per level)
+  - Trading research (5 tiers × 10%) also reduces the fee. Minimum fee: 5%
 - Altar
   - Produces a fixed amount of faith per second
   - Workers cannot be assigned to this building

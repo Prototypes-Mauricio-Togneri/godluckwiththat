@@ -58,6 +58,7 @@ src/
 │       ├── meta.js           → Meta class (version, timestamps, challenges)
 │       ├── colony.js         → Colony class (wraps all colony sub-models)
 │       ├── researches.js     → Researches class (completed set, active map, bonuses)
+│       ├── market_prices.js  → MarketPrices class (per-resource current prices)
 │       ├── cost.js           → Cost class (multi-resource cost holder)
 │       ├── production.js     → Production class (per-tick rates)
 │       ├── resources.js      → Resources class (current amounts)

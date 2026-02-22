@@ -13,6 +13,7 @@ import {SEASON_COLD, SEASON_WARM} from '@/js/engine/enums.js'
  * @property {Stockpile} stockpile - Maximum storage capacities
  * @property {Buildings} buildings - All building instances
  * @property {Researches} researches - Research progress (completed + active)
+ * @property {MarketPrices} marketPrices - Current market prices per tradeable resource
  */
 class Colony {
   /**
@@ -28,6 +29,7 @@ class Colony {
     this.stockpile = data.stockpile // Maximum storage capacities
     this.buildings = data.buildings // All building instances
     this.researches = data.researches // Research progress (completed + active)
+    this.marketPrices = data.marketPrices // Current market prices per tradeable resource
   }
 
   /** @returns {boolean} Whether the current season is warm */

@@ -1005,3 +1005,35 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 }
+
+// ── Market Trading ─────────────────────────────────────────────────
+
+// Number of resource units exchanged per trade
+export const MARKET_TRADE_AMOUNT = 100
+
+// Base gold value per MARKET_TRADE_AMOUNT of each resource
+export const MARKET_BASE_PRICES = {
+  [RESOURCE_FOOD]: 100,
+  [RESOURCE_WOOD]: 100,
+  [RESOURCE_STONE]: 130,
+  [RESOURCE_COPPER]: 150,
+  [RESOURCE_IRON]: 200,
+}
+
+// Default trade fee (fraction, 0.30 = 30%)
+export const MARKET_BASE_FEE = 0.30
+
+// Minimum possible fee after all reductions
+export const MARKET_MIN_FEE = 0.05
+
+// Fee reduction per market building level (fraction of base fee)
+export const MARKET_FEE_REDUCTION_PER_LEVEL = 0.03
+
+// Gold shift in current price per trade (both buy and sell)
+export const MARKET_PRICE_SHIFT = 3
+
+// Minimum current price (ensures sell floor of ~14 Gold at max fee)
+export const MARKET_MIN_CURRENT_PRICE = 20
+
+// Maximum current price (caps how expensive buying can get)
+export const MARKET_MAX_CURRENT_PRICE = 9999

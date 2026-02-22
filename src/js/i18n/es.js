@@ -151,6 +151,9 @@ export const LOCALIZED_ES = {
 
   // Market modal
   'market.title': 'Mercado',
+  'market.buy': 'Comprar',
+  'market.sell': 'Vender',
+  'market.fee': 'Tarifa',
 
   // Research modal
   'research.title': 'Investigación',
