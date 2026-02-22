@@ -1,9 +1,3 @@
-### `src/assets/styles.css` (lines 80-118)
-
-Tooltips rely entirely on `:hover`. Touch devices can't trigger hover reliably; tooltip content invisible on mobile.
-
-**Fix:** Implement tap-to-show/tap-to-dismiss pattern for touch devices.
-
 ### `src/components/modals/research_modal.vue` (lines 232-243)
 
 `::-webkit-scrollbar` styling is WebKit/Blink-only. Firefox shows default OS scrollbar, inconsistent with dark theme.
