@@ -44,7 +44,6 @@ Build the entire data layer and a read-only tech tree modal showing locked/avail
 Wire up the ability to start and complete researches.
 
 - Add `researchKey` field to Event base class
-- Add `convertResearchToPast()` to Events container
 - Add `startResearch()` to GameState (validate, deduct cost, create future event)
 - Add `advanceResearch(delta)` to GameState (tick timers, handle completion)
 - Hook `advanceResearch` into game tick loops
