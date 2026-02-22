@@ -26,7 +26,7 @@ import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import {playTap} from '@/js/engine/audio.js'
-import {formatTime} from '@/js/engine/format.js'
+import {formatNumber, formatRate, formatTime} from '@/js/engine/format.js'
 import GameState from '@/js/engine/game_state.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
@@ -60,31 +60,6 @@ const CARD_COMPONENTS = {
 
 function getCardComponent(key) {
   return CARD_COMPONENTS[key]
-}
-
-const NUMBER_SUFFIXES = [
-  '',
-  'K',
-  'M',
-  'B',
-  'T',
-]
-
-function formatNumber(n) {
-  const floored = Math.floor(n)
-  if (floored < 1000) return String(floored)
-  const tier = Math.min(Math.floor(Math.log10(floored) / 3), NUMBER_SUFFIXES.length - 1)
-  const scaled = floored / Math.pow(1000, tier)
-  const fixed = (Math.floor(scaled * 10) / 10).toFixed(1)
-  const short = fixed.endsWith('.0') ? fixed.slice(0, -2) : fixed
-  return short + NUMBER_SUFFIXES[tier]
-}
-
-function formatRate(ratePerSecond) {
-  const value = Math.round(ratePerSecond * 10) / 10
-  if (value > 0) return `${value.toFixed(1)}${t('resource.perSecond')}`
-  if (value < 0) return `-${Math.abs(value).toFixed(1)}${t('resource.perSecond')}`
-  return `0.0${t('resource.perSecond')}`
 }
 
 function rateClass(ratePerSecond) {
