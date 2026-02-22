@@ -257,7 +257,7 @@ The research system allows the player to unlock permanent bonuses by spending kn
   - Resources (6 subcategories × 5 tiers = 30 researches): Food Production, Food Consumption, Wood Production, Wood Consumption, Mining, Knowledge Production
   - Disasters (3 subcategories × 5 tiers = 15 researches): Floods, Health, Earthquakes
   - Religion (1 subcategory × 5 tiers = 5 researches): Faith
-  - Military: placeholder category — no researches yet
+  - Military (3 subcategories × 5 tiers = 15 researches): Defense, Attack, Warning
 - Within a subcategory, researches form a linear chain of 5 tiers. Tier N requires tier N-1 to be completed first
 - Each research has: a resource cost (knowledge plus other resources), a duration in seconds, a minimum Academy level required, and a bonus (type and percentage value)
 - Only one research can be active at a time per subcategory
@@ -282,6 +282,9 @@ The research system allows the player to unlock permanent bonuses by spending kn
 | Disasters | Health | -15% disease impact |
 | Disasters | Earthquakes | -15% earthquake impact |
 | Religion | Faith | +10% faith production |
+| Military | Defense | +10% unit defense |
+| Military | Attack | +10% unit attack |
+| Military | Warning | +10% warning time |
 
 ## Events
 

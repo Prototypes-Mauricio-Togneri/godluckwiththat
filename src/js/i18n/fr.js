@@ -183,6 +183,9 @@ export const LOCALIZED_FR = {
   'research.subcategory.knowledgeProduction': 'Savoir',
   'research.subcategory.storage': 'Stockage',
   'research.subcategory.faith': 'Foi',
+  'research.subcategory.defense': 'Défense',
+  'research.subcategory.attack': 'Attaque',
+  'research.subcategory.warning': 'Alerte',
 
   // Research subcategory effects
   'research.effect.transportation': 'Augmente la productivité des ouvriers de {0}%',
@@ -200,6 +203,9 @@ export const LOCALIZED_FR = {
   'research.effect.knowledgeProduction': 'Augmente la production de savoir de {0}%',
   'research.effect.storage': 'Augmente la capacité de stockage de {0}%',
   'research.effect.faith': 'Augmente la production de foi de {0}%',
+  'research.effect.defense': 'Augmente la défense des unités de {0}%',
+  'research.effect.attack': 'Augmente l\'attaque des unités de {0}%',
+  'research.effect.warning': 'Augmente le temps d\'alerte de {0}%',
 
   // Research names — General
   'research.transportation1': 'Roue',
@@ -283,6 +289,23 @@ export const LOCALIZED_FR = {
   'research.faith3': 'Symbolisme',
   'research.faith4': 'Illumination',
   'research.faith5': 'Salut',
+
+  // Research names — Military
+  'research.defense1': 'Armure de cuir',
+  'research.defense2': 'Armure matelassée',
+  'research.defense3': 'Armure d\'écailles',
+  'research.defense4': 'Armure d\'anneaux',
+  'research.defense5': 'Armure de plaques',
+  'research.attack1': 'Entraînement au combat',
+  'research.attack2': 'Discipline de rang',
+  'research.attack3': 'Manœuvres de flanc',
+  'research.attack4': 'Cris de guerre',
+  'research.attack5': 'Tactiques d\'embuscade',
+  'research.warning1': 'Avant-postes',
+  'research.warning2': 'Feux de signalisation',
+  'research.warning3': 'Patrouilles frontalières',
+  'research.warning4': 'Messagers fauconniers',
+  'research.warning5': 'Espionnage',
 
   // Research events
   'event.researchInProgress': 'Recherche de {0}',

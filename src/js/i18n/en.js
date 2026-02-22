@@ -183,6 +183,9 @@ export const LOCALIZED_EN = {
   'research.subcategory.knowledgeProduction': 'Knowledge',
   'research.subcategory.storage': 'Storage',
   'research.subcategory.faith': 'Faith',
+  'research.subcategory.defense': 'Defense',
+  'research.subcategory.attack': 'Attack',
+  'research.subcategory.warning': 'Warning',
 
   // Research subcategory effects
   'research.effect.transportation': 'Increases worker productivity by {0}%',
@@ -200,6 +203,9 @@ export const LOCALIZED_EN = {
   'research.effect.knowledgeProduction': 'Increases knowledge production by {0}%',
   'research.effect.storage': 'Increases storage capacity by {0}%',
   'research.effect.faith': 'Increases faith production by {0}%',
+  'research.effect.defense': 'Increases units defense by {0}%',
+  'research.effect.attack': 'Increases units attack by {0}%',
+  'research.effect.warning': 'Increases warning time by {0}%',
 
   // Research names — General
   'research.transportation1': 'Wheel',
@@ -283,6 +289,23 @@ export const LOCALIZED_EN = {
   'research.faith3': 'Symbolism',
   'research.faith4': 'Illumination',
   'research.faith5': 'Salvation',
+
+  // Research names — Military
+  'research.defense1': 'Leather Armor',
+  'research.defense2': 'Padded Armor',
+  'research.defense3': 'Scale Armor',
+  'research.defense4': 'Ring Armor',
+  'research.defense5': 'Plate Armor',
+  'research.attack1': 'Combat Training',
+  'research.attack2': 'Rank Discipline',
+  'research.attack3': 'Flanking Maneuvers',
+  'research.attack4': 'War Cries',
+  'research.attack5': 'Ambush Tactics',
+  'research.warning1': 'Outposts',
+  'research.warning2': 'Signal Fires',
+  'research.warning3': 'Border Patrols',
+  'research.warning4': 'Falconry Messengers',
+  'research.warning5': 'Espionage',
 
   // Research events
   'event.researchInProgress': 'Researching {0}',

@@ -182,7 +182,7 @@ Research is an academy-gated tech tree providing cumulative bonus modifiers.
 
 **Model** (`src/js/models/researches.js`) — `Researches` class with `completed` (`Set<string>`), `active` (`Map<string, {remainingSeconds, duration}>`). Methods: `isCompleted(key)`, `isActive(key)`, `getActive(key)`, `start(key, duration)`, `complete(key)`, `completedBonuses()` (aggregates `BONUS_*` values), `toJSON()`. Stored on `colony.researches`.
 
-**Enums** (`enums.js`) — `RESEARCH_CATEGORY_*` (5 categories: general, disasters, resources, religion, military), `RESEARCH_SUBCATEGORY_*` (13 subcategories, e.g. transportation, construction, floods, food production), `RESEARCH_*` keys (5 tiers per subcategory, e.g. `RESEARCH_TRANSPORTATION_1` through `_5`), `BONUS_*` types (15, e.g. `BONUS_WORKER_PRODUCTIVITY`, `BONUS_CONSTRUCTION_TIME`, `BONUS_FOOD_PRODUCTION`).
+**Enums** (`enums.js`) — `RESEARCH_CATEGORY_*` (5 categories: general, disasters, resources, religion, military), `RESEARCH_SUBCATEGORY_*` (16 subcategories, e.g. transportation, construction, floods, food production, defense, attack, warning), `RESEARCH_*` keys (5 tiers per subcategory, e.g. `RESEARCH_TRANSPORTATION_1` through `_5`), `BONUS_*` types (18, e.g. `BONUS_WORKER_PRODUCTIVITY`, `BONUS_CONSTRUCTION_TIME`, `BONUS_FOOD_PRODUCTION`, `BONUS_UNIT_DEFENSE`).
 
 **Definitions** (`balancing.js`) — `RESEARCH_DEFINITIONS` maps each `RESEARCH_*` key to `{ cost: Cost, duration: seconds, academyLevel: number, bonus: { type: BONUS_*, value: number } }`. Each tier within a subcategory requires a higher academy level and costs more resources.
 

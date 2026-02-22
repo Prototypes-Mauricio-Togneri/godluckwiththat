@@ -183,6 +183,9 @@ export const LOCALIZED_ES = {
   'research.subcategory.knowledgeProduction': 'Conocimiento',
   'research.subcategory.storage': 'Almacenamiento',
   'research.subcategory.faith': 'Fe',
+  'research.subcategory.defense': 'Defensa',
+  'research.subcategory.attack': 'Ataque',
+  'research.subcategory.warning': 'Alerta',
 
   // Research subcategory effects
   'research.effect.transportation': 'Aumenta la productividad de los trabajadores en un {0}%',
@@ -200,6 +203,9 @@ export const LOCALIZED_ES = {
   'research.effect.knowledgeProduction': 'Aumenta la producción de conocimiento en un {0}%',
   'research.effect.storage': 'Aumenta la capacidad de almacenamiento en un {0}%',
   'research.effect.faith': 'Aumenta la producción de fe en un {0}%',
+  'research.effect.defense': 'Aumenta la defensa de las unidades en un {0}%',
+  'research.effect.attack': 'Aumenta el ataque de las unidades en un {0}%',
+  'research.effect.warning': 'Aumenta el tiempo de alerta en un {0}%',
 
   // Research names — General
   'research.transportation1': 'Rueda',
@@ -283,6 +289,23 @@ export const LOCALIZED_ES = {
   'research.faith3': 'Simbolismo',
   'research.faith4': 'Iluminación',
   'research.faith5': 'Salvación',
+
+  // Research names — Military
+  'research.defense1': 'Armadura de cuero',
+  'research.defense2': 'Armadura acolchada',
+  'research.defense3': 'Armadura de escamas',
+  'research.defense4': 'Armadura de anillas',
+  'research.defense5': 'Armadura de placas',
+  'research.attack1': 'Entrenamiento de combate',
+  'research.attack2': 'Disciplina de rango',
+  'research.attack3': 'Maniobras de flanqueo',
+  'research.attack4': 'Gritos de guerra',
+  'research.attack5': 'Tácticas de emboscada',
+  'research.warning1': 'Puestos de avanzada',
+  'research.warning2': 'Señales de fuego',
+  'research.warning3': 'Patrullas fronterizas',
+  'research.warning4': 'Mensajeros de cetrería',
+  'research.warning5': 'Espionaje',
 
   // Research events
   'event.researchInProgress': 'Investigando {0}',
