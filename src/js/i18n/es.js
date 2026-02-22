@@ -29,6 +29,8 @@ export const LOCALIZED_ES = {
   'resource.emptyIn': 'Vacío en',
   'resource.amount': 'Cantidad',
   'resource.maxCapacity': 'Capacidad',
+  'resource.producing': 'Produciendo',
+  'resource.consuming': 'Consumiendo',
 
   // Year
   'year.label': 'Año',

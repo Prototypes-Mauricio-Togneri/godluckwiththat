@@ -30,8 +30,8 @@ import {formatNumber, formatRate, formatTime} from '@/js/engine/format.js'
 import GameState from '@/js/engine/game_state.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
-import {SEASON_DURATION} from '@/js/engine/balancing.js'
-import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_SHRINE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
+import {SEASON_DURATION, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_SHRINE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, RESOURCE_FOOD, RESOURCE_WOOD} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
@@ -96,6 +96,25 @@ function timeEstimate(resource) {
   }
 
   return null
+}
+
+function resourceConsumption(resource) {
+  const workers = state.colony.resources.workers
+  if (workers <= 0) return 0
+  if (resource === RESOURCE_FOOD) return workers * WORKER_FOOD_CONSUMPTION
+  if (resource === RESOURCE_WOOD) {
+    const woodSeasonMod = state.colony.isWarmSeason ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
+    return workers * WORKER_WOOD_CONSUMPTION * (1 + woodSeasonMod)
+  }
+  return 0
+}
+
+function grossProduction(resource) {
+  return state.colony.production[resource] + resourceConsumption(resource)
+}
+
+function hasConsumption(resource) {
+  return (resource === RESOURCE_FOOD || resource === RESOURCE_WOOD) && resourceConsumption(resource) > 0
 }
 
 function seasonProgress() {
@@ -282,6 +301,8 @@ onUnmounted(() => {
               <span class="resource-tooltip-time">{{ t('resource.amount') }}: {{ Math.floor(state.colony.resources[resource]).toLocaleString() }}</span>
               <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(state.colony.stockpile[resource]) }}</span>
               <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
+              <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.producing') }}: {{ +grossProduction(resource).toFixed(4) }}</span>
+              <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.consuming') }}: {{ +resourceConsumption(resource).toFixed(4) }}</span>
             </div>
           </div>
         </template>
