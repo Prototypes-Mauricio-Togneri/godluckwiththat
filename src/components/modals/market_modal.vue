@@ -337,6 +337,8 @@ onUnmounted(() => {
   align-items: center;
   gap: 0.5rem;
   flex: 1;
+  max-width: 12rem;
+  margin-left: auto;
 }
 
 .market-header-label,
