@@ -34,16 +34,18 @@ function canSell(resource) {
     && colony.resources.gold + sellPrice(resource) <= colony.stockpile.gold
 }
 
-function buyDisabledReason(resource) {
+function buyTooltip(resource) {
   if (colony.resources.gold < buyPrice(resource)) return t('market.notEnoughGold')
   if (colony.resources[resource] + MARKET_TRADE_AMOUNT > colony.stockpile[resource]) return t('market.stockpileFull')
-  return ''
+  const name = t('resource.' + resource)
+  return t('market.buyTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(buyPrice(resource)))
 }
 
-function sellDisabledReason(resource) {
+function sellTooltip(resource) {
   if (colony.resources[resource] < MARKET_TRADE_AMOUNT) return t('market.notEnoughResource')
   if (colony.resources.gold + sellPrice(resource) > colony.stockpile.gold) return t('market.goldStockpileFull')
-  return ''
+  const name = t('resource.' + resource)
+  return t('market.sellTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(sellPrice(resource)))
 }
 
 function buy(resource) {
@@ -120,8 +122,9 @@ onUnmounted(() => {
             <!-- Sell -->
             <button
               class="btn-gold trade-btn tooltip"
+              :class="{ 'tooltip--delayed': canSell(resource) }"
               :disabled="!canSell(resource)"
-              :data-tooltip="sellDisabledReason(resource)"
+              :data-tooltip="sellTooltip(resource)"
               @click="sell(resource)"
             >
               <img class="trade-btn-icon" :src="IMG_RESOURCE_MAP.gold" alt="">
@@ -134,8 +137,9 @@ onUnmounted(() => {
             <!-- Buy -->
             <button
               class="btn-gold trade-btn tooltip"
+              :class="{ 'tooltip--delayed': canBuy(resource) }"
               :disabled="!canBuy(resource)"
-              :data-tooltip="buyDisabledReason(resource)"
+              :data-tooltip="buyTooltip(resource)"
               @click="buy(resource)"
             >
               <img class="trade-btn-icon" :src="IMG_RESOURCE_MAP.gold" alt="">
@@ -330,12 +334,12 @@ onUnmounted(() => {
   min-width: 3.5rem;
 }
 
-.trade-btn::after {
+.trade-btn:disabled::after {
   transition: none;
   opacity: 0;
 }
 
-.trade-btn:hover::after {
+.trade-btn:disabled:hover::after {
   opacity: 1;
 }
 

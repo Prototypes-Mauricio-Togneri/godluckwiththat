@@ -158,6 +158,8 @@ export const LOCALIZED_FR = {
   'market.notEnoughResource': 'Ressources insuffisantes',
   'market.stockpileFull': 'Entrepôt plein',
   'market.goldStockpileFull': "Entrepôt d'or plein",
+  'market.buyTooltip': 'Acheter {0} {1} pour {2} or',
+  'market.sellTooltip': 'Vendre {0} {1} pour {2} or',
 
   // Research modal
   'research.title': 'Recherche',
