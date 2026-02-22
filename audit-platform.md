@@ -1,9 +1,3 @@
-### `src/assets/styles.css` (line 29)
-
-`user-select: none` on `*` without `-webkit-user-select` prefix. Older WebKit browsers (Safari < 14.1) require the prefix.
-
-**Fix:** Add `-webkit-user-select: none` alongside the unprefixed property.
-
 ### `src/assets/styles.css` (lines 80-118)
 
 Tooltips rely entirely on `:hover`. Touch devices can't trigger hover reliably; tooltip content invisible on mobile.
