@@ -150,7 +150,7 @@
 }
 
 /* Dim cost display when action button is disabled */
-.action-row:has(.action-btn:disabled) .action-cost {
+.action-row--disabled .action-cost {
     opacity: 0.35;
 }
 

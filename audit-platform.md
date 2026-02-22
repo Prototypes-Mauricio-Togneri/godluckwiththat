@@ -1,9 +1,3 @@
-### `src/assets/styles.css` (line 153)
-
-`:has()` pseudo-class used for cost dimming. Not supported in Firefox ESR 115 (still potentially in use). Vite does not polyfill CSS.
-
-**Fix:** Add a JS-driven `.action-row--disabled` class as fallback, or accept degraded experience for Firefox ESR.
-
 ### `src/components/screens/home_screen.vue` (line 33)
 
 `height: 100vh` doesn't account for mobile browser chrome. Start button may be hidden behind iOS Safari/Android Chrome toolbar.
@@ -85,15 +79,3 @@ Google Fonts loaded via blocking `<link>`. CDN unavailability (e.g., China) dela
 `navigator.language` read once at module load, never updated on language change.
 
 **Fix:** Listen for `languagechange` event if needed, or accept this minor limitation.
-
-## Summary
-
-**0 critical, 5 high, 7 medium, 4 warnings across 9 files.**
-
-### Key Takeaways
-
-1. **Most impactful**: `100vh` mobile viewport bug (2 files) and `localStorage` crash in Safari Private Browsing affect large real-world populations on iOS.
-2. **Audio preloading** before user gesture wastes bandwidth on mobile and may fail silently on iOS.
-3. **No responsive design** makes the game desktop-only in practice.
-4. **Hover-dependent tooltips** are invisible on touch devices.
-5. **Game loop throttling** on backgrounded mobile tabs causes lost game time with no catch-up.
