@@ -88,7 +88,7 @@ onUnmounted(() => {
         >
           <h3 class="subcategory-label">
             {{ t('research.subcategory.' + sub.key) }}
-            <span class="subcategory-effect">&mdash; {{ t('research.effect.' + sub.key) }}</span>
+            <span class="subcategory-effect">&mdash; {{ t('research.effect.' + sub.key, sub.bonus.value * 100) }}</span>
           </h3>
           <div class="research-chain">
             <template v-for="(rKey, idx) in sub.researches" :key="rKey">

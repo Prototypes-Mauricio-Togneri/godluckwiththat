@@ -276,6 +276,8 @@ export const SEASON_COLD_WOOD_MODIFIER = 0.2
 // Bonus per subcategory: { type: BONUS_* enum, value: fractional modifier (additive) }
 // Each tier in a chain grants the same bonus; defined once per subcategory.
 export const RESEARCH_SUBCATEGORY_BONUSES = {
+
+  // General
   [RESEARCH_SUBCATEGORY_TRANSPORTATION]: {
     type: BONUS_WORKER_PRODUCTIVITY,
     value: 0.05,
@@ -290,27 +292,17 @@ export const RESEARCH_SUBCATEGORY_BONUSES = {
   },
   [RESEARCH_SUBCATEGORY_STORAGE]: {
     type: BONUS_STORAGE_CAPACITY,
-    value: 0.15,
+    value: 0.10,
   },
   [RESEARCH_SUBCATEGORY_TRADING]: {
     type: BONUS_TRADE_FEES,
     value: 0.10,
   },
-  [RESEARCH_SUBCATEGORY_FLOODS]: {
-    type: BONUS_FLOOD_IMPACT,
-    value: 0.15,
-  },
-  [RESEARCH_SUBCATEGORY_HEALTH]: {
-    type: BONUS_DISEASE_IMPACT,
-    value: 0.15,
-  },
-  [RESEARCH_SUBCATEGORY_EARTHQUAKES]: {
-    type: BONUS_EARTHQUAKE_IMPACT,
-    value: 0.15,
-  },
+
+  // Resources
   [RESEARCH_SUBCATEGORY_FOOD_PRODUCTION]: {
     type: BONUS_FOOD_PRODUCTION,
-    value: 0.10,
+    value: 0.05,
   },
   [RESEARCH_SUBCATEGORY_FOOD_CONSUMPTION]: {
     type: BONUS_FOOD_CONSUMPTION,
@@ -318,7 +310,7 @@ export const RESEARCH_SUBCATEGORY_BONUSES = {
   },
   [RESEARCH_SUBCATEGORY_WOOD_PRODUCTION]: {
     type: BONUS_WOOD_PRODUCTION,
-    value: 0.10,
+    value: 0.05,
   },
   [RESEARCH_SUBCATEGORY_WOOD_CONSUMPTION]: {
     type: BONUS_WOOD_CONSUMPTION,
@@ -326,15 +318,31 @@ export const RESEARCH_SUBCATEGORY_BONUSES = {
   },
   [RESEARCH_SUBCATEGORY_MINING]: {
     type: BONUS_MINING_PRODUCTION,
-    value: 0.10,
+    value: 0.05,
   },
   [RESEARCH_SUBCATEGORY_KNOWLEDGE_PRODUCTION]: {
     type: BONUS_KNOWLEDGE_PRODUCTION,
+    value: 0.05,
+  },
+
+  // Disasters
+  [RESEARCH_SUBCATEGORY_FLOODS]: {
+    type: BONUS_FLOOD_IMPACT,
     value: 0.10,
   },
+  [RESEARCH_SUBCATEGORY_HEALTH]: {
+    type: BONUS_DISEASE_IMPACT,
+    value: 0.10,
+  },
+  [RESEARCH_SUBCATEGORY_EARTHQUAKES]: {
+    type: BONUS_EARTHQUAKE_IMPACT,
+    value: 0.10,
+  },
+
+  // Religion
   [RESEARCH_SUBCATEGORY_FAITH]: {
     type: BONUS_FAITH_PRODUCTION,
-    value: 0.10,
+    value: 0.05,
   },
 }
 
