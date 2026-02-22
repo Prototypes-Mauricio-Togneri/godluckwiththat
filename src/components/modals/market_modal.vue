@@ -103,10 +103,10 @@ onUnmounted(() => {
             <span class="resource-value">{{ formatNumber(colony.resources[resource]) }}</span>
           </div>
         </div>
-        <div class="resource-box resource-box--gold">
+        <div class="resource-box">
           <div class="resource-row-top">
             <img class="resource-icon" :src="IMG_RESOURCE_MAP[RESOURCE_GOLD]" :alt="t('resource.' + RESOURCE_GOLD)">
-            <span class="resource-value resource-value--gold">{{ formatNumber(colony.resources[RESOURCE_GOLD]) }}</span>
+            <span class="resource-value">{{ formatNumber(colony.resources[RESOURCE_GOLD]) }}</span>
           </div>
         </div>
       </div>
@@ -240,10 +240,6 @@ onUnmounted(() => {
   justify-content: center;
   gap: 0.5rem;
   margin-bottom: 0.75rem;
-}
-
-.resource-box--gold {
-  border-left: 1px solid rgba(var(--color-accent-rgb), 0.25);
 }
 
 /* ── Fee indicator ───────────────────────────────────────── */
