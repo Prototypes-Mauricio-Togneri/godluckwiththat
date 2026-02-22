@@ -97,7 +97,6 @@ onUnmounted(() => {
                 class="research-node"
                 :class="[
                   'research-node--' + nodeStatus(rKey, sub.researches, idx),
-                  { 'research-node--unaffordable': nodeStatus(rKey, sub.researches, idx) === 'available' && !canAfford(rKey) },
                 ]"
                 @click="handleNodeClick(rKey, nodeStatus(rKey, sub.researches, idx))"
               >
@@ -116,7 +115,7 @@ onUnmounted(() => {
                       class="node-cost-item"
                     >
                       <img class="node-cost-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
-                      <span class="node-cost-amount">{{ amount }}</span>
+                      <span class="node-cost-amount" :class="{ 'node-cost-amount--insufficient': amount > colony.resources[resource] }">{{ amount }}</span>
                     </div>
                   </template>
                 </div>
@@ -347,14 +346,6 @@ onUnmounted(() => {
   background: rgba(var(--color-accent-rgb), 0.1);
 }
 
-.research-node--unaffordable {
-  cursor: not-allowed;
-}
-
-.research-node--unaffordable .node-cost-amount {
-  color: rgba(196, 80, 80, 0.7);
-}
-
 .research-node--locked {
   opacity: 0.35;
 }
@@ -419,6 +410,10 @@ onUnmounted(() => {
   font-weight: 400;
   color: rgba(var(--color-text-rgb), 0.8);
   letter-spacing: 0.02em;
+}
+
+.node-cost-amount--insufficient {
+  color: rgba(196, 80, 80, 0.7);
 }
 
 /* ── Close button ────────────────────────────────────────── */
