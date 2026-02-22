@@ -205,7 +205,7 @@ onUnmounted(() => {
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(var(--color-accent-rgb), 0.06);
-  padding: 1rem 2rem 1.5rem;
+  padding: 1.25rem 2rem 1.75rem;
   width: 90vw;
   max-width: 400px;
   max-height: 89vh;
@@ -229,7 +229,7 @@ onUnmounted(() => {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   align-self: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 /* ── Resource summary ────────────────────────────────────── */
@@ -238,8 +238,8 @@ onUnmounted(() => {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.35rem;
-  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .resource-box--gold {
@@ -255,7 +255,7 @@ onUnmounted(() => {
   color: rgba(var(--color-text-rgb), 0.4);
   letter-spacing: 0.04em;
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 /* ── Scrollable area ─────────────────────────────────────── */
@@ -267,7 +267,7 @@ onUnmounted(() => {
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.6rem;
   padding-right: 0.5rem;
   scrollbar-width: thin;
   scrollbar-color: rgba(var(--color-accent-rgb), 0.2) transparent;
@@ -291,9 +291,9 @@ onUnmounted(() => {
 .market-header {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.5rem;
   padding: 0 0.65rem;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.5rem;
 }
 
 .market-header-resource {
@@ -317,8 +317,8 @@ onUnmounted(() => {
 .trade-row {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.55rem 0.65rem;
+  gap: 0.5rem;
+  padding: 0.65rem 0.75rem;
   background: rgba(var(--color-accent-rgb), 0.03);
   border: 1px solid rgba(var(--color-accent-rgb), 0.1);
   border-radius: 4px;
@@ -334,7 +334,7 @@ onUnmounted(() => {
 .trade-resource {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.5rem;
   width: 5rem;
   flex-shrink: 0;
 }
@@ -359,7 +359,7 @@ onUnmounted(() => {
 .trade-actions {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.5rem;
   flex: 1;
 }
 
@@ -386,7 +386,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.15rem;
+  gap: 0.25rem;
   padding: 0.45rem 0.4rem;
   border-radius: 3px;
 }
