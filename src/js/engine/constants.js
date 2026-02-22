@@ -150,13 +150,13 @@ export const HQ_BUILDING_UNLOCKS = {
     BUILDING_WOODCUTTER,
   ],
   [HQ_TYPE_SETTLEMENT]: [
-    BUILDING_ACADEMY,
+    BUILDING_STOREHOUSE,
     BUILDING_SHRINE,
     BUILDING_QUARRY,
     BUILDING_BARRACKS,
   ],
   [HQ_TYPE_VILLAGE]: [
-    BUILDING_STOREHOUSE,
+    BUILDING_ACADEMY,
     BUILDING_TEMPLE,
     BUILDING_COPPER_MINE,
     BUILDING_ARCHERY,
@@ -230,12 +230,12 @@ export const BUILDING_GRID = [
         img: IMG_BUILDING_HOUSE,
       },
       {
-        key: BUILDING_ACADEMY,
-        img: IMG_BUILDING_ACADEMY,
-      },
-      {
         key: BUILDING_STOREHOUSE,
         img: IMG_BUILDING_STOREHOUSE,
+      },
+      {
+        key: BUILDING_ACADEMY,
+        img: IMG_BUILDING_ACADEMY,
       },
       {
         key: BUILDING_MARKET,
@@ -621,7 +621,7 @@ export function createInitialMeta() {
  * @returns {Colony} Fully initialized colony
  */
 export function createInitialColony() {
-  return createInitialColonyAdvanced()
+  return createInitialColonyBasic()
 }
 
 /**
