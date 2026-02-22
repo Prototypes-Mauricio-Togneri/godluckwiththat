@@ -5,22 +5,34 @@
 class Storage {
   /** @returns {boolean} Whether music is enabled */
   get musicEnabled() {
-    return window.localStorage.getItem('musicEnabled') !== 'false'
+    try {
+      return window.localStorage.getItem('musicEnabled') !== 'false'
+    } catch {
+      return true
+    }
   }
 
   /** @param {boolean} value - Whether music should be enabled */
   set musicEnabled(value) {
-    window.localStorage.setItem('musicEnabled', value)
+    try {
+      window.localStorage.setItem('musicEnabled', value)
+    } catch { /* Safari Private Browsing may throw QuotaExceededError */ }
   }
 
   /** @returns {boolean} Whether sound effects are enabled */
   get soundEnabled() {
-    return window.localStorage.getItem('soundEnabled') !== 'false'
+    try {
+      return window.localStorage.getItem('soundEnabled') !== 'false'
+    } catch {
+      return true
+    }
   }
 
   /** @param {boolean} value - Whether sound effects should be enabled */
   set soundEnabled(value) {
-    window.localStorage.setItem('soundEnabled', value)
+    try {
+      window.localStorage.setItem('soundEnabled', value)
+    } catch { /* Safari Private Browsing may throw QuotaExceededError */ }
   }
 }
 
