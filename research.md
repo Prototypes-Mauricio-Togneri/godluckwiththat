@@ -7,10 +7,10 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
 - **5 categories** (tabs): General, Disasters, Resources, Religion, Military
 - **Subcategories** within each category form linear research chains
 - **Cost**: Knowledge + other resources (paid upfront when starting)
-- **Duration**: Fixed timer per research (not affected by workers)
+- **Duration**: Derived from cost via `cost.toSeconds()` (same as building upgrades)
 - **Parallelism**: Unlimited concurrent researches
 - **Prerequisites**: Linear within subcategory only (level N requires level N-1)
-- **Gating**: Each research requires a minimum Academy building level
+- **Gating**: Requires Academy to be built (level >= 1)
 - **Progress**: Active researches appear as future events with countdown
 - **Bonuses**: Multipliers computed on-the-fly during game tick
 
@@ -31,7 +31,7 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
 Build the entire data layer and a read-only tech tree modal showing locked/available/completed states.
 
 - Add enums: research categories, subcategories, individual keys, bonus types, event type
-- Add `RESEARCH_DEFINITIONS` in `balancing.js` (costs, durations, academy gates, bonuses)
+- Add `RESEARCH_DEFINITIONS` in `balancing.js` (costs, bonuses)
 - Add `RESEARCH_TREE` in `constants.js` (structural tree topology)
 - Create `Researches` model class (completed set, active map, bonus aggregation)
 - Add `researches` property to Colony
@@ -62,6 +62,6 @@ Modify `GameState.update()` to apply research multipliers.
 
 ### Phase 4: Polish
 
-- Balancing pass on all research values (costs, durations, academy gates, bonus percentages)
+- Balancing pass on all research values (costs, bonus percentages)
 - Visual polish on research nodes (icons, animations, progress indicators)
 - Documentation updates (CLAUDE.md, architecture.md, specs.md)

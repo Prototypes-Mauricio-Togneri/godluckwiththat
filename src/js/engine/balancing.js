@@ -274,7 +274,7 @@ export const SEASON_COLD_WOOD_MODIFIER = 0.2
 
 // ── Research ──────────────────────────────────────────────────────────
 // Research definitions keyed by RESEARCH_* enum.
-// cost: resources paid upfront | duration: seconds | academyLevel: min Academy level
+// cost: resources paid upfront (duration derived via cost.toSeconds())
 // bonus: { type: BONUS_* enum, value: fractional modifier (additive) }
 
 export const RESEARCH_DEFINITIONS = {
@@ -284,8 +284,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 50,
       wood: 30,
     }),
-    duration: 60,
-    academyLevel: 1,
     bonus: {
       type: BONUS_WORKER_PRODUCTIVITY,
       value: 0.05,
@@ -296,8 +294,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 150,
       wood: 80,
     }),
-    duration: 120,
-    academyLevel: 2,
     bonus: {
       type: BONUS_WORKER_PRODUCTIVITY,
       value: 0.05,
@@ -309,8 +305,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 200,
       stone: 100,
     }),
-    duration: 240,
-    academyLevel: 3,
     bonus: {
       type: BONUS_WORKER_PRODUCTIVITY,
       value: 0.05,
@@ -322,8 +316,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 400,
       iron: 50,
     }),
-    duration: 360,
-    academyLevel: 3,
     bonus: {
       type: BONUS_WORKER_PRODUCTIVITY,
       value: 0.05,
@@ -335,8 +327,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 400,
       iron: 150,
     }),
-    duration: 480,
-    academyLevel: 4,
     bonus: {
       type: BONUS_WORKER_PRODUCTIVITY,
       value: 0.05,
@@ -349,8 +339,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 60,
       wood: 40,
     }),
-    duration: 60,
-    academyLevel: 1,
     bonus: {
       type: BONUS_CONSTRUCTION_TIME,
       value: 0.10,
@@ -362,8 +350,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 100,
       stone: 50,
     }),
-    duration: 120,
-    academyLevel: 2,
     bonus: {
       type: BONUS_CONSTRUCTION_TIME,
       value: 0.10,
@@ -375,8 +361,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 250,
       stone: 120,
     }),
-    duration: 300,
-    academyLevel: 3,
     bonus: {
       type: BONUS_CONSTRUCTION_TIME,
       value: 0.10,
@@ -388,8 +372,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 300,
       iron: 80,
     }),
-    duration: 420,
-    academyLevel: 3,
     bonus: {
       type: BONUS_CONSTRUCTION_TIME,
       value: 0.10,
@@ -401,8 +383,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 500,
       iron: 200,
     }),
-    duration: 540,
-    academyLevel: 4,
     bonus: {
       type: BONUS_CONSTRUCTION_TIME,
       value: 0.10,
@@ -415,8 +395,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 80,
       wood: 60,
     }),
-    duration: 90,
-    academyLevel: 1,
     bonus: {
       type: BONUS_EXPANSION_COST,
       value: 0.10,
@@ -428,8 +406,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 120,
       stone: 60,
     }),
-    duration: 180,
-    academyLevel: 2,
     bonus: {
       type: BONUS_EXPANSION_COST,
       value: 0.10,
@@ -441,8 +417,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 300,
       stone: 150,
     }),
-    duration: 360,
-    academyLevel: 3,
     bonus: {
       type: BONUS_EXPANSION_COST,
       value: 0.10,
@@ -454,8 +428,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 500,
       copper: 100,
     }),
-    duration: 480,
-    academyLevel: 3,
     bonus: {
       type: BONUS_EXPANSION_COST,
       value: 0.10,
@@ -467,8 +439,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 400,
       gold: 80,
     }),
-    duration: 600,
-    academyLevel: 4,
     bonus: {
       type: BONUS_EXPANSION_COST,
       value: 0.10,
@@ -481,8 +451,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 100,
       gold: 20,
     }),
-    duration: 90,
-    academyLevel: 1,
     bonus: {
       type: BONUS_TRADE_FEES,
       value: 0.10,
@@ -493,8 +461,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 250,
       gold: 50,
     }),
-    duration: 180,
-    academyLevel: 2,
     bonus: {
       type: BONUS_TRADE_FEES,
       value: 0.10,
@@ -505,8 +471,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 600,
       gold: 100,
     }),
-    duration: 360,
-    academyLevel: 3,
     bonus: {
       type: BONUS_TRADE_FEES,
       value: 0.10,
@@ -518,8 +482,6 @@ export const RESEARCH_DEFINITIONS = {
       gold: 200,
       copper: 150,
     }),
-    duration: 480,
-    academyLevel: 3,
     bonus: {
       type: BONUS_TRADE_FEES,
       value: 0.10,
@@ -531,8 +493,6 @@ export const RESEARCH_DEFINITIONS = {
       gold: 400,
       iron: 100,
     }),
-    duration: 600,
-    academyLevel: 4,
     bonus: {
       type: BONUS_TRADE_FEES,
       value: 0.10,
@@ -545,8 +505,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 80,
       stone: 50,
     }),
-    duration: 90,
-    academyLevel: 1,
     bonus: {
       type: BONUS_FLOOD_IMPACT,
       value: 0.15,
@@ -557,8 +515,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 200,
       stone: 120,
     }),
-    duration: 180,
-    academyLevel: 2,
     bonus: {
       type: BONUS_FLOOD_IMPACT,
       value: 0.15,
@@ -570,8 +526,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 250,
       iron: 50,
     }),
-    duration: 360,
-    academyLevel: 3,
     bonus: {
       type: BONUS_FLOOD_IMPACT,
       value: 0.15,
@@ -583,8 +537,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 400,
       iron: 120,
     }),
-    duration: 480,
-    academyLevel: 3,
     bonus: {
       type: BONUS_FLOOD_IMPACT,
       value: 0.15,
@@ -596,8 +548,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 600,
       iron: 250,
     }),
-    duration: 600,
-    academyLevel: 4,
     bonus: {
       type: BONUS_FLOOD_IMPACT,
       value: 0.15,
@@ -610,8 +560,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 80,
       food: 60,
     }),
-    duration: 90,
-    academyLevel: 1,
     bonus: {
       type: BONUS_DISEASE_IMPACT,
       value: 0.15,
@@ -622,8 +570,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 200,
       food: 150,
     }),
-    duration: 180,
-    academyLevel: 2,
     bonus: {
       type: BONUS_DISEASE_IMPACT,
       value: 0.15,
@@ -635,8 +581,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 300,
       copper: 50,
     }),
-    duration: 360,
-    academyLevel: 3,
     bonus: {
       type: BONUS_DISEASE_IMPACT,
       value: 0.15,
@@ -648,8 +592,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 500,
       stone: 150,
     }),
-    duration: 480,
-    academyLevel: 3,
     bonus: {
       type: BONUS_DISEASE_IMPACT,
       value: 0.15,
@@ -661,8 +603,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 400,
       iron: 100,
     }),
-    duration: 600,
-    academyLevel: 4,
     bonus: {
       type: BONUS_DISEASE_IMPACT,
       value: 0.15,
@@ -675,8 +615,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 80,
       stone: 60,
     }),
-    duration: 90,
-    academyLevel: 1,
     bonus: {
       type: BONUS_EARTHQUAKE_IMPACT,
       value: 0.15,
@@ -688,8 +626,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 150,
       wood: 80,
     }),
-    duration: 180,
-    academyLevel: 2,
     bonus: {
       type: BONUS_EARTHQUAKE_IMPACT,
       value: 0.15,
@@ -701,8 +637,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 300,
       iron: 50,
     }),
-    duration: 360,
-    academyLevel: 3,
     bonus: {
       type: BONUS_EARTHQUAKE_IMPACT,
       value: 0.15,
@@ -714,8 +648,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 500,
       iron: 120,
     }),
-    duration: 480,
-    academyLevel: 3,
     bonus: {
       type: BONUS_EARTHQUAKE_IMPACT,
       value: 0.15,
@@ -727,8 +659,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 700,
       iron: 250,
     }),
-    duration: 600,
-    academyLevel: 4,
     bonus: {
       type: BONUS_EARTHQUAKE_IMPACT,
       value: 0.15,
@@ -741,8 +671,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 50,
       food: 40,
     }),
-    duration: 60,
-    academyLevel: 1,
     bonus: {
       type: BONUS_FOOD_PRODUCTION,
       value: 0.10,
@@ -753,8 +681,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 150,
       food: 100,
     }),
-    duration: 120,
-    academyLevel: 2,
     bonus: {
       type: BONUS_FOOD_PRODUCTION,
       value: 0.10,
@@ -766,8 +692,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 250,
       wood: 80,
     }),
-    duration: 240,
-    academyLevel: 3,
     bonus: {
       type: BONUS_FOOD_PRODUCTION,
       value: 0.10,
@@ -779,8 +703,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 500,
       copper: 100,
     }),
-    duration: 360,
-    academyLevel: 3,
     bonus: {
       type: BONUS_FOOD_PRODUCTION,
       value: 0.10,
@@ -792,8 +714,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 800,
       iron: 100,
     }),
-    duration: 480,
-    academyLevel: 4,
     bonus: {
       type: BONUS_FOOD_PRODUCTION,
       value: 0.10,
@@ -806,8 +726,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 60,
       food: 50,
     }),
-    duration: 90,
-    academyLevel: 1,
     bonus: {
       type: BONUS_FOOD_CONSUMPTION,
       value: 0.05,
@@ -818,8 +736,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 180,
       food: 120,
     }),
-    duration: 180,
-    academyLevel: 2,
     bonus: {
       type: BONUS_FOOD_CONSUMPTION,
       value: 0.05,
@@ -831,8 +747,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 300,
       wood: 100,
     }),
-    duration: 300,
-    academyLevel: 3,
     bonus: {
       type: BONUS_FOOD_CONSUMPTION,
       value: 0.05,
@@ -844,8 +758,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 500,
       wood: 200,
     }),
-    duration: 420,
-    academyLevel: 3,
     bonus: {
       type: BONUS_FOOD_CONSUMPTION,
       value: 0.05,
@@ -857,8 +769,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 800,
       stone: 150,
     }),
-    duration: 540,
-    academyLevel: 4,
     bonus: {
       type: BONUS_FOOD_CONSUMPTION,
       value: 0.05,
@@ -871,8 +781,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 50,
       wood: 40,
     }),
-    duration: 60,
-    academyLevel: 1,
     bonus: {
       type: BONUS_WOOD_PRODUCTION,
       value: 0.10,
@@ -883,8 +791,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 150,
       wood: 100,
     }),
-    duration: 120,
-    academyLevel: 2,
     bonus: {
       type: BONUS_WOOD_PRODUCTION,
       value: 0.10,
@@ -896,8 +802,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 250,
       stone: 80,
     }),
-    duration: 240,
-    academyLevel: 3,
     bonus: {
       type: BONUS_WOOD_PRODUCTION,
       value: 0.10,
@@ -909,8 +813,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 500,
       iron: 100,
     }),
-    duration: 360,
-    academyLevel: 3,
     bonus: {
       type: BONUS_WOOD_PRODUCTION,
       value: 0.10,
@@ -922,8 +824,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 800,
       iron: 200,
     }),
-    duration: 480,
-    academyLevel: 4,
     bonus: {
       type: BONUS_WOOD_PRODUCTION,
       value: 0.10,
@@ -936,8 +836,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 60,
       wood: 50,
     }),
-    duration: 90,
-    academyLevel: 1,
     bonus: {
       type: BONUS_WOOD_CONSUMPTION,
       value: 0.05,
@@ -948,8 +846,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 180,
       wood: 120,
     }),
-    duration: 180,
-    academyLevel: 2,
     bonus: {
       type: BONUS_WOOD_CONSUMPTION,
       value: 0.05,
@@ -961,8 +857,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 300,
       stone: 100,
     }),
-    duration: 300,
-    academyLevel: 3,
     bonus: {
       type: BONUS_WOOD_CONSUMPTION,
       value: 0.05,
@@ -974,8 +868,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 500,
       copper: 100,
     }),
-    duration: 420,
-    academyLevel: 3,
     bonus: {
       type: BONUS_WOOD_CONSUMPTION,
       value: 0.05,
@@ -987,8 +879,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 800,
       iron: 150,
     }),
-    duration: 540,
-    academyLevel: 4,
     bonus: {
       type: BONUS_WOOD_CONSUMPTION,
       value: 0.05,
@@ -1001,8 +891,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 60,
       stone: 40,
     }),
-    duration: 90,
-    academyLevel: 1,
     bonus: {
       type: BONUS_MINING_PRODUCTION,
       value: 0.10,
@@ -1014,8 +902,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 100,
       copper: 30,
     }),
-    duration: 180,
-    academyLevel: 2,
     bonus: {
       type: BONUS_MINING_PRODUCTION,
       value: 0.10,
@@ -1027,8 +913,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 250,
       iron: 50,
     }),
-    duration: 300,
-    academyLevel: 3,
     bonus: {
       type: BONUS_MINING_PRODUCTION,
       value: 0.10,
@@ -1040,8 +924,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 500,
       gold: 50,
     }),
-    duration: 360,
-    academyLevel: 3,
     bonus: {
       type: BONUS_MINING_PRODUCTION,
       value: 0.10,
@@ -1053,8 +935,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 700,
       gold: 120,
     }),
-    duration: 480,
-    academyLevel: 4,
     bonus: {
       type: BONUS_MINING_PRODUCTION,
       value: 0.10,
@@ -1067,8 +947,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 80,
       wood: 50,
     }),
-    duration: 90,
-    academyLevel: 1,
     bonus: {
       type: BONUS_KNOWLEDGE_PRODUCTION,
       value: 0.10,
@@ -1080,8 +958,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 120,
       stone: 60,
     }),
-    duration: 180,
-    academyLevel: 2,
     bonus: {
       type: BONUS_KNOWLEDGE_PRODUCTION,
       value: 0.10,
@@ -1093,8 +969,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 250,
       copper: 80,
     }),
-    duration: 300,
-    academyLevel: 3,
     bonus: {
       type: BONUS_KNOWLEDGE_PRODUCTION,
       value: 0.10,
@@ -1106,8 +980,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 400,
       iron: 80,
     }),
-    duration: 420,
-    academyLevel: 3,
     bonus: {
       type: BONUS_KNOWLEDGE_PRODUCTION,
       value: 0.10,
@@ -1119,8 +991,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 600,
       gold: 100,
     }),
-    duration: 540,
-    academyLevel: 4,
     bonus: {
       type: BONUS_KNOWLEDGE_PRODUCTION,
       value: 0.10,
@@ -1134,8 +1004,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 50,
       stone: 30,
     }),
-    duration: 90,
-    academyLevel: 1,
     bonus: {
       type: BONUS_STORAGE_CAPACITY,
       value: 0.15,
@@ -1147,8 +1015,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 120,
       stone: 80,
     }),
-    duration: 180,
-    academyLevel: 2,
     bonus: {
       type: BONUS_STORAGE_CAPACITY,
       value: 0.15,
@@ -1160,8 +1026,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 300,
       stone: 150,
     }),
-    duration: 300,
-    academyLevel: 3,
     bonus: {
       type: BONUS_STORAGE_CAPACITY,
       value: 0.15,
@@ -1173,8 +1037,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 500,
       stone: 300,
     }),
-    duration: 420,
-    academyLevel: 3,
     bonus: {
       type: BONUS_STORAGE_CAPACITY,
       value: 0.15,
@@ -1186,8 +1048,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 600,
       iron: 150,
     }),
-    duration: 540,
-    academyLevel: 4,
     bonus: {
       type: BONUS_STORAGE_CAPACITY,
       value: 0.15,
@@ -1200,8 +1060,6 @@ export const RESEARCH_DEFINITIONS = {
       knowledge: 60,
       wood: 40,
     }),
-    duration: 90,
-    academyLevel: 1,
     bonus: {
       type: BONUS_FAITH_PRODUCTION,
       value: 0.10,
@@ -1213,8 +1071,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 100,
       stone: 50,
     }),
-    duration: 180,
-    academyLevel: 2,
     bonus: {
       type: BONUS_FAITH_PRODUCTION,
       value: 0.10,
@@ -1226,8 +1082,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 250,
       stone: 120,
     }),
-    duration: 300,
-    academyLevel: 3,
     bonus: {
       type: BONUS_FAITH_PRODUCTION,
       value: 0.10,
@@ -1239,8 +1093,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 300,
       gold: 60,
     }),
-    duration: 420,
-    academyLevel: 3,
     bonus: {
       type: BONUS_FAITH_PRODUCTION,
       value: 0.10,
@@ -1252,8 +1104,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 500,
       gold: 150,
     }),
-    duration: 540,
-    academyLevel: 4,
     bonus: {
       type: BONUS_FAITH_PRODUCTION,
       value: 0.10,

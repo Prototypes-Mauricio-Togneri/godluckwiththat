@@ -425,11 +425,12 @@ class GameState {
     if (researches.isActive(key) || researches.isCompleted(key)) return
     const def = RESEARCH_DEFINITIONS[key]
     if (!def) return
-    if (buildings.academy.level < def.academyLevel) return
+    if (buildings.academy.level < 1) return
     if (!resources.canAfford(def.cost)) return
 
+    const duration = def.cost.toSeconds()
     resources.deduct(def.cost)
-    researches.start(key, def.duration)
+    researches.start(key, duration)
 
     this.events.addFuture({
       type: EVENT_TYPE_RESEARCH_COMPLETE,
@@ -437,7 +438,7 @@ class GameState {
       icon: IMG_RESOURCE_KNOWLEDGE,
       params: [t('research.' + key).toLowerCase()],
       researchKey: key,
-      remainingSeconds: def.duration,
+      remainingSeconds: duration,
     })
 
     this.update(0)

@@ -23,7 +23,6 @@ function nodeStatus(key, researches, index) {
   if (colony.researches.isCompleted(key)) return 'completed'
   if (colony.researches.isActive(key)) return 'active'
   if (index > 0 && !colony.researches.isCompleted(researches[index - 1])) return 'locked'
-  if (colony.buildings.academy.level < RESEARCH_DEFINITIONS[key].academyLevel) return 'locked'
   return 'available'
 }
 

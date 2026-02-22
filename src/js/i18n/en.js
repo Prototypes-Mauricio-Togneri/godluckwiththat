@@ -157,9 +157,7 @@ export const LOCALIZED_EN = {
   'research.available': 'Available',
   'research.inProgress': 'In progress',
   'research.completed': 'Completed',
-  'research.academyRequired': 'Requires Academy level {0}',
   'research.prerequisiteRequired': 'Requires previous research',
-  'research.duration': 'Duration',
 
   // Research categories
   'research.category.general': 'General',
