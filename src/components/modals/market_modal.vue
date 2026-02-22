@@ -5,6 +5,7 @@ import {formatNumber} from '@/js/engine/format.js'
 import {TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
 import {MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
 import {IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
+import {RESOURCE_GOLD} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits(['close'])
@@ -89,6 +90,26 @@ onUnmounted(() => {
     <div class="market-modal">
       <button class="modal-close-x" @click="playTap(); emit('close')">&#10005;</button>
       <h2 class="modal-title">{{ t('market.title') }}</h2>
+
+      <!-- Resource summary -->
+      <div class="market-resources">
+        <div
+          v-for="resource in TRADEABLE_RESOURCES"
+          :key="resource"
+          class="resource-box"
+        >
+          <div class="resource-row-top">
+            <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
+            <span class="resource-value">{{ formatNumber(colony.resources[resource]) }}</span>
+          </div>
+        </div>
+        <div class="resource-box resource-box--gold">
+          <div class="resource-row-top">
+            <img class="resource-icon" :src="IMG_RESOURCE_MAP[RESOURCE_GOLD]" :alt="t('resource.' + RESOURCE_GOLD)">
+            <span class="resource-value resource-value--gold">{{ formatNumber(colony.resources[RESOURCE_GOLD]) }}</span>
+          </div>
+        </div>
+      </div>
 
       <!-- Fee indicator -->
       <div class="market-fee">
@@ -209,6 +230,20 @@ onUnmounted(() => {
   text-transform: uppercase;
   align-self: center;
   margin-bottom: 0.5rem;
+}
+
+/* ── Resource summary ────────────────────────────────────── */
+
+.market-resources {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.resource-box--gold {
+  border-left: 1px solid rgba(var(--color-accent-rgb), 0.25);
 }
 
 /* ── Fee indicator ───────────────────────────────────────── */

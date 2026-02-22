@@ -381,6 +381,38 @@
     align-items: center;
 }
 
+/* Resource icon — shared icon inside resource boxes */
+.resource-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    object-fit: contain;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
+}
+
+/* Resource value — numeric amount with stable width */
+.resource-value {
+    font-family: var(--font-numeric);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+    min-width: 6ch;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.resource-value--alert {
+    color: #c0392b;
+}
+
+.resource-value--zero {
+    color: #c45050;
+}
+
+.resource-value--gold {
+    color: rgba(var(--color-accent-rgb), 0.85);
+}
+
 /* Progress bar track — full-width strip in row 2 */
 .resource-bar {
     flex: 1;

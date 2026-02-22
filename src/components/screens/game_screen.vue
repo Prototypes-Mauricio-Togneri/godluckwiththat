@@ -274,7 +274,7 @@ onUnmounted(() => {
             <!-- Row 1: icon + current amount -->
             <div class="resource-row-top">
               <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
-              <span class="header-value" :class="{ 'header-value--alert': isBounded(resource) && Math.floor(state.colony.resources[resource]) >= state.colony.stockpile[resource], 'header-value--zero': Math.floor(state.colony.resources[resource]) === 0 }">
+              <span class="resource-value" :class="{ 'resource-value--alert': isBounded(resource) && Math.floor(state.colony.resources[resource]) >= state.colony.stockpile[resource], 'resource-value--zero': Math.floor(state.colony.resources[resource]) === 0 }">
                 {{ formatNumber(state.colony.resources[resource]) }}
               </span>
             </div>
@@ -315,15 +315,15 @@ onUnmounted(() => {
       <div class="header-section header-colony">
         <div class="header-resource tooltip" :data-tooltip="t('resource.population')">
           <img class="resource-icon resource-icon--worker" :src="IMG_UNIT_WORKER" :alt="t('resource.population')">
-          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.workers) >= state.colony.stockpile.workers, 'header-value--zero': state.colony.resources.workers === 0 }">{{ formatNumber(state.colony.resources.workers) }}/{{ formatNumber(state.colony.stockpile.workers) }}</span>
+          <span class="resource-value" :class="{ 'resource-value--alert': Math.floor(state.colony.resources.workers) >= state.colony.stockpile.workers, 'resource-value--zero': state.colony.resources.workers === 0 }">{{ formatNumber(state.colony.resources.workers) }}/{{ formatNumber(state.colony.stockpile.workers) }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.idleWorkers')">
           <img class="resource-icon" :src="IMG_OTHER_IDLE" :alt="t('resource.idleWorkers')">
-          <span class="header-value" :class="{ 'header-value--alert': state.colony.idleWorkers > 0 }">{{ state.colony.idleWorkers }}</span>
+          <span class="resource-value" :class="{ 'resource-value--alert': state.colony.idleWorkers > 0 }">{{ state.colony.idleWorkers }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.territory')">
           <img class="resource-icon resource-icon--territory" :src="IMG_OTHER_TERRITORY" :alt="t('resource.territory')">
-          <span class="header-value" :class="{ 'header-value--alert': Math.floor(state.colony.resources.territory) >= state.colony.stockpile.territory }">{{ formatNumber(state.colony.resources.territory) }}/{{ formatNumber(state.colony.stockpile.territory) }}</span>
+          <span class="resource-value" :class="{ 'resource-value--alert': Math.floor(state.colony.resources.territory) >= state.colony.stockpile.territory }">{{ formatNumber(state.colony.resources.territory) }}/{{ formatNumber(state.colony.stockpile.territory) }}</span>
         </div>
       </div>
 
@@ -509,13 +509,6 @@ onUnmounted(() => {
   gap: 0.35rem;
 }
 
-.resource-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  object-fit: contain;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
-}
-
 .resource-icon--worker {
   width: 1.4rem;
   height: 1.4rem;
@@ -555,27 +548,6 @@ onUnmounted(() => {
 .season-track--cold .season-fill {
   background: linear-gradient(90deg, #5b8fb9, #7ec8e3);
   box-shadow: 0 0 6px rgba(126, 200, 227, 0.35);
-}
-
-/* ---- Values ---- */
-
-.header-value {
-  font-family: var(--font-numeric);
-  font-size: 0.8rem;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: var(--color-text);
-  min-width: 6ch;
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-.header-value--alert {
-  color: #c0392b;
-}
-
-.header-value--zero {
-  color: #c45050;
 }
 
 /* ---- Decorative dividers between sections ---- */
