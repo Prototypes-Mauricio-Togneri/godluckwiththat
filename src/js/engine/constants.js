@@ -411,16 +411,6 @@ export const RESEARCH_TREE = [
         ],
       },
       {
-        key: RESEARCH_SUBCATEGORY_TRADING,
-        researches: [
-          RESEARCH_TRADING_1,
-          RESEARCH_TRADING_2,
-          RESEARCH_TRADING_3,
-          RESEARCH_TRADING_4,
-          RESEARCH_TRADING_5,
-        ],
-      },
-      {
         key: RESEARCH_SUBCATEGORY_STORAGE,
         researches: [
           RESEARCH_STORAGE_1,
@@ -430,39 +420,14 @@ export const RESEARCH_TREE = [
           RESEARCH_STORAGE_5,
         ],
       },
-    ],
-  },
-  {
-    category: RESEARCH_CATEGORY_DISASTERS,
-    subcategories: [
       {
-        key: RESEARCH_SUBCATEGORY_FLOODS,
+        key: RESEARCH_SUBCATEGORY_TRADING,
         researches: [
-          RESEARCH_FLOODS_1,
-          RESEARCH_FLOODS_2,
-          RESEARCH_FLOODS_3,
-          RESEARCH_FLOODS_4,
-          RESEARCH_FLOODS_5,
-        ],
-      },
-      {
-        key: RESEARCH_SUBCATEGORY_HEALTH,
-        researches: [
-          RESEARCH_HEALTH_1,
-          RESEARCH_HEALTH_2,
-          RESEARCH_HEALTH_3,
-          RESEARCH_HEALTH_4,
-          RESEARCH_HEALTH_5,
-        ],
-      },
-      {
-        key: RESEARCH_SUBCATEGORY_EARTHQUAKES,
-        researches: [
-          RESEARCH_EARTHQUAKES_1,
-          RESEARCH_EARTHQUAKES_2,
-          RESEARCH_EARTHQUAKES_3,
-          RESEARCH_EARTHQUAKES_4,
-          RESEARCH_EARTHQUAKES_5,
+          RESEARCH_TRADING_1,
+          RESEARCH_TRADING_2,
+          RESEARCH_TRADING_3,
+          RESEARCH_TRADING_4,
+          RESEARCH_TRADING_5,
         ],
       },
     ],
@@ -528,6 +493,41 @@ export const RESEARCH_TREE = [
           RESEARCH_KNOWLEDGE_PRODUCTION_3,
           RESEARCH_KNOWLEDGE_PRODUCTION_4,
           RESEARCH_KNOWLEDGE_PRODUCTION_5,
+        ],
+      },
+    ],
+  },
+  {
+    category: RESEARCH_CATEGORY_DISASTERS,
+    subcategories: [
+      {
+        key: RESEARCH_SUBCATEGORY_FLOODS,
+        researches: [
+          RESEARCH_FLOODS_1,
+          RESEARCH_FLOODS_2,
+          RESEARCH_FLOODS_3,
+          RESEARCH_FLOODS_4,
+          RESEARCH_FLOODS_5,
+        ],
+      },
+      {
+        key: RESEARCH_SUBCATEGORY_HEALTH,
+        researches: [
+          RESEARCH_HEALTH_1,
+          RESEARCH_HEALTH_2,
+          RESEARCH_HEALTH_3,
+          RESEARCH_HEALTH_4,
+          RESEARCH_HEALTH_5,
+        ],
+      },
+      {
+        key: RESEARCH_SUBCATEGORY_EARTHQUAKES,
+        researches: [
+          RESEARCH_EARTHQUAKES_1,
+          RESEARCH_EARTHQUAKES_2,
+          RESEARCH_EARTHQUAKES_3,
+          RESEARCH_EARTHQUAKES_4,
+          RESEARCH_EARTHQUAKES_5,
         ],
       },
     ],
