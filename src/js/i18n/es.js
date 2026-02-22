@@ -154,6 +154,10 @@ export const LOCALIZED_ES = {
   'market.buy': 'Comprar',
   'market.sell': 'Vender',
   'market.fee': 'Tarifa',
+  'market.notEnoughGold': 'Oro insuficiente',
+  'market.notEnoughResource': 'Recursos insuficientes',
+  'market.stockpileFull': 'Almacén lleno',
+  'market.goldStockpileFull': 'Almacén de oro lleno',
 
   // Research modal
   'research.title': 'Investigación',

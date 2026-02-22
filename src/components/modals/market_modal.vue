@@ -34,6 +34,18 @@ function canSell(resource) {
     && colony.resources.gold + sellPrice(resource) <= colony.stockpile.gold
 }
 
+function buyDisabledReason(resource) {
+  if (colony.resources.gold < buyPrice(resource)) return t('market.notEnoughGold')
+  if (colony.resources[resource] + MARKET_TRADE_AMOUNT > colony.stockpile[resource]) return t('market.stockpileFull')
+  return ''
+}
+
+function sellDisabledReason(resource) {
+  if (colony.resources[resource] < MARKET_TRADE_AMOUNT) return t('market.notEnoughResource')
+  if (colony.resources.gold + sellPrice(resource) > colony.stockpile.gold) return t('market.goldStockpileFull')
+  return ''
+}
+
 function buy(resource) {
   playTap()
   if (!canBuy(resource)) return
@@ -107,8 +119,9 @@ onUnmounted(() => {
           <div class="trade-actions">
             <!-- Sell -->
             <button
-              class="btn-gold trade-btn"
+              class="btn-gold trade-btn tooltip"
               :disabled="!canSell(resource)"
+              :data-tooltip="sellDisabledReason(resource)"
               @click="sell(resource)"
             >
               <img class="trade-btn-icon" :src="IMG_RESOURCE_MAP.gold" alt="">
@@ -120,8 +133,9 @@ onUnmounted(() => {
 
             <!-- Buy -->
             <button
-              class="btn-gold trade-btn"
+              class="btn-gold trade-btn tooltip"
               :disabled="!canBuy(resource)"
+              :data-tooltip="buyDisabledReason(resource)"
               @click="buy(resource)"
             >
               <img class="trade-btn-icon" :src="IMG_RESOURCE_MAP.gold" alt="">
@@ -314,6 +328,15 @@ onUnmounted(() => {
 .trade-btn {
   flex: 1;
   min-width: 3.5rem;
+}
+
+.trade-btn::after {
+  transition: none;
+  opacity: 0;
+}
+
+.trade-btn:hover::after {
+  opacity: 1;
 }
 
 .trade-btn {

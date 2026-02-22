@@ -154,6 +154,10 @@ export const LOCALIZED_EN = {
   'market.buy': 'Buy',
   'market.sell': 'Sell',
   'market.fee': 'Fee',
+  'market.notEnoughGold': 'Not enough gold',
+  'market.notEnoughResource': 'Not enough resources',
+  'market.stockpileFull': 'Stockpile full',
+  'market.goldStockpileFull': 'Gold stockpile full',
 
   // Research modal
   'research.title': 'Research',
