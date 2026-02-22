@@ -36,6 +36,12 @@ The colony is where the game takes place. It is where you will build your buildi
     - Village → unlocks: Storehouse, Temple, Copper Mine, Archery
     - Town → unlocks: Monument, Iron Mine, Stable, Wall
     - City → unlocks: Market, Gold Mine, Workshop, Tower
+  - Each colony upgrade also unlocks resources visible in the header bar:
+    - Camp: Food, Wood, Faith
+    - Settlement: Stone, Knowledge
+    - Village: Copper
+    - Town: Iron
+    - City: Gold
 
 - The colony can be improved by spending resources on
   - Buildings
@@ -241,6 +247,41 @@ Each building has a level that can be increased by spending resources. Building 
 - Tower
   - The higher the level, the more attack it provides to the colony
   - Workers cannot be assigned to this building
+
+## Research
+
+The research system allows the player to unlock permanent bonuses by spending knowledge and other resources at the Academy. Research is accessed via the Research modal in the game UI.
+
+- Research is organized into 5 categories: General, Disasters, Resources, Religion, Military
+  - General (4 subcategories × 5 tiers = 20 researches): Transportation, Construction, Expansion, Trading
+  - Disasters (3 subcategories × 5 tiers = 15 researches): Floods, Health, Earthquakes
+  - Resources (7 subcategories × 5 tiers = 35 researches): Food Production, Food Consumption, Wood Production, Wood Consumption, Mining, Knowledge Production, Storage
+  - Religion (1 subcategory × 5 tiers = 5 researches): Faith
+  - Military: placeholder category — no researches yet
+- Within a subcategory, researches form a linear chain of 5 tiers. Tier N requires tier N-1 to be completed first
+- Each research has: a resource cost (knowledge plus other resources), a duration in seconds, a minimum Academy level required, and a bonus (type and percentage value)
+- Only one research can be active at a time per subcategory
+- Completed bonuses accumulate additively across all completed researches
+
+### Bonuses by subcategory
+
+| Category | Subcategory | Bonus per tier |
+|---|---|---|
+| General | Transportation | +5% worker productivity |
+| General | Construction | -10% construction time |
+| General | Expansion | -10% expansion cost |
+| General | Trading | -10% trade fees |
+| Disasters | Floods | -15% flood impact |
+| Disasters | Health | -15% disease impact |
+| Disasters | Earthquakes | -15% earthquake impact |
+| Resources | Food Production | +10% food production |
+| Resources | Food Consumption | -5% food consumption |
+| Resources | Wood Production | +10% wood production |
+| Resources | Wood Consumption | -5% wood consumption |
+| Resources | Mining | +10% stone/copper/iron/gold production |
+| Resources | Knowledge Production | +10% knowledge production |
+| Resources | Storage | +15% storage capacity |
+| Religion | Faith | +10% faith production |
 
 ## Events
 
