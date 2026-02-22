@@ -1,15 +1,3 @@
-### `src/components/screens/home_screen.vue` (line 33)
-
-`height: 100vh` doesn't account for mobile browser chrome. Start button may be hidden behind iOS Safari/Android Chrome toolbar.
-
-**Fix:** Use `height: 100vh; height: 100dvh;` (dvh supported in Safari 15.4+, Chrome 108+, Firefox 108+).
-
-### `src/components/screens/game_screen.vue` (lines 411-412)
-
-Same `100vh` issue on `.game-screen` and `--thumb-h` calculation. Game layout extends behind browser chrome on mobile.
-
-**Fix:** Use `height: 100dvh` with `100vh` fallback. Update `--thumb-h` accordingly.
-
 ## Medium
 
 ### `src/js/engine/audio.js` (lines 62-71, 95-98)
