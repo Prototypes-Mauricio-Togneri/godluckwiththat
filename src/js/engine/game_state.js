@@ -270,6 +270,7 @@ class GameState {
     building.constructionRemaining = duration
 
     const isNewBuilding = building.isUnbuilt
+    this.events.dismissPastByType(EVENT_TYPE_BUILDING_UPGRADE)
     this.events.addFuture({
       type: EVENT_TYPE_BUILDING_UPGRADE,
       textKey: isNewBuilding ? 'event.buildingBuilding' : 'event.buildingUpgrading',
@@ -309,6 +310,7 @@ class GameState {
     hq.constructionDuration = duration
     hq.constructionRemaining = duration
 
+    this.events.dismissPastByType(EVENT_TYPE_BUILDING_UPGRADE)
     this.events.addFuture({
       type: EVENT_TYPE_BUILDING_UPGRADE,
       textKey: 'event.territoryExpanding',
