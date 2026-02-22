@@ -278,6 +278,7 @@ onUnmounted(() => {
             <!-- Rich tooltip -->
             <div class="resource-tooltip">
               <span>{{ t('resource.' + resource) }}</span>
+              <!-- Intentional: toLocaleString() instead of formatNumber() to display all digits -->
               <span class="resource-tooltip-time">{{ t('resource.amount') }}: {{ Math.floor(state.colony.resources[resource]).toLocaleString() }}</span>
               <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(state.colony.stockpile[resource]) }}</span>
               <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
