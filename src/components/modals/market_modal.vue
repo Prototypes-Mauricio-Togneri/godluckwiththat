@@ -242,6 +242,14 @@ onUnmounted(() => {
   margin-bottom: 0.75rem;
 }
 
+.market-resources .resource-box {
+  flex: 1;
+}
+
+.market-resources .resource-value {
+  flex: 1;
+}
+
 /* ── Fee indicator ───────────────────────────────────────── */
 
 .market-fee {
