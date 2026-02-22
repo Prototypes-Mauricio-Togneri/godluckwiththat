@@ -4,6 +4,7 @@ import BuildingHelpModal from '@/components/modals/building_help_modal.vue'
 import WorkerAssignmentRow from '@/components/buildings/worker_assignment_row.vue'
 import {IMG_OTHER_BUILD, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
+import {formatTime} from '@/js/engine/format.js'
 import {BUILDING_CLASS_MAP} from '@/js/engine/constants.js'
 import Producer from '@/js/models/buildings/producer.js'
 import {t} from '@/js/i18n/localized.js'
@@ -72,13 +73,6 @@ const constructionProgress = computed(() => {
   if (!isConstructing.value || props.building.constructionDuration === 0) return 0
   return 1 - props.building.constructionRemaining / props.building.constructionDuration
 })
-
-function formatTime(seconds) {
-  const total = Math.ceil(seconds)
-  const m = Math.floor(total / 60)
-  const s = total % 60
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
-}
 
 function act() {
   if (!canAct.value) return

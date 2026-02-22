@@ -26,6 +26,7 @@ import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import {playTap} from '@/js/engine/audio.js'
+import {formatTime} from '@/js/engine/format.js'
 import GameState from '@/js/engine/game_state.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
@@ -102,17 +103,6 @@ function resourceFillPercent(resource) {
   const capacity = state.colony.stockpile[resource]
   if (!capacity) return 0
   return Math.min(100, (current / capacity) * 100)
-}
-
-function formatTime(totalSeconds) {
-  const seconds = Math.floor(totalSeconds)
-  if (seconds < 0) return null
-  const hours = Math.floor(seconds / 3600)
-  const minutes = Math.floor((seconds % 3600) / 60)
-  const secs = seconds % 60
-  const pad = n => String(n).padStart(2, '0')
-  if (hours > 0) return `${pad(hours)}:${pad(minutes)}:${pad(secs)}`
-  return `${pad(minutes)}:${pad(secs)}`
 }
 
 function timeEstimate(resource) {

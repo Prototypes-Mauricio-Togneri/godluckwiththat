@@ -3,6 +3,7 @@ import {computed, inject} from 'vue'
 import BaseCard from '@/components/buildings/base_card.vue'
 import {IMG_OTHER_TERRITORY, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
+import {formatTime} from '@/js/engine/format.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
@@ -38,13 +39,6 @@ const upgradeProgress = computed(() => {
   return 1 - hq.value.upgradeRemaining / hq.value.upgradeDuration
 })
 const isBusy = computed(() => isLevelingUp.value || isUpgrading.value)
-
-function formatTime(seconds) {
-  const total = Math.ceil(seconds)
-  const m = Math.floor(total / 60)
-  const s = total % 60
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
-}
 
 // Level up
 const levelUpCost = computed(() => hq.value.levelUpCost())

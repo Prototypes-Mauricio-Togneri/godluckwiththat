@@ -1,6 +1,7 @@
 <script setup>
 import {ref, inject, computed, onMounted, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
+import {formatTime} from '@/js/engine/format.js'
 import {RESEARCH_TREE} from '@/js/engine/constants.js'
 import {RESEARCH_DEFINITIONS} from '@/js/engine/balancing.js'
 import {IMG_OTHER_COMPLETED, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
@@ -34,14 +35,6 @@ function handleNodeClick(key, status) {
   if (status !== 'available' || !canAfford(key)) return
   playTap()
   gameState.startResearch(key)
-}
-
-function formatTime(seconds) {
-  const h = Math.floor(seconds / 3600)
-  const m = Math.floor((seconds % 3600) / 60)
-  const s = Math.floor(seconds % 60)
-  if (h > 0) return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0')
-  return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0')
 }
 
 function handleKeydown(event) {
