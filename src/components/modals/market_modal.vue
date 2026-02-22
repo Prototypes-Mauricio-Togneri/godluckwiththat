@@ -261,29 +261,9 @@ onUnmounted(() => {
 /* ── Scrollable area ─────────────────────────────────────── */
 
 .market-scroll {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  padding-right: 0.5rem;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(var(--color-accent-rgb), 0.2) transparent;
-}
-
-.market-scroll::-webkit-scrollbar {
-  width: 4px;
-}
-
-.market-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.market-scroll::-webkit-scrollbar-thumb {
-  background: rgba(var(--color-accent-rgb), 0.2);
-  border-radius: 2px;
 }
 
 /* ── Column headers ──────────────────────────────────────── */
