@@ -445,6 +445,63 @@ export const RESEARCH_DEFINITIONS = {
     },
   },
 
+  // ── General — Storage (+% warehouse capacity) ──
+  [RESEARCH_STORAGE_1]: {
+    cost: new Cost({
+      knowledge: 60,
+      wood: 50,
+      stone: 30,
+    }),
+    bonus: {
+      type: BONUS_STORAGE_CAPACITY,
+      value: 0.15,
+    },
+  },
+  [RESEARCH_STORAGE_2]: {
+    cost: new Cost({
+      knowledge: 180,
+      wood: 120,
+      stone: 80,
+    }),
+    bonus: {
+      type: BONUS_STORAGE_CAPACITY,
+      value: 0.15,
+    },
+  },
+  [RESEARCH_STORAGE_3]: {
+    cost: new Cost({
+      knowledge: 450,
+      wood: 300,
+      stone: 150,
+    }),
+    bonus: {
+      type: BONUS_STORAGE_CAPACITY,
+      value: 0.15,
+    },
+  },
+  [RESEARCH_STORAGE_4]: {
+    cost: new Cost({
+      knowledge: 900,
+      wood: 500,
+      stone: 300,
+    }),
+    bonus: {
+      type: BONUS_STORAGE_CAPACITY,
+      value: 0.15,
+    },
+  },
+  [RESEARCH_STORAGE_5]: {
+    cost: new Cost({
+      knowledge: 1600,
+      stone: 600,
+      iron: 150,
+    }),
+    bonus: {
+      type: BONUS_STORAGE_CAPACITY,
+      value: 0.15,
+    },
+  },
+
   // ── General — Trading (-% trade fees) ──
   [RESEARCH_TRADING_1]: {
     cost: new Cost({
@@ -994,63 +1051,6 @@ export const RESEARCH_DEFINITIONS = {
     bonus: {
       type: BONUS_KNOWLEDGE_PRODUCTION,
       value: 0.10,
-    },
-  },
-
-  // ── Resources — Storage (+% warehouse capacity) ──
-  [RESEARCH_STORAGE_1]: {
-    cost: new Cost({
-      knowledge: 60,
-      wood: 50,
-      stone: 30,
-    }),
-    bonus: {
-      type: BONUS_STORAGE_CAPACITY,
-      value: 0.15,
-    },
-  },
-  [RESEARCH_STORAGE_2]: {
-    cost: new Cost({
-      knowledge: 180,
-      wood: 120,
-      stone: 80,
-    }),
-    bonus: {
-      type: BONUS_STORAGE_CAPACITY,
-      value: 0.15,
-    },
-  },
-  [RESEARCH_STORAGE_3]: {
-    cost: new Cost({
-      knowledge: 450,
-      wood: 300,
-      stone: 150,
-    }),
-    bonus: {
-      type: BONUS_STORAGE_CAPACITY,
-      value: 0.15,
-    },
-  },
-  [RESEARCH_STORAGE_4]: {
-    cost: new Cost({
-      knowledge: 900,
-      wood: 500,
-      stone: 300,
-    }),
-    bonus: {
-      type: BONUS_STORAGE_CAPACITY,
-      value: 0.15,
-    },
-  },
-  [RESEARCH_STORAGE_5]: {
-    cost: new Cost({
-      knowledge: 1600,
-      stone: 600,
-      iron: 150,
-    }),
-    bonus: {
-      type: BONUS_STORAGE_CAPACITY,
-      value: 0.15,
     },
   },
 

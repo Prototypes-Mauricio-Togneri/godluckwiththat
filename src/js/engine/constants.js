@@ -420,6 +420,16 @@ export const RESEARCH_TREE = [
           RESEARCH_TRADING_5,
         ],
       },
+      {
+        key: RESEARCH_SUBCATEGORY_STORAGE,
+        researches: [
+          RESEARCH_STORAGE_1,
+          RESEARCH_STORAGE_2,
+          RESEARCH_STORAGE_3,
+          RESEARCH_STORAGE_4,
+          RESEARCH_STORAGE_5,
+        ],
+      },
     ],
   },
   {
@@ -518,16 +528,6 @@ export const RESEARCH_TREE = [
           RESEARCH_KNOWLEDGE_PRODUCTION_3,
           RESEARCH_KNOWLEDGE_PRODUCTION_4,
           RESEARCH_KNOWLEDGE_PRODUCTION_5,
-        ],
-      },
-      {
-        key: RESEARCH_SUBCATEGORY_STORAGE,
-        researches: [
-          RESEARCH_STORAGE_1,
-          RESEARCH_STORAGE_2,
-          RESEARCH_STORAGE_3,
-          RESEARCH_STORAGE_4,
-          RESEARCH_STORAGE_5,
         ],
       },
     ],

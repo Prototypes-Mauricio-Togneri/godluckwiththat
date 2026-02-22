@@ -253,9 +253,9 @@ Each building has a level that can be increased by spending resources. Building 
 The research system allows the player to unlock permanent bonuses by spending knowledge and other resources at the Academy. Research is accessed via the Research modal in the game UI.
 
 - Research is organized into 5 categories: General, Disasters, Resources, Religion, Military
-  - General (4 subcategories × 5 tiers = 20 researches): Transportation, Construction, Expansion, Trading
+  - General (5 subcategories × 5 tiers = 25 researches): Transportation, Construction, Expansion, Trading, Storage
   - Disasters (3 subcategories × 5 tiers = 15 researches): Floods, Health, Earthquakes
-  - Resources (7 subcategories × 5 tiers = 35 researches): Food Production, Food Consumption, Wood Production, Wood Consumption, Mining, Knowledge Production, Storage
+  - Resources (6 subcategories × 5 tiers = 30 researches): Food Production, Food Consumption, Wood Production, Wood Consumption, Mining, Knowledge Production
   - Religion (1 subcategory × 5 tiers = 5 researches): Faith
   - Military: placeholder category — no researches yet
 - Within a subcategory, researches form a linear chain of 5 tiers. Tier N requires tier N-1 to be completed first
@@ -271,6 +271,7 @@ The research system allows the player to unlock permanent bonuses by spending kn
 | General | Construction | -10% construction time |
 | General | Expansion | -10% expansion cost |
 | General | Trading | -10% trade fees |
+| General | Storage | +15% storage capacity |
 | Disasters | Floods | -15% flood impact |
 | Disasters | Health | -15% disease impact |
 | Disasters | Earthquakes | -15% earthquake impact |
@@ -280,7 +281,6 @@ The research system allows the player to unlock permanent bonuses by spending kn
 | Resources | Wood Consumption | -5% wood consumption |
 | Resources | Mining | +10% stone/copper/iron/gold production |
 | Resources | Knowledge Production | +10% knowledge production |
-| Resources | Storage | +15% storage capacity |
 | Religion | Faith | +10% faith production |
 
 ## Events
