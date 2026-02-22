@@ -2,7 +2,7 @@
 // Consumed by constants.js, building classes, game_state.js, and
 // UI components.
 
-import {BONUS_CONSTRUCTION_TIME, BONUS_DISEASE_IMPACT, BONUS_EARTHQUAKE_IMPACT, BONUS_EXPANSION_COST, BONUS_FAITH_PRODUCTION, BONUS_FLOOD_IMPACT, BONUS_FOOD_CONSUMPTION, BONUS_FOOD_PRODUCTION, BONUS_KNOWLEDGE_PRODUCTION, BONUS_MINING_PRODUCTION, BONUS_STORAGE_CAPACITY, BONUS_TRADE_FEES, BONUS_WOOD_CONSUMPTION, BONUS_WOOD_PRODUCTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_SHRINE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESEARCH_CONSTRUCTION_1, RESEARCH_CONSTRUCTION_2, RESEARCH_CONSTRUCTION_3, RESEARCH_CONSTRUCTION_4, RESEARCH_CONSTRUCTION_5, RESEARCH_EARTHQUAKES_1, RESEARCH_EARTHQUAKES_2, RESEARCH_EARTHQUAKES_3, RESEARCH_EARTHQUAKES_4, RESEARCH_EARTHQUAKES_5, RESEARCH_EXPANSION_1, RESEARCH_EXPANSION_2, RESEARCH_EXPANSION_3, RESEARCH_EXPANSION_4, RESEARCH_EXPANSION_5, RESEARCH_FAITH_1, RESEARCH_FAITH_2, RESEARCH_FAITH_3, RESEARCH_FAITH_4, RESEARCH_FAITH_5, RESEARCH_FLOODS_1, RESEARCH_FLOODS_2, RESEARCH_FLOODS_3, RESEARCH_FLOODS_4, RESEARCH_FLOODS_5, RESEARCH_FOOD_CONSUMPTION_1, RESEARCH_FOOD_CONSUMPTION_2, RESEARCH_FOOD_CONSUMPTION_3, RESEARCH_FOOD_CONSUMPTION_4, RESEARCH_FOOD_CONSUMPTION_5, RESEARCH_FOOD_PRODUCTION_1, RESEARCH_FOOD_PRODUCTION_2, RESEARCH_FOOD_PRODUCTION_3, RESEARCH_FOOD_PRODUCTION_4, RESEARCH_FOOD_PRODUCTION_5, RESEARCH_HEALTH_1, RESEARCH_HEALTH_2, RESEARCH_HEALTH_3, RESEARCH_HEALTH_4, RESEARCH_HEALTH_5, RESEARCH_KNOWLEDGE_PRODUCTION_1, RESEARCH_KNOWLEDGE_PRODUCTION_2, RESEARCH_KNOWLEDGE_PRODUCTION_3, RESEARCH_KNOWLEDGE_PRODUCTION_4, RESEARCH_KNOWLEDGE_PRODUCTION_5, RESEARCH_MINING_1, RESEARCH_MINING_2, RESEARCH_MINING_3, RESEARCH_MINING_4, RESEARCH_MINING_5, RESEARCH_STORAGE_1, RESEARCH_STORAGE_2, RESEARCH_STORAGE_3, RESEARCH_STORAGE_4, RESEARCH_STORAGE_5, RESEARCH_TRADING_1, RESEARCH_TRADING_2, RESEARCH_TRADING_3, RESEARCH_TRADING_4, RESEARCH_TRADING_5, RESEARCH_TRANSPORTATION_1, RESEARCH_TRANSPORTATION_2, RESEARCH_TRANSPORTATION_3, RESEARCH_TRANSPORTATION_4, RESEARCH_TRANSPORTATION_5, RESEARCH_WOOD_CONSUMPTION_1, RESEARCH_WOOD_CONSUMPTION_2, RESEARCH_WOOD_CONSUMPTION_3, RESEARCH_WOOD_CONSUMPTION_4, RESEARCH_WOOD_CONSUMPTION_5, RESEARCH_WOOD_PRODUCTION_1, RESEARCH_WOOD_PRODUCTION_2, RESEARCH_WOOD_PRODUCTION_3, RESEARCH_WOOD_PRODUCTION_4, RESEARCH_WOOD_PRODUCTION_5, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
+import {BONUS_CONSTRUCTION_TIME, BONUS_DISEASE_IMPACT, BONUS_EARTHQUAKE_IMPACT, BONUS_EXPANSION_COST, BONUS_FAITH_PRODUCTION, BONUS_FLOOD_IMPACT, BONUS_FOOD_CONSUMPTION, BONUS_FOOD_PRODUCTION, BONUS_KNOWLEDGE_PRODUCTION, BONUS_MINING_PRODUCTION, BONUS_STORAGE_CAPACITY, BONUS_TRADE_FEES, BONUS_WOOD_CONSUMPTION, BONUS_WOOD_PRODUCTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_SHRINE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESEARCH_CONSTRUCTION_1, RESEARCH_CONSTRUCTION_2, RESEARCH_CONSTRUCTION_3, RESEARCH_CONSTRUCTION_4, RESEARCH_CONSTRUCTION_5, RESEARCH_EARTHQUAKES_1, RESEARCH_EARTHQUAKES_2, RESEARCH_EARTHQUAKES_3, RESEARCH_EARTHQUAKES_4, RESEARCH_EARTHQUAKES_5, RESEARCH_EXPANSION_1, RESEARCH_EXPANSION_2, RESEARCH_EXPANSION_3, RESEARCH_EXPANSION_4, RESEARCH_EXPANSION_5, RESEARCH_FAITH_1, RESEARCH_FAITH_2, RESEARCH_FAITH_3, RESEARCH_FAITH_4, RESEARCH_FAITH_5, RESEARCH_FLOODS_1, RESEARCH_FLOODS_2, RESEARCH_FLOODS_3, RESEARCH_FLOODS_4, RESEARCH_FLOODS_5, RESEARCH_FOOD_CONSUMPTION_1, RESEARCH_FOOD_CONSUMPTION_2, RESEARCH_FOOD_CONSUMPTION_3, RESEARCH_FOOD_CONSUMPTION_4, RESEARCH_FOOD_CONSUMPTION_5, RESEARCH_FOOD_PRODUCTION_1, RESEARCH_FOOD_PRODUCTION_2, RESEARCH_FOOD_PRODUCTION_3, RESEARCH_FOOD_PRODUCTION_4, RESEARCH_FOOD_PRODUCTION_5, RESEARCH_HEALTH_1, RESEARCH_HEALTH_2, RESEARCH_HEALTH_3, RESEARCH_HEALTH_4, RESEARCH_HEALTH_5, RESEARCH_KNOWLEDGE_PRODUCTION_1, RESEARCH_KNOWLEDGE_PRODUCTION_2, RESEARCH_KNOWLEDGE_PRODUCTION_3, RESEARCH_KNOWLEDGE_PRODUCTION_4, RESEARCH_KNOWLEDGE_PRODUCTION_5, RESEARCH_MINING_1, RESEARCH_MINING_2, RESEARCH_MINING_3, RESEARCH_MINING_4, RESEARCH_MINING_5, RESEARCH_STORAGE_1, RESEARCH_STORAGE_2, RESEARCH_STORAGE_3, RESEARCH_STORAGE_4, RESEARCH_STORAGE_5, RESEARCH_SUBCATEGORY_CONSTRUCTION, RESEARCH_SUBCATEGORY_EARTHQUAKES, RESEARCH_SUBCATEGORY_EXPANSION, RESEARCH_SUBCATEGORY_FAITH, RESEARCH_SUBCATEGORY_FLOODS, RESEARCH_SUBCATEGORY_FOOD_CONSUMPTION, RESEARCH_SUBCATEGORY_FOOD_PRODUCTION, RESEARCH_SUBCATEGORY_HEALTH, RESEARCH_SUBCATEGORY_KNOWLEDGE_PRODUCTION, RESEARCH_SUBCATEGORY_MINING, RESEARCH_SUBCATEGORY_STORAGE, RESEARCH_SUBCATEGORY_TRADING, RESEARCH_SUBCATEGORY_TRANSPORTATION, RESEARCH_SUBCATEGORY_WOOD_CONSUMPTION, RESEARCH_SUBCATEGORY_WOOD_PRODUCTION, RESEARCH_TRADING_1, RESEARCH_TRADING_2, RESEARCH_TRADING_3, RESEARCH_TRADING_4, RESEARCH_TRADING_5, RESEARCH_TRANSPORTATION_1, RESEARCH_TRANSPORTATION_2, RESEARCH_TRANSPORTATION_3, RESEARCH_TRANSPORTATION_4, RESEARCH_TRANSPORTATION_5, RESEARCH_WOOD_CONSUMPTION_1, RESEARCH_WOOD_CONSUMPTION_2, RESEARCH_WOOD_CONSUMPTION_3, RESEARCH_WOOD_CONSUMPTION_4, RESEARCH_WOOD_CONSUMPTION_5, RESEARCH_WOOD_PRODUCTION_1, RESEARCH_WOOD_PRODUCTION_2, RESEARCH_WOOD_PRODUCTION_3, RESEARCH_WOOD_PRODUCTION_4, RESEARCH_WOOD_PRODUCTION_5, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
 import Cost from '@/js/models/cost.js'
 
 // ── Build Time ──────────────────────────────────────────────────────
@@ -273,31 +273,86 @@ export const SEASON_WARM_WOOD_MODIFIER = -0.2
 export const SEASON_COLD_WOOD_MODIFIER = 0.2
 
 // ── Research ──────────────────────────────────────────────────────────
+// Bonus per subcategory: { type: BONUS_* enum, value: fractional modifier (additive) }
+// Each tier in a chain grants the same bonus; defined once per subcategory.
+export const RESEARCH_SUBCATEGORY_BONUSES = {
+  [RESEARCH_SUBCATEGORY_TRANSPORTATION]: {
+    type: BONUS_WORKER_PRODUCTIVITY,
+    value: 0.05,
+  },
+  [RESEARCH_SUBCATEGORY_CONSTRUCTION]: {
+    type: BONUS_CONSTRUCTION_TIME,
+    value: 0.10,
+  },
+  [RESEARCH_SUBCATEGORY_EXPANSION]: {
+    type: BONUS_EXPANSION_COST,
+    value: 0.10,
+  },
+  [RESEARCH_SUBCATEGORY_STORAGE]: {
+    type: BONUS_STORAGE_CAPACITY,
+    value: 0.15,
+  },
+  [RESEARCH_SUBCATEGORY_TRADING]: {
+    type: BONUS_TRADE_FEES,
+    value: 0.10,
+  },
+  [RESEARCH_SUBCATEGORY_FLOODS]: {
+    type: BONUS_FLOOD_IMPACT,
+    value: 0.15,
+  },
+  [RESEARCH_SUBCATEGORY_HEALTH]: {
+    type: BONUS_DISEASE_IMPACT,
+    value: 0.15,
+  },
+  [RESEARCH_SUBCATEGORY_EARTHQUAKES]: {
+    type: BONUS_EARTHQUAKE_IMPACT,
+    value: 0.15,
+  },
+  [RESEARCH_SUBCATEGORY_FOOD_PRODUCTION]: {
+    type: BONUS_FOOD_PRODUCTION,
+    value: 0.10,
+  },
+  [RESEARCH_SUBCATEGORY_FOOD_CONSUMPTION]: {
+    type: BONUS_FOOD_CONSUMPTION,
+    value: 0.05,
+  },
+  [RESEARCH_SUBCATEGORY_WOOD_PRODUCTION]: {
+    type: BONUS_WOOD_PRODUCTION,
+    value: 0.10,
+  },
+  [RESEARCH_SUBCATEGORY_WOOD_CONSUMPTION]: {
+    type: BONUS_WOOD_CONSUMPTION,
+    value: 0.05,
+  },
+  [RESEARCH_SUBCATEGORY_MINING]: {
+    type: BONUS_MINING_PRODUCTION,
+    value: 0.10,
+  },
+  [RESEARCH_SUBCATEGORY_KNOWLEDGE_PRODUCTION]: {
+    type: BONUS_KNOWLEDGE_PRODUCTION,
+    value: 0.10,
+  },
+  [RESEARCH_SUBCATEGORY_FAITH]: {
+    type: BONUS_FAITH_PRODUCTION,
+    value: 0.10,
+  },
+}
+
 // Research definitions keyed by RESEARCH_* enum.
 // cost: resources paid upfront (duration derived via cost.toSeconds())
-// bonus: { type: BONUS_* enum, value: fractional modifier (additive) }
-
 export const RESEARCH_DEFINITIONS = {
-  // ── General — Transportation (+% worker productivity) ──
+  // ── General — Transportation ──
   [RESEARCH_TRANSPORTATION_1]: {
     cost: new Cost({
       knowledge: 50,
       wood: 30,
     }),
-    bonus: {
-      type: BONUS_WORKER_PRODUCTIVITY,
-      value: 0.05,
-    },
   },
   [RESEARCH_TRANSPORTATION_2]: {
     cost: new Cost({
       knowledge: 150,
       wood: 80,
     }),
-    bonus: {
-      type: BONUS_WORKER_PRODUCTIVITY,
-      value: 0.05,
-    },
   },
   [RESEARCH_TRANSPORTATION_3]: {
     cost: new Cost({
@@ -305,10 +360,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 200,
       stone: 100,
     }),
-    bonus: {
-      type: BONUS_WORKER_PRODUCTIVITY,
-      value: 0.05,
-    },
   },
   [RESEARCH_TRANSPORTATION_4]: {
     cost: new Cost({
@@ -316,10 +367,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 400,
       iron: 50,
     }),
-    bonus: {
-      type: BONUS_WORKER_PRODUCTIVITY,
-      value: 0.05,
-    },
   },
   [RESEARCH_TRANSPORTATION_5]: {
     cost: new Cost({
@@ -327,22 +374,14 @@ export const RESEARCH_DEFINITIONS = {
       stone: 400,
       iron: 150,
     }),
-    bonus: {
-      type: BONUS_WORKER_PRODUCTIVITY,
-      value: 0.05,
-    },
   },
 
-  // ── General — Construction (-% construction time) ──
+  // ── General — Construction ──
   [RESEARCH_CONSTRUCTION_1]: {
     cost: new Cost({
       knowledge: 60,
       wood: 40,
     }),
-    bonus: {
-      type: BONUS_CONSTRUCTION_TIME,
-      value: 0.10,
-    },
   },
   [RESEARCH_CONSTRUCTION_2]: {
     cost: new Cost({
@@ -350,10 +389,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 100,
       stone: 50,
     }),
-    bonus: {
-      type: BONUS_CONSTRUCTION_TIME,
-      value: 0.10,
-    },
   },
   [RESEARCH_CONSTRUCTION_3]: {
     cost: new Cost({
@@ -361,10 +396,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 250,
       stone: 120,
     }),
-    bonus: {
-      type: BONUS_CONSTRUCTION_TIME,
-      value: 0.10,
-    },
   },
   [RESEARCH_CONSTRUCTION_4]: {
     cost: new Cost({
@@ -372,10 +403,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 300,
       iron: 80,
     }),
-    bonus: {
-      type: BONUS_CONSTRUCTION_TIME,
-      value: 0.10,
-    },
   },
   [RESEARCH_CONSTRUCTION_5]: {
     cost: new Cost({
@@ -383,22 +410,14 @@ export const RESEARCH_DEFINITIONS = {
       stone: 500,
       iron: 200,
     }),
-    bonus: {
-      type: BONUS_CONSTRUCTION_TIME,
-      value: 0.10,
-    },
   },
 
-  // ── General — Expansion (-% expansion cost) ──
+  // ── General — Expansion ──
   [RESEARCH_EXPANSION_1]: {
     cost: new Cost({
       knowledge: 80,
       wood: 60,
     }),
-    bonus: {
-      type: BONUS_EXPANSION_COST,
-      value: 0.10,
-    },
   },
   [RESEARCH_EXPANSION_2]: {
     cost: new Cost({
@@ -406,10 +425,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 120,
       stone: 60,
     }),
-    bonus: {
-      type: BONUS_EXPANSION_COST,
-      value: 0.10,
-    },
   },
   [RESEARCH_EXPANSION_3]: {
     cost: new Cost({
@@ -417,10 +432,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 300,
       stone: 150,
     }),
-    bonus: {
-      type: BONUS_EXPANSION_COST,
-      value: 0.10,
-    },
   },
   [RESEARCH_EXPANSION_4]: {
     cost: new Cost({
@@ -428,10 +439,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 500,
       copper: 100,
     }),
-    bonus: {
-      type: BONUS_EXPANSION_COST,
-      value: 0.10,
-    },
   },
   [RESEARCH_EXPANSION_5]: {
     cost: new Cost({
@@ -439,23 +446,15 @@ export const RESEARCH_DEFINITIONS = {
       stone: 400,
       gold: 80,
     }),
-    bonus: {
-      type: BONUS_EXPANSION_COST,
-      value: 0.10,
-    },
   },
 
-  // ── General — Storage (+% warehouse capacity) ──
+  // ── General — Storage ──
   [RESEARCH_STORAGE_1]: {
     cost: new Cost({
       knowledge: 60,
       wood: 50,
       stone: 30,
     }),
-    bonus: {
-      type: BONUS_STORAGE_CAPACITY,
-      value: 0.15,
-    },
   },
   [RESEARCH_STORAGE_2]: {
     cost: new Cost({
@@ -463,10 +462,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 120,
       stone: 80,
     }),
-    bonus: {
-      type: BONUS_STORAGE_CAPACITY,
-      value: 0.15,
-    },
   },
   [RESEARCH_STORAGE_3]: {
     cost: new Cost({
@@ -474,10 +469,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 300,
       stone: 150,
     }),
-    bonus: {
-      type: BONUS_STORAGE_CAPACITY,
-      value: 0.15,
-    },
   },
   [RESEARCH_STORAGE_4]: {
     cost: new Cost({
@@ -485,10 +476,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 500,
       stone: 300,
     }),
-    bonus: {
-      type: BONUS_STORAGE_CAPACITY,
-      value: 0.15,
-    },
   },
   [RESEARCH_STORAGE_5]: {
     cost: new Cost({
@@ -496,42 +483,26 @@ export const RESEARCH_DEFINITIONS = {
       stone: 600,
       iron: 150,
     }),
-    bonus: {
-      type: BONUS_STORAGE_CAPACITY,
-      value: 0.15,
-    },
   },
 
-  // ── General — Trading (-% trade fees) ──
+  // ── General — Trading ──
   [RESEARCH_TRADING_1]: {
     cost: new Cost({
       knowledge: 100,
       gold: 20,
     }),
-    bonus: {
-      type: BONUS_TRADE_FEES,
-      value: 0.10,
-    },
   },
   [RESEARCH_TRADING_2]: {
     cost: new Cost({
       knowledge: 250,
       gold: 50,
     }),
-    bonus: {
-      type: BONUS_TRADE_FEES,
-      value: 0.10,
-    },
   },
   [RESEARCH_TRADING_3]: {
     cost: new Cost({
       knowledge: 600,
       gold: 100,
     }),
-    bonus: {
-      type: BONUS_TRADE_FEES,
-      value: 0.10,
-    },
   },
   [RESEARCH_TRADING_4]: {
     cost: new Cost({
@@ -539,10 +510,6 @@ export const RESEARCH_DEFINITIONS = {
       gold: 200,
       copper: 150,
     }),
-    bonus: {
-      type: BONUS_TRADE_FEES,
-      value: 0.10,
-    },
   },
   [RESEARCH_TRADING_5]: {
     cost: new Cost({
@@ -550,32 +517,20 @@ export const RESEARCH_DEFINITIONS = {
       gold: 400,
       iron: 100,
     }),
-    bonus: {
-      type: BONUS_TRADE_FEES,
-      value: 0.10,
-    },
   },
 
-  // ── Disasters — Floods (-% flood impact) ──
+  // ── Disasters — Floods ──
   [RESEARCH_FLOODS_1]: {
     cost: new Cost({
       knowledge: 80,
       stone: 50,
     }),
-    bonus: {
-      type: BONUS_FLOOD_IMPACT,
-      value: 0.15,
-    },
   },
   [RESEARCH_FLOODS_2]: {
     cost: new Cost({
       knowledge: 200,
       stone: 120,
     }),
-    bonus: {
-      type: BONUS_FLOOD_IMPACT,
-      value: 0.15,
-    },
   },
   [RESEARCH_FLOODS_3]: {
     cost: new Cost({
@@ -583,10 +538,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 250,
       iron: 50,
     }),
-    bonus: {
-      type: BONUS_FLOOD_IMPACT,
-      value: 0.15,
-    },
   },
   [RESEARCH_FLOODS_4]: {
     cost: new Cost({
@@ -594,10 +545,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 400,
       iron: 120,
     }),
-    bonus: {
-      type: BONUS_FLOOD_IMPACT,
-      value: 0.15,
-    },
   },
   [RESEARCH_FLOODS_5]: {
     cost: new Cost({
@@ -605,32 +552,20 @@ export const RESEARCH_DEFINITIONS = {
       stone: 600,
       iron: 250,
     }),
-    bonus: {
-      type: BONUS_FLOOD_IMPACT,
-      value: 0.15,
-    },
   },
 
-  // ── Disasters — Health (-% disease impact) ──
+  // ── Disasters — Health ──
   [RESEARCH_HEALTH_1]: {
     cost: new Cost({
       knowledge: 80,
       food: 60,
     }),
-    bonus: {
-      type: BONUS_DISEASE_IMPACT,
-      value: 0.15,
-    },
   },
   [RESEARCH_HEALTH_2]: {
     cost: new Cost({
       knowledge: 200,
       food: 150,
     }),
-    bonus: {
-      type: BONUS_DISEASE_IMPACT,
-      value: 0.15,
-    },
   },
   [RESEARCH_HEALTH_3]: {
     cost: new Cost({
@@ -638,10 +573,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 300,
       copper: 50,
     }),
-    bonus: {
-      type: BONUS_DISEASE_IMPACT,
-      value: 0.15,
-    },
   },
   [RESEARCH_HEALTH_4]: {
     cost: new Cost({
@@ -649,10 +580,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 500,
       stone: 150,
     }),
-    bonus: {
-      type: BONUS_DISEASE_IMPACT,
-      value: 0.15,
-    },
   },
   [RESEARCH_HEALTH_5]: {
     cost: new Cost({
@@ -660,22 +587,14 @@ export const RESEARCH_DEFINITIONS = {
       stone: 400,
       iron: 100,
     }),
-    bonus: {
-      type: BONUS_DISEASE_IMPACT,
-      value: 0.15,
-    },
   },
 
-  // ── Disasters — Earthquakes (-% earthquake impact) ──
+  // ── Disasters — Earthquakes ──
   [RESEARCH_EARTHQUAKES_1]: {
     cost: new Cost({
       knowledge: 80,
       stone: 60,
     }),
-    bonus: {
-      type: BONUS_EARTHQUAKE_IMPACT,
-      value: 0.15,
-    },
   },
   [RESEARCH_EARTHQUAKES_2]: {
     cost: new Cost({
@@ -683,10 +602,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 150,
       wood: 80,
     }),
-    bonus: {
-      type: BONUS_EARTHQUAKE_IMPACT,
-      value: 0.15,
-    },
   },
   [RESEARCH_EARTHQUAKES_3]: {
     cost: new Cost({
@@ -694,10 +609,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 300,
       iron: 50,
     }),
-    bonus: {
-      type: BONUS_EARTHQUAKE_IMPACT,
-      value: 0.15,
-    },
   },
   [RESEARCH_EARTHQUAKES_4]: {
     cost: new Cost({
@@ -705,10 +616,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 500,
       iron: 120,
     }),
-    bonus: {
-      type: BONUS_EARTHQUAKE_IMPACT,
-      value: 0.15,
-    },
   },
   [RESEARCH_EARTHQUAKES_5]: {
     cost: new Cost({
@@ -716,32 +623,20 @@ export const RESEARCH_DEFINITIONS = {
       stone: 700,
       iron: 250,
     }),
-    bonus: {
-      type: BONUS_EARTHQUAKE_IMPACT,
-      value: 0.15,
-    },
   },
 
-  // ── Resources — Food Production (+% food production) ──
+  // ── Resources — Food Production ──
   [RESEARCH_FOOD_PRODUCTION_1]: {
     cost: new Cost({
       knowledge: 50,
       food: 40,
     }),
-    bonus: {
-      type: BONUS_FOOD_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_FOOD_PRODUCTION_2]: {
     cost: new Cost({
       knowledge: 150,
       food: 100,
     }),
-    bonus: {
-      type: BONUS_FOOD_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_FOOD_PRODUCTION_3]: {
     cost: new Cost({
@@ -749,10 +644,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 250,
       wood: 80,
     }),
-    bonus: {
-      type: BONUS_FOOD_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_FOOD_PRODUCTION_4]: {
     cost: new Cost({
@@ -760,10 +651,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 500,
       copper: 100,
     }),
-    bonus: {
-      type: BONUS_FOOD_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_FOOD_PRODUCTION_5]: {
     cost: new Cost({
@@ -771,32 +658,20 @@ export const RESEARCH_DEFINITIONS = {
       food: 800,
       iron: 100,
     }),
-    bonus: {
-      type: BONUS_FOOD_PRODUCTION,
-      value: 0.10,
-    },
   },
 
-  // ── Resources — Food Consumption (-% food consumption) ──
+  // ── Resources — Food Consumption ──
   [RESEARCH_FOOD_CONSUMPTION_1]: {
     cost: new Cost({
       knowledge: 60,
       food: 50,
     }),
-    bonus: {
-      type: BONUS_FOOD_CONSUMPTION,
-      value: 0.05,
-    },
   },
   [RESEARCH_FOOD_CONSUMPTION_2]: {
     cost: new Cost({
       knowledge: 180,
       food: 120,
     }),
-    bonus: {
-      type: BONUS_FOOD_CONSUMPTION,
-      value: 0.05,
-    },
   },
   [RESEARCH_FOOD_CONSUMPTION_3]: {
     cost: new Cost({
@@ -804,10 +679,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 300,
       wood: 100,
     }),
-    bonus: {
-      type: BONUS_FOOD_CONSUMPTION,
-      value: 0.05,
-    },
   },
   [RESEARCH_FOOD_CONSUMPTION_4]: {
     cost: new Cost({
@@ -815,10 +686,6 @@ export const RESEARCH_DEFINITIONS = {
       food: 500,
       wood: 200,
     }),
-    bonus: {
-      type: BONUS_FOOD_CONSUMPTION,
-      value: 0.05,
-    },
   },
   [RESEARCH_FOOD_CONSUMPTION_5]: {
     cost: new Cost({
@@ -826,32 +693,20 @@ export const RESEARCH_DEFINITIONS = {
       food: 800,
       stone: 150,
     }),
-    bonus: {
-      type: BONUS_FOOD_CONSUMPTION,
-      value: 0.05,
-    },
   },
 
-  // ── Resources — Wood Production (+% wood production) ──
+  // ── Resources — Wood Production ──
   [RESEARCH_WOOD_PRODUCTION_1]: {
     cost: new Cost({
       knowledge: 50,
       wood: 40,
     }),
-    bonus: {
-      type: BONUS_WOOD_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_WOOD_PRODUCTION_2]: {
     cost: new Cost({
       knowledge: 150,
       wood: 100,
     }),
-    bonus: {
-      type: BONUS_WOOD_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_WOOD_PRODUCTION_3]: {
     cost: new Cost({
@@ -859,10 +714,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 250,
       stone: 80,
     }),
-    bonus: {
-      type: BONUS_WOOD_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_WOOD_PRODUCTION_4]: {
     cost: new Cost({
@@ -870,10 +721,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 500,
       iron: 100,
     }),
-    bonus: {
-      type: BONUS_WOOD_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_WOOD_PRODUCTION_5]: {
     cost: new Cost({
@@ -881,32 +728,20 @@ export const RESEARCH_DEFINITIONS = {
       wood: 800,
       iron: 200,
     }),
-    bonus: {
-      type: BONUS_WOOD_PRODUCTION,
-      value: 0.10,
-    },
   },
 
-  // ── Resources — Wood Consumption (-% wood consumption) ──
+  // ── Resources — Wood Consumption ──
   [RESEARCH_WOOD_CONSUMPTION_1]: {
     cost: new Cost({
       knowledge: 60,
       wood: 50,
     }),
-    bonus: {
-      type: BONUS_WOOD_CONSUMPTION,
-      value: 0.05,
-    },
   },
   [RESEARCH_WOOD_CONSUMPTION_2]: {
     cost: new Cost({
       knowledge: 180,
       wood: 120,
     }),
-    bonus: {
-      type: BONUS_WOOD_CONSUMPTION,
-      value: 0.05,
-    },
   },
   [RESEARCH_WOOD_CONSUMPTION_3]: {
     cost: new Cost({
@@ -914,10 +749,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 300,
       stone: 100,
     }),
-    bonus: {
-      type: BONUS_WOOD_CONSUMPTION,
-      value: 0.05,
-    },
   },
   [RESEARCH_WOOD_CONSUMPTION_4]: {
     cost: new Cost({
@@ -925,10 +756,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 500,
       copper: 100,
     }),
-    bonus: {
-      type: BONUS_WOOD_CONSUMPTION,
-      value: 0.05,
-    },
   },
   [RESEARCH_WOOD_CONSUMPTION_5]: {
     cost: new Cost({
@@ -936,22 +763,14 @@ export const RESEARCH_DEFINITIONS = {
       wood: 800,
       iron: 150,
     }),
-    bonus: {
-      type: BONUS_WOOD_CONSUMPTION,
-      value: 0.05,
-    },
   },
 
-  // ── Resources — Mining (+% stone/copper/iron/gold production) ──
+  // ── Resources — Mining ──
   [RESEARCH_MINING_1]: {
     cost: new Cost({
       knowledge: 60,
       stone: 40,
     }),
-    bonus: {
-      type: BONUS_MINING_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_MINING_2]: {
     cost: new Cost({
@@ -959,10 +778,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 100,
       copper: 30,
     }),
-    bonus: {
-      type: BONUS_MINING_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_MINING_3]: {
     cost: new Cost({
@@ -970,10 +785,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 250,
       iron: 50,
     }),
-    bonus: {
-      type: BONUS_MINING_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_MINING_4]: {
     cost: new Cost({
@@ -981,10 +792,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 500,
       gold: 50,
     }),
-    bonus: {
-      type: BONUS_MINING_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_MINING_5]: {
     cost: new Cost({
@@ -992,22 +799,14 @@ export const RESEARCH_DEFINITIONS = {
       stone: 700,
       gold: 120,
     }),
-    bonus: {
-      type: BONUS_MINING_PRODUCTION,
-      value: 0.10,
-    },
   },
 
-  // ── Resources — Knowledge Production (+% knowledge production) ──
+  // ── Resources — Knowledge Production ──
   [RESEARCH_KNOWLEDGE_PRODUCTION_1]: {
     cost: new Cost({
       knowledge: 80,
       wood: 50,
     }),
-    bonus: {
-      type: BONUS_KNOWLEDGE_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_KNOWLEDGE_PRODUCTION_2]: {
     cost: new Cost({
@@ -1015,10 +814,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 120,
       stone: 60,
     }),
-    bonus: {
-      type: BONUS_KNOWLEDGE_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_KNOWLEDGE_PRODUCTION_3]: {
     cost: new Cost({
@@ -1026,10 +821,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 250,
       copper: 80,
     }),
-    bonus: {
-      type: BONUS_KNOWLEDGE_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_KNOWLEDGE_PRODUCTION_4]: {
     cost: new Cost({
@@ -1037,10 +828,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 400,
       iron: 80,
     }),
-    bonus: {
-      type: BONUS_KNOWLEDGE_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_KNOWLEDGE_PRODUCTION_5]: {
     cost: new Cost({
@@ -1048,22 +835,14 @@ export const RESEARCH_DEFINITIONS = {
       wood: 600,
       gold: 100,
     }),
-    bonus: {
-      type: BONUS_KNOWLEDGE_PRODUCTION,
-      value: 0.10,
-    },
   },
 
-  // ── Religion — Faith (+% faith production) ──
+  // ── Religion — Faith ──
   [RESEARCH_FAITH_1]: {
     cost: new Cost({
       knowledge: 60,
       wood: 40,
     }),
-    bonus: {
-      type: BONUS_FAITH_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_FAITH_2]: {
     cost: new Cost({
@@ -1071,10 +850,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 100,
       stone: 50,
     }),
-    bonus: {
-      type: BONUS_FAITH_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_FAITH_3]: {
     cost: new Cost({
@@ -1082,10 +857,6 @@ export const RESEARCH_DEFINITIONS = {
       wood: 250,
       stone: 120,
     }),
-    bonus: {
-      type: BONUS_FAITH_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_FAITH_4]: {
     cost: new Cost({
@@ -1093,10 +864,6 @@ export const RESEARCH_DEFINITIONS = {
       stone: 300,
       gold: 60,
     }),
-    bonus: {
-      type: BONUS_FAITH_PRODUCTION,
-      value: 0.10,
-    },
   },
   [RESEARCH_FAITH_5]: {
     cost: new Cost({
@@ -1104,9 +871,5 @@ export const RESEARCH_DEFINITIONS = {
       stone: 500,
       gold: 150,
     }),
-    bonus: {
-      type: BONUS_FAITH_PRODUCTION,
-      value: 0.10,
-    },
   },
 }

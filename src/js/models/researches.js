@@ -1,5 +1,3 @@
-import {RESEARCH_DEFINITIONS} from '@/js/engine/balancing.js'
-
 /**
  * Research state model.
  * Tracks completed and in-progress researches.
@@ -71,17 +69,22 @@ class Researches {
 
   /**
    * Aggregates bonus values from all completed researches by bonus type.
+   * @param {Array} researchTree - RESEARCH_TREE from constants.js
    * @returns {Object<string, number>} Bonus type → cumulative value
    */
-  completedBonuses() {
+  completedBonuses(researchTree) {
     const bonuses = {}
-    for (const key of this.completed) {
-      const def = RESEARCH_DEFINITIONS[key]
-      if (!def?.bonus) continue
-      const {
-        type, value,
-      } = def.bonus
-      bonuses[type] = (bonuses[type] ?? 0) + value
+    for (const cat of researchTree) {
+      for (const sub of cat.subcategories) {
+        if (!sub.bonus) continue
+        for (const key of sub.researches) {
+          if (!this.completed.has(key)) continue
+          const {
+            type, value,
+          } = sub.bonus
+          bonuses[type] = (bonuses[type] ?? 0) + value
+        }
+      }
     }
     return bonuses
   }
