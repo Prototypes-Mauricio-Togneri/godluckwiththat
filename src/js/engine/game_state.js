@@ -132,8 +132,10 @@ class GameState {
           })
           audio.playSound(SND_NOTIFICATION_ALERT)
         }
-      } else {
+      } else if (this._resourcesAtCap.has(resource)) {
         this._resourcesAtCap.delete(resource)
+        const config = RESOURCE_LIMIT_EVENT_CONFIG[resource]
+        this.events.dismissPastByTextKey(config.textKey)
       }
     }
 

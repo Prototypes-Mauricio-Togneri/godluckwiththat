@@ -2,9 +2,8 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Why the rate is shown as 0.0 when it's not?
 - Show market trade rate
-- Create constant for how much a research acts (e.g. 10% increase in production)
-- Use those constants in the research descriptions
 
 - Future events
   - challenge_timeout
