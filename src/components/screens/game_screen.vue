@@ -1,5 +1,5 @@
 <script setup>
-import {ref, reactive, computed, provide, onMounted, onUnmounted} from 'vue'
+import {ref, reactive, computed, watch, provide, onMounted, onUnmounted} from 'vue'
 import ConfirmModal from '@/components/modals/confirm_modal.vue'
 import PauseModal from '@/components/modals/pause_modal.vue'
 import MarketModal from '@/components/modals/market_modal.vue'
@@ -136,6 +136,7 @@ function isResourceVisible(resource) {
 
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
+const paused = ref(false)
 const state = reactive(new GameState(createInitialMeta(), createInitialColony(), createInitialEvents()))
 state.update(0)
 const showClearConfirm = ref(false)
@@ -180,6 +181,7 @@ function gameTick() {
 }
 
 function progressTick() {
+  if (paused.value) return
   const now = performance.now()
   const delta = (now - lastProgressTickTime) / 1000
   lastProgressTickTime = now
@@ -196,6 +198,21 @@ function handleKeydown(event) {
     showModal.value = !showModal.value
   }
 }
+
+watch(showModal, (isOpen) => {
+  if (isOpen) {
+    paused.value = true
+    clearInterval(tickTimer)
+    tickTimer = null
+  } else {
+    paused.value = false
+    const now = performance.now()
+    lastTickTime = now
+    lastProgressTickTime = now
+    tickTimer = setInterval(gameTick, TICK_INTERVAL)
+    progressAnimFrame = requestAnimationFrame(progressTick)
+  }
+})
 
 onMounted(() => {
   // Bubble phase: modals register in capture phase so they intercept Escape first
