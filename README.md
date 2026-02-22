@@ -3,7 +3,6 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Finish to implement researches
-- Show market trade rate
 
 - Future events
   - challenge_timeout
