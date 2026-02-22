@@ -1,15 +1,3 @@
-### `src/components/screens/game_screen.vue` (lines 234-407)
-
-Horizontal flex layout with 6 side-by-side columns, no responsive breakpoints. Completely unusable on phones and narrow tablets.
-
-**Fix:** Add media queries to stack columns or use tabbed layout on smaller viewports, or set `min-width` with `overflow-x: auto`.
-
-### `src/components/screens/game_screen.vue` (line 595)
-
-`.game-content` has `overflow: hidden`. Content clipped on smaller screens with no way to scroll.
-
-**Fix:** Change to `overflow: auto` or `overflow-x: auto`.
-
 ### `src/assets/styles.css` (line 29)
 
 `user-select: none` on `*` without `-webkit-user-select` prefix. Older WebKit browsers (Safari < 14.1) require the prefix.
