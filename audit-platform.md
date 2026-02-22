@@ -1,9 +1,3 @@
-### `src/components/modals/research_modal.vue` (lines 232-243)
-
-`::-webkit-scrollbar` styling is WebKit/Blink-only. Firefox shows default OS scrollbar, inconsistent with dark theme.
-
-**Fix:** Add `scrollbar-width: thin; scrollbar-color: ...` (standard CSS Scrollbar API) alongside webkit rules.
-
 ### `src/components/screens/game_screen.vue` (lines 168-193)
 
 `setInterval`/`requestAnimationFrame` game loop. On mobile, background tabs are aggressively throttled; elapsed wall-clock time is lost with no catch-up mechanism.

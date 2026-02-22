@@ -227,6 +227,8 @@ onUnmounted(() => {
   overflow-x: hidden;
   min-height: 0;
   padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--color-accent-rgb), 0.2) transparent;
 }
 
 .research-scroll::-webkit-scrollbar {
