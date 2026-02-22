@@ -168,7 +168,7 @@ onUnmounted(() => {
     inset 0 1px 0 rgba(var(--color-accent-rgb), 0.06);
   padding: 1rem 2rem 1.5rem;
   width: 90vw;
-  max-width: 540px;
+  max-width: 400px;
   max-height: 89vh;
   display: flex;
   flex-direction: column;
@@ -244,14 +244,8 @@ onUnmounted(() => {
 }
 
 .market-header-resource {
-  min-width: 5.5rem;
-}
-
-.market-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  margin-left: auto;
+  width: 5rem;
+  flex-shrink: 0;
 }
 
 .market-header-label {
@@ -288,7 +282,8 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  min-width: 5.5rem;
+  width: 5rem;
+  flex-shrink: 0;
 }
 
 .trade-resource-icon {
@@ -312,13 +307,13 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  margin-left: auto;
+  flex: 1;
 }
 
 .market-header-label,
 .trade-btn {
   flex: 1;
-  min-width: 5.5rem;
+  min-width: 3.5rem;
 }
 
 .trade-btn {
@@ -326,7 +321,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   gap: 0.15rem;
-  padding: 0.55rem 0.6rem;
+  padding: 0.45rem 0.4rem;
   border-radius: 3px;
 }
 
@@ -345,7 +340,7 @@ onUnmounted(() => {
 }
 
 .trade-btn-value--gain {
-  color: #50a850;
+  color: rgba(var(--color-text-rgb), 0.7);
 }
 
 .trade-btn-value--cost {
