@@ -1,5 +1,3 @@
-## Medium
-
 ### `src/js/engine/audio.js` (lines 62-71, 95-98)
 
 Music `play()` errors suppressed. No retry on iOS Safari background/foreground transitions; audio stops silently.
@@ -41,8 +39,6 @@ Tooltips rely entirely on `:hover`. Touch devices can't trigger hover reliably; 
 `setInterval`/`requestAnimationFrame` game loop. On mobile, background tabs are aggressively throttled; elapsed wall-clock time is lost with no catch-up mechanism.
 
 **Fix:** Record `lastTickTime` and compute missed delta via `visibilitychange` for catch-up ticks.
-
-## Warning
 
 ### `src/js/engine/audio.js` (lines 23-29)
 
