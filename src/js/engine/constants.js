@@ -639,7 +639,7 @@ export function createInitialColonyBasic() {
       territory: 0,
       workers: 0,
       food: 200,
-      wood: 500,
+      wood: 200,
       stone: 0,
       copper: 0,
       iron: 0,

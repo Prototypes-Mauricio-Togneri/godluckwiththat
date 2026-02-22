@@ -2,7 +2,7 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Why the rate is shown as 0.0 when it's not?
+- Finish to implement researches
 - Show market trade rate
 
 - Future events

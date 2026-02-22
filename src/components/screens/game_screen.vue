@@ -63,7 +63,7 @@ function getCardComponent(key) {
 }
 
 function rateClass(ratePerSecond) {
-  const value = Math.round(ratePerSecond * 10) / 10
+  const value = Math.round(ratePerSecond * 100) / 100
   if (value > 0) return 'production-rate--positive'
   if (value < 0) return 'production-rate--negative'
   return 'production-rate--zero'

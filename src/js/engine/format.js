@@ -44,8 +44,9 @@ export function formatNumber(n) {
  * @returns {string}
  */
 export function formatRate(ratePerSecond) {
-  const value = Math.round(ratePerSecond * 10) / 10
-  if (value > 0) return `${value.toFixed(1)}${t('resource.perSecond')}`
-  if (value < 0) return `-${Math.abs(value).toFixed(1)}${t('resource.perSecond')}`
-  return `0.0${t('resource.perSecond')}`
+  const value = Math.round(ratePerSecond * 100) / 100
+  if (value === 0) return `0.0${t('resource.perSecond')}`
+  const abs = Math.abs(value).toFixed(2).replace(/0$/, '')
+  const sign = value < 0 ? '-' : ''
+  return `${sign}${abs}${t('resource.perSecond')}`
 }
