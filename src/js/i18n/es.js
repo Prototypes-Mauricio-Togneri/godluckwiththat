@@ -3,6 +3,7 @@ export const LOCALIZED_ES = {
   'screen.home.title.line1': 'God Luck',
   'screen.home.title.line2': 'With That',
   'screen.home.play': 'Jugar',
+  'screen.home.mobileUnavailable': 'Versión móvil no disponible aún',
 
   // Pause modal
   'modal.pause.title': 'Pausa',

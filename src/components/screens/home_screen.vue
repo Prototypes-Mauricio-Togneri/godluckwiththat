@@ -1,9 +1,11 @@
 <script setup>
-import {onMounted} from 'vue'
+import {onMounted, ref} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits(['start'])
+
+const isMobile = ref(window.matchMedia('(pointer: coarse)').matches)
 
 onMounted(() => {
   // TODO: temporary auto-start for development
@@ -21,9 +23,12 @@ onMounted(() => {
         <span class="title-line">{{ t('screen.home.title.line2').toUpperCase() }}</span>
       </h1>
 
-      <button class="btn-gold start-button" @click="playTap(); emit('start')">
+      <button v-if="!isMobile" class="btn-gold start-button" @click="playTap(); emit('start')">
         {{ t('screen.home.play') }}
       </button>
+      <p v-else class="mobile-notice">
+        {{ t('screen.home.mobileUnavailable') }}
+      </p>
     </div>
   </div>
 </template>
@@ -95,6 +100,14 @@ onMounted(() => {
 
 .start-button:active {
   transform: scale(0.97);
+}
+
+.mobile-notice {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  text-align: center;
+  letter-spacing: 0.04em;
 }
 
 </style>
