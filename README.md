@@ -2,6 +2,12 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Contact civ clicker creator
+- Make roadmap
+- Add research for population (e.g. housing)
+- Add help buttons in market and research windows
+- Music from settlers anniversary
+- Remove market research. In app and in excel
 - Finish to implement researches
 
 - Future events
