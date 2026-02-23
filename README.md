@@ -19,6 +19,7 @@
   - Show challenge outcome
   - Choose blessing
 - Implement story intro
+- Implement natural disasters
 - Contact civ clicker creator
 - Implement save and load
 - Future events
