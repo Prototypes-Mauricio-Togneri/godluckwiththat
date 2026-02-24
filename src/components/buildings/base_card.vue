@@ -149,11 +149,6 @@ function act() {
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: 4px;
-  transition: border-color 0.2s ease;
-}
-
-.building-card:hover {
-  border-color: rgba(var(--color-accent-rgb), 0.35);
 }
 
 .building-card--constructing {

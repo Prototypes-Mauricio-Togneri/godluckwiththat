@@ -261,6 +261,11 @@ onUnmounted(() => {
   flex: 1;
 }
 
+.market-resources .resource-box:hover {
+  border-color: rgba(var(--color-accent-rgb), 0.1);
+  background: rgba(var(--color-accent-rgb), 0.03);
+}
+
 .market-resources .resource-value {
   flex: 1;
 }
@@ -327,11 +332,6 @@ onUnmounted(() => {
   background: rgba(var(--color-accent-rgb), 0.03);
   border: 1px solid rgba(var(--color-accent-rgb), 0.1);
   border-radius: 4px;
-  transition: border-color 0.2s ease;
-}
-
-.trade-row:hover {
-  border-color: rgba(var(--color-accent-rgb), 0.2);
 }
 
 /* ── Resource identity ───────────────────────────────────── */
