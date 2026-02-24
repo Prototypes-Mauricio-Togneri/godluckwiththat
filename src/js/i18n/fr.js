@@ -122,9 +122,14 @@ export const LOCALIZED_FR = {
   'modal.confirm': 'Confirmer',
   'modal.cancel': 'Annuler',
 
-  // Building help modal
+  // Help modals
+  'modal.help.close': 'Fermer',
   'modal.buildingHelp.tooltip': 'Aide',
   'modal.buildingHelp.close': 'Fermer',
+  'modal.researchHelp.title': 'Recherche',
+  'modal.researchHelp.body': 'Dépensez du savoir et d\'autres ressources à l\'Académie pour débloquer des bonus permanents. La recherche est organisée en catégories, chacune avec des sous-catégories formant des chaînes de 5 niveaux. Complétez le niveau précédent pour débloquer le suivant. Une seule recherche peut être active par sous-catégorie. Les bonus complétés se cumulent.',
+  'modal.marketHelp.title': 'Marché',
+  'modal.marketHelp.body': 'Achetez et vendez des ressources par lots de 100 en utilisant de l\'or. Chaque échange inclut des frais qui diminuent avec le niveau du Marché. Les prix fluctuent à chaque échange : acheter fait monter le prix, vendre le fait baisser.',
 
   // Building descriptions
   'buildingHelp.headquarters': 'Le cœur de votre colonie. Chaque niveau débloque de nouveaux bâtiments et recherches, et augmente votre territoire maximum.',

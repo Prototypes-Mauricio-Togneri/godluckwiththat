@@ -6,11 +6,13 @@ import {RESEARCH_TREE} from '@/js/engine/constants.js'
 import {RESEARCH_DEFINITIONS} from '@/js/engine/balancing.js'
 import {IMG_OTHER_COMPLETED, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {t} from '@/js/i18n/localized.js'
+import ModalHelpModal from '@/components/modals/modal_help_modal.vue'
 
 const emit = defineEmits(['close'])
 const colony = inject('colony')
 const gameState = inject('gameState')
 const visible = ref(false)
+const showHelp = ref(false)
 let rafId = null
 
 const activeTab = ref(RESEARCH_TREE[0].category)
@@ -39,7 +41,11 @@ function handleNodeClick(key, status) {
 function handleKeydown(event) {
   if (event.key === 'Escape') {
     event.stopImmediatePropagation()
-    emit('close')
+    if (showHelp.value) {
+      showHelp.value = false
+    } else {
+      emit('close')
+    }
   }
 }
 
@@ -63,6 +69,7 @@ onUnmounted(() => {
     @click.self="emit('close')"
   >
     <div class="research-modal">
+      <button class="modal-help-btn" @click="playTap(); showHelp = true">?</button>
       <button class="modal-close-x" @click="playTap(); emit('close')">&#10005;</button>
       <h2 class="modal-title">{{ t('research.title') }}</h2>
 
@@ -125,6 +132,13 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
+
+    <ModalHelpModal
+      v-if="showHelp"
+      title-key="modal.researchHelp.title"
+      body-key="modal.researchHelp.body"
+      @close="showHelp = false"
+    />
   </div>
 </template>
 
@@ -418,30 +432,4 @@ onUnmounted(() => {
   color: rgba(196, 80, 80, 0.7);
 }
 
-/* ── Close button ────────────────────────────────────────── */
-
-.modal-close-x {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  background: rgba(180, 60, 60, 0.12);
-  border: 1px solid transparent;
-  border-radius: 3px;
-  color: rgba(var(--color-text-rgb), 0.45);
-  font-size: 0.85rem;
-  line-height: 1;
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.modal-close-x:hover {
-  color: #c45050;
-  border-color: rgba(180, 60, 60, 0.4);
-}
 </style>

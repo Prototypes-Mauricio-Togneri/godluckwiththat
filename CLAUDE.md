@@ -21,9 +21,10 @@ src/
 │   ├── modals/
 │   │   ├── building_help_modal.vue → Building info modal (name, description, close)
 │   │   ├── confirm_modal.vue → Confirmation dialog (title, description, confirm/cancel)
-│   │   ├── market_modal.vue  → Market modal (placeholder for trading UI)
+│   │   ├── market_modal.vue  → Market modal (trading UI, has help button)
+│   │   ├── modal_help_modal.vue → Generic help modal (title, body text, stacks on top)
 │   │   ├── pause_modal.vue   → Pause menu modal (audio toggles, continue, quit)
-│   │   └── research_modal.vue → Research tree modal (tabbed categories, chain nodes)
+│   │   └── research_modal.vue → Research tree modal (tabbed categories, has help button)
 │   └── screens/
 │       ├── home_screen.vue   → Title screen with start button
 │       └── game_screen.vue   → Main game screen

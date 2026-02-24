@@ -122,9 +122,14 @@ export const LOCALIZED_EN = {
   'modal.confirm': 'Confirm',
   'modal.cancel': 'Cancel',
 
-  // Building help modal
+  // Help modals
+  'modal.help.close': 'Close',
   'modal.buildingHelp.tooltip': 'Help',
   'modal.buildingHelp.close': 'Close',
+  'modal.researchHelp.title': 'Research',
+  'modal.researchHelp.body': 'Spend knowledge and other resources at the Academy to unlock permanent bonuses. Research is organized into categories, each with subcategories forming chains of 5 tiers. Complete the previous tier to unlock the next. Only one research can be active per subcategory. Completed bonuses accumulate.',
+  'modal.marketHelp.title': 'Market',
+  'modal.marketHelp.body': 'Buy and sell resources in lots of 100 using gold. Each trade includes a fee that decreases as the Market building levels up. Prices fluctuate with each trade: buying raises the price, selling lowers it.',
 
   // Building descriptions
   'buildingHelp.headquarters': 'The heart of your colony. Each level unlocks new buildings and researches, and increases your maximum territory.',

@@ -122,9 +122,14 @@ export const LOCALIZED_ES = {
   'modal.confirm': 'Confirmar',
   'modal.cancel': 'Cancelar',
 
-  // Building help modal
+  // Help modals
+  'modal.help.close': 'Cerrar',
   'modal.buildingHelp.tooltip': 'Ayuda',
   'modal.buildingHelp.close': 'Cerrar',
+  'modal.researchHelp.title': 'Investigación',
+  'modal.researchHelp.body': 'Gasta conocimiento y otros recursos en la Academia para desbloquear bonificaciones permanentes. La investigación se organiza en categorías, cada una con subcategorías formando cadenas de 5 niveles. Completa el nivel anterior para desbloquear el siguiente. Solo una investigación puede estar activa por subcategoría. Las bonificaciones completadas se acumulan.',
+  'modal.marketHelp.title': 'Mercado',
+  'modal.marketHelp.body': 'Compra y vende recursos en lotes de 100 usando oro. Cada operación incluye una tarifa que disminuye al subir el nivel del Mercado. Los precios fluctúan con cada operación: comprar sube el precio, vender lo baja.',
 
   // Building descriptions
   'buildingHelp.headquarters': 'El corazón de tu colonia. Cada nivel desbloquea nuevos edificios e investigaciones, y aumenta tu territorio máximo.',

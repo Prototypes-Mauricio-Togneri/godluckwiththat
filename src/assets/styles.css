@@ -225,6 +225,61 @@
     margin-top: auto;
 }
 
+/* Modal close button — absolute-positioned X in top-right corner */
+.modal-close-x {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: rgba(180, 60, 60, 0.12);
+    border: 1px solid transparent;
+    border-radius: 3px;
+    color: rgba(var(--color-text-rgb), 0.45);
+    font-size: 0.85rem;
+    line-height: 1;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-close-x:hover {
+    color: #c45050;
+    border-color: rgba(180, 60, 60, 0.4);
+}
+
+/* Modal help button — circular ? icon left of the close button */
+.modal-help-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 2.6rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 500;
+    line-height: 1;
+    color: rgba(var(--color-accent-rgb), 0.65);
+    background: none;
+    border: 1px solid rgba(var(--color-accent-rgb), 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.modal-help-btn:hover {
+    color: var(--color-accent);
+    border-color: rgba(var(--color-accent-rgb), 0.5);
+    background: rgba(var(--color-accent-rgb), 0.08);
+}
+
 /* Card modal button — small icon-only button inside building card slots (academy, market) */
 .card-modal-btn {
     margin-left: auto;

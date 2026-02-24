@@ -7,11 +7,13 @@ import {MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
 import {IMG_RESOURCE_MAP, SND_MARKET_EXCHANGE} from '@/js/engine/assets.js'
 import {RESOURCE_GOLD} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
+import ModalHelpModal from '@/components/modals/modal_help_modal.vue'
 
 const emit = defineEmits(['close'])
 const colony = inject('colony')
 const gameState = inject('gameState')
 const visible = ref(false)
+const showHelp = ref(false)
 let rafId = null
 
 const fee = computed(() => gameState.effectiveTradeFee())
@@ -64,7 +66,11 @@ function sell(resource) {
 function handleKeydown(event) {
   if (event.key === 'Escape') {
     event.stopImmediatePropagation()
-    emit('close')
+    if (showHelp.value) {
+      showHelp.value = false
+    } else {
+      emit('close')
+    }
   }
 }
 
@@ -88,6 +94,7 @@ onUnmounted(() => {
     @click.self="emit('close')"
   >
     <div class="market-modal">
+      <button class="modal-help-btn" @click="playTap(); showHelp = true">?</button>
       <button class="modal-close-x" @click="playTap(); emit('close')">&#10005;</button>
       <h2 class="modal-title">{{ t('market.title') }}</h2>
 
@@ -173,6 +180,13 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
+
+    <ModalHelpModal
+      v-if="showHelp"
+      title-key="modal.marketHelp.title"
+      body-key="modal.marketHelp.body"
+      @close="showHelp = false"
+    />
   </div>
 </template>
 
@@ -403,30 +417,4 @@ onUnmounted(() => {
   color: #c45050;
 }
 
-/* ── Close button ────────────────────────────────────────── */
-
-.modal-close-x {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  background: rgba(180, 60, 60, 0.12);
-  border: 1px solid transparent;
-  border-radius: 3px;
-  color: rgba(var(--color-text-rgb), 0.45);
-  font-size: 0.85rem;
-  line-height: 1;
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.modal-close-x:hover {
-  color: #c45050;
-  border-color: rgba(180, 60, 60, 0.4);
-}
 </style>

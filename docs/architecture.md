@@ -18,13 +18,17 @@ Centered overlay with "PAUSED" title, decorative rule, audio toggles, and two st
 
 Centered overlay (same pattern as pause modal) showing information about a building. Rendered inside `base_card.vue` via `v-if` on a local `showHelp` ref. Props: `nameKey` (i18n key for the title), `buildingKey` (indexes into `buildingHelp.{key}` for the description), and `img` (building thumbnail path). Layout: uppercase building name title, decorative rule, horizontal body with large thumbnail image (9rem) alongside description paragraph, and a "CLOSE" button. Emits `close` on backdrop click, button press, or Escape key.
 
+### Modal Help Modal (`modal_help_modal.vue`)
+
+Generic help modal for overlay-on-overlay display (z-index 110, above the parent modal's z-index 100). Takes `titleKey` and `bodyKey` props (i18n keys). Layout: uppercase title, decorative rule, description paragraph, and a "CLOSE" button. Follows the same animation pattern as other modals (rAF-driven `visible` class). Escape key handler in capture phase with `stopImmediatePropagation` to close itself without affecting the parent modal. Used by `research_modal.vue` and `market_modal.vue` via their "?" help buttons. Parent modals also guard their own Escape handler to close the help modal first when open.
+
 ### Confirm Modal (`confirm_modal.vue`)
 
 Reusable confirmation dialog (same overlay pattern). Props: `titleKey` and `descriptionKey` (i18n keys), optional `confirmKey` (i18n key for confirm button text, default `'modal.confirm'`). Layout: uppercase title, decorative rule, description paragraph, and a side-by-side button row — subdued "CANCEL" (gold) and red-styled "CONFIRM". Emits `confirm` or `close`. Used by `game_screen.vue` for the "Clear all" past events action.
 
 ### Market Modal (`market_modal.vue`)
 
-Centered overlay (same pattern as other modals) opened from the market building card. Injects `colony` and `gameState`. Displays a "Market" title, a resource summary bar showing current amounts for all tradeable resources and gold (gold separated by a subtle left border), current trade fee percentage, and a scrollable list of trade rows (one per tradeable resource: Food, Wood, Stone, Copper, Iron). Each row shows the resource icon and name, current gold price per 100 units, a sell button (+gold gain in green), and a buy button (-gold cost). Buy/sell buttons use `.btn-gold`; disabled when unaffordable or stockpile would overflow. Insufficient amounts shown in red (`#c45050`). Calls `gameState.executeTrade(resource, direction)` on click. Emits `close` on backdrop click, close button, or Escape key. Visibility controlled by `showMarketModal` ref in `game_screen.vue`; opened via `inject('openMarketModal')` in `market_card.vue`.
+Centered overlay (same pattern as other modals) opened from the market building card. Injects `colony` and `gameState`. A "?" help button (`.modal-help-btn`) sits left of the close button and opens `ModalHelpModal` with market help text. Displays a "Market" title, a resource summary bar showing current amounts for all tradeable resources and gold (gold separated by a subtle left border), current trade fee percentage, and a scrollable list of trade rows (one per tradeable resource: Food, Wood, Stone, Copper, Iron). Each row shows the resource icon and name, current gold price per 100 units, a sell button (+gold gain in green), and a buy button (-gold cost). Buy/sell buttons use `.btn-gold`; disabled when unaffordable or stockpile would overflow. Insufficient amounts shown in red (`#c45050`). Calls `gameState.executeTrade(resource, direction)` on click. Emits `close` on backdrop click, close button, or Escape key. Visibility controlled by `showMarketModal` ref in `game_screen.vue`; opened via `inject('openMarketModal')` in `market_card.vue`.
 
 ### Game Header (`game_screen.vue`)
 
@@ -188,7 +192,7 @@ Research is an academy-gated tech tree providing cumulative bonus modifiers.
 
 **Tree** (`constants.js`) — `RESEARCH_TREE` is an ordered array of `{ category, subcategories: [{ key, researches: [research keys] }] }` used by the research modal for layout.
 
-**Modal** (`research_modal.vue`) — Tabbed overlay with category tabs at top, scrollable subcategory sections below. Each subcategory displays a horizontal chain of research nodes connected by arrows. Node states: `completed` (gold border + checkmark), `active` (pulsing glow), `available` (brighter border), `locked` (dimmed). Each node shows name and resource cost icons. Opened via `inject('openResearchModal')` from `academy_card.vue`. Emits `close` on backdrop click, close button, or Escape key.
+**Modal** (`research_modal.vue`) — Tabbed overlay with category tabs at top, scrollable subcategory sections below. Each subcategory displays a horizontal chain of research nodes connected by arrows. Node states: `completed` (gold border + checkmark), `active` (pulsing glow), `available` (brighter border), `locked` (dimmed). Each node shows name and resource cost icons. A "?" help button (`.modal-help-btn`) sits left of the close button and opens `ModalHelpModal` with research help text. Opened via `inject('openResearchModal')` from `academy_card.vue`. Emits `close` on backdrop click, close button, or Escape key.
 
 ## Visual Design
 
@@ -225,6 +229,8 @@ Research is an academy-gated tech tree providing cumulative bonus modifiers.
   - `.action-row` — flex row for icon-button + cost display pairs. `.action-btn` (2rem square icon button), `.action-btn-icon` (1.25rem icon), `.action-cost` (cost container), `.action-cost-item` (icon + amount pair), `.action-cost-icon` (0.9rem resource icon), `.action-cost-amount` (0.75rem value text), `.action-cost-short` (red color `#c45050` when unaffordable).
   - `.action-btn--constructing` — modifier that turns the action button into a progress indicator. Uses `::before` pseudo-element with `--progress` CSS variable for gold fill overlay (`transition: width 1s linear`). `.action-btn-time` (0.65rem numeric countdown inside the button).
   - `.slot-actions` — flex column wrapper for action groups inside building card slots. Uses `margin-top: auto` to bottom-align with thumbnail.
+  - `.modal-close-x` — absolute-positioned close button (X icon) in top-right corner of modals (1.5rem square, red-tinted background, hover intensifies). Used by `research_modal.vue` and `market_modal.vue`.
+  - `.modal-help-btn` — circular "?" help button positioned left of the close button (1.5rem, accent-colored border, hover brightens). Used by `research_modal.vue` and `market_modal.vue` to open `ModalHelpModal`.
   - `.card-modal-btn` — small icon-only button used inside building card slots to open a modal (e.g. academy research, market trading). Uses `margin-left: auto` to align right. `.card-modal-btn-icon` (1.1rem icon with drop-shadow).
   - `.worker-slot-row` — flex row wrapper (inside `.slot-actions`) that places `WorkerAssignmentRow` and slot content side-by-side for `Producer` buildings. Slot content uses `margin-left: auto` to align right (e.g. academy research button).
   - `.worker-row` — flex row for worker assignment controls. `.worker-btn` (2rem square ghost button), `.worker-btn--minus` (red `#c45050`), `.worker-btn--plus` (green `#50a850`), `.worker-count` (icon + text, 0.95rem), `.worker-count-icon` (1.4rem worker icon).
