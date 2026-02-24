@@ -39,13 +39,13 @@ function canSell(resource) {
 
 function buyTooltip(resource) {
   if (colony.resources.gold < buyPrice(resource)) return t('market.notEnoughGold')
-  if (colony.resources[resource] + MARKET_TRADE_AMOUNT > colony.stockpile[resource]) return t('market.stockpileFull')
+  if (colony.resources[resource] + MARKET_TRADE_AMOUNT > colony.stockpile[resource]) return t('market.stockpileFull', t('resource.' + resource).toLowerCase())
   const name = t('resource.' + resource).toLowerCase()
   return t('market.buyTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(buyPrice(resource)))
 }
 
 function sellTooltip(resource) {
-  if (colony.resources[resource] < MARKET_TRADE_AMOUNT) return t('market.notEnoughResource')
+  if (colony.resources[resource] < MARKET_TRADE_AMOUNT) return t('market.notEnoughResource', t('resource.' + resource).toLowerCase())
   if (colony.resources.gold + sellPrice(resource) > colony.stockpile.gold) return t('market.goldStockpileFull')
   const name = t('resource.' + resource).toLowerCase()
   return t('market.sellTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(sellPrice(resource)))

@@ -160,9 +160,9 @@ export const LOCALIZED_EN = {
   'market.sell': 'Sell',
   'market.fee': 'Fee',
   'market.notEnoughGold': 'Not enough gold',
-  'market.notEnoughResource': 'Not enough resources',
-  'market.stockpileFull': 'Stockpile full',
-  'market.goldStockpileFull': 'Gold stockpile full',
+  'market.notEnoughResource': 'Not enough {0}',
+  'market.stockpileFull': 'Not enough {0} stockpile',
+  'market.goldStockpileFull': 'Not enough gold stockpile',
   'market.buyTooltip': 'Buy {0} {1} for {2} gold',
   'market.sellTooltip': 'Sell {0} {1} for {2} gold',
 

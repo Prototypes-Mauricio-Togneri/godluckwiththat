@@ -160,9 +160,9 @@ export const LOCALIZED_ES = {
   'market.sell': 'Vender',
   'market.fee': 'Tarifa',
   'market.notEnoughGold': 'Oro insuficiente',
-  'market.notEnoughResource': 'Recursos insuficientes',
-  'market.stockpileFull': 'Almacén lleno',
-  'market.goldStockpileFull': 'Almacén de oro lleno',
+  'market.notEnoughResource': '{0} insuficiente',
+  'market.stockpileFull': 'Almacén de {0} insuficiente',
+  'market.goldStockpileFull': 'Almacén de oro insuficiente',
   'market.buyTooltip': 'Comprar {0} {1} por {2} oro',
   'market.sellTooltip': 'Vender {0} {1} por {2} oro',
 
