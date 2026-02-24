@@ -3,8 +3,6 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Add help buttons in market and research windows
-- Music from settlers anniversary
-- Make roadmap
 - Finish all building images
 - Add research for population (e.g. housing)
 - Finish to implement researches
