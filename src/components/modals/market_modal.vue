@@ -269,11 +269,17 @@ onUnmounted(() => {
 
 .market-fee {
   font-family: var(--font-numeric);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 400;
-  color: rgba(var(--color-text-rgb), 0.4);
+  color: rgba(var(--color-text-rgb), 0.5);
   letter-spacing: 0.04em;
   text-align: center;
+  display: inline-block;
+  background: rgba(var(--color-accent-rgb), 0.06);
+  border: 1px solid rgba(var(--color-accent-rgb), 0.18);
+  border-radius: 1rem;
+  padding: 0.3rem 0.9rem;
+  align-self: center;
   margin-bottom: 2.5rem;
 }
 
@@ -302,11 +308,11 @@ onUnmounted(() => {
 
 .market-header-label {
   font-family: var(--font-display);
-  font-size: 0.65rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(var(--color-text-rgb), 0.35);
+  color: rgba(var(--color-text-rgb), 0.5);
   flex: 1;
   text-align: center;
 }
