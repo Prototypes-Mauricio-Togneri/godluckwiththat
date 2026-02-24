@@ -493,9 +493,11 @@ class GameState {
       buildings,
     } = this.colony
     const marketLevel = buildings[BUILDING_MARKET].level
-    const levelReduction = (marketLevel - 1) * MARKET_FEE_REDUCTION_PER_LEVEL
-    const raw = Math.max(MARKET_MIN_FEE, MARKET_BASE_FEE * (1 - levelReduction))
-    return Math.floor(raw * 100) / 100
+    const basePercent = Math.round(MARKET_BASE_FEE * 100)
+    const reductionPerLevel = Math.round(MARKET_FEE_REDUCTION_PER_LEVEL * 100)
+    const minPercent = Math.round(MARKET_MIN_FEE * 100)
+    const rawPercent = basePercent - (marketLevel - 1) * reductionPerLevel
+    return Math.max(minPercent, rawPercent) / 100
   }
 
   /**

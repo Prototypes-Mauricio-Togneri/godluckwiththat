@@ -1032,8 +1032,8 @@ export const MARKET_BASE_FEE = 0.30
 // Minimum possible fee after all reductions
 export const MARKET_MIN_FEE = 0.05
 
-// Fee reduction per market building level (fraction of base fee)
-export const MARKET_FEE_REDUCTION_PER_LEVEL = 0.03
+// Fee reduction per market building level (percentage points)
+export const MARKET_FEE_REDUCTION_PER_LEVEL = 0.01
 
 // Gold shift in current price per trade (both buy and sell)
 export const MARKET_PRICE_SHIFT = 3

@@ -17,7 +17,7 @@ const showHelp = ref(false)
 let rafId = null
 
 const fee = computed(() => gameState.effectiveTradeFee())
-const feePercent = computed(() => fee.value * 100)
+const feePercent = computed(() => Math.round(fee.value * 100))
 
 function buyPrice(resource) {
   return Math.floor(colony.marketPrices[resource] * (1 + fee.value))
