@@ -135,8 +135,8 @@ onUnmounted(() => {
 
     <ModalHelpModal
       v-if="showHelp"
-      title-key="modal.researchHelp.title"
-      body-key="modal.researchHelp.body"
+      :title="t('modal.researchHelp.title')"
+      :body="t('modal.researchHelp.body')"
       @close="showHelp = false"
     />
   </div>

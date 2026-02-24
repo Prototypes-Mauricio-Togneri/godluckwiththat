@@ -20,7 +20,7 @@ Centered overlay (same pattern as pause modal) showing information about a build
 
 ### Modal Help Modal (`help_modal.vue`)
 
-Generic help modal for overlay-on-overlay display (z-index 110, above the parent modal's z-index 100). Takes `titleKey` and `bodyKey` props (i18n keys). Layout: uppercase title, decorative rule, description paragraph, and a "CLOSE" button. Follows the same animation pattern as other modals (rAF-driven `visible` class). Escape key handler in capture phase with `stopImmediatePropagation` to close itself without affecting the parent modal. Used by `research_modal.vue` and `market_modal.vue` via their "?" help buttons. Parent modals also guard their own Escape handler to close the help modal first when open.
+Generic help modal for overlay-on-overlay display (z-index 110, above the parent modal's z-index 100). Takes `title` and `body` props (pre-translated strings). Layout: uppercase title, decorative rule, description paragraph, and a "CLOSE" button. Follows the same animation pattern as other modals (rAF-driven `visible` class). Escape key handler in capture phase with `stopImmediatePropagation` to close itself without affecting the parent modal. Used by `research_modal.vue` and `market_modal.vue` via their "?" help buttons. Parent modals also guard their own Escape handler to close the help modal first when open.
 
 ### Confirm Modal (`confirm_modal.vue`)
 

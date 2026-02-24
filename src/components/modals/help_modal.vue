@@ -4,17 +4,17 @@ import {playTap} from '@/js/engine/audio.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
-  titleKey: {
+  title: {
     type: String,
     required: true,
   },
-  bodyKey: {
+  body: {
     type: String,
     required: true,
   },
 })
 
-const paragraphs = computed(() => t(props.bodyKey).split('\n'))
+const paragraphs = computed(() => props.body.split('\n'))
 
 const emit = defineEmits(['close'])
 const visible = ref(false)
@@ -47,7 +47,7 @@ onUnmounted(() => {
     @click.self="emit('close')"
   >
     <div class="modal-content">
-      <h2 class="modal-title">{{ t(titleKey) }}</h2>
+      <h2 class="modal-title">{{ title }}</h2>
       <span class="modal-rule" />
       <p v-for="(para, i) in paragraphs" :key="i" class="modal-description">{{ para }}</p>
 

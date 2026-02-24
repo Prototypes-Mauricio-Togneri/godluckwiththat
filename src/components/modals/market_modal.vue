@@ -3,7 +3,7 @@ import {ref, inject, computed, onMounted, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber} from '@/js/engine/format.js'
 import {TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
-import {MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
+import {MARKET_TRADE_AMOUNT, MARKET_PRICE_SHIFT, MARKET_BASE_FEE, MARKET_MIN_FEE, MARKET_FEE_REDUCTION_PER_LEVEL} from '@/js/engine/balancing.js'
 import {IMG_RESOURCE_MAP, SND_MARKET_EXCHANGE} from '@/js/engine/assets.js'
 import {RESOURCE_GOLD} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
@@ -183,8 +183,8 @@ onUnmounted(() => {
 
     <ModalHelpModal
       v-if="showHelp"
-      title-key="modal.marketHelp.title"
-      body-key="modal.marketHelp.body"
+      :title="t('modal.marketHelp.title')"
+      :body="t('modal.marketHelp.body', MARKET_TRADE_AMOUNT, MARKET_PRICE_SHIFT, MARKET_BASE_FEE * 100, MARKET_FEE_REDUCTION_PER_LEVEL * 100, MARKET_MIN_FEE * 100)"
       @close="showHelp = false"
     />
   </div>
