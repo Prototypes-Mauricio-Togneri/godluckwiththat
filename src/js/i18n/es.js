@@ -182,7 +182,6 @@ export const LOCALIZED_ES = {
   'research.subcategory.transportation': 'Transporte',
   'research.subcategory.construction': 'Construcción',
   'research.subcategory.expansion': 'Expansión',
-  'research.subcategory.trading': 'Comercio',
   'research.subcategory.floods': 'Inundaciones',
   'research.subcategory.health': 'Salud',
   'research.subcategory.earthquakes': 'Terremotos',
@@ -202,7 +201,6 @@ export const LOCALIZED_ES = {
   'research.effect.transportation': 'Aumenta la productividad de los trabajadores en un {0}%',
   'research.effect.construction': 'Reduce el tiempo de construcción en un {0}%',
   'research.effect.expansion': 'Reduce el coste de expansión en un {0}%',
-  'research.effect.trading': 'Reduce las tarifas comerciales en un {0}%',
   'research.effect.floods': 'Reduce el impacto de inundaciones en un {0}%',
   'research.effect.health': 'Reduce el impacto de enfermedades en un {0}%',
   'research.effect.earthquakes': 'Reduce el impacto de terremotos en un {0}%',
@@ -234,12 +232,6 @@ export const LOCALIZED_ES = {
   'research.expansion3': 'Orientación',
   'research.expansion4': 'Exploración',
   'research.expansion5': 'Colonización',
-  'research.trading1': 'Rutas comerciales',
-  'research.trading2': 'Acuñación',
-  'research.trading3': 'Gremios',
-  'research.trading4': 'Moneda',
-  'research.trading5': 'Caravanas',
-
   // Research names — Disasters
   'research.floods1': 'Control de inundaciones',
   'research.floods2': 'Red de canales',

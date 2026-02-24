@@ -2,7 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Remove market research. In app and in excel
 - Add help buttons in market and research windows
 - Music from settlers anniversary
 - Make roadmap
@@ -27,7 +26,10 @@
   - attack_incoming
 - Create tutorial
   - Season has changed -> Explain their effects on production and upkeep
+  - Build a house
   - Build a farm
-  - Assign workers
+  - Build a woodcutter
   - Create a worker
+  - Assign workers
+  - Build an altar
   - Show what buildings are unlocked when upgrading HQ

@@ -182,7 +182,6 @@ export const LOCALIZED_FR = {
   'research.subcategory.transportation': 'Transport',
   'research.subcategory.construction': 'Construction',
   'research.subcategory.expansion': 'Expansion',
-  'research.subcategory.trading': 'Commerce',
   'research.subcategory.floods': 'Inondations',
   'research.subcategory.health': 'Santé',
   'research.subcategory.earthquakes': 'Séismes',
@@ -202,7 +201,6 @@ export const LOCALIZED_FR = {
   'research.effect.transportation': 'Augmente la productivité des ouvriers de {0}%',
   'research.effect.construction': 'Réduit le temps de construction de {0}%',
   'research.effect.expansion': 'Réduit le coût d\'expansion de {0}%',
-  'research.effect.trading': 'Réduit les frais de commerce de {0}%',
   'research.effect.floods': 'Réduit l\'impact des inondations de {0}%',
   'research.effect.health': 'Réduit l\'impact des maladies de {0}%',
   'research.effect.earthquakes': 'Réduit l\'impact des séismes de {0}%',
@@ -234,12 +232,6 @@ export const LOCALIZED_FR = {
   'research.expansion3': 'Orientation',
   'research.expansion4': 'Éclaireurs',
   'research.expansion5': 'Colonisation',
-  'research.trading1': 'Routes commerciales',
-  'research.trading2': 'Frappe de monnaie',
-  'research.trading3': 'Guildes',
-  'research.trading4': 'Devises',
-  'research.trading5': 'Caravanes',
-
   // Research names — Disasters
   'research.floods1': 'Contrôle des crues',
   'research.floods2': 'Réseau de canaux',

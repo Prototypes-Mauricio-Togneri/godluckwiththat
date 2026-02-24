@@ -182,7 +182,6 @@ export const LOCALIZED_EN = {
   'research.subcategory.transportation': 'Transportation',
   'research.subcategory.construction': 'Construction',
   'research.subcategory.expansion': 'Expansion',
-  'research.subcategory.trading': 'Trading',
   'research.subcategory.floods': 'Floods',
   'research.subcategory.health': 'Health',
   'research.subcategory.earthquakes': 'Earthquakes',
@@ -202,7 +201,6 @@ export const LOCALIZED_EN = {
   'research.effect.transportation': 'Increases worker productivity by {0}%',
   'research.effect.construction': 'Reduces construction time by {0}%',
   'research.effect.expansion': 'Reduces expansion cost by {0}%',
-  'research.effect.trading': 'Reduces trade fees by {0}%',
   'research.effect.floods': 'Reduces flood impact by {0}%',
   'research.effect.health': 'Reduces disease impact by {0}%',
   'research.effect.earthquakes': 'Reduces earthquake impact by {0}%',
@@ -234,12 +232,6 @@ export const LOCALIZED_EN = {
   'research.expansion3': 'Pathfinding',
   'research.expansion4': 'Scouting',
   'research.expansion5': 'Colonization',
-  'research.trading1': 'Trading Routes',
-  'research.trading2': 'Coinage',
-  'research.trading3': 'Guilds',
-  'research.trading4': 'Currency',
-  'research.trading5': 'Caravans',
-
   // Research names — Disasters
   'research.floods1': 'Flood Control',
   'research.floods2': 'Canal Networks',

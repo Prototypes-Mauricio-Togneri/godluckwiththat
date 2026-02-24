@@ -173,7 +173,7 @@ Each building has a level that can be increased by spending resources. Building 
   - Price floor: minimum 20 gold (sell floor ~14 gold at max fee). Price cap: 9999
   - Workers cannot be assigned to this building
   - The higher the level, the cheaper the trades (-3% fee per level)
-  - Trading research (5 tiers × 10%) also reduces the fee. Minimum fee: 5%
+  - Minimum fee: 5%
 - Altar
   - Produces a fixed amount of faith per second
   - Workers cannot be assigned to this building
@@ -258,7 +258,7 @@ Each building has a level that can be increased by spending resources. Building 
 The research system allows the player to unlock permanent bonuses by spending knowledge and other resources at the Academy. Research is accessed via the Research modal in the game UI.
 
 - Research is organized into 5 categories: General, Resources, Disasters, Religion, Military
-  - General (5 subcategories × 5 tiers = 25 researches): Transportation, Construction, Expansion, Storage, Trading
+  - General (4 subcategories × 5 tiers = 20 researches): Transportation, Construction, Expansion, Storage
   - Resources (6 subcategories × 5 tiers = 30 researches): Food Production, Food Consumption, Wood Production, Wood Consumption, Mining, Knowledge Production
   - Disasters (3 subcategories × 5 tiers = 15 researches): Floods, Health, Earthquakes
   - Religion (1 subcategory × 5 tiers = 5 researches): Faith
@@ -276,7 +276,6 @@ The research system allows the player to unlock permanent bonuses by spending kn
 | General | Construction | -10% construction time |
 | General | Expansion | -10% expansion cost |
 | General | Storage | +15% storage capacity |
-| General | Trading | -10% trade fees |
 | Resources | Food Production | +10% food production |
 | Resources | Food Consumption | -5% food consumption |
 | Resources | Wood Production | +10% wood production |
