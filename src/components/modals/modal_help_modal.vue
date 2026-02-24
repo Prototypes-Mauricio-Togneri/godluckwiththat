@@ -1,9 +1,9 @@
 <script setup>
-import {ref, onMounted, onUnmounted} from 'vue'
+import {ref, computed, onMounted, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
 import {t} from '@/js/i18n/localized.js'
 
-defineProps({
+const props = defineProps({
   titleKey: {
     type: String,
     required: true,
@@ -13,6 +13,8 @@ defineProps({
     required: true,
   },
 })
+
+const paragraphs = computed(() => t(props.bodyKey).split('\n'))
 
 const emit = defineEmits(['close'])
 const visible = ref(false)
@@ -47,7 +49,7 @@ onUnmounted(() => {
     <div class="modal-content">
       <h2 class="modal-title">{{ t(titleKey) }}</h2>
       <span class="modal-rule" />
-      <p class="modal-description">{{ t(bodyKey) }}</p>
+      <p v-for="(para, i) in paragraphs" :key="i" class="modal-description">{{ para }}</p>
 
       <button class="btn-gold modal-btn" @click="playTap(); emit('close')">
         {{ t('modal.help.close') }}
@@ -122,6 +124,10 @@ onUnmounted(() => {
   font-weight: 300;
   line-height: 1.6;
   color: rgba(var(--color-text-rgb), 0.75);
+}
+
+.modal-description + .modal-description {
+  margin-top: 0.75rem;
 }
 
 .modal-btn {
