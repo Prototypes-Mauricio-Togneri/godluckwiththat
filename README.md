@@ -2,7 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Add help buttons in market and research windows
 - Finish all building images
 - Add research for population (e.g. housing)
 - Finish to implement researches
@@ -11,13 +10,13 @@
   - Resolve a challenge
   - Show challenge outcome
   - Choose blessing
+- Improve text for help
 - Create military window
   - See military
   - Create units
   - See upcoming attacks
 - Implement story intro
 - Implement natural disasters
-- Contact civ clicker creator
 - Implement save and load
 - Future events
   - challenge_timeout
