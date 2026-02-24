@@ -78,6 +78,7 @@ export const IMG_RESOURCE_MAP = {
 export const SND_BUILDING_CREATED = '/audio/sound/building_created.mp3'
 export const SND_BUTTON_TAP = '/audio/sound/button_tap.mp3'
 export const SND_HEADQUARTERS_UPGRADED = '/audio/sound/headquarters_upgraded.mp3'
+export const SND_MARKET_EXCHANGE = '/audio/sound/market_exchange.mp3'
 export const SND_NOTIFICATION_ALERT = '/audio/sound/notification_alert.mp3'
 export const SND_NOTIFICATION_SEASON = '/audio/sound/notification_season.mp3'
 export const SND_RESEARCH_COMPLETED = '/audio/sound/research_completed.mp3'
@@ -89,4 +90,7 @@ export const SND_WORKER_MINE = '/audio/sound/worker_mine.mp3'
 export const SND_WORKER_WOOD = '/audio/sound/worker_wood.mp3'
 
 // Music
-export const MUS_MUSIC = '/audio/music/music.mp3'
+export const MUS_MUSIC_1 = '/audio/music/music_1.mp3'
+export const MUS_MUSIC_2 = '/audio/music/music_2.mp3'
+export const MUS_MUSIC_3 = '/audio/music/music_3.mp3'
+export const MUS_MUSIC_4 = '/audio/music/music_4.mp3'

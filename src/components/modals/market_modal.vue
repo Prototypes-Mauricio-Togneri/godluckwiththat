@@ -1,10 +1,10 @@
 <script setup>
 import {ref, inject, computed, onMounted, onUnmounted} from 'vue'
-import {playTap} from '@/js/engine/audio.js'
+import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber} from '@/js/engine/format.js'
 import {TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
 import {MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
-import {IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
+import {IMG_RESOURCE_MAP, SND_MARKET_EXCHANGE} from '@/js/engine/assets.js'
 import {RESOURCE_GOLD} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -50,14 +50,14 @@ function sellTooltip(resource) {
 }
 
 function buy(resource) {
-  playTap()
   if (!canBuy(resource)) return
+  audio.playSound(SND_MARKET_EXCHANGE)
   gameState.executeTrade(resource, 'buy')
 }
 
 function sell(resource) {
-  playTap()
   if (!canSell(resource)) return
+  audio.playSound(SND_MARKET_EXCHANGE)
   gameState.executeTrade(resource, 'sell')
 }
 

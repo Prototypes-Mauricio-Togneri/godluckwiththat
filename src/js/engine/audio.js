@@ -11,7 +11,8 @@ class Audio {
     this._musicEnabled = storage.musicEnabled // Whether music is on (persisted)
     this._soundEnabled = storage.soundEnabled // Whether sounds are on (persisted)
     this._music = null // Current HTMLAudioElement for music
-    this._musicPath = null // Asset path of the current music track
+    this._playlist = [] // Ordered list of music asset paths
+    this._playlistIndex = 0 // Current index in the playlist
     this._cache = new Map() // Preloaded HTMLAudioElements keyed by asset path
     this._activeSounds = new Map() // Currently playing sound elements keyed by asset path
     this._gamePaused = false // Whether music was paused by game logic (not the browser)
@@ -62,17 +63,34 @@ class Audio {
   }
 
   /**
-   * Starts looping background music. No-op if already playing.
-   * @param {string} assetPath - Asset path constant from assets.js
+   * Starts sequential music playback. Tracks play in order, cycling back to the first after the last.
+   * @param {string[]} tracks - Ordered array of asset path constants from assets.js
    */
-  playMusic(assetPath) {
-    this._musicPath = assetPath
+  playMusicPlaylist(tracks) {
+    this.stopMusic()
+    this._playlist = tracks
+    this._playlistIndex = 0
     if (!this._musicEnabled) return
-    if (this._music && !this._music.paused) return
+    this._playTrack(0)
+  }
+
+  /**
+   * Plays the track at the given playlist index and advances on end.
+   * @param {number} index - Index into this._playlist
+   */
+  _playTrack(index) {
+    if (!this._playlist.length) return
+    this._playlistIndex = index
+    const assetPath = this._playlist[index]
     const cached = this._cache.get(assetPath)
     this._music = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(assetPath)
-    this._music.loop = true
     this._music.volume = this._volume(assetPath)
+    this._music.addEventListener('ended', () => {
+      const next = (this._playlistIndex + 1) % this._playlist.length
+      this._playTrack(next)
+    }, {
+      once: true,
+    })
     this._music.play().catch(e => import.meta.env.DEV && console.warn('Audio play failed:', e))
   }
 
@@ -84,7 +102,6 @@ class Audio {
     this._music.pause()
     this._music.currentTime = 0
     this._music = null
-    this._musicPath = null
   }
 
   /**
@@ -112,16 +129,11 @@ class Audio {
   setMusicEnabled(enabled) {
     this._musicEnabled = enabled
     storage.musicEnabled = enabled
-    if (enabled && this._musicPath && !this._music) {
-      const cached = this._cache.get(this._musicPath)
-      this._music = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(this._musicPath)
-      this._music.loop = true
-      this._music.volume = this._volume(this._musicPath)
-      this._music.play().catch(e => import.meta.env.DEV && console.warn('Audio play failed:', e))
+    if (enabled && this._playlist.length && !this._music) {
+      this._playTrack(this._playlistIndex)
     }
-    if (!enabled && this._music) {
-      this._music.pause()
-      this._music = null
+    if (!enabled) {
+      this.stopMusic()
     }
   }
 
