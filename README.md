@@ -6,10 +6,6 @@
 - Music from settlers anniversary
 - Make roadmap
 - Finish all building images
-- Create military window
-  - See military
-  - Create units
-  - See upcoming attacks
 - Add research for population (e.g. housing)
 - Finish to implement researches
 - Implement challenges
@@ -17,6 +13,10 @@
   - Resolve a challenge
   - Show challenge outcome
   - Choose blessing
+- Create military window
+  - See military
+  - Create units
+  - See upcoming attacks
 - Implement story intro
 - Implement natural disasters
 - Contact civ clicker creator
