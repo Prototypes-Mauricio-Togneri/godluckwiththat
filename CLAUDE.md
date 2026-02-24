@@ -98,6 +98,7 @@ Read these when working on specific areas:
 - **Localization**: All user-facing text goes in every locale file under `src/js/i18n/`. Use the `t(key)` helper to reference strings. Keys use flat dot-notation with lowerCamelCase segments (e.g. `'resource.idleWorkers'`).
 - **Imports**: Always use the `@` path alias (mapped to `src/`) for imports. Do not use relative paths (`./`, `../`).
 - **Shared Styles**: When a CSS rule or value is repeated across `.vue` files, extract it into `src/assets/styles.css` (as a CSS variable, shared class, or both). Component-specific overrides stay in scoped `<style>` blocks.
+- **Color Format**: Always use `rgba()` for colors. Do not use hex (`#rrggbb`, `#rrggbbaa`). For fully opaque colors, use alpha `1` (e.g., `rgba(196, 80, 80, 1)`).
 - **Root Cause Fixes**: If a bug exists, identify and fix the root cause. Do not apply temporary or partial fixes.
 - **Async Patterns**: Prefer `async` and `await` over `Promise` and `then` calls.
 - **UI/UX**: Always use the `frontend-design` skill when changing the UI.

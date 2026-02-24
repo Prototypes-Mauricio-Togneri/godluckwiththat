@@ -541,12 +541,12 @@ onUnmounted(() => {
 }
 
 .season-track--warm .season-fill {
-  background: linear-gradient(90deg, #b8943e, #d4a843);
+  background: linear-gradient(90deg, rgba(184, 148, 62, 1), rgba(212, 168, 67, 1));
   box-shadow: 0 0 6px rgba(184, 148, 62, 0.4);
 }
 
 .season-track--cold .season-fill {
-  background: linear-gradient(90deg, #5b8fb9, #7ec8e3);
+  background: linear-gradient(90deg, rgba(91, 143, 185, 1), rgba(126, 200, 227, 1));
   box-shadow: 0 0 6px rgba(126, 200, 227, 0.35);
 }
 
@@ -680,7 +680,7 @@ onUnmounted(() => {
 }
 
 .events-clear-btn:hover {
-  color: #c45050;
+  color: rgba(196, 80, 80, 1);
 }
 
 .events-section-label {
@@ -766,7 +766,7 @@ onUnmounted(() => {
 }
 
 .event-dismiss:hover {
-  color: #c45050;
+  color: rgba(196, 80, 80, 1);
   border-color: rgba(196, 80, 80, 0.4);
   background: rgba(196, 80, 80, 0.1);
 }

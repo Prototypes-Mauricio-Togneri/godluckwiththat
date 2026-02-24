@@ -421,7 +421,7 @@ onUnmounted(() => {
 }
 
 .trade-btn-value--insufficient {
-  color: #c45050;
+  color: rgba(196, 80, 80, 1);
 }
 
 </style>

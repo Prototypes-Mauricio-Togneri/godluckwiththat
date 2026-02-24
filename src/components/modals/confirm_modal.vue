@@ -181,7 +181,7 @@ onUnmounted(() => {
 
 /* Confirm — red */
 .modal-btn--confirm {
-  color: #e4d5bc;
+  color: rgba(228, 213, 188, 1);
   background: linear-gradient(
     180deg,
     rgba(196, 80, 80, 0.15),
@@ -191,7 +191,7 @@ onUnmounted(() => {
 }
 
 .modal-btn--confirm:hover {
-  color: #c45050;
+  color: rgba(196, 80, 80, 1);
   background: linear-gradient(
     180deg,
     rgba(196, 80, 80, 0.22),

@@ -28,7 +28,7 @@ Reusable confirmation dialog (same overlay pattern). Props: `titleKey` and `desc
 
 ### Market Modal (`market_modal.vue`)
 
-Centered overlay (same pattern as other modals) opened from the market building card. Injects `colony` and `gameState`. A "?" help button (`.modal-help-btn`) sits left of the close button and opens `ModalHelpModal` with market help text. Displays a "Market" title, a resource summary bar showing current amounts for all tradeable resources and gold (gold separated by a subtle left border), current trade fee percentage, and a scrollable list of trade rows (one per tradeable resource: Food, Wood, Stone, Copper, Iron). Each row shows the resource icon and name, current gold price per 100 units, a sell button (+gold gain in green), and a buy button (-gold cost). Buy/sell buttons use `.btn-gold`; disabled when unaffordable or stockpile would overflow. Insufficient amounts shown in red (`#c45050`). Calls `gameState.executeTrade(resource, direction)` on click. Emits `close` on backdrop click, close button, or Escape key. Visibility controlled by `showMarketModal` ref in `game_screen.vue`; opened via `inject('openMarketModal')` in `market_card.vue`.
+Centered overlay (same pattern as other modals) opened from the market building card. Injects `colony` and `gameState`. A "?" help button (`.modal-help-btn`) sits left of the close button and opens `ModalHelpModal` with market help text. Displays a "Market" title, a resource summary bar showing current amounts for all tradeable resources and gold (gold separated by a subtle left border), current trade fee percentage, and a scrollable list of trade rows (one per tradeable resource: Food, Wood, Stone, Copper, Iron). Each row shows the resource icon and name, current gold price per 100 units, a sell button (+gold gain in green), and a buy button (-gold cost). Buy/sell buttons use `.btn-gold`; disabled when unaffordable or stockpile would overflow. Insufficient amounts shown in red (`rgba(196, 80, 80, 1)`). Calls `gameState.executeTrade(resource, direction)` on click. Emits `close` on backdrop click, close button, or Escape key. Visibility controlled by `showMarketModal` ref in `game_screen.vue`; opened via `inject('openMarketModal')` in `market_card.vue`.
 
 ### Game Header (`game_screen.vue`)
 
@@ -199,11 +199,11 @@ Research is an academy-gated tech tree providing cumulative bonus modifiers.
 **Theme**: Earthy & Ancient — warm browns, parchment tones, and aged bronze accents, evoking a torchlit ancient settlement. Inspired by Forge of Empires, Tribal Wars 2, Goodgame Empire.
 
 **Colors**:
-- Background: `#16120e` (deep umber, aged wood by torchlight)
-- Raised surface: `#1e1a14` (dark walnut)
-- Panel surface: `#272119` (stone panel)
-- Text: `#e4d5bc` (warm parchment cream)
-- Accent: `#b8943e` / `rgba(184, 148, 62, ...)` (aged bronze)
+- Background: `rgba(22, 18, 14, 1)` (deep umber, aged wood by torchlight)
+- Raised surface: `rgba(30, 26, 20, 1)` (dark walnut)
+- Panel surface: `rgba(39, 33, 25, 1)` (stone panel)
+- Text: `rgba(228, 213, 188, 1)` (warm parchment cream)
+- Accent: `rgba(184, 148, 62, 1)` (aged bronze)
 - Border: `rgba(184, 148, 62, 0.15)` (subtle warm border)
 - Modal overlay: `rgba(0, 0, 0, 0.75)` with `backdrop-filter: blur(4px)`
 - Muted UI: `rgba(228, 213, 188, 0.1–0.4)` (parchment-toned)
@@ -226,16 +226,16 @@ Research is an academy-gated tech tree providing cumulative bonus modifiers.
 - **Shared classes**:
   - `.btn-gold` — bronze-gradient button base (font, color, gradient background, border, hover glow). Includes `:disabled` state (reduced opacity, `cursor: not-allowed`, hover neutralized). Components add sizing/spacing overrides in scoped styles.
   - `.tooltip` — CSS-only hover tooltip (positioned below element via `::after` pseudo-element reading `data-tooltip` attribute, instant fade-in). `.tooltip--delayed` modifier adds a 1s hover delay (used on building card tooltips).
-  - `.action-row` — flex row for icon-button + cost display pairs. `.action-btn` (2rem square icon button), `.action-btn-icon` (1.25rem icon), `.action-cost` (cost container), `.action-cost-item` (icon + amount pair), `.action-cost-icon` (0.9rem resource icon), `.action-cost-amount` (0.75rem value text), `.action-cost-short` (red color `#c45050` when unaffordable).
+  - `.action-row` — flex row for icon-button + cost display pairs. `.action-btn` (2rem square icon button), `.action-btn-icon` (1.25rem icon), `.action-cost` (cost container), `.action-cost-item` (icon + amount pair), `.action-cost-icon` (0.9rem resource icon), `.action-cost-amount` (0.75rem value text), `.action-cost-short` (red color `rgba(196, 80, 80, 1)` when unaffordable).
   - `.action-btn--constructing` — modifier that turns the action button into a progress indicator. Uses `::before` pseudo-element with `--progress` CSS variable for gold fill overlay (`transition: width 1s linear`). `.action-btn-time` (0.65rem numeric countdown inside the button).
   - `.slot-actions` — flex column wrapper for action groups inside building card slots. Uses `margin-top: auto` to bottom-align with thumbnail.
   - `.modal-close-x` — absolute-positioned close button (X icon) in top-right corner of modals (1.5rem square, red-tinted background, hover intensifies). Used by `research_modal.vue` and `market_modal.vue`.
   - `.modal-help-btn` — circular "?" help button positioned left of the close button (1.5rem, accent-colored border, hover brightens). Used by `research_modal.vue` and `market_modal.vue` to open `ModalHelpModal`.
   - `.card-modal-btn` — small icon-only button used inside building card slots to open a modal (e.g. academy research, market trading). Uses `margin-left: auto` to align right. `.card-modal-btn-icon` (1.1rem icon with drop-shadow).
   - `.worker-slot-row` — flex row wrapper (inside `.slot-actions`) that places `WorkerAssignmentRow` and slot content side-by-side for `Producer` buildings. Slot content uses `margin-left: auto` to align right (e.g. academy research button).
-  - `.worker-row` — flex row for worker assignment controls. `.worker-btn` (2rem square ghost button), `.worker-btn--minus` (red `#c45050`), `.worker-btn--plus` (green `#50a850`), `.worker-count` (icon + text, 0.95rem), `.worker-count-icon` (1.4rem worker icon).
-  - `.production-rate` — per-minute rate indicator (0.8rem numeric font). `.production-rate--positive` (green `#50a850`), `.production-rate--negative` / `.production-rate--zero` (red `#c45050`).
-  - `.resource-box` — bordered container for header resource items (subtle bronze gradient, `position: relative`). `.resource-row-top` (flex row for icon + value). `.resource-icon` (1.25rem icon with drop-shadow). `.resource-value` (0.8rem `Azeret Mono` numeric amount, tabular-nums, right-aligned, 6ch min-width). `.resource-value--alert` (red `#c0392b` when at stockpile cap), `.resource-value--zero` (red `#c45050` when empty), `.resource-value--gold` (accent-tinted for gold amounts). `.resource-bar` (4px progress track at bottom), `.resource-bar-fill--positive` (green), `.resource-bar-fill--negative` (red). `.resource-tooltip` (HTML-based rich tooltip with flex-column layout), `.resource-tooltip-rate` (monospace rate), `.resource-tooltip-time` (subdued time estimate).
+  - `.worker-row` — flex row for worker assignment controls. `.worker-btn` (2rem square ghost button), `.worker-btn--minus` (red `rgba(196, 80, 80, 1)`), `.worker-btn--plus` (green `rgba(80, 168, 80, 1)`), `.worker-count` (icon + text, 0.95rem), `.worker-count-icon` (1.4rem worker icon).
+  - `.production-rate` — per-minute rate indicator (0.8rem numeric font). `.production-rate--positive` (green `rgba(80, 168, 80, 1)`), `.production-rate--negative` / `.production-rate--zero` (red `rgba(196, 80, 80, 1)`).
+  - `.resource-box` — bordered container for header resource items (subtle bronze gradient, `position: relative`). `.resource-row-top` (flex row for icon + value). `.resource-icon` (1.25rem icon with drop-shadow). `.resource-value` (0.8rem `Azeret Mono` numeric amount, tabular-nums, right-aligned, 6ch min-width). `.resource-value--alert` (red `rgba(192, 57, 43, 1)` when at stockpile cap), `.resource-value--zero` (red `rgba(196, 80, 80, 1)` when empty), `.resource-value--gold` (accent-tinted for gold amounts). `.resource-bar` (4px progress track at bottom), `.resource-bar-fill--positive` (green), `.resource-bar-fill--negative` (red). `.resource-tooltip` (HTML-based rich tooltip with flex-column layout), `.resource-tooltip-rate` (monospace rate), `.resource-tooltip-time` (subdued time estimate).
 
 ## Code Style
 

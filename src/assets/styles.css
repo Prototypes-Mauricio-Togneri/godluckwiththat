@@ -3,12 +3,12 @@
    ============================================ */
 
 :root {
-    --color-bg: #16120e;
-    --color-bg-raised: #1e1a14;
-    --color-bg-surface: #272119;
-    --color-text: #e4d5bc;
+    --color-bg: rgba(22, 18, 14, 1);
+    --color-bg-raised: rgba(30, 26, 20, 1);
+    --color-bg-surface: rgba(39, 33, 25, 1);
+    --color-text: rgba(228, 213, 188, 1);
     --color-text-rgb: 228, 213, 188;
-    --color-accent: #b8943e;
+    --color-accent: rgba(184, 148, 62, 1);
     --color-accent-rgb: 184, 148, 62;
     --color-border: rgba(184, 148, 62, 0.15);
     --color-shadow-rgb: 0, 0, 0;
@@ -187,7 +187,7 @@
 }
 
 .action-cost-short {
-    color: #c45050;
+    color: rgba(196, 80, 80, 1);
 }
 
 /* Construction progress — button becomes a progress indicator during build/upgrade */
@@ -248,8 +248,8 @@
 }
 
 .modal-close-x:hover {
-    color: #a84343;
-    border-color: #a84343;
+    color: rgba(168, 67, 67, 1);
+    border-color: rgba(168, 67, 67, 1);
 }
 
 /* Modal help button — squared ? icon left of the close button */
@@ -329,7 +329,7 @@
 }
 
 .worker-btn--minus {
-    color: #c45050;
+    color: rgba(196, 80, 80, 1);
     border: 1px solid rgba(196, 80, 80, 0.3);
 }
 
@@ -340,7 +340,7 @@
 }
 
 .worker-btn--plus {
-    color: #50a850;
+    color: rgba(80, 168, 80, 1);
     border: 1px solid rgba(80, 168, 80, 0.3);
 }
 
@@ -375,7 +375,7 @@
 }
 
 .worker-count-text--zero {
-    color: #c45050;
+    color: rgba(196, 80, 80, 1);
 }
 
 /* Production rate indicator — colored rate beside resource values */
@@ -391,12 +391,12 @@
 }
 
 .production-rate--positive {
-    color: #50a850;
+    color: rgba(80, 168, 80, 1);
 }
 
 .production-rate--negative,
 .production-rate--zero {
-    color: #c45050;
+    color: rgba(196, 80, 80, 1);
 }
 
 /* Resource box — compact two-row container for header resource items */
@@ -458,11 +458,11 @@
 }
 
 .resource-value--alert {
-    color: #c0392b;
+    color: rgba(192, 57, 43, 1);
 }
 
 .resource-value--zero {
-    color: #c45050;
+    color: rgba(196, 80, 80, 1);
 }
 
 .resource-value--gold {
@@ -490,12 +490,12 @@
 }
 
 .resource-bar-fill--positive {
-    background: linear-gradient(90deg, #3d8a3d, #50a850);
+    background: linear-gradient(90deg, rgba(61, 138, 61, 1), rgba(80, 168, 80, 1));
     box-shadow: 0 0 5px rgba(80, 168, 80, 0.35);
 }
 
 .resource-bar-fill--negative {
-    background: linear-gradient(90deg, #a83c3c, #c45050);
+    background: linear-gradient(90deg, rgba(168, 60, 60, 1), rgba(196, 80, 80, 1));
     box-shadow: 0 0 5px rgba(196, 80, 80, 0.35);
 }
 
