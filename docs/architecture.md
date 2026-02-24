@@ -18,7 +18,7 @@ Centered overlay with "PAUSED" title, decorative rule, audio toggles, and two st
 
 Centered overlay (same pattern as pause modal) showing information about a building. Rendered inside `base_card.vue` via `v-if` on a local `showHelp` ref. Props: `nameKey` (i18n key for the title), `buildingKey` (indexes into `buildingHelp.{key}` for the description), and `img` (building thumbnail path). Layout: uppercase building name title, decorative rule, horizontal body with large thumbnail image (9rem) alongside description paragraph, and a "CLOSE" button. Emits `close` on backdrop click, button press, or Escape key.
 
-### Modal Help Modal (`modal_help_modal.vue`)
+### Modal Help Modal (`help_modal.vue`)
 
 Generic help modal for overlay-on-overlay display (z-index 110, above the parent modal's z-index 100). Takes `titleKey` and `bodyKey` props (i18n keys). Layout: uppercase title, decorative rule, description paragraph, and a "CLOSE" button. Follows the same animation pattern as other modals (rAF-driven `visible` class). Escape key handler in capture phase with `stopImmediatePropagation` to close itself without affecting the parent modal. Used by `research_modal.vue` and `market_modal.vue` via their "?" help buttons. Parent modals also guard their own Escape handler to close the help modal first when open.
 

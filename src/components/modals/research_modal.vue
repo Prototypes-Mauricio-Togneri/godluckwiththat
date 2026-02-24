@@ -6,7 +6,7 @@ import {RESEARCH_TREE} from '@/js/engine/constants.js'
 import {RESEARCH_DEFINITIONS} from '@/js/engine/balancing.js'
 import {IMG_OTHER_COMPLETED, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {t} from '@/js/i18n/localized.js'
-import ModalHelpModal from '@/components/modals/modal_help_modal.vue'
+import ModalHelpModal from '@/components/modals/help_modal.vue'
 
 const emit = defineEmits(['close'])
 const colony = inject('colony')

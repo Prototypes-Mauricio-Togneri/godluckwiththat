@@ -7,7 +7,7 @@ import {MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
 import {IMG_RESOURCE_MAP, SND_MARKET_EXCHANGE} from '@/js/engine/assets.js'
 import {RESOURCE_GOLD} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
-import ModalHelpModal from '@/components/modals/modal_help_modal.vue'
+import ModalHelpModal from '@/components/modals/help_modal.vue'
 
 const emit = defineEmits(['close'])
 const colony = inject('colony')
