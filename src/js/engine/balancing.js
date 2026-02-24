@@ -1020,10 +1020,10 @@ export const MARKET_TRADE_AMOUNT = 100
 // Base gold value per MARKET_TRADE_AMOUNT of each resource
 export const MARKET_BASE_PRICES = {
   [RESOURCE_FOOD]: 100,
-  [RESOURCE_WOOD]: 100,
-  [RESOURCE_STONE]: 130,
-  [RESOURCE_COPPER]: 150,
-  [RESOURCE_IRON]: 200,
+  [RESOURCE_WOOD]: 110,
+  [RESOURCE_STONE]: 120,
+  [RESOURCE_COPPER]: 130,
+  [RESOURCE_IRON]: 140,
 }
 
 // Default trade fee (fraction, 0.30 = 30%)
