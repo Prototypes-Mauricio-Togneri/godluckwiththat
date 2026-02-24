@@ -15,10 +15,11 @@ class House extends Building {
 
   /**
    * Maximum population capacity at the current level.
+   * @param {number} [habitationBonus=0] - Flat bonus per level from habitation research
    * @returns {number}
    */
-  populationCap() {
-    return this.level * HOUSE_POPULATION_PER_LEVEL
+  populationCap(habitationBonus = 0) {
+    return this.level * (HOUSE_POPULATION_PER_LEVEL + habitationBonus)
   }
 
   /**

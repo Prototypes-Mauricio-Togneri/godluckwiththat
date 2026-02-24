@@ -3,7 +3,6 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Finish all building images
-- Add research for population (e.g. housing)
 - Finish to implement researches
 - Implement challenges
   - See next challenge
