@@ -274,7 +274,7 @@ onUnmounted(() => {
   color: rgba(var(--color-text-rgb), 0.4);
   letter-spacing: 0.04em;
   text-align: center;
-  margin-bottom: 1.25rem;
+  margin-bottom: 2.5rem;
 }
 
 /* ── Scrollable area ─────────────────────────────────────── */
