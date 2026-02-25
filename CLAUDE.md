@@ -1,6 +1,10 @@
 # CLAUDE.md
 
+## Project
+
 A hybrid incremental strategy game (Vite + Vue 3, JavaScript, Composition API with `<script setup>`, ESLint + @stylistic).
+
+## Reference Docs
 
 Read `docs/architecture.md` (visual design, class architecture, game mechanics) and `docs/specs.md` (game specs, buildings, seasons, progression) when working on related areas.
 
