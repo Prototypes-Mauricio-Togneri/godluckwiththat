@@ -32,8 +32,8 @@ The colony is where the game takes place. It is where you will build your buildi
   - Each colony upgrade also unlocks buildings that previously couldn't be built
   - Colony types, in order:
     - Camp → unlocks: House, Altar, Farm, Woodcutter
-    - Settlement → unlocks: Academy, Shrine, Quarry, Barracks
-    - Village → unlocks: Storehouse, Temple, Copper Mine, Archery
+    - Settlement → unlocks: Storehouse, Shrine, Quarry, Barracks
+    - Village → unlocks: Academy, Temple, Copper Mine, Archery
     - Town → unlocks: Monument, Iron Mine, Stable, Wall
     - City → unlocks: Market, Gold Mine, Workshop, Tower
   - Each colony upgrade also unlocks resources visible in the header bar:
@@ -167,12 +167,12 @@ Each building has a level that can be increased by spending resources. Building 
   - The higher the level, the more resources it can store
 - Market
   - Allows trading Food, Wood, Stone, Copper, and Iron for Gold (buy or sell in lots of 100)
-  - Base gold prices per 100: Food=100, Wood=100, Stone=130, Copper=150, Iron=200
+  - Base gold prices per 100: Food=100, Wood=110, Stone=120, Copper=130, Iron=140
   - Default 30% trade fee: buy costs `price × 1.30`, sell returns `price × 0.70`
   - Buying raises the resource price by 3 gold; selling lowers it by 3 gold (AoE2-style)
   - Price floor: minimum 20 gold (sell floor ~14 gold at max fee). Price cap: 9999
   - Workers cannot be assigned to this building
-  - The higher the level, the cheaper the trades (-3% fee per level)
+  - The higher the level, the cheaper the trades (-1% fee per level)
   - Minimum fee: 5%
 - Altar
   - Produces a fixed amount of faith per second
@@ -264,7 +264,7 @@ The research system allows the player to unlock permanent bonuses by spending kn
   - Religion (1 subcategory × 5 tiers = 5 researches): Faith
   - Military (3 subcategories × 5 tiers = 15 researches): Defense, Attack, Warning
 - Within a subcategory, researches form a linear chain of 5 tiers. Tier N requires tier N-1 to be completed first
-- Each research has: a resource cost (knowledge plus other resources), a duration in seconds, a minimum Academy level required, and a bonus (type and percentage value)
+- Each research has a resource cost (knowledge plus other resources). Duration is derived from the cost via `Cost.toSeconds()`. Starting any research requires Academy level 1. Bonuses are defined per subcategory (type and value), granted once per completed tier
 - Only one research can be active at a time per subcategory
 - Completed bonuses accumulate additively across all completed researches
 
@@ -275,18 +275,18 @@ The research system allows the player to unlock permanent bonuses by spending kn
 | General | Transportation | +5% worker productivity |
 | General | Construction | -10% construction time |
 | General | Expansion | -10% expansion cost |
-| General | Storage | +15% storage capacity |
+| General | Storage | +10% storage capacity |
 | General | Habitation | +1 population per house level |
-| Resources | Food Production | +10% food production |
+| Resources | Food Production | +5% food production |
 | Resources | Food Consumption | -5% food consumption |
-| Resources | Wood Production | +10% wood production |
+| Resources | Wood Production | +5% wood production |
 | Resources | Wood Consumption | -5% wood consumption |
-| Resources | Mining | +10% stone/copper/iron/gold production |
-| Resources | Knowledge Production | +10% knowledge production |
-| Disasters | Floods | -15% flood impact |
-| Disasters | Health | -15% disease impact |
-| Disasters | Earthquakes | -15% earthquake impact |
-| Religion | Faith | +10% faith production |
+| Resources | Mining | +5% stone/copper/iron/gold production |
+| Resources | Knowledge Production | +5% knowledge production |
+| Disasters | Floods | -10% flood impact |
+| Disasters | Health | -10% disease impact |
+| Disasters | Earthquakes | -10% earthquake impact |
+| Religion | Faith | +5% faith production |
 | Military | Defense | +10% unit defense |
 | Military | Attack | +10% unit attack |
 | Military | Warning | +10% warning time |
@@ -331,3 +331,6 @@ The file contains:
 - **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, shrines). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.
 - **Population & workers** — House population formula value (`HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), worker recruitment cost (`WORKER_RECRUIT_COST`), worker upkeep rates (`WORKER_FOOD_CONSUMPTION`, `WORKER_WOOD_CONSUMPTION`).
 - **Resource time weights** (`RESOURCE_TIME_WEIGHTS`) — Per-resource time weight in seconds, used by `Cost.toSeconds()` to derive build duration from resource costs.
+- **Season constants** (`SEASON_DURATION`, `SEASON_WARM_FOOD_MODIFIER`, `SEASON_COLD_FOOD_MODIFIER`, `SEASON_WARM_WOOD_MODIFIER`, `SEASON_COLD_WOOD_MODIFIER`) — Season duration in seconds and fractional modifiers for food production and wood consumption per season.
+- **Market trading** (`MARKET_TRADE_AMOUNT`, `MARKET_BASE_PRICES`, `MARKET_BASE_FEE`, `MARKET_MIN_FEE`, `MARKET_FEE_REDUCTION_PER_LEVEL`, `MARKET_PRICE_SHIFT`, `MARKET_MIN_CURRENT_PRICE`, `MARKET_MAX_CURRENT_PRICE`) — Trade lot size, base gold prices per resource, fee structure, and dynamic price bounds.
+- **Research definitions** (`RESEARCH_SUBCATEGORY_BONUSES`, `RESEARCH_DEFINITIONS`) — Per-subcategory bonus type and value, and per-research resource costs.
