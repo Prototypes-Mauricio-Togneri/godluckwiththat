@@ -4,7 +4,7 @@ A hybrid incremental strategy game (Vite + Vue 3, JavaScript, Composition API wi
 
 Read `docs/architecture.md` (visual design, class architecture, game mechanics) and `docs/specs.md` (game specs, buildings, seasons, progression) when working on related areas.
 
-## Workflow
+## Planning
 
 - **Plan & Pause**: Propose a clear, step-by-step plan before making any code changes. Stop after planning and proceed only after I verify.
 - **Ambiguity Handling**: If any requirement is ambiguous, risky, or unclear, state your assumptions explicitly and ask for confirmation before proceeding.
