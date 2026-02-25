@@ -25,10 +25,10 @@ import StableCard from '@/components/buildings/stable_card.vue'
 import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
-import {playTap} from '@/js/engine/audio.js'
+import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatRate, formatTime} from '@/js/engine/format.js'
 import GameState from '@/js/engine/game_state.js'
-import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
+import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
 import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_SHRINE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, RESOURCE_FOOD, RESOURCE_WOOD} from '@/js/engine/enums.js'
@@ -165,9 +165,11 @@ const showMarketModal = ref(false)
 provide('colony', state.colony)
 provide('gameState', state)
 provide('openResearchModal', () => {
+  audio.playSound(SND_OPEN_ACADEMY)
   showResearchModal.value = true
 })
 provide('openMarketModal', () => {
+  audio.playSound(SND_OPEN_MARKET)
   showMarketModal.value = true
 })
 

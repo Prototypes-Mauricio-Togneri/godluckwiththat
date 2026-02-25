@@ -3,7 +3,6 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Sound assign unassigned in academy
-- Sounds when opening market or research modal
 
 - Finish all building images
 - Finish to implement researches
