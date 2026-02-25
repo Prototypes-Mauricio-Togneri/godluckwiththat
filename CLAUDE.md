@@ -4,6 +4,11 @@ A hybrid incremental strategy game (Vite + Vue 3, JavaScript, Composition API wi
 
 Read `docs/architecture.md` (visual design, class architecture, game mechanics) and `docs/specs.md` (game specs, buildings, seasons, progression) when working on related areas.
 
+## Workflow
+
+- **Plan & Pause**: Propose a clear, step-by-step plan before making any code changes. Stop after planning and proceed only after I verify.
+- **Ambiguity Handling**: If any requirement is ambiguous, risky, or unclear, state your assumptions explicitly and ask for confirmation before proceeding.
+
 ## Rules
 
 - **Centralized Constants**: Numeric balancing values (costs, rates, formulas, initial state) go in `src/js/engine/balancing.js`. Structural constants (class maps, enums, sets, factory functions) go in `src/js/engine/constants.js`. Do not hardcode values in other files.
@@ -15,5 +20,5 @@ Read `docs/architecture.md` (visual design, class architecture, game mechanics) 
 - **Strict Scope**: Do not add features, refactor, or reorganize beyond what was explicitly requested.
 - **UI/UX**: Always use the `frontend-design` skill when changing the UI.
 - **Lint**: After editing code, run `npm run lint -- --fix` and fix remaining errors.
-- **Code Review**: After completing code changes, run /review-code before responding.
+- **Code Review**: After completing code changes, run /delta-review before responding.
 - **Doc Maintenance**: After changes, check if `CLAUDE.md`, `docs/architecture.md`, and `docs/specs.md` need updating.
