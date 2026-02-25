@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Sound assign unassigned in academy
-
 - Finish all building images
 - Finish to implement researches
 - Implement challenges
