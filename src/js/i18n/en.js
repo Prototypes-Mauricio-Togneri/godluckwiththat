@@ -132,7 +132,7 @@ export const LOCALIZED_EN = {
 
   // Building descriptions
   'buildingHelp.headquarters': 'The heart of your colony. Each level unlocks new buildings. From here, you can also expand your territory.',
-  'buildingHelp.house': 'Shelters for your people. Each level increases the maximum population of workers you can recruit.',
+  'buildingHelp.house': 'Provides shelter for your people. Each level increases the maximum population of workers you can recruit.',
   'buildingHelp.academy': 'A place of learning. Assign workers here to produce knowledge, used for research.',
   'buildingHelp.storehouse': 'Secure storage for your resources. Each level increases the maximum amount of resources you can stockpile.',
   'buildingHelp.market': 'A trading hub. Allows exchanging resources. Higher levels offer cheaper trade rates.',
