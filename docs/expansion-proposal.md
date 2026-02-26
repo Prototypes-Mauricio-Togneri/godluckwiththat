@@ -1,29 +1,3 @@
-### Economy Category
-
-#### Harbor (Town)
-- Enables Exploration expeditions (see Exploration System)
-- Expedition slots: 1 + floor(level / 2)
-- Expedition speed: base time reduced by 5% per level
-- Workers sent on expeditions are committed (unavailable, like Temple prayer)
-- Level-up cost: base (120 wood, 60 stone, 30 copper) x 1.5^level
-- **Role**: Thematically perfect (shipwreck survivors rebuild maritime capability), opens exploration gameplay loop
-
-### Military Category
-
-#### War Camp (City)
-- Enables military Raids (send units to plunder)
-- Raid slots: 1 + floor(level / 3)
-- Raid speed: base time reduced by 5% per level
-- Raid success rate: 60% base + 3% per level + military research bonuses
-- Returns: food, wood, stone, gold (scaled to units sent and raid tier)
-- Risk: units can be lost on failed raids
-- Level-up cost: base (150 wood, 75 stone, 40 iron) x 1.5^level
-- **Role**: Gives military buildings a purpose — unit creation now has a payoff loop
-
----
-
-## New Mechanics (4)
-
 ### 1. Disaster System
 
 Builds on the existing (but unimplemented) Disaster research tree (Floods, Health, Earthquakes).
