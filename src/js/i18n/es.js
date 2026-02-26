@@ -135,7 +135,7 @@ export const LOCALIZED_ES = {
   'buildingHelp.house': 'Proporciona refugio para tu gente. Cada nivel aumenta la población máxima de trabajadores que puedes reclutar.',
   'buildingHelp.storehouse': 'Almacenamiento seguro para tus recursos. Cada nivel aumenta la cantidad máxima de recursos que puedes acumular.',
   'buildingHelp.academy': 'Un lugar de aprendizaje. Asigna trabajadores aquí para producir conocimiento, utilizado para investigación.',
-  'buildingHelp.market': 'Un centro de comercio. Permite intercambiar recursos. Niveles más altos ofrecen tasas más baratas.',
+  'buildingHelp.market': 'Un centro de comercio que permite intercambiar recursos. Niveles más altos ofrecen tasas más baratas.',
   'buildingHelp.farm': 'Campos fértiles que producen comida. Asigna trabajadores aquí para alimentar tu colonia.',
   'buildingHelp.woodcutter': 'Un campamento maderero que produce madera. Asigna trabajadores para recolectar madera para la construcción.',
   'buildingHelp.quarry': 'Una cantera que produce piedra. Asigna trabajadores para extraer piedra para la construcción.',
