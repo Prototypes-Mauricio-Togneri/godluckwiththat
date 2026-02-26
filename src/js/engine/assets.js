@@ -89,6 +89,7 @@ export const SND_WORKER_ACADEMY = '/audio/sound/worker_academy.mp3'
 export const SND_WORKER_CREATED = '/audio/sound/worker_created.mp3'
 export const SND_WORKER_FOOD = '/audio/sound/worker_food.mp3'
 export const SND_WORKER_MINE = '/audio/sound/worker_mine.mp3'
+export const SND_WORKER_TEMPLE = '/audio/sound/worker_temple.mp3'
 export const SND_WORKER_WOOD = '/audio/sound/worker_wood.mp3'
 
 // Music

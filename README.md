@@ -14,12 +14,7 @@
   - See military
   - Create units
   - See upcoming attacks
-- Implement story intro
-- Implement natural disasters
 - Implement save and load
-- Future events
-  - challenge_timeout
-  - attack_incoming
 - Create tutorial
   - Season has changed -> Explain their effects on production and upkeep
   - Build a house
@@ -29,3 +24,5 @@
   - Assign workers
   - Build an altar
   - Show what buildings are unlocked when upgrading HQ
+- Implement natural disasters
+- Implement story intro

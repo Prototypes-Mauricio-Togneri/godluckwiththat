@@ -103,7 +103,7 @@ All game state mutations are centralised in `GameState`. Each method guards prec
 - `unassignWorker(buildingKey)` — moves one worker from the building back to idle.
 - `recruitAndAssignWorker(buildingKey)` — delegates to `_recruit()`, then assigns the worker directly to the building. Blocked when can't afford, at population cap, or building at max workers.
 - `_recruit()` — shared helper: deducts `WORKER_RECRUIT_COST`, increments `resources.workers`, plays sound, fires population-limit event if at cap. Returns `boolean`.
-- `_playAssignSound(buildingKey)` — plays building-specific worker assignment sound (farm/woodcutter/mines).
+- `_playAssignSound(buildingKey)` — plays building-specific worker assignment sound (farm/academy/woodcutter/temple/mines).
 - `startResearch(key)` — validates preconditions (not active/completed, academy level met, can afford), deducts cost, starts timer via `colony.researches.start()`, creates a future event (`EVENT_TYPE_RESEARCH_COMPLETE`). Blocked when prerequisites not met or insufficient resources.
 - `advanceResearch(delta)` — decrements `remainingSeconds` on all active researches. When a timer reaches zero, calls `researches.complete(key)`, dismisses the future event, and plays `SND_RESEARCH_COMPLETED`. Collects completed keys before processing to avoid mutating the Map during iteration.
 ### Events (`src/js/models/events/event.js`, `event_future.js`, `event_past.js`, `events.js`)
