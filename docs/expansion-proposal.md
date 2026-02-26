@@ -1,42 +1,4 @@
-### 1. Disaster System
-
-Builds on the existing (but unimplemented) Disaster research tree (Floods, Health, Earthquakes).
-
-**Timing and Frequency**
-- First disaster possible after Year 3 (gives player time to establish)
-- Check every season transition: 15% base chance, +5% per year after Year 3 (caps at 60%)
-- Only one disaster active at a time
-- Watchtower provides advance warning (event appears in Events column with countdown timer)
-
-**Disaster Types**
-
-| Type | Season Bias | Effect | Duration |
-|------|-------------|--------|----------|
-| **Floods** | 50% warm / 20% cold | Destroys 10-30% of food + wood stockpile, reduces Farm output by 50% | 60 seconds |
-| **Disease** | 30% either season | 20-40% of workers become sick (produce nothing, still consume upkeep) | 120 seconds (halved with Apothecary + herbs) |
-| **Earthquakes** | 20% warm / 50% cold | Random building loses 1 level (min 1), territory reduced by 10% | 60 seconds |
-
-### 2. Exploration System (via Harbor)
-
-**Expedition Types**
-
-| Type | Duration | Workers | Resource Cost | Worker Loss Risk |
-|------|----------|---------|---------------|-----------------|
-| Scout | 120s | 3 | 50 food, 20 wood | 5% |
-| Voyage | 300s | 8 | 150 food, 80 wood, 30 tools | 15% |
-| Expedition | 600s | 15 | 300 food, 150 wood, 80 tools, 20 gold | 25% |
-
-**Loot Tables** (rolled on completion)
-
-| Type | Resources | Relic Chance | Event Chance |
-|------|-----------|-------------|--------------|
-| Scout | 50-150 food/wood/stone | 5% | — |
-| Voyage | 100-400 mixed | 15% | 10% |
-| Expedition | 300-800 mixed | 35% | 25% |
-
-**Worker Commitment**: Workers on expedition are unavailable until completion (same pattern as Temple commitment). UI shows expedition progress bar and ETA.
-
-### 3. Divine Challenges
+### 1. Divine Challenges
 
 The core narrative driver that ties everything together. The gods test the colony's worthiness to pass through the portal.
 
@@ -61,4 +23,20 @@ The core narrative driver that ties everything together. The gods test the colon
 | 9 | Resilience | Survive 3 disasters + Apothecary level 4 | Disaster immunity 300s |
 | 10 | The Final Passage | Sanctum level 5 + 5000 faith + 10 relics + all resource sacrifice | **VICTORY** |
 
-**Oracle Integration**: Oracle level 3+ shows next challenge requirements before activation. Level 5 shows exact numbers.
+### 2. Disaster System
+
+Builds on the existing (but unimplemented) Disaster research tree (Floods, Health, Earthquakes).
+
+**Timing and Frequency**
+- First disaster possible after Year 3 (gives player time to establish)
+- Check every season transition: 15% base chance, +5% per year after Year 3 (caps at 60%)
+- Only one disaster active at a time
+- Watchtower provides advance warning (event appears in Events column with countdown timer)
+
+**Disaster Types**
+
+| Type | Season Bias | Effect | Duration |
+|------|-------------|--------|----------|
+| **Floods** | 50% warm / 20% cold | Destroys 10-30% of food + wood stockpile, reduces Farm output by 50% | 60 seconds |
+| **Disease** | 30% either season | 20-40% of workers become sick (produce nothing, still consume upkeep) | 120 seconds (halved with Apothecary + herbs) |
+| **Earthquakes** | 20% warm / 50% cold | Random building loses 1 level (min 1), territory reduced by 10% | 60 seconds |
