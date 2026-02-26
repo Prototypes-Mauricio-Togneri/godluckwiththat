@@ -15,7 +15,6 @@
   - Resolve a challenge
   - Show challenge outcome
   - Choose blessing
-- Improve text for help
 - Create military window
   - See military
   - Create units
