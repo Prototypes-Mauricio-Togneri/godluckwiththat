@@ -2,6 +2,8 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- "Build Monument" -> "Build monument"
+
 - Finish all building images
   - Academy: Make it look more like a school or university
   - Market: Make it look less cartoony
