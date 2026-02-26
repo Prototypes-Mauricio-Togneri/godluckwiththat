@@ -222,6 +222,10 @@ export const PRODUCTION_RATES = {
   },
 }
 
+// ── Monument ────────────────────────────────────────────────────────
+// One-time faith granted when a monument finishes construction: value × newLevel
+export const MONUMENT_FAITH_PER_LEVEL = 100
+
 // ── Population & Workers ────────────────────────────────────────────
 
 // House population cap: level × perLevel
