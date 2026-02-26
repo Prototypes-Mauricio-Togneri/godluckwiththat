@@ -15,7 +15,6 @@ This document contains the specifications of the game, divided into sections.
   - Only when you complete all challenges you will prove your faith
 - Type of challenges
   - Build altars
-  - Build shrines
   - Build temples
   - Build monuments
   - Accumulate faith
@@ -32,8 +31,8 @@ The colony is where the game takes place. It is where you will build your buildi
   - Each colony upgrade also unlocks buildings that previously couldn't be built
   - Colony types, in order:
     - Camp → unlocks: House, Altar, Farm, Woodcutter
-    - Settlement → unlocks: Storehouse, Shrine, Quarry, Barracks
-    - Village → unlocks: Academy, Temple, Copper Mine, Archery
+    - Settlement → unlocks: Storehouse, Temple, Quarry, Barracks
+    - Village → unlocks: Academy, Copper Mine, Archery
     - Town → unlocks: Monument, Iron Mine, Stable, Wall
     - City → unlocks: Market, Gold Mine, Workshop, Tower
   - Each colony upgrade also unlocks resources visible in the header bar:
@@ -135,7 +134,6 @@ There are two types of resources
 - Faith
   - Produced in
     - Altars
-    - Shrines
     - Temples
   - Granted as a one-time boost by
     - Monuments (per level upgrade)
@@ -178,16 +176,9 @@ Each building has a level that can be increased by spending resources. Building 
   - Produces a fixed amount of faith per second
   - Workers cannot be assigned to this building
   - Produces low amounts of faith
-- Shrine
+- Temple
   - Workers can be assigned/unassigned to pray
   - Produces medium amounts of faith
-- Temple
-  - Workers commit for a certain time to stay and pray
-  - Committed workers count as assigned (non-idle) and cannot produce anything else
-  - They cannot be removed until they finish
-  - Faith is only produced when a worker finishes their commitment
-  - The higher the level, the longer they stay
-  - Produces high amounts of faith
 - Monument
   - Each level grants a one-time fixed amount of faith (not produced per second)
   - Workers cannot be assigned to this building
@@ -328,7 +319,7 @@ The file contains:
 
 - **Building upgrades** (`BUILDING_UPGRADES`) — Per-building upgrade config with two sub-keys: `cost` (base resource cost) and `multiplier` (exponential scaling factor per level; formula: `floor(cost × multiplier^level)`, HQ uses `multiplier^(level-1)` since it starts at level 1). Build time is derived from the level-up cost via `Cost.toSeconds()`.
 - **HQ upgrade costs** (`HQ_UPGRADE_COSTS`) — Fixed resource costs to upgrade the colony type (Camp → Settlement → Village → Town → City).
-- **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, shrines). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.
+- **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, temples). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.
 - **Population & workers** — House population formula value (`HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), worker recruitment cost (`WORKER_RECRUIT_COST`), worker upkeep rates (`WORKER_FOOD_CONSUMPTION`, `WORKER_WOOD_CONSUMPTION`).
 - **Resource time weights** (`RESOURCE_TIME_WEIGHTS`) — Per-resource time weight in seconds, used by `Cost.toSeconds()` to derive build duration from resource costs.
 - **Season constants** (`SEASON_DURATION`, `SEASON_WARM_FOOD_MODIFIER`, `SEASON_COLD_FOOD_MODIFIER`, `SEASON_WARM_WOOD_MODIFIER`, `SEASON_COLD_WOOD_MODIFIER`) — Season duration in seconds and fractional modifiers for food production and wood consumption per season.

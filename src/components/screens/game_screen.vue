@@ -16,7 +16,6 @@ import CopperMineCard from '@/components/buildings/copper_mine_card.vue'
 import IronMineCard from '@/components/buildings/iron_mine_card.vue'
 import GoldMineCard from '@/components/buildings/gold_mine_card.vue'
 import AltarCard from '@/components/buildings/altar_card.vue'
-import ShrineCard from '@/components/buildings/shrine_card.vue'
 import TempleCard from '@/components/buildings/temple_card.vue'
 import MonumentCard from '@/components/buildings/monument_card.vue'
 import BarracksCard from '@/components/buildings/barracks_card.vue'
@@ -31,7 +30,7 @@ import GameState from '@/js/engine/game_state.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
 import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
-import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_SHRINE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, RESOURCE_FOOD, RESOURCE_WOOD} from '@/js/engine/enums.js'
+import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, RESOURCE_FOOD, RESOURCE_WOOD} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
@@ -47,7 +46,6 @@ const CARD_COMPONENTS = {
   [BUILDING_IRON_MINE]: IronMineCard,
   [BUILDING_GOLD_MINE]: GoldMineCard,
   [BUILDING_ALTAR]: AltarCard,
-  [BUILDING_SHRINE]: ShrineCard,
   [BUILDING_TEMPLE]: TempleCard,
   [BUILDING_MONUMENT]: MonumentCard,
   [BUILDING_BARRACKS]: BarracksCard,

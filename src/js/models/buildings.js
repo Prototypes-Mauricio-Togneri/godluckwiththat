@@ -9,7 +9,6 @@ import {BUILDING_HEADQUARTERS} from '@/js/engine/enums.js'
  * @property {Storehouse} storehouse - Storage capacity upgrades
  * @property {Market} market - Resource trading
  * @property {Altar} altar - Faith building
- * @property {Shrine} shrine - Faith building
  * @property {Temple} temple - Faith building
  * @property {Monument} monument - Faith building
  * @property {Farm} farm - Food production
@@ -36,8 +35,7 @@ class Buildings {
     this.storehouse = data.storehouse // Storage capacity upgrades
     this.market = data.market // Resource trading
     this.altar = data.altar // Passive faith generation
-    this.shrine = data.shrine // Worker-based faith production
-    this.temple = data.temple // Advanced faith production
+    this.temple = data.temple // Worker-based faith production
     this.monument = data.monument // Divine structure
     this.farm = data.farm // Food production
     this.woodcutter = data.woodcutter // Wood production

@@ -24,7 +24,6 @@ export const IMG_BUILDING_STOREHOUSE = '/img/buildings/misc/storehouse.png'
 // Buildings — religious
 export const IMG_BUILDING_ALTAR = '/img/buildings/religious/altar.png'
 export const IMG_BUILDING_MONUMENT = '/img/buildings/religious/monument.png'
-export const IMG_BUILDING_SHRINE = '/img/buildings/religious/shrine.png'
 export const IMG_BUILDING_TEMPLE = '/img/buildings/religious/temple.png'
 
 // Buildings — resources
