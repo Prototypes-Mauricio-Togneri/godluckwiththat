@@ -131,7 +131,7 @@ export const LOCALIZED_FR = {
   'modal.marketHelp.body': 'Achetez et vendez des ressources (nourriture, bois, pierre, cuivre, fer) par lots de {0} en utilisant de l\'or.\nChaque ressource a un prix de base qui évolue dynamiquement à chaque échange — acheter augmente le prix de {1} en or, vendre le diminue de {1} en or.\nDes frais s\'appliquent à chaque transaction : vous payez plus à l\'achat et recevez moins à la vente. Les frais de base commencent à {2}% et diminuent de {3}% par niveau du bâtiment marché, jusqu\'à un minimum de {4}%.\nLes échanges sont bloqués si vous manquez d\'or ou de ressources, ou si votre entrepôt est plein.\nC\'est un système simple d\'offre et demande — acheter fait monter les prix, vendre les fait baisser. Les deux variables principales affectant le commerce sont le niveau du bâtiment marché (réduit les frais) et l\'historique des échanges (modifie les prix).',
 
   // Building descriptions
-  'buildingHelp.headquarters': 'Le cœur de votre colonie. Chaque niveau débloque de nouveaux bâtiments et recherches, et augmente votre territoire maximum.',
+  'buildingHelp.headquarters': 'Le cœur de votre colonie. Chaque niveau débloque de nouveaux bâtiments. Depuis ici, vous pouvez également étendre votre territoire.',
   'buildingHelp.house': 'Des abris pour votre peuple. Chaque niveau augmente la population maximum d\'ouvriers que vous pouvez recruter.',
   'buildingHelp.academy': 'Un lieu d\'apprentissage. Assignez des ouvriers ici pour produire du savoir, utilisé pour la recherche.',
   'buildingHelp.storehouse': 'Un stockage sécurisé pour vos ressources. Chaque niveau augmente la quantité maximum de ressources que vous pouvez accumuler.',

@@ -131,7 +131,7 @@ export const LOCALIZED_EN = {
   'modal.marketHelp.body': 'Buy and sell resources (food, wood, stone, copper, iron) in lots of {0} using gold.\nEach resource has a base price that shifts dynamically with each trade — buying raises the price by {1} gold, selling lowers it by {1} gold.\nA fee applies to every transaction: you pay more when buying and receive less when selling. The base fee starts at {2}% and decreases by {3}% per market building level, down to a minimum of {4}%.\nTrades are blocked if you lack enough gold or resources, or if your stockpile is full.\nIt\'s a simple supply/demand system — buying drives prices up, selling drives them down. The two main variables affecting trading are market building level (reduces fee) and trade history (shifts prices).',
 
   // Building descriptions
-  'buildingHelp.headquarters': 'The heart of your colony. Each level unlocks new buildings and researches, and increases your maximum territory.',
+  'buildingHelp.headquarters': 'The heart of your colony. Each level unlocks new buildings. From here, you can also expand your territory.',
   'buildingHelp.house': 'Shelters for your people. Each level increases the maximum population of workers you can recruit.',
   'buildingHelp.academy': 'A place of learning. Assign workers here to produce knowledge, used for research.',
   'buildingHelp.storehouse': 'Secure storage for your resources. Each level increases the maximum amount of resources you can stockpile.',

@@ -145,7 +145,7 @@ There are two types of resources
 Each building has a level that can be increased by spending resources. Building and upgrading takes time — resources are deducted immediately when construction starts, but the level increments only after a construction timer expires. Build time is derived from the upgrade cost via `Cost.toSeconds()`, which sums each resource amount multiplied by its time weight (defined in `RESOURCE_TIME_WEIGHTS`). During construction, buildings continue producing at their current level. Territory is reserved immediately for buildings under construction.
 
 - Headquarters
-  - Each level unlocks new buildings and researches
+  - Each level unlocks new buildings
   - Increases the maximum amount of territory slots
   - Workers cannot be assigned to this building
   - The higher the level, the more territory it provides
