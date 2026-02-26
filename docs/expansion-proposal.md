@@ -1,33 +1,3 @@
-## New Resources (4)
-
-### Herbs (bounded, stockpile-capped)
-- **Unlocked at**: Settlement
-- **Produced by**: Apothecary (workers forage)
-- **Production rate**: 0.2 per worker per second
-- **Consumed by**: Disease mitigation (auto-consumed during outbreaks), Tavern upkeep (morale potions), Divine Challenge offerings
-- **Stockpile**: Standard Storehouse scaling (500 + 500 x storehouse level)
-- **Design intent**: Early-mid resource that creates preparation decisions before disasters hit
-
----
-
-## New Buildings (8)
-
-### Colony Category
-
-#### Apothecary (Settlement)
-- Assigns workers to forage for herbs
-- Worker capacity: level x 5
-- Passive bonus: reduces disease disaster severity by 10% per level
-- Level-up cost: base (50 wood, 25 stone) x 1.5^level
-- **Role**: Health infrastructure — prepares colony for disasters, produces herbs for Tavern and challenges
-
-#### Tavern (Town)
-- Passive building (no workers assigned)
-- Upkeep: consumes 0.5 food + 0.1 herbs + 0.05 gold per second per level
-- Grants morale bonus: +0.05 per level (see Morale System)
-- Level-up cost: base (100 wood, 50 stone, 30 copper) x 1.5^level
-- **Role**: Quality of life — boosts all worker productivity through morale, but has significant ongoing resource drain
-
 ### Economy Category
 
 #### Harbor (Town)
