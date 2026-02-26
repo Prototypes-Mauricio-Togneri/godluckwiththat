@@ -133,8 +133,8 @@ export const LOCALIZED_ES = {
   // Building descriptions
   'buildingHelp.headquarters': 'El corazón de tu colonia. Cada nivel desbloquea nuevos edificios. Desde aquí, también puedes expandir tu territorio.',
   'buildingHelp.house': 'Proporciona refugio para tu gente. Cada nivel aumenta la población máxima de trabajadores que puedes reclutar.',
-  'buildingHelp.academy': 'Un lugar de aprendizaje. Asigna trabajadores aquí para producir conocimiento, utilizado para investigación.',
   'buildingHelp.storehouse': 'Almacenamiento seguro para tus recursos. Cada nivel aumenta la cantidad máxima de recursos que puedes acumular.',
+  'buildingHelp.academy': 'Un lugar de aprendizaje. Asigna trabajadores aquí para producir conocimiento, utilizado para investigación.',
   'buildingHelp.market': 'Un centro de comercio. Permite intercambiar recursos. Niveles más altos ofrecen tasas más baratas.',
   'buildingHelp.farm': 'Campos fértiles que producen comida. Asigna trabajadores aquí para alimentar tu colonia.',
   'buildingHelp.woodcutter': 'Un campamento maderero que produce madera. Asigna trabajadores para recolectar madera para la construcción.',
