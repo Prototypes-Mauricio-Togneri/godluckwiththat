@@ -72,13 +72,6 @@ Builds on the existing (but unimplemented) Disaster research tree (Floods, Healt
 | **Disease** | 30% either season | 20-40% of workers become sick (produce nothing, still consume upkeep) | 120 seconds (halved with Apothecary + herbs) |
 | **Earthquakes** | 20% warm / 50% cold | Random building loses 1 level (min 1), territory reduced by 10% | 60 seconds |
 
-**Severity Scaling**
-- Base severity = 1.0 + (year - 3) x 0.1 (caps at 2.0 at Year 13)
-- Research: -10% impact per tier (from existing disaster research trees)
-- Apothecary: -10% disease severity per level (specific to disease)
-- Herbs: auto-consumed during disease to cure workers faster
-- Watchtower: doesn't reduce severity, but enables preparation time
-
 ### 2. Exploration System (via Harbor)
 
 **Expedition Types**
@@ -96,13 +89,6 @@ Builds on the existing (but unimplemented) Disaster research tree (Floods, Healt
 | Scout | 50-150 food/wood/stone | 5% | — |
 | Voyage | 100-400 mixed | 15% | 10% |
 | Expedition | 300-800 mixed | 35% | 25% |
-
-**Exploration Events**
-- Found survivors: +3-5 free workers (no recruitment cost)
-- Pirate encounter: lose some resources but gain map intel
-- Ancient ruins: guaranteed relic
-- Trade route: permanent +5% Market price for one resource
-- Storm: lose extra workers, fewer resources returned
 
 **Worker Commitment**: Workers on expedition are unavailable until completion (same pattern as Temple commitment). UI shows expedition progress bar and ETA.
 
@@ -132,77 +118,3 @@ The core narrative driver that ties everything together. The gods test the colon
 | 10 | The Final Passage | Sanctum level 5 + 5000 faith + 10 relics + all resource sacrifice | **VICTORY** |
 
 **Oracle Integration**: Oracle level 3+ shows next challenge requirements before activation. Level 5 shows exact numbers.
-
-### 4. Morale System
-
-A global multiplier affecting all worker production rates (not upkeep consumption).
-
-**Range**: 0.5x (Miserable) to 1.5x (Euphoric). Default: 1.0x (Content).
-
-**Positive Factors**
-
-| Factor | Bonus | Condition |
-|--------|-------|-----------|
-| Tavern | +0.05 per level | Tavern built and supplied |
-| Food surplus | +0.1 | Net food production > 0 |
-| Challenge completed | +0.05 per completed | Permanent, stacks |
-| Low idle ratio | +0.05 | Less than 10% workers idle |
-| Relic collection | +0.02 per relic | Permanent, stacks |
-
-**Negative Factors**
-
-| Factor | Penalty | Duration |
-|--------|---------|----------|
-| Disaster struck | -0.2 | 60 seconds after disaster |
-| Food shortage | -0.3 | While food = 0 |
-| Failed challenge | -0.15 | Until next challenge completed |
-| Overcrowding | -0.1 | While territory > 90% capacity |
-| Worker death | -0.1 | 120 seconds after workers lost |
-
-**Display**: Morale indicator in game header (icon + percentage), tooltip breaks down all active factors.
-
----
-
-## Progression Integration
-
-### Updated Building Unlock Table
-
-| Tier | Existing (unlocked here) | New Buildings |
-|------|--------------------------|---------------|
-| Camp | HQ, House, Altar, Farm, Woodcutter | — |
-| Settlement | Storehouse, Shrine, Quarry, Barracks | **Watchtower**, **Apothecary** |
-| Village | Academy, Temple, Copper Mine, Archery | **Smithy** |
-| Town | Monument, Iron Mine, Stable, Wall | **Tavern**, **Harbor**, **Oracle** |
-| City | Market, Gold Mine, Workshop, Tower | **Sanctum**, **War Camp** |
-
-### Updated Resource Unlock Table
-
-| Tier | Existing Resources | New Resources |
-|------|-------------------|---------------|
-| Camp | Food, Wood, Faith | — |
-| Settlement | +Stone, Knowledge | **+Herbs** |
-| Village | +Copper | **+Tools** |
-| Town | +Iron | **+Influence**, **+Relics** (from expeditions) |
-| City | +Gold | — |
-
----
-
-## Win Condition
-
-1. Progress through all 5 colony tiers (Camp through City)
-2. Build and level the Sanctum to level 5 (requires relics and massive resources)
-3. Complete all 10 Divine Challenges (collecting relics along the way)
-4. Final Challenge: sacrifice massive resources + faith + all relics at Sanctum level 5
-5. **Pass through the portal — Victory screen with game stats (time played, buildings built, disasters survived, etc.)**
-
----
-
-## Suggested Implementation Order
-
-| Phase | Content | Rationale |
-|-------|---------|-----------|
-| 1 | Herbs + Apothecary + Watchtower + Disaster System | Smallest scope, builds on existing research tree, adds urgency |
-| 2 | Tools + Smithy + Morale System + Tavern | Resource conversion loop, new decision layer |
-| 3 | Harbor + Exploration System + Relics | New gameplay loop, relic collection begins |
-| 4 | Influence + Oracle + Sanctum + Divine Challenges | Narrative progression, win condition |
-| 5 | War Camp + Raid System | Military gets a purpose |
