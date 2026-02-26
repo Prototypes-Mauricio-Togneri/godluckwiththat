@@ -1,11 +1,3 @@
-# Game Expansion Proposal: New Buildings, Resources, and Mechanics
-
-## Overview
-
-This proposal fills the gaps in the current game (disasters, military purpose, divine challenges) and adds depth to mid/late-game decision-making. The game has a **finite ending** — no prestige/reset. Victory is achieved by passing through the portal after completing all Divine Challenges.
-
----
-
 ## New Resources (4)
 
 ### Herbs (bounded, stockpile-capped)
@@ -15,30 +7,6 @@ This proposal fills the gaps in the current game (disasters, military purpose, d
 - **Consumed by**: Disease mitigation (auto-consumed during outbreaks), Tavern upkeep (morale potions), Divine Challenge offerings
 - **Stockpile**: Standard Storehouse scaling (500 + 500 x storehouse level)
 - **Design intent**: Early-mid resource that creates preparation decisions before disasters hit
-
-### Tools (bounded, stockpile-capped)
-- **Unlocked at**: Village
-- **Produced by**: Smithy (workers craft from copper/iron)
-- **Production rate**: 0.1 per worker per second, consumes 0.1 copper per worker per second
-- At Smithy level 5+: switches to 0.05 iron per worker per second for 2x tool quality
-- **Effect**: Global worker productivity bonus — +1% per 50 tools in stockpile (caps at +20%)
-- **Consumed by**: Exploration expeditions, military unit creation, Divine Challenges
-- **Design intent**: Creates a copper/iron sink and a meaningful "invest in efficiency vs. spend on expansion" decision
-
-### Influence (unbounded)
-- **Unlocked at**: Town
-- **Produced by**: Oracle (converts faith to influence at 0.05 per worker per second, consuming 0.1 faith per worker per second)
-- Also earned from Divine Challenge completion and passive colony-size trickle
-- **Consumed by**: Late-game research, Sanctum activation, Harbor trade route upgrades, some Divine Challenges
-- **Design intent**: A prestige-like currency that gates endgame content without a reset mechanic
-
-### Relics (unbounded, rare)
-- **Unlocked at**: Town (first obtainable from Harbor expeditions and Divine Challenges)
-- **Not produced by any building** — only obtained as rewards
-- **Sources**: Harbor exploration (rare loot), Divine Challenge completion (guaranteed 1 per challenge), special events
-- **Effect**: Each relic grants a unique permanent bonus from a relic pool (e.g., +10% faith, -15% food consumption, +1 territory per HQ level)
-- **Consumed by**: Sanctum leveling (requires relics to upgrade), final Divine Challenge
-- **Design intent**: The collectible endgame driver — rare, exciting, each one meaningfully changes gameplay
 
 ---
 
@@ -62,14 +30,6 @@ This proposal fills the gaps in the current game (disasters, military purpose, d
 
 ### Economy Category
 
-#### Smithy (Village)
-- Assigns workers to craft tools from copper (or iron at higher levels)
-- Worker capacity: level x 5
-- Production: 0.1 tools per worker per second
-- Consumption: 0.1 copper per worker per second (level 5+: 0.05 iron for 2x quality tools)
-- Level-up cost: base (70 wood, 35 stone) x 1.5^level
-- **Role**: Resource conversion — transforms raw metals into productivity boosters
-
 #### Harbor (Town)
 - Enables Exploration expeditions (see Exploration System)
 - Expedition slots: 1 + floor(level / 2)
@@ -78,33 +38,7 @@ This proposal fills the gaps in the current game (disasters, military purpose, d
 - Level-up cost: base (120 wood, 60 stone, 30 copper) x 1.5^level
 - **Role**: Thematically perfect (shipwreck survivors rebuild maritime capability), opens exploration gameplay loop
 
-### Religion Category
-
-#### Oracle (Town)
-- Assigns workers to convert faith into influence
-- Worker capacity: level x 5
-- Production: 0.05 influence per worker per second
-- Consumption: 0.1 faith per worker per second
-- Bonus: At level 3+ reveals next Divine Challenge requirements
-- Level-up cost: base (100 wood, 50 stone, 25 copper) x 1.5^level
-- **Role**: Bridges religion system to endgame, provides challenge intel
-
-#### Sanctum (City)
-- Endgame building. Max 5 levels. No workers — leveling IS the mechanic
-- Each level: permanent colony-wide buff (+5% all production, +5% all storage, etc.)
-- Level-up cost: exceptionally high, requires relics (level 1: 500 wood, 300 stone, 200 copper, 100 iron, 50 gold, 2 relics; further levels TBD with steep scaling)
-- **Level 5 Sanctum = prerequisite for the final Divine Challenge (win condition)**
-- **Role**: The endgame religion capstone — massive investment, massive payoff, required for victory
-
 ### Military Category
-
-#### Watchtower (Settlement)
-- Passive building (no workers)
-- Provides advance warning of disasters and enemy raids
-- Warning time: 30 + (15 x level) seconds before event hits
-- Stacks with Warning research tree bonus
-- Level-up cost: base (45 wood, 20 stone) x 1.5^level
-- **Role**: Pure intel/defense — distinct from Tower (offensive), enables preparation for disasters
 
 #### War Camp (City)
 - Enables military Raids (send units to plunder)
