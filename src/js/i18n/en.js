@@ -126,7 +126,7 @@ export const LOCALIZED_EN = {
   'modal.buildingHelp.tooltip': 'Help',
   'modal.buildingHelp.close': 'Close',
   'modal.researchHelp.title': 'Research',
-  'modal.researchHelp.body': 'Spend knowledge and other resources at the Academy to unlock permanent bonuses. Research is organized into categories, each with subcategories forming chains of 5 tiers. Complete the previous tier to unlock the next. Only one research can be active per subcategory. Completed bonuses accumulate.',
+  'modal.researchHelp.body': 'Spend knowledge and other resources at the academy to unlock permanent bonuses. Only one research can be active per category. Completed bonuses accumulate.',
   'modal.marketHelp.title': 'Market',
   'modal.marketHelp.body': 'Buy and sell resources (food, wood, stone, copper, iron) in lots of {0} using gold.\nEach resource has a base price that shifts dynamically with each trade — buying raises the price by {1} gold, selling lowers it by {1} gold.\nA fee applies to every transaction: you pay more when buying and receive less when selling. The base fee starts at {2}% and decreases by {3}% per market building level, down to a minimum of {4}%.\nTrades are blocked if you lack enough gold or resources, or if your stockpile is full.\nIt\'s a simple supply/demand system — buying drives prices up, selling drives them down. The two main variables affecting trading are market building level (reduces fee) and trade history (shifts prices).',
 

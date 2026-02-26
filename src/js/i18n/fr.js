@@ -126,7 +126,7 @@ export const LOCALIZED_FR = {
   'modal.buildingHelp.tooltip': 'Aide',
   'modal.buildingHelp.close': 'Fermer',
   'modal.researchHelp.title': 'Recherche',
-  'modal.researchHelp.body': 'Dépensez du savoir et d\'autres ressources à l\'Académie pour débloquer des bonus permanents. La recherche est organisée en catégories, chacune avec des sous-catégories formant des chaînes de 5 niveaux. Complétez le niveau précédent pour débloquer le suivant. Une seule recherche peut être active par sous-catégorie. Les bonus complétés se cumulent.',
+  'modal.researchHelp.body': 'Dépensez du savoir et d\'autres ressources à l\'académie pour débloquer des bonus permanents. Une seule recherche peut être active par catégorie. Les bonus complétés se cumulent.',
   'modal.marketHelp.title': 'Marché',
   'modal.marketHelp.body': 'Achetez et vendez des ressources (nourriture, bois, pierre, cuivre, fer) par lots de {0} en utilisant de l\'or.\nChaque ressource a un prix de base qui évolue dynamiquement à chaque échange — acheter augmente le prix de {1} en or, vendre le diminue de {1} en or.\nDes frais s\'appliquent à chaque transaction : vous payez plus à l\'achat et recevez moins à la vente. Les frais de base commencent à {2}% et diminuent de {3}% par niveau du bâtiment marché, jusqu\'à un minimum de {4}%.\nLes échanges sont bloqués si vous manquez d\'or ou de ressources, ou si votre entrepôt est plein.\nC\'est un système simple d\'offre et demande — acheter fait monter les prix, vendre les fait baisser. Les deux variables principales affectant le commerce sont le niveau du bâtiment marché (réduit les frais) et l\'historique des échanges (modifie les prix).',
 
