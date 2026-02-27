@@ -30,10 +30,7 @@ class Colony {
     this.buildings = data.buildings // All building instances
     this.researches = data.researches // Research progress (completed + active)
     this.trades = data.trades // Current market prices per tradeable resource
-    this.consumption = {
-      food: 0,
-      wood: 0,
-    } // Per-second worker upkeep (recalculated each tick)
+    this.consumption = data.consumption // Per-second worker upkeep (recalculated each tick)
   }
 
   /** @returns {boolean} Whether the current season is warm */

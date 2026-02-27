@@ -24,6 +24,7 @@ import Wall from '@/js/models/buildings/wall.js'
 import Woodcutter from '@/js/models/buildings/woodcutter.js'
 import Workshop from '@/js/models/buildings/workshop.js'
 import Colony from '@/js/models/colony.js'
+import Consumption from '@/js/models/consumption.js'
 import Events from '@/js/models/events/events.js'
 import Meta from '@/js/models/meta.js'
 import Researches from '@/js/models/researches.js'
@@ -686,6 +687,8 @@ export function createInitialColonyBasic() {
       knowledge: 0,
     }),
 
+    consumption: new Consumption({}),
+
     stockpile: new Stockpile({
       territory: 0,
       workers: 0,
@@ -801,6 +804,8 @@ export function createInitialColonyAdvanced() {
       faith: 0,
       knowledge: 0,
     }),
+
+    consumption: new Consumption({}),
 
     stockpile: new Stockpile({
       territory: 0,
