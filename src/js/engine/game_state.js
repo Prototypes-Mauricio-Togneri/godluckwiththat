@@ -517,6 +517,24 @@ class GameState {
   }
 
   /**
+   * Returns the gold cost to buy a resource at current market price + fee.
+   * @param {string} resource - Resource key
+   * @returns {number} Gold cost (floored)
+   */
+  buyPrice(resource) {
+    return Math.floor(this.colony.marketPrices[resource] * (1 + this.effectiveTradeFee()))
+  }
+
+  /**
+   * Returns the gold gained from selling a resource at current market price - fee.
+   * @param {string} resource - Resource key
+   * @returns {number} Gold gained (floored)
+   */
+  sellPrice(resource) {
+    return Math.floor(this.colony.marketPrices[resource] * (1 - this.effectiveTradeFee()))
+  }
+
+  /**
    * Executes a market trade: buy or sell a resource for gold.
    * @param {string} resource - Resource key (food, wood, stone, copper, iron)
    * @param {'buy'|'sell'} direction - Trade direction
@@ -525,23 +543,21 @@ class GameState {
     const {
       resources, stockpile, marketPrices,
     } = this.colony
-    const currentPrice = marketPrices[resource]
-    const fee = this.effectiveTradeFee()
 
     if (direction === 'buy') {
-      const goldCost = Math.floor(currentPrice * (1 + fee))
+      const goldCost = this.buyPrice(resource)
       if (resources.gold < goldCost) return
       if (resources[resource] + MARKET_TRADE_AMOUNT > stockpile[resource]) return
       resources.gold -= goldCost
       resources[resource] += MARKET_TRADE_AMOUNT
-      marketPrices[resource] = Math.min(MARKET_MAX_CURRENT_PRICE, currentPrice + MARKET_PRICE_SHIFT)
+      marketPrices[resource] = Math.min(MARKET_MAX_CURRENT_PRICE, marketPrices[resource] + MARKET_PRICE_SHIFT)
     } else {
-      const goldGain = Math.floor(currentPrice * (1 - fee))
+      const goldGain = this.sellPrice(resource)
       if (resources[resource] < MARKET_TRADE_AMOUNT) return
       if (resources.gold + goldGain > stockpile.gold) return
       resources[resource] -= MARKET_TRADE_AMOUNT
       resources.gold += goldGain
-      marketPrices[resource] = Math.max(MARKET_MIN_CURRENT_PRICE, currentPrice - MARKET_PRICE_SHIFT)
+      marketPrices[resource] = Math.max(MARKET_MIN_CURRENT_PRICE, marketPrices[resource] - MARKET_PRICE_SHIFT)
     }
 
     this.update(0)
