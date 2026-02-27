@@ -6,7 +6,6 @@
   - Market: Make it look less cartoony
   - Gold mine: Make it look different than the iron mine
   - Altar: Re-make it HD
-  - Temple: Re-make it HD
   - Monument: Re-design it
 - Finish to implement researches
 - Implement challenges
