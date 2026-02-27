@@ -522,7 +522,7 @@ class GameState {
    * @returns {number} Gold cost (floored)
    */
   buyPrice(resource) {
-    return Math.floor(this.colony.marketPrices[resource] * (1 + this.effectiveTradeFee()))
+    return Math.floor(this.colony.trades[resource] * (1 + this.effectiveTradeFee()))
   }
 
   /**
@@ -531,7 +531,7 @@ class GameState {
    * @returns {number} Gold gained (floored)
    */
   sellPrice(resource) {
-    return Math.floor(this.colony.marketPrices[resource] * (1 - this.effectiveTradeFee()))
+    return Math.floor(this.colony.trades[resource] * (1 - this.effectiveTradeFee()))
   }
 
   /**
@@ -541,7 +541,7 @@ class GameState {
    */
   executeTrade(resource, direction) {
     const {
-      resources, stockpile, marketPrices,
+      resources, stockpile, trades,
     } = this.colony
 
     if (direction === 'buy') {
@@ -550,14 +550,14 @@ class GameState {
       if (resources[resource] + MARKET_TRADE_AMOUNT > stockpile[resource]) return
       resources.gold -= goldCost
       resources[resource] += MARKET_TRADE_AMOUNT
-      marketPrices[resource] = Math.min(MARKET_MAX_CURRENT_PRICE, marketPrices[resource] + MARKET_PRICE_SHIFT)
+      trades[resource] = Math.min(MARKET_MAX_CURRENT_PRICE, trades[resource] + MARKET_PRICE_SHIFT)
     } else {
       const goldGain = this.sellPrice(resource)
       if (resources[resource] < MARKET_TRADE_AMOUNT) return
       if (resources.gold + goldGain > stockpile.gold) return
       resources[resource] -= MARKET_TRADE_AMOUNT
       resources.gold += goldGain
-      marketPrices[resource] = Math.max(MARKET_MIN_CURRENT_PRICE, marketPrices[resource] - MARKET_PRICE_SHIFT)
+      trades[resource] = Math.max(MARKET_MIN_CURRENT_PRICE, trades[resource] - MARKET_PRICE_SHIFT)
     }
 
     this.update(0)

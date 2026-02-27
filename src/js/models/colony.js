@@ -13,7 +13,7 @@ import {SEASON_COLD, SEASON_WARM} from '@/js/engine/enums.js'
  * @property {Stockpile} stockpile - Maximum storage capacities
  * @property {Buildings} buildings - All building instances
  * @property {Researches} researches - Research progress (completed + active)
- * @property {MarketPrices} marketPrices - Current market prices per tradeable resource
+ * @property {Trades} trades - Current market prices per tradeable resource
  */
 class Colony {
   /**
@@ -29,7 +29,7 @@ class Colony {
     this.stockpile = data.stockpile // Maximum storage capacities
     this.buildings = data.buildings // All building instances
     this.researches = data.researches // Research progress (completed + active)
-    this.marketPrices = data.marketPrices // Current market prices per tradeable resource
+    this.trades = data.trades // Current market prices per tradeable resource
     this.consumption = {
       food: 0,
       wood: 0,
@@ -41,6 +41,11 @@ class Colony {
     return this.season === SEASON_WARM
   }
 
+  /** @returns {boolean} Whether the current season is cold */
+  get isColdSeason() {
+    return this.season === SEASON_COLD
+  }
+
   /**
    * Returns the net production rate for a resource (gross minus consumption).
    * @param {string} resource - Resource key
@@ -48,11 +53,6 @@ class Colony {
    */
   netProduction(resource) {
     return this.production[resource] - (this.consumption[resource] ?? 0)
-  }
-
-  /** @returns {boolean} Whether the current season is cold */
-  get isColdSeason() {
-    return this.season === SEASON_COLD
   }
 }
 

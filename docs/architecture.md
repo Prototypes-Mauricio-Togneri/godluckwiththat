@@ -80,7 +80,7 @@ Central state container instantiated once per game session. Pure JS class wrappe
 
 **Provide/inject**: `game_screen.vue` calls `provide('colony', state.colony)`, `provide('gameState', state)`, `provide('openResearchModal', fn)`, and `provide('openMarketModal', fn)`. Components `inject('colony')` for reactive reads, `inject('gameState')` to call mutation methods (`levelUpBuilding`, `levelUpHeadquarters`, `upgradeHeadquarters`, `assignWorker`, `unassignWorker`, `recruitAndAssignWorker`), `inject('openResearchModal')` to open the research modal (used by `academy_card.vue`), and `inject('openMarketModal')` to open the market modal (used by `market_card.vue`).
 
-**Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }`, `state.colony.{ year, season, seasonElapsed, idleWorkers, resources, production, consumption, stockpile, buildings, researches, marketPrices }`, and `state.events` (ephemeral event log, see Events section)
+**Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }`, `state.colony.{ year, season, seasonElapsed, idleWorkers, resources, production, consumption, stockpile, buildings, researches, trades }`, and `state.events` (ephemeral event log, see Events section)
 
 - `resources` (`Resources`) — current amounts with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`. Methods: `canAfford(cost)` (returns `true` if all cost fields are covered), `deduct(cost)` (subtracts cost fields in place).
 - `production` (`Production`) — per-tick rates with public fields: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.

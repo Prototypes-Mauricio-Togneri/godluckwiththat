@@ -14,7 +14,7 @@ import Headquarters from '@/js/models/buildings/headquarters.js'
 import House from '@/js/models/buildings/house.js'
 import IronMine from '@/js/models/buildings/iron_mine.js'
 import Market from '@/js/models/buildings/market.js'
-import MarketPrices from '@/js/models/market_prices.js'
+import Trades from '@/js/models/trades.js'
 import Monument from '@/js/models/buildings/monument.js'
 import Quarry from '@/js/models/buildings/quarry.js'
 import Storehouse from '@/js/models/buildings/storehouse.js'
@@ -699,7 +699,7 @@ export function createInitialColonyBasic() {
 
     researches: new Researches(),
 
-    marketPrices: new MarketPrices(MARKET_BASE_PRICES),
+    trades: new Trades(MARKET_BASE_PRICES),
 
     buildings: new Buildings({
       [BUILDING_HEADQUARTERS]: new Headquarters({
@@ -815,7 +815,7 @@ export function createInitialColonyAdvanced() {
 
     researches: new Researches(),
 
-    marketPrices: new MarketPrices(MARKET_BASE_PRICES),
+    trades: new Trades(MARKET_BASE_PRICES),
 
     buildings: new Buildings({
       [BUILDING_HEADQUARTERS]: new Headquarters({

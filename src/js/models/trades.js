@@ -11,7 +11,7 @@ import {MARKET_BASE_PRICES} from '@/js/engine/balancing.js'
  * @property {number} copper - Current gold price per 100 copper
  * @property {number} iron - Current gold price per 100 iron
  */
-class MarketPrices {
+class Trades {
   /**
    * @param {Object} [data] - Initial prices (defaults to MARKET_BASE_PRICES)
    */
@@ -38,4 +38,4 @@ class MarketPrices {
   }
 }
 
-export default MarketPrices
+export default Trades
