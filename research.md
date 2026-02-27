@@ -51,15 +51,200 @@ Wire up the ability to start and complete researches.
 
 ### Phase 3: Apply Bonuses to Game Systems
 
-Modify `GameState.update()` to apply research multipliers. Bonus aggregation is implemented (`completedBonuses()` runs every tick), but only `BONUS_HABITATION` is consumed (passed to `populationCap()`). All other 17 bonuses are computed but discarded. Remaining bonuses to wire up:
+Bonus aggregation is implemented — `completedBonuses()` runs every tick at `game_state.js:55` and returns a `{bonusType: cumulativeValue}` map. Currently only `BONUS_HABITATION` is consumed (passed to `populationCap()` at line 57). All other 17 bonuses are computed but discarded.
 
-- Production bonuses: multiply food, wood, mining, knowledge, faith production rates
-- Consumption reduction: reduce food/wood worker costs
-- Storage bonus: multiply stockpile capacity caps
-- Construction time: reduce build durations
-- Expansion cost: reduce HQ upgrade costs
-- Disaster bonuses: reduce flood/disease/earthquake impact
-- Military bonuses: apply unit defense, unit attack, warning time
+#### Current state
+
+The `bonuses` object is already available in `update()`. Each bonus value is a cumulative float (e.g. 3 tiers of Transportation at 0.05/tier → `workerProductivity: 0.15`). Habitation is flat (3 tiers → `habitation: 3`).
+
+#### Step 3a: Production bonuses (6 bonuses)
+
+**Where:** `game_state.js` lines 76-88, the `PRODUCTION_RATES` loop.
+
+**Current code:**
+```js
+for (const [buildingKey, config] of Object.entries(PRODUCTION_RATES)) {
+  const building = buildings[buildingKey]
+  if (building.level > 0) {
+    if (config.passive) {
+      production[config.resource] += building.level * config.rate
+    } else if (building.workers > 0) {
+      production[config.resource] += building.workers * config.rate
+    }
+  }
+}
+```
+
+**Plan:** Create a lookup that maps each `buildingKey` to its production bonus type, then multiply the rate by `(1 + bonus)`.
+
+Add to `balancing.js` alongside `PRODUCTION_RATES`:
+```js
+export const PRODUCTION_BONUS_MAP = {
+  [BUILDING_FARM]:        BONUS_FOOD_PRODUCTION,
+  [BUILDING_WOODCUTTER]:  BONUS_WOOD_PRODUCTION,
+  [BUILDING_QUARRY]:      BONUS_MINING_PRODUCTION,
+  [BUILDING_COPPER_MINE]: BONUS_MINING_PRODUCTION,
+  [BUILDING_IRON_MINE]:   BONUS_MINING_PRODUCTION,
+  [BUILDING_GOLD_MINE]:   BONUS_MINING_PRODUCTION,
+  [BUILDING_ACADEMY]:     BONUS_KNOWLEDGE_PRODUCTION,
+  [BUILDING_TEMPLE]:      BONUS_FAITH_PRODUCTION,
+  [BUILDING_ALTAR]:       BONUS_FAITH_PRODUCTION,
+}
+```
+
+Then in the loop, compute the effective rate:
+```js
+const bonusType = PRODUCTION_BONUS_MAP[buildingKey]
+const bonusMult = 1 + (bonusType ? (bonuses[bonusType] ?? 0) : 0)
+// ... use config.rate * bonusMult in both passive and worker branches
+```
+
+**Bonuses covered:**
+- `BONUS_FOOD_PRODUCTION` → Farm (+5%/tier)
+- `BONUS_WOOD_PRODUCTION` → Woodcutter (+5%/tier)
+- `BONUS_MINING_PRODUCTION` → Quarry, Copper Mine, Iron Mine, Gold Mine (+5%/tier)
+- `BONUS_KNOWLEDGE_PRODUCTION` → Academy (+5%/tier)
+- `BONUS_FAITH_PRODUCTION` → Temple, Altar (+5%/tier)
+
+**Note:** The seasonal food modifier (line 92) stacks multiplicatively on top — no change needed there.
+
+#### Step 3b: Worker productivity bonus (1 bonus)
+
+**Where:** Same `PRODUCTION_RATES` loop, `game_state.js` lines 76-88.
+
+`BONUS_WORKER_PRODUCTIVITY` increases output for all worker-based (non-passive) buildings. Apply as an additional multiplier in the `else if (building.workers > 0)` branch only:
+
+```js
+const workerMult = 1 + (bonuses[BONUS_WORKER_PRODUCTIVITY] ?? 0)
+// worker branch becomes:
+production[config.resource] += building.workers * config.rate * bonusMult * workerMult
+```
+
+This stacks with per-resource bonuses (e.g. a farm with 3 Transportation tiers + 2 Food Production tiers gets `rate * 1.15 * 1.10`).
+
+#### Step 3c: Consumption reduction bonuses (2 bonuses)
+
+**Where:** `game_state.js` lines 107-114 (actual resource deduction) and lines 154-157 (displayed production rates).
+
+**Current code (deduction):**
+```js
+const foodCost = totalWorkers * WORKER_FOOD_CONSUMPTION * delta
+const woodCost = totalWorkers * WORKER_WOOD_CONSUMPTION * (1 + woodSeasonMod) * delta
+```
+
+**Current code (display):**
+```js
+production.food -= resources.workers * WORKER_FOOD_CONSUMPTION
+production.wood -= resources.workers * WORKER_WOOD_CONSUMPTION * (1 + woodSeasonMod)
+```
+
+**Plan:** Compute effective consumption rates once, use in both places:
+```js
+const effFoodCons = WORKER_FOOD_CONSUMPTION * (1 / (1 + (bonuses[BONUS_FOOD_CONSUMPTION] ?? 0)))
+const effWoodCons = WORKER_WOOD_CONSUMPTION * (1 / (1 + (bonuses[BONUS_WOOD_CONSUMPTION] ?? 0)))
+```
+
+Replace `WORKER_FOOD_CONSUMPTION` → `effFoodCons` and `WORKER_WOOD_CONSUMPTION` → `effWoodCons` in all 4 locations above.
+
+**Bonuses covered:**
+- `BONUS_FOOD_CONSUMPTION` → reduces food upkeep per worker (+5%/tier reduction)
+- `BONUS_WOOD_CONSUMPTION` → reduces wood upkeep per worker (+5%/tier reduction)
+
+#### Step 3d: Storage capacity bonus (1 bonus)
+
+**Where:** `storehouse.js:20-22` (`storageCap()` method) and `game_state.js:58-63` (6 calls to `storageCap()`).
+
+**Current code:**
+```js
+storageCap() {
+  return STOREHOUSE_BASE_CAPACITY + this.level * STOREHOUSE_CAPACITY_PER_LEVEL
+}
+```
+
+**Plan:** Add a `storageBonus` parameter:
+```js
+storageCap(storageBonus = 0) {
+  return Math.floor((STOREHOUSE_BASE_CAPACITY + this.level * STOREHOUSE_CAPACITY_PER_LEVEL) * (1 + storageBonus))
+}
+```
+
+In `game_state.js`, extract the bonus and pass to all 6 calls:
+```js
+const storageBonus = bonuses[BONUS_STORAGE_CAPACITY] ?? 0
+stockpile.food = buildings.storehouse.storageCap(storageBonus)
+// ... same for wood, stone, copper, iron, gold
+```
+
+#### Step 3e: Construction time bonus (1 bonus)
+
+**Where:** `game_state.js` — 3 locations that compute `cost.toSeconds()`:
+- Line 273: `levelUpBuilding()` (regular buildings)
+- Line 314: `levelUpHeadquarters()` (HQ level up)
+- Line 343: `upgradeHeadquarters()` (HQ type upgrade)
+
+**Plan:** At each location, apply the bonus to reduce duration:
+```js
+const constructionBonus = this.colony.researches.completedBonuses(RESEARCH_TREE)[BONUS_CONSTRUCTION_TIME] ?? 0
+const duration = Math.max(1, Math.floor(cost.toSeconds() / (1 + constructionBonus)))
+```
+
+`Math.max(1, ...)` prevents zero-length construction. Extract the bonus computation into a helper to avoid repetition.
+
+**Note:** Research durations (`startResearch()` line 451) are NOT affected by construction time bonus — researches have their own timer and the construction bonus only applies to buildings.
+
+#### Step 3f: Expansion cost bonus (1 bonus)
+
+**Where:** `headquarters.js:58-60` (`upgradeCost()`) and `game_state.js:339` (`upgradeHeadquarters()`).
+
+`BONUS_EXPANSION_COST` reduces the resource cost of HQ type upgrades.
+
+**Option A — Apply in GameState (recommended):** Modify `upgradeHeadquarters()` to apply the discount after getting the base cost. This keeps the model pure and avoids threading bonuses through building classes:
+
+```js
+upgradeHeadquarters() {
+  const hq = buildings.headquarters
+  const baseCost = hq.upgradeCost()
+  if (!baseCost) return
+  const expansionBonus = this.colony.researches.completedBonuses(RESEARCH_TREE)[BONUS_EXPANSION_COST] ?? 0
+  const cost = baseCost.multiply(1 / (1 + expansionBonus)).floor()
+  if (!resources.canAfford(cost)) return
+  resources.deduct(cost)
+  // ...
+}
+```
+
+**UI consideration:** The HQ card (`headquarters_card.vue:66`) calls `hq.upgradeCost()` directly to display costs. To show discounted costs in the UI, either:
+- Pass the bonus to `upgradeCost(expansionBonus)`, or
+- Compute the discount in the component via an injected `bonuses` ref
+
+Recommend: Add a `discountedUpgradeCost` computed in the component that applies the multiplier, so both display and logic use the same discount.
+
+#### Step 3g: Disaster bonuses (3 bonuses) — DEFERRED
+
+`BONUS_FLOOD_IMPACT`, `BONUS_DISEASE_IMPACT`, `BONUS_EARTHQUAKE_IMPACT` require a disaster system that does not exist yet. These bonuses will be consumed when the disaster system is implemented. No changes needed now.
+
+#### Step 3h: Military bonuses (2 bonuses) — DEFERRED
+
+`BONUS_UNIT_DEFENSE`, `BONUS_UNIT_ATTACK` require a combat system that does not exist yet. These bonuses will be consumed when the military system is implemented. No changes needed now.
+
+#### Step 3i: Warning time bonus (1 bonus) — DEFERRED
+
+`BONUS_WARNING_TIME` requires a disaster warning system that does not exist yet. This bonus will be consumed when the disaster system is implemented. No changes needed now.
+
+#### Summary of changes
+
+| File | Changes |
+|------|---------|
+| `balancing.js` | Add `PRODUCTION_BONUS_MAP` |
+| `game_state.js` `update()` | Extract production bonuses, worker productivity, consumption bonuses from `bonuses` object; apply multipliers in production loop and consumption calculations |
+| `game_state.js` `levelUpBuilding()` | Apply `BONUS_CONSTRUCTION_TIME` to duration |
+| `game_state.js` `levelUpHeadquarters()` | Apply `BONUS_CONSTRUCTION_TIME` to duration |
+| `game_state.js` `upgradeHeadquarters()` | Apply `BONUS_EXPANSION_COST` to cost |
+| `storehouse.js` `storageCap()` | Add `storageBonus` parameter |
+| `headquarters_card.vue` | Show discounted upgrade cost |
+
+**Bonuses implemented:** 12 of 18 (including existing `BONUS_HABITATION`)
+**Bonuses deferred:** 6 (3 disaster + 2 military + 1 warning) — blocked on unbuilt game systems
 
 ### Phase 4: Polish
 
