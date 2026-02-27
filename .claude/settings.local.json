@@ -53,6 +53,17 @@
         ]
       }
     ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE_PATH=$(cat | jq -r '.tool_input.file_path') && [[ \"$FILE_PATH\" == *.js || \"$FILE_PATH\" == *.vue ]] && npx eslint --fix \"$FILE_PATH\" 2>&1 || true"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "matcher": ".*",
