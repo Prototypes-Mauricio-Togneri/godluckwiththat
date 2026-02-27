@@ -220,6 +220,7 @@ export const LOCALIZED_FR = {
   'research.effect.defense': 'Augmente la défense des unités de {0}%',
   'research.effect.attack': 'Augmente l\'attaque des unités de {0}%',
   'research.effect.warning': 'Augmente le temps d\'alerte de {0}%',
+  'research.accumulated': 'Cumulé : {0}',
 
   // Research names — General
   'research.transportation1': 'Roue',

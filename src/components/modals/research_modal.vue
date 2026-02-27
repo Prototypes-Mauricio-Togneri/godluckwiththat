@@ -38,6 +38,17 @@ function handleNodeClick(key, status) {
   gameState.startResearch(key)
 }
 
+function completedCount(sub) {
+  return sub.researches.filter(key => colony.researches.isCompleted(key)).length
+}
+
+function accumulatedBonusText(sub) {
+  const count = completedCount(sub)
+  if (count === 0) return ''
+  const accumulated = count * sub.bonus.value
+  return sub.bonus.flat ? `+${accumulated}` : `+${Math.round(accumulated * 100)}%`
+}
+
 function handleKeydown(event) {
   if (event.key === 'Escape') {
     event.stopImmediatePropagation()
@@ -96,6 +107,7 @@ onUnmounted(() => {
           <h3 class="subcategory-label">
             {{ t('research.subcategory.' + sub.key) }}
             <span class="subcategory-effect">&mdash; {{ t('research.effect.' + sub.key, sub.bonus.flat ? sub.bonus.value : sub.bonus.value * 100) }}</span>
+            <span v-if="completedCount(sub) > 0" class="subcategory-bonus-pill">{{ t('research.accumulated', accumulatedBonusText(sub)) }}</span>
           </h3>
           <div class="research-chain">
             <template v-for="(rKey, idx) in sub.researches" :key="rKey">
@@ -240,6 +252,7 @@ onUnmounted(() => {
   overflow-y: auto;
   overflow-x: hidden;
   min-height: 0;
+  padding-top: 0.15rem;
   padding-right: 0.5rem;
   scrollbar-width: thin;
   scrollbar-color: rgba(var(--color-accent-rgb), 0.2) transparent;
@@ -272,6 +285,24 @@ onUnmounted(() => {
   text-transform: uppercase;
   color: rgba(var(--color-text-rgb), 0.55);
   margin-bottom: 0.5rem;
+}
+
+.subcategory-bonus-pill {
+  display: inline-block;
+  font-family: var(--font-numeric);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: rgba(80, 160, 80, 1);
+  background: rgba(80, 160, 80, 0.1);
+  border: 1px solid rgba(80, 160, 80, 0.25);
+  border-radius: 3px;
+  padding: 0.05rem 0.35rem 0.1rem;
+  margin-left: 0.55rem;
+  vertical-align: middle;
+  position: relative;
+  top: -0.15rem;
+  line-height: 1.4;
 }
 
 .subcategory-effect {
