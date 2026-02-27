@@ -46,7 +46,7 @@ class GameState {
    */
   update(delta) {
     const {
-      resources, production, stockpile, buildings,
+      resources, production, stockpile, buildings, consumption,
     } = this.colony
 
     // Recalculate territory used and stockpile caps from building levels
@@ -156,10 +156,15 @@ class GameState {
     resources.faith = Math.max(0, resources.faith)
     resources.knowledge = Math.max(0, resources.knowledge)
 
-    // Include worker upkeep in displayed production rates
+    // Store and apply worker upkeep in displayed production rates
     if (resources.workers > 0) {
-      production.food -= resources.workers * effFoodCons
-      production.wood -= resources.workers * effWoodCons * (1 + woodSeasonMod)
+      consumption.food = resources.workers * effFoodCons
+      consumption.wood = resources.workers * effWoodCons * (1 + woodSeasonMod)
+      production.food -= consumption.food
+      production.wood -= consumption.wood
+    } else {
+      consumption.food = 0
+      consumption.wood = 0
     }
 
     // Fire events for resources whose net production just went negative

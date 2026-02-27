@@ -28,9 +28,9 @@ import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatRate, formatTime} from '@/js/engine/format.js'
 import GameState from '@/js/engine/game_state.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
-import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
-import {SEASON_DURATION, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
-import {BONUS_FOOD_CONSUMPTION, BONUS_WOOD_CONSUMPTION, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, RESOURCE_FOOD, RESOURCE_WOOD} from '@/js/engine/enums.js'
+import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
+import {SEASON_DURATION} from '@/js/engine/balancing.js'
+import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
@@ -72,8 +72,8 @@ function isBounded(resource) {
 }
 
 function resourceFillPercent(resource) {
-  const current = state.colony.resources[resource]
-  const capacity = state.colony.stockpile[resource]
+  const current = resourceAmount(resource)
+  const capacity = resourceStockpile(resource)
   if (!capacity) return 0
   return Math.min(100, (current / capacity) * 100)
 }
@@ -81,10 +81,10 @@ function resourceFillPercent(resource) {
 function timeEstimate(resource) {
   const rate = state.colony.production[resource]
   if (Math.round(rate * SECONDS_PER_MINUTE) === 0) return null
-  const current = state.colony.resources[resource]
+  const current = resourceAmount(resource)
 
   if (isBounded(resource) && rate > 0) {
-    const capacity = state.colony.stockpile[resource]
+    const capacity = resourceStockpile(resource)
     if (current >= capacity) return null
     return `${t('resource.fullIn')} ${formatTime((capacity - current) / rate)}`
   }
@@ -96,28 +96,24 @@ function timeEstimate(resource) {
   return null
 }
 
-function resourceConsumption(resource) {
-  const workers = state.colony.resources.workers
-  if (workers <= 0) return 0
-  const bonuses = state.colony.researches.completedBonuses(RESEARCH_TREE)
-  if (resource === RESOURCE_FOOD) {
-    const effFoodCons = WORKER_FOOD_CONSUMPTION * (1 - (bonuses[BONUS_FOOD_CONSUMPTION] ?? 0))
-    return workers * effFoodCons
-  }
-  if (resource === RESOURCE_WOOD) {
-    const woodSeasonMod = state.colony.isWarmSeason ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
-    const effWoodCons = WORKER_WOOD_CONSUMPTION * (1 - (bonuses[BONUS_WOOD_CONSUMPTION] ?? 0))
-    return workers * effWoodCons * (1 + woodSeasonMod)
-  }
-  return 0
-}
-
 function grossProduction(resource) {
   return state.colony.production[resource] + resourceConsumption(resource)
 }
 
+function resourceConsumption(resource) {
+  return state.colony.consumption[resource] ?? 0
+}
+
 function hasConsumption(resource) {
-  return (resource === RESOURCE_FOOD || resource === RESOURCE_WOOD) && resourceConsumption(resource) > 0
+  return resourceConsumption(resource) > 0
+}
+
+function resourceAmount(resource) {
+  return state.colony.resources[resource]
+}
+
+function resourceStockpile(resource) {
+  return state.colony.stockpile[resource]
 }
 
 function seasonProgress() {
@@ -279,8 +275,8 @@ onUnmounted(() => {
             <!-- Row 1: icon + current amount -->
             <div class="resource-row-top">
               <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
-              <span class="resource-value" :class="{ 'resource-value--alert': isBounded(resource) && Math.floor(state.colony.resources[resource]) >= state.colony.stockpile[resource], 'resource-value--zero': Math.floor(state.colony.resources[resource]) === 0 }">
-                {{ formatNumber(state.colony.resources[resource]) }}
+              <span class="resource-value" :class="{ 'resource-value--alert': isBounded(resource) && Math.floor(resourceAmount(resource)) >= resourceStockpile(resource), 'resource-value--zero': Math.floor(resourceAmount(resource)) === 0 }">
+                {{ formatNumber(resourceAmount(resource)) }}
               </span>
             </div>
 
@@ -303,8 +299,8 @@ onUnmounted(() => {
             <div class="resource-tooltip">
               <span>{{ t('resource.' + resource) }}</span>
               <!-- Intentional: toLocaleString() instead of formatNumber() to display all digits -->
-              <span class="resource-tooltip-time">{{ t('resource.amount') }}: {{ Math.floor(state.colony.resources[resource]).toLocaleString() }}</span>
-              <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(state.colony.stockpile[resource]) }}</span>
+              <span class="resource-tooltip-time">{{ t('resource.amount') }}: {{ Math.floor(resourceAmount(resource)).toLocaleString() }}</span>
+              <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(resourceStockpile(resource)) }}</span>
               <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
               <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.producing') }}: {{ +grossProduction(resource).toFixed(2) }}</span>
               <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.consuming') }}: {{ +resourceConsumption(resource).toFixed(2) }}</span>
