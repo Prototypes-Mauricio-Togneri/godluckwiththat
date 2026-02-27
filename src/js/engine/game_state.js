@@ -108,8 +108,8 @@ class GameState {
     resources.knowledge += production.knowledge * delta
 
     // Worker consumption (food + wood upkeep), reduced by research bonuses
-    const effFoodCons = WORKER_FOOD_CONSUMPTION / (1 + (bonuses[BONUS_FOOD_CONSUMPTION] ?? 0))
-    const effWoodCons = WORKER_WOOD_CONSUMPTION / (1 + (bonuses[BONUS_WOOD_CONSUMPTION] ?? 0))
+    const effFoodCons = WORKER_FOOD_CONSUMPTION * (1 - (bonuses[BONUS_FOOD_CONSUMPTION] ?? 0))
+    const effWoodCons = WORKER_WOOD_CONSUMPTION * (1 - (bonuses[BONUS_WOOD_CONSUMPTION] ?? 0))
     if (delta > 0 && resources.workers > 0) {
       const totalWorkers = resources.workers
       const foodCost = totalWorkers * effFoodCons * delta
@@ -491,6 +491,9 @@ class GameState {
       researches.complete(key)
       this.events.dismissFutureByResearchKey(key)
       audio.playSound(SND_RESEARCH_COMPLETED)
+    }
+    if (completed.length > 0) {
+      this.update(0)
     }
   }
 
