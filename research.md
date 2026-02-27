@@ -51,7 +51,7 @@ Wire up the ability to start and complete researches.
 
 ### Phase 3: Apply Bonuses to Game Systems
 
-Modify `GameState.update()` to apply research multipliers. Bonus aggregation is implemented (`completedBonuses()` runs every tick). Currently only `BONUS_HABITATION` is consumed (passed to `populationCap()`). Remaining bonuses to wire up:
+Modify `GameState.update()` to apply research multipliers. Bonus aggregation is implemented (`completedBonuses()` runs every tick), but only `BONUS_HABITATION` is consumed (passed to `populationCap()`). All other 17 bonuses are computed but discarded. Remaining bonuses to wire up:
 
 - Production bonuses: multiply food, wood, mining, knowledge, faith production rates
 - Consumption reduction: reduce food/wood worker costs
