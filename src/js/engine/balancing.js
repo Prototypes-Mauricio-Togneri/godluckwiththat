@@ -222,6 +222,20 @@ export const PRODUCTION_RATES = {
   },
 }
 
+// Maps each production building to its research bonus type.
+// Used by GameState.update() to apply per-resource production multipliers.
+export const PRODUCTION_BONUS_MAP = {
+  [BUILDING_FARM]: BONUS_FOOD_PRODUCTION,
+  [BUILDING_WOODCUTTER]: BONUS_WOOD_PRODUCTION,
+  [BUILDING_QUARRY]: BONUS_MINING_PRODUCTION,
+  [BUILDING_COPPER_MINE]: BONUS_MINING_PRODUCTION,
+  [BUILDING_IRON_MINE]: BONUS_MINING_PRODUCTION,
+  [BUILDING_GOLD_MINE]: BONUS_MINING_PRODUCTION,
+  [BUILDING_ACADEMY]: BONUS_KNOWLEDGE_PRODUCTION,
+  [BUILDING_TEMPLE]: BONUS_FAITH_PRODUCTION,
+  [BUILDING_ALTAR]: BONUS_FAITH_PRODUCTION,
+}
+
 // ── Monument ────────────────────────────────────────────────────────
 // One-time faith granted when a monument finishes construction: value × newLevel
 export const MONUMENT_FAITH_PER_LEVEL = 100

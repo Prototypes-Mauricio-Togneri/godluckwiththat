@@ -1,8 +1,8 @@
-import {MARKET_BASE_FEE, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_MIN_FEE, MARKET_PRICE_SHIFT, MARKET_TRADE_AMOUNT, MONUMENT_FAITH_PER_LEVEL, PRODUCTION_RATES, RESEARCH_DEFINITIONS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import {MARKET_BASE_FEE, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_MIN_FEE, MARKET_PRICE_SHIFT, MARKET_TRADE_AMOUNT, MONUMENT_FAITH_PER_LEVEL, PRODUCTION_BONUS_MAP, PRODUCTION_RATES, RESEARCH_DEFINITIONS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_DURATION, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, IMG_RESOURCE_KNOWLEDGE, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_CREATED, SND_WORKER_FOOD, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOOD} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
 import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
-import {BONUS_HABITATION, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, SEASON_COLD, SEASON_WARM} from '@/js/engine/enums.js'
+import {BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, SEASON_COLD, SEASON_WARM} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -72,17 +72,20 @@ class GameState {
     production.faith = 0
     production.knowledge = 0
 
-    // Compute production rates (per second)
+    // Compute production rates (per second), applying research bonuses
+    const workerMult = 1 + (bonuses[BONUS_WORKER_PRODUCTIVITY] ?? 0)
     for (const [
       buildingKey,
       config,
     ] of Object.entries(PRODUCTION_RATES)) {
       const building = buildings[buildingKey]
       if (building.level > 0) {
+        const bonusType = PRODUCTION_BONUS_MAP[buildingKey]
+        const resMult = 1 + (bonusType ? (bonuses[bonusType] ?? 0) : 0)
         if (config.passive) {
-          production[config.resource] += building.level * config.rate
+          production[config.resource] += building.level * config.rate * resMult
         } else if (building.workers > 0) {
-          production[config.resource] += building.workers * config.rate
+          production[config.resource] += building.workers * config.rate * resMult * workerMult
         }
       }
     }
@@ -104,11 +107,13 @@ class GameState {
     resources.faith += production.faith * delta
     resources.knowledge += production.knowledge * delta
 
-    // Worker consumption (food + wood upkeep)
+    // Worker consumption (food + wood upkeep), reduced by research bonuses
+    const effFoodCons = WORKER_FOOD_CONSUMPTION / (1 + (bonuses[BONUS_FOOD_CONSUMPTION] ?? 0))
+    const effWoodCons = WORKER_WOOD_CONSUMPTION / (1 + (bonuses[BONUS_WOOD_CONSUMPTION] ?? 0))
     if (delta > 0 && resources.workers > 0) {
       const totalWorkers = resources.workers
-      const foodCost = totalWorkers * WORKER_FOOD_CONSUMPTION * delta
-      const woodCost = totalWorkers * WORKER_WOOD_CONSUMPTION * (1 + woodSeasonMod) * delta
+      const foodCost = totalWorkers * effFoodCons * delta
+      const woodCost = totalWorkers * effWoodCons * (1 + woodSeasonMod) * delta
       resources.food = Math.max(0, resources.food - foodCost)
       resources.wood = Math.max(0, resources.wood - woodCost)
     }
@@ -153,8 +158,8 @@ class GameState {
 
     // Include worker upkeep in displayed production rates
     if (resources.workers > 0) {
-      production.food -= resources.workers * WORKER_FOOD_CONSUMPTION
-      production.wood -= resources.workers * WORKER_WOOD_CONSUMPTION * (1 + woodSeasonMod)
+      production.food -= resources.workers * effFoodCons
+      production.wood -= resources.workers * effWoodCons * (1 + woodSeasonMod)
     }
 
     // Fire events for resources whose net production just went negative
