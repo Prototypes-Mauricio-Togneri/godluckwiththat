@@ -180,21 +180,31 @@ export const RESEARCH_WARNING_4 = 'warning4'
 export const RESEARCH_WARNING_5 = 'warning5'
 
 // Bonus types (applied by completed researches)
+
+// General bonuses
 export const BONUS_WORKER_PRODUCTIVITY = 'workerProductivity'
 export const BONUS_CONSTRUCTION_TIME = 'constructionTime'
 export const BONUS_EXPANSION_COST = 'expansionCost'
-export const BONUS_FLOOD_IMPACT = 'floodImpact'
-export const BONUS_DISEASE_IMPACT = 'diseaseImpact'
-export const BONUS_EARTHQUAKE_IMPACT = 'earthquakeImpact'
+export const BONUS_STORAGE_CAPACITY = 'storageCapacity'
+export const BONUS_HABITATION = 'habitation'
+
+// Resource bonuses
 export const BONUS_FOOD_PRODUCTION = 'foodProduction'
 export const BONUS_FOOD_CONSUMPTION = 'foodConsumption'
 export const BONUS_WOOD_PRODUCTION = 'woodProduction'
 export const BONUS_WOOD_CONSUMPTION = 'woodConsumption'
 export const BONUS_MINING_PRODUCTION = 'miningProduction'
 export const BONUS_KNOWLEDGE_PRODUCTION = 'knowledgeProduction'
-export const BONUS_STORAGE_CAPACITY = 'storageCapacity'
-export const BONUS_HABITATION = 'habitation'
+
+// Disaster bonuses
+export const BONUS_FLOOD_IMPACT = 'floodImpact'
+export const BONUS_DISEASE_IMPACT = 'diseaseImpact'
+export const BONUS_EARTHQUAKE_IMPACT = 'earthquakeImpact'
+
+// Religion bonuses
 export const BONUS_FAITH_PRODUCTION = 'faithProduction'
+
+// Military bonuses
 export const BONUS_UNIT_DEFENSE = 'unitDefense'
 export const BONUS_UNIT_ATTACK = 'unitAttack'
 export const BONUS_WARNING_TIME = 'warningTime'

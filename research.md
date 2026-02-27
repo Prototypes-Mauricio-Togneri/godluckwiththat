@@ -1,6 +1,6 @@
 # Research System
 
-A tech tree system where players spend Knowledge + resources + time to unlock passive bonuses. Accessed via a dedicated header button that opens a tabbed modal.
+A tech tree system where players spend Knowledge + resources + time to unlock passive bonuses. Accessed via the Academy card, which opens a tabbed modal.
 
 ## Design
 
@@ -18,11 +18,11 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
 
 | Category | Subcategories | Bonus Effects |
 |----------|--------------|---------------|
-| General | Transportation, Construction, Expansion, Trading | +% worker productivity, -% construction time, -% expansion cost, -% trade fees |
-| Disasters | Floods, Health, Earthquakes | -% flood impact, -% disease impact, -% earthquake impact |
-| Resources | Food prod., Food cons., Wood prod., Wood cons., Mining, Knowledge, Storage | +/- % production/consumption rates, +% warehouse capacity |
-| Religion | Faith | +% faith production |
-| Military | TBD | TBD |
+| General | Transportation, Construction, Expansion, Storage, Habitation | +5%/tier worker productivity, -10%/tier construction time, -10%/tier expansion cost, +10%/tier storage capacity, +1/tier population |
+| Resources | Food prod., Food cons., Wood prod., Wood cons., Mining, Knowledge | +/-5%/tier production/consumption rates |
+| Disasters | Floods, Health, Earthquakes | -10%/tier flood/disease/earthquake impact |
+| Religion | Faith | +5%/tier faith production |
+| Military | Defense, Attack, Warning | +10%/tier unit defense, +10%/tier unit attack, +10%/tier warning time |
 
 ## Implementation Phases
 
@@ -35,7 +35,7 @@ Build the entire data layer and a read-only tech tree modal showing locked/avail
 - Add `RESEARCH_TREE` in `constants.js` (structural tree topology)
 - Create `Researches` model class (completed set, active map, bonus aggregation)
 - Add `researches` property to Colony
-- Add all i18n keys (en + es)
+- Add all i18n keys (en, es, fr)
 - Create `research_modal.vue` (tabbed modal, view-only)
 - Add research button to game header
 
@@ -51,14 +51,15 @@ Wire up the ability to start and complete researches.
 
 ### Phase 3: Apply Bonuses to Game Systems
 
-Modify `GameState.update()` to apply research multipliers.
+Modify `GameState.update()` to apply research multipliers. Bonus aggregation is implemented (`completedBonuses()` runs every tick). Currently only `BONUS_HABITATION` is consumed (passed to `populationCap()`). Remaining bonuses to wire up:
 
 - Production bonuses: multiply food, wood, mining, knowledge, faith production rates
 - Consumption reduction: reduce food/wood worker costs
 - Storage bonus: multiply stockpile capacity caps
 - Construction time: reduce build durations
 - Expansion cost: reduce HQ upgrade costs
-- Disaster bonuses: placeholder until disaster system exists
+- Disaster bonuses: reduce flood/disease/earthquake impact
+- Military bonuses: apply unit defense, unit attack, warning time
 
 ### Phase 4: Polish
 
