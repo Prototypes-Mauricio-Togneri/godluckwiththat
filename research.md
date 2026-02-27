@@ -237,8 +237,8 @@ Recommend: Add a `discountedUpgradeCost` computed in the component that applies 
 
 All changes in `game_state.js` `update()` (lines 76-157) + new `PRODUCTION_BONUS_MAP` in `balancing.js`.
 
-| Category  | Subcategory      | Bonus                        | Effect                                        |
-|-----------|------------------|------------------------------|-----------------------------------------------|
+| Category  | Subcategory      | Bonus                        | Effect                                         |
+|-----------|------------------|------------------------------|------------------------------------------------|
 | General   | Transportation   | `BONUS_WORKER_PRODUCTIVITY`  | +5%/tier to all worker-based buildings         |
 | Resources | Food Production  | `BONUS_FOOD_PRODUCTION`      | +5%/tier Farm output                           |
 | Resources | Food Consumption | `BONUS_FOOD_CONSUMPTION`     | -5%/tier food upkeep per worker                |
