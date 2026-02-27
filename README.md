@@ -5,7 +5,6 @@
 - "Build Monument" -> "Build monument"
 
 - Finish all building images
-  - Academy: Make it look more like a school or university
   - Market: Make it look less cartoony
   - Gold mine: Make it look different than the iron mine
   - Altar: Re-make it HD
