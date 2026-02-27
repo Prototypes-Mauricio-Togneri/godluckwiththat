@@ -301,8 +301,8 @@ onUnmounted(() => {
               <span class="resource-tooltip-time">{{ t('resource.amount') }}: {{ Math.floor(state.colony.resources[resource]).toLocaleString() }}</span>
               <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(state.colony.stockpile[resource]) }}</span>
               <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
-              <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.producing') }}: {{ +grossProduction(resource).toFixed(4) }}</span>
-              <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.consuming') }}: {{ +resourceConsumption(resource).toFixed(4) }}</span>
+              <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.producing') }}: {{ +grossProduction(resource).toFixed(2) }}</span>
+              <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.consuming') }}: {{ +resourceConsumption(resource).toFixed(2) }}</span>
             </div>
           </div>
         </template>
