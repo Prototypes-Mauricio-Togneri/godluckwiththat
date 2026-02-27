@@ -1,12 +1,9 @@
-import {SEASON_COLD, SEASON_WARM} from '@/js/engine/enums.js'
-
 /**
  * Colony data model. Wraps all colony sub-models
  * (resources, production, stockpile, buildings, researches).
  *
  * @property {number} year - Current year (starts at 1, increments every warm+cold cycle)
- * @property {string} season - Current season
- * @property {number} seasonElapsed - Seconds elapsed in current season
+ * @property {Season} season - Current season state
  * @property {number} idleWorkers - Workers not assigned to buildings
  * @property {Resources} resources - Current resource amounts
  * @property {Production} production - Per-second gross production rates
@@ -21,8 +18,7 @@ class Colony {
    */
   constructor(data) {
     this.year = data.year // Current year (increments every warm+cold cycle)
-    this.season = data.season // Current season
-    this.seasonElapsed = data.seasonElapsed // Seconds elapsed in current season
+    this.season = data.season // Season model (currentSeason + seasonElapsed)
     this.idleWorkers = data.idleWorkers // Workers not assigned to buildings
     this.resources = data.resources // Current resource amounts
     this.production = data.production // Per-tick production rates
@@ -35,12 +31,12 @@ class Colony {
 
   /** @returns {boolean} Whether the current season is warm */
   get isWarmSeason() {
-    return this.season === SEASON_WARM
+    return this.season.isWarm
   }
 
   /** @returns {boolean} Whether the current season is cold */
   get isColdSeason() {
-    return this.season === SEASON_COLD
+    return this.season.isCold
   }
 
   /**

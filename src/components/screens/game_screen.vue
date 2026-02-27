@@ -117,7 +117,7 @@ function resourceStockpile(resource) {
 }
 
 function seasonProgress() {
-  return state.colony.seasonElapsed / SEASON_DURATION
+  return state.colony.season.seasonElapsed / SEASON_DURATION
 }
 
 function seasonIcon() {
@@ -125,7 +125,7 @@ function seasonIcon() {
 }
 
 function seasonTooltip() {
-  return `${t('season.name')}: ${t('season.' + state.colony.season)}`
+  return `${t('season.name')}: ${t('season.' + state.colony.season.currentSeason)}`
 }
 
 function getBuildingImg(building) {
@@ -258,7 +258,7 @@ onUnmounted(() => {
       <div class="header-season-group">
         <div class="header-section header-season tooltip" :data-tooltip="seasonTooltip()">
           <img class="season-icon" :src="seasonIcon()" alt="">
-          <div class="season-track" :class="'season-track--' + state.colony.season">
+          <div class="season-track" :class="'season-track--' + state.colony.season.currentSeason">
             <div class="season-fill" :style="{ width: (seasonProgress() * 100) + '%' }" />
           </div>
         </div>

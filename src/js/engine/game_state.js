@@ -192,11 +192,11 @@ class GameState {
    * @param {number} delta - Seconds since last season tick
    */
   advanceSeason(delta) {
-    this.colony.seasonElapsed += delta
-    if (this.colony.seasonElapsed >= SEASON_DURATION) {
-      this.colony.seasonElapsed -= SEASON_DURATION
+    this.colony.season.seasonElapsed += delta
+    if (this.colony.season.seasonElapsed >= SEASON_DURATION) {
+      this.colony.season.seasonElapsed -= SEASON_DURATION
       if (this.colony.isColdSeason) this.colony.year++
-      this.colony.season = this.colony.isWarmSeason ? SEASON_COLD : SEASON_WARM
+      this.colony.season.currentSeason = this.colony.isWarmSeason ? SEASON_COLD : SEASON_WARM
       const isWarm = this.colony.isWarmSeason
       audio.playSound(SND_NOTIFICATION_SEASON)
       this.events.dismissPastByType(EVENT_TYPE_SEASON_CHANGED)

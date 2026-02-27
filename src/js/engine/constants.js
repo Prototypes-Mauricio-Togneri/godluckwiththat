@@ -24,6 +24,7 @@ import Wall from '@/js/models/buildings/wall.js'
 import Woodcutter from '@/js/models/buildings/woodcutter.js'
 import Workshop from '@/js/models/buildings/workshop.js'
 import Colony from '@/js/models/colony.js'
+import Season from '@/js/models/season.js'
 import Consumption from '@/js/models/consumption.js'
 import Events from '@/js/models/events/events.js'
 import Meta from '@/js/models/meta.js'
@@ -659,8 +660,10 @@ export function createInitialColony() {
 export function createInitialColonyBasic() {
   return new Colony({
     year: 1,
-    season: SEASON_WARM,
-    seasonElapsed: 0,
+    season: new Season({
+      currentSeason: SEASON_WARM,
+      seasonElapsed: 0,
+    }),
     idleWorkers: 0,
 
     resources: new Resources({
@@ -777,8 +780,10 @@ export function createInitialColonyBasic() {
 export function createInitialColonyAdvanced() {
   return new Colony({
     year: 1,
-    season: SEASON_WARM,
-    seasonElapsed: 0,
+    season: new Season({
+      currentSeason: SEASON_WARM,
+      seasonElapsed: 0,
+    }),
     idleWorkers: 0,
 
     resources: new Resources({
