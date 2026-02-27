@@ -160,8 +160,6 @@ class GameState {
     if (resources.workers > 0) {
       consumption.food = resources.workers * effFoodCons
       consumption.wood = resources.workers * effWoodCons * (1 + woodSeasonMod)
-      production.food -= consumption.food
-      production.wood -= consumption.wood
     } else {
       consumption.food = 0
       consumption.wood = 0
@@ -169,7 +167,7 @@ class GameState {
 
     // Fire events for resources whose net production just went negative
     for (const resource of BOUNDED_RESOURCES) {
-      if (production[resource] < 0) {
+      if (this.colony.netProduction(resource) < 0) {
         if (!this._resourcesNegativeProduction.has(resource)) {
           this._resourcesNegativeProduction.add(resource)
           const config = RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG[resource]

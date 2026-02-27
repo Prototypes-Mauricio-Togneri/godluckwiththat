@@ -9,7 +9,7 @@ import {SEASON_COLD, SEASON_WARM} from '@/js/engine/enums.js'
  * @property {number} seasonElapsed - Seconds elapsed in current season
  * @property {number} idleWorkers - Workers not assigned to buildings
  * @property {Resources} resources - Current resource amounts
- * @property {Production} production - Per-second production rates
+ * @property {Production} production - Per-second gross production rates
  * @property {Stockpile} stockpile - Maximum storage capacities
  * @property {Buildings} buildings - All building instances
  * @property {Researches} researches - Research progress (completed + active)
@@ -39,6 +39,15 @@ class Colony {
   /** @returns {boolean} Whether the current season is warm */
   get isWarmSeason() {
     return this.season === SEASON_WARM
+  }
+
+  /**
+   * Returns the net production rate for a resource (gross minus consumption).
+   * @param {string} resource - Resource key
+   * @returns {number} Net production per second
+   */
+  netProduction(resource) {
+    return this.production[resource] - (this.consumption[resource] ?? 0)
   }
 
   /** @returns {boolean} Whether the current season is cold */

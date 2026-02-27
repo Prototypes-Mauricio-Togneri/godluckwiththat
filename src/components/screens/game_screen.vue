@@ -79,7 +79,7 @@ function resourceFillPercent(resource) {
 }
 
 function timeEstimate(resource) {
-  const rate = state.colony.production[resource]
+  const rate = state.colony.netProduction(resource)
   if (Math.round(rate * SECONDS_PER_MINUTE) === 0) return null
   const current = resourceAmount(resource)
 
@@ -97,7 +97,7 @@ function timeEstimate(resource) {
 }
 
 function grossProduction(resource) {
-  return state.colony.production[resource] + resourceConsumption(resource)
+  return state.colony.production[resource]
 }
 
 function resourceConsumption(resource) {
@@ -281,7 +281,7 @@ onUnmounted(() => {
             </div>
 
             <!-- Row 2: production rate -->
-            <span class="production-rate" :class="rateClass(state.colony.production[resource])">{{ formatRate(state.colony.production[resource]) }}</span>
+            <span class="production-rate" :class="rateClass(state.colony.netProduction(resource))">{{ formatRate(state.colony.netProduction(resource)) }}</span>
 
             <!-- Row 3: progress bar track (always rendered for alignment; fill bounded only) -->
             <div class="resource-row-bottom">
@@ -289,7 +289,7 @@ onUnmounted(() => {
                 <div
                   v-if="isBounded(resource)"
                   class="resource-bar-fill"
-                  :class="state.colony.production[resource] > 0 ? 'resource-bar-fill--positive' : 'resource-bar-fill--negative'"
+                  :class="state.colony.netProduction(resource) > 0 ? 'resource-bar-fill--positive' : 'resource-bar-fill--negative'"
                   :style="{ width: resourceFillPercent(resource) + '%' }"
                 />
               </div>
