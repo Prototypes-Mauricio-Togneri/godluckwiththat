@@ -316,7 +316,7 @@ onUnmounted(() => {
       <div class="header-section header-colony">
         <div class="header-resource tooltip" :data-tooltip="t('resource.population')">
           <img class="resource-icon resource-icon--worker" :src="IMG_UNIT_WORKER" :alt="t('resource.population')">
-          <span class="resource-value" :class="{ 'resource-value--alert': Math.floor(state.colony.resources.workers) >= state.colony.stockpile.workers, 'resource-value--zero': state.colony.resources.workers === 0 }">{{ formatNumber(state.colony.resources.workers) }}/{{ formatNumber(state.colony.stockpile.workers) }}</span>
+          <span class="resource-value" :class="{ 'resource-value--alert': state.colony.resources.workers >= state.colony.stockpile.workers, 'resource-value--zero': state.colony.resources.workers === 0 }">{{ formatNumber(state.colony.resources.workers) }}/{{ formatNumber(state.colony.stockpile.workers) }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.idleWorkers')">
           <img class="resource-icon" :src="IMG_OTHER_IDLE" :alt="t('resource.idleWorkers')">
@@ -324,7 +324,7 @@ onUnmounted(() => {
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.territory')">
           <img class="resource-icon resource-icon--territory" :src="IMG_OTHER_TERRITORY" :alt="t('resource.territory')">
-          <span class="resource-value" :class="{ 'resource-value--alert': Math.floor(state.colony.resources.territory) >= state.colony.stockpile.territory }">{{ formatNumber(state.colony.resources.territory) }}/{{ formatNumber(state.colony.stockpile.territory) }}</span>
+          <span class="resource-value" :class="{ 'resource-value--alert': state.colony.resources.territory >= state.colony.stockpile.territory }">{{ formatNumber(state.colony.resources.territory) }}/{{ formatNumber(state.colony.stockpile.territory) }}</span>
         </div>
       </div>
 
