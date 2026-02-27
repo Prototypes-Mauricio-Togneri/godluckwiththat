@@ -121,7 +121,7 @@ function seasonProgress() {
 }
 
 function seasonIcon() {
-  return state.colony.isWarmSeason ? IMG_SEASON_WARM : IMG_SEASON_COLD
+  return state.colony.season.isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD
 }
 
 function seasonTooltip() {

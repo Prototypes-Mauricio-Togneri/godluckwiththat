@@ -29,16 +29,6 @@ class Colony {
     this.consumption = data.consumption // Per-second worker upkeep (recalculated each tick)
   }
 
-  /** @returns {boolean} Whether the current season is warm */
-  get isWarmSeason() {
-    return this.season.isWarm
-  }
-
-  /** @returns {boolean} Whether the current season is cold */
-  get isColdSeason() {
-    return this.season.isCold
-  }
-
   /**
    * Returns the net production rate for a resource (gross minus consumption).
    * @param {string} resource - Resource key
