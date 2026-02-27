@@ -16,13 +16,13 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
 
 ### Categories & Subcategories
 
-| Category | Subcategories | Bonus Effects |
-|----------|--------------|---------------|
-| General | Transportation, Construction, Expansion, Storage, Habitation | +5%/tier worker productivity, -10%/tier construction time, -10%/tier expansion cost, +10%/tier storage capacity, +1/tier population |
-| Resources | Food prod., Food cons., Wood prod., Wood cons., Mining, Knowledge | +/-5%/tier production/consumption rates |
-| Disasters | Floods, Health, Earthquakes | -10%/tier flood/disease/earthquake impact |
-| Religion | Faith | +5%/tier faith production |
-| Military | Defense, Attack, Warning | +10%/tier unit defense, +10%/tier unit attack, +10%/tier warning time |
+| Category  | Subcategories                                                    | Bonus Effects                                                                                                                       |
+|-----------|------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| General   | Transportation, Construction, Expansion, Storage, Habitation     | +5%/tier worker productivity, -10%/tier construction time, -10%/tier expansion cost, +10%/tier storage capacity, +1/tier population  |
+| Resources | Food prod., Food cons., Wood prod., Wood cons., Mining, Knowledge | +/-5%/tier production/consumption rates                                                                                             |
+| Disasters | Floods, Health, Earthquakes                                      | -10%/tier flood/disease/earthquake impact                                                                                           |
+| Religion  | Faith                                                            | +5%/tier faith production                                                                                                           |
+| Military  | Defense, Attack, Warning                                         | +10%/tier unit defense, +10%/tier unit attack, +10%/tier warning time                                                               |
 
 ## Implementation Phases
 
@@ -231,20 +231,60 @@ Recommend: Add a `discountedUpgradeCost` computed in the component that applies 
 
 `BONUS_WARNING_TIME` requires a disaster warning system that does not exist yet. This bonus will be consumed when the disaster system is implemented. No changes needed now.
 
-#### Summary of changes
+#### Implementation Stages
 
-| File | Changes |
-|------|---------|
-| `balancing.js` | Add `PRODUCTION_BONUS_MAP` |
-| `game_state.js` `update()` | Extract production bonuses, worker productivity, consumption bonuses from `bonuses` object; apply multipliers in production loop and consumption calculations |
-| `game_state.js` `levelUpBuilding()` | Apply `BONUS_CONSTRUCTION_TIME` to duration |
-| `game_state.js` `levelUpHeadquarters()` | Apply `BONUS_CONSTRUCTION_TIME` to duration |
-| `game_state.js` `upgradeHeadquarters()` | Apply `BONUS_EXPANSION_COST` to cost |
-| `storehouse.js` `storageCap()` | Add `storageBonus` parameter |
-| `headquarters_card.vue` | Show discounted upgrade cost |
+##### Stage 1: Production & Consumption (steps 3a + 3b + 3c) — 9 bonuses
 
-**Bonuses implemented:** 12 of 18 (including existing `BONUS_HABITATION`)
-**Bonuses deferred:** 6 (3 disaster + 2 military + 1 warning) — blocked on unbuilt game systems
+All changes in `game_state.js` `update()` (lines 76-157) + new `PRODUCTION_BONUS_MAP` in `balancing.js`.
+
+| Category  | Subcategory      | Bonus                        | Effect                                        |
+|-----------|------------------|------------------------------|-----------------------------------------------|
+| General   | Transportation   | `BONUS_WORKER_PRODUCTIVITY`  | +5%/tier to all worker-based buildings         |
+| Resources | Food Production  | `BONUS_FOOD_PRODUCTION`      | +5%/tier Farm output                           |
+| Resources | Food Consumption | `BONUS_FOOD_CONSUMPTION`     | -5%/tier food upkeep per worker                |
+| Resources | Wood Production  | `BONUS_WOOD_PRODUCTION`      | +5%/tier Woodcutter output                     |
+| Resources | Wood Consumption | `BONUS_WOOD_CONSUMPTION`     | -5%/tier wood upkeep per worker                |
+| Resources | Mining           | `BONUS_MINING_PRODUCTION`    | +5%/tier Quarry, Copper/Iron/Gold Mine output  |
+| Resources | Knowledge        | `BONUS_KNOWLEDGE_PRODUCTION` | +5%/tier Academy output                        |
+| Religion  | Faith            | `BONUS_FAITH_PRODUCTION`     | +5%/tier Temple + Altar output                 |
+
+Files: `balancing.js`, `game_state.js`
+
+##### Stage 2: Storage (step 3d) — 1 bonus
+
+| Category | Subcategory | Bonus                    | Effect                                |
+|----------|-------------|--------------------------|---------------------------------------|
+| General  | Storage     | `BONUS_STORAGE_CAPACITY` | +10%/tier all resource stockpile caps |
+
+Files: `storehouse.js`, `game_state.js`
+
+##### Stage 3: Construction & Expansion (steps 3e + 3f) — 2 bonuses
+
+| Category | Subcategory  | Bonus                     | Effect                              |
+|----------|--------------|---------------------------|-------------------------------------|
+| General  | Construction | `BONUS_CONSTRUCTION_TIME` | -10%/tier building/upgrade duration |
+| General  | Expansion    | `BONUS_EXPANSION_COST`    | -10%/tier HQ type upgrade cost      |
+
+Files: `game_state.js`, `headquarters_card.vue`
+
+##### Deferred (steps 3g + 3h + 3i) — 6 bonuses
+
+Blocked on unbuilt game systems (disasters, military, warnings).
+
+| Category  | Subcategory | Bonus                      | Blocked on              |
+|-----------|-------------|----------------------------|-------------------------|
+| Disasters | Floods      | `BONUS_FLOOD_IMPACT`       | Disaster system         |
+| Disasters | Health      | `BONUS_DISEASE_IMPACT`     | Disaster system         |
+| Disasters | Earthquakes | `BONUS_EARTHQUAKE_IMPACT`  | Disaster system         |
+| Military  | Defense     | `BONUS_UNIT_DEFENSE`       | Combat system           |
+| Military  | Attack      | `BONUS_UNIT_ATTACK`        | Combat system           |
+| Military  | Warning     | `BONUS_WARNING_TIME`       | Disaster warning system |
+
+#### Totals
+
+- **Already implemented:** 1 (Habitation)
+- **Stage 1-3:** 12 bonuses
+- **Deferred:** 6 bonuses (3 disaster + 2 military + 1 warning)
 
 ### Phase 4: Polish
 
