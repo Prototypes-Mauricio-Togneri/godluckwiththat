@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- "Build Monument" -> "Build monument"
-
 - Finish all building images
   - Market: Make it look less cartoony
   - Gold mine: Make it look different than the iron mine
