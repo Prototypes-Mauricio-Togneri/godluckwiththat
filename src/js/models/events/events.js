@@ -5,11 +5,13 @@ import EventPast from '@/js/models/events/event_past.js'
  * Container for all active game events.
  * Events are ephemeral session-level data, not persisted in save data.
  *
- * @property {(EventFuture|EventPast)[]} items - All current events
+ * @property {EventFuture[]} future - Active future events (countdowns)
+ * @property {EventPast[]} past - Active past events (notifications)
  */
 class Events {
   constructor() {
-    this.items = []
+    this.future = []
+    this.past = []
     this._nextId = 1
   }
 
@@ -33,7 +35,7 @@ class Events {
       researchKey: data.researchKey,
       remainingSeconds: data.remainingSeconds,
     })
-    this.items.push(event)
+    this.future.push(event)
     return event
   }
 
@@ -55,7 +57,7 @@ class Events {
       buildingKey: data.buildingKey,
       researchKey: data.researchKey,
     })
-    this.items.push(event)
+    this.past.push(event)
     return event
   }
 
@@ -66,10 +68,10 @@ class Events {
 	 * @param {Object} data - Past event data (type, textKey, icon, params)
 	 */
   convertToPast(buildingKey, data) {
-    const index = this.items.findIndex(
-      event => event instanceof EventFuture && event.buildingKey === buildingKey,
+    const index = this.future.findIndex(
+      event => event.buildingKey === buildingKey,
     )
-    if (index !== -1) this.items.splice(index, 1)
+    if (index !== -1) this.future.splice(index, 1)
     this.addPast(data)
   }
 
@@ -78,10 +80,10 @@ class Events {
 	 * @param {string} buildingKey - Building key to match
 	 */
   dismissFuture(buildingKey) {
-    const index = this.items.findIndex(
-      event => event instanceof EventFuture && event.buildingKey === buildingKey,
+    const index = this.future.findIndex(
+      event => event.buildingKey === buildingKey,
     )
-    if (index !== -1) this.items.splice(index, 1)
+    if (index !== -1) this.future.splice(index, 1)
   }
 
   /**
@@ -89,10 +91,10 @@ class Events {
 	 * @param {string} researchKey - Research key to match
 	 */
   dismissFutureByResearchKey(researchKey) {
-    const index = this.items.findIndex(
-      event => event instanceof EventFuture && event.researchKey === researchKey,
+    const index = this.future.findIndex(
+      event => event.researchKey === researchKey,
     )
-    if (index !== -1) this.items.splice(index, 1)
+    if (index !== -1) this.future.splice(index, 1)
   }
 
   /**
@@ -100,8 +102,13 @@ class Events {
 	 * @param {number} id
 	 */
   dismiss(id) {
-    const index = this.items.findIndex(event => event.id === id)
-    if (index !== -1) this.items.splice(index, 1)
+    let index = this.future.findIndex(event => event.id === id)
+    if (index !== -1) {
+      this.future.splice(index, 1)
+      return
+    }
+    index = this.past.findIndex(event => event.id === id)
+    if (index !== -1) this.past.splice(index, 1)
   }
 
   /**
@@ -109,9 +116,7 @@ class Events {
 	 * @param {string} type - Event type constant
 	 */
   dismissPastByType(type) {
-    this.items = this.items.filter(
-      event => !(event instanceof EventPast && event.type === type),
-    )
+    this.past = this.past.filter(event => event.type !== type)
   }
 
   /**
@@ -119,32 +124,30 @@ class Events {
 	 * @param {string} textKey - i18n key to match
 	 */
   dismissPastByTextKey(textKey) {
-    this.items = this.items.filter(
-      event => !(event instanceof EventPast && event.textKey === textKey),
-    )
+    this.past = this.past.filter(event => event.textKey !== textKey)
   }
 
   /**
 	 * Removes all past events.
 	 */
   dismissAllPast() {
-    this.items = this.items.filter(event => !(event instanceof EventPast))
+    this.past = []
   }
 
   /**
 	 * Returns future events sorted by remaining seconds ascending.
 	 * @returns {EventFuture[]}
 	 */
-  future() {
-    return this.items.filter(event => event instanceof EventFuture).sort((a, b) => a.remainingSeconds - b.remainingSeconds)
+  sortedFuture() {
+    return [...this.future].sort((a, b) => a.remainingSeconds - b.remainingSeconds)
   }
 
   /**
 	 * Returns past events sorted by ID descending (most recent first).
 	 * @returns {EventPast[]}
 	 */
-  past() {
-    return this.items.filter(event => event instanceof EventPast).sort((a, b) => b.id - a.id)
+  sortedPast() {
+    return [...this.past].sort((a, b) => b.id - a.id)
   }
 
   /**
@@ -153,8 +156,8 @@ class Events {
 	 * @param {number} delta - Seconds elapsed since last tick
 	 */
   tick(delta) {
-    for (const event of this.items) {
-      if (event instanceof EventFuture && event.remainingSeconds > 0) {
+    for (const event of this.future) {
+      if (event.remainingSeconds > 0) {
         event.remainingSeconds = Math.max(0, event.remainingSeconds - delta)
       }
     }
