@@ -289,7 +289,7 @@ The game displays an event log as a column alongside the building columns. Event
 - **Future events** — warn about incoming events (e.g. enemy raids, disasters). Each shows a countdown timer that ticks down in real time. When the countdown reaches zero, the trigger logic (not yet implemented) decides what happens.
 - **Past events** — inform about things that have already happened (e.g. season changed, raid repelled, resource production went negative). Displayed in a muted style.
 - All events can be dismissed by the player (close button).
-- Events are ephemeral — they are not saved and reset on page refresh.
+- Events are part of the colony data model and are persisted with save data.
 - The events column is always visible in the game screen.
 
 ## Difficulties

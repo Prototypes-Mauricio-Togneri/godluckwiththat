@@ -3,7 +3,6 @@ import EventPast from '@/js/models/events/event_past.js'
 
 /**
  * Container for all active game events.
- * Events are ephemeral session-level data, not persisted in save data.
  *
  * @property {EventFuture[]} future - Active future events (countdowns)
  * @property {EventPast[]} past - Active past events (notifications)
@@ -160,6 +159,18 @@ class Events {
       if (event.remainingSeconds > 0) {
         event.remainingSeconds = Math.max(0, event.remainingSeconds - delta)
       }
+    }
+  }
+
+  /**
+   * Serializable snapshot for save/load.
+   * @returns {Object}
+   */
+  toJSON() {
+    return {
+      future: this.future.map(e => e.toJSON()),
+      past: this.past.map(e => e.toJSON()),
+      nextId: this._nextId,
     }
   }
 }

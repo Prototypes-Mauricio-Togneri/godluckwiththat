@@ -1,6 +1,5 @@
 /**
  * Base class for game events.
- * Events are ephemeral — not persisted in save data.
  *
  * @property {number} id - Unique event identifier
  * @property {string} type - Event type constant (e.g. EVENT_TYPE_SEASON_CHANGED)
@@ -29,6 +28,22 @@ class Event {
     this.params = data.params ?? []
     this.buildingKey = data.buildingKey ?? null
     this.researchKey = data.researchKey ?? null
+  }
+
+  /**
+   * Serializable snapshot for save/load.
+   * @returns {Object}
+   */
+  toJSON() {
+    return {
+      id: this.id,
+      type: this.type,
+      textKey: this.textKey,
+      icon: this.icon,
+      params: this.params,
+      buildingKey: this.buildingKey,
+      researchKey: this.researchKey,
+    }
   }
 }
 

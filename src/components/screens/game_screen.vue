@@ -28,7 +28,7 @@ import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatRate, formatTime} from '@/js/engine/format.js'
 import GameState from '@/js/engine/game_state.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
-import {createInitialColony, createInitialEvents, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
+import {createInitialColony, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION} from '@/js/engine/balancing.js'
 import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
@@ -155,7 +155,7 @@ function isResourceVisible(resource) {
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
 const paused = ref(false)
-const state = reactive(new GameState(createInitialMeta(), createInitialColony(), createInitialEvents()))
+const state = reactive(new GameState(createInitialMeta(), createInitialColony()))
 state.update(0)
 const showClearConfirm = ref(false)
 const showResearchModal = ref(false)
@@ -172,11 +172,11 @@ provide('openMarketModal', () => {
   showMarketModal.value = true
 })
 
-const futureEvents = computed(() => state.events.sortedFuture())
-const pastEvents = computed(() => state.events.sortedPast())
+const futureEvents = computed(() => state.colony.events.sortedFuture())
+const pastEvents = computed(() => state.colony.events.sortedPast())
 
 function clearAllPast() {
-  state.events.dismissAllPast()
+  state.colony.events.dismissAllPast()
   showClearConfirm.value = false
 }
 
@@ -197,7 +197,7 @@ function gameTick() {
   state.advanceSeason(progressDelta)
   state.advanceConstruction(progressDelta)
   state.advanceResearch(progressDelta)
-  state.events.tick(progressDelta)
+  state.colony.events.tick(progressDelta)
 }
 
 function progressTick() {
@@ -208,7 +208,7 @@ function progressTick() {
   state.advanceSeason(delta)
   state.advanceConstruction(delta)
   state.advanceResearch(delta)
-  state.events.tick(delta)
+  state.colony.events.tick(delta)
   progressAnimFrame = requestAnimationFrame(progressTick)
 }
 
@@ -390,7 +390,7 @@ onUnmounted(() => {
             <div v-for="event in pastEvents" :key="event.id" class="event-row">
               <img class="event-icon" :src="event.icon" :alt="t(event.textKey, ...event.params)">
               <span class="event-text">{{ t(event.textKey, ...event.params) }}</span>
-              <button class="event-dismiss" @click="playTap(); state.events.dismiss(event.id)">&times;</button>
+              <button class="event-dismiss" @click="playTap(); state.colony.events.dismiss(event.id)">&times;</button>
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@
  * @property {Buildings} buildings - All building instances
  * @property {Researches} researches - Research progress (completed + active)
  * @property {Trades} trades - Current market prices per tradeable resource
+ * @property {Events} events - Game event log (future countdowns + past notifications)
  */
 class Colony {
   /**
@@ -26,6 +27,7 @@ class Colony {
     this.buildings = data.buildings // All building instances
     this.researches = data.researches // Research progress (completed + active)
     this.trades = data.trades // Current market prices per tradeable resource
+    this.events = data.events // Game event log (future countdowns + past notifications)
     this.consumption = data.consumption // Per-second worker upkeep (recalculated each tick)
   }
 

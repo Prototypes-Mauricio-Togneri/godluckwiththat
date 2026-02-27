@@ -7,23 +7,20 @@ import {t} from '@/js/i18n/localized.js'
 
 /**
  * Central game state container.
- * Wraps Meta, Colony, and Events instances. Holds the core game loop
+ * Wraps Meta and Colony instances. Holds the core game loop
  * (production, seasons, construction) and all player action methods.
  *
  * @property {Meta} meta - Game metadata (version, timestamps, challenges)
  * @property {Colony} colony - Active colony instance
- * @property {Events} events - Ephemeral event log (not persisted)
  */
 class GameState {
   /**
    * @param {Meta} meta - Meta instance
    * @param {Colony} colony - Colony instance
-   * @param {Events} events - Events instance
    */
-  constructor(meta, colony, events) {
+  constructor(meta, colony) {
     this.meta = meta // Game metadata (version, timestamps, challenges)
     this.colony = colony // Active colony instance
-    this.events = events // Ephemeral event log (not persisted)
 
     // Track which bounded resources are currently at their stockpile cap
     // (initialized from current state so loading a save doesn't immediately fire events)
@@ -132,7 +129,7 @@ class GameState {
         if (!this._resourcesAtCap.has(resource)) {
           this._resourcesAtCap.add(resource)
           const config = RESOURCE_LIMIT_EVENT_CONFIG[resource]
-          this.events.addPast({
+          this.colony.events.addPast({
             type: EVENT_TYPE_RESOURCE_LIMIT_REACHED,
             textKey: config.textKey,
             icon: config.icon,
@@ -142,7 +139,7 @@ class GameState {
       } else if (this._resourcesAtCap.has(resource)) {
         this._resourcesAtCap.delete(resource)
         const config = RESOURCE_LIMIT_EVENT_CONFIG[resource]
-        this.events.dismissPastByTextKey(config.textKey)
+        this.colony.events.dismissPastByTextKey(config.textKey)
       }
     }
 
@@ -171,7 +168,7 @@ class GameState {
         if (!this._resourcesNegativeProduction.has(resource)) {
           this._resourcesNegativeProduction.add(resource)
           const config = RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG[resource]
-          this.events.addPast({
+          this.colony.events.addPast({
             type: EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION,
             textKey: config.textKey,
             icon: config.icon,
@@ -181,7 +178,7 @@ class GameState {
       } else if (this._resourcesNegativeProduction.has(resource)) {
         this._resourcesNegativeProduction.delete(resource)
         const config = RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG[resource]
-        this.events.dismissPastByTextKey(config.textKey)
+        this.colony.events.dismissPastByTextKey(config.textKey)
       }
     }
 
@@ -199,8 +196,8 @@ class GameState {
       this.colony.season.currentSeason = this.colony.season.isWarm ? SEASON_COLD : SEASON_WARM
       const isWarm = this.colony.season.isWarm
       audio.playSound(SND_NOTIFICATION_SEASON)
-      this.events.dismissPastByType(EVENT_TYPE_SEASON_CHANGED)
-      this.events.addPast({
+      this.colony.events.dismissPastByType(EVENT_TYPE_SEASON_CHANGED)
+      this.colony.events.addPast({
         type: EVENT_TYPE_SEASON_CHANGED,
         textKey: isWarm ? 'event.warmSeason' : 'event.coldSeason',
         icon: isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD,
@@ -229,22 +226,22 @@ class GameState {
           building.constructionDuration = 0
 
           if (key === BUILDING_HEADQUARTERS) {
-            this.events.convertToPast(key, {
+            this.colony.events.convertToPast(key, {
               type: EVENT_TYPE_BUILDING_UPGRADE,
               textKey: 'event.territoryExpanded',
               icon: IMG_OTHER_TERRITORY,
               buildingKey: key,
             })
             audio.playSound(SND_TERRITORY_EXPANDED)
-            this.events.dismissPastByType(EVENT_TYPE_TERRITORY_LIMIT_REACHED)
+            this.colony.events.dismissPastByType(EVENT_TYPE_TERRITORY_LIMIT_REACHED)
           } else {
             audio.playSound(SND_BUILDING_CREATED)
-            this.events.dismissFuture(key)
+            this.colony.events.dismissFuture(key)
             if (key === BUILDING_STOREHOUSE) {
-              this.events.dismissPastByType(EVENT_TYPE_RESOURCE_LIMIT_REACHED)
+              this.colony.events.dismissPastByType(EVENT_TYPE_RESOURCE_LIMIT_REACHED)
             }
             if (key === BUILDING_HOUSE) {
-              this.events.dismissPastByType(EVENT_TYPE_POPULATION_LIMIT_REACHED)
+              this.colony.events.dismissPastByType(EVENT_TYPE_POPULATION_LIMIT_REACHED)
             }
             if (key === BUILDING_MONUMENT) {
               this.colony.resources.faith += MONUMENT_FAITH_PER_LEVEL * building.level
@@ -283,8 +280,8 @@ class GameState {
     building.constructionRemaining = duration
 
     const isNewBuilding = building.isUnbuilt
-    this.events.dismissPastByType(EVENT_TYPE_BUILDING_UPGRADE)
-    this.events.addFuture({
+    this.colony.events.dismissPastByType(EVENT_TYPE_BUILDING_UPGRADE)
+    this.colony.events.addFuture({
       type: EVENT_TYPE_BUILDING_UPGRADE,
       textKey: isNewBuilding ? 'event.buildingBuilding' : 'event.buildingUpgrading',
       icon: BUILDING_IMAGE_MAP[buildingKey],
@@ -297,7 +294,7 @@ class GameState {
 
     // Fire territory event after update recalculates territory with pending
     if (resources.territory >= stockpile.territory) {
-      this.events.addPast({
+      this.colony.events.addPast({
         type: EVENT_TYPE_TERRITORY_LIMIT_REACHED,
         textKey: 'event.territoryLimitReached',
         icon: IMG_OTHER_TERRITORY,
@@ -323,8 +320,8 @@ class GameState {
     hq.constructionDuration = duration
     hq.constructionRemaining = duration
 
-    this.events.dismissPastByType(EVENT_TYPE_BUILDING_UPGRADE)
-    this.events.addFuture({
+    this.colony.events.dismissPastByType(EVENT_TYPE_BUILDING_UPGRADE)
+    this.colony.events.addFuture({
       type: EVENT_TYPE_BUILDING_UPGRADE,
       textKey: 'event.territoryExpanding',
       icon: IMG_OTHER_TERRITORY,
@@ -403,7 +400,7 @@ class GameState {
     resources.workers += 1
     audio.playSound(SND_WORKER_CREATED)
     if (resources.workers >= stockpile.workers) {
-      this.events.addPast({
+      this.colony.events.addPast({
         type: EVENT_TYPE_POPULATION_LIMIT_REACHED,
         textKey: 'event.populationLimitReached',
         icon: IMG_UNIT_WORKER,
@@ -460,7 +457,7 @@ class GameState {
     resources.deduct(def.cost)
     researches.start(key, duration)
 
-    this.events.addFuture({
+    this.colony.events.addFuture({
       type: EVENT_TYPE_RESEARCH_COMPLETE,
       textKey: 'event.researchInProgress',
       icon: IMG_RESOURCE_KNOWLEDGE,
@@ -492,7 +489,7 @@ class GameState {
     }
     for (const key of completed) {
       researches.complete(key)
-      this.events.dismissFutureByResearchKey(key)
+      this.colony.events.dismissFutureByResearchKey(key)
       audio.playSound(SND_RESEARCH_COMPLETED)
     }
     if (completed.length > 0) {

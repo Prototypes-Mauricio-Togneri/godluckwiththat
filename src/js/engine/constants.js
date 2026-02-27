@@ -707,6 +707,8 @@ export function createInitialColonyBasic() {
 
     trades: new Trades(MARKET_BASE_PRICES),
 
+    events: new Events(),
+
     buildings: new Buildings({
       [BUILDING_HEADQUARTERS]: new Headquarters({
         type: HQ_TYPE_CAMP,
@@ -827,6 +829,8 @@ export function createInitialColonyAdvanced() {
 
     trades: new Trades(MARKET_BASE_PRICES),
 
+    events: new Events(),
+
     buildings: new Buildings({
       [BUILDING_HEADQUARTERS]: new Headquarters({
         type: HQ_TYPE_CITY,
@@ -899,10 +903,3 @@ export function createInitialColonyAdvanced() {
   })
 }
 
-/**
- * Creates a pre-populated Events instance for a new game session.
- * @returns {Events} Events with sample future and past events
- */
-export function createInitialEvents() {
-  return new Events()
-}

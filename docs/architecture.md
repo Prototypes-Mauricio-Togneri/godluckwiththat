@@ -80,7 +80,7 @@ Central state container instantiated once per game session. Pure JS class wrappe
 
 **Provide/inject**: `game_screen.vue` calls `provide('colony', state.colony)`, `provide('gameState', state)`, `provide('openResearchModal', fn)`, and `provide('openMarketModal', fn)`. Components `inject('colony')` for reactive reads, `inject('gameState')` to call mutation methods (`levelUpBuilding`, `levelUpHeadquarters`, `upgradeHeadquarters`, `assignWorker`, `unassignWorker`, `recruitAndAssignWorker`), `inject('openResearchModal')` to open the research modal (used by `academy_card.vue`), and `inject('openMarketModal')` to open the market modal (used by `market_card.vue`).
 
-**Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }`, `state.colony.{ year, season, idleWorkers, resources, production, consumption, stockpile, buildings, researches, trades }` (`season` is a `Season` model with `currentSeason` and `seasonElapsed`), and `state.events` (ephemeral event log, see Events section)
+**Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }`, `state.colony.{ year, season, idleWorkers, resources, production, consumption, stockpile, buildings, researches, trades, events }` (`season` is a `Season` model with `currentSeason` and `seasonElapsed`)
 
 - `resources` (`Resources`) — current amounts with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`. Methods: `canAfford(cost)` (returns `true` if all cost fields are covered), `deduct(cost)` (subtracts cost fields in place).
 - `production` (`Production`) — per-tick rates with public fields: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
@@ -109,11 +109,11 @@ All game state mutations are centralised in `GameState`. Each method guards prec
 - `advanceResearch(delta)` — decrements `remainingSeconds` on all active researches. When a timer reaches zero, calls `researches.complete(key)`, dismisses the future event, and plays `SND_RESEARCH_COMPLETED`. Collects completed keys before processing to avoid mutating the Map during iteration.
 ### Events (`src/js/models/events/event.js`, `event_future.js`, `event_past.js`, `events.js`)
 
-Ephemeral event system for notifying the player of upcoming threats and past occurrences. Events live on `GameState.events` (not `Colony`) and are **not persisted** in save data — they reset on page refresh.
+Event system for notifying the player of upcoming threats and past occurrences. Events live on `Colony.events` and support serialization via `toJSON()`/`fromJSON()` for save/load.
 
-**`Event`** — Abstract base class with common fields: `id` (auto-assigned), `type` (event type constant, e.g. `EVENT_TYPE_SEASON_CHANGED`, `EVENT_TYPE_BUILDING_UPGRADE`), `textKey` (i18n key), `icon` (full image path from `assets.js`, e.g. `IMG_RESOURCE_FOOD`), `params` (string array for positional i18n interpolation, default `[]`), `buildingKey` (building key for construction event lookup, default `null`), `researchKey` (research key for research event lookup, default `null`).
+**`Event`** — Abstract base class with common fields: `id` (auto-assigned), `type` (event type constant, e.g. `EVENT_TYPE_SEASON_CHANGED`, `EVENT_TYPE_BUILDING_UPGRADE`), `textKey` (i18n key), `icon` (full image path from `assets.js`, e.g. `IMG_RESOURCE_FOOD`), `params` (string array for positional i18n interpolation, default `[]`), `buildingKey` (building key for construction event lookup, default `null`), `researchKey` (research key for research event lookup, default `null`). Method: `toJSON()` (serializes all fields).
 
-**`EventFuture`** — Extends `Event`. Adds `remainingSeconds` (countdown until event fires).
+**`EventFuture`** — Extends `Event`. Adds `remainingSeconds` (countdown until event fires). Overrides `toJSON()` to include `remainingSeconds`.
 
 **`EventPast`** — Extends `Event`. No additional fields.
 
@@ -130,14 +130,16 @@ Ephemeral event system for notifying the player of upcoming threats and past occ
 - `future()` — returns `EventFuture` items sorted by `remainingSeconds` ascending
 - `past()` — returns `EventPast` items sorted by `id` descending (most recent first)
 - `tick(delta)` — decrements `remainingSeconds` on `EventFuture` items, clamps at 0 (does not auto-convert to past)
+- `toJSON()` — serializes the events container (future, past, nextId) for persistence
+- `fromJSON(data)` (static) — restores an `Events` instance from serialized data
 
-Called from the `progressTick` loop (`requestAnimationFrame`, ~60 fps) in `game_screen.vue` via `state.events.tick(delta)`, alongside `advanceSeason` and `advanceConstruction`. The `gameTick` fallback also calls it to cover backgrounded tabs where `requestAnimationFrame` pauses.
+Called from the `progressTick` loop (`requestAnimationFrame`, ~60 fps) in `game_screen.vue` via `state.colony.events.tick(delta)`, alongside `advanceSeason` and `advanceConstruction`. The `gameTick` fallback also calls it to cover backgrounded tabs where `requestAnimationFrame` pauses.
 
 **UI**: Displayed as a 5th column in `game_screen.vue` alongside the 4 building columns (all `flex: 1`, equal width). Two sub-sections: "Upcoming" (future events with gold countdown timer) and "History" (past events). Both use the same row style: icon + text + dismiss button, with a gold left-border accent. Future events additionally show a countdown timer. Empty state shown when no events exist.
 
 ### Tick System (`GameState.update()` in `src/js/engine/game_state.js`)
 
-Core game loop that generates resources over time. `game_screen.vue` runs a main `setInterval` (1 second, `TICK_INTERVAL`) that calls `state.update(deltaSec)` for production/consumption, and a `requestAnimationFrame` loop (~60 fps, `progressTick`) that calls `state.advanceSeason(deltaSec)`, `state.advanceConstruction(deltaSec)`, `state.advanceResearch(deltaSec)`, and `state.events.tick(deltaSec)` for smooth visual progress. Both use `performance.now()` for delta calculation. Delta time naturally handles backgrounded tabs — when the tab returns, the first tick applies the full accumulated time.
+Core game loop that generates resources over time. `game_screen.vue` runs a main `setInterval` (1 second, `TICK_INTERVAL`) that calls `state.update(deltaSec)` for production/consumption, and a `requestAnimationFrame` loop (~60 fps, `progressTick`) that calls `state.advanceSeason(deltaSec)`, `state.advanceConstruction(deltaSec)`, `state.advanceResearch(deltaSec)`, and `state.colony.events.tick(deltaSec)` for smooth visual progress. Both use `performance.now()` for delta calculation. Delta time naturally handles backgrounded tabs — when the tab returns, the first tick applies the full accumulated time.
 
 **Construction timers**: `advanceConstruction(delta)` runs inside the `requestAnimationFrame` loop (`progressTick`) for smooth visual progress (~60 fps). It decrements `constructionRemaining` on all buildings; when a timer reaches zero, the building's level increments and `constructionDuration` resets. For HQ territory expansion, the future event is converted to a past event via `events.convertToPast()`. For all other buildings, the future event is simply removed via `events.dismissFuture(key)`. When a storehouse completes, all resource-limit past events are dismissed. When a monument completes, `MONUMENT_FAITH_PER_LEVEL × newLevel` faith is added to `colony.resources.faith`. The HQ type upgrade timer (`upgradeRemaining`) is ticked separately; on completion, `hq.type` advances to the next tier (no event fired for type upgrades). The next `update()` call (1-second interval) picks up the new level for stockpile/production recalculation.
 

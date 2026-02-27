@@ -18,6 +18,17 @@ class EventFuture extends Event {
     super(data)
     this.remainingSeconds = data.remainingSeconds
   }
+
+  /**
+   * Serializable snapshot for save/load.
+   * @returns {Object}
+   */
+  toJSON() {
+    return {
+      ...super.toJSON(),
+      remainingSeconds: this.remainingSeconds,
+    }
+  }
 }
 
 export default EventFuture
