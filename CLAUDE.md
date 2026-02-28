@@ -17,6 +17,7 @@ Read `docs/architecture.md` (visual design, class architecture, game mechanics) 
 
 - **Centralized Constants**: Numeric balancing values (costs, rates, formulas, initial state) go in `src/js/engine/balancing.js`. Structural constants (class maps, enums, sets, factory functions) go in `src/js/engine/constants.js`. Do not hardcode values in other files.
 - **Asset Paths**: All image/sound paths from `public/` are in `src/js/engine/assets.js` (auto-generated). Run `npm run generate-assets` after adding/removing files in `public/`. Do not edit manually.
+- **Audio Bitrates**: Music files (`public/audio/music/`) must be 96 kbps. Sound effects (`public/audio/sound/`) must be 56 kbps.
 - **Localization**: All user-facing text goes in every locale file under `src/js/i18n/`. Use `t(key)` to reference strings. Keys use flat dot-notation with lowerCamelCase segments (e.g. `'resource.idleWorkers'`).
 - **Imports**: Always use the `@` path alias (mapped to `src/`). No relative paths (`./`, `../`).
 - **Shared Styles**: Repeated CSS across `.vue` files gets extracted into `src/assets/styles.css`. Component-specific overrides stay in scoped `<style>` blocks.
