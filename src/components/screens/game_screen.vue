@@ -224,6 +224,8 @@ watch(showModal, (isOpen) => {
     paused.value = true
     clearInterval(tickTimer)
     tickTimer = null
+    cancelAnimationFrame(progressAnimFrame)
+    progressAnimFrame = null
   } else {
     paused.value = false
     const now = performance.now()
