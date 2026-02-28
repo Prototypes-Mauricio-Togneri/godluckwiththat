@@ -276,7 +276,7 @@ class GameState {
    * @param {number} delta - Seconds elapsed since last tick
    */
   advanceEvents(delta) {
-    this.colony.events.tick(delta)
+    this.colony.events.advance(delta)
   }
 
   /**

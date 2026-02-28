@@ -155,7 +155,7 @@ class Events {
 	 * Clamps at 0 — does not auto-convert to past.
 	 * @param {number} delta - Seconds elapsed since last tick
 	 */
-  tick(delta) {
+  advance(delta) {
     for (const event of this.future) {
       if (event.remainingSeconds > 0) {
         event.remainingSeconds = Math.max(0, event.remainingSeconds - delta)
