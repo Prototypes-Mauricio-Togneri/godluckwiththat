@@ -74,7 +74,7 @@ onUnmounted(() => {
         <button class="btn-gold modal-btn" @click="playTap(); emit('close')">
           {{ t('modal.pause.continue') }}
         </button>
-        <button class="btn-gold modal-btn modal-btn--quit" @click="playTap(); emit('quit')">
+        <button class="btn-gold modal-btn modal-btn--danger" @click="playTap(); emit('quit')">
           {{ t('modal.pause.quit') }}
         </button>
       </div>
@@ -169,19 +169,4 @@ onUnmounted(() => {
   width: 100%;
 }
 
-/* Subdued quit button */
-.modal-btn--quit {
-  border-color: rgba(var(--color-accent-rgb), 0.12);
-  color: rgba(var(--color-text-rgb), 0.45);
-  background: linear-gradient(
-    180deg,
-    rgba(var(--color-accent-rgb), 0.03),
-    rgba(var(--color-accent-rgb), 0.01)
-  );
-}
-
-.modal-btn--quit:hover {
-  color: var(--color-text);
-  border-color: rgba(var(--color-accent-rgb), 0.35);
-}
 </style>

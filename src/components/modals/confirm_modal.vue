@@ -63,7 +63,7 @@ onUnmounted(() => {
         <button class="btn-gold modal-btn modal-btn--cancel" @click="playTap(); emit('close')">
           {{ t('modal.cancel') }}
         </button>
-        <button class="btn-gold modal-btn modal-btn--confirm" @click="playTap(); emit('confirm')">
+        <button class="btn-gold modal-btn modal-btn--danger" @click="playTap(); emit('confirm')">
           {{ t(confirmKey) }}
         </button>
       </div>
@@ -123,25 +123,4 @@ onUnmounted(() => {
   box-shadow: 0 0 20px rgba(var(--color-accent-rgb), 0.08);
 }
 
-/* Confirm — red */
-.modal-btn--confirm {
-  color: rgba(228, 213, 188, 1);
-  background: linear-gradient(
-    180deg,
-    rgba(196, 80, 80, 0.15),
-    rgba(196, 80, 80, 0.05)
-  );
-  border: 1px solid rgba(196, 80, 80, 0.35);
-}
-
-.modal-btn--confirm:hover {
-  color: rgba(196, 80, 80, 1);
-  background: linear-gradient(
-    180deg,
-    rgba(196, 80, 80, 0.22),
-    rgba(196, 80, 80, 0.08)
-  );
-  border-color: rgba(196, 80, 80, 0.6);
-  box-shadow: 0 0 20px rgba(196, 80, 80, 0.1);
-}
 </style>
