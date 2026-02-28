@@ -567,7 +567,6 @@ class GameState {
     }
     return t('building.' + buildingKey)
   }
-
 }
 
 export default GameState

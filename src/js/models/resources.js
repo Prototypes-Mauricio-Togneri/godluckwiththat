@@ -56,7 +56,6 @@ class Resources {
     this.gold = Math.max(0, this.gold - cost.gold)
     this.knowledge = Math.max(0, this.knowledge - cost.knowledge)
   }
-
 }
 
 export default Resources
