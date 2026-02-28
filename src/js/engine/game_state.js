@@ -183,6 +183,7 @@ class GameState {
 
   /**
    * Advances the season elapsed timer and flips season when duration is reached.
+   * Driven by requestAnimationFrame for smooth visual progress.
    * @param {number} delta - Seconds since last season tick
    */
   advanceSeason(delta) {
