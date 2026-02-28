@@ -60,6 +60,22 @@ class Headquarters extends Building {
   }
 
   /**
+   * Advances type upgrade by the given time delta.
+   * @param {number} delta - Seconds elapsed
+   * @returns {boolean} Whether the upgrade just completed
+   */
+  advanceUpgrade(delta) {
+    if (!this.isUpgrading) return false
+    this.upgradeRemaining = Math.max(0, this.upgradeRemaining - delta)
+    if (this.upgradeRemaining === 0) {
+      this.type = this.nextType()
+      this.upgradeDuration = 0
+      return true
+    }
+    return false
+  }
+
+  /**
    * Next headquarters progression type.
    * @returns {string|null} Next type, or null if already at max
    */

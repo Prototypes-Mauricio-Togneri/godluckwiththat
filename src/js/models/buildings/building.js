@@ -24,6 +24,22 @@ class Building {
   get isConstructing() {
     return this.constructionRemaining > 0
   }
+
+  /**
+   * Advances construction by the given time delta.
+   * @param {number} delta - Seconds elapsed
+   * @returns {boolean} Whether construction just completed
+   */
+  advance(delta) {
+    if (!this.isConstructing) return false
+    this.constructionRemaining = Math.max(0, this.constructionRemaining - delta)
+    if (this.constructionRemaining === 0) {
+      this.level += 1
+      this.constructionDuration = 0
+      return true
+    }
+    return false
+  }
 }
 
 export default Building

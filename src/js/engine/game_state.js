@@ -214,45 +214,32 @@ class GameState {
       key,
       building,
     ] of Object.entries(buildings)) {
-      if (building.isConstructing) {
-        building.constructionRemaining = Math.max(0, building.constructionRemaining - delta)
-        if (building.constructionRemaining === 0) {
-          building.level += 1
-          building.constructionDuration = 0
-
-          if (key === BUILDING_HEADQUARTERS) {
-            this.colony.events.convertToPast(key, {
-              type: EVENT_TYPE_BUILDING_UPGRADE,
-              textKey: 'event.territoryExpanded',
-              icon: IMG_OTHER_TERRITORY,
-              buildingKey: key,
-            })
-            audio.playSound(SND_TERRITORY_EXPANDED)
-            this.colony.events.dismissPastByType(EVENT_TYPE_TERRITORY_LIMIT_REACHED)
-          } else {
-            audio.playSound(SND_BUILDING_CREATED)
-            this.colony.events.dismissFuture(key)
-            if (key === BUILDING_STOREHOUSE) {
-              this.colony.events.dismissPastByType(EVENT_TYPE_RESOURCE_LIMIT_REACHED)
-            }
-            if (key === BUILDING_HOUSE) {
-              this.colony.events.dismissPastByType(EVENT_TYPE_POPULATION_LIMIT_REACHED)
-            }
-            if (key === BUILDING_MONUMENT) {
-              this.colony.resources.faith += MONUMENT_FAITH_PER_LEVEL * building.level
-            }
+      if (building.advance(delta)) {
+        if (key === BUILDING_HEADQUARTERS) {
+          this.colony.events.convertToPast(key, {
+            type: EVENT_TYPE_BUILDING_UPGRADE,
+            textKey: 'event.territoryExpanded',
+            icon: IMG_OTHER_TERRITORY,
+            buildingKey: key,
+          })
+          audio.playSound(SND_TERRITORY_EXPANDED)
+          this.colony.events.dismissPastByType(EVENT_TYPE_TERRITORY_LIMIT_REACHED)
+        } else {
+          audio.playSound(SND_BUILDING_CREATED)
+          this.colony.events.dismissFuture(key)
+          if (key === BUILDING_STOREHOUSE) {
+            this.colony.events.dismissPastByType(EVENT_TYPE_RESOURCE_LIMIT_REACHED)
+          } else if (key === BUILDING_HOUSE) {
+            this.colony.events.dismissPastByType(EVENT_TYPE_POPULATION_LIMIT_REACHED)
+          } else if (key === BUILDING_MONUMENT) {
+            this.colony.resources.faith += MONUMENT_FAITH_PER_LEVEL * building.level
           }
         }
       }
     }
     const hq = buildings.headquarters
-    if (hq.isUpgrading) {
-      hq.upgradeRemaining = Math.max(0, hq.upgradeRemaining - delta)
-      if (hq.upgradeRemaining === 0) {
-        hq.type = hq.nextType()
-        hq.upgradeDuration = 0
-        audio.playSound(SND_HEADQUARTERS_UPGRADED)
-      }
+    if (hq.advanceUpgrade(delta)) {
+      audio.playSound(SND_HEADQUARTERS_UPGRADED)
     }
   }
 
