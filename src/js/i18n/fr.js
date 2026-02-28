@@ -110,7 +110,6 @@ export const LOCALIZED_FR = {
   'event.ironNegativeProduction': 'Alerte de production de fer',
   'event.goldNegativeProduction': 'Alerte de production d\'or',
   'event.buildingBuilding': 'Construction de {0}',
-  'event.buildingBuilt': '{0} a été construit',
   'event.buildingUpgrading': 'Amélioration de {0}',
   'event.buildingUpgraded': '{0} a été amélioré',
   'event.territoryExpanding': 'Extension du territoire',

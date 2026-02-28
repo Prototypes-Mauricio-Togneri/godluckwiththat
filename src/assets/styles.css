@@ -501,11 +501,6 @@
     color: rgba(196, 80, 80, 1);
 }
 
-/* Accent-tinted for gold amounts */
-.resource-value--gold {
-    color: rgba(var(--color-accent-rgb), 0.85);
-}
-
 /* Progress bar track — full-width strip in row 2 */
 .resource-bar {
     flex: 1;
