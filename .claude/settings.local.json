@@ -39,7 +39,10 @@
       "Bash(echo === CSS Variables count \\(fixed\\) ===:*)",
       "Bash(while read val)",
       "Bash(do echo \"=== Value ''$val'' used by: ===\")",
-      "Bash(convert:*)"
+      "Bash(convert:*)",
+      "Bash(sort -k2)",
+      "Bash(du:*)",
+      "Bash(ffmpeg:*)"
     ]
   },
   "hooks": {
