@@ -47,7 +47,7 @@ Resource/colony items use `<img>` icons from `public/img/` (no text labels). Val
 
 Main content area displaying all 20 buildings in a 4-column layout. Each column represents a building category (Colony, Economy, Religion, Military) with a Josefin Sans uppercase header and vertically stacked building cards.
 
-**Data source**: `BUILDING_GRID` constant from `constants.js` — array of column definitions, each with `headerKey` (i18n key) and `buildings` array of `{ key, img }` objects. The `img` is a full path constant from `assets.js` (e.g. `IMG_BUILDING_HOUSE` → `'/img/buildings/misc/house.png'`). The `key` indexes into both `state.colony.buildings[key]` for the level and `'building.' + key` for the localized name.
+**Data source**: `BUILDING_GRID` constant from `constants.js` — array of column definitions, each with `headerKey` (i18n key) and `buildings` array of `{ key, img }` objects. The `img` is a full path constant from `assets.js` (e.g. `IMG_BUILDING_HOUSE` → `'/img/buildings/misc/house.jpg'`). The `key` indexes into both `state.colony.buildings[key]` for the level and `'building.' + key` for the localized name.
 
 **Dynamic component resolution**: `game_screen.vue` maps all 20 building keys to dedicated card components via `CARD_COMPONENTS` (e.g. `headquarters → HeadquartersCard`). Uses Vue's `<component :is>` in the grid loop.
 

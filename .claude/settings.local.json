@@ -38,7 +38,8 @@
       "Bash(echo === CSS unit consistency analysis ===:*)",
       "Bash(echo === CSS Variables count \\(fixed\\) ===:*)",
       "Bash(while read val)",
-      "Bash(do echo \"=== Value ''$val'' used by: ===\")"
+      "Bash(do echo \"=== Value ''$val'' used by: ===\")",
+      "Bash(convert:*)"
     ]
   },
   "hooks": {

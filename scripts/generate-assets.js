@@ -48,7 +48,7 @@ function collectFiles(dir, base = dir) {
 /**
  * Derives a constant name from a path relative to img/.
  * e.g. "resources/food.png" → "IMG_RESOURCE_FOOD"
- *      "buildings/misc/academy.png" → "IMG_BUILDING_ACADEMY"
+ *      "buildings/misc/academy.jpg" → "IMG_BUILDING_ACADEMY"
  */
 function toConstantName(relPath) {
   const withoutExt = relPath.replace(extname(relPath), '')
@@ -70,7 +70,7 @@ function toConstantName(relPath) {
 /**
  * Returns the group key for a file path (directory relative to img/).
  * e.g. "resources/food.png" → "resources"
- *      "buildings/misc/academy.png" → "buildings/misc"
+ *      "buildings/misc/academy.jpg" → "buildings/misc"
  */
 function groupKey(relPath) {
   const parts = relPath.split('/')
