@@ -162,25 +162,11 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/* ── Overlay ─────────────────────────────────────────────── */
+/* ── Overlay override (top-aligned) ──────────────────────── */
 
 .modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-  display: flex;
   align-items: flex-start;
-  justify-content: center;
   padding-top: 5.5vh;
-  z-index: 100;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.modal-overlay.visible {
-  opacity: 1;
 }
 
 /* ── Modal container ─────────────────────────────────────── */
@@ -206,16 +192,10 @@ onUnmounted(() => {
   transform: translateY(0);
 }
 
-/* ── Title & rule ────────────────────────────────────────── */
+/* ── Title override ──────────────────────────────────────── */
 
 .modal-title {
-  font-family: var(--font-display);
-  font-weight: 700;
   font-size: 1rem;
-  color: var(--color-text);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  align-self: center;
   margin-bottom: 1.25rem;
 }
 

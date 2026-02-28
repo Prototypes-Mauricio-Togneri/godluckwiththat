@@ -35,17 +35,6 @@
 
 
   ────────────────────────────────────────
-  #: 21
-  File Path: 6 modal .vue files
-  Issue Type: Redundant CSS
-  Line #: Various
-  Severity: Style
-  Description & Suggested Fix: ~40 lines of modal CSS duplicated across 6 
-    components (.modal-overlay, .modal-content, .modal-title, .modal-rule,
-    .modal-btn). Violates the project's own CLAUDE.md rule to extract shared CSS
-
-    into styles.css. Fix: extract shared base classes.
-  ────────────────────────────────────────
   #: 22
   File Path: Various .vue files
   Issue Type: Color Format
