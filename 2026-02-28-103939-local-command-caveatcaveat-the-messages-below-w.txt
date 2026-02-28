@@ -1,0 +1,278 @@
+  #: 2
+  File Path: src/components/screens/game_screen.vue
+  Issue Type: Logical Bug
+  Line #: 188-213
+  Severity: Critical
+  Description & Suggested Fix: Double-counting of time deltas. Both gameTick()
+    (setInterval) and progressTick() (rAF) call advanceSeason(),
+    advanceConstruction(), advanceResearch(), and events.tick(). They share
+    lastProgressTickTime, but when gameTick fires between rAF frames, it
+    processes a delta, then the next rAF processes the gap between gameTick and
+    itself — accumulating ~1 extra second per 60s. Fix: only advance
+    season/construction/research from one timing source.
+  ────────────────────────────────────────
+  #: 3
+  File Path: src/js/engine/game_state.js
+  Issue Type: Logical Bug
+  Line #: 191-206
+  Severity: Warning
+  Description & Suggested Fix: advanceSeason() only handles one season flip per 
+    call. Uses if instead of while, so a large delta (backgrounded tab, future
+    offline progression) can overshoot, skipping seasons and miscounting years.
+    Fix: change if to while.
+  ────────────────────────────────────────
+  #: 4
+  File Path: src/js/engine/game_state.js
+  Issue Type: Logical Bug
+  Line #: 504-514, 539-561
+  Severity: Warning
+  Description & Suggested Fix: executeTrade() does not verify market is built.
+  At
+     market level 0, effectiveTradeFee() computes (0-1) * 1 = -1 reduction,
+    increasing the fee to 31%. While the UI gates trading, the engine lacks
+    validation. Fix: add if (marketLevel < 1) return guard.
+  ────────────────────────────────────────
+  #: 5
+  File Path: src/js/engine/game_state.js
+  Issue Type: Logical Bug
+  Line #: 27-29
+  Severity: Warning
+  Description & Suggested Fix: _resourcesAtCap initialized incorrectly. On fresh
+
+    game, stockpile values are all 0 (not yet computed), so resources[r] >= 
+    stockpile[r] is true for everything. All bounded resources start "at cap",
+    then get removed on first tick, causing spurious dismiss calls. Fix:
+    initialize as new Set().
+  ────────────────────────────────────────
+  #: 6
+  File Path: src/js/engine/constants.js
+  Issue Type: Logical Bug
+  Line #: 652-654
+  Severity: Warning
+  Description & Suggested Fix: createInitialColony() returns the debug/advanced 
+    colony (city-level HQ, 60 workers, 123k wood). This is a development
+    leftover. Fix: switch to createInitialColonyBasic() before release.
+  ────────────────────────────────────────
+  #: 7
+  File Path: src/components/screens/game_screen.vue
+  Issue Type: Missing Cleanup
+  Line #: 222-235
+  Severity: Warning
+  Description & Suggested Fix: Missing cancelAnimationFrame when pausing.
+    clearInterval(tickTimer) is called but the pending rAF is not cancelled.
+    While paused.value guard prevents processing, a duplicate rAF loop can
+    briefly run on unpause. Fix: add cancelAnimationFrame(progressAnimFrame) in
+    both branches of the pause watcher.
+  ────────────────────────────────────────
+  #: 8
+  File Path: src/app.vue
+  Issue Type: Missing Cleanup
+  Line #: 25
+  Severity: Warning
+  Description & Suggested Fix: Music continues playing after quitting to home 
+    screen. GameScreen emits 'quit' but app.vue never calls audio.stopMusic().
+    Fix: add audio.stopMusic() in the quit handler before switching screens.
+  ────────────────────────────────────────
+  #: 9
+  File Path: src/js/engine/game_state.js
+  Issue Type: State Consistency
+  Line #: 360, 438
+  Severity: Warning
+  Description & Suggested Fix: idleWorkers can desync from resources.workers. No
+
+    invariant check ensures idleWorkers + sum(building.workers) === 
+    resources.workers. A save/load mismatch or future disaster mechanic could
+    cause permanent drift. Fix: add a derived recalculation or periodic
+    consistency check.
+  ────────────────────────────────────────
+  #: 10
+  File Path: src/js/engine/game_state.js
+  Issue Type: Logical Bug
+  Line #: 225, 247-248
+  Severity: Warning
+  Description & Suggested Fix: Monument faith grant uses post-increment level.
+    Level is incremented on line 225 before the faith grant
+    MONUMENT_FAITH_PER_LEVEL * building.level on line 248, making the reward
+    scale with the new level (100, 200, 300...). Verify this is intended vs. a
+    flat 100 per level.
+  ────────────────────────────────────────
+  #: 11
+  File Path: src/js/engine/balancing.js
+  Issue Type: Missing Data
+  Line #: 11-19
+  Severity: Warning
+  Description & Suggested Fix: RESOURCE_TIME_WEIGHTS missing RESOURCE_FAITH. If
+    faith-costed buildings are ever added, they would contribute 0 seconds to
+    construction time. Fix: add [RESOURCE_FAITH]: 0.1 for completeness.
+  ────────────────────────────────────────
+  #: 12
+  File Path: src/js/models/cost.js
+  Issue Type: Edge Case
+  Line #: 84-93
+  Severity: Warning
+  Description & Suggested Fix: Cost.toSeconds() can return 0 for cheap costs.
+    Math.floor(9 * 0.1) = 0. A zero-second construction immediately completes
+    without entering the construction state. Current costs are all >= 20 so this
+
+    doesn't trigger today. Fix: Math.max(1, Math.floor(seconds)).
+  ────────────────────────────────────────
+  #: 13
+  File Path: src/js/engine/audio.js
+  Issue Type: Memory Leak
+  Line #: 43-63
+  Severity: Warning
+  Description & Suggested Fix: Rapid sound replays accumulate orphaned ended 
+    event listeners. When a sound is replayed before finishing, old { once: true
+   
+    } listeners are never removed (pause prevents ended from firing). Fix:
+  remove
+     old listeners before re-adding, or use AbortController.
+  ────────────────────────────────────────
+  #: 14
+  File Path: src/js/engine/balancing.js
+  Issue Type: Unused Bonuses
+  Line #: 341-372
+  Severity: Warning
+  Description & Suggested Fix: 6 disaster/military bonus types defined but never
+   
+    consumed (BONUS_FLOOD_IMPACT, BONUS_DISEASE_IMPACT, BONUS_EARTHQUAKE_IMPACT,
+
+    BONUS_UNIT_DEFENSE, BONUS_UNIT_ATTACK, BONUS_WARNING_TIME). Research
+    investments in these have no effect. These appear to be stubs for
+    unimplemented features. Fix: document as planned or implement consuming
+    logic.
+  ────────────────────────────────────────
+  #: 15
+  File Path: src/components/screens/game_screen.vue
+  Issue Type: UX Inconsistency
+  Line #: 222-235
+  Severity: Warning
+  Description & Suggested Fix: Research/Market modals don't pause the game,
+    unlike the pause modal. Resources continue producing/consuming while the
+    player browses. Confirm whether this is intentional.
+  ────────────────────────────────────────
+  #: 16
+  File Path: All 6 modals
+  Issue Type: Missing Prefix
+  Line #: Various
+  Severity: Warning
+  Description & Suggested Fix: Missing -webkit-backdrop-filter prefix.
+    backdrop-filter: blur(4px) is used in all modal overlays without -webkit-
+    prefix. Older Safari (pre-18) won't render the blur. Fix: add
+    -webkit-backdrop-filter: blur(4px) or verify autoprefixer is in the Vite
+    pipeline.
+  ────────────────────────────────────────
+  #: 17
+  File Path: src/components/modals/research_modal.vue
+  Issue Type: Performance
+  Line #: 118-127
+  Severity: Warning
+  Description & Suggested Fix: nodeStatus() called 3-4 times per node per render
+
+    (for :class, @click, two v-if checks). With 90 research nodes, this is ~300
+    redundant function calls. Fix: compute status once per node via a computed
+    map.
+  ────────────────────────────────────────
+  #: 18
+  File Path: src/assets/styles.css / modals
+  Issue Type: z-index Conflict
+  Line #: styles:121,557
+  Severity: Warning
+  Description & Suggested Fix: Tooltip z-index: 100 equals modal overlay 
+  z-index:
+    100. If a tooltip is visible during a modal transition, it can appear at the
+
+    same layer. Fix: use a z-index scale (tooltips: 50, modals: 100, nested
+    modals: 110).
+  ────────────────────────────────────────
+  #: 19
+  File Path: src/components/screens/game_screen.vue
+  Issue Type: Missing CSS
+  Line #: 372, 384
+  Severity: Warning
+  Description & Suggested Fix: .events-section class used in template but has no
+   
+    CSS rule. The <div> has no styles. Either add styles or remove the class.
+  ────────────────────────────────────────
+  #: 20
+  File Path: src/js/engine/game_state.js
+  Issue Type: Logical Bug
+  Line #: 530-532
+  Severity: Warning
+  Description & Suggested Fix: sellPrice() can return 0 with Math.floor(lowPrice
+   
+    * (1 - fee)). A zero return means selling gives no gold. Fix: Math.max(1, 
+    Math.floor(...)).
+  ────────────────────────────────────────
+  #: 21
+  File Path: 6 modal .vue files
+  Issue Type: Redundant CSS
+  Line #: Various
+  Severity: Style
+  Description & Suggested Fix: ~40 lines of modal CSS duplicated across 6 
+    components (.modal-overlay, .modal-content, .modal-title, .modal-rule,
+    .modal-btn). Violates the project's own CLAUDE.md rule to extract shared CSS
+
+    into styles.css. Fix: extract shared base classes.
+  ────────────────────────────────────────
+  #: 22
+  File Path: Various .vue files
+  Issue Type: Color Format
+  Line #: Various
+  Severity: Style
+  Description & Suggested Fix: transparent keyword used in gradients and borders
+
+    instead of rgba(0,0,0,0). Can cause gray banding in gradient interpolation
+  on
+     some browsers. Also, raw rgba(0,0,0,...) used instead of
+    rgba(var(--color-shadow-rgb), ...) in ~20 locations.
+  ────────────────────────────────────────
+  #: 23
+  File Path: Various files
+  Issue Type: Inconsistent Units
+  Line #: Various
+  Severity: Style
+  Description & Suggested Fix: Mixed px and rem for border-radius — styles.css
+    uses rem, components use px. Minor inconsistency.
+  ────────────────────────────────────────
+  #: 24
+  File Path: src/components/modals/market_modal.vue
+  Issue Type: Redundant CSS
+  Line #: 406-412
+  Severity: Style
+  Description & Suggested Fix: .trade-btn-value--gain and .trade-btn-value--cost
+   
+    have identical rules. Either consolidate or differentiate (green/red).
+  ────────────────────────────────────────
+  #: 25
+  File Path: src/js/models/meta.js / constants.js
+  Issue Type: Dead Code
+  Line #: meta:17, const:644
+  Severity: Style
+  Description & Suggested Fix: Meta.updatedDateTime never updated; 
+    Meta.numberOfChallenges never used. Remove or implement.
+  ────────────────────────────────────────
+  #: 26
+  File Path: src/app.vue
+  Issue Type: Unnecessary Code
+  Line #: 28-29
+  Severity: Style
+  Description & Suggested Fix: Empty <style scoped> block. Remove.
+  ────────────────────────────────────────
+  #: 27
+  File Path: src/components/screens/home_screen.vue
+  Issue Type: Dev Leftover
+  Line #: 10-13
+  Severity: Style
+  Description & Suggested Fix: Auto-start on localhost (if (hostname === 
+    'localhost') emit('start')). Remove TODO before release.
+
+  ---
+  Top 3 actionable findings:
+  1. #1 — Research bonuses silently doing nothing is a gameplay-breaking bug.
+  Players invest resources for zero benefit.
+  2. #2 — Dual timing sources double-counting deltas causes
+  construction/research/seasons to complete ~1.7% faster than intended.
+  3. #6 — Debug colony shipped as default start state.
+
+✻ Churned for 6m 23s

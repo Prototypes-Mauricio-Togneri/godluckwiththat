@@ -509,7 +509,7 @@ class GameState {
     const basePercent = Math.round(MARKET_BASE_FEE * 100)
     const reductionPerLevel = Math.round(MARKET_FEE_REDUCTION_PER_LEVEL * 100)
     const minPercent = Math.round(MARKET_MIN_FEE * 100)
-    const rawPercent = basePercent - (marketLevel - 1) * reductionPerLevel
+    const rawPercent = basePercent - Math.max(0, marketLevel - 1) * reductionPerLevel
     return Math.max(minPercent, rawPercent) / 100
   }
 
@@ -538,8 +538,10 @@ class GameState {
    */
   executeTrade(resource, direction) {
     const {
-      resources, stockpile, trades,
+      resources, stockpile, trades, buildings,
     } = this.colony
+
+    if (buildings[BUILDING_MARKET].level < 1) return
 
     if (direction === 'buy') {
       const goldCost = this.buyPrice(resource)
