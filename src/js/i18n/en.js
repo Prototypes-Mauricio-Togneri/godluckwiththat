@@ -111,7 +111,6 @@ export const LOCALIZED_EN = {
   'event.goldNegativeProduction': 'Gold production alert',
   'event.buildingBuilding': 'Building {0}',
   'event.buildingUpgrading': 'Upgrading {0}',
-  'event.buildingUpgraded': '{0} has been upgraded',
   'event.territoryExpanding': 'Expanding territory',
   'event.territoryExpanded': 'Territory expanded',
   'events.clearAll': 'Clear all',
@@ -166,13 +165,6 @@ export const LOCALIZED_EN = {
 
   // Research modal
   'research.title': 'Research',
-  'research.close': 'Close',
-  'research.start': 'Research',
-  'research.locked': 'Locked',
-  'research.available': 'Available',
-  'research.inProgress': 'In progress',
-  'research.completed': 'Completed',
-  'research.prerequisiteRequired': 'Requires previous research',
 
   // Research categories
   'research.category.general': 'General',

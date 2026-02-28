@@ -111,7 +111,6 @@ export const LOCALIZED_FR = {
   'event.goldNegativeProduction': 'Alerte de production d\'or',
   'event.buildingBuilding': 'Construction de {0}',
   'event.buildingUpgrading': 'Amélioration de {0}',
-  'event.buildingUpgraded': '{0} a été amélioré',
   'event.territoryExpanding': 'Extension du territoire',
   'event.territoryExpanded': 'Territoire étendu',
   'events.clearAll': 'Tout effacer',
@@ -166,13 +165,6 @@ export const LOCALIZED_FR = {
 
   // Research modal
   'research.title': 'Recherche',
-  'research.close': 'Fermer',
-  'research.start': 'Rechercher',
-  'research.locked': 'Verrouillé',
-  'research.available': 'Disponible',
-  'research.inProgress': 'En cours',
-  'research.completed': 'Terminé',
-  'research.prerequisiteRequired': 'Nécessite la recherche précédente',
 
   // Research categories
   'research.category.general': 'Général',
