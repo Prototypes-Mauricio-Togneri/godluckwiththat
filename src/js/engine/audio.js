@@ -131,6 +131,16 @@ class Audio {
     this._music.play().catch(e => import.meta.env.DEV && console.warn('Audio play failed:', e))
   }
 
+  /** @returns {boolean} Whether music is currently enabled */
+  get musicEnabled() {
+    return this._musicEnabled
+  }
+
+  /** @returns {boolean} Whether sound effects are currently enabled */
+  get soundEnabled() {
+    return this._soundEnabled
+  }
+
   /**
    * Toggles music on or off. Persists the preference and starts/stops playback accordingly.
    * @param {boolean} enabled - Whether music should be enabled

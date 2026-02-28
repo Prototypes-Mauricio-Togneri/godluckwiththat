@@ -179,7 +179,6 @@ class GameState {
         this.colony.events.dismissPastByTextKey(config.textKey)
       }
     }
-
   }
 
   /**

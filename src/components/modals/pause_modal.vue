@@ -8,8 +8,8 @@ const emit = defineEmits([
   'quit',
 ])
 const visible = ref(false)
-const musicEnabled = ref(audio._musicEnabled)
-const soundEnabled = ref(audio._soundEnabled)
+const musicEnabled = ref(audio.musicEnabled)
+const soundEnabled = ref(audio.soundEnabled)
 let rafId = null
 
 function toggleMusic() {
