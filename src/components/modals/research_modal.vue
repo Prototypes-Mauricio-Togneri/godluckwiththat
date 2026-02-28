@@ -21,12 +21,19 @@ const activeCategory = computed(() =>
   RESEARCH_TREE.find(c => c.category === activeTab.value),
 )
 
-function nodeStatus(key, researches, index) {
-  if (colony.researches.isCompleted(key)) return 'completed'
-  if (colony.researches.isActive(key)) return 'active'
-  if (index > 0 && !colony.researches.isCompleted(researches[index - 1])) return 'locked'
-  return 'available'
-}
+const nodeStatusMap = computed(() => {
+  const map = {}
+  for (const sub of activeCategory.value.subcategories) {
+    for (let idx = 0; idx < sub.researches.length; idx++) {
+      const key = sub.researches[idx]
+      if (colony.researches.isCompleted(key)) map[key] = 'completed'
+      else if (colony.researches.isActive(key)) map[key] = 'active'
+      else if (idx > 0 && !colony.researches.isCompleted(sub.researches[idx - 1])) map[key] = 'locked'
+      else map[key] = 'available'
+    }
+  }
+  return map
+})
 
 function canAfford(key) {
   return colony.resources.canAfford(RESEARCH_DEFINITIONS[key].cost)
@@ -115,16 +122,16 @@ onUnmounted(() => {
               <div
                 class="research-node"
                 :class="[
-                  'research-node--' + nodeStatus(rKey, sub.researches, idx),
+                  'research-node--' + nodeStatusMap[rKey],
                 ]"
-                @click="handleNodeClick(rKey, nodeStatus(rKey, sub.researches, idx))"
+                @click="handleNodeClick(rKey, nodeStatusMap[rKey])"
               >
                 <div class="node-header">
                   <span class="node-name">{{ t('research.' + rKey) }}</span>
                 </div>
                 <div class="node-second-row">
-                  <img v-if="nodeStatus(rKey, sub.researches, idx) === 'completed'" class="node-check" :src="IMG_OTHER_COMPLETED" alt="">
-                  <span v-else-if="nodeStatus(rKey, sub.researches, idx) === 'active'" class="node-timer">
+                  <img v-if="nodeStatusMap[rKey] === 'completed'" class="node-check" :src="IMG_OTHER_COMPLETED" alt="">
+                  <span v-else-if="nodeStatusMap[rKey] === 'active'" class="node-timer">
                     {{ formatTime(colony.researches.getActive(rKey).remainingSeconds) }}
                   </span>
                   <template v-else>

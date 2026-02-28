@@ -34,28 +34,7 @@
 
 
 
-  ────────────────────────────────────────
-  #: 16
-  File Path: All 6 modals
-  Issue Type: Missing Prefix
-  Line #: Various
-  Severity: Warning
-  Description & Suggested Fix: Missing -webkit-backdrop-filter prefix.
-    backdrop-filter: blur(4px) is used in all modal overlays without -webkit-
-    prefix. Older Safari (pre-18) won't render the blur. Fix: add
-    -webkit-backdrop-filter: blur(4px) or verify autoprefixer is in the Vite
-    pipeline.
-  ────────────────────────────────────────
-  #: 17
-  File Path: src/components/modals/research_modal.vue
-  Issue Type: Performance
-  Line #: 118-127
-  Severity: Warning
-  Description & Suggested Fix: nodeStatus() called 3-4 times per node per render
 
-    (for :class, @click, two v-if checks). With 90 research nodes, this is ~300
-    redundant function calls. Fix: compute status once per node via a computed
-    map.
   ────────────────────────────────────────
   #: 18
   File Path: src/assets/styles.css / modals
