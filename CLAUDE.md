@@ -19,6 +19,7 @@ Read `docs/architecture.md` (visual design, class architecture, game mechanics) 
 - **Asset Paths**: All image/sound paths from `public/` are in `src/js/engine/assets.js` (auto-generated). Run `npm run generate-assets` after adding/removing files in `public/`. Do not edit manually.
 - **Audio Bitrates**: Music files (`public/audio/music/`) must be 96 kbps. Sound effects (`public/audio/sound/`) must be 56 kbps.
 - **Localization**: All user-facing text goes in every locale file under `src/js/i18n/`. Use `t(key)` to reference strings. Keys use flat dot-notation with lowerCamelCase segments (e.g. `'resource.idleWorkers'`).
+- **No Shorthand Properties**: Always use explicit key names in object literals (e.g. `{foo: foo}`, not `{foo}`). Enforced by ESLint `object-shorthand: ['error', 'never']`.
 - **Imports**: Always use the `@` path alias (mapped to `src/`). No relative paths (`./`, `../`).
 - **Shared Styles**: Repeated CSS across `.vue` files gets extracted into `src/assets/styles.css`. Component-specific overrides stay in scoped `<style>` blocks.
 - **Color Format**: Always use `rgba()`. No hex. Opaque colors use alpha `1` (e.g. `rgba(196, 80, 80, 1)`).

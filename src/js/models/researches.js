@@ -94,7 +94,7 @@ class Researches {
         key,
         data,
       ]) => ({
-        key,
+        key: key,
         remainingSeconds: data.remainingSeconds,
         duration: data.duration,
       })),

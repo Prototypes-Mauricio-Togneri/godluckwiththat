@@ -116,8 +116,8 @@ for (const [
     if (dirKey === 'resources') {
       const key = basename(file, extname(file))
       resourceEntries.push({
-        key,
-        name,
+        key: key,
+        name: name,
       })
     }
   }

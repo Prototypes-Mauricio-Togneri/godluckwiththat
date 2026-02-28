@@ -303,7 +303,7 @@ class GameState {
       textKey: isNewBuilding ? 'event.buildingBuilding' : 'event.buildingUpgrading',
       icon: BUILDING_IMAGE_MAP[buildingKey],
       params: [this._buildingName(buildingKey).toLowerCase()],
-      buildingKey,
+      buildingKey: buildingKey,
       remainingSeconds: duration,
     })
 
