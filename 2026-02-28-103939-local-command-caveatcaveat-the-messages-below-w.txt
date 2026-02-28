@@ -34,16 +34,6 @@
 
 
 
-
-  ────────────────────────────────────────
-  #: 19
-  File Path: src/components/screens/game_screen.vue
-  Issue Type: Missing CSS
-  Line #: 372, 384
-  Severity: Warning
-  Description & Suggested Fix: .events-section class used in template but has no
-   
-    CSS rule. The <div> has no styles. Either add styles or remove the class.
   ────────────────────────────────────────
   #: 21
   File Path: 6 modal .vue files

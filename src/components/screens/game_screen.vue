@@ -369,7 +369,7 @@ onUnmounted(() => {
         <h2 class="column-header">{{ t('events.title') }}</h2>
 
         <!-- Future events -->
-        <div v-if="futureEvents.length" class="events-section">
+        <div v-if="futureEvents.length">
           <h3 class="events-section-label">{{ t('events.future') }}</h3>
           <div class="events-list">
             <div v-for="event in futureEvents" :key="event.id" class="event-row">
@@ -381,7 +381,7 @@ onUnmounted(() => {
         </div>
 
         <!-- Past events -->
-        <div v-if="pastEvents.length" class="events-section">
+        <div v-if="pastEvents.length">
           <div class="events-section-header">
             <h3 class="events-section-label">{{ t('events.past') }}</h3>
             <button class="events-clear-btn" @click="playTap(); showClearConfirm = true">{{ t('events.clearAll') }}</button>
