@@ -664,7 +664,6 @@ export function createInitialColonyBasic() {
       currentSeason: SEASON_WARM,
       seasonElapsed: 0,
     }),
-    idleWorkers: 0,
 
     resources: new Resources({
       territory: 0,
@@ -786,7 +785,6 @@ export function createInitialColonyAdvanced() {
       currentSeason: SEASON_WARM,
       seasonElapsed: 0,
     }),
-    idleWorkers: 0,
 
     resources: new Resources({
       territory: 0,

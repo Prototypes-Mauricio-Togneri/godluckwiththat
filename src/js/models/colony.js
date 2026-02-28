@@ -4,7 +4,7 @@
  *
  * @property {number} year - Current year (starts at 1, increments every warm+cold cycle)
  * @property {Season} season - Current season state
- * @property {number} idleWorkers - Workers not assigned to buildings
+ * @property {number} idleWorkers - Workers not assigned to buildings (derived getter)
  * @property {Resources} resources - Current resource amounts
  * @property {Production} production - Per-second gross production rates
  * @property {Stockpile} stockpile - Maximum storage capacities
@@ -20,7 +20,6 @@ class Colony {
   constructor(data) {
     this.year = data.year // Current year (increments every warm+cold cycle)
     this.season = data.season // Season model (currentSeason + seasonElapsed)
-    this.idleWorkers = data.idleWorkers // Workers not assigned to buildings
     this.resources = data.resources // Current resource amounts
     this.production = data.production // Per-second gross production rates
     this.stockpile = data.stockpile // Maximum storage capacities
@@ -29,6 +28,11 @@ class Colony {
     this.trades = data.trades // Current market prices per tradeable resource
     this.events = data.events // Game event log (future countdowns + past notifications)
     this.consumption = data.consumption // Per-second worker upkeep (recalculated each tick)
+  }
+
+  /** @returns {number} Workers not assigned to any building (derived from total - assigned) */
+  get idleWorkers() {
+    return this.resources.workers - this.buildings.totalAssignedWorkers()
   }
 
   /**

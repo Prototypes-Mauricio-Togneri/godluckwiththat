@@ -355,7 +355,6 @@ class GameState {
    */
   recruitWorker() {
     if (!this._recruit()) return
-    this.colony.idleWorkers += 1
     this.update(0)
   }
 
@@ -367,7 +366,6 @@ class GameState {
     const building = this.colony.buildings[buildingKey]
     if (this.colony.idleWorkers <= 0 || building.workers >= building.maxWorkers) return
     building.workers += 1
-    this.colony.idleWorkers -= 1
     this._playAssignSound(buildingKey)
     this.update(0)
   }
@@ -433,7 +431,6 @@ class GameState {
     const building = this.colony.buildings[buildingKey]
     if (building.workers <= 0) return
     building.workers -= 1
-    this.colony.idleWorkers += 1
     this.update(0)
   }
 

@@ -60,6 +60,21 @@ class Buildings {
   }
 
   /**
+   * Returns the total number of workers assigned across all producer buildings.
+   * @returns {number}
+   */
+  totalAssignedWorkers() {
+    return this.farm.workers
+      + this.woodcutter.workers
+      + this.quarry.workers
+      + this.copperMine.workers
+      + this.ironMine.workers
+      + this.goldMine.workers
+      + this.temple.workers
+      + this.academy.workers
+  }
+
+  /**
    * Returns the count of non-HQ buildings currently under construction.
    * Each counts as one reserved territory slot.
    * @returns {number}
