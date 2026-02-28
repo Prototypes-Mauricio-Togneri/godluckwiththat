@@ -23,10 +23,8 @@ class GameState {
     this.colony = colony // Active colony instance
 
     // Track which bounded resources are currently at their stockpile cap
-    // (initialized from current state so loading a save doesn't immediately fire events)
-    this._resourcesAtCap = new Set(
-      BOUNDED_RESOURCES.filter(r => colony.resources[r] >= colony.stockpile[r]),
-    )
+    // (initialized empty — stockpile values are 0 before the first update tick)
+    this._resourcesAtCap = new Set()
 
     // Track which bounded resources currently have negative net production
     // (initialized empty — production is 0 before the first update tick)

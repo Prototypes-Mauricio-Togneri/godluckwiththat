@@ -20,38 +20,7 @@
     call. Uses if instead of while, so a large delta (backgrounded tab, future
     offline progression) can overshoot, skipping seasons and miscounting years.
     Fix: change if to while.
-  ────────────────────────────────────────
-  #: 4
-  File Path: src/js/engine/game_state.js
-  Issue Type: Logical Bug
-  Line #: 504-514, 539-561
-  Severity: Warning
-  Description & Suggested Fix: executeTrade() does not verify market is built.
-  At
-     market level 0, effectiveTradeFee() computes (0-1) * 1 = -1 reduction,
-    increasing the fee to 31%. While the UI gates trading, the engine lacks
-    validation. Fix: add if (marketLevel < 1) return guard.
-  ────────────────────────────────────────
-  #: 5
-  File Path: src/js/engine/game_state.js
-  Issue Type: Logical Bug
-  Line #: 27-29
-  Severity: Warning
-  Description & Suggested Fix: _resourcesAtCap initialized incorrectly. On fresh
 
-    game, stockpile values are all 0 (not yet computed), so resources[r] >= 
-    stockpile[r] is true for everything. All bounded resources start "at cap",
-    then get removed on first tick, causing spurious dismiss calls. Fix:
-    initialize as new Set().
-  ────────────────────────────────────────
-  #: 6
-  File Path: src/js/engine/constants.js
-  Issue Type: Logical Bug
-  Line #: 652-654
-  Severity: Warning
-  Description & Suggested Fix: createInitialColony() returns the debug/advanced 
-    colony (city-level HQ, 60 workers, 123k wood). This is a development
-    leftover. Fix: switch to createInitialColonyBasic() before release.
   ────────────────────────────────────────
   #: 7
   File Path: src/components/screens/game_screen.vue
