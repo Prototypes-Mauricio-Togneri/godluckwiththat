@@ -54,7 +54,7 @@ const levelUpTooltip = computed(() => {
 function levelUp() {
   if (!canLevelUp.value) return
   playTap()
-  gameState.levelUpHeadquarters()
+  gameState.expandTerritory()
 }
 
 // Upgrade type

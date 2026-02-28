@@ -301,9 +301,9 @@ class GameState {
   }
 
   /**
-   * Levels up the headquarters: deducts cost, increments level (no territory cost).
+   * Expands territory: deducts cost, increments HQ level (no territory cost).
    */
-  levelUpHeadquarters() {
+  expandTerritory() {
     const {
       resources, buildings,
     } = this.colony

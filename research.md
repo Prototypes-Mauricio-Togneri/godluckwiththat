@@ -179,7 +179,7 @@ stockpile.food = buildings.storehouse.storageCap(storageBonus)
 
 **Where:** `game_state.js` — 3 locations that compute `cost.toSeconds()`:
 - Line 273: `levelUpBuilding()` (regular buildings)
-- Line 314: `levelUpHeadquarters()` (HQ level up)
+- Line 314: `expandTerritory()` (territory expansion)
 - Line 343: `upgradeHeadquarters()` (HQ type upgrade)
 
 **Plan:** At each location, apply the bonus to reduce duration:
