@@ -18,11 +18,16 @@ function startGame() {
   ])
 }
 
+function quitGame() {
+  audio.stopMusic()
+  currentScreen.value = 'home'
+}
+
 </script>
 
 <template>
   <HomeScreen v-if="currentScreen === 'home'" @start="startGame" />
-  <GameScreen v-else-if="currentScreen === 'game'" @quit="currentScreen = 'home'" />
+  <GameScreen v-else-if="currentScreen === 'game'" @quit="quitGame" />
 </template>
 
 <style scoped>

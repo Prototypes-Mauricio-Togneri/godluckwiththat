@@ -20,7 +20,6 @@
     call. Uses if instead of while, so a large delta (backgrounded tab, future
     offline progression) can overshoot, skipping seasons and miscounting years.
     Fix: change if to while.
-
   ────────────────────────────────────────
   #: 7
   File Path: src/components/screens/game_screen.vue
@@ -32,15 +31,6 @@
     While paused.value guard prevents processing, a duplicate rAF loop can
     briefly run on unpause. Fix: add cancelAnimationFrame(progressAnimFrame) in
     both branches of the pause watcher.
-  ────────────────────────────────────────
-  #: 8
-  File Path: src/app.vue
-  Issue Type: Missing Cleanup
-  Line #: 25
-  Severity: Warning
-  Description & Suggested Fix: Music continues playing after quitting to home 
-    screen. GameScreen emits 'quit' but app.vue never calls audio.stopMusic().
-    Fix: add audio.stopMusic() in the quit handler before switching screens.
   ────────────────────────────────────────
   #: 9
   File Path: src/js/engine/game_state.js
@@ -235,13 +225,3 @@
   Severity: Style
   Description & Suggested Fix: Auto-start on localhost (if (hostname === 
     'localhost') emit('start')). Remove TODO before release.
-
-  ---
-  Top 3 actionable findings:
-  1. #1 — Research bonuses silently doing nothing is a gameplay-breaking bug.
-  Players invest resources for zero benefit.
-  2. #2 — Dual timing sources double-counting deltas causes
-  construction/research/seasons to complete ~1.7% faster than intended.
-  3. #6 — Debug colony shipped as default start state.
-
-✻ Churned for 6m 23s
