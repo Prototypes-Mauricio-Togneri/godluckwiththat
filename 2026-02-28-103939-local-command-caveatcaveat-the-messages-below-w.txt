@@ -11,16 +11,6 @@
     itself — accumulating ~1 extra second per 60s. Fix: only advance
     season/construction/research from one timing source.
   ────────────────────────────────────────
-  #: 3
-  File Path: src/js/engine/game_state.js
-  Issue Type: Logical Bug
-  Line #: 191-206
-  Severity: Warning
-  Description & Suggested Fix: advanceSeason() only handles one season flip per 
-    call. Uses if instead of while, so a large delta (backgrounded tab, future
-    offline progression) can overshoot, skipping seasons and miscounting years.
-    Fix: change if to while.
-  ────────────────────────────────────────
   #: 7
   File Path: src/components/screens/game_screen.vue
   Issue Type: Missing Cleanup
