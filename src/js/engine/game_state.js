@@ -254,10 +254,9 @@ class GameState {
     const completed = []
     for (const [
       key,
-      entry,
+      task,
     ] of researches.active) {
-      entry.remainingSeconds = Math.max(0, entry.remainingSeconds - delta)
-      if (entry.remainingSeconds === 0) {
+      if (task.advance(delta)) {
         completed.push(key)
       }
     }

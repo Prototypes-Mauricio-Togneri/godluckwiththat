@@ -3,22 +3,19 @@
  * Tracks completed and in-progress researches.
  *
  * @property {Set<string>} completed - Set of completed research keys
- * @property {Map<string, {remainingSeconds: number, duration: number}>} active - In-progress researches
+ * @property {Map<string, ResearchTask>} active - In-progress researches
  */
 class Researches {
   /**
    * @param {Object} [data] - Serialized state (from toJSON)
    * @param {string[]} [data.completed] - Array of completed research keys
-   * @param {Array<{key: string, remainingSeconds: number, duration: number}>} [data.active] - Active researches
+   * @param {Array<{key: string, remainingSeconds: number, duration: number}>} [data.active] - Serialized active researches
    */
   constructor(data = {}) {
     this.completed = new Set(data.completed ?? []) // Set of completed research keys
-    this.active = new Map() // Map of active researches (key → {remainingSeconds, duration})
+    this.active = new Map() // Map of active researches (key → ResearchTask)
     for (const entry of (data.active ?? [])) {
-      this.active.set(entry.key, {
-        remainingSeconds: entry.remainingSeconds,
-        duration: entry.duration,
-      })
+      this.active.set(entry.key, new ResearchTask(entry.duration, entry.remainingSeconds))
     }
   }
 
@@ -40,7 +37,7 @@ class Researches {
 
   /**
    * @param {string} key - Research key
-   * @returns {{remainingSeconds: number, duration: number}|undefined}
+   * @returns {ResearchTask|undefined}
    */
   getActive(key) {
     return this.active.get(key)
@@ -52,10 +49,7 @@ class Researches {
    * @param {number} duration - Total duration in seconds
    */
   start(key, duration) {
-    this.active.set(key, {
-      remainingSeconds: duration,
-      duration,
-    })
+    this.active.set(key, new ResearchTask(duration))
   }
 
   /**
@@ -105,6 +99,33 @@ class Researches {
         duration: data.duration,
       })),
     }
+  }
+}
+
+/**
+ * Tracks the progress of a single active research.
+ *
+ * @property {number} duration - Total duration in seconds
+ * @property {number} remainingSeconds - Seconds remaining until completion
+ */
+class ResearchTask {
+  /**
+   * @param {number} duration - Total duration in seconds
+   * @param {number} [remainingSeconds] - Seconds remaining (defaults to duration)
+   */
+  constructor(duration, remainingSeconds = duration) {
+    this.duration = duration
+    this.remainingSeconds = remainingSeconds
+  }
+
+  /**
+   * Advances the timer by the given delta.
+   * @param {number} delta - Seconds elapsed
+   * @returns {boolean} True if the research just completed
+   */
+  advance(delta) {
+    this.remainingSeconds = Math.max(0, this.remainingSeconds - delta)
+    return this.remainingSeconds === 0
   }
 }
 
