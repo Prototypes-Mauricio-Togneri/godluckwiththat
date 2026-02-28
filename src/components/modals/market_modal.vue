@@ -297,7 +297,7 @@ onUnmounted(() => {
   padding: 0.65rem 0.75rem;
   background: rgba(var(--color-accent-rgb), 0.03);
   border: 1px solid rgba(var(--color-accent-rgb), 0.1);
-  border-radius: 4px;
+  border-radius: 0.25rem;
 }
 
 /* ── Resource identity ───────────────────────────────────── */
@@ -361,7 +361,7 @@ onUnmounted(() => {
   justify-content: center;
   gap: 0.25rem;
   padding: 0.45rem 0.4rem;
-  border-radius: 3px;
+  border-radius: 0.1875rem;
 }
 
 .trade-btn-icon {

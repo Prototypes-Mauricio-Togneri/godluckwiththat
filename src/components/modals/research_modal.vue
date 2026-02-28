@@ -256,7 +256,7 @@ onUnmounted(() => {
 
 .research-scroll::-webkit-scrollbar-thumb {
   background: rgba(var(--color-accent-rgb), 0.2);
-  border-radius: 2px;
+  border-radius: 0.125rem;
 }
 
 /* ── Subcategory section ─────────────────────────────────── */
@@ -284,7 +284,7 @@ onUnmounted(() => {
   color: rgba(80, 160, 80, 1);
   background: rgba(80, 160, 80, 0.1);
   border: 1px solid rgba(80, 160, 80, 0.25);
-  border-radius: 3px;
+  border-radius: 0.1875rem;
   padding: 0.05rem 0.35rem 0.1rem;
   margin-left: 0.55rem;
   vertical-align: middle;
@@ -345,7 +345,7 @@ onUnmounted(() => {
   min-width: 130px;
   background: rgba(var(--color-accent-rgb), 0.03);
   border: 1px solid rgba(var(--color-accent-rgb), 0.12);
-  border-radius: 4px;
+  border-radius: 0.25rem;
   transition: all 0.2s ease;
 }
 

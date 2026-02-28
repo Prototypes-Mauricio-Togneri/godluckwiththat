@@ -35,14 +35,6 @@
 
 
   ────────────────────────────────────────
-  #: 23
-  File Path: Various files
-  Issue Type: Inconsistent Units
-  Line #: Various
-  Severity: Style
-  Description & Suggested Fix: Mixed px and rem for border-radius — styles.css
-    uses rem, components use px. Minor inconsistency.
-  ────────────────────────────────────────
   #: 24
   File Path: src/components/modals/market_modal.vue
   Issue Type: Redundant CSS

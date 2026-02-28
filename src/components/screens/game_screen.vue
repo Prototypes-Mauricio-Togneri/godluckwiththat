@@ -532,13 +532,13 @@ onUnmounted(() => {
   width: 5.5rem;
   height: 4px;
   background: rgba(255, 255, 255, 0.06);
-  border-radius: 2px;
+  border-radius: 0.125rem;
   overflow: hidden;
 }
 
 .season-fill {
   height: 100%;
-  border-radius: 2px;
+  border-radius: 0.125rem;
 }
 
 .season-track--warm .season-fill {
@@ -634,7 +634,7 @@ onUnmounted(() => {
   overflow: hidden;
   background: rgba(39, 33, 25, 0.3);
   border: 1px solid var(--color-border);
-  border-radius: 4px;
+  border-radius: 0.25rem;
   opacity: 0.4;
 }
 
@@ -708,7 +708,7 @@ onUnmounted(() => {
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-left: 2px solid rgba(var(--color-accent-rgb), 0.4);
-  border-radius: 4px;
+  border-radius: 0.25rem;
   transition: border-color 0.2s ease;
 }
 
@@ -760,7 +760,7 @@ onUnmounted(() => {
   color: rgba(var(--color-text-rgb), 0.25);
   background: none;
   border: 1px solid rgba(var(--color-text-rgb), 0.08);
-  border-radius: 3px;
+  border-radius: 0.1875rem;
   cursor: pointer;
   transition: all 0.2s ease;
   flex-shrink: 0;

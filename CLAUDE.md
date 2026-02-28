@@ -21,6 +21,7 @@ Read `docs/architecture.md` (visual design, class architecture, game mechanics) 
 - **Imports**: Always use the `@` path alias (mapped to `src/`). No relative paths (`./`, `../`).
 - **Shared Styles**: Repeated CSS across `.vue` files gets extracted into `src/assets/styles.css`. Component-specific overrides stay in scoped `<style>` blocks.
 - **Color Format**: Always use `rgba()`. No hex. Opaque colors use alpha `1` (e.g. `rgba(196, 80, 80, 1)`).
+- **CSS Units**: Use `rem` for all `border-radius` values. No `px` (exception: `50%` for circles).
 - **Strict Scope**: Do not add features, refactor, or reorganize beyond what was explicitly requested.
 - **UI/UX**: Always use the `frontend-design` skill when changing the UI.
 - **Lint**: After editing code, run `npm run lint -- --fix` and fix remaining errors.

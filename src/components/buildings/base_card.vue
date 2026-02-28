@@ -148,7 +148,7 @@ function act() {
   min-height: 0;
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
-  border-radius: 4px;
+  border-radius: 0.25rem;
 }
 
 .building-card--constructing {
