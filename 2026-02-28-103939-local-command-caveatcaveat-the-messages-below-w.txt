@@ -36,18 +36,6 @@
 
 
   ────────────────────────────────────────
-  #: 18
-  File Path: src/assets/styles.css / modals
-  Issue Type: z-index Conflict
-  Line #: styles:121,557
-  Severity: Warning
-  Description & Suggested Fix: Tooltip z-index: 100 equals modal overlay 
-  z-index:
-    100. If a tooltip is visible during a modal transition, it can appear at the
-
-    same layer. Fix: use a z-index scale (tooltips: 50, modals: 100, nested
-    modals: 110).
-  ────────────────────────────────────────
   #: 19
   File Path: src/components/screens/game_screen.vue
   Issue Type: Missing CSS
