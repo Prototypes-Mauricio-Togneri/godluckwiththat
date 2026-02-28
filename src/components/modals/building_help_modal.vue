@@ -86,7 +86,7 @@ onUnmounted(() => {
   height: 9rem;
   object-fit: contain;
   flex-shrink: 0;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5))
+  filter: drop-shadow(0 2px 6px rgba(var(--color-shadow-rgb), 0.5))
     drop-shadow(0 0 12px rgba(var(--color-accent-rgb), 0.15));
 }
 

@@ -195,12 +195,12 @@ function act() {
   width: var(--thumb-h);
   height: var(--thumb-h);
   object-fit: contain;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 0 2px rgba(var(--color-shadow-rgb), 0.4));
   transition: filter 0.3s ease;
 }
 
 .building-thumb-unbuilt {
-  filter: grayscale(1) drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
+  filter: grayscale(1) drop-shadow(0 0 2px rgba(var(--color-shadow-rgb), 0.4));
 }
 
 /* Level number overlay at bottom-right of thumbnail */
@@ -213,7 +213,7 @@ function act() {
   font-weight: 500;
   line-height: 1;
   color: var(--color-text);
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(var(--color-shadow-rgb), 0.6);
   padding: 0.3rem 0.4rem;
 }
 

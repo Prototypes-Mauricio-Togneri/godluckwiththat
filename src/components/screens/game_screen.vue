@@ -450,7 +450,7 @@ onUnmounted(() => {
   gap: 1.25rem;
   border-bottom: 1px solid var(--color-border);
   background: var(--color-bg-surface);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(var(--color-shadow-rgb), 0.3);
 }
 
 /* ---- Sections ---- */
@@ -525,7 +525,7 @@ onUnmounted(() => {
 .season-icon {
   width: 1.25rem;
   height: 1.25rem;
-  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 0 3px rgba(var(--color-shadow-rgb), 0.4));
 }
 
 .season-track {
@@ -558,9 +558,9 @@ onUnmounted(() => {
   height: 1.6rem;
   background: linear-gradient(
     180deg,
-    transparent,
+    rgba(var(--color-accent-rgb), 0),
     rgba(var(--color-accent-rgb), 0.2),
-    transparent
+    rgba(var(--color-accent-rgb), 0)
   );
   flex-shrink: 0;
 }
@@ -642,7 +642,7 @@ onUnmounted(() => {
   width: 3rem;
   height: 3rem;
   object-fit: contain;
-  filter: grayscale(1) drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
+  filter: grayscale(1) drop-shadow(0 0 2px rgba(var(--color-shadow-rgb), 0.4));
   opacity: 0.35;
 }
 
@@ -721,7 +721,7 @@ onUnmounted(() => {
   width: 1.1rem;
   height: 1.1rem;
   object-fit: contain;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 0 2px rgba(var(--color-shadow-rgb), 0.4));
   flex-shrink: 0;
 }
 

@@ -176,7 +176,7 @@ onUnmounted(() => {
   background: var(--color-bg-raised);
   border: 1px solid rgba(var(--color-accent-rgb), 0.2);
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 4px 24px rgba(var(--color-shadow-rgb), 0.4),
     inset 0 1px 0 rgba(var(--color-accent-rgb), 0.06);
   padding: 1rem 2rem 1.5rem;
   width: 90vw;
@@ -217,7 +217,7 @@ onUnmounted(() => {
   color: rgba(var(--color-text-rgb), 0.45);
   background: none;
   border: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 2px solid rgba(0, 0, 0, 0);
   padding: 0.5rem 1rem;
   margin-bottom: -1px;
   cursor: pointer;
@@ -243,7 +243,7 @@ onUnmounted(() => {
   padding-top: 0.15rem;
   padding-right: 0.5rem;
   scrollbar-width: thin;
-  scrollbar-color: rgba(var(--color-accent-rgb), 0.2) transparent;
+  scrollbar-color: rgba(var(--color-accent-rgb), 0.2) rgba(0, 0, 0, 0);
 }
 
 .research-scroll::-webkit-scrollbar {
@@ -251,7 +251,7 @@ onUnmounted(() => {
 }
 
 .research-scroll::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(0, 0, 0, 0);
 }
 
 .research-scroll::-webkit-scrollbar-thumb {
@@ -329,8 +329,8 @@ onUnmounted(() => {
   content: '';
   width: 0;
   height: 0;
-  border-top: 3px solid transparent;
-  border-bottom: 3px solid transparent;
+  border-top: 3px solid rgba(0, 0, 0, 0);
+  border-bottom: 3px solid rgba(0, 0, 0, 0);
   border-left: 5px solid rgba(var(--color-accent-rgb), 0.2);
 }
 
@@ -436,7 +436,7 @@ onUnmounted(() => {
   width: 0.9rem;
   height: 0.9rem;
   object-fit: contain;
-  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 0 1px rgba(var(--color-shadow-rgb), 0.3));
 }
 
 .node-cost-amount {

@@ -35,18 +35,6 @@
 
 
   ────────────────────────────────────────
-  #: 22
-  File Path: Various .vue files
-  Issue Type: Color Format
-  Line #: Various
-  Severity: Style
-  Description & Suggested Fix: transparent keyword used in gradients and borders
-
-    instead of rgba(0,0,0,0). Can cause gray banding in gradient interpolation
-  on
-     some browsers. Also, raw rgba(0,0,0,...) used instead of
-    rgba(var(--color-shadow-rgb), ...) in ~20 locations.
-  ────────────────────────────────────────
   #: 23
   File Path: Various files
   Issue Type: Inconsistent Units

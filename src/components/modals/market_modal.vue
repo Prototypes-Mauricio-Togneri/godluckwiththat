@@ -189,7 +189,7 @@ onUnmounted(() => {
   background: var(--color-bg-raised);
   border: 1px solid rgba(var(--color-accent-rgb), 0.2);
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 4px 24px rgba(var(--color-shadow-rgb), 0.4),
     inset 0 1px 0 rgba(var(--color-accent-rgb), 0.06);
   padding: 1.25rem 2rem 1.75rem;
   width: 90vw;
@@ -314,7 +314,7 @@ onUnmounted(() => {
   width: 1.15rem;
   height: 1.15rem;
   object-fit: contain;
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 0 2px rgba(var(--color-shadow-rgb), 0.4));
 }
 
 .trade-resource-name {
@@ -368,7 +368,7 @@ onUnmounted(() => {
   width: 0.75rem;
   height: 0.75rem;
   object-fit: contain;
-  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 0 1px rgba(var(--color-shadow-rgb), 0.3));
 }
 
 .trade-btn-value {

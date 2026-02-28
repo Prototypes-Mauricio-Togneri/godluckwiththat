@@ -58,7 +58,7 @@ onMounted(() => {
     ellipse,
     rgba(var(--color-accent-rgb), 0.1) 0%,
     rgba(var(--color-accent-rgb), 0.04) 40%,
-    transparent 70%
+    rgba(var(--color-accent-rgb), 0) 70%
   );
   pointer-events: none;
 }
