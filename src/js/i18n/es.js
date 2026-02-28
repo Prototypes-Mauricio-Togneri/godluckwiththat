@@ -1,3 +1,4 @@
+// Spanish locale strings
 export const LOCALIZED_ES = {
   // Home screen
   'screen.home.title.line1': 'God Luck',

@@ -16,11 +16,11 @@ class Trades {
    * @param {Object} [data] - Initial prices (defaults to MARKET_BASE_PRICES)
    */
   constructor(data = {}) {
-    this[RESOURCE_FOOD] = data[RESOURCE_FOOD] ?? MARKET_BASE_PRICES[RESOURCE_FOOD]
-    this[RESOURCE_WOOD] = data[RESOURCE_WOOD] ?? MARKET_BASE_PRICES[RESOURCE_WOOD]
-    this[RESOURCE_STONE] = data[RESOURCE_STONE] ?? MARKET_BASE_PRICES[RESOURCE_STONE]
-    this[RESOURCE_COPPER] = data[RESOURCE_COPPER] ?? MARKET_BASE_PRICES[RESOURCE_COPPER]
-    this[RESOURCE_IRON] = data[RESOURCE_IRON] ?? MARKET_BASE_PRICES[RESOURCE_IRON]
+    this[RESOURCE_FOOD] = data[RESOURCE_FOOD] ?? MARKET_BASE_PRICES[RESOURCE_FOOD] // Current gold price per 100 food
+    this[RESOURCE_WOOD] = data[RESOURCE_WOOD] ?? MARKET_BASE_PRICES[RESOURCE_WOOD] // Current gold price per 100 wood
+    this[RESOURCE_STONE] = data[RESOURCE_STONE] ?? MARKET_BASE_PRICES[RESOURCE_STONE] // Current gold price per 100 stone
+    this[RESOURCE_COPPER] = data[RESOURCE_COPPER] ?? MARKET_BASE_PRICES[RESOURCE_COPPER] // Current gold price per 100 copper
+    this[RESOURCE_IRON] = data[RESOURCE_IRON] ?? MARKET_BASE_PRICES[RESOURCE_IRON] // Current gold price per 100 iron
   }
 
   /**

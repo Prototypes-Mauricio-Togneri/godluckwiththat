@@ -149,6 +149,7 @@ export const RESEARCH_KNOWLEDGE_PRODUCTION_2 = 'knowledgeProduction2'
 export const RESEARCH_KNOWLEDGE_PRODUCTION_3 = 'knowledgeProduction3'
 export const RESEARCH_KNOWLEDGE_PRODUCTION_4 = 'knowledgeProduction4'
 export const RESEARCH_KNOWLEDGE_PRODUCTION_5 = 'knowledgeProduction5'
+// Research keys — General (Storage, placed here for historical ordering)
 export const RESEARCH_STORAGE_1 = 'storage1'
 export const RESEARCH_STORAGE_2 = 'storage2'
 export const RESEARCH_STORAGE_3 = 'storage3'

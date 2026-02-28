@@ -16,7 +16,7 @@ class EventFuture extends Event {
 	 */
   constructor(data) {
     super(data)
-    this.remainingSeconds = data.remainingSeconds
+    this.remainingSeconds = data.remainingSeconds // Seconds until event fires
   }
 
   /**

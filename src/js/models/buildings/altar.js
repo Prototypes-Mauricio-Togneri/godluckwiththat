@@ -3,7 +3,7 @@ import {BUILDING_ALTAR} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Generates faith for the colony.
+ * Passive faith generator. Produces faith per level without worker assignment.
  */
 class Altar extends Building {
   /**

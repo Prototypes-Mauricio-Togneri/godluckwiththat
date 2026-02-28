@@ -8,10 +8,11 @@ import EventPast from '@/js/models/events/event_past.js'
  * @property {EventPast[]} past - Active past events (notifications)
  */
 class Events {
+  /** Initializes empty event containers. */
   constructor() {
-    this.future = []
-    this.past = []
-    this._nextId = 1
+    this.future = [] // Active future events (countdowns)
+    this.past = [] // Past events (notifications)
+    this._nextId = 1 // Auto-incrementing event ID counter
   }
 
   /**

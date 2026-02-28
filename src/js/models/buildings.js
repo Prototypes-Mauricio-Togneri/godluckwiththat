@@ -8,9 +8,9 @@ import {BUILDING_HEADQUARTERS} from '@/js/engine/enums.js'
  * @property {Academy} academy - Knowledge production
  * @property {Storehouse} storehouse - Storage capacity upgrades
  * @property {Market} market - Resource trading
- * @property {Altar} altar - Faith building
- * @property {Temple} temple - Faith building
- * @property {Monument} monument - Faith building
+ * @property {Altar} altar - Passive faith generation
+ * @property {Temple} temple - Worker-based faith production
+ * @property {Monument} monument - One-time faith grants per level
  * @property {Farm} farm - Food production
  * @property {Woodcutter} woodcutter - Wood production
  * @property {Quarry} quarry - Stone production

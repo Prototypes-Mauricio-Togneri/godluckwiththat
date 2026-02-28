@@ -13,8 +13,8 @@ class Season {
    * @param {number} data.seasonElapsed - Seconds elapsed
    */
   constructor(data) {
-    this.currentSeason = data.currentSeason
-    this.seasonElapsed = data.seasonElapsed
+    this.currentSeason = data.currentSeason // Current season ('warm' or 'cold')
+    this.seasonElapsed = data.seasonElapsed // Seconds elapsed in current season
   }
 
   /** @returns {boolean} Whether the current season is warm */

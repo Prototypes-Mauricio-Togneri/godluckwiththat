@@ -3,7 +3,7 @@ import {BUILDING_MONUMENT} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Grand structure honoring the Gods.
+ * Grants a one-time faith bonus on each level completion.
  */
 class Monument extends Building {
   /**

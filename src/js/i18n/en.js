@@ -1,3 +1,4 @@
+// English locale strings
 export const LOCALIZED_EN = {
   // Home screen
   'screen.home.title.line1': 'God Luck',

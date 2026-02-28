@@ -21,13 +21,13 @@ class Event {
 	 * @param {string} [data.researchKey]
 	 */
   constructor(data) {
-    this.id = data.id
-    this.type = data.type
-    this.textKey = data.textKey
-    this.icon = data.icon
-    this.params = data.params ?? []
-    this.buildingKey = data.buildingKey ?? null
-    this.researchKey = data.researchKey ?? null
+    this.id = data.id // Unique event identifier
+    this.type = data.type // Event type constant
+    this.textKey = data.textKey // i18n key for description
+    this.icon = data.icon // Full image path
+    this.params = data.params ?? [] // Positional i18n interpolation values
+    this.buildingKey = data.buildingKey ?? null // Building key for construction lookup
+    this.researchKey = data.researchKey ?? null // Research key for research lookup
   }
 
   /**

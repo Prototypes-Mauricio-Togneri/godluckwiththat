@@ -22,7 +22,7 @@ class Colony {
     this.season = data.season // Season model (currentSeason + seasonElapsed)
     this.idleWorkers = data.idleWorkers // Workers not assigned to buildings
     this.resources = data.resources // Current resource amounts
-    this.production = data.production // Per-tick production rates
+    this.production = data.production // Per-second gross production rates
     this.stockpile = data.stockpile // Maximum storage capacities
     this.buildings = data.buildings // All building instances
     this.researches = data.researches // Research progress (completed + active)

@@ -776,8 +776,8 @@ export function createInitialColonyBasic() {
 }
 
 /**
- * Creates a fresh Colony instance for a new game session.
- * @returns {Colony} Fully initialized colony with default values
+ * Creates a pre-built Colony for development/testing with advanced starting resources and buildings.
+ * @returns {Colony} Colony with elevated starting values (city-level HQ, 60 workers, etc.)
  */
 export function createInitialColonyAdvanced() {
   return new Colony({

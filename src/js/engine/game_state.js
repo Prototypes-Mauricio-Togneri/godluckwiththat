@@ -412,7 +412,7 @@ class GameState {
 
   /**
    * Plays the building-specific worker assignment sound.
-   * @param {string} buildingKey
+   * @param {string} buildingKey - Key in colony.buildings
    */
   _playAssignSound(buildingKey) {
     if (buildingKey === BUILDING_FARM) audio.playSound(SND_WORKER_FOOD)
@@ -562,8 +562,8 @@ class GameState {
 
   /**
    * Returns the localized display name for a building.
-   * @param {string} buildingKey
-   * @returns {string}
+   * @param {string} buildingKey - Key in colony.buildings
+   * @returns {string} Localized building display name
    */
   _buildingName(buildingKey) {
     if (buildingKey === BUILDING_HEADQUARTERS) {

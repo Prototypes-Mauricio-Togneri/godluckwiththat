@@ -1,5 +1,8 @@
+// Shared display formatters for time, numbers, and production rates.
+
 import {t} from '@/js/i18n/localized.js'
 
+// Suffix labels for abbreviated large numbers (K, M, B, T)
 const NUMBER_SUFFIXES = [
   '',
   'K',

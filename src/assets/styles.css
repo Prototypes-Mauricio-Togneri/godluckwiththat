@@ -50,6 +50,7 @@
     transition: all 0.25s ease;
 }
 
+/* Hover — intensified border and glow */
 .btn-gold:hover {
     background: linear-gradient(
         180deg,
@@ -61,6 +62,7 @@
     box-shadow: 0 0 12px rgba(var(--color-accent-rgb), 0.08);
 }
 
+/* Disabled state — reduced opacity, no pointer */
 .btn-gold:disabled {
     color: rgba(var(--color-text-rgb), 0.35);
     border-color: rgba(var(--color-accent-rgb), 0.1);
@@ -72,10 +74,12 @@
     cursor: not-allowed;
 }
 
+/* Dim icon inside disabled button */
 .btn-gold:disabled img {
     opacity: 0.35;
 }
 
+/* Neutralize hover effect on disabled button */
 .btn-gold:disabled:hover {
     background: linear-gradient(
         180deg,
@@ -92,6 +96,7 @@
     position: relative;
 }
 
+/* Tooltip popup via data-tooltip attribute */
 .tooltip::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -116,14 +121,17 @@
     z-index: 100;
 }
 
+/* Show tooltip on hover */
 .tooltip:hover::after {
     opacity: 1;
 }
 
+/* Hide tooltip when data-tooltip is empty */
 .tooltip[data-tooltip=""]::after {
     display: none;
 }
 
+/* Delay tooltip appearance by 1 second */
 .tooltip--delayed:hover::after {
     transition-delay: 1s;
 }
@@ -135,6 +143,7 @@
     gap: 0.5rem;
 }
 
+/* Action button — square icon-only trigger */
 .action-btn {
     display: flex;
     align-items: center;
@@ -146,6 +155,7 @@
     flex-shrink: 0;
 }
 
+/* Icon inside action button */
 .action-btn-icon {
     width: 1.25rem;
     height: 1.25rem;
@@ -153,6 +163,7 @@
     filter: drop-shadow(0 0 1px rgba(var(--color-shadow-rgb), 0.4));
 }
 
+/* Cost container beside action button */
 .action-cost {
     display: flex;
     align-items: center;
@@ -165,12 +176,14 @@
     opacity: 0.35;
 }
 
+/* Individual resource cost entry (icon + amount) */
 .action-cost-item {
     display: flex;
     align-items: center;
     gap: 0.12rem;
 }
 
+/* Resource icon in cost display */
 .action-cost-icon {
     width: 0.9rem;
     height: 0.9rem;
@@ -178,6 +191,7 @@
     filter: drop-shadow(0 0 1px rgba(var(--color-shadow-rgb), 0.3));
 }
 
+/* Numeric amount in cost display */
 .action-cost-amount {
     font-family: var(--font-numeric);
     font-size: 0.75rem;
@@ -186,6 +200,7 @@
     letter-spacing: 0.02em;
 }
 
+/* Red color when resources are insufficient */
 .action-cost-short {
     color: rgba(196, 80, 80, 1);
 }
@@ -199,6 +214,7 @@
     padding: 0 0.4rem;
 }
 
+/* Gold fill overlay driven by --progress variable */
 .action-btn--constructing::before {
     content: '';
     position: absolute;
@@ -208,6 +224,7 @@
     background: rgba(184, 148, 62, 0.25);
 }
 
+/* Countdown timer text inside constructing button */
 .action-btn-time {
     position: relative;
     font-family: var(--font-numeric);
@@ -247,6 +264,7 @@
     border-color: rgba(180, 60, 60, 0.4);
 }
 
+/* Hover — intensified red */
 .modal-close-x:hover {
     color: rgba(168, 67, 67, 1);
     border-color: rgba(168, 67, 67, 1);
@@ -275,6 +293,7 @@
     padding: 0;
 }
 
+/* Hover — brightened accent */
 .modal-help-btn:hover {
     color: var(--color-accent);
     border-color: rgba(var(--color-accent-rgb), 0.5);
@@ -291,6 +310,7 @@
     line-height: 1;
 }
 
+/* Icon inside card modal button */
 .card-modal-btn-icon {
     width: 1.1rem;
     height: 1.1rem;
@@ -305,6 +325,7 @@
     gap: 0.15rem;
 }
 
+/* Ghost button for worker +/- controls */
 .worker-btn {
     display: flex;
     align-items: center;
@@ -323,33 +344,39 @@
     flex-shrink: 0;
 }
 
+/* Disabled state */
 .worker-btn:disabled {
     opacity: 0.3;
     cursor: not-allowed;
 }
 
+/* Red minus button */
 .worker-btn--minus {
     color: rgba(196, 80, 80, 1);
     border: 1px solid rgba(196, 80, 80, 0.3);
 }
 
+/* Hover — red glow */
 .worker-btn--minus:hover:not(:disabled) {
     background: rgba(196, 80, 80, 0.12);
     border-color: rgba(196, 80, 80, 0.6);
     box-shadow: 0 0 8px rgba(196, 80, 80, 0.1);
 }
 
+/* Green plus button */
 .worker-btn--plus {
     color: rgba(80, 168, 80, 1);
     border: 1px solid rgba(80, 168, 80, 0.3);
 }
 
+/* Hover — green glow */
 .worker-btn--plus:hover:not(:disabled) {
     background: rgba(80, 168, 80, 0.12);
     border-color: rgba(80, 168, 80, 0.6);
     box-shadow: 0 0 8px rgba(80, 168, 80, 0.1);
 }
 
+/* Worker count display (icon + current/max) */
 .worker-count {
     display: flex;
     align-items: center;
@@ -362,6 +389,7 @@
     letter-spacing: 0.02em;
 }
 
+/* Worker icon in count display */
 .worker-count-icon {
     width: 1.1rem;
     height: 1.1rem;
@@ -369,11 +397,13 @@
     filter: drop-shadow(0 0 1px rgba(var(--color-shadow-rgb), 0.3));
 }
 
+/* Numeric worker count text */
 .worker-count-text {
     min-width: 2.5rem;
     text-align: center;
 }
 
+/* Red text when zero workers assigned */
 .worker-count-text--zero {
     color: rgba(196, 80, 80, 1);
 }
@@ -390,10 +420,12 @@
     margin-bottom: 0.4rem;
 }
 
+/* Green for positive rate */
 .production-rate--positive {
     color: rgba(80, 168, 80, 1);
 }
 
+/* Red for negative or zero rate */
 .production-rate--negative,
 .production-rate--zero {
     color: rgba(196, 80, 80, 1);
@@ -416,6 +448,7 @@
     border-radius: 0.25rem;
 }
 
+/* Hover — intensified border */
 .resource-box:hover {
     border-color: rgba(var(--color-accent-rgb), 0.3);
     background: linear-gradient(
@@ -432,6 +465,7 @@
     gap: 0.3rem;
 }
 
+/* Bottom row for progress bar */
 .resource-row-bottom {
     display: flex;
     align-items: center;
@@ -457,14 +491,17 @@
     font-variant-numeric: tabular-nums;
 }
 
+/* Red when at stockpile cap */
 .resource-value--alert {
     color: rgba(192, 57, 43, 1);
 }
 
+/* Red when resource is empty */
 .resource-value--zero {
     color: rgba(196, 80, 80, 1);
 }
 
+/* Accent-tinted for gold amounts */
 .resource-value--gold {
     color: rgba(var(--color-accent-rgb), 0.85);
 }
@@ -478,6 +515,7 @@
     overflow: hidden;
 }
 
+/* Hidden bar for unbounded resources (faith, knowledge) */
 .resource-bar--hidden {
     background: transparent;
 }
@@ -489,11 +527,13 @@
     transition: width 1s ease;
 }
 
+/* Green fill for positive production */
 .resource-bar-fill--positive {
     background: linear-gradient(90deg, rgba(61, 138, 61, 1), rgba(80, 168, 80, 1));
     box-shadow: 0 0 5px rgba(80, 168, 80, 0.35);
 }
 
+/* Red fill for negative production */
 .resource-bar-fill--negative {
     background: linear-gradient(90deg, rgba(168, 60, 60, 1), rgba(196, 80, 80, 1));
     box-shadow: 0 0 5px rgba(196, 80, 80, 0.35);
@@ -526,6 +566,7 @@
     gap: 0.1rem;
 }
 
+/* Show tooltip on resource hover */
 .resource-box:hover .resource-tooltip {
     opacity: 1;
 }

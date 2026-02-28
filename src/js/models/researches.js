@@ -12,8 +12,8 @@ class Researches {
    * @param {Array<{key: string, remainingSeconds: number, duration: number}>} [data.active] - Active researches
    */
   constructor(data = {}) {
-    this.completed = new Set(data.completed ?? [])
-    this.active = new Map()
+    this.completed = new Set(data.completed ?? []) // Set of completed research keys
+    this.active = new Map() // Map of active researches (key → {remainingSeconds, duration})
     for (const entry of (data.active ?? [])) {
       this.active.set(entry.key, {
         remainingSeconds: entry.remainingSeconds,

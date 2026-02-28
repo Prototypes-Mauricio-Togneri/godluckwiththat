@@ -3,7 +3,7 @@ import {BUILDING_TEMPLE} from '@/js/engine/enums.js'
 import Producer from '@/js/models/buildings/producer.js'
 
 /**
- * Sacred building that amplifies faith.
+ * Produces faith through assigned workers.
  */
 class Temple extends Producer {
   /**

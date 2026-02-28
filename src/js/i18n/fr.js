@@ -1,3 +1,4 @@
+// French locale strings
 export const LOCALIZED_FR = {
   // Home screen
   'screen.home.title.line1': 'God Luck',
