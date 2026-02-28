@@ -16,6 +16,7 @@ export const RESOURCE_TIME_WEIGHTS = {
   [RESOURCE_IRON]: 0.1,
   [RESOURCE_GOLD]: 0.1,
   [RESOURCE_KNOWLEDGE]: 0.1,
+  [RESOURCE_FAITH]: 0.1,
 }
 
 // ── Building Upgrades ─────────────────────────────────────────────

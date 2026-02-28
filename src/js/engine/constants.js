@@ -790,7 +790,7 @@ export function createInitialColonyAdvanced() {
       territory: 0,
       workers: 60,
       food: 1000,
-      wood: 123456,
+      wood: 1000,
       stone: 1000,
       copper: 1000,
       iron: 1000,

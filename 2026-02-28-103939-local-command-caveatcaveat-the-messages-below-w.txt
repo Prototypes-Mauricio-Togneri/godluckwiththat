@@ -35,27 +35,6 @@
 
 
   ────────────────────────────────────────
-  #: 11
-  File Path: src/js/engine/balancing.js
-  Issue Type: Missing Data
-  Line #: 11-19
-  Severity: Warning
-  Description & Suggested Fix: RESOURCE_TIME_WEIGHTS missing RESOURCE_FAITH. If
-    faith-costed buildings are ever added, they would contribute 0 seconds to
-    construction time. Fix: add [RESOURCE_FAITH]: 0.1 for completeness.
-  ────────────────────────────────────────
-  #: 13
-  File Path: src/js/engine/audio.js
-  Issue Type: Memory Leak
-  Line #: 43-63
-  Severity: Warning
-  Description & Suggested Fix: Rapid sound replays accumulate orphaned ended 
-    event listeners. When a sound is replayed before finishing, old { once: true
-   
-    } listeners are never removed (pause prevents ended from firing). Fix:
-  remove
-     old listeners before re-adding, or use AbortController.
-  ────────────────────────────────────────
   #: 16
   File Path: All 6 modals
   Issue Type: Missing Prefix

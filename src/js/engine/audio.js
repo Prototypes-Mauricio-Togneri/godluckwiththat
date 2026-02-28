@@ -15,6 +15,7 @@ class Audio {
     this._playlistIndex = 0 // Current index in the playlist
     this._cache = new Map() // Preloaded HTMLAudioElements keyed by asset path
     this._activeSounds = new Map() // Currently playing sound elements keyed by asset path
+    this._soundAbort = new Map() // AbortControllers for active sound listeners keyed by asset path
     this._gamePaused = false // Whether music was paused by game logic (not the browser)
 
     // Resume music after iOS Safari suspends audio in background tabs
@@ -46,17 +47,25 @@ class Audio {
     if (el) {
       el.pause()
       el.currentTime = 0
+      this._soundAbort.get(assetPath)?.abort()
     } else {
       const cached = this._cache.get(assetPath)
       el = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(assetPath)
       this._activeSounds.set(assetPath, el)
     }
-    const cleanup = () => this._activeSounds.delete(assetPath)
+    const ac = new window.AbortController()
+    this._soundAbort.set(assetPath, ac)
+    const cleanup = () => {
+      this._activeSounds.delete(assetPath)
+      this._soundAbort.delete(assetPath)
+    }
     el.addEventListener('ended', cleanup, {
       once: true,
+      signal: ac.signal,
     })
     el.addEventListener('error', cleanup, {
       once: true,
+      signal: ac.signal,
     })
     el.volume = this._volume(assetPath)
     el.play().catch(cleanup)
