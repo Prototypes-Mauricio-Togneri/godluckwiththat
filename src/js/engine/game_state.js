@@ -244,6 +244,42 @@ class GameState {
   }
 
   /**
+   * Advances research timers and handles completion.
+   * @param {number} delta - Seconds since last tick
+   */
+  advanceResearch(delta) {
+    const {
+      researches,
+    } = this.colony
+    const completed = []
+    for (const [
+      key,
+      entry,
+    ] of researches.active) {
+      entry.remainingSeconds = Math.max(0, entry.remainingSeconds - delta)
+      if (entry.remainingSeconds === 0) {
+        completed.push(key)
+      }
+    }
+    for (const key of completed) {
+      researches.complete(key)
+      this.colony.events.dismissFutureByResearchKey(key)
+      audio.playSound(SND_RESEARCH_COMPLETED)
+    }
+    if (completed.length > 0) {
+      this.update(0)
+    }
+  }
+
+  /**
+   * Advances event countdown timers by the elapsed delta.
+   * @param {number} delta - Seconds elapsed since last tick
+   */
+  advanceEvents(delta) {
+    this.colony.events.tick(delta)
+  }
+
+  /**
    * Levels up a non-HQ building: deducts cost, increments level and territory.
    * @param {string} buildingKey - Key in colony.buildings
    */
@@ -446,42 +482,6 @@ class GameState {
     })
 
     this.update(0)
-  }
-
-  /**
-   * Advances research timers and handles completion.
-   * @param {number} delta - Seconds since last tick
-   */
-  advanceResearch(delta) {
-    const {
-      researches,
-    } = this.colony
-    const completed = []
-    for (const [
-      key,
-      entry,
-    ] of researches.active) {
-      entry.remainingSeconds = Math.max(0, entry.remainingSeconds - delta)
-      if (entry.remainingSeconds === 0) {
-        completed.push(key)
-      }
-    }
-    for (const key of completed) {
-      researches.complete(key)
-      this.colony.events.dismissFutureByResearchKey(key)
-      audio.playSound(SND_RESEARCH_COMPLETED)
-    }
-    if (completed.length > 0) {
-      this.update(0)
-    }
-  }
-
-  /**
-   * Advances event countdown timers by the elapsed delta.
-   * @param {number} delta - Seconds elapsed since last tick
-   */
-  advanceEvents(delta) {
-    this.colony.events.tick(delta)
   }
 
   /**
