@@ -20,6 +20,16 @@ class EventFuture extends Event {
   }
 
   /**
+   * Decrements remaining seconds, clamped at 0.
+   * @param {number} delta - Seconds elapsed since last tick
+   */
+  advance(delta) {
+    if (this.remainingSeconds > 0) {
+      this.remainingSeconds = Math.max(0, this.remainingSeconds - delta)
+    }
+  }
+
+  /**
    * Serializable snapshot for save/load.
    * @returns {Object}
    */

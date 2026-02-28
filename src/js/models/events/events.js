@@ -157,9 +157,7 @@ class Events {
 	 */
   advance(delta) {
     for (const event of this.future) {
-      if (event.remainingSeconds > 0) {
-        event.remainingSeconds = Math.max(0, event.remainingSeconds - delta)
-      }
+      event.advance(delta)
     }
   }
 
