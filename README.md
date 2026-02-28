@@ -2,6 +2,8 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Convert all images to JPG
+
 - Finish all building images
   - Market: Make it look less cartoony
   - Gold mine: Make it look different than the iron mine
