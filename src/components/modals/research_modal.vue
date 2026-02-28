@@ -26,10 +26,15 @@ const nodeStatusMap = computed(() => {
   for (const sub of activeCategory.value.subcategories) {
     for (let idx = 0; idx < sub.researches.length; idx++) {
       const key = sub.researches[idx]
-      if (colony.researches.isCompleted(key)) map[key] = 'completed'
-      else if (colony.researches.isActive(key)) map[key] = 'active'
-      else if (idx > 0 && !colony.researches.isCompleted(sub.researches[idx - 1])) map[key] = 'locked'
-      else map[key] = 'available'
+      if (colony.researches.isCompleted(key)) {
+        map[key] = 'completed'
+      } else if (colony.researches.isActive(key)) {
+        map[key] = 'active'
+      } else if (idx > 0 && !colony.researches.isCompleted(sub.researches[idx - 1])) {
+        map[key] = 'locked'
+      } else {
+        map[key] = 'available'
+      }
     }
   }
   return map
@@ -40,7 +45,9 @@ function canAfford(key) {
 }
 
 function handleNodeClick(key, status) {
-  if (status !== 'available' || !canAfford(key)) return
+  if (status !== 'available' || !canAfford(key)) {
+    return
+  }
   playTap()
   gameState.startResearch(key)
 }
@@ -51,7 +58,9 @@ function completedCount(sub) {
 
 function accumulatedBonusText(sub) {
   const count = completedCount(sub)
-  if (count === 0) return ''
+  if (count === 0) {
+    return ''
+  }
   const accumulated = count * sub.bonus.value
   return sub.bonus.flat ? `+${accumulated}` : `+${Math.round(accumulated * 100)}%`
 }

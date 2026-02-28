@@ -33,13 +33,27 @@ class Cost {
    */
   entries() {
     const map = new Map()
-    if (this.food > 0) map.set(RESOURCE_FOOD, this.food)
-    if (this.wood > 0) map.set(RESOURCE_WOOD, this.wood)
-    if (this.stone > 0) map.set(RESOURCE_STONE, this.stone)
-    if (this.copper > 0) map.set(RESOURCE_COPPER, this.copper)
-    if (this.iron > 0) map.set(RESOURCE_IRON, this.iron)
-    if (this.gold > 0) map.set(RESOURCE_GOLD, this.gold)
-    if (this.knowledge > 0) map.set(RESOURCE_KNOWLEDGE, this.knowledge)
+    if (this.food > 0) {
+      map.set(RESOURCE_FOOD, this.food)
+    }
+    if (this.wood > 0) {
+      map.set(RESOURCE_WOOD, this.wood)
+    }
+    if (this.stone > 0) {
+      map.set(RESOURCE_STONE, this.stone)
+    }
+    if (this.copper > 0) {
+      map.set(RESOURCE_COPPER, this.copper)
+    }
+    if (this.iron > 0) {
+      map.set(RESOURCE_IRON, this.iron)
+    }
+    if (this.gold > 0) {
+      map.set(RESOURCE_GOLD, this.gold)
+    }
+    if (this.knowledge > 0) {
+      map.set(RESOURCE_KNOWLEDGE, this.knowledge)
+    }
     return map
   }
 

@@ -31,7 +31,9 @@ class Building {
    * @returns {boolean} Whether construction just completed
    */
   advance(delta) {
-    if (!this.isConstructing) return false
+    if (!this.isConstructing) {
+      return false
+    }
     this.constructionRemaining = Math.max(0, this.constructionRemaining - delta)
     if (this.constructionRemaining === 0) {
       this.level += 1

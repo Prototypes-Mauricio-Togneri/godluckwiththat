@@ -65,7 +65,9 @@ class Headquarters extends Building {
    * @returns {boolean} Whether the upgrade just completed
    */
   advanceUpgrade(delta) {
-    if (!this.isUpgrading) return false
+    if (!this.isUpgrading) {
+      return false
+    }
     this.upgradeRemaining = Math.max(0, this.upgradeRemaining - delta)
     if (this.upgradeRemaining === 0) {
       this.type = this.nextType()
@@ -81,7 +83,9 @@ class Headquarters extends Building {
    */
   nextType() {
     const index = HQ_TYPES.indexOf(this.type)
-    if (index < 0 || index >= HQ_TYPES.length - 1) return null
+    if (index < 0 || index >= HQ_TYPES.length - 1) {
+      return null
+    }
     return HQ_TYPES[index + 1]
   }
 }

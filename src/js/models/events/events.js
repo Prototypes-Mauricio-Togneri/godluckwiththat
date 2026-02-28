@@ -71,7 +71,9 @@ class Events {
     const index = this.future.findIndex(
       event => event.buildingKey === buildingKey,
     )
-    if (index !== -1) this.future.splice(index, 1)
+    if (index !== -1) {
+      this.future.splice(index, 1)
+    }
     this.addPast(data)
   }
 
@@ -83,7 +85,9 @@ class Events {
     const index = this.future.findIndex(
       event => event.buildingKey === buildingKey,
     )
-    if (index !== -1) this.future.splice(index, 1)
+    if (index !== -1) {
+      this.future.splice(index, 1)
+    }
   }
 
   /**
@@ -94,7 +98,9 @@ class Events {
     const index = this.future.findIndex(
       event => event.researchKey === researchKey,
     )
-    if (index !== -1) this.future.splice(index, 1)
+    if (index !== -1) {
+      this.future.splice(index, 1)
+    }
   }
 
   /**
@@ -108,7 +114,9 @@ class Events {
       return
     }
     index = this.past.findIndex(event => event.id === id)
-    if (index !== -1) this.past.splice(index, 1)
+    if (index !== -1) {
+      this.past.splice(index, 1)
+    }
   }
 
   /**

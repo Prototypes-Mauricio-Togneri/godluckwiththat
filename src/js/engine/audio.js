@@ -20,7 +20,9 @@ class Audio {
 
     // Resume music after iOS Safari suspends audio in background tabs
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible' && this._musicEnabled && !this._gamePaused) this.resumeMusic()
+      if (document.visibilityState === 'visible' && this._musicEnabled && !this._gamePaused) {
+        this.resumeMusic()
+      }
     })
   }
 
@@ -42,7 +44,9 @@ class Audio {
    * @param {string} assetPath - Asset path constant from assets.js
    */
   playSound(assetPath) {
-    if (!this._soundEnabled) return
+    if (!this._soundEnabled) {
+      return
+    }
     let el = this._activeSounds.get(assetPath)
     if (el) {
       el.pause()
@@ -79,7 +83,9 @@ class Audio {
     this.stopMusic()
     this._playlist = tracks
     this._playlistIndex = 0
-    if (!this._musicEnabled) return
+    if (!this._musicEnabled) {
+      return
+    }
     this._playTrack(0)
   }
 
@@ -88,7 +94,9 @@ class Audio {
    * @param {number} index - Index into this._playlist
    */
   _playTrack(index) {
-    if (!this._playlist.length) return
+    if (!this._playlist.length) {
+      return
+    }
     this._playlistIndex = index
     const assetPath = this._playlist[index]
     const cached = this._cache.get(assetPath)
@@ -107,7 +115,9 @@ class Audio {
    * Stops music and resets playback position.
    */
   stopMusic() {
-    if (!this._music) return
+    if (!this._music) {
+      return
+    }
     this._music.pause()
     this._music.currentTime = 0
     this._music = null
@@ -117,7 +127,9 @@ class Audio {
    * Pauses the current music track without resetting position.
    */
   pauseMusic() {
-    if (!this._music) return
+    if (!this._music) {
+      return
+    }
     this._gamePaused = true
     this._music.pause()
   }
@@ -126,7 +138,9 @@ class Audio {
    * Resumes a previously paused music track.
    */
   resumeMusic() {
-    if (!this._music) return
+    if (!this._music) {
+      return
+    }
     this._gamePaused = false
     this._music.play().catch(e => import.meta.env.DEV && console.warn('Audio play failed:', e))
   }

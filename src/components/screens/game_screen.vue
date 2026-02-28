@@ -62,8 +62,12 @@ function getCardComponent(key) {
 
 function rateClass(ratePerSecond) {
   const value = Math.round(ratePerSecond * 100) / 100
-  if (value > 0) return 'production-rate--positive'
-  if (value < 0) return 'production-rate--negative'
+  if (value > 0) {
+    return 'production-rate--positive'
+  }
+  if (value < 0) {
+    return 'production-rate--negative'
+  }
   return 'production-rate--zero'
 }
 
@@ -74,18 +78,24 @@ function isBounded(resource) {
 function resourceFillPercent(resource) {
   const current = resourceAmount(resource)
   const capacity = resourceStockpile(resource)
-  if (!capacity) return 0
+  if (!capacity) {
+    return 0
+  }
   return Math.min(100, (current / capacity) * 100)
 }
 
 function timeEstimate(resource) {
   const rate = state.colony.netProduction(resource)
-  if (Math.round(rate * SECONDS_PER_MINUTE) === 0) return null
+  if (Math.round(rate * SECONDS_PER_MINUTE) === 0) {
+    return null
+  }
   const current = resourceAmount(resource)
 
   if (isBounded(resource) && rate > 0) {
     const capacity = resourceStockpile(resource)
-    if (current >= capacity) return null
+    if (current >= capacity) {
+      return null
+    }
     return `${t('resource.fullIn')} ${formatTime((capacity - current) / rate)}`
   }
 
@@ -136,10 +146,14 @@ function getBuildingImg(building) {
 }
 
 function isBuildingLocked(buildingKey) {
-  if (buildingKey === BUILDING_HEADQUARTERS) return false
+  if (buildingKey === BUILDING_HEADQUARTERS) {
+    return false
+  }
   const currentTypeIndex = HQ_TYPES.indexOf(state.colony.buildings.headquarters.type)
   for (let i = 0; i <= currentTypeIndex; i++) {
-    if (HQ_BUILDING_UNLOCKS[HQ_TYPES[i]].includes(buildingKey)) return false
+    if (HQ_BUILDING_UNLOCKS[HQ_TYPES[i]].includes(buildingKey)) {
+      return false
+    }
   }
   return true
 }
@@ -147,7 +161,9 @@ function isBuildingLocked(buildingKey) {
 function isResourceVisible(resource) {
   const currentTypeIndex = HQ_TYPES.indexOf(state.colony.buildings.headquarters.type)
   for (let i = 0; i <= currentTypeIndex; i++) {
-    if (HQ_RESOURCE_UNLOCKS[HQ_TYPES[i]].includes(resource)) return true
+    if (HQ_RESOURCE_UNLOCKS[HQ_TYPES[i]].includes(resource)) {
+      return true
+    }
   }
   return false
 }
@@ -201,7 +217,9 @@ function gameTick() {
 }
 
 function progressTick() {
-  if (paused.value) return
+  if (paused.value) {
+    return
+  }
   const now = performance.now()
   const delta = (now - lastProgressTickTime) / 1000
   lastProgressTickTime = now
@@ -213,7 +231,9 @@ function progressTick() {
 }
 
 function handleKeydown(event) {
-  if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return
+  if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+    return
+  }
   if (event.key === 'Escape') {
     showModal.value = !showModal.value
   }

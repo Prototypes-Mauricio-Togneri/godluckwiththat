@@ -84,7 +84,9 @@ class Buildings {
       key,
       building,
     ]) => {
-      if (key === BUILDING_HEADQUARTERS) return sum
+      if (key === BUILDING_HEADQUARTERS) {
+        return sum
+      }
       return sum + (building.isConstructing ? 1 : 0)
     }, 0)
   }

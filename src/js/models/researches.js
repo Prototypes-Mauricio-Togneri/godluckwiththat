@@ -70,9 +70,13 @@ class Researches {
     const bonuses = {}
     for (const cat of researchTree) {
       for (const sub of cat.subcategories) {
-        if (!sub.bonus) continue
+        if (!sub.bonus) {
+          continue
+        }
         for (const key of sub.researches) {
-          if (!this.completed.has(key)) continue
+          if (!this.completed.has(key)) {
+            continue
+          }
           const {
             type, value,
           } = sub.bonus

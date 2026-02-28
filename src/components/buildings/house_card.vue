@@ -30,14 +30,20 @@ const canRecruitBeforeAfford = computed(() => colony.resources.workers < colony.
 const canRecruit = computed(() => canAffordRecruit.value && canRecruitBeforeAfford.value)
 
 const recruitTooltip = computed(() => {
-  if (!canAffordRecruit.value) return t('building.insufficientResources')
-  if (!canRecruitBeforeAfford.value) return t('building.maxPopulationReached')
+  if (!canAffordRecruit.value) {
+    return t('building.insufficientResources')
+  }
+  if (!canRecruitBeforeAfford.value) {
+    return t('building.maxPopulationReached')
+  }
   return t('house.recruitWorker')
 })
 const recruitCostEntries = computed(() => WORKER_RECRUIT_COST.entries())
 
 function recruitWorker() {
-  if (!canRecruit.value) return
+  if (!canRecruit.value) {
+    return
+  }
   playTap()
   gameState.recruitWorker()
 }

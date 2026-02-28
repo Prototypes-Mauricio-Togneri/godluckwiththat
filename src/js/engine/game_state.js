@@ -189,7 +189,9 @@ class GameState {
   advanceSeason(delta) {
     if (this.colony.season.advance(delta)) {
       const isWarm = this.colony.season.isWarm
-      if (isWarm) this.colony.year++
+      if (isWarm) {
+        this.colony.year++
+      }
       audio.playSound(SND_NOTIFICATION_SEASON)
       this.colony.events.dismissPastByType(EVENT_TYPE_SEASON_CHANGED)
       this.colony.events.addPast({
@@ -287,9 +289,13 @@ class GameState {
       resources, stockpile, buildings,
     } = this.colony
     const building = buildings[buildingKey]
-    if (building.isConstructing) return
+    if (building.isConstructing) {
+      return
+    }
     const cost = building.levelUpCost()
-    if (!resources.canAfford(cost) || resources.territory >= stockpile.territory) return
+    if (!resources.canAfford(cost) || resources.territory >= stockpile.territory) {
+      return
+    }
     resources.deduct(cost)
 
     const duration = cost.toSeconds()
@@ -328,9 +334,13 @@ class GameState {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
-    if (hq.isConstructing || hq.isUpgrading) return
+    if (hq.isConstructing || hq.isUpgrading) {
+      return
+    }
     const cost = hq.levelUpCost()
-    if (!resources.canAfford(cost)) return
+    if (!resources.canAfford(cost)) {
+      return
+    }
     resources.deduct(cost)
 
     const duration = cost.toSeconds()
@@ -357,9 +367,13 @@ class GameState {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
-    if (hq.isConstructing || hq.isUpgrading) return
+    if (hq.isConstructing || hq.isUpgrading) {
+      return
+    }
     const cost = hq.upgradeCost()
-    if (!cost || !resources.canAfford(cost)) return
+    if (!cost || !resources.canAfford(cost)) {
+      return
+    }
     resources.deduct(cost)
 
     const duration = cost.toSeconds()
@@ -373,7 +387,9 @@ class GameState {
    * Recruits a new worker: deducts food cost, increments worker count.
    */
   recruitWorker() {
-    if (!this._recruit()) return
+    if (!this._recruit()) {
+      return
+    }
     this.update(0)
   }
 
@@ -383,7 +399,9 @@ class GameState {
    */
   assignWorker(buildingKey) {
     const building = this.colony.buildings[buildingKey]
-    if (this.colony.idleWorkers <= 0 || building.workers >= building.maxWorkers) return
+    if (this.colony.idleWorkers <= 0 || building.workers >= building.maxWorkers) {
+      return
+    }
     building.workers += 1
     this._playAssignSound(buildingKey)
     this.update(0)
@@ -395,8 +413,12 @@ class GameState {
    */
   recruitAndAssignWorker(buildingKey) {
     const building = this.colony.buildings[buildingKey]
-    if (building.workers >= building.maxWorkers) return
-    if (!this._recruit()) return
+    if (building.workers >= building.maxWorkers) {
+      return
+    }
+    if (!this._recruit()) {
+      return
+    }
     building.workers += 1
     this._playAssignSound(buildingKey)
     this.update(0)
@@ -410,7 +432,9 @@ class GameState {
     const {
       resources, stockpile,
     } = this.colony
-    if (!resources.canAfford(WORKER_RECRUIT_COST) || resources.workers >= stockpile.workers) return false
+    if (!resources.canAfford(WORKER_RECRUIT_COST) || resources.workers >= stockpile.workers) {
+      return false
+    }
     resources.deduct(WORKER_RECRUIT_COST)
     resources.workers += 1
     audio.playSound(SND_WORKER_CREATED)
@@ -430,16 +454,22 @@ class GameState {
    * @param {string} buildingKey - Key in colony.buildings
    */
   _playAssignSound(buildingKey) {
-    if (buildingKey === BUILDING_FARM) audio.playSound(SND_WORKER_FOOD)
-    else if (buildingKey === BUILDING_ACADEMY) audio.playSound(SND_WORKER_ACADEMY)
-    else if (buildingKey === BUILDING_WOODCUTTER) audio.playSound(SND_WORKER_WOOD)
-    else if (buildingKey === BUILDING_TEMPLE) audio.playSound(SND_WORKER_TEMPLE)
-    else if ([
+    if (buildingKey === BUILDING_FARM) {
+      audio.playSound(SND_WORKER_FOOD)
+    } else if (buildingKey === BUILDING_ACADEMY) {
+      audio.playSound(SND_WORKER_ACADEMY)
+    } else if (buildingKey === BUILDING_WOODCUTTER) {
+      audio.playSound(SND_WORKER_WOOD)
+    } else if (buildingKey === BUILDING_TEMPLE) {
+      audio.playSound(SND_WORKER_TEMPLE)
+    } else if ([
       BUILDING_QUARRY,
       BUILDING_COPPER_MINE,
       BUILDING_IRON_MINE,
       BUILDING_GOLD_MINE,
-    ].includes(buildingKey)) audio.playSound(SND_WORKER_MINE)
+    ].includes(buildingKey)) {
+      audio.playSound(SND_WORKER_MINE)
+    }
   }
 
   /**
@@ -448,7 +478,9 @@ class GameState {
    */
   unassignWorker(buildingKey) {
     const building = this.colony.buildings[buildingKey]
-    if (building.workers <= 0) return
+    if (building.workers <= 0) {
+      return
+    }
     building.workers -= 1
     this.update(0)
   }
@@ -461,11 +493,19 @@ class GameState {
     const {
       resources, buildings, researches,
     } = this.colony
-    if (researches.isActive(key) || researches.isCompleted(key)) return
+    if (researches.isActive(key) || researches.isCompleted(key)) {
+      return
+    }
     const def = RESEARCH_DEFINITIONS[key]
-    if (!def) return
-    if (buildings.academy.level < 1) return
-    if (!resources.canAfford(def.cost)) return
+    if (!def) {
+      return
+    }
+    if (buildings.academy.level < 1) {
+      return
+    }
+    if (!resources.canAfford(def.cost)) {
+      return
+    }
 
     const duration = def.cost.toSeconds()
     resources.deduct(def.cost)
@@ -527,19 +567,29 @@ class GameState {
       resources, stockpile, trades, buildings,
     } = this.colony
 
-    if (buildings[BUILDING_MARKET].level < 1) return
+    if (buildings[BUILDING_MARKET].level < 1) {
+      return
+    }
 
     if (direction === 'buy') {
       const goldCost = this.buyPrice(resource)
-      if (resources.gold < goldCost) return
-      if (resources[resource] + MARKET_TRADE_AMOUNT > stockpile[resource]) return
+      if (resources.gold < goldCost) {
+        return
+      }
+      if (resources[resource] + MARKET_TRADE_AMOUNT > stockpile[resource]) {
+        return
+      }
       resources.gold -= goldCost
       resources[resource] += MARKET_TRADE_AMOUNT
       trades[resource] = Math.min(MARKET_MAX_CURRENT_PRICE, trades[resource] + MARKET_PRICE_SHIFT)
     } else {
       const goldGain = this.sellPrice(resource)
-      if (resources[resource] < MARKET_TRADE_AMOUNT) return
-      if (resources.gold + goldGain > stockpile.gold) return
+      if (resources[resource] < MARKET_TRADE_AMOUNT) {
+        return
+      }
+      if (resources.gold + goldGain > stockpile.gold) {
+        return
+      }
       resources[resource] -= MARKET_TRADE_AMOUNT
       resources.gold += goldGain
       trades[resource] = Math.max(MARKET_MIN_CURRENT_PRICE, trades[resource] - MARKET_PRICE_SHIFT)

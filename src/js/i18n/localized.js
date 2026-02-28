@@ -24,6 +24,8 @@ const strings = LOCALES[browserLang] ?? LOCALES.en // Resolved string table
  */
 export const t = (key, ...params) => {
   const str = strings[key]
-  if (params.length === 0) return str
+  if (params.length === 0) {
+    return str
+  }
   return str.replace(/\{(\d+)\}/g, (_, index) => params[index] ?? '')
 }

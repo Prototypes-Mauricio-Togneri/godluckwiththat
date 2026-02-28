@@ -9,7 +9,9 @@ const isMobile = ref(window.matchMedia('(pointer: coarse)').matches)
 
 onMounted(() => {
   // TODO: temporary auto-start for development
-  if (window.location.hostname === 'localhost') emit('start')
+  if (window.location.hostname === 'localhost') {
+    emit('start')
+  }
 })
 </script>
 

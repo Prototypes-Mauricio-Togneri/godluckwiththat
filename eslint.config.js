@@ -114,6 +114,12 @@ export default [
       ],
       '@stylistic/object-property-newline': 'error',
 
+      // Require curly braces for all control flow statements
+      'curly': [
+        'error',
+        'all',
+      ],
+
       // Disallow shorthand property names
       'object-shorthand': [
         'error',

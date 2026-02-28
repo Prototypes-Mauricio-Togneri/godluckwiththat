@@ -22,7 +22,9 @@ export function formatTime(totalSeconds) {
   const minutes = Math.floor((seconds % 3600) / 60)
   const secs = seconds % 60
   const pad = n => String(n).padStart(2, '0')
-  if (hours > 0) return `${pad(hours)}:${pad(minutes)}:${pad(secs)}`
+  if (hours > 0) {
+    return `${pad(hours)}:${pad(minutes)}:${pad(secs)}`
+  }
   return `${pad(minutes)}:${pad(secs)}`
 }
 
@@ -33,7 +35,9 @@ export function formatTime(totalSeconds) {
  */
 export function formatNumber(n) {
   const floored = Math.floor(n)
-  if (floored < 1000) return String(floored)
+  if (floored < 1000) {
+    return String(floored)
+  }
   const tier = Math.min(Math.floor(Math.log10(floored) / 3), NUMBER_SUFFIXES.length - 1)
   const scaled = floored / Math.pow(1000, tier)
   const fixed = (Math.floor(scaled * 10) / 10).toFixed(1)
@@ -48,7 +52,9 @@ export function formatNumber(n) {
  */
 export function formatRate(ratePerSecond) {
   const value = Math.round(ratePerSecond * 100) / 100
-  if (value === 0) return `0.0${t('resource.perSecond')}`
+  if (value === 0) {
+    return `0.0${t('resource.perSecond')}`
+  }
   const abs = Math.abs(value).toFixed(2).replace(/0$/, '')
   const sign = value < 0 ? '-' : ''
   return `${sign}${abs}${t('resource.perSecond')}`

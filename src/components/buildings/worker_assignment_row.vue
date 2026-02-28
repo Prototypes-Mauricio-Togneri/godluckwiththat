@@ -28,7 +28,9 @@ const canAssign = computed(() =>
 const canUnassign = computed(() => building.value.workers > 0)
 
 function assign() {
-  if (!canAssign.value) return
+  if (!canAssign.value) {
+    return
+  }
   playTap()
   if (colony.idleWorkers > 0) {
     gameState.assignWorker(props.buildingKey)
@@ -38,7 +40,9 @@ function assign() {
 }
 
 function unassign() {
-  if (!canUnassign.value) return
+  if (!canUnassign.value) {
+    return
+  }
   playTap()
   gameState.unassignWorker(props.buildingKey)
 }

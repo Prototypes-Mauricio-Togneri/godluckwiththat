@@ -61,21 +61,31 @@ const canAfford = computed(() =>
 const canAct = computed(() => canActBase.value && !territoryFull.value && canAfford.value)
 
 const actionTooltip = computed(() => {
-  if (isConstructing.value) return ''
-  if (canActBase.value && !canAfford.value) return t('building.insufficientResources')
-  if (canActBase.value && territoryFull.value) return t('building.maxTerritoryReached')
+  if (isConstructing.value) {
+    return ''
+  }
+  if (canActBase.value && !canAfford.value) {
+    return t('building.insufficientResources')
+  }
+  if (canActBase.value && territoryFull.value) {
+    return t('building.maxTerritoryReached')
+  }
   return isBuildable.value ? t('building.build') + ' ' + t(displayNameKey.value).toLowerCase() : t('building.levelUp')
 })
 const actionCostEntries = computed(() => actionCost.value?.entries() ?? new Map())
 const isWorkerAssignable = computed(() => props.building instanceof Producer)
 
 const constructionProgress = computed(() => {
-  if (!isConstructing.value || props.building.constructionDuration === 0) return 0
+  if (!isConstructing.value || props.building.constructionDuration === 0) {
+    return 0
+  }
   return 1 - props.building.constructionRemaining / props.building.constructionDuration
 })
 
 function act() {
-  if (!canAct.value) return
+  if (!canAct.value) {
+    return
+  }
   playTap()
   gameState.levelUpBuilding(props.buildingKey)
 }

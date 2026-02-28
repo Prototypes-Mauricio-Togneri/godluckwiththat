@@ -29,27 +29,39 @@ function canSell(resource) {
 }
 
 function buyTooltip(resource) {
-  if (colony.resources.gold < gameState.buyPrice(resource)) return t('market.notEnoughGold')
-  if (colony.resources[resource] + MARKET_TRADE_AMOUNT > colony.stockpile[resource]) return t('market.stockpileFull', t('resource.' + resource).toLowerCase())
+  if (colony.resources.gold < gameState.buyPrice(resource)) {
+    return t('market.notEnoughGold')
+  }
+  if (colony.resources[resource] + MARKET_TRADE_AMOUNT > colony.stockpile[resource]) {
+    return t('market.stockpileFull', t('resource.' + resource).toLowerCase())
+  }
   const name = t('resource.' + resource).toLowerCase()
   return t('market.buyTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(gameState.buyPrice(resource)))
 }
 
 function sellTooltip(resource) {
-  if (colony.resources[resource] < MARKET_TRADE_AMOUNT) return t('market.notEnoughResource', t('resource.' + resource).toLowerCase())
-  if (colony.resources.gold + gameState.sellPrice(resource) > colony.stockpile.gold) return t('market.goldStockpileFull')
+  if (colony.resources[resource] < MARKET_TRADE_AMOUNT) {
+    return t('market.notEnoughResource', t('resource.' + resource).toLowerCase())
+  }
+  if (colony.resources.gold + gameState.sellPrice(resource) > colony.stockpile.gold) {
+    return t('market.goldStockpileFull')
+  }
   const name = t('resource.' + resource).toLowerCase()
   return t('market.sellTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(gameState.sellPrice(resource)))
 }
 
 function buy(resource) {
-  if (!canBuy(resource)) return
+  if (!canBuy(resource)) {
+    return
+  }
   audio.playSound(SND_MARKET_EXCHANGE)
   gameState.executeTrade(resource, 'buy')
 }
 
 function sell(resource) {
-  if (!canSell(resource)) return
+  if (!canSell(resource)) {
+    return
+  }
   audio.playSound(SND_MARKET_EXCHANGE)
   gameState.executeTrade(resource, 'sell')
 }
