@@ -30,5 +30,3 @@ function quitGame() {
   <GameScreen v-else-if="currentScreen === 'game'" @quit="quitGame" />
 </template>
 
-<style scoped>
-</style>

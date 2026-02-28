@@ -31,22 +31,3 @@
     While paused.value guard prevents processing, a duplicate rAF loop can
     briefly run on unpause. Fix: add cancelAnimationFrame(progressAnimFrame) in
     both branches of the pause watcher.
-
-
-
-  ────────────────────────────────────────
-  #: 24
-  File Path: src/components/modals/market_modal.vue
-  Issue Type: Redundant CSS
-  Line #: 406-412
-  Severity: Style
-  Description & Suggested Fix: .trade-btn-value--gain and .trade-btn-value--cost
-   
-    have identical rules. Either consolidate or differentiate (green/red).
-  ────────────────────────────────────────
-  #: 26
-  File Path: src/app.vue
-  Issue Type: Unnecessary Code
-  Line #: 28-29
-  Severity: Style
-  Description & Suggested Fix: Empty <style scoped> block. Remove.

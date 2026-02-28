@@ -148,7 +148,7 @@ onUnmounted(() => {
             >
               <img class="trade-btn-icon" :src="IMG_RESOURCE_MAP.gold" alt="">
               <span
-                class="trade-btn-value trade-btn-value--gain"
+                class="trade-btn-value"
                 :class="{ 'trade-btn-value--insufficient': colony.resources[resource] < MARKET_TRADE_AMOUNT }"
               >+{{ formatNumber(gameState.sellPrice(resource)) }}</span>
             </button>
@@ -163,7 +163,7 @@ onUnmounted(() => {
             >
               <img class="trade-btn-icon" :src="IMG_RESOURCE_MAP.gold" alt="">
               <span
-                class="trade-btn-value trade-btn-value--cost"
+                class="trade-btn-value"
                 :class="{ 'trade-btn-value--insufficient': colony.resources.gold < gameState.buyPrice(resource) }"
               >-{{ formatNumber(gameState.buyPrice(resource)) }}</span>
             </button>
@@ -376,14 +376,6 @@ onUnmounted(() => {
   font-size: 0.7rem;
   font-weight: 400;
   letter-spacing: 0.02em;
-}
-
-.trade-btn-value--gain {
-  color: rgba(var(--color-text-rgb), 0.7);
-}
-
-.trade-btn-value--cost {
-  color: rgba(var(--color-text-rgb), 0.7);
 }
 
 .trade-btn-value--insufficient {
