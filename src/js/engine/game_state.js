@@ -492,6 +492,14 @@ class GameState {
   }
 
   /**
+   * Advances event countdown timers by the elapsed delta.
+   * @param {number} delta - Seconds elapsed since last tick
+   */
+  advanceEvents(delta) {
+    this.colony.events.tick(delta)
+  }
+
+  /**
    * Computes the effective trade fee, accounting for market level.
    * @returns {number} Effective fee fraction (e.g. 0.21)
    */

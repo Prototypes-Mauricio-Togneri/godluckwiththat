@@ -197,7 +197,7 @@ function gameTick() {
   state.advanceSeason(progressDelta)
   state.advanceConstruction(progressDelta)
   state.advanceResearch(progressDelta)
-  state.colony.events.tick(progressDelta)
+  state.advanceEvents(progressDelta)
 }
 
 function progressTick() {
@@ -208,7 +208,7 @@ function progressTick() {
   state.advanceSeason(delta)
   state.advanceConstruction(delta)
   state.advanceResearch(delta)
-  state.colony.events.tick(delta)
+  state.advanceEvents(delta)
   progressAnimFrame = requestAnimationFrame(progressTick)
 }
 
