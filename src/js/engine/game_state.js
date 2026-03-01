@@ -438,10 +438,10 @@ class GameState {
   _playAssignSound(buildingKey) {
     if (buildingKey === BUILDING_FARM) {
       audio.playSound(SND_WORKER_FOOD)
-    } else if (buildingKey === BUILDING_ACADEMY) {
-      audio.playSound(SND_WORKER_ACADEMY)
     } else if (buildingKey === BUILDING_WOODCUTTER) {
       audio.playSound(SND_WORKER_WOOD)
+    } else if (buildingKey === BUILDING_ACADEMY) {
+      audio.playSound(SND_WORKER_ACADEMY)
     } else if (buildingKey === BUILDING_TEMPLE) {
       audio.playSound(SND_WORKER_TEMPLE)
     } else if ([
