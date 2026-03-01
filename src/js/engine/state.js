@@ -114,16 +114,23 @@ class State {
     // Worker upkeep: every worker (idle and assigned) consumes food and wood
     // each second. Research bonuses reduce the base consumption rates (−5%/tier).
     // Wood upkeep is additionally scaled by seasonal modifier (cold = more heating).
-    // Guarded by delta > 0 because update(0) is used as a "recalculate-only" call
-    // by action methods (e.g. after assigning a worker) — no resources should flow
+    // Consumption rates are per-second and also used by the UI (header tooltips)
     const effFoodCons = WORKER_FOOD_CONSUMPTION * (1 - (bonuses[BONUS_FOOD_CONSUMPTION] ?? 0))
     const effWoodCons = WORKER_WOOD_CONSUMPTION * (1 - (bonuses[BONUS_WOOD_CONSUMPTION] ?? 0))
-    if (delta > 0 && resources.workers > 0) {
-      const totalWorkers = resources.workers
-      const foodCost = totalWorkers * effFoodCons * delta
-      const woodCost = totalWorkers * effWoodCons * (1 + woodSeasonMod) * delta
-      resources.food = Math.max(0, resources.food - foodCost)
-      resources.wood = Math.max(0, resources.wood - woodCost)
+    if (resources.workers > 0) {
+      consumption.food = resources.workers * effFoodCons
+      consumption.wood = resources.workers * effWoodCons * (1 + woodSeasonMod)
+    } else {
+      consumption.food = 0
+      consumption.wood = 0
+    }
+
+    // Deduct upkeep from resources. Guarded by delta > 0 because update(0) is
+    // used as a "recalculate-only" call by action methods (e.g. after assigning
+    // a worker) — no resources should flow
+    if (delta > 0) {
+      resources.food = Math.max(0, resources.food - consumption.food * delta)
+      resources.wood = Math.max(0, resources.wood - consumption.wood * delta)
     }
 
     // Cap the 6 bounded resources at the storehouse storage limit.
@@ -168,17 +175,6 @@ class State {
     resources.gold = Math.max(0, resources.gold)
     resources.faith = Math.max(0, resources.faith)
     resources.knowledge = Math.max(0, resources.knowledge)
-
-    // Store per-second consumption rates for UI display (header tooltips show
-    // net production = production − consumption). These are the raw rates, not
-    // the delta-scaled amounts actually deducted above
-    if (resources.workers > 0) {
-      consumption.food = resources.workers * effFoodCons
-      consumption.wood = resources.workers * effWoodCons * (1 + woodSeasonMod)
-    } else {
-      consumption.food = 0
-      consumption.wood = 0
-    }
 
     // Edge-detection for negative net production (same pattern as storage cap
     // events above). netProduction() = production − consumption, so this fires
