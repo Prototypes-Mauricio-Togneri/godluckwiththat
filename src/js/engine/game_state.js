@@ -419,29 +419,6 @@ class GameState {
   }
 
   /**
-   * Plays the building-specific worker assignment sound.
-   * @param {string} buildingKey - Key in colony.buildings
-   */
-  _playAssignSound(buildingKey) {
-    if (buildingKey === BUILDING_FARM) {
-      audio.playSound(SND_WORKER_FARM)
-    } else if (buildingKey === BUILDING_WOODCUTTER) {
-      audio.playSound(SND_WORKER_WOODCUTTER)
-    } else if (buildingKey === BUILDING_ACADEMY) {
-      audio.playSound(SND_WORKER_ACADEMY)
-    } else if (buildingKey === BUILDING_TEMPLE) {
-      audio.playSound(SND_WORKER_TEMPLE)
-    } else if ([
-      BUILDING_QUARRY,
-      BUILDING_COPPER_MINE,
-      BUILDING_IRON_MINE,
-      BUILDING_GOLD_MINE,
-    ].includes(buildingKey)) {
-      audio.playSound(SND_WORKER_MINE)
-    }
-  }
-
-  /**
    * Unassigns one worker from a building back to idle.
    * @param {string} buildingKey - Key in colony.buildings
    */
@@ -500,6 +477,29 @@ class GameState {
 
     if (market.executeTrade(resource, direction, resources, buildings.storehouse.storageCap())) {
       this.update(0)
+    }
+  }
+
+  /**
+   * Plays the building-specific worker assignment sound.
+   * @param {string} buildingKey - Key in colony.buildings
+   */
+  _playAssignSound(buildingKey) {
+    if (buildingKey === BUILDING_FARM) {
+      audio.playSound(SND_WORKER_FARM)
+    } else if (buildingKey === BUILDING_WOODCUTTER) {
+      audio.playSound(SND_WORKER_WOODCUTTER)
+    } else if (buildingKey === BUILDING_ACADEMY) {
+      audio.playSound(SND_WORKER_ACADEMY)
+    } else if (buildingKey === BUILDING_TEMPLE) {
+      audio.playSound(SND_WORKER_TEMPLE)
+    } else if ([
+      BUILDING_QUARRY,
+      BUILDING_COPPER_MINE,
+      BUILDING_IRON_MINE,
+      BUILDING_GOLD_MINE,
+    ].includes(buildingKey)) {
+      audio.playSound(SND_WORKER_MINE)
     }
   }
 
