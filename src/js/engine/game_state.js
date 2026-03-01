@@ -478,8 +478,8 @@ class GameState {
     const definition = RESEARCH_DEFINITIONS[key]
     if (researches.isActive(key) ||
         researches.isCompleted(key) ||
-        !definition ||
         buildings.academy.level < 1 ||
+        !definition ||
         !resources.canAfford(definition.cost)) {
       return
     }
