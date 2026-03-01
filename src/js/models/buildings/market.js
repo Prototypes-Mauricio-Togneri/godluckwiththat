@@ -1,4 +1,4 @@
-import {BUILDING_UPGRADES, MARKET_BASE_PRICES} from '@/js/engine/balancing.js'
+import {BUILDING_UPGRADES, MARKET_BASE_FEE, MARKET_BASE_PRICES, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MIN_FEE} from '@/js/engine/balancing.js'
 import {BUILDING_MARKET, RESOURCE_COPPER, RESOURCE_FOOD, RESOURCE_IRON, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
@@ -34,6 +34,36 @@ class Market extends Building {
       cost, multiplier,
     } = BUILDING_UPGRADES[BUILDING_MARKET]
     return cost.multiply(Math.pow(multiplier, this.level)).floor()
+  }
+
+  /**
+   * Computes the effective trade fee, accounting for market level.
+   * @returns {number} Effective fee fraction (e.g. 0.21)
+   */
+  effectiveTradeFee() {
+    const basePercent = Math.round(MARKET_BASE_FEE * 100)
+    const reductionPerLevel = Math.round(MARKET_FEE_REDUCTION_PER_LEVEL * 100)
+    const minPercent = Math.round(MARKET_MIN_FEE * 100)
+    const rawPercent = basePercent - Math.max(0, this.level - 1) * reductionPerLevel
+    return Math.max(minPercent, rawPercent) / 100
+  }
+
+  /**
+   * Returns the gold cost to buy a resource at current market price + fee.
+   * @param {string} resource - Resource key
+   * @returns {number} Gold cost (floored)
+   */
+  buyPrice(resource) {
+    return Math.floor(this[resource] * (1 + this.effectiveTradeFee()))
+  }
+
+  /**
+   * Returns the gold gained from selling a resource at current market price - fee.
+   * @param {string} resource - Resource key
+   * @returns {number} Gold gained (floored)
+   */
+  sellPrice(resource) {
+    return Math.floor(this[resource] * (1 - this.effectiveTradeFee()))
   }
 
   /**

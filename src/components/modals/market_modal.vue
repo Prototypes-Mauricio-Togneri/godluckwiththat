@@ -5,7 +5,7 @@ import {formatNumber} from '@/js/engine/format.js'
 import {TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
 import {MARKET_TRADE_AMOUNT, MARKET_PRICE_SHIFT, MARKET_BASE_FEE, MARKET_MIN_FEE, MARKET_FEE_REDUCTION_PER_LEVEL} from '@/js/engine/balancing.js'
 import {IMG_RESOURCE_MAP, SND_MARKET_EXCHANGE} from '@/js/engine/assets.js'
-import {RESOURCE_GOLD} from '@/js/engine/enums.js'
+import {BUILDING_MARKET, RESOURCE_GOLD} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
 
@@ -16,38 +16,39 @@ const visible = ref(false)
 const showHelp = ref(false)
 let rafId = null
 
-const feePercent = computed(() => Math.round(gameState.effectiveTradeFee() * 100))
+const market = computed(() => colony.buildings[BUILDING_MARKET])
+const feePercent = computed(() => Math.round(market.value.effectiveTradeFee() * 100))
 
 function canBuy(resource) {
-  return colony.resources.gold >= gameState.buyPrice(resource)
+  return colony.resources.gold >= market.value.buyPrice(resource)
     && colony.resources[resource] + MARKET_TRADE_AMOUNT <= colony.stockpile[resource]
 }
 
 function canSell(resource) {
   return colony.resources[resource] >= MARKET_TRADE_AMOUNT
-    && colony.resources.gold + gameState.sellPrice(resource) <= colony.stockpile.gold
+    && colony.resources.gold + market.value.sellPrice(resource) <= colony.stockpile.gold
 }
 
 function buyTooltip(resource) {
-  if (colony.resources.gold < gameState.buyPrice(resource)) {
+  if (colony.resources.gold < market.value.buyPrice(resource)) {
     return t('market.notEnoughGold')
   }
   if (colony.resources[resource] + MARKET_TRADE_AMOUNT > colony.stockpile[resource]) {
     return t('market.stockpileFull', t('resource.' + resource).toLowerCase())
   }
   const name = t('resource.' + resource).toLowerCase()
-  return t('market.buyTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(gameState.buyPrice(resource)))
+  return t('market.buyTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(market.value.buyPrice(resource)))
 }
 
 function sellTooltip(resource) {
   if (colony.resources[resource] < MARKET_TRADE_AMOUNT) {
     return t('market.notEnoughResource', t('resource.' + resource).toLowerCase())
   }
-  if (colony.resources.gold + gameState.sellPrice(resource) > colony.stockpile.gold) {
+  if (colony.resources.gold + market.value.sellPrice(resource) > colony.stockpile.gold) {
     return t('market.goldStockpileFull')
   }
   const name = t('resource.' + resource).toLowerCase()
-  return t('market.sellTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(gameState.sellPrice(resource)))
+  return t('market.sellTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(market.value.sellPrice(resource)))
 }
 
 function buy(resource) {
@@ -162,7 +163,7 @@ onUnmounted(() => {
               <span
                 class="trade-btn-value"
                 :class="{ 'trade-btn-value--insufficient': colony.resources[resource] < MARKET_TRADE_AMOUNT }"
-              >+{{ formatNumber(gameState.sellPrice(resource)) }}</span>
+              >+{{ formatNumber(market.sellPrice(resource)) }}</span>
             </button>
 
             <!-- Buy -->
@@ -176,8 +177,8 @@ onUnmounted(() => {
               <img class="trade-btn-icon" :src="IMG_RESOURCE_MAP.gold" alt="">
               <span
                 class="trade-btn-value"
-                :class="{ 'trade-btn-value--insufficient': colony.resources.gold < gameState.buyPrice(resource) }"
-              >-{{ formatNumber(gameState.buyPrice(resource)) }}</span>
+                :class="{ 'trade-btn-value--insufficient': colony.resources.gold < market.buyPrice(resource) }"
+              >-{{ formatNumber(market.buyPrice(resource)) }}</span>
             </button>
           </div>
         </div>
