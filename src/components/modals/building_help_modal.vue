@@ -22,6 +22,7 @@ const emit = defineEmits(['close'])
 const visible = ref(false)
 let rafId = null
 
+/** Closes modal on Escape key (capture phase). */
 function handleKeydown(event) {
   if (event.key === 'Escape') {
     event.stopImmediatePropagation()
@@ -64,6 +65,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/* Help modal content panel */
 .modal-content {
   padding: 1.75rem 2rem 1.5rem;
   min-width: 340px;
@@ -75,12 +77,14 @@ onUnmounted(() => {
   margin: 0.75rem auto 1.25rem;
 }
 
+/* Horizontal layout — thumbnail beside description */
 .modal-body {
   display: flex;
   align-items: flex-start;
   gap: 1.5rem;
 }
 
+/* Large building thumbnail with decorative shadows */
 .modal-thumb {
   width: 9rem;
   height: 9rem;

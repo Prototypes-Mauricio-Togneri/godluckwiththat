@@ -25,7 +25,7 @@ class Academy extends Producer {
 
   /**
    * Cost to level up from the current level.
-   * @returns {Cost}
+   * @returns {Cost} Resource cost for the next level
    */
   get levelUpCost() {
     const {
@@ -53,7 +53,7 @@ class Academy extends Producer {
   /**
    * Whether the academy can start a given research.
    * @param {string} key - Research key
-   * @returns {boolean}
+   * @returns {boolean} Whether the research can be started
    */
   canResearch(key) {
     return this.level >= 1 && !this.isActive(key) && !this.isCompleted(key)
@@ -113,7 +113,7 @@ class Academy extends Producer {
 
   /**
    * Serializable snapshot for save/load.
-   * @returns {Object}
+   * @returns {Object} Plain object snapshot for serialization
    */
   toJSON() {
     return {

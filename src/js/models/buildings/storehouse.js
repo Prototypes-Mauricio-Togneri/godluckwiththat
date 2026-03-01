@@ -15,7 +15,7 @@ class Storehouse extends Building {
 
   /**
    * Maximum resource storage capacity at the current level.
-   * @returns {number}
+   * @returns {number} Maximum storage capacity at current level
    */
   get storageCap() {
     return STOREHOUSE_BASE_CAPACITY + this.level * STOREHOUSE_CAPACITY_PER_LEVEL
@@ -23,7 +23,7 @@ class Storehouse extends Building {
 
   /**
    * Cost to level up from the current level.
-   * @returns {Cost}
+   * @returns {Cost} Resource cost for the next level
    */
   get levelUpCost() {
     const {

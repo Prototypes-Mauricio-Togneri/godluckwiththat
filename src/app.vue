@@ -7,6 +7,7 @@ import audio from '@/js/engine/audio.js'
 
 const currentScreen = ref('home')
 
+/** Preloads audio, switches to game screen, and starts background music. */
 function startGame() {
   audio.preload()
   currentScreen.value = 'game'
@@ -18,6 +19,7 @@ function startGame() {
   ])
 }
 
+/** Stops music and returns to the home screen. */
 function quitGame() {
   audio.stopMusic()
   currentScreen.value = 'home'

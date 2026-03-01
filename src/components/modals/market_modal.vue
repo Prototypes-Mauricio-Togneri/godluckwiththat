@@ -19,16 +19,28 @@ let rafId = null
 const market = computed(() => colony.buildings[BUILDING_MARKET])
 const feePercent = computed(() => Math.round(market.value.effectiveTradeFee * 100))
 
+/** Whether the colony can afford to buy this resource without exceeding storage.
+ * @param {string} resource - Resource key to check
+ * @returns {boolean} True if gold is sufficient and storage has room
+ */
 function canBuy(resource) {
   return colony.resources.gold >= market.value.buyPrice(resource)
     && colony.resources[resource] + MARKET_TRADE_AMOUNT <= colony.buildings.storehouse.storageCap
 }
 
+/** Whether the colony has enough of this resource to sell without overflowing gold storage.
+ * @param {string} resource - Resource key to check
+ * @returns {boolean} True if resource amount is sufficient and gold storage has room
+ */
 function canSell(resource) {
   return colony.resources[resource] >= MARKET_TRADE_AMOUNT
     && colony.resources.gold + market.value.sellPrice(resource) <= colony.buildings.storehouse.storageCap
 }
 
+/** Tooltip text for the buy button, showing cost or the reason the trade is blocked.
+ * @param {string} resource - Resource key to generate tooltip for
+ * @returns {string} Localized tooltip string
+ */
 function buyTooltip(resource) {
   if (colony.resources.gold < market.value.buyPrice(resource)) {
     return t('market.notEnoughGold')
@@ -40,6 +52,10 @@ function buyTooltip(resource) {
   return t('market.buyTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(market.value.buyPrice(resource)))
 }
 
+/** Tooltip text for the sell button, showing revenue or the reason the trade is blocked.
+ * @param {string} resource - Resource key to generate tooltip for
+ * @returns {string} Localized tooltip string
+ */
 function sellTooltip(resource) {
   if (colony.resources[resource] < MARKET_TRADE_AMOUNT) {
     return t('market.notEnoughResource', t('resource.' + resource).toLowerCase())
@@ -51,6 +67,9 @@ function sellTooltip(resource) {
   return t('market.sellTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(market.value.sellPrice(resource)))
 }
 
+/** Executes a buy trade if affordable, playing the exchange sound effect.
+ * @param {string} resource - Resource key to buy
+ */
 function buy(resource) {
   if (!canBuy(resource)) {
     return
@@ -59,6 +78,9 @@ function buy(resource) {
   gameState.executeTrade(resource, TRADE_BUY)
 }
 
+/** Executes a sell trade if the colony has enough stock, playing the exchange sound effect.
+ * @param {string} resource - Resource key to sell
+ */
 function sell(resource) {
   if (!canSell(resource)) {
     return
@@ -67,6 +89,9 @@ function sell(resource) {
   gameState.executeTrade(resource, TRADE_SELL)
 }
 
+/** Handles Escape key to close the help sub-modal first, then the market modal.
+ * @param {KeyboardEvent} event - Keyboard event
+ */
 function handleKeydown(event) {
   if (event.key === 'Escape') {
     event.stopImmediatePropagation()
@@ -214,6 +239,7 @@ onUnmounted(() => {
   transition: transform 0.25s ease;
 }
 
+/* Slide-up entrance transition when overlay becomes visible */
 .modal-overlay.visible .market-modal {
   transform: translateY(0);
 }
@@ -240,6 +266,7 @@ onUnmounted(() => {
   flex: 1;
 }
 
+/* Subtle accent highlight on resource box hover */
 .market-resources .resource-box:hover {
   border-color: rgba(var(--color-accent-rgb), 0.1);
   background: rgba(var(--color-accent-rgb), 0.03);
@@ -355,15 +382,18 @@ onUnmounted(() => {
   min-width: 3.5rem;
 }
 
+/* Dim the price value when the trade button is disabled */
 .trade-btn:disabled .trade-btn-value {
   color: rgba(var(--color-text-rgb), 0.25);
 }
 
+/* Hide the tooltip when disabled, skip transition */
 .trade-btn:disabled::after {
   transition: none;
   opacity: 0;
 }
 
+/* Re-show the tooltip on hover even when disabled */
 .trade-btn:disabled:hover::after {
   opacity: 1;
 }
@@ -391,6 +421,7 @@ onUnmounted(() => {
   letter-spacing: 0.02em;
 }
 
+/* Red highlight when the player lacks enough of the required resource */
 .trade-btn-value--insufficient {
   color: rgba(196, 80, 80, 1);
 }

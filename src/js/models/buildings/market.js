@@ -27,7 +27,7 @@ class Market extends Building {
 
   /**
    * Cost to level up from the current level.
-   * @returns {Cost}
+   * @returns {Cost} Resource cost for the next level
    */
   get levelUpCost() {
     const {
@@ -108,7 +108,7 @@ class Market extends Building {
 
   /**
    * Serializable snapshot of market prices for save/load.
-   * @returns {Object}
+   * @returns {Object} Plain object snapshot for serialization
    */
   toJSON() {
     return {

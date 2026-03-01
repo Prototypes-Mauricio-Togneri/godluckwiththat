@@ -20,6 +20,7 @@ const emit = defineEmits(['close'])
 const visible = ref(false)
 let rafId = null
 
+/** Closes modal on Escape key (capture phase, stops propagation to parent modal). */
 function handleKeydown(event) {
   if (event.key === 'Escape') {
     event.stopImmediatePropagation()
@@ -59,6 +60,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/* Stacks above parent modal (z-index 110 vs 100) */
 .modal-overlay {
   z-index: 110;
 }
@@ -74,6 +76,7 @@ onUnmounted(() => {
   margin: 0.75rem auto 1.25rem;
 }
 
+/* Spacing between consecutive description paragraphs */
 .modal-description + .modal-description {
   margin-top: 0.75rem;
 }

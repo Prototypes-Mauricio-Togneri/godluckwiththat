@@ -40,10 +40,18 @@ const nodeStatusMap = computed(() => {
   return map
 })
 
+/** Whether the colony can afford the research cost.
+ * @param {string} key - Research key
+ * @returns {boolean} True if resources are sufficient
+ */
 function canAfford(key) {
   return colony.resources.canAfford(RESEARCH_COSTS[key])
 }
 
+/** Starts research when node is available and affordable.
+ * @param {string} key - Research key
+ * @param {string} status - Current node status (available, locked, active, completed)
+ */
 function handleNodeClick(key, status) {
   if (status !== 'available' || !canAfford(key)) {
     return
@@ -52,10 +60,18 @@ function handleNodeClick(key, status) {
   gameState.startResearch(key)
 }
 
+/** Count of completed researches in a subcategory.
+ * @param {object} sub - Subcategory object containing a researches array
+ * @returns {number} Number of completed researches
+ */
 function completedCount(sub) {
   return sub.researches.filter(key => colony.buildings.academy.isCompleted(key)).length
 }
 
+/** Formatted bonus text for completed tiers in a subcategory.
+ * @param {object} sub - Subcategory object with bonus config and researches
+ * @returns {string} Formatted string like "+3" (flat) or "+15%" (percent), empty if none completed
+ */
 function accumulatedBonusText(sub) {
   const count = completedCount(sub)
   if (count === 0) {
@@ -65,6 +81,9 @@ function accumulatedBonusText(sub) {
   return sub.bonus.flat ? `+${accumulated}` : `+${Math.round(accumulated * 100)}%`
 }
 
+/** Handles Escape key to close help overlay or the modal itself.
+ * @param {KeyboardEvent} event - Keyboard event
+ */
 function handleKeydown(event) {
   if (event.key === 'Escape') {
     event.stopImmediatePropagation()
@@ -327,6 +346,7 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
+/* Horizontal connecting line between research nodes */
 .chain-connector::before {
   content: '';
   flex: 1;
@@ -334,6 +354,7 @@ onUnmounted(() => {
   background: rgba(var(--color-accent-rgb), 0.2);
 }
 
+/* Arrow tip pointing to next research node */
 .chain-connector::after {
   content: '';
   width: 0;
@@ -358,6 +379,7 @@ onUnmounted(() => {
   transition: all 0.2s ease;
 }
 
+/* Hover highlight for available or active (non-locked, non-completed) nodes */
 .research-node:not(.research-node--locked):not(.research-node--completed):hover {
   border-color: rgba(var(--color-accent-rgb), 0.3);
 }
@@ -374,6 +396,7 @@ onUnmounted(() => {
   animation: research-pulse 2s ease-in-out infinite;
 }
 
+/* Pulsing glow for active research nodes */
 @keyframes research-pulse {
   0%, 100% { box-shadow: 0 0 4px rgba(var(--color-accent-rgb), 0.08); }
   50% { box-shadow: 0 0 14px rgba(var(--color-accent-rgb), 0.2); }

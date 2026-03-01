@@ -40,6 +40,7 @@ const recruitTooltip = computed(() => {
 })
 const recruitCostEntries = computed(() => WORKER_RECRUIT_COST.entries)
 
+/** Recruits a new worker if affordable and below population cap. */
 function recruitWorker() {
   if (!canRecruit.value) {
     return

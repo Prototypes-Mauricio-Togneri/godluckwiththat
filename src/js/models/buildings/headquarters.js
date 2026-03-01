@@ -39,7 +39,7 @@ class Headquarters extends Building {
   /**
    * Cost to increase HQ from the current level to the next.
    * Formula: floor(baseCost * multiplier ^ (level - 1))
-   * @returns {Cost}
+   * @returns {Cost} Resource cost for the next level
    */
   get levelUpCost() {
     const {

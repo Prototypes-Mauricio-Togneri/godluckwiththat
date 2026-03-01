@@ -82,6 +82,7 @@ const constructionProgress = computed(() => {
   return 1 - props.building.constructionRemaining / props.building.constructionDuration
 })
 
+/** Builds or levels up this building. */
 function act() {
   if (!canAct.value) {
     return
@@ -149,6 +150,7 @@ function act() {
 </template>
 
 <style scoped>
+/* Card container — flex row with thumbnail and info */
 .building-card {
   position: relative;
   display: flex;
@@ -161,6 +163,7 @@ function act() {
   border-radius: 0.25rem;
 }
 
+/* Intensified border during construction */
 .building-card--constructing {
   border-color: rgba(var(--color-accent-rgb), 0.25);
 }
@@ -195,11 +198,13 @@ function act() {
   background: rgba(var(--color-accent-rgb), 0.08);
 }
 
+/* Thumbnail wrapper — anchors level badge */
 .building-thumb-wrapper {
   position: relative;
   flex-shrink: 0;
 }
 
+/* Building thumbnail image */
 .building-thumb {
   display: block;
   width: var(--thumb-h);
@@ -209,6 +214,7 @@ function act() {
   transition: filter 0.3s ease;
 }
 
+/* Grayscale filter for unbuilt buildings */
 .building-thumb-unbuilt {
   filter: grayscale(1) drop-shadow(0 0 2px rgba(var(--color-shadow-rgb), 0.4));
 }
@@ -227,6 +233,7 @@ function act() {
   padding: 0.3rem 0.4rem;
 }
 
+/* Info column — name, actions, worker row */
 .building-info {
   flex: 1;
   display: flex;
@@ -236,11 +243,13 @@ function act() {
   align-self: stretch;
 }
 
+/* Worker row + slot content side-by-side */
 .worker-slot-row {
   display: flex;
   align-items: center;
 }
 
+/* Building display name */
 .building-name {
   font-family: var(--font-body);
   font-size: 1.1rem;

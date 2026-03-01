@@ -27,6 +27,7 @@ const canAssign = computed(() =>
 )
 const canUnassign = computed(() => !building.value.isEmpty)
 
+/** Assigns a worker to this building (recruits if needed). */
 function assign() {
   if (!canAssign.value) {
     return
@@ -35,6 +36,7 @@ function assign() {
   gameState.assignWorker(props.buildingKey)
 }
 
+/** Removes a worker from this building back to idle. */
 function unassign() {
   if (!canUnassign.value) {
     return

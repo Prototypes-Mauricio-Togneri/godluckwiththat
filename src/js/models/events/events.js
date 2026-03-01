@@ -26,7 +26,7 @@ class Events {
 	 * @param {string} [data.buildingKey] - Building key for construction lookup
 	 * @param {string} [data.researchKey] - Research key for research lookup
 	 * @param {number} data.remainingSeconds - Countdown duration
-	 * @returns {EventFuture}
+	 * @returns {EventFuture} The created future event
 	 */
   addFuture(data) {
     const event = new EventFuture({
@@ -52,7 +52,7 @@ class Events {
 	 * @param {string[]} [data.params] - Positional i18n interpolation values
 	 * @param {string} [data.buildingKey] - Building key for construction lookup
 	 * @param {string} [data.researchKey] - Research key for research lookup
-	 * @returns {EventPast}
+	 * @returns {EventPast} The created past event
 	 */
   addPast(data) {
     const event = new EventPast({
@@ -151,7 +151,7 @@ class Events {
 
   /**
 	 * Returns future events sorted by remaining seconds ascending.
-	 * @returns {EventFuture[]}
+	 * @returns {EventFuture[]} Events sorted by remaining seconds ascending
 	 */
   get sortedFuture() {
     return [...this.future].sort((a, b) => a.remainingSeconds - b.remainingSeconds)
@@ -159,7 +159,7 @@ class Events {
 
   /**
 	 * Returns past events sorted by ID descending (most recent first).
-	 * @returns {EventPast[]}
+	 * @returns {EventPast[]} Events sorted by ID descending (most recent first)
 	 */
   get sortedPast() {
     return [...this.past].sort((a, b) => b.id - a.id)

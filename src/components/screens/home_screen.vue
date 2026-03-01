@@ -65,6 +65,7 @@ onMounted(() => {
   pointer-events: none;
 }
 
+/* Content wrapper — above the glow layer */
 .content {
   display: flex;
   flex-direction: column;
@@ -72,6 +73,8 @@ onMounted(() => {
   gap: 2rem;
   z-index: 1;
 }
+
+/* Game title heading */
 .title {
   font-family: var(--font-display);
   font-weight: 900;
@@ -86,10 +89,12 @@ onMounted(() => {
   display: block;
 }
 
+/* Second line — accent color */
 .title-line:nth-child(2) {
   color: rgba(var(--color-accent-rgb), 0.85);
 }
 
+/* Play button */
 .start-button {
   font-size: 1rem;
   letter-spacing: 0.2em;
@@ -104,6 +109,7 @@ onMounted(() => {
   transform: scale(0.97);
 }
 
+/* Desktop-only notice for mobile visitors */
 .mobile-notice {
   font-family: var(--font-display);
   font-size: 0.95rem;

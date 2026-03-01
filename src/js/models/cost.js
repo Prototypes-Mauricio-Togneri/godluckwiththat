@@ -29,7 +29,7 @@ class Cost {
 
   /**
    * Returns non-zero resource entries as a Map of key → amount.
-   * @returns {Map<string, number>}
+   * @returns {Map<string, number>} Non-zero resource entries as key-amount pairs
    */
   get entries() {
     const map = new Map()
@@ -60,7 +60,7 @@ class Cost {
   /**
    * Returns a new Cost with each resource multiplied by the given factor.
    * @param {number} factor - Multiplier to apply to every resource
-   * @returns {Cost}
+   * @returns {Cost} New Cost with each resource multiplied
    */
   multiply(factor) {
     return new Cost({
@@ -76,7 +76,7 @@ class Cost {
 
   /**
    * Returns a new Cost with each resource floored to the nearest integer.
-   * @returns {Cost}
+   * @returns {Cost} New Cost with each resource floored
    */
   get floor() {
     return new Cost({

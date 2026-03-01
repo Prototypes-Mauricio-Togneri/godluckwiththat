@@ -56,10 +56,18 @@ const CARD_COMPONENTS = {
   [BUILDING_TOWER]: TowerCard,
 }
 
+/** Returns the Vue component for a building key.
+ * @param {string} key - Building enum key
+ * @returns {object} Vue component for the building card
+ */
 function getCardComponent(key) {
   return CARD_COMPONENTS[key]
 }
 
+/** Returns CSS class for production rate coloring (positive, negative, or zero).
+ * @param {number} ratePerSecond - Net production rate per second
+ * @returns {string} CSS class name
+ */
 function rateClass(ratePerSecond) {
   const value = Math.round(ratePerSecond * 100) / 100
   if (value > 0) {
@@ -71,10 +79,18 @@ function rateClass(ratePerSecond) {
   return 'production-rate--zero'
 }
 
+/** Whether a resource has a storage cap (is not in the unbounded set).
+ * @param {string} resource - Resource key
+ * @returns {boolean} True if the resource is capped by storage
+ */
 function isBounded(resource) {
   return !UNBOUNDED_RESOURCES.includes(resource)
 }
 
+/** Percentage of storage cap filled for a resource (0-100).
+ * @param {string} resource - Resource key
+ * @returns {number} Fill percentage clamped to 0-100
+ */
 function resourceFillPercent(resource) {
   const current = resourceAmount(resource)
   const capacity = storageCap()
@@ -84,6 +100,10 @@ function resourceFillPercent(resource) {
   return Math.min(100, (current / capacity) * 100)
 }
 
+/** Time estimate until a resource is full or empty, or null if stable.
+ * @param {string} resource - Resource key
+ * @returns {string|null} Localized "full in" / "empty in" string, or null
+ */
 function timeEstimate(resource) {
   const rate = state.colony.netProduction(resource)
   if (Math.round(rate * SECONDS_PER_MINUTE) === 0) {
@@ -106,38 +126,70 @@ function timeEstimate(resource) {
   return null
 }
 
+/** Per-second gross production rate for a resource (before consumption).
+ * @param {string} resource - Resource key
+ * @returns {number} Production rate per second
+ */
 function grossProduction(resource) {
   return state.colony.production[resource]
 }
 
+/** Per-second consumption rate for a resource.
+ * @param {string} resource - Resource key
+ * @returns {number} Consumption rate per second (0 if none)
+ */
 function resourceConsumption(resource) {
   return state.colony.consumption[resource] ?? 0
 }
 
+/** Whether a resource has any active consumption.
+ * @param {string} resource - Resource key
+ * @returns {boolean} True if consumption rate is greater than zero
+ */
 function hasConsumption(resource) {
   return resourceConsumption(resource) > 0
 }
 
+/** Current amount of a resource in the colony.
+ * @param {string} resource - Resource key
+ * @returns {number} Current resource amount
+ */
 function resourceAmount(resource) {
   return state.colony.resources[resource]
 }
 
+/** Current storage cap from the storehouse building.
+ * @returns {number} Maximum storable amount for bounded resources
+ */
 function storageCap() {
   return state.colony.buildings.storehouse.storageCap
 }
 
+/** Season progress as a fraction from 0 to 1.
+ * @returns {number} Fraction of current season elapsed
+ */
 function seasonProgress() {
   return state.colony.season.seasonElapsed / SEASON_DURATION
 }
 
+/** Image path for the current season icon (warm or cold).
+ * @returns {string} Season icon asset path
+ */
 function seasonIcon() {
   return state.colony.season.isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD
 }
 
+/** Localized tooltip text showing the current season name.
+ * @returns {string} Localized season label
+ */
 function seasonTooltip() {
   return `${t('season.name')}: ${t('season.' + state.colony.season.currentSeason)}`
 }
 
+/** Building thumbnail path; special-cases HQ to use type-specific image.
+ * @param {object} building - Building grid entry with key and img
+ * @returns {string} Image asset path for the building
+ */
 function getBuildingImg(building) {
   if (building.key === BUILDING_HEADQUARTERS) {
     return IMG_BUILDING_HEADQUARTERS_MAP[state.colony.buildings.headquarters.type]
@@ -145,6 +197,10 @@ function getBuildingImg(building) {
   return building.img
 }
 
+/** Whether a building is locked based on current HQ type progression.
+ * @param {string} buildingKey - Building enum key
+ * @returns {boolean} True if the building has not been unlocked yet
+ */
 function isBuildingLocked(buildingKey) {
   if (buildingKey === BUILDING_HEADQUARTERS) {
     return false
@@ -158,6 +214,10 @@ function isBuildingLocked(buildingKey) {
   return true
 }
 
+/** Whether a resource is visible based on current HQ type progression.
+ * @param {string} resource - Resource key
+ * @returns {boolean} True if the resource has been unlocked
+ */
 function isResourceVisible(resource) {
   const currentTypeIndex = HQ_TYPES.indexOf(state.colony.buildings.headquarters.type)
   for (let i = 0; i <= currentTypeIndex; i++) {
@@ -191,6 +251,7 @@ provide('openMarketModal', () => {
 const futureEvents = computed(() => state.colony.events.sortedFuture)
 const pastEvents = computed(() => state.colony.events.sortedPast)
 
+/** Clears all past events and closes the confirmation modal. */
 function clearAllPast() {
   state.colony.events.dismissAllPast()
   showClearConfirm.value = false
@@ -201,6 +262,7 @@ let lastTickTime = 0
 let progressAnimFrame = null
 let lastProgressTickTime = 0
 
+/** Main 1-second game loop: applies production, consumption, and advances visual progress. */
 function gameTick() {
   const now = performance.now()
   const delta = (now - lastTickTime) / 1000
@@ -216,6 +278,7 @@ function gameTick() {
   state.advanceEvents(progressDelta)
 }
 
+/** rAF loop for smooth visual progress (season, construction, research, events). */
 function progressTick() {
   if (paused.value) {
     return
@@ -230,6 +293,9 @@ function progressTick() {
   progressAnimFrame = requestAnimationFrame(progressTick)
 }
 
+/** Toggles the pause modal when Escape is pressed (ignores input fields).
+ * @param {KeyboardEvent} event - Keyboard event
+ */
 function handleKeydown(event) {
   if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
     return
@@ -452,6 +518,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/* Root layout container; fills viewport and stacks header + content vertically */
 .game-screen {
   --thumb-h: calc((100vh - 19.1rem - 16px) / 6);
   --thumb-h: calc((100dvh - 19.1rem - 16px) / 6);
@@ -483,11 +550,13 @@ onUnmounted(() => {
   gap: 1rem;
 }
 
+/* Season indicator with icon and progress bar */
 .header-season {
   gap: 0.5rem;
   flex-shrink: 0;
 }
 
+/* Vertically stacks season indicator and year label */
 .header-season-group {
   display: flex;
   flex-direction: column;
@@ -496,6 +565,7 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
+/* "YEAR" label text in subdued uppercase */
 .header-year {
   font-family: var(--font-display);
   font-size: 0.7rem;
@@ -504,12 +574,14 @@ onUnmounted(() => {
   color: rgba(var(--color-text-rgb), 0.55);
 }
 
+/* Numeric year value displayed in monospace font */
 .header-year-num {
   font-family: var(--font-numeric);
   color: var(--color-text);
   margin-left: 0.5em;
 }
 
+/* Centered resource boxes that expand to fill available header space */
 .header-resources {
   flex: 1;
   justify-content: center;
@@ -517,6 +589,7 @@ onUnmounted(() => {
   gap: 0.5rem;
 }
 
+/* Colony stats (population, idle workers, territory) with fixed minimum width */
 .header-colony {
   justify-content: space-evenly;
   gap: 1.5rem;
@@ -532,11 +605,13 @@ onUnmounted(() => {
   gap: 0.35rem;
 }
 
+/* Larger icon size for worker population display */
 .resource-icon--worker {
   width: 1.4rem;
   height: 1.4rem;
 }
 
+/* Slightly larger icon size for territory display */
 .resource-icon--territory {
   width: 1.55rem;
   height: 1.55rem;
@@ -550,6 +625,7 @@ onUnmounted(() => {
   filter: drop-shadow(0 0 3px rgba(var(--color-shadow-rgb), 0.4));
 }
 
+/* Thin horizontal bar background for season progress */
 .season-track {
   width: 5.5rem;
   height: 4px;
@@ -558,16 +634,19 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
+/* Animated fill bar inside the season track */
 .season-fill {
   height: 100%;
   border-radius: 0.125rem;
 }
 
+/* Warm season: golden gradient fill with warm glow */
 .season-track--warm .season-fill {
   background: linear-gradient(90deg, rgba(184, 148, 62, 1), rgba(212, 168, 67, 1));
   box-shadow: 0 0 6px rgba(184, 148, 62, 0.4);
 }
 
+/* Cold season: blue gradient fill with cool glow */
 .season-track--cold .season-fill {
   background: linear-gradient(90deg, rgba(91, 143, 185, 1), rgba(126, 200, 227, 1));
   box-shadow: 0 0 6px rgba(126, 200, 227, 0.35);
@@ -677,6 +756,7 @@ onUnmounted(() => {
   gap: 0.75rem;
 }
 
+/* Row layout for past-events heading with clear-all button aligned right */
 .events-section-header {
   display: flex;
   align-items: baseline;
@@ -684,10 +764,12 @@ onUnmounted(() => {
   padding-bottom: 0.35rem;
 }
 
+/* Remove bottom padding when label is inside the header row */
 .events-section-header .events-section-label {
   padding-bottom: 0;
 }
 
+/* Destructive-style text button to clear all past events */
 .events-clear-btn {
   font-family: var(--font-display);
   font-size: 0.7rem;
@@ -706,6 +788,7 @@ onUnmounted(() => {
   color: rgba(196, 80, 80, 1);
 }
 
+/* Subdued uppercase section label for "Future" / "Past" event groups */
 .events-section-label {
   font-family: var(--font-display);
   font-size: 0.7rem;
@@ -716,12 +799,14 @@ onUnmounted(() => {
   padding-bottom: 0.35rem;
 }
 
+/* Vertical stack of event rows with small gaps */
 .events-list {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
 }
 
+/* Individual event card with accent left border */
 .event-row {
   display: flex;
   align-items: center;
@@ -739,6 +824,7 @@ onUnmounted(() => {
   border-left-color: rgba(var(--color-accent-rgb), 0.7);
 }
 
+/* Small event type icon with drop shadow */
 .event-icon {
   width: 1.1rem;
   height: 1.1rem;
@@ -747,6 +833,7 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
+/* Event description text, truncated with ellipsis on overflow */
 .event-text {
   flex: 1;
   font-family: var(--font-body);
@@ -759,6 +846,7 @@ onUnmounted(() => {
   min-width: 0;
 }
 
+/* Monospace countdown timer for upcoming events */
 .event-countdown {
   font-family: var(--font-numeric);
   font-size: 0.8rem;
@@ -768,6 +856,7 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
+/* Small close button to dismiss a single past event */
 .event-dismiss {
   display: flex;
   align-items: center;
@@ -794,6 +883,7 @@ onUnmounted(() => {
   background: rgba(196, 80, 80, 0.1);
 }
 
+/* Placeholder text shown when no events exist */
 .events-empty {
   font-family: var(--font-body);
   font-size: 0.8rem;

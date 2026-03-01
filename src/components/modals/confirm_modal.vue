@@ -25,6 +25,7 @@ const emit = defineEmits([
 const visible = ref(false)
 let rafId = null
 
+/** Closes modal on Escape key (capture phase). */
 function handleKeydown(event) {
   if (event.key === 'Escape') {
     event.stopImmediatePropagation()

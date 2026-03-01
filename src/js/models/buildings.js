@@ -53,7 +53,7 @@ class Buildings {
 
   /**
    * Returns the sum of all building levels excluding headquarters.
-   * @returns {number}
+   * @returns {number} Sum of all building levels excluding headquarters
    */
   get totalLevels() {
     return Object.values(this).reduce((sum, building) => sum + building.level, 0) - this.headquarters.level
@@ -61,7 +61,7 @@ class Buildings {
 
   /**
    * Returns the total number of workers assigned across all producer buildings.
-   * @returns {number}
+   * @returns {number} Total workers assigned across all producer buildings
    */
   get totalAssignedWorkers() {
     return this.farm.workers
@@ -77,7 +77,7 @@ class Buildings {
   /**
    * Returns the count of non-HQ buildings currently under construction.
    * Each counts as one reserved territory slot.
-   * @returns {number}
+   * @returns {number} Count of non-HQ buildings under construction
    */
   get pendingTerritory() {
     return Object.entries(this).reduce((sum, [

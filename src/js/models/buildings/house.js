@@ -19,7 +19,7 @@ class House extends Building {
   /**
    * Maximum population capacity at the current level.
    * @param {number} [habitationBonus=0] - Flat bonus per level from habitation research
-   * @returns {number}
+   * @returns {number} Maximum population at current level
    */
   populationCap(habitationBonus = 0) {
     return this.level * (HOUSE_POPULATION_PER_LEVEL + habitationBonus)
@@ -27,7 +27,7 @@ class House extends Building {
 
   /**
    * Cost to level up from the current level.
-   * @returns {Cost}
+   * @returns {Cost} Resource cost for the next level
    */
   get levelUpCost() {
     const {
