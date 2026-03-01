@@ -485,7 +485,7 @@ class State {
   get expansionCost() {
     const baseCost = this.colony.buildings.headquarters.levelUpCost
     const bonuses = this.colony.buildings.academy.completedBonuses(RESEARCH_TREE)
-    const mult = 1 / (1 + (bonuses[BONUS_EXPANSION_COST] ?? 0))
+    const mult = 1 - (bonuses[BONUS_EXPANSION_COST] ?? 0)
     return baseCost.multiply(mult).floor
   }
 
@@ -495,7 +495,7 @@ class State {
    */
   get _constructionDurationMult() {
     const bonuses = this.colony.buildings.academy.completedBonuses(RESEARCH_TREE)
-    return 1 / (1 + (bonuses[BONUS_CONSTRUCTION_TIME] ?? 0))
+    return 1 - (bonuses[BONUS_CONSTRUCTION_TIME] ?? 0)
   }
 
   /**
