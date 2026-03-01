@@ -38,7 +38,7 @@ class Headquarters extends Building {
 
   /**
    * Cost to increase HQ from the current level to the next.
-   * Formula: wood = floor(BASE_WOOD * MULTIPLIER ^ (level - 1))
+   * Formula: floor(baseCost * multiplier ^ (level - 1))
    * @returns {Cost}
    */
   get levelUpCost() {

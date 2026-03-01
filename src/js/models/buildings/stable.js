@@ -3,7 +3,7 @@ import {BUILDING_STABLE} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Trains mounted units.
+ * Trains cavalry units.
  */
 class Stable extends Building {
   /**

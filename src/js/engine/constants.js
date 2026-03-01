@@ -30,7 +30,7 @@ import Meta from '@/js/models/meta.js'
 import Production from '@/js/models/production.js'
 import Resources from '@/js/models/resources.js'
 
-// Structural constants — class maps, sets, and factory functions.
+// Structural constants — class maps, arrays, config objects, and factory functions.
 
 // Tick interval in milliseconds
 export const TICK_INTERVAL = 1000
@@ -644,6 +644,7 @@ export function createInitialMeta() {
 
 /**
  * Creates the colony used for a new game session.
+ * Currently delegates to createInitialColonyAdvanced for development/testing.
  * @returns {Colony} Fully initialized colony
  */
 export function createInitialColony() {

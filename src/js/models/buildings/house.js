@@ -4,6 +4,8 @@ import Building from '@/js/models/buildings/building.js'
 
 /**
  * Provides housing for colony population.
+ *
+ * @property {number} workersCap - Cached population cap, recalculated each tick
  */
 class House extends Building {
   /**

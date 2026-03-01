@@ -34,6 +34,8 @@
    Shared Components
    ============================================ */
 
+/* ── .btn-gold ────────────────────────────────────────────────────── */
+
 /* Bronze-bordered button used across screens */
 .btn-gold {
     font-family: var(--font-body);
@@ -91,6 +93,8 @@
     box-shadow: none;
 }
 
+/* ── .tooltip ─────────────────────────────────────────────────────── */
+
 /* Hover tooltip anchored below the element */
 .tooltip {
     position: relative;
@@ -135,6 +139,8 @@
 .tooltip--delayed:hover::after {
     transition-delay: 1s;
 }
+
+/* ── .action-row / .action-btn / .action-cost ─────────────────────── */
 
 /* Action row — icon button beside resource cost items */
 .action-row {
@@ -234,6 +240,8 @@
     letter-spacing: 0.03em;
 }
 
+/* ── .slot-actions ────────────────────────────────────────────────── */
+
 /* Slot actions — stacked wrapper for action groups inside building card slots */
 .slot-actions {
     display: flex;
@@ -241,6 +249,8 @@
     gap: 0.5rem;
     margin-top: auto;
 }
+
+/* ── .modal-close-x / .modal-help-btn / .card-modal-btn ───────────── */
 
 /* Modal close button — absolute-positioned X in top-right corner */
 .modal-close-x {
@@ -421,6 +431,8 @@
     filter: drop-shadow(0 0 2px rgba(var(--color-shadow-rgb), 0.4));
 }
 
+/* ── .worker-row / .worker-btn / .worker-count ────────────────────── */
+
 /* Worker assignment row — minus/plus buttons with centered count */
 .worker-row {
     display: flex;
@@ -511,6 +523,8 @@
     color: rgba(196, 80, 80, 1);
 }
 
+/* ── .production-rate ─────────────────────────────────────────────── */
+
 /* Production rate indicator — colored rate beside resource values */
 .production-rate {
     font-family: var(--font-numeric);
@@ -533,6 +547,8 @@
 .production-rate--zero {
     color: rgba(196, 80, 80, 1);
 }
+
+/* ── .resource-box / .resource-bar / .resource-tooltip ────────────── */
 
 /* Resource box — compact two-row container for header resource items */
 .resource-box {

@@ -3,7 +3,7 @@ import {BUILDING_TOWER} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Defensive ranged structure.
+ * Ranged attack structure.
  */
 class Tower extends Building {
   /**

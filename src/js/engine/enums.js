@@ -1,5 +1,5 @@
 // Pure string enums — zero dependencies.
-// Imported by balancing.js (at init time) and re-exported by constants.js.
+// Imported by balancing.js (at init time) and used by constants.js.
 
 // Resource names
 export const RESOURCE_FOOD = 'food'

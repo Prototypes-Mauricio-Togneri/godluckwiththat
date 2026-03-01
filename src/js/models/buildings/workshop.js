@@ -3,7 +3,7 @@ import {BUILDING_WORKSHOP} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Crafts siege equipment.
+ * Trains siege units.
  */
 class Workshop extends Building {
   /**

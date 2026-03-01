@@ -6,6 +6,7 @@ import EventPast from '@/js/models/events/event_past.js'
  *
  * @property {EventFuture[]} future - Active future events (countdowns)
  * @property {EventPast[]} past - Active past events (notifications)
+ * @property {number} _nextId - Auto-incrementing event ID counter
  */
 class Events {
   /** Initializes empty event containers. */
@@ -21,6 +22,9 @@ class Events {
 	 * @param {string} data.type - Event type constant
 	 * @param {string} data.textKey - i18n key
 	 * @param {string} data.icon - Full image path (e.g. '/img/resources/food.png')
+	 * @param {string[]} [data.params] - Positional i18n interpolation values
+	 * @param {string} [data.buildingKey] - Building key for construction lookup
+	 * @param {string} [data.researchKey] - Research key for research lookup
 	 * @param {number} data.remainingSeconds - Countdown duration
 	 * @returns {EventFuture}
 	 */
@@ -45,6 +49,9 @@ class Events {
 	 * @param {string} data.type - Event type constant
 	 * @param {string} data.textKey - i18n key
 	 * @param {string} data.icon - Full image path (e.g. '/img/resources/food.png')
+	 * @param {string[]} [data.params] - Positional i18n interpolation values
+	 * @param {string} [data.buildingKey] - Building key for construction lookup
+	 * @param {string} [data.researchKey] - Research key for research lookup
 	 * @returns {EventPast}
 	 */
   addPast(data) {

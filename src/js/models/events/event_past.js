@@ -10,6 +10,9 @@ class EventPast extends Event {
 	 * @param {string} data.type
 	 * @param {string} data.textKey
 	 * @param {string} data.icon
+	 * @param {string[]} [data.params] - Positional i18n interpolation values
+	 * @param {string} [data.buildingKey] - Building key for construction lookup
+	 * @param {string} [data.researchKey] - Research key for research lookup
 	 */
   constructor(data) {
     super(data)

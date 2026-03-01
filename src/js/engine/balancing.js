@@ -182,7 +182,7 @@ export const HQ_UPGRADE_COSTS = {
 
 // ── Production ──────────────────────────────────────────────────────
 
-// Base production rates per worker per second (building key → resource + rate)
+// Base production rates per second (building key → resource + rate). Worker-based unless passive: true (per-level).
 export const PRODUCTION_RATES = {
   [BUILDING_FARM]: {
     resource: RESOURCE_FOOD,

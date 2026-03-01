@@ -3,7 +3,7 @@ import {BUILDING_ARCHERY} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Trains ranged units.
+ * Trains archer units.
  */
 class Archery extends Building {
   /**

@@ -36,7 +36,7 @@ class Academy extends Producer {
 
   /**
    * @param {string} key - Research key
-   * @returns {boolean}
+   * @returns {boolean} Whether the research is completed
    */
   isCompleted(key) {
     return this.completed.has(key)
@@ -44,7 +44,7 @@ class Academy extends Producer {
 
   /**
    * @param {string} key - Research key
-   * @returns {boolean}
+   * @returns {boolean} Whether the research is currently active
    */
   isActive(key) {
     return this.active.has(key)
@@ -61,7 +61,7 @@ class Academy extends Producer {
 
   /**
    * @param {string} key - Research key
-   * @returns {Research|undefined}
+   * @returns {Research|undefined} The active research instance, or undefined if not active
    */
   getActive(key) {
     return this.active.get(key)
@@ -87,7 +87,7 @@ class Academy extends Producer {
 
   /**
    * Aggregates bonus values from all completed researches by bonus type.
-   * @param {Array} researchTree - RESEARCH_TREE from constants.js
+   * @param {Array<Object>} researchTree - RESEARCH_TREE from constants.js
    * @returns {Object<string, number>} Bonus type → cumulative value
    */
   completedBonuses(researchTree) {

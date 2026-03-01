@@ -1,3 +1,5 @@
+// Central game state container — mutation handler, game loop, and player actions.
+
 import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_BONUS_MAP, PRODUCTION_RATES, RESEARCH_COSTS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, IMG_RESOURCE_KNOWLEDGE, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_CREATED, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
@@ -34,7 +36,7 @@ class GameState {
 
   /**
    * Advances the colony simulation by the given time delta.
-   * Recomputes production rates from assigned workers and altar level,
+   * Recomputes production rates from assigned workers and passive building levels,
    * applies resource gains scaled by delta, and caps at storage limits.
    *
    * @param {number} delta - Seconds elapsed since last tick
@@ -277,7 +279,7 @@ class GameState {
   }
 
   /**
-   * Levels up a non-HQ building: deducts cost, increments level and territory.
+   * Starts construction of a non-HQ building: deducts cost, reserves territory, begins build timer.
    * @param {string} buildingKey - Key in colony.buildings
    */
   levelUpBuilding(buildingKey) {
@@ -318,7 +320,7 @@ class GameState {
   }
 
   /**
-   * Expands territory: deducts cost, increments HQ level (no territory cost).
+   * Starts HQ territory expansion: deducts cost, begins construction timer.
    */
   expandTerritory() {
     const {
@@ -347,7 +349,7 @@ class GameState {
   }
 
   /**
-   * Upgrades the headquarters to the next type: deducts cost, advances type.
+   * Starts a headquarters type upgrade: deducts cost, begins upgrade timer.
    */
   upgradeHeadquarters() {
     const {

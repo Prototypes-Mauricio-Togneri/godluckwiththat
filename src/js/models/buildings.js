@@ -17,12 +17,12 @@ import {BUILDING_HEADQUARTERS} from '@/js/engine/enums.js'
  * @property {CopperMine} copperMine - Copper production
  * @property {IronMine} ironMine - Iron production
  * @property {GoldMine} goldMine - Gold production
- * @property {Barracks} barracks - Military infantry
- * @property {Archery} archery - Military ranged
- * @property {Stable} stable - Military mounted
- * @property {Workshop} workshop - Military siege
- * @property {Wall} wall - Defensive structure
- * @property {Tower} tower - Defensive structure
+ * @property {Barracks} barracks - Infantry training
+ * @property {Archery} archery - Archer unit training
+ * @property {Stable} stable - Cavalry unit training
+ * @property {Workshop} workshop - Siege unit training
+ * @property {Wall} wall - Defensive fortification
+ * @property {Tower} tower - Ranged attack structure
  */
 class Buildings {
   /**
@@ -36,7 +36,7 @@ class Buildings {
     this.market = data.market // Resource trading
     this.altar = data.altar // Passive faith generation
     this.temple = data.temple // Worker-based faith production
-    this.monument = data.monument // Divine structure
+    this.monument = data.monument // One-time faith grants per level
     this.farm = data.farm // Food production
     this.woodcutter = data.woodcutter // Wood production
     this.quarry = data.quarry // Stone production
@@ -44,15 +44,15 @@ class Buildings {
     this.ironMine = data.ironMine // Iron production
     this.goldMine = data.goldMine // Gold production
     this.barracks = data.barracks // Infantry training
-    this.archery = data.archery // Ranged unit training
-    this.stable = data.stable // Mounted unit training
-    this.workshop = data.workshop // Siege equipment
+    this.archery = data.archery // Archer unit training
+    this.stable = data.stable // Cavalry unit training
+    this.workshop = data.workshop // Siege unit training
     this.wall = data.wall // Defensive fortification
-    this.tower = data.tower // Defensive ranged structure
+    this.tower = data.tower // Ranged attack structure
   }
 
   /**
-   * Returns the sum of all building levels (i.e. total territory used).
+   * Returns the sum of all building levels excluding headquarters.
    * @returns {number}
    */
   get totalLevels() {

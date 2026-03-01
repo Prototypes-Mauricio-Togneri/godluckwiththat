@@ -1,5 +1,6 @@
 /**
  * Tracks per-second consumption rates for each resource.
+ * Ephemeral model recalculated each tick by GameState.update(), not persisted.
  *
  * @property {number} food - Food consumption per second
  * @property {number} wood - Wood consumption per second

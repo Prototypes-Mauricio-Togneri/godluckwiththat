@@ -1,3 +1,5 @@
+// Singleton audio manager — sound effects and background music playback.
+
 import {SND_BUTTON_TAP} from '@/js/engine/assets.js'
 import {AUDIO_CONFIG} from '@/js/engine/constants.js'
 import storage from '@/js/engine/storage.js'
@@ -7,6 +9,7 @@ import storage from '@/js/engine/storage.js'
  * Persists enabled/disabled preferences via storage.
  */
 class Audio {
+  /** Initializes audio state from persisted preferences and sets up visibility change listener. */
   constructor() {
     this._musicEnabled = storage.musicEnabled // Whether music is on (persisted)
     this._soundEnabled = storage.soundEnabled // Whether sounds are on (persisted)
