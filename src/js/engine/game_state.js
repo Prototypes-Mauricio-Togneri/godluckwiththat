@@ -294,11 +294,10 @@ class GameState {
     resources.deduct(cost)
     const duration = building.levelUp(cost)
 
-    const isNewBuilding = building.isUnbuilt
     this.colony.events.dismissPastByType(EVENT_TYPE_BUILDING_UPGRADE)
     this.colony.events.addFuture({
       type: EVENT_TYPE_BUILDING_UPGRADE,
-      textKey: isNewBuilding ? 'event.buildingBuilding' : 'event.buildingUpgrading',
+      textKey: building.isUnbuilt ? 'event.buildingBuilding' : 'event.buildingUpgrading',
       icon: BUILDING_IMAGE_MAP[buildingKey],
       params: [this._buildingName(buildingKey).toLowerCase()],
       buildingKey: buildingKey,
