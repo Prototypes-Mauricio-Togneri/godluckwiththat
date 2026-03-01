@@ -34,7 +34,7 @@ class EventFuture extends Event {
 
   /**
    * Serializable snapshot for save/load.
-   * @returns {Object}
+   * @returns {Object} Plain object snapshot for serialization
    */
   toJSON() {
     return {

@@ -13,8 +13,8 @@ const NUMBER_SUFFIXES = [
 
 /**
  * Formats seconds as MM:SS or HH:MM:SS (hours only when >= 3600s).
- * @param {number} totalSeconds
- * @returns {string}
+ * @param {number} totalSeconds - Total elapsed seconds
+ * @returns {string} Formatted time string (MM:SS or HH:MM:SS)
  */
 export function formatTime(totalSeconds) {
   const seconds = Math.ceil(totalSeconds)
@@ -30,8 +30,8 @@ export function formatTime(totalSeconds) {
 
 /**
  * Abbreviates large numbers with K/M/B/T suffixes.
- * @param {number} n
- * @returns {string}
+ * @param {number} n - Number to abbreviate
+ * @returns {string} Abbreviated string with K/M/B/T suffix
  */
 export function formatNumber(n) {
   const floored = Math.floor(n)
@@ -47,8 +47,8 @@ export function formatNumber(n) {
 
 /**
  * Formats a per-second rate as a display string with unit suffix.
- * @param {number} ratePerSecond
- * @returns {string}
+ * @param {number} ratePerSecond - Resource production rate per second
+ * @returns {string} Formatted rate with per-second suffix
  */
 export function formatRate(ratePerSecond) {
   const value = Math.round(ratePerSecond * 100) / 100

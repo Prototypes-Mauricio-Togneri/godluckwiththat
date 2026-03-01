@@ -18,11 +18,11 @@ class Market extends Building {
    */
   constructor(data) {
     super(data)
-    this[RESOURCE_FOOD] = data[RESOURCE_FOOD] ?? MARKET_BASE_PRICES[RESOURCE_FOOD]
-    this[RESOURCE_WOOD] = data[RESOURCE_WOOD] ?? MARKET_BASE_PRICES[RESOURCE_WOOD]
-    this[RESOURCE_STONE] = data[RESOURCE_STONE] ?? MARKET_BASE_PRICES[RESOURCE_STONE]
-    this[RESOURCE_COPPER] = data[RESOURCE_COPPER] ?? MARKET_BASE_PRICES[RESOURCE_COPPER]
-    this[RESOURCE_IRON] = data[RESOURCE_IRON] ?? MARKET_BASE_PRICES[RESOURCE_IRON]
+    this[RESOURCE_FOOD] = data[RESOURCE_FOOD] ?? MARKET_BASE_PRICES[RESOURCE_FOOD] // Current gold price per 100 food
+    this[RESOURCE_WOOD] = data[RESOURCE_WOOD] ?? MARKET_BASE_PRICES[RESOURCE_WOOD] // Current gold price per 100 wood
+    this[RESOURCE_STONE] = data[RESOURCE_STONE] ?? MARKET_BASE_PRICES[RESOURCE_STONE] // Current gold price per 100 stone
+    this[RESOURCE_COPPER] = data[RESOURCE_COPPER] ?? MARKET_BASE_PRICES[RESOURCE_COPPER] // Current gold price per 100 copper
+    this[RESOURCE_IRON] = data[RESOURCE_IRON] ?? MARKET_BASE_PRICES[RESOURCE_IRON] // Current gold price per 100 iron
   }
 
   /**
@@ -78,6 +78,7 @@ class Market extends Building {
     if (this.level < 1) {
       return false
     }
+    // Buy: deduct gold, add resource, raise price
     if (direction === TRADE_BUY) {
       const goldCost = this.buyPrice(resource)
       if (resources.gold < goldCost) {
@@ -89,6 +90,7 @@ class Market extends Building {
       resources.gold -= goldCost
       resources[resource] += MARKET_TRADE_AMOUNT
       this[resource] = Math.min(MARKET_MAX_CURRENT_PRICE, this[resource] + MARKET_PRICE_SHIFT)
+    // Sell: deduct resource, add gold, lower price
     } else {
       const goldGain = this.sellPrice(resource)
       if (resources[resource] < MARKET_TRADE_AMOUNT) {

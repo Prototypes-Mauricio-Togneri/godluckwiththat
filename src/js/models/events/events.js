@@ -112,7 +112,7 @@ class Events {
 
   /**
 	 * Removes an event by its ID.
-	 * @param {number} id
+	 * @param {number} id - Event ID to remove
 	 */
   dismiss(id) {
     let index = this.future.findIndex(event => event.id === id)
@@ -178,7 +178,7 @@ class Events {
 
   /**
    * Serializable snapshot for save/load.
-   * @returns {Object}
+   * @returns {Object} Plain object snapshot for serialization
    */
   toJSON() {
     return {

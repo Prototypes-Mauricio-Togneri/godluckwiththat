@@ -16,8 +16,8 @@ class Academy extends Producer {
    */
   constructor(data) {
     super(data)
-    this.completed = new Set(data.completed ?? [])
-    this.active = new Map()
+    this.completed = new Set(data.completed ?? []) // Set of completed research keys
+    this.active = new Map() // In-progress researches keyed by research key
     for (const entry of (data.active ?? [])) {
       this.active.set(entry.key, new Research(entry.duration, entry.remainingSeconds))
     }
@@ -146,8 +146,8 @@ class Research {
    * @param {number} [remainingSeconds] - Seconds remaining (defaults to duration)
    */
   constructor(duration, remainingSeconds = duration) {
-    this.duration = duration
-    this.remainingSeconds = remainingSeconds
+    this.duration = duration // Total duration in seconds
+    this.remainingSeconds = remainingSeconds // Seconds remaining until completion
   }
 
   /**
