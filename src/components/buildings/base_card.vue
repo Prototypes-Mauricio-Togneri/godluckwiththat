@@ -48,7 +48,7 @@ const isBuildable = computed(() => hasAction.value && props.building.isUnbuilt)
 const actionCost = computed(() =>
   hasAction.value ? props.building.levelUpCost() : null,
 )
-const territoryFull = computed(() => colony.resources.territory >= colony.stockpile.territory)
+const territoryFull = computed(() => colony.resources.territory >= colony.buildings.headquarters.territoryCap)
 const isConstructing = computed(() => props.building.isConstructing)
 const canActBase = computed(() =>
   actionCost.value !== null

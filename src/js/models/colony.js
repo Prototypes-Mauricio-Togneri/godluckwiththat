@@ -1,13 +1,12 @@
 /**
  * Colony data model. Wraps all colony sub-models
- * (resources, production, stockpile, buildings, researches).
+ * (resources, production, buildings, researches).
  *
  * @property {number} year - Current year (starts at 1, increments every warm+cold cycle)
  * @property {Season} season - Current season state
  * @property {number} idleWorkers - Workers not assigned to buildings (derived getter)
  * @property {Resources} resources - Current resource amounts
  * @property {Production} production - Per-second gross production rates
- * @property {Stockpile} stockpile - Maximum storage capacities
  * @property {Buildings} buildings - All building instances
  * @property {Researches} researches - Research progress (completed + active)
  * @property {Events} events - Game event log (future countdowns + past notifications)
@@ -21,7 +20,6 @@ class Colony {
     this.season = data.season // Season model (currentSeason + seasonElapsed)
     this.resources = data.resources // Current resource amounts
     this.production = data.production // Per-second gross production rates
-    this.stockpile = data.stockpile // Maximum storage capacities
     this.buildings = data.buildings // All building instances
     this.researches = data.researches // Research progress (completed + active)
     this.events = data.events // Game event log (future countdowns + past notifications)

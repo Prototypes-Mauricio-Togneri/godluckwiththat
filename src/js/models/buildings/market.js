@@ -71,16 +71,16 @@ class Market extends Building {
    * @param {string} resource - Resource key (food, wood, stone, copper, iron)
    * @param {'buy'|'sell'} direction - Trade direction
    * @param {Resources} resources - Current resource amounts (mutated in place)
-   * @param {Stockpile} stockpile - Maximum storage capacities
+   * @param {number} storageCap - Maximum storage capacity for bounded resources
    * @returns {boolean} Whether the trade was executed
    */
-  executeTrade(resource, direction, resources, stockpile) {
+  executeTrade(resource, direction, resources, storageCap) {
     if (direction === TRADE_BUY) {
       const goldCost = this.buyPrice(resource)
       if (resources.gold < goldCost) {
         return false
       }
-      if (resources[resource] + MARKET_TRADE_AMOUNT > stockpile[resource]) {
+      if (resources[resource] + MARKET_TRADE_AMOUNT > storageCap) {
         return false
       }
       resources.gold -= goldCost
@@ -91,7 +91,7 @@ class Market extends Building {
       if (resources[resource] < MARKET_TRADE_AMOUNT) {
         return false
       }
-      if (resources.gold + goldGain > stockpile.gold) {
+      if (resources.gold + goldGain > storageCap) {
         return false
       }
       resources.gold += goldGain

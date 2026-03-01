@@ -26,7 +26,7 @@ const gameState = inject('gameState')
 
 // Recruit worker
 const canAffordRecruit = computed(() => colony.resources.canAfford(WORKER_RECRUIT_COST))
-const canRecruitBeforeAfford = computed(() => colony.resources.workers < colony.stockpile.workers)
+const canRecruitBeforeAfford = computed(() => colony.resources.workers < colony.buildings.house.workersCap)
 const canRecruit = computed(() => canAffordRecruit.value && canRecruitBeforeAfford.value)
 
 const recruitTooltip = computed(() => {

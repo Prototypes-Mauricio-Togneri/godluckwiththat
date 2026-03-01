@@ -3,7 +3,7 @@ import {BUILDING_STOREHOUSE} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Increases resource stockpile capacity.
+ * Increases resource storage capacity.
  */
 class Storehouse extends Building {
   /**

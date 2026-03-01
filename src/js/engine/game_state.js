@@ -22,8 +22,8 @@ class GameState {
     this.meta = meta // Game metadata (version, timestamps, challenges)
     this.colony = colony // Active colony instance
 
-    // Track which bounded resources are currently at their stockpile cap
-    // (initialized empty — stockpile values are 0 before the first update tick)
+    // Track which bounded resources are currently at their storage cap
+    // (initialized empty — storage cap is 0 before the first update tick)
     this._resourcesAtCap = new Set()
 
     // Track which bounded resources currently have negative net production
@@ -35,27 +35,21 @@ class GameState {
   /**
    * Advances the colony simulation by the given time delta.
    * Recomputes production rates from assigned workers and altar level,
-   * applies resource gains scaled by delta, and caps at stockpile limits.
+   * applies resource gains scaled by delta, and caps at storage limits.
    *
    * @param {number} delta - Seconds elapsed since last tick
    */
   update(delta) {
     const {
-      resources, production, stockpile, buildings, consumption,
+      resources, production, buildings, consumption,
     } = this.colony
 
-    // Recalculate territory used and stockpile caps from building levels
+    // Recalculate territory used and cached caps from building levels
     resources.territory = buildings.totalLevels() + buildings.pendingTerritory()
-    stockpile.territory = buildings.headquarters.territoryCap()
     const bonuses = this.colony.researches.completedBonuses(RESEARCH_TREE)
     const habitationBonus = bonuses[BONUS_HABITATION] ?? 0
-    stockpile.workers = buildings.house.populationCap(habitationBonus)
-    stockpile.food = buildings.storehouse.storageCap()
-    stockpile.wood = buildings.storehouse.storageCap()
-    stockpile.stone = buildings.storehouse.storageCap()
-    stockpile.copper = buildings.storehouse.storageCap()
-    stockpile.iron = buildings.storehouse.storageCap()
-    stockpile.gold = buildings.storehouse.storageCap()
+    buildings.house.workersCap = buildings.house.populationCap(habitationBonus)
+    const storageCap = buildings.storehouse.storageCap()
 
     // Reset production rates to zero
     production.food = 0
@@ -113,17 +107,17 @@ class GameState {
       resources.wood = Math.max(0, resources.wood - woodCost)
     }
 
-    // Cap resources at stockpile limits
-    resources.food = Math.min(resources.food, stockpile.food)
-    resources.wood = Math.min(resources.wood, stockpile.wood)
-    resources.stone = Math.min(resources.stone, stockpile.stone)
-    resources.copper = Math.min(resources.copper, stockpile.copper)
-    resources.iron = Math.min(resources.iron, stockpile.iron)
-    resources.gold = Math.min(resources.gold, stockpile.gold)
+    // Cap resources at storage limits
+    resources.food = Math.min(resources.food, storageCap)
+    resources.wood = Math.min(resources.wood, storageCap)
+    resources.stone = Math.min(resources.stone, storageCap)
+    resources.copper = Math.min(resources.copper, storageCap)
+    resources.iron = Math.min(resources.iron, storageCap)
+    resources.gold = Math.min(resources.gold, storageCap)
 
-    // Fire events for resources that just reached their stockpile cap
+    // Fire events for resources that just reached their storage cap
     for (const resource of BOUNDED_RESOURCES) {
-      if (resources[resource] >= stockpile[resource]) {
+      if (resources[resource] >= storageCap) {
         if (!this._resourcesAtCap.has(resource)) {
           this._resourcesAtCap.add(resource)
           const config = RESOURCE_LIMIT_EVENT_CONFIG[resource]
@@ -288,12 +282,12 @@ class GameState {
    */
   levelUpBuilding(buildingKey) {
     const {
-      resources, stockpile, buildings,
+      resources, buildings,
     } = this.colony
     const building = buildings[buildingKey]
     const cost = building.levelUpCost()
 
-    if (building.isConstructing || !resources.canAfford(cost) || resources.territory >= stockpile.territory) {
+    if (building.isConstructing || !resources.canAfford(cost) || resources.territory >= buildings.headquarters.territoryCap) {
       return
     }
 
@@ -316,7 +310,7 @@ class GameState {
     this.update(0)
 
     // Fire territory event after update recalculates territory with pending
-    if (resources.territory >= stockpile.territory) {
+    if (resources.territory >= buildings.headquarters.territoryCap) {
       this.colony.events.addPast({
         type: EVENT_TYPE_TERRITORY_LIMIT_REACHED,
         textKey: 'event.territoryLimitReached',
@@ -412,15 +406,15 @@ class GameState {
    */
   _recruit() {
     const {
-      resources, stockpile,
+      resources, buildings,
     } = this.colony
-    if (!resources.canAfford(WORKER_RECRUIT_COST) || resources.workers >= stockpile.workers) {
+    if (!resources.canAfford(WORKER_RECRUIT_COST) || resources.workers >= buildings.house.workersCap) {
       return false
     }
     resources.deduct(WORKER_RECRUIT_COST)
     resources.workers += 1
     audio.playSound(SND_WORKER_CREATED)
-    if (resources.workers >= stockpile.workers) {
+    if (resources.workers >= buildings.house.workersCap) {
       this.colony.events.addPast({
         type: EVENT_TYPE_POPULATION_LIMIT_REACHED,
         textKey: 'event.populationLimitReached',
@@ -507,7 +501,7 @@ class GameState {
    */
   executeTrade(resource, direction) {
     const {
-      resources, stockpile, buildings,
+      resources, buildings,
     } = this.colony
     const market = buildings[BUILDING_MARKET]
 
@@ -515,7 +509,7 @@ class GameState {
       return
     }
 
-    if (market.executeTrade(resource, direction, resources, stockpile)) {
+    if (market.executeTrade(resource, direction, resources, buildings.storehouse.storageCap())) {
       this.update(0)
     }
   }

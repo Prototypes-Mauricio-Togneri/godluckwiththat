@@ -594,7 +594,7 @@
     font-variant-numeric: tabular-nums;
 }
 
-/* Red when at stockpile cap */
+/* Red when at storage cap */
 .resource-value--alert {
     color: rgba(192, 57, 43, 1);
 }

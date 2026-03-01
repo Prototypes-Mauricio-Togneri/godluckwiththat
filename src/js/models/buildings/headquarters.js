@@ -31,11 +31,8 @@ class Headquarters extends Building {
     return this.type === HQ_TYPES[HQ_TYPES.length - 1]
   }
 
-  /**
-   * Maximum territory capacity at the current level.
-   * @returns {number}
-   */
-  territoryCap() {
+  /** @returns {number} Maximum territory capacity at the current level. */
+  get territoryCap() {
     return this.level * HQ_TERRITORY_PER_LEVEL
   }
 

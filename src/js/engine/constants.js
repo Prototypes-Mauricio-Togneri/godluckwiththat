@@ -30,7 +30,6 @@ import Meta from '@/js/models/meta.js'
 import Researches from '@/js/models/researches.js'
 import Production from '@/js/models/production.js'
 import Resources from '@/js/models/resources.js'
-import Stockpile from '@/js/models/stockpile.js'
 
 // Structural constants — class maps, sets, and factory functions.
 
@@ -52,7 +51,7 @@ export const HEADER_RESOURCES = [
   RESOURCE_FAITH,
 ]
 
-// Bounded resources (subject to stockpile caps)
+// Bounded resources (subject to storage caps)
 export const BOUNDED_RESOURCES = [
   RESOURCE_FOOD,
   RESOURCE_WOOD,
@@ -62,7 +61,7 @@ export const BOUNDED_RESOURCES = [
   RESOURCE_GOLD,
 ]
 
-// Resources without a stockpile capacity (no progress bar, no "full in" estimate)
+// Resources without a storage capacity (no progress bar, no "full in" estimate)
 export const UNBOUNDED_RESOURCES = [
   RESOURCE_KNOWLEDGE,
   RESOURCE_FAITH,
@@ -690,17 +689,6 @@ export function createInitialColonyBasic() {
 
     consumption: new Consumption({}),
 
-    stockpile: new Stockpile({
-      territory: 0,
-      workers: 0,
-      food: 0,
-      wood: 0,
-      stone: 0,
-      copper: 0,
-      iron: 0,
-      gold: 0,
-    }),
-
     researches: new Researches(),
 
     events: new Events(),
@@ -808,17 +796,6 @@ export function createInitialColonyAdvanced() {
     }),
 
     consumption: new Consumption({}),
-
-    stockpile: new Stockpile({
-      territory: 0,
-      workers: 0,
-      food: 0,
-      wood: 0,
-      stone: 0,
-      copper: 0,
-      iron: 0,
-      gold: 0,
-    }),
 
     researches: new Researches(),
 

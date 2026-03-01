@@ -18,7 +18,7 @@ const gameState = inject('gameState')
 const building = computed(() => colony.buildings[props.buildingKey])
 const maxWorkers = computed(() => building.value.maxWorkers)
 const canRecruit = computed(() =>
-  colony.resources.workers < colony.stockpile.workers
+  colony.resources.workers < colony.buildings.house.workersCap
   && colony.resources.canAfford(WORKER_RECRUIT_COST),
 )
 const canAssign = computed(() =>

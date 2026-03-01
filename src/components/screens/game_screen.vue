@@ -77,7 +77,7 @@ function isBounded(resource) {
 
 function resourceFillPercent(resource) {
   const current = resourceAmount(resource)
-  const capacity = resourceStockpile(resource)
+  const capacity = storageCap()
   if (!capacity) {
     return 0
   }
@@ -92,7 +92,7 @@ function timeEstimate(resource) {
   const current = resourceAmount(resource)
 
   if (isBounded(resource) && rate > 0) {
-    const capacity = resourceStockpile(resource)
+    const capacity = storageCap()
     if (current >= capacity) {
       return null
     }
@@ -122,8 +122,8 @@ function resourceAmount(resource) {
   return state.colony.resources[resource]
 }
 
-function resourceStockpile(resource) {
-  return state.colony.stockpile[resource]
+function storageCap() {
+  return state.colony.buildings.storehouse.storageCap()
 }
 
 function seasonProgress() {
@@ -297,7 +297,7 @@ onUnmounted(() => {
             <!-- Row 1: icon + current amount -->
             <div class="resource-row-top">
               <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
-              <span class="resource-value" :class="{ 'resource-value--alert': isBounded(resource) && Math.floor(resourceAmount(resource)) >= resourceStockpile(resource), 'resource-value--zero': Math.floor(resourceAmount(resource)) === 0 }">
+              <span class="resource-value" :class="{ 'resource-value--alert': isBounded(resource) && Math.floor(resourceAmount(resource)) >= storageCap(), 'resource-value--zero': Math.floor(resourceAmount(resource)) === 0 }">
                 {{ formatNumber(resourceAmount(resource)) }}
               </span>
             </div>
@@ -322,7 +322,7 @@ onUnmounted(() => {
               <span>{{ t('resource.' + resource) }}</span>
               <!-- Intentional: toLocaleString() instead of formatNumber() to display all digits -->
               <span class="resource-tooltip-time">{{ t('resource.amount') }}: {{ Math.floor(resourceAmount(resource)).toLocaleString() }}</span>
-              <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(resourceStockpile(resource)) }}</span>
+              <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(storageCap()) }}</span>
               <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
               <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.producing') }}: {{ +grossProduction(resource).toFixed(2) }}</span>
               <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.consuming') }}: {{ +resourceConsumption(resource).toFixed(2) }}</span>
@@ -338,7 +338,7 @@ onUnmounted(() => {
       <div class="header-section header-colony">
         <div class="header-resource tooltip" :data-tooltip="t('resource.population')">
           <img class="resource-icon resource-icon--worker" :src="IMG_UNIT_WORKER" :alt="t('resource.population')">
-          <span class="resource-value" :class="{ 'resource-value--alert': state.colony.resources.workers >= state.colony.stockpile.workers, 'resource-value--zero': state.colony.resources.workers === 0 }">{{ formatNumber(state.colony.resources.workers) }}/{{ formatNumber(state.colony.stockpile.workers) }}</span>
+          <span class="resource-value" :class="{ 'resource-value--alert': state.colony.resources.workers >= state.colony.buildings.house.workersCap, 'resource-value--zero': state.colony.resources.workers === 0 }">{{ formatNumber(state.colony.resources.workers) }}/{{ formatNumber(state.colony.buildings.house.workersCap) }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.idleWorkers')">
           <img class="resource-icon" :src="IMG_OTHER_IDLE" :alt="t('resource.idleWorkers')">
@@ -346,7 +346,7 @@ onUnmounted(() => {
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.territory')">
           <img class="resource-icon resource-icon--territory" :src="IMG_OTHER_TERRITORY" :alt="t('resource.territory')">
-          <span class="resource-value" :class="{ 'resource-value--alert': state.colony.resources.territory >= state.colony.stockpile.territory }">{{ formatNumber(state.colony.resources.territory) }}/{{ formatNumber(state.colony.stockpile.territory) }}</span>
+          <span class="resource-value" :class="{ 'resource-value--alert': state.colony.resources.territory >= state.colony.buildings.headquarters.territoryCap }">{{ formatNumber(state.colony.resources.territory) }}/{{ formatNumber(state.colony.buildings.headquarters.territoryCap) }}</span>
         </div>
       </div>
 

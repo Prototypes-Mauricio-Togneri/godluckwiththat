@@ -11,6 +11,7 @@ class House extends Building {
    */
   constructor(data) {
     super(data)
+    this.workersCap = data.workersCap ?? 0 // Cached cap, set each tick by GameState.update()
   }
 
   /**
