@@ -608,8 +608,9 @@ class GameState {
   _buildingName(buildingKey) {
     if (buildingKey === BUILDING_HEADQUARTERS) {
       return t('building.headquarters.' + this.colony.buildings.headquarters.type)
+    } else {
+      return t('building.' + buildingKey)
     }
-    return t('building.' + buildingKey)
   }
 }
 
