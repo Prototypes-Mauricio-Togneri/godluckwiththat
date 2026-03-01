@@ -443,11 +443,8 @@ class GameState {
       academy,
     } = buildings
     const cost = RESEARCH_COSTS[key]
-    if (academy.isActive(key) ||
-        academy.isCompleted(key) ||
-        academy.level < 1 ||
-        !cost ||
-        !resources.canAfford(cost)) {
+
+    if (!academy.canResearch(key) || !cost || !resources.canAfford(cost)) {
       return
     }
 

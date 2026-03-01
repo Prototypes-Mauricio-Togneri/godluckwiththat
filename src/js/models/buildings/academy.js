@@ -51,6 +51,15 @@ class Academy extends Producer {
   }
 
   /**
+   * Whether the academy can start a given research.
+   * @param {string} key - Research key
+   * @returns {boolean}
+   */
+  canResearch(key) {
+    return this.level >= 1 && !this.isActive(key) && !this.isCompleted(key)
+  }
+
+  /**
    * @param {string} key - Research key
    * @returns {ResearchTask|undefined}
    */
