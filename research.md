@@ -44,14 +44,14 @@ Build the entire data layer and a read-only tech tree modal showing locked/avail
 Wire up the ability to start and complete researches.
 
 - Add `researchKey` field to Event base class
-- Add `startResearch()` to GameState (validate, deduct cost, create future event)
-- Add `advanceResearch(delta)` to GameState (tick timers, handle completion)
+- Add `startResearch()` to State (validate, deduct cost, create future event)
+- Add `advanceResearch(delta)` to State (tick timers, handle completion)
 - Hook `advanceResearch` into game tick loops
 - Wire start button in research modal
 
 ### Phase 3: Apply Bonuses to Game Systems
 
-Bonus aggregation is implemented — `completedBonuses()` runs every tick at `game_state.js:55` and returns a `{bonusType: cumulativeValue}` map. Currently only `BONUS_HABITATION` is consumed (passed to `populationCap()` at line 57). All other 17 bonuses are computed but discarded.
+Bonus aggregation is implemented — `completedBonuses()` runs every tick at `state.js:55` and returns a `{bonusType: cumulativeValue}` map. Currently only `BONUS_HABITATION` is consumed (passed to `populationCap()` at line 57). All other 17 bonuses are computed but discarded.
 
 #### Current state
 
@@ -59,7 +59,7 @@ The `bonuses` object is already available in `update()`. Each bonus value is a c
 
 #### Step 3a: Production bonuses (6 bonuses)
 
-**Where:** `game_state.js` lines 76-88, the `PRODUCTION_RATES` loop.
+**Where:** `state.js` lines 76-88, the `PRODUCTION_RATES` loop.
 
 **Current code:**
 ```js
@@ -110,7 +110,7 @@ const bonusMult = 1 + (bonusType ? (bonuses[bonusType] ?? 0) : 0)
 
 #### Step 3b: Worker productivity bonus (1 bonus)
 
-**Where:** Same `PRODUCTION_RATES` loop, `game_state.js` lines 76-88.
+**Where:** Same `PRODUCTION_RATES` loop, `state.js` lines 76-88.
 
 `BONUS_WORKER_PRODUCTIVITY` increases output for all worker-based (non-passive) buildings. Apply as an additional multiplier in the `else if (building.workers > 0)` branch only:
 
@@ -124,7 +124,7 @@ This stacks with per-resource bonuses (e.g. a farm with 3 Transportation tiers +
 
 #### Step 3c: Consumption reduction bonuses (2 bonuses)
 
-**Where:** `game_state.js` lines 107-114 (actual resource deduction) and lines 154-157 (displayed production rates).
+**Where:** `state.js` lines 107-114 (actual resource deduction) and lines 154-157 (displayed production rates).
 
 **Current code (deduction):**
 ```js
@@ -152,7 +152,7 @@ Replace `WORKER_FOOD_CONSUMPTION` → `effFoodCons` and `WORKER_WOOD_CONSUMPTION
 
 #### Step 3d: Storage capacity bonus (1 bonus)
 
-**Where:** `storehouse.js:20-22` (`storageCap()` method) and `game_state.js:58-63` (6 calls to `storageCap()`).
+**Where:** `storehouse.js:20-22` (`storageCap()` method) and `state.js:58-63` (6 calls to `storageCap()`).
 
 **Current code:**
 ```js
@@ -168,7 +168,7 @@ storageCap(storageBonus = 0) {
 }
 ```
 
-In `game_state.js`, extract the bonus and pass to all 6 calls:
+In `state.js`, extract the bonus and pass to all 6 calls:
 ```js
 const storageBonus = bonuses[BONUS_STORAGE_CAPACITY] ?? 0
 stockpile.food = buildings.storehouse.storageCap(storageBonus)
@@ -177,7 +177,7 @@ stockpile.food = buildings.storehouse.storageCap(storageBonus)
 
 #### Step 3e: Construction time bonus (1 bonus)
 
-**Where:** `game_state.js` — 3 locations that compute `cost.toSeconds()`:
+**Where:** `state.js` — 3 locations that compute `cost.toSeconds()`:
 - Line 273: `levelUpBuilding()` (regular buildings)
 - Line 314: `expandTerritory()` (territory expansion)
 - Line 343: `upgradeHeadquarters()` (HQ type upgrade)
@@ -194,11 +194,11 @@ const duration = Math.max(1, Math.floor(cost.toSeconds() / (1 + constructionBonu
 
 #### Step 3f: Expansion cost bonus (1 bonus)
 
-**Where:** `headquarters.js:58-60` (`upgradeCost()`) and `game_state.js:339` (`upgradeHeadquarters()`).
+**Where:** `headquarters.js:58-60` (`upgradeCost()`) and `state.js:339` (`upgradeHeadquarters()`).
 
 `BONUS_EXPANSION_COST` reduces the resource cost of HQ type upgrades.
 
-**Option A — Apply in GameState (recommended):** Modify `upgradeHeadquarters()` to apply the discount after getting the base cost. This keeps the model pure and avoids threading bonuses through building classes:
+**Option A — Apply in State (recommended):** Modify `upgradeHeadquarters()` to apply the discount after getting the base cost. This keeps the model pure and avoids threading bonuses through building classes:
 
 ```js
 upgradeHeadquarters() {
@@ -235,7 +235,7 @@ Recommend: Add a `discountedUpgradeCost` computed in the component that applies 
 
 ##### Stage 1: Production & Consumption (steps 3a + 3b + 3c) — 9 bonuses
 
-All changes in `game_state.js` `update()` (lines 76-157) + new `PRODUCTION_BONUS_MAP` in `balancing.js`.
+All changes in `state.js` `update()` (lines 76-157) + new `PRODUCTION_BONUS_MAP` in `balancing.js`.
 
 | Category  | Subcategory      | Bonus                        | Effect                                         |
 |-----------|------------------|------------------------------|------------------------------------------------|
@@ -248,7 +248,7 @@ All changes in `game_state.js` `update()` (lines 76-157) + new `PRODUCTION_BONUS
 | Resources | Knowledge        | `BONUS_KNOWLEDGE_PRODUCTION` | +5%/tier Academy output                        |
 | Religion  | Faith            | `BONUS_FAITH_PRODUCTION`     | +5%/tier Temple + Altar output                 |
 
-Files: `balancing.js`, `game_state.js`
+Files: `balancing.js`, `state.js`
 
 ##### Stage 2: Storage (step 3d) — 1 bonus
 
@@ -256,7 +256,7 @@ Files: `balancing.js`, `game_state.js`
 |----------|-------------|--------------------------|---------------------------------------|
 | General  | Storage     | `BONUS_STORAGE_CAPACITY` | +10%/tier all resource stockpile caps |
 
-Files: `storehouse.js`, `game_state.js`
+Files: `storehouse.js`, `state.js`
 
 ##### Stage 3: Construction & Expansion (steps 3e + 3f) — 2 bonuses
 
@@ -265,7 +265,7 @@ Files: `storehouse.js`, `game_state.js`
 | General  | Construction | `BONUS_CONSTRUCTION_TIME` | -10%/tier building/upgrade duration |
 | General  | Expansion    | `BONUS_EXPANSION_COST`    | -10%/tier HQ type upgrade cost      |
 
-Files: `game_state.js`, `headquarters_card.vue`
+Files: `state.js`, `headquarters_card.vue`
 
 ##### Deferred (steps 3g + 3h + 3i) — 6 bonuses
 

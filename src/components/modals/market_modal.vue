@@ -11,7 +11,7 @@ import ModalHelpModal from '@/components/modals/help_modal.vue'
 
 const emit = defineEmits(['close'])
 const colony = inject('colony')
-const gameState = inject('gameState')
+const state = inject('state')
 const visible = ref(false)
 const showHelp = ref(false)
 let rafId = null
@@ -75,7 +75,7 @@ function buy(resource) {
     return
   }
   audio.playSound(SND_MARKET_EXCHANGE)
-  gameState.executeTrade(resource, TRADE_BUY)
+  state.executeTrade(resource, TRADE_BUY)
 }
 
 /** Executes a sell trade if the colony has enough stock, playing the exchange sound effect.
@@ -86,7 +86,7 @@ function sell(resource) {
     return
   }
   audio.playSound(SND_MARKET_EXCHANGE)
-  gameState.executeTrade(resource, TRADE_SELL)
+  state.executeTrade(resource, TRADE_SELL)
 }
 
 /** Handles Escape key to close the help sub-modal first, then the market modal.

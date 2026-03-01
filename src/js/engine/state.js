@@ -15,7 +15,7 @@ import {t} from '@/js/i18n/localized.js'
  * @property {Meta} meta - Game metadata (version, timestamps, challenges)
  * @property {Colony} colony - Active colony instance
  */
-class GameState {
+class State {
   /**
    * @param {Meta} meta - Meta instance
    * @param {Colony} colony - Colony instance
@@ -519,4 +519,4 @@ class GameState {
   }
 }
 
-export default GameState
+export default State

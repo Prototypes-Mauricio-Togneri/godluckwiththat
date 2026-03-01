@@ -1,4 +1,4 @@
-File Path: src/js/engine/game_state.js
+File Path: src/js/engine/state.js
 Issue Type: Logical Bug
 Line #: 29-33
 Severity: Warning

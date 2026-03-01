@@ -13,7 +13,7 @@ const props = defineProps({
 })
 
 const colony = inject('colony')
-const gameState = inject('gameState')
+const state = inject('state')
 
 const building = computed(() => colony.buildings[props.buildingKey])
 const maxWorkers = computed(() => building.value.maxWorkers)
@@ -33,7 +33,7 @@ function assign() {
     return
   }
   playTap()
-  gameState.assignWorker(props.buildingKey)
+  state.assignWorker(props.buildingKey)
 }
 
 /** Removes a worker from this building back to idle. */
@@ -42,7 +42,7 @@ function unassign() {
     return
   }
   playTap()
-  gameState.unassignWorker(props.buildingKey)
+  state.unassignWorker(props.buildingKey)
 }
 </script>
 

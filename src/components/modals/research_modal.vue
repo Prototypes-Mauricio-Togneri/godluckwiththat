@@ -10,7 +10,7 @@ import ModalHelpModal from '@/components/modals/help_modal.vue'
 
 const emit = defineEmits(['close'])
 const colony = inject('colony')
-const gameState = inject('gameState')
+const state = inject('state')
 const visible = ref(false)
 const showHelp = ref(false)
 let rafId = null
@@ -57,7 +57,7 @@ function handleNodeClick(key, status) {
     return
   }
   playTap()
-  gameState.startResearch(key)
+  state.startResearch(key)
 }
 
 /** Count of completed researches in a subcategory.

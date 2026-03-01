@@ -26,7 +26,7 @@ import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatRate, formatTime} from '@/js/engine/format.js'
-import GameState from '@/js/engine/game_state.js'
+import State from '@/js/engine/state.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
 import {createInitialColony, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION} from '@/js/engine/balancing.js'
@@ -231,14 +231,14 @@ function isResourceVisible(resource) {
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
 const paused = ref(false)
-const state = reactive(new GameState(createInitialMeta(), createInitialColony()))
+const state = reactive(new State(createInitialMeta(), createInitialColony()))
 state.update(0)
 const showClearConfirm = ref(false)
 const showResearchModal = ref(false)
 const showMarketModal = ref(false)
 
 provide('colony', state.colony)
-provide('gameState', state)
+provide('state', state)
 provide('openResearchModal', () => {
   audio.playSound(SND_OPEN_ACADEMY)
   showResearchModal.value = true

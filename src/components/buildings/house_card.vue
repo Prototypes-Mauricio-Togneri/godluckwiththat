@@ -22,7 +22,7 @@ defineProps({
 })
 
 const colony = inject('colony')
-const gameState = inject('gameState')
+const state = inject('state')
 
 // Recruit worker
 const canAffordRecruit = computed(() => colony.resources.canAfford(WORKER_RECRUIT_COST))
@@ -46,7 +46,7 @@ function recruitWorker() {
     return
   }
   playTap()
-  gameState.recruitWorker()
+  state.recruitWorker()
 }
 </script>
 

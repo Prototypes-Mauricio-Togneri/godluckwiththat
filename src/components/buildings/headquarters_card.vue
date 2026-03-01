@@ -22,7 +22,7 @@ const props = defineProps({
 })
 
 const colony = inject('colony')
-const gameState = inject('gameState')
+const state = inject('state')
 const hq = computed(() => colony.buildings[props.buildingKey])
 
 const nameKey = computed(() => `building.headquarters.${hq.value.type}`)
@@ -64,7 +64,7 @@ function levelUp() {
     return
   }
   playTap()
-  gameState.expandTerritory()
+  state.expandTerritory()
 }
 
 // Upgrade type
@@ -92,7 +92,7 @@ function upgradeType() {
     return
   }
   playTap()
-  gameState.upgradeHeadquarters()
+  state.upgradeHeadquarters()
 }
 </script>
 

@@ -1,5 +1,5 @@
 // Pure string enums — zero dependencies.
-// Imported by balancing.js, constants.js, game_state.js, building classes, and Vue components.
+// Imported by balancing.js, constants.js, state.js, building classes, and Vue components.
 
 // Resource names
 export const RESOURCE_FOOD = 'food'

@@ -37,7 +37,7 @@ const props = defineProps({
 })
 
 const colony = inject('colony')
-const gameState = inject('gameState')
+const state = inject('state')
 
 const displayNameKey = computed(() => props.nameKey || `building.${props.buildingKey}`)
 const showHelp = ref(false)
@@ -88,7 +88,7 @@ function act() {
     return
   }
   playTap()
-  gameState.levelUpBuilding(props.buildingKey)
+  state.levelUpBuilding(props.buildingKey)
 }
 </script>
 

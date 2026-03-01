@@ -4,7 +4,7 @@ import Building from '@/js/models/buildings/building.js'
 
 /**
  * Grants a one-time faith bonus on each level completion.
- * The bonus is applied externally by GameState.advanceConstruction().
+ * The bonus is applied externally by State.advanceConstruction().
  */
 class Monument extends Building {
   /**
