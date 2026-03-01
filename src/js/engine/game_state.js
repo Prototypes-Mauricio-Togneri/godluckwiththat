@@ -291,15 +291,13 @@ class GameState {
       resources, stockpile, buildings,
     } = this.colony
     const building = buildings[buildingKey]
-    if (building.isConstructing) {
-      return
-    }
     const cost = building.levelUpCost()
-    if (!resources.canAfford(cost) || resources.territory >= stockpile.territory) {
+
+    if (building.isConstructing || !resources.canAfford(cost) || resources.territory >= stockpile.territory) {
       return
     }
-    resources.deduct(cost)
 
+    resources.deduct(cost)
     const duration = cost.toSeconds()
     building.constructionDuration = duration
     building.constructionRemaining = duration
@@ -336,15 +334,13 @@ class GameState {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
-    if (hq.isConstructing || hq.isUpgrading) {
-      return
-    }
     const cost = hq.levelUpCost()
-    if (!resources.canAfford(cost)) {
+
+    if (hq.isConstructing || hq.isUpgrading || !resources.canAfford(cost)) {
       return
     }
-    resources.deduct(cost)
 
+    resources.deduct(cost)
     const duration = cost.toSeconds()
     hq.constructionDuration = duration
     hq.constructionRemaining = duration
