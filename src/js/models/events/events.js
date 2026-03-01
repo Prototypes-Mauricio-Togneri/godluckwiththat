@@ -146,7 +146,7 @@ class Events {
 	 * Returns future events sorted by remaining seconds ascending.
 	 * @returns {EventFuture[]}
 	 */
-  sortedFuture() {
+  get sortedFuture() {
     return [...this.future].sort((a, b) => a.remainingSeconds - b.remainingSeconds)
   }
 
@@ -154,7 +154,7 @@ class Events {
 	 * Returns past events sorted by ID descending (most recent first).
 	 * @returns {EventPast[]}
 	 */
-  sortedPast() {
+  get sortedPast() {
     return [...this.past].sort((a, b) => b.id - a.id)
   }
 

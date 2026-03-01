@@ -188,8 +188,8 @@ provide('openMarketModal', () => {
   showMarketModal.value = true
 })
 
-const futureEvents = computed(() => state.colony.events.sortedFuture())
-const pastEvents = computed(() => state.colony.events.sortedPast())
+const futureEvents = computed(() => state.colony.events.sortedFuture)
+const pastEvents = computed(() => state.colony.events.sortedPast)
 
 function clearAllPast() {
   state.colony.events.dismissAllPast()
