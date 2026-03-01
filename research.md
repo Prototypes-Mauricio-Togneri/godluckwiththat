@@ -31,7 +31,7 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
 Build the entire data layer and a read-only tech tree modal showing locked/available/completed states.
 
 - Add enums: research categories, subcategories, individual keys, bonus types, event type
-- Add `RESEARCH_DEFINITIONS` in `balancing.js` (costs, bonuses)
+- Add `RESEARCH_COSTS` in `balancing.js` (costs, bonuses)
 - Add `RESEARCH_TREE` in `constants.js` (structural tree topology)
 - Create `Researches` model class (completed set, active map, bonus aggregation)
 - Add `researches` property to Colony

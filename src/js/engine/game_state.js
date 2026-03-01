@@ -1,4 +1,4 @@
-import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_BONUS_MAP, PRODUCTION_RATES, RESEARCH_DEFINITIONS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_BONUS_MAP, PRODUCTION_RATES, RESEARCH_COSTS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, IMG_RESOURCE_KNOWLEDGE, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_CREATED, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
 import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
@@ -442,17 +442,17 @@ class GameState {
     const {
       academy,
     } = buildings
-    const definition = RESEARCH_DEFINITIONS[key]
+    const cost = RESEARCH_COSTS[key]
     if (academy.isActive(key) ||
         academy.isCompleted(key) ||
         academy.level < 1 ||
-        !definition ||
-        !resources.canAfford(definition.cost)) {
+        !cost ||
+        !resources.canAfford(cost)) {
       return
     }
 
-    const duration = definition.cost.toSeconds()
-    resources.deduct(definition.cost)
+    const duration = cost.toSeconds()
+    resources.deduct(cost)
     academy.start(key, duration)
 
     this.colony.events.addFuture({

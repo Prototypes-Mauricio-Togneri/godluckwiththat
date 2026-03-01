@@ -191,7 +191,7 @@ Research is an academy-gated tech tree providing cumulative bonus modifiers.
 
 **Enums** (`enums.js`) — `RESEARCH_CATEGORY_*` (5 categories: general, disasters, resources, religion, military), `RESEARCH_SUBCATEGORY_*` (17 subcategories, e.g. transportation, construction, habitation, floods, food production, defense, attack, warning), `RESEARCH_*` keys (5 tiers per subcategory, e.g. `RESEARCH_TRANSPORTATION_1` through `_5`), `BONUS_*` types (19, e.g. `BONUS_WORKER_PRODUCTIVITY`, `BONUS_CONSTRUCTION_TIME`, `BONUS_FOOD_PRODUCTION`, `BONUS_HABITATION`, `BONUS_UNIT_DEFENSE`).
 
-**Definitions** (`balancing.js`) — `RESEARCH_DEFINITIONS` maps each `RESEARCH_*` key to `{ cost: Cost }`. Duration is derived from the cost via `Cost.toSeconds()`. Starting any research requires academy level ≥ 1 (flat check, not per-research). Bonuses are defined per subcategory in `RESEARCH_SUBCATEGORY_BONUSES` (also in `balancing.js`), mapping each `RESEARCH_SUBCATEGORY_*` to `{ type: BONUS_*, value: number, [flat: true] }`. Each tier within a subcategory costs progressively more resources.
+**Definitions** (`balancing.js`) — `RESEARCH_COSTS` maps each `RESEARCH_*` key to a `Cost` instance. Duration is derived from the cost via `Cost.toSeconds()`. Starting any research requires academy level ≥ 1 (flat check, not per-research). Bonuses are defined per subcategory in `RESEARCH_SUBCATEGORY_BONUSES` (also in `balancing.js`), mapping each `RESEARCH_SUBCATEGORY_*` to `{ type: BONUS_*, value: number, [flat: true] }`. Each tier within a subcategory costs progressively more resources.
 
 **Tree** (`constants.js`) — `RESEARCH_TREE` is an ordered array of `{ category, subcategories: [{ key, researches: [research keys] }] }` used by the research modal for layout.
 

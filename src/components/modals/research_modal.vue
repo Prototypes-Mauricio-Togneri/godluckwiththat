@@ -3,7 +3,7 @@ import {ref, inject, computed, onMounted, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
 import {formatTime} from '@/js/engine/format.js'
 import {RESEARCH_TREE} from '@/js/engine/constants.js'
-import {RESEARCH_DEFINITIONS} from '@/js/engine/balancing.js'
+import {RESEARCH_COSTS} from '@/js/engine/balancing.js'
 import {IMG_OTHER_COMPLETED, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
@@ -41,7 +41,7 @@ const nodeStatusMap = computed(() => {
 })
 
 function canAfford(key) {
-  return colony.resources.canAfford(RESEARCH_DEFINITIONS[key].cost)
+  return colony.resources.canAfford(RESEARCH_COSTS[key])
 }
 
 function handleNodeClick(key, status) {
@@ -145,7 +145,7 @@ onUnmounted(() => {
                   </span>
                   <template v-else>
                     <div
-                      v-for="[resource, amount] in RESEARCH_DEFINITIONS[rKey].cost.entries()"
+                      v-for="[resource, amount] in RESEARCH_COSTS[rKey].entries()"
                       :key="resource"
                       class="node-cost-item"
                     >
