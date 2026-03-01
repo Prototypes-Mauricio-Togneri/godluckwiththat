@@ -3,7 +3,6 @@
 [Website](https://god-luck-with-that.web.app)
 
 stockpile -> storehouse
-trades -> market
 researches -> academy
 
 - Finish all building images
