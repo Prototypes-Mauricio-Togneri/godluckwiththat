@@ -87,10 +87,10 @@ export const SND_TERRITORY_EXPANDED = '/audio/sound/territory_expanded.mp3'
 export const SND_UNDER_ATTACK = '/audio/sound/under_attack.mp3'
 export const SND_WORKER_ACADEMY = '/audio/sound/worker_academy.mp3'
 export const SND_WORKER_CREATED = '/audio/sound/worker_created.mp3'
-export const SND_WORKER_FOOD = '/audio/sound/worker_food.mp3'
+export const SND_WORKER_FARM = '/audio/sound/worker_farm.mp3'
 export const SND_WORKER_MINE = '/audio/sound/worker_mine.mp3'
 export const SND_WORKER_TEMPLE = '/audio/sound/worker_temple.mp3'
-export const SND_WORKER_WOOD = '/audio/sound/worker_wood.mp3'
+export const SND_WORKER_WOODCUTTER = '/audio/sound/worker_woodcutter.mp3'
 
 // Music
 export const MUS_MUSIC_1 = '/audio/music/music_1.mp3'
