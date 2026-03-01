@@ -41,10 +41,10 @@ class Market extends Building {
    * @returns {number} Effective fee fraction (e.g. 0.21)
    */
   get effectiveTradeFee() {
-    const basePercent = Math.round(MARKET_BASE_FEE * 100)
-    const reductionPerLevel = Math.round(MARKET_FEE_REDUCTION_PER_LEVEL * 100)
-    const minPercent = Math.round(MARKET_MIN_FEE * 100)
-    const rawPercent = basePercent - Math.max(0, this.level - 1) * reductionPerLevel
+    const basePercent = Math.round(MARKET_BASE_FEE * 100) // e.g. 30
+    const reductionPerLevel = Math.round(MARKET_FEE_REDUCTION_PER_LEVEL * 100) // e.g. 1
+    const minPercent = Math.round(MARKET_MIN_FEE * 100) // e.g. 5
+    const rawPercent = basePercent - Math.max(0, this.level - 1) * reductionPerLevel // e.g. 26 at level 5
     return Math.max(minPercent, rawPercent) / 100
   }
 
