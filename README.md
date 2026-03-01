@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-researches -> academy
-
 - Search functions that can become getters
 
 - Finish all building images
