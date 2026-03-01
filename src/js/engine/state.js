@@ -71,7 +71,7 @@ class State {
 
     // Compute per-second production rates for every production building.
     // Two formulas depending on building type:
-    //   Passive (e.g. altar):  level × baseRate × resourceBonus
+    //   Passive (e.g. altar): level × baseRate × resourceBonus
     //   Worker-based (e.g. farm): workers × baseRate × resourceBonus × workerBonus
     // workerMult: global productivity bonus from Transportation research (+5%/tier)
     // resMult: per-resource bonus from research (e.g. Food Production, Mining)
