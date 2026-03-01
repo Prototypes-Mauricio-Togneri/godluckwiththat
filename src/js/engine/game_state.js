@@ -46,7 +46,7 @@ class GameState {
 
     // Recalculate territory used and cached caps from building levels
     resources.territory = buildings.totalLevels() + buildings.pendingTerritory()
-    const bonuses = this.colony.researches.completedBonuses(RESEARCH_TREE)
+    const bonuses = buildings.academy.completedBonuses(RESEARCH_TREE)
     const habitationBonus = bonuses[BONUS_HABITATION] ?? 0
     buildings.house.workersCap = buildings.house.populationCap(habitationBonus)
     const storageCap = buildings.storehouse.storageCap()
@@ -246,19 +246,19 @@ class GameState {
    */
   advanceResearch(delta) {
     const {
-      researches,
-    } = this.colony
+      academy,
+    } = this.colony.buildings
     const completed = []
     for (const [
       key,
-      task,
-    ] of researches.active) {
-      if (task.advance(delta)) {
+      research,
+    ] of academy.active) {
+      if (research.advance(delta)) {
         completed.push(key)
       }
     }
     for (const key of completed) {
-      researches.complete(key)
+      academy.complete(key)
       this.colony.events.dismissFutureByResearchKey(key)
       audio.playSound(SND_RESEARCH_COMPLETED)
     }
@@ -437,12 +437,15 @@ class GameState {
    */
   startResearch(key) {
     const {
-      resources, buildings, researches,
+      resources, buildings,
     } = this.colony
+    const {
+      academy,
+    } = buildings
     const definition = RESEARCH_DEFINITIONS[key]
-    if (researches.isActive(key) ||
-        researches.isCompleted(key) ||
-        buildings.academy.level < 1 ||
+    if (academy.isActive(key) ||
+        academy.isCompleted(key) ||
+        academy.level < 1 ||
         !definition ||
         !resources.canAfford(definition.cost)) {
       return
@@ -450,7 +453,7 @@ class GameState {
 
     const duration = definition.cost.toSeconds()
     resources.deduct(definition.cost)
-    researches.start(key, duration)
+    academy.start(key, duration)
 
     this.colony.events.addFuture({
       type: EVENT_TYPE_RESEARCH_COMPLETE,

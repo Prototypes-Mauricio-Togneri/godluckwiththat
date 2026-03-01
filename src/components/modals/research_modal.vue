@@ -26,11 +26,11 @@ const nodeStatusMap = computed(() => {
   for (const sub of activeCategory.value.subcategories) {
     for (let idx = 0; idx < sub.researches.length; idx++) {
       const key = sub.researches[idx]
-      if (colony.researches.isCompleted(key)) {
+      if (colony.buildings.academy.isCompleted(key)) {
         map[key] = 'completed'
-      } else if (colony.researches.isActive(key)) {
+      } else if (colony.buildings.academy.isActive(key)) {
         map[key] = 'active'
-      } else if (idx > 0 && !colony.researches.isCompleted(sub.researches[idx - 1])) {
+      } else if (idx > 0 && !colony.buildings.academy.isCompleted(sub.researches[idx - 1])) {
         map[key] = 'locked'
       } else {
         map[key] = 'available'
@@ -53,7 +53,7 @@ function handleNodeClick(key, status) {
 }
 
 function completedCount(sub) {
-  return sub.researches.filter(key => colony.researches.isCompleted(key)).length
+  return sub.researches.filter(key => colony.buildings.academy.isCompleted(key)).length
 }
 
 function accumulatedBonusText(sub) {
@@ -141,7 +141,7 @@ onUnmounted(() => {
                 <div class="node-second-row">
                   <img v-if="nodeStatusMap[rKey] === 'completed'" class="node-check" :src="IMG_OTHER_COMPLETED" alt="">
                   <span v-else-if="nodeStatusMap[rKey] === 'active'" class="node-timer">
-                    {{ formatTime(colony.researches.getActive(rKey).remainingSeconds) }}
+                    {{ formatTime(colony.buildings.academy.getActive(rKey).remainingSeconds) }}
                   </span>
                   <template v-else>
                     <div

@@ -27,7 +27,6 @@ import Season from '@/js/models/season.js'
 import Consumption from '@/js/models/consumption.js'
 import Events from '@/js/models/events/events.js'
 import Meta from '@/js/models/meta.js'
-import Researches from '@/js/models/researches.js'
 import Production from '@/js/models/production.js'
 import Resources from '@/js/models/resources.js'
 
@@ -689,8 +688,6 @@ export function createInitialColonyBasic() {
 
     consumption: new Consumption({}),
 
-    researches: new Researches(),
-
     events: new Events(),
 
     buildings: new Buildings({
@@ -796,8 +793,6 @@ export function createInitialColonyAdvanced() {
     }),
 
     consumption: new Consumption({}),
-
-    researches: new Researches(),
 
     events: new Events(),
 

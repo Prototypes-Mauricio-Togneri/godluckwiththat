@@ -1,6 +1,6 @@
 /**
  * Colony data model. Wraps all colony sub-models
- * (resources, production, buildings, researches).
+ * (resources, production, buildings).
  *
  * @property {number} year - Current year (starts at 1, increments every warm+cold cycle)
  * @property {Season} season - Current season state
@@ -8,7 +8,6 @@
  * @property {Resources} resources - Current resource amounts
  * @property {Production} production - Per-second gross production rates
  * @property {Buildings} buildings - All building instances
- * @property {Researches} researches - Research progress (completed + active)
  * @property {Events} events - Game event log (future countdowns + past notifications)
  */
 class Colony {
@@ -21,7 +20,6 @@ class Colony {
     this.resources = data.resources // Current resource amounts
     this.production = data.production // Per-second gross production rates
     this.buildings = data.buildings // All building instances
-    this.researches = data.researches // Research progress (completed + active)
     this.events = data.events // Game event log (future countdowns + past notifications)
     this.consumption = data.consumption // Per-second worker upkeep (recalculated each tick)
   }
