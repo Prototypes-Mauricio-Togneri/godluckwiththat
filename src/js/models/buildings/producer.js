@@ -19,6 +19,11 @@ class Producer extends Building {
   get maxWorkers() {
     return this.level * WORKERS_PER_LEVEL
   }
+
+  /** @returns {boolean} Whether this building has the maximum workers assigned */
+  get isFull() {
+    return this.workers >= this.maxWorkers
+  }
 }
 
 export default Producer

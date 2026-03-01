@@ -382,7 +382,7 @@ class GameState {
    */
   assignWorker(buildingKey) {
     const building = this.colony.buildings[buildingKey]
-    if (building.workers >= building.maxWorkers) {
+    if (building.isFull) {
       return
     }
     if (this.colony.idleWorkers <= 0 && !this._recruit()) {
