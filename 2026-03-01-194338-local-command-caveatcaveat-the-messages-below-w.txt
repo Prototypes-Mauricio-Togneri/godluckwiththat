@@ -8,17 +8,4 @@
   dismisses
      the "territory expanded" notification and vice versa. Fix: Use separate
     event types for territory expansion vs. building construction, or dismiss by
-
     buildingKey.
-  ────────────────────────────────────────
-  File Path: src/js/models/resources.js
-  Issue Type: Inconsistency
-  Line #: 36-44
-  Severity: Warning
-  Description & Suggested Fix: Resources.canAfford / deduct omit faith.
-  Resources
-    tracks faith, and RESOURCE_TIME_WEIGHTS defines a faith weight, but Cost has
-
-    no faith field, canAfford doesn't check it, and deduct doesn't subtract it.
-    Any future faith-costed item would be free. Fix: Add faith to Cost if faith
-    costs are planned.

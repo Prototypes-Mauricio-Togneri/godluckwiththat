@@ -1,5 +1,5 @@
 import {RESOURCE_TIME_WEIGHTS} from '@/js/engine/balancing.js'
-import {RESOURCE_COPPER, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
+import {RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
 
 /**
  * Multi-resource cost holder.
@@ -12,6 +12,7 @@ import {RESOURCE_COPPER, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_K
  * @property {number} iron - Iron portion of the cost
  * @property {number} gold - Gold portion of the cost
  * @property {number} knowledge - Knowledge portion of the cost
+ * @property {number} faith - Faith portion of the cost
  */
 class Cost {
   /**
@@ -25,6 +26,7 @@ class Cost {
     this.iron = data.iron ?? 0 // Iron cost (default 0)
     this.gold = data.gold ?? 0 // Gold cost (default 0)
     this.knowledge = data.knowledge ?? 0 // Knowledge cost (default 0)
+    this.faith = data.faith ?? 0 // Faith cost (default 0)
   }
 
   /**
@@ -54,6 +56,9 @@ class Cost {
     if (this.knowledge > 0) {
       map.set(RESOURCE_KNOWLEDGE, this.knowledge)
     }
+    if (this.faith > 0) {
+      map.set(RESOURCE_FAITH, this.faith)
+    }
     return map
   }
 
@@ -71,6 +76,7 @@ class Cost {
       iron: this.iron * factor,
       gold: this.gold * factor,
       knowledge: this.knowledge * factor,
+      faith: this.faith * factor,
     })
   }
 
@@ -87,6 +93,7 @@ class Cost {
       iron: Math.floor(this.iron),
       gold: Math.floor(this.gold),
       knowledge: Math.floor(this.knowledge),
+      faith: Math.floor(this.faith),
     })
   }
 

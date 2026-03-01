@@ -41,6 +41,7 @@ class Resources {
       && cost.iron <= this.iron
       && cost.gold <= this.gold
       && cost.knowledge <= this.knowledge
+      && cost.faith <= this.faith
   }
 
   /**
@@ -55,6 +56,7 @@ class Resources {
     this.iron = Math.max(0, this.iron - cost.iron)
     this.gold = Math.max(0, this.gold - cost.gold)
     this.knowledge = Math.max(0, this.knowledge - cost.knowledge)
+    this.faith = Math.max(0, this.faith - cost.faith)
   }
 }
 
