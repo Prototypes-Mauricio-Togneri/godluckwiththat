@@ -56,7 +56,15 @@ class Buildings {
    * @returns {number} Sum of all building levels excluding headquarters
    */
   get totalLevels() {
-    return Object.values(this).reduce((sum, building) => sum + building.level, 0) - this.headquarters.level
+    return Object.entries(this).reduce((sum, [
+      key,
+      building,
+    ]) => {
+      if (key === BUILDING_HEADQUARTERS) {
+        return sum
+      }
+      return sum + building.level
+    }, 0)
   }
 
   /**

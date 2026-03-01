@@ -41,12 +41,3 @@
     RESOURCE_KNOWLEDGE, but the Academy (only knowledge source) unlocks at
     village tier. Players see the resource bar entry with no way to produce it
     for one full HQ tier. Fix: Verify intentional;  if not, move to village.
-  ────────────────────────────────────────
-  File Path: src/js/models/buildings.js
-  Issue Type: Safety
-  Line #: 59
-  Severity: Style
-  Description & Suggested Fix: Buildings.totalLevels iterates 
-    Object.values(this). Sums all own properties then subtracts HQ. Would break
-    if non-building properties are added. Fix: Filter by instanceof Building or
-    maintain an explicit list.
