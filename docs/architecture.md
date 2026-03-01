@@ -80,7 +80,7 @@ Each action is a horizontal row: a square icon-only button (2.5rem × 2.5rem) wi
 
 Central state container instantiated once per game session. Pure JS class wrapped in `reactive()` by `game_screen.vue` for Vue reactivity. Constructor receives a `Meta` instance (first) and a `Colony` instance (second). `Meta` tracks save version, creation/update timestamps, and challenge count. `Colony` expects pre-constructed sub-model instances (e.g. `Resources`) from the caller. Initialized via `createInitialMeta()` and `createInitialColony()` factories in `constants.js`.
 
-**Provide/inject**: `game_screen.vue` calls `provide('colony', state.colony)`, `provide('gameState', state)`, `provide('openResearchModal', fn)`, and `provide('openMarketModal', fn)`. Components `inject('colony')` for reactive reads, `inject('gameState')` to call mutation methods (`levelUpBuilding`, `expandTerritory`, `upgradeHeadquarters`, `assignWorker`, `unassignWorker`, `recruitAndAssignWorker`), `inject('openResearchModal')` to open the research modal (used by `academy_card.vue`), and `inject('openMarketModal')` to open the market modal (used by `market_card.vue`).
+**Provide/inject**: `game_screen.vue` calls `provide('colony', state.colony)`, `provide('gameState', state)`, `provide('openResearchModal', fn)`, and `provide('openMarketModal', fn)`. Components `inject('colony')` for reactive reads, `inject('gameState')` to call mutation methods (`levelUpBuilding`, `expandTerritory`, `upgradeHeadquarters`, `assignWorker`, `unassignWorker`), `inject('openResearchModal')` to open the research modal (used by `academy_card.vue`), and `inject('openMarketModal')` to open the market modal (used by `market_card.vue`).
 
 **Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }`, `state.colony.{ year, season, idleWorkers (derived getter), resources, production, consumption, stockpile, buildings, researches, trades, events }` (`season` is a `Season` model with `currentSeason` and `seasonElapsed`)
 
@@ -102,9 +102,8 @@ All game state mutations are centralised in `GameState`. Each method guards prec
 - `expandTerritory()` — deducts `levelUpCost`, starts a construction timer. Level increments on completion. Blocked when HQ is busy (either timer active).
 - `upgradeHeadquarters()` — deducts `upgradeCost`, starts a type upgrade timer (`upgradeRemaining`). HQ type advances on completion. Blocked when HQ is busy.
 - `recruitWorker()` — delegates to `_recruit()` (increments `resources.workers`); `colony.idleWorkers` updates automatically (derived getter). Blocked when can't afford or at population cap.
-- `assignWorker(buildingKey)` — moves one idle worker to the building. Blocked when no idle workers or building at max workers (`level × WORKERS_PER_LEVEL`).
+- `assignWorker(buildingKey)` — assigns a worker to the building. Uses an idle worker if available, otherwise recruits a new one via `_recruit()`. Blocked when building at max workers (`level × WORKERS_PER_LEVEL`) or when no idle workers and recruitment fails.
 - `unassignWorker(buildingKey)` — moves one worker from the building back to idle.
-- `recruitAndAssignWorker(buildingKey)` — delegates to `_recruit()`, then assigns the worker directly to the building. Blocked when can't afford, at population cap, or building at max workers.
 - `_recruit()` — shared helper: deducts `WORKER_RECRUIT_COST`, increments `resources.workers`, plays sound, fires population-limit event if at cap. Returns `boolean`.
 - `_playAssignSound(buildingKey)` — plays building-specific worker assignment sound (farm/academy/woodcutter/temple/mines).
 - `startResearch(key)` — validates preconditions (not active/completed, academy level met, can afford), deducts cost, starts timer via `colony.researches.start()`, creates a future event (`EVENT_TYPE_RESEARCH_COMPLETE`). Blocked when prerequisites not met or insufficient resources.

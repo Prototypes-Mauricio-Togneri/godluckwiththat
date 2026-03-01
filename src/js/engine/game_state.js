@@ -390,29 +390,15 @@ class GameState {
   }
 
   /**
-   * Assigns one idle worker to a building.
+   * Assigns a worker to a building. Uses an idle worker if available, otherwise recruits a new one.
    * @param {string} buildingKey - Key in colony.buildings
    */
   assignWorker(buildingKey) {
     const building = this.colony.buildings[buildingKey]
-    if (this.colony.idleWorkers <= 0 || building.workers >= building.maxWorkers) {
-      return
-    }
-    building.workers += 1
-    this._playAssignSound(buildingKey)
-    this.update(0)
-  }
-
-  /**
-   * Recruits a new worker and assigns it directly to a building.
-   * @param {string} buildingKey - Key in colony.buildings
-   */
-  recruitAndAssignWorker(buildingKey) {
-    const building = this.colony.buildings[buildingKey]
     if (building.workers >= building.maxWorkers) {
       return
     }
-    if (!this._recruit()) {
+    if (this.colony.idleWorkers <= 0 && !this._recruit()) {
       return
     }
     building.workers += 1

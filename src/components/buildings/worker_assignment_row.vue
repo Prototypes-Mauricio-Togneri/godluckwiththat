@@ -32,11 +32,7 @@ function assign() {
     return
   }
   playTap()
-  if (colony.idleWorkers > 0) {
-    gameState.assignWorker(props.buildingKey)
-  } else {
-    gameState.recruitAndAssignWorker(props.buildingKey)
-  }
+  gameState.assignWorker(props.buildingKey)
 }
 
 function unassign() {
