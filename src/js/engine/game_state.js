@@ -354,8 +354,8 @@ class GameState {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
-
     const cost = hq.upgradeCost()
+
     if (hq.isConstructing || hq.isUpgrading || !cost || !resources.canAfford(cost)) {
       return
     }
