@@ -567,8 +567,8 @@ class GameState {
       if (resources.gold + goldGain > stockpile.gold) {
         return
       }
-      resources[resource] -= MARKET_TRADE_AMOUNT
       resources.gold += goldGain
+      resources[resource] -= MARKET_TRADE_AMOUNT
       trades[resource] = Math.max(MARKET_MIN_CURRENT_PRICE, trades[resource] - MARKET_PRICE_SHIFT)
     }
 
