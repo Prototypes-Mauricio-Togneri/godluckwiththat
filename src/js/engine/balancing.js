@@ -376,7 +376,7 @@ export const RESEARCH_SUBCATEGORY_BONUSES = {
 // Research definitions keyed by RESEARCH_* enum.
 // cost: resources paid upfront (duration derived via cost.toSeconds())
 export const RESEARCH_DEFINITIONS = {
-  // ── General — Transportation ──
+  // General: Transportation
   [RESEARCH_TRANSPORTATION_1]: {
     cost: new Cost({
       knowledge: 50,
@@ -411,7 +411,7 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── General — Construction ──
+  // General: Construction
   [RESEARCH_CONSTRUCTION_1]: {
     cost: new Cost({
       knowledge: 60,
@@ -447,7 +447,7 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── General — Expansion ──
+  // General: Expansion
   [RESEARCH_EXPANSION_1]: {
     cost: new Cost({
       knowledge: 80,
@@ -483,7 +483,7 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── General — Storage ──
+  // General: Storage
   [RESEARCH_STORAGE_1]: {
     cost: new Cost({
       knowledge: 60,
@@ -520,7 +520,7 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── General — Habitation ──
+  // General: Habitation
   [RESEARCH_HABITATION_1]: {
     cost: new Cost({
       knowledge: 70,
@@ -559,113 +559,7 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── Disasters — Floods ──
-  [RESEARCH_FLOODS_1]: {
-    cost: new Cost({
-      knowledge: 80,
-      stone: 50,
-    }),
-  },
-  [RESEARCH_FLOODS_2]: {
-    cost: new Cost({
-      knowledge: 200,
-      stone: 120,
-    }),
-  },
-  [RESEARCH_FLOODS_3]: {
-    cost: new Cost({
-      knowledge: 500,
-      stone: 250,
-      iron: 50,
-    }),
-  },
-  [RESEARCH_FLOODS_4]: {
-    cost: new Cost({
-      knowledge: 900,
-      stone: 400,
-      iron: 120,
-    }),
-  },
-  [RESEARCH_FLOODS_5]: {
-    cost: new Cost({
-      knowledge: 1600,
-      stone: 600,
-      iron: 250,
-    }),
-  },
-
-  // ── Disasters — Health ──
-  [RESEARCH_HEALTH_1]: {
-    cost: new Cost({
-      knowledge: 80,
-      food: 60,
-    }),
-  },
-  [RESEARCH_HEALTH_2]: {
-    cost: new Cost({
-      knowledge: 200,
-      food: 150,
-    }),
-  },
-  [RESEARCH_HEALTH_3]: {
-    cost: new Cost({
-      knowledge: 500,
-      food: 300,
-      copper: 50,
-    }),
-  },
-  [RESEARCH_HEALTH_4]: {
-    cost: new Cost({
-      knowledge: 900,
-      food: 500,
-      stone: 150,
-    }),
-  },
-  [RESEARCH_HEALTH_5]: {
-    cost: new Cost({
-      knowledge: 1600,
-      stone: 400,
-      iron: 100,
-    }),
-  },
-
-  // ── Disasters — Earthquakes ──
-  [RESEARCH_EARTHQUAKES_1]: {
-    cost: new Cost({
-      knowledge: 80,
-      stone: 60,
-    }),
-  },
-  [RESEARCH_EARTHQUAKES_2]: {
-    cost: new Cost({
-      knowledge: 200,
-      stone: 150,
-      wood: 80,
-    }),
-  },
-  [RESEARCH_EARTHQUAKES_3]: {
-    cost: new Cost({
-      knowledge: 500,
-      stone: 300,
-      iron: 50,
-    }),
-  },
-  [RESEARCH_EARTHQUAKES_4]: {
-    cost: new Cost({
-      knowledge: 900,
-      stone: 500,
-      iron: 120,
-    }),
-  },
-  [RESEARCH_EARTHQUAKES_5]: {
-    cost: new Cost({
-      knowledge: 1600,
-      stone: 700,
-      iron: 250,
-    }),
-  },
-
-  // ── Resources — Food Production ──
+  // Resources: Food Production
   [RESEARCH_FOOD_PRODUCTION_1]: {
     cost: new Cost({
       knowledge: 50,
@@ -700,7 +594,7 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── Resources — Food Consumption ──
+  // Resources: Food Consumption
   [RESEARCH_FOOD_CONSUMPTION_1]: {
     cost: new Cost({
       knowledge: 60,
@@ -735,7 +629,7 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── Resources — Wood Production ──
+  // Resources: Wood Production
   [RESEARCH_WOOD_PRODUCTION_1]: {
     cost: new Cost({
       knowledge: 50,
@@ -770,7 +664,7 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── Resources — Wood Consumption ──
+  // Resources: Wood Consumption
   [RESEARCH_WOOD_CONSUMPTION_1]: {
     cost: new Cost({
       knowledge: 60,
@@ -805,7 +699,7 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── Resources — Mining ──
+  // Resources: Mining
   [RESEARCH_MINING_1]: {
     cost: new Cost({
       knowledge: 60,
@@ -841,7 +735,7 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── Resources — Knowledge Production ──
+  // Resources: Knowledge Production
   [RESEARCH_KNOWLEDGE_PRODUCTION_1]: {
     cost: new Cost({
       knowledge: 80,
@@ -877,7 +771,113 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── Religion — Faith ──
+  // Disasters: Floods
+  [RESEARCH_FLOODS_1]: {
+    cost: new Cost({
+      knowledge: 80,
+      stone: 50,
+    }),
+  },
+  [RESEARCH_FLOODS_2]: {
+    cost: new Cost({
+      knowledge: 200,
+      stone: 120,
+    }),
+  },
+  [RESEARCH_FLOODS_3]: {
+    cost: new Cost({
+      knowledge: 500,
+      stone: 250,
+      iron: 50,
+    }),
+  },
+  [RESEARCH_FLOODS_4]: {
+    cost: new Cost({
+      knowledge: 900,
+      stone: 400,
+      iron: 120,
+    }),
+  },
+  [RESEARCH_FLOODS_5]: {
+    cost: new Cost({
+      knowledge: 1600,
+      stone: 600,
+      iron: 250,
+    }),
+  },
+
+  // Disasters: Health
+  [RESEARCH_HEALTH_1]: {
+    cost: new Cost({
+      knowledge: 80,
+      food: 60,
+    }),
+  },
+  [RESEARCH_HEALTH_2]: {
+    cost: new Cost({
+      knowledge: 200,
+      food: 150,
+    }),
+  },
+  [RESEARCH_HEALTH_3]: {
+    cost: new Cost({
+      knowledge: 500,
+      food: 300,
+      copper: 50,
+    }),
+  },
+  [RESEARCH_HEALTH_4]: {
+    cost: new Cost({
+      knowledge: 900,
+      food: 500,
+      stone: 150,
+    }),
+  },
+  [RESEARCH_HEALTH_5]: {
+    cost: new Cost({
+      knowledge: 1600,
+      stone: 400,
+      iron: 100,
+    }),
+  },
+
+  // Disasters: Earthquakes
+  [RESEARCH_EARTHQUAKES_1]: {
+    cost: new Cost({
+      knowledge: 80,
+      stone: 60,
+    }),
+  },
+  [RESEARCH_EARTHQUAKES_2]: {
+    cost: new Cost({
+      knowledge: 200,
+      stone: 150,
+      wood: 80,
+    }),
+  },
+  [RESEARCH_EARTHQUAKES_3]: {
+    cost: new Cost({
+      knowledge: 500,
+      stone: 300,
+      iron: 50,
+    }),
+  },
+  [RESEARCH_EARTHQUAKES_4]: {
+    cost: new Cost({
+      knowledge: 900,
+      stone: 500,
+      iron: 120,
+    }),
+  },
+  [RESEARCH_EARTHQUAKES_5]: {
+    cost: new Cost({
+      knowledge: 1600,
+      stone: 700,
+      iron: 250,
+    }),
+  },
+
+  // Religion: Faith
   [RESEARCH_FAITH_1]: {
     cost: new Cost({
       knowledge: 60,
@@ -913,7 +913,7 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── Military — Defense ──
+  // Military: Defense
   [RESEARCH_DEFENSE_1]: {
     cost: new Cost({
       knowledge: 80,
@@ -949,7 +949,7 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── Military — Attack ──
+  // Military: Attack
   [RESEARCH_ATTACK_1]: {
     cost: new Cost({
       knowledge: 80,
@@ -986,7 +986,7 @@ export const RESEARCH_DEFINITIONS = {
     }),
   },
 
-  // ── Military — Warning ──
+  // Military: Warning
   [RESEARCH_WARNING_1]: {
     cost: new Cost({
       knowledge: 60,
