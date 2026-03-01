@@ -2,7 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-stockpile -> storehouse
 researches -> academy
 
 - Search functions that can become getters
