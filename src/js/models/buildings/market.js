@@ -1,5 +1,5 @@
-import {BUILDING_UPGRADES, MARKET_BASE_FEE, MARKET_BASE_PRICES, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MIN_FEE} from '@/js/engine/balancing.js'
-import {BUILDING_MARKET, RESOURCE_COPPER, RESOURCE_FOOD, RESOURCE_IRON, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
+import {BUILDING_UPGRADES, MARKET_BASE_FEE, MARKET_BASE_PRICES, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_MIN_FEE, MARKET_PRICE_SHIFT, MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
+import {BUILDING_MARKET, RESOURCE_COPPER, RESOURCE_FOOD, RESOURCE_IRON, RESOURCE_STONE, RESOURCE_WOOD, TRADE_BUY} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
@@ -64,6 +64,41 @@ class Market extends Building {
    */
   sellPrice(resource) {
     return Math.floor(this[resource] * (1 - this.effectiveTradeFee()))
+  }
+
+  /**
+   * Executes a market trade: buy or sell a resource for gold.
+   * @param {string} resource - Resource key (food, wood, stone, copper, iron)
+   * @param {'buy'|'sell'} direction - Trade direction
+   * @param {Resources} resources - Current resource amounts (mutated in place)
+   * @param {Stockpile} stockpile - Maximum storage capacities
+   * @returns {boolean} Whether the trade was executed
+   */
+  executeTrade(resource, direction, resources, stockpile) {
+    if (direction === TRADE_BUY) {
+      const goldCost = this.buyPrice(resource)
+      if (resources.gold < goldCost) {
+        return false
+      }
+      if (resources[resource] + MARKET_TRADE_AMOUNT > stockpile[resource]) {
+        return false
+      }
+      resources.gold -= goldCost
+      resources[resource] += MARKET_TRADE_AMOUNT
+      this[resource] = Math.min(MARKET_MAX_CURRENT_PRICE, this[resource] + MARKET_PRICE_SHIFT)
+    } else {
+      const goldGain = this.sellPrice(resource)
+      if (resources[resource] < MARKET_TRADE_AMOUNT) {
+        return false
+      }
+      if (resources.gold + goldGain > stockpile.gold) {
+        return false
+      }
+      resources.gold += goldGain
+      resources[resource] -= MARKET_TRADE_AMOUNT
+      this[resource] = Math.max(MARKET_MIN_CURRENT_PRICE, this[resource] - MARKET_PRICE_SHIFT)
+    }
+    return true
   }
 
   /**

@@ -1,4 +1,4 @@
-import {MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_PRICE_SHIFT, MARKET_TRADE_AMOUNT, MONUMENT_FAITH_PER_LEVEL, PRODUCTION_BONUS_MAP, PRODUCTION_RATES, RESEARCH_DEFINITIONS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_BONUS_MAP, PRODUCTION_RATES, RESEARCH_DEFINITIONS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, IMG_RESOURCE_KNOWLEDGE, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_CREATED, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
 import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
@@ -515,31 +515,9 @@ class GameState {
       return
     }
 
-    if (direction === 'buy') {
-      const goldCost = market.buyPrice(resource)
-      if (resources.gold < goldCost) {
-        return
-      }
-      if (resources[resource] + MARKET_TRADE_AMOUNT > stockpile[resource]) {
-        return
-      }
-      resources.gold -= goldCost
-      resources[resource] += MARKET_TRADE_AMOUNT
-      market[resource] = Math.min(MARKET_MAX_CURRENT_PRICE, market[resource] + MARKET_PRICE_SHIFT)
-    } else {
-      const goldGain = market.sellPrice(resource)
-      if (resources[resource] < MARKET_TRADE_AMOUNT) {
-        return
-      }
-      if (resources.gold + goldGain > stockpile.gold) {
-        return
-      }
-      resources.gold += goldGain
-      resources[resource] -= MARKET_TRADE_AMOUNT
-      market[resource] = Math.max(MARKET_MIN_CURRENT_PRICE, market[resource] - MARKET_PRICE_SHIFT)
+    if (market.executeTrade(resource, direction, resources, stockpile)) {
+      this.update(0)
     }
-
-    this.update(0)
   }
 
   /**

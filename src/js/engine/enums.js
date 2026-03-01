@@ -44,6 +44,10 @@ export const BUILDING_WORKSHOP = 'workshop'
 export const BUILDING_WALL = 'wall'
 export const BUILDING_TOWER = 'tower'
 
+// Trade directions
+export const TRADE_BUY = 'buy'
+export const TRADE_SELL = 'sell'
+
 // Event types
 export const EVENT_TYPE_SEASON_CHANGED = 'season_changed'
 export const EVENT_TYPE_POPULATION_LIMIT_REACHED = 'population_limit_reached'

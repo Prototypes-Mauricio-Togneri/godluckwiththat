@@ -5,7 +5,7 @@ import {formatNumber} from '@/js/engine/format.js'
 import {TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
 import {MARKET_TRADE_AMOUNT, MARKET_PRICE_SHIFT, MARKET_BASE_FEE, MARKET_MIN_FEE, MARKET_FEE_REDUCTION_PER_LEVEL} from '@/js/engine/balancing.js'
 import {IMG_RESOURCE_MAP, SND_MARKET_EXCHANGE} from '@/js/engine/assets.js'
-import {BUILDING_MARKET, RESOURCE_GOLD} from '@/js/engine/enums.js'
+import {BUILDING_MARKET, RESOURCE_GOLD, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
 
@@ -56,7 +56,7 @@ function buy(resource) {
     return
   }
   audio.playSound(SND_MARKET_EXCHANGE)
-  gameState.executeTrade(resource, 'buy')
+  gameState.executeTrade(resource, TRADE_BUY)
 }
 
 function sell(resource) {
@@ -64,7 +64,7 @@ function sell(resource) {
     return
   }
   audio.playSound(SND_MARKET_EXCHANGE)
-  gameState.executeTrade(resource, 'sell')
+  gameState.executeTrade(resource, TRADE_SELL)
 }
 
 function handleKeydown(event) {
