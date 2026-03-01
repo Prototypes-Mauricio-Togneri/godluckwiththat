@@ -119,7 +119,7 @@ const storageCap = Math.floor(buildings.storehouse.storageCap * (1 + storageBonu
 
 Then use this local `storageCap` for all 6 resource caps (`state.js:113-118`) and the market trade cap (`state.js:480`).
 
-#### Step 3e: Construction time bonus (1 bonus) — TODO
+#### Step 3e: Construction time bonus (1 bonus) — DONE
 
 **Where:** `state.js` — 3 locations that derive duration from cost:
 - Line 316: `levelUpBuilding()` — calls `building.levelUp(cost)` which internally uses `cost.toSeconds`

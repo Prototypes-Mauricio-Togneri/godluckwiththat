@@ -28,10 +28,11 @@ class Building {
   /**
    * Starts construction for the next level.
    * @param {Cost} cost - The level-up cost (used to derive construction duration)
+   * @param {number} [durationMult=1] - Multiplier applied to construction duration (from research bonuses)
    * @returns {number} The construction duration in seconds
    */
-  levelUp(cost) {
-    const duration = cost.toSeconds
+  levelUp(cost, durationMult = 1) {
+    const duration = Math.max(1, Math.floor(cost.toSeconds * durationMult))
     this.constructionDuration = duration
     this.constructionRemaining = duration
     return duration

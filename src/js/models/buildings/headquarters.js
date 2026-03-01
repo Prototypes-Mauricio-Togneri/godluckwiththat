@@ -59,10 +59,11 @@ class Headquarters extends Building {
   /**
    * Starts construction for the next headquarters type.
    * @param {Cost} cost - The upgrade cost (used to derive construction duration)
+   * @param {number} [durationMult=1] - Multiplier applied to upgrade duration (from research bonuses)
    * @returns {number} The construction duration in seconds
    */
-  upgradeType(cost) {
-    const duration = cost.toSeconds
+  upgradeType(cost, durationMult = 1) {
+    const duration = Math.max(1, Math.floor(cost.toSeconds * durationMult))
     this.upgradeDuration = duration
     this.upgradeRemaining = duration
     return duration
