@@ -28,9 +28,9 @@ import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatRate, formatTime} from '@/js/engine/format.js'
 import State from '@/js/engine/state.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
-import {createInitialColony, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
+import {createInitialColony, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION} from '@/js/engine/balancing.js'
-import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
+import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
@@ -93,7 +93,7 @@ function isBounded(resource) {
  */
 function resourceFillPercent(resource) {
   const current = resourceAmount(resource)
-  const capacity = storageCap()
+  const capacity = storageCap.value
   if (!capacity) {
     return 0
   }
@@ -112,7 +112,7 @@ function timeEstimate(resource) {
   const current = resourceAmount(resource)
 
   if (isBounded(resource) && rate > 0) {
-    const capacity = storageCap()
+    const capacity = storageCap.value
     if (current >= capacity) {
       return null
     }
@@ -158,12 +158,14 @@ function resourceAmount(resource) {
   return state.colony.resources[resource]
 }
 
-/** Current storage cap from the storehouse building.
+/** Current storage cap from the storehouse building (with research bonus).
  * @returns {number} Maximum storable amount for bounded resources
  */
-function storageCap() {
-  return state.colony.buildings.storehouse.storageCap
-}
+const storageCap = computed(() => {
+  const bonuses = state.colony.buildings.academy.completedBonuses(RESEARCH_TREE)
+  const storageBonus = bonuses[BONUS_STORAGE_CAPACITY] ?? 0
+  return state.colony.buildings.storehouse.storageCap(storageBonus)
+})
 
 /** Season progress as a fraction from 0 to 1.
  * @returns {number} Fraction of current season elapsed
@@ -363,7 +365,7 @@ onUnmounted(() => {
             <!-- Row 1: icon + current amount -->
             <div class="resource-row-top">
               <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
-              <span class="resource-value" :class="{ 'resource-value--alert': isBounded(resource) && Math.floor(resourceAmount(resource)) >= storageCap(), 'resource-value--zero': Math.floor(resourceAmount(resource)) === 0 }">
+              <span class="resource-value" :class="{ 'resource-value--alert': isBounded(resource) && Math.floor(resourceAmount(resource)) >= storageCap, 'resource-value--zero': Math.floor(resourceAmount(resource)) === 0 }">
                 {{ formatNumber(resourceAmount(resource)) }}
               </span>
             </div>
@@ -388,7 +390,7 @@ onUnmounted(() => {
               <span>{{ t('resource.' + resource) }}</span>
               <!-- Intentional: toLocaleString() instead of formatNumber() to display all digits -->
               <span class="resource-tooltip-time">{{ t('resource.amount') }}: {{ Math.floor(resourceAmount(resource)).toLocaleString() }}</span>
-              <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(storageCap()) }}</span>
+              <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(storageCap) }}</span>
               <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
               <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.producing') }}: {{ +grossProduction(resource).toFixed(2) }}</span>
               <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.consuming') }}: {{ +resourceConsumption(resource).toFixed(2) }}</span>

@@ -2,10 +2,10 @@
 import {ref, inject, computed, onMounted, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber} from '@/js/engine/format.js'
-import {TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
+import {RESEARCH_TREE, TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
 import {MARKET_TRADE_AMOUNT, MARKET_PRICE_SHIFT, MARKET_BASE_FEE, MARKET_MIN_FEE, MARKET_FEE_REDUCTION_PER_LEVEL} from '@/js/engine/balancing.js'
 import {IMG_RESOURCE_MAP, SND_MARKET_EXCHANGE} from '@/js/engine/assets.js'
-import {BUILDING_MARKET, RESOURCE_GOLD, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
+import {BONUS_STORAGE_CAPACITY, BUILDING_MARKET, RESOURCE_GOLD, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
 
@@ -19,13 +19,19 @@ let rafId = null
 const market = computed(() => colony.buildings[BUILDING_MARKET])
 const feePercent = computed(() => Math.round(market.value.effectiveTradeFee * 100))
 
+const storageCap = computed(() => {
+  const bonuses = colony.buildings.academy.completedBonuses(RESEARCH_TREE)
+  const storageBonus = bonuses[BONUS_STORAGE_CAPACITY] ?? 0
+  return colony.buildings.storehouse.storageCap(storageBonus)
+})
+
 /** Whether the colony can afford to buy this resource without exceeding storage.
  * @param {string} resource - Resource key to check
  * @returns {boolean} True if gold is sufficient and storage has room
  */
 function canBuy(resource) {
   return colony.resources.gold >= market.value.buyPrice(resource)
-    && colony.resources[resource] + MARKET_TRADE_AMOUNT <= colony.buildings.storehouse.storageCap
+    && colony.resources[resource] + MARKET_TRADE_AMOUNT <= storageCap.value
 }
 
 /** Whether the colony has enough of this resource to sell without overflowing gold storage.
@@ -34,7 +40,7 @@ function canBuy(resource) {
  */
 function canSell(resource) {
   return colony.resources[resource] >= MARKET_TRADE_AMOUNT
-    && colony.resources.gold + market.value.sellPrice(resource) <= colony.buildings.storehouse.storageCap
+    && colony.resources.gold + market.value.sellPrice(resource) <= storageCap.value
 }
 
 /** Tooltip text for the buy button, showing cost or the reason the trade is blocked.
@@ -45,7 +51,7 @@ function buyTooltip(resource) {
   if (colony.resources.gold < market.value.buyPrice(resource)) {
     return t('market.notEnoughGold')
   }
-  if (colony.resources[resource] + MARKET_TRADE_AMOUNT > colony.buildings.storehouse.storageCap) {
+  if (colony.resources[resource] + MARKET_TRADE_AMOUNT > storageCap.value) {
     return t('market.stockpileFull', t('resource.' + resource).toLowerCase())
   }
   const name = t('resource.' + resource).toLowerCase()
@@ -60,7 +66,7 @@ function sellTooltip(resource) {
   if (colony.resources[resource] < MARKET_TRADE_AMOUNT) {
     return t('market.notEnoughResource', t('resource.' + resource).toLowerCase())
   }
-  if (colony.resources.gold + market.value.sellPrice(resource) > colony.buildings.storehouse.storageCap) {
+  if (colony.resources.gold + market.value.sellPrice(resource) > storageCap.value) {
     return t('market.goldStockpileFull')
   }
   const name = t('resource.' + resource).toLowerCase()

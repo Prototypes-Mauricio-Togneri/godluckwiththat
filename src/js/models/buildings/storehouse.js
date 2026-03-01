@@ -14,11 +14,13 @@ class Storehouse extends Building {
   }
 
   /**
-   * Maximum resource storage capacity at the current level.
+   * Maximum resource storage capacity at the current level, with optional bonus.
+   * @param {number} storageBonus - Fractional bonus from research (e.g. 0.10 = +10%)
    * @returns {number} Maximum storage capacity at current level
    */
-  get storageCap() {
-    return STOREHOUSE_BASE_CAPACITY + this.level * STOREHOUSE_CAPACITY_PER_LEVEL
+  storageCap(storageBonus = 0) {
+    const base = STOREHOUSE_BASE_CAPACITY + this.level * STOREHOUSE_CAPACITY_PER_LEVEL
+    return Math.floor(base * (1 + storageBonus))
   }
 
   /**
