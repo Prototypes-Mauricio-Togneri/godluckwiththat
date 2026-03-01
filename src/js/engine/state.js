@@ -46,14 +46,20 @@ class State {
       resources, production, buildings, consumption,
     } = this.colony
 
-    // Recalculate territory used and cached caps from building levels
+    // Refresh derived state before production: territory counts both completed
+    // building levels and buildings under construction (each reserves one slot).
+    // Research bonuses are aggregated from all completed researches in the tech
+    // tree — these affect production multipliers, consumption reduction, and
+    // population caps, so they must be resolved before rate calculations.
     resources.territory = buildings.totalLevels + buildings.pendingTerritory
     const bonuses = buildings.academy.completedBonuses(RESEARCH_TREE)
     const habitationBonus = bonuses[BONUS_HABITATION] ?? 0
     buildings.house.workersCap = buildings.house.populationCap(habitationBonus)
     const storageCap = buildings.storehouse.storageCap
 
-    // Reset production rates to zero
+    // Zero out all production rates — they are recomputed from scratch each
+    // tick so that changes (worker reassignment, building destruction, research
+    // completion) take effect immediately without stale carryover
     production.food = 0
     production.wood = 0
     production.stone = 0
@@ -63,7 +69,12 @@ class State {
     production.faith = 0
     production.knowledge = 0
 
-    // Compute production rates (per second), applying research bonuses
+    // Compute per-second production rates for every production building.
+    // Two formulas depending on building type:
+    //   Passive (e.g. altar):  level × baseRate × resourceBonus
+    //   Worker-based (e.g. farm): workers × baseRate × resourceBonus × workerBonus
+    // workerMult: global productivity bonus from Transportation research (+5%/tier)
+    // resMult: per-resource bonus from research (e.g. Food Production, Mining)
     const workerMult = 1 + (bonuses[BONUS_WORKER_PRODUCTIVITY] ?? 0)
     for (const [
       buildingKey,
@@ -81,14 +92,16 @@ class State {
       }
     }
 
-    // Seasonal modifier to food production
+    // Seasonal post-multiplier on total food production: warm +20%, cold −20%
     const foodSeasonMod = this.colony.season.isWarm ? SEASON_WARM_FOOD_MODIFIER : SEASON_COLD_FOOD_MODIFIER
     production.food *= 1 + foodSeasonMod
 
-    // Seasonal modifier for wood consumption
+    // Wood seasonal modifier — applied to wood *consumption* below, not production.
+    // Warm −20% (less heating needed), cold +20% (more heating needed)
     const woodSeasonMod = this.colony.season.isWarm ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
 
-    // Apply production to resources, scaled by delta time
+    // Apply production gains to resources. Rates are per-second, so
+    // multiplying by delta converts to the actual elapsed interval
     resources.food += production.food * delta
     resources.wood += production.wood * delta
     resources.stone += production.stone * delta
@@ -98,7 +111,11 @@ class State {
     resources.faith += production.faith * delta
     resources.knowledge += production.knowledge * delta
 
-    // Worker consumption (food + wood upkeep), reduced by research bonuses
+    // Worker upkeep: every worker (idle and assigned) consumes food and wood
+    // each second. Research bonuses reduce the base consumption rates (−5%/tier).
+    // Wood upkeep is additionally scaled by seasonal modifier (cold = more heating).
+    // Guarded by delta > 0 because update(0) is used as a "recalculate-only" call
+    // by action methods (e.g. after assigning a worker) — no resources should flow
     const effFoodCons = WORKER_FOOD_CONSUMPTION * (1 - (bonuses[BONUS_FOOD_CONSUMPTION] ?? 0))
     const effWoodCons = WORKER_WOOD_CONSUMPTION * (1 - (bonuses[BONUS_WOOD_CONSUMPTION] ?? 0))
     if (delta > 0 && resources.workers > 0) {
@@ -109,7 +126,8 @@ class State {
       resources.wood = Math.max(0, resources.wood - woodCost)
     }
 
-    // Cap resources at storage limits
+    // Cap the 6 bounded resources at the storehouse storage limit.
+    // Faith and knowledge are unbounded and skip this step
     resources.food = Math.min(resources.food, storageCap)
     resources.wood = Math.min(resources.wood, storageCap)
     resources.stone = Math.min(resources.stone, storageCap)
@@ -117,7 +135,10 @@ class State {
     resources.iron = Math.min(resources.iron, storageCap)
     resources.gold = Math.min(resources.gold, storageCap)
 
-    // Fire events for resources that just reached their storage cap
+    // Edge-detection for resources hitting their storage cap. The _resourcesAtCap
+    // Set tracks which resources were at cap on the previous tick, so events fire
+    // only on the transition (not repeatedly every tick). When a resource drops
+    // back below cap, the warning event is auto-dismissed
     for (const resource of BOUNDED_RESOURCES) {
       if (resources[resource] >= storageCap) {
         if (!this._resourcesAtCap.has(resource)) {
@@ -137,7 +158,8 @@ class State {
       }
     }
 
-    // Ensure no resource goes below zero
+    // Floor all resources at zero — consumption or other deductions above
+    // may have pushed values negative
     resources.food = Math.max(0, resources.food)
     resources.wood = Math.max(0, resources.wood)
     resources.stone = Math.max(0, resources.stone)
@@ -147,7 +169,9 @@ class State {
     resources.faith = Math.max(0, resources.faith)
     resources.knowledge = Math.max(0, resources.knowledge)
 
-    // Store and apply worker upkeep in displayed production rates
+    // Store per-second consumption rates for UI display (header tooltips show
+    // net production = production − consumption). These are the raw rates, not
+    // the delta-scaled amounts actually deducted above
     if (resources.workers > 0) {
       consumption.food = resources.workers * effFoodCons
       consumption.wood = resources.workers * effWoodCons * (1 + woodSeasonMod)
@@ -156,7 +180,9 @@ class State {
       consumption.wood = 0
     }
 
-    // Fire events for resources whose net production just went negative
+    // Edge-detection for negative net production (same pattern as storage cap
+    // events above). netProduction() = production − consumption, so this fires
+    // when upkeep exceeds output. Warning auto-dismisses when production recovers
     for (const resource of BOUNDED_RESOURCES) {
       if (this.colony.netProduction(resource) < 0) {
         if (!this._resourcesNegativeProduction.has(resource)) {
