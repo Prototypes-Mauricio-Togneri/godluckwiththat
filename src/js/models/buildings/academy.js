@@ -25,6 +25,7 @@ class Academy extends Producer {
 
   /**
    * Cost to level up from the current level.
+   * Formula: floor(baseCost * multiplier ^ level)
    * @returns {Cost} Resource cost for the next level
    */
   get levelUpCost() {
@@ -92,6 +93,7 @@ class Academy extends Producer {
    */
   completedBonuses(researchTree) {
     const bonuses = {}
+    // Iterate categories → subcategories → individual researches, accumulating bonus values
     for (const cat of researchTree) {
       for (const sub of cat.subcategories) {
         if (!sub.bonus) {

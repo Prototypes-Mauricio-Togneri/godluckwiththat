@@ -1,7 +1,8 @@
 import Event from '@/js/models/events/event.js'
 
 /**
- * A past event that has already occurred.
+ * A past event that has already occurred. Extends Event with no additional
+ * fields (no countdown, unlike EventFuture).
  */
 class EventPast extends Event {
   /**

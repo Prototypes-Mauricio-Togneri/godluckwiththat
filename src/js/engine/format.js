@@ -38,8 +38,10 @@ export function formatNumber(n) {
   if (floored < 1000) {
     return String(floored)
   }
+  // Determine suffix tier (0=none, 1=K, 2=M, 3=B, 4=T)
   const tier = Math.min(Math.floor(Math.log10(floored) / 3), NUMBER_SUFFIXES.length - 1)
   const scaled = floored / Math.pow(1000, tier)
+  // Floor to one decimal place then strip trailing ".0"
   const fixed = (Math.floor(scaled * 10) / 10).toFixed(1)
   const short = fixed.endsWith('.0') ? fixed.slice(0, -2) : fixed
   return short + NUMBER_SUFFIXES[tier]
@@ -55,7 +57,7 @@ export function formatRate(ratePerSecond) {
   if (value === 0) {
     return `0.0${t('resource.perSecond')}`
   }
-  const abs = Math.abs(value).toFixed(2).replace(/0$/, '')
+  const abs = Math.abs(value).toFixed(2).replace(/0$/, '') // Strip trailing zero (e.g. 1.20 → 1.2)
   const sign = value < 0 ? '-' : ''
   return `${sign}${abs}${t('resource.perSecond')}`
 }

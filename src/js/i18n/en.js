@@ -1,4 +1,7 @@
-// English locale strings
+/**
+ * English locale string table.
+ * Consumed by localized.js via the t() helper. Default/fallback locale.
+ */
 export const LOCALIZED_EN = {
   // Home screen
   'screen.home.title.line1': 'God Luck',

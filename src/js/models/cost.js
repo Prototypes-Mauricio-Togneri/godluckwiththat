@@ -5,13 +5,13 @@ import {RESOURCE_COPPER, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_K
  * Multi-resource cost holder.
  * Represents a cost (or price) expressed as a combination of resources.
  *
- * @property {number} food
- * @property {number} wood
- * @property {number} stone
- * @property {number} copper
- * @property {number} iron
- * @property {number} gold
- * @property {number} knowledge
+ * @property {number} food - Food portion of the cost
+ * @property {number} wood - Wood portion of the cost
+ * @property {number} stone - Stone portion of the cost
+ * @property {number} copper - Copper portion of the cost
+ * @property {number} iron - Iron portion of the cost
+ * @property {number} gold - Gold portion of the cost
+ * @property {number} knowledge - Knowledge portion of the cost
  */
 class Cost {
   /**

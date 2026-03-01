@@ -72,7 +72,7 @@ class Events {
 	 * Finds the future event for the given building key, removes it,
 	 * and adds a new past event with the provided data.
 	 * @param {string} buildingKey - Building key to match
-	 * @param {Object} data - Past event data (type, textKey, icon, params)
+	 * @param {Object} data - Past event data (type, textKey, icon, params, buildingKey, researchKey)
 	 */
   convertToPast(buildingKey, data) {
     const index = this.future.findIndex(
@@ -115,6 +115,7 @@ class Events {
 	 * @param {number} id - Event ID to remove
 	 */
   dismiss(id) {
+    // Search future events first, then past events
     let index = this.future.findIndex(event => event.id === id)
     if (index !== -1) {
       this.future.splice(index, 1)

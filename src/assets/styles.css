@@ -2,6 +2,7 @@
    CSS Variables
    ============================================ */
 
+/* Theme design tokens */
 :root {
     --color-bg: rgba(22, 18, 14, 1);
     --color-bg-raised: rgba(30, 26, 20, 1);
@@ -22,6 +23,7 @@
    Reset
    ============================================ */
 
+/* Universal box-sizing reset and selection disable */
 * {
     margin: 0;
     padding: 0;
@@ -327,6 +329,7 @@
     transition: opacity 0.2s ease;
 }
 
+/* Visible state — full opacity */
 .modal-overlay.visible {
     opacity: 1;
 }
@@ -344,6 +347,7 @@
     transition: transform 0.25s ease;
 }
 
+/* Slide into position when overlay is visible */
 .modal-overlay.visible .modal-content {
     transform: translateY(0);
 }
@@ -387,6 +391,7 @@
     padding: 0.6rem 1.8rem;
 }
 
+/* Hover — subtle glow */
 .modal-btn:hover {
     box-shadow: 0 0 20px rgba(var(--color-accent-rgb), 0.08);
 }
@@ -402,6 +407,7 @@
     border: 1px solid rgba(196, 80, 80, 0.35);
 }
 
+/* Hover — intensified red */
 .modal-btn--danger:hover {
     color: rgba(196, 80, 80, 1);
     background: linear-gradient(

@@ -1,5 +1,7 @@
-// Localization module. Detects the browser language and resolves
-// to a supported locale, defaulting to English.
+/**
+ * Localization module. Detects the browser language and resolves
+ * to a supported locale, defaulting to English.
+ */
 
 import {LOCALIZED_EN} from '@/js/i18n/en.js'
 import {LOCALIZED_ES} from '@/js/i18n/es.js'

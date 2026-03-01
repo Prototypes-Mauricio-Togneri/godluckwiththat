@@ -3,8 +3,8 @@
  * and challenge configuration.
  *
  * @property {number} version - Save format version
- * @property {Date} createdDateTime - When the game was created
- * @property {Date} updatedDateTime - When the game was last updated
+ * @property {string} createdDateTime - When the game was created (ISO string)
+ * @property {string} updatedDateTime - When the game was last updated (ISO string)
  * @property {number} numberOfChallenges - Total divine challenges
  */
 class Meta {

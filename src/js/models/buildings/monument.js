@@ -4,6 +4,7 @@ import Building from '@/js/models/buildings/building.js'
 
 /**
  * Grants a one-time faith bonus on each level completion.
+ * The bonus is applied externally by GameState.advanceConstruction().
  */
 class Monument extends Building {
   /**
@@ -15,6 +16,7 @@ class Monument extends Building {
 
   /**
    * Cost to level up from the current level.
+   * Formula: floor(baseCost * multiplier ^ level)
    * @returns {Cost} Resource cost for the next level
    */
   get levelUpCost() {

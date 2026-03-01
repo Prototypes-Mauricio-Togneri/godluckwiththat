@@ -60,6 +60,7 @@ class Audio {
       el = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(assetPath)
       this._activeSounds.set(assetPath, el)
     }
+    // AbortController auto-removes ended/error listeners on abort, preventing leaks
     const ac = new window.AbortController()
     this._soundAbort.set(assetPath, ac)
     const cleanup = () => {

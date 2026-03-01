@@ -23,6 +23,7 @@ class Storehouse extends Building {
 
   /**
    * Cost to level up from the current level.
+   * Formula: floor(baseCost * multiplier ^ level)
    * @returns {Cost} Resource cost for the next level
    */
   get levelUpCost() {

@@ -1,4 +1,7 @@
-// French locale strings
+/**
+ * French locale string table.
+ * Consumed by localized.js via the t() helper.
+ */
 export const LOCALIZED_FR = {
   // Home screen
   'screen.home.title.line1': 'God Luck',

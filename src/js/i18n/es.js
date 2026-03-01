@@ -1,4 +1,7 @@
-// Spanish locale strings
+/**
+ * Spanish locale string table.
+ * Consumed by localized.js via the t() helper.
+ */
 export const LOCALIZED_ES = {
   // Home screen
   'screen.home.title.line1': 'God Luck',
