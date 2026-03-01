@@ -475,7 +475,8 @@ class GameState {
     const {
       resources, buildings, researches,
     } = this.colony
-    if (researches.isActive(key) || researches.isCompleted(key) ||
+    if (researches.isActive(key) ||
+        researches.isCompleted(key) ||
         !RESEARCH_DEFINITIONS[key] ||
         buildings.academy.level < 1 ||
         !resources.canAfford(RESEARCH_DEFINITIONS[key].cost)) {
