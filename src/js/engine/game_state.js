@@ -365,15 +365,13 @@ class GameState {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
-    if (hq.isConstructing || hq.isUpgrading) {
-      return
-    }
-    const cost = hq.upgradeCost()
-    if (!cost || !resources.canAfford(cost)) {
-      return
-    }
-    resources.deduct(cost)
 
+    const cost = hq.upgradeCost()
+    if (hq.isConstructing || hq.isUpgrading || !cost || !resources.canAfford(cost)) {
+      return
+    }
+
+    resources.deduct(cost)
     const duration = cost.toSeconds()
     hq.upgradeDuration = duration
     hq.upgradeRemaining = duration
