@@ -8,8 +8,6 @@
   - Gold mine: Make it look different than the iron mine
   - Monument: Re-design it
 
-- Finish to implement researches
-
 - Implement save and load
 
 - Create tutorial
@@ -28,7 +26,8 @@
   - Show challenge outcome
   - Choose blessing
 
-- Create military window
+- Create military
+  - Open military window
   - See military
   - Create units
   - See upcoming attacks

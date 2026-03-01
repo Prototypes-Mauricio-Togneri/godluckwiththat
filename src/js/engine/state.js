@@ -4,7 +4,7 @@ import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_BONUS_MAP, PRODUCTION_RATES, RESEAR
 import {IMG_OTHER_TERRITORY, IMG_RESOURCE_KNOWLEDGE, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_CREATED, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
 import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
-import {BONUS_CONSTRUCTION_TIME, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED} from '@/js/engine/enums.js'
+import {BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_TERRITORY_LIMIT_REACHED} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -346,7 +346,7 @@ class State {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
-    const cost = hq.levelUpCost
+    const cost = this.expansionCost
 
     if (hq.isConstructing || hq.isUpgrading || !resources.canAfford(cost)) {
       return
@@ -415,31 +415,6 @@ class State {
   }
 
   /**
-   * Shared recruit logic: deducts cost, increments worker count, plays sound, fires event.
-   * @returns {boolean} true if recruitment succeeded
-   */
-  _recruit() {
-    const {
-      resources, buildings,
-    } = this.colony
-    if (!resources.canAfford(WORKER_RECRUIT_COST) || resources.workers >= buildings.house.workersCap) {
-      return false
-    }
-    resources.deduct(WORKER_RECRUIT_COST)
-    resources.workers += 1
-    audio.playSound(SND_WORKER_CREATED)
-    if (resources.workers >= buildings.house.workersCap) {
-      this.colony.events.addPast({
-        type: EVENT_TYPE_POPULATION_LIMIT_REACHED,
-        textKey: 'event.populationLimitReached',
-        icon: IMG_UNIT_WORKER,
-      })
-      audio.playSound(SND_NOTIFICATION_ALERT)
-    }
-    return true
-  }
-
-  /**
    * Unassigns one worker from a building back to idle.
    * @param {string} buildingKey - Key in colony.buildings
    */
@@ -504,12 +479,48 @@ class State {
   }
 
   /**
+   * Discounted territory expansion cost after applying expansion-cost research bonuses.
+   * @returns {Cost} The discounted cost for the next territory level
+   */
+  get expansionCost() {
+    const baseCost = this.colony.buildings.headquarters.levelUpCost
+    const bonuses = this.colony.buildings.academy.completedBonuses(RESEARCH_TREE)
+    const mult = 1 / (1 + (bonuses[BONUS_EXPANSION_COST] ?? 0))
+    return baseCost.multiply(mult).floor
+  }
+
+  /**
    * Duration multiplier from completed construction-time research bonuses.
    * @returns {number} Multiplier in (0, 1] — lower means faster construction
    */
   get _constructionDurationMult() {
     const bonuses = this.colony.buildings.academy.completedBonuses(RESEARCH_TREE)
     return 1 / (1 + (bonuses[BONUS_CONSTRUCTION_TIME] ?? 0))
+  }
+
+  /**
+   * Shared recruit logic: deducts cost, increments worker count, plays sound, fires event.
+   * @returns {boolean} true if recruitment succeeded
+   */
+  _recruit() {
+    const {
+      resources, buildings,
+    } = this.colony
+    if (!resources.canAfford(WORKER_RECRUIT_COST) || resources.workers >= buildings.house.workersCap) {
+      return false
+    }
+    resources.deduct(WORKER_RECRUIT_COST)
+    resources.workers += 1
+    audio.playSound(SND_WORKER_CREATED)
+    if (resources.workers >= buildings.house.workersCap) {
+      this.colony.events.addPast({
+        type: EVENT_TYPE_POPULATION_LIMIT_REACHED,
+        textKey: 'event.populationLimitReached',
+        icon: IMG_UNIT_WORKER,
+      })
+      audio.playSound(SND_NOTIFICATION_ALERT)
+    }
+    return true
   }
 
   /**

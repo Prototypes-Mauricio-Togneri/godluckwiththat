@@ -140,30 +140,11 @@ const durationMult = 1 / (1 + constructionBonus)
 
 **Note:** Research durations (`startResearch()` at `state.js:459`) are NOT affected — the construction bonus only applies to buildings.
 
-#### Step 3f: Expansion cost bonus (1 bonus) — TODO
+#### Step 3f: Expansion cost bonus (1 bonus) — DONE
 
-**Where:** `headquarters.js:55-57` (`upgradeCost` getter) and `state.js:373-388` (`upgradeHeadquarters()`).
+`BONUS_EXPANSION_COST` reduces the resource cost of territory expansion (level-up).
 
-`BONUS_EXPANSION_COST` reduces the resource cost of HQ type upgrades.
-
-**Plan — Apply in State:** Modify `upgradeHeadquarters()` to apply the discount after getting the base cost. This keeps the model pure:
-
-```js
-upgradeHeadquarters() {
-  const hq = buildings.headquarters
-  const baseCost = hq.upgradeCost
-  if (!baseCost) return
-  const expansionBonus = bonuses[BONUS_EXPANSION_COST] ?? 0
-  const cost = baseCost.multiply(1 / (1 + expansionBonus)).floor
-  if (!resources.canAfford(cost)) return
-  resources.deduct(cost)
-  // ...
-}
-```
-
-Note: `bonuses` is not currently available outside `update()`. Either recompute it in `upgradeHeadquarters()`, or cache it on the instance during `update()`.
-
-**UI consideration:** The HQ card calls `hq.upgradeCost` directly to display costs. To show discounted costs, add a `discountedUpgradeCost` computed in the component that applies the multiplier.
+**Implemented:** Added `expansionCost` getter on `State` (`state.js`) that applies the discount to `hq.levelUpCost`. `expandTerritory()` uses `this.expansionCost` instead of `hq.levelUpCost`. The HQ card reads `state.expansionCost` to display the discounted price.
 
 #### Step 3g: Disaster bonuses (3 bonuses) — DEFERRED
 
