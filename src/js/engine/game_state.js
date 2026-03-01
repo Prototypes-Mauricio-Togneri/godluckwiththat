@@ -498,10 +498,6 @@ class GameState {
     } = this.colony
     const market = buildings[BUILDING_MARKET]
 
-    if (market.level < 1) {
-      return
-    }
-
     if (market.executeTrade(resource, direction, resources, buildings.storehouse.storageCap())) {
       this.update(0)
     }

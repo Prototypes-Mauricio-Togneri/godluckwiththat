@@ -75,6 +75,9 @@ class Market extends Building {
    * @returns {boolean} Whether the trade was executed
    */
   executeTrade(resource, direction, resources, storageCap) {
+    if (this.level < 1) {
+      return false
+    }
     if (direction === TRADE_BUY) {
       const goldCost = this.buyPrice(resource)
       if (resources.gold < goldCost) {
