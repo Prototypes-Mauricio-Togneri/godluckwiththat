@@ -247,6 +247,7 @@ class GameState {
 
   /**
    * Advances research timers and handles completion.
+   * Driven by requestAnimationFrame for smooth visual progress.
    * @param {number} delta - Seconds since last tick
    */
   advanceResearch(delta) {
@@ -274,6 +275,7 @@ class GameState {
 
   /**
    * Advances event countdown timers by the elapsed delta.
+   * Driven by requestAnimationFrame for smooth visual progress.
    * @param {number} delta - Seconds elapsed since last tick
    */
   advanceEvents(delta) {
