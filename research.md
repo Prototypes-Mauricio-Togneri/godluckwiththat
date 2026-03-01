@@ -99,7 +99,7 @@ const effWoodCons = WORKER_WOOD_CONSUMPTION * (1 - (bonuses[BONUS_WOOD_CONSUMPTI
 - `BONUS_FOOD_CONSUMPTION` → reduces food upkeep per worker (-5%/tier, linear)
 - `BONUS_WOOD_CONSUMPTION` → reduces wood upkeep per worker (-5%/tier, linear)
 
-#### Step 3d: Storage capacity bonus (1 bonus) — TODO
+#### Step 3d: Storage capacity bonus (1 bonus) — DONE
 
 **Where:** `storehouse.js:20-22` (`storageCap` getter) and `state.js:54,113-118` (storage cap usage).
 
