@@ -17,7 +17,7 @@ class Stable extends Building {
    * Cost to level up from the current level.
    * @returns {Cost}
    */
-  levelUpCost() {
+  get levelUpCost() {
     const {
       cost, multiplier,
     } = BUILDING_UPGRADES[BUILDING_STABLE]

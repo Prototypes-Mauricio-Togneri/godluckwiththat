@@ -45,7 +45,7 @@ const upgradeProgress = computed(() => {
 const isBusy = computed(() => isLevelingUp.value || isUpgrading.value)
 
 // Level up
-const levelUpCost = computed(() => hq.value.levelUpCost())
+const levelUpCost = computed(() => hq.value.levelUpCost)
 const canAffordLevelUp = computed(() => colony.resources.canAfford(levelUpCost.value))
 const canLevelUp = computed(() => !isBusy.value && canAffordLevelUp.value)
 const levelUpCostEntries = computed(() => levelUpCost.value?.entries() ?? new Map())

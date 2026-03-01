@@ -285,7 +285,7 @@ class GameState {
       resources, buildings,
     } = this.colony
     const building = buildings[buildingKey]
-    const cost = building.levelUpCost()
+    const cost = building.levelUpCost
 
     if (building.isConstructing || !resources.canAfford(cost) || resources.territory >= buildings.headquarters.territoryCap) {
       return
@@ -325,7 +325,7 @@ class GameState {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
-    const cost = hq.levelUpCost()
+    const cost = hq.levelUpCost
 
     if (hq.isConstructing || hq.isUpgrading || !resources.canAfford(cost)) {
       return

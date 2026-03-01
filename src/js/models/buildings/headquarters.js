@@ -41,7 +41,7 @@ class Headquarters extends Building {
    * Formula: wood = floor(BASE_WOOD * MULTIPLIER ^ (level - 1))
    * @returns {Cost}
    */
-  levelUpCost() {
+  get levelUpCost() {
     const {
       cost, multiplier,
     } = BUILDING_UPGRADES[BUILDING_HEADQUARTERS]
