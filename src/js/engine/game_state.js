@@ -292,9 +292,7 @@ class GameState {
     }
 
     resources.deduct(cost)
-    const duration = cost.toSeconds()
-    building.constructionDuration = duration
-    building.constructionRemaining = duration
+    const duration = building.levelUp(cost)
 
     const isNewBuilding = building.isUnbuilt
     this.colony.events.dismissPastByType(EVENT_TYPE_BUILDING_UPGRADE)
@@ -335,9 +333,7 @@ class GameState {
     }
 
     resources.deduct(cost)
-    const duration = cost.toSeconds()
-    hq.constructionDuration = duration
-    hq.constructionRemaining = duration
+    const duration = hq.levelUp(cost)
 
     this.colony.events.dismissPastByType(EVENT_TYPE_BUILDING_UPGRADE)
     this.colony.events.addFuture({
@@ -366,9 +362,7 @@ class GameState {
     }
 
     resources.deduct(cost)
-    const duration = cost.toSeconds()
-    hq.upgradeDuration = duration
-    hq.upgradeRemaining = duration
+    hq.upgradeType(cost)
 
     this.update(0)
   }

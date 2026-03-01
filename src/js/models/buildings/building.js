@@ -26,6 +26,18 @@ class Building {
   }
 
   /**
+   * Starts construction for the next level.
+   * @param {Cost} cost - The level-up cost (used to derive construction duration)
+   * @returns {number} The construction duration in seconds
+   */
+  levelUp(cost) {
+    const duration = cost.toSeconds()
+    this.constructionDuration = duration
+    this.constructionRemaining = duration
+    return duration
+  }
+
+  /**
    * Advances construction by the given time delta.
    * @param {number} delta - Seconds elapsed
    * @returns {boolean} Whether construction just completed

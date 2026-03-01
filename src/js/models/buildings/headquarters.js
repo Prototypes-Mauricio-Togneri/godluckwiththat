@@ -57,6 +57,18 @@ class Headquarters extends Building {
   }
 
   /**
+   * Starts construction for the next headquarters type.
+   * @param {Cost} cost - The upgrade cost (used to derive construction duration)
+   * @returns {number} The construction duration in seconds
+   */
+  upgradeType(cost) {
+    const duration = cost.toSeconds()
+    this.upgradeDuration = duration
+    this.upgradeRemaining = duration
+    return duration
+  }
+
+  /**
    * Advances type upgrade by the given time delta.
    * @param {number} delta - Seconds elapsed
    * @returns {boolean} Whether the upgrade just completed
