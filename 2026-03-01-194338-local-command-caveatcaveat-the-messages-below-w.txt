@@ -1,0 +1,52 @@
+  File Path: src/js/engine/game_state.js
+  Issue Type: Logical Bug
+  Line #: 299, 339
+  Severity: Warning
+  Description & Suggested Fix: dismissPastByType(EVENT_TYPE_BUILDING_UPGRADE) 
+    clears all building upgrade events indiscriminately. Both levelUpBuilding()
+    and expandTerritory() call this, so starting a new building upgrade
+  dismisses
+     the "territory expanded" notification and vice versa. Fix: Use separate
+    event types for territory expansion vs. building construction, or dismiss by
+
+    buildingKey.
+  ────────────────────────────────────────
+  File Path: src/js/models/resources.js
+  Issue Type: Inconsistency
+  Line #: 36-44
+  Severity: Warning
+  Description & Suggested Fix: Resources.canAfford / deduct omit faith.
+  Resources
+    tracks faith, and RESOURCE_TIME_WEIGHTS defines a faith weight, but Cost has
+
+    no faith field, canAfford doesn't check it, and deduct doesn't subtract it.
+    Any future faith-costed item would be free. Fix: Add faith to Cost if faith
+    costs are planned.
+  ────────────────────────────────────────
+  File Path: src/components/screens/home_screen.vue
+  Issue Type: Inconsistency
+  Line #: 8
+  Severity: Warning
+  Description & Suggested Fix: isMobile is not reactive to device changes.
+    matchMedia('(pointer: coarse)') is evaluated once. No change listener. Fix:
+    Add mql.addEventListener('change', ...) in onMounted.
+  ────────────────────────────────────────
+  File Path: src/js/engine/constants.js
+  Issue Type: Inconsistency
+  Line #: 186-199
+  Severity: Style
+  Description & Suggested Fix: Knowledge resource visible at settlement tier but
+   
+    Academy unlocks at village. HQ_RESOURCE_UNLOCKS[settlement] includes
+    RESOURCE_KNOWLEDGE, but the Academy (only knowledge source) unlocks at
+    village tier. Players see the resource bar entry with no way to produce it
+    for one full HQ tier. Fix: Verify intentional;  if not, move to village.
+  ────────────────────────────────────────
+  File Path: src/js/models/buildings.js
+  Issue Type: Safety
+  Line #: 59
+  Severity: Style
+  Description & Suggested Fix: Buildings.totalLevels iterates 
+    Object.values(this). Sums all own properties then subtracts HQ. Would break
+    if non-building properties are added. Fix: Filter by instanceof Building or
+    maintain an explicit list.

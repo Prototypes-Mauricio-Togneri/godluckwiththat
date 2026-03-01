@@ -34,6 +34,9 @@ export function formatTime(totalSeconds) {
  * @returns {string} Abbreviated string with K/M/B/T suffix
  */
 export function formatNumber(n) {
+  if (n < 0) {
+    return '-' + formatNumber(-n)
+  }
   const floored = Math.floor(n)
   if (floored < 1000) {
     return String(floored)
