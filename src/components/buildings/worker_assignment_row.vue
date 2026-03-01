@@ -25,7 +25,7 @@ const canAssign = computed(() =>
   building.value.workers < maxWorkers.value
   && (colony.idleWorkers > 0 || canRecruit.value),
 )
-const canUnassign = computed(() => building.value.workers > 0)
+const canUnassign = computed(() => !building.value.isEmpty)
 
 function assign() {
   if (!canAssign.value) {
@@ -53,7 +53,7 @@ function unassign() {
     </span>
     <span class="worker-count">
       <img class="worker-count-icon" :src="IMG_UNIT_WORKER" :alt="t('resource.idleWorkers')">
-      <span class="worker-count-text" :class="{'worker-count-text--zero': building.workers === 0}">{{ building.workers }}/{{ maxWorkers }}</span>
+      <span class="worker-count-text" :class="{'worker-count-text--zero': building.isEmpty}">{{ building.workers }}/{{ maxWorkers }}</span>
     </span>
     <span class="tooltip tooltip--delayed" :data-tooltip="t('worker.assign')">
       <button class="worker-btn worker-btn--plus" :disabled="!canAssign" @click="assign">

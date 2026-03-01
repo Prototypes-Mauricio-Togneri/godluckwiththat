@@ -20,6 +20,11 @@ class Producer extends Building {
     return this.level * WORKERS_PER_LEVEL
   }
 
+  /** @returns {boolean} Whether this building has no workers assigned */
+  get isEmpty() {
+    return this.workers <= 0
+  }
+
   /** @returns {boolean} Whether this building has the maximum workers assigned */
   get isFull() {
     return this.workers >= this.maxWorkers

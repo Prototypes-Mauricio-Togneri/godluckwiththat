@@ -447,7 +447,7 @@ class GameState {
    */
   unassignWorker(buildingKey) {
     const building = this.colony.buildings[buildingKey]
-    if (building.workers <= 0) {
+    if (building.isEmpty) {
       return
     }
     building.workers -= 1
