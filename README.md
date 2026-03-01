@@ -4,6 +4,7 @@
 
 - Finish all building images
   - Market: Make it look less cartoony
+  - Temple: Make it less yellowish
   - Gold mine: Make it look different than the iron mine
   - Monument: Re-design it
 
