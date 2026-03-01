@@ -22,11 +22,3 @@
     no faith field, canAfford doesn't check it, and deduct doesn't subtract it.
     Any future faith-costed item would be free. Fix: Add faith to Cost if faith
     costs are planned.
-  ────────────────────────────────────────
-  File Path: src/components/screens/home_screen.vue
-  Issue Type: Inconsistency
-  Line #: 8
-  Severity: Warning
-  Description & Suggested Fix: isMobile is not reactive to device changes.
-    matchMedia('(pointer: coarse)') is evaluated once. No change listener. Fix:
-    Add mql.addEventListener('change', ...) in onMounted.
