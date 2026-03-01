@@ -222,7 +222,7 @@ class GameState {
           this.colony.events.dismissPastByType(EVENT_TYPE_TERRITORY_LIMIT_REACHED)
         } else {
           audio.playSound(SND_BUILDING_CREATED)
-          this.colony.events.dismissFuture(key)
+          this.colony.events.dismissFutureByBuildingKey(key)
           if (key === BUILDING_STOREHOUSE) {
             this.colony.events.dismissPastByType(EVENT_TYPE_RESOURCE_LIMIT_REACHED)
           } else if (key === BUILDING_HOUSE) {

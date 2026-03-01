@@ -81,7 +81,7 @@ class Events {
 	 * Removes a future event by its building key.
 	 * @param {string} buildingKey - Building key to match
 	 */
-  dismissFuture(buildingKey) {
+  dismissFutureByBuildingKey(buildingKey) {
     const index = this.future.findIndex(
       event => event.buildingKey === buildingKey,
     )
