@@ -38,7 +38,7 @@ const recruitTooltip = computed(() => {
   }
   return t('house.recruitWorker')
 })
-const recruitCostEntries = computed(() => WORKER_RECRUIT_COST.entries())
+const recruitCostEntries = computed(() => WORKER_RECRUIT_COST.entries)
 
 function recruitWorker() {
   if (!canRecruit.value) {

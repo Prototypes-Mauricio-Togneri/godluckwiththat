@@ -45,14 +45,14 @@ class Headquarters extends Building {
     const {
       cost, multiplier,
     } = BUILDING_UPGRADES[BUILDING_HEADQUARTERS]
-    return cost.multiply(Math.pow(multiplier, this.level - 1)).floor()
+    return cost.multiply(Math.pow(multiplier, this.level - 1)).floor
   }
 
   /**
    * Cost to upgrade headquarters to the next progression type.
    * @returns {Cost|null} Cost for the upgrade, or null if already at max type
    */
-  upgradeCost() {
+  get upgradeCost() {
     return HQ_UPGRADE_COSTS[this.type] ?? null
   }
 
@@ -62,7 +62,7 @@ class Headquarters extends Building {
    * @returns {number} The construction duration in seconds
    */
   upgradeType(cost) {
-    const duration = cost.toSeconds()
+    const duration = cost.toSeconds
     this.upgradeDuration = duration
     this.upgradeRemaining = duration
     return duration
@@ -79,7 +79,7 @@ class Headquarters extends Building {
     }
     this.upgradeRemaining = Math.max(0, this.upgradeRemaining - delta)
     if (this.upgradeRemaining === 0) {
-      this.type = this.nextType()
+      this.type = this.nextType
       this.upgradeDuration = 0
       return true
     }
@@ -90,7 +90,7 @@ class Headquarters extends Building {
    * Next headquarters progression type.
    * @returns {string|null} Next type, or null if already at max
    */
-  nextType() {
+  get nextType() {
     const index = HQ_TYPES.indexOf(this.type)
     if (index < 0 || index >= HQ_TYPES.length - 1) {
       return null

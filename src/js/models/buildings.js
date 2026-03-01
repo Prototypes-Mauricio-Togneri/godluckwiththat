@@ -55,7 +55,7 @@ class Buildings {
    * Returns the sum of all building levels (i.e. total territory used).
    * @returns {number}
    */
-  totalLevels() {
+  get totalLevels() {
     return Object.values(this).reduce((sum, building) => sum + building.level, 0) - this.headquarters.level
   }
 
@@ -63,7 +63,7 @@ class Buildings {
    * Returns the total number of workers assigned across all producer buildings.
    * @returns {number}
    */
-  totalAssignedWorkers() {
+  get totalAssignedWorkers() {
     return this.farm.workers
       + this.woodcutter.workers
       + this.quarry.workers
@@ -79,7 +79,7 @@ class Buildings {
    * Each counts as one reserved territory slot.
    * @returns {number}
    */
-  pendingTerritory() {
+  get pendingTerritory() {
     return Object.entries(this).reduce((sum, [
       key,
       building,

@@ -45,11 +45,11 @@ class GameState {
     } = this.colony
 
     // Recalculate territory used and cached caps from building levels
-    resources.territory = buildings.totalLevels() + buildings.pendingTerritory()
+    resources.territory = buildings.totalLevels + buildings.pendingTerritory
     const bonuses = buildings.academy.completedBonuses(RESEARCH_TREE)
     const habitationBonus = bonuses[BONUS_HABITATION] ?? 0
     buildings.house.workersCap = buildings.house.populationCap(habitationBonus)
-    const storageCap = buildings.storehouse.storageCap()
+    const storageCap = buildings.storehouse.storageCap
 
     // Reset production rates to zero
     production.food = 0
@@ -354,7 +354,7 @@ class GameState {
       resources, buildings,
     } = this.colony
     const hq = buildings.headquarters
-    const cost = hq.upgradeCost()
+    const cost = hq.upgradeCost
 
     if (hq.isConstructing || hq.isUpgrading || !cost || !resources.canAfford(cost)) {
       return
@@ -448,7 +448,7 @@ class GameState {
       return
     }
 
-    const duration = cost.toSeconds()
+    const duration = cost.toSeconds
     resources.deduct(cost)
     academy.start(key, duration)
 
@@ -475,7 +475,7 @@ class GameState {
     } = this.colony
     const market = buildings[BUILDING_MARKET]
 
-    if (market.executeTrade(resource, direction, resources, buildings.storehouse.storageCap())) {
+    if (market.executeTrade(resource, direction, resources, buildings.storehouse.storageCap)) {
       this.update(0)
     }
   }

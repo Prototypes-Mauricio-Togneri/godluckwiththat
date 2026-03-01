@@ -6,7 +6,7 @@ import {BONUS_CONSTRUCTION_TIME, BONUS_DISEASE_IMPACT, BONUS_EARTHQUAKE_IMPACT, 
 import Cost from '@/js/models/cost.js'
 
 // ── Build Time ──────────────────────────────────────────────────────
-// Time weight per resource unit (seconds). Used by Cost.toSeconds() to
+// Time weight per resource unit (seconds). Used by Cost.toSeconds to
 // derive construction duration from resource costs.
 export const RESOURCE_TIME_WEIGHTS = {
   [RESOURCE_FOOD]: 0.1,
@@ -374,7 +374,7 @@ export const RESEARCH_SUBCATEGORY_BONUSES = {
 }
 
 // Research costs keyed by RESEARCH_* enum.
-// Resources paid upfront (duration derived via cost.toSeconds())
+// Resources paid upfront (duration derived via cost.toSeconds)
 export const RESEARCH_COSTS = {
   // General: Transportation
   [RESEARCH_TRANSPORTATION_1]: new Cost({

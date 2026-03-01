@@ -21,7 +21,7 @@ class Workshop extends Building {
     const {
       cost, multiplier,
     } = BUILDING_UPGRADES[BUILDING_WORKSHOP]
-    return cost.multiply(Math.pow(multiplier, this.level)).floor()
+    return cost.multiply(Math.pow(multiplier, this.level)).floor
   }
 }
 

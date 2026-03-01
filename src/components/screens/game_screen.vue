@@ -123,7 +123,7 @@ function resourceAmount(resource) {
 }
 
 function storageCap() {
-  return state.colony.buildings.storehouse.storageCap()
+  return state.colony.buildings.storehouse.storageCap
 }
 
 function seasonProgress() {

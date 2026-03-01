@@ -17,7 +17,7 @@ class Storehouse extends Building {
    * Maximum resource storage capacity at the current level.
    * @returns {number}
    */
-  storageCap() {
+  get storageCap() {
     return STOREHOUSE_BASE_CAPACITY + this.level * STOREHOUSE_CAPACITY_PER_LEVEL
   }
 
@@ -29,7 +29,7 @@ class Storehouse extends Building {
     const {
       cost, multiplier,
     } = BUILDING_UPGRADES[BUILDING_STOREHOUSE]
-    return cost.multiply(Math.pow(multiplier, this.level)).floor()
+    return cost.multiply(Math.pow(multiplier, this.level)).floor
   }
 }
 

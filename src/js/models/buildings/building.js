@@ -31,7 +31,7 @@ class Building {
    * @returns {number} The construction duration in seconds
    */
   levelUp(cost) {
-    const duration = cost.toSeconds()
+    const duration = cost.toSeconds
     this.constructionDuration = duration
     this.constructionRemaining = duration
     return duration

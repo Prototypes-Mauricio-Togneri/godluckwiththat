@@ -21,7 +21,7 @@ class Quarry extends Producer {
     const {
       cost, multiplier,
     } = BUILDING_UPGRADES[BUILDING_QUARRY]
-    return cost.multiply(Math.pow(multiplier, this.level)).floor()
+    return cost.multiply(Math.pow(multiplier, this.level)).floor
   }
 }
 

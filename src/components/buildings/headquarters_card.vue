@@ -48,7 +48,7 @@ const isBusy = computed(() => isLevelingUp.value || isUpgrading.value)
 const levelUpCost = computed(() => hq.value.levelUpCost)
 const canAffordLevelUp = computed(() => colony.resources.canAfford(levelUpCost.value))
 const canLevelUp = computed(() => !isBusy.value && canAffordLevelUp.value)
-const levelUpCostEntries = computed(() => levelUpCost.value?.entries() ?? new Map())
+const levelUpCostEntries = computed(() => levelUpCost.value?.entries ?? new Map())
 const levelUpTooltip = computed(() => {
   if (isLevelingUp.value) {
     return ''
@@ -69,11 +69,11 @@ function levelUp() {
 
 // Upgrade type
 const isMaxType = computed(() => hq.value.isMaxType)
-const nextType = computed(() => hq.value.nextType())
+const nextType = computed(() => hq.value.nextType)
 const upgradeLabel = computed(() =>
   nextType.value ? t('headquarters.upgrade', t(`building.headquarters.${nextType.value}`).toLowerCase()) : '',
 )
-const upgradeCost = computed(() => hq.value.upgradeCost())
+const upgradeCost = computed(() => hq.value.upgradeCost)
 const canAffordUpgrade = computed(() => upgradeCost.value !== null && colony.resources.canAfford(upgradeCost.value))
 const canUpgrade = computed(() => !isBusy.value && canAffordUpgrade.value)
 const upgradeTooltip = computed(() => {
@@ -85,7 +85,7 @@ const upgradeTooltip = computed(() => {
   }
   return upgradeLabel.value
 })
-const upgradeCostEntries = computed(() => upgradeCost.value?.entries() ?? new Map())
+const upgradeCostEntries = computed(() => upgradeCost.value?.entries ?? new Map())
 
 function upgradeType() {
   if (!canUpgrade.value) {

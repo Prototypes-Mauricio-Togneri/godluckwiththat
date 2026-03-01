@@ -33,14 +33,14 @@ class Market extends Building {
     const {
       cost, multiplier,
     } = BUILDING_UPGRADES[BUILDING_MARKET]
-    return cost.multiply(Math.pow(multiplier, this.level)).floor()
+    return cost.multiply(Math.pow(multiplier, this.level)).floor
   }
 
   /**
    * Computes the effective trade fee, accounting for market level.
    * @returns {number} Effective fee fraction (e.g. 0.21)
    */
-  effectiveTradeFee() {
+  get effectiveTradeFee() {
     const basePercent = Math.round(MARKET_BASE_FEE * 100)
     const reductionPerLevel = Math.round(MARKET_FEE_REDUCTION_PER_LEVEL * 100)
     const minPercent = Math.round(MARKET_MIN_FEE * 100)
@@ -54,7 +54,7 @@ class Market extends Building {
    * @returns {number} Gold cost (floored)
    */
   buyPrice(resource) {
-    return Math.floor(this[resource] * (1 + this.effectiveTradeFee()))
+    return Math.floor(this[resource] * (1 + this.effectiveTradeFee))
   }
 
   /**
@@ -63,7 +63,7 @@ class Market extends Building {
    * @returns {number} Gold gained (floored)
    */
   sellPrice(resource) {
-    return Math.floor(this[resource] * (1 - this.effectiveTradeFee()))
+    return Math.floor(this[resource] * (1 - this.effectiveTradeFee))
   }
 
   /**

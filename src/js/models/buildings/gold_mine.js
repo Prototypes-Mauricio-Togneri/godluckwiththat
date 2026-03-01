@@ -21,7 +21,7 @@ class GoldMine extends Producer {
     const {
       cost, multiplier,
     } = BUILDING_UPGRADES[BUILDING_GOLD_MINE]
-    return cost.multiply(Math.pow(multiplier, this.level)).floor()
+    return cost.multiply(Math.pow(multiplier, this.level)).floor
   }
 }
 

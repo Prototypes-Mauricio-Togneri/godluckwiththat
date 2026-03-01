@@ -31,7 +31,7 @@ class Cost {
    * Returns non-zero resource entries as a Map of key → amount.
    * @returns {Map<string, number>}
    */
-  entries() {
+  get entries() {
     const map = new Map()
     if (this.food > 0) {
       map.set(RESOURCE_FOOD, this.food)
@@ -78,7 +78,7 @@ class Cost {
    * Returns a new Cost with each resource floored to the nearest integer.
    * @returns {Cost}
    */
-  floor() {
+  get floor() {
     return new Cost({
       food: Math.floor(this.food),
       wood: Math.floor(this.wood),
@@ -95,12 +95,12 @@ class Cost {
    * Each resource unit contributes its weight from RESOURCE_TIME_WEIGHTS.
    * @returns {number} Total time in seconds
    */
-  toSeconds() {
+  get toSeconds() {
     let seconds = 0
     for (const [
       resource,
       amount,
-    ] of this.entries()) {
+    ] of this.entries) {
       seconds += amount * (RESOURCE_TIME_WEIGHTS[resource] ?? 0)
     }
     return Math.floor(seconds)

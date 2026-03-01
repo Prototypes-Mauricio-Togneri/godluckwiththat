@@ -26,7 +26,7 @@ class Colony {
 
   /** @returns {number} Workers not assigned to any building (derived from total - assigned) */
   get idleWorkers() {
-    return this.resources.workers - this.buildings.totalAssignedWorkers()
+    return this.resources.workers - this.buildings.totalAssignedWorkers
   }
 
   /**

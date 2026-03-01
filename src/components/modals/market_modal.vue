@@ -17,23 +17,23 @@ const showHelp = ref(false)
 let rafId = null
 
 const market = computed(() => colony.buildings[BUILDING_MARKET])
-const feePercent = computed(() => Math.round(market.value.effectiveTradeFee() * 100))
+const feePercent = computed(() => Math.round(market.value.effectiveTradeFee * 100))
 
 function canBuy(resource) {
   return colony.resources.gold >= market.value.buyPrice(resource)
-    && colony.resources[resource] + MARKET_TRADE_AMOUNT <= colony.buildings.storehouse.storageCap()
+    && colony.resources[resource] + MARKET_TRADE_AMOUNT <= colony.buildings.storehouse.storageCap
 }
 
 function canSell(resource) {
   return colony.resources[resource] >= MARKET_TRADE_AMOUNT
-    && colony.resources.gold + market.value.sellPrice(resource) <= colony.buildings.storehouse.storageCap()
+    && colony.resources.gold + market.value.sellPrice(resource) <= colony.buildings.storehouse.storageCap
 }
 
 function buyTooltip(resource) {
   if (colony.resources.gold < market.value.buyPrice(resource)) {
     return t('market.notEnoughGold')
   }
-  if (colony.resources[resource] + MARKET_TRADE_AMOUNT > colony.buildings.storehouse.storageCap()) {
+  if (colony.resources[resource] + MARKET_TRADE_AMOUNT > colony.buildings.storehouse.storageCap) {
     return t('market.stockpileFull', t('resource.' + resource).toLowerCase())
   }
   const name = t('resource.' + resource).toLowerCase()
@@ -44,7 +44,7 @@ function sellTooltip(resource) {
   if (colony.resources[resource] < MARKET_TRADE_AMOUNT) {
     return t('market.notEnoughResource', t('resource.' + resource).toLowerCase())
   }
-  if (colony.resources.gold + market.value.sellPrice(resource) > colony.buildings.storehouse.storageCap()) {
+  if (colony.resources.gold + market.value.sellPrice(resource) > colony.buildings.storehouse.storageCap) {
     return t('market.goldStockpileFull')
   }
   const name = t('resource.' + resource).toLowerCase()

@@ -145,7 +145,7 @@ onUnmounted(() => {
                   </span>
                   <template v-else>
                     <div
-                      v-for="[resource, amount] in RESEARCH_COSTS[rKey].entries()"
+                      v-for="[resource, amount] in RESEARCH_COSTS[rKey].entries"
                       :key="resource"
                       class="node-cost-item"
                     >
