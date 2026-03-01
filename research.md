@@ -142,7 +142,7 @@ const durationMult = 1 / (1 + constructionBonus)
 
 #### Step 3f: Expansion cost bonus (1 bonus) — TODO
 
-**Where:** `headquarters.js:55-57` (`upgradeCost` getter) and `state.js:354-369` (`upgradeHeadquarters()`).
+**Where:** `headquarters.js:55-57` (`upgradeCost` getter) and `state.js:373-388` (`upgradeHeadquarters()`).
 
 `BONUS_EXPANSION_COST` reduces the resource cost of HQ type upgrades.
 
