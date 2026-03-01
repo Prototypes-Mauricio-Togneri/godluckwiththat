@@ -2,6 +2,10 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+stockpile -> storehouse
+trades -> market
+researches -> academy
+
 - Finish all building images
   - Market: Make it look less cartoony
   - Gold mine: Make it look different than the iron mine
