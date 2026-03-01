@@ -6,7 +6,7 @@ import Producer from '@/js/models/buildings/producer.js'
  * Generates knowledge for the colony and manages research state.
  *
  * @property {Set<string>} completed - Set of completed research keys
- * @property {Map<string, ResearchTask>} active - In-progress researches
+ * @property {Map<string, Research>} active - In-progress researches
  */
 class Academy extends Producer {
   /**
@@ -19,7 +19,7 @@ class Academy extends Producer {
     this.completed = new Set(data.completed ?? [])
     this.active = new Map()
     for (const entry of (data.active ?? [])) {
-      this.active.set(entry.key, new ResearchTask(entry.duration, entry.remainingSeconds))
+      this.active.set(entry.key, new Research(entry.duration, entry.remainingSeconds))
     }
   }
 
@@ -61,7 +61,7 @@ class Academy extends Producer {
 
   /**
    * @param {string} key - Research key
-   * @returns {ResearchTask|undefined}
+   * @returns {Research|undefined}
    */
   getActive(key) {
     return this.active.get(key)
@@ -73,7 +73,7 @@ class Academy extends Producer {
    * @param {number} duration - Total duration in seconds
    */
   start(key, duration) {
-    this.active.set(key, new ResearchTask(duration))
+    this.active.set(key, new Research(duration))
   }
 
   /**
@@ -140,7 +140,7 @@ class Academy extends Producer {
  * @property {number} duration - Total duration in seconds
  * @property {number} remainingSeconds - Seconds remaining until completion
  */
-class ResearchTask {
+class Research {
   /**
    * @param {number} duration - Total duration in seconds
    * @param {number} [remainingSeconds] - Seconds remaining (defaults to duration)

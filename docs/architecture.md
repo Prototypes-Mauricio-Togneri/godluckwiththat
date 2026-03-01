@@ -187,7 +187,7 @@ Thin `localStorage` wrapper for persisting user preferences. Exposes `musicEnabl
 
 Research is an academy-gated tech tree providing cumulative bonus modifiers.
 
-**Model** — Research state is managed directly by the `Academy` class (`src/js/models/buildings/academy.js`), which extends `Producer` with `completed` (`Set<string>`), `active` (`Map<string, ResearchTask>`). Methods: `isCompleted(key)`, `isActive(key)`, `getActive(key)`, `start(key, duration)`, `complete(key)`, `completedBonuses(researchTree)` (aggregates `BONUS_*` values using the tree to find subcategory bonus definitions), `toJSON()`. Accessed via `colony.buildings.academy`.
+**Model** — Research state is managed directly by the `Academy` class (`src/js/models/buildings/academy.js`), which extends `Producer` with `completed` (`Set<string>`), `active` (`Map<string, Research>`). Methods: `isCompleted(key)`, `isActive(key)`, `getActive(key)`, `start(key, duration)`, `complete(key)`, `completedBonuses(researchTree)` (aggregates `BONUS_*` values using the tree to find subcategory bonus definitions), `toJSON()`. Accessed via `colony.buildings.academy`.
 
 **Enums** (`enums.js`) — `RESEARCH_CATEGORY_*` (5 categories: general, disasters, resources, religion, military), `RESEARCH_SUBCATEGORY_*` (17 subcategories, e.g. transportation, construction, habitation, floods, food production, defense, attack, warning), `RESEARCH_*` keys (5 tiers per subcategory, e.g. `RESEARCH_TRANSPORTATION_1` through `_5`), `BONUS_*` types (19, e.g. `BONUS_WORKER_PRODUCTIVITY`, `BONUS_CONSTRUCTION_TIME`, `BONUS_FOOD_PRODUCTION`, `BONUS_HABITATION`, `BONUS_UNIT_DEFENSE`).
 
