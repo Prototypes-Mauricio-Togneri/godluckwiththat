@@ -133,14 +133,10 @@ class State {
       resources.wood = Math.max(0, resources.wood - consumption.wood * delta)
     }
 
-    // Cap the 6 bounded resources at the storehouse storage limit.
-    // Faith and knowledge are unbounded and skip this step
-    resources.food = Math.min(resources.food, storageCap)
-    resources.wood = Math.min(resources.wood, storageCap)
-    resources.stone = Math.min(resources.stone, storageCap)
-    resources.copper = Math.min(resources.copper, storageCap)
-    resources.iron = Math.min(resources.iron, storageCap)
-    resources.gold = Math.min(resources.gold, storageCap)
+    // Cap all bounded resources at the storehouse storage limit.
+    for (const resource of BOUNDED_RESOURCES) {
+      resources[resource] = Math.min(resources[resource], storageCap)
+    }
 
     // Edge-detection for resources hitting their storage cap. The _resourcesAtCap
     // Set tracks which resources were at cap on the previous tick, so events fire
