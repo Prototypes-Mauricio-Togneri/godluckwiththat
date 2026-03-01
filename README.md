@@ -32,7 +32,10 @@
   - See military
   - Create units
   - See upcoming attacks
+  - Implement military researches
 
 - Implement natural disasters
+  - Implement random disasters
+  - Implement disasters researches
 
 - Implement story intro

@@ -122,9 +122,9 @@ Then use this local `storageCap` for all 6 resource caps (`state.js:113-118`) an
 #### Step 3e: Construction time bonus (1 bonus) — TODO
 
 **Where:** `state.js` — 3 locations that derive duration from cost:
-- Line 297: `levelUpBuilding()` — calls `building.levelUp(cost)` which internally uses `cost.toSeconds`
-- Line 337: `expandTerritory()` — calls `hq.levelUp(cost)` (same path)
-- Line 366: `upgradeHeadquarters()` — calls `hq.upgradeType(cost)` which uses `cost.toSeconds`
+- Line 316: `levelUpBuilding()` — calls `building.levelUp(cost)` which internally uses `cost.toSeconds`
+- Line 356: `expandTerritory()` — calls `hq.levelUp(cost)` (same path)
+- Line 385: `upgradeHeadquarters()` — calls `hq.upgradeType(cost)` which uses `cost.toSeconds`
 
 **Plan:** Apply the bonus to reduce duration at each call site. Since `levelUp()` and `upgradeType()` both derive duration from the cost, either:
 - Pass a pre-discounted cost to these methods, or
@@ -138,7 +138,7 @@ const durationMult = 1 / (1 + constructionBonus)
 
 `Math.max(1, ...)` prevents zero-length construction.
 
-**Note:** Research durations (`startResearch()` at `state.js:453`) are NOT affected — the construction bonus only applies to buildings.
+**Note:** Research durations (`startResearch()` at `state.js:459`) are NOT affected — the construction bonus only applies to buildings.
 
 #### Step 3f: Expansion cost bonus (1 bonus) — TODO
 
