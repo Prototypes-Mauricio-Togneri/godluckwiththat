@@ -475,19 +475,13 @@ class GameState {
     const {
       resources, buildings, researches,
     } = this.colony
-    if (researches.isActive(key) || researches.isCompleted(key)) {
+    if (researches.isActive(key) || researches.isCompleted(key) ||
+        !RESEARCH_DEFINITIONS[key] ||
+        buildings.academy.level < 1 ||
+        !resources.canAfford(RESEARCH_DEFINITIONS[key].cost)) {
       return
     }
     const def = RESEARCH_DEFINITIONS[key]
-    if (!def) {
-      return
-    }
-    if (buildings.academy.level < 1) {
-      return
-    }
-    if (!resources.canAfford(def.cost)) {
-      return
-    }
 
     const duration = def.cost.toSeconds()
     resources.deduct(def.cost)
