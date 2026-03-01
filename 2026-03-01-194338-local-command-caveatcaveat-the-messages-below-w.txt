@@ -30,14 +30,3 @@
   Description & Suggested Fix: isMobile is not reactive to device changes.
     matchMedia('(pointer: coarse)') is evaluated once. No change listener. Fix:
     Add mql.addEventListener('change', ...) in onMounted.
-  ────────────────────────────────────────
-  File Path: src/js/engine/constants.js
-  Issue Type: Inconsistency
-  Line #: 186-199
-  Severity: Style
-  Description & Suggested Fix: Knowledge resource visible at settlement tier but
-   
-    Academy unlocks at village. HQ_RESOURCE_UNLOCKS[settlement] includes
-    RESOURCE_KNOWLEDGE, but the Academy (only knowledge source) unlocks at
-    village tier. Players see the resource bar entry with no way to produce it
-    for one full HQ tier. Fix: Verify intentional;  if not, move to village.

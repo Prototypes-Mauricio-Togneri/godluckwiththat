@@ -37,8 +37,8 @@ The colony is where the game takes place. It is where you will build your buildi
     - City → unlocks: Market, Gold Mine, Workshop, Tower
   - Each colony upgrade also unlocks resources visible in the header bar:
     - Camp: Food, Wood, Faith
-    - Settlement: Stone, Knowledge
-    - Village: Copper
+    - Settlement: Stone
+    - Village: Knowledge, Copper
     - Town: Iron
     - City: Gold
 

@@ -53,7 +53,7 @@ Main content area displaying all 20 buildings in a 4-column layout. Each column 
 
 **Building unlock restrictions**: Buildings are locked/unlocked based on the headquarters type. The `HQ_BUILDING_UNLOCKS` constant in `constants.js` maps each HQ type to the building keys it unlocks (per-tier, non-cumulative). Headquarters is always unlocked. `game_screen.vue` checks each building via `isBuildingLocked()`, which iterates tiers up to the current HQ type index. Locked buildings render as a disabled placeholder card (same shell as `.building-card` but with `opacity: 0.4`) with a centered grayscale lock icon and a "Locked" tooltip, instead of the real card component.
 
-**Resource unlock restrictions**: `HQ_RESOURCE_UNLOCKS` in `constants.js` maps each HQ type to the resource keys it makes visible in the header bar (Camp: food, wood, faith; Settlement: stone, knowledge; Village: copper; Town: iron; City: gold). `game_screen.vue` filters `HEADER_RESOURCES` against unlocked resources for the current HQ type.
+**Resource unlock restrictions**: `HQ_RESOURCE_UNLOCKS` in `constants.js` maps each HQ type to the resource keys it makes visible in the header bar (Camp: food, wood, faith; Settlement: stone; Village: knowledge, copper; Town: iron; City: gold). `game_screen.vue` filters `HEADER_RESOURCES` against unlocked resources for the current HQ type.
 
 **Column headers**: Josefin Sans uppercase labels (1rem, brighter accent at 0.75 opacity) centered above each column with a bottom border separator and extra bottom spacing.
 

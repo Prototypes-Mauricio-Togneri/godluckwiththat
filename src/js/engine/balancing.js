@@ -35,7 +35,7 @@ export const BUILDING_UPGRADES = {
     cost: new Cost({
       wood: 20,
     }),
-    multiplier: 1.5,
+    multiplier: 1.2,
   },
   [BUILDING_ACADEMY]: {
     cost: new Cost({
