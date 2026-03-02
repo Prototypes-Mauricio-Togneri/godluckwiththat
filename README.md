@@ -37,4 +37,6 @@
   - Implement random disasters
   - Implement disasters researches
 
+- Cloud saves
+
 - Implement story intro
