@@ -32,6 +32,9 @@ import Resources from '@/js/models/resources.js'
 
 // Structural constants — class maps, arrays, config objects, and factory functions.
 
+// Whether the app is running in a local development environment
+export const IS_DEV = import.meta.env.DEV
+
 // Tick interval in milliseconds
 export const TICK_INTERVAL = 1000
 
@@ -644,11 +647,11 @@ export function createInitialMeta() {
 
 /**
  * Creates the colony used for a new game session.
- * Currently delegates to createInitialColonyAdvanced for development/testing.
+ * Returns an advanced colony in development and a basic colony in production.
  * @returns {Colony} Fully initialized colony
  */
 export function createInitialColony() {
-  return createInitialColonyAdvanced()
+  return IS_DEV ? createInitialColonyAdvanced() : createInitialColonyBasic()
 }
 
 /**

@@ -1,6 +1,7 @@
 <script setup>
 import {onMounted, ref} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
+import {IS_DEV} from '@/js/engine/constants.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits(['start'])
@@ -9,7 +10,7 @@ const isMobile = ref(window.matchMedia('(pointer: coarse)').matches)
 
 onMounted(() => {
   // TODO: temporary auto-start for development
-  if (window.location.hostname === 'localhost') {
+  if (IS_DEV) {
     emit('start')
   }
 })
