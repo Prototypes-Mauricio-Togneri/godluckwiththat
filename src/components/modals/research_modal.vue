@@ -396,10 +396,10 @@ onUnmounted(() => {
   animation: research-pulse 2s ease-in-out infinite;
 }
 
-/* Pulsing glow for active research nodes */
+/* Pulsing glow for active research nodes (outline is cheaper than box-shadow) */
 @keyframes research-pulse {
-  0%, 100% { box-shadow: 0 0 4px rgba(var(--color-accent-rgb), 0.08); }
-  50% { box-shadow: 0 0 14px rgba(var(--color-accent-rgb), 0.2); }
+  0%, 100% { outline: 2px solid rgba(var(--color-accent-rgb), 0.08); }
+  50% { outline: 2px solid rgba(var(--color-accent-rgb), 0.25); }
 }
 
 .research-node--available {

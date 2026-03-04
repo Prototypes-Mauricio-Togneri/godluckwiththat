@@ -1,16 +1,6 @@
+i tested the app using the safari browser and at some point the app was becoming very slow and laggi. the safari app was using 85% of the CPU. check the whole app and search if there could be something that could slow the app? is there a memory leak? 
+
      ╭─────────────────────────────────────────────────────────────────────────╮                                                                 │
-     │ 6. LOW — CSS box-shadow animation on research nodes                     │
-     │                                                                         │
-     │ File: src/components/modals/research_modal.vue:396-403                  │
-     │                                                                         │
-     │ Infinite box-shadow animation on active research nodes. Box-shadow is   │
-     │ not GPU-accelerated and causes repaints. Minor impact since it only     │
-     │ runs when the modal is open.                                            │
-     │                                                                         │
-     │ Fix: Replace with opacity or transform: scale() animation               │
-     │ (GPU-composited). Or use outline which is cheaper.                      │
-     │                                                                         │
-     │ ---                                                                     │
      │ 7. LOW — Audio visibilitychange listener never removed                  │
      │                                                                         │
      │ File: src/js/engine/audio.js:25-29                                      │
