@@ -1,13 +1,4 @@
      ╭─────────────────────────────────────────────────────────────────────────╮
-     │ Performance Audit: Safari 85% CPU / Potential Memory Leaks              │
-     │                                                                         │
-     │ Context                                                                 │
-     │                                                                         │
-     │ The app becomes very slow and laggy in Safari, consuming 85% CPU. This  │
-     │ audit identifies all performance bottlenecks and proposes targeted      │
-     │ fixes.                                                                  │
-     │                                                                         │                            │
-     │ ---                                                                     │
      │ 2. HIGH — completedBonuses() called 4-5× per tick with no caching       │
      │                                                                         │
      │ Files: src/js/engine/state.js:55,485,498,508,                           │
