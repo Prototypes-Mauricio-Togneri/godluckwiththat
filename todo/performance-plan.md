@@ -272,3 +272,11 @@ completion, not every frame).
 
 ---
 
+## Proposed Implementation Order
+
+- **Fix 1 — Decouple engine from Vue reactivity**: Foundation for all other fixes. Replace `reactive(State)` with plain JS + `shallowReactive` view model, refactor `provide`/`inject` and child component data access.
+- **Fix 3 — Throttle UI sync to ~20fps**: Quick follow-up to Fix 1. Throttle `syncUI()` in the rAF loop while keeping engine at full rate for accurate timekeeping.
+- **Fix 2 — Template functions to computed properties**: Convert `isBuildingLocked`, `isResourceVisible`, etc. to `computed` sets/values keyed off `ui`, eliminating redundant per-render recalculation.
+- **Fix 4 — Explicit property access in `totalLevels`/`pendingTerritory`**: Small standalone change. Replace `Object.entries(this)` with explicit property sums to avoid proxy key enumeration and temp arrays.
+- **Fix 5 — Reduce GC pressure from `Cost.entries`**: With the view model in place, pre-compute cost snapshots in `syncUI()` as plain objects instead of allocating `Map`/`Cost` on every render.
+- **Fix 6 — Cache `completedBonuses` invalidation**: Largely resolved by Fix 1 (plain state means no reactive cascade). Verify after Fix 1; if needed pre-Fix-1, use non-enumerable `_bonusCache`.
