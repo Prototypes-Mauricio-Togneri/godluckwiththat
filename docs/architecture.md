@@ -159,7 +159,7 @@ Core game loop that generates resources over time. `game_screen.vue` runs a main
 
 ### Localization (`src/js/i18n/`)
 
-Each supported language has its own file (`en.js`, `es.js`, `fr.js`) exporting a flat object with dot-notation keys (e.g. `'screen.home.play'`, `'resource.food'`, `'season.warm'`). At startup, `localized.js` reads `navigator.language`, resolves it to a supported locale (defaulting to English), and exports a `t(key, ...params)` helper that looks up strings from the resolved locale. When `params` are provided, positional placeholders (`{0}`, `{1}`, etc.) in the string are replaced with the corresponding values. Components import `t` from `localized.js` and use it in templates (`{{ t('key') }}`, `{{ t('key', param0) }}`) and bound attributes (`:alt="t('key')"`). No hardcoded display text in templates or JS.
+Each supported language has its own file (`ca.js`, `en.js`, `es.js`, `fr.js`) exporting a flat object with dot-notation keys (e.g. `'screen.home.play'`, `'resource.food'`, `'season.warm'`). At startup, `localized.js` reads `navigator.language`, resolves it to a supported locale (defaulting to English), and exports a `t(key, ...params)` helper that looks up strings from the resolved locale. When `params` are provided, positional placeholders (`{0}`, `{1}`, etc.) in the string are replaced with the corresponding values. Components import `t` from `localized.js` and use it in templates (`{{ t('key') }}`, `{{ t('key', param0) }}`) and bound attributes (`:alt="t('key')"`). No hardcoded display text in templates or JS.
 
 ### Assets (`src/js/engine/assets.js`)
 

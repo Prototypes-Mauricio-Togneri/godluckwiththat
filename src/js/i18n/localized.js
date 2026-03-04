@@ -3,12 +3,14 @@
  * to a supported locale, defaulting to English.
  */
 
+import {LOCALIZED_CA} from '@/js/i18n/ca.js'
 import {LOCALIZED_EN} from '@/js/i18n/en.js'
 import {LOCALIZED_ES} from '@/js/i18n/es.js'
 import {LOCALIZED_FR} from '@/js/i18n/fr.js'
 
 // Supported locale map (language code → string table)
 const LOCALES = {
+  ca: LOCALIZED_CA,
   en: LOCALIZED_EN,
   es: LOCALIZED_ES,
   fr: LOCALIZED_FR,
