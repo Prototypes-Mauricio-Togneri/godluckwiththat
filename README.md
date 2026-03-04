@@ -2,11 +2,18 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Control click to assign Max workers
+- Fix bug with GPU
+- Fix bugs from images from Filippo
+- All initial researches need food
+- Add punishment when missing food/wood => reduce production
+
 - Finish all building images
   - Temple: Make it less yellowish
   - Monument: Re-design it
 
 - Implement save and load
+  - Have save slots and autosave
 
 - Create tutorial
   - Season has changed -> Explain their effects on production and upkeep
