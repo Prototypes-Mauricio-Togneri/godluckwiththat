@@ -626,7 +626,6 @@ onUnmounted(() => {
 .season-icon {
   width: 1.25rem;
   height: 1.25rem;
-  filter: drop-shadow(0 0 3px rgba(var(--color-shadow-rgb), 0.4));
 }
 
 /* Thin horizontal bar background for season progress */
@@ -747,7 +746,7 @@ onUnmounted(() => {
   width: 3rem;
   height: 3rem;
   object-fit: contain;
-  filter: grayscale(1) drop-shadow(0 0 2px rgba(var(--color-shadow-rgb), 0.4));
+  filter: grayscale(1);
   opacity: 0.35;
 }
 
@@ -833,7 +832,6 @@ onUnmounted(() => {
   width: 1.1rem;
   height: 1.1rem;
   object-fit: contain;
-  filter: drop-shadow(0 0 2px rgba(var(--color-shadow-rgb), 0.4));
   flex-shrink: 0;
 }
 

@@ -210,13 +210,11 @@ function act() {
   width: var(--thumb-h);
   height: var(--thumb-h);
   object-fit: contain;
-  filter: drop-shadow(0 0 2px rgba(var(--color-shadow-rgb), 0.4));
-  transition: filter 0.3s ease;
 }
 
 /* Grayscale filter for unbuilt buildings */
 .building-thumb-unbuilt {
-  filter: grayscale(1) drop-shadow(0 0 2px rgba(var(--color-shadow-rgb), 0.4));
+  filter: grayscale(1);
 }
 
 /* Level number overlay at bottom-right of thumbnail */

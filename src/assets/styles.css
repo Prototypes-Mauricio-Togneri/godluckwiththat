@@ -168,7 +168,6 @@
     width: 1.25rem;
     height: 1.25rem;
     object-fit: contain;
-    filter: drop-shadow(0 0 1px rgba(var(--color-shadow-rgb), 0.4));
 }
 
 /* Cost container beside action button */
@@ -196,7 +195,6 @@
     width: 0.9rem;
     height: 0.9rem;
     object-fit: contain;
-    filter: drop-shadow(0 0 1px rgba(var(--color-shadow-rgb), 0.3));
 }
 
 /* Numeric amount in cost display */
@@ -432,7 +430,6 @@
     width: 1.1rem;
     height: 1.1rem;
     object-fit: contain;
-    filter: drop-shadow(0 0 2px rgba(var(--color-shadow-rgb), 0.4));
 }
 
 /* ── .worker-row / .worker-btn / .worker-count ────────────────────── */
@@ -513,7 +510,6 @@
     width: 1.1rem;
     height: 1.1rem;
     object-fit: contain;
-    filter: drop-shadow(0 0 1px rgba(var(--color-shadow-rgb), 0.3));
 }
 
 /* Numeric worker count text */
@@ -599,7 +595,6 @@
     width: 1.25rem;
     height: 1.25rem;
     object-fit: contain;
-    filter: drop-shadow(0 0 2px rgba(var(--color-shadow-rgb), 0.4));
 }
 
 /* Resource value — numeric amount with stable width */

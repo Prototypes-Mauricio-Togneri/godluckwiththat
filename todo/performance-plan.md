@@ -282,37 +282,6 @@ many building cards are visible.
 
 ---
 
-## Fix 9 — Reduce GPU load from CSS `filter` and `drop-shadow` effects
-
-**Files:** `src/assets/styles.css`, `src/components/screens/game_screen.vue`,
-`src/components/cards/base_card.vue`
-
-**Problem:** There are 40+ CSS `drop-shadow`, `box-shadow`, and `filter` effects
-active simultaneously on screen:
-
-- Every building thumbnail: `filter: drop-shadow(...)` (`base_card.vue`)
-- Every resource icon: `filter: drop-shadow(...)` (`styles.css`)
-- Season icon: `filter: drop-shadow(...)` (`game_screen.vue`)
-- Resource bar fills: `box-shadow` (`styles.css`)
-- Season bar fills: `box-shadow` (`game_screen.vue`)
-
-With ~20 building cards, ~8 resource boxes (each with icon, value, and bar), and
-various other elements, there are 50+ elements with active filter effects on
-screen simultaneously. `filter: drop-shadow()` is especially GPU-intensive as it
-requires compositing the element into a separate layer.
-
-**Fix:** Replace `filter: drop-shadow()` on frequently rendered elements with
-`box-shadow` where possible (box-shadow is cheaper than filter drop-shadow).
-For elements where `drop-shadow` is needed (non-rectangular shapes like icons),
-consider applying the shadow via a CSS class that's only added when the element
-is hovered, or using a pre-baked shadow in the image asset itself.
-
-**Impact:** Reduces constant GPU compositing load. Low-medium — this is a
-steady-state cost rather than one that grows over time, but contributes to the
-overall GPU usage the user is observing.
-
----
-
 ## Fix 10 — Cache `completedBonuses()` invalidation cascade
 
 **File:** `src/js/models/buildings/academy.js` (lines 96-120)
@@ -358,22 +327,10 @@ completion, not every frame).
 5. **Fix 9** (reduce CSS filters) — CSS-only, no logic risk
 6. **Fix 1** (decouple engine from reactivity) — Largest change, highest impact
 7. **Fix 4** (computed properties) — Natural follow-up to Fix 1
+
+After Fix 1, the remaining fixes become less critical but still provide incremental improvements:
 8. **Fix 5** (throttle UI sync) — Final optimization layer on top of Fix 1
 9. **Fix 8** (reduce GC pressure from Cost) — Addressed naturally by Fix 1, or standalone cache
 10. **Fix 10** (completedBonuses cache) — Addressed naturally by Fix 1, or standalone workaround
 
 Fixes 1-4, 7, 9 can be done independently. Fixes 5, 8, 10 depend on or benefit from Fix 1.
-
----
-
-## Expected Outcome
-
-The combination of these fixes should reduce Safari CPU from ~85% to well under
-20% during normal gameplay by:
-- Eliminating ~95% of Proxy trap invocations in the hot path
-- Reducing Vue re-render frequency from ~60fps to ~20fps
-- Skipping iteration of idle buildings/research/events
-- Caching derived values that change infrequently
-- Preventing unbounded growth of the past events array
-- Reducing GC pressure from frequent Cost/Map allocations
-- Lowering constant GPU compositing load from CSS filter effects
