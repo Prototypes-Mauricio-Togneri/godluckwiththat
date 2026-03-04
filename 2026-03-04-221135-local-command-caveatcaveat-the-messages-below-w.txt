@@ -1,0 +1,169 @@
+     ╭─────────────────────────────────────────────────────────────────────────╮
+     │ Performance Audit: Safari 85% CPU / Potential Memory Leaks              │
+     │                                                                         │
+     │ Context                                                                 │
+     │                                                                         │
+     │ The app becomes very slow and laggy in Safari, consuming 85% CPU. This  │
+     │ audit identifies all performance bottlenecks and proposes targeted      │
+     │ fixes.                                                                  │
+     │                                                                         │
+     │ ---                                                                     │
+     │ Issues Found (by severity)                                              │
+     │                                                                         │
+     │ 1. CRITICAL — backdrop-filter: blur(4px) on modal overlay               │
+     │                                                                         │
+     │ File: src/assets/styles.css:322-323                                     │
+     │                                                                         │
+     │ Safari's implementation of backdrop-filter: blur() is notoriously       │
+     │ expensive — it forces continuous compositing of the entire layer        │
+     │ beneath the overlay. When a modal is open and the game loop is still    │
+     │ running advance methods (season, construction, research, events),       │
+     │ Safari re-composites the blur every frame.                              │
+     │                                                                         │
+     │ Fix: Replace blur with a heavier semi-transparent background (increase  │
+     │ opacity) or use a solid overlay. Remove backdrop-filter and             │
+     │ -webkit-backdrop-filter entirely.                                       │
+     │                                                                         │
+     │ ---                                                                     │
+     │ 2. HIGH — completedBonuses() called 4-5× per tick with no caching       │
+     │                                                                         │
+     │ Files: src/js/engine/state.js:55,485,498,508,                           │
+     │ src/components/screens/game_screen.vue:165,                             │
+     │ src/components/modals/market_modal.vue:23                               │
+     │                                                                         │
+     │ Academy.completedBonuses(RESEARCH_TREE) triple-iterates the full        │
+     │ research tree (categories → subcategories → researches). It's called:   │
+     │ - Once in state.update() (every tick)                                   │
+     │ - Once in storageCap computed (game_screen, reactive — triggers on any  │
+     │ state change)                                                           │
+     │ - Once in storageCap computed (market_modal)                            │
+     │ - Once in expansionCost getter                                          │
+     │ - Once in _constructionDurationMult getter                              │
+     │                                                                         │
+     │ The result only changes when a research completes, but it recalculates  │
+     │ constantly.                                                             │
+     │                                                                         │
+     │ Fix: Cache the result on the Academy instance. Invalidate in            │
+     │ complete(). All callers read academy.bonuses (a plain object) instead   │
+     │ of calling completedBonuses().                                          │
+     │                                                                         │
+     │ ---                                                                     │
+     │ 3. HIGH — advanceSeason/Construction/Research/Events run at 60fps AND   │
+     │ every tick                                                              │
+     │                                                                         │
+     │ File: src/components/screens/game_screen.vue:268-296                    │
+     │                                                                         │
+     │ Both gameTick (1s interval) and progressTick (rAF, ~60fps) call the     │
+     │ same four state.advance*() methods. Every call mutates reactive state   │
+     │ (e.g., season.seasonElapsed, event.remainingSeconds,                    │
+     │ building.constructionRemaining), triggering Vue's dependency tracking   │
+     │ and potential re-renders 60× per second.                                │
+     │                                                                         │
+     │ Fix: The rAF loop should only update visual progress values. Extract    │
+     │ lightweight progress fractions (used only for progress bars) from the   │
+     │ heavy state mutations. Or — simpler — keep the advance calls in rAF but │
+     │  ensure the properties they touch are not deeply reactive (use          │
+     │ shallowRef or non-reactive counters for animation-only values).         │
+     │                                                                         │
+     │ Alternative minimal fix: Accept the 60fps mutations but ensure          │
+     │ downstream computeds don't cascade. The real cost is likely the         │
+     │ combination with issue #2 (completedBonuses recalculating on every      │
+     │ reactive change).                                                       │
+     │                                                                         │
+     │ ---                                                                     │
+     │ 4. MEDIUM — events.past array grows unbounded                           │
+     │                                                                         │
+     │ File: src/js/models/events/events.js:15,57-68                           │
+     │                                                                         │
+     │ Every building completion, season change, research completion, etc.     │
+     │ pushes to this.past. There's no cap. In a long session this array grows │
+     │  indefinitely, and sortedPast (getter, line 165-167) copies + sorts it  │
+     │ on every access.                                                        │
+     │                                                                         │
+     │ Fix: Cap past at e.g. 50 entries. When adding, shift oldest if at cap.  │
+     │ This also eliminates the sort cost since new events always have the     │
+     │ highest ID.                                                             │
+     │                                                                         │
+     │ ---                                                                     │
+     │ 5. MEDIUM — sortedFuture / sortedPast create new arrays on every access │
+     │                                                                         │
+     │ File: src/js/models/events/events.js:157-167                            │
+     │                                                                         │
+     │ These getters spread + sort on every call. Since they're accessed via   │
+     │ Vue computed, any reactive dependency change triggers a re-sort.        │
+     │                                                                         │
+     │ Fix: For sortedPast — if we cap + prepend, it's already in order        │
+     │ (newest first). For sortedFuture — insert in sorted order (binary       │
+     │ insert) so the getter just returns this.future directly.                │
+     │                                                                         │
+     │ ---                                                                     │
+     │ 6. LOW — CSS box-shadow animation on research nodes                     │
+     │                                                                         │
+     │ File: src/components/modals/research_modal.vue:396-403                  │
+     │                                                                         │
+     │ Infinite box-shadow animation on active research nodes. Box-shadow is   │
+     │ not GPU-accelerated and causes repaints. Minor impact since it only     │
+     │ runs when the modal is open.                                            │
+     │                                                                         │
+     │ Fix: Replace with opacity or transform: scale() animation               │
+     │ (GPU-composited). Or use outline which is cheaper.                      │
+     │                                                                         │
+     │ ---                                                                     │
+     │ 7. LOW — Audio visibilitychange listener never removed                  │
+     │                                                                         │
+     │ File: src/js/engine/audio.js:25-29                                      │
+     │                                                                         │
+     │ The Audio class is a singleton, so this isn't a memory leak per se      │
+     │ (it's created once). But it's a minor code hygiene issue.               │
+     │                                                                         │
+     │ Fix: No action needed — singleton lives for app lifetime.               │
+     │                                                                         │
+     │ ---                                                                     │
+     │ Proposed Implementation Plan                                            │
+     │                                                                         │
+     │ Step 1: Cache completedBonuses on Academy                               │
+     │                                                                         │
+     │ - Add _bonusCache property to Academy, initialized in constructor       │
+     │ - Populate in completedBonuses() and return cached value if set         │
+     │ - Invalidate (_bonusCache = null) in complete() method                  │
+     │ - All callers continue calling completedBonuses(RESEARCH_TREE) — the    │
+     │ method now returns cache                                                │
+     │                                                                         │
+     │ Step 2: Remove backdrop-filter: blur() from modal overlay               │
+     │                                                                         │
+     │ - In styles.css, remove backdrop-filter and -webkit-backdrop-filter     │
+     │ from .modal-overlay                                                     │
+     │ - Increase background opacity to compensate (e.g.,                      │
+     │ rgba(var(--color-shadow-rgb), 0.85))                                    │
+     │                                                                         │
+     │ Step 3: Cap events.past at 50 entries                                   │
+     │                                                                         │
+     │ - In addPast(), after pushing, if this.past.length > 50, shift from     │
+     │ beginning                                                               │
+     │ - Simplify sortedPast to just return [...this.past].reverse() (or       │
+     │ prepend instead of push and return directly)                            │
+     │                                                                         │
+     │ Step 4: Keep events sorted on insert (eliminate sort-on-access)         │
+     │                                                                         │
+     │ - sortedFuture: insert new future events in sorted position (by         │
+     │ remainingSeconds). Return this.future directly.                         │
+     │ - sortedPast: prepend new past events (newest first). Return this.past  │
+     │ directly.                                                               │
+     │                                                                         │
+     │ Step 5: Replace research-pulse box-shadow animation                     │
+     │                                                                         │
+     │ - Change to opacity or outline animation instead of box-shadow          │
+     │                                                                         │
+     │ ---                                                                     │
+     │ Verification                                                            │
+     │                                                                         │
+     │ 1. Run npm run lint -- --fix after changes                              │
+     │ 2. Open in Safari — CPU should drop significantly with modal open       │
+     │ (backdrop-filter fix)                                                   │
+     │ 3. Open in Safari — play for several minutes, verify CPU stays          │
+     │ reasonable                                                              │
+     │ 4. Check that research bonuses still apply correctly after caching      │
+     │ 5. Check that event list still displays correctly with cap and sort     │
+     │ changes                                                                 │
+     │ 6. Run /delta-review                                                    │
+     ╰─────────────────────────────────────────────────────────────────────────╯
