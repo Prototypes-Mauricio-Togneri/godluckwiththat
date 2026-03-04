@@ -271,13 +271,15 @@ function gameTick() {
   lastTickTime = now
   state.update(delta)
 
-  // Advance smooth progress from main tick too — covers backgrounded tabs where requestAnimationFrame pauses
-  const progressDelta = (now - lastProgressTickTime) / 1000
-  lastProgressTickTime = now
-  state.advanceSeason(progressDelta)
-  state.advanceConstruction(progressDelta)
-  state.advanceResearch(progressDelta)
-  state.advanceEvents(progressDelta)
+  // Advance progress only when the tab is backgrounded (rAF pauses, so gameTick takes over)
+  if (document.hidden) {
+    const progressDelta = (now - lastProgressTickTime) / 1000
+    lastProgressTickTime = now
+    state.advanceSeason(progressDelta)
+    state.advanceConstruction(progressDelta)
+    state.advanceResearch(progressDelta)
+    state.advanceEvents(progressDelta)
+  }
 }
 
 /** rAF loop for smooth visual progress (season, construction, research, events). */

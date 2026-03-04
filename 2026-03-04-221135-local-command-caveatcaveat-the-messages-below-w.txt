@@ -1,27 +1,4 @@
      ╭─────────────────────────────────────────────────────────────────────────╮                                                                 │
-     │ 3. HIGH — advanceSeason/Construction/Research/Events run at 60fps AND   │
-     │ every tick                                                              │
-     │                                                                         │
-     │ File: src/components/screens/game_screen.vue:268-296                    │
-     │                                                                         │
-     │ Both gameTick (1s interval) and progressTick (rAF, ~60fps) call the     │
-     │ same four state.advance*() methods. Every call mutates reactive state   │
-     │ (e.g., season.seasonElapsed, event.remainingSeconds,                    │
-     │ building.constructionRemaining), triggering Vue's dependency tracking   │
-     │ and potential re-renders 60× per second.                                │
-     │                                                                         │
-     │ Fix: The rAF loop should only update visual progress values. Extract    │
-     │ lightweight progress fractions (used only for progress bars) from the   │
-     │ heavy state mutations. Or — simpler — keep the advance calls in rAF but │
-     │  ensure the properties they touch are not deeply reactive (use          │
-     │ shallowRef or non-reactive counters for animation-only values).         │
-     │                                                                         │
-     │ Alternative minimal fix: Accept the 60fps mutations but ensure          │
-     │ downstream computeds don't cascade. The real cost is likely the         │
-     │ combination with issue #2 (completedBonuses recalculating on every      │
-     │ reactive change).                                                       │
-     │                                                                         │
-     │ ---                                                                     │
      │ 4. MEDIUM — events.past array grows unbounded                           │
      │                                                                         │
      │ File: src/js/models/events/events.js:15,57-68                           │
