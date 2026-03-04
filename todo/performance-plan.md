@@ -87,53 +87,7 @@ per frame, and eliminates all proxy reads from the engine's hot path.
 
 ---
 
-## Fix 2 — Skip non-constructing buildings in `advanceConstruction`
-
-**File:** `src/js/engine/state.js` (lines 226-261)
-
-**Problem:** `advanceConstruction` calls `Object.entries(buildings)` every frame,
-iterating all 20 buildings through the reactive proxy even when 0-1 are actually
-constructing. Each iteration reads `building.isConstructing` (getter that reads
-`constructionRemaining`) through the proxy.
-
-**Fix:** Track which buildings are currently constructing in a lightweight Set.
-Only iterate that Set in the rAF loop.
-
-```js
-// In State constructor
-this._constructingKeys = new Set()
-
-// In levelUpBuilding() — after building.levelUp():
-this._constructingKeys.add(buildingKey)
-
-// In expandTerritory() — after hq.levelUp():
-this._constructingKeys.add(BUILDING_HEADQUARTERS)
-
-// In advanceConstruction():
-advanceConstruction(delta) {
-  for (const key of this._constructingKeys) {
-    const building = this.colony.buildings[key]
-    if (building.advance(delta)) {
-      this._constructingKeys.delete(key)
-      // ... existing completion logic
-    }
-  }
-  const hq = this.colony.buildings.headquarters
-  if (hq.advanceUpgrade(delta)) {
-    // ... existing completion logic
-  }
-}
-```
-
-Similarly, track HQ upgrade state with a boolean flag instead of checking
-`hq.isUpgrading` every frame.
-
-**Impact:** Reduces per-frame iteration from 20 buildings to only those
-constructing (typically 0-2). Eliminates ~18-20 proxy reads per frame.
-
----
-
-## Fix 4 — Convert template functions to computed properties
+## Fix 2 — Convert template functions to computed properties
 
 **File:** `src/components/screens/game_screen.vue`
 
@@ -165,7 +119,7 @@ Specifically:
 
 ---
 
-## Fix 5 — Throttle UI sync to animation frame budget
+## Fix 3 — Throttle UI sync to animation frame budget
 
 **File:** `src/components/screens/game_screen.vue`
 
@@ -210,7 +164,7 @@ smoothly because CSS `transition: width 1s ease` handles interpolation.
 
 ---
 
-## Fix 6 — Avoid `Object.entries()` in `totalLevels` and `pendingTerritory`
+## Fix 4 — Avoid `Object.entries()` in `totalLevels` and `pendingTerritory`
 
 **File:** `src/js/models/buildings.js` (lines 58-100)
 
@@ -246,7 +200,7 @@ temporary array allocation). Small but consistent improvement on every 1s tick.
 
 ---
 
-## Fix 8 — Reduce GC pressure from `Cost.entries` and `levelUpCost`
+## Fix 5 — Reduce GC pressure from `Cost.entries` and `levelUpCost`
 
 **File:** `src/js/models/cost.js` (lines 36-63)
 
@@ -282,7 +236,7 @@ many building cards are visible.
 
 ---
 
-## Fix 10 — Cache `completedBonuses()` invalidation cascade
+## Fix 6 — Cache `completedBonuses()` invalidation cascade
 
 **File:** `src/js/models/buildings/academy.js` (lines 96-120)
 
@@ -318,16 +272,3 @@ completion, not every frame).
 
 ---
 
-## Implementation Order
-
-2. **Fix 2** (constructing set) — Small change, good benefit, low risk
-3. **Fix 6** (explicit property access) — Small change, no risk
-7. **Fix 4** (computed properties) — Natural follow-up to Fix 1
-6. **Fix 1** (decouple engine from reactivity) — Largest change, highest impact
-
-After Fix 1, the remaining fixes become less critical but still provide incremental improvements:
-8. **Fix 5** (throttle UI sync) — Final optimization layer on top of Fix 1
-9. **Fix 8** (reduce GC pressure from Cost) — Addressed naturally by Fix 1, or standalone cache
-10. **Fix 10** (completedBonuses cache) — Addressed naturally by Fix 1, or standalone workaround
-
-Fixes 1-4, 7, 9 can be done independently. Fixes 5, 8, 10 depend on or benefit from Fix 1.

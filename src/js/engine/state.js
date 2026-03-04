@@ -32,6 +32,21 @@ class State {
     // (initialized empty — production is 0 before the first update tick)
     this._resourcesNegativeProduction = new Set()
 
+    // Track which buildings are currently constructing so advanceConstruction()
+    // only iterates the active subset instead of all 20 buildings every frame
+    this._constructingKeys = new Set()
+    for (const [
+      key,
+      building,
+    ] of Object.entries(colony.buildings)) {
+      if (building.isConstructing) {
+        this._constructingKeys.add(key)
+      }
+    }
+
+    // Track whether HQ type upgrade is in progress
+    this._hqUpgrading = colony.buildings.headquarters.isUpgrading
+
   }
 
   /**
@@ -224,14 +239,17 @@ class State {
    * @param {number} delta - Seconds since last progress tick
    */
   advanceConstruction(delta) {
+    if (this._constructingKeys.size === 0 && !this._hqUpgrading) {
+      return
+    }
     const {
       buildings,
     } = this.colony
-    for (const [
-      key,
-      building,
-    ] of Object.entries(buildings)) {
+    const completed = []
+    for (const key of this._constructingKeys) {
+      const building = buildings[key]
       if (building.advance(delta)) {
+        completed.push(key)
         if (key === BUILDING_HEADQUARTERS) {
           this.colony.events.convertToPast(key, {
             type: EVENT_TYPE_BUILDING_UPGRADE,
@@ -254,9 +272,14 @@ class State {
         }
       }
     }
-    const hq = buildings.headquarters
-    if (hq.advanceUpgrade(delta)) {
-      audio.playSound(SND_HEADQUARTERS_UPGRADED)
+    for (const key of completed) {
+      this._constructingKeys.delete(key)
+    }
+    if (this._hqUpgrading) {
+      if (buildings.headquarters.advanceUpgrade(delta)) {
+        this._hqUpgrading = false
+        audio.playSound(SND_HEADQUARTERS_UPGRADED)
+      }
     }
   }
 
@@ -320,6 +343,7 @@ class State {
 
     resources.deduct(cost)
     const duration = building.levelUp(cost, this._constructionDurationMult)
+    this._constructingKeys.add(buildingKey)
 
     this.colony.events.dismissPastByType(EVENT_TYPE_BUILDING_UPGRADE)
     this.colony.events.addFuture({
@@ -360,6 +384,7 @@ class State {
 
     resources.deduct(cost)
     const duration = hq.levelUp(cost, this._constructionDurationMult)
+    this._constructingKeys.add(BUILDING_HEADQUARTERS)
 
     this.colony.events.dismissPastByType(EVENT_TYPE_BUILDING_UPGRADE)
     this.colony.events.addFuture({
@@ -389,6 +414,7 @@ class State {
 
     resources.deduct(cost)
     hq.upgradeType(cost, this._constructionDurationMult)
+    this._hqUpgrading = true
 
     this.update(0)
   }
