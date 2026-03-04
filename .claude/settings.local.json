@@ -1,6 +1,8 @@
 {
   "permissions": {
     "allow": [
+      "Bash",
+      "Read",
       "Bash(git mv:*)",
       "Skill(frontend-design)",
       "Bash(grep:*)",
