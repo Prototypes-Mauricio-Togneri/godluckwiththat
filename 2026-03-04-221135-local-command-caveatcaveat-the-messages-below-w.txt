@@ -1,1 +1,3 @@
 i tested the app using the safari browser and at some point the app was becoming very slow and laggi. the safari app was using 85% of the CPU/GPU. check the whole app and search if there could be something that could slow the app? is there a memory leak?
+
+i tested the app using a browser and at some point the app was becoming very slow and laggi. the browser was using a high percentage of the CPU/GPU. check the whole app and search if there could be something that could slow the app? what could cause a bad performance? is there a memory leak?
