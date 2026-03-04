@@ -2,6 +2,8 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Fix bug with multiple "Population limit reached" past events
+- Fix bottom padding not being enough
 - All initial researches need food
 - Add punishment when missing food/wood => reduce production
 - Add to enums file the keys for the local storage
