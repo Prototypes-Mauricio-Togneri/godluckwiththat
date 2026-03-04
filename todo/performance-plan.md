@@ -8,7 +8,10 @@ The game runs at 85% CPU in Safari after some play time. The root cause is
 implementation is 2-5x slower than V8 (Chrome/Edge), so every property
 read/write through the proxy is expensive.
 
-There are no memory leaks. The issue is sustained high CPU from proxy overhead.
+There are no traditional memory leaks (all listeners/intervals/rAF are cleaned
+up properly, all `v-for` have keys). The issue is sustained high CPU from proxy
+overhead, compounded by GC pressure from frequent object allocation and
+unbounded growth of the past events array.
 
 ---
 
@@ -274,16 +277,123 @@ temporary array allocation). Small but consistent improvement on every 1s tick.
 
 ---
 
+## Fix 8 — Reduce GC pressure from `Cost.entries` and `levelUpCost`
+
+**File:** `src/js/models/cost.js` (lines 36-63)
+
+**Problem:** The `Cost.entries` getter creates a new `Map` on every call:
+
+```js
+get entries() {
+  const map = new Map()
+  if (this.food > 0) map.set(RESOURCE_FOOD, this.food)
+  // ... 7 more checks
+  return map
+}
+```
+
+This getter is used in template `v-for` loops (`actionCostEntries` computed in
+`base_card.vue`, `levelUpCostEntries` and `upgradeCostEntries` in
+`headquarters_card.vue`, research modal cost display). Every re-render creates
+a new `Map`.
+
+Additionally, `levelUpCost` getters on building classes create new `Cost`
+objects via `multiply().floor()` on every access. Combined with `entries`, each
+re-render produces 2+ `Cost` objects and 1+ `Map` per visible building card —
+creating frequent small allocations that increase GC pressure.
+
+**Fix after Fix 1:** With the `ui` view model, cost snapshots for display can be
+computed once in `syncUI()` and stored as plain objects, avoiding per-render
+allocation entirely. If implemented before Fix 1, consider caching the `entries`
+Map on the `Cost` instance (since `Cost` values are immutable after creation by
+`floor()`).
+
+**Impact:** Reduces garbage collection pressure. Moderate — most noticeable when
+many building cards are visible.
+
+---
+
+## Fix 9 — Reduce GPU load from CSS `filter` and `drop-shadow` effects
+
+**Files:** `src/assets/styles.css`, `src/components/screens/game_screen.vue`,
+`src/components/cards/base_card.vue`
+
+**Problem:** There are 40+ CSS `drop-shadow`, `box-shadow`, and `filter` effects
+active simultaneously on screen:
+
+- Every building thumbnail: `filter: drop-shadow(...)` (`base_card.vue`)
+- Every resource icon: `filter: drop-shadow(...)` (`styles.css`)
+- Season icon: `filter: drop-shadow(...)` (`game_screen.vue`)
+- Resource bar fills: `box-shadow` (`styles.css`)
+- Season bar fills: `box-shadow` (`game_screen.vue`)
+
+With ~20 building cards, ~8 resource boxes (each with icon, value, and bar), and
+various other elements, there are 50+ elements with active filter effects on
+screen simultaneously. `filter: drop-shadow()` is especially GPU-intensive as it
+requires compositing the element into a separate layer.
+
+**Fix:** Replace `filter: drop-shadow()` on frequently rendered elements with
+`box-shadow` where possible (box-shadow is cheaper than filter drop-shadow).
+For elements where `drop-shadow` is needed (non-rectangular shapes like icons),
+consider applying the shadow via a CSS class that's only added when the element
+is hovered, or using a pre-baked shadow in the image asset itself.
+
+**Impact:** Reduces constant GPU compositing load. Low-medium — this is a
+steady-state cost rather than one that grows over time, but contributes to the
+overall GPU usage the user is observing.
+
+---
+
+## Fix 10 — Cache `completedBonuses()` invalidation cascade
+
+**File:** `src/js/models/buildings/academy.js` (lines 96-120)
+
+**Problem:** `completedBonuses(researchTree)` has a cache (`_bonusCache`), but
+when a research completes, `complete()` sets `_bonusCache = null`. Because the
+entire state is reactive, writing `null` to `_bonusCache` triggers a reactive
+notification, which means every computed property or template binding that ever
+read `_bonusCache` will re-evaluate.
+
+`completedBonuses(RESEARCH_TREE)` is called from:
+- `state.update()` (called every 1s tick)
+- `state.expansionCost` getter (used in template)
+- `state._constructionDurationMult` getter
+- `storageCap` computed in `game_screen.vue`
+- `storageCap` computed in `market_modal.vue`
+
+`RESEARCH_TREE` is a large nested structure (5 categories, 18 subcategories, 90
+research keys). Iterating through all of it on cache miss is non-trivial. The
+reactive invalidation of `_bonusCache` also triggers cascading re-evaluations
+across all of those consumers.
+
+**Fix after Fix 1:** With plain (non-reactive) state, the `_bonusCache = null`
+write no longer triggers Vue notifications. The cache invalidation becomes a
+cheap operation. No further fix needed beyond Fix 1.
+
+If implemented before Fix 1: consider making `_bonusCache` a non-enumerable
+property (so Vue's `reactive()` doesn't track it) using
+`Object.defineProperty(this, '_bonusCache', { value: null, writable: true })`.
+
+**Impact:** Eliminates cascading reactive re-evaluations when research
+completes. Medium — but mitigated by caching (only triggers on research
+completion, not every frame).
+
+---
+
 ## Implementation Order
 
 1. **Fix 3** (early returns) — Smallest change, immediate benefit, no risk
 2. **Fix 2** (constructing set) — Small change, good benefit, low risk
 3. **Fix 6** (explicit property access) — Small change, no risk
-4. **Fix 1** (decouple engine from reactivity) — Largest change, highest impact
-5. **Fix 4** (computed properties) — Natural follow-up to Fix 1
-6. **Fix 5** (throttle UI sync) — Final optimization layer on top of Fix 1
+4. **Fix 7** (cap past events) — Small change, prevents unbounded growth, no risk
+5. **Fix 9** (reduce CSS filters) — CSS-only, no logic risk
+6. **Fix 1** (decouple engine from reactivity) — Largest change, highest impact
+7. **Fix 4** (computed properties) — Natural follow-up to Fix 1
+8. **Fix 5** (throttle UI sync) — Final optimization layer on top of Fix 1
+9. **Fix 8** (reduce GC pressure from Cost) — Addressed naturally by Fix 1, or standalone cache
+10. **Fix 10** (completedBonuses cache) — Addressed naturally by Fix 1, or standalone workaround
 
-Fixes 1-3 can be done independently. Fixes 4-5 depend on Fix 1.
+Fixes 1-4, 7, 9 can be done independently. Fixes 5, 8, 10 depend on or benefit from Fix 1.
 
 ---
 
@@ -295,3 +405,6 @@ The combination of these fixes should reduce Safari CPU from ~85% to well under
 - Reducing Vue re-render frequency from ~60fps to ~20fps
 - Skipping iteration of idle buildings/research/events
 - Caching derived values that change infrequently
+- Preventing unbounded growth of the past events array
+- Reducing GC pressure from frequent Cost/Map allocations
+- Lowering constant GPU compositing load from CSS filter effects
