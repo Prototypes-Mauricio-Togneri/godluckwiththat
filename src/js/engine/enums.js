@@ -213,3 +213,7 @@ export const BONUS_FAITH_PRODUCTION = 'faithProduction'
 export const BONUS_UNIT_DEFENSE = 'unitDefense'
 export const BONUS_UNIT_ATTACK = 'unitAttack'
 export const BONUS_WARNING_TIME = 'warningTime'
+
+// Storage keys (localStorage)
+export const STORAGE_MUSIC_ENABLED = 'musicEnabled'
+export const STORAGE_SOUND_ENABLED = 'soundEnabled'

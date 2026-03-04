@@ -6,7 +6,6 @@
 - Fix bottom padding not being enough
 - All initial researches need food
 - Add punishment when missing food/wood => reduce production
-- Add to enums file the keys for the local storage
 
 - Finish all building images
   - Temple: Make it less yellowish
