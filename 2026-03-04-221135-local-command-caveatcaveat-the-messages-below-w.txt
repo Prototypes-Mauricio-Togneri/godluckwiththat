@@ -1,18 +1,4 @@
      ╭─────────────────────────────────────────────────────────────────────────╮                                                                 │
-     │ 4. MEDIUM — events.past array grows unbounded                           │
-     │                                                                         │
-     │ File: src/js/models/events/events.js:15,57-68                           │
-     │                                                                         │
-     │ Every building completion, season change, research completion, etc.     │
-     │ pushes to this.past. There's no cap. In a long session this array grows │
-     │  indefinitely, and sortedPast (getter, line 165-167) copies + sorts it  │
-     │ on every access.                                                        │
-     │                                                                         │
-     │ Fix: Cap past at e.g. 50 entries. When adding, shift oldest if at cap.  │
-     │ This also eliminates the sort cost since new events always have the     │
-     │ highest ID.                                                             │
-     │                                                                         │
-     │ ---                                                                     │
      │ 5. MEDIUM — sortedFuture / sortedPast create new arrays on every access │
      │                                                                         │
      │ File: src/js/models/events/events.js:157-167                            │
