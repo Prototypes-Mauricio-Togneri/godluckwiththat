@@ -269,6 +269,9 @@ class State {
     const {
       academy,
     } = this.colony.buildings
+    if (academy.active.size === 0) {
+      return
+    }
     const completed = []
     for (const [
       key,
@@ -294,6 +297,9 @@ class State {
    * @param {number} delta - Seconds elapsed since last tick
    */
   advanceEvents(delta) {
+    if (this.colony.events.future.length === 0) {
+      return
+    }
     this.colony.events.advance(delta)
   }
 

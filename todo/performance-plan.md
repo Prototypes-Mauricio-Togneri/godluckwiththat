@@ -133,37 +133,6 @@ constructing (typically 0-2). Eliminates ~18-20 proxy reads per frame.
 
 ---
 
-## Fix 3 — Skip idle research and events in rAF loop
-
-**File:** `src/js/engine/state.js` (lines 268-298)
-
-**Problem:** `advanceResearch` iterates `academy.active` Map every frame (even
-when empty). `advanceEvents` iterates `events.future` array every frame (even
-when empty).
-
-**Fix:** Add early returns when there's nothing to advance:
-
-```js
-advanceResearch(delta) {
-  const { academy } = this.colony.buildings
-  if (academy.active.size === 0) return  // <-- skip when idle
-  // ... existing logic
-}
-
-advanceEvents(delta) {
-  if (this.colony.events.future.length === 0) return  // <-- skip when idle
-  this.colony.events.advance(delta)
-}
-```
-
-Also in `advanceSeason` — season always advances, so no skip possible, but
-ensure it's a single property write (already is).
-
-**Impact:** Small but meaningful — eliminates Map/Array iteration overhead on
-frames where nothing is active.
-
----
-
 ## Fix 4 — Convert template functions to computed properties
 
 **File:** `src/components/screens/game_screen.vue`
