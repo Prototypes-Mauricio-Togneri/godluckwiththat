@@ -8,7 +8,6 @@
 - All initial researches need food
 - Add punishment when missing food/wood => reduce production
 - Add to enums file the keys for the local storage
-- Translate game to Catalan
 
 - Finish all building images
   - Temple: Make it less yellowish
