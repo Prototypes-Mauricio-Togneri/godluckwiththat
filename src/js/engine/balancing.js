@@ -244,7 +244,7 @@ export const MONUMENT_FAITH_PER_LEVEL = 100
 // ── Population & Workers ────────────────────────────────────────────
 
 // House population cap: level × perLevel
-export const HOUSE_POPULATION_PER_LEVEL = 5
+export const HOUSE_POPULATION_PER_LEVEL = 10
 
 // Number of worker slots gained per building level
 export const WORKERS_PER_LEVEL = 5
