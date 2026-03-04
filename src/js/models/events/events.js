@@ -39,7 +39,7 @@ class Events {
       researchKey: data.researchKey,
       remainingSeconds: data.remainingSeconds,
     })
-    this.future.push(event)
+    this._binaryInsertFuture(event)
     return event
   }
 
@@ -64,7 +64,7 @@ class Events {
       buildingKey: data.buildingKey,
       researchKey: data.researchKey,
     })
-    this.past.push(event)
+    this.past.unshift(event)
     return event
   }
 
@@ -152,18 +152,38 @@ class Events {
 
   /**
 	 * Returns future events sorted by remaining seconds ascending.
+	 * Returns the internal array directly — callers must not mutate it.
 	 * @returns {EventFuture[]} Events sorted by remaining seconds ascending
 	 */
   get sortedFuture() {
-    return [...this.future].sort((a, b) => a.remainingSeconds - b.remainingSeconds)
+    return this.future
   }
 
   /**
 	 * Returns past events sorted by ID descending (most recent first).
+	 * Returns the internal array directly — callers must not mutate it.
 	 * @returns {EventPast[]} Events sorted by ID descending (most recent first)
 	 */
   get sortedPast() {
-    return [...this.past].sort((a, b) => b.id - a.id)
+    return this.past
+  }
+
+  /**
+	 * Inserts a future event at the correct sorted position (by remainingSeconds ascending).
+	 * @param {EventFuture} event - The event to insert
+	 */
+  _binaryInsertFuture(event) {
+    let lo = 0
+    let hi = this.future.length
+    while (lo < hi) {
+      const mid = (lo + hi) >>> 1
+      if (this.future[mid].remainingSeconds < event.remainingSeconds) {
+        lo = mid + 1
+      } else {
+        hi = mid
+      }
+    }
+    this.future.splice(lo, 0, event)
   }
 
   /**

@@ -2,9 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Fix bug with GPU
-- Wall appears before tower?
-- Fix bugs from images from Filippo
 - All initial researches need food
 - Add punishment when missing food/wood => reduce production
 - Add to enums file the keys for the local storage

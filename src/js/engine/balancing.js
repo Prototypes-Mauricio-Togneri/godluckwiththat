@@ -500,13 +500,11 @@ export const RESEARCH_COSTS = {
   [RESEARCH_HABITATION_4]: new Cost({
     knowledge: 1000,
     wood: 500,
-    stone: 300,
     iron: 80,
   }),
   [RESEARCH_HABITATION_5]: new Cost({
     knowledge: 1800,
     stone: 600,
-    iron: 200,
     gold: 100,
   }),
 

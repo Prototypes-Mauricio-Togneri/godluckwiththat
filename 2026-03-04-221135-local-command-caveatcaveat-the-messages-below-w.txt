@@ -1,16 +1,4 @@
      ╭─────────────────────────────────────────────────────────────────────────╮                                                                 │
-     │ 5. MEDIUM — sortedFuture / sortedPast create new arrays on every access │
-     │                                                                         │
-     │ File: src/js/models/events/events.js:157-167                            │
-     │                                                                         │
-     │ These getters spread + sort on every call. Since they're accessed via   │
-     │ Vue computed, any reactive dependency change triggers a re-sort.        │
-     │                                                                         │
-     │ Fix: For sortedPast — if we cap + prepend, it's already in order        │
-     │ (newest first). For sortedFuture — insert in sorted order (binary       │
-     │ insert) so the getter just returns this.future directly.                │
-     │                                                                         │
-     │ ---                                                                     │
      │ 6. LOW — CSS box-shadow animation on research nodes                     │
      │                                                                         │
      │ File: src/components/modals/research_modal.vue:396-403                  │

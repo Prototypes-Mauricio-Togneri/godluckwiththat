@@ -180,8 +180,8 @@ export const HQ_BUILDING_UNLOCKS = {
   [HQ_TYPE_CITY]: [
     BUILDING_MARKET,
     BUILDING_GOLD_MINE,
-    BUILDING_WORKSHOP,
     BUILDING_TOWER,
+    BUILDING_WORKSHOP,
   ],
 }
 
@@ -314,16 +314,16 @@ export const BUILDING_GRID = [
         img: IMG_BUILDING_STABLE,
       },
       {
-        key: BUILDING_WORKSHOP,
-        img: IMG_BUILDING_WORKSHOP,
-      },
-      {
         key: BUILDING_WALL,
         img: IMG_BUILDING_WALL,
       },
       {
         key: BUILDING_TOWER,
         img: IMG_BUILDING_TOWER,
+      },
+      {
+        key: BUILDING_WORKSHOP,
+        img: IMG_BUILDING_WORKSHOP,
       },
     ],
   },
