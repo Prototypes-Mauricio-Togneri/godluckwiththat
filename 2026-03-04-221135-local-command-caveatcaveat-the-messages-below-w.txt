@@ -6,24 +6,7 @@
      │ The app becomes very slow and laggy in Safari, consuming 85% CPU. This  │
      │ audit identifies all performance bottlenecks and proposes targeted      │
      │ fixes.                                                                  │
-     │                                                                         │
-     │ ---                                                                     │
-     │ Issues Found (by severity)                                              │
-     │                                                                         │
-     │ 1. CRITICAL — backdrop-filter: blur(4px) on modal overlay               │
-     │                                                                         │
-     │ File: src/assets/styles.css:322-323                                     │
-     │                                                                         │
-     │ Safari's implementation of backdrop-filter: blur() is notoriously       │
-     │ expensive — it forces continuous compositing of the entire layer        │
-     │ beneath the overlay. When a modal is open and the game loop is still    │
-     │ running advance methods (season, construction, research, events),       │
-     │ Safari re-composites the blur every frame.                              │
-     │                                                                         │
-     │ Fix: Replace blur with a heavier semi-transparent background (increase  │
-     │ opacity) or use a solid overlay. Remove backdrop-filter and             │
-     │ -webkit-backdrop-filter entirely.                                       │
-     │                                                                         │
+     │                                                                         │                            │
      │ ---                                                                     │
      │ 2. HIGH — completedBonuses() called 4-5× per tick with no caching       │
      │                                                                         │
