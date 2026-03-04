@@ -320,13 +320,10 @@ completion, not every frame).
 
 ## Implementation Order
 
-1. **Fix 3** (early returns) — Smallest change, immediate benefit, no risk
 2. **Fix 2** (constructing set) — Small change, good benefit, low risk
 3. **Fix 6** (explicit property access) — Small change, no risk
-4. **Fix 7** (cap past events) — Small change, prevents unbounded growth, no risk
-5. **Fix 9** (reduce CSS filters) — CSS-only, no logic risk
-6. **Fix 1** (decouple engine from reactivity) — Largest change, highest impact
 7. **Fix 4** (computed properties) — Natural follow-up to Fix 1
+6. **Fix 1** (decouple engine from reactivity) — Largest change, highest impact
 
 After Fix 1, the remaining fixes become less critical but still provide incremental improvements:
 8. **Fix 5** (throttle UI sync) — Final optimization layer on top of Fix 1
