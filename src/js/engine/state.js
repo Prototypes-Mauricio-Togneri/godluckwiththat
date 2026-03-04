@@ -398,32 +398,43 @@ class State {
   }
 
   /**
-   * Assigns a worker to a building. Uses an idle worker if available, otherwise recruits a new one.
+   * Assigns up to `count` workers to a building (recruiting as needed).
+   * Plays sound and updates state only once at the end.
    * @param {string} buildingKey - Key in colony.buildings
+   * @param {number} count - Maximum workers to assign
    */
-  assignWorker(buildingKey) {
+  assignWorkers(buildingKey, count) {
     const building = this.colony.buildings[buildingKey]
-    if (building.isFull) {
-      return
+    let assigned = 0
+    for (let i = 0; i < count; i++) {
+      if (building.isFull) {
+        break
+      }
+      if (this.colony.idleWorkers <= 0 && !this._recruit()) {
+        break
+      }
+      building.workers += 1
+      assigned += 1
     }
-    if (this.colony.idleWorkers <= 0 && !this._recruit()) {
-      return
+    if (assigned > 0) {
+      this._playAssignSound(buildingKey)
+      this.update(0)
     }
-    building.workers += 1
-    this._playAssignSound(buildingKey)
-    this.update(0)
   }
 
   /**
-   * Unassigns one worker from a building back to idle.
+   * Unassigns up to `count` workers from a building back to idle.
+   * Updates state only once at the end.
    * @param {string} buildingKey - Key in colony.buildings
+   * @param {number} count - Maximum workers to unassign
    */
-  unassignWorker(buildingKey) {
+  unassignWorkers(buildingKey, count) {
     const building = this.colony.buildings[buildingKey]
-    if (building.isEmpty) {
+    const actual = Math.min(count, building.workers)
+    if (actual <= 0) {
       return
     }
-    building.workers -= 1
+    building.workers -= actual
     this.update(0)
   }
 

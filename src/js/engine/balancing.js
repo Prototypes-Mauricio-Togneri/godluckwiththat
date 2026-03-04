@@ -248,6 +248,7 @@ export const HOUSE_POPULATION_PER_LEVEL = 5
 
 // Number of worker slots gained per building level
 export const WORKERS_PER_LEVEL = 5
+export const BULK_WORKER_AMOUNT = 10
 
 // Worker recruitment cost (always food)
 export const WORKER_RECRUIT_COST = new Cost({

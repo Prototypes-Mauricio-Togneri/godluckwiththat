@@ -2,7 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Control click to assign Max workers
 - Fix bug with GPU
 - Fix bugs from images from Filippo
 - All initial researches need food

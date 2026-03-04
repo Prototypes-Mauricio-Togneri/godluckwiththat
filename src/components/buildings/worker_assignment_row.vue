@@ -2,7 +2,7 @@
 import {computed, inject} from 'vue'
 import {IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
-import {WORKER_RECRUIT_COST} from '@/js/engine/balancing.js'
+import {BULK_WORKER_AMOUNT, WORKER_RECRUIT_COST} from '@/js/engine/balancing.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
@@ -27,22 +27,24 @@ const canAssign = computed(() =>
 )
 const canUnassign = computed(() => !building.value.isEmpty)
 
-/** Assigns a worker to this building (recruits if needed). */
-function assign() {
+/** Assigns worker(s) to this building (recruits if needed). Ctrl+Click assigns up to 10. */
+function assign(event) {
   if (!canAssign.value) {
     return
   }
   playTap()
-  state.assignWorker(props.buildingKey)
+  const count = event.ctrlKey || event.metaKey ? BULK_WORKER_AMOUNT : 1
+  state.assignWorkers(props.buildingKey, count)
 }
 
-/** Removes a worker from this building back to idle. */
-function unassign() {
+/** Removes worker(s) from this building back to idle. Ctrl+Click unassigns up to 10. */
+function unassign(event) {
   if (!canUnassign.value) {
     return
   }
   playTap()
-  state.unassignWorker(props.buildingKey)
+  const count = event.ctrlKey || event.metaKey ? BULK_WORKER_AMOUNT : 1
+  state.unassignWorkers(props.buildingKey, count)
 }
 </script>
 
