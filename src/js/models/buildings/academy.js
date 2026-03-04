@@ -18,6 +18,7 @@ class Academy extends Producer {
     super(data)
     this.completed = new Set(data.completed ?? []) // Set of completed research keys
     this.active = new Map() // In-progress researches keyed by research key
+    this._bonusCache = null // Cached result of completedBonuses(); invalidated on complete()
     for (const entry of (data.active ?? [])) {
       this.active.set(entry.key, new Research(entry.duration, entry.remainingSeconds))
     }
@@ -84,6 +85,7 @@ class Academy extends Producer {
   complete(key) {
     this.active.delete(key)
     this.completed.add(key)
+    this._bonusCache = null
   }
 
   /**
@@ -92,6 +94,9 @@ class Academy extends Producer {
    * @returns {Object<string, number>} Bonus type → cumulative value
    */
   completedBonuses(researchTree) {
+    if (this._bonusCache !== null) {
+      return this._bonusCache
+    }
     const bonuses = {}
     // Iterate categories → subcategories → individual researches, accumulating bonus values
     for (const cat of researchTree) {
@@ -110,6 +115,7 @@ class Academy extends Producer {
         }
       }
     }
+    this._bonusCache = bonuses
     return bonuses
   }
 

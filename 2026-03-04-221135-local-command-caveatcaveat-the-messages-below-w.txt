@@ -1,27 +1,4 @@
-     ╭─────────────────────────────────────────────────────────────────────────╮
-     │ 2. HIGH — completedBonuses() called 4-5× per tick with no caching       │
-     │                                                                         │
-     │ Files: src/js/engine/state.js:55,485,498,508,                           │
-     │ src/components/screens/game_screen.vue:165,                             │
-     │ src/components/modals/market_modal.vue:23                               │
-     │                                                                         │
-     │ Academy.completedBonuses(RESEARCH_TREE) triple-iterates the full        │
-     │ research tree (categories → subcategories → researches). It's called:   │
-     │ - Once in state.update() (every tick)                                   │
-     │ - Once in storageCap computed (game_screen, reactive — triggers on any  │
-     │ state change)                                                           │
-     │ - Once in storageCap computed (market_modal)                            │
-     │ - Once in expansionCost getter                                          │
-     │ - Once in _constructionDurationMult getter                              │
-     │                                                                         │
-     │ The result only changes when a research completes, but it recalculates  │
-     │ constantly.                                                             │
-     │                                                                         │
-     │ Fix: Cache the result on the Academy instance. Invalidate in            │
-     │ complete(). All callers read academy.bonuses (a plain object) instead   │
-     │ of calling completedBonuses().                                          │
-     │                                                                         │
-     │ ---                                                                     │
+     ╭─────────────────────────────────────────────────────────────────────────╮                                                                 │
      │ 3. HIGH — advanceSeason/Construction/Research/Events run at 60fps AND   │
      │ every tick                                                              │
      │                                                                         │
