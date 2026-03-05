@@ -2,8 +2,10 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- UI bugs
+  - Buttons too big? Or cards too small?
+  - Fix bottom padding not being enough
 - Fix bug with multiple "Population limit reached" past events
-- Fix bottom padding not being enough
 - All initial researches need food
 - Add punishment when missing food/wood => reduce production
 
