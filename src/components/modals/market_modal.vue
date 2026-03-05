@@ -1,37 +1,28 @@
 <script setup>
-import {ref, inject, computed, onMounted, onUnmounted} from 'vue'
+import {ref, inject, onMounted, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber} from '@/js/engine/format.js'
-import {RESEARCH_TREE, TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
+import {TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
 import {MARKET_TRADE_AMOUNT, MARKET_PRICE_SHIFT, MARKET_BASE_FEE, MARKET_MIN_FEE, MARKET_FEE_REDUCTION_PER_LEVEL} from '@/js/engine/balancing.js'
 import {IMG_RESOURCE_MAP, SND_MARKET_EXCHANGE} from '@/js/engine/assets.js'
-import {BONUS_STORAGE_CAPACITY, BUILDING_MARKET, RESOURCE_GOLD, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
+import {RESOURCE_GOLD, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
 
 const emit = defineEmits(['close'])
-const colony = inject('colony')
-const state = inject('state')
+const ui = inject('ui')
+const actions = inject('actions')
 const visible = ref(false)
 const showHelp = ref(false)
 let rafId = null
-
-const market = computed(() => colony.buildings[BUILDING_MARKET])
-const feePercent = computed(() => Math.round(market.value.effectiveTradeFee * 100))
-
-const storageCap = computed(() => {
-  const bonuses = colony.buildings.academy.completedBonuses(RESEARCH_TREE)
-  const storageBonus = bonuses[BONUS_STORAGE_CAPACITY] ?? 0
-  return colony.buildings.storehouse.storageCap(storageBonus)
-})
 
 /** Whether the colony can afford to buy this resource without exceeding storage.
  * @param {string} resource - Resource key to check
  * @returns {boolean} True if gold is sufficient and storage has room
  */
 function canBuy(resource) {
-  return colony.resources.gold >= market.value.buyPrice(resource)
-    && colony.resources[resource] + MARKET_TRADE_AMOUNT <= storageCap.value
+  return ui.resources.gold >= ui.market.buyPrices[resource]
+    && ui.resources[resource] + MARKET_TRADE_AMOUNT <= ui.storageCap
 }
 
 /** Whether the colony has enough of this resource to sell without overflowing gold storage.
@@ -39,8 +30,8 @@ function canBuy(resource) {
  * @returns {boolean} True if resource amount is sufficient and gold storage has room
  */
 function canSell(resource) {
-  return colony.resources[resource] >= MARKET_TRADE_AMOUNT
-    && colony.resources.gold + market.value.sellPrice(resource) <= storageCap.value
+  return ui.resources[resource] >= MARKET_TRADE_AMOUNT
+    && ui.resources.gold + ui.market.sellPrices[resource] <= ui.storageCap
 }
 
 /** Tooltip text for the buy button, showing cost or the reason the trade is blocked.
@@ -48,14 +39,14 @@ function canSell(resource) {
  * @returns {string} Localized tooltip string
  */
 function buyTooltip(resource) {
-  if (colony.resources.gold < market.value.buyPrice(resource)) {
+  if (ui.resources.gold < ui.market.buyPrices[resource]) {
     return t('market.notEnoughGold')
   }
-  if (colony.resources[resource] + MARKET_TRADE_AMOUNT > storageCap.value) {
+  if (ui.resources[resource] + MARKET_TRADE_AMOUNT > ui.storageCap) {
     return t('market.stockpileFull', t('resource.' + resource).toLowerCase())
   }
   const name = t('resource.' + resource).toLowerCase()
-  return t('market.buyTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(market.value.buyPrice(resource)))
+  return t('market.buyTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(ui.market.buyPrices[resource]))
 }
 
 /** Tooltip text for the sell button, showing revenue or the reason the trade is blocked.
@@ -63,14 +54,14 @@ function buyTooltip(resource) {
  * @returns {string} Localized tooltip string
  */
 function sellTooltip(resource) {
-  if (colony.resources[resource] < MARKET_TRADE_AMOUNT) {
+  if (ui.resources[resource] < MARKET_TRADE_AMOUNT) {
     return t('market.notEnoughResource', t('resource.' + resource).toLowerCase())
   }
-  if (colony.resources.gold + market.value.sellPrice(resource) > storageCap.value) {
+  if (ui.resources.gold + ui.market.sellPrices[resource] > ui.storageCap) {
     return t('market.goldStockpileFull')
   }
   const name = t('resource.' + resource).toLowerCase()
-  return t('market.sellTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(market.value.sellPrice(resource)))
+  return t('market.sellTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(ui.market.sellPrices[resource]))
 }
 
 /** Executes a buy trade if affordable, playing the exchange sound effect.
@@ -81,7 +72,7 @@ function buy(resource) {
     return
   }
   audio.playSound(SND_MARKET_EXCHANGE)
-  state.executeTrade(resource, TRADE_BUY)
+  actions.executeTrade(resource, TRADE_BUY)
 }
 
 /** Executes a sell trade if the colony has enough stock, playing the exchange sound effect.
@@ -92,7 +83,7 @@ function sell(resource) {
     return
   }
   audio.playSound(SND_MARKET_EXCHANGE)
-  state.executeTrade(resource, TRADE_SELL)
+  actions.executeTrade(resource, TRADE_SELL)
 }
 
 /** Handles Escape key to close the help sub-modal first, then the market modal.
@@ -142,20 +133,20 @@ onUnmounted(() => {
         >
           <div class="resource-row-top">
             <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
-            <span class="resource-value">{{ formatNumber(colony.resources[resource]) }}</span>
+            <span class="resource-value">{{ formatNumber(ui.resources[resource]) }}</span>
           </div>
         </div>
         <div class="resource-box">
           <div class="resource-row-top">
             <img class="resource-icon" :src="IMG_RESOURCE_MAP[RESOURCE_GOLD]" :alt="t('resource.' + RESOURCE_GOLD)">
-            <span class="resource-value">{{ formatNumber(colony.resources[RESOURCE_GOLD]) }}</span>
+            <span class="resource-value">{{ formatNumber(ui.resources[RESOURCE_GOLD]) }}</span>
           </div>
         </div>
       </div>
 
       <!-- Fee indicator -->
       <div class="market-fee">
-        {{ t('market.fee') }}: {{ feePercent }}%
+        {{ t('market.fee') }}: {{ ui.market.feePercent }}%
       </div>
 
       <!-- Column headers -->
@@ -193,8 +184,8 @@ onUnmounted(() => {
               <img class="trade-btn-icon" :src="IMG_RESOURCE_MAP.gold" alt="">
               <span
                 class="trade-btn-value"
-                :class="{ 'trade-btn-value--insufficient': colony.resources[resource] < MARKET_TRADE_AMOUNT }"
-              >+{{ formatNumber(market.sellPrice(resource)) }}</span>
+                :class="{ 'trade-btn-value--insufficient': ui.resources[resource] < MARKET_TRADE_AMOUNT }"
+              >+{{ formatNumber(ui.market.sellPrices[resource]) }}</span>
             </button>
 
             <!-- Buy -->
@@ -208,8 +199,8 @@ onUnmounted(() => {
               <img class="trade-btn-icon" :src="IMG_RESOURCE_MAP.gold" alt="">
               <span
                 class="trade-btn-value"
-                :class="{ 'trade-btn-value--insufficient': colony.resources.gold < market.buyPrice(resource) }"
-              >-{{ formatNumber(market.buyPrice(resource)) }}</span>
+                :class="{ 'trade-btn-value--insufficient': ui.resources.gold < ui.market.buyPrices[resource] }"
+              >-{{ formatNumber(ui.market.buyPrices[resource]) }}</span>
             </button>
           </div>
         </div>

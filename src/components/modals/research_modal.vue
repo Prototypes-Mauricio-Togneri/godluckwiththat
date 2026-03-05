@@ -5,12 +5,13 @@ import {formatTime} from '@/js/engine/format.js'
 import {RESEARCH_TREE} from '@/js/engine/constants.js'
 import {RESEARCH_COSTS} from '@/js/engine/balancing.js'
 import {IMG_OTHER_COMPLETED, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
+import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
 
 const emit = defineEmits(['close'])
-const colony = inject('colony')
-const state = inject('state')
+const ui = inject('ui')
+const actions = inject('actions')
 const visible = ref(false)
 const showHelp = ref(false)
 let rafId = null
@@ -26,11 +27,11 @@ const nodeStatusMap = computed(() => {
   for (const sub of activeCategory.value.subcategories) {
     for (let idx = 0; idx < sub.researches.length; idx++) {
       const key = sub.researches[idx]
-      if (colony.buildings.academy.isCompleted(key)) {
+      if (ui.academy.completed.has(key)) {
         map[key] = 'completed'
-      } else if (colony.buildings.academy.isActive(key)) {
+      } else if (ui.academy.activeKeys.has(key)) {
         map[key] = 'active'
-      } else if (idx > 0 && !colony.buildings.academy.isCompleted(sub.researches[idx - 1])) {
+      } else if (idx > 0 && !ui.academy.completed.has(sub.researches[idx - 1])) {
         map[key] = 'locked'
       } else {
         map[key] = 'available'
@@ -45,7 +46,7 @@ const nodeStatusMap = computed(() => {
  * @returns {boolean} True if resources are sufficient
  */
 function canAfford(key) {
-  return colony.resources.canAfford(RESEARCH_COSTS[key])
+  return canAffordCost(ui.resources, RESEARCH_COSTS[key])
 }
 
 /** Starts research when node is available and affordable.
@@ -57,7 +58,7 @@ function handleNodeClick(key, status) {
     return
   }
   playTap()
-  state.startResearch(key)
+  actions.startResearch(key)
 }
 
 /** Count of completed researches in a subcategory.
@@ -65,7 +66,7 @@ function handleNodeClick(key, status) {
  * @returns {number} Number of completed researches
  */
 function completedCount(sub) {
-  return sub.researches.filter(key => colony.buildings.academy.isCompleted(key)).length
+  return sub.researches.filter(key => ui.academy.completed.has(key)).length
 }
 
 /** Formatted bonus text for completed tiers in a subcategory.
@@ -160,7 +161,7 @@ onUnmounted(() => {
                 <div class="node-second-row">
                   <img v-if="nodeStatusMap[rKey] === 'completed'" class="node-check" :src="IMG_OTHER_COMPLETED" alt="">
                   <span v-else-if="nodeStatusMap[rKey] === 'active'" class="node-timer">
-                    {{ formatTime(colony.buildings.academy.getActive(rKey).remainingSeconds) }}
+                    {{ formatTime(ui.academy.activeTimers[rKey].remainingSeconds) }}
                   </span>
                   <template v-else>
                     <div
@@ -169,7 +170,7 @@ onUnmounted(() => {
                       class="node-cost-item"
                     >
                       <img class="node-cost-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
-                      <span class="node-cost-amount" :class="{ 'node-cost-amount--insufficient': amount > colony.resources[resource] }">{{ amount }}</span>
+                      <span class="node-cost-amount" :class="{ 'node-cost-amount--insufficient': amount > ui.resources[resource] }">{{ amount }}</span>
                     </div>
                   </template>
                 </div>

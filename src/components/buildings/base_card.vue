@@ -6,7 +6,7 @@ import {IMG_OTHER_BUILD, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/
 import {playTap} from '@/js/engine/audio.js'
 import {formatTime} from '@/js/engine/format.js'
 import {BUILDING_CLASS_MAP} from '@/js/engine/constants.js'
-import Producer from '@/js/models/buildings/producer.js'
+import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
@@ -36,8 +36,8 @@ const props = defineProps({
   },
 })
 
-const colony = inject('colony')
-const state = inject('state')
+const ui = inject('ui')
+const actions = inject('actions')
 
 const displayNameKey = computed(() => props.nameKey || `building.${props.buildingKey}`)
 const showHelp = ref(false)
@@ -48,7 +48,7 @@ const isBuildable = computed(() => hasAction.value && props.building.isUnbuilt)
 const actionCost = computed(() =>
   hasAction.value ? props.building.levelUpCost : null,
 )
-const territoryFull = computed(() => colony.resources.territory >= colony.buildings.headquarters.territoryCap)
+const territoryFull = computed(() => ui.resources.territory >= ui.territoryCap)
 const isConstructing = computed(() => props.building.isConstructing)
 const canActBase = computed(() =>
   actionCost.value !== null
@@ -56,7 +56,7 @@ const canActBase = computed(() =>
 )
 const canAfford = computed(() =>
   actionCost.value !== null
-  && colony.resources.canAfford(actionCost.value),
+  && canAffordCost(ui.resources, actionCost.value),
 )
 const canAct = computed(() => canActBase.value && !territoryFull.value && canAfford.value)
 
@@ -73,7 +73,7 @@ const actionTooltip = computed(() => {
   return isBuildable.value ? t('building.build') + ' ' + t(displayNameKey.value).toLowerCase() : t('building.levelUp')
 })
 const actionCostEntries = computed(() => actionCost.value?.entries ?? new Map())
-const isWorkerAssignable = computed(() => props.building instanceof Producer)
+const isWorkerAssignable = computed(() => props.building.isProducer)
 
 const constructionProgress = computed(() => {
   if (!isConstructing.value || props.building.constructionDuration === 0) {
@@ -88,7 +88,7 @@ function act() {
     return
   }
   playTap()
-  state.levelUpBuilding(props.buildingKey)
+  actions.levelUpBuilding(props.buildingKey)
 }
 </script>
 
@@ -125,7 +125,7 @@ function act() {
           <span v-if="!isConstructing" class="action-cost">
             <span v-for="[key, amount] in actionCostEntries" :key="key" class="action-cost-item">
               <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
-              <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
+              <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources[key] < amount }">{{ amount }}</span>
             </span>
           </span>
           <slot v-if="!isWorkerAssignable && !isBuildable" />

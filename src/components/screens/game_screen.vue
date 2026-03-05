@@ -1,5 +1,5 @@
 <script setup>
-import {ref, reactive, computed, watch, provide, onMounted, onUnmounted} from 'vue'
+import {ref, shallowReactive, watch, provide, onMounted, onUnmounted} from 'vue'
 import ConfirmModal from '@/components/modals/confirm_modal.vue'
 import PauseModal from '@/components/modals/pause_modal.vue'
 import MarketModal from '@/components/modals/market_modal.vue'
@@ -28,7 +28,7 @@ import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatRate, formatTime} from '@/js/engine/format.js'
 import State from '@/js/engine/state.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
-import {createInitialColony, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
+import {createInitialColony, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION} from '@/js/engine/balancing.js'
 import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
@@ -92,12 +92,11 @@ function isBounded(resource) {
  * @returns {number} Fill percentage clamped to 0-100
  */
 function resourceFillPercent(resource) {
-  const current = resourceAmount(resource)
-  const capacity = storageCap.value
-  if (!capacity) {
+  const current = ui.resources[resource]
+  if (!ui.storageCap) {
     return 0
   }
-  return Math.min(100, (current / capacity) * 100)
+  return Math.min(100, (current / ui.storageCap) * 100)
 }
 
 /** Time estimate until a resource is full or empty, or null if stable.
@@ -105,18 +104,17 @@ function resourceFillPercent(resource) {
  * @returns {string|null} Localized "full in" / "empty in" string, or null
  */
 function timeEstimate(resource) {
-  const rate = state.colony.netProduction(resource)
+  const rate = ui.netProduction[resource]
   if (Math.round(rate * SECONDS_PER_MINUTE) === 0) {
     return null
   }
-  const current = resourceAmount(resource)
+  const current = ui.resources[resource]
 
   if (isBounded(resource) && rate > 0) {
-    const capacity = storageCap.value
-    if (current >= capacity) {
+    if (current >= ui.storageCap) {
       return null
     }
-    return `${t('resource.fullIn')} ${formatTime((capacity - current) / rate)}`
+    return `${t('resource.fullIn')} ${formatTime((ui.storageCap - current) / rate)}`
   }
 
   if (rate < 0 && current > 0) {
@@ -131,7 +129,7 @@ function timeEstimate(resource) {
  * @returns {number} Production rate per second
  */
 function grossProduction(resource) {
-  return state.colony.production[resource]
+  return ui.production[resource]
 }
 
 /** Per-second consumption rate for a resource.
@@ -139,7 +137,7 @@ function grossProduction(resource) {
  * @returns {number} Consumption rate per second (0 if none)
  */
 function resourceConsumption(resource) {
-  return state.colony.consumption[resource] ?? 0
+  return ui.consumption[resource] ?? 0
 }
 
 /** Whether a resource has any active consumption.
@@ -150,42 +148,25 @@ function hasConsumption(resource) {
   return resourceConsumption(resource) > 0
 }
 
-/** Current amount of a resource in the colony.
- * @param {string} resource - Resource key
- * @returns {number} Current resource amount
- */
-function resourceAmount(resource) {
-  return state.colony.resources[resource]
-}
-
-/** Current storage cap from the storehouse building (with research bonus).
- * @returns {number} Maximum storable amount for bounded resources
- */
-const storageCap = computed(() => {
-  const bonuses = state.colony.buildings.academy.completedBonuses(RESEARCH_TREE)
-  const storageBonus = bonuses[BONUS_STORAGE_CAPACITY] ?? 0
-  return state.colony.buildings.storehouse.storageCap(storageBonus)
-})
-
 /** Season progress as a fraction from 0 to 1.
  * @returns {number} Fraction of current season elapsed
  */
 function seasonProgress() {
-  return state.colony.season.seasonElapsed / SEASON_DURATION
+  return ui.season.seasonElapsed / SEASON_DURATION
 }
 
 /** Image path for the current season icon (warm or cold).
  * @returns {string} Season icon asset path
  */
 function seasonIcon() {
-  return state.colony.season.isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD
+  return ui.season.isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD
 }
 
 /** Localized tooltip text showing the current season name.
  * @returns {string} Localized season label
  */
 function seasonTooltip() {
-  return `${t('season.name')}: ${t('season.' + state.colony.season.currentSeason)}`
+  return `${t('season.name')}: ${t('season.' + ui.season.currentSeason)}`
 }
 
 /** Building thumbnail path; special-cases HQ to use type-specific image.
@@ -194,7 +175,7 @@ function seasonTooltip() {
  */
 function getBuildingImg(building) {
   if (building.key === BUILDING_HEADQUARTERS) {
-    return IMG_BUILDING_HEADQUARTERS_MAP[state.colony.buildings.headquarters.type]
+    return IMG_BUILDING_HEADQUARTERS_MAP[ui.hqType]
   }
   return building.img
 }
@@ -207,7 +188,7 @@ function isBuildingLocked(buildingKey) {
   if (buildingKey === BUILDING_HEADQUARTERS) {
     return false
   }
-  const currentTypeIndex = HQ_TYPES.indexOf(state.colony.buildings.headquarters.type)
+  const currentTypeIndex = HQ_TYPES.indexOf(ui.hqType)
   for (let i = 0; i <= currentTypeIndex; i++) {
     if (HQ_BUILDING_UNLOCKS[HQ_TYPES[i]].includes(buildingKey)) {
       return false
@@ -221,7 +202,7 @@ function isBuildingLocked(buildingKey) {
  * @returns {boolean} True if the resource has been unlocked
  */
 function isResourceVisible(resource) {
-  const currentTypeIndex = HQ_TYPES.indexOf(state.colony.buildings.headquarters.type)
+  const currentTypeIndex = HQ_TYPES.indexOf(ui.hqType)
   for (let i = 0; i <= currentTypeIndex; i++) {
     if (HQ_RESOURCE_UNLOCKS[HQ_TYPES[i]].includes(resource)) {
       return true
@@ -233,14 +214,342 @@ function isResourceVisible(resource) {
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
 const paused = ref(false)
-const state = reactive(new State(createInitialMeta(), createInitialColony()))
+const state = new State(createInitialMeta(), createInitialColony())
 state.update(0)
 const showClearConfirm = ref(false)
 const showResearchModal = ref(false)
 const showMarketModal = ref(false)
 
-provide('colony', state.colony)
-provide('state', state)
+const ui = shallowReactive({
+  season: {
+    currentSeason: '',
+    seasonElapsed: 0,
+    isWarm: true,
+  },
+  year: 1,
+  resources: {
+    territory: 0,
+    workers: 0,
+    food: 0,
+    wood: 0,
+    stone: 0,
+    copper: 0,
+    iron: 0,
+    gold: 0,
+    faith: 0,
+    knowledge: 0,
+  },
+  storageCap: 0,
+  idleWorkers: 0,
+  workersCap: 0,
+  territoryCap: 0,
+  hqType: 'camp',
+  production: {
+    food: 0,
+    wood: 0,
+    stone: 0,
+    copper: 0,
+    iron: 0,
+    gold: 0,
+    faith: 0,
+    knowledge: 0,
+  },
+  consumption: {
+    food: 0,
+    wood: 0,
+  },
+  netProduction: {
+    food: 0,
+    wood: 0,
+    stone: 0,
+    copper: 0,
+    iron: 0,
+    gold: 0,
+    faith: 0,
+    knowledge: 0,
+  },
+  buildings: {},
+  hq: {},
+  expansionCost: null,
+  academy: {
+    completed: new Set(),
+    activeKeys: new Set(),
+    activeTimers: {},
+  },
+  market: {
+    feePercent: 0,
+    buyPrices: {},
+    sellPrices: {},
+  },
+  futureEvents: [],
+  pastEvents: [],
+})
+
+/** Fast-path sync: updates only time-sensitive fields that change every rAF frame
+ * (season elapsed, construction/upgrade remaining, research timers, event countdowns).
+ */
+function syncTimers() {
+  const {
+    colony,
+  } = state
+  const {
+    buildings, season, events,
+  } = colony
+
+  ui.season = {
+    currentSeason: season.currentSeason,
+    seasonElapsed: season.seasonElapsed,
+    isWarm: season.isWarm,
+  }
+  ui.year = colony.year
+
+  // Only rebuild building snapshots if any construction is active
+  if (state._constructingKeys.size > 0 || state._hqUpgrading) {
+    const bSnap = {
+      ...ui.buildings,
+    }
+    for (const key of state._constructingKeys) {
+      const b = buildings[key]
+      bSnap[key] = {
+        ...bSnap[key],
+        constructionRemaining: b.constructionRemaining,
+        isConstructing: b.isConstructing,
+        level: b.level,
+        isUnbuilt: b.isUnbuilt,
+      }
+    }
+    ui.buildings = bSnap
+
+    if (state._hqUpgrading || buildings.headquarters.isConstructing) {
+      const hq = buildings.headquarters
+      ui.hq = {
+        ...ui.hq,
+        constructionRemaining: hq.constructionRemaining,
+        isConstructing: hq.isConstructing,
+        upgradeRemaining: hq.upgradeRemaining,
+        isUpgrading: hq.isUpgrading,
+        level: hq.level,
+        isUnbuilt: hq.isUnbuilt,
+        type: hq.type,
+        isMaxType: hq.isMaxType,
+        nextType: hq.nextType,
+      }
+    }
+  }
+
+  // Research timers
+  if (buildings.academy.active.size > 0) {
+    const activeTimers = {}
+    for (const [
+      key,
+      research,
+    ] of buildings.academy.active) {
+      activeTimers[key] = {
+        remainingSeconds: research.remainingSeconds,
+        duration: research.duration,
+      }
+    }
+    ui.academy = {
+      ...ui.academy,
+      activeTimers: activeTimers,
+    }
+  }
+
+  // Event countdowns
+  if (events.future.length > 0) {
+    ui.futureEvents = events.sortedFuture.map(e => ({
+      id: e.id,
+      icon: e.icon,
+      textKey: e.textKey,
+      params: e.params,
+      remainingSeconds: e.remainingSeconds,
+    }))
+  }
+}
+
+/** Full sync: copies all values the templates need from the plain engine state into the reactive ui object. */
+function syncUI() {
+  const {
+    colony,
+  } = state
+  const {
+    resources, production, consumption, buildings, season, events,
+  } = colony
+
+  ui.season = {
+    currentSeason: season.currentSeason,
+    seasonElapsed: season.seasonElapsed,
+    isWarm: season.isWarm,
+  }
+  ui.year = colony.year
+
+  ui.resources = {
+    territory: resources.territory,
+    workers: resources.workers,
+    food: resources.food,
+    wood: resources.wood,
+    stone: resources.stone,
+    copper: resources.copper,
+    iron: resources.iron,
+    gold: resources.gold,
+    faith: resources.faith,
+    knowledge: resources.knowledge,
+  }
+
+  const bonuses = buildings.academy.completedBonuses(RESEARCH_TREE)
+  const storageBonus = bonuses[BONUS_STORAGE_CAPACITY] ?? 0
+  ui.storageCap = buildings.storehouse.storageCap(storageBonus)
+  ui.idleWorkers = colony.idleWorkers
+  ui.workersCap = buildings.house.workersCap
+  ui.territoryCap = buildings.headquarters.territoryCap
+  ui.hqType = buildings.headquarters.type
+
+  ui.production = {
+    food: production.food,
+    wood: production.wood,
+    stone: production.stone,
+    copper: production.copper,
+    iron: production.iron,
+    gold: production.gold,
+    faith: production.faith,
+    knowledge: production.knowledge,
+  }
+  ui.consumption = {
+    food: consumption.food,
+    wood: consumption.wood,
+  }
+  ui.netProduction = {
+    food: colony.netProduction('food'),
+    wood: colony.netProduction('wood'),
+    stone: colony.netProduction('stone'),
+    copper: colony.netProduction('copper'),
+    iron: colony.netProduction('iron'),
+    gold: colony.netProduction('gold'),
+    faith: colony.netProduction('faith'),
+    knowledge: colony.netProduction('knowledge'),
+  }
+
+  const bSnap = {}
+  for (const [
+    key,
+    b,
+  ] of Object.entries(buildings)) {
+    bSnap[key] = {
+      level: b.level,
+      isUnbuilt: b.isUnbuilt,
+      isConstructing: b.isConstructing,
+      constructionRemaining: b.constructionRemaining,
+      constructionDuration: b.constructionDuration,
+      levelUpCost: b.levelUpCost,
+      isProducer: 'workers' in b,
+      workers: b.workers ?? 0,
+      maxWorkers: b.maxWorkers ?? 0,
+      isEmpty: b.isEmpty ?? true,
+      isFull: b.isFull ?? false,
+    }
+  }
+  ui.buildings = bSnap
+
+  const hq = buildings.headquarters
+  ui.hq = {
+    level: hq.level,
+    type: hq.type,
+    isUnbuilt: hq.isUnbuilt,
+    isConstructing: hq.isConstructing,
+    constructionRemaining: hq.constructionRemaining,
+    constructionDuration: hq.constructionDuration,
+    isUpgrading: hq.isUpgrading,
+    upgradeRemaining: hq.upgradeRemaining,
+    upgradeDuration: hq.upgradeDuration,
+    isMaxType: hq.isMaxType,
+    nextType: hq.nextType,
+    upgradeCost: hq.upgradeCost,
+    levelUpCost: hq.levelUpCost,
+    isProducer: false,
+  }
+  ui.expansionCost = state.expansionCost
+
+  const activeTimers = {}
+  for (const [
+    key,
+    research,
+  ] of buildings.academy.active) {
+    activeTimers[key] = {
+      remainingSeconds: research.remainingSeconds,
+      duration: research.duration,
+    }
+  }
+  ui.academy = {
+    completed: new Set(buildings.academy.completed),
+    activeKeys: new Set(buildings.academy.active.keys()),
+    activeTimers: activeTimers,
+  }
+
+  const market = buildings.market
+  const buyPrices = {}
+  const sellPrices = {}
+  for (const r of TRADEABLE_RESOURCES) {
+    buyPrices[r] = market.buyPrice(r)
+    sellPrices[r] = market.sellPrice(r)
+  }
+  ui.market = {
+    feePercent: Math.round(market.effectiveTradeFee * 100),
+    buyPrices: buyPrices,
+    sellPrices: sellPrices,
+  }
+
+  ui.futureEvents = events.sortedFuture.map(e => ({
+    id: e.id,
+    icon: e.icon,
+    textKey: e.textKey,
+    params: e.params,
+    remainingSeconds: e.remainingSeconds,
+  }))
+  ui.pastEvents = events.sortedPast.map(e => ({
+    id: e.id,
+    icon: e.icon,
+    textKey: e.textKey,
+    params: e.params,
+  }))
+}
+
+syncUI()
+
+const actions = {
+  levelUpBuilding: (key) => {
+    state.levelUpBuilding(key); syncUI()
+  },
+  expandTerritory: () => {
+    state.expandTerritory(); syncUI()
+  },
+  upgradeHeadquarters: () => {
+    state.upgradeHeadquarters(); syncUI()
+  },
+  recruitWorker: () => {
+    state.recruitWorker(); syncUI()
+  },
+  assignWorkers: (key, count) => {
+    state.assignWorkers(key, count); syncUI()
+  },
+  unassignWorkers: (key, count) => {
+    state.unassignWorkers(key, count); syncUI()
+  },
+  startResearch: (key) => {
+    state.startResearch(key); syncUI()
+  },
+  executeTrade: (resource, direction) => {
+    state.executeTrade(resource, direction); syncUI()
+  },
+  dismissEvent: (id) => {
+    state.colony.events.dismiss(id); syncUI()
+  },
+  dismissAllPast: () => {
+    state.colony.events.dismissAllPast(); syncUI()
+  },
+}
+
+provide('ui', ui)
+provide('actions', actions)
 provide('openResearchModal', () => {
   audio.playSound(SND_OPEN_ACADEMY)
   showResearchModal.value = true
@@ -250,12 +559,9 @@ provide('openMarketModal', () => {
   showMarketModal.value = true
 })
 
-const futureEvents = computed(() => state.colony.events.sortedFuture)
-const pastEvents = computed(() => state.colony.events.sortedPast)
-
 /** Clears all past events and closes the confirmation modal. */
 function clearAllPast() {
-  state.colony.events.dismissAllPast()
+  actions.dismissAllPast()
   showClearConfirm.value = false
 }
 
@@ -280,6 +586,7 @@ function gameTick() {
     state.advanceResearch(progressDelta)
     state.advanceEvents(progressDelta)
   }
+  syncUI()
 }
 
 /** rAF loop for smooth visual progress (season, construction, research, events). */
@@ -290,10 +597,19 @@ function progressTick() {
   const now = performance.now()
   const delta = (now - lastProgressTickTime) / 1000
   lastProgressTickTime = now
+  const prevConstructing = state._constructingKeys.size
+  const prevHqUpgrading = state._hqUpgrading
+  const prevResearchActive = state.colony.buildings.academy.active.size
   state.advanceSeason(delta)
   state.advanceConstruction(delta)
   state.advanceResearch(delta)
   state.advanceEvents(delta)
+  // Full sync when a construction, upgrade, or research just completed; fast-path otherwise
+  if (state._constructingKeys.size < prevConstructing || (!state._hqUpgrading && prevHqUpgrading) || state.colony.buildings.academy.active.size < prevResearchActive) {
+    syncUI()
+  } else {
+    syncTimers()
+  }
   progressAnimFrame = requestAnimationFrame(progressTick)
 }
 
@@ -350,11 +666,11 @@ onUnmounted(() => {
       <div class="header-season-group">
         <div class="header-section header-season tooltip" :data-tooltip="seasonTooltip()">
           <img class="season-icon" :src="seasonIcon()" alt="">
-          <div class="season-track" :class="'season-track--' + state.colony.season.currentSeason">
+          <div class="season-track" :class="'season-track--' + ui.season.currentSeason">
             <div class="season-fill" :style="{ width: (seasonProgress() * 100) + '%' }" />
           </div>
         </div>
-        <span class="header-year">{{ t('year.label') }} <span class="header-year-num">{{ state.colony.year }}</span></span>
+        <span class="header-year">{{ t('year.label') }} <span class="header-year-num">{{ ui.year }}</span></span>
       </div>
 
       <!-- Decorative divider -->
@@ -367,13 +683,13 @@ onUnmounted(() => {
             <!-- Row 1: icon + current amount -->
             <div class="resource-row-top">
               <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
-              <span class="resource-value" :class="{ 'resource-value--alert': isBounded(resource) && Math.floor(resourceAmount(resource)) >= storageCap, 'resource-value--zero': Math.floor(resourceAmount(resource)) === 0 }">
-                {{ formatNumber(resourceAmount(resource)) }}
+              <span class="resource-value" :class="{ 'resource-value--alert': isBounded(resource) && Math.floor(ui.resources[resource]) >= ui.storageCap, 'resource-value--zero': Math.floor(ui.resources[resource]) === 0 }">
+                {{ formatNumber(ui.resources[resource]) }}
               </span>
             </div>
 
             <!-- Row 2: production rate -->
-            <span class="production-rate" :class="rateClass(state.colony.netProduction(resource))">{{ formatRate(state.colony.netProduction(resource)) }}</span>
+            <span class="production-rate" :class="rateClass(ui.netProduction[resource])">{{ formatRate(ui.netProduction[resource]) }}</span>
 
             <!-- Row 3: progress bar track (always rendered for alignment; fill bounded only) -->
             <div class="resource-row-bottom">
@@ -381,7 +697,7 @@ onUnmounted(() => {
                 <div
                   v-if="isBounded(resource)"
                   class="resource-bar-fill"
-                  :class="state.colony.netProduction(resource) > 0 ? 'resource-bar-fill--positive' : 'resource-bar-fill--negative'"
+                  :class="ui.netProduction[resource] > 0 ? 'resource-bar-fill--positive' : 'resource-bar-fill--negative'"
                   :style="{ width: resourceFillPercent(resource) + '%' }"
                 />
               </div>
@@ -391,8 +707,8 @@ onUnmounted(() => {
             <div class="resource-tooltip">
               <span>{{ t('resource.' + resource) }}</span>
               <!-- Intentional: toLocaleString() instead of formatNumber() to display all digits -->
-              <span class="resource-tooltip-time">{{ t('resource.amount') }}: {{ Math.floor(resourceAmount(resource)).toLocaleString() }}</span>
-              <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(storageCap) }}</span>
+              <span class="resource-tooltip-time">{{ t('resource.amount') }}: {{ Math.floor(ui.resources[resource]).toLocaleString() }}</span>
+              <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(ui.storageCap) }}</span>
               <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
               <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.producing') }}: {{ +grossProduction(resource).toFixed(2) }}</span>
               <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.consuming') }}: {{ +resourceConsumption(resource).toFixed(2) }}</span>
@@ -408,15 +724,15 @@ onUnmounted(() => {
       <div class="header-section header-colony">
         <div class="header-resource tooltip" :data-tooltip="t('resource.population')">
           <img class="resource-icon resource-icon--worker" :src="IMG_UNIT_WORKER" :alt="t('resource.population')">
-          <span class="resource-value" :class="{ 'resource-value--alert': state.colony.resources.workers >= state.colony.buildings.house.workersCap, 'resource-value--zero': state.colony.resources.workers === 0 }">{{ formatNumber(state.colony.resources.workers) }}/{{ formatNumber(state.colony.buildings.house.workersCap) }}</span>
+          <span class="resource-value" :class="{ 'resource-value--alert': ui.resources.workers >= ui.workersCap, 'resource-value--zero': ui.resources.workers === 0 }">{{ formatNumber(ui.resources.workers) }}/{{ formatNumber(ui.workersCap) }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.idleWorkers')">
           <img class="resource-icon" :src="IMG_OTHER_IDLE" :alt="t('resource.idleWorkers')">
-          <span class="resource-value" :class="{ 'resource-value--alert': state.colony.idleWorkers > 0 }">{{ state.colony.idleWorkers }}</span>
+          <span class="resource-value" :class="{ 'resource-value--alert': ui.idleWorkers > 0 }">{{ ui.idleWorkers }}</span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.territory')">
           <img class="resource-icon resource-icon--territory" :src="IMG_OTHER_TERRITORY" :alt="t('resource.territory')">
-          <span class="resource-value" :class="{ 'resource-value--alert': state.colony.resources.territory >= state.colony.buildings.headquarters.territoryCap }">{{ formatNumber(state.colony.resources.territory) }}/{{ formatNumber(state.colony.buildings.headquarters.territoryCap) }}</span>
+          <span class="resource-value" :class="{ 'resource-value--alert': ui.resources.territory >= ui.territoryCap }">{{ formatNumber(ui.resources.territory) }}/{{ formatNumber(ui.territoryCap) }}</span>
         </div>
       </div>
 
@@ -443,7 +759,7 @@ onUnmounted(() => {
               v-if="!isBuildingLocked(building.key)"
               :building-key="building.key"
               :img="getBuildingImg(building)"
-              :building="state.colony.buildings[building.key]"
+              :building="ui.buildings[building.key]"
             />
             <div
               v-else
@@ -461,10 +777,10 @@ onUnmounted(() => {
         <h2 class="column-header">{{ t('events.title') }}</h2>
 
         <!-- Future events -->
-        <div v-if="futureEvents.length">
+        <div v-if="ui.futureEvents.length">
           <h3 class="events-section-label">{{ t('events.future') }}</h3>
           <div class="events-list">
-            <div v-for="event in futureEvents" :key="event.id" class="event-row">
+            <div v-for="event in ui.futureEvents" :key="event.id" class="event-row">
               <img class="event-icon" :src="event.icon" :alt="t(event.textKey, ...event.params)">
               <span class="event-text">{{ t(event.textKey, ...event.params) }}</span>
               <span class="event-countdown">{{ formatTime(event.remainingSeconds) }}</span>
@@ -473,22 +789,22 @@ onUnmounted(() => {
         </div>
 
         <!-- Past events -->
-        <div v-if="pastEvents.length">
+        <div v-if="ui.pastEvents.length">
           <div class="events-section-header">
             <h3 class="events-section-label">{{ t('events.past') }}</h3>
             <button class="events-clear-btn" @click="playTap(); showClearConfirm = true">{{ t('events.clearAll') }}</button>
           </div>
           <div class="events-list">
-            <div v-for="event in pastEvents" :key="event.id" class="event-row">
+            <div v-for="event in ui.pastEvents" :key="event.id" class="event-row">
               <img class="event-icon" :src="event.icon" :alt="t(event.textKey, ...event.params)">
               <span class="event-text">{{ t(event.textKey, ...event.params) }}</span>
-              <button class="event-dismiss" @click="playTap(); state.colony.events.dismiss(event.id)">&times;</button>
+              <button class="event-dismiss" @click="playTap(); actions.dismissEvent(event.id)">&times;</button>
             </div>
           </div>
         </div>
 
         <!-- Empty state -->
-        <p v-if="!futureEvents.length && !pastEvents.length" class="events-empty">
+        <p v-if="!ui.futureEvents.length && !ui.pastEvents.length" class="events-empty">
           {{ t('events.empty') }}
         </p>
       </div>

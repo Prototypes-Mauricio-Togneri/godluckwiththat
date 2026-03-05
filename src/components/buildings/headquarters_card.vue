@@ -4,9 +4,10 @@ import BaseCard from '@/components/buildings/base_card.vue'
 import {IMG_OTHER_TERRITORY, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
 import {formatTime} from '@/js/engine/format.js'
+import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 
-const props = defineProps({
+defineProps({
   buildingKey: {
     type: String,
     required: true,
@@ -21,32 +22,31 @@ const props = defineProps({
   },
 })
 
-const colony = inject('colony')
-const state = inject('state')
-const hq = computed(() => colony.buildings[props.buildingKey])
+const ui = inject('ui')
+const actions = inject('actions')
 
-const nameKey = computed(() => `building.headquarters.${hq.value.type}`)
+const nameKey = computed(() => `building.headquarters.${ui.hq.type}`)
 
 // Construction state
-const isLevelingUp = computed(() => hq.value.isConstructing)
+const isLevelingUp = computed(() => ui.hq.isConstructing)
 const levelUpProgress = computed(() => {
-  if (!isLevelingUp.value || hq.value.constructionDuration === 0) {
+  if (!isLevelingUp.value || ui.hq.constructionDuration === 0) {
     return 0
   }
-  return 1 - hq.value.constructionRemaining / hq.value.constructionDuration
+  return 1 - ui.hq.constructionRemaining / ui.hq.constructionDuration
 })
-const isUpgrading = computed(() => hq.value.isUpgrading)
+const isUpgrading = computed(() => ui.hq.isUpgrading)
 const upgradeProgress = computed(() => {
-  if (!isUpgrading.value || hq.value.upgradeDuration === 0) {
+  if (!isUpgrading.value || ui.hq.upgradeDuration === 0) {
     return 0
   }
-  return 1 - hq.value.upgradeRemaining / hq.value.upgradeDuration
+  return 1 - ui.hq.upgradeRemaining / ui.hq.upgradeDuration
 })
 const isBusy = computed(() => isLevelingUp.value || isUpgrading.value)
 
 // Level up
-const levelUpCost = computed(() => state.expansionCost)
-const canAffordLevelUp = computed(() => colony.resources.canAfford(levelUpCost.value))
+const levelUpCost = computed(() => ui.expansionCost)
+const canAffordLevelUp = computed(() => canAffordCost(ui.resources, levelUpCost.value))
 const canLevelUp = computed(() => !isBusy.value && canAffordLevelUp.value)
 const levelUpCostEntries = computed(() => levelUpCost.value?.entries ?? new Map())
 const levelUpTooltip = computed(() => {
@@ -64,17 +64,17 @@ function levelUp() {
     return
   }
   playTap()
-  state.expandTerritory()
+  actions.expandTerritory()
 }
 
 // Upgrade type
-const isMaxType = computed(() => hq.value.isMaxType)
-const nextType = computed(() => hq.value.nextType)
+const isMaxType = computed(() => ui.hq.isMaxType)
+const nextType = computed(() => ui.hq.nextType)
 const upgradeLabel = computed(() =>
   nextType.value ? t('headquarters.upgrade', t(`building.headquarters.${nextType.value}`).toLowerCase()) : '',
 )
-const upgradeCost = computed(() => hq.value.upgradeCost)
-const canAffordUpgrade = computed(() => upgradeCost.value !== null && colony.resources.canAfford(upgradeCost.value))
+const upgradeCost = computed(() => ui.hq.upgradeCost)
+const canAffordUpgrade = computed(() => upgradeCost.value !== null && canAffordCost(ui.resources, upgradeCost.value))
 const canUpgrade = computed(() => !isBusy.value && canAffordUpgrade.value)
 const upgradeTooltip = computed(() => {
   if (isUpgrading.value) {
@@ -92,7 +92,7 @@ function upgradeType() {
     return
   }
   playTap()
-  state.upgradeHeadquarters()
+  actions.upgradeHeadquarters()
 }
 </script>
 
@@ -108,13 +108,13 @@ function upgradeType() {
           @click="upgradeType"
         >
           <img v-if="!isUpgrading" class="action-btn-icon" :src="IMG_OTHER_UPGRADE" :alt="upgradeLabel">
-          <span v-else class="action-btn-time">{{ formatTime(hq.upgradeRemaining) }}</span>
+          <span v-else class="action-btn-time">{{ formatTime(ui.hq.upgradeRemaining) }}</span>
         </button>
       </span>
       <span v-if="!isUpgrading" class="action-cost">
         <span v-for="[key, amount] in upgradeCostEntries" :key="key" class="action-cost-item">
           <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
-          <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
+          <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources[key] < amount }">{{ amount }}</span>
         </span>
       </span>
     </div>
@@ -129,13 +129,13 @@ function upgradeType() {
           @click="levelUp"
         >
           <img v-if="!isLevelingUp" class="action-btn-icon" :src="IMG_OTHER_TERRITORY" :alt="t('headquarters.expandTerritory')">
-          <span v-else class="action-btn-time">{{ formatTime(hq.constructionRemaining) }}</span>
+          <span v-else class="action-btn-time">{{ formatTime(ui.hq.constructionRemaining) }}</span>
         </button>
       </span>
       <span v-if="!isLevelingUp" class="action-cost">
         <span v-for="[key, amount] in levelUpCostEntries" :key="key" class="action-cost-item">
           <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
-          <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
+          <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources[key] < amount }">{{ amount }}</span>
         </span>
       </span>
     </div>

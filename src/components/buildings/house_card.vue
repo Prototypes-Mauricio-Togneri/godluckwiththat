@@ -4,6 +4,7 @@ import BaseCard from '@/components/buildings/base_card.vue'
 import {IMG_RESOURCE_MAP, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
 import {WORKER_RECRUIT_COST} from '@/js/engine/balancing.js'
+import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 
 defineProps({
@@ -21,12 +22,12 @@ defineProps({
   },
 })
 
-const colony = inject('colony')
-const state = inject('state')
+const ui = inject('ui')
+const actions = inject('actions')
 
 // Recruit worker
-const canAffordRecruit = computed(() => colony.resources.canAfford(WORKER_RECRUIT_COST))
-const canRecruitBeforeAfford = computed(() => colony.resources.workers < colony.buildings.house.workersCap)
+const canAffordRecruit = computed(() => canAffordCost(ui.resources, WORKER_RECRUIT_COST))
+const canRecruitBeforeAfford = computed(() => ui.resources.workers < ui.workersCap)
 const canRecruit = computed(() => canAffordRecruit.value && canRecruitBeforeAfford.value)
 
 const recruitTooltip = computed(() => {
@@ -46,7 +47,7 @@ function recruitWorker() {
     return
   }
   playTap()
-  state.recruitWorker()
+  actions.recruitWorker()
 }
 </script>
 
@@ -62,7 +63,7 @@ function recruitWorker() {
         <span class="action-cost">
           <span v-for="[key, amount] in recruitCostEntries" :key="key" class="action-cost-item">
             <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
-            <span class="action-cost-amount" :class="{ 'action-cost-short': colony.resources[key] < amount }">{{ amount }}</span>
+            <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources[key] < amount }">{{ amount }}</span>
           </span>
         </span>
       </div>
