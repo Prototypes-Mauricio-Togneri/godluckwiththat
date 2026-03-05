@@ -7,6 +7,7 @@ import {LOCALIZED_CA} from '@/js/i18n/ca.js'
 import {LOCALIZED_EN} from '@/js/i18n/en.js'
 import {LOCALIZED_ES} from '@/js/i18n/es.js'
 import {LOCALIZED_FR} from '@/js/i18n/fr.js'
+import {LOCALIZED_IT} from '@/js/i18n/it.js'
 
 // Supported locale map (language code → string table)
 const LOCALES = {
@@ -14,6 +15,7 @@ const LOCALES = {
   en: LOCALIZED_EN,
   es: LOCALIZED_ES,
   fr: LOCALIZED_FR,
+  it: LOCALIZED_IT,
 }
 
 const browserLang = navigator.language.slice(0, 2) // Two-letter language code
