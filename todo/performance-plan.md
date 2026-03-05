@@ -15,38 +15,6 @@ unbounded growth of the past events array.
 
 ---
 
-## Fix 2 — Convert template functions to computed properties
-
-**File:** `src/components/screens/game_screen.vue`
-
-**Problem:** Template expressions call plain functions like `seasonProgress()`,
-`seasonIcon()`, `seasonTooltip()`, `resourceFillPercent(resource)`,
-`rateClass(...)`, `timeEstimate(resource)`, `isBuildingLocked(buildingKey)`,
-`isResourceVisible(resource)`, and `getBuildingImg(building)` on every render.
-These are recalculated from scratch each time even if their inputs haven't
-changed.
-
-**Fix after Fix 1:** With the `ui` view model approach, most of these become
-simple reads from `ui` rather than function calls. For example:
-
-- `seasonProgress()` → `ui.seasonElapsed / SEASON_DURATION` (already a simple
-  division, but now reads from a flat reactive object instead of traversing
-  `state.colony.season.seasonElapsed` through multiple proxy layers)
-- `storageCap` is already a `computed` — it stays, but reads from `ui` instead
-  of deep proxy chain
-- `isBuildingLocked` and `isResourceVisible` depend on `hqType` which rarely
-  changes — make them `computed` keyed off `ui.hqType`
-
-Specifically:
-- `isBuildingLocked` iterates `HQ_TYPES` and `HQ_BUILDING_UNLOCKS` for every
-  building on every render. Convert to a `computed` that returns a `Set` of
-  unlocked building keys, recalculated only when `ui.hqType` changes.
-- `isResourceVisible` — same pattern, return a `Set` of visible resource keys.
-
-**Impact:** Eliminates redundant computation on re-renders. Moderate impact.
-
----
-
 ## Fix 3 — Throttle UI sync to animation frame budget
 
 **File:** `src/components/screens/game_screen.vue`

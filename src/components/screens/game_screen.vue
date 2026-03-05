@@ -1,5 +1,5 @@
 <script setup>
-import {ref, shallowReactive, watch, provide, onMounted, onUnmounted} from 'vue'
+import {computed, ref, shallowReactive, watch, provide, onMounted, onUnmounted} from 'vue'
 import ConfirmModal from '@/components/modals/confirm_modal.vue'
 import PauseModal from '@/components/modals/pause_modal.vue'
 import MarketModal from '@/components/modals/market_modal.vue'
@@ -148,26 +148,14 @@ function hasConsumption(resource) {
   return resourceConsumption(resource) > 0
 }
 
-/** Season progress as a fraction from 0 to 1.
- * @returns {number} Fraction of current season elapsed
- */
-function seasonProgress() {
-  return ui.season.seasonElapsed / SEASON_DURATION
-}
+/** Season progress as a fraction from 0 to 1. */
+const seasonProgress = computed(() => ui.season.seasonElapsed / SEASON_DURATION)
 
-/** Image path for the current season icon (warm or cold).
- * @returns {string} Season icon asset path
- */
-function seasonIcon() {
-  return ui.season.isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD
-}
+/** Image path for the current season icon (warm or cold). */
+const seasonIcon = computed(() => ui.season.isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD)
 
-/** Localized tooltip text showing the current season name.
- * @returns {string} Localized season label
- */
-function seasonTooltip() {
-  return `${t('season.name')}: ${t('season.' + ui.season.currentSeason)}`
-}
+/** Localized tooltip text showing the current season name. */
+const seasonTooltip = computed(() => `${t('season.name')}: ${t('season.' + ui.season.currentSeason)}`)
 
 /** Building thumbnail path; special-cases HQ to use type-specific image.
  * @param {object} building - Building grid entry with key and img
@@ -180,36 +168,29 @@ function getBuildingImg(building) {
   return building.img
 }
 
-/** Whether a building is locked based on current HQ type progression.
- * @param {string} buildingKey - Building enum key
- * @returns {boolean} True if the building has not been unlocked yet
- */
-function isBuildingLocked(buildingKey) {
-  if (buildingKey === BUILDING_HEADQUARTERS) {
-    return false
-  }
+/** Set of unlocked building keys based on current HQ type progression. */
+const unlockedBuildings = computed(() => {
+  const set = new Set([BUILDING_HEADQUARTERS])
   const currentTypeIndex = HQ_TYPES.indexOf(ui.hqType)
   for (let i = 0; i <= currentTypeIndex; i++) {
-    if (HQ_BUILDING_UNLOCKS[HQ_TYPES[i]].includes(buildingKey)) {
-      return false
+    for (const key of HQ_BUILDING_UNLOCKS[HQ_TYPES[i]]) {
+      set.add(key)
     }
   }
-  return true
-}
+  return set
+})
 
-/** Whether a resource is visible based on current HQ type progression.
- * @param {string} resource - Resource key
- * @returns {boolean} True if the resource has been unlocked
- */
-function isResourceVisible(resource) {
+/** Set of visible resource keys based on current HQ type progression. */
+const visibleResources = computed(() => {
+  const set = new Set()
   const currentTypeIndex = HQ_TYPES.indexOf(ui.hqType)
   for (let i = 0; i <= currentTypeIndex; i++) {
-    if (HQ_RESOURCE_UNLOCKS[HQ_TYPES[i]].includes(resource)) {
-      return true
+    for (const key of HQ_RESOURCE_UNLOCKS[HQ_TYPES[i]]) {
+      set.add(key)
     }
   }
-  return false
-}
+  return set
+})
 
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
@@ -664,10 +645,10 @@ onUnmounted(() => {
     <header class="game-header">
       <!-- Season & year indicator -->
       <div class="header-season-group">
-        <div class="header-section header-season tooltip" :data-tooltip="seasonTooltip()">
-          <img class="season-icon" :src="seasonIcon()" alt="">
+        <div class="header-section header-season tooltip" :data-tooltip="seasonTooltip">
+          <img class="season-icon" :src="seasonIcon" alt="">
           <div class="season-track" :class="'season-track--' + ui.season.currentSeason">
-            <div class="season-fill" :style="{ width: (seasonProgress() * 100) + '%' }" />
+            <div class="season-fill" :style="{ width: (seasonProgress * 100) + '%' }" />
           </div>
         </div>
         <span class="header-year">{{ t('year.label') }} <span class="header-year-num">{{ ui.year }}</span></span>
@@ -679,7 +660,7 @@ onUnmounted(() => {
       <!-- Resources -->
       <div class="header-section header-resources">
         <template v-for="resource in HEADER_RESOURCES" :key="resource">
-          <div v-if="isResourceVisible(resource)" class="resource-box">
+          <div v-if="visibleResources.has(resource)" class="resource-box">
             <!-- Row 1: icon + current amount -->
             <div class="resource-row-top">
               <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
@@ -756,7 +737,7 @@ onUnmounted(() => {
           <template v-for="building in column.buildings" :key="building.key">
             <component
               :is="getCardComponent(building.key)"
-              v-if="!isBuildingLocked(building.key)"
+              v-if="unlockedBuildings.has(building.key)"
               :building-key="building.key"
               :img="getBuildingImg(building)"
               :building="ui.buildings[building.key]"
