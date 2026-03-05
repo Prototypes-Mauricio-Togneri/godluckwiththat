@@ -405,6 +405,7 @@ onUnmounted(() => {
 .research-node--active {
   border-color: rgba(var(--color-accent-rgb), 0.45);
   animation: research-pulse 2s ease-in-out infinite;
+  will-change: outline;
 }
 
 /* Pulsing glow for active research nodes (outline is cheaper than box-shadow) */

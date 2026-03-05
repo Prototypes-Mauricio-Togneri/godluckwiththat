@@ -643,13 +643,11 @@
 /* Green fill for positive production */
 .resource-bar-fill--positive {
     background: linear-gradient(90deg, rgba(61, 138, 61, 1), rgba(80, 168, 80, 1));
-    box-shadow: 0 0 5px rgba(80, 168, 80, 0.35);
 }
 
 /* Red fill for negative production */
 .resource-bar-fill--negative {
     background: linear-gradient(90deg, rgba(168, 60, 60, 1), rgba(196, 80, 80, 1));
-    box-shadow: 0 0 5px rgba(196, 80, 80, 0.35);
 }
 
 /* Rich tooltip — HTML-based multi-line tooltip below resource boxes */
