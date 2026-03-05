@@ -6,19 +6,10 @@
   - Buttons too big? Or cards too small?
   - Fix bottom padding not being enough
 - Fix bug with multiple "Population limit reached" past events
-- All initial researches need food
-  food + wood + knowledge
-  wood + stone + knowledge
-  stone + copper + knowledge
-  copper + iron + knowledge
-  iron + gold + knowledge
 - Add punishment when missing food/wood => reduce production
 
 - Finish all building images
   - Monument: Re-design it
-
-- Implement save and load
-  - Have save slots and autosave
 
 - Create tutorial
   - Season has changed -> Explain their effects on production and upkeep
@@ -29,6 +20,10 @@
   - Assign workers
   - Build an altar
   - Show what buildings are unlocked when upgrading HQ
+
+- Implement save and load
+  - Have save slots and autosave
+  - Cloud saves
 
 - Implement challenges
   - See next challenge
@@ -46,7 +41,5 @@
 - Implement natural disasters
   - Implement random disasters
   - Implement disasters researches
-
-- Cloud saves
 
 - Implement story intro

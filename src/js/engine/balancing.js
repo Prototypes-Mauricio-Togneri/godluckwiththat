@@ -380,466 +380,487 @@ export const RESEARCH_COSTS = {
   // General: Transportation
   [RESEARCH_TRANSPORTATION_1]: new Cost({
     knowledge: 50,
-    wood: 30,
+    food: 30,
+    wood: 20,
   }),
   [RESEARCH_TRANSPORTATION_2]: new Cost({
     knowledge: 150,
     wood: 80,
+    stone: 50,
   }),
   [RESEARCH_TRANSPORTATION_3]: new Cost({
     knowledge: 400,
-    wood: 200,
-    stone: 100,
+    stone: 200,
+    copper: 80,
   }),
   [RESEARCH_TRANSPORTATION_4]: new Cost({
     knowledge: 800,
-    wood: 400,
-    iron: 50,
+    copper: 250,
+    iron: 80,
   }),
   [RESEARCH_TRANSPORTATION_5]: new Cost({
     knowledge: 1500,
-    stone: 400,
-    iron: 150,
+    iron: 400,
+    gold: 120,
   }),
 
   // General: Construction
   [RESEARCH_CONSTRUCTION_1]: new Cost({
     knowledge: 60,
-    wood: 40,
+    food: 40,
+    wood: 25,
   }),
   [RESEARCH_CONSTRUCTION_2]: new Cost({
     knowledge: 180,
-    wood: 100,
-    stone: 50,
+    wood: 90,
+    stone: 60,
   }),
   [RESEARCH_CONSTRUCTION_3]: new Cost({
     knowledge: 500,
-    wood: 250,
-    stone: 120,
+    stone: 250,
+    copper: 100,
   }),
   [RESEARCH_CONSTRUCTION_4]: new Cost({
     knowledge: 900,
-    stone: 300,
-    iron: 80,
+    copper: 280,
+    iron: 90,
   }),
   [RESEARCH_CONSTRUCTION_5]: new Cost({
     knowledge: 1600,
-    stone: 500,
-    iron: 200,
+    iron: 400,
+    gold: 130,
   }),
 
   // General: Expansion
   [RESEARCH_EXPANSION_1]: new Cost({
     knowledge: 80,
-    wood: 60,
+    food: 50,
+    wood: 30,
   }),
   [RESEARCH_EXPANSION_2]: new Cost({
     knowledge: 200,
-    wood: 120,
+    wood: 100,
     stone: 60,
   }),
   [RESEARCH_EXPANSION_3]: new Cost({
     knowledge: 500,
-    wood: 300,
-    stone: 150,
+    stone: 250,
+    copper: 100,
   }),
   [RESEARCH_EXPANSION_4]: new Cost({
     knowledge: 900,
-    wood: 500,
-    copper: 100,
+    copper: 280,
+    iron: 90,
   }),
   [RESEARCH_EXPANSION_5]: new Cost({
     knowledge: 1600,
-    stone: 400,
-    gold: 80,
+    iron: 400,
+    gold: 130,
   }),
 
   // General: Storage
   [RESEARCH_STORAGE_1]: new Cost({
     knowledge: 60,
-    wood: 50,
-    stone: 30,
+    food: 40,
+    wood: 25,
   }),
   [RESEARCH_STORAGE_2]: new Cost({
     knowledge: 180,
-    wood: 120,
-    stone: 80,
+    wood: 90,
+    stone: 60,
   }),
   [RESEARCH_STORAGE_3]: new Cost({
     knowledge: 450,
-    wood: 300,
-    stone: 150,
+    stone: 230,
+    copper: 90,
   }),
   [RESEARCH_STORAGE_4]: new Cost({
     knowledge: 900,
-    wood: 500,
-    stone: 300,
+    copper: 280,
+    iron: 90,
   }),
   [RESEARCH_STORAGE_5]: new Cost({
     knowledge: 1600,
-    stone: 600,
-    iron: 150,
+    iron: 400,
+    gold: 130,
   }),
 
   // General: Habitation
   [RESEARCH_HABITATION_1]: new Cost({
     knowledge: 70,
-    wood: 50,
-    stone: 30,
+    food: 40,
+    wood: 30,
   }),
   [RESEARCH_HABITATION_2]: new Cost({
     knowledge: 200,
-    wood: 120,
-    stone: 80,
+    wood: 100,
+    stone: 60,
   }),
   [RESEARCH_HABITATION_3]: new Cost({
     knowledge: 500,
-    wood: 300,
-    stone: 150,
+    stone: 250,
+    copper: 100,
   }),
   [RESEARCH_HABITATION_4]: new Cost({
     knowledge: 1000,
-    wood: 500,
-    iron: 80,
+    copper: 300,
+    iron: 100,
   }),
   [RESEARCH_HABITATION_5]: new Cost({
     knowledge: 1800,
-    stone: 600,
-    gold: 100,
+    iron: 450,
+    gold: 150,
   }),
 
   // Resources: Food Production
   [RESEARCH_FOOD_PRODUCTION_1]: new Cost({
     knowledge: 50,
-    food: 40,
+    food: 30,
+    wood: 20,
   }),
   [RESEARCH_FOOD_PRODUCTION_2]: new Cost({
     knowledge: 150,
-    food: 100,
+    wood: 80,
+    stone: 50,
   }),
   [RESEARCH_FOOD_PRODUCTION_3]: new Cost({
     knowledge: 400,
-    food: 250,
-    wood: 80,
+    stone: 200,
+    copper: 80,
   }),
   [RESEARCH_FOOD_PRODUCTION_4]: new Cost({
     knowledge: 800,
-    food: 500,
-    copper: 100,
+    copper: 250,
+    iron: 80,
   }),
   [RESEARCH_FOOD_PRODUCTION_5]: new Cost({
     knowledge: 1500,
-    food: 800,
-    iron: 100,
+    iron: 400,
+    gold: 120,
   }),
 
   // Resources: Food Consumption
   [RESEARCH_FOOD_CONSUMPTION_1]: new Cost({
     knowledge: 60,
-    food: 50,
+    food: 40,
+    wood: 25,
   }),
   [RESEARCH_FOOD_CONSUMPTION_2]: new Cost({
     knowledge: 180,
-    food: 120,
+    wood: 90,
+    stone: 60,
   }),
   [RESEARCH_FOOD_CONSUMPTION_3]: new Cost({
     knowledge: 450,
-    food: 300,
-    wood: 100,
+    stone: 230,
+    copper: 90,
   }),
   [RESEARCH_FOOD_CONSUMPTION_4]: new Cost({
     knowledge: 800,
-    food: 500,
-    wood: 200,
+    copper: 250,
+    iron: 80,
   }),
   [RESEARCH_FOOD_CONSUMPTION_5]: new Cost({
     knowledge: 1500,
-    food: 800,
-    stone: 150,
+    iron: 400,
+    gold: 120,
   }),
 
   // Resources: Wood Production
   [RESEARCH_WOOD_PRODUCTION_1]: new Cost({
     knowledge: 50,
-    wood: 40,
+    food: 30,
+    wood: 20,
   }),
   [RESEARCH_WOOD_PRODUCTION_2]: new Cost({
     knowledge: 150,
-    wood: 100,
+    wood: 80,
+    stone: 50,
   }),
   [RESEARCH_WOOD_PRODUCTION_3]: new Cost({
     knowledge: 400,
-    wood: 250,
-    stone: 80,
+    stone: 200,
+    copper: 80,
   }),
   [RESEARCH_WOOD_PRODUCTION_4]: new Cost({
     knowledge: 800,
-    wood: 500,
-    iron: 100,
+    copper: 250,
+    iron: 80,
   }),
   [RESEARCH_WOOD_PRODUCTION_5]: new Cost({
     knowledge: 1500,
-    wood: 800,
-    iron: 200,
+    iron: 400,
+    gold: 120,
   }),
 
   // Resources: Wood Consumption
   [RESEARCH_WOOD_CONSUMPTION_1]: new Cost({
     knowledge: 60,
-    wood: 50,
+    food: 40,
+    wood: 25,
   }),
   [RESEARCH_WOOD_CONSUMPTION_2]: new Cost({
     knowledge: 180,
-    wood: 120,
+    wood: 90,
+    stone: 60,
   }),
   [RESEARCH_WOOD_CONSUMPTION_3]: new Cost({
     knowledge: 450,
-    wood: 300,
-    stone: 100,
+    stone: 230,
+    copper: 90,
   }),
   [RESEARCH_WOOD_CONSUMPTION_4]: new Cost({
     knowledge: 800,
-    wood: 500,
-    copper: 100,
+    copper: 250,
+    iron: 80,
   }),
   [RESEARCH_WOOD_CONSUMPTION_5]: new Cost({
     knowledge: 1500,
-    wood: 800,
-    iron: 150,
+    iron: 400,
+    gold: 120,
   }),
 
   // Resources: Mining
   [RESEARCH_MINING_1]: new Cost({
     knowledge: 60,
-    stone: 40,
+    food: 40,
+    wood: 25,
   }),
   [RESEARCH_MINING_2]: new Cost({
     knowledge: 180,
-    stone: 100,
-    copper: 30,
+    wood: 90,
+    stone: 60,
   }),
   [RESEARCH_MINING_3]: new Cost({
     knowledge: 450,
-    stone: 250,
-    iron: 50,
+    stone: 230,
+    copper: 90,
   }),
   [RESEARCH_MINING_4]: new Cost({
     knowledge: 900,
-    stone: 500,
-    gold: 50,
+    copper: 280,
+    iron: 90,
   }),
   [RESEARCH_MINING_5]: new Cost({
     knowledge: 1600,
-    stone: 700,
-    gold: 120,
+    iron: 400,
+    gold: 130,
   }),
 
   // Resources: Knowledge Production
   [RESEARCH_KNOWLEDGE_PRODUCTION_1]: new Cost({
     knowledge: 80,
-    wood: 50,
+    food: 50,
+    wood: 30,
   }),
   [RESEARCH_KNOWLEDGE_PRODUCTION_2]: new Cost({
     knowledge: 200,
-    wood: 120,
+    wood: 100,
     stone: 60,
   }),
   [RESEARCH_KNOWLEDGE_PRODUCTION_3]: new Cost({
     knowledge: 500,
-    wood: 250,
-    copper: 80,
+    stone: 250,
+    copper: 100,
   }),
   [RESEARCH_KNOWLEDGE_PRODUCTION_4]: new Cost({
     knowledge: 900,
-    wood: 400,
-    iron: 80,
+    copper: 280,
+    iron: 90,
   }),
   [RESEARCH_KNOWLEDGE_PRODUCTION_5]: new Cost({
     knowledge: 1600,
-    wood: 600,
-    gold: 100,
+    iron: 400,
+    gold: 130,
   }),
 
   // Disasters: Floods
   [RESEARCH_FLOODS_1]: new Cost({
     knowledge: 80,
-    stone: 50,
+    food: 50,
+    wood: 30,
   }),
   [RESEARCH_FLOODS_2]: new Cost({
     knowledge: 200,
-    stone: 120,
+    wood: 100,
+    stone: 60,
   }),
   [RESEARCH_FLOODS_3]: new Cost({
     knowledge: 500,
     stone: 250,
-    iron: 50,
+    copper: 100,
   }),
   [RESEARCH_FLOODS_4]: new Cost({
     knowledge: 900,
-    stone: 400,
-    iron: 120,
+    copper: 280,
+    iron: 90,
   }),
   [RESEARCH_FLOODS_5]: new Cost({
     knowledge: 1600,
-    stone: 600,
-    iron: 250,
+    iron: 400,
+    gold: 130,
   }),
 
   // Disasters: Health
   [RESEARCH_HEALTH_1]: new Cost({
     knowledge: 80,
-    food: 60,
+    food: 50,
+    wood: 30,
   }),
   [RESEARCH_HEALTH_2]: new Cost({
     knowledge: 200,
-    food: 150,
+    wood: 100,
+    stone: 60,
   }),
   [RESEARCH_HEALTH_3]: new Cost({
     knowledge: 500,
-    food: 300,
-    copper: 50,
+    stone: 250,
+    copper: 100,
   }),
   [RESEARCH_HEALTH_4]: new Cost({
     knowledge: 900,
-    food: 500,
-    stone: 150,
+    copper: 280,
+    iron: 90,
   }),
   [RESEARCH_HEALTH_5]: new Cost({
     knowledge: 1600,
-    stone: 400,
-    iron: 100,
+    iron: 400,
+    gold: 130,
   }),
 
   // Disasters: Earthquakes
   [RESEARCH_EARTHQUAKES_1]: new Cost({
     knowledge: 80,
-    stone: 60,
+    food: 50,
+    wood: 30,
   }),
   [RESEARCH_EARTHQUAKES_2]: new Cost({
     knowledge: 200,
-    stone: 150,
-    wood: 80,
+    wood: 100,
+    stone: 60,
   }),
   [RESEARCH_EARTHQUAKES_3]: new Cost({
     knowledge: 500,
-    stone: 300,
-    iron: 50,
+    stone: 250,
+    copper: 100,
   }),
   [RESEARCH_EARTHQUAKES_4]: new Cost({
     knowledge: 900,
-    stone: 500,
-    iron: 120,
+    copper: 280,
+    iron: 90,
   }),
   [RESEARCH_EARTHQUAKES_5]: new Cost({
     knowledge: 1600,
-    stone: 700,
-    iron: 250,
+    iron: 400,
+    gold: 130,
   }),
 
   // Religion: Faith
   [RESEARCH_FAITH_1]: new Cost({
     knowledge: 60,
-    wood: 40,
+    food: 40,
+    wood: 25,
   }),
   [RESEARCH_FAITH_2]: new Cost({
     knowledge: 180,
-    wood: 100,
-    stone: 50,
+    wood: 90,
+    stone: 60,
   }),
   [RESEARCH_FAITH_3]: new Cost({
     knowledge: 450,
-    wood: 250,
-    stone: 120,
+    stone: 230,
+    copper: 90,
   }),
   [RESEARCH_FAITH_4]: new Cost({
     knowledge: 800,
-    stone: 300,
-    gold: 60,
+    copper: 250,
+    iron: 80,
   }),
   [RESEARCH_FAITH_5]: new Cost({
     knowledge: 1500,
-    stone: 500,
-    gold: 150,
+    iron: 400,
+    gold: 120,
   }),
 
   // Military: Defense
   [RESEARCH_DEFENSE_1]: new Cost({
     knowledge: 80,
-    wood: 60,
+    food: 50,
+    wood: 30,
   }),
   [RESEARCH_DEFENSE_2]: new Cost({
     knowledge: 200,
-    wood: 120,
-    copper: 50,
+    wood: 100,
+    stone: 60,
   }),
   [RESEARCH_DEFENSE_3]: new Cost({
     knowledge: 500,
-    copper: 200,
-    iron: 80,
+    stone: 250,
+    copper: 100,
   }),
   [RESEARCH_DEFENSE_4]: new Cost({
     knowledge: 900,
-    iron: 250,
-    gold: 60,
+    copper: 280,
+    iron: 90,
   }),
   [RESEARCH_DEFENSE_5]: new Cost({
     knowledge: 1600,
-    iron: 500,
-    gold: 150,
+    iron: 400,
+    gold: 130,
   }),
 
   // Military: Attack
   [RESEARCH_ATTACK_1]: new Cost({
     knowledge: 80,
-    wood: 50,
-    food: 40,
+    food: 50,
+    wood: 30,
   }),
   [RESEARCH_ATTACK_2]: new Cost({
     knowledge: 200,
-    wood: 120,
-    copper: 60,
+    wood: 100,
+    stone: 60,
   }),
   [RESEARCH_ATTACK_3]: new Cost({
     knowledge: 500,
-    copper: 200,
-    iron: 100,
+    stone: 250,
+    copper: 100,
   }),
   [RESEARCH_ATTACK_4]: new Cost({
     knowledge: 900,
-    iron: 300,
-    gold: 80,
+    copper: 280,
+    iron: 90,
   }),
   [RESEARCH_ATTACK_5]: new Cost({
     knowledge: 1600,
-    iron: 500,
-    gold: 200,
+    iron: 400,
+    gold: 130,
   }),
 
   // Military: Warning
   [RESEARCH_WARNING_1]: new Cost({
     knowledge: 60,
-    wood: 50,
-    stone: 30,
+    food: 40,
+    wood: 25,
   }),
   [RESEARCH_WARNING_2]: new Cost({
     knowledge: 180,
-    wood: 100,
-    stone: 80,
+    wood: 90,
+    stone: 60,
   }),
   [RESEARCH_WARNING_3]: new Cost({
     knowledge: 450,
-    stone: 200,
-    copper: 80,
+    stone: 230,
+    copper: 90,
   }),
   [RESEARCH_WARNING_4]: new Cost({
     knowledge: 800,
-    stone: 300,
-    iron: 100,
+    copper: 250,
+    iron: 80,
   }),
   [RESEARCH_WARNING_5]: new Cost({
     knowledge: 1500,
-    iron: 300,
-    gold: 100,
+    iron: 400,
+    gold: 120,
   }),
 }
 
