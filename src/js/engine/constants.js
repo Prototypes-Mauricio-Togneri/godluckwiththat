@@ -806,7 +806,7 @@ export function createInitialColonyAdvanced() {
         level: 5,
       }),
       [BUILDING_HOUSE]: new House({
-        level: 15,
+        level: 7,
       }),
       [BUILDING_ACADEMY]: new Academy({
         level: 1,
