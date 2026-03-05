@@ -353,22 +353,27 @@ function costToEntries(cost) {
   return cost ? [...cost.entries] : []
 }
 
-/** Full sync: copies all values the templates need from the plain engine state into the reactive ui object. */
-function syncUI() {
+/** Syncs season and year. */
+function syncSeason() {
   const {
-    colony,
-  } = state
-  const {
-    resources, production, consumption, buildings, season, events,
-  } = colony
-
+    season,
+  } = state.colony
   ui.season = {
     currentSeason: season.currentSeason,
     seasonElapsed: season.seasonElapsed,
     isWarm: season.isWarm,
   }
-  ui.year = colony.year
+  ui.year = state.colony.year
+}
 
+/** Syncs resources, storage cap, idle workers, workers cap, territory cap, and HQ type. */
+function syncResources() {
+  const {
+    colony,
+  } = state
+  const {
+    resources, buildings,
+  } = colony
   ui.resources = {
     territory: resources.territory,
     workers: resources.workers,
@@ -381,7 +386,6 @@ function syncUI() {
     faith: resources.faith,
     knowledge: resources.knowledge,
   }
-
   const bonuses = buildings.academy.completedBonuses(RESEARCH_TREE)
   const storageBonus = bonuses[BONUS_STORAGE_CAPACITY] ?? 0
   ui.storageCap = buildings.storehouse.storageCap(storageBonus)
@@ -389,7 +393,16 @@ function syncUI() {
   ui.workersCap = buildings.house.workersCap
   ui.territoryCap = buildings.headquarters.territoryCap
   ui.hqType = buildings.headquarters.type
+}
 
+/** Syncs production, consumption, and net production rates. */
+function syncProduction() {
+  const {
+    colony,
+  } = state
+  const {
+    production, consumption,
+  } = colony
   ui.production = {
     food: production.food,
     wood: production.wood,
@@ -414,7 +427,13 @@ function syncUI() {
     faith: colony.netProduction('faith'),
     knowledge: colony.netProduction('knowledge'),
   }
+}
 
+/** Syncs all building snapshots. */
+function syncAllBuildings() {
+  const {
+    buildings,
+  } = state.colony
   const bSnap = {}
   for (const [
     key,
@@ -437,8 +456,34 @@ function syncUI() {
     }
   }
   ui.buildings = bSnap
+}
 
-  const hq = buildings.headquarters
+/** Syncs a single building snapshot by key. */
+function syncBuilding(key) {
+  const b = state.colony.buildings[key]
+  const cost = b.levelUpCost
+  ui.buildings = {
+    ...ui.buildings,
+    [key]: {
+      level: b.level,
+      isUnbuilt: b.isUnbuilt,
+      isConstructing: b.isConstructing,
+      constructionRemaining: b.constructionRemaining,
+      constructionDuration: b.constructionDuration,
+      levelUpCost: cost,
+      levelUpCostEntries: costToEntries(cost),
+      isProducer: 'workers' in b,
+      workers: b.workers ?? 0,
+      maxWorkers: b.maxWorkers ?? 0,
+      isEmpty: b.isEmpty ?? true,
+      isFull: b.isFull ?? false,
+    },
+  }
+}
+
+/** Syncs headquarters snapshot and expansion cost. */
+function syncHQ() {
+  const hq = state.colony.buildings.headquarters
   const hqUpgradeCost = hq.upgradeCost
   const expCost = state.expansionCost
   ui.hq = {
@@ -460,24 +505,31 @@ function syncUI() {
   }
   ui.expansionCost = expCost
   ui.expansionCostEntries = costToEntries(expCost)
+}
 
+/** Syncs academy state (completed, active, timers). */
+function syncAcademy() {
+  const academy = state.colony.buildings.academy
   const activeTimers = {}
   for (const [
     key,
     research,
-  ] of buildings.academy.active) {
+  ] of academy.active) {
     activeTimers[key] = {
       remainingSeconds: research.remainingSeconds,
       duration: research.duration,
     }
   }
   ui.academy = {
-    completed: new Set(buildings.academy.completed),
-    activeKeys: new Set(buildings.academy.active.keys()),
+    completed: new Set(academy.completed),
+    activeKeys: new Set(academy.active.keys()),
     activeTimers: activeTimers,
   }
+}
 
-  const market = buildings.market
+/** Syncs market prices and fee. */
+function syncMarket() {
+  const market = state.colony.buildings.market
   const buyPrices = {}
   const sellPrices = {}
   for (const r of TRADEABLE_RESOURCES) {
@@ -489,7 +541,13 @@ function syncUI() {
     buyPrices: buyPrices,
     sellPrices: sellPrices,
   }
+}
 
+/** Syncs future and past events. */
+function syncEvents() {
+  const {
+    events,
+  } = state.colony
   ui.futureEvents = events.sortedFuture.map(e => ({
     id: e.id,
     icon: e.icon,
@@ -505,38 +563,63 @@ function syncUI() {
   }))
 }
 
+/** Full sync: copies all values the templates need from the plain engine state into the reactive ui object. */
+function syncUI() {
+  syncSeason()
+  syncResources()
+  syncProduction()
+  syncAllBuildings()
+  syncHQ()
+  syncAcademy()
+  syncMarket()
+  syncEvents()
+}
+
 syncUI()
 
 const actions = {
   levelUpBuilding: (key) => {
-    state.levelUpBuilding(key); syncUI()
+    state.levelUpBuilding(key)
+    syncResources(); syncProduction(); syncBuilding(key); syncEvents()
+    if (key === BUILDING_HEADQUARTERS) {
+      syncHQ()
+    }
   },
   expandTerritory: () => {
-    state.expandTerritory(); syncUI()
+    state.expandTerritory()
+    syncResources(); syncProduction(); syncHQ(); syncEvents()
   },
   upgradeHeadquarters: () => {
-    state.upgradeHeadquarters(); syncUI()
+    state.upgradeHeadquarters()
+    syncResources(); syncProduction(); syncHQ(); syncEvents()
   },
   recruitWorker: () => {
-    state.recruitWorker(); syncUI()
+    state.recruitWorker()
+    syncResources(); syncProduction(); syncEvents()
   },
   assignWorkers: (key, count) => {
-    state.assignWorkers(key, count); syncUI()
+    state.assignWorkers(key, count)
+    syncResources(); syncProduction(); syncBuilding(key); syncEvents()
   },
   unassignWorkers: (key, count) => {
-    state.unassignWorkers(key, count); syncUI()
+    state.unassignWorkers(key, count)
+    syncResources(); syncProduction(); syncBuilding(key); syncEvents()
   },
   startResearch: (key) => {
-    state.startResearch(key); syncUI()
+    state.startResearch(key)
+    syncResources(); syncProduction(); syncAcademy(); syncEvents()
   },
   executeTrade: (resource, direction) => {
-    state.executeTrade(resource, direction); syncUI()
+    state.executeTrade(resource, direction)
+    syncResources(); syncProduction(); syncMarket(); syncEvents()
   },
   dismissEvent: (id) => {
-    state.colony.events.dismiss(id); syncUI()
+    state.colony.events.dismiss(id)
+    syncEvents()
   },
   dismissAllPast: () => {
-    state.colony.events.dismissAllPast(); syncUI()
+    state.colony.events.dismissAllPast()
+    syncEvents()
   },
 }
 
