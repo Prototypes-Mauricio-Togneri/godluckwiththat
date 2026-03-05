@@ -1,16 +1,3 @@
-  7. dismissPastByType / dismissPastByTextKey create new arrays via filter()
-  - File: src/js/models/events/events.js
-  - Lines: 134–144
-  - Severity: Medium
-  - Category: GC Pressure
-  - Both methods use Array.filter() which always allocates a new array, even
-  when no items match. Called from state.js on construction completion (lines
-  261, 266, 268), season changes (line 226), resource cap transitions (line
-  176), and negative production transitions (line 209) — potentially multiple
-  times per tick.
-  - Fix: Use in-place removal with a reverse for loop and splice(), avoiding
-  array allocation when nothing is removed.
-
   8. Triple iteration of BOUNDED_RESOURCES per tick
   - File: src/js/engine/state.js
   - Lines: 153–155 (cap enforcement), 161–178 (cap edge detection), 194–211
