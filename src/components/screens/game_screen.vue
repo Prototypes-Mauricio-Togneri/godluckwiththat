@@ -551,12 +551,28 @@ let lastTickTime = 0
 let progressAnimFrame = null
 let lastProgressTickTime = 0
 
+// --- Perf overlay ---
+const perfOverlay = ref(null)
+let perfVisible = false
+let perfFrameCount = 0
+let perfFrameTimeSum = 0
+let perfLastSample = 0
+let perfSyncUITime = 0
+let perfSyncUICount = 0
+let perfSyncTimersTime = 0
+let perfSyncTimersCount = 0
+let perfGameTickTime = 0
+let perfGameTickCount = 0
+
 /** Main 1-second game loop: applies production, consumption, and advances visual progress. */
 function gameTick() {
   const now = performance.now()
   const delta = (now - lastTickTime) / 1000
   lastTickTime = now
+  const tickStart = now
   state.update(delta)
+  perfGameTickTime += performance.now() - tickStart
+  perfGameTickCount++
 
   // Advance progress only when the tab is backgrounded (rAF pauses, so gameTick takes over)
   if (document.hidden) {
@@ -567,7 +583,10 @@ function gameTick() {
     state.advanceResearch(progressDelta)
     state.advanceEvents(progressDelta)
   }
+  const syncStart = performance.now()
   syncUI()
+  perfSyncUITime += performance.now() - syncStart
+  perfSyncUICount++
 }
 
 /** rAF loop for smooth visual progress (season, construction, research, events). */
@@ -587,10 +606,53 @@ function progressTick() {
   state.advanceEvents(delta)
   // Full sync when a construction, upgrade, or research just completed; fast-path otherwise
   if (state._constructingKeys.size < prevConstructing || (!state._hqUpgrading && prevHqUpgrading) || state.colony.buildings.academy.active.size < prevResearchActive) {
+    const t0 = performance.now()
     syncUI()
+    perfSyncUITime += performance.now() - t0
+    perfSyncUICount++
   } else {
+    const t0 = performance.now()
     syncTimers()
+    perfSyncTimersTime += performance.now() - t0
+    perfSyncTimersCount++
   }
+
+  // Perf sampling (discard stale data after returning from background tab)
+  if (delta > 1) {
+    perfFrameCount = 0
+    perfFrameTimeSum = 0
+    perfSyncUITime = 0
+    perfSyncUICount = 0
+    perfSyncTimersTime = 0
+    perfSyncTimersCount = 0
+    perfGameTickTime = 0
+    perfGameTickCount = 0
+    perfLastSample = now
+  }
+  perfFrameCount++
+  perfFrameTimeSum += delta * 1000
+  if (perfVisible && now - perfLastSample >= 1000) {
+    const el = perfOverlay.value
+    if (el) {
+      const elapsed = (now - perfLastSample) / 1000
+      const fps = Math.round(perfFrameCount / elapsed)
+      const avgFrame = (perfFrameTimeSum / perfFrameCount).toFixed(1)
+      const avgSyncUI = perfSyncUICount ? (perfSyncUITime / perfSyncUICount).toFixed(2) : '—'
+      const avgSyncTimers = perfSyncTimersCount ? (perfSyncTimersTime / perfSyncTimersCount).toFixed(2) : '—'
+      const avgTick = perfGameTickCount ? (perfGameTickTime / perfGameTickCount).toFixed(2) : '—'
+      el.textContent = `FPS: ${fps}\nFrame: ${avgFrame}ms\nsyncUI: ${avgSyncUI}ms\nsyncTimers: ${avgSyncTimers}ms\ntick: ${avgTick}ms`
+    }
+    perfFrameCount = 0
+    perfFrameTimeSum = 0
+    perfSyncUITime = 0
+    perfSyncUICount = 0
+    perfSyncTimersTime = 0
+    perfSyncTimersCount = 0
+    perfGameTickTime = 0
+    perfGameTickCount = 0
+    perfLastSample = now
+  }
+
   progressAnimFrame = requestAnimationFrame(progressTick)
 }
 
@@ -603,6 +665,16 @@ function handleKeydown(event) {
   }
   if (event.key === 'Escape') {
     showModal.value = !showModal.value
+  }
+  if (event.key === 'F3') {
+    event.preventDefault()
+    perfVisible = !perfVisible
+    if (perfOverlay.value) {
+      perfOverlay.value.style.display = perfVisible ? 'block' : 'none'
+    }
+    if (perfVisible) {
+      perfLastSample = performance.now()
+    }
   }
 }
 
@@ -618,6 +690,15 @@ watch(showModal, (isOpen) => {
     const now = performance.now()
     lastTickTime = now
     lastProgressTickTime = now
+    perfFrameCount = 0
+    perfFrameTimeSum = 0
+    perfSyncUITime = 0
+    perfSyncUICount = 0
+    perfSyncTimersTime = 0
+    perfSyncTimersCount = 0
+    perfGameTickTime = 0
+    perfGameTickCount = 0
+    perfLastSample = now
     tickTimer = setInterval(gameTick, TICK_INTERVAL)
     progressAnimFrame = requestAnimationFrame(progressTick)
   }
@@ -642,6 +723,7 @@ onUnmounted(() => {
 
 <template>
   <div class="game-screen">
+    <pre ref="perfOverlay" class="perf-overlay" style="display: none" />
     <header class="game-header">
       <!-- Season & year indicator -->
       <div class="header-season-group">
@@ -819,6 +901,22 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+.perf-overlay {
+  position: fixed;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: rgba(0, 255, 0, 1);
+  font-family: monospace;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  z-index: 9999;
+  pointer-events: none;
+  white-space: pre;
+  margin: 0;
+}
+
 /* Root layout container; fills viewport and stacks header + content vertically */
 .game-screen {
   --thumb-h: calc((100vh - 19.1rem - 16px) / 6);
