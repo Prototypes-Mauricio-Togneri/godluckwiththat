@@ -72,7 +72,7 @@ const actionTooltip = computed(() => {
   }
   return isBuildable.value ? t('building.build') + ' ' + t(displayNameKey.value).toLowerCase() : t('building.levelUp')
 })
-const actionCostEntries = computed(() => actionCost.value?.entries ?? new Map())
+const actionCostEntries = computed(() => props.building.levelUpCostEntries ?? [])
 const isWorkerAssignable = computed(() => props.building.isProducer)
 
 const constructionProgress = computed(() => {

@@ -9,6 +9,16 @@ import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
 
+const RESEARCH_COST_ENTRIES = Object.fromEntries(
+  Object.entries(RESEARCH_COSTS).map(([
+    k,
+    c,
+  ]) => [
+    k,
+    [...c.entries],
+  ]),
+)
+
 const emit = defineEmits(['close'])
 const ui = inject('ui')
 const actions = inject('actions')
@@ -165,7 +175,7 @@ onUnmounted(() => {
                   </span>
                   <template v-else>
                     <div
-                      v-for="[resource, amount] in RESEARCH_COSTS[rKey].entries"
+                      v-for="[resource, amount] in RESEARCH_COST_ENTRIES[rKey]"
                       :key="resource"
                       class="node-cost-item"
                     >

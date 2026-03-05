@@ -48,7 +48,7 @@ const isBusy = computed(() => isLevelingUp.value || isUpgrading.value)
 const levelUpCost = computed(() => ui.expansionCost)
 const canAffordLevelUp = computed(() => canAffordCost(ui.resources, levelUpCost.value))
 const canLevelUp = computed(() => !isBusy.value && canAffordLevelUp.value)
-const levelUpCostEntries = computed(() => levelUpCost.value?.entries ?? new Map())
+const levelUpCostEntries = computed(() => ui.expansionCostEntries ?? [])
 const levelUpTooltip = computed(() => {
   if (isLevelingUp.value) {
     return ''
@@ -85,7 +85,7 @@ const upgradeTooltip = computed(() => {
   }
   return upgradeLabel.value
 })
-const upgradeCostEntries = computed(() => upgradeCost.value?.entries ?? new Map())
+const upgradeCostEntries = computed(() => ui.hq.upgradeCostEntries ?? [])
 
 function upgradeType() {
   if (!canUpgrade.value) {

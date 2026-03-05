@@ -348,6 +348,11 @@ function syncTimers() {
   }
 }
 
+/** Converts a Cost (or null) into a flat array of [resourceKey, amount] pairs for template iteration. */
+function costToEntries(cost) {
+  return cost ? [...cost.entries] : []
+}
+
 /** Full sync: copies all values the templates need from the plain engine state into the reactive ui object. */
 function syncUI() {
   const {
@@ -415,13 +420,15 @@ function syncUI() {
     key,
     b,
   ] of Object.entries(buildings)) {
+    const cost = b.levelUpCost
     bSnap[key] = {
       level: b.level,
       isUnbuilt: b.isUnbuilt,
       isConstructing: b.isConstructing,
       constructionRemaining: b.constructionRemaining,
       constructionDuration: b.constructionDuration,
-      levelUpCost: b.levelUpCost,
+      levelUpCost: cost,
+      levelUpCostEntries: costToEntries(cost),
       isProducer: 'workers' in b,
       workers: b.workers ?? 0,
       maxWorkers: b.maxWorkers ?? 0,
@@ -432,6 +439,8 @@ function syncUI() {
   ui.buildings = bSnap
 
   const hq = buildings.headquarters
+  const hqUpgradeCost = hq.upgradeCost
+  const expCost = state.expansionCost
   ui.hq = {
     level: hq.level,
     type: hq.type,
@@ -444,11 +453,13 @@ function syncUI() {
     upgradeDuration: hq.upgradeDuration,
     isMaxType: hq.isMaxType,
     nextType: hq.nextType,
-    upgradeCost: hq.upgradeCost,
+    upgradeCost: hqUpgradeCost,
+    upgradeCostEntries: costToEntries(hqUpgradeCost),
     levelUpCost: hq.levelUpCost,
     isProducer: false,
   }
-  ui.expansionCost = state.expansionCost
+  ui.expansionCost = expCost
+  ui.expansionCostEntries = costToEntries(expCost)
 
   const activeTimers = {}
   for (const [

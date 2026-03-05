@@ -39,7 +39,7 @@ const recruitTooltip = computed(() => {
   }
   return t('house.recruitWorker')
 })
-const recruitCostEntries = computed(() => WORKER_RECRUIT_COST.entries)
+const recruitCostEntries = [...WORKER_RECRUIT_COST.entries]
 
 /** Recruits a new worker if affordable and below population cap. */
 function recruitWorker() {
