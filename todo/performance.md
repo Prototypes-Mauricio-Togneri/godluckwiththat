@@ -1,16 +1,3 @@
-  2. Cost.entries getter allocates a new Map on every call
-  - File: src/js/models/cost.js
-  - Lines: 36–63
-  - Severity: High
-  - Category: GC Pressure
-  - The get entries getter creates a new Map object on every access. Called by
-  costToEntries() in syncUI() for every building + HQ + expansion cost (~22
-  calls per sync), and by Cost.toSeconds during levelUp. Cost instances are
-  immutable after construction, so the result never changes.
-  - Fix: Lazily compute and cache the Map on first access (e.g. this._entries 
-  ??= ...). Since Cost properties never mutate after construction, the cache
-  never needs invalidation.
-
   3. levelUpCost getter creates 2 temporary Cost objects per call
   - Files: All 20 building model files (e.g.
   src/js/models/buildings/farm.js:21–25, academy.js:32–36, house.js:32–36, etc.)

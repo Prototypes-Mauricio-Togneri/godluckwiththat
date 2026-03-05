@@ -34,6 +34,9 @@ class Cost {
    * @returns {Map<string, number>} Non-zero resource entries as key-amount pairs
    */
   get entries() {
+    if (this._entries) {
+      return this._entries
+    }
     const map = new Map()
     if (this.food > 0) {
       map.set(RESOURCE_FOOD, this.food)
@@ -59,6 +62,7 @@ class Cost {
     if (this.faith > 0) {
       map.set(RESOURCE_FAITH, this.faith)
     }
+    this._entries = map
     return map
   }
 
