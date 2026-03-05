@@ -3,6 +3,7 @@
 [Website](https://god-luck-with-that.web.app)
 
 - UI bugs
+  - Can the formula dictate the height of the card and not the height of the thumbnail?
   - Buttons too big? Or cards too small?
   - Fix bottom padding not being enough
 - Add punishment when missing food/wood => reduce production
