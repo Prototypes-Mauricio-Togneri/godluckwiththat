@@ -7,10 +7,14 @@
   - Fix bottom padding not being enough
 - Fix bug with multiple "Population limit reached" past events
 - All initial researches need food
+  food + wood + knowledge
+  wood + stone + knowledge
+  stone + copper + knowledge
+  copper + iron + knowledge
+  iron + gold + knowledge
 - Add punishment when missing food/wood => reduce production
 
 - Finish all building images
-  - Temple: Make it less yellowish
   - Monument: Re-design it
 
 - Implement save and load
