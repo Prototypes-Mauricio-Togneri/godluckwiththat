@@ -15,51 +15,6 @@ unbounded growth of the past events array.
 
 ---
 
-## Fix 3 — Throttle UI sync to animation frame budget
-
-**File:** `src/components/screens/game_screen.vue`
-
-**Problem:** Even with Fix 1, syncing the UI view model every rAF frame (~60fps)
-means Vue processes reactive updates 60 times per second. Most visual changes
-(season bar, construction progress, event countdowns) don't need pixel-perfect
-60fps updates — 15-20fps is perceptually smooth for progress bars.
-
-**Fix:** Throttle `syncUI()` in the rAF loop to ~20fps (every 50ms), while
-keeping the engine's `advanceSeason/Construction/Research/Events` at full rAF
-rate for accurate timekeeping:
-
-```js
-const UI_SYNC_INTERVAL = 50 // ms (~20fps visual updates)
-let lastUISyncTime = 0
-
-function progressTick() {
-  if (paused.value) return
-  const now = performance.now()
-  const delta = (now - lastProgressTickTime) / 1000
-  lastProgressTickTime = now
-
-  // Engine advances at full rAF rate (accurate timekeeping)
-  state.advanceSeason(delta)
-  state.advanceConstruction(delta)
-  state.advanceResearch(delta)
-  state.advanceEvents(delta)
-
-  // UI syncs at throttled rate (saves rendering cost)
-  if (now - lastUISyncTime >= UI_SYNC_INTERVAL) {
-    lastUISyncTime = now
-    syncUI()
-  }
-
-  progressAnimFrame = requestAnimationFrame(progressTick)
-}
-```
-
-**Impact:** Reduces Vue reactive processing from ~60fps to ~20fps. Major
-reduction in Safari proxy + rendering overhead. Progress bars still animate
-smoothly because CSS `transition: width 1s ease` handles interpolation.
-
----
-
 ## Fix 4 — Avoid `Object.entries()` in `totalLevels` and `pendingTerritory`
 
 **File:** `src/js/models/buildings.js` (lines 58-100)

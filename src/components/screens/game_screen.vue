@@ -550,10 +550,12 @@ let tickTimer = null
 let lastTickTime = 0
 let progressAnimFrame = null
 let lastProgressTickTime = 0
+const UI_SYNC_INTERVAL = 50 // ms (~20fps visual updates)
+let lastUISyncTime = 0
 
 // --- Perf overlay ---
 const perfOverlay = ref(null)
-let perfVisible = false
+let perfVisible = true
 let perfFrameCount = 0
 let perfFrameTimeSum = 0
 let perfLastSample = 0
@@ -604,17 +606,20 @@ function progressTick() {
   state.advanceConstruction(delta)
   state.advanceResearch(delta)
   state.advanceEvents(delta)
-  // Full sync when a construction, upgrade, or research just completed; fast-path otherwise
-  if (state._constructingKeys.size < prevConstructing || (!state._hqUpgrading && prevHqUpgrading) || state.colony.buildings.academy.active.size < prevResearchActive) {
+  // Full sync when a construction, upgrade, or research just completed (always immediate)
+  const justCompleted = state._constructingKeys.size < prevConstructing || (!state._hqUpgrading && prevHqUpgrading) || state.colony.buildings.academy.active.size < prevResearchActive
+  if (justCompleted) {
     const t0 = performance.now()
     syncUI()
     perfSyncUITime += performance.now() - t0
     perfSyncUICount++
-  } else {
+    lastUISyncTime = now
+  } else if (now - lastUISyncTime >= UI_SYNC_INTERVAL) {
     const t0 = performance.now()
     syncTimers()
     perfSyncTimersTime += performance.now() - t0
     perfSyncTimersCount++
+    lastUISyncTime = now
   }
 
   // Perf sampling (discard stale data after returning from background tab)
@@ -690,6 +695,7 @@ watch(showModal, (isOpen) => {
     const now = performance.now()
     lastTickTime = now
     lastProgressTickTime = now
+    lastUISyncTime = now
     perfFrameCount = 0
     perfFrameTimeSum = 0
     perfSyncUITime = 0
@@ -710,6 +716,7 @@ onMounted(() => {
   const now = performance.now()
   lastTickTime = now
   lastProgressTickTime = now
+  lastUISyncTime = now
   tickTimer = setInterval(gameTick, TICK_INTERVAL)
   progressAnimFrame = requestAnimationFrame(progressTick)
 })
@@ -723,7 +730,7 @@ onUnmounted(() => {
 
 <template>
   <div class="game-screen">
-    <pre ref="perfOverlay" class="perf-overlay" style="display: none" />
+    <pre ref="perfOverlay" class="perf-overlay" />
     <header class="game-header">
       <!-- Season & year indicator -->
       <div class="header-season-group">
