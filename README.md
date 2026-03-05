@@ -5,7 +5,6 @@
 - UI bugs
   - Buttons too big? Or cards too small?
   - Fix bottom padding not being enough
-- Fix bug with multiple "Population limit reached" past events
 - Add punishment when missing food/wood => reduce production
 
 - Finish all building images

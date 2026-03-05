@@ -128,6 +128,15 @@ class Events {
   }
 
   /**
+	 * Checks whether a past event with the given type exists.
+	 * @param {string} type - Event type constant
+	 * @returns {boolean}
+	 */
+  hasPastEvent(type) {
+    return this.past.some(e => e.type === type)
+  }
+
+  /**
 	 * Removes all past events matching the given type.
 	 * @param {string} type - Event type constant
 	 */

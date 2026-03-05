@@ -555,7 +555,8 @@ class State {
     resources.deduct(WORKER_RECRUIT_COST)
     resources.workers += 1
     audio.playSound(SND_WORKER_CREATED)
-    if (resources.workers >= buildings.house.workersCap) {
+    if (resources.workers >= buildings.house.workersCap
+      && !this.colony.events.hasPastEvent(EVENT_TYPE_POPULATION_LIMIT_REACHED)) {
       this.colony.events.addPast({
         type: EVENT_TYPE_POPULATION_LIMIT_REACHED,
         textKey: 'event.populationLimitReached',
