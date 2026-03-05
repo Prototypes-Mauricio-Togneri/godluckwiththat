@@ -1020,8 +1020,8 @@ onUnmounted(() => {
 
 /* Root layout container; fills viewport and stacks header + content vertically */
 .game-screen {
-  --thumb-h: calc((100vh - 19.1rem - 16px) / 6);
-  --thumb-h: calc((100dvh - 19.1rem - 16px) / 6);
+  --thumb-h: calc((100vh - 20rem) / 6);
+  --thumb-h: calc((100dvh - 20rem) / 6);
   height: 100vh;
   height: 100dvh;
   display: flex;
@@ -1187,7 +1187,7 @@ onUnmounted(() => {
   flex: 1;
   display: flex;
   align-items: stretch;
-  padding: 1.25rem 1.5rem 1.5rem;
+  padding: 1rem 1.5rem 1.5rem;
   gap: 1.5rem;
   overflow: hidden;
 }
@@ -1204,16 +1204,14 @@ onUnmounted(() => {
 /* Column header — matches .header-label pattern */
 .column-header {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   line-height: 1;
   text-transform: uppercase;
   color: rgba(var(--color-accent-rgb), 0.75);
   text-align: center;
-  padding-bottom: 0.85rem;
-  margin-bottom: 0.25rem;
-  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 0;
 }
 
 /* Card stack — 6 equal rows so every card gets 1/6 of available height */
