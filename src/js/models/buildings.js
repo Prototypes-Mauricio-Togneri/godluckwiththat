@@ -1,5 +1,3 @@
-import {BUILDING_HEADQUARTERS} from '@/js/engine/enums.js'
-
 /**
  * Container for all colony building instances.
  *
@@ -53,18 +51,19 @@ class Buildings {
 
   /**
    * Returns the sum of all building levels excluding headquarters.
+   * Uses explicit property access instead of Object.entries() to avoid
+   * proxy key enumeration and temporary array allocation on every 1s tick.
+   * MAINTAIN: update this list when adding or removing non-HQ buildings.
    * @returns {number} Sum of all building levels excluding headquarters
    */
   get totalLevels() {
-    return Object.entries(this).reduce((sum, [
-      key,
-      building,
-    ]) => {
-      if (key === BUILDING_HEADQUARTERS) {
-        return sum
-      }
-      return sum + building.level
-    }, 0)
+    return this.house.level + this.academy.level + this.storehouse.level
+      + this.market.level + this.altar.level + this.temple.level
+      + this.monument.level + this.farm.level + this.woodcutter.level
+      + this.quarry.level + this.copperMine.level + this.ironMine.level
+      + this.goldMine.level + this.barracks.level + this.archery.level
+      + this.stable.level + this.workshop.level + this.wall.level
+      + this.tower.level
   }
 
   /**
@@ -84,19 +83,72 @@ class Buildings {
 
   /**
    * Returns the count of non-HQ buildings currently under construction.
+   * Uses explicit property access instead of Object.entries() to avoid
+   * proxy key enumeration and temporary array allocation on every 1s tick.
+   * MAINTAIN: update this list when adding or removing non-HQ buildings.
    * Each counts as one reserved territory slot.
    * @returns {number} Count of non-HQ buildings under construction
    */
   get pendingTerritory() {
-    return Object.entries(this).reduce((sum, [
-      key,
-      building,
-    ]) => {
-      if (key === BUILDING_HEADQUARTERS) {
-        return sum
-      }
-      return sum + (building.isConstructing ? 1 : 0)
-    }, 0)
+    let count = 0
+    if (this.house.isConstructing) {
+      count++
+    }
+    if (this.academy.isConstructing) {
+      count++
+    }
+    if (this.storehouse.isConstructing) {
+      count++
+    }
+    if (this.market.isConstructing) {
+      count++
+    }
+    if (this.altar.isConstructing) {
+      count++
+    }
+    if (this.temple.isConstructing) {
+      count++
+    }
+    if (this.monument.isConstructing) {
+      count++
+    }
+    if (this.farm.isConstructing) {
+      count++
+    }
+    if (this.woodcutter.isConstructing) {
+      count++
+    }
+    if (this.quarry.isConstructing) {
+      count++
+    }
+    if (this.copperMine.isConstructing) {
+      count++
+    }
+    if (this.ironMine.isConstructing) {
+      count++
+    }
+    if (this.goldMine.isConstructing) {
+      count++
+    }
+    if (this.barracks.isConstructing) {
+      count++
+    }
+    if (this.archery.isConstructing) {
+      count++
+    }
+    if (this.stable.isConstructing) {
+      count++
+    }
+    if (this.workshop.isConstructing) {
+      count++
+    }
+    if (this.wall.isConstructing) {
+      count++
+    }
+    if (this.tower.isConstructing) {
+      count++
+    }
+    return count
   }
 }
 

@@ -15,42 +15,6 @@ unbounded growth of the past events array.
 
 ---
 
-## Fix 4 — Avoid `Object.entries()` in `totalLevels` and `pendingTerritory`
-
-**File:** `src/js/models/buildings.js` (lines 58-100)
-
-**Problem:** `totalLevels` and `pendingTerritory` use `Object.entries(this)` to
-iterate all 20 buildings. These are called from `state.update()` (1Hz) which is
-acceptable, but `totalLevels` enumerates every key through the proxy.
-
-**Fix:** Use explicit property access like `totalAssignedWorkers` already does:
-
-```js
-get totalLevels() {
-  return this.house.level + this.academy.level + this.storehouse.level
-    + this.market.level + this.altar.level + this.temple.level
-    + this.monument.level + this.farm.level + this.woodcutter.level
-    + this.quarry.level + this.copperMine.level + this.ironMine.level
-    + this.goldMine.level + this.barracks.level + this.archery.level
-    + this.stable.level + this.workshop.level + this.wall.level
-    + this.tower.level
-}
-
-get pendingTerritory() {
-  let count = 0
-  if (this.house.isConstructing) count++
-  if (this.academy.isConstructing) count++
-  if (this.storehouse.isConstructing) count++
-  // ... all 19 non-HQ buildings
-  return count
-}
-```
-
-**Impact:** Eliminates `Object.entries()` overhead (proxy key enumeration +
-temporary array allocation). Small but consistent improvement on every 1s tick.
-
----
-
 ## Fix 5 — Reduce GC pressure from `Cost.entries` and `levelUpCost`
 
 **File:** `src/js/models/cost.js` (lines 36-63)
