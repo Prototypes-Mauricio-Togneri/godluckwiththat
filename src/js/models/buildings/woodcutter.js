@@ -22,7 +22,7 @@ class Woodcutter extends Producer {
     const {
       cost, multiplier,
     } = BUILDING_UPGRADES[BUILDING_WOODCUTTER]
-    return cost.multiply(Math.pow(multiplier, this.level)).floor
+    return cost.multiplyFloor(Math.pow(multiplier, this.level))
   }
 }
 

@@ -1,19 +1,3 @@
-  3. levelUpCost getter creates 2 temporary Cost objects per call
-  - Files: All 20 building model files (e.g.
-  src/js/models/buildings/farm.js:21–25, academy.js:32–36, house.js:32–36, etc.)
-  - Lines: levelUpCost getter in each
-  - Severity: High
-  - Category: GC Pressure
-  - Every levelUpCost getter chains cost.multiply(x).floor, which allocates an
-  intermediate Cost from multiply() and a final Cost from .floor — 2 throwaway
-  objects per call. Called for all 20 buildings inside syncUI() (line 423),
-  producing ~40 temporary Cost objects per sync. Also called for HQ upgradeCost
-  and expansionCost.
-  - Fix: Cache the result keyed by this.level. Since cost only changes when
-  level changes, the cache needs invalidation only in advance() on construction
-  completion. Alternatively, merge multiply + floor into a single
-  multiplyFloor() method that allocates one Cost.
-
   4. Unbounded past events array (memory leak)
   - File: src/js/models/events/events.js
   - Lines: 14–15 (constructor), 67 (unshift)
@@ -120,18 +104,7 @@
   - Fix: Convert to a computed map: Map<resource, { canBuy, canSell, buyTooltip,
    sellTooltip }>.
 
-  12. expansionCost getter allocates 2 Cost objects
-  - File: src/js/engine/state.js
-  - Lines: 528–533
-  - Severity: Low
-  - Category: GC Pressure
-  - Calls baseCost.multiply(mult).floor, creating 2 throwaway Cost objects.
-  Called once per syncUI(). Combined with levelUpCost (issue #3), this adds 2
-  more allocations per sync.
-  - Fix: Cache the result, invalidated when HQ level or expansion cost bonuses
-  change.
-
-  13. Audio cloneNode() per sound play
+  12. Audio cloneNode() per sound play
   - File: src/js/engine/audio.js
   - Lines: 59–60
   - Severity: Low

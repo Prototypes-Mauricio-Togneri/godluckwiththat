@@ -67,37 +67,20 @@ class Cost {
   }
 
   /**
-   * Returns a new Cost with each resource multiplied by the given factor.
+   * Returns a new Cost with each resource multiplied by the given factor and floored.
    * @param {number} factor - Multiplier to apply to every resource
-   * @returns {Cost} New Cost with each resource multiplied
+   * @returns {Cost} New Cost with each resource multiplied and floored
    */
-  multiply(factor) {
+  multiplyFloor(factor) {
     return new Cost({
-      food: this.food * factor,
-      wood: this.wood * factor,
-      stone: this.stone * factor,
-      copper: this.copper * factor,
-      iron: this.iron * factor,
-      gold: this.gold * factor,
-      knowledge: this.knowledge * factor,
-      faith: this.faith * factor,
-    })
-  }
-
-  /**
-   * Returns a new Cost with each resource floored to the nearest integer.
-   * @returns {Cost} New Cost with each resource floored
-   */
-  get floor() {
-    return new Cost({
-      food: Math.floor(this.food),
-      wood: Math.floor(this.wood),
-      stone: Math.floor(this.stone),
-      copper: Math.floor(this.copper),
-      iron: Math.floor(this.iron),
-      gold: Math.floor(this.gold),
-      knowledge: Math.floor(this.knowledge),
-      faith: Math.floor(this.faith),
+      food: Math.floor(this.food * factor),
+      wood: Math.floor(this.wood * factor),
+      stone: Math.floor(this.stone * factor),
+      copper: Math.floor(this.copper * factor),
+      iron: Math.floor(this.iron * factor),
+      gold: Math.floor(this.gold * factor),
+      knowledge: Math.floor(this.knowledge * factor),
+      faith: Math.floor(this.faith * factor),
     })
   }
 

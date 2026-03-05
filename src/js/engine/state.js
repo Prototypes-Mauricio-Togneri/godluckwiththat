@@ -529,7 +529,7 @@ class State {
     const baseCost = this.colony.buildings.headquarters.levelUpCost
     const bonuses = this.colony.buildings.academy.completedBonuses(RESEARCH_TREE)
     const mult = 1 - (bonuses[BONUS_EXPANSION_COST] ?? 0)
-    return baseCost.multiply(mult).floor
+    return baseCost.multiplyFloor(mult)
   }
 
   /**

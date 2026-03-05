@@ -33,7 +33,7 @@ class House extends Building {
     const {
       cost, multiplier,
     } = BUILDING_UPGRADES[BUILDING_HOUSE]
-    return cost.multiply(Math.pow(multiplier, this.level)).floor
+    return cost.multiplyFloor(Math.pow(multiplier, this.level))
   }
 }
 
