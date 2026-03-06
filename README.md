@@ -2,6 +2,8 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- CPU and RAM usage in app
+
 - UI bugs
   - Can the formula dictate the height of the card and not the height of the thumbnail?
   - Buttons too big? Or cards too small?
