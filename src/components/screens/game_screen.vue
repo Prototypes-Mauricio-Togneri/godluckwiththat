@@ -659,6 +659,7 @@ let perfSyncTimersTime = 0
 let perfSyncTimersCount = 0
 let perfGameTickTime = 0
 let perfGameTickCount = 0
+const perfHasMemory = typeof performance !== 'undefined' && !!performance.memory
 
 /** Main 1-second game loop: applies production, consumption, and advances visual progress. */
 function gameTick() {
@@ -739,7 +740,12 @@ function progressTick() {
       const avgSyncUI = perfSyncUICount ? (perfSyncUITime / perfSyncUICount).toFixed(2) : '—'
       const avgSyncTimers = perfSyncTimersCount ? (perfSyncTimersTime / perfSyncTimersCount).toFixed(2) : '—'
       const avgTick = perfGameTickCount ? (perfGameTickTime / perfGameTickCount).toFixed(2) : '—'
-      el.textContent = `FPS: ${fps}\nFrame: ${avgFrame}ms\nsyncUI: ${avgSyncUI}ms\nsyncTimers: ${avgSyncTimers}ms\ntick: ${avgTick}ms`
+      let text = `FPS: ${fps}\nFrame: ${avgFrame}ms\nsyncUI: ${avgSyncUI}ms\nsyncTimers: ${avgSyncTimers}ms\ntick: ${avgTick}ms`
+      if (perfHasMemory) {
+        const heapMB = (performance.memory.usedJSHeapSize / (1024 * 1024)).toFixed(1)
+        text += `\nHeap: ${heapMB} MB`
+      }
+      el.textContent = text
     }
     perfFrameCount = 0
     perfFrameTimeSum = 0
@@ -749,6 +755,7 @@ function progressTick() {
     perfSyncTimersCount = 0
     perfGameTickTime = 0
     perfGameTickCount = 0
+
     perfLastSample = now
   }
 
@@ -798,6 +805,7 @@ watch(showModal, (isOpen) => {
     perfSyncTimersCount = 0
     perfGameTickTime = 0
     perfGameTickCount = 0
+
     perfLastSample = now
     tickTimer = setInterval(gameTick, TICK_INTERVAL)
     progressAnimFrame = requestAnimationFrame(progressTick)
