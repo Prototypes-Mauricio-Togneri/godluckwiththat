@@ -4,7 +4,7 @@
 
 - Implement save and load
   - Have many save slots
-  - Implement autosave
+  - Quick save slot (F9)
   - Cloud saves
 
 - Implement challenges
