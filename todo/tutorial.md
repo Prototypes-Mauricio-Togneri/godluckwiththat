@@ -51,7 +51,7 @@ Defined as `TUTORIAL_STEPS` in `constants.js`. Each step has a `textKey` (i18n),
 | 3 | `tutorial.step.buildWoodcutter` | `woodcutter` | `woodcutter.level >= 1` |
 | 4 | `tutorial.step.assignFarmWorkers` | `farm` | `farm.workers >= 3` |
 | 5 | `tutorial.step.assignWoodcutterWorker` | `woodcutter` | `woodcutter.workers >= 1` |
-| 6 | `tutorial.step.assignMoreWorkers` | `farm` | `farm.workers > 3 \|\| woodcutter.workers > 1` |
+| 6 | `tutorial.step.assignMoreWorkers` | `farm` | `farm.workers > 3 && woodcutter.workers > 1` |
 | 7 | `tutorial.step.upgradeHouse2` | `house` | `house.level >= 2` |
 | 8 | `tutorial.step.buildAltar` | `altar` | `altar.level >= 1` |
 | 9 | `tutorial.step.upgradeFarm2` | `farm` | `farm.level >= 2` |
