@@ -42,7 +42,6 @@ onUnmounted(() => {
   <div
     class="modal-overlay"
     :class="{ visible }"
-    @click.self="emit('close')"
   >
     <div class="modal-content">
       <h2 class="modal-title">{{ t(titleKey) }}</h2>

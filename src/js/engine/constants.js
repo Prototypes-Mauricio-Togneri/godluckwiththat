@@ -671,11 +671,6 @@ export const TUTORIAL_STEPS = [
     check: buildings => buildings.house.level >= 2,
   },
   {
-    textKey: 'tutorial.step.buildAltar',
-    building: BUILDING_ALTAR,
-    check: buildings => buildings.altar.level >= 1,
-  },
-  {
     textKey: 'tutorial.step.upgradeFarm2',
     building: BUILDING_FARM,
     check: buildings => buildings.farm.level >= 2,
@@ -699,6 +694,11 @@ export const TUTORIAL_STEPS = [
     textKey: 'tutorial.step.upgradeWoodcutter3',
     building: BUILDING_WOODCUTTER,
     check: buildings => buildings.woodcutter.level >= 3,
+  },
+  {
+    textKey: 'tutorial.step.buildAltar',
+    building: BUILDING_ALTAR,
+    check: buildings => buildings.altar.level >= 1,
   },
   {
     textKey: 'tutorial.step.expandTerritory',
