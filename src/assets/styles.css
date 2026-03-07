@@ -693,6 +693,10 @@
 
 /* ── .productivity-box ───────────────────────────────────────────── */
 
+.productivity-box {
+    gap: 0.55rem;
+}
+
 /* Penalized state — subtle red tint on border and background */
 .productivity-box--penalized {
     border-color: rgba(196, 80, 80, 0.3);
