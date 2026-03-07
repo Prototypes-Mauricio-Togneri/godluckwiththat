@@ -3,7 +3,8 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Implement save and load
-  - Have save slots and autosave
+  - Have many save slots
+  - Implement autosave
   - Cloud saves
 
 - Implement challenges
