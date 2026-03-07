@@ -2,12 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Create tutorial
-  - Modals
-    - Season has changed -> Explain their effects on production and upkeep
-    - Productivity falls bellow 100% -> Explain why and how to recover
-    - Show what buildings are unlocked when upgrading HQ
-
 - Implement save and load
   - Have save slots and autosave
   - Cloud saves
