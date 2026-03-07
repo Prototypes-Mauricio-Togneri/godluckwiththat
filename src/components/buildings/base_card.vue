@@ -152,6 +152,7 @@ function act() {
 <style scoped>
 /* Card container — flex row with thumbnail and info */
 .building-card {
+  container-type: size;
   position: relative;
   display: flex;
   align-items: flex-start;

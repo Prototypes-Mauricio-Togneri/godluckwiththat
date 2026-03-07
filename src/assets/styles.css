@@ -148,7 +148,7 @@
 .action-row {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 7cqh;
 }
 
 /* Action button — square icon-only trigger */
@@ -156,8 +156,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2rem;
-    height: 2rem;
+    width: 28cqh;
+    height: 28cqh;
     padding: 0;
     border-radius: 0.25rem;
     flex-shrink: 0;
@@ -165,8 +165,8 @@
 
 /* Icon inside action button */
 .action-btn-icon {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 18cqh;
+    height: 18cqh;
     object-fit: contain;
 }
 
@@ -174,7 +174,7 @@
 .action-cost {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 5cqh;
     transition: opacity 0.25s ease;
 }
 
@@ -187,20 +187,20 @@
 .action-cost-item {
     display: flex;
     align-items: center;
-    gap: 0.12rem;
+    gap: 2cqh;
 }
 
 /* Resource icon in cost display */
 .action-cost-icon {
-    width: 0.9rem;
-    height: 0.9rem;
+    width: 13cqh;
+    height: 13cqh;
     object-fit: contain;
 }
 
 /* Numeric amount in cost display */
 .action-cost-amount {
     font-family: var(--font-numeric);
-    font-size: 0.75rem;
+    font-size: 11cqh;
     font-weight: 400;
     color: rgba(var(--color-text-rgb), 0.8);
     letter-spacing: 0.02em;
@@ -216,8 +216,8 @@
     position: relative;
     overflow: hidden;
     width: auto;
-    min-width: 2rem;
-    padding: 0 0.4rem;
+    min-width: 28cqh;
+    padding: 0 6cqh;
 }
 
 /* Gold fill overlay driven by --progress variable */
@@ -234,7 +234,7 @@
 .action-btn-time {
     position: relative;
     font-family: var(--font-numeric);
-    font-size: 0.65rem;
+    font-size: 9cqh;
     font-weight: 500;
     color: var(--color-text);
     letter-spacing: 0.03em;
@@ -246,7 +246,7 @@
 .slot-actions {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 7cqh;
     margin-top: auto;
 }
 
@@ -438,7 +438,7 @@
 .worker-row {
     display: flex;
     align-items: center;
-    gap: 0.15rem;
+    gap: 2cqh;
 }
 
 /* Ghost button for worker +/- controls */
@@ -446,12 +446,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    padding: 0 0 0.15rem;
+    width: 28cqh;
+    height: 28cqh;
+    padding: 0 0 2cqh;
     border-radius: 0.25rem;
     font-family: var(--font-body);
-    font-size: 1.2rem;
+    font-size: 17cqh;
     font-weight: 500;
     line-height: 1;
     background: none;
@@ -496,10 +496,10 @@
 .worker-count {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
-    padding: 0 0.35rem;
+    gap: 4cqh;
+    padding: 0 5cqh;
     font-family: var(--font-numeric);
-    font-size: 0.8rem;
+    font-size: 11cqh;
     font-weight: 400;
     color: rgba(var(--color-text-rgb), 0.85);
     letter-spacing: 0.02em;
@@ -507,14 +507,14 @@
 
 /* Worker icon in count display */
 .worker-count-icon {
-    width: 1.1rem;
-    height: 1.1rem;
+    width: 15cqh;
+    height: 15cqh;
     object-fit: contain;
 }
 
 /* Numeric worker count text */
 .worker-count-text {
-    min-width: 2.5rem;
+    min-width: 35cqh;
     text-align: center;
 }
 
