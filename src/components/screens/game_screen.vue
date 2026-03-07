@@ -742,8 +742,11 @@ function progressTick() {
       const avgTick = perfGameTickCount ? (perfGameTickTime / perfGameTickCount).toFixed(2) : '—'
       let text = `FPS: ${fps}\nFrame: ${avgFrame}ms\nsyncUI: ${avgSyncUI}ms\nsyncTimers: ${avgSyncTimers}ms\ntick: ${avgTick}ms`
       if (perfHasMemory) {
-        const heapMB = (performance.memory.usedJSHeapSize / (1024 * 1024)).toFixed(1)
-        text += `\nHeap: ${heapMB} MB`
+        const usedBytes = performance.memory.usedJSHeapSize
+        const limitBytes = performance.memory.jsHeapSizeLimit
+        const usedLabel = usedBytes >= 1073741824 ? `${Math.round(usedBytes / 1073741824)} GB` : `${Math.round(usedBytes / 1048576)} MB`
+        const limitLabel = limitBytes >= 1073741824 ? `${Math.round(limitBytes / 1073741824)} GB` : `${Math.round(limitBytes / 1048576)} MB`
+        text += `\nHeap: ${usedLabel} / ${limitLabel}`
       }
       el.textContent = text
     }

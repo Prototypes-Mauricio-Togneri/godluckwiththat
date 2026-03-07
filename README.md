@@ -2,16 +2,11 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- CPU and RAM usage in app
-
 - UI bugs
   - Can the formula dictate the height of the card and not the height of the thumbnail?
   - Buttons too big? Or cards too small?
   - Fix bottom padding not being enough
 - Add punishment when missing food/wood => reduce production
-
-- Finish all building images
-  - Monument: Re-design it
 
 - Create tutorial
   - Season has changed -> Explain their effects on production and upkeep
