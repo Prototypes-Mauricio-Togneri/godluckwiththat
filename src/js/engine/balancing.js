@@ -29,135 +29,135 @@ export const BUILDING_UPGRADES = {
       food: 50,
       wood: 50,
     }),
-    multiplier: 1.5,
+    multiplier: 1.6,
   },
   [BUILDING_HOUSE]: {
     cost: new Cost({
       wood: 20,
     }),
-    multiplier: 1.2,
+    multiplier: 1.4,
   },
   [BUILDING_ACADEMY]: {
     cost: new Cost({
       wood: 60,
       stone: 30,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_STOREHOUSE]: {
     cost: new Cost({
       wood: 80,
       stone: 40,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_MARKET]: {
     cost: new Cost({
       wood: 150,
       stone: 75,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_FARM]: {
     cost: new Cost({
       wood: 20,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_WOODCUTTER]: {
     cost: new Cost({
       wood: 20,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_QUARRY]: {
     cost: new Cost({
       wood: 45,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_COPPER_MINE]: {
     cost: new Cost({
       wood: 70,
       stone: 35,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_IRON_MINE]: {
     cost: new Cost({
       wood: 100,
       stone: 50,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_GOLD_MINE]: {
     cost: new Cost({
       wood: 140,
       stone: 70,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_ALTAR]: {
     cost: new Cost({
       wood: 40,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_TEMPLE]: {
     cost: new Cost({
       wood: 50,
       stone: 25,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_MONUMENT]: {
     cost: new Cost({
       wood: 120,
       stone: 60,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_BARRACKS]: {
     cost: new Cost({
       wood: 55,
       stone: 25,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_ARCHERY]: {
     cost: new Cost({
       wood: 75,
       stone: 40,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_STABLE]: {
     cost: new Cost({
       wood: 110,
       stone: 55,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_WORKSHOP]: {
     cost: new Cost({
       wood: 160,
       stone: 80,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_WALL]: {
     cost: new Cost({
       wood: 100,
       stone: 50,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
   [BUILDING_TOWER]: {
     cost: new Cost({
       wood: 150,
       stone: 75,
     }),
-    multiplier: 1.5,
+    multiplier: 1.4,
   },
 }
 
