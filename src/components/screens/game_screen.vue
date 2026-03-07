@@ -1048,14 +1048,13 @@ onUnmounted(() => {
 <style scoped>
 .perf-overlay {
   position: fixed;
-  bottom: 0.5rem;
-  left: 0.5rem;
-  background: rgba(0, 0, 0, 0.7);
+  bottom: 0.8rem;
+  left: 1.4rem;
+  background: rgba(255, 255, 255, 0.05);
   color: rgba(0, 255, 0, 1);
   font-family: monospace;
   font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
+  padding: 0.5rem 0.7rem;
   z-index: 9999;
   pointer-events: none;
   white-space: pre;
