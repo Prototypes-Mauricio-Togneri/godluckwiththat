@@ -150,6 +150,42 @@ class Buildings {
     }
     return count
   }
+
+  /**
+   * Reconstructs a Buildings instance from serialized data.
+   * @param {Object} data - Serialized buildings data (key → building JSON)
+   * @param {Object} classMap - Map of building key → class constructor
+   * @returns {Buildings} Restored Buildings instance
+   */
+  static fromJSON(data, classMap) {
+    const result = {}
+    for (const [
+      key,
+      buildingData,
+    ] of Object.entries(data)) {
+      const BuildingClass = classMap[key]
+      if (!BuildingClass) {
+        continue
+      }
+      result[key] = new BuildingClass(buildingData)
+    }
+    return new Buildings(result)
+  }
+
+  /**
+   * Serializable snapshot for save/load.
+   * @returns {Object} Plain object with each building key mapped to its toJSON()
+   */
+  toJSON() {
+    const result = {}
+    for (const [
+      key,
+      building,
+    ] of Object.entries(this)) {
+      result[key] = building.toJSON()
+    }
+    return result
+  }
 }
 
 export default Buildings

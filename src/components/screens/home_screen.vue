@@ -1,19 +1,14 @@
 <script setup>
-import {onMounted, ref} from 'vue'
+import {computed, ref} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
-import {IS_DEV} from '@/js/engine/constants.js'
+import storage from '@/js/engine/storage.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits(['start'])
 
 const isMobile = ref(window.matchMedia('(pointer: coarse)').matches)
-
-onMounted(() => {
-  // TODO: temporary auto-start for development
-  if (IS_DEV) {
-    emit('start')
-  }
-})
+const savedData = ref(storage.savedGame)
+const hasSavedGame = computed(() => savedData.value !== null)
 </script>
 
 <template>
@@ -26,8 +21,11 @@ onMounted(() => {
         <span class="title-line">{{ t('screen.home.title.line2').toUpperCase() }}</span>
       </h1>
 
-      <button v-if="!isMobile" class="btn-gold start-button" @click="playTap(); emit('start')">
-        {{ t('screen.home.play') }}
+      <button v-if="!isMobile && hasSavedGame" class="btn-gold start-button" @click="playTap(); emit('start', savedData)">
+        {{ t('screen.home.continue') }}
+      </button>
+      <button v-else-if="!isMobile" class="btn-gold start-button" @click="playTap(); emit('start', null)">
+        {{ t('screen.home.newGame') }}
       </button>
       <p v-else class="mobile-notice">
         {{ t('screen.home.mobileUnavailable') }}

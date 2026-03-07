@@ -1,3 +1,10 @@
+import Buildings from '@/js/models/buildings.js'
+import Consumption from '@/js/models/consumption.js'
+import Events from '@/js/models/events/events.js'
+import Production from '@/js/models/production.js'
+import Resources from '@/js/models/resources.js'
+import Season from '@/js/models/season.js'
+
 /**
  * Colony data model. Wraps all colony sub-models
  * (season, resources, production, consumption, buildings, events).
@@ -38,6 +45,38 @@ class Colony {
    */
   netProduction(resource) {
     return this.production[resource] - (this.consumption[resource] ?? 0)
+  }
+
+  /**
+   * Reconstructs a Colony instance from serialized data.
+   * @param {Object} data - Serialized colony data
+   * @param {Object} classMap - Map of building key → class constructor
+   * @returns {Colony} Restored Colony instance
+   */
+  static fromJSON(data, classMap) {
+    return new Colony({
+      year: data.year,
+      season: new Season(data.season),
+      resources: new Resources(data.resources),
+      buildings: Buildings.fromJSON(data.buildings, classMap),
+      events: Events.fromJSON(data.events),
+      production: new Production({}),
+      consumption: new Consumption({}),
+    })
+  }
+
+  /**
+   * Serializable snapshot for save/load.
+   * @returns {Object} Plain object snapshot for serialization
+   */
+  toJSON() {
+    return {
+      year: this.year,
+      season: this.season.toJSON(),
+      resources: this.resources.toJSON(),
+      buildings: this.buildings.toJSON(),
+      events: this.events.toJSON(),
+    }
   }
 }
 

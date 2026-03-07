@@ -29,6 +29,17 @@ class Producer extends Building {
   get isFull() {
     return this.workers >= this.maxWorkers
   }
+
+  /**
+   * Serializable snapshot for save/load.
+   * @returns {Object} Plain object snapshot for serialization
+   */
+  toJSON() {
+    return {
+      ...super.toJSON(),
+      workers: this.workers,
+    }
+  }
 }
 
 export default Producer

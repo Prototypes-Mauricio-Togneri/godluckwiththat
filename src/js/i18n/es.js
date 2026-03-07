@@ -6,7 +6,8 @@ export const LOCALIZED_ES = {
   // Home screen
   'screen.home.title.line1': 'God Luck',
   'screen.home.title.line2': 'With That',
-  'screen.home.play': 'Jugar',
+  'screen.home.newGame': 'Nueva partida',
+  'screen.home.continue': 'Continuar',
   'screen.home.mobileUnavailable': 'Versión móvil no disponible aún',
 
   // Pause modal
@@ -15,6 +16,14 @@ export const LOCALIZED_ES = {
   'modal.pause.quit': 'Salir',
   'modal.pause.music': 'Música',
   'modal.pause.sound': 'Sonido',
+  'modal.pause.save': 'Guardar',
+
+  // Confirm quit modal
+  'modal.confirmQuit.title': 'Salir del juego',
+  'modal.confirmQuit.message': 'Tienes progreso sin guardar. \u00bfQu\u00e9 te gustar\u00eda hacer?',
+  'modal.confirmQuit.cancel': 'Cancelar',
+  'modal.confirmQuit.saveAndQuit': 'Guardar y salir',
+  'modal.confirmQuit.quit': 'Salir sin guardar',
 
   // Resources
   'resource.food': 'Comida',

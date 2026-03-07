@@ -58,6 +58,25 @@ class Resources {
     this.knowledge = Math.max(0, this.knowledge - cost.knowledge)
     this.faith = Math.max(0, this.faith - cost.faith)
   }
+
+  /**
+   * Serializable snapshot for save/load.
+   * @returns {Object} Plain object snapshot for serialization
+   */
+  toJSON() {
+    return {
+      territory: this.territory,
+      workers: this.workers,
+      food: this.food,
+      wood: this.wood,
+      stone: this.stone,
+      copper: this.copper,
+      iron: this.iron,
+      gold: this.gold,
+      faith: this.faith,
+      knowledge: this.knowledge,
+    }
+  }
 }
 
 export default Resources

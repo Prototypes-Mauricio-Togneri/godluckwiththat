@@ -207,6 +207,23 @@ class Events {
   }
 
   /**
+   * Reconstructs an Events instance from serialized data.
+   * @param {Object} data - Serialized events data
+   * @returns {Events} Restored Events instance
+   */
+  static fromJSON(data) {
+    const events = new Events()
+    events._nextId = data.nextId ?? 1
+    for (const e of (data.future ?? [])) {
+      events.future.push(new EventFuture(e))
+    }
+    for (const e of (data.past ?? [])) {
+      events.past.push(new EventPast(e))
+    }
+    return events
+  }
+
+  /**
    * Serializable snapshot for save/load.
    * @returns {Object} Plain object snapshot for serialization
    */

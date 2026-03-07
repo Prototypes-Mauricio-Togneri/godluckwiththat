@@ -55,6 +55,18 @@ class Building {
     }
     return false
   }
+
+  /**
+   * Serializable snapshot for save/load.
+   * @returns {Object} Plain object snapshot for serialization
+   */
+  toJSON() {
+    return {
+      level: this.level,
+      constructionRemaining: this.constructionRemaining,
+      constructionDuration: this.constructionDuration,
+    }
+  }
 }
 
 export default Building

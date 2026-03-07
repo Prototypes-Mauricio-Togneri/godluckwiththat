@@ -98,6 +98,19 @@ class Headquarters extends Building {
     }
     return HQ_TYPES[index + 1]
   }
+
+  /**
+   * Serializable snapshot for save/load.
+   * @returns {Object} Plain object snapshot for serialization
+   */
+  toJSON() {
+    return {
+      ...super.toJSON(),
+      type: this.type,
+      upgradeRemaining: this.upgradeRemaining,
+      upgradeDuration: this.upgradeDuration,
+    }
+  }
 }
 
 export default Headquarters

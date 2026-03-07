@@ -1,4 +1,4 @@
-import {STORAGE_MUSIC_ENABLED, STORAGE_SOUND_ENABLED} from '@/js/engine/enums'
+import {STORAGE_MUSIC_ENABLED, STORAGE_SAVED_GAME, STORAGE_SOUND_ENABLED} from '@/js/engine/enums'
 
 /**
  * Thin wrapper around localStorage for persisting user preferences.
@@ -35,6 +35,30 @@ class Storage {
     try {
       window.localStorage.setItem(STORAGE_SOUND_ENABLED, value)
     } catch { /* Safari Private Browsing may throw QuotaExceededError */ }
+  }
+
+  /** @returns {Object|null} Parsed saved game data, or null if none/corrupt */
+  get savedGame() {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_SAVED_GAME)
+      return raw ? JSON.parse(raw) : null
+    } catch {
+      return null
+    }
+  }
+
+  /** @param {Object} value - Game state data to persist */
+  set savedGame(value) {
+    try {
+      window.localStorage.setItem(STORAGE_SAVED_GAME, JSON.stringify(value))
+    } catch { /* quota exceeded */ }
+  }
+
+  /** Removes the saved game from localStorage. */
+  deleteSavedGame() {
+    try {
+      window.localStorage.removeItem(STORAGE_SAVED_GAME)
+    } catch { /* ignore */ }
   }
 }
 

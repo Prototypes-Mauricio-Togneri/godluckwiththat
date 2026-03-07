@@ -6,7 +6,8 @@ export const LOCALIZED_CA = {
   // Home screen
   'screen.home.title.line1': 'God Luck',
   'screen.home.title.line2': 'With That',
-  'screen.home.play': 'Jugar',
+  'screen.home.newGame': 'Nova partida',
+  'screen.home.continue': 'Continuar',
   'screen.home.mobileUnavailable': 'Versió mòbil encara no disponible',
 
   // Pause modal
@@ -15,6 +16,14 @@ export const LOCALIZED_CA = {
   'modal.pause.quit': 'Sortir',
   'modal.pause.music': 'Música',
   'modal.pause.sound': 'So',
+  'modal.pause.save': 'Desar',
+
+  // Confirm quit modal
+  'modal.confirmQuit.title': 'Sortir del joc',
+  'modal.confirmQuit.message': 'Tens progr\u00e9s sense desar. Qu\u00e8 vols fer?',
+  'modal.confirmQuit.cancel': 'Cancel\u00b7lar',
+  'modal.confirmQuit.saveAndQuit': 'Desar i sortir',
+  'modal.confirmQuit.quit': 'Sortir sense desar',
 
   // Resources
   'resource.food': 'Menjar',

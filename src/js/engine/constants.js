@@ -744,11 +744,11 @@ export function createInitialMeta() {
 
 /**
  * Creates the colony used for a new game session.
- * Returns an advanced colony in development and a basic colony in production.
+ * Returns a basic colony.
  * @returns {Colony} Fully initialized colony
  */
 export function createInitialColony() {
-  return IS_DEV ? createInitialColonyAdvanced() : createInitialColonyBasic()
+  return createInitialColonyBasic()
 }
 
 /**

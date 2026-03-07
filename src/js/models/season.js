@@ -42,6 +42,17 @@ class Season {
     }
     return false
   }
+
+  /**
+   * Serializable snapshot for save/load.
+   * @returns {Object} Plain object snapshot for serialization
+   */
+  toJSON() {
+    return {
+      currentSeason: this.currentSeason,
+      seasonElapsed: this.seasonElapsed,
+    }
+  }
 }
 
 export default Season

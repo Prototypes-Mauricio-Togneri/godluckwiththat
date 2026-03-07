@@ -2,17 +2,25 @@
 
 Vite + Vue 3 single-page application using Composition API (`<script setup>`). No Vue Router — screens switch via `v-if` on a `currentScreen` ref in `app.vue`.
 
-**Screen flow**: Home → Game (via `start` event)
+**Screen flow**: Home → Game (via `start` event with optional saved data payload)
 
 **Modal pattern**: Parent controls visibility with `v-if`. Modal component emits `close` on backdrop click (`.self` modifier) or close button. Mounts/unmounts cleanly.
 
 ### Pause Modal (`pause_modal.vue`)
 
-Centered overlay with "PAUSED" title, decorative rule, audio toggles, and two stacked buttons:
+Centered overlay with "PAUSED" title, decorative rule, audio toggles, and three stacked buttons:
 - **Music toggle** — on/off switch, persisted via `storage.musicEnabled`
 - **Sound toggle** — on/off switch, persisted via `storage.soundEnabled`
 - **Continue** — emits `close`, resumes the game
-- **Quit** — emits `quit`, bubbled through `game_screen.vue` to `app.vue` which switches back to the home screen
+- **Save** — emits `save`, triggers `saveGame()` in `game_screen.vue` which writes `state.toJSON()` to `storage.savedGame` and closes the modal
+- **Quit** — emits `quit`, opens the confirm quit modal (does not quit directly)
+
+### Confirm Quit Modal (`confirm_quit_modal.vue`)
+
+Centered overlay (same animation pattern as pause modal) shown when the player clicks Quit in the pause menu. Displays a "Quit Game" title, unsaved-progress message, and three stacked buttons:
+- **Cancel** — emits `cancel`, returns to the pause modal
+- **Save and Quit** — emits `saveAndQuit`, saves the game and returns to the home screen
+- **Quit without Saving** — emits `quit` (danger style), returns to the home screen without saving
 
 ### Building Help Modal (`building_help_modal.vue`)
 
@@ -78,7 +86,9 @@ Each action is a horizontal row: a square icon-only button (2.5rem × 2.5rem) wi
 
 ### Game State (`src/js/engine/state.js`)
 
-Central state container instantiated once per game session. Plain JS class — **not** wrapped in `reactive()`. The engine operates on vanilla objects with zero Proxy overhead. `game_screen.vue` maintains a `shallowReactive` UI view model (`ui`) that is synced from the plain engine state via two functions: `syncTimers()` (fast-path, throttled to ~20fps via `UI_SYNC_INTERVAL` — updates only season elapsed, construction/research timers, event countdowns) and `syncUI()` (full sync, called on every 1-second `gameTick` and after every player action — copies all resource/production/building/market/academy data). Constructor receives a `Meta` instance (first) and a `Colony` instance (second). Initialized via `createInitialMeta()` and `createInitialColony()` factories in `constants.js`.
+Central state container instantiated once per game session. Plain JS class — **not** wrapped in `reactive()`. The engine operates on vanilla objects with zero Proxy overhead. `game_screen.vue` maintains a `shallowReactive` UI view model (`ui`) that is synced from the plain engine state via two functions: `syncTimers()` (fast-path, throttled to ~20fps via `UI_SYNC_INTERVAL` — updates only season elapsed, construction/research timers, event countdowns) and `syncUI()` (full sync, called on every 1-second `gameTick` and after every player action — copies all resource/production/building/market/academy data). Constructor receives a `Meta` instance (first) and a `Colony` instance (second). Created by `app.vue` via either `State.fromJSON(savedData)` (load) or `new State(createInitialMeta(), createInitialColony())` (new game), then passed as `initialState` prop to `game_screen.vue`.
+
+**Save/Load**: `State.toJSON()` → `Meta.toJSON()` + `Colony.toJSON()` (which calls `Season.toJSON()`, `Resources.toJSON()`, `Buildings.toJSON()` (iterates all 20 buildings' `toJSON()`), `Events.toJSON()`). `State.fromJSON(data)` reverses the process using `Meta.fromJSON()`, `Colony.fromJSON(data, BUILDING_CLASS_MAP)`, then calls `update(0)` to rehydrate derived fields; returns `null` on any error. Stored in `localStorage` via `storage.savedGame` getter/setter.
 
 **Provide/inject**: `game_screen.vue` calls `provide('ui', ui)`, `provide('actions', actions)`, `provide('openResearchModal', fn)`, and `provide('openMarketModal', fn)`. Components `inject('ui')` for reactive reads from the view model, `inject('actions')` to dispatch player actions (`levelUpBuilding`, `expandTerritory`, `upgradeHeadquarters`, `assignWorkers`, `unassignWorkers`, `recruitWorker`, `startResearch`, `executeTrade`, `dismissEvent`, `dismissAllPast`), `inject('openResearchModal')` to open the research modal (used by `academy_card.vue`), and `inject('openMarketModal')` to open the market modal (used by `market_card.vue`). Affordability checks use the `canAffordCost(resources, cost)` utility from `utils.js` instead of the `Resources.canAfford` method.
 
@@ -159,7 +169,7 @@ Core game loop that generates resources over time. `game_screen.vue` runs a main
 
 ### Localization (`src/js/i18n/`)
 
-Each supported language has its own file (`ca.js`, `en.js`, `es.js`, `fr.js`) exporting a flat object with dot-notation keys (e.g. `'screen.home.play'`, `'resource.food'`, `'season.warm'`). At startup, `localized.js` reads `navigator.language`, resolves it to a supported locale (defaulting to English), and exports a `t(key, ...params)` helper that looks up strings from the resolved locale. When `params` are provided, positional placeholders (`{0}`, `{1}`, etc.) in the string are replaced with the corresponding values. Components import `t` from `localized.js` and use it in templates (`{{ t('key') }}`, `{{ t('key', param0) }}`) and bound attributes (`:alt="t('key')"`). No hardcoded display text in templates or JS.
+Each supported language has its own file (`ca.js`, `en.js`, `es.js`, `fr.js`) exporting a flat object with dot-notation keys (e.g. `'screen.home.newGame'`, `'resource.food'`, `'season.warm'`). At startup, `localized.js` reads `navigator.language`, resolves it to a supported locale (defaulting to English), and exports a `t(key, ...params)` helper that looks up strings from the resolved locale. When `params` are provided, positional placeholders (`{0}`, `{1}`, etc.) in the string are replaced with the corresponding values. Components import `t` from `localized.js` and use it in templates (`{{ t('key') }}`, `{{ t('key', param0) }}`) and bound attributes (`:alt="t('key')"`). No hardcoded display text in templates or JS.
 
 ### Assets (`src/js/engine/assets.js`)
 
@@ -183,7 +193,7 @@ Singleton `Audio` class managing sound effects and background music. Preloads al
 
 ### Storage (`src/js/engine/storage.js`)
 
-Thin `localStorage` wrapper for persisting user preferences. Exposes `musicEnabled` and `soundEnabled` as getter/setter pairs (default `true`). Used by `Audio` to persist toggle state across sessions.
+Thin `localStorage` wrapper for persisting user preferences and game state. Exposes `musicEnabled` and `soundEnabled` as getter/setter pairs (default `true`). Used by `Audio` to persist toggle state across sessions. Also exposes `savedGame` getter/setter (JSON parse/stringify with error handling) and `deleteSavedGame()` for save/load persistence.
 
 ### Research System
 

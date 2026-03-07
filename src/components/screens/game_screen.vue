@@ -26,11 +26,12 @@ import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatRate, formatTime} from '@/js/engine/format.js'
-import State from '@/js/engine/state.js'
+import storage from '@/js/engine/storage.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
 import TutorialBanner from '@/components/tutorial/tutorial_banner.vue'
 import TutorialModal from '@/components/tutorial/tutorial_modal.vue'
-import {BUILDING_IMAGE_MAP, createInitialColony, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, TUTORIAL_MODALS, TUTORIAL_STEPS, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
+import ConfirmQuitModal from '@/components/modals/confirm_quit_modal.vue'
+import {BUILDING_IMAGE_MAP, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, TUTORIAL_MODALS, TUTORIAL_STEPS, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION} from '@/js/engine/balancing.js'
 import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
@@ -204,11 +205,18 @@ const visibleResources = computed(() => {
   return set
 })
 
+const props = defineProps({
+  initialState: {
+    type: Object,
+    required: true,
+  },
+})
+
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
-const state = new State(createInitialMeta(), createInitialColony())
-state.update(0)
+const state = props.initialState
 const showClearConfirm = ref(false)
+const showConfirmQuit = ref(false)
 const showResearchModal = ref(false)
 const showMarketModal = ref(false)
 
@@ -683,6 +691,35 @@ provide('openMarketModal', () => {
   showMarketModal.value = true
 })
 
+/** Saves the current game state to localStorage and closes the pause modal. */
+function saveGame() {
+  storage.savedGame = state.toJSON()
+  showModal.value = false
+}
+
+/** Shows the confirm quit modal from the pause menu. */
+function handleQuitRequest() {
+  showModal.value = false
+  showConfirmQuit.value = true
+}
+
+/** Cancels quit and returns to the pause modal. */
+function cancelQuit() {
+  showConfirmQuit.value = false
+  showModal.value = true
+}
+
+/** Saves the game and quits to the home screen. */
+function saveAndQuit() {
+  storage.savedGame = state.toJSON()
+  emit('quit')
+}
+
+/** Quits to the home screen without saving. */
+function quitWithoutSaving() {
+  emit('quit')
+}
+
 /** Clears all past events and closes the confirmation modal. */
 function clearAllPast() {
   actions.dismissAllPast()
@@ -840,7 +877,11 @@ function handleKeydown(event) {
     return
   }
   if (event.key === 'Escape') {
-    showModal.value = !showModal.value
+    if (showConfirmQuit.value) {
+      cancelQuit()
+    } else {
+      showModal.value = !showModal.value
+    }
   }
   if (event.key === 'F3') {
     event.preventDefault()
@@ -861,7 +902,7 @@ watch(showModal, (isOpen) => {
     tickTimer = null
     cancelAnimationFrame(progressAnimFrame)
     progressAnimFrame = null
-  } else {
+  } else if (!showConfirmQuit.value) {
     state.paused = false
     const now = performance.now()
     lastTickTime = now
@@ -1076,7 +1117,15 @@ onUnmounted(() => {
     <PauseModal
       v-if="showModal"
       @close="showModal = false"
-      @quit="emit('quit')"
+      @save="saveGame"
+      @quit="handleQuitRequest"
+    />
+
+    <ConfirmQuitModal
+      v-if="showConfirmQuit"
+      @cancel="cancelQuit"
+      @save-and-quit="saveAndQuit"
+      @quit="quitWithoutSaving"
     />
 
     <ConfirmModal

@@ -5,6 +5,7 @@ import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits([
   'close',
+  'save',
   'quit',
 ])
 const visible = ref(false)
@@ -75,6 +76,9 @@ onUnmounted(() => {
       <div class="modal-actions">
         <button class="btn-gold modal-btn" @click="playTap(); emit('close')">
           {{ t('modal.pause.continue') }}
+        </button>
+        <button class="btn-gold modal-btn" @click="playTap(); emit('save')">
+          {{ t('modal.pause.save') }}
         </button>
         <button class="btn-gold modal-btn modal-btn--danger" @click="playTap(); emit('quit')">
           {{ t('modal.pause.quit') }}
