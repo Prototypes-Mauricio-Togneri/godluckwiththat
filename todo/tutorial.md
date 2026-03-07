@@ -71,7 +71,7 @@ Defined as `TUTORIAL_MODALS` in `constants.js`. Triggered by state transitions, 
 | Key | Trigger | Content |
 |-----|---------|---------|
 | `seasonChanged` | Season flips in `advanceSeason()` | Explain warm/cold effects on food/wood production |
-| `productivityDrop` | `productivity < 1` transition in `update()` | Explain why productivity drops and how to recover |
+| `negativeProduction` | Food or wood net production goes negative (via `_resourcesNegativeProduction`) | Explain why production is negative and how to recover |
 | `hqUpgrade` | HQ type upgrade completes in `advanceConstruction()` | List newly unlocked buildings via `HQ_BUILDING_UNLOCKS[newType]` |
 
 `activeModal` is ephemeral (not persisted). On load, it starts as `null` and only fires on the next relevant transition.
@@ -122,7 +122,7 @@ checkTutorial() {
 ### Reactive modal triggers
 
 - **Season change** (`advanceSeason`): After season flip, if `'seasonChanged'` not in `dismissedModals`, set `tutorial.activeModal = 'seasonChanged'` and `this.paused = true`
-- **Productivity drop** (`update`): Track `_prevProductivity`. When it transitions from `>= 1` to `< 1`, if `'productivityDrop'` not in `dismissedModals`, set `tutorial.activeModal = 'productivityDrop'` and `this.paused = true`
+- **Negative production** (`update`): When a resource is added to `_resourcesNegativeProduction` (food or wood net production goes negative), if `'negativeProduction'` not in `dismissedModals`, set `tutorial.activeModal = 'negativeProduction'` and `this.paused = true`
 - **HQ upgrade** (`advanceConstruction`): When HQ type upgrade completes, if `'hqUpgrade'` not in `dismissedModals`, set `tutorial.activeModal = 'hqUpgrade'` and `this.paused = true`
 
 ## UI Integration (`game_screen.vue`)
