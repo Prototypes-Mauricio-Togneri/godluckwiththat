@@ -7,6 +7,13 @@ The game needs a tutorial system to guide new players through early-game mechani
 1. **Sequential tutorial** -- 15 ordered steps shown as a fixed banner at the bottom of the screen. Auto-advances when the player completes each step. No skip option.
 2. **Reactive dialogs** -- Modal popups triggered by game state transitions (season change, productivity drop, HQ upgrade). Each fires only once ever (persisted in save data).
 
+## Rules
+
+1. **One step at a time**: Only one sequential step is visible at any moment (the bottom banner shows only the current step).
+2. **Skip fulfilled steps**: When the tutorial advances, if the next step's `check()` is already satisfied by the player's current state, that step is skipped automatically. This repeats until an unsatisfied step is found or all steps are exhausted.
+3. **Reactive dialogs pause the game**: Opening a reactive dialog sets `state.paused = true`. Dismissing it sets `state.paused = false`. The game tick does not run while a dialog is open.
+4. **Tutorial lives in `meta`**: The `Tutorial` instance belongs to `meta`, not `colony`. Tutorial progress persists across colonies.
+
 ## Architecture
 
 ### New Files
@@ -22,8 +29,8 @@ The game needs a tutorial system to guide new players through early-game mechani
 | File | Change |
 |------|--------|
 | `src/js/engine/enums.js` | Add `TUTORIAL_DIALOG_*` string enums |
-| `src/js/engine/constants.js` | Add `TUTORIAL_STEPS` array, `TUTORIAL_DIALOGS` map, wire `Tutorial` into `createInitialColony*` factories |
-| `src/js/models/colony.js` | Add `this.tutorial` field |
+| `src/js/engine/constants.js` | Add `TUTORIAL_STEPS` array, `TUTORIAL_DIALOGS` map, wire `Tutorial` into `createInitialMeta` factory |
+| `src/js/models/meta.js` | Add `this.tutorial` field |
 | `src/js/engine/state.js` | Add `checkTutorial()` method (called from `gameTick`); add reactive dialog triggers in `advanceSeason()` and `update()` |
 | `src/components/screens/game_screen.vue` | Add `ui.tutorial` fields, `syncTutorial()`, render banner + dialog, `dismissTutorialDialog` action |
 | `src/js/i18n/en.js` | Add ~20 tutorial i18n keys |
@@ -98,23 +105,25 @@ class Tutorial {
 
 ```js
 checkTutorial() {
-  const tutorial = this.colony.tutorial
+  const tutorial = this.meta.tutorial
   if (!tutorial.isActive) return
-  const step = TUTORIAL_STEPS[tutorial.currentStep]
-  if (step?.check(this.colony.buildings)) {
+  let step = TUTORIAL_STEPS[tutorial.currentStep]
+  while (step?.check(this.colony.buildings)) {
     tutorial.currentStep++
     if (tutorial.currentStep >= TUTORIAL_STEPS.length) {
       tutorial.completed = true
+      return
     }
+    step = TUTORIAL_STEPS[tutorial.currentStep]
   }
 }
 ```
 
 ### Reactive dialog triggers
 
-- **Season change** (`advanceSeason`): After season flip, if `'seasonChanged'` not in `dismissedDialogs`, set `tutorial.activeDialog = 'seasonChanged'`
-- **Productivity drop** (`update`): Track `_prevProductivity`. When it transitions from `>= 1` to `< 1`, if `'productivityDrop'` not in `dismissedDialogs`, set `tutorial.activeDialog = 'productivityDrop'`
-- **HQ upgrade** (`advanceConstruction`): When HQ type upgrade completes, if `'hqUpgrade'` not in `dismissedDialogs`, set `tutorial.activeDialog = 'hqUpgrade'`
+- **Season change** (`advanceSeason`): After season flip, if `'seasonChanged'` not in `dismissedDialogs`, set `tutorial.activeDialog = 'seasonChanged'` and `this.paused = true`
+- **Productivity drop** (`update`): Track `_prevProductivity`. When it transitions from `>= 1` to `< 1`, if `'productivityDrop'` not in `dismissedDialogs`, set `tutorial.activeDialog = 'productivityDrop'` and `this.paused = true`
+- **HQ upgrade** (`advanceConstruction`): When HQ type upgrade completes, if `'hqUpgrade'` not in `dismissedDialogs`, set `tutorial.activeDialog = 'hqUpgrade'` and `this.paused = true`
 
 ## UI Integration (`game_screen.vue`)
 
@@ -132,7 +141,7 @@ tutorial: {
 Add `syncTutorial()` called from `syncUI()`:
 ```js
 function syncTutorial() {
-  const { tutorial } = state.colony
+  const { tutorial } = state.meta
   const step = TUTORIAL_STEPS[tutorial.currentStep]
   ui.tutorial = {
     stepTextKey: step?.textKey ?? null,
@@ -150,7 +159,7 @@ Render banner and dialog:
 <TutorialDialog v-if="ui.tutorial.activeDialog" ... @close="dismissDialog" />
 ```
 
-Dismiss handler calls `state.colony.tutorial.dismissedDialogs.add(key)`, sets `activeDialog = null`, then `syncUI()`.
+Dismiss handler calls `state.meta.tutorial.dismissedDialogs.add(key)`, sets `activeDialog = null`, sets `state.paused = false`, then `syncUI()`.
 
 ## Banner Design (bottom fixed bar)
 
@@ -169,7 +178,7 @@ Dismiss handler calls `state.colony.tutorial.dismissedDialogs.add(key)`, sets `a
 
 1. Add `TUTORIAL_DIALOG_*` enums to `enums.js`
 2. Create `Tutorial` model class in `src/js/models/tutorial.js`
-3. Add `tutorial` field to `Colony` constructor
+3. Add `tutorial` field to `Meta` constructor
 4. Add `TUTORIAL_STEPS` and `TUTORIAL_DIALOGS` to `constants.js`, wire into `createInitialColony*`
 5. Add `checkTutorial()` and reactive dialog triggers to `state.js`
 6. Add `ui.tutorial`, `syncTutorial()`, dismiss handler to `game_screen.vue`
