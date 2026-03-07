@@ -1580,29 +1580,46 @@ onUnmounted(() => {
   bottom: 1.5rem;
   right: 1.5rem;
   font-family: var(--font-display);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(var(--color-accent-rgb), 0.9);
-  background: rgba(var(--color-accent-rgb), 0.08);
-  border: 1px solid rgba(var(--color-accent-rgb), 0.2);
-  padding: 0.35rem 0.9rem;
-  border-radius: 0.25rem;
+  letter-spacing: 0.14em;
+  color: rgba(var(--color-accent-rgb), 0.95);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(var(--color-accent-rgb), 0.12) 0%,
+      rgba(var(--color-accent-rgb), 0.04) 100%
+    );
+  border: 1px solid rgba(var(--color-accent-rgb), 0.25);
+  border-top-color: rgba(var(--color-accent-rgb), 0.4);
+  border-bottom-color: rgba(var(--color-accent-rgb), 0.12);
+  padding: 0.4rem 1.1rem;
+  border-radius: 0.2rem;
   pointer-events: none;
   z-index: 9000;
+  box-shadow:
+    0 2px 12px rgba(var(--color-accent-rgb), 0.1),
+    inset 0 1px 0 rgba(var(--color-accent-rgb), 0.08);
+  text-shadow: 0 0 8px rgba(var(--color-accent-rgb), 0.3);
 }
 
 .save-indicator-enter-active {
-  transition: opacity 0.15s ease-out;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }
 
 .save-indicator-leave-active {
-  transition: opacity 0.6s ease-in;
+  transition: opacity 0.8s ease-in, transform 0.8s ease-in;
 }
 
-.save-indicator-enter-from,
+.save-indicator-enter-from {
+  opacity: 0;
+  transform: translateY(0.5rem);
+}
+
 .save-indicator-leave-to {
   opacity: 0;
+  transform: translateY(-0.25rem);
 }
 
 </style>
