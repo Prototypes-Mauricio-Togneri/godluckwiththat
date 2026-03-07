@@ -2,7 +2,7 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Add punishment when missing food/wood => reduce production
+- Show cards in red if productivity is less than zero
 
 - Create tutorial
   - Season has changed -> Explain their effects on production and upkeep

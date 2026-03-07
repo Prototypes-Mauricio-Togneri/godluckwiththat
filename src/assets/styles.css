@@ -694,7 +694,7 @@
 /* ── .productivity-box ───────────────────────────────────────────── */
 
 .productivity-box {
-    gap: 0.55rem;
+    justify-content: space-between;
 }
 
 /* Penalized state — subtle red tint on border and background */
