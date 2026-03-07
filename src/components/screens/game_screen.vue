@@ -869,7 +869,7 @@ onUnmounted(() => {
         <div class="resource-box productivity-box" :class="{ 'productivity-box--penalized': ui.productivity < 1 }">
           <div class="resource-row-top">
             <img class="resource-icon resource-icon--productivity" :src="IMG_OTHER_PRODUCTIVITY" :alt="t('resource.productivity')">
-            <span class="resource-value" :class="{ 'resource-value--zero': ui.productivity < 1 }">{{ Math.round(ui.productivity * 100) }}%</span>
+            <span class="resource-value" :class="{ 'resource-value--zero': ui.productivity < 1 }">{{ Math.floor(ui.productivity * 100) }}%</span>
           </div>
           <div class="resource-row-bottom">
             <div class="resource-bar">
@@ -882,7 +882,7 @@ onUnmounted(() => {
           </div>
           <div class="resource-tooltip">
             <span>{{ t('resource.productivity') }}</span>
-            <span class="resource-tooltip-time">{{ Math.round(ui.productivity * 100) }}%</span>
+            <span class="resource-tooltip-time">{{ Math.floor(ui.productivity * 100) }}%</span>
           </div>
         </div>
 

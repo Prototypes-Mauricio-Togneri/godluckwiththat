@@ -3,7 +3,6 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Show past event: "You have idle workers"
-- Round productivity in the header to the lowest integer (to avoid 99.5 to become 100)
 
 - Create tutorial
   - Events
