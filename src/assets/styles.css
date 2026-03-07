@@ -698,7 +698,8 @@
 }
 
 /* Penalized state — subtle red tint on border and background */
-.productivity-box--penalized {
+.productivity-box--penalized,
+.resource-box--penalized {
     border-color: rgba(196, 80, 80, 0.3);
     background: linear-gradient(
         180deg,
@@ -707,7 +708,8 @@
     );
 }
 
-.productivity-box--penalized:hover {
+.productivity-box--penalized:hover,
+.resource-box--penalized:hover {
     border-color: rgba(196, 80, 80, 0.45);
     background: linear-gradient(
         180deg,

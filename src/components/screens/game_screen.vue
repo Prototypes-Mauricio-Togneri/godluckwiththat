@@ -87,6 +87,16 @@ function isBounded(resource) {
   return !UNBOUNDED_RESOURCES.includes(resource)
 }
 
+/**
+ * Returns true when a resource card should show a penalized (red) state:
+ * - net production is zero or negative, OR
+ * - the resource is storage-bounded and has reached the cap
+ */
+function isResourcePenalized(resource) {
+  return ui.netProduction[resource] <= 0
+    || (isBounded(resource) && Math.floor(ui.resources[resource]) >= ui.storageCap)
+}
+
 /** Percentage of storage cap filled for a resource (0-100).
  * @param {string} resource - Resource key
  * @returns {number} Fill percentage clamped to 0-100
@@ -877,7 +887,7 @@ onUnmounted(() => {
         </div>
 
         <template v-for="resource in HEADER_RESOURCES" :key="resource">
-          <div v-if="visibleResources.has(resource)" class="resource-box">
+          <div v-if="visibleResources.has(resource)" class="resource-box" :class="{ 'resource-box--penalized': isResourcePenalized(resource) }">
             <!-- Row 1: icon + current amount -->
             <div class="resource-row-top">
               <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">

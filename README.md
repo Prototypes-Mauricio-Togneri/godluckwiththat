@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Show cards in red if productivity is less than zero
-
 - Create tutorial
   - Season has changed -> Explain their effects on production and upkeep
   - Build a house
