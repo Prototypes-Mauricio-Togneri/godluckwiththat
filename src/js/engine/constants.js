@@ -661,9 +661,9 @@ export const TUTORIAL_STEPS = [
     check: buildings => buildings.woodcutter.workers >= 1,
   },
   {
-    textKey: 'tutorial.step.assignMoreWorkers',
+    textKey: 'tutorial.step.fillUpFarmAndWoodcutter',
     building: BUILDING_FARM,
-    check: buildings => buildings.farm.workers > 3 && buildings.woodcutter.workers > 1,
+    check: buildings => buildings.farm.workers >= 5 && buildings.woodcutter.workers >= 5,
   },
   {
     textKey: 'tutorial.step.upgradeHouse2',
@@ -706,7 +706,7 @@ export const TUTORIAL_STEPS = [
     check: buildings => buildings.headquarters.level >= 2,
   },
   {
-    textKey: 'tutorial.step.upgradeHQ',
+    textKey: 'tutorial.step.upgradeCamp',
     building: BUILDING_HEADQUARTERS,
     check: buildings => buildings.headquarters.type !== HQ_TYPE_CAMP,
   },
@@ -723,8 +723,8 @@ export const TUTORIAL_MODALS = {
     bodyKey: 'tutorial.modal.negativeProduction.body',
   },
   [TUTORIAL_MODAL_HQ_UPGRADE]: {
-    titleKey: 'tutorial.modal.hqUpgrade.title',
-    bodyKey: 'tutorial.modal.hqUpgrade.body',
+    titleKey: 'tutorial.modal.campUpgrade.title',
+    bodyKey: 'tutorial.modal.campUpgrade.body',
   },
 }
 

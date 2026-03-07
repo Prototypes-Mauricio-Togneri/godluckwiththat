@@ -326,8 +326,8 @@ export const LOCALIZED_FR = {
   'tutorial.step.buildFarm': 'Construisez une ferme',
   'tutorial.step.buildWoodcutter': 'Construisez un camp de bûcherons',
   'tutorial.step.assignFarmWorkers': 'Assignez 3 ouvriers à la ferme',
-  'tutorial.step.assignWoodcutterWorker': 'Assignez un ouvrier au camp de bûcherons',
-  'tutorial.step.assignMoreWorkers': 'Assignez plus d\'ouvriers',
+  'tutorial.step.assignWoodcutterWorker': 'Assignez 1 ouvrier au camp de bûcherons',
+  'tutorial.step.fillUpFarmAndWoodcutter': 'Remplissez tous les postes d\'ouvriers dans la ferme et le bûcheron',
   'tutorial.step.upgradeHouse2': 'Améliorez la maison au niveau 2',
   'tutorial.step.buildAltar': 'Construisez un autel',
   'tutorial.step.upgradeFarm2': 'Améliorez la ferme au niveau 2',
@@ -335,8 +335,8 @@ export const LOCALIZED_FR = {
   'tutorial.step.upgradeHouse3': 'Améliorez la maison au niveau 3',
   'tutorial.step.upgradeFarm3': 'Améliorez la ferme au niveau 3',
   'tutorial.step.upgradeWoodcutter3': 'Améliorez le camp de bûcherons au niveau 3',
-  'tutorial.step.expandTerritory': 'Étendez votre territoire',
-  'tutorial.step.upgradeHQ': 'Améliorez votre camp',
+  'tutorial.step.expandTerritory': 'Étendez le territoire',
+  'tutorial.step.upgradeCamp': 'Améliorez le camp',
 
   // Tutorial modals
   'tutorial.modal.dismiss': 'Compris',
@@ -344,6 +344,6 @@ export const LOCALIZED_FR = {
   'tutorial.modal.seasonChanged.body': 'Les saisons alternent entre chaude et froide. Pendant les saisons chaudes, la production de nourriture augmente. Pendant les froides, la production de nourriture diminue et la consommation de bois augmente pour le chauffage.',
   'tutorial.modal.negativeProduction.title': 'Alerte de production',
   'tutorial.modal.negativeProduction.body': 'Votre colonie consomme plus qu\'elle ne produit. Assignez plus d\'ouvriers aux bâtiments de production ou construisez-en de nouveaux. Si les pénuries persistent, la productivité baissera.',
-  'tutorial.modal.hqUpgrade.title': 'Camp amélioré',
-  'tutorial.modal.hqUpgrade.body': 'Votre camp a été amélioré, débloquant de nouveaux bâtiments. Explorez les nouvelles options disponibles pour développer votre colonie.',
+  'tutorial.modal.campUpgrade.title': 'Camp amélioré',
+  'tutorial.modal.campUpgrade.body': 'Votre camp a été amélioré en un établissement, débloquant de nouveaux bâtiments. Explorez les nouvelles options disponibles pour développer votre colonie.',
 }

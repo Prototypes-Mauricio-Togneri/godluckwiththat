@@ -326,8 +326,8 @@ export const LOCALIZED_IT = {
   'tutorial.step.buildFarm': 'Costruisci una fattoria',
   'tutorial.step.buildWoodcutter': 'Costruisci un taglialegna',
   'tutorial.step.assignFarmWorkers': 'Assegna 3 lavoratori alla fattoria',
-  'tutorial.step.assignWoodcutterWorker': 'Assegna un lavoratore al taglialegna',
-  'tutorial.step.assignMoreWorkers': 'Assegna più lavoratori',
+  'tutorial.step.assignWoodcutterWorker': 'Assegna 1 lavoratore al taglialegna',
+  'tutorial.step.fillUpFarmAndWoodcutter': 'Riempi tutti i posti lavoratore nella fattoria e nel boscaiolo',
   'tutorial.step.upgradeHouse2': 'Migliora la casa al livello 2',
   'tutorial.step.buildAltar': 'Costruisci un altare',
   'tutorial.step.upgradeFarm2': 'Migliora la fattoria al livello 2',
@@ -335,8 +335,8 @@ export const LOCALIZED_IT = {
   'tutorial.step.upgradeHouse3': 'Migliora la casa al livello 3',
   'tutorial.step.upgradeFarm3': 'Migliora la fattoria al livello 3',
   'tutorial.step.upgradeWoodcutter3': 'Migliora il taglialegna al livello 3',
-  'tutorial.step.expandTerritory': 'Espandi il tuo territorio',
-  'tutorial.step.upgradeHQ': 'Migliora il tuo accampamento',
+  'tutorial.step.expandTerritory': 'Espandi il territorio',
+  'tutorial.step.upgradeCamp': 'Migliora l\'accampamento',
 
   // Tutorial modals
   'tutorial.modal.dismiss': 'Capito',
@@ -344,6 +344,6 @@ export const LOCALIZED_IT = {
   'tutorial.modal.seasonChanged.body': 'Le stagioni alternano tra calda e fredda. Durante le stagioni calde, la produzione di cibo aumenta. Durante quelle fredde, la produzione di cibo diminuisce e il consumo di legno aumenta per il riscaldamento.',
   'tutorial.modal.negativeProduction.title': 'Allarme produzione',
   'tutorial.modal.negativeProduction.body': 'La tua colonia consuma più di quanto produce. Assegna più lavoratori agli edifici di produzione o costruiscine di nuovi. Se la carenza persiste, la produttività calerà.',
-  'tutorial.modal.hqUpgrade.title': 'Accampamento migliorato',
-  'tutorial.modal.hqUpgrade.body': 'Il tuo accampamento è stato migliorato, sbloccando nuovi edifici. Esplora le nuove opzioni disponibili per far crescere la tua colonia.',
+  'tutorial.modal.campUpgrade.title': 'Accampamento migliorato',
+  'tutorial.modal.campUpgrade.body': 'Il tuo accampamento è stato migliorato a un insediamento, sbloccando nuovi edifici. Esplora le nuove opzioni disponibili per far crescere la tua colonia.',
 }
