@@ -167,7 +167,7 @@ const seasonProgress = computed(() => ui.season.seasonElapsed / SEASON_DURATION)
 const seasonIcon = computed(() => ui.season.isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD)
 
 /** Localized tooltip text showing the current season name. */
-const seasonTooltip = computed(() => `${t('season.name')}: ${t('season.' + ui.season.currentSeason)}`)
+const seasonTooltip = computed(() => t('season.' + ui.season.currentSeason + 'Season'))
 
 /** Building thumbnail path; special-cases HQ to use type-specific image.
  * @param {object} building - Building grid entry with key and img

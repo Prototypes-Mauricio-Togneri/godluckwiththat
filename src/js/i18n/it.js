@@ -41,9 +41,8 @@ export const LOCALIZED_IT = {
   'year.label': 'Anno',
 
   // Seasons
-  'season.name': 'Stagione',
-  'season.warm': 'Calda',
-  'season.cold': 'Fredda',
+  'season.warmSeason': 'Stagione calda',
+  'season.coldSeason': 'Stagione fredda',
 
   // Building groups
   'buildingGroup.colony': 'Colonia',

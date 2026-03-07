@@ -41,9 +41,8 @@ export const LOCALIZED_CA = {
   'year.label': 'Any',
 
   // Seasons
-  'season.name': 'Estació',
-  'season.warm': 'Càlida',
-  'season.cold': 'Freda',
+  'season.warmSeason': 'Estació càlida',
+  'season.coldSeason': 'Estació freda',
 
   // Building groups
   'buildingGroup.colony': 'Colònia',
