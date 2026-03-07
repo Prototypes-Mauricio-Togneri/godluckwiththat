@@ -3,14 +3,17 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Create tutorial
-  - Season has changed -> Explain their effects on production and upkeep
-  - Build a house
-  - Build a farm
-  - Build a woodcutter
-  - Create a worker
-  - Assign workers
-  - Build an altar
-  - Show what buildings are unlocked when upgrading HQ
+  - Events
+    - Build a house
+    - Build a farm
+    - Build a woodcutter
+    - Create a worker
+    - Assign workers
+    - Build an altar
+    - Show what buildings are unlocked when upgrading HQ
+  - Dialogs
+    - Season has changed -> Explain their effects on production and upkeep
+    - Productivity falls bellow 100% -> Explain why and how to recover
 
 - Implement save and load
   - Have save slots and autosave
