@@ -320,4 +320,30 @@ export const LOCALIZED_EN = {
 
   // Research events
   'event.researchInProgress': 'Researching {0}',
+
+  // Tutorial steps
+  'tutorial.step.buildHouse': 'Build a house',
+  'tutorial.step.buildFarm': 'Build a farm',
+  'tutorial.step.buildWoodcutter': 'Build a woodcutter',
+  'tutorial.step.assignFarmWorkers': 'Assign 3 workers to the farm',
+  'tutorial.step.assignWoodcutterWorker': 'Assign a worker to the woodcutter',
+  'tutorial.step.assignMoreWorkers': 'Assign more workers',
+  'tutorial.step.upgradeHouse2': 'Upgrade the house to level 2',
+  'tutorial.step.buildAltar': 'Build an altar',
+  'tutorial.step.upgradeFarm2': 'Upgrade the farm to level 2',
+  'tutorial.step.upgradeWoodcutter2': 'Upgrade the woodcutter to level 2',
+  'tutorial.step.upgradeHouse3': 'Upgrade the house to level 3',
+  'tutorial.step.upgradeFarm3': 'Upgrade the farm to level 3',
+  'tutorial.step.upgradeWoodcutter3': 'Upgrade the woodcutter to level 3',
+  'tutorial.step.expandTerritory': 'Expand your territory',
+  'tutorial.step.upgradeHQ': 'Upgrade your headquarters',
+
+  // Tutorial modals
+  'tutorial.modal.dismiss': 'Got it',
+  'tutorial.modal.seasonChanged.title': 'Seasons',
+  'tutorial.modal.seasonChanged.body': 'Seasons alternate between warm and cold. During warm seasons, food production increases. During cold seasons, food production decreases and wood consumption rises due to heating needs.',
+  'tutorial.modal.negativeProduction.title': 'Production Alert',
+  'tutorial.modal.negativeProduction.body': 'Your colony is consuming more than it produces. Assign more workers to production buildings or build new ones to recover. If shortages persist, worker productivity will drop.',
+  'tutorial.modal.hqUpgrade.title': 'Headquarters Upgraded',
+  'tutorial.modal.hqUpgrade.body': 'Your headquarters has been upgraded, unlocking new buildings. Explore the new options available to grow your colony further.',
 }

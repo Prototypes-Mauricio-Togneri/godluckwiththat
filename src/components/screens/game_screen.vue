@@ -28,7 +28,9 @@ import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatRate, formatTime} from '@/js/engine/format.js'
 import State from '@/js/engine/state.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
-import {createInitialColony, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
+import TutorialBanner from '@/components/tutorial/tutorial_banner.vue'
+import TutorialModal from '@/components/tutorial/tutorial_modal.vue'
+import {BUILDING_IMAGE_MAP, createInitialColony, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, TUTORIAL_MODALS, TUTORIAL_STEPS, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION} from '@/js/engine/balancing.js'
 import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
@@ -204,7 +206,6 @@ const visibleResources = computed(() => {
 
 const emit = defineEmits(['quit'])
 const showModal = ref(false)
-const paused = ref(false)
 const state = new State(createInitialMeta(), createInitialColony())
 state.update(0)
 const showClearConfirm = ref(false)
@@ -275,6 +276,17 @@ const ui = shallowReactive({
   },
   futureEvents: [],
   pastEvents: [],
+  tutorial: {
+    stepTextKey: null,
+    stepBuilding: null,
+    stepBuildingImg: null,
+    stepNumber: 0,
+    totalSteps: 0,
+    isActive: false,
+    activeModal: null,
+    activeModalTitle: null,
+    activeModalBody: null,
+  },
 })
 
 /** Fast-path sync: updates only time-sensitive fields that change every rAF frame
@@ -575,6 +587,26 @@ function syncEvents() {
   }))
 }
 
+/** Syncs tutorial state. */
+function syncTutorial() {
+  const {
+    tutorial,
+  } = state.meta
+  const step = TUTORIAL_STEPS[tutorial.currentStep]
+  const modalConfig = tutorial.activeModal ? TUTORIAL_MODALS[tutorial.activeModal] : null
+  ui.tutorial = {
+    stepTextKey: step?.textKey ?? null,
+    stepBuilding: step?.building ?? null,
+    stepBuildingImg: step?.building ? BUILDING_IMAGE_MAP[step.building] : null,
+    stepNumber: tutorial.currentStep + 1,
+    totalSteps: TUTORIAL_STEPS.length,
+    isActive: tutorial.isActive,
+    activeModal: tutorial.activeModal,
+    activeModalTitle: modalConfig?.titleKey ?? null,
+    activeModalBody: modalConfig?.bodyKey ?? null,
+  }
+}
+
 /** Full sync: copies all values the templates need from the plain engine state into the reactive ui object. */
 function syncUI() {
   syncSeason()
@@ -585,6 +617,7 @@ function syncUI() {
   syncAcademy()
   syncMarket()
   syncEvents()
+  syncTutorial()
 }
 
 syncUI()
@@ -592,38 +625,38 @@ syncUI()
 const actions = {
   levelUpBuilding: (key) => {
     state.levelUpBuilding(key)
-    syncResources(); syncProduction(); syncBuilding(key); syncEvents()
+    syncResources(); syncProduction(); syncBuilding(key); syncEvents(); syncTutorial()
     if (key === BUILDING_HEADQUARTERS) {
       syncHQ()
     }
   },
   expandTerritory: () => {
     state.expandTerritory()
-    syncResources(); syncProduction(); syncHQ(); syncEvents()
+    syncResources(); syncProduction(); syncHQ(); syncEvents(); syncTutorial()
   },
   upgradeHeadquarters: () => {
     state.upgradeHeadquarters()
-    syncResources(); syncProduction(); syncHQ(); syncEvents()
+    syncResources(); syncProduction(); syncHQ(); syncEvents(); syncTutorial()
   },
   recruitWorker: () => {
     state.recruitWorker()
-    syncResources(); syncProduction(); syncEvents()
+    syncResources(); syncProduction(); syncEvents(); syncTutorial()
   },
   assignWorkers: (key, count) => {
     state.assignWorkers(key, count)
-    syncResources(); syncProduction(); syncBuilding(key); syncEvents()
+    syncResources(); syncProduction(); syncBuilding(key); syncEvents(); syncTutorial()
   },
   unassignWorkers: (key, count) => {
     state.unassignWorkers(key, count)
-    syncResources(); syncProduction(); syncBuilding(key); syncEvents()
+    syncResources(); syncProduction(); syncBuilding(key); syncEvents(); syncTutorial()
   },
   startResearch: (key) => {
     state.startResearch(key)
-    syncResources(); syncProduction(); syncAcademy(); syncEvents()
+    syncResources(); syncProduction(); syncAcademy(); syncEvents(); syncTutorial()
   },
   executeTrade: (resource, direction) => {
     state.executeTrade(resource, direction)
-    syncResources(); syncProduction(); syncMarket(); syncEvents()
+    syncResources(); syncProduction(); syncMarket(); syncEvents(); syncTutorial()
   },
   dismissEvent: (id) => {
     state.colony.events.dismiss(id)
@@ -652,6 +685,17 @@ function clearAllPast() {
   showClearConfirm.value = false
 }
 
+/** Dismisses the active tutorial modal, unpauses, and syncs UI. */
+function dismissTutorialModal() {
+  const tutorial = state.meta.tutorial
+  if (tutorial.activeModal) {
+    tutorial.dismissedModals.add(tutorial.activeModal)
+    tutorial.activeModal = null
+    state.paused = false
+    syncUI()
+  }
+}
+
 let tickTimer = null
 let lastTickTime = 0
 let progressAnimFrame = null
@@ -676,10 +720,16 @@ const perfHasMemory = typeof performance !== 'undefined' && !!performance.memory
 /** Main 1-second game loop: applies production, consumption, and advances visual progress. */
 function gameTick() {
   const now = performance.now()
+  if (state.paused) {
+    lastTickTime = now
+    lastProgressTickTime = now
+    return
+  }
   const delta = (now - lastTickTime) / 1000
   lastTickTime = now
   const tickStart = now
   state.update(delta)
+  state.checkTutorial()
   perfGameTickTime += performance.now() - tickStart
   perfGameTickCount++
 
@@ -700,7 +750,8 @@ function gameTick() {
 
 /** rAF loop for smooth visual progress (season, construction, research, events). */
 function progressTick() {
-  if (paused.value) {
+  if (state.paused) {
+    progressAnimFrame = requestAnimationFrame(progressTick)
     return
   }
   const now = performance.now()
@@ -801,13 +852,13 @@ function handleKeydown(event) {
 
 watch(showModal, (isOpen) => {
   if (isOpen) {
-    paused.value = true
+    state.paused = true
     clearInterval(tickTimer)
     tickTimer = null
     cancelAnimationFrame(progressAnimFrame)
     progressAnimFrame = null
   } else {
-    paused.value = false
+    state.paused = false
     const now = performance.now()
     lastTickTime = now
     lastProgressTickTime = now
@@ -1041,6 +1092,21 @@ onUnmounted(() => {
     <MarketModal
       v-if="showMarketModal"
       @close="showMarketModal = false"
+    />
+
+    <TutorialBanner
+      v-if="ui.tutorial.isActive"
+      :text-key="ui.tutorial.stepTextKey"
+      :building-img="ui.tutorial.stepBuildingImg"
+      :step-number="ui.tutorial.stepNumber"
+      :total-steps="ui.tutorial.totalSteps"
+    />
+
+    <TutorialModal
+      v-if="ui.tutorial.activeModal"
+      :title-key="ui.tutorial.activeModalTitle"
+      :body-key="ui.tutorial.activeModalBody"
+      @close="dismissTutorialModal"
     />
   </div>
 </template>

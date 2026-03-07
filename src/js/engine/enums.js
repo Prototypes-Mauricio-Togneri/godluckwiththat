@@ -215,6 +215,11 @@ export const BONUS_UNIT_DEFENSE = 'unitDefense'
 export const BONUS_UNIT_ATTACK = 'unitAttack'
 export const BONUS_WARNING_TIME = 'warningTime'
 
+// Tutorial modal keys
+export const TUTORIAL_MODAL_SEASON_CHANGED = 'seasonChanged'
+export const TUTORIAL_MODAL_NEGATIVE_PRODUCTION = 'negativeProduction'
+export const TUTORIAL_MODAL_HQ_UPGRADE = 'hqUpgrade'
+
 // Storage keys (localStorage)
 export const STORAGE_MUSIC_ENABLED = 'musicEnabled'
 export const STORAGE_SOUND_ENABLED = 'soundEnabled'

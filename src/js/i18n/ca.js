@@ -320,4 +320,30 @@ export const LOCALIZED_CA = {
 
   // Research events
   'event.researchInProgress': 'Investigant {0}',
+
+  // Tutorial steps
+  'tutorial.step.buildHouse': 'Construeix una casa',
+  'tutorial.step.buildFarm': 'Construeix una granja',
+  'tutorial.step.buildWoodcutter': 'Construeix un llenyataire',
+  'tutorial.step.assignFarmWorkers': 'Assigna 3 treballadors a la granja',
+  'tutorial.step.assignWoodcutterWorker': 'Assigna un treballador al llenyataire',
+  'tutorial.step.assignMoreWorkers': 'Assigna més treballadors',
+  'tutorial.step.upgradeHouse2': 'Millora la casa al nivell 2',
+  'tutorial.step.buildAltar': 'Construeix un altar',
+  'tutorial.step.upgradeFarm2': 'Millora la granja al nivell 2',
+  'tutorial.step.upgradeWoodcutter2': 'Millora el llenyataire al nivell 2',
+  'tutorial.step.upgradeHouse3': 'Millora la casa al nivell 3',
+  'tutorial.step.upgradeFarm3': 'Millora la granja al nivell 3',
+  'tutorial.step.upgradeWoodcutter3': 'Millora el llenyataire al nivell 3',
+  'tutorial.step.expandTerritory': 'Expandeix el teu territori',
+  'tutorial.step.upgradeHQ': 'Millora el teu campament',
+
+  // Tutorial modals
+  'tutorial.modal.dismiss': 'Entesos',
+  'tutorial.modal.seasonChanged.title': 'Estacions',
+  'tutorial.modal.seasonChanged.body': 'Les estacions alternen entre càlida i freda. Durant les estacions càlides, la producció de menjar augmenta. Durant les fredes, la producció de menjar disminueix i el consum de fusta puja per la calefacció.',
+  'tutorial.modal.negativeProduction.title': 'Alerta de producció',
+  'tutorial.modal.negativeProduction.body': 'La teva colònia consumeix més del que produeix. Assigna més treballadors als edificis de producció o construeix-ne de nous. Si l\'escassetat persisteix, la productivitat baixarà.',
+  'tutorial.modal.hqUpgrade.title': 'Campament millorat',
+  'tutorial.modal.hqUpgrade.body': 'El teu campament ha estat millorat, desbloquejant nous edificis. Explora les noves opcions disponibles per fer créixer la teva colònia.',
 }

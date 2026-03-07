@@ -3,8 +3,8 @@
 import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_BONUS_MAP, PRODUCTION_RATES, RESEARCH_COSTS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, IMG_RESOURCE_KNOWLEDGE, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_CREATED, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
-import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
-import {BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED} from '@/js/engine/enums.js'
+import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, TUTORIAL_STEPS} from '@/js/engine/constants.js'
+import {BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -50,6 +50,9 @@ class State {
 
     // Track whether HQ type upgrade is in progress
     this._hqUpgrading = colony.buildings.headquarters.isUpgrading
+
+    // Whether the game is paused (e.g. by a tutorial modal)
+    this.paused = false
 
   }
 
@@ -237,6 +240,9 @@ class State {
             icon: config.icon,
           })
           audio.playSound(SND_NOTIFICATION_ALERT)
+          if (resource === RESOURCE_FOOD || resource === RESOURCE_WOOD) {
+            this._triggerTutorialModal(TUTORIAL_MODAL_NEGATIVE_PRODUCTION)
+          }
         }
       } else if (this._resourcesNegativeProduction.has(resource)) {
         this._resourcesNegativeProduction.delete(resource)
@@ -280,6 +286,7 @@ class State {
         textKey: isWarm ? 'event.warmSeason' : 'event.coldSeason',
         icon: isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD,
       })
+      this._triggerTutorialModal(TUTORIAL_MODAL_SEASON_CHANGED)
     }
   }
 
@@ -330,6 +337,7 @@ class State {
       if (buildings.headquarters.advanceUpgrade(delta)) {
         this._hqUpgrading = false
         audio.playSound(SND_HEADQUARTERS_UPGRADED)
+        this._triggerTutorialModal(TUTORIAL_MODAL_HQ_UPGRADE)
       }
     }
   }
@@ -590,6 +598,38 @@ class State {
   get _constructionDurationMult() {
     const bonuses = this.colony.buildings.academy.completedBonuses(RESEARCH_TREE)
     return 1 - (bonuses[BONUS_CONSTRUCTION_TIME] ?? 0)
+  }
+
+  /**
+   * Checks sequential tutorial progress and auto-advances past completed steps.
+   * Called every gameTick (1s interval).
+   */
+  checkTutorial() {
+    const tutorial = this.meta.tutorial
+    if (!tutorial.isActive) {
+      return
+    }
+    let step = TUTORIAL_STEPS[tutorial.currentStep]
+    while (step?.check(this.colony.buildings)) {
+      tutorial.currentStep++
+      if (tutorial.currentStep >= TUTORIAL_STEPS.length) {
+        tutorial.completed = true
+        return
+      }
+      step = TUTORIAL_STEPS[tutorial.currentStep]
+    }
+  }
+
+  /**
+   * Triggers a reactive tutorial modal if not already dismissed.
+   * @param {string} key - Tutorial modal key from enums
+   */
+  _triggerTutorialModal(key) {
+    const tutorial = this.meta.tutorial
+    if (!tutorial.dismissedModals.has(key) && !tutorial.activeModal) {
+      tutorial.activeModal = key
+      this.paused = true
+    }
   }
 
   /**
