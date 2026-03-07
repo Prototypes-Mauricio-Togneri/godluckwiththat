@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Show past event: "You have idle workers"
-
 - Create tutorial
   - Events
     - Build a house

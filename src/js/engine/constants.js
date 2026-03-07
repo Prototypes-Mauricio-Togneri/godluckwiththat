@@ -651,7 +651,7 @@ export function createInitialMeta() {
  * @returns {Colony} Fully initialized colony
  */
 export function createInitialColony() {
-  return !IS_DEV ? createInitialColonyAdvanced() : createInitialColonyBasic()
+  return IS_DEV ? createInitialColonyAdvanced() : createInitialColonyBasic()
 }
 
 /**

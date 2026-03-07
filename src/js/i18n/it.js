@@ -116,6 +116,7 @@ export const LOCALIZED_IT = {
   'event.buildingBuilding': 'Costruzione di {0}',
   'event.buildingUpgrading': 'Miglioramento di {0}',
   'event.territoryExpanding': 'Espansione del territorio',
+  'event.idleWorkers': 'Ci sono lavoratori liberi',
   'event.territoryExpanded': 'Territorio espanso',
   'events.clearAll': 'Cancella tutto',
   'events.clearAllConfirm': 'Cancella',

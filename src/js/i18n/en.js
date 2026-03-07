@@ -116,6 +116,7 @@ export const LOCALIZED_EN = {
   'event.buildingBuilding': 'Building {0}',
   'event.buildingUpgrading': 'Upgrading {0}',
   'event.territoryExpanding': 'Expanding territory',
+  'event.idleWorkers': 'There are idle workers',
   'event.territoryExpanded': 'Territory expanded',
   'events.clearAll': 'Clear all',
   'events.clearAllConfirm': 'Clear',

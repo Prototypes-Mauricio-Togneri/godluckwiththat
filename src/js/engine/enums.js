@@ -56,6 +56,7 @@ export const EVENT_TYPE_RESOURCE_LIMIT_REACHED = 'resource_limit_reached'
 export const EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION = 'resource_negative_production'
 export const EVENT_TYPE_BUILDING_UPGRADE = 'building_upgrade'
 export const EVENT_TYPE_RESEARCH_COMPLETE = 'research_complete'
+export const EVENT_TYPE_IDLE_WORKERS = 'idle_workers'
 
 // Research categories
 export const RESEARCH_CATEGORY_GENERAL = 'general'
