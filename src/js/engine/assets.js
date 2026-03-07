@@ -49,12 +49,12 @@ export const IMG_UNIT_WORKER = '/img/units/worker.png'
 export const IMG_ICO_FAVICON = '/img/ico/favicon.ico'
 
 // Other
-export const IMG_OTHER_ANVIL = '/img/other/anvil.png'
 export const IMG_OTHER_BALANCE = '/img/other/balance.png'
 export const IMG_OTHER_BUILD = '/img/other/build.png'
 export const IMG_OTHER_COMPLETED = '/img/other/completed.png'
 export const IMG_OTHER_IDLE = '/img/other/idle.png'
 export const IMG_OTHER_LOCK = '/img/other/lock.png'
+export const IMG_OTHER_PRODUCTIVITY = '/img/other/productivity.png'
 export const IMG_OTHER_TERRITORY = '/img/other/territory.png'
 export const IMG_OTHER_UPGRADE = '/img/other/upgrade.png'
 
