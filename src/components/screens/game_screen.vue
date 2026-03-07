@@ -219,6 +219,8 @@ const showClearConfirm = ref(false)
 const showConfirmQuit = ref(false)
 const showResearchModal = ref(false)
 const showMarketModal = ref(false)
+const showSaveIndicator = ref(false)
+let saveIndicatorTimer = null
 
 const ui = shallowReactive({
   season: {
@@ -883,6 +885,15 @@ function handleKeydown(event) {
       showModal.value = !showModal.value
     }
   }
+  if (event.key === 'F9') {
+    event.preventDefault()
+    storage.savedGame = state.toJSON()
+    showSaveIndicator.value = true
+    clearTimeout(saveIndicatorTimer)
+    saveIndicatorTimer = setTimeout(() => {
+      showSaveIndicator.value = false
+    }, 1500)
+  }
   if (event.key === 'F3') {
     event.preventDefault()
     perfVisible = !perfVisible
@@ -938,6 +949,7 @@ onUnmounted(() => {
   window.removeEventListener('keydown', handleKeydown)
   clearInterval(tickTimer)
   cancelAnimationFrame(progressAnimFrame)
+  clearTimeout(saveIndicatorTimer)
 })
 </script>
 
@@ -1161,6 +1173,10 @@ onUnmounted(() => {
       :body-key="ui.tutorial.activeModalBody"
       @close="dismissTutorialModal"
     />
+
+    <Transition name="save-indicator">
+      <div v-if="showSaveIndicator" class="save-indicator">{{ t('game.saved') }}</div>
+    </Transition>
   </div>
 </template>
 
@@ -1555,6 +1571,38 @@ onUnmounted(() => {
   text-align: center;
   padding: 2rem 0;
   letter-spacing: 0.02em;
+}
+
+/* ---- Save indicator ---- */
+
+.save-indicator {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(var(--color-accent-rgb), 0.9);
+  background: rgba(var(--color-accent-rgb), 0.08);
+  border: 1px solid rgba(var(--color-accent-rgb), 0.2);
+  padding: 0.35rem 0.9rem;
+  border-radius: 0.25rem;
+  pointer-events: none;
+  z-index: 9000;
+}
+
+.save-indicator-enter-active {
+  transition: opacity 0.15s ease-out;
+}
+
+.save-indicator-leave-active {
+  transition: opacity 0.6s ease-in;
+}
+
+.save-indicator-enter-from,
+.save-indicator-leave-to {
+  opacity: 0;
 }
 
 </style>

@@ -17,6 +17,7 @@ export const LOCALIZED_CA = {
   'modal.pause.music': 'Música',
   'modal.pause.sound': 'So',
   'modal.pause.save': 'Desar',
+  'game.saved': 'Partida desada',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Sortir del joc',
