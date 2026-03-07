@@ -1196,7 +1196,7 @@ onUnmounted(() => {
   flex: 1;
   display: flex;
   align-items: stretch;
-  padding: 1rem 1.5rem 1.5rem;
+  padding: 1rem 1.5rem 0.75rem;
   gap: 1.5rem;
   overflow: hidden;
 }
