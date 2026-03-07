@@ -1,12 +1,13 @@
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
+import {EMIT_CANCEL, EMIT_SAVE_AND_QUIT, EMIT_QUIT} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits([
-  'cancel',
-  'saveAndQuit',
-  'quit',
+  EMIT_CANCEL,
+  EMIT_SAVE_AND_QUIT,
+  EMIT_QUIT,
 ])
 const visible = ref(false)
 let rafId = null
@@ -26,7 +27,7 @@ onUnmounted(() => {
   <div
     class="modal-overlay"
     :class="{ visible }"
-    @click.self="emit('cancel')"
+    @click.self="emit(EMIT_CANCEL)"
   >
     <div class="modal-content confirm-quit-content">
       <h2 class="modal-title">{{ t('modal.confirmQuit.title') }}</h2>
@@ -39,13 +40,13 @@ onUnmounted(() => {
       </p>
 
       <div class="modal-actions">
-        <button class="btn-gold modal-btn" @click="playTap(); emit('cancel')">
+        <button class="btn-gold modal-btn" @click="playTap(); emit(EMIT_CANCEL)">
           {{ t('modal.confirmQuit.cancel') }}
         </button>
-        <button class="btn-gold modal-btn" @click="playTap(); emit('saveAndQuit')">
+        <button class="btn-gold modal-btn" @click="playTap(); emit(EMIT_SAVE_AND_QUIT)">
           {{ t('modal.confirmQuit.saveAndQuit') }}
         </button>
-        <button class="btn-gold modal-btn modal-btn--danger" @click="playTap(); emit('quit')">
+        <button class="btn-gold modal-btn modal-btn--danger" @click="playTap(); emit(EMIT_QUIT)">
           {{ t('modal.confirmQuit.quit') }}
         </button>
       </div>

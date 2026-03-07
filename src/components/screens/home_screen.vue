@@ -1,10 +1,11 @@
 <script setup>
 import {computed, ref} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
+import {EMIT_START} from '@/js/engine/enums.js'
 import storage from '@/js/engine/storage.js'
 import {t} from '@/js/i18n/localized.js'
 
-const emit = defineEmits(['start'])
+const emit = defineEmits([EMIT_START])
 
 const isMobile = ref(window.matchMedia('(pointer: coarse)').matches)
 const savedData = ref(storage.savedGame)
@@ -21,10 +22,10 @@ const hasSavedGame = computed(() => savedData.value !== null)
         <span class="title-line">{{ t('screen.home.title.line2').toUpperCase() }}</span>
       </h1>
 
-      <button v-if="!isMobile && hasSavedGame" class="btn-gold start-button" @click="playTap(); emit('start', savedData)">
+      <button v-if="!isMobile && hasSavedGame" class="btn-gold start-button" @click="playTap(); emit(EMIT_START, savedData)">
         {{ t('screen.home.continue') }}
       </button>
-      <button v-else-if="!isMobile" class="btn-gold start-button" @click="playTap(); emit('start', null)">
+      <button v-else-if="!isMobile" class="btn-gold start-button" @click="playTap(); emit(EMIT_START, null)">
         {{ t('screen.home.newGame') }}
       </button>
       <p v-else class="mobile-notice">

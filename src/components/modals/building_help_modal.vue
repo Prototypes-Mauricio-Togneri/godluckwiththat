@@ -1,6 +1,7 @@
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
+import {EMIT_CLOSE} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 defineProps({
@@ -18,7 +19,7 @@ defineProps({
   },
 })
 
-const emit = defineEmits(['close'])
+const emit = defineEmits([EMIT_CLOSE])
 const visible = ref(false)
 let rafId = null
 
@@ -26,7 +27,7 @@ let rafId = null
 function handleKeydown(event) {
   if (event.key === 'Escape') {
     event.stopImmediatePropagation()
-    emit('close')
+    emit(EMIT_CLOSE)
   }
 }
 
@@ -47,7 +48,7 @@ onUnmounted(() => {
   <div
     class="modal-overlay"
     :class="{ visible }"
-    @click.self="emit('close')"
+    @click.self="emit(EMIT_CLOSE)"
   >
     <div class="modal-content">
       <h2 class="modal-title">{{ t(nameKey) }}</h2>
@@ -57,7 +58,7 @@ onUnmounted(() => {
         <p class="modal-description">{{ t('buildingHelp.' + buildingKey) }}</p>
       </div>
 
-      <button class="btn-gold modal-btn" @click="playTap(); emit('close')">
+      <button class="btn-gold modal-btn" @click="playTap(); emit(EMIT_CLOSE)">
         {{ t('modal.buildingHelp.close') }}
       </button>
     </div>

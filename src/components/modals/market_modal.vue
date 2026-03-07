@@ -5,11 +5,11 @@ import {formatNumber} from '@/js/engine/format.js'
 import {TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
 import {MARKET_TRADE_AMOUNT, MARKET_PRICE_SHIFT, MARKET_BASE_FEE, MARKET_MIN_FEE, MARKET_FEE_REDUCTION_PER_LEVEL} from '@/js/engine/balancing.js'
 import {IMG_RESOURCE_MAP, SND_MARKET_EXCHANGE} from '@/js/engine/assets.js'
-import {RESOURCE_GOLD, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
+import {EMIT_CLOSE, RESOURCE_GOLD, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
 
-const emit = defineEmits(['close'])
+const emit = defineEmits([EMIT_CLOSE])
 const ui = inject('ui')
 const actions = inject('actions')
 const visible = ref(false)
@@ -95,7 +95,7 @@ function handleKeydown(event) {
     if (showHelp.value) {
       showHelp.value = false
     } else {
-      emit('close')
+      emit(EMIT_CLOSE)
     }
   }
 }
@@ -117,11 +117,11 @@ onUnmounted(() => {
   <div
     class="modal-overlay"
     :class="{ visible }"
-    @click.self="emit('close')"
+    @click.self="emit(EMIT_CLOSE)"
   >
     <div class="market-modal">
       <button class="modal-help-btn" @click="playTap(); showHelp = true">?</button>
-      <button class="modal-close-x" @click="playTap(); emit('close')">&#10005;</button>
+      <button class="modal-close-x" @click="playTap(); emit(EMIT_CLOSE)">&#10005;</button>
       <h2 class="modal-title">{{ t('market.title') }}</h2>
 
       <!-- Resource summary -->

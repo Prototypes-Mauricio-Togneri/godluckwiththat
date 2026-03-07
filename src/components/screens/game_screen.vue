@@ -33,7 +33,7 @@ import TutorialModal from '@/components/tutorial/tutorial_modal.vue'
 import ConfirmQuitModal from '@/components/modals/confirm_quit_modal.vue'
 import {BUILDING_IMAGE_MAP, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, TUTORIAL_MODALS, TUTORIAL_STEPS, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION} from '@/js/engine/balancing.js'
-import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
+import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, EMIT_QUIT} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
@@ -212,7 +212,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['quit'])
+const emit = defineEmits([EMIT_QUIT])
 const showModal = ref(false)
 const state = props.initialState
 const showClearConfirm = ref(false)
@@ -712,12 +712,12 @@ function cancelQuit() {
 /** Saves the game and quits to the home screen. */
 function saveAndQuit() {
   storage.savedGame = state.toJSON()
-  emit('quit')
+  emit(EMIT_QUIT)
 }
 
 /** Quits to the home screen without saving. */
 function quitWithoutSaving() {
-  emit('quit')
+  emit(EMIT_QUIT)
 }
 
 /** Clears all past events and closes the confirmation modal. */

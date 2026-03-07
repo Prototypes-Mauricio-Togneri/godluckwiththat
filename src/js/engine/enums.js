@@ -220,6 +220,15 @@ export const TUTORIAL_MODAL_SEASON_CHANGED = 'seasonChanged'
 export const TUTORIAL_MODAL_NEGATIVE_PRODUCTION = 'negativeProduction'
 export const TUTORIAL_MODAL_HQ_UPGRADE = 'hqUpgrade'
 
+// Emit events
+export const EMIT_CLOSE = 'close'
+export const EMIT_START = 'start'
+export const EMIT_QUIT = 'quit'
+export const EMIT_SAVE = 'save'
+export const EMIT_CONFIRM = 'confirm'
+export const EMIT_CANCEL = 'cancel'
+export const EMIT_SAVE_AND_QUIT = 'saveAndQuit'
+
 // Storage keys (localStorage)
 export const STORAGE_MUSIC_ENABLED = 'musicEnabled'
 export const STORAGE_SOUND_ENABLED = 'soundEnabled'

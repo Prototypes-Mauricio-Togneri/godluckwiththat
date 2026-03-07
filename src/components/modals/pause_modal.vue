@@ -1,12 +1,13 @@
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
+import {EMIT_CLOSE, EMIT_SAVE, EMIT_QUIT} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits([
-  'close',
-  'save',
-  'quit',
+  EMIT_CLOSE,
+  EMIT_SAVE,
+  EMIT_QUIT,
 ])
 const visible = ref(false)
 const musicEnabled = ref(audio.musicEnabled)
@@ -42,7 +43,7 @@ onUnmounted(() => {
   <div
     class="modal-overlay"
     :class="{ visible }"
-    @click.self="emit('close')"
+    @click.self="emit(EMIT_CLOSE)"
   >
     <div class="modal-content">
       <h2 class="modal-title">{{ t('modal.pause.title') }}</h2>
@@ -74,13 +75,13 @@ onUnmounted(() => {
       </div>
 
       <div class="modal-actions">
-        <button class="btn-gold modal-btn" @click="playTap(); emit('close')">
+        <button class="btn-gold modal-btn" @click="playTap(); emit(EMIT_CLOSE)">
           {{ t('modal.pause.continue') }}
         </button>
-        <button class="btn-gold modal-btn" @click="playTap(); emit('save')">
+        <button class="btn-gold modal-btn" @click="playTap(); emit(EMIT_SAVE)">
           {{ t('modal.pause.save') }}
         </button>
-        <button class="btn-gold modal-btn modal-btn--danger" @click="playTap(); emit('quit')">
+        <button class="btn-gold modal-btn modal-btn--danger" @click="playTap(); emit(EMIT_QUIT)">
           {{ t('modal.pause.quit') }}
         </button>
       </div>
