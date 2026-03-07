@@ -251,7 +251,7 @@ function act() {
 /* Building display name */
 .building-name {
   font-family: var(--font-body);
-  font-size: 13cqh;
+  font-size: 14cqh;
   font-weight: 400;
   color: var(--color-text);
   white-space: nowrap;
