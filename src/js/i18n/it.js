@@ -326,7 +326,7 @@ export const LOCALIZED_IT = {
   'tutorial.step.buildWoodcutter': 'Costruisci un taglialegna',
   'tutorial.step.assignFarmWorkers': 'Assegna 3 lavoratori alla fattoria',
   'tutorial.step.assignWoodcutterWorker': 'Assegna 1 lavoratore al taglialegna',
-  'tutorial.step.fillUpFarmAndWoodcutter': 'Riempi tutti i posti lavoratore nella fattoria e nel boscaiolo',
+  'tutorial.step.fillUpFarmAndWoodcutter': 'Assegna 5 lavoratori alla fattoria e al boscaiolo',
   'tutorial.step.upgradeHouse2': 'Migliora la casa al livello 2',
   'tutorial.step.buildAltar': 'Costruisci un altare',
   'tutorial.step.upgradeFarm2': 'Migliora la fattoria al livello 2',

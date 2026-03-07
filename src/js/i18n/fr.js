@@ -326,7 +326,7 @@ export const LOCALIZED_FR = {
   'tutorial.step.buildWoodcutter': 'Construisez un camp de bûcherons',
   'tutorial.step.assignFarmWorkers': 'Assignez 3 ouvriers à la ferme',
   'tutorial.step.assignWoodcutterWorker': 'Assignez 1 ouvrier au camp de bûcherons',
-  'tutorial.step.fillUpFarmAndWoodcutter': 'Remplissez tous les postes d\'ouvriers dans la ferme et le bûcheron',
+  'tutorial.step.fillUpFarmAndWoodcutter': 'Assignez 5 ouvriers à la ferme et au bûcheron',
   'tutorial.step.upgradeHouse2': 'Améliorez la maison au niveau 2',
   'tutorial.step.buildAltar': 'Construisez un autel',
   'tutorial.step.upgradeFarm2': 'Améliorez la ferme au niveau 2',

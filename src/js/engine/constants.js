@@ -748,7 +748,7 @@ export function createInitialMeta() {
  * @returns {Colony} Fully initialized colony
  */
 export function createInitialColony() {
-  return !IS_DEV ? createInitialColonyAdvanced() : createInitialColonyBasic()
+  return IS_DEV ? createInitialColonyAdvanced() : createInitialColonyBasic()
 }
 
 /**
@@ -915,7 +915,7 @@ export function createInitialColonyAdvanced() {
         level: 1,
       }),
       [BUILDING_ALTAR]: new Altar({
-        level: 0,
+        level: 1,
       }),
       [BUILDING_TEMPLE]: new Temple({
         level: 0,
@@ -924,11 +924,11 @@ export function createInitialColonyAdvanced() {
         level: 0,
       }),
       [BUILDING_FARM]: new Farm({
-        level: 2,
+        level: 3,
         workers: 10,
       }),
       [BUILDING_WOODCUTTER]: new Woodcutter({
-        level: 2,
+        level: 3,
         workers: 10,
       }),
       [BUILDING_QUARRY]: new Quarry({

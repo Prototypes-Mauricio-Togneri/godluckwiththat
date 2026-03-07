@@ -326,7 +326,7 @@ export const LOCALIZED_CA = {
   'tutorial.step.buildWoodcutter': 'Construeix un llenyataire',
   'tutorial.step.assignFarmWorkers': 'Assigna 3 treballadors a la granja',
   'tutorial.step.assignWoodcutterWorker': 'Assigna 1 treballador al llenyataire',
-  'tutorial.step.fillUpFarmAndWoodcutter': 'Omple totes les places de treballadors a la granja i el llenyataire',
+  'tutorial.step.fillUpFarmAndWoodcutter': 'Assigna 5 treballadors a la granja i al llenyataire',
   'tutorial.step.upgradeHouse2': 'Millora la casa al nivell 2',
   'tutorial.step.buildAltar': 'Construeix un altar',
   'tutorial.step.upgradeFarm2': 'Millora la granja al nivell 2',
