@@ -651,7 +651,7 @@ export function createInitialMeta() {
  * @returns {Colony} Fully initialized colony
  */
 export function createInitialColony() {
-  return IS_DEV ? createInitialColonyAdvanced() : createInitialColonyBasic()
+  return !IS_DEV ? createInitialColonyAdvanced() : createInitialColonyBasic()
 }
 
 /**
@@ -669,8 +669,8 @@ export function createInitialColonyBasic() {
     resources: new Resources({
       territory: 0,
       workers: 0,
-      food: 200,
-      wood: 200,
+      food: 250,
+      wood: 100,
       stone: 0,
       copper: 0,
       iron: 0,

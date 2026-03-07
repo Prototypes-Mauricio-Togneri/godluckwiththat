@@ -123,6 +123,9 @@ class State {
     // largest deficit applies. Uses previous tick's consumption (still on
     // colony.consumption) and current gross production
     let productivity = 1
+    if (resources.workers === 0) {
+      productivity = 0
+    }
     const prevConsumption = this.colony.consumption
     if (this._resourcesNegativeProduction.has('food') && prevConsumption.food > 0) {
       const deficit = Math.max(0, prevConsumption.food - production.food)

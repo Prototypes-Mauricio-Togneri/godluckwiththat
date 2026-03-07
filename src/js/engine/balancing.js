@@ -26,7 +26,7 @@ export const RESOURCE_TIME_WEIGHTS = {
 export const BUILDING_UPGRADES = {
   [BUILDING_HEADQUARTERS]: {
     cost: new Cost({
-      food: 20,
+      food: 50,
       wood: 50,
     }),
     multiplier: 1.5,

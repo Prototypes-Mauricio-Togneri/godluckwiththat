@@ -7,9 +7,18 @@
     - Build a house
     - Build a farm
     - Build a woodcutter
-    - Create a worker
-    - Assign workers
+    - Asign 3 workers to the farm
+    - Asign 1 worker to the woodcutter
+    - Asign more workers to the farm and woodcutter
+    - Upgrade the house to level 2
     - Build an altar
+    - Upgrade the farm to level 2
+    - Upgrade the woodcutter to level 2
+    - Upgrade the house to level 3
+    - Upgrade the farm to level 3
+    - Upgrade the woodcutter to level 3
+    - Expand the territory
+    - Upgrade the camp to the next level
     - Show what buildings are unlocked when upgrading HQ
   - Dialogs
     - Season has changed -> Explain their effects on production and upkeep
