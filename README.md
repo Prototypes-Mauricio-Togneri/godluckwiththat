@@ -2,6 +2,11 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Double after loading
+  - export const EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION = 'resource_negative_production'
+  - export const EVENT_TYPE_RESOURCE_LIMIT_REACHED = 'resource_limit_reached'
+  - export const EVENT_TYPE_IDLE_WORKERS = 'idle_workers'
+
 - Implement save and load
   - Have many save slots
   - Cloud saves
