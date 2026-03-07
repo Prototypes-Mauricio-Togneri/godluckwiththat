@@ -180,7 +180,7 @@ Dismiss handler calls `state.meta.tutorial.dismissedModals.add(key)`, sets `acti
 1. Add `TUTORIAL_MODAL_*` enums to `enums.js`
 2. Create `Tutorial` model class in `src/js/models/tutorial.js`
 3. Add `tutorial` field to `Meta` constructor
-4. Add `TUTORIAL_STEPS` and `TUTORIAL_MODALS` to `constants.js`, wire into `createInitialColony*`
+4. Add `TUTORIAL_STEPS` and `TUTORIAL_MODALS` to `constants.js`, wire into `createInitialMeta`
 5. Add `checkTutorial()` and reactive modal triggers to `state.js`
 6. Add `ui.tutorial`, `syncTutorial()`, dismiss handler to `game_screen.vue`
 7. Create `tutorial_banner.vue` (use `frontend-design` skill)
