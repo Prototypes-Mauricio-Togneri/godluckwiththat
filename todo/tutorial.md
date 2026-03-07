@@ -42,25 +42,25 @@ The game needs a tutorial system to guide new players through early-game mechani
 
 ## Step Definitions
 
-Defined as `TUTORIAL_STEPS` in `constants.js`. Each step has a `textKey` (i18n) and a `check(buildings)` function:
+Defined as `TUTORIAL_STEPS` in `constants.js`. Each step has a `textKey` (i18n), a `building` key (used to display the building's icon in the banner), and a `check(buildings)` function:
 
-| # | Text Key | Completion Check |
-|---|----------|-----------------|
-| 1 | `tutorial.step.buildHouse` | `house.level >= 1` |
-| 2 | `tutorial.step.buildFarm` | `farm.level >= 1` |
-| 3 | `tutorial.step.buildWoodcutter` | `woodcutter.level >= 1` |
-| 4 | `tutorial.step.assignFarmWorkers` | `farm.workers >= 3` |
-| 5 | `tutorial.step.assignWoodcutterWorker` | `woodcutter.workers >= 1` |
-| 6 | `tutorial.step.assignMoreWorkers` | `farm.workers > 3 \|\| woodcutter.workers > 1` |
-| 7 | `tutorial.step.upgradeHouse2` | `house.level >= 2` |
-| 8 | `tutorial.step.buildAltar` | `altar.level >= 1` |
-| 9 | `tutorial.step.upgradeFarm2` | `farm.level >= 2` |
-| 10 | `tutorial.step.upgradeWoodcutter2` | `woodcutter.level >= 2` |
-| 11 | `tutorial.step.upgradeHouse3` | `house.level >= 3` |
-| 12 | `tutorial.step.upgradeFarm3` | `farm.level >= 3` |
-| 13 | `tutorial.step.upgradeWoodcutter3` | `woodcutter.level >= 3` |
-| 14 | `tutorial.step.expandTerritory` | `headquarters.level >= 2` |
-| 15 | `tutorial.step.upgradeHQ` | `headquarters.type !== HQ_TYPE_CAMP` |
+| # | Text Key | Building | Completion Check |
+|---|----------|----------|-----------------|
+| 1 | `tutorial.step.buildHouse` | `house` | `house.level >= 1` |
+| 2 | `tutorial.step.buildFarm` | `farm` | `farm.level >= 1` |
+| 3 | `tutorial.step.buildWoodcutter` | `woodcutter` | `woodcutter.level >= 1` |
+| 4 | `tutorial.step.assignFarmWorkers` | `farm` | `farm.workers >= 3` |
+| 5 | `tutorial.step.assignWoodcutterWorker` | `woodcutter` | `woodcutter.workers >= 1` |
+| 6 | `tutorial.step.assignMoreWorkers` | `farm` | `farm.workers > 3 \|\| woodcutter.workers > 1` |
+| 7 | `tutorial.step.upgradeHouse2` | `house` | `house.level >= 2` |
+| 8 | `tutorial.step.buildAltar` | `altar` | `altar.level >= 1` |
+| 9 | `tutorial.step.upgradeFarm2` | `farm` | `farm.level >= 2` |
+| 10 | `tutorial.step.upgradeWoodcutter2` | `woodcutter` | `woodcutter.level >= 2` |
+| 11 | `tutorial.step.upgradeHouse3` | `house` | `house.level >= 3` |
+| 12 | `tutorial.step.upgradeFarm3` | `farm` | `farm.level >= 3` |
+| 13 | `tutorial.step.upgradeWoodcutter3` | `woodcutter` | `woodcutter.level >= 3` |
+| 14 | `tutorial.step.expandTerritory` | `headquarters` | `headquarters.level >= 2` |
+| 15 | `tutorial.step.upgradeHQ` | `headquarters` | `headquarters.type !== HQ_TYPE_CAMP` |
 
 Only `currentStep` (integer index) is persisted. Check functions live in the constant array and are re-evaluated against live state.
 
@@ -145,6 +145,7 @@ function syncTutorial() {
   const step = TUTORIAL_STEPS[tutorial.currentStep]
   ui.tutorial = {
     stepTextKey: step?.textKey ?? null,
+    stepBuilding: step?.building ?? null,
     stepNumber: tutorial.currentStep + 1,
     totalSteps: TUTORIAL_STEPS.length,
     isActive: tutorial.isActive,
@@ -164,7 +165,7 @@ Dismiss handler calls `state.meta.tutorial.dismissedModals.add(key)`, sets `acti
 ## Banner Design (bottom fixed bar)
 
 - `position: fixed; bottom: 0; left: 0; right: 0; z-index: 50`
-- Shows step indicator (e.g., "3/15") and instruction text
+- Shows the building icon (from `stepBuilding`), step indicator (e.g., "3/15"), and instruction text
 - Non-blocking -- player can interact with the game freely
 - Earthy theme matching the game's parchment aesthetic (use `frontend-design` skill)
 
