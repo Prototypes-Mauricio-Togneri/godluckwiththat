@@ -23,6 +23,7 @@ class Colony {
     this.buildings = data.buildings // All building instances
     this.events = data.events // Game event log (future countdowns + past notifications)
     this.consumption = data.consumption // Per-second worker upkeep (ephemeral, recalculated each tick)
+    this.productivity = data.productivity ?? 1 // Productivity ratio 0–1 (ephemeral, recalculated each tick; reduced by food/wood shortage)
   }
 
   /** @returns {number} Workers not assigned to any building (derived from total - assigned) */

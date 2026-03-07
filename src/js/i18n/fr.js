@@ -35,6 +35,7 @@ export const LOCALIZED_FR = {
   'resource.maxCapacity': 'Capacité',
   'resource.producing': 'Production',
   'resource.consuming': 'Consommation',
+  'resource.productivity': 'Productivité',
 
   // Year
   'year.label': 'Année',

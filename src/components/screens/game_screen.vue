@@ -27,7 +27,7 @@ import TowerCard from '@/components/buildings/tower_card.vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatRate, formatTime} from '@/js/engine/format.js'
 import State from '@/js/engine/state.js'
-import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
+import {IMG_OTHER_BALANCE, IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
 import {createInitialColony, createInitialMeta, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {SEASON_DURATION} from '@/js/engine/balancing.js'
 import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
@@ -249,6 +249,7 @@ const ui = shallowReactive({
     faith: 0,
     knowledge: 0,
   },
+  productivity: 1,
   buildings: {},
   hq: {},
   expansionCost: null,
@@ -427,6 +428,7 @@ function syncProduction() {
     faith: colony.netProduction('faith'),
     knowledge: colony.netProduction('knowledge'),
   }
+  ui.productivity = colony.productivity
 }
 
 /** Syncs all building snapshots. */
@@ -853,6 +855,27 @@ onUnmounted(() => {
 
       <!-- Resources -->
       <div class="header-section header-resources">
+        <!-- Productivity indicator -->
+        <div class="resource-box productivity-box" :class="{ 'productivity-box--penalized': ui.productivity < 1 }">
+          <div class="resource-row-top">
+            <img class="resource-icon" :src="IMG_OTHER_BALANCE" :alt="t('resource.productivity')">
+            <span class="resource-value" :class="{ 'resource-value--zero': ui.productivity < 1 }">{{ Math.round(ui.productivity * 100) }}%</span>
+          </div>
+          <div class="resource-row-bottom">
+            <div class="resource-bar">
+              <div
+                class="resource-bar-fill"
+                :class="ui.productivity < 1 ? 'resource-bar-fill--negative' : 'resource-bar-fill--positive'"
+                :style="{ width: (ui.productivity * 100) + '%' }"
+              />
+            </div>
+          </div>
+          <div class="resource-tooltip">
+            <span>{{ t('resource.productivity') }}</span>
+            <span class="resource-tooltip-time">{{ Math.round(ui.productivity * 100) }}%</span>
+          </div>
+        </div>
+
         <template v-for="resource in HEADER_RESOURCES" :key="resource">
           <div v-if="visibleResources.has(resource)" class="resource-box">
             <!-- Row 1: icon + current amount -->

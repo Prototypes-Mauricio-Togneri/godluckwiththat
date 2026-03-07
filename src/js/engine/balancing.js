@@ -281,6 +281,11 @@ export const SEASON_DURATION = 300 // 5 minutes
 export const SEASON_WARM_FOOD_MODIFIER = 0.2
 export const SEASON_COLD_FOOD_MODIFIER = -0.2
 
+// Maximum fractional penalty applied to ALL production when food or wood has
+// negative net production. Scales with deficit ratio (uncovered / total consumption).
+// Worst-of: only the largest penalty applies when both are negative
+export const SHORTAGE_MAX_PENALTY = 1
+
 // Fractional modifier applied to wood consumption per season
 export const SEASON_WARM_WOOD_MODIFIER = -0.2
 export const SEASON_COLD_WOOD_MODIFIER = 0.2

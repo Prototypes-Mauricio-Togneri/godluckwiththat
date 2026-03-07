@@ -690,3 +690,24 @@
     letter-spacing: 0.02em;
     color: rgba(var(--color-text-rgb), 0.55);
 }
+
+/* ── .productivity-box ───────────────────────────────────────────── */
+
+/* Penalized state — subtle red tint on border and background */
+.productivity-box--penalized {
+    border-color: rgba(196, 80, 80, 0.3);
+    background: linear-gradient(
+        180deg,
+        rgba(196, 80, 80, 0.08),
+        rgba(var(--color-shadow-rgb), 0.12)
+    );
+}
+
+.productivity-box--penalized:hover {
+    border-color: rgba(196, 80, 80, 0.45);
+    background: linear-gradient(
+        180deg,
+        rgba(196, 80, 80, 0.1),
+        rgba(var(--color-shadow-rgb), 0.1)
+    );
+}

@@ -1,6 +1,6 @@
 // Central game state container — mutation handler, game loop, and player actions.
 
-import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_BONUS_MAP, PRODUCTION_RATES, RESEARCH_COSTS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_BONUS_MAP, PRODUCTION_RATES, RESEARCH_COSTS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, IMG_RESOURCE_KNOWLEDGE, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_CREATED, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
 import {BOUNDED_RESOURCES, BUILDING_IMAGE_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
@@ -115,6 +115,34 @@ class State {
     // Wood seasonal modifier — applied to wood *consumption* below, not production.
     // Warm −20% (less heating needed), cold +20% (more heating needed)
     const woodSeasonMod = this.colony.season.isWarm ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
+
+    // Productivity ratio: starts at 1 (100%) and is reduced when food or wood
+    // has negative net production (from previous tick). The reduction is
+    // proportional to the deficit ratio (uncovered consumption / total
+    // consumption), scaled by SHORTAGE_MAX_PENALTY. Worst-of: only the
+    // largest deficit applies. Uses previous tick's consumption (still on
+    // colony.consumption) and current gross production
+    let productivity = 1
+    const prevConsumption = this.colony.consumption
+    if (this._resourcesNegativeProduction.has('food') && prevConsumption.food > 0) {
+      const deficit = Math.max(0, prevConsumption.food - production.food)
+      productivity = Math.min(productivity, 1 - (deficit / prevConsumption.food) * SHORTAGE_MAX_PENALTY)
+    }
+    if (this._resourcesNegativeProduction.has('wood') && prevConsumption.wood > 0) {
+      const deficit = Math.max(0, prevConsumption.wood - production.wood)
+      productivity = Math.min(productivity, 1 - (deficit / prevConsumption.wood) * SHORTAGE_MAX_PENALTY)
+    }
+    this.colony.productivity = productivity
+    if (productivity < 1) {
+      production.food *= productivity
+      production.wood *= productivity
+      production.stone *= productivity
+      production.copper *= productivity
+      production.iron *= productivity
+      production.gold *= productivity
+      production.faith *= productivity
+      production.knowledge *= productivity
+    }
 
     // Apply production gains to resources. Rates are per-second, so
     // multiplying by delta converts to the actual elapsed interval
