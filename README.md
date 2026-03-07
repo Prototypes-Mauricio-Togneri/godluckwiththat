@@ -4,6 +4,8 @@
 
 - Show prices abbreviated like in the resource header
 
+- Not storing the event to upgrade the HQ type?
+
 - Double after loading
   - export const EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION = 'resource_negative_production'
   - export const EVENT_TYPE_RESOURCE_LIMIT_REACHED = 'resource_limit_reached'
