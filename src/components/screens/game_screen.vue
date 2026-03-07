@@ -1233,6 +1233,7 @@ onUnmounted(() => {
 
 /* Locked building placeholder — mirrors .building-card shell */
 .building-card-locked {
+  container-type: size;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1246,8 +1247,8 @@ onUnmounted(() => {
 }
 
 .locked-icon {
-  width: 3rem;
-  height: 3rem;
+  width: 40cqh;
+  height: 40cqh;
   object-fit: contain;
   filter: grayscale(1);
   opacity: 0.35;
