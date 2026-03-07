@@ -208,8 +208,8 @@ function act() {
 /* Building thumbnail image */
 .building-thumb {
   display: block;
-  width: var(--thumb-h);
-  height: var(--thumb-h);
+  width: 100cqh;
+  height: 100cqh;
   object-fit: contain;
 }
 

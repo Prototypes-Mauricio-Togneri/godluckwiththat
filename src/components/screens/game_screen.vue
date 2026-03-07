@@ -1031,8 +1031,6 @@ onUnmounted(() => {
 
 /* Root layout container; fills viewport and stacks header + content vertically */
 .game-screen {
-  --thumb-h: calc((100vh - 20rem) / 6);
-  --thumb-h: calc((100dvh - 20rem) / 6);
   height: 100vh;
   height: 100dvh;
   display: flex;
