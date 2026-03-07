@@ -22,7 +22,7 @@
     - Upgrade the woodcutter to level 3
     - Expand the territory
     - Upgrade the camp to the next level
-  - Dialogs
+  - Modals
     - Season has changed -> Explain their effects on production and upkeep
     - Productivity falls bellow 100% -> Explain why and how to recover
     - Show what buildings are unlocked when upgrading HQ

@@ -5,13 +5,13 @@
 The game needs a tutorial system to guide new players through early-game mechanics. It consists of two subsystems:
 
 1. **Sequential tutorial** -- 15 ordered steps shown as a fixed banner at the bottom of the screen. Auto-advances when the player completes each step. No skip option.
-2. **Reactive dialogs** -- Modal popups triggered by game state transitions (season change, productivity drop, HQ upgrade). Each fires only once ever (persisted in save data).
+2. **Reactive modals** -- Modals triggered by game state transitions (season change, productivity drop, HQ upgrade). Each fires only once ever (persisted in save data).
 
 ## Rules
 
 1. **One step at a time**: Only one sequential step is visible at any moment (the bottom banner shows only the current step).
 2. **Skip fulfilled steps**: When the tutorial advances, if the next step's `check()` is already satisfied by the player's current state, that step is skipped automatically. This repeats until an unsatisfied step is found or all steps are exhausted.
-3. **Reactive dialogs pause the game**: Opening a reactive dialog sets `state.paused = true`. Dismissing it sets `state.paused = false`. The game tick does not run while a dialog is open.
+3. **Reactive modals pause the game**: Opening a reactive modal sets `state.paused = true`. Dismissing it sets `state.paused = false`. The game tick does not run while a modal is open.
 4. **Tutorial lives in `meta`**: The `Tutorial` instance belongs to `meta`, not `colony`. Tutorial progress persists across colonies.
 
 ## Architecture
@@ -20,19 +20,19 @@ The game needs a tutorial system to guide new players through early-game mechani
 
 | File | Purpose |
 |------|---------|
-| `src/js/models/tutorial.js` | `Tutorial` class -- holds `currentStep`, `completed`, `dismissedDialogs` (Set), `activeDialog` (ephemeral) |
+| `src/js/models/tutorial.js` | `Tutorial` class -- holds `currentStep`, `completed`, `dismissedModals` (Set), `activeModal` (ephemeral) |
 | `src/components/tutorial/tutorial_banner.vue` | Fixed bottom banner showing current step instruction |
-| `src/components/tutorial/tutorial_dialog.vue` | Modal dialog for reactive tips (reuses existing modal pattern) |
+| `src/components/tutorial/tutorial_modal.vue` | Modal for reactive tips (reuses existing modal pattern) |
 
 ### Modified Files
 
 | File | Change |
 |------|--------|
-| `src/js/engine/enums.js` | Add `TUTORIAL_DIALOG_*` string enums |
-| `src/js/engine/constants.js` | Add `TUTORIAL_STEPS` array, `TUTORIAL_DIALOGS` map, wire `Tutorial` into `createInitialMeta` factory |
+| `src/js/engine/enums.js` | Add `TUTORIAL_MODAL_*` string enums |
+| `src/js/engine/constants.js` | Add `TUTORIAL_STEPS` array, `TUTORIAL_MODALS` map, wire `Tutorial` into `createInitialMeta` factory |
 | `src/js/models/meta.js` | Add `this.tutorial` field |
-| `src/js/engine/state.js` | Add `checkTutorial()` method (called from `gameTick`); add reactive dialog triggers in `advanceSeason()` and `update()` |
-| `src/components/screens/game_screen.vue` | Add `ui.tutorial` fields, `syncTutorial()`, render banner + dialog, `dismissTutorialDialog` action |
+| `src/js/engine/state.js` | Add `checkTutorial()` method (called from `gameTick`); add reactive modal triggers in `advanceSeason()` and `update()` |
+| `src/components/screens/game_screen.vue` | Add `ui.tutorial` fields, `syncTutorial()`, render banner + modal, `dismissTutorialModal` action |
 | `src/js/i18n/en.js` | Add ~20 tutorial i18n keys |
 | `src/js/i18n/es.js` | Add ~20 tutorial i18n keys |
 | `src/js/i18n/fr.js` | Add ~20 tutorial i18n keys |
@@ -64,9 +64,9 @@ Defined as `TUTORIAL_STEPS` in `constants.js`. Each step has a `textKey` (i18n) 
 
 Only `currentStep` (integer index) is persisted. Check functions live in the constant array and are re-evaluated against live state.
 
-## Reactive Dialogs
+## Reactive Modals
 
-Defined as `TUTORIAL_DIALOGS` in `constants.js`. Triggered by state transitions, shown as modals with a "Got it" dismiss button. Each fires once ever (key stored in `tutorial.dismissedDialogs` Set, persisted).
+Defined as `TUTORIAL_MODALS` in `constants.js`. Triggered by state transitions, shown as modals with a "Got it" dismiss button. Each fires once ever (key stored in `tutorial.dismissedModals` Set, persisted).
 
 | Key | Trigger | Content |
 |-----|---------|---------|
@@ -74,7 +74,7 @@ Defined as `TUTORIAL_DIALOGS` in `constants.js`. Triggered by state transitions,
 | `productivityDrop` | `productivity < 1` transition in `update()` | Explain why productivity drops and how to recover |
 | `hqUpgrade` | HQ type upgrade completes in `advanceConstruction()` | List newly unlocked buildings via `HQ_BUILDING_UNLOCKS[newType]` |
 
-`activeDialog` is ephemeral (not persisted). On load, it starts as `null` and only fires on the next relevant transition.
+`activeModal` is ephemeral (not persisted). On load, it starts as `null` and only fires on the next relevant transition.
 
 ## Tutorial Model (`src/js/models/tutorial.js`)
 
@@ -83,8 +83,8 @@ class Tutorial {
   constructor(data) {
     this.currentStep = data?.currentStep ?? 0
     this.completed = data?.completed ?? false
-    this.dismissedDialogs = new Set(data?.dismissedDialogs ?? [])
-    this.activeDialog = null  // ephemeral, not persisted
+    this.dismissedModals = new Set(data?.dismissedModals ?? [])
+    this.activeModal = null  // ephemeral, not persisted
   }
 
   get isActive() { return !this.completed }
@@ -93,7 +93,7 @@ class Tutorial {
     return {
       currentStep: this.currentStep,
       completed: this.completed,
-      dismissedDialogs: [...this.dismissedDialogs],
+      dismissedModals: [...this.dismissedModals],
     }
   }
 }
@@ -119,11 +119,11 @@ checkTutorial() {
 }
 ```
 
-### Reactive dialog triggers
+### Reactive modal triggers
 
-- **Season change** (`advanceSeason`): After season flip, if `'seasonChanged'` not in `dismissedDialogs`, set `tutorial.activeDialog = 'seasonChanged'` and `this.paused = true`
-- **Productivity drop** (`update`): Track `_prevProductivity`. When it transitions from `>= 1` to `< 1`, if `'productivityDrop'` not in `dismissedDialogs`, set `tutorial.activeDialog = 'productivityDrop'` and `this.paused = true`
-- **HQ upgrade** (`advanceConstruction`): When HQ type upgrade completes, if `'hqUpgrade'` not in `dismissedDialogs`, set `tutorial.activeDialog = 'hqUpgrade'` and `this.paused = true`
+- **Season change** (`advanceSeason`): After season flip, if `'seasonChanged'` not in `dismissedModals`, set `tutorial.activeModal = 'seasonChanged'` and `this.paused = true`
+- **Productivity drop** (`update`): Track `_prevProductivity`. When it transitions from `>= 1` to `< 1`, if `'productivityDrop'` not in `dismissedModals`, set `tutorial.activeModal = 'productivityDrop'` and `this.paused = true`
+- **HQ upgrade** (`advanceConstruction`): When HQ type upgrade completes, if `'hqUpgrade'` not in `dismissedModals`, set `tutorial.activeModal = 'hqUpgrade'` and `this.paused = true`
 
 ## UI Integration (`game_screen.vue`)
 
@@ -134,7 +134,7 @@ tutorial: {
   stepNumber: 0,
   totalSteps: 0,
   isActive: false,
-  activeDialog: null,
+  activeModal: null,
 }
 ```
 
@@ -148,18 +148,18 @@ function syncTutorial() {
     stepNumber: tutorial.currentStep + 1,
     totalSteps: TUTORIAL_STEPS.length,
     isActive: tutorial.isActive,
-    activeDialog: tutorial.activeDialog,
+    activeModal: tutorial.activeModal,
   }
 }
 ```
 
-Render banner and dialog:
+Render banner and modal:
 ```html
 <TutorialBanner v-if="ui.tutorial.isActive" ... />
-<TutorialDialog v-if="ui.tutorial.activeDialog" ... @close="dismissDialog" />
+<TutorialModal v-if="ui.tutorial.activeModal" ... @close="dismissModal" />
 ```
 
-Dismiss handler calls `state.meta.tutorial.dismissedDialogs.add(key)`, sets `activeDialog = null`, sets `state.paused = false`, then `syncUI()`.
+Dismiss handler calls `state.meta.tutorial.dismissedModals.add(key)`, sets `activeModal = null`, sets `state.paused = false`, then `syncUI()`.
 
 ## Banner Design (bottom fixed bar)
 
@@ -168,7 +168,7 @@ Dismiss handler calls `state.meta.tutorial.dismissedDialogs.add(key)`, sets `act
 - Non-blocking -- player can interact with the game freely
 - Earthy theme matching the game's parchment aesthetic (use `frontend-design` skill)
 
-## Dialog Design (modal overlay)
+## Modal Design (reactive modals)
 
 - Reuses existing `.modal-overlay` / `.modal-content` pattern
 - Title, description text, optional building list (for HQ upgrade), "Got it" button
@@ -176,14 +176,14 @@ Dismiss handler calls `state.meta.tutorial.dismissedDialogs.add(key)`, sets `act
 
 ## Implementation Order
 
-1. Add `TUTORIAL_DIALOG_*` enums to `enums.js`
+1. Add `TUTORIAL_MODAL_*` enums to `enums.js`
 2. Create `Tutorial` model class in `src/js/models/tutorial.js`
 3. Add `tutorial` field to `Meta` constructor
-4. Add `TUTORIAL_STEPS` and `TUTORIAL_DIALOGS` to `constants.js`, wire into `createInitialColony*`
-5. Add `checkTutorial()` and reactive dialog triggers to `state.js`
+4. Add `TUTORIAL_STEPS` and `TUTORIAL_MODALS` to `constants.js`, wire into `createInitialColony*`
+5. Add `checkTutorial()` and reactive modal triggers to `state.js`
 6. Add `ui.tutorial`, `syncTutorial()`, dismiss handler to `game_screen.vue`
 7. Create `tutorial_banner.vue` (use `frontend-design` skill)
-8. Create `tutorial_dialog.vue` (use `frontend-design` skill)
+8. Create `tutorial_modal.vue` (use `frontend-design` skill)
 9. Add i18n keys to all 5 locale files
 10. Run `npm run lint -- --fix`
 11. Run `/delta-review`
@@ -194,7 +194,7 @@ Dismiss handler calls `state.meta.tutorial.dismissedDialogs.add(key)`, sets `act
 1. Start a new game -> banner shows step 1 ("Build a house")
 2. Build a house -> banner auto-advances to step 2
 3. Progress through all 15 steps -> banner disappears after step 15
-4. Wait for season change -> dialog appears explaining season effects, dismiss it -> never appears again
-5. Let productivity drop below 100% -> dialog appears, dismiss -> never again
-6. Upgrade HQ type -> dialog appears listing newly unlocked buildings
-7. Reload page -> tutorial progress is preserved (once save/load is implemented; for now, tutorial restarts but dialogs are also reset since state is ephemeral)
+4. Wait for season change -> modal appears explaining season effects, dismiss it -> never appears again
+5. Let productivity drop below 100% -> modal appears, dismiss -> never again
+6. Upgrade HQ type -> modal appears listing newly unlocked buildings
+7. Reload page -> tutorial progress is preserved (once save/load is implemented; for now, tutorial restarts but modals are also reset since state is ephemeral)
