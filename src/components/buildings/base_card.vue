@@ -172,15 +172,15 @@ function act() {
 /* Help icon — top-right corner */
 .help-btn {
   position: absolute;
-  top: 0.6rem;
-  right: 0.6rem;
-  width: 1.25rem;
-  height: 1.25rem;
+  top: 8cqh;
+  right: 8cqh;
+  width: 18cqh;
+  height: 18cqh;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-body);
-  font-size: 0.65rem;
+  font-size: 9cqh;
   font-weight: 500;
   line-height: 1;
   color: rgba(var(--color-accent-rgb), 0.65);
@@ -224,12 +224,12 @@ function act() {
   bottom: 0;
   right: 0;
   font-family: var(--font-numeric);
-  font-size: 0.8rem;
+  font-size: 11cqh;
   font-weight: 500;
   line-height: 1;
   color: var(--color-text);
   background: rgba(var(--color-shadow-rgb), 0.6);
-  padding: 0.3rem 0.4rem;
+  padding: 4cqh 6cqh;
 }
 
 /* Info column — name, actions, worker row */
@@ -237,7 +237,7 @@ function act() {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 2cqh;
   min-width: 0;
   align-self: stretch;
 }
@@ -251,7 +251,7 @@ function act() {
 /* Building display name */
 .building-name {
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 13cqh;
   font-weight: 400;
   color: var(--color-text);
   white-space: nowrap;
