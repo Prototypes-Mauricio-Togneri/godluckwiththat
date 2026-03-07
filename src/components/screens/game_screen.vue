@@ -369,6 +369,10 @@ function syncTimers() {
       remainingSeconds: e.remainingSeconds,
     }))
   }
+
+  if (state.meta.tutorial.activeModal) {
+    syncTutorial()
+  }
 }
 
 /** Converts a Cost (or null) into a flat array of [resourceKey, amount] pairs for template iteration. */
@@ -764,8 +768,8 @@ function progressTick() {
   state.advanceConstruction(delta)
   state.advanceResearch(delta)
   state.advanceEvents(delta)
-  // Full sync when a construction, upgrade, or research just completed (always immediate)
-  const justCompleted = state._constructingKeys.size < prevConstructing || (!state._hqUpgrading && prevHqUpgrading) || state.colony.buildings.academy.active.size < prevResearchActive
+  // Full sync when a construction, upgrade, or research just completed, or a tutorial modal was triggered (always immediate)
+  const justCompleted = state._constructingKeys.size < prevConstructing || (!state._hqUpgrading && prevHqUpgrading) || state.colony.buildings.academy.active.size < prevResearchActive || state.paused
   if (justCompleted) {
     const t0 = performance.now()
     syncUI()

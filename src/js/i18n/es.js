@@ -340,7 +340,7 @@ export const LOCALIZED_ES = {
   // Tutorial modals
   'tutorial.modal.dismiss': 'Entendido',
   'tutorial.modal.seasonChanged.title': 'Estaciones',
-  'tutorial.modal.seasonChanged.body': 'Las estaciones alternan entre cálida y fría. Durante las estaciones cálidas, la producción de comida aumenta. Durante las frías, la producción de comida disminuye y el consumo de madera sube por la calefacción.',
+  'tutorial.modal.seasonChanged.body': 'Las estaciones alternan entre cálida y fría. Durante las estaciones cálidas, la producción de comida aumenta. Durante las frías, la producción de comida disminuye y el consumo de madera sube.',
   'tutorial.modal.negativeProduction.title': 'Alerta de producción',
   'tutorial.modal.negativeProduction.body': 'Tu colonia consume más de lo que produce. Asigna más trabajadores a los edificios de producción o construye nuevos para recuperarte. Si la escasez persiste, la productividad bajará.',
   'tutorial.modal.campUpgrade.title': 'Campamento mejorado',

@@ -340,7 +340,7 @@ export const LOCALIZED_CA = {
   // Tutorial modals
   'tutorial.modal.dismiss': 'Entesos',
   'tutorial.modal.seasonChanged.title': 'Estacions',
-  'tutorial.modal.seasonChanged.body': 'Les estacions alternen entre càlida i freda. Durant les estacions càlides, la producció de menjar augmenta. Durant les fredes, la producció de menjar disminueix i el consum de fusta puja per la calefacció.',
+  'tutorial.modal.seasonChanged.body': 'Les estacions alternen entre càlida i freda. Durant les estacions càlides, la producció de menjar augmenta. Durant les fredes, la producció de menjar disminueix i el consum de fusta puja.',
   'tutorial.modal.negativeProduction.title': 'Alerta de producció',
   'tutorial.modal.negativeProduction.body': 'La teva colònia consumeix més del que produeix. Assigna més treballadors als edificis de producció o construeix-ne de nous. Si l\'escassetat persisteix, la productivitat baixarà.',
   'tutorial.modal.campUpgrade.title': 'Campament millorat',

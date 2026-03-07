@@ -340,7 +340,7 @@ export const LOCALIZED_EN = {
   // Tutorial modals
   'tutorial.modal.dismiss': 'Got it',
   'tutorial.modal.seasonChanged.title': 'Seasons',
-  'tutorial.modal.seasonChanged.body': 'Seasons alternate between warm and cold. During warm seasons, food production increases. During cold seasons, food production decreases and wood consumption rises due to heating needs.',
+  'tutorial.modal.seasonChanged.body': 'Seasons alternate between warm and cold. During warm seasons, food production increases. During cold seasons, food production decreases and wood consumption rises.',
   'tutorial.modal.negativeProduction.title': 'Production alert',
   'tutorial.modal.negativeProduction.body': 'Your colony is consuming more than it produces. Assign more workers to production buildings or build new ones to recover. If shortages persist, worker productivity will drop.',
   'tutorial.modal.campUpgrade.title': 'Camp upgraded',
