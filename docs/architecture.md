@@ -8,12 +8,24 @@ Vite + Vue 3 single-page application using Composition API (`<script setup>`). N
 
 ### Pause Modal (`pause_modal.vue`)
 
-Centered overlay with "PAUSED" title, decorative rule, audio toggles, and three stacked buttons:
-- **Music toggle** — on/off switch, persisted via `storage.musicEnabled`
-- **Sound toggle** — on/off switch, persisted via `storage.soundEnabled`
-- **Continue** — emits `close`, resumes the game
+Centered overlay with "PAUSED" title, decorative rule, and six stacked buttons:
+- **Resume** — emits `close`, resumes the game
 - **Save** — emits `save`, triggers `saveGame()` in `game_screen.vue` which writes `state.toJSON()` to `storage.savedGame` and closes the modal
-- **Quit** — emits `quit`, opens a confirm modal (does not quit directly)
+- **Load** — emits `load`, loads the saved game (disabled when no saved game exists)
+- **Settings** — emits `settings`, opens `SettingsModal`
+- *(decorative rule separator)*
+- **Restart** — emits `restart`, opens a confirm modal (does not restart directly); danger-styled
+- **Quit** — emits `quit`, opens a confirm modal (does not quit directly); danger-styled
+
+### Settings Modal (`settings_modal.vue`)
+
+Centered overlay (same pattern as other modals) opened from the pause modal. Contains toggle switches and autosave configuration:
+- **Music toggle** — on/off switch, persisted via `storage.musicEnabled`
+- **Sound Effects toggle** — on/off switch, persisted via `storage.soundEnabled`
+- *(decorative rule separator)*
+- **Autosave toggle** — on/off switch, persisted via `storage.autosaveEnabled`
+- **Autosave interval** — +/− buttons to adjust interval in minutes (clamped to `AUTOSAVE_MIN_INTERVAL`–`AUTOSAVE_MAX_INTERVAL`), persisted via `storage.autosaveInterval`
+- Emits `close` on backdrop click, close button, or Escape key
 
 ### Building Help Modal (`building_help_modal.vue`)
 
@@ -25,11 +37,11 @@ Generic help modal for overlay-on-overlay display (z-index 110, above the parent
 
 ### Confirm Modal (`confirm_modal.vue`)
 
-Reusable confirmation modal (same overlay pattern). Props: `titleKey` and `descriptionKey` (i18n keys), optional `confirmKey` (i18n key for confirm button text, default `'modal.confirm'`). Layout: uppercase title, decorative rule, description paragraph, and a side-by-side button row — subdued "CANCEL" (gold) and red-styled "CONFIRM". Emits `confirm` or `close`. Used by `game_screen.vue` for the "Clear all" past events action.
+Reusable confirmation modal (same overlay pattern). Props: `titleKey` and `descriptionKey` (i18n keys), optional `confirmKey` (i18n key for confirm button text, default `'modal.confirm'`). Layout: uppercase title, decorative rule, description paragraph, and a side-by-side button row — subdued "CANCEL" (gold) and red-styled "CONFIRM". Emits `confirm` or `close`. Used by `game_screen.vue` for quit confirmation, restart confirmation, and the "Clear all" past events action.
 
 ### Market Modal (`market_modal.vue`)
 
-Centered overlay (same pattern as other modals) opened from the market building card. Injects `colony` and `state`. A "?" help button (`.modal-help-btn`) sits left of the close button and opens `ModalHelpModal` with market help text. Displays a "Market" title, a resource summary bar showing current amounts for all tradeable resources and gold (gold separated by a subtle left border), current trade fee percentage, and a scrollable list of trade rows (one per tradeable resource: Food, Wood, Stone, Copper, Iron). Each row shows the resource icon and name, current gold price per 100 units, a sell button (+gold gain in green), and a buy button (-gold cost). Buy/sell buttons use `.btn-gold`; disabled when unaffordable or storage cap would overflow. Insufficient amounts shown in red (`rgba(196, 80, 80, 1)`). Calls `state.executeTrade(resource, direction)` on click. Emits `close` on backdrop click, close button, or Escape key. Visibility controlled by `showMarketModal` ref in `game_screen.vue`; opened via `inject('openMarketModal')` in `market_card.vue`.
+Centered overlay (same pattern as other modals) opened from the market building card. Injects `ui` and `actions`. A "?" help button (`.modal-help-btn`) sits left of the close button and opens `ModalHelpModal` with market help text. Displays a "Market" title, a resource summary bar showing current amounts for all tradeable resources and gold (gold separated by a subtle left border), current trade fee percentage, and a scrollable list of trade rows (one per tradeable resource: Food, Wood, Stone, Copper, Iron). Each row shows the resource icon and name, current gold price per 100 units, a sell button (+gold gain in green), and a buy button (-gold cost). Buy/sell buttons use `.btn-gold`; disabled when unaffordable or storage cap would overflow. Insufficient amounts shown in red (`rgba(196, 80, 80, 1)`). Calls `state.executeTrade(resource, direction)` on click. Emits `close` on backdrop click, close button, or Escape key. Visibility controlled by `showMarketModal` ref in `game_screen.vue`; opened via `inject('openMarketModal')` in `market_card.vue`.
 
 ### Game Header (`game_screen.vue`)
 
@@ -48,7 +60,7 @@ Resource/colony items use `<img>` icons from `public/img/` (no text labels). Val
 
 Main content area displaying all 20 buildings in a 4-column layout. Each column represents a building category (Colony, Economy, Religion, Military) with a Josefin Sans uppercase header and vertically stacked building cards.
 
-**Data source**: `BUILDING_GRID` constant from `constants.js` — array of column definitions, each with `headerKey` (i18n key) and `buildings` array of `{ key, img }` objects. The `img` is a full path constant from `assets.js` (e.g. `IMG_BUILDING_HOUSE` → `'/img/buildings/misc/house.jpg'`). The `key` indexes into both `state.colony.buildings[key]` for the level and `'building.' + key` for the localized name.
+**Data source**: `BUILDING_GRID` constant from `constants.js` — array of column definitions, each with `headerKey` (i18n key) and `buildings` array of `{ key, img }` objects. `BUILDING_IMAGE_MAP` (also in `constants.js`) provides a flat key→image lookup derived from `BUILDING_GRID`, used for event icons. The `img` is a full path constant from `assets.js` (e.g. `IMG_BUILDING_HOUSE` → `'/img/buildings/misc/house.jpg'`). The `key` indexes into both `state.colony.buildings[key]` for the level and `'building.' + key` for the localized name.
 
 **Dynamic component resolution**: `game_screen.vue` maps all 20 building keys to dedicated card components via `CARD_COMPONENTS` (e.g. `headquarters → HeadquartersCard`). Uses Vue's `<component :is>` in the grid loop.
 
@@ -85,11 +97,11 @@ Central state container instantiated once per game session. Plain JS class — *
 
 **Provide/inject**: `game_screen.vue` calls `provide('ui', ui)`, `provide('actions', actions)`, `provide('openResearchModal', fn)`, and `provide('openMarketModal', fn)`. Components `inject('ui')` for reactive reads from the view model, `inject('actions')` to dispatch player actions (`levelUpBuilding`, `expandTerritory`, `upgradeHeadquarters`, `assignWorkers`, `unassignWorkers`, `recruitWorker`, `startResearch`, `executeTrade`, `dismissEvent`, `dismissAllPast`), `inject('openResearchModal')` to open the research modal (used by `academy_card.vue`), and `inject('openMarketModal')` to open the market modal (used by `market_card.vue`). Affordability checks use the `canAffordCost(resources, cost)` utility from `utils.js` instead of the `Resources.canAfford` method.
 
-**Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges }`, `state.colony.{ year, season, idleWorkers (derived getter), resources, production, consumption, productivity, buildings, events }` (`season` is a `Season` model with `currentSeason`, `seasonElapsed`, and boolean getters `isWarm`/`isCold`). `productivity` — ratio (0.75 to 1) multiplied into all production rates; starts at 1 (100%) and is reduced when food/wood has negative net production, proportional to deficit ratio (uncovered consumption / total consumption) scaled by `SHORTAGE_MAX_PENALTY`; worst-of when both are negative; ephemeral, recalculated each tick. Method: `netProduction(resource)` — returns `production[resource] − (consumption[resource] ?? 0)`, used by `State.update()` for negative production detection.
+**Structure**: `state.meta.{ version, createdDateTime, updatedDateTime, numberOfChallenges, tutorial }`, `state.colony.{ year, season, idleWorkers (derived getter), resources, production, consumption, productivity, buildings, events }` (`season` is a `Season` model with `currentSeason`, `seasonElapsed`, and boolean getters `isWarm`/`isCold`). `productivity` — ratio (0 to 1) multiplied into all production rates; set to 0 when no workers exist; otherwise starts at 1 (100%) and is reduced when food/wood has negative net production, proportional to deficit ratio (uncovered consumption / total consumption) scaled by `SHORTAGE_MAX_PENALTY`; worst-of when both are negative; ephemeral, recalculated each tick. Method: `netProduction(resource)` — returns `production[resource] − (consumption[resource] ?? 0)`, used by `State.update()` for negative production detection.
 
 - `resources` (`Resources`) — current amounts with public fields: `territory`, `workers`, `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`. Methods: `canAfford(cost)` (returns `true` if all cost fields are covered), `deduct(cost)` (subtracts cost fields in place).
 - `production` (`Production`) — per-tick rates with public fields: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `faith`, `knowledge`.
-- `consumption` — per-second worker upkeep with fields: `food`, `wood`. Ephemeral (recalculated each tick by `State.update()`, not persisted).
+- `consumption` (`Consumption`, `src/js/models/consumption.js`) — per-second worker upkeep with fields: `food`, `wood`. Ephemeral (recalculated each tick by `State.update()`, not persisted).
 - Storage caps live on the buildings that own them: `buildings.storehouse.storageCap(storageBonus)` returns the shared cap for food/wood/stone/copper/iron/gold, `buildings.headquarters.territoryCap` returns territory cap, and `buildings.house.workersCap` (cached each tick) returns worker cap. Faith and knowledge are unbounded.
 - `buildings` (`Buildings`) — container with public fields keyed by camelCase building name. Each field holds a class instance extending `Building` (base class with `level`, `constructionRemaining`, `constructionDuration`; getters `isUnbuilt`, `isConstructing`; methods `levelUp(cost, durationMult)` (starts timer with optional research multiplier, returns duration), `advance(delta)` (ticks timer, returns `true` on completion and increments level)) or `Producer` (extends `Building`, adds `workers` defaulting to 0; getters `maxWorkers`, `isEmpty`, `isFull`). `constructionRemaining > 0` means the building is under construction; `constructionDuration` stores the total build time for progress calculation. Getter `totalLevels` returns the sum of all building levels excluding headquarters (used as current territory count). Getter `pendingTerritory` returns the count of non-HQ buildings currently under construction (used to reserve territory). The 8 worker-assignable buildings (academy, temple, farm, woodcutter, quarry, copperMine, ironMine, goldMine) extend `Producer`; all others extend `Building` directly. `Headquarters` also has `type`, `upgradeRemaining`, `upgradeDuration` (for type upgrade timer), getters `isUpgrading`, `isMaxType`, `territoryCap`, `upgradeCost` (returns `Cost|null` based on current type), and `nextType` (returns next type string or `null`); methods `upgradeType(cost, durationMult)` (starts type upgrade timer with optional research multiplier, returns duration), `advanceUpgrade(delta)` (ticks upgrade timer, advances type on completion). All 20 building keys are defined as `BUILDING_*` enums in `enums.js` (e.g. `BUILDING_FARM`, `BUILDING_COPPER_MINE`) and used as computed-property keys throughout `constants.js`, `balancing.js`, and `game_screen.vue`. All 20 building classes have a getter `levelUpCost` that returns a `Cost` using `cost` and `multiplier` from `BUILDING_UPGRADES` (HQ: `cost × m^(level-1)`, others: `cost × m^level`). Individual building classes live in `src/js/models/buildings/`.
 - `Cost` (`src/js/models/cost.js`) — multi-resource cost holder with properties: `food`, `wood`, `stone`, `copper`, `iron`, `gold`, `knowledge`. Getters: `entries` (returns a `Map<string, number>` of non-zero resources), `toSeconds` (derives build time in seconds from resource weights defined in `RESOURCE_TIME_WEIGHTS`). Method: `multiplyFloor(factor)` (returns a new `Cost` with each resource multiplied by `factor` and floored).
@@ -143,6 +155,18 @@ Called from the `progressTick` loop (`requestAnimationFrame`, ~60 fps) in `game_
 
 **UI**: Displayed as a 5th column in `game_screen.vue` alongside the 4 building columns (all `flex: 1`, equal width). Two sub-sections: "Upcoming" (future events with gold countdown timer) and "History" (past events). Both use the same row style: icon + text + dismiss button, with a gold left-border accent. Future events additionally show a countdown timer. Empty state shown when no events exist.
 
+### Tutorial System
+
+Step-by-step guided tutorial for new players, active from game start until completion.
+
+**Model** — `Tutorial` class (`src/js/models/tutorial.js`) with `currentStep` (number), `completed` (boolean), `dismissedModals` (Set<string>), `activeModal` (string, ephemeral — not persisted). Getter: `isActive`. Methods: `toJSON()`, static `fromJSON()`. Lives on `state.meta.tutorial`.
+
+**Steps** — `TUTORIAL_STEPS` constant in `constants.js` — 15 sequential steps, each with `textKey` (i18n key), `building` (optional building key to highlight), and `check(state)` function that returns `true` when the step's objective is met. Steps guide the player through building a house, farm, and woodcutter, assigning workers, upgrading buildings, building an altar, expanding territory, and upgrading the headquarters.
+
+**Modals** — `TUTORIAL_MODALS` constant in `constants.js` — 3 reactive modal definitions keyed by `TUTORIAL_MODAL_*` enums (`SEASON_CHANGED`, `NEGATIVE_PRODUCTION`, `HQ_UPGRADE`). Each has `titleKey` and `bodyKey` for localization. Triggered by game state transitions (e.g. first season change) and shown once (tracked via `dismissedModals`).
+
+**UI** — `TutorialBanner` (`src/components/tutorial/tutorial_banner.vue`) displays the current step at the bottom of the game screen with optional building icon and step counter. `TutorialModal` (`src/components/tutorial/tutorial_modal.vue`) shows educational popups triggered by state transitions. Both are rendered in `game_screen.vue` when the tutorial is active.
+
 ### Tick System (`State.update()` in `src/js/engine/state.js`)
 
 Core game loop that generates resources over time. `game_screen.vue` runs a main `setInterval` (1 second, `TICK_INTERVAL`) that calls `state.update(deltaSec)` for production/consumption, and a `requestAnimationFrame` loop (~60 fps, `progressTick`) that calls `state.advanceSeason(delta)`, `state.advanceConstruction(delta)`, `state.advanceResearch(delta)`, and `state.advanceEvents(delta)` for smooth visual progress. Both use `performance.now()` for delta calculation. The main `gameTick` also calls all four progress methods (`advanceSeason`, `advanceConstruction`, `advanceResearch`, `advanceEvents`) as a fallback for backgrounded tabs where `requestAnimationFrame` pauses.
@@ -163,7 +187,7 @@ Core game loop that generates resources over time. `game_screen.vue` runs a main
 
 ### Localization (`src/js/i18n/`)
 
-Each supported language has its own file (`ca.js`, `en.js`, `es.js`, `fr.js`) exporting a flat object with dot-notation keys (e.g. `'screen.home.newGame'`, `'resource.food'`, `'season.warm'`). At startup, `localized.js` reads `navigator.language`, resolves it to a supported locale (defaulting to English), and exports a `t(key, ...params)` helper that looks up strings from the resolved locale. When `params` are provided, positional placeholders (`{0}`, `{1}`, etc.) in the string are replaced with the corresponding values. Components import `t` from `localized.js` and use it in templates (`{{ t('key') }}`, `{{ t('key', param0) }}`) and bound attributes (`:alt="t('key')"`). No hardcoded display text in templates or JS.
+Each supported language has its own file (`ca.js`, `en.js`, `es.js`, `fr.js`, `it.js`) exporting a flat object with dot-notation keys (e.g. `'screen.home.newGame'`, `'resource.food'`, `'season.warm'`). At startup, `localized.js` reads `navigator.language`, resolves it to a supported locale (defaulting to English), and exports a `t(key, ...params)` helper that looks up strings from the resolved locale. When `params` are provided, positional placeholders (`{0}`, `{1}`, etc.) in the string are replaced with the corresponding values. Components import `t` from `localized.js` and use it in templates (`{{ t('key') }}`, `{{ t('key', param0) }}`) and bound attributes (`:alt="t('key')"`). No hardcoded display text in templates or JS.
 
 ### Assets (`src/js/engine/assets.js`)
 

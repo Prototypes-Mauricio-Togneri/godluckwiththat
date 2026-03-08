@@ -122,7 +122,7 @@ There are two types of resources
   - The maximum population is determined by the house level
   - All workers (idle and assigned) consume food and wood each tick
     - If resources are insufficient, they are clamped to 0
-    - Shortage penalty: when food or wood has negative net production, all production rates are reduced proportionally to the deficit ratio (uncovered consumption / total consumption), up to 25%. If both are negative, only the worst penalty applies
+    - Shortage penalty: when food or wood has negative net production, all production rates are reduced proportionally to the deficit ratio (uncovered consumption / total consumption), up to 100%. If both are negative, only the worst penalty applies
   - Consumed to
     - Assigned to buildings to produce resources
   - A worker that is not assigned to any building is considered idle
