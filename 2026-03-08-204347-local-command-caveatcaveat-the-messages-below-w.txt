@@ -6,13 +6,3 @@
     (previous tier must be completed). The UI guards against this, but the model
     doesn't enforce the invariant — defense-in-depth gap. Add prerequisite
     validation in canResearch().
-  ────────────────────────────────────────
-  File Path: src/js/models/cost.js
-  Issue Type: Safety
-  Line #: 37-67
-  Severity: Warning
-  Description & Suggested Fix: entries getter caches in _entries but Cost fields
-    are public and mutable. Post-cache mutation yields stale data. Currently
-  safe
-     (callers create new instances), but the pattern is fragile. Consider
-    Object.freeze on Cost instances.
