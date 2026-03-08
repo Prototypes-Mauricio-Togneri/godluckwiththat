@@ -29,13 +29,12 @@ export const LOCALIZED_EN = {
 
   // Confirm restart modal
   'modal.confirmRestart.title': 'Restart Game',
-  'modal.confirmRestart.message': 'Are you sure? This will start a new game. Your saved game will be deleted.',
+  'modal.confirmRestart.message': 'This will start a new game. Your saved game will be deleted.',
   'modal.confirmRestart.confirm': 'Restart',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Quit Game',
-  'modal.confirmQuit.message': 'Any unsaved progress will be lost. Are you sure?',
-  'modal.confirmQuit.cancel': 'Cancel',
+  'modal.confirmQuit.message': 'Any unsaved progress will be lost.',
   'modal.confirmQuit.quit': 'Quit',
 
   // Resources

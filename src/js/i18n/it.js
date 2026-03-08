@@ -29,13 +29,12 @@ export const LOCALIZED_IT = {
 
   // Confirm restart modal
   'modal.confirmRestart.title': 'Ricomincia il gioco',
-  'modal.confirmRestart.message': 'Sei sicuro? Verrà avviata una nuova partita. La tua partita salvata sarà eliminata.',
+  'modal.confirmRestart.message': 'Verrà avviata una nuova partita. La tua partita salvata sarà eliminata.',
   'modal.confirmRestart.confirm': 'Ricomincia',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Esci dal gioco',
-  'modal.confirmQuit.message': 'Qualsiasi progresso non salvato andrà perso. Sei sicuro?',
-  'modal.confirmQuit.cancel': 'Annulla',
+  'modal.confirmQuit.message': 'Qualsiasi progresso non salvato andrà perso.',
   'modal.confirmQuit.quit': 'Esci',
 
   // Resources

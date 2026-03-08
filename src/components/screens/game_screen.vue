@@ -30,7 +30,6 @@ import storage from '@/js/engine/storage.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
 import TutorialBanner from '@/components/tutorial/tutorial_banner.vue'
 import TutorialModal from '@/components/tutorial/tutorial_modal.vue'
-import ConfirmQuitModal from '@/components/modals/confirm_quit_modal.vue'
 import SettingsModal from '@/components/modals/settings_modal.vue'
 import {BUILDING_IMAGE_MAP, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, TUTORIAL_MODALS, TUTORIAL_STEPS, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {BULK_WORKER_AMOUNT, SEASON_DURATION} from '@/js/engine/balancing.js'
@@ -1231,10 +1230,13 @@ onUnmounted(() => {
       @close="closeSettings"
     />
 
-    <ConfirmQuitModal
+    <ConfirmModal
       v-if="showConfirmQuit"
-      @cancel="cancelQuit"
-      @quit="confirmQuit"
+      title-key="modal.confirmQuit.title"
+      description-key="modal.confirmQuit.message"
+      confirm-key="modal.confirmQuit.quit"
+      @close="cancelQuit"
+      @confirm="confirmQuit"
     />
 
     <ConfirmModal

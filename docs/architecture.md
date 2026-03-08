@@ -13,14 +13,7 @@ Centered overlay with "PAUSED" title, decorative rule, audio toggles, and three 
 - **Sound toggle** — on/off switch, persisted via `storage.soundEnabled`
 - **Continue** — emits `close`, resumes the game
 - **Save** — emits `save`, triggers `saveGame()` in `game_screen.vue` which writes `state.toJSON()` to `storage.savedGame` and closes the modal
-- **Quit** — emits `quit`, opens the confirm quit modal (does not quit directly)
-
-### Confirm Quit Modal (`confirm_quit_modal.vue`)
-
-Centered overlay (same animation pattern as pause modal) shown when the player clicks Quit in the pause menu. Displays a "Quit Game" title, unsaved-progress message, and three stacked buttons:
-- **Cancel** — emits `cancel`, returns to the pause modal
-- **Save and Quit** — emits `saveAndQuit`, saves the game and returns to the home screen
-- **Quit without Saving** — emits `quit` (danger style), returns to the home screen without saving
+- **Quit** — emits `quit`, opens a confirm modal (does not quit directly)
 
 ### Building Help Modal (`building_help_modal.vue`)
 

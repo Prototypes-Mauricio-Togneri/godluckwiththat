@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- delete "confirm_quit_modal" and move it to "confirm_modal"?
-
 - Implement save and load
   - Have many save slots
   - Cloud saves

@@ -29,13 +29,12 @@ export const LOCALIZED_CA = {
 
   // Confirm restart modal
   'modal.confirmRestart.title': 'Reiniciar el joc',
-  'modal.confirmRestart.message': "N'estàs segur? S'iniciarà una nova partida. La teva partida desada serà eliminada.",
+  'modal.confirmRestart.message': "S'iniciarà una nova partida. La teva partida desada serà eliminada.",
   'modal.confirmRestart.confirm': 'Reiniciar',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Sortir del joc',
-  'modal.confirmQuit.message': "Qualsevol progrés no desat es perdrà. N'estàs segur?",
-  'modal.confirmQuit.cancel': 'Cancel·lar',
+  'modal.confirmQuit.message': 'Qualsevol progrés no desat es perdrà.',
   'modal.confirmQuit.quit': 'Sortir',
 
   // Resources

@@ -29,13 +29,12 @@ export const LOCALIZED_FR = {
 
   // Confirm restart modal
   'modal.confirmRestart.title': 'Redémarrer le jeu',
-  'modal.confirmRestart.message': 'Êtes-vous sûr ? Une nouvelle partie sera lancée. Votre sauvegarde sera supprimée.',
+  'modal.confirmRestart.message': 'Une nouvelle partie sera lancée. Votre sauvegarde sera supprimée.',
   'modal.confirmRestart.confirm': 'Redémarrer',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Quitter le jeu',
-  'modal.confirmQuit.message': 'Tout progrès non sauvegardé sera perdu. Êtes-vous sûr ?',
-  'modal.confirmQuit.cancel': 'Annuler',
+  'modal.confirmQuit.message': 'Tout progrès non sauvegardé sera perdu.',
   'modal.confirmQuit.quit': 'Quitter',
 
   // Resources
