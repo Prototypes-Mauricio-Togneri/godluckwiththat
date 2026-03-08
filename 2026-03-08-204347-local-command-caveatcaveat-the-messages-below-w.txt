@@ -52,13 +52,3 @@
   resource-limit
     events but doesn't clear _resourcesAtCap flag — self-heals next tick but
     causes a redundant dismissPastByTextKey call. Clear the flag explicitly.
-  ────────────────────────────────────────
-  File Path: src/components/buildings/base_card.vue
-  Issue Type: Logical Bug
-  Line #: 67-71
-  Severity: Warning
-  Description & Suggested Fix: actionTooltip checks !canAfford before
-    territoryFull. When both are true, user sees "insufficient resources" but
-    territory is the more fundamental blocker (can't be gathered). Swap check
-    order to show territory-full first.
-  ────────────────────────────────────────

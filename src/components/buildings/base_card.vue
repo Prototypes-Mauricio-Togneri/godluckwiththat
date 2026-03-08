@@ -64,11 +64,11 @@ const actionTooltip = computed(() => {
   if (isConstructing.value) {
     return ''
   }
-  if (canActBase.value && !canAfford.value) {
-    return t('building.insufficientResources')
-  }
   if (canActBase.value && territoryFull.value) {
     return t('building.maxTerritoryReached')
+  }
+  if (canActBase.value && !canAfford.value) {
+    return t('building.insufficientResources')
   }
   return isBuildable.value ? t('building.build') + ' ' + t(displayNameKey.value).toLowerCase() : t('building.levelUp')
 })
