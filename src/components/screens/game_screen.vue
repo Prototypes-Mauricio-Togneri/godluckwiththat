@@ -1713,16 +1713,12 @@ onUnmounted(() => {
       rgba(var(--color-accent-rgb), 0.12) 0%,
       rgba(var(--color-accent-rgb), 0.04) 100%
     );
-  border: 1px solid rgba(var(--color-accent-rgb), 0.25);
-  border-top-color: rgba(var(--color-accent-rgb), 0.4);
-  border-bottom-color: rgba(var(--color-accent-rgb), 0.12);
+  border: 1px solid rgba(var(--color-accent-rgb), 0.15);
   padding: 0.4rem 1.1rem;
   border-radius: 0.2rem;
   pointer-events: none;
   z-index: 9000;
-  box-shadow:
-    0 2px 12px rgba(var(--color-accent-rgb), 0.1),
-    inset 0 1px 0 rgba(var(--color-accent-rgb), 0.08);
+  box-shadow: 0 2px 12px rgba(var(--color-accent-rgb), 0.1);
   text-shadow: 0 0 8px rgba(var(--color-accent-rgb), 0.3);
 }
 
