@@ -18,6 +18,8 @@ export const LOCALIZED_CA = {
   'modal.pause.settings': 'Configuració',
   'modal.pause.restart': 'Reiniciar',
   'modal.pause.quit': 'Sortir',
+
+  // Game
   'game.saved': 'Partida desada',
 
   // Settings modal
@@ -116,10 +118,12 @@ export const LOCALIZED_CA = {
   'worker.assign': 'Assignar treballador',
   'worker.unassign': 'Treure treballador',
 
-  // Headquarters actions
+  // House actions
   'house.recruitWorker': 'Crear treballador',
   'house.dismissWorker': 'Acomiadar treballador',
   'house.noIdleWorkers': 'No hi ha treballadors ociosos per acomiadar',
+
+  // Headquarters actions
   'headquarters.expandTerritory': 'Expandir territori',
   'headquarters.upgrade': 'Millorar a {0}',
 
@@ -265,6 +269,7 @@ export const LOCALIZED_CA = {
   'research.habitation3': 'Districtes',
   'research.habitation4': 'Planificació cívica',
   'research.habitation5': 'Urbanisme',
+
   // Research names — Disasters
   'research.floods1': 'Control d\'inundacions',
   'research.floods2': 'Xarxa de canals',

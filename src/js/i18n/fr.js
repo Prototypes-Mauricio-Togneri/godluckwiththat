@@ -18,6 +18,8 @@ export const LOCALIZED_FR = {
   'modal.pause.settings': 'Paramètres',
   'modal.pause.restart': 'Redémarrer',
   'modal.pause.quit': 'Quitter',
+
+  // Game
   'game.saved': 'Partie sauvegardée',
 
   // Settings modal
@@ -116,10 +118,12 @@ export const LOCALIZED_FR = {
   'worker.assign': 'Assigner un ouvrier',
   'worker.unassign': 'Retirer un ouvrier',
 
-  // Headquarters actions
+  // House actions
   'house.recruitWorker': 'Créer un ouvrier',
   'house.dismissWorker': 'Renvoyer un ouvrier',
   'house.noIdleWorkers': 'Aucun ouvrier inactif à renvoyer',
+
+  // Headquarters actions
   'headquarters.expandTerritory': 'Étendre le territoire',
   'headquarters.upgrade': 'Améliorer en {0}',
 
@@ -265,6 +269,7 @@ export const LOCALIZED_FR = {
   'research.habitation3': 'Quartiers',
   'research.habitation4': 'Planification Civique',
   'research.habitation5': 'Urbanisme',
+
   // Research names — Disasters
   'research.floods1': 'Contrôle des crues',
   'research.floods2': 'Réseau de canaux',

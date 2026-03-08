@@ -18,6 +18,8 @@ export const LOCALIZED_ES = {
   'modal.pause.settings': 'Ajustes',
   'modal.pause.restart': 'Reiniciar',
   'modal.pause.quit': 'Salir',
+
+  // Game
   'game.saved': 'Partida guardada',
 
   // Settings modal
@@ -116,10 +118,12 @@ export const LOCALIZED_ES = {
   'worker.assign': 'Asignar trabajador',
   'worker.unassign': 'Desasignar trabajador',
 
-  // Headquarters actions
+  // House actions
   'house.recruitWorker': 'Crear trabajador',
   'house.dismissWorker': 'Despedir trabajador',
   'house.noIdleWorkers': 'No hay trabajadores ociosos para despedir',
+
+  // Headquarters actions
   'headquarters.expandTerritory': 'Expandir territorio',
   'headquarters.upgrade': 'Mejorar a {0}',
 
@@ -265,6 +269,7 @@ export const LOCALIZED_ES = {
   'research.habitation3': 'Distritos',
   'research.habitation4': 'Planificación Cívica',
   'research.habitation5': 'Urbanismo',
+
   // Research names — Disasters
   'research.floods1': 'Control de inundaciones',
   'research.floods2': 'Red de canales',
