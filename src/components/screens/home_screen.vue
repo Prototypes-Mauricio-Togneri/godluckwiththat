@@ -1,6 +1,7 @@
 <script setup>
-import {computed, ref} from 'vue'
+import {computed, onMounted, ref} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
+import {IS_DEV} from '@/js/engine/constants.js'
 import {EMIT_START} from '@/js/engine/enums.js'
 import storage from '@/js/engine/storage.js'
 import {t} from '@/js/i18n/localized.js'
@@ -10,6 +11,12 @@ const emit = defineEmits([EMIT_START])
 const isMobile = ref(window.matchMedia('(pointer: coarse)').matches)
 const savedData = ref(storage.savedGame)
 const hasSavedGame = computed(() => savedData.value !== null)
+
+onMounted(() => {
+  if (IS_DEV) {
+    emit(EMIT_START, savedData.value)
+  }
+})
 </script>
 
 <template>
