@@ -2,6 +2,8 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- delete "confirm_quit_modal" and move it to "confirm_modal"?
+
 - Double after loading
   - EVENT_TYPE_RESOURCE_LIMIT_REACHED
   - EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION
