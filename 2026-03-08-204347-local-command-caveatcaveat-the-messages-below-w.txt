@@ -43,12 +43,3 @@
   safe
      (callers create new instances), but the pattern is fragile. Consider
     Object.freeze on Cost instances.
-  ────────────────────────────────────────
-  File Path: src/js/engine/state.js
-  Issue Type: Logical Bug
-  Line #: 324-326
-  Severity: Warning
-  Description & Suggested Fix: Storehouse completion dismisses all
-  resource-limit
-    events but doesn't clear _resourcesAtCap flag — self-heals next tick but
-    causes a redundant dismissPastByTextKey call. Clear the flag explicitly.

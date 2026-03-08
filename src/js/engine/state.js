@@ -323,6 +323,7 @@ class State {
           this.colony.events.dismissFutureByBuildingKey(key)
           if (key === BUILDING_STOREHOUSE) {
             this.colony.events.dismissPastByType(EVENT_TYPE_RESOURCE_LIMIT_REACHED)
+            this._resourcesAtCap.clear()
           } else if (key === BUILDING_HOUSE) {
             this.colony.events.dismissPastByType(EVENT_TYPE_POPULATION_LIMIT_REACHED)
           } else if (key === BUILDING_MONUMENT) {
