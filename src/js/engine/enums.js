@@ -59,11 +59,11 @@ export const EVENT_TYPE_RESEARCH_COMPLETE = 'research_complete'
 export const EVENT_TYPE_IDLE_WORKERS = 'idle_workers'
 
 // Research categories
-export const RESEARCH_CATEGORY_GENERAL = 'general'
-export const RESEARCH_CATEGORY_DISASTERS = 'disasters'
+export const RESEARCH_CATEGORY_COLONY = 'colony'
 export const RESEARCH_CATEGORY_RESOURCES = 'resources'
 export const RESEARCH_CATEGORY_RELIGION = 'religion'
 export const RESEARCH_CATEGORY_MILITARY = 'military'
+export const RESEARCH_CATEGORY_DISASTERS = 'disasters'
 
 // Research subcategories
 export const RESEARCH_SUBCATEGORY_TRANSPORTATION = 'transportation'

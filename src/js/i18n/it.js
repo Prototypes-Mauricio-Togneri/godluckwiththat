@@ -203,11 +203,11 @@ export const LOCALIZED_IT = {
   'research.title': 'Ricerca',
 
   // Research categories
-  'research.category.general': 'Generale',
-  'research.category.disasters': 'Disastri',
+  'research.category.colony': 'Colonia',
   'research.category.resources': 'Risorse',
   'research.category.religion': 'Religione',
   'research.category.military': 'Militare',
+  'research.category.disasters': 'Disastri',
 
   // Research subcategories
   'research.subcategory.transportation': 'Trasporto',

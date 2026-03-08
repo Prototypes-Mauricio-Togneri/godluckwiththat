@@ -15,8 +15,8 @@ Explain that in warm season the wood consumption decreases
 - Implement challenges
   - See next challenge
   - Resolve a challenge
-  - Show challenge outcome
-  - Choose blessing
+  - Show punishment (see Spreadsheet)
+  - Choose blessing (see Spreadsheet)
 
 - Create military
   - Open military window
@@ -26,7 +26,7 @@ Explain that in warm season the wood consumption decreases
   - Implement military researches
 
 - Implement natural disasters
-  - Implement random disasters
+  - Implement random disasters (see Spreadsheet)
   - Implement disasters researches
 
 - Implement story intro

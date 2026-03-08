@@ -8,7 +8,7 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 
 - **Sequential**: One challenge active at a time. Complete/fail → next one activates after a delay
 - **Timed**: Build/accumulate challenges have countdown timers. Ritual challenges are submit-on-demand (no timer)
-- **Rewards (blessings)**: One-time resource grants scaling with difficulty
+- **Rewards (blessings)**: One-time resource grants scaling with difficulty. Some blessings have more probability to appear at the beginning. But less probability to appear in the next one.
 - **Punishments**: Lose resources AND workers (both). Fraction of stored bounded resources + some workers die
 - **Recover relic**: Skipped for now (military not implemented). Define fewer challenges; add relic type later
 - **Activation trigger**: First challenge activates immediately when the game starts
