@@ -1412,6 +1412,11 @@ onUnmounted(() => {
   margin-left: 0.5rem;
 }
 
+/* Wider gap between icon and value for worker population display */
+.colony-box--population .header-resource {
+  gap: 0.6rem;
+}
+
 /* Larger icon size for worker population display */
 .resource-icon--worker {
   width: 1.4rem;

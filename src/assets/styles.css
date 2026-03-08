@@ -584,8 +584,8 @@
 }
 
 .colony-box--population {
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
 }
 
 .colony-box--idle {
@@ -594,8 +594,8 @@
 }
 
 .colony-box--territory {
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
 }
 
 /* Row wrappers inside resource box */
