@@ -577,6 +577,27 @@
     );
 }
 
+/* Colony-box — shorter variant of resource-box for header colony stats */
+.colony-box {
+    justify-content: center;
+    padding: 0.35rem 0.6rem;
+}
+
+.colony-box--population {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
+
+.colony-box--idle {
+    padding-left: 0.8rem;
+    padding-right: 0.6rem;
+}
+
+.colony-box--territory {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
+
 /* Row wrappers inside resource box */
 .resource-row-top {
     display: flex;

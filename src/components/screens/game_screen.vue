@@ -1119,24 +1119,30 @@ onUnmounted(() => {
 
       <!-- Colony info -->
       <div class="header-section header-colony">
-        <div class="header-resource tooltip" :data-tooltip="t('resource.population')">
-          <img class="resource-icon resource-icon--worker" :src="IMG_UNIT_WORKER" :alt="t('resource.population')">
-          <span class="resource-value" :class="{ 'resource-value--alert': ui.resources.workers >= ui.workersCap, 'resource-value--zero': ui.resources.workers === 0 }">{{ formatNumber(ui.resources.workers) }}/{{ formatNumber(ui.workersCap) }}</span>
+        <div class="resource-box colony-box colony-box--population tooltip" :data-tooltip="t('resource.population')">
+          <div class="header-resource">
+            <img class="resource-icon resource-icon--worker" :src="IMG_UNIT_WORKER" :alt="t('resource.population')">
+            <span class="resource-value" :class="{ 'resource-value--alert': ui.resources.workers >= ui.workersCap, 'resource-value--zero': ui.resources.workers === 0 }">{{ formatNumber(ui.resources.workers) }}/{{ formatNumber(ui.workersCap) }}</span>
+          </div>
         </div>
-        <div class="header-resource">
-          <div class="tooltip" :data-tooltip="t('resource.idleWorkers')">
-            <span class="header-resource-inner">
-              <img class="resource-icon" :src="IMG_OTHER_IDLE" :alt="t('resource.idleWorkers')">
-              <span class="resource-value" :class="{ 'resource-value--alert': ui.idleWorkers > 0 }">{{ ui.idleWorkers }}</span>
+        <div class="resource-box colony-box colony-box--idle">
+          <div class="header-resource">
+            <div class="tooltip" :data-tooltip="t('resource.idleWorkers')">
+              <span class="header-resource-inner">
+                <img class="resource-icon" :src="IMG_OTHER_IDLE" :alt="t('resource.idleWorkers')">
+                <span class="resource-value" :class="{ 'resource-value--alert': ui.idleWorkers > 0 }">{{ ui.idleWorkers }}</span>
+              </span>
+            </div>
+            <span class="tooltip tooltip--delayed" :data-tooltip="dismissTooltip">
+              <button class="worker-btn worker-btn--minus dismiss-btn" :disabled="!canDismiss" @click="dismissWorker">&minus;</button>
             </span>
           </div>
-          <span class="tooltip tooltip--delayed" :data-tooltip="dismissTooltip">
-            <button class="worker-btn worker-btn--minus dismiss-btn" :disabled="!canDismiss" @click="dismissWorker">&minus;</button>
-          </span>
         </div>
-        <div class="header-resource tooltip" :data-tooltip="t('resource.territory')">
-          <img class="resource-icon resource-icon--territory" :src="IMG_OTHER_TERRITORY" :alt="t('resource.territory')">
-          <span class="resource-value" :class="{ 'resource-value--alert': ui.resources.territory >= ui.territoryCap }">{{ formatNumber(ui.resources.territory) }}/{{ formatNumber(ui.territoryCap) }}</span>
+        <div class="resource-box colony-box colony-box--territory tooltip" :data-tooltip="t('resource.territory')">
+          <div class="header-resource">
+            <img class="resource-icon resource-icon--territory" :src="IMG_OTHER_TERRITORY" :alt="t('resource.territory')">
+            <span class="resource-value" :class="{ 'resource-value--alert': ui.resources.territory >= ui.territoryCap }">{{ formatNumber(ui.resources.territory) }}/{{ formatNumber(ui.territoryCap) }}</span>
+          </div>
         </div>
       </div>
 
@@ -1376,7 +1382,8 @@ onUnmounted(() => {
 /* Colony stats (population, idle workers, territory) with fixed minimum width */
 .header-colony {
   justify-content: space-evenly;
-  gap: 1.5rem;
+  align-items: stretch;
+  gap: 0.5rem;
   flex-shrink: 0;
   min-width: 18rem;
 }
