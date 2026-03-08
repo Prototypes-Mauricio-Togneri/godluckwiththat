@@ -2,10 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Implement save and load
-  - Have many save slots
-  - Cloud saves
-
 - Implement challenges
   - See next challenge
   - Resolve a challenge
@@ -24,3 +20,7 @@
   - Implement disasters researches
 
 - Implement story intro
+
+- Implement save and load
+  - Have many save slots
+  - Cloud saves
