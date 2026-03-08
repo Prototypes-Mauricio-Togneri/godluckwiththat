@@ -12,19 +12,29 @@ export const LOCALIZED_CA = {
 
   // Pause modal
   'modal.pause.title': 'Pausa',
-  'modal.pause.continue': 'Continuar',
-  'modal.pause.quit': 'Sortir',
-  'modal.pause.music': 'Música',
-  'modal.pause.sound': 'So',
+  'modal.pause.resume': 'Reprendre',
   'modal.pause.save': 'Desar',
+  'modal.pause.load': 'Carregar',
+  'modal.pause.settings': 'Configuració',
+  'modal.pause.restart': 'Reiniciar',
+  'modal.pause.quit': 'Sortir',
   'game.saved': 'Partida desada',
+
+  // Settings modal
+  'modal.settings.title': 'Configuració',
+  'modal.settings.music': 'Música',
+  'modal.settings.sound': 'So',
+
+  // Confirm restart modal
+  'modal.confirmRestart.title': 'Reiniciar el joc',
+  'modal.confirmRestart.message': "N'estàs segur? S'iniciarà una nova partida. La teva partida desada serà eliminada.",
+  'modal.confirmRestart.confirm': 'Reiniciar',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Sortir del joc',
-  'modal.confirmQuit.message': 'Tens progr\u00e9s sense desar. Qu\u00e8 vols fer?',
-  'modal.confirmQuit.cancel': 'Cancel\u00b7lar',
-  'modal.confirmQuit.saveAndQuit': 'Desar i sortir',
-  'modal.confirmQuit.quit': 'Sortir sense desar',
+  'modal.confirmQuit.message': "Qualsevol progrés no desat es perdrà. N'estàs segur?",
+  'modal.confirmQuit.cancel': 'Cancel·lar',
+  'modal.confirmQuit.quit': 'Sortir',
 
   // Resources
   'resource.food': 'Menjar',

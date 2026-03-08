@@ -31,9 +31,10 @@ import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRIT
 import TutorialBanner from '@/components/tutorial/tutorial_banner.vue'
 import TutorialModal from '@/components/tutorial/tutorial_modal.vue'
 import ConfirmQuitModal from '@/components/modals/confirm_quit_modal.vue'
+import SettingsModal from '@/components/modals/settings_modal.vue'
 import {BUILDING_IMAGE_MAP, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, TUTORIAL_MODALS, TUTORIAL_STEPS, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {BULK_WORKER_AMOUNT, SEASON_DURATION} from '@/js/engine/balancing.js'
-import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, EMIT_QUIT} from '@/js/engine/enums.js'
+import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, EMIT_QUIT, EMIT_RESTART} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
@@ -226,14 +227,20 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits([EMIT_QUIT])
+const emit = defineEmits([
+  EMIT_QUIT,
+  EMIT_RESTART,
+])
 const showModal = ref(false)
 const state = props.initialState
 const showClearConfirm = ref(false)
 const showConfirmQuit = ref(false)
+const showConfirmRestart = ref(false)
+const showSettingsModal = ref(false)
 const showResearchModal = ref(false)
 const showMarketModal = ref(false)
 const showSaveIndicator = ref(false)
+const hasSavedGame = ref(storage.savedGame !== null)
 let saveIndicatorTimer = null
 
 const ui = shallowReactive({
@@ -710,7 +717,41 @@ provide('openMarketModal', () => {
 /** Saves the current game state to localStorage and closes the pause modal. */
 function saveGame() {
   storage.savedGame = state.toJSON()
+  hasSavedGame.value = true
   showModal.value = false
+}
+
+/** Loads the saved game state from localStorage. */
+function loadGame() {
+  const savedData = storage.savedGame
+  if (savedData) {
+    showModal.value = false
+    emit(EMIT_RESTART, savedData)
+  }
+}
+
+/** Opens the settings modal on top of the pause modal. */
+function openSettings() {
+  showSettingsModal.value = true
+}
+
+/** Shows the confirm restart modal from the pause menu. */
+function handleRestartRequest() {
+  showModal.value = false
+  showConfirmRestart.value = true
+}
+
+/** Cancels restart and returns to the pause modal. */
+function cancelRestart() {
+  showConfirmRestart.value = false
+  showModal.value = true
+}
+
+/** Restarts the game with a fresh state. */
+function confirmRestart() {
+  storage.deleteSavedGame()
+  hasSavedGame.value = false
+  emit(EMIT_RESTART, null)
 }
 
 /** Shows the confirm quit modal from the pause menu. */
@@ -725,14 +766,8 @@ function cancelQuit() {
   showModal.value = true
 }
 
-/** Saves the game and quits to the home screen. */
-function saveAndQuit() {
-  storage.savedGame = state.toJSON()
-  emit(EMIT_QUIT)
-}
-
 /** Quits to the home screen without saving. */
-function quitWithoutSaving() {
+function confirmQuit() {
   emit(EMIT_QUIT)
 }
 
@@ -893,15 +928,12 @@ function handleKeydown(event) {
     return
   }
   if (event.key === 'Escape') {
-    if (showConfirmQuit.value) {
-      cancelQuit()
-    } else {
-      showModal.value = !showModal.value
-    }
+    showModal.value = !showModal.value
   }
   if (event.key === 'F9') {
     event.preventDefault()
     storage.savedGame = state.toJSON()
+    hasSavedGame.value = true
     showSaveIndicator.value = true
     clearTimeout(saveIndicatorTimer)
     saveIndicatorTimer = setTimeout(() => {
@@ -927,7 +959,7 @@ watch(showModal, (isOpen) => {
     tickTimer = null
     cancelAnimationFrame(progressAnimFrame)
     progressAnimFrame = null
-  } else if (!showConfirmQuit.value) {
+  } else if (!showConfirmQuit.value && !showConfirmRestart.value) {
     state.paused = false
     const now = performance.now()
     lastTickTime = now
@@ -1149,16 +1181,33 @@ onUnmounted(() => {
 
     <PauseModal
       v-if="showModal"
+      :has-saved-game="hasSavedGame"
       @close="showModal = false"
       @save="saveGame"
+      @load="loadGame"
+      @settings="openSettings"
+      @restart="handleRestartRequest"
       @quit="handleQuitRequest"
+    />
+
+    <SettingsModal
+      v-if="showSettingsModal"
+      @close="showSettingsModal = false"
     />
 
     <ConfirmQuitModal
       v-if="showConfirmQuit"
       @cancel="cancelQuit"
-      @save-and-quit="saveAndQuit"
-      @quit="quitWithoutSaving"
+      @quit="confirmQuit"
+    />
+
+    <ConfirmModal
+      v-if="showConfirmRestart"
+      title-key="modal.confirmRestart.title"
+      description-key="modal.confirmRestart.message"
+      confirm-key="modal.confirmRestart.confirm"
+      @confirm="confirmRestart"
+      @close="cancelRestart"
     />
 
     <ConfirmModal

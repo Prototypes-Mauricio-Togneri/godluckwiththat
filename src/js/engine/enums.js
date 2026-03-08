@@ -227,7 +227,9 @@ export const EMIT_QUIT = 'quit'
 export const EMIT_SAVE = 'save'
 export const EMIT_CONFIRM = 'confirm'
 export const EMIT_CANCEL = 'cancel'
-export const EMIT_SAVE_AND_QUIT = 'saveAndQuit'
+export const EMIT_LOAD = 'load'
+export const EMIT_SETTINGS = 'settings'
+export const EMIT_RESTART = 'restart'
 
 // Storage keys (localStorage)
 export const STORAGE_MUSIC_ENABLED = 'musicEnabled'

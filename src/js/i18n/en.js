@@ -12,19 +12,29 @@ export const LOCALIZED_EN = {
 
   // Pause modal
   'modal.pause.title': 'Paused',
-  'modal.pause.continue': 'Continue',
-  'modal.pause.quit': 'Quit',
-  'modal.pause.music': 'Music',
-  'modal.pause.sound': 'Sound',
+  'modal.pause.resume': 'Resume',
   'modal.pause.save': 'Save',
+  'modal.pause.load': 'Load',
+  'modal.pause.settings': 'Settings',
+  'modal.pause.restart': 'Restart',
+  'modal.pause.quit': 'Quit',
   'game.saved': 'Game Saved',
+
+  // Settings modal
+  'modal.settings.title': 'Settings',
+  'modal.settings.music': 'Music',
+  'modal.settings.sound': 'Sound',
+
+  // Confirm restart modal
+  'modal.confirmRestart.title': 'Restart Game',
+  'modal.confirmRestart.message': 'Are you sure? This will start a new game. Your saved game will be deleted.',
+  'modal.confirmRestart.confirm': 'Restart',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Quit Game',
-  'modal.confirmQuit.message': 'You have unsaved progress. What would you like to do?',
+  'modal.confirmQuit.message': 'Any unsaved progress will be lost. Are you sure?',
   'modal.confirmQuit.cancel': 'Cancel',
-  'modal.confirmQuit.saveAndQuit': 'Save and Quit',
-  'modal.confirmQuit.quit': 'Quit without Saving',
+  'modal.confirmQuit.quit': 'Quit',
 
   // Resources
   'resource.food': 'Food',

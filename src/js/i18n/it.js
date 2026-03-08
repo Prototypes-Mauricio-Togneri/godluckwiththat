@@ -12,19 +12,29 @@ export const LOCALIZED_IT = {
 
   // Pause modal
   'modal.pause.title': 'Pausa',
-  'modal.pause.continue': 'Continua',
-  'modal.pause.quit': 'Esci',
-  'modal.pause.music': 'Musica',
-  'modal.pause.sound': 'Suoni',
+  'modal.pause.resume': 'Riprendi',
   'modal.pause.save': 'Salva',
+  'modal.pause.load': 'Carica',
+  'modal.pause.settings': 'Impostazioni',
+  'modal.pause.restart': 'Ricomincia',
+  'modal.pause.quit': 'Esci',
   'game.saved': 'Partita salvata',
+
+  // Settings modal
+  'modal.settings.title': 'Impostazioni',
+  'modal.settings.music': 'Musica',
+  'modal.settings.sound': 'Suoni',
+
+  // Confirm restart modal
+  'modal.confirmRestart.title': 'Ricomincia il gioco',
+  'modal.confirmRestart.message': 'Sei sicuro? Verrà avviata una nuova partita. La tua partita salvata sarà eliminata.',
+  'modal.confirmRestart.confirm': 'Ricomincia',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Esci dal gioco',
-  'modal.confirmQuit.message': 'Hai progressi non salvati. Cosa vuoi fare?',
+  'modal.confirmQuit.message': 'Qualsiasi progresso non salvato andrà perso. Sei sicuro?',
   'modal.confirmQuit.cancel': 'Annulla',
-  'modal.confirmQuit.saveAndQuit': 'Salva ed esci',
-  'modal.confirmQuit.quit': 'Esci senza salvare',
+  'modal.confirmQuit.quit': 'Esci',
 
   // Resources
   'resource.food': 'Cibo',

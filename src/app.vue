@@ -9,6 +9,7 @@ import State from '@/js/engine/state.js'
 
 const currentScreen = ref('home')
 const gameState = ref(null)
+const gameKey = ref(0)
 
 /** Preloads audio, creates or restores State, switches to game screen, and starts background music. */
 function startGame(savedData) {
@@ -28,6 +29,14 @@ function startGame(savedData) {
   ])
 }
 
+/** Restarts the game with a fresh or loaded state. */
+function restartGame(savedData) {
+  audio.stopMusic()
+  gameState.value = null
+  gameKey.value++
+  startGame(savedData)
+}
+
 /** Stops music and returns to the home screen. */
 function quitGame() {
   audio.stopMusic()
@@ -39,6 +48,6 @@ function quitGame() {
 
 <template>
   <HomeScreen v-if="currentScreen === 'home'" @start="startGame" />
-  <GameScreen v-else-if="currentScreen === 'game'" :initial-state="gameState" @quit="quitGame" />
+  <GameScreen v-else-if="currentScreen === 'game'" :key="gameKey" :initial-state="gameState" @quit="quitGame" @restart="restartGame" />
 </template>
 

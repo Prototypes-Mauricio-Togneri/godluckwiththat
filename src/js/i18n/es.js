@@ -12,19 +12,29 @@ export const LOCALIZED_ES = {
 
   // Pause modal
   'modal.pause.title': 'Pausa',
-  'modal.pause.continue': 'Continuar',
-  'modal.pause.quit': 'Salir',
-  'modal.pause.music': 'Música',
-  'modal.pause.sound': 'Sonido',
+  'modal.pause.resume': 'Reanudar',
   'modal.pause.save': 'Guardar',
+  'modal.pause.load': 'Cargar',
+  'modal.pause.settings': 'Ajustes',
+  'modal.pause.restart': 'Reiniciar',
+  'modal.pause.quit': 'Salir',
   'game.saved': 'Partida guardada',
+
+  // Settings modal
+  'modal.settings.title': 'Ajustes',
+  'modal.settings.music': 'Música',
+  'modal.settings.sound': 'Sonido',
+
+  // Confirm restart modal
+  'modal.confirmRestart.title': 'Reiniciar juego',
+  'modal.confirmRestart.message': '¿Estás seguro? Se iniciará una nueva partida. Tu partida guardada será eliminada.',
+  'modal.confirmRestart.confirm': 'Reiniciar',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Salir del juego',
-  'modal.confirmQuit.message': 'Tienes progreso sin guardar. \u00bfQu\u00e9 te gustar\u00eda hacer?',
+  'modal.confirmQuit.message': 'Se perderá cualquier progreso no guardado. ¿Estás seguro?',
   'modal.confirmQuit.cancel': 'Cancelar',
-  'modal.confirmQuit.saveAndQuit': 'Guardar y salir',
-  'modal.confirmQuit.quit': 'Salir sin guardar',
+  'modal.confirmQuit.quit': 'Salir',
 
   // Resources
   'resource.food': 'Comida',

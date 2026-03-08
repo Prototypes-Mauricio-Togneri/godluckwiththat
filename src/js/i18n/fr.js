@@ -12,19 +12,29 @@ export const LOCALIZED_FR = {
 
   // Pause modal
   'modal.pause.title': 'Pause',
-  'modal.pause.continue': 'Continuer',
-  'modal.pause.quit': 'Quitter',
-  'modal.pause.music': 'Musique',
-  'modal.pause.sound': 'Son',
+  'modal.pause.resume': 'Reprendre',
   'modal.pause.save': 'Sauvegarder',
+  'modal.pause.load': 'Charger',
+  'modal.pause.settings': 'Paramètres',
+  'modal.pause.restart': 'Redémarrer',
+  'modal.pause.quit': 'Quitter',
   'game.saved': 'Partie sauvegardée',
+
+  // Settings modal
+  'modal.settings.title': 'Paramètres',
+  'modal.settings.music': 'Musique',
+  'modal.settings.sound': 'Son',
+
+  // Confirm restart modal
+  'modal.confirmRestart.title': 'Redémarrer le jeu',
+  'modal.confirmRestart.message': 'Êtes-vous sûr ? Une nouvelle partie sera lancée. Votre sauvegarde sera supprimée.',
+  'modal.confirmRestart.confirm': 'Redémarrer',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Quitter le jeu',
-  'modal.confirmQuit.message': 'Vous avez des progr\u00e8s non sauvegard\u00e9s. Que souhaitez-vous faire ?',
+  'modal.confirmQuit.message': 'Tout progrès non sauvegardé sera perdu. Êtes-vous sûr ?',
   'modal.confirmQuit.cancel': 'Annuler',
-  'modal.confirmQuit.saveAndQuit': 'Sauvegarder et quitter',
-  'modal.confirmQuit.quit': 'Quitter sans sauvegarder',
+  'modal.confirmQuit.quit': 'Quitter',
 
   // Resources
   'resource.food': 'Nourriture',

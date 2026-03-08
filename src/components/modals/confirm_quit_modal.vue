@@ -1,24 +1,33 @@
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
-import {EMIT_CANCEL, EMIT_SAVE_AND_QUIT, EMIT_QUIT} from '@/js/engine/enums.js'
+import {EMIT_CANCEL, EMIT_QUIT} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits([
   EMIT_CANCEL,
-  EMIT_SAVE_AND_QUIT,
   EMIT_QUIT,
 ])
 const visible = ref(false)
 let rafId = null
 
+/** Closes modal on Escape key (capture phase). */
+function handleKeydown(event) {
+  if (event.key === 'Escape') {
+    event.stopImmediatePropagation()
+    emit(EMIT_CANCEL)
+  }
+}
+
 onMounted(() => {
+  window.addEventListener('keydown', handleKeydown, true)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
 })
 
 onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown, true)
   cancelAnimationFrame(rafId)
 })
 </script>
@@ -42,9 +51,6 @@ onUnmounted(() => {
       <div class="modal-actions">
         <button class="btn-gold modal-btn" @click="playTap(); emit(EMIT_CANCEL)">
           {{ t('modal.confirmQuit.cancel') }}
-        </button>
-        <button class="btn-gold modal-btn" @click="playTap(); emit(EMIT_SAVE_AND_QUIT)">
-          {{ t('modal.confirmQuit.saveAndQuit') }}
         </button>
         <button class="btn-gold modal-btn modal-btn--danger" @click="playTap(); emit(EMIT_QUIT)">
           {{ t('modal.confirmQuit.quit') }}
