@@ -1130,7 +1130,7 @@ onUnmounted(() => {
             <div class="tooltip" :data-tooltip="t('resource.idleWorkers')">
               <span class="header-resource-inner">
                 <img class="resource-icon" :src="IMG_OTHER_IDLE" :alt="t('resource.idleWorkers')">
-                <span class="resource-value" :class="{ 'resource-value--alert': ui.idleWorkers > 0 }">{{ ui.idleWorkers }}</span>
+                <span class="resource-value resource-value--idle" :class="{ 'resource-value--alert': ui.idleWorkers > 0 }">{{ ui.idleWorkers }}</span>
               </span>
             </div>
             <span class="tooltip tooltip--delayed" :data-tooltip="dismissTooltip">

@@ -590,7 +590,7 @@
 
 .colony-box--idle {
     padding-left: 0.8rem;
-    padding-right: 0.6rem;
+    padding-right: 0.4rem;
 }
 
 .colony-box--territory {
@@ -638,6 +638,10 @@
 /* Red when resource is empty */
 .resource-value--zero {
     color: rgba(196, 80, 80, 1);
+}
+
+.resource-value--idle {
+    min-width: 3ch;
 }
 
 /* Progress bar track — full-width strip in row 2 */
