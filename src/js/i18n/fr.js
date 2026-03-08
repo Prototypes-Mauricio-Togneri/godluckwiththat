@@ -30,12 +30,21 @@ export const LOCALIZED_FR = {
   // Confirm restart modal
   'modal.confirmRestart.title': 'Redémarrer le jeu',
   'modal.confirmRestart.message': 'Une nouvelle partie sera lancée. Votre sauvegarde sera supprimée.',
-  'modal.confirmRestart.confirm': 'Redémarrer',
+  'modal.confirmRestart.restart': 'Redémarrer',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Quitter le jeu',
   'modal.confirmQuit.message': 'Tout progrès non sauvegardé sera perdu.',
   'modal.confirmQuit.quit': 'Quitter',
+
+  // Confirm clear events modal
+  'modal.confirmClearEvents.title': 'Effacer l\'historique',
+  'modal.confirmClearEvents.message': 'Êtes-vous sûr de vouloir effacer tous les événements passés ?',
+  'modal.confirmClearEvents.clear': 'Effacer',
+
+  // Common modal actions
+  'modal.confirm': 'Confirmer',
+  'modal.cancel': 'Annuler',
 
   // Resources
   'resource.food': 'Nourriture',
@@ -141,12 +150,6 @@ export const LOCALIZED_FR = {
   'event.idleWorkers': 'Il y a des ouvriers disponibles',
   'event.territoryExpanded': 'Territoire étendu',
   'events.clearAll': 'Tout effacer',
-  'events.clearAllConfirm': 'Effacer',
-  'events.clearAllTitle': 'Effacer l\'historique',
-  'events.clearAllDescription': 'Êtes-vous sûr de vouloir effacer tous les événements passés ?',
-  'modal.confirm': 'Confirmer',
-  'modal.cancel': 'Annuler',
-
   // Help modals
   'modal.help.close': 'Fermer',
   'modal.buildingHelp.tooltip': 'Aide',

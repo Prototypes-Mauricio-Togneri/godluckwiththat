@@ -1243,16 +1243,16 @@ onUnmounted(() => {
       v-if="showConfirmRestart"
       title-key="modal.confirmRestart.title"
       description-key="modal.confirmRestart.message"
-      confirm-key="modal.confirmRestart.confirm"
+      confirm-key="modal.confirmRestart.restart"
       @confirm="confirmRestart"
       @close="cancelRestart"
     />
 
     <ConfirmModal
       v-if="showClearConfirm"
-      title-key="events.clearAllTitle"
-      description-key="events.clearAllDescription"
-      confirm-key="events.clearAllConfirm"
+      title-key="modal.confirmClearEvents.title"
+      description-key="modal.confirmClearEvents.message"
+      confirm-key="modal.confirmClearEvents.clear"
       @confirm="clearAllPast"
       @close="showClearConfirm = false"
     />

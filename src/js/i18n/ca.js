@@ -30,12 +30,21 @@ export const LOCALIZED_CA = {
   // Confirm restart modal
   'modal.confirmRestart.title': 'Reiniciar el joc',
   'modal.confirmRestart.message': "S'iniciarà una nova partida. La teva partida desada serà eliminada.",
-  'modal.confirmRestart.confirm': 'Reiniciar',
+  'modal.confirmRestart.restart': 'Reiniciar',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Sortir del joc',
   'modal.confirmQuit.message': 'Qualsevol progrés no desat es perdrà.',
   'modal.confirmQuit.quit': 'Sortir',
+
+  // Confirm clear events modal
+  'modal.confirmClearEvents.title': 'Esborrar historial',
+  'modal.confirmClearEvents.message': 'Esteu segur que voleu esborrar tots els esdeveniments passats?',
+  'modal.confirmClearEvents.clear': 'Esborrar',
+
+  // Common modal actions
+  'modal.confirm': 'Confirmar',
+  'modal.cancel': 'Cancel·lar',
 
   // Resources
   'resource.food': 'Menjar',
@@ -141,12 +150,6 @@ export const LOCALIZED_CA = {
   'event.idleWorkers': 'Hi ha treballadors lliures',
   'event.territoryExpanded': 'Territori expandit',
   'events.clearAll': 'Esborrar tot',
-  'events.clearAllConfirm': 'Esborrar',
-  'events.clearAllTitle': 'Esborrar historial',
-  'events.clearAllDescription': 'Esteu segur que voleu esborrar tots els esdeveniments passats?',
-  'modal.confirm': 'Confirmar',
-  'modal.cancel': 'Cancel·lar',
-
   // Help modals
   'modal.help.close': 'Tancar',
   'modal.buildingHelp.tooltip': 'Ajuda',

@@ -30,12 +30,21 @@ export const LOCALIZED_ES = {
   // Confirm restart modal
   'modal.confirmRestart.title': 'Reiniciar juego',
   'modal.confirmRestart.message': 'Se iniciará una nueva partida. Tu partida guardada será eliminada.',
-  'modal.confirmRestart.confirm': 'Reiniciar',
+  'modal.confirmRestart.restart': 'Reiniciar',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Salir del juego',
   'modal.confirmQuit.message': 'Se perderá cualquier progreso no guardado.',
   'modal.confirmQuit.quit': 'Salir',
+
+  // Confirm clear events modal
+  'modal.confirmClearEvents.title': 'Borrar historial',
+  'modal.confirmClearEvents.message': '¿Estás seguro de que quieres borrar todos los eventos pasados?',
+  'modal.confirmClearEvents.clear': 'Borrar',
+
+  // Common modal actions
+  'modal.confirm': 'Confirmar',
+  'modal.cancel': 'Cancelar',
 
   // Resources
   'resource.food': 'Comida',
@@ -141,12 +150,6 @@ export const LOCALIZED_ES = {
   'event.idleWorkers': 'Hay trabajadores libres',
   'event.territoryExpanded': 'Territorio expandido',
   'events.clearAll': 'Borrar todo',
-  'events.clearAllConfirm': 'Borrar',
-  'events.clearAllTitle': 'Borrar historial',
-  'events.clearAllDescription': '¿Estás seguro de que quieres borrar todos los eventos pasados?',
-  'modal.confirm': 'Confirmar',
-  'modal.cancel': 'Cancelar',
-
   // Help modals
   'modal.help.close': 'Cerrar',
   'modal.buildingHelp.tooltip': 'Ayuda',

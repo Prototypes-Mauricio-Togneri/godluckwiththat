@@ -30,12 +30,21 @@ export const LOCALIZED_EN = {
   // Confirm restart modal
   'modal.confirmRestart.title': 'Restart Game',
   'modal.confirmRestart.message': 'This will start a new game. Your saved game will be deleted.',
-  'modal.confirmRestart.confirm': 'Restart',
+  'modal.confirmRestart.restart': 'Restart',
 
   // Confirm quit modal
   'modal.confirmQuit.title': 'Quit Game',
   'modal.confirmQuit.message': 'Any unsaved progress will be lost.',
   'modal.confirmQuit.quit': 'Quit',
+
+  // Confirm clear events modal
+  'modal.confirmClearEvents.title': 'Clear history',
+  'modal.confirmClearEvents.message': 'Are you sure you want to clear all past events?',
+  'modal.confirmClearEvents.clear': 'Clear',
+
+  // Common modal actions
+  'modal.confirm': 'Confirm',
+  'modal.cancel': 'Cancel',
 
   // Resources
   'resource.food': 'Food',
@@ -141,11 +150,6 @@ export const LOCALIZED_EN = {
   'event.idleWorkers': 'There are idle workers',
   'event.territoryExpanded': 'Territory expanded',
   'events.clearAll': 'Clear all',
-  'events.clearAllConfirm': 'Clear',
-  'events.clearAllTitle': 'Clear history',
-  'events.clearAllDescription': 'Are you sure you want to clear all past events?',
-  'modal.confirm': 'Confirm',
-  'modal.cancel': 'Cancel',
 
   // Help modals
   'modal.help.close': 'Close',
