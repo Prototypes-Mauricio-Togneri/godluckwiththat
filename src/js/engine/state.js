@@ -736,6 +736,13 @@ class State {
       const meta = Meta.fromJSON(data.meta)
       const colony = Colony.fromJSON(data.colony, BUILDING_CLASS_MAP)
       const state = new State(meta, colony)
+
+      // Restore edge-detection tracking state so update(0) doesn't
+      // re-fire events that are already in the loaded past list
+      state._resourcesAtCap = new Set(data.resourcesAtCap ?? [])
+      state._resourcesNegativeProduction = new Set(data.resourcesNegativeProduction ?? [])
+      state._hadIdleWorkers = data.hadIdleWorkers ?? false
+
       state.update(0)
       return state
     } catch {
@@ -751,6 +758,9 @@ class State {
     return {
       meta: this.meta.toJSON(),
       colony: this.colony.toJSON(),
+      resourcesAtCap: [...this._resourcesAtCap],
+      resourcesNegativeProduction: [...this._resourcesNegativeProduction],
+      hadIdleWorkers: this._hadIdleWorkers,
     }
   }
 }
