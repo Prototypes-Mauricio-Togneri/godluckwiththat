@@ -1,0 +1,107 @@
+# Challenges System - Implementation Plan
+
+## Context
+
+The gods send sequential challenges to prove the player's faith. Completing all challenges is the win condition (portal activates, player goes home). Challenges consume faith and resources, creating tension between economic growth and divine demands. `meta.numberOfChallenges = 10` already exists as a placeholder.
+
+## Design Decisions
+
+- **Sequential**: One challenge active at a time. Complete/fail → next one activates after a delay
+- **Timed**: Build/accumulate challenges have countdown timers. Ritual challenges are submit-on-demand (no timer)
+- **Rewards (blessings)**: One-time resource grants scaling with difficulty
+- **Punishments**: Lose resources AND workers (both). Fraction of stored bounded resources + some workers die
+- **Recover relic**: Skipped for now (military not implemented). Define fewer challenges; add relic type later
+- **Activation trigger**: First challenge activates immediately when the game starts
+- **Non-dismissable**: Challenge countdown events cannot be dismissed by the player
+
+## Challenge Definitions (Escalating)
+
+8 challenges for now (relic type added later when military exists):
+
+- **1. Build Altar** — Level 3, 10 min, reward: 200 faith (Camp)
+- **2. Accumulate Faith** — 500 faith, 15 min, reward: 500 food, 500 wood (Camp)
+- **3. Build Temple** — Level 2, 12 min, reward: 300 stone, 100 faith (Settlement)
+- **4. Build Monument** — Level 2, 15 min, reward: 500 faith, 200 stone (Settlement/Village)
+- **5. Accumulate Faith** — 2000 faith, 20 min, reward: 500 copper, 200 knowledge (Village)
+- **6. Ritual** — 500 food, 300 wood, 5 workers, no timer, reward: 1000 faith (Village)
+- **7. Build Altar** — Level 6, 20 min, reward: 500 iron, 300 copper (Town)
+- **8. Ritual** — 1000 stone, 500 copper, 10 workers, no timer, reward: 2000 faith, 500 gold (City)
+
+Punishment for failure: lose 30% of all stored bounded resources + 3 workers die (scales with challenge #).
+
+## Implementation Steps
+
+### Step 1: Enums (`src/js/engine/enums.js`)
+- Challenge states: `CHALLENGE_STATE_LOCKED`, `_ACTIVE`, `_COMPLETED`, `_FAILED`
+- Challenge types: `CHALLENGE_TYPE_BUILD_ALTAR`, `_BUILD_TEMPLE`, `_BUILD_MONUMENT`, `_ACCUMULATE_FAITH`, `_RITUAL`, `_RECOVER_RELIC`
+- Challenge keys: `CHALLENGE_1` through `CHALLENGE_8`
+- Event types: `EVENT_TYPE_CHALLENGE_ACTIVE`, `_CHALLENGE_COMPLETED`, `_CHALLENGE_FAILED`
+
+### Step 2: Challenges Model (`src/js/models/challenges.js`)
+New `Challenges` class (lives on `meta`):
+- State: `currentIndex`, `states` map, `completedCount`, `activeRemainingSeconds`, `activeDurationSeconds`, `allCompleted`
+- Methods: `activate(duration)`, `complete()`, `fail()`, `advance(delta)`
+- Getters: `currentKey`, `currentState`, `isActive`, `progress`
+- Serialization: `toJSON()` / `fromJSON()`
+
+### Step 3: Balancing (`src/js/engine/balancing.js`)
+- `CHALLENGE_DEFINITIONS`: Array of 8 challenge configs (key, type, target, timeLimit, reward Cost, punishment, workerCost)
+- `CHALLENGE_ACTIVATION_DELAY`: Seconds between challenge completion/failure and next activation
+- `CHALLENGE_PUNISHMENT_RESOURCE_FRACTION`: 0.3 (30% resource loss)
+- `CHALLENGE_PUNISHMENT_WORKER_LOSS`: Base worker loss per failure (e.g., 2-3, scaling)
+
+### Step 4: Constants & Meta Update
+- `src/js/engine/constants.js`: Import challenge definitions, add `createInitialChallenges()` factory
+- `src/js/models/meta.js`: Add `challenges` property, update `toJSON`/`fromJSON`
+
+### Step 5: State Logic (`src/js/engine/state.js`)
+- `checkChallenges()`: Called in gameTick. Auto-activates next challenge at game start (or after delay), checks passive completion conditions (build level, faith amount)
+- `advanceChallenges(delta)`: Called in progressTick. Decrements timer, handles expiry → fail
+- `submitRitual()`: Player action for ritual-type challenges. Deducts resources + workers
+- `_applyReward(reward)`: Adds resources to colony
+- `_applyPunishment(punishment)`: Removes fraction of bounded resources + kills workers
+
+### Step 6: Event Integration
+- Challenge activated → `addFuture` with countdown (non-dismissable)
+- Challenge completed → convert to `addPast` success event
+- Challenge failed → convert to `addPast` failure event
+- Add `dismissable` flag to Event base class (default `true`, challenges set `false`)
+
+### Step 7: UI - Header Indicator (`game_screen.vue`)
+- Challenge progress display in header (e.g., "3/8")
+- Clickable to open challenge modal
+- Add `syncChallenges()` to sync pattern
+
+### Step 8: UI - Challenge Modal (`src/components/modals/challenge_modal.vue`)
+- Current challenge: name, description, objective, timer, progress bar
+- Ritual submit button with cost display (reuse `.action-row` pattern)
+- Challenge history: completed/failed list with status icons
+- Overall progress: X/8
+
+### Step 9: Localization (`src/js/i18n/*.js`)
+- Challenge system keys: title, states, objective templates, event messages
+- Per-challenge names and descriptions (8 challenges × 5 locales)
+
+### Step 10: Win Screen
+- Simple modal when `allCompleted = true` announcing the portal activates
+
+## Critical Files
+- `src/js/engine/enums.js` — new enums
+- `src/js/engine/balancing.js` — challenge definitions & values
+- `src/js/engine/constants.js` — factory function
+- `src/js/models/challenges.js` — new model (create)
+- `src/js/models/meta.js` — add challenges property
+- `src/js/engine/state.js` — game loop integration, player actions
+- `src/js/models/events/event.js` — add dismissable flag
+- `src/components/screens/game_screen.vue` — header indicator, sync, modal wiring
+- `src/components/modals/challenge_modal.vue` — new modal (create)
+- `src/js/i18n/en.js` (+ es, fr, ca, it) — localization keys
+
+## Verification
+1. Start new game → first challenge activates immediately
+2. Build altar to level 3 → challenge 1 completes, reward granted, past event appears
+3. Let a timed challenge expire → punishment applied (resources + workers lost), failure event, next challenge activates
+4. Submit a ritual → resources + workers deducted, challenge completes
+5. Complete all 8 → win modal appears
+6. Save mid-challenge → load → timer persists correctly
+7. Run `npm run lint -- --fix` → no errors
