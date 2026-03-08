@@ -1139,7 +1139,7 @@ onUnmounted(() => {
       <!-- Speed control -->
       <div class="header-speed" :class="{ 'header-speed--fast': ui.gameSpeed > 1 }">
         <button class="speed-btn tooltip tooltip--delayed" :data-tooltip="t('screen.game.header.speedDown')" :disabled="ui.gameSpeed <= GAME_SPEED_OPTIONS[0]" @click="playTap(); speedDown()">&laquo;</button>
-        <span class="speed-label">{{ t('screen.game.header.speed', ui.gameSpeed) }}</span>
+        <span class="speed-label tooltip tooltip--delayed" :data-tooltip="t('screen.game.header.gameSpeed')">{{ t('screen.game.header.speed', ui.gameSpeed) }}</span>
         <button class="speed-btn tooltip tooltip--delayed" :data-tooltip="t('screen.game.header.speedUp')" :disabled="ui.gameSpeed >= GAME_SPEED_OPTIONS[GAME_SPEED_OPTIONS.length - 1]" @click="playTap(); speedUp()">&raquo;</button>
       </div>
 
@@ -1459,7 +1459,7 @@ onUnmounted(() => {
   height: 1.8rem;
   padding: 0;
   border-radius: 0.2rem;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   line-height: 1;
   color: rgba(var(--color-accent-rgb), 0.7);
   background: transparent;

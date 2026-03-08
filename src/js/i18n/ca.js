@@ -12,6 +12,7 @@ export const LOCALIZED_CA = {
 
   // Game screen
   'screen.game.header.year': 'Any',
+  'screen.game.header.gameSpeed': 'Velocitat del joc',
   'screen.game.header.speedDown': 'Alentir',
   'screen.game.header.speedUp': 'Accelerar',
   'screen.game.header.speed': '{0}x',

@@ -12,6 +12,7 @@ export const LOCALIZED_EN = {
 
   // Game screen
   'screen.game.header.year': 'Year',
+  'screen.game.header.gameSpeed': 'Game speed',
   'screen.game.header.speedDown': 'Slow down',
   'screen.game.header.speedUp': 'Speed up',
   'screen.game.header.speed': '{0}x',
