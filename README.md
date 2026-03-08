@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-Explain that in warm season the wood consumption decreases
-
 - Allow to increase the game speed
 
 - Implement challenges

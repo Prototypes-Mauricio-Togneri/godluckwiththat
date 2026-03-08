@@ -370,7 +370,7 @@ export const LOCALIZED_IT = {
   // Tutorial modals
   'tutorial.modal.dismiss': 'Capito',
   'tutorial.modal.seasonChanged.title': 'Stagioni',
-  'tutorial.modal.seasonChanged.body': 'Le stagioni alternano tra calda e fredda. Durante le stagioni calde, la produzione di cibo aumenta. Durante quelle fredde, la produzione di cibo diminuisce e il consumo di legno aumenta.',
+  'tutorial.modal.seasonChanged.body': 'Le stagioni alternano tra calda e fredda. Durante le stagioni calde, la produzione di cibo aumenta e il consumo di legno diminuisce. Durante quelle fredde, la produzione di cibo diminuisce e il consumo di legno aumenta.',
   'tutorial.modal.negativeProduction.title': 'Allarme produzione',
   'tutorial.modal.negativeProduction.body': 'La tua colonia consuma più di quanto produce. Assegna più lavoratori agli edifici di produzione o costruiscine di nuovi. Se la carenza persiste, la produttività calerà.',
   'tutorial.modal.campUpgrade.title': 'Accampamento migliorato',

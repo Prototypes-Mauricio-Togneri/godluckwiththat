@@ -370,7 +370,7 @@ export const LOCALIZED_FR = {
   // Tutorial modals
   'tutorial.modal.dismiss': 'Compris',
   'tutorial.modal.seasonChanged.title': 'Saisons',
-  'tutorial.modal.seasonChanged.body': 'Les saisons alternent entre chaude et froide. Pendant les saisons chaudes, la production de nourriture augmente. Pendant les froides, la production de nourriture diminue et la consommation de bois augmente.',
+  'tutorial.modal.seasonChanged.body': 'Les saisons alternent entre chaude et froide. Pendant les saisons chaudes, la production de nourriture augmente et la consommation de bois diminue. Pendant les froides, la production de nourriture diminue et la consommation de bois augmente.',
   'tutorial.modal.negativeProduction.title': 'Alerte de production',
   'tutorial.modal.negativeProduction.body': 'Votre colonie consomme plus qu\'elle ne produit. Assignez plus d\'ouvriers aux bâtiments de production ou construisez-en de nouveaux. Si les pénuries persistent, la productivité baissera.',
   'tutorial.modal.campUpgrade.title': 'Camp amélioré',
