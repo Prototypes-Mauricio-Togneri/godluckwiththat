@@ -926,7 +926,7 @@ function progressTick() {
     if (el) {
       const elapsed = (now - perfLastSample) / 1000
       const fps = Math.round(perfFrameCount / elapsed)
-      const avgFrame = (perfFrameTimeSum / perfFrameCount).toFixed(1)
+      const avgFrame = (Math.floor((perfFrameTimeSum / perfFrameCount) * 10) / 10).toFixed(1)
       const avgSyncUI = perfSyncUICount ? (perfSyncUITime / perfSyncUICount).toFixed(2) : '—'
       const avgSyncTimers = perfSyncTimersCount ? (perfSyncTimersTime / perfSyncTimersCount).toFixed(2) : '—'
       const avgTick = perfGameTickCount ? (perfGameTickTime / perfGameTickCount).toFixed(2) : '—'
