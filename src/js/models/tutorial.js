@@ -12,10 +12,10 @@ class Tutorial {
    * @param {Object} [data] - Saved tutorial data (optional, defaults applied)
    */
   constructor(data) {
-    this.currentStep = data?.currentStep ?? 0
-    this.completed = data?.completed ?? false
-    this.dismissedModals = new Set(data?.dismissedModals ?? [])
-    this.activeModal = null
+    this.currentStep = data?.currentStep ?? 0 // Current tutorial step index
+    this.completed = data?.completed ?? false // Whether the tutorial is complete
+    this.dismissedModals = new Set(data?.dismissedModals ?? []) // Set of dismissed modal identifiers
+    this.activeModal = null // Currently displayed modal (ephemeral)
   }
 
   /** @returns {boolean} Whether the tutorial is still in progress */

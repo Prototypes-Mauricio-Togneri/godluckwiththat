@@ -1,3 +1,5 @@
+// Shared utility functions for resource affordability checks.
+
 /**
  * Whether the given resource snapshot can cover the cost.
  * Works on plain objects (no class dependency).

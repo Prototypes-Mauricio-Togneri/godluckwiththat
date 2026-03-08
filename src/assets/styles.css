@@ -583,16 +583,19 @@
     padding: 0.35rem 0.6rem;
 }
 
+/* Population stat padding */
 .colony-box--population {
     padding-left: 0.6rem;
     padding-right: 0.6rem;
 }
 
+/* Idle workers stat padding */
 .colony-box--idle {
     padding-left: 0.8rem;
     padding-right: 0.4rem;
 }
 
+/* Territory stat padding */
 .colony-box--territory {
     padding-left: 0.6rem;
     padding-right: 0.6rem;
@@ -640,6 +643,7 @@
     color: rgba(196, 80, 80, 1);
 }
 
+/* Narrower width for idle worker count */
 .resource-value--idle {
     min-width: 3ch;
 }
@@ -718,6 +722,7 @@
 
 /* ── .productivity-box ───────────────────────────────────────────── */
 
+/* Productivity ratio display — always visible in header */
 .productivity-box {
     justify-content: space-between;
 }
@@ -733,6 +738,7 @@
     );
 }
 
+/* Penalized hover — intensified red tint */
 .productivity-box--penalized:hover,
 .resource-box--penalized:hover {
     border-color: rgba(196, 80, 80, 0.45);

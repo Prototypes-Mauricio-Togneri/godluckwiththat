@@ -40,9 +40,9 @@ export const IS_DEV = import.meta.env.DEV
 export const TICK_INTERVAL = 1000
 
 // Autosave interval bounds (minutes)
-export const AUTOSAVE_DEFAULT_INTERVAL = 5
-export const AUTOSAVE_MIN_INTERVAL = 1
-export const AUTOSAVE_MAX_INTERVAL = 60
+export const AUTOSAVE_DEFAULT_INTERVAL = 5 // Default autosave frequency
+export const AUTOSAVE_MIN_INTERVAL = 1 // Minimum allowed autosave frequency
+export const AUTOSAVE_MAX_INTERVAL = 60 // Maximum allowed autosave frequency
 
 // Seconds-per-minute conversion for production rate display
 export const SECONDS_PER_MINUTE = 60

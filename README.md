@@ -2,6 +2,14 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- sync-architecture.md
+
+- About
+  - Changelog
+  - More games
+  - Feedback
+  - Version
+
 - Implement challenges
   - See next challenge
   - Resolve a challenge

@@ -19,9 +19,10 @@ const LOCALES = {
 }
 
 const browserLang = navigator.language.slice(0, 2) // Two-letter language code
-const resolvedLang = browserLang in LOCALES ? browserLang : 'en'
-const strings = LOCALES[resolvedLang]
+const resolvedLang = browserLang in LOCALES ? browserLang : 'en' // Resolved locale (falls back to English)
+const strings = LOCALES[resolvedLang] // Active string table
 
+// Set HTML lang attribute for accessibility
 document.documentElement.lang = resolvedLang
 
 /**
