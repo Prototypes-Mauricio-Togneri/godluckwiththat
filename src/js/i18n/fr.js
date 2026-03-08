@@ -10,6 +10,12 @@ export const LOCALIZED_FR = {
   'screen.home.continue': 'Continuer',
   'screen.home.mobileUnavailable': 'Version mobile pas encore disponible',
 
+  // Game screen
+  'screen.game.header.year': 'Année',
+
+  // Notifications
+  'notifications.gameSaved': 'Partie sauvegardée',
+
   // Pause modal
   'modal.pause.title': 'Pause',
   'modal.pause.resume': 'Reprendre',
@@ -18,9 +24,6 @@ export const LOCALIZED_FR = {
   'modal.pause.settings': 'Paramètres',
   'modal.pause.restart': 'Redémarrer',
   'modal.pause.quit': 'Quitter',
-
-  // Game
-  'game.saved': 'Partie sauvegardée',
 
   // Settings modal
   'modal.settings.title': 'Paramètres',
@@ -48,6 +51,15 @@ export const LOCALIZED_FR = {
   'modal.confirm': 'Confirmer',
   'modal.cancel': 'Annuler',
 
+  // Help modals
+  'modal.help.close': 'Fermer',
+  'modal.buildingHelp.tooltip': 'Aide',
+  'modal.buildingHelp.close': 'Fermer',
+  'modal.researchHelp.title': 'Recherche',
+  'modal.researchHelp.body': 'Dépensez du savoir et d\'autres ressources à l\'académie pour débloquer des bonus permanents. Une seule recherche peut être active par catégorie. Les bonus complétés se cumulent.',
+  'modal.marketHelp.title': 'Marché',
+  'modal.marketHelp.body': 'Achetez et vendez des ressources (nourriture, bois, pierre, cuivre, fer) par lots de {0} en utilisant de l\'or.\nChaque ressource a un prix de base qui évolue dynamiquement à chaque échange — acheter augmente le prix de {1} en or, vendre le diminue de {1} en or.\nDes frais s\'appliquent à chaque transaction : vous payez plus à l\'achat et recevez moins à la vente. Les frais de base commencent à {2}% et diminuent de {3}% par niveau du bâtiment marché, jusqu\'à un minimum de {4}%.\nLes échanges sont bloqués si vous manquez d\'or ou de ressources, ou si votre entrepôt est plein.\nC\'est un système simple d\'offre et demande — acheter fait monter les prix, vendre les fait baisser. Les deux variables principales affectant le commerce sont le niveau du bâtiment marché (réduit les frais) et l\'historique des échanges (modifie les prix).',
+
   // Resources
   'resource.food': 'Nourriture',
   'resource.wood': 'Bois',
@@ -69,9 +81,6 @@ export const LOCALIZED_FR = {
   'resource.consuming': 'Consommation',
   'resource.productivity': 'Productivité',
 
-  // Year
-  'year.label': 'Année',
-
   // Seasons
   'season.warmSeason': 'Saison chaude',
   'season.coldSeason': 'Saison froide',
@@ -81,6 +90,28 @@ export const LOCALIZED_FR = {
   'buildingGroup.economy': 'Économie',
   'buildingGroup.religion': 'Religion',
   'buildingGroup.military': 'Militaire',
+
+  // Building descriptions
+  'buildingHelp.headquarters': 'Le cœur de votre colonie. Chaque niveau débloque de nouveaux bâtiments. Depuis ici, vous pouvez également étendre votre territoire.',
+  'buildingHelp.house': 'Fournit un abri pour votre peuple. Chaque niveau augmente la population maximum d\'ouvriers que vous pouvez recruter.',
+  'buildingHelp.storehouse': 'Un stockage sécurisé pour vos ressources. Chaque niveau augmente la quantité maximum de ressources que vous pouvez accumuler.',
+  'buildingHelp.academy': 'Un lieu d\'apprentissage. Assignez des ouvriers ici pour produire du savoir, utilisé pour la recherche.',
+  'buildingHelp.market': 'Un centre de commerce qui permet d\'échanger des ressources. Les niveaux supérieurs offrent de meilleurs taux.',
+  'buildingHelp.farm': 'Des champs fertiles qui nourrissent votre colonie. Assignez des ouvriers ici pour produire de la nourriture.',
+  'buildingHelp.woodcutter': 'Un camp de bûcherons qui fournit du bois pour la construction. Assignez des ouvriers ici pour produire du bois.',
+  'buildingHelp.quarry': 'Une carrière qui fournit des matériaux pour la construction. Assignez des ouvriers ici pour extraire de la pierre.',
+  'buildingHelp.copperMine': 'Une mine souterraine qui fournit du cuivre pour l\'équipement militaire. Assignez des ouvriers ici pour extraire du cuivre.',
+  'buildingHelp.ironMine': 'Une mine profonde qui fournit du fer pour les unités militaires avancées. Assignez des ouvriers ici pour extraire du fer.',
+  'buildingHelp.goldMine': 'Une mine précieuse qui fournit de l\'or pour le commerce et les unités avancées. Assignez des ouvriers ici pour extraire de l\'or.',
+  'buildingHelp.altar': 'Un lieu sacré qui produit passivement une petite quantité de foi au fil du temps. Aucun ouvrier requis.',
+  'buildingHelp.temple': 'Un site sacré où des ouvriers peuvent être assignés pour prier et produire de la foi.',
+  'buildingHelp.monument': 'Une structure divine. Octroie de la foi à chaque amélioration. Requis pour certains défis divins.',
+  'buildingHelp.barracks': 'Entraîne des unités d\'infanterie.',
+  'buildingHelp.archery': 'Entraîne des unités d\'archers.',
+  'buildingHelp.stable': 'Entraîne des unités de cavalerie.',
+  'buildingHelp.workshop': 'Construit des unités de siège.',
+  'buildingHelp.wall': 'Des fortifications qui protègent votre colonie. Chaque niveau augmente votre défense.',
+  'buildingHelp.tower': 'Des structures défensives qui attaquent les ennemis. Chaque niveau augmente votre puissance d\'attaque.',
 
   // Buildings
   'building.headquarters.camp': 'Camp',
@@ -132,6 +163,7 @@ export const LOCALIZED_FR = {
   'events.future': 'À venir',
   'events.past': 'Historique',
   'events.empty': 'Aucun événement',
+  'events.clearAll': 'Tout effacer',
   'event.warmSeason': 'La saison chaude a commencé',
   'event.coldSeason': 'La saison froide a commencé',
   'event.populationLimitReached': 'Limite de population atteinte',
@@ -152,38 +184,8 @@ export const LOCALIZED_FR = {
   'event.buildingUpgrading': 'Amélioration de {0}',
   'event.territoryExpanding': 'Extension du territoire',
   'event.idleWorkers': 'Il y a des ouvriers disponibles',
+  'event.researchInProgress': 'Recherche de {0}',
   'event.territoryExpanded': 'Territoire étendu',
-  'events.clearAll': 'Tout effacer',
-  // Help modals
-  'modal.help.close': 'Fermer',
-  'modal.buildingHelp.tooltip': 'Aide',
-  'modal.buildingHelp.close': 'Fermer',
-  'modal.researchHelp.title': 'Recherche',
-  'modal.researchHelp.body': 'Dépensez du savoir et d\'autres ressources à l\'académie pour débloquer des bonus permanents. Une seule recherche peut être active par catégorie. Les bonus complétés se cumulent.',
-  'modal.marketHelp.title': 'Marché',
-  'modal.marketHelp.body': 'Achetez et vendez des ressources (nourriture, bois, pierre, cuivre, fer) par lots de {0} en utilisant de l\'or.\nChaque ressource a un prix de base qui évolue dynamiquement à chaque échange — acheter augmente le prix de {1} en or, vendre le diminue de {1} en or.\nDes frais s\'appliquent à chaque transaction : vous payez plus à l\'achat et recevez moins à la vente. Les frais de base commencent à {2}% et diminuent de {3}% par niveau du bâtiment marché, jusqu\'à un minimum de {4}%.\nLes échanges sont bloqués si vous manquez d\'or ou de ressources, ou si votre entrepôt est plein.\nC\'est un système simple d\'offre et demande — acheter fait monter les prix, vendre les fait baisser. Les deux variables principales affectant le commerce sont le niveau du bâtiment marché (réduit les frais) et l\'historique des échanges (modifie les prix).',
-
-  // Building descriptions
-  'buildingHelp.headquarters': 'Le cœur de votre colonie. Chaque niveau débloque de nouveaux bâtiments. Depuis ici, vous pouvez également étendre votre territoire.',
-  'buildingHelp.house': 'Fournit un abri pour votre peuple. Chaque niveau augmente la population maximum d\'ouvriers que vous pouvez recruter.',
-  'buildingHelp.storehouse': 'Un stockage sécurisé pour vos ressources. Chaque niveau augmente la quantité maximum de ressources que vous pouvez accumuler.',
-  'buildingHelp.academy': 'Un lieu d\'apprentissage. Assignez des ouvriers ici pour produire du savoir, utilisé pour la recherche.',
-  'buildingHelp.market': 'Un centre de commerce qui permet d\'échanger des ressources. Les niveaux supérieurs offrent de meilleurs taux.',
-  'buildingHelp.farm': 'Des champs fertiles qui nourrissent votre colonie. Assignez des ouvriers ici pour produire de la nourriture.',
-  'buildingHelp.woodcutter': 'Un camp de bûcherons qui fournit du bois pour la construction. Assignez des ouvriers ici pour produire du bois.',
-  'buildingHelp.quarry': 'Une carrière qui fournit des matériaux pour la construction. Assignez des ouvriers ici pour extraire de la pierre.',
-  'buildingHelp.copperMine': 'Une mine souterraine qui fournit du cuivre pour l\'équipement militaire. Assignez des ouvriers ici pour extraire du cuivre.',
-  'buildingHelp.ironMine': 'Une mine profonde qui fournit du fer pour les unités militaires avancées. Assignez des ouvriers ici pour extraire du fer.',
-  'buildingHelp.goldMine': 'Une mine précieuse qui fournit de l\'or pour le commerce et les unités avancées. Assignez des ouvriers ici pour extraire de l\'or.',
-  'buildingHelp.altar': 'Un lieu sacré qui produit passivement une petite quantité de foi au fil du temps. Aucun ouvrier requis.',
-  'buildingHelp.temple': 'Un site sacré où des ouvriers peuvent être assignés pour prier et produire de la foi.',
-  'buildingHelp.monument': 'Une structure divine. Octroie de la foi à chaque amélioration. Requis pour certains défis divins.',
-  'buildingHelp.barracks': 'Entraîne des unités d\'infanterie.',
-  'buildingHelp.archery': 'Entraîne des unités d\'archers.',
-  'buildingHelp.stable': 'Entraîne des unités de cavalerie.',
-  'buildingHelp.workshop': 'Construit des unités de siège.',
-  'buildingHelp.wall': 'Des fortifications qui protègent votre colonie. Chaque niveau augmente votre défense.',
-  'buildingHelp.tower': 'Des structures défensives qui attaquent les ennemis. Chaque niveau augmente votre puissance d\'attaque.',
 
   // Market modal
   'market.title': 'Marché',
@@ -347,9 +349,6 @@ export const LOCALIZED_FR = {
   'research.warning3': 'Patrouilles frontalières',
   'research.warning4': 'Messagers fauconniers',
   'research.warning5': 'Espionnage',
-
-  // Research events
-  'event.researchInProgress': 'Recherche de {0}',
 
   // Tutorial steps
   'tutorial.step.buildHouse': 'Construisez une maison',

@@ -8,7 +8,13 @@ export const LOCALIZED_EN = {
   'screen.home.title.line2': 'With That',
   'screen.home.newGame': 'New game',
   'screen.home.continue': 'Continue',
-  'screen.home.mobileUnavailable': 'Mobile version not available yet',
+  'screen.home.mobileUnavailable': 'Mobile version not yet available',
+
+  // Game screen
+  'screen.game.header.year': 'Year',
+
+  // Notifications
+  'notifications.gameSaved': 'Game Saved',
 
   // Pause modal
   'modal.pause.title': 'Paused',
@@ -18,9 +24,6 @@ export const LOCALIZED_EN = {
   'modal.pause.settings': 'Settings',
   'modal.pause.restart': 'Restart',
   'modal.pause.quit': 'Quit',
-
-  // Game
-  'game.saved': 'Game Saved',
 
   // Settings modal
   'modal.settings.title': 'Settings',
@@ -48,6 +51,15 @@ export const LOCALIZED_EN = {
   'modal.confirm': 'Confirm',
   'modal.cancel': 'Cancel',
 
+  // Help modals
+  'modal.help.close': 'Close',
+  'modal.buildingHelp.tooltip': 'Help',
+  'modal.buildingHelp.close': 'Close',
+  'modal.researchHelp.title': 'Research',
+  'modal.researchHelp.body': 'Spend knowledge and other resources at the academy to unlock permanent bonuses. Only one research can be active per category. Completed bonuses accumulate.',
+  'modal.marketHelp.title': 'Market',
+  'modal.marketHelp.body': 'Buy and sell resources (food, wood, stone, copper, iron) in lots of {0} using gold.\nEach resource has a base price that shifts dynamically with each trade — buying raises the price by {1} gold, selling lowers it by {1} gold.\nA fee applies to every transaction: you pay more when buying and receive less when selling. The base fee starts at {2}% and decreases by {3}% per market building level, down to a minimum of {4}%.\nTrades are blocked if you lack enough gold or resources, or if your stockpile is full.\nIt\'s a simple supply/demand system — buying drives prices up, selling drives them down. The two main variables affecting trading are market building level (reduces fee) and trade history (shifts prices).',
+
   // Resources
   'resource.food': 'Food',
   'resource.wood': 'Wood',
@@ -69,9 +81,6 @@ export const LOCALIZED_EN = {
   'resource.consuming': 'Consuming',
   'resource.productivity': 'Productivity',
 
-  // Year
-  'year.label': 'Year',
-
   // Seasons
   'season.warmSeason': 'Warm season',
   'season.coldSeason': 'Cold season',
@@ -81,6 +90,28 @@ export const LOCALIZED_EN = {
   'buildingGroup.economy': 'Economy',
   'buildingGroup.religion': 'Religion',
   'buildingGroup.military': 'Military',
+
+  // Building descriptions
+  'buildingHelp.headquarters': 'The heart of your colony. Each level unlocks new buildings. From here, you can also expand your territory.',
+  'buildingHelp.house': 'Provides shelter for your people. Each level increases the maximum population of workers you can recruit.',
+  'buildingHelp.storehouse': 'Secure storage for your resources. Each level increases the maximum amount of resources you can stockpile.',
+  'buildingHelp.academy': 'A place of learning. Assign workers here to produce knowledge, used for research.',
+  'buildingHelp.market': 'A trading hub that allows exchanging resources. Higher levels offer cheaper trade rates.',
+  'buildingHelp.farm': 'Fertile fields that feed your colony. Assign workers here to produce food.',
+  'buildingHelp.woodcutter': 'A lumber camp that supplies timber for construction. Assign workers here to produce wood.',
+  'buildingHelp.quarry': 'A stone quarry that supplies material for building. Assign workers here to extract stone.',
+  'buildingHelp.copperMine': 'An underground mine that supplies copper for military equipment. Assign workers here to extract copper.',
+  'buildingHelp.ironMine': 'A deep mine that supplies iron for advanced military units. Assign workers here to extract iron.',
+  'buildingHelp.goldMine': 'A precious mine that supplies gold for trade and advanced units. Assign workers here to extract gold.',
+  'buildingHelp.altar': 'A sacred place that passively produces a small amount of faith over time. No workers needed.',
+  'buildingHelp.temple': 'A holy site where workers can be assigned to pray and produce faith.',
+  'buildingHelp.monument': 'A divine structure. Grants faith each time it is upgraded. Required for some divine challenges.',
+  'buildingHelp.barracks': 'Trains infantry units.',
+  'buildingHelp.archery': 'Trains archer units.',
+  'buildingHelp.stable': 'Trains cavalry units.',
+  'buildingHelp.workshop': 'Builds siege units.',
+  'buildingHelp.wall': 'Fortifications that protect your colony. Each level increases your defense.',
+  'buildingHelp.tower': 'Defensive structures that strike at enemies. Each level increases your attack power.',
 
   // Buildings
   'building.headquarters.camp': 'Camp',
@@ -132,6 +163,7 @@ export const LOCALIZED_EN = {
   'events.future': 'Upcoming',
   'events.past': 'History',
   'events.empty': 'No events',
+  'events.clearAll': 'Clear all',
   'event.warmSeason': 'Warm season has begun',
   'event.coldSeason': 'Cold season has begun',
   'event.populationLimitReached': 'Population limit reached',
@@ -152,39 +184,8 @@ export const LOCALIZED_EN = {
   'event.buildingUpgrading': 'Upgrading {0}',
   'event.territoryExpanding': 'Expanding territory',
   'event.idleWorkers': 'There are idle workers',
+  'event.researchInProgress': 'Researching {0}',
   'event.territoryExpanded': 'Territory expanded',
-  'events.clearAll': 'Clear all',
-
-  // Help modals
-  'modal.help.close': 'Close',
-  'modal.buildingHelp.tooltip': 'Help',
-  'modal.buildingHelp.close': 'Close',
-  'modal.researchHelp.title': 'Research',
-  'modal.researchHelp.body': 'Spend knowledge and other resources at the academy to unlock permanent bonuses. Only one research can be active per category. Completed bonuses accumulate.',
-  'modal.marketHelp.title': 'Market',
-  'modal.marketHelp.body': 'Buy and sell resources (food, wood, stone, copper, iron) in lots of {0} using gold.\nEach resource has a base price that shifts dynamically with each trade — buying raises the price by {1} gold, selling lowers it by {1} gold.\nA fee applies to every transaction: you pay more when buying and receive less when selling. The base fee starts at {2}% and decreases by {3}% per market building level, down to a minimum of {4}%.\nTrades are blocked if you lack enough gold or resources, or if your stockpile is full.\nIt\'s a simple supply/demand system — buying drives prices up, selling drives them down. The two main variables affecting trading are market building level (reduces fee) and trade history (shifts prices).',
-
-  // Building descriptions
-  'buildingHelp.headquarters': 'The heart of your colony. Each level unlocks new buildings. From here, you can also expand your territory.',
-  'buildingHelp.house': 'Provides shelter for your people. Each level increases the maximum population of workers you can recruit.',
-  'buildingHelp.storehouse': 'Secure storage for your resources. Each level increases the maximum amount of resources you can stockpile.',
-  'buildingHelp.academy': 'A place of learning. Assign workers here to produce knowledge, used for research.',
-  'buildingHelp.market': 'A trading hub that allows exchanging resources. Higher levels offer cheaper trade rates.',
-  'buildingHelp.farm': 'Fertile fields that feed your colony. Assign workers here to produce food.',
-  'buildingHelp.woodcutter': 'A lumber camp that supplies timber for construction. Assign workers here to produce wood.',
-  'buildingHelp.quarry': 'A stone quarry that supplies material for building. Assign workers here to extract stone.',
-  'buildingHelp.copperMine': 'An underground mine that supplies copper for military equipment. Assign workers here to extract copper.',
-  'buildingHelp.ironMine': 'A deep mine that supplies iron for advanced military units. Assign workers here to extract iron.',
-  'buildingHelp.goldMine': 'A precious mine that supplies gold for trade and advanced units. Assign workers here to extract gold.',
-  'buildingHelp.altar': 'A sacred place that passively produces a small amount of faith over time. No workers needed.',
-  'buildingHelp.temple': 'A holy site where workers can be assigned to pray and produce faith.',
-  'buildingHelp.monument': 'A divine structure. Grants faith each time it is upgraded. Required for some divine challenges.',
-  'buildingHelp.barracks': 'Trains infantry units.',
-  'buildingHelp.archery': 'Trains archer units.',
-  'buildingHelp.stable': 'Trains cavalry units.',
-  'buildingHelp.workshop': 'Builds siege units.',
-  'buildingHelp.wall': 'Fortifications that protect your colony. Each level increases your defense.',
-  'buildingHelp.tower': 'Defensive structures that strike at enemies. Each level increases your attack power.',
 
   // Market modal
   'market.title': 'Market',
@@ -348,9 +349,6 @@ export const LOCALIZED_EN = {
   'research.warning3': 'Border Patrols',
   'research.warning4': 'Falconry Messengers',
   'research.warning5': 'Espionage',
-
-  // Research events
-  'event.researchInProgress': 'Researching {0}',
 
   // Tutorial steps
   'tutorial.step.buildHouse': 'Build a house',

@@ -1046,7 +1046,7 @@ onUnmounted(() => {
             <div class="season-fill" :style="{ width: (seasonProgress * 100) + '%' }" />
           </div>
         </div>
-        <span class="header-year">{{ t('year.label') }} <span class="header-year-num">{{ ui.year }}</span></span>
+        <span class="header-year">{{ t('screen.game.header.year') }} <span class="header-year-num">{{ ui.year }}</span></span>
       </div>
 
       <!-- Decorative divider -->
@@ -1283,7 +1283,7 @@ onUnmounted(() => {
     />
 
     <Transition name="save-indicator">
-      <div v-if="showSaveIndicator" class="save-indicator">{{ t('game.saved') }}</div>
+      <div v-if="showSaveIndicator" class="save-indicator">{{ t('notifications.gameSaved') }}</div>
     </Transition>
   </div>
 </template>

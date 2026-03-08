@@ -10,6 +10,12 @@ export const LOCALIZED_CA = {
   'screen.home.continue': 'Continuar',
   'screen.home.mobileUnavailable': 'Versió mòbil encara no disponible',
 
+  // Game screen
+  'screen.game.header.year': 'Any',
+
+  // Notifications
+  'notifications.gameSaved': 'Partida desada',
+
   // Pause modal
   'modal.pause.title': 'Pausa',
   'modal.pause.resume': 'Reprendre',
@@ -18,9 +24,6 @@ export const LOCALIZED_CA = {
   'modal.pause.settings': 'Configuració',
   'modal.pause.restart': 'Reiniciar',
   'modal.pause.quit': 'Sortir',
-
-  // Game
-  'game.saved': 'Partida desada',
 
   // Settings modal
   'modal.settings.title': 'Configuració',
@@ -48,6 +51,15 @@ export const LOCALIZED_CA = {
   'modal.confirm': 'Confirmar',
   'modal.cancel': 'Cancel·lar',
 
+  // Help modals
+  'modal.help.close': 'Tancar',
+  'modal.buildingHelp.tooltip': 'Ajuda',
+  'modal.buildingHelp.close': 'Tancar',
+  'modal.researchHelp.title': 'Recerca',
+  'modal.researchHelp.body': 'Gasteu coneixement i altres recursos a l\'acadèmia per desbloquejar bonificacions permanents. Només es pot tenir una recerca activa per categoria. Les bonificacions completades s\'acumulen.',
+  'modal.marketHelp.title': 'Mercat',
+  'modal.marketHelp.body': 'Compreu i veneu recursos (menjar, fusta, pedra, coure, ferro) en lots de {0} usant or.\nCada recurs té un preu base que canvia dinàmicament amb cada transacció — comprar puja el preu en {1} or, vendre el baixa en {1} or.\nS\'aplica una taxa a cada transacció: pagueu més en comprar i rebeu menys en vendre. La taxa base comença al {2}% i disminueix un {3}% per nivell de mercat, fins a un mínim del {4}%.\nLes transaccions es bloquegen si no teniu prou or o recursos, o si el magatzem és ple.\nÉs un sistema simple d\'oferta i demanda — comprar puja els preus, vendre els baixa. Les dues variables principals que afecten el comerç són el nivell del mercat (redueix la taxa) i l\'historial de transaccions (modifica els preus).',
+
   // Resources
   'resource.food': 'Menjar',
   'resource.wood': 'Fusta',
@@ -69,9 +81,6 @@ export const LOCALIZED_CA = {
   'resource.consuming': 'Consumint',
   'resource.productivity': 'Productivitat',
 
-  // Year
-  'year.label': 'Any',
-
   // Seasons
   'season.warmSeason': 'Estació càlida',
   'season.coldSeason': 'Estació freda',
@@ -81,6 +90,28 @@ export const LOCALIZED_CA = {
   'buildingGroup.economy': 'Economia',
   'buildingGroup.religion': 'Religió',
   'buildingGroup.military': 'Militar',
+
+  // Building descriptions
+  'buildingHelp.headquarters': 'El cor de la vostra colònia. Cada nivell desbloqueja nous edificis. Des d\'aquí, també podeu expandir el vostre territori.',
+  'buildingHelp.house': 'Proporciona refugi per a la vostra gent. Cada nivell augmenta la població màxima de treballadors que podeu reclutar.',
+  'buildingHelp.storehouse': 'Emmagatzematge segur per als vostres recursos. Cada nivell augmenta la quantitat màxima de recursos que podeu acumular.',
+  'buildingHelp.academy': 'Un lloc d\'aprenentatge. Assigneu treballadors aquí per produir coneixement, usat per a la recerca.',
+  'buildingHelp.market': 'Un centre comercial que permet intercanviar recursos. Nivells més alts ofereixen taxes de comerç més barates.',
+  'buildingHelp.farm': 'Camps fèrtils que alimenten la vostra colònia. Assigneu treballadors aquí per produir menjar.',
+  'buildingHelp.woodcutter': 'Un camp de llenyataires que subministra fusta per a la construcció. Assigneu treballadors aquí per produir fusta.',
+  'buildingHelp.quarry': 'Una pedrera que subministra material per a la construcció. Assigneu treballadors aquí per extreure pedra.',
+  'buildingHelp.copperMine': 'Una mina subterrània que subministra coure per a equipament militar. Assigneu treballadors aquí per extreure coure.',
+  'buildingHelp.ironMine': 'Una mina profunda que subministra ferro per a unitats militars avançades. Assigneu treballadors aquí per extreure ferro.',
+  'buildingHelp.goldMine': 'Una mina preciosa que subministra or per al comerç i unitats avançades. Assigneu treballadors aquí per extreure or.',
+  'buildingHelp.altar': 'Un lloc sagrat que produeix passivament una petita quantitat de fe amb el temps. No calen treballadors.',
+  'buildingHelp.temple': 'Un lloc sant on es poden assignar treballadors per pregar i produir fe.',
+  'buildingHelp.monument': 'Una estructura divina. Atorga fe cada cop que es millora. Necessari per a alguns reptes divins.',
+  'buildingHelp.barracks': 'Entrena unitats d\'infanteria.',
+  'buildingHelp.archery': 'Entrena unitats d\'arquers.',
+  'buildingHelp.stable': 'Entrena unitats de cavalleria.',
+  'buildingHelp.workshop': 'Construeix unitats de setge.',
+  'buildingHelp.wall': 'Fortificacions que protegeixen la vostra colònia. Cada nivell augmenta la defensa.',
+  'buildingHelp.tower': 'Estructures defensives que ataquen els enemics. Cada nivell augmenta el poder d\'atac.',
 
   // Buildings
   'building.headquarters.camp': 'Campament',
@@ -132,6 +163,7 @@ export const LOCALIZED_CA = {
   'events.future': 'Propers',
   'events.past': 'Historial',
   'events.empty': 'Cap esdeveniment',
+  'events.clearAll': 'Esborrar tot',
   'event.warmSeason': 'Ha començat l\'estació càlida',
   'event.coldSeason': 'Ha començat l\'estació freda',
   'event.populationLimitReached': 'Límit de població assolit',
@@ -152,38 +184,8 @@ export const LOCALIZED_CA = {
   'event.buildingUpgrading': 'Millorant {0}',
   'event.territoryExpanding': 'Expandint territori',
   'event.idleWorkers': 'Hi ha treballadors lliures',
+  'event.researchInProgress': 'Investigant {0}',
   'event.territoryExpanded': 'Territori expandit',
-  'events.clearAll': 'Esborrar tot',
-  // Help modals
-  'modal.help.close': 'Tancar',
-  'modal.buildingHelp.tooltip': 'Ajuda',
-  'modal.buildingHelp.close': 'Tancar',
-  'modal.researchHelp.title': 'Recerca',
-  'modal.researchHelp.body': 'Gasteu coneixement i altres recursos a l\'acadèmia per desbloquejar bonificacions permanents. Només es pot tenir una recerca activa per categoria. Les bonificacions completades s\'acumulen.',
-  'modal.marketHelp.title': 'Mercat',
-  'modal.marketHelp.body': 'Compreu i veneu recursos (menjar, fusta, pedra, coure, ferro) en lots de {0} usant or.\nCada recurs té un preu base que canvia dinàmicament amb cada transacció — comprar puja el preu en {1} or, vendre el baixa en {1} or.\nS\'aplica una taxa a cada transacció: pagueu més en comprar i rebeu menys en vendre. La taxa base comença al {2}% i disminueix un {3}% per nivell de mercat, fins a un mínim del {4}%.\nLes transaccions es bloquegen si no teniu prou or o recursos, o si el magatzem és ple.\nÉs un sistema simple d\'oferta i demanda — comprar puja els preus, vendre els baixa. Les dues variables principals que afecten el comerç són el nivell del mercat (redueix la taxa) i l\'historial de transaccions (modifica els preus).',
-
-  // Building descriptions
-  'buildingHelp.headquarters': 'El cor de la vostra colònia. Cada nivell desbloqueja nous edificis. Des d\'aquí, també podeu expandir el vostre territori.',
-  'buildingHelp.house': 'Proporciona refugi per a la vostra gent. Cada nivell augmenta la població màxima de treballadors que podeu reclutar.',
-  'buildingHelp.storehouse': 'Emmagatzematge segur per als vostres recursos. Cada nivell augmenta la quantitat màxima de recursos que podeu acumular.',
-  'buildingHelp.academy': 'Un lloc d\'aprenentatge. Assigneu treballadors aquí per produir coneixement, usat per a la recerca.',
-  'buildingHelp.market': 'Un centre comercial que permet intercanviar recursos. Nivells més alts ofereixen taxes de comerç més barates.',
-  'buildingHelp.farm': 'Camps fèrtils que alimenten la vostra colònia. Assigneu treballadors aquí per produir menjar.',
-  'buildingHelp.woodcutter': 'Un camp de llenyataires que subministra fusta per a la construcció. Assigneu treballadors aquí per produir fusta.',
-  'buildingHelp.quarry': 'Una pedrera que subministra material per a la construcció. Assigneu treballadors aquí per extreure pedra.',
-  'buildingHelp.copperMine': 'Una mina subterrània que subministra coure per a equipament militar. Assigneu treballadors aquí per extreure coure.',
-  'buildingHelp.ironMine': 'Una mina profunda que subministra ferro per a unitats militars avançades. Assigneu treballadors aquí per extreure ferro.',
-  'buildingHelp.goldMine': 'Una mina preciosa que subministra or per al comerç i unitats avançades. Assigneu treballadors aquí per extreure or.',
-  'buildingHelp.altar': 'Un lloc sagrat que produeix passivament una petita quantitat de fe amb el temps. No calen treballadors.',
-  'buildingHelp.temple': 'Un lloc sant on es poden assignar treballadors per pregar i produir fe.',
-  'buildingHelp.monument': 'Una estructura divina. Atorga fe cada cop que es millora. Necessari per a alguns reptes divins.',
-  'buildingHelp.barracks': 'Entrena unitats d\'infanteria.',
-  'buildingHelp.archery': 'Entrena unitats d\'arquers.',
-  'buildingHelp.stable': 'Entrena unitats de cavalleria.',
-  'buildingHelp.workshop': 'Construeix unitats de setge.',
-  'buildingHelp.wall': 'Fortificacions que protegeixen la vostra colònia. Cada nivell augmenta la defensa.',
-  'buildingHelp.tower': 'Estructures defensives que ataquen els enemics. Cada nivell augmenta el poder d\'atac.',
 
   // Market modal
   'market.title': 'Mercat',
@@ -347,9 +349,6 @@ export const LOCALIZED_CA = {
   'research.warning3': 'Patrulles frontereres',
   'research.warning4': 'Missatgers de falconeria',
   'research.warning5': 'Espionatge',
-
-  // Research events
-  'event.researchInProgress': 'Investigant {0}',
 
   // Tutorial steps
   'tutorial.step.buildHouse': 'Construeix una casa',

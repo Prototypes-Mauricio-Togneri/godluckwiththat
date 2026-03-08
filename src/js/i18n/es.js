@@ -10,6 +10,12 @@ export const LOCALIZED_ES = {
   'screen.home.continue': 'Continuar',
   'screen.home.mobileUnavailable': 'Versión móvil no disponible aún',
 
+  // Game screen
+  'screen.game.header.year': 'Año',
+
+  // Notifications
+  'notifications.gameSaved': 'Partida guardada',
+
   // Pause modal
   'modal.pause.title': 'Pausa',
   'modal.pause.resume': 'Reanudar',
@@ -18,9 +24,6 @@ export const LOCALIZED_ES = {
   'modal.pause.settings': 'Ajustes',
   'modal.pause.restart': 'Reiniciar',
   'modal.pause.quit': 'Salir',
-
-  // Game
-  'game.saved': 'Partida guardada',
 
   // Settings modal
   'modal.settings.title': 'Ajustes',
@@ -48,6 +51,15 @@ export const LOCALIZED_ES = {
   'modal.confirm': 'Confirmar',
   'modal.cancel': 'Cancelar',
 
+  // Help modals
+  'modal.help.close': 'Cerrar',
+  'modal.buildingHelp.tooltip': 'Ayuda',
+  'modal.buildingHelp.close': 'Cerrar',
+  'modal.researchHelp.title': 'Investigación',
+  'modal.researchHelp.body': 'Gasta conocimiento y otros recursos en la academia para desbloquear bonificaciones permanentes. Solo una investigación puede estar activa por categoría. Las bonificaciones completadas se acumulan.',
+  'modal.marketHelp.title': 'Mercado',
+  'modal.marketHelp.body': 'Compra y vende recursos (comida, madera, piedra, cobre, hierro) en lotes de {0} usando oro.\nCada recurso tiene un precio base que cambia dinámicamente con cada operación — comprar sube el precio en {1} de oro, vender lo baja en {1} de oro.\nSe aplica una tarifa a cada transacción: pagas más al comprar y recibes menos al vender. La tarifa base comienza en {2}% y disminuye un {3}% por cada nivel del edificio mercado, hasta un mínimo de {4}%.\nLas operaciones se bloquean si no tienes suficiente oro o recursos, o si tu almacén está lleno.\nEs un sistema simple de oferta y demanda — comprar sube los precios, vender los baja. Las dos variables principales que afectan el comercio son el nivel del edificio mercado (reduce la tarifa) y el historial de operaciones (modifica los precios).',
+
   // Resources
   'resource.food': 'Comida',
   'resource.wood': 'Madera',
@@ -69,9 +81,6 @@ export const LOCALIZED_ES = {
   'resource.consuming': 'Consumiendo',
   'resource.productivity': 'Productividad',
 
-  // Year
-  'year.label': 'Año',
-
   // Seasons
   'season.warmSeason': 'Estación cálida',
   'season.coldSeason': 'Estación fría',
@@ -81,6 +90,28 @@ export const LOCALIZED_ES = {
   'buildingGroup.economy': 'Economía',
   'buildingGroup.religion': 'Religión',
   'buildingGroup.military': 'Militar',
+
+  // Building descriptions
+  'buildingHelp.headquarters': 'El corazón de tu colonia. Cada nivel desbloquea nuevos edificios. Desde aquí, también puedes expandir tu territorio.',
+  'buildingHelp.house': 'Proporciona refugio para tu gente. Cada nivel aumenta la población máxima de trabajadores que puedes reclutar.',
+  'buildingHelp.storehouse': 'Almacenamiento seguro para tus recursos. Cada nivel aumenta la cantidad máxima de recursos que puedes acumular.',
+  'buildingHelp.academy': 'Un lugar de aprendizaje. Asigna trabajadores aquí para producir conocimiento, utilizado para investigación.',
+  'buildingHelp.market': 'Un centro de comercio que permite intercambiar recursos. Niveles más altos ofrecen tasas más baratas.',
+  'buildingHelp.farm': 'Campos fértiles que alimentan tu colonia. Asigna trabajadores aquí para producir comida.',
+  'buildingHelp.woodcutter': 'Un campamento maderero que suministra madera para la construcción. Asigna trabajadores aquí para producir madera.',
+  'buildingHelp.quarry': 'Una cantera que suministra material para la construcción. Asigna trabajadores aquí para extraer piedra.',
+  'buildingHelp.copperMine': 'Una mina subterránea que suministra cobre para equipamiento militar. Asigna trabajadores aquí para extraer cobre.',
+  'buildingHelp.ironMine': 'Una mina profunda que suministra hierro para unidades militares avanzadas. Asigna trabajadores aquí para extraer hierro.',
+  'buildingHelp.goldMine': 'Una mina preciosa que suministra oro para el comercio y unidades avanzadas. Asigna trabajadores aquí para extraer oro.',
+  'buildingHelp.altar': 'Un lugar sagrado que produce pasivamente una pequeña cantidad de fe con el tiempo. No necesita trabajadores.',
+  'buildingHelp.temple': 'Un sitio sagrado donde se pueden asignar trabajadores para orar y producir fe.',
+  'buildingHelp.monument': 'Una estructura divina. Otorga fe cada vez que se mejora. Requerido para algunos desafíos divinos.',
+  'buildingHelp.barracks': 'Entrena unidades de infantería.',
+  'buildingHelp.archery': 'Entrena unidades de arqueros.',
+  'buildingHelp.stable': 'Entrena unidades de caballería.',
+  'buildingHelp.workshop': 'Construye unidades de asedio.',
+  'buildingHelp.wall': 'Fortificaciones que protegen tu colonia. Cada nivel aumenta tu defensa.',
+  'buildingHelp.tower': 'Estructuras defensivas que atacan a los enemigos. Cada nivel aumenta tu poder de ataque.',
 
   // Buildings
   'building.headquarters.camp': 'Campamento',
@@ -132,6 +163,7 @@ export const LOCALIZED_ES = {
   'events.future': 'Próximos',
   'events.past': 'Historial',
   'events.empty': 'Sin eventos',
+  'events.clearAll': 'Borrar todo',
   'event.warmSeason': 'La estación cálida ha comenzado',
   'event.coldSeason': 'La estación fría ha comenzado',
   'event.populationLimitReached': 'Límite de población alcanzado',
@@ -152,38 +184,8 @@ export const LOCALIZED_ES = {
   'event.buildingUpgrading': 'Mejorando {0}',
   'event.territoryExpanding': 'Expandiendo territorio',
   'event.idleWorkers': 'Hay trabajadores libres',
+  'event.researchInProgress': 'Investigando {0}',
   'event.territoryExpanded': 'Territorio expandido',
-  'events.clearAll': 'Borrar todo',
-  // Help modals
-  'modal.help.close': 'Cerrar',
-  'modal.buildingHelp.tooltip': 'Ayuda',
-  'modal.buildingHelp.close': 'Cerrar',
-  'modal.researchHelp.title': 'Investigación',
-  'modal.researchHelp.body': 'Gasta conocimiento y otros recursos en la academia para desbloquear bonificaciones permanentes. Solo una investigación puede estar activa por categoría. Las bonificaciones completadas se acumulan.',
-  'modal.marketHelp.title': 'Mercado',
-  'modal.marketHelp.body': 'Compra y vende recursos (comida, madera, piedra, cobre, hierro) en lotes de {0} usando oro.\nCada recurso tiene un precio base que cambia dinámicamente con cada operación — comprar sube el precio en {1} de oro, vender lo baja en {1} de oro.\nSe aplica una tarifa a cada transacción: pagas más al comprar y recibes menos al vender. La tarifa base comienza en {2}% y disminuye un {3}% por cada nivel del edificio mercado, hasta un mínimo de {4}%.\nLas operaciones se bloquean si no tienes suficiente oro o recursos, o si tu almacén está lleno.\nEs un sistema simple de oferta y demanda — comprar sube los precios, vender los baja. Las dos variables principales que afectan el comercio son el nivel del edificio mercado (reduce la tarifa) y el historial de operaciones (modifica los precios).',
-
-  // Building descriptions
-  'buildingHelp.headquarters': 'El corazón de tu colonia. Cada nivel desbloquea nuevos edificios. Desde aquí, también puedes expandir tu territorio.',
-  'buildingHelp.house': 'Proporciona refugio para tu gente. Cada nivel aumenta la población máxima de trabajadores que puedes reclutar.',
-  'buildingHelp.storehouse': 'Almacenamiento seguro para tus recursos. Cada nivel aumenta la cantidad máxima de recursos que puedes acumular.',
-  'buildingHelp.academy': 'Un lugar de aprendizaje. Asigna trabajadores aquí para producir conocimiento, utilizado para investigación.',
-  'buildingHelp.market': 'Un centro de comercio que permite intercambiar recursos. Niveles más altos ofrecen tasas más baratas.',
-  'buildingHelp.farm': 'Campos fértiles que alimentan tu colonia. Asigna trabajadores aquí para producir comida.',
-  'buildingHelp.woodcutter': 'Un campamento maderero que suministra madera para la construcción. Asigna trabajadores aquí para producir madera.',
-  'buildingHelp.quarry': 'Una cantera que suministra material para la construcción. Asigna trabajadores aquí para extraer piedra.',
-  'buildingHelp.copperMine': 'Una mina subterránea que suministra cobre para equipamiento militar. Asigna trabajadores aquí para extraer cobre.',
-  'buildingHelp.ironMine': 'Una mina profunda que suministra hierro para unidades militares avanzadas. Asigna trabajadores aquí para extraer hierro.',
-  'buildingHelp.goldMine': 'Una mina preciosa que suministra oro para el comercio y unidades avanzadas. Asigna trabajadores aquí para extraer oro.',
-  'buildingHelp.altar': 'Un lugar sagrado que produce pasivamente una pequeña cantidad de fe con el tiempo. No necesita trabajadores.',
-  'buildingHelp.temple': 'Un sitio sagrado donde se pueden asignar trabajadores para orar y producir fe.',
-  'buildingHelp.monument': 'Una estructura divina. Otorga fe cada vez que se mejora. Requerido para algunos desafíos divinos.',
-  'buildingHelp.barracks': 'Entrena unidades de infantería.',
-  'buildingHelp.archery': 'Entrena unidades de arqueros.',
-  'buildingHelp.stable': 'Entrena unidades de caballería.',
-  'buildingHelp.workshop': 'Construye unidades de asedio.',
-  'buildingHelp.wall': 'Fortificaciones que protegen tu colonia. Cada nivel aumenta tu defensa.',
-  'buildingHelp.tower': 'Estructuras defensivas que atacan a los enemigos. Cada nivel aumenta tu poder de ataque.',
 
   // Market modal
   'market.title': 'Mercado',
@@ -347,9 +349,6 @@ export const LOCALIZED_ES = {
   'research.warning3': 'Patrullas fronterizas',
   'research.warning4': 'Mensajeros de cetrería',
   'research.warning5': 'Espionaje',
-
-  // Research events
-  'event.researchInProgress': 'Investigando {0}',
 
   // Tutorial steps
   'tutorial.step.buildHouse': 'Construye una casa',
