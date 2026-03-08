@@ -2,14 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- sync-architecture.md
-
-- About
-  - Changelog
-  - More games
-  - Feedback
-  - Version
-
 - Allow to increase the game speed
 
 - Implement challenges
