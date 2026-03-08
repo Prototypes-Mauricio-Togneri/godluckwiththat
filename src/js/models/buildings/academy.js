@@ -62,14 +62,6 @@ class Academy extends Producer {
   }
 
   /**
-   * @param {string} key - Research key
-   * @returns {Research|undefined} The active research instance, or undefined if not active
-   */
-  getActive(key) {
-    return this.active.get(key)
-  }
-
-  /**
    * Starts a new research.
    * @param {string} key - Research key
    * @param {number} duration - Total duration in seconds
