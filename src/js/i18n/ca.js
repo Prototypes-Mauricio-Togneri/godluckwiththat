@@ -98,6 +98,8 @@ export const LOCALIZED_CA = {
 
   // Headquarters actions
   'house.recruitWorker': 'Crear treballador',
+  'house.dismissWorker': 'Acomiadar treballador',
+  'house.noIdleWorkers': 'No hi ha treballadors ociosos per acomiadar',
   'headquarters.expandTerritory': 'Expandir territori',
   'headquarters.upgrade': 'Millorar a {0}',
 

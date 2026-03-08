@@ -98,6 +98,8 @@ export const LOCALIZED_IT = {
 
   // Headquarters actions
   'house.recruitWorker': 'Crea lavoratore',
+  'house.dismissWorker': 'Licenzia lavoratore',
+  'house.noIdleWorkers': 'Nessun lavoratore inattivo da licenziare',
   'headquarters.expandTerritory': 'Espandi territorio',
   'headquarters.upgrade': 'Migliora a {0}',
 

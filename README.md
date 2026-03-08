@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Idle workers consume less food and wood?
-
 - Double after loading
   - export const EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION = 'resource_negative_production'
   - export const EVENT_TYPE_RESOURCE_LIMIT_REACHED = 'resource_limit_reached'

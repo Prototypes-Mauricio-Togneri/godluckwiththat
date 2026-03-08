@@ -501,6 +501,25 @@ class State {
   }
 
   /**
+   * Dismisses up to `count` idle workers from the colony permanently.
+   * @param {number} count - Maximum workers to dismiss
+   */
+  dismissWorkers(count) {
+    const {
+      resources, buildings,
+    } = this.colony
+    const actual = Math.min(count, this.colony.idleWorkers)
+    if (actual <= 0) {
+      return
+    }
+    resources.workers -= actual
+    if (resources.workers < buildings.house.workersCap) {
+      this.colony.events.dismissPastByType(EVENT_TYPE_POPULATION_LIMIT_REACHED)
+    }
+    this.update(0)
+  }
+
+  /**
    * Assigns up to `count` workers to a building (recruiting as needed).
    * Plays sound and updates state only once at the end.
    * @param {string} buildingKey - Key in colony.buildings

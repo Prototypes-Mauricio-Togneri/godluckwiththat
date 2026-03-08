@@ -98,6 +98,8 @@ export const LOCALIZED_EN = {
 
   // Headquarters actions
   'house.recruitWorker': 'Create worker',
+  'house.dismissWorker': 'Dismiss worker',
+  'house.noIdleWorkers': 'No idle workers to dismiss',
   'headquarters.expandTerritory': 'Expand territory',
   'headquarters.upgrade': 'Upgrade to {0}',
 

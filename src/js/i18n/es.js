@@ -98,6 +98,8 @@ export const LOCALIZED_ES = {
 
   // Headquarters actions
   'house.recruitWorker': 'Crear trabajador',
+  'house.dismissWorker': 'Despedir trabajador',
+  'house.noIdleWorkers': 'No hay trabajadores ociosos para despedir',
   'headquarters.expandTerritory': 'Expandir territorio',
   'headquarters.upgrade': 'Mejorar a {0}',
 

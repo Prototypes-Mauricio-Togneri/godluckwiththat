@@ -32,7 +32,7 @@ import TutorialBanner from '@/components/tutorial/tutorial_banner.vue'
 import TutorialModal from '@/components/tutorial/tutorial_modal.vue'
 import ConfirmQuitModal from '@/components/modals/confirm_quit_modal.vue'
 import {BUILDING_IMAGE_MAP, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, TUTORIAL_MODALS, TUTORIAL_STEPS, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
-import {SEASON_DURATION} from '@/js/engine/balancing.js'
+import {BULK_WORKER_AMOUNT, SEASON_DURATION} from '@/js/engine/balancing.js'
 import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, EMIT_QUIT} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -169,6 +169,20 @@ const seasonIcon = computed(() => ui.season.isWarm ? IMG_SEASON_WARM : IMG_SEASO
 
 /** Localized tooltip text showing the current season name. */
 const seasonTooltip = computed(() => t('season.' + ui.season.currentSeason + 'Season'))
+
+// Dismiss idle workers
+const canDismiss = computed(() => ui.idleWorkers > 0)
+const dismissTooltip = computed(() => canDismiss.value ? t('house.dismissWorker') : t('house.noIdleWorkers'))
+
+function dismissWorker(event) {
+  if (!canDismiss.value) {
+    return
+  }
+  playTap()
+  const count = event.ctrlKey || event.metaKey ? BULK_WORKER_AMOUNT : 1
+  state.dismissWorkers(count)
+  syncResources(); syncProduction(); syncEvents(); syncTutorial()
+}
 
 /** Building thumbnail path; special-cases HQ to use type-specific image.
  * @param {object} building - Building grid entry with key and img
@@ -1042,9 +1056,16 @@ onUnmounted(() => {
           <img class="resource-icon resource-icon--worker" :src="IMG_UNIT_WORKER" :alt="t('resource.population')">
           <span class="resource-value" :class="{ 'resource-value--alert': ui.resources.workers >= ui.workersCap, 'resource-value--zero': ui.resources.workers === 0 }">{{ formatNumber(ui.resources.workers) }}/{{ formatNumber(ui.workersCap) }}</span>
         </div>
-        <div class="header-resource tooltip" :data-tooltip="t('resource.idleWorkers')">
-          <img class="resource-icon" :src="IMG_OTHER_IDLE" :alt="t('resource.idleWorkers')">
-          <span class="resource-value" :class="{ 'resource-value--alert': ui.idleWorkers > 0 }">{{ ui.idleWorkers }}</span>
+        <div class="header-resource">
+          <div class="tooltip" :data-tooltip="t('resource.idleWorkers')">
+            <span class="header-resource-inner">
+              <img class="resource-icon" :src="IMG_OTHER_IDLE" :alt="t('resource.idleWorkers')">
+              <span class="resource-value" :class="{ 'resource-value--alert': ui.idleWorkers > 0 }">{{ ui.idleWorkers }}</span>
+            </span>
+          </div>
+          <span class="tooltip tooltip--delayed" :data-tooltip="dismissTooltip">
+            <button class="worker-btn worker-btn--minus dismiss-btn" :disabled="!canDismiss" @click="dismissWorker">&minus;</button>
+          </span>
         </div>
         <div class="header-resource tooltip" :data-tooltip="t('resource.territory')">
           <img class="resource-icon resource-icon--territory" :src="IMG_OTHER_TERRITORY" :alt="t('resource.territory')">
@@ -1279,6 +1300,22 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 0.35rem;
+}
+
+/* Inner wrapper to scope the idle-workers tooltip away from the dismiss button */
+.header-resource-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Override cqh sizing for dismiss button in header context */
+.dismiss-btn {
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0 0 0.15rem;
+  font-size: 1.1rem;
+  margin-left: 0.5rem;
 }
 
 /* Larger icon size for worker population display */

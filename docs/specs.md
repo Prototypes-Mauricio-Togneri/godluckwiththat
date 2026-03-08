@@ -127,6 +127,7 @@ There are two types of resources
     - Assigned to buildings to produce resources
   - A worker that is not assigned to any building is considered idle
     - Idle workers don't produce anything, making them detrimental
+  - Idle workers can be permanently dismissed (removed from the colony) to reduce consumption
 - Knowledge
   - Produced in
     - Academies
@@ -153,6 +154,7 @@ Each building has a level that can be increased by spending resources. Building 
 - House
   - Determines the maximum population (workers) the colony can have
   - Workers are recruited by spending food, up to the population limit
+  - Idle workers can be dismissed to permanently reduce population
   - Workers cannot be assigned to this building
   - The higher the level, the higher the population cap
 - Academy
