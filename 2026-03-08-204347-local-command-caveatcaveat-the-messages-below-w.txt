@@ -1,8 +1,0 @@
-  File Path: src/js/models/buildings/academy.js
-  Issue Type: Logical Bug
-  Line #: 60-61
-  Severity: Warning
-  Description & Suggested Fix: canResearch() does not enforce prerequisite chain
-    (previous tier must be completed). The UI guards against this, but the model
-    doesn't enforce the invariant — defense-in-depth gap. Add prerequisite
-    validation in canResearch().
