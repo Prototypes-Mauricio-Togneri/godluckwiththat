@@ -1,4 +1,5 @@
-import {STORAGE_MUSIC_ENABLED, STORAGE_SAVED_GAME, STORAGE_SOUND_ENABLED} from '@/js/engine/enums'
+import {STORAGE_AUTOSAVE_ENABLED, STORAGE_AUTOSAVE_INTERVAL, STORAGE_MUSIC_ENABLED, STORAGE_SAVED_GAME, STORAGE_SOUND_ENABLED} from '@/js/engine/enums.js'
+import {AUTOSAVE_DEFAULT_INTERVAL} from '@/js/engine/constants.js'
 
 /**
  * Thin wrapper around localStorage for persisting user preferences.
@@ -51,6 +52,39 @@ class Storage {
   set savedGame(value) {
     try {
       window.localStorage.setItem(STORAGE_SAVED_GAME, JSON.stringify(value))
+    } catch { /* quota exceeded */ }
+  }
+
+  /** @returns {boolean} Whether autosave is enabled */
+  get autosaveEnabled() {
+    try {
+      return window.localStorage.getItem(STORAGE_AUTOSAVE_ENABLED) === 'true'
+    } catch {
+      return false
+    }
+  }
+
+  /** @param {boolean} value - Whether autosave should be enabled */
+  set autosaveEnabled(value) {
+    try {
+      window.localStorage.setItem(STORAGE_AUTOSAVE_ENABLED, value)
+    } catch { /* quota exceeded */ }
+  }
+
+  /** @returns {number} Autosave interval in minutes */
+  get autosaveInterval() {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_AUTOSAVE_INTERVAL)
+      return raw ? Number(raw) : AUTOSAVE_DEFAULT_INTERVAL
+    } catch {
+      return AUTOSAVE_DEFAULT_INTERVAL
+    }
+  }
+
+  /** @param {number} value - Autosave interval in minutes */
+  set autosaveInterval(value) {
+    try {
+      window.localStorage.setItem(STORAGE_AUTOSAVE_INTERVAL, value)
     } catch { /* quota exceeded */ }
   }
 

@@ -242,6 +242,7 @@ const showMarketModal = ref(false)
 const showSaveIndicator = ref(false)
 const hasSavedGame = ref(storage.savedGame !== null)
 let saveIndicatorTimer = null
+let autosaveTimer = null
 
 const ui = shallowReactive({
   season: {
@@ -721,6 +722,41 @@ function saveGame() {
   showModal.value = false
 }
 
+/** Shows the save indicator for 1.5 seconds. */
+function flashSaveIndicator() {
+  showSaveIndicator.value = true
+  clearTimeout(saveIndicatorTimer)
+  saveIndicatorTimer = setTimeout(() => {
+    showSaveIndicator.value = false
+  }, 1500)
+}
+
+/** Starts the autosave interval if autosave is enabled. */
+function startAutosave() {
+  stopAutosave()
+  if (storage.autosaveEnabled) {
+    autosaveTimer = setInterval(() => {
+      storage.savedGame = state.toJSON()
+      hasSavedGame.value = true
+      flashSaveIndicator()
+    }, storage.autosaveInterval * 60 * 1000)
+  }
+}
+
+/** Stops the autosave interval. */
+function stopAutosave() {
+  clearInterval(autosaveTimer)
+  autosaveTimer = null
+}
+
+/** Handles settings modal close — restarts autosave timer with current settings. */
+function closeSettings() {
+  showSettingsModal.value = false
+  if (!showModal.value) {
+    startAutosave()
+  }
+}
+
 /** Loads the saved game state from localStorage. */
 function loadGame() {
   const savedData = storage.savedGame
@@ -934,11 +970,7 @@ function handleKeydown(event) {
     event.preventDefault()
     storage.savedGame = state.toJSON()
     hasSavedGame.value = true
-    showSaveIndicator.value = true
-    clearTimeout(saveIndicatorTimer)
-    saveIndicatorTimer = setTimeout(() => {
-      showSaveIndicator.value = false
-    }, 1500)
+    flashSaveIndicator()
   }
   if (event.key === 'F3') {
     event.preventDefault()
@@ -959,6 +991,7 @@ watch(showModal, (isOpen) => {
     tickTimer = null
     cancelAnimationFrame(progressAnimFrame)
     progressAnimFrame = null
+    stopAutosave()
   } else if (!showConfirmQuit.value && !showConfirmRestart.value) {
     state.paused = false
     const now = performance.now()
@@ -977,6 +1010,7 @@ watch(showModal, (isOpen) => {
     perfLastSample = now
     tickTimer = setInterval(gameTick, TICK_INTERVAL)
     progressAnimFrame = requestAnimationFrame(progressTick)
+    startAutosave()
   }
 })
 
@@ -989,6 +1023,7 @@ onMounted(() => {
   lastUISyncTime = now
   tickTimer = setInterval(gameTick, TICK_INTERVAL)
   progressAnimFrame = requestAnimationFrame(progressTick)
+  startAutosave()
 })
 
 onUnmounted(() => {
@@ -996,6 +1031,7 @@ onUnmounted(() => {
   clearInterval(tickTimer)
   cancelAnimationFrame(progressAnimFrame)
   clearTimeout(saveIndicatorTimer)
+  stopAutosave()
 })
 </script>
 
@@ -1192,7 +1228,7 @@ onUnmounted(() => {
 
     <SettingsModal
       v-if="showSettingsModal"
-      @close="showSettingsModal = false"
+      @close="closeSettings"
     />
 
     <ConfirmQuitModal

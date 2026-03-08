@@ -24,6 +24,8 @@ export const LOCALIZED_IT = {
   'modal.settings.title': 'Impostazioni',
   'modal.settings.music': 'Musica',
   'modal.settings.sound': 'Suoni',
+  'modal.settings.autosave': 'Salvataggio auto',
+  'modal.settings.autosaveInterval': '{0} min',
 
   // Confirm restart modal
   'modal.confirmRestart.title': 'Ricomincia il gioco',

@@ -2,6 +2,8 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Improve "Game saved" notification
+
 - Double after loading
   - export const EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION = 'resource_negative_production'
   - export const EVENT_TYPE_RESOURCE_LIMIT_REACHED = 'resource_limit_reached'

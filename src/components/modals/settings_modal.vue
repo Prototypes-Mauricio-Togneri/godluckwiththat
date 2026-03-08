@@ -1,13 +1,17 @@
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
+import {AUTOSAVE_MAX_INTERVAL, AUTOSAVE_MIN_INTERVAL} from '@/js/engine/constants.js'
 import {EMIT_CLOSE} from '@/js/engine/enums.js'
+import storage from '@/js/engine/storage.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits([EMIT_CLOSE])
 const visible = ref(false)
 const musicEnabled = ref(audio.musicEnabled)
 const soundEnabled = ref(audio.soundEnabled)
+const autosaveEnabled = ref(storage.autosaveEnabled)
+const autosaveInterval = ref(storage.autosaveInterval)
 let rafId = null
 
 /** Toggles background music on/off. */
@@ -22,6 +26,31 @@ function toggleSound() {
   playTap()
   soundEnabled.value = !soundEnabled.value
   audio.setSoundEnabled(soundEnabled.value)
+}
+
+/** Toggles autosave on/off and persists to storage. */
+function toggleAutosave() {
+  playTap()
+  autosaveEnabled.value = !autosaveEnabled.value
+  storage.autosaveEnabled = autosaveEnabled.value
+}
+
+/** Decrements the autosave interval by 1 minute (clamped to minimum). */
+function decrementInterval() {
+  playTap()
+  if (autosaveInterval.value > AUTOSAVE_MIN_INTERVAL) {
+    autosaveInterval.value--
+    storage.autosaveInterval = autosaveInterval.value
+  }
+}
+
+/** Increments the autosave interval by 1 minute (clamped to maximum). */
+function incrementInterval() {
+  playTap()
+  if (autosaveInterval.value < AUTOSAVE_MAX_INTERVAL) {
+    autosaveInterval.value++
+    storage.autosaveInterval = autosaveInterval.value
+  }
 }
 
 /** Closes modal on Escape key (capture phase). */
@@ -78,6 +107,36 @@ onUnmounted(() => {
             <span class="toggle-knob" />
           </button>
         </div>
+        <span class="modal-rule toggle-divider" />
+        <div class="toggle-row">
+          <span class="toggle-label">{{ t('modal.settings.autosave') }}</span>
+          <button
+            class="toggle-switch"
+            :class="{ active: autosaveEnabled }"
+            @click="toggleAutosave"
+          >
+            <span class="toggle-knob" />
+          </button>
+        </div>
+        <div class="interval-row" :class="{ disabled: !autosaveEnabled }">
+          <button
+            class="interval-btn"
+            :disabled="!autosaveEnabled || autosaveInterval <= AUTOSAVE_MIN_INTERVAL"
+            @click="decrementInterval"
+          >
+            &minus;
+          </button>
+          <span class="interval-value">
+            {{ t('modal.settings.autosaveInterval', autosaveInterval) }}
+          </span>
+          <button
+            class="interval-btn"
+            :disabled="!autosaveEnabled || autosaveInterval >= AUTOSAVE_MAX_INTERVAL"
+            @click="incrementInterval"
+          >
+            +
+          </button>
+        </div>
       </div>
 
       <div class="modal-actions">
@@ -104,6 +163,10 @@ onUnmounted(() => {
 
 .modal-rule {
   margin: 1rem 0 1.5rem;
+}
+
+.toggle-divider {
+  margin: 0.3rem auto;
 }
 
 /* ---- Toggle rows ---- */
@@ -169,6 +232,61 @@ onUnmounted(() => {
   left: calc(100% - 1.3rem + 4px);
   background: var(--color-accent);
   box-shadow: 0 0 6px rgba(var(--color-accent-rgb), 0.4);
+}
+
+/* ---- Interval selector ---- */
+
+.interval-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding-top: 0.2rem;
+  transition: opacity 0.25s ease;
+}
+
+.interval-row.disabled {
+  opacity: 0.3;
+}
+
+.interval-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgba(var(--color-accent-rgb), 0.25);
+  background: rgba(var(--color-accent-rgb), 0.08);
+  color: rgba(var(--color-text-rgb), 0.7);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.interval-btn:hover:not(:disabled) {
+  background: rgba(var(--color-accent-rgb), 0.2);
+  border-color: rgba(var(--color-accent-rgb), 0.5);
+  color: var(--color-accent);
+}
+
+.interval-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.interval-value {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(var(--color-text-rgb), 0.6);
+  min-width: 3.5rem;
+  text-align: center;
 }
 
 /* ---- Button column ---- */
