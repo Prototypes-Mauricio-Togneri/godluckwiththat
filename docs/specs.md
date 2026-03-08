@@ -289,7 +289,7 @@ The research system allows the player to unlock permanent bonuses by spending kn
 
 The game displays an event log as a column alongside the building columns. Events inform the player of upcoming threats and past occurrences.
 
-- **Future events** — warn about incoming events (e.g. enemy raids, disasters). Each shows a countdown timer that ticks down in real time. When the countdown reaches zero, the trigger logic (not yet implemented) decides what happens.
+- **Future events** — warn about incoming events (e.g. enemy raids, disasters). Each shows a countdown timer that ticks down in real time.
 - **Past events** — inform about things that have already happened (e.g. season changed, raid repelled, resource production went negative). Displayed in a muted style.
 - All events can be dismissed by the player (close button).
 - Events are part of the colony data model and are persisted with save data.
