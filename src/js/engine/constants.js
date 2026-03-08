@@ -262,7 +262,7 @@ export const BUILDING_GRID = [
     ],
   },
   {
-    headerKey: 'buildingGroup.economy',
+    headerKey: 'buildingGroup.resources',
     buildings: [
       {
         key: BUILDING_FARM,

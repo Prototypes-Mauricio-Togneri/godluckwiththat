@@ -87,7 +87,7 @@ export const LOCALIZED_CA = {
 
   // Building groups
   'buildingGroup.colony': 'Colònia',
-  'buildingGroup.economy': 'Economia',
+  'buildingGroup.resources': 'Recursos',
   'buildingGroup.religion': 'Religió',
   'buildingGroup.military': 'Militar',
 

@@ -2,12 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-research window
-	GENERAL -> COLONY
-	move DISASTERS to the end
-
-ECONOMY column -> RESOURCES
-
 Explain that in warm season the wood consumption decreases
 
 - Allow to increase the game speed
