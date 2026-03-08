@@ -19,7 +19,10 @@ const LOCALES = {
 }
 
 const browserLang = navigator.language.slice(0, 2) // Two-letter language code
-const strings = LOCALES[browserLang] ?? LOCALES.en // Resolved string table
+const resolvedLang = browserLang in LOCALES ? browserLang : 'en'
+const strings = LOCALES[resolvedLang]
+
+document.documentElement.lang = resolvedLang
 
 /**
  * Returns the localized string for the given key.

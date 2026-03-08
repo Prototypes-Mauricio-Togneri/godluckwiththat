@@ -1,0 +1,72 @@
+  File Path: src/js/models/buildings/academy.js
+  Issue Type: Logical Bug
+  Line #: 60-61
+  Severity: Warning
+  Description & Suggested Fix: canResearch() does not enforce prerequisite chain
+    (previous tier must be completed). The UI guards against this, but the model
+    doesn't enforce the invariant — defense-in-depth gap. Add prerequisite
+    validation in canResearch().
+  ────────────────────────────────────────
+  File Path: src/js/models/meta.js
+  Issue Type: Inconsistency
+  Line #: 19, 46-47
+  Severity: Warning
+  Description & Suggested Fix: createdDateTime is a Date object on new game but
+    an ISO string after save/load. toJSON() serializes createdDateTime as-is
+    (line 46) while updatedDateTime is converted to ISO string (line 47).
+    Normalize both to the same type.
+  ────────────────────────────────────────
+  File Path: src/components/screens/game_screen.vue
+  Issue Type: Logical Bug
+  Line #: 393-402
+  Severity: Warning
+  Description & Suggested Fix: syncTimers only updates ui.futureEvents when
+    events.future.length > 0. If the last future event completes between full
+    syncs, stale event data remains visible briefly. Add else { ui.futureEvents 
+  =[] }.
+  ────────────────────────────────────────
+  File Path: src/components/modals/research_modal.vue
+  Issue Type: Safety
+  Line #: 175
+  Severity: Warning
+  Description & Suggested Fix: ui.academy.activeTimers[rKey].remainingSeconds
+    could be undefined in a brief timing window when syncTimers removes a
+    completed research before the computed re-evaluates. Use
+    ui.academy.activeTimers[rKey]?.remainingSeconds ?? 0.
+  ────────────────────────────────────────
+  File Path: src/js/models/cost.js
+  Issue Type: Safety
+  Line #: 37-67
+  Severity: Warning
+  Description & Suggested Fix: entries getter caches in _entries but Cost fields
+    are public and mutable. Post-cache mutation yields stale data. Currently
+  safe
+     (callers create new instances), but the pattern is fragile. Consider
+    Object.freeze on Cost instances.
+  ────────────────────────────────────────
+  File Path: src/js/engine/state.js
+  Issue Type: Logical Bug
+  Line #: 324-326
+  Severity: Warning
+  Description & Suggested Fix: Storehouse completion dismisses all
+  resource-limit
+    events but doesn't clear _resourcesAtCap flag — self-heals next tick but
+    causes a redundant dismissPastByTextKey call. Clear the flag explicitly.
+  ────────────────────────────────────────
+  File Path: src/components/buildings/base_card.vue
+  Issue Type: Logical Bug
+  Line #: 67-71
+  Severity: Warning
+  Description & Suggested Fix: actionTooltip checks !canAfford before
+    territoryFull. When both are true, user sees "insufficient resources" but
+    territory is the more fundamental blocker (can't be gathered). Swap check
+    order to show territory-full first.
+  ────────────────────────────────────────
+  File Path: src/components/buildings/base_card.vue
+  Issue Type: Inconsistency
+  Line #: 111
+  Severity: Style
+  Description & Suggested Fix: v-if="hasAction || !isBuildable" is
+  tautologically
+    true (always renders). The condition is misleading. Remove the v-if or add a
+    comment.
