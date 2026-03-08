@@ -31,7 +31,10 @@ import Tutorial from '@/js/models/tutorial.js'
 import Production from '@/js/models/production.js'
 import Resources from '@/js/models/resources.js'
 
-// Structural constants — class maps, arrays, config objects, and factory functions.
+/**
+ * Structural constants — class maps, arrays, config objects, and factory functions.
+ * Balancing values (costs, rates, production) are in balancing.js; string enums are in enums.js.
+ */
 
 // Whether the app is running in a local development environment
 export const IS_DEV = import.meta.env.DEV

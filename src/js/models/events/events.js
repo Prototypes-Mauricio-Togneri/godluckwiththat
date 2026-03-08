@@ -17,17 +17,17 @@ class Events {
   }
 
   /**
-	 * Adds a new future event with a countdown.
-	 * @param {Object} data
-	 * @param {string} data.type - Event type constant
-	 * @param {string} data.textKey - i18n key
-	 * @param {string} data.icon - Full image path (e.g. '/img/resources/food.png')
-	 * @param {string[]} [data.params] - Positional i18n interpolation values
-	 * @param {string} [data.buildingKey] - Building key for construction lookup
-	 * @param {string} [data.researchKey] - Research key for research lookup
-	 * @param {number} data.remainingSeconds - Countdown duration
-	 * @returns {EventFuture} The created future event
-	 */
+   * Adds a new future event with a countdown.
+   * @param {Object} data - Future event data
+   * @param {string} data.type - Event type constant
+   * @param {string} data.textKey - i18n key
+   * @param {string} data.icon - Full image path (e.g. '/img/resources/food.png')
+   * @param {string[]} [data.params] - Positional i18n interpolation values
+   * @param {string} [data.buildingKey] - Building key for construction lookup
+   * @param {string} [data.researchKey] - Research key for research lookup
+   * @param {number} data.remainingSeconds - Countdown duration
+   * @returns {EventFuture} The created future event
+   */
   addFuture(data) {
     const event = new EventFuture({
       id: this._nextId++,
@@ -44,16 +44,16 @@ class Events {
   }
 
   /**
-	 * Adds a new past event (no countdown).
-	 * @param {Object} data
-	 * @param {string} data.type - Event type constant
-	 * @param {string} data.textKey - i18n key
-	 * @param {string} data.icon - Full image path (e.g. '/img/resources/food.png')
-	 * @param {string[]} [data.params] - Positional i18n interpolation values
-	 * @param {string} [data.buildingKey] - Building key for construction lookup
-	 * @param {string} [data.researchKey] - Research key for research lookup
-	 * @returns {EventPast} The created past event
-	 */
+   * Adds a new past event (no countdown).
+   * @param {Object} data - Past event data
+   * @param {string} data.type - Event type constant
+   * @param {string} data.textKey - i18n key
+   * @param {string} data.icon - Full image path (e.g. '/img/resources/food.png')
+   * @param {string[]} [data.params] - Positional i18n interpolation values
+   * @param {string} [data.buildingKey] - Building key for construction lookup
+   * @param {string} [data.researchKey] - Research key for research lookup
+   * @returns {EventPast} The created past event
+   */
   addPast(data) {
     const event = new EventPast({
       id: this._nextId++,
@@ -69,11 +69,11 @@ class Events {
   }
 
   /**
-	 * Finds the future event for the given building key, removes it,
-	 * and adds a new past event with the provided data.
-	 * @param {string} buildingKey - Building key to match
-	 * @param {Object} data - Past event data (type, textKey, icon, params, buildingKey, researchKey)
-	 */
+   * Finds the future event for the given building key, removes it,
+   * and adds a new past event with the provided data.
+   * @param {string} buildingKey - Building key to match
+   * @param {Object} data - Past event data (type, textKey, icon, params, buildingKey, researchKey)
+   */
   convertToPast(buildingKey, data) {
     const index = this.future.findIndex(
       event => event.buildingKey === buildingKey,
@@ -85,9 +85,9 @@ class Events {
   }
 
   /**
-	 * Removes a future event by its building key.
-	 * @param {string} buildingKey - Building key to match
-	 */
+   * Removes a future event by its building key.
+   * @param {string} buildingKey - Building key to match
+   */
   dismissFutureByBuildingKey(buildingKey) {
     const index = this.future.findIndex(
       event => event.buildingKey === buildingKey,
@@ -98,9 +98,9 @@ class Events {
   }
 
   /**
-	 * Removes a future event by its research key.
-	 * @param {string} researchKey - Research key to match
-	 */
+   * Removes a future event by its research key.
+   * @param {string} researchKey - Research key to match
+   */
   dismissFutureByResearchKey(researchKey) {
     const index = this.future.findIndex(
       event => event.researchKey === researchKey,
@@ -111,9 +111,9 @@ class Events {
   }
 
   /**
-	 * Removes an event by its ID.
-	 * @param {number} id - Event ID to remove
-	 */
+   * Removes an event by its ID.
+   * @param {number} id - Event ID to remove
+   */
   dismiss(id) {
     // Search future events first, then past events
     let index = this.future.findIndex(event => event.id === id)
@@ -128,59 +128,59 @@ class Events {
   }
 
   /**
-	 * Checks whether a past event with the given type exists.
-	 * @param {string} type - Event type constant
-	 * @returns {boolean} True if a past event of the given type exists
-	 */
+   * Checks whether a past event with the given type exists.
+   * @param {string} type - Event type constant
+   * @returns {boolean} True if a past event of the given type exists
+   */
   hasPastEvent(type) {
     return this.past.some(e => e.type === type)
   }
 
   /**
-	 * Removes all past events matching the given type.
-	 * @param {string} type - Event type constant
-	 */
+   * Removes all past events matching the given type.
+   * @param {string} type - Event type constant
+   */
   dismissPastByType(type) {
     this.past = this.past.filter(event => event.type !== type)
   }
 
   /**
-	 * Removes all past events matching the given text key.
-	 * @param {string} textKey - i18n key to match
-	 */
+   * Removes all past events matching the given text key.
+   * @param {string} textKey - i18n key to match
+   */
   dismissPastByTextKey(textKey) {
     this.past = this.past.filter(event => event.textKey !== textKey)
   }
 
   /**
-	 * Removes all past events.
-	 */
+   * Removes all past events.
+   */
   dismissAllPast() {
     this.past = []
   }
 
   /**
-	 * Returns future events sorted by remaining seconds ascending.
-	 * Returns the internal array directly — callers must not mutate it.
-	 * @returns {EventFuture[]} Events sorted by remaining seconds ascending
-	 */
+   * Returns future events sorted by remaining seconds ascending.
+   * Returns the internal array directly — callers must not mutate it.
+   * @returns {EventFuture[]} Events sorted by remaining seconds ascending
+   */
   get sortedFuture() {
     return this.future
   }
 
   /**
-	 * Returns past events sorted by ID descending (most recent first).
-	 * Returns the internal array directly — callers must not mutate it.
-	 * @returns {EventPast[]} Events sorted by ID descending (most recent first)
-	 */
+   * Returns past events sorted by ID descending (most recent first).
+   * Returns the internal array directly — callers must not mutate it.
+   * @returns {EventPast[]} Events sorted by ID descending (most recent first)
+   */
   get sortedPast() {
     return this.past
   }
 
   /**
-	 * Inserts a future event at the correct sorted position (by remainingSeconds ascending).
-	 * @param {EventFuture} event - The event to insert
-	 */
+   * Inserts a future event at the correct sorted position (by remainingSeconds ascending).
+   * @param {EventFuture} event - The event to insert
+   */
   _binaryInsertFuture(event) {
     let lo = 0
     let hi = this.future.length
@@ -196,10 +196,10 @@ class Events {
   }
 
   /**
-	 * Decrements remaining seconds on future events.
-	 * Clamps at 0 — does not auto-convert to past.
-	 * @param {number} delta - Seconds elapsed since last tick
-	 */
+   * Decrements remaining seconds on future events.
+   * Clamps at 0 — does not auto-convert to past.
+   * @param {number} delta - Seconds elapsed since last tick
+   */
   advance(delta) {
     for (const event of this.future) {
       event.advance(delta)

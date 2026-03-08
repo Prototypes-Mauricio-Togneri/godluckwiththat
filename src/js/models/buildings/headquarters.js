@@ -4,7 +4,7 @@ import Building from '@/js/models/buildings/building.js'
 import {HQ_TYPES} from '@/js/engine/constants.js'
 
 /**
- * Colony headquarters building.
+ * Colony headquarters building with progressive type upgrades and territory control.
  *
  * @property {string} type - Headquarters progression type (e.g. 'camp')
  * @property {number} upgradeRemaining - Seconds left for type upgrade (0 = idle)
