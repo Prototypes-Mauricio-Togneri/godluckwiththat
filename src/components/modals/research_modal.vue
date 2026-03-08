@@ -1,7 +1,7 @@
 <script setup>
 import {ref, inject, computed, onMounted, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
-import {formatTime} from '@/js/engine/format.js'
+import {formatNumber, formatTime} from '@/js/engine/format.js'
 import {RESEARCH_TREE} from '@/js/engine/constants.js'
 import {RESEARCH_COSTS} from '@/js/engine/balancing.js'
 import {IMG_OTHER_COMPLETED, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
@@ -181,7 +181,7 @@ onUnmounted(() => {
                       class="node-cost-item"
                     >
                       <img class="node-cost-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
-                      <span class="node-cost-amount" :class="{ 'node-cost-amount--insufficient': amount > ui.resources[resource] }">{{ amount }}</span>
+                      <span class="node-cost-amount" :class="{ 'node-cost-amount--insufficient': amount > ui.resources[resource] }">{{ formatNumber(amount) }}</span>
                     </div>
                   </template>
                 </div>
