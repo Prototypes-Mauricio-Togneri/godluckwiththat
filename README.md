@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Allow to increase the game speed
-
 - Implement challenges
   - See next challenge
   - Resolve a challenge

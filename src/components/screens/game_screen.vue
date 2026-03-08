@@ -1475,9 +1475,9 @@ onUnmounted(() => {
 }
 
 .speed-btn:disabled {
-  opacity: 0.3;
-  cursor: default;
-  pointer-events: none;
+  color: rgba(var(--color-accent-rgb), 0.15);
+  border-color: rgba(var(--color-accent-rgb), 0.05);
+  cursor: not-allowed;
 }
 
 /* Colony stats (population, idle workers, territory) with fixed minimum width */
