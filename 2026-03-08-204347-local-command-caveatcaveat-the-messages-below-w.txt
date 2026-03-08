@@ -25,15 +25,6 @@
     syncs, stale event data remains visible briefly. Add else { ui.futureEvents 
   =[] }.
   ────────────────────────────────────────
-  File Path: src/components/modals/research_modal.vue
-  Issue Type: Safety
-  Line #: 175
-  Severity: Warning
-  Description & Suggested Fix: ui.academy.activeTimers[rKey].remainingSeconds
-    could be undefined in a brief timing window when syncTimers removes a
-    completed research before the computed re-evaluates. Use
-    ui.academy.activeTimers[rKey]?.remainingSeconds ?? 0.
-  ────────────────────────────────────────
   File Path: src/js/models/cost.js
   Issue Type: Safety
   Line #: 37-67

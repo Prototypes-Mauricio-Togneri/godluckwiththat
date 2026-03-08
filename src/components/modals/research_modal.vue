@@ -172,7 +172,7 @@ onUnmounted(() => {
                 <div class="node-second-row">
                   <img v-if="nodeStatusMap[rKey] === 'completed'" class="node-check" :src="IMG_OTHER_COMPLETED" alt="">
                   <span v-else-if="nodeStatusMap[rKey] === 'active'" class="node-timer">
-                    {{ formatTime(ui.academy.activeTimers[rKey].remainingSeconds) }}
+                    {{ formatTime(ui.academy.activeTimers[rKey]?.remainingSeconds ?? 0) }}
                   </span>
                   <template v-else>
                     <div
