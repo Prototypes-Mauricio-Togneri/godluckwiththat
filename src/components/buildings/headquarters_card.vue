@@ -3,7 +3,7 @@ import {computed, inject} from 'vue'
 import BaseCard from '@/components/buildings/base_card.vue'
 import {IMG_OTHER_TERRITORY, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
-import {formatTime} from '@/js/engine/format.js'
+import {formatNumber, formatTime} from '@/js/engine/format.js'
 import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -114,7 +114,7 @@ function upgradeType() {
       <span v-if="!isUpgrading" class="action-cost">
         <span v-for="[key, amount] in upgradeCostEntries" :key="key" class="action-cost-item">
           <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
-          <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources[key] < amount }">{{ amount }}</span>
+          <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources[key] < amount }">{{ formatNumber(amount) }}</span>
         </span>
       </span>
     </div>
@@ -135,7 +135,7 @@ function upgradeType() {
       <span v-if="!isLevelingUp" class="action-cost">
         <span v-for="[key, amount] in levelUpCostEntries" :key="key" class="action-cost-item">
           <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
-          <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources[key] < amount }">{{ amount }}</span>
+          <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources[key] < amount }">{{ formatNumber(amount) }}</span>
         </span>
       </span>
     </div>

@@ -3,6 +3,7 @@ import {computed, inject} from 'vue'
 import BaseCard from '@/components/buildings/base_card.vue'
 import {IMG_RESOURCE_MAP, IMG_UNIT_WORKER} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
+import {formatNumber} from '@/js/engine/format.js'
 import {WORKER_RECRUIT_COST} from '@/js/engine/balancing.js'
 import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
@@ -63,7 +64,7 @@ function recruitWorker() {
         <span class="action-cost">
           <span v-for="[key, amount] in recruitCostEntries" :key="key" class="action-cost-item">
             <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
-            <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources[key] < amount }">{{ amount }}</span>
+            <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources[key] < amount }">{{ formatNumber(amount) }}</span>
           </span>
         </span>
       </div>

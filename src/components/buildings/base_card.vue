@@ -4,7 +4,7 @@ import BuildingHelpModal from '@/components/modals/building_help_modal.vue'
 import WorkerAssignmentRow from '@/components/buildings/worker_assignment_row.vue'
 import {IMG_OTHER_BUILD, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
-import {formatTime} from '@/js/engine/format.js'
+import {formatNumber, formatTime} from '@/js/engine/format.js'
 import {BUILDING_CLASS_MAP} from '@/js/engine/constants.js'
 import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
@@ -125,7 +125,7 @@ function act() {
           <span v-if="!isConstructing" class="action-cost">
             <span v-for="[key, amount] in actionCostEntries" :key="key" class="action-cost-item">
               <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
-              <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources[key] < amount }">{{ amount }}</span>
+              <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources[key] < amount }">{{ formatNumber(amount) }}</span>
             </span>
           </span>
           <slot v-if="!isWorkerAssignable && !isBuildable" />
