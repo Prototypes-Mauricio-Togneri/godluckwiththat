@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Show prices abbreviated like in the resource header
-
 - Not storing the event to upgrade the HQ type?
 
 - Double after loading
