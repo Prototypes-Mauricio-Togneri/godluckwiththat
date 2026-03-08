@@ -7,15 +7,6 @@
     doesn't enforce the invariant — defense-in-depth gap. Add prerequisite
     validation in canResearch().
   ────────────────────────────────────────
-  File Path: src/js/models/meta.js
-  Issue Type: Inconsistency
-  Line #: 19, 46-47
-  Severity: Warning
-  Description & Suggested Fix: createdDateTime is a Date object on new game but
-    an ISO string after save/load. toJSON() serializes createdDateTime as-is
-    (line 46) while updatedDateTime is converted to ISO string (line 47).
-    Normalize both to the same type.
-  ────────────────────────────────────────
   File Path: src/js/models/cost.js
   Issue Type: Safety
   Line #: 37-67

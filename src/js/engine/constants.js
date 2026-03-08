@@ -740,8 +740,8 @@ export const TUTORIAL_MODALS = {
 export function createInitialMeta() {
   return new Meta({
     version: 1,
-    createdDateTime: new Date(),
-    updatedDateTime: new Date(),
+    createdDateTime: new Date().toISOString(),
+    updatedDateTime: new Date().toISOString(),
     numberOfChallenges: 10,
     tutorial: new Tutorial(),
   })
