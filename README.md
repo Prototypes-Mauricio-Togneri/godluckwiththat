@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Not storing the event to upgrade the HQ type?
-
 - Idle workers consume less food and wood?
 
 - Double after loading
