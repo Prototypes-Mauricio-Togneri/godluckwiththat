@@ -62,11 +62,3 @@
     territory is the more fundamental blocker (can't be gathered). Swap check
     order to show territory-full first.
   ────────────────────────────────────────
-  File Path: src/components/buildings/base_card.vue
-  Issue Type: Inconsistency
-  Line #: 111
-  Severity: Style
-  Description & Suggested Fix: v-if="hasAction || !isBuildable" is
-  tautologically
-    true (always renders). The condition is misleading. Remove the v-if or add a
-    comment.
