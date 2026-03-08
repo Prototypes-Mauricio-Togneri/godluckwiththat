@@ -399,6 +399,8 @@ function syncTimers() {
       params: e.params,
       remainingSeconds: e.remainingSeconds,
     }))
+  } else {
+    ui.futureEvents = []
   }
 
   if (state.meta.tutorial.activeModal) {

@@ -16,15 +16,6 @@
     (line 46) while updatedDateTime is converted to ISO string (line 47).
     Normalize both to the same type.
   ────────────────────────────────────────
-  File Path: src/components/screens/game_screen.vue
-  Issue Type: Logical Bug
-  Line #: 393-402
-  Severity: Warning
-  Description & Suggested Fix: syncTimers only updates ui.futureEvents when
-    events.future.length > 0. If the last future event completes between full
-    syncs, stale event data remains visible briefly. Add else { ui.futureEvents 
-  =[] }.
-  ────────────────────────────────────────
   File Path: src/js/models/cost.js
   Issue Type: Safety
   Line #: 37-67
