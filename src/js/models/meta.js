@@ -1,3 +1,4 @@
+import {GAME_SPEED_DEFAULT} from '@/js/engine/constants.js'
 import Tutorial from '@/js/models/tutorial.js'
 
 /**
@@ -8,6 +9,7 @@ import Tutorial from '@/js/models/tutorial.js'
  * @property {string} createdDateTime - When the game was created (ISO string)
  * @property {string} updatedDateTime - When the game was last updated (ISO string)
  * @property {number} numberOfChallenges - Total divine challenges
+ * @property {number} gameSpeed - Game speed multiplier (1, 2, or 3)
  * @property {Tutorial} tutorial - Tutorial progress
  */
 class Meta {
@@ -19,6 +21,7 @@ class Meta {
     this.createdDateTime = data.createdDateTime // When the game was created
     this.updatedDateTime = data.updatedDateTime // When the game was last updated
     this.numberOfChallenges = data.numberOfChallenges // Total divine challenges
+    this.gameSpeed = data.gameSpeed ?? GAME_SPEED_DEFAULT // Game speed multiplier
     this.tutorial = data.tutorial // Tutorial progress
   }
   /**
@@ -32,6 +35,7 @@ class Meta {
       createdDateTime: data.createdDateTime,
       updatedDateTime: data.updatedDateTime,
       numberOfChallenges: data.numberOfChallenges,
+      gameSpeed: data.gameSpeed ?? GAME_SPEED_DEFAULT,
       tutorial: new Tutorial(data.tutorial),
     })
   }
@@ -46,6 +50,7 @@ class Meta {
       createdDateTime: this.createdDateTime,
       updatedDateTime: new Date().toISOString(),
       numberOfChallenges: this.numberOfChallenges,
+      gameSpeed: this.gameSpeed,
       tutorial: this.tutorial.toJSON(),
     }
   }

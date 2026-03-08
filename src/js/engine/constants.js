@@ -42,6 +42,14 @@ export const IS_DEV = import.meta.env.DEV
 // Tick interval in milliseconds
 export const TICK_INTERVAL = 1000
 
+// Available speed multipliers and the default speed
+export const GAME_SPEED_OPTIONS = [
+  1,
+  2,
+  3,
+]
+export const GAME_SPEED_DEFAULT = 1
+
 // Autosave interval bounds (minutes)
 export const AUTOSAVE_DEFAULT_INTERVAL = 5 // Default autosave frequency
 export const AUTOSAVE_MIN_INTERVAL = 1 // Minimum allowed autosave frequency
@@ -746,6 +754,7 @@ export function createInitialMeta() {
     createdDateTime: new Date().toISOString(),
     updatedDateTime: new Date().toISOString(),
     numberOfChallenges: 10,
+    gameSpeed: GAME_SPEED_DEFAULT,
     tutorial: new Tutorial(),
   })
 }

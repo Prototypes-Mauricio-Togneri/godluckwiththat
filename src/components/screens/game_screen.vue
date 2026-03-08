@@ -31,7 +31,7 @@ import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRIT
 import TutorialBanner from '@/components/tutorial/tutorial_banner.vue'
 import TutorialModal from '@/components/tutorial/tutorial_modal.vue'
 import SettingsModal from '@/components/modals/settings_modal.vue'
-import {BUILDING_IMAGE_MAP, BUILDING_GRID, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, TUTORIAL_MODALS, TUTORIAL_STEPS, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
+import {BUILDING_IMAGE_MAP, BUILDING_GRID, GAME_SPEED_DEFAULT, GAME_SPEED_OPTIONS, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, TUTORIAL_MODALS, TUTORIAL_STEPS, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {BULK_WORKER_AMOUNT, SEASON_DURATION} from '@/js/engine/balancing.js'
 import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, EMIT_QUIT, EMIT_RESTART} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
@@ -292,6 +292,7 @@ const ui = shallowReactive({
     knowledge: 0,
   },
   productivity: 1,
+  gameSpeed: GAME_SPEED_DEFAULT,
   buildings: {},
   hq: {},
   expansionCost: null,
@@ -488,6 +489,7 @@ function syncProduction() {
     knowledge: colony.netProduction('knowledge'),
   }
   ui.productivity = colony.productivity
+  ui.gameSpeed = state.meta.gameSpeed
 }
 
 /** Syncs all building snapshots. */
@@ -825,6 +827,24 @@ function dismissTutorialModal() {
   }
 }
 
+/** Increases game speed to the next available option. No-op at maximum. */
+function speedUp() {
+  const idx = GAME_SPEED_OPTIONS.indexOf(state.meta.gameSpeed)
+  if (idx < GAME_SPEED_OPTIONS.length - 1) {
+    state.meta.gameSpeed = GAME_SPEED_OPTIONS[idx + 1]
+    ui.gameSpeed = state.meta.gameSpeed
+  }
+}
+
+/** Decreases game speed to the previous available option. No-op at minimum. */
+function speedDown() {
+  const idx = GAME_SPEED_OPTIONS.indexOf(state.meta.gameSpeed)
+  if (idx > 0) {
+    state.meta.gameSpeed = GAME_SPEED_OPTIONS[idx - 1]
+    ui.gameSpeed = state.meta.gameSpeed
+  }
+}
+
 let tickTimer = null
 let lastTickTime = 0
 let progressAnimFrame = null
@@ -854,7 +874,7 @@ function gameTick() {
     lastProgressTickTime = now
     return
   }
-  const delta = (now - lastTickTime) / 1000
+  const delta = (now - lastTickTime) / 1000 * state.meta.gameSpeed
   lastTickTime = now
   const tickStart = now
   state.update(delta)
@@ -864,7 +884,7 @@ function gameTick() {
 
   // Advance progress only when the tab is backgrounded (rAF pauses, so gameTick takes over)
   if (document.hidden) {
-    const progressDelta = (now - lastProgressTickTime) / 1000
+    const progressDelta = (now - lastProgressTickTime) / 1000 * state.meta.gameSpeed
     lastProgressTickTime = now
     state.advanceSeason(progressDelta)
     state.advanceConstruction(progressDelta)
@@ -884,7 +904,7 @@ function progressTick() {
     return
   }
   const now = performance.now()
-  const delta = (now - lastProgressTickTime) / 1000
+  const delta = (now - lastProgressTickTime) / 1000 * state.meta.gameSpeed
   lastProgressTickTime = now
   const prevConstructing = state._constructingKeys.size
   const prevHqUpgrading = state._hqUpgrading
@@ -1114,6 +1134,13 @@ onUnmounted(() => {
             </div>
           </div>
         </template>
+      </div>
+
+      <!-- Speed control -->
+      <div class="header-speed" :class="{ 'header-speed--fast': ui.gameSpeed > 1 }">
+        <button class="speed-btn tooltip tooltip--delayed" :data-tooltip="t('screen.game.header.speedDown')" :disabled="ui.gameSpeed <= GAME_SPEED_OPTIONS[0]" @click="playTap(); speedDown()">&laquo;</button>
+        <span class="speed-label">{{ t('screen.game.header.speed', ui.gameSpeed) }}</span>
+        <button class="speed-btn tooltip tooltip--delayed" :data-tooltip="t('screen.game.header.speedUp')" :disabled="ui.gameSpeed >= GAME_SPEED_OPTIONS[GAME_SPEED_OPTIONS.length - 1]" @click="playTap(); speedUp()">&raquo;</button>
       </div>
 
       <!-- Decorative divider -->
@@ -1379,6 +1406,78 @@ onUnmounted(() => {
   justify-content: center;
   align-items: stretch;
   gap: 0.5rem;
+}
+
+/* ---- Speed control ---- */
+
+/* Compact speed control group: « 1x » */
+.header-speed {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+  padding: 0.35rem 0.4rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(var(--color-accent-rgb), 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--color-accent-rgb), 0.05),
+    rgba(var(--color-shadow-rgb), 0.12)
+  );
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Subtle gold glow when game is accelerated */
+.header-speed--fast {
+  border-color: rgba(var(--color-accent-rgb), 0.35);
+  box-shadow: 0 0 6px rgba(var(--color-accent-rgb), 0.1);
+}
+
+/* Speed value label (e.g. "2x") */
+.speed-label {
+  font-family: var(--font-numeric);
+  font-size: 0.8rem;
+  min-width: 2.2ch;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+  text-align: center;
+  color: var(--color-text);
+  user-select: none;
+}
+
+/* Accelerated speed label gets gold tint */
+.header-speed--fast .speed-label {
+  color: rgba(var(--color-accent-rgb), 1);
+}
+
+/* « and » navigation buttons */
+.speed-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  padding: 0;
+  border-radius: 0.2rem;
+  font-size: 0.95rem;
+  line-height: 1;
+  color: rgba(var(--color-accent-rgb), 0.7);
+  background: transparent;
+  border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.speed-btn:hover:not(:disabled) {
+  background: rgba(var(--color-accent-rgb), 0.12);
+  border-color: rgba(var(--color-accent-rgb), 0.5);
+  color: rgba(var(--color-accent-rgb), 1);
+}
+
+.speed-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
 }
 
 /* Colony stats (population, idle workers, territory) with fixed minimum width */

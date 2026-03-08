@@ -320,6 +320,7 @@ All tunable numeric constants are centralized in `src/js/engine/balancing.js`. T
 
 The file contains:
 
+- **Game speed** (`GAME_SPEED_OPTIONS`, `GAME_SPEED_DEFAULT`) — Available speed multipliers (`[1, 2, 3]`) and the default (1x). Stored in `Meta.gameSpeed`. The game loop multiplies delta time by the speed multiplier, uniformly affecting production, seasons, construction, research, and events. Audio playback is unaffected.
 - **Building upgrades** (`BUILDING_UPGRADES`) — Per-building upgrade config with two sub-keys: `cost` (base resource cost) and `multiplier` (exponential scaling factor per level; formula: `floor(cost × multiplier^level)`, HQ uses `multiplier^(level-1)` since it starts at level 1). Build time is derived from the level-up cost via `Cost.toSeconds`.
 - **HQ upgrade costs** (`HQ_UPGRADE_COSTS`) — Fixed resource costs to upgrade the colony type (Camp → Settlement → Village → Town → City).
 - **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, temples). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.

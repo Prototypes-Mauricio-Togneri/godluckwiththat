@@ -12,6 +12,9 @@ export const LOCALIZED_ES = {
 
   // Game screen
   'screen.game.header.year': 'Año',
+  'screen.game.header.speedDown': 'Ralentizar',
+  'screen.game.header.speedUp': 'Acelerar',
+  'screen.game.header.speed': '{0}x',
 
   // Notifications
   'notifications.gameSaved': 'Partida guardada',
