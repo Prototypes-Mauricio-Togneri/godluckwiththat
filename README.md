@@ -3,6 +3,7 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Bug with storagehouse becoming more expensive than the storage it gives
+- Bug when you have more more territory and you need more storage to get more territory
 
 - Implement challenges
   - See next challenge
