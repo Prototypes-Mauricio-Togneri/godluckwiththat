@@ -2,6 +2,8 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Bug with storagehouse becoming more expensive than the storage it gives
+
 - Implement challenges
   - See next challenge
   - Resolve a challenge
