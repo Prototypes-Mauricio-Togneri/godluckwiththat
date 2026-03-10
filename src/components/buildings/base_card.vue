@@ -5,7 +5,7 @@ import WorkerAssignmentRow from '@/components/buildings/worker_assignment_row.vu
 import {IMG_OTHER_BUILD, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatTime} from '@/js/engine/format.js'
-import {BUILDING_CLASS_MAP} from '@/js/engine/constants.js'
+import {BUILDING_CLASS_MAP, DOWNGRADABLE_BUILDINGS} from '@/js/engine/constants.js'
 import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -82,6 +82,13 @@ const constructionProgress = computed(() => {
   return 1 - props.building.constructionRemaining / props.building.constructionDuration
 })
 
+// Downgrade action (only visible when territory is full)
+const isDowngradable = computed(() => DOWNGRADABLE_BUILDINGS.has(props.buildingKey))
+const canDowngrade = computed(() =>
+  isDowngradable.value && territoryFull.value
+  && props.building.level > 0 && !isConstructing.value,
+)
+
 /** Builds or levels up this building. */
 function act() {
   if (!canAct.value) {
@@ -89,6 +96,15 @@ function act() {
   }
   playTap()
   actions.levelUpBuilding(props.buildingKey)
+}
+
+/** Downgrades this building by one level to free a territory slot. */
+function downgrade() {
+  if (!canDowngrade.value) {
+    return
+  }
+  playTap()
+  actions.downgradeBuilding(props.buildingKey)
 }
 </script>
 
@@ -120,6 +136,15 @@ function act() {
             >
               <img v-if="!isConstructing" class="action-btn-icon" :src="isBuildable ? IMG_OTHER_BUILD : IMG_OTHER_UPGRADE" :alt="isBuildable ? t('building.build') : t('building.levelUp')">
               <span v-else class="action-btn-time">{{ formatTime(building.constructionRemaining) }}</span>
+            </button>
+          </span>
+          <span v-if="territoryFull && isDowngradable && !isBuildable && !isConstructing" class="tooltip tooltip--delayed" :data-tooltip="t('building.downgrade')">
+            <button
+              class="btn-gold action-btn"
+              :disabled="!canDowngrade"
+              @click="downgrade"
+            >
+              <img class="action-btn-icon action-btn-icon--downgrade" :src="IMG_OTHER_UPGRADE" :alt="t('building.downgrade')">
             </button>
           </span>
           <span v-if="!isConstructing" class="action-cost">
@@ -240,6 +265,11 @@ function act() {
   gap: 2cqh;
   min-width: 0;
   align-self: stretch;
+}
+
+/* Rotated upgrade icon for downgrade action */
+.action-btn-icon--downgrade {
+  transform: rotate(180deg);
 }
 
 /* Worker row + slot content side-by-side */

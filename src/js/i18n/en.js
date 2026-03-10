@@ -145,6 +145,7 @@ export const LOCALIZED_EN = {
   'building.locked': 'Locked',
   'building.build': 'Build',
   'building.levelUp': 'Increase level',
+  'building.downgrade': 'Decrease level',
   'building.insufficientResources': 'Insufficient resources',
   'building.maxTerritoryReached': 'Max territory reached',
   'building.maxPopulationReached': 'Max population reached',

@@ -242,6 +242,21 @@ export const BUILDING_CLASS_MAP = {
   [BUILDING_TOWER]: Tower,
 }
 
+// Buildings that can be downgraded (level reduced by 1) to free territory slots.
+// Only worker-based resource producers are eligible.
+export const DOWNGRADABLE_BUILDINGS = new Set([
+  BUILDING_FARM,
+  BUILDING_WOODCUTTER,
+  BUILDING_QUARRY,
+  BUILDING_COPPER_MINE,
+  BUILDING_IRON_MINE,
+  BUILDING_GOLD_MINE,
+  BUILDING_ACADEMY,
+  BUILDING_TEMPLE,
+  BUILDING_MARKET,
+  BUILDING_ALTAR,
+])
+
 // Building grid layout — column definitions for the game screen
 export const BUILDING_GRID = [
   {

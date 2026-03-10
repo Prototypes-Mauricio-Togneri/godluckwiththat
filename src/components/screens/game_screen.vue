@@ -670,6 +670,10 @@ const actions = {
       syncHQ()
     }
   },
+  downgradeBuilding: (key) => {
+    state.downgradeBuilding(key)
+    syncResources(); syncProduction(); syncBuilding(key); syncEvents(); syncTutorial()
+  },
   expandTerritory: () => {
     state.expandTerritory()
     syncResources(); syncProduction(); syncHQ(); syncEvents(); syncTutorial()

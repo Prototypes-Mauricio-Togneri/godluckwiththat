@@ -145,6 +145,7 @@ export const LOCALIZED_ES = {
   'building.locked': 'Bloqueado',
   'building.build': 'Construir',
   'building.levelUp': 'Aumentar nivel',
+  'building.downgrade': 'Reducir nivel',
   'building.insufficientResources': 'Recursos insuficientes',
   'building.maxTerritoryReached': 'Territorio máximo alcanzado',
   'building.maxPopulationReached': 'Población máxima alcanzada',

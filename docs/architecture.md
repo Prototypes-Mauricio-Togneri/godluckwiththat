@@ -113,6 +113,7 @@ All initial values declared via `createInitialMeta()` (a `Meta` instance) and `c
 All game state mutations are centralised in `State`. Each method guards preconditions, applies the mutation, and calls `this.update(0)` to recalculate derived values.
 
 - `levelUpBuilding(buildingKey)` — deducts `levelUpCost`, starts a construction timer (`constructionRemaining`). Territory is reserved immediately via `pendingTerritory`. Level increments when the timer reaches zero. Blocked when territory is full or already constructing.
+- `downgradeBuilding(buildingKey)` — instantly reduces a producer building's level by 1, freeing a territory slot. Excess workers above the new capacity are returned to idle. Only allowed on `DOWNGRADABLE_BUILDINGS` (8 worker-based producers) and only when territory is full. Blocked when level is 0 or building is constructing.
 - `expandTerritory()` — deducts `levelUpCost`, starts a construction timer. Level increments on completion. Blocked when HQ is busy (either timer active).
 - `upgradeHeadquarters()` — deducts `upgradeCost`, starts a type upgrade timer (`upgradeRemaining`). HQ type advances on completion. Blocked when HQ is busy.
 - `recruitWorker()` — delegates to `_recruit()` (increments `resources.workers`); `colony.idleWorkers` updates automatically (derived getter). Blocked when can't afford or at population cap.
