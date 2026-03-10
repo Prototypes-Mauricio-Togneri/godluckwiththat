@@ -46,10 +46,10 @@ export const BUILDING_UPGRADES = {
   },
   [BUILDING_STOREHOUSE]: {
     cost: new Cost({
-      wood: 80,
-      stone: 40,
+      wood: 100,
+      stone: 80,
     }),
-    multiplier: 1.4,
+    multiplier: 1.22,
   },
   [BUILDING_MARKET]: {
     cost: new Cost({
@@ -263,9 +263,9 @@ export const WORKER_WOOD_CONSUMPTION = 0.1
 
 // ── Stockpile ───────────────────────────────────────────────────────
 
-// Storehouse resource capacity: base + level × perLevel
+// Storehouse resource capacity: base × capacityMultiplier ^ level
 export const STOREHOUSE_BASE_CAPACITY = 500
-export const STOREHOUSE_CAPACITY_PER_LEVEL = 500
+export const STOREHOUSE_CAPACITY_MULTIPLIER = 1.2
 
 // ── Territory ───────────────────────────────────────────────────────
 
@@ -311,7 +311,7 @@ export const RESEARCH_SUBCATEGORY_BONUSES = {
   },
   [RESEARCH_SUBCATEGORY_STORAGE]: {
     type: BONUS_STORAGE_CAPACITY,
-    value: 0.10,
+    value: 0.05,
   },
   [RESEARCH_SUBCATEGORY_HABITATION]: {
     type: BONUS_HABITATION,

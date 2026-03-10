@@ -1,4 +1,4 @@
-import {BUILDING_UPGRADES, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_PER_LEVEL} from '@/js/engine/balancing.js'
+import {BUILDING_UPGRADES, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER} from '@/js/engine/balancing.js'
 import {BUILDING_STOREHOUSE} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
@@ -19,7 +19,7 @@ class Storehouse extends Building {
    * @returns {number} Maximum storage capacity at current level
    */
   storageCap(storageBonus = 0) {
-    const base = STOREHOUSE_BASE_CAPACITY + this.level * STOREHOUSE_CAPACITY_PER_LEVEL
+    const base = STOREHOUSE_BASE_CAPACITY * Math.pow(STOREHOUSE_CAPACITY_MULTIPLIER, this.level)
     return Math.floor(base * (1 + storageBonus))
   }
 
