@@ -2,7 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Make tutorial more prominente
 - Bug with storagehouse becoming more expensive than the storage it gives
 - Bug when you have more more territory and you need more storage to get more territory
 

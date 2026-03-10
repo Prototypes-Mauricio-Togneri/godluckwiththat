@@ -66,6 +66,23 @@ defineProps({
   box-shadow:
     0 -2px 16px rgba(var(--color-shadow-rgb), 0.4),
     inset 0 1px 0 rgba(var(--color-accent-rgb), 0.08);
+  animation: banner-glow 0.5s ease-in-out 0.3s 3;
+}
+
+@keyframes banner-glow {
+  0%, 100% {
+    border-color: rgba(var(--color-accent-rgb), 0.25);
+    box-shadow:
+      0 -2px 16px rgba(var(--color-shadow-rgb), 0.4),
+      inset 0 1px 0 rgba(var(--color-accent-rgb), 0.08);
+  }
+  50% {
+    border-color: rgba(var(--color-accent-rgb), 0.6);
+    box-shadow:
+      0 -2px 16px rgba(var(--color-shadow-rgb), 0.4),
+      inset 0 1px 0 rgba(var(--color-accent-rgb), 0.08),
+      0 0 12px rgba(var(--color-accent-rgb), 0.25);
+  }
 }
 
 .banner-icon {

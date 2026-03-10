@@ -1303,14 +1303,17 @@ onUnmounted(() => {
       @close="showMarketModal = false"
     />
 
-    <TutorialBanner
-      v-if="ui.tutorial.isActive"
-      :text-key="ui.tutorial.stepTextKey"
-      :hint-key="ui.tutorial.stepHintKey"
-      :building-img="ui.tutorial.stepBuildingImg"
-      :step-number="ui.tutorial.stepNumber"
-      :total-steps="ui.tutorial.totalSteps"
-    />
+    <Transition name="tutorial-banner" mode="out-in">
+      <TutorialBanner
+        v-if="ui.tutorial.isActive"
+        :key="ui.tutorial.stepNumber"
+        :text-key="ui.tutorial.stepTextKey"
+        :hint-key="ui.tutorial.stepHintKey"
+        :building-img="ui.tutorial.stepBuildingImg"
+        :step-number="ui.tutorial.stepNumber"
+        :total-steps="ui.tutorial.totalSteps"
+      />
+    </Transition>
 
     <TutorialModal
       v-if="ui.tutorial.activeModal"
@@ -1837,6 +1840,24 @@ onUnmounted(() => {
   z-index: 9000;
   box-shadow: 0 2px 12px rgba(var(--color-accent-rgb), 0.1);
   text-shadow: 0 0 8px rgba(var(--color-accent-rgb), 0.3);
+}
+
+.tutorial-banner-enter-active {
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.tutorial-banner-leave-active {
+  transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+}
+
+.tutorial-banner-enter-from {
+  opacity: 0;
+  transform: translateY(2rem);
+}
+
+.tutorial-banner-leave-to {
+  opacity: 0;
+  transform: translateY(1rem);
 }
 
 .save-indicator-enter-active {
