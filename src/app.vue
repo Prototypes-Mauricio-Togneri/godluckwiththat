@@ -6,6 +6,7 @@ import {MUS_MUSIC_1, MUS_MUSIC_2, MUS_MUSIC_3, MUS_MUSIC_4} from '@/js/engine/as
 import audio from '@/js/engine/audio.js'
 import {createInitialColony, createInitialMeta} from '@/js/engine/constants.js'
 import State from '@/js/engine/state.js'
+import storage from '@/js/engine/storage.js'
 
 const currentScreen = ref('home')
 const gameState = ref(null)
@@ -17,6 +18,9 @@ function startGame(savedData) {
   let state = savedData ? State.fromJSON(savedData) : null
   if (!state) {
     state = new State(createInitialMeta(), createInitialColony())
+    if (storage.tutorialCompleted) {
+      state.meta.tutorial.completed = true
+    }
     state.update(0)
   }
   gameState.value = state

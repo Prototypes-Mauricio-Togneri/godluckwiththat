@@ -1,4 +1,4 @@
-import {STORAGE_AUTOSAVE_ENABLED, STORAGE_AUTOSAVE_INTERVAL, STORAGE_MUSIC_ENABLED, STORAGE_SAVED_GAME, STORAGE_SOUND_ENABLED} from '@/js/engine/enums.js'
+import {STORAGE_AUTOSAVE_ENABLED, STORAGE_AUTOSAVE_INTERVAL, STORAGE_MUSIC_ENABLED, STORAGE_SAVED_GAME, STORAGE_SOUND_ENABLED, STORAGE_TUTORIAL_COMPLETED} from '@/js/engine/enums.js'
 import {AUTOSAVE_DEFAULT_INTERVAL} from '@/js/engine/constants.js'
 
 /**
@@ -85,6 +85,22 @@ class Storage {
   set autosaveInterval(value) {
     try {
       window.localStorage.setItem(STORAGE_AUTOSAVE_INTERVAL, value)
+    } catch { /* quota exceeded */ }
+  }
+
+  /** @returns {boolean} Whether the player has completed the tutorial in a previous game */
+  get tutorialCompleted() {
+    try {
+      return window.localStorage.getItem(STORAGE_TUTORIAL_COMPLETED) === 'true'
+    } catch {
+      return false
+    }
+  }
+
+  /** @param {boolean} value - Whether the tutorial has been completed */
+  set tutorialCompleted(value) {
+    try {
+      window.localStorage.setItem(STORAGE_TUTORIAL_COMPLETED, value)
     } catch { /* quota exceeded */ }
   }
 

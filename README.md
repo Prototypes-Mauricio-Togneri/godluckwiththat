@@ -3,7 +3,6 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Make tutorial more prominente
-- Store when the tutorial is completed so it doesn't show again
 - Bug with storagehouse becoming more expensive than the storage it gives
 - Bug when you have more more territory and you need more storage to get more territory
 
