@@ -3,7 +3,6 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Make tutorial more prominente
-- Improve text for tutorial to explain why
 - Store when the tutorial is completed so it doesn't show again
 - Hide button to create worker
 - Bug with storagehouse becoming more expensive than the storage it gives
