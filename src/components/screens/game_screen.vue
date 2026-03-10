@@ -635,6 +635,7 @@ function syncTutorial() {
   const modalConfig = tutorial.activeModal ? TUTORIAL_MODALS[tutorial.activeModal] : null
   ui.tutorial = {
     stepTextKey: step?.textKey ?? null,
+    stepHintKey: step?.hintKey ?? null,
     stepBuilding: step?.building ?? null,
     stepBuildingImg: step?.building ? BUILDING_IMAGE_MAP[step.building] : null,
     stepNumber: tutorial.currentStep + 1,
@@ -1305,6 +1306,7 @@ onUnmounted(() => {
     <TutorialBanner
       v-if="ui.tutorial.isActive"
       :text-key="ui.tutorial.stepTextKey"
+      :hint-key="ui.tutorial.stepHintKey"
       :building-img="ui.tutorial.stepBuildingImg"
       :step-number="ui.tutorial.stepNumber"
       :total-steps="ui.tutorial.totalSteps"

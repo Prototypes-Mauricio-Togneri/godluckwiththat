@@ -6,6 +6,10 @@ defineProps({
     type: String,
     default: null,
   },
+  hintKey: {
+    type: String,
+    default: null,
+  },
   buildingImg: {
     type: String,
     default: null,
@@ -25,7 +29,10 @@ defineProps({
   <div v-if="textKey" class="tutorial-banner">
     <div class="banner-inner">
       <img v-if="buildingImg" class="banner-icon" :src="buildingImg" alt="">
-      <span class="banner-text">{{ t(textKey) }}</span>
+      <div class="banner-content">
+        <span class="banner-text">{{ t(textKey) }}</span>
+        <span v-if="hintKey" class="banner-hint">{{ t(hintKey) }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -62,10 +69,16 @@ defineProps({
 }
 
 .banner-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2rem;
+  height: 2rem;
   object-fit: contain;
   flex-shrink: 0;
+}
+
+.banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
 }
 
 .banner-text {
@@ -75,5 +88,13 @@ defineProps({
   color: var(--color-text);
   letter-spacing: 0.01em;
   white-space: nowrap;
+}
+
+.banner-hint {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: rgba(var(--color-text-rgb), 0.45);
+  letter-spacing: 0.01em;
 }
 </style>
