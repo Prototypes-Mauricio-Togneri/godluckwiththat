@@ -1389,7 +1389,7 @@ onUnmounted(() => {
 /* "YEAR" label text in subdued uppercase */
 .header-year {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   margin-top: 0.3em;
   gap: 0.3rem;
   font-family: var(--font-display);
@@ -1547,6 +1547,7 @@ onUnmounted(() => {
 .season-icon {
   width: 0.9rem;
   height: 0.9rem;
+  align-self: center;
 }
 
 /* Thin horizontal bar background for season progress */
