@@ -1382,7 +1382,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.5rem;
   flex-shrink: 0;
 }
 
@@ -1552,6 +1552,7 @@ onUnmounted(() => {
 .season-track {
   width: 5.5rem;
   height: 4px;
+  margin-top: 0.25rem;
   background: rgba(255, 255, 255, 0.06);
   border-radius: 0.125rem;
   overflow: hidden;
