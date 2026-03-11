@@ -1356,7 +1356,7 @@ onUnmounted(() => {
 .game-header {
   display: flex;
   align-items: center;
-  padding: 0.45rem 1.5rem;
+  padding: 0.45rem 1rem;
   gap: 1.25rem;
   border-bottom: 1px solid var(--color-border);
   background: var(--color-bg-surface);
