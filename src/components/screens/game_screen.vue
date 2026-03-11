@@ -1076,9 +1076,6 @@ onUnmounted(() => {
         <span class="header-year">{{ t('screen.game.header.year') }} <span class="header-year-num">{{ ui.year }}</span></span>
       </div>
 
-      <!-- Decorative divider -->
-      <span class="header-divider" />
-
       <!-- Resources -->
       <div class="header-section header-resources">
         <!-- Productivity indicator -->
@@ -1148,9 +1145,6 @@ onUnmounted(() => {
         <button class="speed-btn tooltip tooltip--delayed" :data-tooltip="t('screen.game.header.speedUp')" :disabled="ui.gameSpeed >= GAME_SPEED_OPTIONS[GAME_SPEED_OPTIONS.length - 1]" @click="playTap(); speedUp()">&raquo;</button>
       </div>
 
-      <!-- Decorative divider -->
-      <span class="header-divider" />
-
       <!-- Colony info -->
       <div class="header-section header-colony">
         <div class="resource-box colony-box colony-box--population tooltip" :data-tooltip="t('resource.population')">
@@ -1179,9 +1173,6 @@ onUnmounted(() => {
           </div>
         </div>
       </div>
-
-      <!-- Decorative divider -->
-      <span class="header-divider" />
 
       <!-- Menu button -->
       <button class="btn-gold header-menu-button" @click="playTap(); showModal = true">
@@ -1580,18 +1571,6 @@ onUnmounted(() => {
 }
 
 /* ---- Decorative dividers between sections ---- */
-
-.header-divider {
-  width: 1px;
-  height: 1.6rem;
-  background: linear-gradient(
-    180deg,
-    rgba(var(--color-accent-rgb), 0),
-    rgba(var(--color-accent-rgb), 0.2),
-    rgba(var(--color-accent-rgb), 0)
-  );
-  flex-shrink: 0;
-}
 
 /* ---- Menu button ---- */
 
