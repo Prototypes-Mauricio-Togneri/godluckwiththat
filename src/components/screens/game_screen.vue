@@ -1357,7 +1357,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   padding: 0.45rem 1rem;
-  gap: 1.25rem;
+  gap: 0.5rem;
   border-bottom: 1px solid var(--color-border);
   background: var(--color-bg-surface);
   box-shadow: 0 2px 8px rgba(var(--color-shadow-rgb), 0.3);
@@ -1488,11 +1488,9 @@ onUnmounted(() => {
 
 /* Colony stats (population, idle workers, territory) with fixed minimum width */
 .header-colony {
-  justify-content: space-evenly;
   align-items: stretch;
   gap: 0.5rem;
   flex-shrink: 0;
-  min-width: 18rem;
 }
 
 /* ---- Resource stat (icon beside value) ---- */
@@ -1586,6 +1584,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   padding: 0.4rem;
+  margin-left: 0.7rem;
   line-height: 1;
   flex-shrink: 0;
 }
