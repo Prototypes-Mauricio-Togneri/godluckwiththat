@@ -1068,12 +1068,14 @@ onUnmounted(() => {
       <!-- Season & year indicator -->
       <div class="header-season-group">
         <div class="header-section header-season tooltip" :data-tooltip="seasonTooltip">
-          <img class="season-icon" :src="seasonIcon" alt="">
           <div class="season-track" :class="'season-track--' + ui.season.currentSeason">
             <div class="season-fill" :style="{ width: (seasonProgress * 100) + '%' }" />
           </div>
         </div>
-        <span class="header-year">{{ t('screen.game.header.year') }} <span class="header-year-num">{{ ui.year }}</span></span>
+        <span class="header-year">
+          <img class="season-icon" :src="seasonIcon" alt="">
+          {{ t('screen.game.header.year') }} <span class="header-year-num">{{ ui.year }}</span>
+        </span>
       </div>
 
       <!-- Resources -->
@@ -1386,6 +1388,10 @@ onUnmounted(() => {
 
 /* "YEAR" label text in subdued uppercase */
 .header-year {
+  display: flex;
+  align-items: center;
+  margin-top: 0.3em;
+  gap: 0.3rem;
   font-family: var(--font-display);
   font-size: 0.7rem;
   text-transform: uppercase;
@@ -1539,8 +1545,8 @@ onUnmounted(() => {
 /* ---- Season indicator ---- */
 
 .season-icon {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 0.9rem;
+  height: 0.9rem;
 }
 
 /* Thin horizontal bar background for season progress */
