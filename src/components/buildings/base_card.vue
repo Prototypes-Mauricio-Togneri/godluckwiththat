@@ -82,10 +82,16 @@ const constructionProgress = computed(() => {
   return 1 - props.building.constructionRemaining / props.building.constructionDuration
 })
 
-// Downgrade action (only visible when territory is full)
+// Downgrade action (only visible when territory is full and expansion cost exceeds storage)
 const isDowngradable = computed(() => DOWNGRADABLE_BUILDINGS.has(props.buildingKey))
+const expansionExceedsCap = computed(() =>
+  ui.expansionCost
+    ? Math.max(...ui.expansionCost.entries.values()) > ui.storageCap
+    : false,
+)
 const canDowngrade = computed(() =>
   isDowngradable.value && territoryFull.value
+  && expansionExceedsCap.value
   && props.building.level > 0 && !isConstructing.value,
 )
 
@@ -138,10 +144,9 @@ function downgrade() {
               <span v-else class="action-btn-time">{{ formatTime(building.constructionRemaining) }}</span>
             </button>
           </span>
-          <span v-if="territoryFull && isDowngradable && !isBuildable && !isConstructing" class="tooltip tooltip--delayed" :data-tooltip="t('building.downgrade')">
+          <span v-if="canDowngrade && !isBuildable" class="tooltip tooltip--delayed" :data-tooltip="t('building.downgrade')">
             <button
               class="btn-gold action-btn"
-              :disabled="!canDowngrade"
               @click="downgrade"
             >
               <img class="action-btn-icon action-btn-icon--downgrade" :src="IMG_OTHER_UPGRADE" :alt="t('building.downgrade')">

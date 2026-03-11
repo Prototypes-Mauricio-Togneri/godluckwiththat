@@ -2,10 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Change logic to show downgrade button
-  - Max territory reached
-  - Current expansion cost is bigger than storeage capacity
-
 - Implement challenges
   - See next challenge
   - Resolve a challenge
