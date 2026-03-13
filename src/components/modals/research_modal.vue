@@ -104,8 +104,8 @@ function updateTooltipDirection(rKey, event) {
   }
   const nodeRect = node.getBoundingClientRect()
   const scrollRect = scroll.getBoundingClientRect()
-  const spaceAbove = nodeRect.top - scrollRect.top
-  tooltipAbove.value[rKey] = spaceAbove > 80
+  const spaceBelow = scrollRect.bottom - nodeRect.bottom
+  tooltipAbove.value[rKey] = spaceBelow < 80
 }
 
 /** Handles Escape key to close help overlay or the modal itself.
