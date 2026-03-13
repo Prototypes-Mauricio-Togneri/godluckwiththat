@@ -6,6 +6,7 @@ import {TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
 import {MARKET_TRADE_AMOUNT, MARKET_PRICE_SHIFT, MARKET_BASE_FEE, MARKET_MIN_FEE, MARKET_FEE_REDUCTION_PER_LEVEL} from '@/js/engine/balancing.js'
 import {IMG_RESOURCE_MAP, SND_MARKET_EXCHANGE} from '@/js/engine/assets.js'
 import {EMIT_CLOSE, RESOURCE_GOLD, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
+import storage from '@/js/engine/storage.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
 
@@ -18,7 +19,7 @@ let rafId = null
 
 // ── Trade amount selector ──────────────────────────────────
 
-const tradeAmount = ref(MARKET_TRADE_AMOUNT)
+const tradeAmount = ref(storage.tradeAmount)
 
 /** Available trade amounts: 100, 1000, 10000, ... up to storageCap. */
 const availableAmounts = computed(() => {
@@ -39,6 +40,13 @@ watch(availableAmounts, (amounts) => {
   if (!amounts.includes(tradeAmount.value)) {
     tradeAmount.value = amounts[amounts.length - 1]
   }
+}, {
+  immediate: true,
+})
+
+/** Persist trade amount to localStorage whenever it changes. */
+watch(tradeAmount, (value) => {
+  storage.tradeAmount = value
 })
 
 /** Multiplier to scale base-100 prices to the selected trade amount. */

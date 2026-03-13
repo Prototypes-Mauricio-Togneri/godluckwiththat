@@ -1,5 +1,6 @@
-import {STORAGE_AUTOSAVE_ENABLED, STORAGE_AUTOSAVE_INTERVAL, STORAGE_MUSIC_ENABLED, STORAGE_SAVED_GAME, STORAGE_SOUND_ENABLED, STORAGE_TUTORIAL_COMPLETED} from '@/js/engine/enums.js'
+import {STORAGE_AUTOSAVE_ENABLED, STORAGE_AUTOSAVE_INTERVAL, STORAGE_MUSIC_ENABLED, STORAGE_SAVED_GAME, STORAGE_SOUND_ENABLED, STORAGE_TRADE_AMOUNT, STORAGE_TUTORIAL_COMPLETED} from '@/js/engine/enums.js'
 import {AUTOSAVE_DEFAULT_INTERVAL} from '@/js/engine/constants.js'
+import {MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
 
 /**
  * Thin wrapper around localStorage for persisting user preferences.
@@ -101,6 +102,23 @@ class Storage {
   set tutorialCompleted(value) {
     try {
       window.localStorage.setItem(STORAGE_TUTORIAL_COMPLETED, value)
+    } catch { /* quota exceeded */ }
+  }
+
+  /** @returns {number} Last selected trade amount */
+  get tradeAmount() {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_TRADE_AMOUNT)
+      return raw ? Number(raw) : MARKET_TRADE_AMOUNT
+    } catch {
+      return MARKET_TRADE_AMOUNT
+    }
+  }
+
+  /** @param {number} value - Trade amount to persist */
+  set tradeAmount(value) {
+    try {
+      window.localStorage.setItem(STORAGE_TRADE_AMOUNT, value)
     } catch { /* quota exceeded */ }
   }
 
