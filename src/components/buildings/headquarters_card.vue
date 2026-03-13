@@ -3,7 +3,7 @@ import {computed, inject} from 'vue'
 import BaseCard from '@/components/buildings/base_card.vue'
 import {IMG_OTHER_TERRITORY, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
-import {formatNumber, formatTime} from '@/js/engine/format.js'
+import {formatNumber, formatNumberFull, formatTime} from '@/js/engine/format.js'
 import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -119,7 +119,7 @@ function upgradeType() {
         <div class="action-cost-tooltip">
           <template v-for="[key, amount] in upgradeCostEntries" :key="key">
             <span>{{ t(`resource.${key}`) }}:</span>
-            <span class="action-cost-tooltip-amount">{{ Math.floor(amount).toLocaleString() }}</span>
+            <span class="action-cost-tooltip-amount">{{ formatNumberFull(amount) }}</span>
           </template>
         </div>
       </span>
@@ -146,7 +146,7 @@ function upgradeType() {
         <div class="action-cost-tooltip">
           <template v-for="[key, amount] in levelUpCostEntries" :key="key">
             <span>{{ t(`resource.${key}`) }}:</span>
-            <span class="action-cost-tooltip-amount">{{ Math.floor(amount).toLocaleString() }}</span>
+            <span class="action-cost-tooltip-amount">{{ formatNumberFull(amount) }}</span>
           </template>
         </div>
       </span>

@@ -4,7 +4,7 @@ import BuildingHelpModal from '@/components/modals/building_help_modal.vue'
 import WorkerAssignmentRow from '@/components/buildings/worker_assignment_row.vue'
 import {IMG_OTHER_BUILD, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
-import {formatNumber, formatTime} from '@/js/engine/format.js'
+import {formatNumber, formatNumberFull, formatTime} from '@/js/engine/format.js'
 import {BUILDING_CLASS_MAP, DOWNGRADABLE_BUILDINGS} from '@/js/engine/constants.js'
 import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
@@ -160,7 +160,7 @@ function downgrade() {
             <div class="action-cost-tooltip">
               <template v-for="[key, amount] in actionCostEntries" :key="key">
                 <span>{{ t(`resource.${key}`) }}:</span>
-                <span class="action-cost-tooltip-amount">{{ Math.floor(amount).toLocaleString() }}</span>
+                <span class="action-cost-tooltip-amount">{{ formatNumberFull(amount) }}</span>
               </template>
             </div>
           </span>

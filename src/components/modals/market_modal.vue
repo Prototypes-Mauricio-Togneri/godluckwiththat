@@ -1,7 +1,7 @@
 <script setup>
 import {ref, inject, onMounted, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
-import {formatNumber} from '@/js/engine/format.js'
+import {formatNumber, formatNumberFull} from '@/js/engine/format.js'
 import {TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
 import {MARKET_TRADE_AMOUNT, MARKET_PRICE_SHIFT, MARKET_BASE_FEE, MARKET_MIN_FEE, MARKET_FEE_REDUCTION_PER_LEVEL} from '@/js/engine/balancing.js'
 import {IMG_RESOURCE_MAP, SND_MARKET_EXCHANGE} from '@/js/engine/assets.js'
@@ -129,14 +129,18 @@ onUnmounted(() => {
         <div
           v-for="resource in TRADEABLE_RESOURCES"
           :key="resource"
-          class="resource-box"
+          class="resource-box tooltip"
+          :data-tooltip="t('resource.' + resource) + ': ' + formatNumberFull(ui.resources[resource])"
         >
           <div class="resource-row-top">
             <img class="resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
             <span class="resource-value">{{ formatNumber(ui.resources[resource]) }}</span>
           </div>
         </div>
-        <div class="resource-box">
+        <div
+          class="resource-box tooltip"
+          :data-tooltip="t('resource.' + RESOURCE_GOLD) + ': ' + formatNumberFull(ui.resources[RESOURCE_GOLD])"
+        >
           <div class="resource-row-top">
             <img class="resource-icon" :src="IMG_RESOURCE_MAP[RESOURCE_GOLD]" :alt="t('resource.' + RESOURCE_GOLD)">
             <span class="resource-value">{{ formatNumber(ui.resources[RESOURCE_GOLD]) }}</span>

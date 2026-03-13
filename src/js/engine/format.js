@@ -51,6 +51,15 @@ export function formatNumber(n) {
 }
 
 /**
+ * Formats a number with comma-separated thousands (no abbreviation).
+ * @param {number} n - Number to format
+ * @returns {string} Comma-formatted integer string (e.g. "123,456,789")
+ */
+export function formatNumberFull(n) {
+  return Math.floor(n).toLocaleString()
+}
+
+/**
  * Formats a per-second rate as a display string with unit suffix.
  * @param {number} ratePerSecond - Resource production rate per second
  * @returns {string} Formatted rate with per-second suffix

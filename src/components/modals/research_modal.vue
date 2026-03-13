@@ -1,7 +1,7 @@
 <script setup>
 import {ref, inject, computed, onMounted, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
-import {formatNumber, formatTime} from '@/js/engine/format.js'
+import {formatNumber, formatNumberFull, formatTime} from '@/js/engine/format.js'
 import {RESEARCH_TREE} from '@/js/engine/constants.js'
 import {RESEARCH_COSTS} from '@/js/engine/balancing.js'
 import {IMG_OTHER_COMPLETED, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
@@ -204,7 +204,7 @@ onUnmounted(() => {
                 <div v-if="nodeStatusMap[rKey] !== 'completed' && nodeStatusMap[rKey] !== 'active'" class="action-cost-tooltip" :class="{ 'action-cost-tooltip--above': tooltipAbove[rKey] }">
                   <template v-for="[resource, amount] in RESEARCH_COST_ENTRIES[rKey]" :key="resource">
                     <span>{{ t(`resource.${resource}`) }}:</span>
-                    <span class="action-cost-tooltip-amount">{{ Math.floor(amount).toLocaleString() }}</span>
+                    <span class="action-cost-tooltip-amount">{{ formatNumberFull(amount) }}</span>
                   </template>
                 </div>
               </div>

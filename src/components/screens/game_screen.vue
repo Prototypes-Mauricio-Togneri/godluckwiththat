@@ -25,7 +25,7 @@ import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import audio, {playTap} from '@/js/engine/audio.js'
-import {formatNumber, formatRate, formatTime} from '@/js/engine/format.js'
+import {formatNumber, formatNumberFull, formatRate, formatTime} from '@/js/engine/format.js'
 import storage from '@/js/engine/storage.js'
 import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
 import TutorialBanner from '@/components/tutorial/tutorial_banner.vue'
@@ -1130,7 +1130,7 @@ onUnmounted(() => {
             <div class="resource-tooltip">
               <span>{{ t('resource.' + resource) }}</span>
               <!-- Intentional: toLocaleString() instead of formatNumber() to display all digits -->
-              <span class="resource-tooltip-time">{{ t('resource.amount') }}: {{ Math.floor(ui.resources[resource]).toLocaleString() }}</span>
+              <span class="resource-tooltip-time">{{ t('resource.amount') }}: {{ formatNumberFull(ui.resources[resource]) }}</span>
               <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(ui.storageCap) }}</span>
               <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
               <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.producing') }}: {{ +grossProduction(resource).toFixed(2) }}</span>
