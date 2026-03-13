@@ -2,8 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Add multiplier in market modal
-
 - Implement challenges
   - See next challenge
   - Resolve a challenge
