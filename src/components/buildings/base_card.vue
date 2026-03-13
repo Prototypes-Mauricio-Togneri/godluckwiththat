@@ -157,6 +157,12 @@ function downgrade() {
               <img class="action-cost-icon" :src="IMG_RESOURCE_MAP[key]" :alt="t(`resource.${key}`)">
               <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources[key] < amount }">{{ formatNumber(amount) }}</span>
             </span>
+            <div class="action-cost-tooltip">
+              <template v-for="[key, amount] in actionCostEntries" :key="key">
+                <span>{{ t(`resource.${key}`) }}:</span>
+                <span class="action-cost-tooltip-amount">{{ Math.floor(amount).toLocaleString() }}</span>
+              </template>
+            </div>
           </span>
           <slot v-if="!isWorkerAssignable && !isBuildable" />
         </div>

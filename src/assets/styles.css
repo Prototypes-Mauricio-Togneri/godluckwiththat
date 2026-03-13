@@ -172,14 +172,15 @@
 
 /* Cost container beside action button */
 .action-cost {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 5cqh;
     transition: opacity 0.25s ease;
 }
 
-/* Dim cost display when action button is disabled */
-.action-row--disabled .action-cost {
+/* Dim cost items when action button is disabled */
+.action-row--disabled .action-cost-item {
     opacity: 0.35;
 }
 
@@ -209,6 +210,45 @@
 /* Red color when resources are insufficient */
 .action-cost-short {
     color: rgba(196, 80, 80, 1);
+}
+
+/* Cost breakdown tooltip — multi-line grid below cost display */
+.action-cost-tooltip {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: baseline;
+    gap: 0.1rem 0.6rem;
+    white-space: nowrap;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--color-text);
+    background: var(--color-bg-surface);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.25);
+    border-radius: 0.25rem;
+    padding: 0.35rem 0.6rem;
+    box-shadow: 0 4px 12px rgba(var(--color-shadow-rgb), 0.45);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 50;
+}
+
+/* Show cost tooltip on hover with delay */
+.action-cost:hover .action-cost-tooltip {
+    opacity: 1;
+    transition-delay: 1s;
+}
+
+/* Right-aligned numeric amounts in cost tooltip */
+.action-cost-tooltip-amount {
+    font-family: var(--font-numeric);
+    text-align: right;
 }
 
 /* Construction progress — button becomes a progress indicator during build/upgrade */
