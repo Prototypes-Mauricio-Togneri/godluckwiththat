@@ -2,6 +2,8 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Sleep fixing header size problem
+- Do all costs have a hover tooltip to see the full numbers?
 - Add multiplier in market modal
 
 - Implement challenges
