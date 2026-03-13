@@ -28,6 +28,8 @@ const showHelp = ref(false)
 let rafId = null
 
 const activeTab = ref(RESEARCH_TREE[0].category)
+const scrollRef = ref(null)
+const tooltipAbove = ref({})
 
 const activeCategory = computed(() =>
   RESEARCH_TREE.find(c => c.category === activeTab.value),
@@ -93,6 +95,19 @@ function accumulatedBonusText(sub) {
   return sub.bonus.flat ? `+${accumulated}` : `+${Math.round(accumulated * 100)}%`
 }
 
+/** Determines tooltip direction based on node position within scroll container. */
+function updateTooltipDirection(rKey, event) {
+  const node = event.currentTarget
+  const scroll = scrollRef.value
+  if (!scroll) {
+    return
+  }
+  const nodeRect = node.getBoundingClientRect()
+  const scrollRect = scroll.getBoundingClientRect()
+  const spaceAbove = nodeRect.top - scrollRect.top
+  tooltipAbove.value[rKey] = spaceAbove > 80
+}
+
 /** Handles Escape key to close help overlay or the modal itself.
  * @param {KeyboardEvent} event - Keyboard event
  */
@@ -145,7 +160,7 @@ onUnmounted(() => {
       </div>
 
       <!-- Scrollable content -->
-      <div class="research-scroll">
+      <div ref="scrollRef" class="research-scroll">
         <div
           v-for="sub in activeCategory.subcategories"
           :key="sub.key"
@@ -165,6 +180,7 @@ onUnmounted(() => {
                   'research-node--' + nodeStatusMap[rKey],
                 ]"
                 @click="handleNodeClick(rKey, nodeStatusMap[rKey])"
+                @mouseenter="updateTooltipDirection(rKey, $event)"
               >
                 <div class="node-header">
                   <span class="node-name">{{ t('research.' + rKey) }}</span>
@@ -183,6 +199,12 @@ onUnmounted(() => {
                       <img class="node-cost-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
                       <span class="node-cost-amount" :class="{ 'node-cost-amount--insufficient': amount > ui.resources[resource] }">{{ formatNumber(amount) }}</span>
                     </div>
+                  </template>
+                </div>
+                <div v-if="nodeStatusMap[rKey] !== 'completed' && nodeStatusMap[rKey] !== 'active'" class="action-cost-tooltip" :class="{ 'action-cost-tooltip--above': tooltipAbove[rKey] }">
+                  <template v-for="[resource, amount] in RESEARCH_COST_ENTRIES[rKey]" :key="resource">
+                    <span>{{ t(`resource.${resource}`) }}:</span>
+                    <span class="action-cost-tooltip-amount">{{ Math.floor(amount).toLocaleString() }}</span>
                   </template>
                 </div>
               </div>
@@ -281,7 +303,6 @@ onUnmounted(() => {
   overflow-x: hidden;
   min-height: 0;
   padding-top: 0.15rem;
-  padding-right: 0.5rem;
   scrollbar-width: thin;
   scrollbar-color: rgba(var(--color-accent-rgb), 0.2) rgba(0, 0, 0, 0);
 }
@@ -426,7 +447,8 @@ onUnmounted(() => {
   background: rgba(var(--color-accent-rgb), 0.1);
 }
 
-.research-node--locked {
+.research-node--locked > .node-header,
+.research-node--locked > .node-second-row {
   opacity: 0.35;
 }
 
@@ -469,6 +491,12 @@ onUnmounted(() => {
   flex-wrap: nowrap;
   margin-top: 0.15rem;
   min-height: 0.9rem;
+}
+
+/* Show cost tooltip on hover with delay */
+.research-node:hover .action-cost-tooltip {
+  display: grid;
+  animation: cost-tooltip-fade 0.2s ease 1s both;
 }
 
 .node-cost-item {
