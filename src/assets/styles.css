@@ -528,10 +528,10 @@
 /* Production rate indicator — colored rate beside resource values */
 .production-rate {
     font-family: var(--font-numeric);
-    font-size: 0.65rem;
+    font-size: clamp(0.55rem, 0.6vw, 0.65rem);
     font-weight: 400;
     letter-spacing: 0.02em;
-    min-width: 8ch;
+    min-width: 6ch;
     font-variant-numeric: tabular-nums;
     text-align: right;
     margin-bottom: 0.4rem;
@@ -557,7 +557,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 0.1rem;
-    padding: 0.3rem 0.5rem;
+    padding: 0.3rem clamp(0.2rem, 0.4vw, 0.5rem);
     background: linear-gradient(
         180deg,
         rgba(var(--color-accent-rgb), 0.05),
@@ -565,6 +565,8 @@
     );
     border: 1px solid rgba(var(--color-accent-rgb), 0.12);
     border-radius: 0.25rem;
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 /* Hover — intensified border */
@@ -580,25 +582,26 @@
 /* Colony-box — shorter variant of resource-box for header colony stats */
 .colony-box {
     justify-content: center;
-    padding: 0.35rem 0.6rem;
+    padding: 0.35rem clamp(0.3rem, 0.45vw, 0.6rem);
+    white-space: nowrap;
 }
 
 /* Population stat padding */
 .colony-box--population {
-    padding-left: 0.6rem;
-    padding-right: 0.6rem;
+    padding-left: clamp(0.3rem, 0.45vw, 0.6rem);
+    padding-right: clamp(0.3rem, 0.45vw, 0.6rem);
 }
 
 /* Idle workers stat padding */
 .colony-box--idle {
-    padding-left: 0.8rem;
-    padding-right: 0.4rem;
+    padding-left: clamp(0.4rem, 0.6vw, 0.8rem);
+    padding-right: clamp(0.2rem, 0.35vw, 0.4rem);
 }
 
 /* Territory stat padding */
 .colony-box--territory {
-    padding-left: 0.6rem;
-    padding-right: 0.6rem;
+    padding-left: clamp(0.3rem, 0.45vw, 0.6rem);
+    padding-right: clamp(0.3rem, 0.45vw, 0.6rem);
 }
 
 /* Row wrappers inside resource box */
@@ -616,19 +619,20 @@
 
 /* Resource icon — shared icon inside resource boxes */
 .resource-icon {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: clamp(0.9rem, 1vw, 1.25rem);
+    height: clamp(0.9rem, 1vw, 1.25rem);
     object-fit: contain;
+    flex-shrink: 0;
 }
 
 /* Resource value — numeric amount with stable width */
 .resource-value {
     font-family: var(--font-numeric);
-    font-size: 0.8rem;
+    font-size: clamp(0.65rem, 0.7vw, 0.8rem);
     font-weight: 400;
     letter-spacing: 0.04em;
     color: var(--color-text);
-    min-width: 6ch;
+    min-width: 5ch;
     text-align: right;
     font-variant-numeric: tabular-nums;
 }

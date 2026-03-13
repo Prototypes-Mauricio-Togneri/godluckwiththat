@@ -1356,8 +1356,8 @@ onUnmounted(() => {
 .game-header {
   display: flex;
   align-items: center;
-  padding: 0.45rem 1rem;
-  gap: 0.5rem;
+  padding: 0.45rem clamp(0.4rem, 0.8vw, 1rem);
+  gap: clamp(0.25rem, 0.4vw, 0.5rem);
   border-bottom: 1px solid var(--color-border);
   background: var(--color-bg-surface);
   box-shadow: 0 2px 8px rgba(var(--color-shadow-rgb), 0.3);
@@ -1368,7 +1368,7 @@ onUnmounted(() => {
 .header-section {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: clamp(0.4rem, 0.7vw, 1rem);
 }
 
 /* Season indicator with icon and progress bar */
@@ -1411,7 +1411,8 @@ onUnmounted(() => {
   flex: 1;
   justify-content: center;
   align-items: stretch;
-  gap: 0.5rem;
+  gap: clamp(0.2rem, 0.4vw, 0.5rem);
+  min-width: 0;
 }
 
 /* ---- Speed control ---- */
@@ -1422,7 +1423,7 @@ onUnmounted(() => {
   align-items: center;
   gap: 0.25rem;
   flex-shrink: 0;
-  padding: 0.35rem 0.4rem;
+  padding: 0.35rem clamp(0.2rem, 0.35vw, 0.4rem);
   border-radius: 0.25rem;
   border: 1px solid rgba(var(--color-accent-rgb), 0.12);
   background: linear-gradient(
@@ -1442,10 +1443,10 @@ onUnmounted(() => {
 /* Speed value label (e.g. "2x") */
 .speed-label {
   font-family: var(--font-numeric);
-  font-size: 0.8rem;
+  font-size: clamp(0.65rem, 0.7vw, 0.8rem);
   min-width: 2.2ch;
-  margin-left: 0.3rem;
-  margin-right: 0.3rem;
+  margin-left: clamp(0.1rem, 0.25vw, 0.3rem);
+  margin-right: clamp(0.1rem, 0.25vw, 0.3rem);
   text-align: center;
   color: var(--color-text);
   user-select: none;
@@ -1461,11 +1462,11 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1.8rem;
-  height: 1.8rem;
+  width: clamp(1.4rem, 1.5vw, 1.8rem);
+  height: clamp(1.4rem, 1.5vw, 1.8rem);
   padding: 0;
   border-radius: 0.2rem;
-  font-size: 1.05rem;
+  font-size: clamp(0.85rem, 0.9vw, 1.05rem);
   line-height: 1;
   color: rgba(var(--color-accent-rgb), 0.7);
   background: transparent;
@@ -1486,11 +1487,13 @@ onUnmounted(() => {
   cursor: not-allowed;
 }
 
-/* Colony stats (population, idle workers, territory) with fixed minimum width */
+/* Colony stats (population, idle workers, territory) */
 .header-colony {
   align-items: stretch;
-  gap: 0.5rem;
-  flex-shrink: 0;
+  gap: clamp(0.25rem, 0.4vw, 0.5rem);
+  /* Resist shrinking but allow it under viewport pressure (30% of normal rate) */
+  flex-shrink: 0.3;
+  white-space: nowrap;
 }
 
 /* ---- Resource stat (icon beside value) ---- */
@@ -1510,11 +1513,11 @@ onUnmounted(() => {
 
 /* Override cqh sizing for dismiss button in header context */
 .dismiss-btn {
-  width: 1.8rem;
-  height: 1.8rem;
+  width: clamp(1.4rem, 1.5vw, 1.8rem);
+  height: clamp(1.4rem, 1.5vw, 1.8rem);
   padding: 0 0 0.15rem;
-  font-size: 1.1rem;
-  margin-left: 0.5rem;
+  font-size: clamp(0.85rem, 0.9vw, 1.1rem);
+  margin-left: clamp(0.2rem, 0.4vw, 0.5rem);
 }
 
 /* Wider gap between icon and value for worker population display */
@@ -1524,20 +1527,20 @@ onUnmounted(() => {
 
 /* Larger icon size for worker population display */
 .resource-icon--worker {
-  width: 1.4rem;
-  height: 1.4rem;
+  width: clamp(1.1rem, 1.2vw, 1.4rem);
+  height: clamp(1.1rem, 1.2vw, 1.4rem);
 }
 
 /* Slightly larger icon size for territory display */
 .resource-icon--territory {
-  width: 1.55rem;
-  height: 1.55rem;
+  width: clamp(1.2rem, 1.3vw, 1.55rem);
+  height: clamp(1.2rem, 1.3vw, 1.55rem);
 }
 
 /* Slightly larger icon size for productivity display */
 .resource-icon--productivity {
-  width: 1.2rem;
-  height: 1.2rem;
+  width: clamp(0.9rem, 1vw, 1.2rem);
+  height: clamp(0.9rem, 1vw, 1.2rem);
 }
 
 /* ---- Season indicator ---- */
@@ -1550,7 +1553,7 @@ onUnmounted(() => {
 
 /* Thin horizontal bar background for season progress */
 .season-track {
-  width: 5.5rem;
+  width: clamp(3.5rem, 4vw, 5.5rem);
   height: 4px;
   margin-top: 0.25rem;
   background: rgba(255, 255, 255, 0.06);
@@ -1585,7 +1588,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   padding: 0.4rem;
-  margin-left: 0.7rem;
+  margin-left: clamp(0.2rem, 0.5vw, 0.7rem);
   line-height: 1;
   flex-shrink: 0;
 }
