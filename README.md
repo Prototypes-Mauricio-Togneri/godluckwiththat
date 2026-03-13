@@ -2,7 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Do all costs have a hover tooltip to see the full numbers?
 - Add multiplier in market modal
 
 - Implement challenges
