@@ -1415,6 +1415,23 @@ onUnmounted(() => {
   min-width: 0;
 }
 
+/* Responsive overrides for header resource boxes */
+.header-resources .resource-box {
+  padding: 0.3rem clamp(0.2rem, 0.4vw, 0.5rem);
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.header-resources .resource-icon {
+  width: clamp(0.9rem, 1vw, 1.25rem);
+  height: clamp(0.9rem, 1vw, 1.25rem);
+}
+
+.header-resources .resource-value {
+  font-size: clamp(0.65rem, 0.7vw, 0.8rem);
+  min-width: 5ch;
+}
+
 /* ---- Speed control ---- */
 
 /* Compact speed control group: « 1x » */
