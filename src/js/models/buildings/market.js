@@ -72,35 +72,37 @@ class Market extends Building {
    * @param {'buy'|'sell'} direction - Trade direction
    * @param {Resources} resources - Current resource amounts (mutated in place)
    * @param {number} storageCap - Maximum storage capacity for bounded resources
+   * @param {number} [amount=MARKET_TRADE_AMOUNT] - Number of resource units to trade
    * @returns {boolean} Whether the trade was executed
    */
-  executeTrade(resource, direction, resources, storageCap) {
-    if (this.level < 1) {
+  executeTrade(resource, direction, resources, storageCap, amount = MARKET_TRADE_AMOUNT) {
+    if (this.level < 1 || amount <= 0 || amount % MARKET_TRADE_AMOUNT !== 0) {
       return false
     }
+    const multiplier = amount / MARKET_TRADE_AMOUNT
     // Buy: deduct gold, add resource, raise price
     if (direction === TRADE_BUY) {
-      const goldCost = this.buyPrice(resource)
+      const goldCost = Math.floor(this.buyPrice(resource) * multiplier)
       if (resources.gold < goldCost) {
         return false
       }
-      if (resources[resource] + MARKET_TRADE_AMOUNT > storageCap) {
+      if (resources[resource] + amount > storageCap) {
         return false
       }
       resources.gold -= goldCost
-      resources[resource] += MARKET_TRADE_AMOUNT
+      resources[resource] += amount
       this[resource] = Math.min(MARKET_MAX_CURRENT_PRICE, this[resource] + MARKET_PRICE_SHIFT)
     // Sell: deduct resource, add gold, lower price
     } else {
-      const goldGain = this.sellPrice(resource)
-      if (resources[resource] < MARKET_TRADE_AMOUNT) {
+      const goldGain = Math.floor(this.sellPrice(resource) * multiplier)
+      if (resources[resource] < amount) {
         return false
       }
       if (resources.gold + goldGain > storageCap) {
         return false
       }
       resources.gold += goldGain
-      resources[resource] -= MARKET_TRADE_AMOUNT
+      resources[resource] -= amount
       this[resource] = Math.max(MARKET_MIN_CURRENT_PRICE, this[resource] - MARKET_PRICE_SHIFT)
     }
     return true

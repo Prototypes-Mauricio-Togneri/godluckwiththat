@@ -627,8 +627,9 @@ class State {
    * Executes a market trade: buy or sell a resource for gold.
    * @param {string} resource - Resource key (food, wood, stone, copper, iron)
    * @param {'buy'|'sell'} direction - Trade direction
+   * @param {number} [amount] - Number of resource units to trade
    */
-  executeTrade(resource, direction) {
+  executeTrade(resource, direction, amount) {
     const {
       resources, buildings,
     } = this.colony
@@ -636,7 +637,7 @@ class State {
 
     const bonuses = buildings.academy.completedBonuses(RESEARCH_TREE)
     const storageBonus = bonuses[BONUS_STORAGE_CAPACITY] ?? 0
-    if (market.executeTrade(resource, direction, resources, buildings.storehouse.storageCap(storageBonus))) {
+    if (market.executeTrade(resource, direction, resources, buildings.storehouse.storageCap(storageBonus), amount)) {
       this.update(0)
     }
   }

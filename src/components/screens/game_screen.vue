@@ -698,8 +698,8 @@ const actions = {
     state.startResearch(key)
     syncResources(); syncProduction(); syncAcademy(); syncEvents(); syncTutorial()
   },
-  executeTrade: (resource, direction) => {
-    state.executeTrade(resource, direction)
+  executeTrade: (resource, direction, amount) => {
+    state.executeTrade(resource, direction, amount)
     syncResources(); syncProduction(); syncMarket(); syncEvents(); syncTutorial()
   },
   dismissEvent: (id) => {

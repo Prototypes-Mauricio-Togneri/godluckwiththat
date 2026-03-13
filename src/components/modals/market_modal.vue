@@ -1,5 +1,5 @@
 <script setup>
-import {ref, inject, onMounted, onUnmounted} from 'vue'
+import {computed, ref, watch, inject, onMounted, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull} from '@/js/engine/format.js'
 import {TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
@@ -16,13 +16,73 @@ const visible = ref(false)
 const showHelp = ref(false)
 let rafId = null
 
+// ── Trade amount selector ──────────────────────────────────
+
+const tradeAmount = ref(MARKET_TRADE_AMOUNT)
+
+/** Available trade amounts: 100, 1000, 10000, ... up to storageCap. */
+const availableAmounts = computed(() => {
+  const amounts = []
+  let v = MARKET_TRADE_AMOUNT
+  while (v <= ui.storageCap) {
+    amounts.push(v)
+    v *= 10
+  }
+  if (amounts.length === 0) {
+    amounts.push(MARKET_TRADE_AMOUNT)
+  }
+  return amounts
+})
+
+/** Clamp tradeAmount when available options change (e.g. storehouse upgrade). */
+watch(availableAmounts, (amounts) => {
+  if (!amounts.includes(tradeAmount.value)) {
+    tradeAmount.value = amounts[amounts.length - 1]
+  }
+})
+
+/** Multiplier to scale base-100 prices to the selected trade amount. */
+const tradeMultiplier = computed(() => tradeAmount.value / MARKET_TRADE_AMOUNT)
+
+/** Scaled gold cost for buying a resource at the selected trade amount.
+ * @param {string} resource - Resource key
+ * @returns {number} Total gold cost (floored)
+ */
+function scaledBuyPrice(resource) {
+  return Math.floor(ui.market.buyPrices[resource] * tradeMultiplier.value)
+}
+
+/** Scaled gold gain for selling a resource at the selected trade amount.
+ * @param {string} resource - Resource key
+ * @returns {number} Total gold gain (floored)
+ */
+function scaledSellPrice(resource) {
+  return Math.floor(ui.market.sellPrices[resource] * tradeMultiplier.value)
+}
+
+function amountUp() {
+  const idx = availableAmounts.value.indexOf(tradeAmount.value)
+  if (idx < availableAmounts.value.length - 1) {
+    tradeAmount.value = availableAmounts.value[idx + 1]
+  }
+}
+
+function amountDown() {
+  const idx = availableAmounts.value.indexOf(tradeAmount.value)
+  if (idx > 0) {
+    tradeAmount.value = availableAmounts.value[idx - 1]
+  }
+}
+
+// ── Trade logic ────────────────────────────────────────────
+
 /** Whether the colony can afford to buy this resource without exceeding storage.
  * @param {string} resource - Resource key to check
  * @returns {boolean} True if gold is sufficient and storage has room
  */
 function canBuy(resource) {
-  return ui.resources.gold >= ui.market.buyPrices[resource]
-    && ui.resources[resource] + MARKET_TRADE_AMOUNT <= ui.storageCap
+  return ui.resources.gold >= scaledBuyPrice(resource)
+    && ui.resources[resource] + tradeAmount.value <= ui.storageCap
 }
 
 /** Whether the colony has enough of this resource to sell without overflowing gold storage.
@@ -30,8 +90,8 @@ function canBuy(resource) {
  * @returns {boolean} True if resource amount is sufficient and gold storage has room
  */
 function canSell(resource) {
-  return ui.resources[resource] >= MARKET_TRADE_AMOUNT
-    && ui.resources.gold + ui.market.sellPrices[resource] <= ui.storageCap
+  return ui.resources[resource] >= tradeAmount.value
+    && ui.resources.gold + scaledSellPrice(resource) <= ui.storageCap
 }
 
 /** Tooltip text for the buy button, showing cost or the reason the trade is blocked.
@@ -39,14 +99,14 @@ function canSell(resource) {
  * @returns {string} Localized tooltip string
  */
 function buyTooltip(resource) {
-  if (ui.resources.gold < ui.market.buyPrices[resource]) {
+  if (ui.resources.gold < scaledBuyPrice(resource)) {
     return t('market.notEnoughGold')
   }
-  if (ui.resources[resource] + MARKET_TRADE_AMOUNT > ui.storageCap) {
+  if (ui.resources[resource] + tradeAmount.value > ui.storageCap) {
     return t('market.stockpileFull', t('resource.' + resource).toLowerCase())
   }
   const name = t('resource.' + resource).toLowerCase()
-  return t('market.buyTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(ui.market.buyPrices[resource]))
+  return t('market.buyTooltip', formatNumber(tradeAmount.value), name, formatNumber(scaledBuyPrice(resource)))
 }
 
 /** Tooltip text for the sell button, showing revenue or the reason the trade is blocked.
@@ -54,14 +114,14 @@ function buyTooltip(resource) {
  * @returns {string} Localized tooltip string
  */
 function sellTooltip(resource) {
-  if (ui.resources[resource] < MARKET_TRADE_AMOUNT) {
+  if (ui.resources[resource] < tradeAmount.value) {
     return t('market.notEnoughResource', t('resource.' + resource).toLowerCase())
   }
-  if (ui.resources.gold + ui.market.sellPrices[resource] > ui.storageCap) {
+  if (ui.resources.gold + scaledSellPrice(resource) > ui.storageCap) {
     return t('market.goldStockpileFull')
   }
   const name = t('resource.' + resource).toLowerCase()
-  return t('market.sellTooltip', formatNumber(MARKET_TRADE_AMOUNT), name, formatNumber(ui.market.sellPrices[resource]))
+  return t('market.sellTooltip', formatNumber(tradeAmount.value), name, formatNumber(scaledSellPrice(resource)))
 }
 
 /** Executes a buy trade if affordable, playing the exchange sound effect.
@@ -72,7 +132,7 @@ function buy(resource) {
     return
   }
   audio.playSound(SND_MARKET_EXCHANGE)
-  actions.executeTrade(resource, TRADE_BUY)
+  actions.executeTrade(resource, TRADE_BUY, tradeAmount.value)
 }
 
 /** Executes a sell trade if the colony has enough stock, playing the exchange sound effect.
@@ -83,7 +143,7 @@ function sell(resource) {
     return
   }
   audio.playSound(SND_MARKET_EXCHANGE)
-  actions.executeTrade(resource, TRADE_SELL)
+  actions.executeTrade(resource, TRADE_SELL, tradeAmount.value)
 }
 
 /** Handles Escape key to close the help sub-modal first, then the market modal.
@@ -153,6 +213,30 @@ onUnmounted(() => {
         {{ t('market.fee') }}: {{ ui.market.feePercent }}%
       </div>
 
+      <!-- Amount selector -->
+      <div class="market-amount">
+        <button
+          class="amount-btn tooltip tooltip--delayed"
+          :data-tooltip="t('market.amount')"
+          :disabled="tradeAmount <= availableAmounts[0]"
+          @click="playTap(); amountDown()"
+        >
+          -
+        </button>
+        <span
+          class="amount-label tooltip tooltip--delayed"
+          :data-tooltip="t('market.amount')"
+        >{{ formatNumber(tradeAmount) }}</span>
+        <button
+          class="amount-btn tooltip tooltip--delayed"
+          :data-tooltip="t('market.amount')"
+          :disabled="tradeAmount >= availableAmounts[availableAmounts.length - 1]"
+          @click="playTap(); amountUp()"
+        >
+          +
+        </button>
+      </div>
+
       <!-- Column headers -->
       <div class="market-header">
         <span class="market-header-resource" />
@@ -188,8 +272,8 @@ onUnmounted(() => {
               <img class="trade-btn-icon" :src="IMG_RESOURCE_MAP.gold" alt="">
               <span
                 class="trade-btn-value"
-                :class="{ 'trade-btn-value--insufficient': ui.resources[resource] < MARKET_TRADE_AMOUNT }"
-              >+{{ formatNumber(ui.market.sellPrices[resource]) }}</span>
+                :class="{ 'trade-btn-value--insufficient': ui.resources[resource] < tradeAmount }"
+              >+{{ formatNumber(scaledSellPrice(resource)) }}</span>
             </button>
 
             <!-- Buy -->
@@ -203,8 +287,8 @@ onUnmounted(() => {
               <img class="trade-btn-icon" :src="IMG_RESOURCE_MAP.gold" alt="">
               <span
                 class="trade-btn-value"
-                :class="{ 'trade-btn-value--insufficient': ui.resources.gold < ui.market.buyPrices[resource] }"
-              >-{{ formatNumber(ui.market.buyPrices[resource]) }}</span>
+                :class="{ 'trade-btn-value--insufficient': ui.resources.gold < scaledBuyPrice(resource) }"
+              >-{{ formatNumber(scaledBuyPrice(resource)) }}</span>
             </button>
           </div>
         </div>
@@ -292,7 +376,66 @@ onUnmounted(() => {
   border-radius: 1rem;
   padding: 0.3rem 0.9rem;
   align-self: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ── Amount selector ─────────────────────────────────────── */
+
+.market-amount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.4rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(var(--color-accent-rgb), 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--color-accent-rgb), 0.05),
+    rgba(var(--color-shadow-rgb), 0.12)
+  );
+  align-self: center;
+  margin-bottom: 1.5rem;
+}
+
+.amount-label {
+  font-family: var(--font-numeric);
+  font-size: clamp(0.65rem, 0.7vw, 0.8rem);
+  min-width: 3.5ch;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+  text-align: center;
+  color: var(--color-text);
+  user-select: none;
+}
+
+.amount-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(1.4rem, 1.5vw, 1.8rem);
+  height: clamp(1.4rem, 1.5vw, 1.8rem);
+  padding: 0;
+  border-radius: 0.2rem;
+  font-size: 0.9rem;
+  line-height: 1;
+  color: rgba(var(--color-accent-rgb), 0.7);
+  background: transparent;
+  border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.amount-btn:hover:not(:disabled) {
+  background: rgba(var(--color-accent-rgb), 0.12);
+  border-color: rgba(var(--color-accent-rgb), 0.5);
+  color: rgba(var(--color-accent-rgb), 1);
+}
+
+.amount-btn:disabled {
+  color: rgba(var(--color-accent-rgb), 0.15);
+  border-color: rgba(var(--color-accent-rgb), 0.05);
+  cursor: not-allowed;
 }
 
 /* ── Scrollable area ─────────────────────────────────────── */

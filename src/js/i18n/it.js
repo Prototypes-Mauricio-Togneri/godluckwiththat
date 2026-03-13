@@ -197,6 +197,7 @@ export const LOCALIZED_IT = {
   'market.buy': 'Compra',
   'market.sell': 'Vendi',
   'market.fee': 'Commissione',
+  'market.amount': 'Quantità',
   'market.notEnoughGold': 'Oro insufficiente',
   'market.notEnoughResource': '{0} insufficiente',
   'market.stockpileFull': 'Magazzino di {0} insufficiente',

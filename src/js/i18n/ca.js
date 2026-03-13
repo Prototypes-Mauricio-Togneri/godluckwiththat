@@ -197,6 +197,7 @@ export const LOCALIZED_CA = {
   'market.buy': 'Comprar',
   'market.sell': 'Vendre',
   'market.fee': 'Taxa',
+  'market.amount': 'Quantitat',
   'market.notEnoughGold': 'No hi ha prou or',
   'market.notEnoughResource': 'No hi ha prou {0}',
   'market.stockpileFull': 'No hi ha prou magatzem de {0}',
