@@ -208,33 +208,30 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <!-- Fee indicator -->
-      <div class="market-fee">
-        {{ t('market.fee') }}: {{ ui.market.feePercent }}%
-      </div>
+      <!-- Fee & amount controls -->
+      <div class="market-controls">
+        <div class="market-fee">
+          {{ t('market.fee') }}: {{ ui.market.feePercent }}%
+        </div>
 
-      <!-- Amount selector -->
-      <div class="market-amount">
-        <button
-          class="amount-btn tooltip tooltip--delayed"
-          :data-tooltip="t('market.amount')"
-          :disabled="tradeAmount <= availableAmounts[0]"
-          @click="playTap(); amountDown()"
-        >
-          -
-        </button>
-        <span
-          class="amount-label tooltip tooltip--delayed"
-          :data-tooltip="t('market.amount')"
-        >{{ formatNumber(tradeAmount) }}</span>
-        <button
-          class="amount-btn tooltip tooltip--delayed"
-          :data-tooltip="t('market.amount')"
-          :disabled="tradeAmount >= availableAmounts[availableAmounts.length - 1]"
-          @click="playTap(); amountUp()"
-        >
-          +
-        </button>
+        <div class="market-amount">
+          <span class="amount-prefix">{{ t('market.amount') }}:</span>
+          <button
+            class="amount-btn"
+            :disabled="tradeAmount <= availableAmounts[0]"
+            @click="playTap(); amountDown()"
+          >
+            -
+          </button>
+          <span class="amount-label">{{ formatNumber(tradeAmount) }}</span>
+          <button
+            class="amount-btn"
+            :disabled="tradeAmount >= availableAmounts[availableAmounts.length - 1]"
+            @click="playTap(); amountUp()"
+          >
+            +
+          </button>
+        </div>
       </div>
 
       <!-- Column headers -->
@@ -361,6 +358,17 @@ onUnmounted(() => {
   flex: 1;
 }
 
+/* ── Fee & amount controls row ───────────────────────────── */
+
+.market-controls {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.75rem;
+  align-self: center;
+  margin-bottom: 1.5rem;
+}
+
 /* ── Fee indicator ───────────────────────────────────────── */
 
 .market-fee {
@@ -370,13 +378,16 @@ onUnmounted(() => {
   color: rgba(var(--color-text-rgb), 0.5);
   letter-spacing: 0.04em;
   text-align: center;
-  display: inline-block;
-  background: rgba(var(--color-accent-rgb), 0.06);
-  border: 1px solid rgba(var(--color-accent-rgb), 0.18);
-  border-radius: 1rem;
-  padding: 0.3rem 0.9rem;
-  align-self: center;
-  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(var(--color-accent-rgb), 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--color-accent-rgb), 0.05),
+    rgba(var(--color-shadow-rgb), 0.12)
+  );
 }
 
 /* ── Amount selector ─────────────────────────────────────── */
@@ -394,8 +405,15 @@ onUnmounted(() => {
     rgba(var(--color-accent-rgb), 0.05),
     rgba(var(--color-shadow-rgb), 0.12)
   );
-  align-self: center;
-  margin-bottom: 1.5rem;
+}
+
+.amount-prefix {
+  font-family: var(--font-numeric);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: rgba(var(--color-text-rgb), 0.5);
+  margin-right: 0.2rem;
+  user-select: none;
 }
 
 .amount-label {
