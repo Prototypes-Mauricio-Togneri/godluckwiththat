@@ -6,10 +6,6 @@
   - Add images on each blessing card
   - Play sound on success or failure
 
-- Bug: if tutorial is finished, then we shouldn't show the tutorial modals
-
-- Implement challenges
-
 - Create military
   - Open military window
   - See military

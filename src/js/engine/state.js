@@ -939,6 +939,9 @@ class State {
    * @param {string} key - Tutorial modal key from enums
    */
   _triggerTutorialModal(key) {
+    if (storage.tutorialCompleted) {
+      return
+    }
     const tutorial = this.meta.tutorial
     if (!tutorial.dismissedModals.has(key) && !tutorial.activeModal) {
       tutorial.activeModal = key
