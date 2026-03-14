@@ -72,8 +72,8 @@ More context in @docs/specs.md and @docs/architecture.md
 
 - **Sequential**: One challenge active at a time. Complete/fail → next one activates after a delay
 - **Timed**: Challenges have countdown timers
-- **Rewards (blessings)**: One-time resource grants scaling with difficulty. Some blessings have more probability to appear at the beginning. But less probability to appear in the next one.
-- **Punishments**: Lose resources AND workers (both). Fraction of stored bounded resources + some workers die
+- **Blessings**: One-time resource grants scaling with difficulty. Some blessings have more probability to appear at the beginning. But less probability to appear in the next one.
+- **Punishments**: Lose a fraction of stored resources, workers, building levels and 50% of stored faith
 - **Recover relic**: Skipped for now (military not implemented)
 - **Activation trigger**: First challenge activates immediately when the game starts
 - **Non-dismissable**: Challenge countdown events cannot be dismissed by the player
