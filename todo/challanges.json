@@ -29,7 +29,7 @@
       "type": "CROP_FAILURE",
       "timeout": 120,
       "productivity": 0.1,
-      "resource": 0.3,
+      "resource": 0.2,
       "worker": 3
     }
   },
@@ -59,9 +59,9 @@
     "punishment": {
       "type": "WILDFIRES",
       "timeout": 120,
-      "productivity": 0.25,
+      "productivity": 0.2,
       "resource": 0.3,
-      "worker": 2
+      "worker": 10
     }
   },
   {

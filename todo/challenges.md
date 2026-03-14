@@ -11,6 +11,7 @@ The gods send sequential challenges to prove the player's faith. Completing all 
   - active: object of type `Challenge` (or null if no active challenge)
   - completed: array of objects of type `Challenge`
   - activeBlessings: array of objects of type `Blessing` (see below)
+  - activePunishments: array of objects of type `Punishment` (see below)
 
 - The `Challenge` class will have these properties:
   - `index`: challenge number (starting from 1)
@@ -74,7 +75,7 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 ## Challenge Definitions (Escalating)
 
   - **1. Build Altar**
-- **2. Accumulate Faith** — 500 faith, 15 min
+  - **2. Accumulate Faith** — 500 faith, 15 min
 - **3. Build Temple** — Level 2, 12 min
 - **4. Accumulate Faith** — 1000 faith, 15 min
 - **5. Build Monument** — Level 2, 15 min
