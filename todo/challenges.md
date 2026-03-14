@@ -37,6 +37,8 @@ More context in @docs/specs.md and @docs/architecture.md
     - `resources`: amount of resources granted (can be null)
     - `territory`: number of territory slots granted (can be null)
     - `construction`: percentage decrease to construction time (e.g., 0.5 for 50% faster, can be null)
+    - `warm`: fraction of improvement during warm season (e.g., 0.5 for 50% improvement, can be null)
+    - `cold`: fraction of improvement during cold season (e.g., 0.5 for 50% improvement, can be null)
   - `punishment`: object of type `Punishment`
     - `type`: see punishment enum
     - `timeout`: duration of the punishment effect (in seconds, can be null for instant effects)
