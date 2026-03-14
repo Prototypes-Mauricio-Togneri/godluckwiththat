@@ -423,7 +423,11 @@ class State {
         type: EVENT_TYPE_CHALLENGE_STARTED,
         textKey: 'event.challengeStarted',
         icon: IMG_RESOURCE_FAITH,
-        params: [t('challenge.name.' + challenges.active.index)],
+        params: [
+          challenges.active.index,
+          challenges.totalCount,
+          t('challenge.name.' + challenges.active.index),
+        ],
         action: 'openChallengeModal',
         remainingSeconds: challenges.active.timeout,
       })

@@ -31,7 +31,7 @@ import TowerCard from '@/components/buildings/tower_card.vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull, formatRate, formatTime} from '@/js/engine/format.js'
 import storage from '@/js/engine/storage.js'
-import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRITORY, IMG_RESOURCE_FAITH, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
+import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
 import TutorialBanner from '@/components/tutorial/tutorial_banner.vue'
 import TutorialModal from '@/components/tutorial/tutorial_modal.vue'
 import SettingsModal from '@/components/modals/settings_modal.vue'
@@ -1268,18 +1268,6 @@ onUnmounted(() => {
         <button class="speed-btn tooltip tooltip--delayed" :data-tooltip="t('screen.game.header.speedUp')" :disabled="ui.gameSpeed >= GAME_SPEED_OPTIONS[GAME_SPEED_OPTIONS.length - 1]" @click="playTap(); speedUp()">&raquo;</button>
       </div>
 
-      <!-- Challenge progress indicator -->
-      <div
-        class="resource-box challenge-box tooltip tooltip--delayed"
-        :data-tooltip="t('challenge.tooltip')"
-        @click="playTap(); showChallengeModal = true"
-      >
-        <div class="header-resource">
-          <img class="resource-icon" :src="IMG_RESOURCE_FAITH" :alt="t('challenge.title')">
-          <span class="resource-value challenge-value">{{ ui.challenges.completedCount }}/{{ ui.challenges.totalCount }}</span>
-        </div>
-      </div>
-
       <!-- Colony info -->
       <div class="header-section header-colony">
         <div class="resource-box colony-box colony-box--population tooltip" :data-tooltip="t('resource.population')">
@@ -1588,19 +1576,6 @@ onUnmounted(() => {
 .header-resources .resource-value {
   font-size: clamp(0.65rem, 0.7vw, 0.8rem);
   min-width: 5ch;
-}
-
-/* ---- Challenge indicator ---- */
-
-/* Challenge progress box in header */
-.challenge-box {
-  cursor: pointer;
-  flex-shrink: 0;
-  padding: 0.35rem clamp(0.3rem, 0.5vw, 0.6rem);
-}
-
-.challenge-value {
-  font-size: clamp(0.65rem, 0.7vw, 0.8rem);
 }
 
 /* ---- Speed control ---- */

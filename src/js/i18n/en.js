@@ -404,7 +404,6 @@ export const LOCALIZED_EN = {
   'challenge.reward': 'Reward',
   'challenge.history': 'History',
   'challenge.noneActive': 'No active challenge',
-  'challenge.tooltip': 'View challenges',
 
   // Challenge requirement labels
   'challenge.requirement.faith': '{0} Faith',
@@ -426,7 +425,7 @@ export const LOCALIZED_EN = {
   'challenge.name.10': 'The Final Passage',
 
   // Challenge events
-  'event.challengeStarted': 'Challenge: {0}',
+  'event.challengeStarted': 'Challenge {0}/{1}: {2}',
 
   // Challenge reward modal
   'challenge.reward.title': 'Challenge Complete',
