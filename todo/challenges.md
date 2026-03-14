@@ -44,8 +44,8 @@ More context in @docs/specs.md and @docs/architecture.md
     - `timeout`: duration of the punishment effect (in seconds, can be null for instant effects)
     - `faith`: fraction of stored faith lost (e.g., 0.5 for 50% loss, always 0.5 for now)
     - `productivity`: percentage decrease to productivity (e.g., 0.2 for 20% reduction, can be null)
-    - `resource`: fraction of stored bounded resources lost (e.g., 0.3 for 30% loss, can be null)
-    - `worker`: number of workers lost (can be null)
+    - `resources`: fraction of stored bounded resources lost (e.g., 0.3 for 30% loss, can be null)
+    - `workers`: number of workers lost (can be null)
     - `levels`: number of building levels lost. For each number, a building is chosen at random and we remove one level from it (it's like a building downgrade). Only buildings that that have the level bigger than 1 can be selected. Only buildings from the `DOWNGRADABLE_BUILDINGS` list can be selected. If no more buildings cab be selected to downgrade, we skip the remaining number from this property.
 
 ## Blessings types
@@ -121,7 +121,7 @@ New `Blessing` class (`src/js/models/blessing.js`):
 - Methods: `toJSON()` / `fromJSON()`
 
 New `Punishment` class (`src/js/models/punishment.js`):
-- Properties: `type`, `timeout`, `faith`, `productivity`, `resource`, `worker`, `levels`
+- Properties: `type`, `timeout`, `faith`, `productivity`, `resources`, `workers`, `levels`
 - Methods: `toJSON()` / `fromJSON()`
 
 ### Step 3: Balancing (`src/js/engine/balancing.js`)
@@ -141,7 +141,7 @@ New `Punishment` class (`src/js/models/punishment.js`):
 - `_deductRequirements()`: Deducts faith and resources from colony. Sacrifices workers via `_sacrificeWorkers(count)`
 - `_sacrificeWorkers(count)`: Removes workers — first from idle pool (decrements `resources.workers`), then for remaining: picks a random `Producer` building that has workers > 0, decrements its `workers` and `resources.workers`
 - `_failChallenge()`: Pauses game, shows failure modal. On acknowledgment: applies punishment via `_applyPunishment()`, resets challenge timers (delay and timeout back to 0, status back to `activated`)
-- `_applyPunishment(punishment)`: Removes `CHALLENGE_FAITH_LOSS_FRACTION` (50%) of stored faith. Removes `punishment.resource` fraction of each bounded resource. Kills `punishment.worker` workers via `_sacrificeWorkers()`. Downgrades `punishment.levels` random building levels (picks random building from `DOWNGRADABLE_BUILDINGS` with level > 1, decrements its level, returns excess workers to idle — skips remaining if no eligible buildings). Adds punishment to `activePunishments` (tracked only — ongoing effects not applied)
+- `_applyPunishment(punishment)`: Removes `CHALLENGE_FAITH_LOSS_FRACTION` (50%) of stored faith. Removes `punishment.resources` fraction of each bounded resource. Kills `punishment.workers` workers via `_sacrificeWorkers()`. Downgrades `punishment.levels` random building levels (picks random building from `DOWNGRADABLE_BUILDINGS` with level > 1, decrements its level, returns excess workers to idle — skips remaining if no eligible buildings)
 
 ### Step 6: Event Integration
 - Challenge activated → no event (player not informed during delay phase)
