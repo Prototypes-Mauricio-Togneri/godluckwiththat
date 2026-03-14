@@ -1,7 +1,6 @@
 [
   {
     "index": 1,
-    "name": "Trial of Devotion",
     "delay": 24,
     "timeout": 300,
     "requirements": {
@@ -29,7 +28,6 @@
   },
   {
     "index": 2,
-    "name": "Test of Faith",
     "delay": 60,
     "timeout": 600,
     "requirements": {
@@ -58,7 +56,6 @@
   },
   {
     "index": 3,
-    "name": "Forge of Will",
     "delay": 60,
     "timeout": 600,
     "requirements": {
@@ -85,7 +82,6 @@
   },
   {
     "index": 4,
-    "name": "Pyre of Conviction",
     "delay": 60,
     "timeout": 600,
     "requirements": {
@@ -116,7 +112,6 @@
   },
   {
     "index": 5,
-    "name": "The Eternal Pillar",
     "delay": 45,
     "timeout": 600,
     "requirements": {
@@ -145,7 +140,6 @@
   },
   {
     "index": 6,
-    "name": "Rite of Absolution",
     "delay": 45,
     "timeout": 600,
     "requirements": {
@@ -173,7 +167,6 @@
   },
   {
     "index": 7,
-    "name": "Prosperity's Price",
     "delay": 45,
     "timeout": 600,
     "requirements": {
@@ -207,7 +200,6 @@
   },
   {
     "index": 8,
-    "name": "The Sacred Convergence",
     "delay": 30,
     "timeout": 600,
     "requirements": {
@@ -241,7 +233,6 @@
   },
   {
     "index": 9,
-    "name": "Burden of the Chosen",
     "delay": 30,
     "timeout": 600,
     "requirements": {
@@ -280,7 +271,6 @@
   },
   {
     "index": 10,
-    "name": "The Final Passage",
     "delay": 30,
     "timeout": 600,
     "requirements": {
