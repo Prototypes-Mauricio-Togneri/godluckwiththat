@@ -28,15 +28,15 @@ The gods send sequential challenges to prove the player's faith. Completing all 
   - `blessings`: array of objects of type `Blessing`
     - `type`: see blessing enum
     - `timeout`: duration of the blessing effect (in seconds, can be null for instant effects)
+    - `productivity`: percentage increase to productivity (e.g., 0.2 for 20% boost, can be null)
     - `resources`: amount of resources granted (can be null)
     - `territory`: number of territory slots granted (can be null)
-    - `productivity`: percentage increase to productivity (e.g., 0.2 for 20% boost, can be null)
   - `punishment`: object of type `Punishment`
-    - `type`: see punishment enum (e.g., resource loss, worker loss, event)
+    - `type`: see punishment enum
     - `timeout`: duration of the punishment effect (in seconds, can be null for instant effects)
-    - `productivityLoss`: percentage decrease to productivity (e.g., 0.2 for 20% reduction, can be null)
-    - `resourceLoss`: fraction of stored bounded resources lost (e.g., 0.3 for 30% loss, can be null)
-    - `workerLoss`: number of workers lost (can be null)
+    - `productivity`: percentage decrease to productivity (e.g., 0.2 for 20% reduction, can be null)
+    - `resource`: fraction of stored bounded resources lost (e.g., 0.3 for 30% loss, can be null)
+    - `worker`: number of workers lost (can be null)
 
 ## Blessings types
 * `FERTILE_SOIL`: Increases food productivity

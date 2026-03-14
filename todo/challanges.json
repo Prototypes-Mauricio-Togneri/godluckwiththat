@@ -1,3 +1,257 @@
 [
-  
+  {
+    "index": 1,
+    "delay": 240,
+    "timeout": 600,
+    "requirements": {
+      "altar": 3
+    },
+    "blessings": [
+      {
+        "type": "FERTILE_SOIL",
+        "timeout": 120,
+        "productivity": 0.3
+      },
+      {
+        "type": "FOREST_BLOOM",
+        "timeout": 120,
+        "productivity": 0.3
+      },
+      {
+        "type": "RICH_MINES",
+        "timeout": 120,
+        "productivity": 0.3
+      }
+    ],
+    "punishment": {
+      "type": "CROP_FAILURE",
+      "timeout": 120,
+      "productivity": 0.1,
+      "resource": 0.3,
+      "worker": 3
+    }
+  },
+  {
+    "index": 2,
+    "delay": 30,
+    "timeout": 900,
+    "requirements": {
+      "faith": 500,
+      "altar": null,
+      "temple": null,
+      "monument": null,
+      "resources": null,
+      "workers": null
+    },
+    "blessings": [
+      {
+        "type": "GIFT_FROM_THE_HEAVENS",
+        "timeout": null,
+        "resources": { "food": 200, "wood": 150 },
+        "territory": null,
+        "productivity": null
+      },
+      {
+        "type": "HOLY_EXPANSION",
+        "timeout": null,
+        "resources": null,
+        "territory": 2,
+        "productivity": null
+      }
+    ],
+    "punishment": {
+      "type": "WILDFIRES",
+      "timeout": 120,
+      "productivity": 0.25,
+      "resource": 0.3,
+      "worker": 2
+    }
+  },
+  {
+    "index": 3,
+    "delay": 45,
+    "timeout": 720,
+    "requirements": {
+      "faith": null,
+      "altar": null,
+      "temple": 2,
+      "monument": null,
+      "resources": null,
+      "workers": null
+    },
+    "blessings": [
+      {
+        "type": "CELESTIAL_PROSPERITY",
+        "timeout": 240,
+        "resources": null,
+        "territory": null,
+        "productivity": 0.15
+      },
+      {
+        "type": "DIVINE_PROTECTION",
+        "timeout": 300,
+        "resources": null,
+        "territory": null,
+        "productivity": null
+      }
+    ],
+    "punishment": {
+      "type": "PLAGUE",
+      "timeout": 90,
+      "productivity": 0.2,
+      "resource": 0.3,
+      "worker": 4
+    }
+  },
+  {
+    "index": 4,
+    "delay": 60,
+    "timeout": 900,
+    "requirements": {
+      "faith": 1000,
+      "altar": null,
+      "temple": null,
+      "monument": null,
+      "resources": null,
+      "workers": null
+    },
+    "blessings": [
+      {
+        "type": "FAVORABLE_WEATHER",
+        "timeout": 300,
+        "resources": null,
+        "territory": null,
+        "productivity": null
+      },
+      {
+        "type": "BLESSED_MARKETS",
+        "timeout": 300,
+        "resources": null,
+        "territory": null,
+        "productivity": null
+      }
+    ],
+    "punishment": {
+      "type": "WILDFIRES",
+      "timeout": 150,
+      "productivity": 0.3,
+      "resource": 0.3,
+      "worker": 3
+    }
+  },
+  {
+    "index": 5,
+    "delay": 60,
+    "timeout": 900,
+    "requirements": {
+      "faith": null,
+      "altar": null,
+      "temple": null,
+      "monument": 2,
+      "resources": null,
+      "workers": null
+    },
+    "blessings": [
+      {
+        "type": "RAPID_CONSTRUCTION",
+        "timeout": 300,
+        "resources": null,
+        "territory": null,
+        "productivity": null
+      },
+      {
+        "type": "HOLY_EXPANSION",
+        "timeout": null,
+        "resources": null,
+        "territory": 3,
+        "productivity": null
+      }
+    ],
+    "punishment": {
+      "type": "LANDSLIDE",
+      "timeout": null,
+      "productivity": null,
+      "resource": 0.3,
+      "worker": 5
+    }
+  },
+  {
+    "index": 6,
+    "delay": 90,
+    "timeout": 1200,
+    "requirements": {
+      "faith": 2000,
+      "altar": null,
+      "temple": null,
+      "monument": null,
+      "resources": null,
+      "workers": null
+    },
+    "blessings": [
+      {
+        "type": "CELESTIAL_PROSPERITY",
+        "timeout": 360,
+        "resources": null,
+        "territory": null,
+        "productivity": 0.25
+      },
+      {
+        "type": "GIFT_FROM_THE_HEAVENS",
+        "timeout": null,
+        "resources": { "food": 500, "wood": 400, "minerals": 200 },
+        "territory": null,
+        "productivity": null
+      }
+    ],
+    "punishment": {
+      "type": "VOLCANO",
+      "timeout": 120,
+      "productivity": 0.35,
+      "resource": 0.4,
+      "worker": 5
+    }
+  },
+  {
+    "index": 7,
+    "delay": 90,
+    "timeout": 1800,
+    "requirements": {
+      "faith": null,
+      "altar": null,
+      "temple": null,
+      "monument": null,
+      "resources": { "food": 500, "wood": 300 },
+      "workers": 5
+    },
+    "blessings": [
+      {
+        "type": "DIVINE_PROTECTION",
+        "timeout": 600,
+        "resources": null,
+        "territory": null,
+        "productivity": null
+      },
+      {
+        "type": "CELESTIAL_PROSPERITY",
+        "timeout": 600,
+        "resources": null,
+        "territory": null,
+        "productivity": 0.3
+      },
+      {
+        "type": "FAVORABLE_WEATHER",
+        "timeout": 600,
+        "resources": null,
+        "territory": null,
+        "productivity": null
+      }
+    ],
+    "punishment": {
+      "type": "VOLCANO",
+      "timeout": 180,
+      "productivity": 0.4,
+      "resource": 0.5,
+      "worker": 7
+    }
+  }
 ]
