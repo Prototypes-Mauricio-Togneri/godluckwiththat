@@ -23,10 +23,11 @@ The gods send sequential challenges to prove the player's faith. Completing all 
     - `temple`: required temple level (can be null)
     - `monument`: required monument level (can be null)
     - `resources`: object with resource type keys and required amounts (can be null)
+    - `workers`: required number of workers (can be null)
 
 ## Design Decisions
 
-- **Sequential**: One challenge active at a time. Complete/fail → next one activates after a delay (it should be a configurable delay in seconds in the class Meta, e.g., `challengeActivationDelaySeconds`).
+- **Sequential**: One challenge active at a time. Complete/fail → next one activates after a delay
 - **Timed**: Build/accumulate challenges have countdown timers. Ritual challenges are submit-on-demand (no timer)
 - **Rewards (blessings)**: One-time resource grants scaling with difficulty. Some blessings have more probability to appear at the beginning. But less probability to appear in the next one.
 - **Punishments**: Lose resources AND workers (both). Fraction of stored bounded resources + some workers die
@@ -38,14 +39,13 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 
 8 challenges for now (relic type added later when military exists):
 
-- **1. Build Altar** — Level 3, 10 min, reward: 200 faith (Camp)
-- **2. Accumulate Faith** — 500 faith, 15 min, reward: 500 food, 500 wood (Camp)
-- **3. Build Temple** — Level 2, 12 min, reward: 300 stone, 100 faith (Settlement)
-- **4. Build Monument** — Level 2, 15 min, reward: 500 faith, 200 stone (Settlement/Village)
-- **5. Accumulate Faith** — 2000 faith, 20 min, reward: 500 copper, 200 knowledge (Village)
-- **6. Ritual** — 500 food, 300 wood, 5 workers, no timer, reward: 1000 faith (Village)
-- **7. Build Altar** — Level 6, 20 min, reward: 500 iron, 300 copper (Town)
-- **8. Ritual** — 1000 stone, 500 copper, 10 workers, no timer, reward: 2000 faith, 500 gold (City)
+- **1. Build Altar** — Level 3, 10 min
+- **2. Accumulate Faith** — 500 faith, 15 min
+- **3. Build Temple** — Level 2, 12 min
+- **4. Accumulate Faith** — 1000 faith, 15 min
+- **5. Build Monument** — Level 2, 15 min
+- **6. Accumulate Faith** — 2000 faith, 20 min
+- **7. Ritual** — 500 food, 300 wood, 5 workers, no timer
 
 Punishment for failure: lose 30% of all stored bounded resources + 3 workers die (scales with challenge #).
 
