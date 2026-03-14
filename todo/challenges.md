@@ -37,17 +37,16 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 
 ## Challenge Definitions (Escalating)
 
-8 challenges for now (relic type added later when military exists):
-
-- **1. Build Altar** — Level 3, 10 min
+- **1. Build Altar**
+  - Level 3, 10 min
+  - Rewards: 
+  - Punishment: lose 30% of all stored bounded resources + 3 workers die
 - **2. Accumulate Faith** — 500 faith, 15 min
 - **3. Build Temple** — Level 2, 12 min
 - **4. Accumulate Faith** — 1000 faith, 15 min
 - **5. Build Monument** — Level 2, 15 min
 - **6. Accumulate Faith** — 2000 faith, 20 min
 - **7. Ritual** — 500 food, 300 wood, 5 workers, 30 min
-
-Punishment for failure: lose 30% of all stored bounded resources + 3 workers die (scales with challenge #).
 
 ## Implementation Steps
 
