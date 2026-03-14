@@ -402,7 +402,6 @@ export const LOCALIZED_CA = {
   'challenge.timeRemaining': 'Temps restant',
   'challenge.requirements': 'Requisits',
   'challenge.reward': 'Recompensa',
-  'challenge.history': 'Historial',
   'challenge.noneActive': 'Cap desafiament actiu',
   'challenge.requirement.faith': '{0} Fe',
   'challenge.requirement.altar': 'Altar nivell {0}',

@@ -402,7 +402,6 @@ export const LOCALIZED_FR = {
   'challenge.timeRemaining': 'Temps restant',
   'challenge.requirements': 'Conditions',
   'challenge.reward': 'Récompense',
-  'challenge.history': 'Historique',
   'challenge.noneActive': 'Aucun défi actif',
   'challenge.requirement.faith': '{0} Foi',
   'challenge.requirement.altar': 'Autel niveau {0}',

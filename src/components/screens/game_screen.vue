@@ -315,7 +315,6 @@ const ui = shallowReactive({
   pastEvents: [],
   challenges: {
     active: null,
-    completed: [],
     completedCount: 0,
     totalCount: 10,
     allCompleted: false,
@@ -701,9 +700,6 @@ function syncChallenges() {
         punishment: active.punishment,
       }
       : null,
-    completed: challenges.completed.map(c => ({
-      index: c.index,
-    })),
     completedCount: challenges.completedCount,
     totalCount: challenges.totalCount,
     allCompleted: challenges.allCompleted,

@@ -160,21 +160,6 @@ onUnmounted(() => {
         <p class="no-active">{{ t('challenge.noneActive') }}</p>
       </template>
 
-      <!-- Completed challenges history -->
-      <template v-if="ui.challenges.completed.length > 0">
-        <div class="section-label history-label">{{ t('challenge.history') }}</div>
-        <div class="history-list">
-          <div
-            v-for="completed in ui.challenges.completed"
-            :key="completed.index"
-            class="history-item"
-          >
-            <span class="history-check">✓</span>
-            <span class="history-name">{{ t('challenge.name.' + completed.index) }}</span>
-          </div>
-        </div>
-      </template>
-
       <button class="btn-gold modal-btn" @click="playTap(); emit(EMIT_CLOSE)">
         {{ t('modal.help.close') }}
       </button>
@@ -308,36 +293,6 @@ onUnmounted(() => {
   font-weight: 300;
   color: rgba(var(--color-text-rgb), 0.5);
   margin-bottom: 1rem;
-}
-
-/* History section */
-.history-label {
-  margin-top: 0.5rem;
-  align-self: center;
-}
-
-.history-list {
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-.history-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 300;
-  color: rgba(var(--color-text-rgb), 0.55);
-  padding: 0.25rem 0;
-}
-
-.history-check {
-  color: rgba(80, 168, 80, 0.7);
-  font-size: 0.7rem;
-  width: 1rem;
-  text-align: center;
-  flex-shrink: 0;
 }
 
 .modal-btn {
