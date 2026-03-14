@@ -8,6 +8,7 @@
  * @property {string[]} params - Positional values for i18n interpolation
  * @property {string|null} buildingKey - Building key (for construction event lookup)
  * @property {string|null} researchKey - Research key (for research event lookup)
+ * @property {string|null} action - Action identifier triggered on click (e.g. 'openChallengeModal')
  */
 class Event {
   /**
@@ -19,6 +20,7 @@ class Event {
    * @param {string[]} [data.params] - Positional i18n interpolation values
    * @param {string} [data.buildingKey] - Building key for construction lookup
    * @param {string} [data.researchKey] - Research key for research lookup
+   * @param {string} [data.action] - Action identifier triggered on click
    */
   constructor(data) {
     this.id = data.id // Unique event identifier
@@ -28,6 +30,7 @@ class Event {
     this.params = data.params ?? [] // Positional i18n interpolation values
     this.buildingKey = data.buildingKey ?? null // Building key for construction lookup
     this.researchKey = data.researchKey ?? null // Research key for research lookup
+    this.action = data.action ?? null // Action identifier triggered on click
   }
 
   /**
@@ -43,6 +46,7 @@ class Event {
       params: this.params,
       buildingKey: this.buildingKey,
       researchKey: this.researchKey,
+      action: this.action,
     }
   }
 }

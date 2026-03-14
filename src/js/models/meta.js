@@ -1,14 +1,15 @@
 import {GAME_SPEED_DEFAULT} from '@/js/engine/constants.js'
+import Challenges from '@/js/models/challenges.js'
 import Tutorial from '@/js/models/tutorial.js'
 
 /**
  * Game metadata. Tracks save version, timestamps,
- * challenge configuration, and tutorial progress.
+ * challenge state, and tutorial progress.
  *
  * @property {number} version - Save format version
  * @property {string} createdDateTime - When the game was created (ISO string)
  * @property {string} updatedDateTime - When the game was last updated (ISO string)
- * @property {number} numberOfChallenges - Total divine challenges
+ * @property {Challenges} challenges - Challenge system state
  * @property {number} gameSpeed - Game speed multiplier (1, 2, or 3)
  * @property {Tutorial} tutorial - Tutorial progress
  */
@@ -20,7 +21,7 @@ class Meta {
     this.version = data.version // Save format version
     this.createdDateTime = data.createdDateTime // When the game was created
     this.updatedDateTime = data.updatedDateTime // When the game was last updated
-    this.numberOfChallenges = data.numberOfChallenges // Total divine challenges
+    this.challenges = data.challenges // Challenge system state
     this.gameSpeed = data.gameSpeed ?? GAME_SPEED_DEFAULT // Game speed multiplier
     this.tutorial = data.tutorial // Tutorial progress
   }
@@ -34,7 +35,7 @@ class Meta {
       version: data.version,
       createdDateTime: data.createdDateTime,
       updatedDateTime: data.updatedDateTime,
-      numberOfChallenges: data.numberOfChallenges,
+      challenges: Challenges.fromJSON(data.challenges),
       gameSpeed: data.gameSpeed ?? GAME_SPEED_DEFAULT,
       tutorial: new Tutorial(data.tutorial),
     })
@@ -49,7 +50,7 @@ class Meta {
       version: this.version,
       createdDateTime: this.createdDateTime,
       updatedDateTime: new Date().toISOString(),
-      numberOfChallenges: this.numberOfChallenges,
+      challenges: this.challenges.toJSON(),
       gameSpeed: this.gameSpeed,
       tutorial: this.tutorial.toJSON(),
     }

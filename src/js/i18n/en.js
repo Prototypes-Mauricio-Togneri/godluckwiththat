@@ -396,4 +396,92 @@ export const LOCALIZED_EN = {
   'tutorial.modal.negativeProduction.body': 'Your colony is consuming more than it produces. Assign more workers to production buildings or build new ones to recover. If shortages persist, worker productivity will drop.',
   'tutorial.modal.campUpgrade.title': 'Camp upgraded',
   'tutorial.modal.campUpgrade.body': 'Your camp has been upgraded to a settlement, unlocking new buildings. Explore the new options available to grow your colony further.',
+
+  // Challenge system
+  'challenge.title': 'Challenges',
+  'challenge.progress': '{0}/{1}',
+  'challenge.timeRemaining': 'Time remaining',
+  'challenge.requirements': 'Requirements',
+  'challenge.reward': 'Reward',
+  'challenge.history': 'History',
+  'challenge.noneActive': 'No active challenge',
+  'challenge.tooltip': 'View challenges',
+
+  // Challenge requirement labels
+  'challenge.requirement.faith': '{0} Faith',
+  'challenge.requirement.altar': 'Altar level {0}',
+  'challenge.requirement.temple': 'Temple level {0}',
+  'challenge.requirement.monument': 'Monument level {0}',
+  'challenge.requirement.workers': '{0} Workers',
+
+  // Challenge names (indexed by challenge number)
+  'challenge.name.1': 'Trial of Devotion',
+  'challenge.name.2': 'Test of Faith',
+  'challenge.name.3': 'Forge of Will',
+  'challenge.name.4': 'Pyre of Conviction',
+  'challenge.name.5': 'The Eternal Pillar',
+  'challenge.name.6': 'Rite of Absolution',
+  'challenge.name.7': 'Prosperity\'s Price',
+  'challenge.name.8': 'The Sacred Convergence',
+  'challenge.name.9': 'Burden of the Chosen',
+  'challenge.name.10': 'The Final Passage',
+
+  // Challenge events
+  'event.challengeStarted': 'Challenge: {0}',
+  'event.challengeCompleted': 'Challenge completed: {0}',
+  'event.challengeFailed': 'Challenge failed: {0}',
+
+  // Challenge reward modal
+  'challenge.reward.title': 'Challenge Complete',
+  'challenge.reward.description': 'The gods are pleased. Choose your blessing:',
+  'challenge.reward.choose': 'Choose',
+
+  // Challenge failure modal
+  'challenge.failure.title': 'Challenge Failed',
+  'challenge.failure.description': 'The gods are displeased. Your colony will suffer:',
+  'challenge.failure.acknowledge': 'Accept Punishment',
+
+  // Blessing types
+  'blessing.fertileSoil': 'Fertile Soil',
+  'blessing.forestBloom': 'Forest Bloom',
+  'blessing.giftFromTheHeavens': 'Gift from the Heavens',
+  'blessing.holyExpansion': 'Holy Expansion',
+  'blessing.richMines': 'Rich Mines',
+  'blessing.celestialProsperity': 'Celestial Prosperity',
+  'blessing.rapidConstruction': 'Rapid Construction',
+  'blessing.favorableWeather': 'Favorable Weather',
+  'blessing.wisdomOfTheGods': 'Wisdom of the Gods',
+  'blessing.blessedMarkets': 'Blessed Markets',
+
+  // Blessing descriptions
+  'blessing.fertileSoil.description': 'Increases food productivity by {0}% for {1}s',
+  'blessing.forestBloom.description': 'Increases wood productivity by {0}% for {1}s',
+  'blessing.giftFromTheHeavens.description': 'Receive a gift of resources',
+  'blessing.holyExpansion.description': 'Gain {0} territory slots',
+  'blessing.richMines.description': 'Increases minerals productivity by {0}% for {1}s',
+  'blessing.celestialProsperity.description': 'Increases general productivity by {0}% for {1}s',
+  'blessing.rapidConstruction.description': 'Buildings constructed {0}% faster for {1}s',
+  'blessing.favorableWeather.description': 'Improved seasons for {0}s',
+  'blessing.wisdomOfTheGods.description': 'Increases knowledge productivity by {0}% for {1}s',
+  'blessing.blessedMarkets.description': 'No trading fees for {0}s',
+
+  // Punishment types
+  'punishment.cropFailure': 'Crop Failure',
+  'punishment.wildfires': 'Wildfires',
+  'punishment.plague': 'Plague',
+  'punishment.landslide': 'Landslide',
+  'punishment.volcano': 'Volcano',
+
+  // Punishment effect descriptions
+  'punishment.faithLoss': 'Lose {0}% of stored faith',
+  'punishment.productivityLoss': 'Productivity reduced by {0}%',
+  'punishment.resourceLoss': 'Lose {0}% of stored resources',
+  'punishment.workerLoss': 'Lose {0} workers',
+  'punishment.buildingLoss': 'Lose {0} building levels',
+
+  // Win modal
+  'challenge.win.title': 'Portal Activated',
+  'challenge.win.description': 'You have proven your faith to the gods. The ancient portal glows with divine energy — the way home is open at last.',
+  'challenge.win.continue': 'Continue Playing',
+  'challenge.win.quit': 'Return Home',
 }

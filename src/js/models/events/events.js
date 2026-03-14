@@ -25,6 +25,7 @@ class Events {
    * @param {string[]} [data.params] - Positional i18n interpolation values
    * @param {string} [data.buildingKey] - Building key for construction lookup
    * @param {string} [data.researchKey] - Research key for research lookup
+   * @param {string} [data.action] - Action identifier triggered on click
    * @param {number} data.remainingSeconds - Countdown duration
    * @returns {EventFuture} The created future event
    */
@@ -37,6 +38,7 @@ class Events {
       params: data.params,
       buildingKey: data.buildingKey,
       researchKey: data.researchKey,
+      action: data.action,
       remainingSeconds: data.remainingSeconds,
     })
     this._binaryInsertFuture(event)
@@ -77,6 +79,22 @@ class Events {
   convertToPast(buildingKey, data) {
     const index = this.future.findIndex(
       event => event.buildingKey === buildingKey,
+    )
+    if (index !== -1) {
+      this.future.splice(index, 1)
+    }
+    this.addPast(data)
+  }
+
+  /**
+   * Finds the future event matching the given type, removes it,
+   * and adds a new past event with the provided data.
+   * @param {string} type - Event type to match
+   * @param {Object} data - Past event data (type, textKey, icon, params)
+   */
+  convertToPastByType(type, data) {
+    const index = this.future.findIndex(
+      event => event.type === type,
     )
     if (index !== -1) {
       this.future.splice(index, 1)

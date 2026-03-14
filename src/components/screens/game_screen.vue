@@ -1,5 +1,9 @@
 <script setup>
 import {computed, ref, shallowReactive, watch, provide, onMounted, onUnmounted} from 'vue'
+import ChallengeFailureModal from '@/components/modals/challenge_failure_modal.vue'
+import ChallengeDetailModal from '@/components/modals/challenge_detail_modal.vue'
+import ChallengeSuccessModal from '@/components/modals/challenge_success_modal.vue'
+import ChallengeWinModal from '@/components/modals/challenge_win_modal.vue'
 import ConfirmModal from '@/components/modals/confirm_modal.vue'
 import PauseModal from '@/components/modals/pause_modal.vue'
 import MarketModal from '@/components/modals/market_modal.vue'
@@ -27,13 +31,13 @@ import TowerCard from '@/components/buildings/tower_card.vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull, formatRate, formatTime} from '@/js/engine/format.js'
 import storage from '@/js/engine/storage.js'
-import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
+import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRITORY, IMG_RESOURCE_FAITH, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
 import TutorialBanner from '@/components/tutorial/tutorial_banner.vue'
 import TutorialModal from '@/components/tutorial/tutorial_modal.vue'
 import SettingsModal from '@/components/modals/settings_modal.vue'
 import {BUILDING_IMAGE_MAP, BUILDING_GRID, GAME_SPEED_DEFAULT, GAME_SPEED_OPTIONS, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, TUTORIAL_MODALS, TUTORIAL_STEPS, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {BULK_WORKER_AMOUNT, SEASON_DURATION} from '@/js/engine/balancing.js'
-import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, EMIT_QUIT, EMIT_RESTART} from '@/js/engine/enums.js'
+import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, CHALLENGE_STATUS_STARTED, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, EMIT_QUIT, EMIT_RESTART} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
@@ -238,6 +242,7 @@ const showConfirmRestart = ref(false)
 const showSettingsModal = ref(false)
 const showResearchModal = ref(false)
 const showMarketModal = ref(false)
+const showChallengeModal = ref(false)
 const showSaveIndicator = ref(false)
 const hasSavedGame = ref(storage.savedGame !== null)
 let saveIndicatorTimer = null
@@ -308,6 +313,17 @@ const ui = shallowReactive({
   },
   futureEvents: [],
   pastEvents: [],
+  challenges: {
+    active: null,
+    completed: [],
+    completedCount: 0,
+    totalCount: 10,
+    allCompleted: false,
+    progress: '0/10',
+    activeBlessingChoices: [],
+    activePunishment: null,
+  },
+  challengeModal: null,
   tutorial: {
     stepTextKey: null,
     stepBuilding: null,
@@ -399,9 +415,27 @@ function syncTimers() {
       textKey: e.textKey,
       params: e.params,
       remainingSeconds: e.remainingSeconds,
+      action: e.action,
     }))
   } else {
     ui.futureEvents = []
+  }
+
+  // Challenge timer (smooth countdown)
+  if (ui.challenges.active && state.meta.challenges.active && state.meta.challenges.active.status === CHALLENGE_STATUS_STARTED) {
+    const active = state.meta.challenges.active
+    ui.challenges = {
+      ...ui.challenges,
+      active: {
+        ...ui.challenges.active,
+        timeoutElapsed: active.timeoutElapsed,
+      },
+    }
+  }
+
+  // Challenge modal state (may have changed from advanceChallenges)
+  if (state.challengeModal !== ui.challengeModal) {
+    syncChallenges()
   }
 
   if (state.meta.tutorial.activeModal) {
@@ -617,6 +651,7 @@ function syncEvents() {
     textKey: e.textKey,
     params: e.params,
     remainingSeconds: e.remainingSeconds,
+    action: e.action,
   }))
   ui.pastEvents = events.sortedPast.map(e => ({
     id: e.id,
@@ -647,6 +682,54 @@ function syncTutorial() {
   }
 }
 
+/** Syncs challenge state. */
+function syncChallenges() {
+  const {
+    challenges,
+  } = state.meta
+  const active = challenges.active
+  ui.challenges = {
+    active: active
+      ? {
+        index: active.index,
+        status: active.status,
+        isStarted: active.status === CHALLENGE_STATUS_STARTED,
+        timeout: active.timeout,
+        timeoutElapsed: active.timeoutElapsed,
+        requirements: active.requirements,
+        blessings: active.blessings,
+        punishment: active.punishment,
+      }
+      : null,
+    completed: challenges.completed.map(c => ({
+      index: c.index,
+    })),
+    completedCount: challenges.completedCount,
+    totalCount: challenges.totalCount,
+    allCompleted: challenges.allCompleted,
+    progress: challenges.progress,
+    activeBlessingChoices: active ? active.blessings.map(b => ({
+      type: b.type,
+      timeout: b.timeout,
+      productivity: b.productivity,
+      resources: b.resources,
+      territory: b.territory,
+      construction: b.construction,
+      warm: b.warm,
+      cold: b.cold,
+    })) : [],
+    activePunishment: active ? {
+      type: active.punishment.type,
+      faith: active.punishment.faith,
+      productivity: active.punishment.productivity,
+      resources: active.punishment.resources,
+      workers: active.punishment.workers,
+      levels: active.punishment.levels,
+    } : null,
+  }
+  ui.challengeModal = state.challengeModal
+}
+
 /** Full sync: copies all values the templates need from the plain engine state into the reactive ui object. */
 function syncUI() {
   syncSeason()
@@ -657,6 +740,7 @@ function syncUI() {
   syncAcademy()
   syncMarket()
   syncEvents()
+  syncChallenges()
   syncTutorial()
 }
 
@@ -710,6 +794,14 @@ const actions = {
     state.colony.events.dismissAllPast()
     syncEvents()
   },
+  selectBlessing: (index) => {
+    state.selectBlessing(index)
+    syncUI()
+  },
+  acknowledgePunishment: () => {
+    state.acknowledgePunishment()
+    syncUI()
+  },
 }
 
 provide('ui', ui)
@@ -721,6 +813,9 @@ provide('openResearchModal', () => {
 provide('openMarketModal', () => {
   audio.playSound(SND_OPEN_MARKET)
   showMarketModal.value = true
+})
+provide('openChallengeModal', () => {
+  showChallengeModal.value = true
 })
 
 /** Saves the current game state to localStorage and closes the pause modal. */
@@ -821,6 +916,30 @@ function clearAllPast() {
   showClearConfirm.value = false
 }
 
+/** Handles clicking a future event with an action. */
+function handleEventAction(action) {
+  if (action === 'openChallengeModal') {
+    showChallengeModal.value = true
+  }
+}
+
+/** Handles "Continue Playing" from win modal. Unpauses without creating duplicate loops
+ * since the existing setInterval/rAF loops are still alive (they just skip when paused).
+ */
+function handleWinContinue() {
+  state.continueAfterWin()
+  const now = performance.now()
+  lastTickTime = now
+  lastProgressTickTime = now
+  lastUISyncTime = now
+  syncUI()
+}
+
+/** Handles "Return Home" from win modal. */
+function handleWinQuit() {
+  emit(EMIT_QUIT)
+}
+
 /** Dismisses the active tutorial modal, unpauses, and syncs UI. */
 function dismissTutorialModal() {
   const tutorial = state.meta.tutorial
@@ -894,6 +1013,7 @@ function gameTick() {
     state.advanceSeason(progressDelta)
     state.advanceConstruction(progressDelta)
     state.advanceResearch(progressDelta)
+    state.advanceChallenges(progressDelta)
     state.advanceEvents(progressDelta)
   }
   const syncStart = performance.now()
@@ -917,6 +1037,7 @@ function progressTick() {
   state.advanceSeason(delta)
   state.advanceConstruction(delta)
   state.advanceResearch(delta)
+  state.advanceChallenges(delta)
   state.advanceEvents(delta)
   // Full sync when a construction, upgrade, or research just completed, or a tutorial modal was triggered (always immediate)
   const justCompleted = state._constructingKeys.size < prevConstructing || (!state._hqUpgrading && prevHqUpgrading) || state.colony.buildings.academy.active.size < prevResearchActive || state.paused
@@ -1147,6 +1268,18 @@ onUnmounted(() => {
         <button class="speed-btn tooltip tooltip--delayed" :data-tooltip="t('screen.game.header.speedUp')" :disabled="ui.gameSpeed >= GAME_SPEED_OPTIONS[GAME_SPEED_OPTIONS.length - 1]" @click="playTap(); speedUp()">&raquo;</button>
       </div>
 
+      <!-- Challenge progress indicator -->
+      <div
+        class="resource-box challenge-box tooltip tooltip--delayed"
+        :data-tooltip="t('challenge.tooltip')"
+        @click="playTap(); showChallengeModal = true"
+      >
+        <div class="header-resource">
+          <img class="resource-icon" :src="IMG_RESOURCE_FAITH" :alt="t('challenge.title')">
+          <span class="resource-value challenge-value">{{ ui.challenges.completedCount }}/{{ ui.challenges.totalCount }}</span>
+        </div>
+      </div>
+
       <!-- Colony info -->
       <div class="header-section header-colony">
         <div class="resource-box colony-box colony-box--population tooltip" :data-tooltip="t('resource.population')">
@@ -1217,7 +1350,13 @@ onUnmounted(() => {
         <div v-if="ui.futureEvents.length">
           <h3 class="events-section-label">{{ t('events.future') }}</h3>
           <div class="events-list">
-            <div v-for="event in ui.futureEvents" :key="event.id" class="event-row">
+            <div
+              v-for="event in ui.futureEvents"
+              :key="event.id"
+              class="event-row"
+              :class="{ 'event-row--clickable': event.action }"
+              @click="event.action && handleEventAction(event.action)"
+            >
               <img class="event-icon" :src="event.icon" :alt="t(event.textKey, ...event.params)">
               <span class="event-text">{{ t(event.textKey, ...event.params) }}</span>
               <span class="event-countdown">{{ formatTime(event.remainingSeconds) }}</span>
@@ -1298,6 +1437,25 @@ onUnmounted(() => {
     <MarketModal
       v-if="showMarketModal"
       @close="showMarketModal = false"
+    />
+
+    <ChallengeDetailModal
+      v-if="showChallengeModal"
+      @close="showChallengeModal = false"
+    />
+
+    <ChallengeSuccessModal
+      v-if="ui.challengeModal === 'reward'"
+    />
+
+    <ChallengeFailureModal
+      v-if="ui.challengeModal === 'failure'"
+    />
+
+    <ChallengeWinModal
+      v-if="ui.challengeModal === 'win'"
+      @continue="handleWinContinue"
+      @quit="handleWinQuit"
     />
 
     <Transition name="tutorial-banner" mode="out-in">
@@ -1430,6 +1588,19 @@ onUnmounted(() => {
 .header-resources .resource-value {
   font-size: clamp(0.65rem, 0.7vw, 0.8rem);
   min-width: 5ch;
+}
+
+/* ---- Challenge indicator ---- */
+
+/* Challenge progress box in header */
+.challenge-box {
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0.35rem clamp(0.3rem, 0.5vw, 0.6rem);
+}
+
+.challenge-value {
+  font-size: clamp(0.65rem, 0.7vw, 0.8rem);
 }
 
 /* ---- Speed control ---- */
@@ -1754,6 +1925,11 @@ onUnmounted(() => {
 .event-row:hover {
   border-color: rgba(var(--color-accent-rgb), 0.35);
   border-left-color: rgba(var(--color-accent-rgb), 0.7);
+}
+
+/* Clickable future events (e.g. challenges) */
+.event-row--clickable {
+  cursor: pointer;
 }
 
 /* Small event type icon with drop shadow */

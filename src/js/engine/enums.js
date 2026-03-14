@@ -230,6 +230,48 @@ export const EMIT_LOAD = 'load'
 export const EMIT_SETTINGS = 'settings'
 export const EMIT_RESTART = 'restart'
 
+// Challenge status
+export const CHALLENGE_STATUS_PENDING = 'pending'
+export const CHALLENGE_STATUS_ACTIVATED = 'activated'
+export const CHALLENGE_STATUS_STARTED = 'started'
+export const CHALLENGE_STATUS_COMPLETED = 'completed'
+
+// Challenge keys
+export const CHALLENGE_1 = 'challenge1'
+export const CHALLENGE_2 = 'challenge2'
+export const CHALLENGE_3 = 'challenge3'
+export const CHALLENGE_4 = 'challenge4'
+export const CHALLENGE_5 = 'challenge5'
+export const CHALLENGE_6 = 'challenge6'
+export const CHALLENGE_7 = 'challenge7'
+export const CHALLENGE_8 = 'challenge8'
+export const CHALLENGE_9 = 'challenge9'
+export const CHALLENGE_10 = 'challenge10'
+
+// Blessing types
+export const BLESSING_FERTILE_SOIL = 'fertileSoil'
+export const BLESSING_FOREST_BLOOM = 'forestBloom'
+export const BLESSING_GIFT_FROM_THE_HEAVENS = 'giftFromTheHeavens'
+export const BLESSING_HOLY_EXPANSION = 'holyExpansion'
+export const BLESSING_RICH_MINES = 'richMines'
+export const BLESSING_CELESTIAL_PROSPERITY = 'celestialProsperity'
+export const BLESSING_RAPID_CONSTRUCTION = 'rapidConstruction'
+export const BLESSING_FAVORABLE_WEATHER = 'favorableWeather'
+export const BLESSING_WISDOM_OF_THE_GODS = 'wisdomOfTheGods'
+export const BLESSING_BLESSED_MARKETS = 'blessedMarkets'
+
+// Punishment types
+export const PUNISHMENT_CROP_FAILURE = 'cropFailure'
+export const PUNISHMENT_WILDFIRES = 'wildfires'
+export const PUNISHMENT_PLAGUE = 'plague'
+export const PUNISHMENT_LANDSLIDE = 'landslide'
+export const PUNISHMENT_VOLCANO = 'volcano'
+
+// Challenge event types
+export const EVENT_TYPE_CHALLENGE_STARTED = 'challenge_started'
+export const EVENT_TYPE_CHALLENGE_COMPLETED = 'challenge_completed'
+export const EVENT_TYPE_CHALLENGE_FAILED = 'challenge_failed'
+
 // Storage keys (localStorage)
 export const STORAGE_MUSIC_ENABLED = 'musicEnabled'
 export const STORAGE_SOUND_ENABLED = 'soundEnabled'

@@ -1,13 +1,13 @@
 // Central game state container — mutation handler, game loop, and player actions.
 
 import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_BONUS_MAP, PRODUCTION_RATES, RESEARCH_COSTS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
-import {IMG_OTHER_TERRITORY, IMG_RESOURCE_KNOWLEDGE, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_CREATED, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
+import {IMG_OTHER_TERRITORY, IMG_RESOURCE_FAITH, IMG_RESOURCE_KNOWLEDGE, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_CREATED, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
 import storage from '@/js/engine/storage.js'
 import {BOUNDED_RESOURCES, BUILDING_CLASS_MAP, BUILDING_IMAGE_MAP, DOWNGRADABLE_BUILDINGS, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, TUTORIAL_STEPS} from '@/js/engine/constants.js'
 import Colony from '@/js/models/colony.js'
 import Meta from '@/js/models/meta.js'
-import {BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
+import {BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_COMPLETED, EVENT_TYPE_CHALLENGE_FAILED, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -54,8 +54,11 @@ class State {
     // Track whether HQ type upgrade is in progress
     this._hqUpgrading = colony.buildings.headquarters.isUpgrading
 
-    // Whether the game is paused (e.g. by a tutorial modal)
+    // Whether the game is paused (e.g. by a tutorial modal or challenge modal)
     this.paused = false
+
+    // Which challenge modal is showing: null, 'reward', 'failure', or 'win'
+    this.challengeModal = null
   }
 
   /**
@@ -387,6 +390,263 @@ class State {
       return
     }
     this.colony.events.advance(delta)
+  }
+
+  /**
+   * Advances challenge timers. Activates pending challenges, transitions delay→started,
+   * and resolves timeouts. Driven by requestAnimationFrame for smooth progress.
+   * @param {number} delta - Seconds since last tick
+   */
+  advanceChallenges(delta) {
+    if (this.challengeModal) {
+      return
+    }
+    const challenges = this.meta.challenges
+    if (challenges.allCompleted) {
+      return
+    }
+
+    // Activate first pending if no active challenge
+    if (!challenges.active && challenges.pending.length > 0) {
+      challenges.activate()
+    }
+    if (!challenges.active) {
+      return
+    }
+
+    challenges.advance(delta)
+
+    // Delay expired → transition to started, fire future event
+    if (challenges.active.isDelayElapsed) {
+      challenges.start()
+      this.colony.events.addFuture({
+        type: EVENT_TYPE_CHALLENGE_STARTED,
+        textKey: 'event.challengeStarted',
+        icon: IMG_RESOURCE_FAITH,
+        params: [t('challenge.name.' + challenges.active.index)],
+        action: 'openChallengeModal',
+        remainingSeconds: challenges.active.timeout,
+      })
+      audio.playSound(SND_NOTIFICATION_ALERT)
+    }
+
+    // Timeout expired → resolve
+    if (challenges.active.status === CHALLENGE_STATUS_STARTED
+      && challenges.active.timeoutElapsed >= challenges.active.timeout) {
+      this._resolveChallengeTimeout()
+    }
+  }
+
+  /**
+   * Checks whether challenge requirements are met and branches to complete or fail.
+   */
+  _resolveChallengeTimeout() {
+    if (this._checkRequirements()) {
+      this._completeChallenge()
+    } else {
+      this._failChallenge()
+    }
+  }
+
+  /**
+   * Checks whether all requirements for the active challenge are currently met.
+   * @returns {boolean} True if all requirements are satisfied
+   */
+  _checkRequirements() {
+    const challenge = this.meta.challenges.active
+    if (!challenge) {
+      return false
+    }
+    const {
+      requirements,
+    } = challenge
+    const {
+      resources, buildings,
+    } = this.colony
+
+    if (requirements.faith !== null && resources.faith < requirements.faith) {
+      return false
+    }
+    if (requirements.altar !== null && buildings.altar.level < requirements.altar) {
+      return false
+    }
+    if (requirements.temple !== null && buildings.temple.level < requirements.temple) {
+      return false
+    }
+    if (requirements.monument !== null && buildings.monument.level < requirements.monument) {
+      return false
+    }
+    if (requirements.resources !== null) {
+      for (const [
+        resource,
+        amount,
+      ] of Object.entries(requirements.resources)) {
+        if (resources[resource] < amount) {
+          return false
+        }
+      }
+    }
+    if (requirements.workers !== null && resources.workers < requirements.workers) {
+      return false
+    }
+    return true
+  }
+
+  /**
+   * Deducts challenge requirements from the colony (faith, resources, workers).
+   */
+  _deductRequirements() {
+    const challenge = this.meta.challenges.active
+    if (!challenge) {
+      return
+    }
+    const {
+      requirements,
+    } = challenge
+    const {
+      resources,
+    } = this.colony
+
+    if (requirements.faith !== null) {
+      resources.faith -= requirements.faith
+    }
+    if (requirements.resources !== null) {
+      for (const [
+        resource,
+        amount,
+      ] of Object.entries(requirements.resources)) {
+        resources[resource] -= amount
+      }
+    }
+    if (requirements.workers !== null) {
+      this._sacrificeWorkers(requirements.workers)
+    }
+  }
+
+  /**
+   * Removes workers from the colony: first from idle pool, then randomly
+   * unassigned from producer buildings that have workers.
+   * @param {number} count - Number of workers to sacrifice
+   */
+  _sacrificeWorkers(count) {
+    const {
+      resources, buildings,
+    } = this.colony
+    let remaining = count
+
+    // First from idle pool
+    const idleToRemove = Math.min(remaining, this.colony.idleWorkers)
+    resources.workers -= idleToRemove
+    remaining -= idleToRemove
+
+    // Then randomly from producer buildings with assigned workers
+    while (remaining > 0) {
+      const producerKeys = []
+      for (const [
+        key,
+        building,
+      ] of Object.entries(buildings)) {
+        if ('workers' in building && building.workers > 0) {
+          producerKeys.push(key)
+        }
+      }
+      if (producerKeys.length === 0) {
+        break
+      }
+      const randomKey = producerKeys[Math.floor(Math.random() * producerKeys.length)]
+      buildings[randomKey].workers -= 1
+      resources.workers -= 1
+      remaining -= 1
+    }
+  }
+
+  /**
+   * Handles a successful challenge: deducts requirements, pauses game,
+   * and signals the UI to show the reward modal.
+   */
+  _completeChallenge() {
+    this._deductRequirements()
+    this.paused = true
+    this.challengeModal = 'reward'
+  }
+
+  /**
+   * Handles a failed challenge: pauses game and signals the UI
+   * to show the failure modal.
+   */
+  _failChallenge() {
+    this.paused = true
+    this.challengeModal = 'failure'
+  }
+
+  /**
+   * Player action: selects a blessing reward after completing a challenge.
+   * Moves the challenge to completed, converts the event, and activates
+   * the next challenge or triggers the win state.
+   * @param {number} blessingIndex - Index into the active challenge's blessings array
+   */
+  selectBlessing(blessingIndex) {
+    const challenge = this.meta.challenges.active
+    if (!challenge || this.challengeModal !== 'reward') {
+      return
+    }
+
+    const blessing = challenge.blessings[blessingIndex]
+    const localizedName = t('challenge.name.' + challenge.index)
+
+    this.meta.challenges.complete(blessing)
+
+    this.colony.events.convertToPastByType(EVENT_TYPE_CHALLENGE_STARTED, {
+      type: EVENT_TYPE_CHALLENGE_COMPLETED,
+      textKey: 'event.challengeCompleted',
+      icon: IMG_RESOURCE_FAITH,
+      params: [localizedName],
+    })
+
+    if (this.meta.challenges.allCompleted) {
+      this.challengeModal = 'win'
+    } else {
+      this.challengeModal = null
+      this.paused = false
+    }
+
+    this.update(0)
+  }
+
+  /**
+   * Player action: acknowledges a challenge failure punishment.
+   * Resets the challenge timers and unpauses the game.
+   */
+  acknowledgePunishment() {
+    if (!this.meta.challenges.active || this.challengeModal !== 'failure') {
+      return
+    }
+
+    const challenge = this.meta.challenges.active
+    const localizedName = t('challenge.name.' + challenge.index)
+
+    this.colony.events.convertToPastByType(EVENT_TYPE_CHALLENGE_STARTED, {
+      type: EVENT_TYPE_CHALLENGE_FAILED,
+      textKey: 'event.challengeFailed',
+      icon: IMG_RESOURCE_FAITH,
+      params: [localizedName],
+    })
+
+    this.meta.challenges.fail(challenge.punishment)
+    this.challengeModal = null
+    this.paused = false
+    this.update(0)
+  }
+
+  /**
+   * Player action: continues playing after winning (all challenges completed).
+   */
+  continueAfterWin() {
+    if (this.challengeModal !== 'win') {
+      return
+    }
+    this.challengeModal = null
+    this.paused = false
   }
 
   /**
@@ -774,6 +1034,10 @@ class State {
       state._resourcesAtCap = new Set(data.resourcesAtCap ?? [])
       state._resourcesNegativeProduction = new Set(data.resourcesNegativeProduction ?? [])
       state._hadIdleWorkers = data.hadIdleWorkers ?? false
+      state.challengeModal = data.challengeModal ?? null
+      if (state.challengeModal) {
+        state.paused = true
+      }
 
       state.update(0)
       return state
@@ -793,6 +1057,7 @@ class State {
       resourcesAtCap: [...this._resourcesAtCap],
       resourcesNegativeProduction: [...this._resourcesNegativeProduction],
       hadIdleWorkers: this._hadIdleWorkers,
+      challengeModal: this.challengeModal,
     }
   }
 }
