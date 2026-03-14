@@ -422,8 +422,6 @@ export const LOCALIZED_IT = {
   'challenge.name.9': 'Il Fardello dell\'Eletto',
   'challenge.name.10': 'Il Passaggio Finale',
   'event.challengeStarted': 'Sfida: {0}',
-  'event.challengeCompleted': 'Sfida completata: {0}',
-  'event.challengeFailed': 'Sfida fallita: {0}',
   'challenge.reward.title': 'Sfida Completata',
   'challenge.reward.description': 'Gli dèi sono compiaciuti. Scegli la tua benedizione:',
   'challenge.reward.choose': 'Scegli',

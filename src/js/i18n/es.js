@@ -422,8 +422,6 @@ export const LOCALIZED_ES = {
   'challenge.name.9': 'La Carga del Elegido',
   'challenge.name.10': 'El Pasaje Final',
   'event.challengeStarted': 'Desafío: {0}',
-  'event.challengeCompleted': 'Desafío completado: {0}',
-  'event.challengeFailed': 'Desafío fallido: {0}',
   'challenge.reward.title': 'Desafío Completado',
   'challenge.reward.description': 'Los dioses están complacidos. Elige tu bendición:',
   'challenge.reward.choose': 'Elegir',

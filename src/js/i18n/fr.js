@@ -422,8 +422,6 @@ export const LOCALIZED_FR = {
   'challenge.name.9': 'Le Fardeau de l\'Élu',
   'challenge.name.10': 'Le Passage Final',
   'event.challengeStarted': 'Défi : {0}',
-  'event.challengeCompleted': 'Défi accompli : {0}',
-  'event.challengeFailed': 'Défi échoué : {0}',
   'challenge.reward.title': 'Défi Accompli',
   'challenge.reward.description': 'Les dieux sont satisfaits. Choisissez votre bénédiction :',
   'challenge.reward.choose': 'Choisir',

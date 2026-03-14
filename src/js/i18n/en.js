@@ -428,8 +428,6 @@ export const LOCALIZED_EN = {
 
   // Challenge events
   'event.challengeStarted': 'Challenge: {0}',
-  'event.challengeCompleted': 'Challenge completed: {0}',
-  'event.challengeFailed': 'Challenge failed: {0}',
 
   // Challenge reward modal
   'challenge.reward.title': 'Challenge Complete',

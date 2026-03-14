@@ -7,7 +7,7 @@ import storage from '@/js/engine/storage.js'
 import {BOUNDED_RESOURCES, BUILDING_CLASS_MAP, BUILDING_IMAGE_MAP, DOWNGRADABLE_BUILDINGS, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, TUTORIAL_STEPS} from '@/js/engine/constants.js'
 import Colony from '@/js/models/colony.js'
 import Meta from '@/js/models/meta.js'
-import {BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_COMPLETED, EVENT_TYPE_CHALLENGE_FAILED, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
+import {BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -580,7 +580,7 @@ class State {
 
   /**
    * Player action: selects a blessing reward after completing a challenge.
-   * Moves the challenge to completed, converts the event, and activates
+   * Moves the challenge to completed, dismisses the event, and activates
    * the next challenge or triggers the win state.
    * @param {number} blessingIndex - Index into the active challenge's blessings array
    */
@@ -591,16 +591,10 @@ class State {
     }
 
     const blessing = challenge.blessings[blessingIndex]
-    const localizedName = t('challenge.name.' + challenge.index)
 
     this.meta.challenges.complete(blessing)
 
-    this.colony.events.convertToPastByType(EVENT_TYPE_CHALLENGE_STARTED, {
-      type: EVENT_TYPE_CHALLENGE_COMPLETED,
-      textKey: 'event.challengeCompleted',
-      icon: IMG_RESOURCE_FAITH,
-      params: [localizedName],
-    })
+    this.colony.events.dismissFutureByType(EVENT_TYPE_CHALLENGE_STARTED)
 
     if (this.meta.challenges.allCompleted) {
       this.challengeModal = 'win'
@@ -622,14 +616,8 @@ class State {
     }
 
     const challenge = this.meta.challenges.active
-    const localizedName = t('challenge.name.' + challenge.index)
 
-    this.colony.events.convertToPastByType(EVENT_TYPE_CHALLENGE_STARTED, {
-      type: EVENT_TYPE_CHALLENGE_FAILED,
-      textKey: 'event.challengeFailed',
-      icon: IMG_RESOURCE_FAITH,
-      params: [localizedName],
-    })
+    this.colony.events.dismissFutureByType(EVENT_TYPE_CHALLENGE_STARTED)
 
     this.meta.challenges.fail(challenge.punishment)
     this.challengeModal = null

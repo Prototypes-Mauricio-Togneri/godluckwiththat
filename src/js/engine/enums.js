@@ -269,8 +269,6 @@ export const PUNISHMENT_VOLCANO = 'volcano'
 
 // Challenge event types
 export const EVENT_TYPE_CHALLENGE_STARTED = 'challenge_started'
-export const EVENT_TYPE_CHALLENGE_COMPLETED = 'challenge_completed'
-export const EVENT_TYPE_CHALLENGE_FAILED = 'challenge_failed'
 
 // Storage keys (localStorage)
 export const STORAGE_MUSIC_ENABLED = 'musicEnabled'

@@ -87,19 +87,16 @@ class Events {
   }
 
   /**
-   * Finds the future event matching the given type, removes it,
-   * and adds a new past event with the provided data.
+   * Removes a future event by its type.
    * @param {string} type - Event type to match
-   * @param {Object} data - Past event data (type, textKey, icon, params)
    */
-  convertToPastByType(type, data) {
+  dismissFutureByType(type) {
     const index = this.future.findIndex(
       event => event.type === type,
     )
     if (index !== -1) {
       this.future.splice(index, 1)
     }
-    this.addPast(data)
   }
 
   /**

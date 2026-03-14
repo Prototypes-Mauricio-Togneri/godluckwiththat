@@ -422,8 +422,6 @@ export const LOCALIZED_CA = {
   'challenge.name.9': 'La Càrrega de l\'Elegit',
   'challenge.name.10': 'El Passatge Final',
   'event.challengeStarted': 'Desafiament: {0}',
-  'event.challengeCompleted': 'Desafiament completat: {0}',
-  'event.challengeFailed': 'Desafiament fallat: {0}',
   'challenge.reward.title': 'Desafiament Completat',
   'challenge.reward.description': 'Els déus estan complaguts. Tria la teva benedicció:',
   'challenge.reward.choose': 'Triar',
