@@ -43,16 +43,12 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 ## Blessings types
 * `FERTILE_SOIL`: Increases food productivity
 * `FOREST_BLOOM`: Increases wood productivity
-
 * `GIFT_FROM_THE_HEAVENS`: Receive a fixed amount of resources
 * `HOLY_EXPANSION`: Receives fixed amount of territory slots
-
 * `RICH_MINES`: Increases minerals productivity (only if it has mines)
 * `CELESTIAL_PROSPERITY`: Improves general productivity
-
 * `RAPID_CONSTRUCTION`: Buildings constructed faster
 * `FAVORABLE_WEATHER`: Winter becomes less harsh, with reduced wood consumption and higher-than-usual food production
-
 * `WISDOM_OF_THE_GODS`: Increases knowledge productivity
 * `BLESSED_MARKETS`: No trading fees (only if it has market)
 
