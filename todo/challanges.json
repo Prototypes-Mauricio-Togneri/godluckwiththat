@@ -18,9 +18,11 @@
         "productivity": 0.3
       },
       {
-        "type": "RICH_MINES",
-        "timeout": 120,
-        "productivity": 0.3
+        "type": "GIFT_FROM_THE_HEAVENS",
+        "resources": {
+          "food": 200,
+          "wood": 150
+        }
       }
     ],
     "punishment": {
@@ -40,15 +42,18 @@
     },
     "blessings": [
       {
-        "type": "GIFT_FROM_THE_HEAVENS",
-        "resources": {
-          "food": 200,
-          "wood": 150
-        }
+        "type": "HOLY_EXPANSION",
+        "territory": 5
       },
       {
-        "type": "HOLY_EXPANSION",
-        "territory": 2
+        "type": "RICH_MINES",
+        "timeout": 120,
+        "productivity": 0.3
+      },
+      {
+        "type": "CELESTIAL_PROSPERITY",
+        "timeout": 60,
+        "productivity": 0.1
       }
     ],
     "punishment": {

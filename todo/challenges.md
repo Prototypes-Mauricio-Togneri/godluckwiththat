@@ -39,13 +39,13 @@ The gods send sequential challenges to prove the player's faith. Completing all 
     - `worker`: number of workers lost (can be null)
 
 ## Blessings types
-* `FERTILE_SOIL`: Increases food productivity
-* `FOREST_BLOOM`: Increases wood productivity
-* `RICH_MINES`: Increases minerals productivity (only if it has mines)
+  * `FERTILE_SOIL`: Increases food productivity
+  * `FOREST_BLOOM`: Increases wood productivity
+  * `RICH_MINES`: Increases minerals productivity (only if it has mines)
+  * `HOLY_EXPANSION`: Receives fixed amount of territory slots
+  * `GIFT_FROM_THE_HEAVENS`: Receive a fixed amount of resources
+  * `CELESTIAL_PROSPERITY`: Improves general productivity
 * `WISDOM_OF_THE_GODS`: Increases knowledge productivity
-* `GIFT_FROM_THE_HEAVENS`: Receive a fixed amount of resources
-* `HOLY_EXPANSION`: Receives fixed amount of territory slots
-* `CELESTIAL_PROSPERITY`: Improves general productivity
 * `BLESSED_MARKETS`: No trading fees (only if it has market)
 * `DIVINE_PROTECTION`: No natural disasters
 * `FAVORABLE_WEATHER`: Winter becomes less harsh, with reduced wood consumption and higher-than-usual food production
@@ -73,10 +73,7 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 
 ## Challenge Definitions (Escalating)
 
-- **1. Build Altar**
-  - Level 3, 10 min
-  - Blessings: [FERTILE_SOIL, FOREST_BLOOM, RICH_MINES]
-  - Punishment: lose 30% of all stored bounded resources + 3 workers die + CROP_FAILURE event for next 2 minutes
+  - **1. Build Altar**
 - **2. Accumulate Faith** — 500 faith, 15 min
 - **3. Build Temple** — Level 2, 12 min
 - **4. Accumulate Faith** — 1000 faith, 15 min
