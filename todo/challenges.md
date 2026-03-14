@@ -2,7 +2,9 @@
 
 ## Context
 
-The gods send sequential challenges to prove the player's faith. Completing all challenges is the win condition (portal activates, player goes home). Challenges consume faith and resources, creating tension between economic growth and divine demands.
+The core narrative driver that ties everything together. The gods test the colony's worthiness to pass through the portal. The gods send sequential challenges to prove the player's faith. Completing all challenges is the win condition (portal activates, player goes home). Challenges consume faith and resources, creating tension between economic growth and divine demands.
+
+More context in @docs/specs.md and @docs/architecture.md
 
 ## Data structure
 - Remove the existing field in Meta: `numberOfChallenges`
@@ -15,6 +17,7 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 
 - The `Challenge` class will have these properties:
   - `index`: challenge number (starting from 1)
+  - `name`: challenge name (string)
   - `delay`: time since it's active until the player is informed about it (in seconds)
   - `delayElapsed`: time elapsed since it became active (in seconds)
   - `timeout`: time limit to complete the challenge (in seconds)

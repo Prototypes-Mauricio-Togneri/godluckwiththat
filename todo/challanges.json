@@ -1,6 +1,7 @@
 [
   {
     "index": 1,
+    "name": "Trial of Devotion",
     "delay": 240,
     "timeout": 600,
     "requirements": {
@@ -27,6 +28,7 @@
   },
   {
     "index": 2,
+    "name": "Test of Faith",
     "delay": 60,
     "timeout": 600,
     "requirements": {
@@ -54,6 +56,7 @@
   },
   {
     "index": 3,
+    "name": "Forge of Will",
     "delay": 60,
     "timeout": 600,
     "requirements": {
@@ -158,6 +161,7 @@
   },
   {
     "index": 7,
+    "name": "Prosperity's Price",
     "delay": 45,
     "timeout": 600,
     "requirements": {
@@ -259,6 +263,7 @@
   },
   {
     "index": 10,
+    "name": "The Final Passage",
     "delay": 30,
     "timeout": 600,
     "requirements": {
