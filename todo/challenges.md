@@ -81,6 +81,14 @@ More context in @docs/specs.md and @docs/architecture.md
 ## Challenge Definitions
 All defined in @todo/challanges.json
 
+## How it works
+1. When the game starts, the first challenge in the list of pending is activated immediately (and it's removed from the pending array).
+2. Once a challange is activated, the `delayElapsed` property starts counting up in the game loop. When it reaches the `delay`, the future event is triggered, and the player is notified about the active challenge. This event cannot be dismissed by the player. But it can be clicked to open the challenge modal and see the details of the active challenge.
+3. Once the challenge is active, the `timeoutElapsed` property starts counting up in the game loop. The player must meet the requirements before `timeoutElapsed` reaches `timeout`.
+4. Once the time limit is reached, it triggers the challenge calculation.
+5. If the player meets the requirements, the challenge is moved to the `completed` array, and the requirements are deducted from the colony (e.g., faith, resources, workers). After that, a new modal is shown to the player, showing the available rewards from completing the challenge. While this modal is open, the game is paused. The modal cannot be dismissed by clicking outside or with a close button. The player has to choose one of the available blessings as a reward. Once the player chooses a blessing, the reward is applied to the colony. If more challenges are available in the pending array, go to step 1. If no more challenges are available, the win modal is shown, announcing that the portal is activated and the player goes home.
+6. If the player does not meet the requirements, a new modal is shown explaining what punishment will be applied to the colony. While this modal is open, the game is paused. This modal cannot be dismissed by clicking outside. It only has a button to acknowledge the punishment and continue. Once the player acknowledges, the punishment is applied to the colony (e.g., lose resources, workers, building levels, and 50% of stored faith). After that, the challenge is reset (delay and timeout timers are reset to 0), but kept as the active challenge.
+
 ## Implementation Steps
 
 ### Step 1: Enums (`src/js/engine/enums.js`)
