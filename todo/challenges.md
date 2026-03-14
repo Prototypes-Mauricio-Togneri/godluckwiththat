@@ -83,15 +83,17 @@ More context in @docs/specs.md and @docs/architecture.md
 - **Non-dismissable**: Challenge countdown events cannot be dismissed by the player
 
 ## Challenge Definitions
-All defined in @todo/challenges.json
+All defined in `src/data/challenges.json`
 
 ## How it works
 1. When the game starts, the first challenge in the list of pending is activated immediately (and it's removed from the pending array).
-2. Once a challange is activated, the `delayElapsed` property starts counting up in the game loop. When it reaches the `delay`, the future event is triggered, and the player is notified about the active challenge. This event cannot be dismissed by the player. But it can be clicked to open the challenge modal and see the details of the active challenge.
-3. Once the challenge is active, the `timeoutElapsed` property starts counting up in the game loop. The player must meet the requirements before `timeoutElapsed` reaches `timeout`.
-4. Once the time limit is reached, it triggers the challenge calculation.
-5. If the player meets the requirements, the challenge is moved to the `completed` array, and the requirements are deducted from the colony (e.g., faith, resources, workers). After that, a new modal is shown to the player, showing the available rewards from completing the challenge. While this modal is open, the game is paused. The modal cannot be dismissed by clicking outside or with a close button. The player has to choose one of the available blessings as a reward. Once the player chooses a blessing, the blessing is added to the field `activeBlessings`. If more challenges are available in the pending array, go to step 1. If no more challenges are available, the win modal is shown, announcing that the portal is activated and the player goes home.
-6. If the player does not meet the requirements, a new modal is shown explaining what punishment will be applied to the colony. While this modal is open, the game is paused. This modal cannot be dismissed by clicking outside. It only has a button to acknowledge the punishment and continue. Once the player acknowledges, the punishment is applied to the colony (e.g., lose resources, workers, building levels, and 50% of stored faith). This punishment is added to the field `activePunishments`. After that, the challenge is reset (delay and timeout timers are reset to 0), but kept as the active challenge.
+2. Once a challenge is activated, the `delayElapsed` property starts counting up in the game loop. When it reaches the `delay`, the challenge status transitions to `started`, a future event is triggered, and the player is notified about the active challenge. This event cannot be dismissed by the player. But it can be clicked to open the challenge modal and see the details of the active challenge.
+3. Once the challenge is started, the `timeoutElapsed` property starts counting up in the game loop. The player must meet the requirements before `timeoutElapsed` reaches `timeout`.
+4. Once the time limit is reached, the game checks whether all requirements are met at that moment.
+5. If the player meets the requirements, the challenge is moved to the `completed` array, and the requirements are deducted from the colony (e.g., faith, resources, workers). After that, a new modal is shown to the player, showing the available rewards from completing the challenge. While this modal is open, the game is paused. The modal cannot be dismissed by clicking outside or with a close button. The player has to choose one of the available blessings as a reward. Once the player chooses a blessing, the blessing is added to the field `activeBlessings` (tracked only — effects not applied, see note below). If more challenges are available in the pending array, go to step 1. If no more challenges are available, the win modal is shown, announcing that the portal is activated and the player goes home.
+6. If the player does not meet the requirements, a new modal is shown explaining what punishment will be applied to the colony. While this modal is open, the game is paused. This modal cannot be dismissed by clicking outside. It only has a button to acknowledge the punishment and continue. Once the player acknowledges, the punishment is applied to the colony (lose resources, workers, building levels, and 50% of stored faith). The punishment is also added to the field `activePunishments` (tracked only — ongoing effects not applied, see note below). After that, the challenge is reset (delay and timeout timers are reset to 0), but kept as the active challenge.
+
+> **Deferred effects**: Blessing and punishment effects (productivity boosts/reductions, weather changes, construction speed, trade fee removal, resource/territory grants, etc.) are not applied in this implementation phase. They are stored in `activeBlessings` and `activePunishments` for future use, but their timeouts are not decremented and their effects are not wired into the game loop.
 
 ## Implementation Steps
 
@@ -115,7 +117,7 @@ New `Challenge` class (`src/js/models/challenge.js`):
 - Methods: `reset()` (resets `delayElapsed` and `timeoutElapsed` to 0, sets status back to `activated`), `toJSON()` / `fromJSON()`
 
 New `Blessing` class (`src/js/models/blessing.js`):
-- Properties: `type`, `timeout`, `productivity`, `resources`, `territory`, `construction`
+- Properties: `type`, `timeout`, `productivity`, `resources`, `territory`, `construction`, `warm`, `cold`
 - Methods: `toJSON()` / `fromJSON()`
 
 New `Punishment` class (`src/js/models/punishment.js`):
@@ -123,11 +125,10 @@ New `Punishment` class (`src/js/models/punishment.js`):
 - Methods: `toJSON()` / `fromJSON()`
 
 ### Step 3: Balancing (`src/js/engine/balancing.js`)
-- `CHALLENGE_DEFINITIONS`: Array of 10 challenge definitions (matching the structure in `@todo/challenges.json`), each with index, name, delay, timeout, requirements, blessings, punishment
 - `CHALLENGE_FAITH_LOSS_FRACTION`: 0.5 (50% faith loss on every punishment)
 
 ### Step 4: Constants & Meta Update
-- `src/js/engine/constants.js`: Import challenge definitions, add `createInitialChallenges()` factory — builds a `Challenges` instance from `CHALLENGE_DEFINITIONS` with all challenges set to `pending` status
+- `src/js/engine/constants.js`: Import challenge definitions from `src/data/challenges.json`, add `createInitialChallenges()` factory — builds a `Challenges` instance from the JSON data with all challenges set to `pending` status
 - `src/js/models/meta.js`: Replace `numberOfChallenges` with `challenges` property (type `Challenges`), update `toJSON`/`fromJSON`
 
 ### Step 5: State Logic (`src/js/engine/state.js`)
@@ -135,12 +136,12 @@ New `Punishment` class (`src/js/models/punishment.js`):
   1. While status is `activated`: increments `delayElapsed`. When `delayElapsed >= delay`, transitions to `started`, fires a non-dismissable future event with timeout countdown
   2. While status is `started`: increments `timeoutElapsed`. When `timeoutElapsed >= timeout`, triggers challenge resolution via `_resolveChallengeTimeout()`
 - `_resolveChallengeTimeout()`: Checks if all requirements are met via `_checkRequirements()`. If met → `_completeChallenge()`. If not → `_failChallenge()`
+- `_completeChallenge()`: Deducts requirements via `_deductRequirements()`, pauses game, shows completion modal with blessing choices. On blessing selection: adds blessing to `activeBlessings` (tracked only — effects not applied). If more pending challenges exist, activates next. If none remain, shows win modal
 - `_checkRequirements()`: Returns boolean — checks building levels (altar, temple, monument) exist at required level, faith >= required, each resource >= required amount, workers >= required count
-- `_completeChallenge()`: Deducts requirements via `_deductRequirements()`, pauses game, shows completion modal with blessing choices. On blessing selection: adds blessing to `activeBlessings` (tracked only — game loop effects not implemented yet). If more pending challenges exist, activates next. If none remain, shows win modal
 - `_deductRequirements()`: Deducts faith and resources from colony. Sacrifices workers via `_sacrificeWorkers(count)`
-- `_sacrificeWorkers(count)`: Removes workers — first from idle pool (decrements `resources.workers`), then for remaining: picks a random producer building from `DOWNGRADABLE_BUILDINGS` that has workers > 0, decrements its `workers` and `resources.workers`
+- `_sacrificeWorkers(count)`: Removes workers — first from idle pool (decrements `resources.workers`), then for remaining: picks a random `Producer` building that has workers > 0, decrements its `workers` and `resources.workers`
 - `_failChallenge()`: Pauses game, shows failure modal. On acknowledgment: applies punishment via `_applyPunishment()`, resets challenge timers (delay and timeout back to 0, status back to `activated`)
-- `_applyPunishment(punishment)`: Removes `CHALLENGE_FAITH_LOSS_FRACTION` (50%) of stored faith. Removes `punishment.resource` fraction of each bounded resource. Kills `punishment.worker` workers via `_sacrificeWorkers()`. Downgrades `punishment.levels` random building levels (picks random building from `DOWNGRADABLE_BUILDINGS` with level > 1, decrements its level, returns excess workers to idle — skips remaining if no eligible buildings). Adds punishment to `activePunishments`
+- `_applyPunishment(punishment)`: Removes `CHALLENGE_FAITH_LOSS_FRACTION` (50%) of stored faith. Removes `punishment.resource` fraction of each bounded resource. Kills `punishment.worker` workers via `_sacrificeWorkers()`. Downgrades `punishment.levels` random building levels (picks random building from `DOWNGRADABLE_BUILDINGS` with level > 1, decrements its level, returns excess workers to idle — skips remaining if no eligible buildings). Adds punishment to `activePunishments` (tracked only — ongoing effects not applied)
 
 ### Step 6: Event Integration
 - Challenge activated → no event (player not informed during delay phase)
@@ -178,8 +179,9 @@ New `Punishment` class (`src/js/models/punishment.js`):
 - Simple modal when `allCompleted = true` announcing the portal activates
 
 ## Critical Files
+- `src/data/challenges.json` — challenge definitions (source data)
 - `src/js/engine/enums.js` — new enums (challenge status, keys, blessing/punishment types, event types)
-- `src/js/engine/balancing.js` — challenge definitions & faith loss fraction
+- `src/js/engine/balancing.js` — faith loss fraction
 - `src/js/engine/constants.js` — `createInitialChallenges()` factory
 - `src/js/models/challenges.js` — new `Challenges` container class (create)
 - `src/js/models/challenge.js` — new `Challenge` class (create)
@@ -197,8 +199,8 @@ New `Punishment` class (`src/js/models/punishment.js`):
 ## Verification
 1. Start new game → first challenge activates immediately (status: `activated`, delay counting)
 2. Wait for delay to expire → future event appears (non-dismissable), status transitions to `started`, timeout counting
-3. Build altar to level 3 before timeout → challenge completes, reward modal shows blessing choices, past event appears
-4. Choose a blessing → blessing added to `activeBlessings`, next challenge activates
+3. Build altar to level 3 before timeout → when timeout expires, challenge completes, reward modal shows blessing choices, past event appears
+4. Choose a blessing → blessing added to `activeBlessings` (tracked only), next challenge activates
 5. Let a challenge timeout expire without meeting requirements → failure modal shows, punishment applied (resources + workers + faith + building levels lost), challenge resets
 6. Fail the same challenge again → punishment stacks (accumulates in `activePunishments`)
 7. Complete all 10 → win modal appears
