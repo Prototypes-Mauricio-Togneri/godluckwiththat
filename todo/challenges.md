@@ -32,6 +32,7 @@ The gods send sequential challenges to prove the player's faith. Completing all 
     - `productivity`: percentage increase to productivity (e.g., 0.2 for 20% boost, can be null)
     - `resources`: amount of resources granted (can be null)
     - `territory`: number of territory slots granted (can be null)
+    - `construction`: percentage decrease to construction time (e.g., 0.5 for 50% faster, can be null)
   - `punishment`: object of type `Punishment`
     - `type`: see punishment enum
     - `timeout`: duration of the punishment effect (in seconds, can be null for instant effects)
@@ -46,19 +47,21 @@ The gods send sequential challenges to prove the player's faith. Completing all 
   * `HOLY_EXPANSION`: Receives fixed amount of territory slots
   * `GIFT_FROM_THE_HEAVENS`: Receive a fixed amount of resources
   * `CELESTIAL_PROSPERITY`: Improves general productivity
-* `WISDOM_OF_THE_GODS`: Increases knowledge productivity
+  * `RAPID_CONSTRUCTION`: Buildings constructed faster
+  * `FAVORABLE_WEATHER`: Winter becomes less harsh, with reduced wood consumption and higher-than-usual food production
+  * `WISDOM_OF_THE_GODS`: Increases knowledge productivity
 * `BLESSED_MARKETS`: No trading fees (only if it has market)
-* `DIVINE_PROTECTION`: No natural disasters
-* `FAVORABLE_WEATHER`: Winter becomes less harsh, with reduced wood consumption and higher-than-usual food production
-* `SANCTIFIED_HERO`: Gives a special military unit (only if it has military)
-* `TEMPORARY_PEACE`: No enemy raids (only if it has military)
+
+## Future blessings (not in initial implementation, but design for them now)
 * `CELESTIAL_FORTIFICATION`: Make buildings more resilient to attacks and disasters (only if it has military)
-* `RAPID_CONSTRUCTION`: Buildings constructed faster
+* `TEMPORARY_PEACE`: No enemy raids (only if it has military)
+* `SANCTIFIED_HERO`: Gives a special military unit (only if it has military)
+* `DIVINE_PROTECTION`: No natural disasters
 
 ## Punishment types
-* `CROP_FAILURE`: Reduces food productivity
-* `WILDFIRES`: Reduces wood productivity
-* `PLAGUE`: Reduces population
+  * `CROP_FAILURE`: Reduces food productivity
+  * `WILDFIRES`: Reduces wood productivity
+  * `PLAGUE`: Reduces population
 * `LANDSLIDE`: Destroys buildings and reduces population
 * `VOLCANO`: Reduces productivity, destroys buildings, and reduces population
 
