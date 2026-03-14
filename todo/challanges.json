@@ -36,8 +36,8 @@
       {
         "type": "GIFT_FROM_THE_HEAVENS",
         "resources": {
-          "food": 200,
-          "wood": 150
+          "food": 2000,
+          "wood": 1500
         }
       },
       {
@@ -108,7 +108,7 @@
     "delay": 45,
     "timeout": 600,
     "requirements": {
-      "monument": 2
+      "monument": 3
     },
     "blessings": [
       {
@@ -162,17 +162,18 @@
     "timeout": 600,
     "requirements": {
       "resources": {
-        "food": 500,
-        "wood": 300
+        "food": 3000,
+        "wood": 3000,
+        "copper": 1000
       },
-      "workers": 5
+      "workers": 20
     },
     "blessings": [
       {
         "type": "GIFT_FROM_THE_HEAVENS",
         "resources": {
-          "food": 200,
-          "wood": 150
+          "food": 5000,
+          "wood": 3000
         }
       },
       {
