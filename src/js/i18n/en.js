@@ -399,7 +399,6 @@ export const LOCALIZED_EN = {
 
   // Challenge system
   'challenge.title': 'Challenges',
-  'challenge.progress': '{0}/{1}',
   'challenge.timeRemaining': 'Time remaining',
   'challenge.requirements': 'Requirements',
   'challenge.reward': 'Reward',

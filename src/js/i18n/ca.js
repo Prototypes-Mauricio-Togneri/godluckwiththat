@@ -399,7 +399,6 @@ export const LOCALIZED_CA = {
 
   // Challenge system
   'challenge.title': 'Desafiaments',
-  'challenge.progress': '{0}/{1}',
   'challenge.timeRemaining': 'Temps restant',
   'challenge.requirements': 'Requisits',
   'challenge.reward': 'Recompensa',

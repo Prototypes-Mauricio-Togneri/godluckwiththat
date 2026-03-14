@@ -2,8 +2,8 @@
   {
     "index": 1,
     "name": "Trial of Devotion",
-    "delay": 240,
-    "timeout": 600,
+    "delay": 24,
+    "timeout": 300,
     "requirements": {
       "altar": 3
     },

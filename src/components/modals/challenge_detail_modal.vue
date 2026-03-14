@@ -78,19 +78,12 @@ onUnmounted(() => {
     @click.self="emit(EMIT_CLOSE)"
   >
     <div class="modal-content">
-      <h2 class="modal-title">{{ t('challenge.title') }}</h2>
+      <h2 class="modal-title">{{ hasActive ? t('challenge.name.' + challenge.index) : t('challenge.title') }}</h2>
       <span class="modal-rule" />
-
-      <!-- Progress indicator -->
-      <div class="challenge-progress">
-        {{ t('challenge.progress', ui.challenges.completedCount, ui.challenges.totalCount) }}
-      </div>
 
       <!-- Active challenge section -->
       <template v-if="hasActive">
         <div class="active-challenge">
-          <div class="challenge-name">{{ t('challenge.name.' + challenge.index) }}</div>
-
           <!-- Countdown timer -->
           <div v-if="challenge.isStarted" class="challenge-timer">
             <div class="timer-label">{{ t('challenge.timeRemaining') }}</div>
@@ -199,18 +192,12 @@ onUnmounted(() => {
   overflow-y: auto;
 }
 
-.modal-rule {
-  margin: 0.75rem 0 1rem;
+.modal-title {
+  text-align: center;
 }
 
-/* Overall progress (e.g. "3/10") */
-.challenge-progress {
-  font-family: var(--font-numeric);
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: rgba(var(--color-accent-rgb), 1);
-  letter-spacing: 0.05em;
-  margin-bottom: 1.25rem;
+.modal-rule {
+  margin: 0.75rem 0 1rem;
 }
 
 /* Active challenge block */
@@ -226,21 +213,10 @@ onUnmounted(() => {
   margin-bottom: 1rem;
 }
 
-.challenge-name {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--color-text);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  text-align: center;
-  margin-bottom: 0.75rem;
-}
-
 /* Timer section */
 .challenge-timer {
   text-align: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .timer-label {
