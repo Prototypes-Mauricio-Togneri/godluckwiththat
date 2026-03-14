@@ -34,7 +34,8 @@ The gods send sequential challenges to prove the player's faith. Completing all 
   - `punishment`: object of type `Punishment`
     - `type`: see punishment enum (e.g., resource loss, worker loss, event)
     - `timeout`: duration of the punishment effect (in seconds, can be null for instant effects)
-    - `resourceLossFraction`: fraction of stored bounded resources lost (e.g., 0.3 for 30% loss, can be null)
+    - `productivityLoss`: percentage decrease to productivity (e.g., 0.2 for 20% reduction, can be null)
+    - `resourceLoss`: fraction of stored bounded resources lost (e.g., 0.3 for 30% loss, can be null)
     - `workerLoss`: number of workers lost (can be null)
 
 ## Blessings types
