@@ -49,7 +49,7 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 * `CELESTIAL_PROSPERITY`: Improves general productivity
 * `RAPID_CONSTRUCTION`: Buildings constructed faster
 * `FAVORABLE_WEATHER`: Cold season becomes less harsh, warm season becomes more productive
-* `WISDOM_OF_THE_GODS`: Increases knowledge productivity
+* `WISDOM_OF_THE_GODS`: Increases knowledge productivity (only if it has academy)
 * `BLESSED_MARKETS`: No trading fees (only if it has market)
 
 ## Future blessings (not in initial implementation, but design for them now)
