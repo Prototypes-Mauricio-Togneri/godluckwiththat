@@ -3,7 +3,6 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Improve challenges
-  - Remove BLESSING_TYPE_FROM_JSON and PUNISHMENT_TYPE_FROM_JSON by using the same type for both
   - Add images on each blessing card
   - Play sound on success or failure
 

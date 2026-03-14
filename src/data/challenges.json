@@ -8,18 +8,18 @@
     },
     "blessings": [
       {
-        "type": "FERTILE_SOIL",
+        "type": "fertileSoil",
         "timeout": 120,
         "productivity": 0.3
       },
       {
-        "type": "FOREST_BLOOM",
+        "type": "forestBloom",
         "timeout": 120,
         "productivity": 0.3
       }
     ],
     "punishment": {
-      "type": "CROP_FAILURE",
+      "type": "cropFailure",
       "timeout": 120,
       "faith": 0.5,
       "productivity": 0.1,
@@ -35,19 +35,19 @@
     },
     "blessings": [
       {
-        "type": "GIFT_FROM_THE_HEAVENS",
+        "type": "giftFromTheHeavens",
         "resources": {
           "food": 2000,
           "wood": 1500
         }
       },
       {
-        "type": "HOLY_EXPANSION",
+        "type": "holyExpansion",
         "territory": 5
       }
     ],
     "punishment": {
-      "type": "WILDFIRES",
+      "type": "wildfires",
       "timeout": 120,
       "faith": 0.5,
       "productivity": 0.2,
@@ -63,18 +63,18 @@
     },
     "blessings": [
       {
-        "type": "RICH_MINES",
+        "type": "richMines",
         "timeout": 120,
         "productivity": 0.3
       },
       {
-        "type": "CELESTIAL_PROSPERITY",
+        "type": "celestialProsperity",
         "timeout": 60,
         "productivity": 0.1
       }
     ],
     "punishment": {
-      "type": "PLAGUE",
+      "type": "plague",
       "faith": 0.5,
       "resource": 0.3,
       "worker": 20
@@ -89,19 +89,19 @@
     },
     "blessings": [
       {
-        "type": "RAPID_CONSTRUCTION",
+        "type": "rapidConstruction",
         "timeout": 180,
         "construction": 0.5
       },
       {
-        "type": "FAVORABLE_WEATHER",
+        "type": "favorableWeather",
         "timeout": 300,
         "warm": 0.3,
         "cold": 0.3
       }
     ],
     "punishment": {
-      "type": "LANDSLIDE",
+      "type": "landslide",
       "timeout": 150,
       "faith": 0.5,
       "productivity": 0.3,
@@ -119,17 +119,17 @@
     },
     "blessings": [
       {
-        "type": "WISDOM_OF_THE_GODS",
+        "type": "wisdomOfTheGods",
         "timeout": 120,
         "productivity": 0.3
       },
       {
-        "type": "BLESSED_MARKETS",
+        "type": "blessedMarkets",
         "timeout": 120
       }
     ],
     "punishment": {
-      "type": "VOLCANO",
+      "type": "volcano",
       "timeout": 180,
       "faith": 0.5,
       "productivity": 0.3,
@@ -147,18 +147,18 @@
     },
     "blessings": [
       {
-        "type": "FERTILE_SOIL",
+        "type": "fertileSoil",
         "timeout": 120,
         "productivity": 0.3
       },
       {
-        "type": "FOREST_BLOOM",
+        "type": "forestBloom",
         "timeout": 120,
         "productivity": 0.3
       }
     ],
     "punishment": {
-      "type": "CROP_FAILURE",
+      "type": "cropFailure",
       "timeout": 180,
       "faith": 0.5,
       "productivity": 0.2,
@@ -179,19 +179,19 @@
     },
     "blessings": [
       {
-        "type": "GIFT_FROM_THE_HEAVENS",
+        "type": "giftFromTheHeavens",
         "resources": {
           "food": 5000,
           "wood": 3000
         }
       },
       {
-        "type": "HOLY_EXPANSION",
+        "type": "holyExpansion",
         "territory": 5
       }
     ],
     "punishment": {
-      "type": "WILDFIRES",
+      "type": "wildfires",
       "timeout": 180,
       "faith": 0.5,
       "productivity": 0.3,
@@ -214,18 +214,18 @@
     },
     "blessings": [
       {
-        "type": "RICH_MINES",
+        "type": "richMines",
         "timeout": 120,
         "productivity": 0.3
       },
       {
-        "type": "CELESTIAL_PROSPERITY",
+        "type": "celestialProsperity",
         "timeout": 60,
         "productivity": 0.1
       }
     ],
     "punishment": {
-      "type": "PLAGUE",
+      "type": "plague",
       "faith": 0.5,
       "resource": 0.4,
       "worker": 50
@@ -248,19 +248,19 @@
     },
     "blessings": [
       {
-        "type": "RAPID_CONSTRUCTION",
+        "type": "rapidConstruction",
         "timeout": 180,
         "construction": 0.5
       },
       {
-        "type": "FAVORABLE_WEATHER",
+        "type": "favorableWeather",
         "timeout": 300,
         "warm": 0.3,
         "cold": 0.3
       }
     ],
     "punishment": {
-      "type": "LANDSLIDE",
+      "type": "landslide",
       "timeout": 180,
       "faith": 0.5,
       "productivity": 0.4,
@@ -289,17 +289,17 @@
     },
     "blessings": [
       {
-        "type": "WISDOM_OF_THE_GODS",
+        "type": "wisdomOfTheGods",
         "timeout": 120,
         "productivity": 0.3
       },
       {
-        "type": "BLESSED_MARKETS",
+        "type": "blessedMarkets",
         "timeout": 120
       }
     ],
     "punishment": {
-      "type": "VOLCANO",
+      "type": "volcano",
       "timeout": 180,
       "faith": 0.5,
       "productivity": 0.5,

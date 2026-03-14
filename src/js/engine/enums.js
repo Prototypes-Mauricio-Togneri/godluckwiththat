@@ -248,25 +248,6 @@ export const CHALLENGE_8 = 'challenge8'
 export const CHALLENGE_9 = 'challenge9'
 export const CHALLENGE_10 = 'challenge10'
 
-// Blessing types
-export const BLESSING_FERTILE_SOIL = 'fertileSoil'
-export const BLESSING_FOREST_BLOOM = 'forestBloom'
-export const BLESSING_GIFT_FROM_THE_HEAVENS = 'giftFromTheHeavens'
-export const BLESSING_HOLY_EXPANSION = 'holyExpansion'
-export const BLESSING_RICH_MINES = 'richMines'
-export const BLESSING_CELESTIAL_PROSPERITY = 'celestialProsperity'
-export const BLESSING_RAPID_CONSTRUCTION = 'rapidConstruction'
-export const BLESSING_FAVORABLE_WEATHER = 'favorableWeather'
-export const BLESSING_WISDOM_OF_THE_GODS = 'wisdomOfTheGods'
-export const BLESSING_BLESSED_MARKETS = 'blessedMarkets'
-
-// Punishment types
-export const PUNISHMENT_CROP_FAILURE = 'cropFailure'
-export const PUNISHMENT_WILDFIRES = 'wildfires'
-export const PUNISHMENT_PLAGUE = 'plague'
-export const PUNISHMENT_LANDSLIDE = 'landslide'
-export const PUNISHMENT_VOLCANO = 'volcano'
-
 // Challenge modal states
 export const CHALLENGE_MODAL_REWARD = 'reward'
 export const CHALLENGE_MODAL_FAILURE = 'failure'
