@@ -77,7 +77,7 @@ More context in @docs/specs.md and @docs/architecture.md
 
 - **Sequential**: One challenge active at a time. Complete/fail → next one activates after a delay
 - **Timed**: Challenges have countdown timers
-- **Punishments**: Lose a fraction of stored resources, workers, building levels and 50% of stored faith
+- **Punishments**: Lose a fraction of stored resources, workers, building levels and a fraction of stored faith (defined per-punishment in `challenges.json`)
 - **Recover relic**: Skipped for now (military not implemented)
 - **Activation trigger**: First challenge activates immediately when the game starts
 - **Non-dismissable**: Challenge countdown events cannot be dismissed by the player
@@ -125,7 +125,7 @@ New `Punishment` class (`src/js/models/punishment.js`):
 - Methods: `toJSON()` / `fromJSON()`
 
 ### Step 3: Balancing (`src/js/engine/balancing.js`)
-- `CHALLENGE_FAITH_LOSS_FRACTION`: 0.5 (50% faith loss on every punishment)
+- No challenge-specific constants needed — faith loss fraction is defined per-punishment in `challenges.json` (`punishment.faith`)
 
 ### Step 4: Constants & Meta Update
 - `src/js/engine/constants.js`: Import challenge definitions from `src/data/challenges.json`, add `createInitialChallenges()` factory — builds a `Challenges` instance from the JSON data with all challenges set to `pending` status
@@ -141,7 +141,7 @@ New `Punishment` class (`src/js/models/punishment.js`):
 - `_deductRequirements()`: Deducts faith and resources from colony. Sacrifices workers via `_sacrificeWorkers(count)`
 - `_sacrificeWorkers(count)`: Removes workers — first from idle pool (decrements `resources.workers`), then for remaining: picks a random `Producer` building that has workers > 0, decrements its `workers` and `resources.workers`
 - `_failChallenge()`: Pauses game, shows failure modal. On acknowledgment: applies punishment via `_applyPunishment()`, resets challenge timers (delay and timeout back to 0, status back to `activated`)
-- `_applyPunishment(punishment)`: Removes `CHALLENGE_FAITH_LOSS_FRACTION` (50%) of stored faith. Removes `punishment.resources` fraction of each bounded resource. Kills `punishment.workers` workers via `_sacrificeWorkers()`. Downgrades `punishment.levels` random building levels (picks random building from `DOWNGRADABLE_BUILDINGS` with level > 1, decrements its level, returns excess workers to idle — skips remaining if no eligible buildings)
+- `_applyPunishment(punishment)`: Removes `punishment.faith` fraction of stored faith. Removes `punishment.resources` fraction of each bounded resource. Kills `punishment.workers` workers via `_sacrificeWorkers()`. Downgrades `punishment.levels` random building levels (picks random building from `DOWNGRADABLE_BUILDINGS` with level > 1, decrements its level, returns excess workers to idle — skips remaining if no eligible buildings)
 
 ### Step 6: Event Integration
 - Challenge activated → no event (player not informed during delay phase)
@@ -186,7 +186,7 @@ New `Punishment` class (`src/js/models/punishment.js`):
 ## Critical Files
 - `src/data/challenges.json` — challenge definitions (source data)
 - `src/js/engine/enums.js` — new enums (challenge status, keys, blessing/punishment types, event types)
-- `src/js/engine/balancing.js` — faith loss fraction
+- `src/js/engine/balancing.js` — (no challenge-specific constants; faith loss is per-punishment in `challenges.json`)
 - `src/js/engine/constants.js` — `createInitialChallenges()` factory
 - `src/js/models/challenges.js` — new `Challenges` container class (create)
 - `src/js/models/challenge.js` — new `Challenge` class (create)
