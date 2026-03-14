@@ -39,6 +39,7 @@ More context in @docs/specs.md and @docs/architecture.md
   - `punishment`: object of type `Punishment`
     - `type`: see punishment enum
     - `timeout`: duration of the punishment effect (in seconds, can be null for instant effects)
+    - `faith`: fraction of stored faith lost (e.g., 0.5 for 50% loss, always 0.5 for now)
     - `productivity`: percentage decrease to productivity (e.g., 0.2 for 20% reduction, can be null)
     - `resource`: fraction of stored bounded resources lost (e.g., 0.3 for 30% loss, can be null)
     - `worker`: number of workers lost (can be null)

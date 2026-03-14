@@ -22,6 +22,7 @@
     "punishment": {
       "type": "CROP_FAILURE",
       "timeout": 120,
+      "faith": 0.5,
       "productivity": 0.1,
       "resource": 0.2
     }
@@ -50,6 +51,7 @@
     "punishment": {
       "type": "WILDFIRES",
       "timeout": 120,
+      "faith": 0.5,
       "productivity": 0.2,
       "resource": 0.3
     }
@@ -76,6 +78,7 @@
     ],
     "punishment": {
       "type": "PLAGUE",
+      "faith": 0.5,
       "resource": 0.3,
       "worker": 20
     }
@@ -102,6 +105,7 @@
     "punishment": {
       "type": "LANDSLIDE",
       "timeout": 150,
+      "faith": 0.5,
       "productivity": 0.3,
       "resource": 0.3,
       "worker": 3,
@@ -130,6 +134,7 @@
     "punishment": {
       "type": "VOLCANO",
       "timeout": 180,
+      "faith": 0.5,
       "productivity": 0.3,
       "resource": 0.3,
       "worker": 5,
@@ -159,6 +164,7 @@
     "punishment": {
       "type": "CROP_FAILURE",
       "timeout": 180,
+      "faith": 0.5,
       "productivity": 0.2,
       "resource": 0.3
     }
@@ -192,6 +198,7 @@
     "punishment": {
       "type": "WILDFIRES",
       "timeout": 180,
+      "faith": 0.5,
       "productivity": 0.3,
       "resource": 0.4
     }
@@ -225,6 +232,7 @@
     ],
     "punishment": {
       "type": "PLAGUE",
+      "faith": 0.5,
       "resource": 0.4,
       "worker": 50
     }
@@ -259,6 +267,7 @@
     "punishment": {
       "type": "LANDSLIDE",
       "timeout": 180,
+      "faith": 0.5,
       "productivity": 0.4,
       "resource": 0.4,
       "worker": 75,
@@ -298,6 +307,7 @@
     "punishment": {
       "type": "VOLCANO",
       "timeout": 180,
+      "faith": 0.5,
       "productivity": 0.5,
       "resource": 0.5,
       "worker": 100,
