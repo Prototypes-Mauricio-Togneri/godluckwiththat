@@ -82,6 +82,7 @@
   },
   {
     "index": 4,
+    "name": "Pyre of Conviction",
     "delay": 60,
     "timeout": 600,
     "requirements": {
@@ -108,6 +109,7 @@
   },
   {
     "index": 5,
+    "name": "The Eternal Pillar",
     "delay": 45,
     "timeout": 600,
     "requirements": {
@@ -134,6 +136,7 @@
   },
   {
     "index": 6,
+    "name": "Rite of Absolution",
     "delay": 45,
     "timeout": 600,
     "requirements": {
@@ -195,6 +198,7 @@
   },
   {
     "index": 8,
+    "name": "The Sacred Convergence",
     "delay": 30,
     "timeout": 600,
     "requirements": {
@@ -229,6 +233,7 @@
   },
   {
     "index": 9,
+    "name": "Burden of the Chosen",
     "delay": 30,
     "timeout": 600,
     "requirements": {
