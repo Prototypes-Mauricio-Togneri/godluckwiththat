@@ -2,11 +2,26 @@
 
 ## Context
 
-The gods send sequential challenges to prove the player's faith. Completing all challenges is the win condition (portal activates, player goes home). Challenges consume faith and resources, creating tension between economic growth and divine demands. `meta.numberOfChallenges = 10` already exists as a placeholder.
+The gods send sequential challenges to prove the player's faith. Completing all challenges is the win condition (portal activates, player goes home). Challenges consume faith and resources, creating tension between economic growth and divine demands.
+
+## Data structure
+- Remove the existing field in Meta: `numberOfChallenges`
+- Add a new `challenges` property of type `Challenges` (new class) to Meta, which will contain:
+  - pending: array of objects of type `Challenge` (new class)
+  - active: object of type `Challenge` (or null if no active challenge)
+  - completed: array of objects of type `Challenge`
+
+- The `Challenge` class will have these properties:
+  - `key`: unique identifier (e.g., `CHALLENGE_1`)
+  - `delay`: time since it's active until the player is informed about it (in seconds)
+  - `delayElapsed`: time elapsed since it became active (in seconds)
+  - `timeout`: time limit to complete the challenge (in seconds)
+  - `timeoutElapsed`: time elapsed since activation (in seconds)
+  - `requirement`: specific to the challenge type (e.g., build level, faith amount, ritual cost)
 
 ## Design Decisions
 
-- **Sequential**: One challenge active at a time. Complete/fail → next one activates after a delay
+- **Sequential**: One challenge active at a time. Complete/fail → next one activates after a delay (it should be a configurable delay in seconds in the class Meta, e.g., `challengeActivationDelaySeconds`).
 - **Timed**: Build/accumulate challenges have countdown timers. Ritual challenges are submit-on-demand (no timer)
 - **Rewards (blessings)**: One-time resource grants scaling with difficulty. Some blessings have more probability to appear at the beginning. But less probability to appear in the next one.
 - **Punishments**: Lose resources AND workers (both). Fraction of stored bounded resources + some workers die
