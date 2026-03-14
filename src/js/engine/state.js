@@ -7,7 +7,7 @@ import storage from '@/js/engine/storage.js'
 import {BOUNDED_RESOURCES, BUILDING_CLASS_MAP, BUILDING_IMAGE_MAP, DOWNGRADABLE_BUILDINGS, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, TUTORIAL_STEPS} from '@/js/engine/constants.js'
 import Colony from '@/js/models/colony.js'
 import Meta from '@/js/models/meta.js'
-import {BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
+import {BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -57,7 +57,7 @@ class State {
     // Whether the game is paused (e.g. by a tutorial modal or challenge modal)
     this.paused = false
 
-    // Which challenge modal is showing: null, 'reward', 'failure', or 'win'
+    // Which challenge modal is showing: null, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_FAILURE, or CHALLENGE_MODAL_WIN
     this.challengeModal = null
   }
 
@@ -566,7 +566,7 @@ class State {
   _completeChallenge() {
     this._deductRequirements()
     this.paused = true
-    this.challengeModal = 'reward'
+    this.challengeModal = CHALLENGE_MODAL_REWARD
   }
 
   /**
@@ -575,7 +575,7 @@ class State {
    */
   _failChallenge() {
     this.paused = true
-    this.challengeModal = 'failure'
+    this.challengeModal = CHALLENGE_MODAL_FAILURE
   }
 
   /**
@@ -586,7 +586,7 @@ class State {
    */
   selectBlessing(blessingIndex) {
     const challenge = this.meta.challenges.active
-    if (!challenge || this.challengeModal !== 'reward') {
+    if (!challenge || this.challengeModal !== CHALLENGE_MODAL_REWARD) {
       return
     }
 
@@ -597,7 +597,7 @@ class State {
     this.colony.events.dismissFutureByType(EVENT_TYPE_CHALLENGE_STARTED)
 
     if (this.meta.challenges.allCompleted) {
-      this.challengeModal = 'win'
+      this.challengeModal = CHALLENGE_MODAL_WIN
     } else {
       this.challengeModal = null
       this.paused = false
@@ -611,7 +611,7 @@ class State {
    * Resets the challenge timers and unpauses the game.
    */
   acknowledgePunishment() {
-    if (!this.meta.challenges.active || this.challengeModal !== 'failure') {
+    if (!this.meta.challenges.active || this.challengeModal !== CHALLENGE_MODAL_FAILURE) {
       return
     }
 
@@ -629,7 +629,7 @@ class State {
    * Player action: continues playing after winning (all challenges completed).
    */
   continueAfterWin() {
-    if (this.challengeModal !== 'win') {
+    if (this.challengeModal !== CHALLENGE_MODAL_WIN) {
       return
     }
     this.challengeModal = null

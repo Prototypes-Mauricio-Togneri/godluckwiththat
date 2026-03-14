@@ -267,6 +267,11 @@ export const PUNISHMENT_PLAGUE = 'plague'
 export const PUNISHMENT_LANDSLIDE = 'landslide'
 export const PUNISHMENT_VOLCANO = 'volcano'
 
+// Challenge modal states
+export const CHALLENGE_MODAL_REWARD = 'reward'
+export const CHALLENGE_MODAL_FAILURE = 'failure'
+export const CHALLENGE_MODAL_WIN = 'win'
+
 // Challenge event types
 export const EVENT_TYPE_CHALLENGE_STARTED = 'challenge_started'
 
