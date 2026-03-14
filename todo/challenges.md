@@ -18,17 +18,18 @@ More context in @docs/specs.md and @docs/architecture.md
 - The `Challenge` class will have these properties:
   - `index`: challenge number (starting from 1)
   - `name`: challenge name (string)
-  - `delay`: time since it's active until the player is informed about it (in seconds)
-  - `delayElapsed`: time elapsed since it became active (in seconds)
-  - `timeout`: time limit to complete the challenge (in seconds)
-  - `timeoutElapsed`: time elapsed since activation (in seconds)
+  - `status`: challenge lifecycle state — one of `pending` (not yet activated), `activated` (delay counting, player not yet informed), `started` (player informed, timeout counting), `completed`
+  - `delay`: time from activation until the player is informed (in seconds)
+  - `delayElapsed`: time elapsed since activation (in seconds, counts while status is `activated`)
+  - `timeout`: time limit to complete the challenge once started (in seconds)
+  - `timeoutElapsed`: time elapsed since started (in seconds, counts while status is `started`)
   - `requirements`: object defining the challenge requirements
-    - `faith`: required faith amount (can be null)
-    - `altar`: required altar level (can be null)
-    - `temple`: required temple level (can be null)
-    - `monument`: required monument level (can be null)
-    - `resources`: object with resource type keys and required amounts (can be null)
-    - `workers`: required number of workers (can be null)
+    - `faith`: required faith amount — consumed on completion (can be null)
+    - `altar`: required altar level — checked only, not consumed (can be null)
+    - `temple`: required temple level — checked only, not consumed (can be null)
+    - `monument`: required monument level — checked only, not consumed (can be null)
+    - `resources`: object with resource type keys and required amounts — consumed on completion (can be null)
+    - `workers`: required number of workers — sacrificed on completion: first from idle pool, then randomly unassigned from producer buildings (buildings that can hold workers) (can be null)
   - `blessings`: array of objects of type `Blessing`
     - `type`: see blessing enum
     - `timeout`: duration of the blessing effect (in seconds, can be null for instant effects)
@@ -93,76 +94,111 @@ All defined in @todo/challenges.json
 ## Implementation Steps
 
 ### Step 1: Enums (`src/js/engine/enums.js`)
-- Challenge states: `CHALLENGE_STATE_LOCKED`, `_ACTIVE`, `_COMPLETED`, `_FAILED`
-- Challenge types: `CHALLENGE_TYPE_BUILD_ALTAR`, `_BUILD_TEMPLE`, `_BUILD_MONUMENT`, `_ACCUMULATE_FAITH`, `_RITUAL`, `_RECOVER_RELIC`
-- Challenge keys: `CHALLENGE_1` through `CHALLENGE_8`
-- Event types: `EVENT_TYPE_CHALLENGE_ACTIVE`, `_CHALLENGE_COMPLETED`, `_CHALLENGE_FAILED`
+- Challenge status: `CHALLENGE_STATUS_PENDING`, `_ACTIVATED`, `_STARTED`, `_COMPLETED`
+- Challenge keys: `CHALLENGE_1` through `CHALLENGE_10`
+- Blessing types: `BLESSING_FERTILE_SOIL`, `_FOREST_BLOOM`, `_GIFT_FROM_THE_HEAVENS`, `_HOLY_EXPANSION`, `_RICH_MINES`, `_CELESTIAL_PROSPERITY`, `_RAPID_CONSTRUCTION`, `_FAVORABLE_WEATHER`, `_WISDOM_OF_THE_GODS`, `_BLESSED_MARKETS`
+- Punishment types: `PUNISHMENT_CROP_FAILURE`, `_WILDFIRES`, `_PLAGUE`, `_LANDSLIDE`, `_VOLCANO`
+- Event types: `EVENT_TYPE_CHALLENGE_STARTED`, `_CHALLENGE_COMPLETED`, `_CHALLENGE_FAILED`
 
-### Step 2: Challenges Model (`src/js/models/challenges.js`)
-New `Challenges` class (lives on `meta`):
-- State: `currentIndex`, `states` map, `completedCount`, `activeRemainingSeconds`, `activeDurationSeconds`, `allCompleted`
-- Methods: `activate(duration)`, `complete()`, `fail()`, `advance(delta)`
-- Getters: `currentKey`, `currentState`, `isActive`, `progress`
+### Step 2: Models (`src/js/models/`)
+
+New `Challenges` class (`src/js/models/challenges.js`, lives on `meta`):
+- Properties: `pending` (array of `Challenge`), `active` (`Challenge` or null), `completed` (array of `Challenge`), `activeBlessings` (array of `Blessing`), `activePunishments` (array of `Punishment`)
+- Getters: `completedCount`, `totalCount`, `allCompleted`, `progress` (e.g. "3/10")
+- Methods: `activate()` (moves first pending to active, sets status to `activated`), `start()` (sets active status to `started`), `complete(blessing)` (moves active to completed, adds blessing to `activeBlessings`), `fail(punishment)` (resets active timers to 0, sets status back to `activated`, adds punishment to `activePunishments`), `advance(delta)` (ticks delay/timeout on active challenge based on status)
 - Serialization: `toJSON()` / `fromJSON()`
 
+New `Challenge` class (`src/js/models/challenge.js`):
+- Properties: `index`, `name`, `status`, `delay`, `delayElapsed`, `timeout`, `timeoutElapsed`, `requirements`, `blessings` (array of `Blessing`), `punishment` (`Punishment`)
+- Methods: `reset()` (resets `delayElapsed` and `timeoutElapsed` to 0, sets status back to `activated`), `toJSON()` / `fromJSON()`
+
+New `Blessing` class (`src/js/models/blessing.js`):
+- Properties: `type`, `timeout`, `productivity`, `resources`, `territory`, `construction`
+- Methods: `toJSON()` / `fromJSON()`
+
+New `Punishment` class (`src/js/models/punishment.js`):
+- Properties: `type`, `timeout`, `faith`, `productivity`, `resource`, `worker`, `levels`
+- Methods: `toJSON()` / `fromJSON()`
+
 ### Step 3: Balancing (`src/js/engine/balancing.js`)
-- `CHALLENGE_DEFINITIONS`: Array of 8 challenge configs (key, type, target, timeLimit, reward Cost, punishment, workerCost)
-- `CHALLENGE_ACTIVATION_DELAY`: Seconds between challenge completion/failure and next activation
-- `CHALLENGE_PUNISHMENT_RESOURCE_FRACTION`: 0.3 (30% resource loss)
-- `CHALLENGE_PUNISHMENT_WORKER_LOSS`: Base worker loss per failure (e.g., 2-3, scaling)
+- `CHALLENGE_DEFINITIONS`: Array of 10 challenge definitions (matching the structure in `@todo/challenges.json`), each with index, name, delay, timeout, requirements, blessings, punishment
+- `CHALLENGE_FAITH_LOSS_FRACTION`: 0.5 (50% faith loss on every punishment)
 
 ### Step 4: Constants & Meta Update
-- `src/js/engine/constants.js`: Import challenge definitions, add `createInitialChallenges()` factory
-- `src/js/models/meta.js`: Add `challenges` property, update `toJSON`/`fromJSON`
+- `src/js/engine/constants.js`: Import challenge definitions, add `createInitialChallenges()` factory — builds a `Challenges` instance from `CHALLENGE_DEFINITIONS` with all challenges set to `pending` status
+- `src/js/models/meta.js`: Replace `numberOfChallenges` with `challenges` property (type `Challenges`), update `toJSON`/`fromJSON`
 
 ### Step 5: State Logic (`src/js/engine/state.js`)
-- `checkChallenges()`: Called in gameTick. Auto-activates next challenge at game start (or after delay), checks passive completion conditions (build level, faith amount)
-- `advanceChallenges(delta)`: Called in progressTick. Decrements timer, handles expiry → fail
-- `submitRitual()`: Player action for ritual-type challenges. Deducts resources + workers
-- `_applyReward(reward)`: Adds resources to colony
-- `_applyPunishment(punishment)`: Removes fraction of bounded resources + kills workers
+- `advanceChallenges(delta)`: Called in `progressTick`. Two-phase timer:
+  1. While status is `activated`: increments `delayElapsed`. When `delayElapsed >= delay`, transitions to `started`, fires a non-dismissable future event with timeout countdown
+  2. While status is `started`: increments `timeoutElapsed`. When `timeoutElapsed >= timeout`, triggers challenge resolution via `_resolveChallengeTimeout()`
+- `_resolveChallengeTimeout()`: Checks if all requirements are met via `_checkRequirements()`. If met → `_completeChallenge()`. If not → `_failChallenge()`
+- `_checkRequirements()`: Returns boolean — checks building levels (altar, temple, monument) exist at required level, faith >= required, each resource >= required amount, workers >= required count
+- `_completeChallenge()`: Deducts requirements via `_deductRequirements()`, pauses game, shows completion modal with blessing choices. On blessing selection: adds blessing to `activeBlessings` (tracked only — game loop effects not implemented yet). If more pending challenges exist, activates next. If none remain, shows win modal
+- `_deductRequirements()`: Deducts faith and resources from colony. Sacrifices workers via `_sacrificeWorkers(count)`
+- `_sacrificeWorkers(count)`: Removes workers — first from idle pool (decrements `resources.workers`), then for remaining: picks a random producer building from `DOWNGRADABLE_BUILDINGS` that has workers > 0, decrements its `workers` and `resources.workers`
+- `_failChallenge()`: Pauses game, shows failure modal. On acknowledgment: applies punishment via `_applyPunishment()`, resets challenge timers (delay and timeout back to 0, status back to `activated`)
+- `_applyPunishment(punishment)`: Removes `CHALLENGE_FAITH_LOSS_FRACTION` (50%) of stored faith. Removes `punishment.resource` fraction of each bounded resource. Kills `punishment.worker` workers via `_sacrificeWorkers()`. Downgrades `punishment.levels` random building levels (picks random building from `DOWNGRADABLE_BUILDINGS` with level > 1, decrements its level, returns excess workers to idle — skips remaining if no eligible buildings). Adds punishment to `activePunishments`
 
 ### Step 6: Event Integration
-- Challenge activated → `addFuture` with countdown (non-dismissable)
-- Challenge completed → convert to `addPast` success event
-- Challenge failed → convert to `addPast` failure event
-- Add `dismissable` flag to Event base class (default `true`, challenges set `false`)
+- Challenge activated → no event (player not informed during delay phase)
+- Challenge started (delay expired) → `addFuture` with timeout countdown (non-dismissable)
+- Challenge completed → convert future to `addPast` success event
+- Challenge failed → convert future to `addPast` failure event. After reset, a new future event fires when the delay expires again
+- Add `dismissable` flag to `Event` base class (default `true`, challenge events set `false`)
 
 ### Step 7: UI - Header Indicator (`game_screen.vue`)
-- Challenge progress display in header (e.g., "3/8")
+- Challenge progress display in header (e.g., "3/10")
 - Clickable to open challenge modal
 - Add `syncChallenges()` to sync pattern
 
 ### Step 8: UI - Challenge Modal (`src/components/modals/challenge_modal.vue`)
-- Current challenge: name, description, objective, timer, progress bar
-- Ritual submit button with cost display (reuse `.action-row` pattern)
-- Challenge history: completed/failed list with status icons
-- Overall progress: X/8
+- Active challenge: name, requirements checklist (check/cross icons for met/unmet), countdown timer, progress bar
+- Challenge history: completed list with chosen blessing icons
+- Overall progress: X/10
 
-### Step 9: Localization (`src/js/i18n/*.js`)
-- Challenge system keys: title, states, objective templates, event messages
-- Per-challenge names and descriptions (8 challenges × 5 locales)
+### Step 9: UI - Challenge Reward Modal (`src/components/modals/challenge_reward_modal.vue`)
+- Shows the blessing choices from the completed challenge
+- Player must pick one — modal cannot be dismissed without choosing
+- Game is paused while open
 
-### Step 10: Win Screen
+### Step 10: UI - Challenge Failure Modal (`src/components/modals/challenge_failure_modal.vue`)
+- Shows punishment details that will be applied
+- Single "Acknowledge" button — modal cannot be dismissed otherwise
+- Game is paused while open
+
+### Step 11: Localization (`src/js/i18n/*.js`)
+- Challenge system keys: title, status labels, requirement templates, event messages
+- Per-challenge names and descriptions (10 challenges × 5 locales)
+- Blessing and punishment type names (10 blessings + 5 punishments × 5 locales)
+
+### Step 12: Win Screen
 - Simple modal when `allCompleted = true` announcing the portal activates
 
 ## Critical Files
-- `src/js/engine/enums.js` — new enums
-- `src/js/engine/balancing.js` — challenge definitions & values
-- `src/js/engine/constants.js` — factory function
-- `src/js/models/challenges.js` — new model (create)
-- `src/js/models/meta.js` — add challenges property
-- `src/js/engine/state.js` — game loop integration, player actions
-- `src/js/models/events/event.js` — add dismissable flag
+- `src/js/engine/enums.js` — new enums (challenge status, keys, blessing/punishment types, event types)
+- `src/js/engine/balancing.js` — challenge definitions & faith loss fraction
+- `src/js/engine/constants.js` — `createInitialChallenges()` factory
+- `src/js/models/challenges.js` — new `Challenges` container class (create)
+- `src/js/models/challenge.js` — new `Challenge` class (create)
+- `src/js/models/blessing.js` — new `Blessing` class (create)
+- `src/js/models/punishment.js` — new `Punishment` class (create)
+- `src/js/models/meta.js` — replace `numberOfChallenges` with `challenges` property
+- `src/js/engine/state.js` — game loop integration, challenge resolution, player actions
+- `src/js/models/events/event.js` — add `dismissable` flag
 - `src/components/screens/game_screen.vue` — header indicator, sync, modal wiring
 - `src/components/modals/challenge_modal.vue` — new modal (create)
+- `src/components/modals/challenge_reward_modal.vue` — new modal (create)
+- `src/components/modals/challenge_failure_modal.vue` — new modal (create)
 - `src/js/i18n/en.js` (+ es, fr, ca, it) — localization keys
 
 ## Verification
-1. Start new game → first challenge activates immediately
-2. Build altar to level 3 → challenge 1 completes, reward granted, past event appears
-3. Let a timed challenge expire → punishment applied (resources + workers lost), failure event, next challenge activates
-4. Submit a ritual → resources + workers deducted, challenge completes
-5. Complete all 8 → win modal appears
-6. Save mid-challenge → load → timer persists correctly
-7. Run `npm run lint -- --fix` → no errors
+1. Start new game → first challenge activates immediately (status: `activated`, delay counting)
+2. Wait for delay to expire → future event appears (non-dismissable), status transitions to `started`, timeout counting
+3. Build altar to level 3 before timeout → challenge completes, reward modal shows blessing choices, past event appears
+4. Choose a blessing → blessing added to `activeBlessings`, next challenge activates
+5. Let a challenge timeout expire without meeting requirements → failure modal shows, punishment applied (resources + workers + faith + building levels lost), challenge resets
+6. Fail the same challenge again → punishment stacks (accumulates in `activePunishments`)
+7. Complete all 10 → win modal appears
+8. Save mid-challenge → load → both delay and timeout timers persist correctly, `activeBlessings` and `activePunishments` persist
+9. Run `npm run lint -- --fix` → no errors
