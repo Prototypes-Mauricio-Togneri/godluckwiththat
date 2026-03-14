@@ -48,12 +48,12 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 * `RICH_MINES`: Increases minerals productivity (only if it has mines)
 * `CELESTIAL_PROSPERITY`: Improves general productivity
 * `RAPID_CONSTRUCTION`: Buildings constructed faster
-* `FAVORABLE_WEATHER`: Winter becomes less harsh, with reduced wood consumption and higher-than-usual food production
+* `FAVORABLE_WEATHER`: Cold season becomes less harsh, warm season becomes more productive
 * `WISDOM_OF_THE_GODS`: Increases knowledge productivity
 * `BLESSED_MARKETS`: No trading fees (only if it has market)
 
 ## Future blessings (not in initial implementation, but design for them now)
-* `CELESTIAL_FORTIFICATION`: Make buildings more resilient to attacks and disasters (only if it has military)
+* `CELESTIAL_FORTIFICATION`: Buildings more resilient to attacks and disasters (only if it has military)
 * `TEMPORARY_PEACE`: No enemy raids (only if it has military)
 * `SANCTIFIED_HERO`: Gives a special military unit (only if it has military)
 * `DIVINE_PROTECTION`: No natural disasters
