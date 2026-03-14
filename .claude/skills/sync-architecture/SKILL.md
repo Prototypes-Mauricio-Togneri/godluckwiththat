@@ -1,4 +1,5 @@
 ---
+name: sync-architecture
 description: Synchronize architecture.md and specs.md with the current codebase implementation.
 ---
 

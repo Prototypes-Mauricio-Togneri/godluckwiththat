@@ -1,4 +1,5 @@
 ---
+name: audit-performance
 description: Audit for performance bottlenecks, memory leaks, and CPU/GPU waste.
 ---
 

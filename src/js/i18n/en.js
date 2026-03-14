@@ -401,7 +401,6 @@ export const LOCALIZED_EN = {
   'challenge.title': 'Challenges',
   'challenge.timeRemaining': 'Time remaining',
   'challenge.requirements': 'Requirements',
-  'challenge.reward': 'Reward',
   'challenge.noneActive': 'No active challenge',
 
   // Challenge requirement labels

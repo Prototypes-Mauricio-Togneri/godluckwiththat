@@ -1,4 +1,5 @@
 ---
+name: audit-localization
 description: Audit all locale files in `src/js/i18n/` against the English reference (`en.js`).
 ---
 

@@ -1,4 +1,5 @@
 ---
+name: audit-platform
 description: Audit for cross-platform and cross-browser compatibility issues.
 ---
 

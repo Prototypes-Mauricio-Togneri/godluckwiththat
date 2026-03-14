@@ -401,7 +401,6 @@ export const LOCALIZED_ES = {
   'challenge.title': 'Desafíos',
   'challenge.timeRemaining': 'Tiempo restante',
   'challenge.requirements': 'Requisitos',
-  'challenge.reward': 'Recompensa',
   'challenge.noneActive': 'Sin desafío activo',
   'challenge.requirement.faith': '{0} Fe',
   'challenge.requirement.altar': 'Altar nivel {0}',
