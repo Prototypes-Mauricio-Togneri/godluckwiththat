@@ -12,12 +12,17 @@ The gods send sequential challenges to prove the player's faith. Completing all 
   - completed: array of objects of type `Challenge`
 
 - The `Challenge` class will have these properties:
-  - `key`: unique identifier (e.g., `CHALLENGE_1`)
+  - `index`: challenge number (starting from 1)
   - `delay`: time since it's active until the player is informed about it (in seconds)
   - `delayElapsed`: time elapsed since it became active (in seconds)
   - `timeout`: time limit to complete the challenge (in seconds)
   - `timeoutElapsed`: time elapsed since activation (in seconds)
-  - `requirement`: specific to the challenge type (e.g., build level, faith amount, ritual cost)
+  - `requirements`: object defining the challenge requirements
+    - `faith`: required faith amount (can be null)
+    - `altar`: required altar level (can be null)
+    - `temple`: required temple level (can be null)
+    - `monument`: required monument level (can be null)
+    - `resources`: object with resource type keys and required amounts (can be null)
 
 ## Design Decisions
 
