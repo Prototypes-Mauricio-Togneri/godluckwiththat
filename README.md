@@ -3,10 +3,6 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Implement challenges
-  - See next challenge
-  - Resolve a challenge
-  - Show punishment (see Spreadsheet)
-  - Choose blessing (see Spreadsheet)
 
 - Create military
   - Open military window
