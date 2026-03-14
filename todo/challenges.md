@@ -79,7 +79,7 @@ More context in @docs/specs.md and @docs/architecture.md
 - **Non-dismissable**: Challenge countdown events cannot be dismissed by the player
 
 ## Challenge Definitions
-All defined in @todo/challanges.json
+All defined in @todo/challenges.json
 
 ## How it works
 1. When the game starts, the first challenge in the list of pending is activated immediately (and it's removed from the pending array).
