@@ -33,30 +33,22 @@
   },
   {
     "index": 2,
-    "delay": 30,
+    "delay": 60,
     "timeout": 900,
     "requirements": {
-      "faith": 500,
-      "altar": null,
-      "temple": null,
-      "monument": null,
-      "resources": null,
-      "workers": null
+      "faith": 500
     },
     "blessings": [
       {
         "type": "GIFT_FROM_THE_HEAVENS",
-        "timeout": null,
-        "resources": { "food": 200, "wood": 150 },
-        "territory": null,
-        "productivity": null
+        "resources": {
+          "food": 200,
+          "wood": 150
+        }
       },
       {
         "type": "HOLY_EXPANSION",
-        "timeout": null,
-        "resources": null,
-        "territory": 2,
-        "productivity": null
+        "territory": 2
       }
     ],
     "punishment": {
@@ -72,27 +64,17 @@
     "delay": 45,
     "timeout": 720,
     "requirements": {
-      "faith": null,
-      "altar": null,
-      "temple": 2,
-      "monument": null,
-      "resources": null,
-      "workers": null
+      "temple": 2
     },
     "blessings": [
       {
         "type": "CELESTIAL_PROSPERITY",
         "timeout": 240,
-        "resources": null,
-        "territory": null,
         "productivity": 0.15
       },
       {
         "type": "DIVINE_PROTECTION",
-        "timeout": 300,
-        "resources": null,
-        "territory": null,
-        "productivity": null
+        "timeout": 300
       }
     ],
     "punishment": {
@@ -108,27 +90,16 @@
     "delay": 60,
     "timeout": 900,
     "requirements": {
-      "faith": 1000,
-      "altar": null,
-      "temple": null,
-      "monument": null,
-      "resources": null,
-      "workers": null
+      "faith": 1000
     },
     "blessings": [
       {
         "type": "FAVORABLE_WEATHER",
-        "timeout": 300,
-        "resources": null,
-        "territory": null,
-        "productivity": null
+        "timeout": 300
       },
       {
         "type": "BLESSED_MARKETS",
-        "timeout": 300,
-        "resources": null,
-        "territory": null,
-        "productivity": null
+        "timeout": 300
       }
     ],
     "punishment": {
@@ -144,33 +115,20 @@
     "delay": 60,
     "timeout": 900,
     "requirements": {
-      "faith": null,
-      "altar": null,
-      "temple": null,
-      "monument": 2,
-      "resources": null,
-      "workers": null
+      "monument": 2
     },
     "blessings": [
       {
         "type": "RAPID_CONSTRUCTION",
-        "timeout": 300,
-        "resources": null,
-        "territory": null,
-        "productivity": null
+        "timeout": 300
       },
       {
         "type": "HOLY_EXPANSION",
-        "timeout": null,
-        "resources": null,
-        "territory": 3,
-        "productivity": null
+        "territory": 3
       }
     ],
     "punishment": {
       "type": "LANDSLIDE",
-      "timeout": null,
-      "productivity": null,
       "resource": 0.3,
       "worker": 5
     }
@@ -180,27 +138,21 @@
     "delay": 90,
     "timeout": 1200,
     "requirements": {
-      "faith": 2000,
-      "altar": null,
-      "temple": null,
-      "monument": null,
-      "resources": null,
-      "workers": null
+      "faith": 2000
     },
     "blessings": [
       {
         "type": "CELESTIAL_PROSPERITY",
         "timeout": 360,
-        "resources": null,
-        "territory": null,
         "productivity": 0.25
       },
       {
         "type": "GIFT_FROM_THE_HEAVENS",
-        "timeout": null,
-        "resources": { "food": 500, "wood": 400, "minerals": 200 },
-        "territory": null,
-        "productivity": null
+        "resources": {
+          "food": 500,
+          "wood": 400,
+          "minerals": 200
+        }
       }
     ],
     "punishment": {
@@ -216,34 +168,25 @@
     "delay": 90,
     "timeout": 1800,
     "requirements": {
-      "faith": null,
-      "altar": null,
-      "temple": null,
-      "monument": null,
-      "resources": { "food": 500, "wood": 300 },
+      "resources": {
+        "food": 500,
+        "wood": 300
+      },
       "workers": 5
     },
     "blessings": [
       {
         "type": "DIVINE_PROTECTION",
-        "timeout": 600,
-        "resources": null,
-        "territory": null,
-        "productivity": null
+        "timeout": 600
       },
       {
         "type": "CELESTIAL_PROSPERITY",
         "timeout": 600,
-        "resources": null,
-        "territory": null,
         "productivity": 0.3
       },
       {
         "type": "FAVORABLE_WEATHER",
-        "timeout": 600,
-        "resources": null,
-        "territory": null,
-        "productivity": null
+        "timeout": 600
       }
     ],
     "punishment": {
