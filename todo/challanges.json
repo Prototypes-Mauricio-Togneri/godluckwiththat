@@ -193,7 +193,16 @@
     "index": 8,
     "delay": 30,
     "timeout": 600,
-    "requirements": {},
+    "requirements": {
+      "faith": 3000,
+      "altar": 20,
+      "temple": 10,
+      "resources": {
+        "food": 5000,
+        "wood": 5000,
+        "copper": 2000
+      }
+    },
     "blessings": [
       {
         "type": "RICH_MINES",
@@ -218,7 +227,17 @@
     "index": 9,
     "delay": 30,
     "timeout": 600,
-    "requirements": {},
+    "requirements": {
+      "faith": 5000,
+      "monument": 5,
+      "resources": {
+        "food": 7000,
+        "wood": 5000,
+        "copper": 3000,
+        "iron": 1000
+      },
+      "workers": 50
+    },
     "blessings": [
       {
         "type": "RAPID_CONSTRUCTION",
@@ -242,7 +261,20 @@
     "index": 10,
     "delay": 30,
     "timeout": 600,
-    "requirements": {},
+    "requirements": {
+      "faith": 10000,
+      "altar": 50,
+      "temple": 20,
+      "monument": 10,
+      "resources": {
+        "food": 10000,
+        "wood": 8000,
+        "copper": 5000,
+        "iron": 3000,
+        "gold": 1000
+      },
+      "workers": 100
+    },
     "blessings": [
       {
         "type": "WISDOM_OF_THE_GODS",
