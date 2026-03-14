@@ -28,10 +28,10 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 ## Design Decisions
 
 - **Sequential**: One challenge active at a time. Complete/fail → next one activates after a delay
-- **Timed**: Build/accumulate challenges have countdown timers. Ritual challenges are submit-on-demand (no timer)
+- **Timed**: Challenges have countdown timers
 - **Rewards (blessings)**: One-time resource grants scaling with difficulty. Some blessings have more probability to appear at the beginning. But less probability to appear in the next one.
 - **Punishments**: Lose resources AND workers (both). Fraction of stored bounded resources + some workers die
-- **Recover relic**: Skipped for now (military not implemented). Define fewer challenges; add relic type later
+- **Recover relic**: Skipped for now (military not implemented)
 - **Activation trigger**: First challenge activates immediately when the game starts
 - **Non-dismissable**: Challenge countdown events cannot be dismissed by the player
 
@@ -45,7 +45,7 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 - **4. Accumulate Faith** — 1000 faith, 15 min
 - **5. Build Monument** — Level 2, 15 min
 - **6. Accumulate Faith** — 2000 faith, 20 min
-- **7. Ritual** — 500 food, 300 wood, 5 workers, no timer
+- **7. Ritual** — 500 food, 300 wood, 5 workers, 30 min
 
 Punishment for failure: lose 30% of all stored bounded resources + 3 workers die (scales with challenge #).
 
