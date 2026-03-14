@@ -10,6 +10,7 @@ The gods send sequential challenges to prove the player's faith. Completing all 
   - pending: array of objects of type `Challenge` (new class)
   - active: object of type `Challenge` (or null if no active challenge)
   - completed: array of objects of type `Challenge`
+  - activeBlessings: array of objects of type `Blessing` (see below)
 
 - The `Challenge` class will have these properties:
   - `index`: challenge number (starting from 1)
@@ -24,7 +25,7 @@ The gods send sequential challenges to prove the player's faith. Completing all 
     - `monument`: required monument level (can be null)
     - `resources`: object with resource type keys and required amounts (can be null)
     - `workers`: required number of workers (can be null)
-  - `blessings`: object of type `Blessing`
+  - `blessings`: array of objects of type `Blessing`
     - `type`: see blessing enum
     - `timeout`: duration of the blessing effect (in seconds, can be null for instant effects)
     - `resources`: amount of resources granted (can be null)
@@ -39,17 +40,17 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 ## Blessings types
 * `FERTILE_SOIL`: Increases food productivity
 * `FOREST_BLOOM`: Increases wood productivity
-* `RICH_MINES`: Increases minerals productivity
+* `RICH_MINES`: Increases minerals productivity (only if it has mines)
 * `WISDOM_OF_THE_GODS`: Increases knowledge productivity
 * `GIFT_FROM_THE_HEAVENS`: Receive a fixed amount of resources
 * `HOLY_EXPANSION`: Receives fixed amount of territory slots
 * `CELESTIAL_PROSPERITY`: Improves general productivity
-* `BLESSED_MARKETS`: No trading fees
+* `BLESSED_MARKETS`: No trading fees (only if it has market)
 * `DIVINE_PROTECTION`: No natural disasters
 * `FAVORABLE_WEATHER`: Winter becomes less harsh, with reduced wood consumption and higher-than-usual food production
-* `SANCTIFIED_HERO`: Gives a special military unit
-* `TEMPORARY_PEACE`: No enemy raids
-* `CELESTIAL_FORTIFICATION`: Make buildings more resilient to attacks and disasters
+* `SANCTIFIED_HERO`: Gives a special military unit (only if it has military)
+* `TEMPORARY_PEACE`: No enemy raids (only if it has military)
+* `CELESTIAL_FORTIFICATION`: Make buildings more resilient to attacks and disasters (only if it has military)
 * `RAPID_CONSTRUCTION`: Buildings constructed faster
 
 ## Punishment types
@@ -73,7 +74,7 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 
 - **1. Build Altar**
   - Level 3, 10 min
-  - Blessings: [Fertile soil, Forest bloom, Rich mines]
+  - Blessings: [FERTILE_SOIL, FOREST_BLOOM, RICH_MINES]
   - Punishment: lose 30% of all stored bounded resources + 3 workers die + CROP_FAILURE event for next 2 minutes
 - **2. Accumulate Faith** — 500 faith, 15 min
 - **3. Build Temple** — Level 2, 12 min
