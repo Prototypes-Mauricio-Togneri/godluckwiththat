@@ -24,6 +24,33 @@ The gods send sequential challenges to prove the player's faith. Completing all 
     - `monument`: required monument level (can be null)
     - `resources`: object with resource type keys and required amounts (can be null)
     - `workers`: required number of workers (can be null)
+  - `blessings`: object of type `Blessing`
+    - `type`: see blessing enum
+    - `timeout`: duration of the blessing effect (in seconds, can be null for instant effects)
+    - `resources`: amount of resources granted (can be null)
+    - `territory`: number of territory slots granted (can be null)
+    - `productivity`: percentage increase to productivity (e.g., 0.2 for 20% boost, can be null)
+  - `punishment`: object of type `Punishment`
+    - `type`: see punishment enum (e.g., resource loss, worker loss, event)
+    - `timeout`: duration of the punishment effect (in seconds, can be null for instant effects)
+    - `resourceLossFraction`: fraction of stored bounded resources lost (e.g., 0.3 for 30% loss, can be null)
+    - `workerLoss`: number of workers lost (can be null)
+
+## Blessings types
+* `FERTILE_SOIL`: Increases food productivity
+* `FOREST_BLOOM`: Increases wood productivity
+* `RICH_MINES`: Increases minerals productivity
+* `WISDOM_OF_THE_GODS`: Increases knowledge productivity
+* `GIFT_FROM_THE_HEAVENS`: Receive a fixed amount of resources
+* `HOLY_EXPANSION`: Receives fixed amount of territory slots
+* `CELESTIAL_PROSPERITY`: Improves general productivity
+* `BLESSED_MARKETS`: No trading fees
+* `DIVINE_PROTECTION`: No natural disasters
+* `FAVORABLE_WEATHER`: Winter becomes less harsh, with reduced wood consumption and higher-than-usual food production
+* `SANCTIFIED_HERO`: Gives a special military unit
+* `TEMPORARY_PEACE`: No enemy raids
+* `CELESTIAL_FORTIFICATION`: Make buildings more resilient to attacks and disasters
+* `RAPID_CONSTRUCTION`: Buildings constructed faster
 
 ## Design Decisions
 
@@ -39,8 +66,8 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 
 - **1. Build Altar**
   - Level 3, 10 min
-  - Rewards: 
-  - Punishment: lose 30% of all stored bounded resources + 3 workers die
+  - Blessings: [Fertile soil, Forest bloom, Rich mines]
+  - Punishment: lose 30% of all stored bounded resources + 3 workers die + CROP_FAILURE event for next 2 minutes
 - **2. Accumulate Faith** — 500 faith, 15 min
 - **3. Build Temple** — Level 2, 12 min
 - **4. Accumulate Faith** — 1000 faith, 15 min
