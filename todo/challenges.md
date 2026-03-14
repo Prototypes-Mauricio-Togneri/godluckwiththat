@@ -9,11 +9,11 @@ More context in @docs/specs.md and @docs/architecture.md
 ## Data structure
 - Remove the existing field in Meta: `numberOfChallenges`
 - Add a new `challenges` property of type `Challenges` (new class) to Meta, which will contain:
-  - pending: array of objects of type `Challenge` (new class)
-  - active: object of type `Challenge` (or null if no active challenge)
-  - completed: array of objects of type `Challenge`
-  - activeBlessings: array of objects of type `Blessing` (see below)
-  - activePunishments: array of objects of type `Punishment` (see below)
+  - `pending`: array of objects of type `Challenge` (new class)
+  - `active`: object of type `Challenge` (or null if no active challenge)
+  - `completed`: array of objects of type `Challenge`
+  - `activeBlessings`: array of objects of type `Blessing` (see below)
+  - `activePunishments`: array of objects of type `Punishment` (see below)
 
 - The `Challenge` class will have these properties:
   - `index`: challenge number (starting from 1)
@@ -42,6 +42,7 @@ More context in @docs/specs.md and @docs/architecture.md
     - `productivity`: percentage decrease to productivity (e.g., 0.2 for 20% reduction, can be null)
     - `resource`: fraction of stored bounded resources lost (e.g., 0.3 for 30% loss, can be null)
     - `worker`: number of workers lost (can be null)
+    - `levels`: number of building levels lost. For each number, a building is chosen at random and we remove one level from it (it's like a building downgrade). Only buildings that that have the level bigger than 1 can be selected. Only buildings from the `DOWNGRADABLE_BUILDINGS` list can be selected. If no more buildings cab be selected to downgrade, we skip the remaining number from this property.
 
 ## Blessings types
 * `FERTILE_SOIL`: Increases food productivity
@@ -72,7 +73,6 @@ More context in @docs/specs.md and @docs/architecture.md
 
 - **Sequential**: One challenge active at a time. Complete/fail → next one activates after a delay
 - **Timed**: Challenges have countdown timers
-- **Blessings**: One-time resource grants scaling with difficulty. Some blessings have more probability to appear at the beginning. But less probability to appear in the next one.
 - **Punishments**: Lose a fraction of stored resources, workers, building levels and 50% of stored faith
 - **Recover relic**: Skipped for now (military not implemented)
 - **Activation trigger**: First challenge activates immediately when the game starts
@@ -86,8 +86,8 @@ All defined in @todo/challenges.json
 2. Once a challange is activated, the `delayElapsed` property starts counting up in the game loop. When it reaches the `delay`, the future event is triggered, and the player is notified about the active challenge. This event cannot be dismissed by the player. But it can be clicked to open the challenge modal and see the details of the active challenge.
 3. Once the challenge is active, the `timeoutElapsed` property starts counting up in the game loop. The player must meet the requirements before `timeoutElapsed` reaches `timeout`.
 4. Once the time limit is reached, it triggers the challenge calculation.
-5. If the player meets the requirements, the challenge is moved to the `completed` array, and the requirements are deducted from the colony (e.g., faith, resources, workers). After that, a new modal is shown to the player, showing the available rewards from completing the challenge. While this modal is open, the game is paused. The modal cannot be dismissed by clicking outside or with a close button. The player has to choose one of the available blessings as a reward. Once the player chooses a blessing, the reward is applied to the colony. If more challenges are available in the pending array, go to step 1. If no more challenges are available, the win modal is shown, announcing that the portal is activated and the player goes home.
-6. If the player does not meet the requirements, a new modal is shown explaining what punishment will be applied to the colony. While this modal is open, the game is paused. This modal cannot be dismissed by clicking outside. It only has a button to acknowledge the punishment and continue. Once the player acknowledges, the punishment is applied to the colony (e.g., lose resources, workers, building levels, and 50% of stored faith). After that, the challenge is reset (delay and timeout timers are reset to 0), but kept as the active challenge.
+5. If the player meets the requirements, the challenge is moved to the `completed` array, and the requirements are deducted from the colony (e.g., faith, resources, workers). After that, a new modal is shown to the player, showing the available rewards from completing the challenge. While this modal is open, the game is paused. The modal cannot be dismissed by clicking outside or with a close button. The player has to choose one of the available blessings as a reward. Once the player chooses a blessing, the blessing is added to the field `activeBlessings`. If more challenges are available in the pending array, go to step 1. If no more challenges are available, the win modal is shown, announcing that the portal is activated and the player goes home.
+6. If the player does not meet the requirements, a new modal is shown explaining what punishment will be applied to the colony. While this modal is open, the game is paused. This modal cannot be dismissed by clicking outside. It only has a button to acknowledge the punishment and continue. Once the player acknowledges, the punishment is applied to the colony (e.g., lose resources, workers, building levels, and 50% of stored faith). This punishment is added to the field `activePunishments`. After that, the challenge is reset (delay and timeout timers are reset to 0), but kept as the active challenge.
 
 ## Implementation Steps
 

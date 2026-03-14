@@ -104,7 +104,8 @@
       "timeout": 150,
       "productivity": 0.3,
       "resource": 0.3,
-      "worker": 3
+      "worker": 3,
+      "levels": 5
     }
   },
   {
@@ -131,7 +132,8 @@
       "timeout": 180,
       "productivity": 0.3,
       "resource": 0.3,
-      "worker": 5
+      "worker": 5,
+      "levels": 10
     }
   },
   {
@@ -155,11 +157,10 @@
       }
     ],
     "punishment": {
-      "type": "VOLCANO",
-      "timeout": 120,
-      "productivity": 0.35,
-      "resource": 0.4,
-      "worker": 5
+      "type": "CROP_FAILURE",
+      "timeout": 180,
+      "productivity": 0.2,
+      "resource": 0.3
     }
   },
   {
@@ -189,11 +190,10 @@
       }
     ],
     "punishment": {
-      "type": "VOLCANO",
+      "type": "WILDFIRES",
       "timeout": 180,
-      "productivity": 0.4,
-      "resource": 0.5,
-      "worker": 7
+      "productivity": 0.3,
+      "resource": 0.4
     }
   },
   {
@@ -224,11 +224,9 @@
       }
     ],
     "punishment": {
-      "type": "VOLCANO",
-      "timeout": 180,
-      "productivity": 0.4,
-      "resource": 0.5,
-      "worker": 7
+      "type": "PLAGUE",
+      "resource": 0.4,
+      "worker": 50
     }
   },
   {
@@ -259,11 +257,12 @@
       }
     ],
     "punishment": {
-      "type": "VOLCANO",
+      "type": "LANDSLIDE",
       "timeout": 180,
       "productivity": 0.4,
-      "resource": 0.5,
-      "worker": 7
+      "resource": 0.4,
+      "worker": 75,
+      "levels": 20
     }
   },
   {
@@ -299,9 +298,10 @@
     "punishment": {
       "type": "VOLCANO",
       "timeout": 180,
-      "productivity": 0.4,
+      "productivity": 0.5,
       "resource": 0.5,
-      "worker": 7
+      "worker": 100,
+      "levels": 30
     }
   }
 ]
