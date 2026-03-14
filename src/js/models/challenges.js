@@ -25,12 +25,6 @@ class Challenges {
     this.activeBlessings = data.activeBlessings // Blessings earned from completions
     this.activePunishments = data.activePunishments // Punishments from failures
   }
-
-  /** @returns {number} Number of completed challenges */
-  get completedCount() {
-    return this.completed.length
-  }
-
   /** @returns {number} Total number of challenges across all states */
   get totalCount() {
     return this.pending.length + (this.active ? 1 : 0) + this.completed.length
@@ -39,11 +33,6 @@ class Challenges {
   /** @returns {boolean} Whether all challenges have been completed */
   get allCompleted() {
     return this.pending.length === 0 && this.active === null
-  }
-
-  /** @returns {string} Progress display string (e.g. "3/10") */
-  get progress() {
-    return `${this.completedCount}/${this.totalCount}`
   }
 
   /**
