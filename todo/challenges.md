@@ -59,9 +59,9 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 * `DIVINE_PROTECTION`: No natural disasters
 
 ## Punishment types
-  * `CROP_FAILURE`: Reduces food productivity
-  * `WILDFIRES`: Reduces wood productivity
-  * `PLAGUE`: Reduces population
+* `CROP_FAILURE`: Reduces food productivity
+* `WILDFIRES`: Reduces wood productivity
+* `PLAGUE`: Reduces population
 * `LANDSLIDE`: Destroys buildings and reduces population
 * `VOLCANO`: Reduces productivity, destroys buildings, and reduces population
 

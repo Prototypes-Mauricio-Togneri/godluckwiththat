@@ -16,13 +16,6 @@
         "type": "FOREST_BLOOM",
         "timeout": 120,
         "productivity": 0.3
-      },
-      {
-        "type": "GIFT_FROM_THE_HEAVENS",
-        "resources": {
-          "food": 200,
-          "wood": 150
-        }
       }
     ],
     "punishment": {
@@ -41,18 +34,15 @@
     },
     "blessings": [
       {
+        "type": "GIFT_FROM_THE_HEAVENS",
+        "resources": {
+          "food": 200,
+          "wood": 150
+        }
+      },
+      {
         "type": "HOLY_EXPANSION",
         "territory": 5
-      },
-      {
-        "type": "RICH_MINES",
-        "timeout": 120,
-        "productivity": 0.3
-      },
-      {
-        "type": "CELESTIAL_PROSPERITY",
-        "timeout": 60,
-        "productivity": 0.1
       }
     ],
     "punishment": {
@@ -71,18 +61,14 @@
     },
     "blessings": [
       {
-        "type": "RAPID_CONSTRUCTION",
-        "timeout": 180,
-        "construction": 0.5
-      },
-      {
-        "type": "FAVORABLE_WEATHER",
-        "timeout": 300
-      },
-      {
-        "type": "FERTILE_SOIL",
+        "type": "RICH_MINES",
         "timeout": 120,
-        "productivity": 0.2
+        "productivity": 0.3
+      },
+      {
+        "type": "CELESTIAL_PROSPERITY",
+        "timeout": 60,
+        "productivity": 0.1
       }
     ],
     "punishment": {
@@ -100,8 +86,13 @@
     },
     "blessings": [
       {
-        "type": "WISDOM_OF_THE_GODS",
-        "timeout": 180
+        "type": "RAPID_CONSTRUCTION",
+        "timeout": 180,
+        "construction": 0.5
+      },
+      {
+        "type": "FAVORABLE_WEATHER",
+        "timeout": 300
       }
     ],
     "punishment": {
@@ -121,16 +112,19 @@
     },
     "blessings": [
       {
-        "type": "RAPID_CONSTRUCTION",
-        "timeout": 300
+        "type": "FERTILE_SOIL",
+        "timeout": 120,
+        "productivity": 0.2
       },
       {
-        "type": "HOLY_EXPANSION",
-        "territory": 3
+        "type": "WISDOM_OF_THE_GODS",
+        "timeout": 180
       }
     ],
     "punishment": {
-      "type": "LANDSLIDE",
+      "type": "VOLCANO",
+      "timeout": 180,
+      "productivity": 0.3,
       "resource": 0.3,
       "worker": 5
     }
