@@ -46,7 +46,7 @@ More context in @docs/specs.md and @docs/architecture.md
     - `productivity`: percentage decrease to productivity (e.g., 0.2 for 20% reduction, can be null)
     - `resources`: fraction of stored bounded resources lost (e.g., 0.3 for 30% loss, can be null)
     - `workers`: number of workers lost (can be null)
-    - `levels`: number of building levels lost. For each number, a building is chosen at random and we remove one level from it (it's like a building downgrade). Only buildings that that have the level bigger than 1 can be selected. Only buildings from the `DOWNGRADABLE_BUILDINGS` list can be selected. If no more buildings cab be selected to downgrade, we skip the remaining number from this property.
+    - `levels`: number of building levels lost. For each number, a building is chosen at random and we remove one level from it (it's like a building downgrade). A building can be selected if it is from the `DOWNGRADABLE_BUILDINGS` list AND meets one of these conditions: (a) its level is greater than 1, or (b) its level is 1 and it is currently under construction (in this case, the construction is interrupted — the pending level increment is lost and the building is effectively destroyed). Excess workers above the new capacity are returned to idle. If no eligible buildings remain, the remaining downgrades from this property are skipped.
 
 ## Blessings types
 * `FERTILE_SOIL`: Increases food productivity
@@ -145,10 +145,11 @@ New `Punishment` class (`src/js/models/punishment.js`):
 
 ### Step 6: Event Integration
 - Challenge activated → no event (player not informed during delay phase)
-- Challenge started (delay expired) → `addFuture` with timeout countdown (non-dismissable)
+- Challenge started (delay expired) → `addFuture` with timeout countdown (non-dismissable, clickable — opens challenge modal)
 - Challenge completed → convert future to `addPast` success event
 - Challenge failed → convert future to `addPast` failure event. After reset, a new future event fires when the delay expires again
 - Add `dismissable` flag to `Event` base class (default `true`, challenge events set `false`)
+- Add `action` field to `Event` base class (default `null`). Challenge future events set this to a callback/identifier that opens the challenge modal when the event row is clicked
 
 ### Step 7: UI - Header Indicator (`game_screen.vue`)
 - Challenge progress display in header (e.g., "3/10")
@@ -156,6 +157,7 @@ New `Punishment` class (`src/js/models/punishment.js`):
 - Add `syncChallenges()` to sync pattern
 
 ### Step 8: UI - Challenge Modal (`src/components/modals/challenge_modal.vue`)
+- Opened by: clicking the challenge future event in the events column, or clicking the header challenge progress indicator
 - Active challenge: name, requirements checklist (check/cross icons for met/unmet), countdown timer, progress bar
 - Challenge history: completed list with chosen blessing icons
 - Overall progress: X/10
@@ -176,7 +178,10 @@ New `Punishment` class (`src/js/models/punishment.js`):
 - Blessing and punishment type names (10 blessings + 5 punishments × 5 locales)
 
 ### Step 12: Win Screen
-- Simple modal when `allCompleted = true` announcing the portal activates
+- Modal shown when `allCompleted = true` announcing the portal is activated and the player can go home
+- Two buttons:
+  - **Continue** — closes the modal, the player can keep playing freely (no more challenges)
+  - **Quit** — redirects the player to the home screen
 
 ## Critical Files
 - `src/data/challenges.json` — challenge definitions (source data)
@@ -189,7 +194,7 @@ New `Punishment` class (`src/js/models/punishment.js`):
 - `src/js/models/punishment.js` — new `Punishment` class (create)
 - `src/js/models/meta.js` — replace `numberOfChallenges` with `challenges` property
 - `src/js/engine/state.js` — game loop integration, challenge resolution, player actions
-- `src/js/models/events/event.js` — add `dismissable` flag
+- `src/js/models/events/event.js` — add `dismissable` flag and `action` field
 - `src/components/screens/game_screen.vue` — header indicator, sync, modal wiring
 - `src/components/modals/challenge_modal.vue` — new modal (create)
 - `src/components/modals/challenge_reward_modal.vue` — new modal (create)
