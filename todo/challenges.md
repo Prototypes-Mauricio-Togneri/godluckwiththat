@@ -52,6 +52,13 @@ The gods send sequential challenges to prove the player's faith. Completing all 
 * `CELESTIAL_FORTIFICATION`: Make buildings more resilient to attacks and disasters
 * `RAPID_CONSTRUCTION`: Buildings constructed faster
 
+## Punishment types
+* `CROP_FAILURE`: Reduces food productivity
+* `WILDFIRES`: Reduces wood productivity
+* `PLAGUE`: Reduces population
+* `LANDSLIDE`: Destroys buildings and reduces population
+* `VOLCANO`: Reduces productivity, destroys buildings, and reduces population
+
 ## Design Decisions
 
 - **Sequential**: One challenge active at a time. Complete/fail → next one activates after a delay
