@@ -80,7 +80,7 @@ More context in @docs/specs.md and @docs/architecture.md
 - **Punishments**: Lose a fraction of stored resources, workers, building levels and a fraction of stored faith (defined per-punishment in `challenges.json`)
 - **Recover relic**: Skipped for now (military not implemented)
 - **Activation trigger**: First challenge activates immediately when the game starts
-- **Non-dismissable**: Challenge countdown events cannot be dismissed by the player
+- **Non-dismissable**: Challenge countdown events are future events, which cannot be dismissed by the player
 
 ## Challenge Definitions
 All defined in `src/data/challenges.json`
@@ -148,7 +148,6 @@ New `Punishment` class (`src/js/models/punishment.js`):
 - Challenge started (delay expired) → `addFuture` with timeout countdown (non-dismissable, clickable — opens challenge modal)
 - Challenge completed → convert future to `addPast` success event
 - Challenge failed → convert future to `addPast` failure event. After reset, a new future event fires when the delay expires again
-- Add `dismissable` flag to `Event` base class (default `true`, challenge events set `false`)
 - Add `action` field to `Event` base class (default `null`). Challenge future events set this to a callback/identifier that opens the challenge modal when the event row is clicked
 
 ### Step 7: UI - Header Indicator (`game_screen.vue`)
@@ -194,7 +193,7 @@ New `Punishment` class (`src/js/models/punishment.js`):
 - `src/js/models/punishment.js` — new `Punishment` class (create)
 - `src/js/models/meta.js` — replace `numberOfChallenges` with `challenges` property
 - `src/js/engine/state.js` — game loop integration, challenge resolution, player actions
-- `src/js/models/events/event.js` — add `dismissable` flag and `action` field
+- `src/js/models/events/event.js` — add `action` field
 - `src/components/screens/game_screen.vue` — header indicator, sync, modal wiring
 - `src/components/modals/challenge_modal.vue` — new modal (create)
 - `src/components/modals/challenge_reward_modal.vue` — new modal (create)
