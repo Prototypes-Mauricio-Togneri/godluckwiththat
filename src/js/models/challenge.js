@@ -1,4 +1,4 @@
-import {CHALLENGE_STATUS_ACTIVATED} from '@/js/engine/enums.js'
+import {CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_STARTED} from '@/js/engine/enums.js'
 import Blessing from '@/js/models/blessing.js'
 import Punishment from '@/js/models/punishment.js'
 
@@ -42,6 +42,15 @@ class Challenge {
   get isDelayElapsed() {
     return this.status === CHALLENGE_STATUS_ACTIVATED
       && this.delayElapsed >= this.delay
+  }
+
+  /**
+   * Whether the challenge timeout has fully elapsed and is ready for resolution.
+   * @returns {boolean}
+   */
+  get isTimeoutElapsed() {
+    return this.status === CHALLENGE_STATUS_STARTED
+      && this.timeoutElapsed >= this.timeout
   }
 
   reset() {
