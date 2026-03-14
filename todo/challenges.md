@@ -132,7 +132,7 @@ New `Punishment` class (`src/js/models/punishment.js`):
 - `src/js/models/meta.js`: Replace `numberOfChallenges` with `challenges` property (type `Challenges`), update `toJSON`/`fromJSON`
 
 ### Step 5: State Logic (`src/js/engine/state.js`)
-- `advanceChallenges(delta)`: Called in `progressTick`. Two-phase timer:
+- `advanceChallenges(delta)`: Called in `progressTick`. First checks if there is no active challenge and pending challenges remain — if so, calls `activate()` to move the first pending challenge to active. Then runs the two-phase timer:
   1. While status is `activated`: increments `delayElapsed`. When `delayElapsed >= delay`, transitions to `started`, fires a non-dismissable future event with timeout countdown
   2. While status is `started`: increments `timeoutElapsed`. When `timeoutElapsed >= timeout`, triggers challenge resolution via `_resolveChallengeTimeout()`
 - `_resolveChallengeTimeout()`: Checks if all requirements are met via `_checkRequirements()`. If met → `_completeChallenge()`. If not → `_failChallenge()`
