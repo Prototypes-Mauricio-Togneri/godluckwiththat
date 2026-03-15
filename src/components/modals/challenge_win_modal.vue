@@ -1,5 +1,6 @@
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue'
+import {IMG_OTHER_PORTAL} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -36,13 +37,15 @@ onUnmounted(() => {
       <h2 class="modal-title modal-title--win">{{ t('challenge.win.title') }}</h2>
       <span class="modal-rule modal-rule--win" />
 
+      <img class="portal-img" :src="IMG_OTHER_PORTAL" alt="">
+
       <p class="modal-description">{{ t('challenge.win.description') }}</p>
 
       <div class="modal-actions">
         <button class="btn-gold modal-btn" @click="playTap(); emit('continue')">
           {{ t('challenge.win.continue') }}
         </button>
-        <button class="btn-gold modal-btn modal-btn--quit" @click="playTap(); emit('quit')">
+        <button class="btn-gold modal-btn" @click="playTap(); emit('quit')">
           {{ t('challenge.win.quit') }}
         </button>
       </div>
@@ -73,6 +76,15 @@ onUnmounted(() => {
   );
 }
 
+.portal-img {
+  width: 100%;
+  max-width: 400px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(var(--color-accent-rgb), 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
 .modal-description {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -92,20 +104,4 @@ onUnmounted(() => {
   cursor: pointer;
 }
 
-/* Quit — subdued style */
-.modal-btn--quit {
-  border-color: rgba(var(--color-accent-rgb), 0.12);
-  color: rgba(var(--color-text-rgb), 0.45);
-  background: linear-gradient(
-    180deg,
-    rgba(var(--color-accent-rgb), 0.03),
-    rgba(var(--color-accent-rgb), 0.01)
-  );
-}
-
-.modal-btn--quit:hover {
-  color: var(--color-text);
-  border-color: rgba(var(--color-accent-rgb), 0.35);
-  box-shadow: 0 0 20px rgba(var(--color-accent-rgb), 0.08);
-}
 </style>
