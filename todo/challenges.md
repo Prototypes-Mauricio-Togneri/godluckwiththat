@@ -7,7 +7,6 @@ The core narrative driver that ties everything together. The gods test the colon
 More context in @docs/specs.md and @docs/architecture.md
 
 ## Data structure
-- Remove the existing field in Meta: `numberOfChallenges`
 - Add a new `challenges` property of type `Challenges` (new class) to Meta, which will contain:
   - `pending`: array of objects of type `Challenge` (new class)
   - `active`: object of type `Challenge` (or null if no active challenge)
@@ -17,7 +16,6 @@ More context in @docs/specs.md and @docs/architecture.md
 
 - The `Challenge` class will have these properties:
   - `index`: challenge number (starting from 1)
-  - `name`: challenge name (string)
   - `status`: challenge lifecycle state — one of `pending` (not yet activated), `activated` (delay counting, player not yet informed), `started` (player informed, timeout counting), `completed`
   - `delay`: time from activation until the player is informed (in seconds)
   - `delayElapsed`: time elapsed since activation (in seconds, counts while status is `activated`)
@@ -43,7 +41,10 @@ More context in @docs/specs.md and @docs/architecture.md
     - `type`: see punishment enum
     - `timeout`: duration of the punishment effect (in seconds, can be null for instant effects)
     - `faith`: fraction of stored faith lost (e.g., 0.5 for 50% loss, always 0.5 for now)
-    - `productivity`: percentage decrease to productivity (e.g., 0.2 for 20% reduction, can be null)
+    - `productivityFarm`: fraction decrease to farm productivity (e.g., 0.2 for 20% reduction, can be null)
+    - `productivityWoodcutter`: fraction decrease to woodcutter productivity (can be null)
+    - `productivityMines`: fraction decrease to mining productivity — quarry + all mines (can be null)
+    - `productivityGeneral`: fraction decrease to general productivity — all producers (can be null)
     - `resources`: fraction of stored bounded resources lost (e.g., 0.3 for 30% loss, can be null)
     - `workers`: number of workers lost (can be null)
     - `levels`: number of building levels lost. For each number, a building is chosen at random and we remove one level from it (it's like a building downgrade). A building can be selected if it is from the `DOWNGRADABLE_BUILDINGS` list AND meets one of these conditions: (a) its level is greater than 1, or (b) its level is 1 and it is currently under construction (in this case, the construction is interrupted — the pending level increment is lost and the building is effectively destroyed). Excess workers above the new capacity are returned to idle. If no eligible buildings remain, the remaining downgrades from this property are skipped.
