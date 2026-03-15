@@ -85,82 +85,23 @@ class State {
     const storageBonus = bonuses[BONUS_STORAGE_CAPACITY] ?? 0
     const storageCap = buildings.storehouse.storageCap(storageBonus)
 
-    // Zero out all production rates — they are recomputed from scratch each
-    // tick so that changes (worker reassignment, building destruction, research
-    // completion) take effect immediately without stale carryover
-    production.food = 0
-    production.wood = 0
-    production.stone = 0
-    production.copper = 0
-    production.iron = 0
-    production.gold = 0
-    production.faith = 0
-    production.knowledge = 0
-
-    // Compute per-second production rates for every production building.
-    // Two formulas depending on building type:
-    //   Passive (e.g. altar): level × baseRate × resourceBonus
-    //   Worker-based (e.g. farm): workers × baseRate × resourceBonus × workerBonus
-    // workerMult: global productivity bonus from Transportation research (+5%/tier)
-    // resMult: per-resource bonus from research (e.g. Food Production, Mining)
-    const workerMult = 1 + (bonuses[BONUS_WORKER_PRODUCTIVITY] ?? 0)
-    for (const [
-      buildingKey,
-      config,
-    ] of Object.entries(PRODUCTION_RATES)) {
-      const building = buildings[buildingKey]
-      if (building.level > 0) {
-        const bonusType = PRODUCTION_BONUS_MAP[buildingKey]
-        const resMult = 1 + (bonusType ? (bonuses[bonusType] ?? 0) : 0)
-        if (config.passive) {
-          production[config.resource] += building.level * config.rate * resMult
-        } else if (building.workers > 0) {
-          production[config.resource] += building.workers * config.rate * resMult * workerMult
-        }
-      }
-    }
-
-    // ── Ongoing blessing modifiers ────────────────────────────────────
-    // Productivity blessings (before season modifiers so seasons stack on top)
-    const blessings = this.meta.challenges.activeBlessings
-    for (const blessing of blessings) {
-      if (blessing.type === BLESSING_FERTILE_SOIL && blessing.productivity) {
-        production.food *= 1 + blessing.productivity
-      } else if (blessing.type === BLESSING_FOREST_BLOOM && blessing.productivity) {
-        production.wood *= 1 + blessing.productivity
-      } else if (blessing.type === BLESSING_RICH_MINES && blessing.productivity) {
-        production.stone *= 1 + blessing.productivity
-        production.copper *= 1 + blessing.productivity
-        production.iron *= 1 + blessing.productivity
-        production.gold *= 1 + blessing.productivity
-      } else if (blessing.type === BLESSING_WISDOM_OF_THE_GODS && blessing.productivity) {
-        production.knowledge *= 1 + blessing.productivity
-      } else if (blessing.type === BLESSING_CELESTIAL_PROSPERITY && blessing.productivity) {
-        production.food *= 1 + blessing.productivity
-        production.wood *= 1 + blessing.productivity
-        production.stone *= 1 + blessing.productivity
-        production.copper *= 1 + blessing.productivity
-        production.iron *= 1 + blessing.productivity
-        production.gold *= 1 + blessing.productivity
-        production.faith *= 1 + blessing.productivity
-        production.knowledge *= 1 + blessing.productivity
-      }
-    }
-
     // BLESSED_MARKETS: override trade fee to 0% while active
+    const blessings = this.meta.challenges.activeBlessings
     buildings.market.blessedMarkets = blessings.some(blessing => blessing.type === BLESSING_BLESSED_MARKETS)
 
-    // Seasonal modifiers: food production and wood consumption.
-    // FAVORABLE_WEATHER blessing amplifies warm and softens cold modifiers.
-    let foodSeasonMod = this.colony.season.isWarm ? SEASON_WARM_FOOD_MODIFIER : SEASON_COLD_FOOD_MODIFIER
-    let woodSeasonMod = this.colony.season.isWarm ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
-    const favorableWeather = blessings.find(blessing => blessing.type === BLESSING_FAVORABLE_WEATHER)
-    if (favorableWeather) {
-      const seasonMult = this.colony.season.isWarm ? 1 + favorableWeather.warm : 1 - favorableWeather.cold
-      foodSeasonMod *= seasonMult
-      woodSeasonMod *= seasonMult
-    }
-    production.food *= 1 + foodSeasonMod
+    // Seasonal multipliers for food production and wood consumption
+    const seasonMultipliers = this._computeSeasonMultipliers(blessings)
+
+    // Compute production rates from buildings, blessings, and season modifiers
+    const productionRates = this._computeProductionRates(bonuses, blessings, seasonMultipliers)
+    production.food = productionRates.food
+    production.wood = productionRates.wood
+    production.stone = productionRates.stone
+    production.copper = productionRates.copper
+    production.iron = productionRates.iron
+    production.gold = productionRates.gold
+    production.faith = productionRates.faith
+    production.knowledge = productionRates.knowledge
 
     // Productivity ratio: starts at 1 (100%) and is reduced when food or wood
     // has negative net production (from previous tick). The reduction is
@@ -212,7 +153,7 @@ class State {
     const effWoodCons = WORKER_WOOD_CONSUMPTION * (1 - (bonuses[BONUS_WOOD_CONSUMPTION] ?? 0))
     if (resources.workers > 0) {
       consumption.food = resources.workers * effFoodCons
-      consumption.wood = resources.workers * effWoodCons * (1 + woodSeasonMod)
+      consumption.wood = resources.workers * effWoodCons * seasonMultipliers.wood
     } else {
       consumption.food = 0
       consumption.wood = 0
@@ -305,6 +246,107 @@ class State {
       this._hadIdleWorkers = false
       this.colony.events.dismissPastByType(EVENT_TYPE_IDLE_WORKERS)
     }
+  }
+
+  /**
+   * Computes seasonal multipliers for food production and wood consumption.
+   * FAVORABLE_WEATHER blessing amplifies warm and softens cold modifiers.
+   *
+   * @param {Array} blessings - Active blessings from meta.challenges
+   * @returns {{ food: number, wood: number }}
+   */
+  _computeSeasonMultipliers(blessings) {
+    let foodModifier = this.colony.season.isWarm ? SEASON_WARM_FOOD_MODIFIER : SEASON_COLD_FOOD_MODIFIER
+    let woodModifier = this.colony.season.isWarm ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
+    const favorableWeather = blessings.find(blessing => blessing.type === BLESSING_FAVORABLE_WEATHER)
+    if (favorableWeather) {
+      const seasonMultiplier = this.colony.season.isWarm ? 1 + favorableWeather.warm : 1 - favorableWeather.cold
+      foodModifier *= seasonMultiplier
+      woodModifier *= seasonMultiplier
+    }
+    return {
+      food: 1 + foodModifier,
+      wood: 1 + woodModifier,
+    }
+  }
+
+  /**
+   * Computes per-second production rates from building state, research bonuses,
+   * active blessings, and seasonal modifiers. Returns final rates before
+   * shortage modifiers.
+   *
+   * Two formulas depending on building type:
+   *   Passive (e.g. altar): level × baseRate × resourceBonus
+   *   Worker-based (e.g. farm): workers × baseRate × resourceBonus × workerBonus
+   *
+   * @param {Object} bonuses - Research bonus map from academy.completedBonuses()
+   * @param {Array} blessings - Active blessings from meta.challenges
+   * @param {{ food: number, wood: number }} seasonMultipliers - Seasonal multipliers from _computeSeasonMultipliers
+   * @returns {{ food: number, wood: number, stone: number, copper: number, iron: number, gold: number, faith: number, knowledge: number }}
+   */
+  _computeProductionRates(bonuses, blessings, seasonMultipliers) {
+    const {
+      buildings,
+    } = this.colony
+    const rates = {
+      food: 0,
+      wood: 0,
+      stone: 0,
+      copper: 0,
+      iron: 0,
+      gold: 0,
+      faith: 0,
+      knowledge: 0,
+    }
+
+    // workerMultiplier: global productivity bonus from Transportation research (+5%/tier)
+    // resourceMultiplier: per-resource bonus from research (e.g. Food Production, Mining)
+    const workerMultiplier = 1 + (bonuses[BONUS_WORKER_PRODUCTIVITY] ?? 0)
+    for (const [
+      buildingKey,
+      config,
+    ] of Object.entries(PRODUCTION_RATES)) {
+      const building = buildings[buildingKey]
+      if (building.level > 0) {
+        const bonusType = PRODUCTION_BONUS_MAP[buildingKey]
+        const resourceMultiplier = 1 + (bonusType ? (bonuses[bonusType] ?? 0) : 0)
+        if (config.passive) {
+          rates[config.resource] += building.level * config.rate * resourceMultiplier
+        } else if (building.workers > 0) {
+          rates[config.resource] += building.workers * config.rate * resourceMultiplier * workerMultiplier
+        }
+      }
+    }
+
+    // Productivity blessings (before season modifiers so seasons stack on top)
+    for (const blessing of blessings) {
+      if (blessing.type === BLESSING_FERTILE_SOIL && blessing.productivity) {
+        rates.food *= 1 + blessing.productivity
+      } else if (blessing.type === BLESSING_FOREST_BLOOM && blessing.productivity) {
+        rates.wood *= 1 + blessing.productivity
+      } else if (blessing.type === BLESSING_RICH_MINES && blessing.productivity) {
+        rates.stone *= 1 + blessing.productivity
+        rates.copper *= 1 + blessing.productivity
+        rates.iron *= 1 + blessing.productivity
+        rates.gold *= 1 + blessing.productivity
+      } else if (blessing.type === BLESSING_WISDOM_OF_THE_GODS && blessing.productivity) {
+        rates.knowledge *= 1 + blessing.productivity
+      } else if (blessing.type === BLESSING_CELESTIAL_PROSPERITY && blessing.productivity) {
+        rates.food *= 1 + blessing.productivity
+        rates.wood *= 1 + blessing.productivity
+        rates.stone *= 1 + blessing.productivity
+        rates.copper *= 1 + blessing.productivity
+        rates.iron *= 1 + blessing.productivity
+        rates.gold *= 1 + blessing.productivity
+        rates.faith *= 1 + blessing.productivity
+        rates.knowledge *= 1 + blessing.productivity
+      }
+    }
+
+    // Season modifier on food production (stacks on top of blessings)
+    rates.food *= seasonMultipliers.food
+
+    return rates
   }
 
   /**
