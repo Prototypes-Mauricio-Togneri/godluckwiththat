@@ -289,6 +289,25 @@ class State {
    * count, research bonuses, and seasonal modifiers. Returns final rates
    * after all reductions are applied.
    *
+   * Food formula:  workerCount × 0.1 × max(0, 1 − foodBonus)
+   * Wood formula:  workerCount × 0.1 × max(0, 1 − woodBonus − (1 − seasonMultipliers.wood))
+   *
+   * Example outputs (base rate = 0.1/worker/sec, each research tier = 0.05):
+   *
+   *  Workers | Research | Season | Food/s | Wood/s
+   *  --------|----------|--------|--------|-------
+   *        0 |   0 tier |   warm |   0.00 |   0.00
+   *       10 |   0 tier |   warm |   1.00 |   0.80
+   *       10 |   0 tier |   cold |   1.00 |   1.20
+   *       10 |  2 tiers |   warm |   0.90 |   0.70
+   *       10 |  4 tiers |   warm |   0.80 |   0.60
+   *       10 |  4 tiers |   cold |   0.80 |   1.00
+   *       20 |   0 tier |   cold |   2.00 |   2.40
+   *
+   * Warm season reduces wood consumption by 20% (seasonMultipliers.wood = 0.8).
+   * Cold season increases wood consumption by 20% (seasonMultipliers.wood = 1.2).
+   * Food consumption is unaffected by season.
+   *
    * @param {Object} bonuses - Research bonus map from academy.completedBonuses()
    * @param {{ food: number, wood: number }} seasonMultipliers - Seasonal multipliers from _computeSeasonMultipliers
    * @param {number} workerCount - Total worker count (idle + assigned)
