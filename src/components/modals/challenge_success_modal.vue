@@ -3,6 +3,10 @@ import {inject, ref, onMounted, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {SND_NOTIFICATION_BLESSING, IMG_BLESSING_BLESSING} from '@/js/engine/assets.js'
 import {t} from '@/js/i18n/localized.js'
+import {BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS,
+  BLESSING_HOLY_EXPANSION, BLESSING_RICH_MINES, BLESSING_CELESTIAL_PROSPERITY,
+  BLESSING_RAPID_CONSTRUCTION, BLESSING_FAVORABLE_WEATHER, BLESSING_WISDOM_OF_THE_GODS,
+  BLESSING_BLESSED_MARKETS} from '@/js/engine/enums.js'
 import {formatMinutes} from '@/js/engine/format.js'
 
 const ui = inject('ui')
@@ -15,16 +19,16 @@ function blessingDescription(blessing) {
   const percentage = blessing.productivity ? Math.round(blessing.productivity * 100) : 0
   const duration = formatMinutes(blessing.timeout ?? 0)
   switch (blessing.type) {
-    case 'fertileSoil': return t('blessing.fertileSoil.description', percentage, duration)
-    case 'forestBloom': return t('blessing.forestBloom.description', percentage, duration)
-    case 'giftFromTheHeavens': return t('blessing.giftFromTheHeavens.description')
-    case 'holyExpansion': return t('blessing.holyExpansion.description', blessing.territory)
-    case 'richMines': return t('blessing.richMines.description', percentage, duration)
-    case 'celestialProsperity': return t('blessing.celestialProsperity.description', percentage, duration)
-    case 'rapidConstruction': return t('blessing.rapidConstruction.description', Math.round((blessing.construction ?? 0) * 100), duration)
-    case 'favorableWeather': return t('blessing.favorableWeather.description', duration)
-    case 'wisdomOfTheGods': return t('blessing.wisdomOfTheGods.description', percentage, duration)
-    case 'blessedMarkets': return t('blessing.blessedMarkets.description', duration)
+    case BLESSING_FERTILE_SOIL: return t('blessing.fertileSoil.description', percentage, duration)
+    case BLESSING_FOREST_BLOOM: return t('blessing.forestBloom.description', percentage, duration)
+    case BLESSING_GIFT_FROM_THE_HEAVENS: return t('blessing.giftFromTheHeavens.description')
+    case BLESSING_HOLY_EXPANSION: return t('blessing.holyExpansion.description', blessing.territory)
+    case BLESSING_RICH_MINES: return t('blessing.richMines.description', percentage, duration)
+    case BLESSING_CELESTIAL_PROSPERITY: return t('blessing.celestialProsperity.description', percentage, duration)
+    case BLESSING_RAPID_CONSTRUCTION: return t('blessing.rapidConstruction.description', Math.round((blessing.construction ?? 0) * 100), duration)
+    case BLESSING_FAVORABLE_WEATHER: return t('blessing.favorableWeather.description', duration)
+    case BLESSING_WISDOM_OF_THE_GODS: return t('blessing.wisdomOfTheGods.description', percentage, duration)
+    case BLESSING_BLESSED_MARKETS: return t('blessing.blessedMarkets.description', duration)
     default: return ''
   }
 }
