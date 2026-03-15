@@ -265,26 +265,29 @@ The research system allows the player to unlock permanent bonuses by spending kn
 
 ### Bonuses by subcategory
 
-| Category | Subcategory | Bonus per tier |
-|---|---|---|
-| General | Transportation | +5% worker productivity |
-| General | Construction | -10% construction time |
-| General | Expansion | -10% expansion cost |
-| General | Storage | +10% storage capacity |
-| General | Habitation | +1 population per house level |
-| Resources | Food Production | +5% food production |
-| Resources | Food Consumption | -5% food consumption |
-| Resources | Wood Production | +5% wood production |
-| Resources | Wood Consumption | -5% wood consumption |
-| Resources | Mining | +5% stone/copper/iron/gold production |
-| Resources | Knowledge Production | +5% knowledge production |
-| Disasters | Floods | -10% flood impact |
-| Disasters | Health | -10% disease impact |
-| Disasters | Earthquakes | -10% earthquake impact |
-| Religion | Faith | +5% faith production |
-| Military | Defense | +10% unit defense |
-| Military | Attack | +10% unit attack |
-| Military | Warning | +10% warning time |
+- **General**
+  - Transportation: +5% worker productivity
+  - Construction: -10% construction time
+  - Expansion: -10% expansion cost
+  - Storage: +10% storage capacity
+  - Habitation: +1 population per house level
+- **Resources**
+  - Food Production: +5% food production
+  - Food Consumption: -5% food consumption
+  - Wood Production: +5% wood production
+  - Wood Consumption: -5% wood consumption
+  - Mining: +5% stone/copper/iron/gold production
+  - Knowledge Production: +5% knowledge production
+- **Disasters**
+  - Floods: -10% flood impact
+  - Health: -10% disease impact
+  - Earthquakes: -10% earthquake impact
+- **Religion**
+  - Faith: +5% faith production
+- **Military**
+  - Defense: +10% unit defense
+  - Attack: +10% unit attack
+  - Warning: +10% warning time
 
 ## Events
 
