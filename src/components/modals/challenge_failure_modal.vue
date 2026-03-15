@@ -54,8 +54,17 @@ onUnmounted(() => {
           <li v-if="ui.challenges.activePunishment.faith" class="punishment-item">
             {{ t('punishment.faithLoss', Math.round(ui.challenges.activePunishment.faith * 100)) }}
           </li>
-          <li v-if="ui.challenges.activePunishment.productivity" class="punishment-item">
-            {{ t('punishment.productivityLoss', Math.round(ui.challenges.activePunishment.productivity * 100)) }}
+          <li v-if="ui.challenges.activePunishment.productivityFarm" class="punishment-item">
+            {{ t('punishment.productivityFarmLoss', Math.round(ui.challenges.activePunishment.productivityFarm * 100)) }}
+          </li>
+          <li v-if="ui.challenges.activePunishment.productivityWoodcutter" class="punishment-item">
+            {{ t('punishment.productivityWoodcutterLoss', Math.round(ui.challenges.activePunishment.productivityWoodcutter * 100)) }}
+          </li>
+          <li v-if="ui.challenges.activePunishment.productivityMines" class="punishment-item">
+            {{ t('punishment.productivityMinesLoss', Math.round(ui.challenges.activePunishment.productivityMines * 100)) }}
+          </li>
+          <li v-if="ui.challenges.activePunishment.productivityGeneral" class="punishment-item">
+            {{ t('punishment.productivityGeneralLoss', Math.round(ui.challenges.activePunishment.productivityGeneral * 100)) }}
           </li>
           <li v-if="ui.challenges.activePunishment.resources" class="punishment-item">
             {{ t('punishment.resourceLoss', Math.round(ui.challenges.activePunishment.resources * 100)) }}

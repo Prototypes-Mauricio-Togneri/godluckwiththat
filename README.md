@@ -4,7 +4,7 @@
 
 - Improve challenges
   - Add images on each blessing card
-  - Fix productivy reduced text (needs to be specific)
+  - Test win modal. Show image of the portal
 
 - Create military
   - Open military window

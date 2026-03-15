@@ -715,7 +715,10 @@ function syncChallenges() {
     activePunishment: active ? {
       type: active.punishment.type,
       faith: active.punishment.faith,
-      productivity: active.punishment.productivity,
+      productivityFarm: active.punishment.productivityFarm,
+      productivityWoodcutter: active.punishment.productivityWoodcutter,
+      productivityMines: active.punishment.productivityMines,
+      productivityGeneral: active.punishment.productivityGeneral,
       resources: active.punishment.resources,
       workers: active.punishment.workers,
       levels: active.punishment.levels,

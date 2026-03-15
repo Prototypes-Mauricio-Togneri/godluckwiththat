@@ -468,7 +468,10 @@ export const LOCALIZED_EN = {
 
   // Punishment effect descriptions
   'punishment.faithLoss': 'Lose {0}% of accumulated faith',
-  'punishment.productivityLoss': 'Productivity reduced by {0}%',
+  'punishment.productivityFarmLoss': 'Farm productivity reduced by {0}%',
+  'punishment.productivityWoodcutterLoss': 'Woodcutter productivity reduced by {0}%',
+  'punishment.productivityMinesLoss': 'Mining productivity reduced by {0}%',
+  'punishment.productivityGeneralLoss': 'All productivity reduced by {0}%',
   'punishment.resourceLoss': 'Lose {0}% of stored resources',
   'punishment.workerLoss': 'Lose {0} workers',
   'punishment.buildingLoss': 'Lose {0} building levels',
