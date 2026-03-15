@@ -107,34 +107,52 @@ All defined in `src/data/challenges.json`
 
 ## Implementation Steps
 
-### Blessing & Punishment Effects
+### Step 2a: Infrastructure + Instant Blessings
 
-#### Step 1: Instant Punishment Effects (`src/js/engine/state.js`)
+#### Infrastructure
+- Add `territoryBonus` field to `Resources` (default 0, include in `toJSON()` / `fromJSON()`)
+- Wire `territoryBonus` into territory cap: in `update()`, effective territory cap = `headquarters.territoryCap + resources.territoryBonus`
+- Add timeout decrement logic: in `advanceChallenges(delta)` (or a new method), decrement `timeout` on each entry in `activeBlessings` and `activePunishments` by `delta`. Remove entries whose `timeout` reaches 0
+
+#### Instant Blessings
+- `_applyBlessing(blessing)`: Called from `selectBlessing()` (after the player chooses a reward and the blessing is added to `activeBlessings`). Handles instant-only effects:
+  - `GIFT_FROM_THE_HEAVENS`: Grants `blessing.resources` amounts to colony resources (capped at storage cap)
+  - `HOLY_EXPANSION`: Adds `blessing.territory` to `resources.territoryBonus`
+
+### Step 2b: Ongoing Blessing Effects
+
+Wire into `state.js` — each modifier reads from `meta.challenges.activeBlessings`:
+
+- **Productivity modifiers** (in `update()`, after base production, before season modifiers):
+  - `FERTILE_SOIL`: multiply farm production by `(1 + blessing.productivity)`
+  - `FOREST_BLOOM`: multiply woodcutter production by `(1 + blessing.productivity)`
+  - `RICH_MINES`: multiply quarry + all mine production by `(1 + blessing.productivity)`
+  - `CELESTIAL_PROSPERITY`: multiply all producer production by `(1 + blessing.productivity)`
+  - `WISDOM_OF_THE_GODS`: multiply academy production by `(1 + blessing.productivity)`
+- **Weather** (in `update()`, when applying season modifiers):
+  - `FAVORABLE_WEATHER`: multiply warm-season modifiers by `(1 + blessing.warm)`, cold-season modifiers by `(1 - blessing.cold)`
+- **Construction speed** (in `levelUpBuilding()` and `expandTerritory()`):
+  - `RAPID_CONSTRUCTION`: multiply construction duration by `(1 - blessing.construction)` (e.g., 0.5 → half the time). Only affects new constructions, not in-progress ones
+- **Trade fee** (in `Market.executeTrade()` or fee calculation):
+  - `BLESSED_MARKETS`: override fee to 0%
+
+### Step 2c: Instant Punishment Effects
+
 - `_applyPunishment(punishment)`: Called from `acknowledgePunishment()` (after the player clicks "Accept Punishment" and the punishment is added to `activePunishments`). Applies all instant effects:
   - Removes `punishment.faith` fraction of stored faith (e.g., 0.5 → lose 50%)
   - Removes `punishment.resources` fraction of each bounded resource (food, wood, stone, copper, iron, gold)
   - Kills `punishment.workers` workers via `_sacrificeWorkers()` (idle first, then randomly unassigned from producers; clamped to available workers)
   - Downgrades `punishment.levels` random building levels: for each level, picks a random building from `DOWNGRADABLE_BUILDINGS` that meets one of these conditions: (a) level > 1, or (b) level == 1 and currently under construction. If (a), decrements the building's level and returns excess workers above new capacity to idle. If (b), sets `constructionRemaining = 0`, level to 0, and dismisses the construction future event. Skips remaining downgrades if no eligible buildings
 
-#### Step 2: Instant Blessing Effects (`src/js/engine/state.js`)
-- `_applyBlessing(blessing)`: Called from `selectBlessing()` (after the player chooses a reward and the blessing is added to `activeBlessings`). Handles instant-only effects:
-  - `GIFT_FROM_THE_HEAVENS`: Grants `blessing.resources` amounts to colony resources (capped at storage cap)
-  - `HOLY_EXPANSION`: Adds `blessing.territory` to `resources.territoryBonus`
+### Step 2d: Ongoing Punishment Effects
 
-#### Step 3: Ongoing Effects (`src/js/engine/state.js`)
-- **Timeout tracking**: In `advanceChallenges(delta)` (or a new `advanceBlessingsPunishments(delta)`), decrement `timeout` on each active blessing and punishment by `delta`. Remove entries whose `timeout` reaches 0
-- **Productivity modifiers**: In `update()`, after computing base production rates and before applying season modifiers, apply active blessing/punishment productivity multipliers:
-  - `FERTILE_SOIL` / `CROP_FAILURE`: multiply farm production by `(1 + blessing.productivity)` or `(1 - punishment.productivityFarm)`
-  - `FOREST_BLOOM` / `WILDFIRES`: multiply woodcutter production by `(1 + blessing.productivity)` or `(1 - punishment.productivityWoodcutter)`
-  - `RICH_MINES`: multiply quarry + all mine production by `(1 + blessing.productivity)`
+Wire into `state.js` — each modifier reads from `meta.challenges.activePunishments`. Uses the same production modifier system from Step 2b, but subtractive:
+
+- **Productivity modifiers** (in `update()`, same location as blessing modifiers):
+  - `CROP_FAILURE`: multiply farm production by `(1 - punishment.productivityFarm)`
+  - `WILDFIRES`: multiply woodcutter production by `(1 - punishment.productivityWoodcutter)`
   - `LANDSLIDE`: multiply quarry + all mine production by `(1 - punishment.productivityMines)`
-  - `CELESTIAL_PROSPERITY`: multiply all producer production by `(1 + blessing.productivity)`
-  - `WISDOM_OF_THE_GODS`: multiply academy production by `(1 + blessing.productivity)`
-  - `CROP_FAILURE` / `WILDFIRES` / `LANDSLIDE` / `PLAGUE` / `VOLCANO` with `productivityGeneral`: multiply all producer production by `(1 - punishment.productivityGeneral)`
-- **Weather modifiers**: In `update()`, when applying season modifiers, check for active `FAVORABLE_WEATHER` blessing. If present, multiply warm-season modifiers by `(1 + blessing.warm)` and cold-season modifiers by `(1 - blessing.cold)` before applying them
-- **Construction speed**: In `levelUpBuilding()` and `expandTerritory()`, check for active `RAPID_CONSTRUCTION` blessing. If present, multiply the construction duration by `(1 - blessing.construction)` (e.g., 0.5 → 50% faster → half the time)
-- **Trade fee removal**: In `Market.executeTrade()` (or the fee calculation), check for active `BLESSED_MARKETS` blessing. If present, override fee to 0%
-- **Territory bonus**: In `update()`, when computing effective territory cap, add `resources.territoryBonus` to `headquarters.territoryCap`
+  - Punishments with `productivityGeneral` (PLAGUE, VOLCANO): multiply all producer production by `(1 - punishment.productivityGeneral)`
 
 ## Critical Files
 - `src/data/challenges.json` — challenge definitions (source data)
