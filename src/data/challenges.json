@@ -102,7 +102,7 @@
     ],
     "punishment": {
       "type": "landslide",
-      "timeout": 150,
+      "timeout": 180,
       "faith": 0.5,
       "productivityMines": 0.3,
       "resource": 0.3

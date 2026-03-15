@@ -60,6 +60,17 @@ export function formatNumberFull(n) {
 }
 
 /**
+ * Converts seconds to a localized "{n} minutes" string.
+ * @param {number} totalSeconds - Duration in seconds
+ * @returns {string} Formatted string (e.g. "2 minutes")
+ */
+export function formatMinutes(totalSeconds) {
+  const minutes = Math.round(totalSeconds / 60)
+  const key = minutes === 1 ? 'time.minute' : 'time.minutes'
+  return `${minutes} ${t(key)}`
+}
+
+/**
  * Formats a per-second rate as a display string with unit suffix.
  * @param {number} ratePerSecond - Resource production rate per second
  * @returns {string} Formatted rate with per-second suffix

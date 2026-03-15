@@ -3,6 +3,7 @@ import {inject, ref, onMounted, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {SND_NOTIFICATION_BLESSING, IMG_BLESSING_BLESSING} from '@/js/engine/assets.js'
 import {t} from '@/js/i18n/localized.js'
+import {formatMinutes} from '@/js/engine/format.js'
 
 const ui = inject('ui')
 const actions = inject('actions')
@@ -12,18 +13,18 @@ let rafId = null
 /** Returns a human-readable description for a blessing. */
 function blessingDescription(blessing) {
   const pct = blessing.productivity ? Math.round(blessing.productivity * 100) : 0
-  const sec = blessing.timeout ?? 0
+  const dur = formatMinutes(blessing.timeout ?? 0)
   switch (blessing.type) {
-    case 'fertileSoil': return t('blessing.fertileSoil.description', pct, sec)
-    case 'forestBloom': return t('blessing.forestBloom.description', pct, sec)
+    case 'fertileSoil': return t('blessing.fertileSoil.description', pct, dur)
+    case 'forestBloom': return t('blessing.forestBloom.description', pct, dur)
     case 'giftFromTheHeavens': return t('blessing.giftFromTheHeavens.description')
     case 'holyExpansion': return t('blessing.holyExpansion.description', blessing.territory)
-    case 'richMines': return t('blessing.richMines.description', pct, sec)
-    case 'celestialProsperity': return t('blessing.celestialProsperity.description', pct, sec)
-    case 'rapidConstruction': return t('blessing.rapidConstruction.description', Math.round((blessing.construction ?? 0) * 100), sec)
-    case 'favorableWeather': return t('blessing.favorableWeather.description', sec)
-    case 'wisdomOfTheGods': return t('blessing.wisdomOfTheGods.description', pct, sec)
-    case 'blessedMarkets': return t('blessing.blessedMarkets.description', sec)
+    case 'richMines': return t('blessing.richMines.description', pct, dur)
+    case 'celestialProsperity': return t('blessing.celestialProsperity.description', pct, dur)
+    case 'rapidConstruction': return t('blessing.rapidConstruction.description', Math.round((blessing.construction ?? 0) * 100), dur)
+    case 'favorableWeather': return t('blessing.favorableWeather.description', dur)
+    case 'wisdomOfTheGods': return t('blessing.wisdomOfTheGods.description', pct, dur)
+    case 'blessedMarkets': return t('blessing.blessedMarkets.description', dur)
     default: return ''
   }
 }

@@ -77,6 +77,8 @@ export const LOCALIZED_EN = {
   'resource.faith': 'Faith',
   'resource.territory': 'Territory',
   'resource.perSecond': '/s',
+  'time.minute': 'minute',
+  'time.minutes': 'minutes',
   'resource.fullIn': 'Full in',
   'resource.emptyIn': 'Empty in',
   'resource.amount': 'Amount',
@@ -448,16 +450,16 @@ export const LOCALIZED_EN = {
   'blessing.blessedMarkets': 'Blessed Markets',
 
   // Blessing descriptions
-  'blessing.fertileSoil.description': 'Increases food productivity by {0}% for {1}s',
-  'blessing.forestBloom.description': 'Increases wood productivity by {0}% for {1}s',
+  'blessing.fertileSoil.description': 'Increases food productivity by {0}% for {1}',
+  'blessing.forestBloom.description': 'Increases wood productivity by {0}% for {1}',
   'blessing.giftFromTheHeavens.description': 'Receive a gift of resources',
   'blessing.holyExpansion.description': 'Gain {0} territory slots',
-  'blessing.richMines.description': 'Increases minerals productivity by {0}% for {1}s',
-  'blessing.celestialProsperity.description': 'Increases general productivity by {0}% for {1}s',
-  'blessing.rapidConstruction.description': 'Buildings constructed {0}% faster for {1}s',
-  'blessing.favorableWeather.description': 'Improved seasons for {0}s',
-  'blessing.wisdomOfTheGods.description': 'Increases knowledge productivity by {0}% for {1}s',
-  'blessing.blessedMarkets.description': 'No trading fees for {0}s',
+  'blessing.richMines.description': 'Increases minerals productivity by {0}% for {1}',
+  'blessing.celestialProsperity.description': 'Increases general productivity by {0}% for {1}',
+  'blessing.rapidConstruction.description': 'Buildings constructed {0}% faster for {1}',
+  'blessing.favorableWeather.description': 'Improved seasons for {0}',
+  'blessing.wisdomOfTheGods.description': 'Increases knowledge productivity by {0}% for {1}',
+  'blessing.blessedMarkets.description': 'No trading fees for {0}',
 
   // Punishment types
   'punishment.cropFailure': 'Crop Failure',
