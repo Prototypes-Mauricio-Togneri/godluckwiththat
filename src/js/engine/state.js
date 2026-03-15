@@ -223,6 +223,17 @@ class State {
    * Only the largest deficit applies. Uses previous tick's consumption and
    * final production values (still on colony before current tick overwrites).
    *
+   * Examples (SHORTAGE_MAX_PENALTY = 1):
+   *
+   * | Scenario               | Workers | Food (prod/cons) | Wood (prod/cons) | Result |
+   * |------------------------|---------|------------------|------------------|--------|
+   * | No workers             | 0       | —                | —                | 0      |
+   * | No shortage            | 5       | 10 / 8           | 6 / 4            | 1      |
+   * | 50% food deficit       | 5       | 5 / 10           | 6 / 4            | 0.5    |
+   * | Full food deficit      | 5       | 0 / 10           | 6 / 4            | 0      |
+   * | 50% wood deficit       | 5       | 10 / 8           | 4 / 8            | 0.5    |
+   * | Both, food worse       | 5       | 3 / 10           | 5 / 8            | 0.3    |
+   *
    * @param {number} workers - Current worker count
    * @returns {number} Productivity ratio between 0 and 1
    */
