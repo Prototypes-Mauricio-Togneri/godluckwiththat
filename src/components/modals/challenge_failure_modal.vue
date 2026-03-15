@@ -1,7 +1,7 @@
 <script setup>
 import {inject, ref, onMounted, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
-import {SND_NOTIFICATION_DISASTER} from '@/js/engine/assets.js'
+import {SND_NOTIFICATION_DISASTER, IMG_PUNISHMENT_MAP} from '@/js/engine/assets.js'
 import {t} from '@/js/i18n/localized.js'
 
 const ui = inject('ui')
@@ -41,6 +41,13 @@ onUnmounted(() => {
       <template v-if="ui.challenges.activePunishment">
         <!-- Punishment name -->
         <div class="punishment-name">{{ t('punishment.' + ui.challenges.activePunishment.type) }}</div>
+
+        <!-- Punishment image -->
+        <img
+          class="punishment-img"
+          :src="IMG_PUNISHMENT_MAP[ui.challenges.activePunishment.type]"
+          :alt="t('punishment.' + ui.challenges.activePunishment.type)"
+        >
 
         <!-- Punishment effects list -->
         <ul class="punishment-list">
@@ -104,6 +111,15 @@ onUnmounted(() => {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 0.75rem;
+}
+
+.punishment-img {
+  width: 100%;
+  max-width: 400px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(196, 80, 80, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
 .punishment-list {

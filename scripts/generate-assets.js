@@ -24,6 +24,7 @@ const GROUP_LABELS = {
   units: 'Units',
   ico: 'Icons',
   other: 'Other',
+  punishments: 'Punishments',
   seasons: 'Seasons',
 }
 
@@ -98,6 +99,7 @@ const musicFiles = existsSync(MUS_DIR) ? collectFiles(MUS_DIR) : []
 // Build output
 const lines = ['// Asset path constants — centralized references to all public image, sound, and music files.']
 const resourceEntries = []
+const punishmentEntries = []
 
 for (const [
   dirKey,
@@ -120,6 +122,14 @@ for (const [
         name: name,
       })
     }
+
+    if (dirKey === 'punishments') {
+      const key = basename(file, extname(file)).replace(/_([a-z])/g, (_, c) => c.toUpperCase())
+      punishmentEntries.push({
+        key: key,
+        name: name,
+      })
+    }
   }
 }
 
@@ -132,6 +142,20 @@ if (resourceEntries.length > 0) {
     key,
     name,
   } of resourceEntries) {
+    lines.push(`  ${key}: ${name},`)
+  }
+  lines.push('}')
+}
+
+// Punishment image lookup by key (for dynamic :src bindings)
+if (punishmentEntries.length > 0) {
+  lines.push('')
+  lines.push('// Punishment image lookup by key (for dynamic :src bindings)')
+  lines.push('export const IMG_PUNISHMENT_MAP = {')
+  for (const {
+    key,
+    name,
+  } of punishmentEntries) {
     lines.push(`  ${key}: ${name},`)
   }
   lines.push('}')

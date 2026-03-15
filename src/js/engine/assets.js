@@ -58,6 +58,13 @@ export const IMG_OTHER_PRODUCTIVITY = '/img/other/productivity.png'
 export const IMG_OTHER_TERRITORY = '/img/other/territory.png'
 export const IMG_OTHER_UPGRADE = '/img/other/upgrade.png'
 
+// Punishments
+export const IMG_PUNISHMENT_CROP_FAILURE = '/img/punishments/crop_failure.jpg'
+export const IMG_PUNISHMENT_LANDSLIDE = '/img/punishments/landslide.jpg'
+export const IMG_PUNISHMENT_PLAGUE = '/img/punishments/plague.jpg'
+export const IMG_PUNISHMENT_VOLCANO = '/img/punishments/volcano.jpg'
+export const IMG_PUNISHMENT_WILDFIRES = '/img/punishments/wildfires.jpg'
+
 // Seasons
 export const IMG_SEASON_COLD = '/img/seasons/cold.png'
 export const IMG_SEASON_WARM = '/img/seasons/warm.png'
@@ -72,6 +79,15 @@ export const IMG_RESOURCE_MAP = {
   knowledge: IMG_RESOURCE_KNOWLEDGE,
   stone: IMG_RESOURCE_STONE,
   wood: IMG_RESOURCE_WOOD,
+}
+
+// Punishment image lookup by key (for dynamic :src bindings)
+export const IMG_PUNISHMENT_MAP = {
+  cropFailure: IMG_PUNISHMENT_CROP_FAILURE,
+  landslide: IMG_PUNISHMENT_LANDSLIDE,
+  plague: IMG_PUNISHMENT_PLAGUE,
+  volcano: IMG_PUNISHMENT_VOLCANO,
+  wildfires: IMG_PUNISHMENT_WILDFIRES,
 }
 
 // Sounds
