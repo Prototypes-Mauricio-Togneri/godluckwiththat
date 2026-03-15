@@ -92,8 +92,12 @@ class State {
     // Seasonal multipliers for food production and wood consumption
     const seasonMultipliers = this._computeSeasonMultipliers(blessings)
 
-    // Compute production rates from buildings, blessings, and season modifiers
-    const productionRates = this._computeProductionRates(bonuses, blessings, seasonMultipliers)
+    // Productivity ratio based on resource shortages (previous tick)
+    const productivity = this._computeGeneralProductivity(resources.workers)
+    this.colony.productivity = productivity
+
+    // Compute production rates from buildings, blessings, season, and productivity
+    const productionRates = this._computeProductionRates(bonuses, blessings, seasonMultipliers, productivity)
     production.food = productionRates.food
     production.wood = productionRates.wood
     production.stone = productionRates.stone
@@ -102,20 +106,6 @@ class State {
     production.gold = productionRates.gold
     production.faith = productionRates.faith
     production.knowledge = productionRates.knowledge
-
-    // Productivity ratio based on resource shortages (previous tick)
-    const productivity = this._computeGeneralProductivity(resources.workers, production)
-    this.colony.productivity = productivity
-    if (productivity < 1) {
-      production.food *= productivity
-      production.wood *= productivity
-      production.stone *= productivity
-      production.copper *= productivity
-      production.iron *= productivity
-      production.gold *= productivity
-      production.faith *= productivity
-      production.knowledge *= productivity
-    }
 
     // Apply production gains to resources. Rates are per-second, so
     // multiplying by delta converts to the actual elapsed interval
@@ -236,25 +226,26 @@ class State {
    * Starts at 1 (100%) and is reduced when food or wood has negative net
    * production. The reduction is proportional to the deficit ratio (uncovered
    * consumption / total consumption), scaled by SHORTAGE_MAX_PENALTY.
-   * Only the largest deficit applies.
+   * Only the largest deficit applies. Uses previous tick's consumption and
+   * final production values (still on colony before current tick overwrites).
    *
    * @param {number} workers - Current worker count
-   * @param {Object} production - Current gross production rates
    * @returns {number} Productivity ratio between 0 and 1
    */
-  _computeGeneralProductivity(workers, production) {
+  _computeGeneralProductivity(workers) {
     let productivity = 1
     if (workers === 0) {
       productivity = 0
     }
-    const prevConsumption = this.colony.consumption
-    if (this._resourcesNegativeProduction.has('food') && prevConsumption.food > 0) {
-      const deficit = Math.max(0, prevConsumption.food - production.food)
-      productivity = Math.min(productivity, 1 - (deficit / prevConsumption.food) * SHORTAGE_MAX_PENALTY)
+    const previousConsumption = this.colony.consumption
+    const previousProduction = this.colony.production
+    if (this._resourcesNegativeProduction.has('food') && previousConsumption.food > 0) {
+      const deficit = Math.max(0, previousConsumption.food - previousProduction.food)
+      productivity = Math.min(productivity, 1 - (deficit / previousConsumption.food) * SHORTAGE_MAX_PENALTY)
     }
-    if (this._resourcesNegativeProduction.has('wood') && prevConsumption.wood > 0) {
-      const deficit = Math.max(0, prevConsumption.wood - production.wood)
-      productivity = Math.min(productivity, 1 - (deficit / prevConsumption.wood) * SHORTAGE_MAX_PENALTY)
+    if (this._resourcesNegativeProduction.has('wood') && previousConsumption.wood > 0) {
+      const deficit = Math.max(0, previousConsumption.wood - previousProduction.wood)
+      productivity = Math.min(productivity, 1 - (deficit / previousConsumption.wood) * SHORTAGE_MAX_PENALTY)
     }
     return productivity
   }
@@ -283,8 +274,8 @@ class State {
 
   /**
    * Computes per-second production rates from building state, research bonuses,
-   * active blessings, and seasonal modifiers. Returns final rates before
-   * shortage modifiers.
+   * active blessings, seasonal modifiers, and general productivity. Returns
+   * final rates after all multipliers are applied.
    *
    * Two formulas depending on building type:
    *   Passive (e.g. altar): level × baseRate × resourceBonus
@@ -293,9 +284,10 @@ class State {
    * @param {Object} bonuses - Research bonus map from academy.completedBonuses()
    * @param {Array} blessings - Active blessings from meta.challenges
    * @param {{ food: number, wood: number }} seasonMultipliers - Seasonal multipliers from _computeSeasonMultipliers
+   * @param {number} productivity - General productivity ratio (0–1) from _computeGeneralProductivity
    * @returns {{ food: number, wood: number, stone: number, copper: number, iron: number, gold: number, faith: number, knowledge: number }}
    */
-  _computeProductionRates(bonuses, blessings, seasonMultipliers) {
+  _computeProductionRates(bonuses, blessings, seasonMultipliers, productivity) {
     const {
       buildings,
     } = this.colony
@@ -356,6 +348,18 @@ class State {
 
     // Season modifier on food production (stacks on top of blessings)
     rates.food *= seasonMultipliers.food
+
+    // General productivity penalty from resource shortages
+    if (productivity < 1) {
+      rates.food *= productivity
+      rates.wood *= productivity
+      rates.stone *= productivity
+      rates.copper *= productivity
+      rates.iron *= productivity
+      rates.gold *= productivity
+      rates.faith *= productivity
+      rates.knowledge *= productivity
+    }
 
     return rates
   }
