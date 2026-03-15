@@ -2,6 +2,10 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Improvement
+ - Check if all production multipliers are added up before being applied
+ - Show the current productivity multiplier in the UI (e.g. in the resources panel)
+
 - Improve challenges
   - Implement blessings
   - Implement punishments
