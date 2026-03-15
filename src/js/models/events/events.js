@@ -148,7 +148,7 @@ class Events {
    * @returns {boolean} True if a past event of the given type exists
    */
   hasPastEvent(type) {
-    return this.past.some(e => e.type === type)
+    return this.past.some(event => event.type === type)
   }
 
   /**
@@ -229,11 +229,11 @@ class Events {
   static fromJSON(data) {
     const events = new Events()
     events._nextId = data.nextId ?? 1
-    for (const e of (data.future ?? [])) {
-      events.future.push(new EventFuture(e))
+    for (const entry of (data.future ?? [])) {
+      events.future.push(new EventFuture(entry))
     }
-    for (const e of (data.past ?? [])) {
-      events.past.push(new EventPast(e))
+    for (const entry of (data.past ?? [])) {
+      events.past.push(new EventPast(entry))
     }
     return events
   }
@@ -244,8 +244,8 @@ class Events {
    */
   toJSON() {
     return {
-      future: this.future.map(e => e.toJSON()),
-      past: this.past.map(e => e.toJSON()),
+      future: this.future.map(event => event.toJSON()),
+      past: this.past.map(event => event.toJSON()),
       nextId: this._nextId,
     }
   }

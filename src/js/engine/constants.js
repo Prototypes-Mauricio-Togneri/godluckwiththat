@@ -368,9 +368,9 @@ export const BUILDING_GRID = [
 
 // Building image lookup by key (for event icons)
 export const BUILDING_IMAGE_MAP = Object.fromEntries(
-  BUILDING_GRID.flatMap(column => column.buildings.map(b => [
-    b.key,
-    b.img,
+  BUILDING_GRID.flatMap(column => column.buildings.map(building => [
+    building.key,
+    building.img,
   ])),
 )
 

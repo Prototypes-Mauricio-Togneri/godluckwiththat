@@ -67,7 +67,7 @@ class Challenge {
   static fromJSON(data) {
     return new Challenge({
       ...data,
-      blessings: data.blessings.map(b => Blessing.fromJSON(b)),
+      blessings: data.blessings.map(blessing => Blessing.fromJSON(blessing)),
       punishment: Punishment.fromJSON(data.punishment),
     })
   }
@@ -85,7 +85,7 @@ class Challenge {
       timeout: this.timeout,
       timeoutElapsed: this.timeoutElapsed,
       requirements: this.requirements,
-      blessings: this.blessings.map(b => b.toJSON()),
+      blessings: this.blessings.map(blessing => blessing.toJSON()),
       punishment: this.punishment.toJSON(),
     }
   }

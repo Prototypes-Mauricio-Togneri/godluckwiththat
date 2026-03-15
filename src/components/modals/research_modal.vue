@@ -32,7 +32,7 @@ const scrollRef = ref(null)
 const tooltipAbove = ref({})
 
 const activeCategory = computed(() =>
-  RESEARCH_TREE.find(c => c.category === activeTab.value),
+  RESEARCH_TREE.find(entry => entry.category === activeTab.value),
 )
 
 const nodeStatusMap = computed(() => {

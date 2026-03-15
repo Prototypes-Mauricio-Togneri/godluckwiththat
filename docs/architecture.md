@@ -280,7 +280,7 @@ Research is an academy-gated tech tree providing cumulative bonus modifiers.
 - Naming
   - Files: `snake_case`
   - Classes: `PascalCase`
-  - Functions: `camelCase` (no underscore prefixes)
+  - Functions: `camelCase`
   - Variables: full descriptive names, avoid abbreviations
     - Allowed: `i`, `j` (loop counters), `x`, `y` (coordinates), `dx`, `dy` (deltas), `ctx` (canvas context)
     - Avoid: `p` (player), `em` (enemyManager), `el` (element), `sw` (switch), `m` (mine), etc.

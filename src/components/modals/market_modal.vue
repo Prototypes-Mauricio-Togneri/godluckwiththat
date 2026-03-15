@@ -24,10 +24,10 @@ const tradeAmount = ref(storage.tradeAmount)
 /** Available trade amounts: 100, 1000, 10000, ... up to storageCap. */
 const availableAmounts = computed(() => {
   const amounts = []
-  let v = MARKET_TRADE_AMOUNT
-  while (v <= ui.storageCap) {
-    amounts.push(v)
-    v *= 10
+  let value = MARKET_TRADE_AMOUNT
+  while (value <= ui.storageCap) {
+    amounts.push(value)
+    value *= 10
   }
   if (amounts.length === 0) {
     amounts.push(MARKET_TRADE_AMOUNT)

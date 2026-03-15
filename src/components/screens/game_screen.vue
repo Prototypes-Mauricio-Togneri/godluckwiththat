@@ -354,20 +354,20 @@ function syncTimers() {
 
   // Only rebuild building snapshots if any construction is active
   if (state._constructingKeys.size > 0 || state._hqUpgrading) {
-    const bSnap = {
+    const buildingSnapshot = {
       ...ui.buildings,
     }
     for (const key of state._constructingKeys) {
-      const b = buildings[key]
-      bSnap[key] = {
-        ...bSnap[key],
-        constructionRemaining: b.constructionRemaining,
-        isConstructing: b.isConstructing,
-        level: b.level,
-        isUnbuilt: b.isUnbuilt,
+      const building = buildings[key]
+      buildingSnapshot[key] = {
+        ...buildingSnapshot[key],
+        constructionRemaining: building.constructionRemaining,
+        isConstructing: building.isConstructing,
+        level: building.level,
+        isUnbuilt: building.isUnbuilt,
       }
     }
-    ui.buildings = bSnap
+    ui.buildings = buildingSnapshot
 
     if (state._hqUpgrading || buildings.headquarters.isConstructing) {
       const hq = buildings.headquarters
@@ -406,14 +406,14 @@ function syncTimers() {
 
   // Event countdowns
   if (events.future.length > 0) {
-    ui.futureEvents = events.sortedFuture.map(e => ({
-      id: e.id,
-      icon: e.icon,
-      textKey: e.textKey,
-      params: e.params,
-      remainingSeconds: e.remainingSeconds,
-      action: e.action,
-      requirementsMet: e.type === EVENT_TYPE_CHALLENGE_STARTED && state.areChallengeRequirementsMet(),
+    ui.futureEvents = events.sortedFuture.map(event => ({
+      id: event.id,
+      icon: event.icon,
+      textKey: event.textKey,
+      params: event.params,
+      remainingSeconds: event.remainingSeconds,
+      action: event.action,
+      requirementsMet: event.type === EVENT_TYPE_CHALLENGE_STARTED && state.areChallengeRequirementsMet(),
     }))
   } else {
     ui.futureEvents = []
@@ -529,49 +529,49 @@ function syncAllBuildings() {
   const {
     buildings,
   } = state.colony
-  const bSnap = {}
+  const buildingSnapshot = {}
   for (const [
     key,
-    b,
+    building,
   ] of Object.entries(buildings)) {
-    const cost = b.levelUpCost
-    bSnap[key] = {
-      level: b.level,
-      isUnbuilt: b.isUnbuilt,
-      isConstructing: b.isConstructing,
-      constructionRemaining: b.constructionRemaining,
-      constructionDuration: b.constructionDuration,
+    const cost = building.levelUpCost
+    buildingSnapshot[key] = {
+      level: building.level,
+      isUnbuilt: building.isUnbuilt,
+      isConstructing: building.isConstructing,
+      constructionRemaining: building.constructionRemaining,
+      constructionDuration: building.constructionDuration,
       levelUpCost: cost,
       levelUpCostEntries: costToEntries(cost),
-      isProducer: 'workers' in b,
-      workers: b.workers ?? 0,
-      maxWorkers: b.maxWorkers ?? 0,
-      isEmpty: b.isEmpty ?? true,
-      isFull: b.isFull ?? false,
+      isProducer: 'workers' in building,
+      workers: building.workers ?? 0,
+      maxWorkers: building.maxWorkers ?? 0,
+      isEmpty: building.isEmpty ?? true,
+      isFull: building.isFull ?? false,
     }
   }
-  ui.buildings = bSnap
+  ui.buildings = buildingSnapshot
 }
 
 /** Syncs a single building snapshot by key. */
 function syncBuilding(key) {
-  const b = state.colony.buildings[key]
-  const cost = b.levelUpCost
+  const building = state.colony.buildings[key]
+  const cost = building.levelUpCost
   ui.buildings = {
     ...ui.buildings,
     [key]: {
-      level: b.level,
-      isUnbuilt: b.isUnbuilt,
-      isConstructing: b.isConstructing,
-      constructionRemaining: b.constructionRemaining,
-      constructionDuration: b.constructionDuration,
+      level: building.level,
+      isUnbuilt: building.isUnbuilt,
+      isConstructing: building.isConstructing,
+      constructionRemaining: building.constructionRemaining,
+      constructionDuration: building.constructionDuration,
       levelUpCost: cost,
       levelUpCostEntries: costToEntries(cost),
-      isProducer: 'workers' in b,
-      workers: b.workers ?? 0,
-      maxWorkers: b.maxWorkers ?? 0,
-      isEmpty: b.isEmpty ?? true,
-      isFull: b.isFull ?? false,
+      isProducer: 'workers' in building,
+      workers: building.workers ?? 0,
+      maxWorkers: building.maxWorkers ?? 0,
+      isEmpty: building.isEmpty ?? true,
+      isFull: building.isFull ?? false,
     },
   }
 }
@@ -627,9 +627,9 @@ function syncMarket() {
   const market = state.colony.buildings.market
   const buyPrices = {}
   const sellPrices = {}
-  for (const r of TRADEABLE_RESOURCES) {
-    buyPrices[r] = market.buyPrice(r)
-    sellPrices[r] = market.sellPrice(r)
+  for (const resource of TRADEABLE_RESOURCES) {
+    buyPrices[resource] = market.buyPrice(resource)
+    sellPrices[resource] = market.sellPrice(resource)
   }
   ui.market = {
     feePercent: Math.round(market.effectiveTradeFee * 100),
@@ -643,20 +643,20 @@ function syncEvents() {
   const {
     events,
   } = state.colony
-  ui.futureEvents = events.sortedFuture.map(e => ({
-    id: e.id,
-    icon: e.icon,
-    textKey: e.textKey,
-    params: e.params,
-    remainingSeconds: e.remainingSeconds,
-    action: e.action,
-    requirementsMet: e.type === EVENT_TYPE_CHALLENGE_STARTED && state.areChallengeRequirementsMet(),
+  ui.futureEvents = events.sortedFuture.map(event => ({
+    id: event.id,
+    icon: event.icon,
+    textKey: event.textKey,
+    params: event.params,
+    remainingSeconds: event.remainingSeconds,
+    action: event.action,
+    requirementsMet: event.type === EVENT_TYPE_CHALLENGE_STARTED && state.areChallengeRequirementsMet(),
   }))
-  ui.pastEvents = events.sortedPast.map(e => ({
-    id: e.id,
-    icon: e.icon,
-    textKey: e.textKey,
-    params: e.params,
+  ui.pastEvents = events.sortedPast.map(event => ({
+    id: event.id,
+    icon: event.icon,
+    textKey: event.textKey,
+    params: event.params,
   }))
 }
 
@@ -702,15 +702,15 @@ function syncChallenges() {
       : null,
     totalCount: challenges.totalCount,
     allCompleted: challenges.allCompleted,
-    activeBlessingChoices: active ? active.blessings.map(b => ({
-      type: b.type,
-      timeout: b.timeout,
-      productivity: b.productivity,
-      resources: b.resources,
-      territory: b.territory,
-      construction: b.construction,
-      warm: b.warm,
-      cold: b.cold,
+    activeBlessingChoices: active ? active.blessings.map(blessing => ({
+      type: blessing.type,
+      timeout: blessing.timeout,
+      productivity: blessing.productivity,
+      resources: blessing.resources,
+      territory: blessing.territory,
+      construction: blessing.construction,
+      warm: blessing.warm,
+      cold: blessing.cold,
     })) : [],
     activePunishment: active ? {
       type: active.punishment.type,
@@ -1071,8 +1071,8 @@ function progressTick() {
   perfFrameCount++
   perfFrameTimeSum += delta * 1000
   if (perfVisible && now - perfLastSample >= 1000) {
-    const el = perfOverlay.value
-    if (el) {
+    const element = perfOverlay.value
+    if (element) {
       const elapsed = (now - perfLastSample) / 1000
       const fps = Math.round(perfFrameCount / elapsed)
       const avgFrame = (Math.floor((perfFrameTimeSum / perfFrameCount) * 10) / 10).toFixed(1)
@@ -1087,7 +1087,7 @@ function progressTick() {
         const limitLabel = limitBytes >= 1073741824 ? `${Math.round(limitBytes / 1073741824)} GB` : `${Math.round(limitBytes / 1048576)} MB`
         text += `\nHeap: ${usedLabel} / ${limitLabel}`
       }
-      el.textContent = text
+      element.textContent = text
     }
     perfFrameCount = 0
     perfFrameTimeSum = 0

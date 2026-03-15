@@ -35,10 +35,10 @@ class Audio {
    */
   preload() {
     for (const assetPath of Object.keys(AUDIO_CONFIG)) {
-      const el = new window.Audio(assetPath)
-      el.preload = 'auto'
-      el.load()
-      this._cache.set(assetPath, el)
+      const element = new window.Audio(assetPath)
+      element.preload = 'auto'
+      element.load()
+      this._cache.set(assetPath, element)
     }
   }
 
@@ -50,33 +50,33 @@ class Audio {
     if (!this._soundEnabled) {
       return
     }
-    let el = this._activeSounds.get(assetPath)
-    if (el) {
-      el.pause()
-      el.currentTime = 0
+    let element = this._activeSounds.get(assetPath)
+    if (element) {
+      element.pause()
+      element.currentTime = 0
       this._soundAbort.get(assetPath)?.abort()
     } else {
       const cached = this._cache.get(assetPath)
-      el = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(assetPath)
-      this._activeSounds.set(assetPath, el)
+      element = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(assetPath)
+      this._activeSounds.set(assetPath, element)
     }
     // AbortController auto-removes ended/error listeners on abort, preventing leaks
-    const ac = new window.AbortController()
-    this._soundAbort.set(assetPath, ac)
+    const abortController = new window.AbortController()
+    this._soundAbort.set(assetPath, abortController)
     const cleanup = () => {
       this._activeSounds.delete(assetPath)
       this._soundAbort.delete(assetPath)
     }
-    el.addEventListener('ended', cleanup, {
+    element.addEventListener('ended', cleanup, {
       once: true,
-      signal: ac.signal,
+      signal: abortController.signal,
     })
-    el.addEventListener('error', cleanup, {
+    element.addEventListener('error', cleanup, {
       once: true,
-      signal: ac.signal,
+      signal: abortController.signal,
     })
-    el.volume = this._volume(assetPath)
-    el.play().catch(cleanup)
+    element.volume = this._volume(assetPath)
+    element.play().catch(cleanup)
   }
 
   /**
@@ -112,7 +112,7 @@ class Audio {
     }, {
       once: true,
     })
-    this._music.play().catch(e => import.meta.env.DEV && console.warn('Audio play failed:', e))
+    this._music.play().catch(error => import.meta.env.DEV && console.warn('Audio play failed:', error))
   }
 
   /**
@@ -146,7 +146,7 @@ class Audio {
       return
     }
     this._gamePaused = false
-    this._music.play().catch(e => import.meta.env.DEV && console.warn('Audio play failed:', e))
+    this._music.play().catch(error => import.meta.env.DEV && console.warn('Audio play failed:', error))
   }
 
   /** @returns {boolean} Whether music is currently enabled */

@@ -104,11 +104,11 @@ class Challenges {
    */
   static fromJSON(data) {
     return new Challenges({
-      pending: (data.pending ?? []).map(c => Challenge.fromJSON(c)),
+      pending: (data.pending ?? []).map(challenge => Challenge.fromJSON(challenge)),
       active: data.active ? Challenge.fromJSON(data.active) : null,
-      completed: (data.completed ?? []).map(c => Challenge.fromJSON(c)),
-      activeBlessings: (data.activeBlessings ?? []).map(b => Blessing.fromJSON(b)),
-      activePunishments: (data.activePunishments ?? []).map(p => Punishment.fromJSON(p)),
+      completed: (data.completed ?? []).map(challenge => Challenge.fromJSON(challenge)),
+      activeBlessings: (data.activeBlessings ?? []).map(blessing => Blessing.fromJSON(blessing)),
+      activePunishments: (data.activePunishments ?? []).map(punishment => Punishment.fromJSON(punishment)),
     })
   }
 
@@ -118,11 +118,11 @@ class Challenges {
    */
   toJSON() {
     return {
-      pending: this.pending.map(c => c.toJSON()),
+      pending: this.pending.map(challenge => challenge.toJSON()),
       active: this.active ? this.active.toJSON() : null,
-      completed: this.completed.map(c => c.toJSON()),
-      activeBlessings: this.activeBlessings.map(b => b.toJSON()),
-      activePunishments: this.activePunishments.map(p => p.toJSON()),
+      completed: this.completed.map(challenge => challenge.toJSON()),
+      activeBlessings: this.activeBlessings.map(blessing => blessing.toJSON()),
+      activePunishments: this.activePunishments.map(punishment => punishment.toJSON()),
     }
   }
 }
