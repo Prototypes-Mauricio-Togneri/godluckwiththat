@@ -283,11 +283,14 @@ class State {
         wood: 0,
       }
     }
-    const effectiveFoodRate = WORKER_FOOD_CONSUMPTION * (1 - (bonuses[BONUS_FOOD_CONSUMPTION] ?? 0))
-    const effectiveWoodRate = WORKER_WOOD_CONSUMPTION * (1 - (bonuses[BONUS_WOOD_CONSUMPTION] ?? 0))
+    const foodMultiplier = Math.max(0, 1 - (bonuses[BONUS_FOOD_CONSUMPTION] ?? 0))
+    // Stack bonus and season reductions additively
+    const woodMultiplier = Math.max(0, 1
+      - (bonuses[BONUS_WOOD_CONSUMPTION] ?? 0)
+      - (1 - seasonMultipliers.wood))
     return {
-      food: workerCount * effectiveFoodRate,
-      wood: workerCount * effectiveWoodRate * seasonMultipliers.wood,
+      food: workerCount * WORKER_FOOD_CONSUMPTION * foodMultiplier,
+      wood: workerCount * WORKER_WOOD_CONSUMPTION * woodMultiplier,
     }
   }
 
