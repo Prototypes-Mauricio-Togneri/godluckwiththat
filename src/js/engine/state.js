@@ -7,7 +7,7 @@ import storage from '@/js/engine/storage.js'
 import {BOUNDED_RESOURCES, BUILDING_CLASS_MAP, BUILDING_IMAGE_MAP, DOWNGRADABLE_BUILDINGS, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, TUTORIAL_STEPS} from '@/js/engine/constants.js'
 import Colony from '@/js/models/colony.js'
 import Meta from '@/js/models/meta.js'
-import {BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
+import {BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -402,6 +402,11 @@ class State {
       return
     }
     const challenges = this.meta.challenges
+
+    // Decrement ongoing blessing/punishment timeouts (ticks even after all challenges completed)
+    this._advanceEffectTimeouts(challenges.activeBlessings, delta)
+    this._advanceEffectTimeouts(challenges.activePunishments, delta)
+
     if (challenges.allCompleted) {
       return
     }
@@ -597,6 +602,7 @@ class State {
     const blessing = challenge.blessings[blessingIndex]
 
     this.meta.challenges.complete(blessing)
+    this._applyBlessing(blessing)
 
     this.colony.events.dismissFutureByType(EVENT_TYPE_CHALLENGE_STARTED)
 
@@ -630,6 +636,48 @@ class State {
   }
 
   /**
+   * Decrements timeout on each effect in the array by delta. Removes entries whose timeout reaches 0.
+   * Entries with null timeout (instant effects) are skipped.
+   * @param {Array} effects - Array of Blessing or Punishment instances
+   * @param {number} delta - Seconds since last tick
+   */
+  _advanceEffectTimeouts(effects, delta) {
+    for (let i = effects.length - 1; i >= 0; i--) {
+      if (effects[i].timeout === null) {
+        continue
+      }
+      effects[i].timeout = Math.max(0, effects[i].timeout - delta)
+      if (effects[i].timeout === 0) {
+        effects.splice(i, 1)
+      }
+    }
+  }
+
+  /**
+   * Applies instant blessing effects after the player selects a reward.
+   * @param {Blessing} blessing - The chosen blessing
+   */
+  _applyBlessing(blessing) {
+    const {
+      resources, buildings,
+    } = this.colony
+    if (blessing.type === BLESSING_GIFT_FROM_THE_HEAVENS && blessing.resources) {
+      const bonuses = buildings.academy.completedBonuses(RESEARCH_TREE)
+      const storageBonus = bonuses[BONUS_STORAGE_CAPACITY] ?? 0
+      const storageCap = buildings.storehouse.storageCap(storageBonus)
+      for (const [
+        resource,
+        amount,
+      ] of Object.entries(blessing.resources)) {
+        resources[resource] = Math.min(resources[resource] + amount, storageCap)
+      }
+    } else if (blessing.type === BLESSING_HOLY_EXPANSION && blessing.territory) {
+      resources.territoryBonus += blessing.territory
+      this.colony.events.dismissPastByType(EVENT_TYPE_TERRITORY_LIMIT_REACHED)
+    }
+  }
+
+  /**
    * Player action: continues playing after winning (all challenges completed).
    */
   continueAfterWin() {
@@ -651,7 +699,7 @@ class State {
     const building = buildings[buildingKey]
     const cost = building.levelUpCost
 
-    if (building.isConstructing || !resources.canAfford(cost) || resources.territory >= buildings.headquarters.territoryCap) {
+    if (building.isConstructing || !resources.canAfford(cost) || resources.territory >= buildings.headquarters.territoryCap + resources.territoryBonus) {
       return
     }
 
@@ -672,7 +720,7 @@ class State {
     this.update(0)
 
     // Fire territory event after update recalculates territory with pending
-    if (resources.territory >= buildings.headquarters.territoryCap) {
+    if (resources.territory >= buildings.headquarters.territoryCap + resources.territoryBonus) {
       this.colony.events.addPast({
         type: EVENT_TYPE_TERRITORY_LIMIT_REACHED,
         textKey: 'event.territoryLimitReached',
@@ -697,7 +745,7 @@ class State {
     if (!DOWNGRADABLE_BUILDINGS.has(buildingKey)
       || building.level <= 0
       || building.isConstructing
-      || resources.territory < buildings.headquarters.territoryCap) {
+      || resources.territory < buildings.headquarters.territoryCap + resources.territoryBonus) {
       return
     }
 

@@ -484,7 +484,7 @@ function syncResources() {
   ui.storageCap = buildings.storehouse.storageCap(storageBonus)
   ui.idleWorkers = colony.idleWorkers
   ui.workersCap = buildings.house.workersCap
-  ui.territoryCap = buildings.headquarters.territoryCap
+  ui.territoryCap = buildings.headquarters.territoryCap + resources.territoryBonus
   ui.hqType = buildings.headquarters.type
 }
 

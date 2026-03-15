@@ -3,6 +3,8 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Improve challenges
+  - Implement blessings
+  - Implement punishments
   - Add images on each blessing card
 
 - Create military

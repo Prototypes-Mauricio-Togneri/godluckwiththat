@@ -165,11 +165,11 @@ const durationMult = 1 / (1 + constructionBonus)
 
 ##### Next: Storage + Construction + Expansion (steps 3d + 3e + 3f) — 3 bonuses
 
-| Category | Subcategory  | Bonus                     | Effect                              |
-|----------|--------------|---------------------------|-------------------------------------|
+| Category | Subcategory  | Bonus                     | Effect                                |
+|----------|--------------|---------------------------|---------------------------------------|
 | General  | Storage      | `BONUS_STORAGE_CAPACITY`  | +10%/tier all resource stockpile caps |
-| General  | Construction | `BONUS_CONSTRUCTION_TIME` | -10%/tier building/upgrade duration |
-| General  | Expansion    | `BONUS_EXPANSION_COST`    | -10%/tier HQ type upgrade cost      |
+| General  | Construction | `BONUS_CONSTRUCTION_TIME` | -10%/tier building/upgrade duration   |
+| General  | Expansion    | `BONUS_EXPANSION_COST`    | -10%/tier HQ type upgrade cost        |
 
 Files: `state.js`, `headquarters_card.vue`
 

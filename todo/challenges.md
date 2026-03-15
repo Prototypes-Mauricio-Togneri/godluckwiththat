@@ -50,18 +50,22 @@ More context in @docs/specs.md and @docs/architecture.md
     - `levels`: number of building levels lost. For each number, a building is chosen at random and we remove one level from it (it's like a building downgrade). A building can be selected if it is from the `DOWNGRADABLE_BUILDINGS` list AND meets one of these conditions: (a) its level is greater than 1, or (b) its level is 1 and it is currently under construction (in this case, the construction is interrupted — the pending level increment is lost and the building is effectively destroyed). Excess workers above the new capacity are returned to idle. If no eligible buildings remain, the remaining downgrades from this property are skipped.
 
 ## Blessings types
-* `FERTILE_SOIL`: Increases food productivity
-* `FOREST_BLOOM`: Increases wood productivity
+
+### Instant blessings (effects applied immediately, no ongoing effect)
 * `GIFT_FROM_THE_HEAVENS`: Receive a fixed amount of resources
 * `HOLY_EXPANSION`: Receives fixed amount of territory slots
+
+### Ongoing blessings (effects applied continuously for a duration)
+* `FERTILE_SOIL`: Increases food productivity
+* `FOREST_BLOOM`: Increases wood productivity
 * `RICH_MINES`: Increases minerals productivity (only if it has mines)
+* `WISDOM_OF_THE_GODS`: Increases knowledge productivity (only if it has academy)
 * `CELESTIAL_PROSPERITY`: Improves general productivity
 * `RAPID_CONSTRUCTION`: Buildings constructed faster
 * `FAVORABLE_WEATHER`: Cold season becomes less harsh, warm season becomes more productive
-* `WISDOM_OF_THE_GODS`: Increases knowledge productivity (only if it has academy)
 * `BLESSED_MARKETS`: No trading fees (only if it has market)
 
-## Future blessings (not in initial implementation, but design for them now)
+### Future blessings (not in initial implementation, but design for them now)
 * `CELESTIAL_FORTIFICATION`: Buildings more resilient to attacks and disasters (only if it has military)
 * `TEMPORARY_PEACE`: No enemy raids (only if it has military)
 * `SANCTIFIED_HERO`: Gives a special military unit (only if it has military)

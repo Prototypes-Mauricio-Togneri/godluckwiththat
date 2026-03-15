@@ -2,6 +2,7 @@
  * Tracks current resource amounts for the colony.
  *
  * @property {number} territory - Controlled territory count
+ * @property {number} territoryBonus - Bonus territory slots from blessings
  * @property {number} workers - Total worker population
  * @property {number} food - Food supply
  * @property {number} wood - Wood supply
@@ -18,6 +19,7 @@ class Resources {
    */
   constructor(data) {
     this.territory = data.territory ?? 0 // Controlled territory count
+    this.territoryBonus = data.territoryBonus ?? 0 // Bonus territory slots from blessings
     this.workers = data.workers ?? 0 // Total worker population
     this.food = data.food ?? 0 // Food supply
     this.wood = data.wood ?? 0 // Wood supply
@@ -66,6 +68,7 @@ class Resources {
   toJSON() {
     return {
       territory: this.territory,
+      territoryBonus: this.territoryBonus,
       workers: this.workers,
       food: this.food,
       wood: this.wood,
