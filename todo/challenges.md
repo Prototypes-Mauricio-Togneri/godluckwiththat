@@ -111,7 +111,7 @@ All defined in `src/data/challenges.json`
 
 ## Implementation Steps
 
-### Step 2a: Infrastructure + Instant Blessings
+### Step 2a: Infrastructure + Instant Blessings (DONE)
 
 #### Infrastructure
 - Add `territoryBonus` field to `Resources` (default 0, include in `toJSON()` / `fromJSON()`)
