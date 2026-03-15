@@ -3,6 +3,7 @@ import {inject, ref, onMounted, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {SND_NOTIFICATION_DISASTER, IMG_PUNISHMENT_MAP} from '@/js/engine/assets.js'
 import {t} from '@/js/i18n/localized.js'
+import {formatMinutes} from '@/js/engine/format.js'
 
 const ui = inject('ui')
 const actions = inject('actions')
@@ -55,16 +56,16 @@ onUnmounted(() => {
             {{ t('punishment.faithLoss', Math.round(ui.challenges.activePunishment.faith * 100)) }}
           </li>
           <li v-if="ui.challenges.activePunishment.productivityFarm" class="punishment-item">
-            {{ t('punishment.productivityFarmLoss', Math.round(ui.challenges.activePunishment.productivityFarm * 100)) }}
+            {{ t('punishment.productivityFarmLoss', Math.round(ui.challenges.activePunishment.productivityFarm * 100), formatMinutes(ui.challenges.activePunishment.timeout ?? 0)) }}
           </li>
           <li v-if="ui.challenges.activePunishment.productivityWoodcutter" class="punishment-item">
-            {{ t('punishment.productivityWoodcutterLoss', Math.round(ui.challenges.activePunishment.productivityWoodcutter * 100)) }}
+            {{ t('punishment.productivityWoodcutterLoss', Math.round(ui.challenges.activePunishment.productivityWoodcutter * 100), formatMinutes(ui.challenges.activePunishment.timeout ?? 0)) }}
           </li>
           <li v-if="ui.challenges.activePunishment.productivityMines" class="punishment-item">
-            {{ t('punishment.productivityMinesLoss', Math.round(ui.challenges.activePunishment.productivityMines * 100)) }}
+            {{ t('punishment.productivityMinesLoss', Math.round(ui.challenges.activePunishment.productivityMines * 100), formatMinutes(ui.challenges.activePunishment.timeout ?? 0)) }}
           </li>
           <li v-if="ui.challenges.activePunishment.productivityGeneral" class="punishment-item">
-            {{ t('punishment.productivityGeneralLoss', Math.round(ui.challenges.activePunishment.productivityGeneral * 100)) }}
+            {{ t('punishment.productivityGeneralLoss', Math.round(ui.challenges.activePunishment.productivityGeneral * 100), formatMinutes(ui.challenges.activePunishment.timeout ?? 0)) }}
           </li>
           <li v-if="ui.challenges.activePunishment.resources" class="punishment-item">
             {{ t('punishment.resourceLoss', Math.round(ui.challenges.activePunishment.resources * 100)) }}

@@ -714,6 +714,7 @@ function syncChallenges() {
     })) : [],
     activePunishment: active ? {
       type: active.punishment.type,
+      timeout: active.punishment.timeout,
       faith: active.punishment.faith,
       productivityFarm: active.punishment.productivityFarm,
       productivityWoodcutter: active.punishment.productivityWoodcutter,

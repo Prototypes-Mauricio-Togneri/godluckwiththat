@@ -113,7 +113,7 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: center;
   padding: 1rem 0.75rem;
-  border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+  border: 2px solid rgba(var(--color-accent-rgb), 0.15);
   background: linear-gradient(
     180deg,
     rgba(var(--color-accent-rgb), 0.04),
