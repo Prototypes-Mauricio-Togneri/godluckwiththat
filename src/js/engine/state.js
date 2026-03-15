@@ -122,15 +122,9 @@ class State {
     // each second. Research bonuses reduce the base consumption rates (−5%/tier).
     // Wood upkeep is additionally scaled by seasonal modifier (cold = more heating).
     // Consumption rates are per-second and also used by the UI (header tooltips)
-    const effectiveFoodConsumption = WORKER_FOOD_CONSUMPTION * (1 - (bonuses[BONUS_FOOD_CONSUMPTION] ?? 0))
-    const effectiveWoodConsumption = WORKER_WOOD_CONSUMPTION * (1 - (bonuses[BONUS_WOOD_CONSUMPTION] ?? 0))
-    if (resources.workers > 0) {
-      consumption.food = resources.workers * effectiveFoodConsumption
-      consumption.wood = resources.workers * effectiveWoodConsumption * seasonMultipliers.wood
-    } else {
-      consumption.food = 0
-      consumption.wood = 0
-    }
+    const consumptionRates = this._computeResourceConsumption(bonuses, seasonMultipliers, resources.workers)
+    consumption.food = consumptionRates.food
+    consumption.wood = consumptionRates.wood
 
     // Deduct upkeep from resources. Guarded by delta > 0 because update(0) is
     // used as a "recalculate-only" call by action methods (e.g. after assigning
@@ -269,6 +263,31 @@ class State {
     return {
       food: 1 + foodModifier,
       wood: 1 + woodModifier,
+    }
+  }
+
+  /**
+   * Computes per-second consumption rates for food and wood based on worker
+   * count, research bonuses, and seasonal modifiers. Returns final rates
+   * after all reductions are applied.
+   *
+   * @param {Object} bonuses - Research bonus map from academy.completedBonuses()
+   * @param {{ food: number, wood: number }} seasonMultipliers - Seasonal multipliers from _computeSeasonMultipliers
+   * @param {number} workerCount - Total worker count (idle + assigned)
+   * @returns {{ food: number, wood: number }}
+   */
+  _computeResourceConsumption(bonuses, seasonMultipliers, workerCount) {
+    if (workerCount <= 0) {
+      return {
+        food: 0,
+        wood: 0,
+      }
+    }
+    const effectiveFoodRate = WORKER_FOOD_CONSUMPTION * (1 - (bonuses[BONUS_FOOD_CONSUMPTION] ?? 0))
+    const effectiveWoodRate = WORKER_WOOD_CONSUMPTION * (1 - (bonuses[BONUS_WOOD_CONSUMPTION] ?? 0))
+    return {
+      food: workerCount * effectiveFoodRate,
+      wood: workerCount * effectiveWoodRate * seasonMultipliers.wood,
     }
   }
 
