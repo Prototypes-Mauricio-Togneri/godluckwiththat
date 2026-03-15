@@ -12,8 +12,15 @@ Builds on the existing (but unimplemented) Disaster research tree (Floods, Healt
 
 **Disaster Types**
 
-| Type | Season Bias | Effect | Duration |
-|------|-------------|--------|----------|
-| **Floods** | 50% warm / 20% cold | Destroys 10-30% of food + wood stockpile, reduces Farm output by 50% | 60 seconds |
-| **Disease** | 30% either season | 20-40% of workers become sick (produce nothing, still consume upkeep) | 120 seconds (halved with Apothecary + herbs) |
-| **Earthquakes** | 20% warm / 50% cold | Random building loses 1 level (min 1), territory reduced by 10% | 60 seconds |
+- **Floods**:
+  * 50% warm / 20% cold
+  * Destroys 10-30% of food + wood stockpile, reduces Farm output by 50% 
+  * 60 seconds
+- **Disease**:
+  * 30% either season
+  * 20-40% of workers become sick (produce nothing, still consume upkeep)
+  * 120 seconds (halved with Apothecary + herbs)
+- **Earthquakes**:
+  * 20% warm / 50% cold
+  * Random building loses 1 level (min 1), territory reduced by 10%
+  * 60 seconds
