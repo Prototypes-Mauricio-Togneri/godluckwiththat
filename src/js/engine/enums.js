@@ -256,6 +256,10 @@ export const CHALLENGE_MODAL_WIN = 'win'
 // Challenge event types
 export const EVENT_TYPE_CHALLENGE_STARTED = 'challenge_started'
 
+// Unicode symbols
+export const SYMBOL_CHECK = '✓'
+export const SYMBOL_CROSS = '✕'
+
 // Storage keys (localStorage)
 export const STORAGE_MUSIC_ENABLED = 'musicEnabled'
 export const STORAGE_SOUND_ENABLED = 'soundEnabled'

@@ -2,7 +2,7 @@
 import {inject, ref, computed, onMounted, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
 import {IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
-import {EMIT_CLOSE} from '@/js/engine/enums.js'
+import {EMIT_CLOSE, SYMBOL_CHECK, SYMBOL_CROSS} from '@/js/engine/enums.js'
 import {formatTime, formatNumber} from '@/js/engine/format.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -104,7 +104,7 @@ onUnmounted(() => {
                 class="req-item"
                 :class="{ 'req-item--met': isRequirementMet('faith', challenge.requirements.faith) }"
               >
-                <span class="req-icon">{{ isRequirementMet('faith', challenge.requirements.faith) ? '✓' : '✗' }}</span>
+                <span class="req-icon">{{ isRequirementMet('faith', challenge.requirements.faith) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
                 {{ t('challenge.requirement.faith', formatNumber(challenge.requirements.faith)) }}
               </li>
               <li
@@ -112,7 +112,7 @@ onUnmounted(() => {
                 class="req-item"
                 :class="{ 'req-item--met': isRequirementMet('altar', challenge.requirements.altar) }"
               >
-                <span class="req-icon">{{ isRequirementMet('altar', challenge.requirements.altar) ? '✓' : '✗' }}</span>
+                <span class="req-icon">{{ isRequirementMet('altar', challenge.requirements.altar) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
                 {{ t('challenge.requirement.altar', challenge.requirements.altar) }}
               </li>
               <li
@@ -120,7 +120,7 @@ onUnmounted(() => {
                 class="req-item"
                 :class="{ 'req-item--met': isRequirementMet('temple', challenge.requirements.temple) }"
               >
-                <span class="req-icon">{{ isRequirementMet('temple', challenge.requirements.temple) ? '✓' : '✗' }}</span>
+                <span class="req-icon">{{ isRequirementMet('temple', challenge.requirements.temple) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
                 {{ t('challenge.requirement.temple', challenge.requirements.temple) }}
               </li>
               <li
@@ -128,7 +128,7 @@ onUnmounted(() => {
                 class="req-item"
                 :class="{ 'req-item--met': isRequirementMet('monument', challenge.requirements.monument) }"
               >
-                <span class="req-icon">{{ isRequirementMet('monument', challenge.requirements.monument) ? '✓' : '✗' }}</span>
+                <span class="req-icon">{{ isRequirementMet('monument', challenge.requirements.monument) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
                 {{ t('challenge.requirement.monument', challenge.requirements.monument) }}
               </li>
               <template v-if="challenge.requirements.resources !== null">
@@ -138,7 +138,7 @@ onUnmounted(() => {
                   class="req-item"
                   :class="{ 'req-item--met': isResourceMet(resource, amount) }"
                 >
-                  <span class="req-icon">{{ isResourceMet(resource, amount) ? '✓' : '✗' }}</span>
+                  <span class="req-icon">{{ isResourceMet(resource, amount) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
                   <img class="req-resource-icon" :src="IMG_RESOURCE_MAP[resource]" :alt="t('resource.' + resource)">
                   {{ formatNumber(amount) }} {{ t('resource.' + resource) }}
                 </li>
@@ -148,7 +148,7 @@ onUnmounted(() => {
                 class="req-item"
                 :class="{ 'req-item--met': isRequirementMet('workers', challenge.requirements.workers) }"
               >
-                <span class="req-icon">{{ isRequirementMet('workers', challenge.requirements.workers) ? '✓' : '✗' }}</span>
+                <span class="req-icon">{{ isRequirementMet('workers', challenge.requirements.workers) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
                 {{ t('challenge.requirement.workers', challenge.requirements.workers) }}
               </li>
             </ul>
@@ -274,7 +274,7 @@ onUnmounted(() => {
 }
 
 .req-icon {
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   width: 1rem;
   text-align: center;
   flex-shrink: 0;
