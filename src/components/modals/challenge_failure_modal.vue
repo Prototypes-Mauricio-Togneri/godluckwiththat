@@ -55,6 +55,15 @@ onUnmounted(() => {
           <li v-if="ui.challenges.activePunishment.faith" class="punishment-item">
             {{ t('punishment.faithLoss', Math.round(ui.challenges.activePunishment.faith * 100)) }}
           </li>
+          <li v-if="ui.challenges.activePunishment.resources" class="punishment-item">
+            {{ t('punishment.resourceLoss', Math.round(ui.challenges.activePunishment.resources * 100)) }}
+          </li>
+          <li v-if="ui.challenges.activePunishment.workers" class="punishment-item">
+            {{ t('punishment.workerLoss', ui.challenges.activePunishment.workers) }}
+          </li>
+          <li v-if="ui.challenges.activePunishment.levels" class="punishment-item">
+            {{ t('punishment.buildingLoss', ui.challenges.activePunishment.levels) }}
+          </li>
           <li v-if="ui.challenges.activePunishment.productivityFarm" class="punishment-item">
             {{ t('punishment.productivityFarmLoss', Math.round(ui.challenges.activePunishment.productivityFarm * 100), formatMinutes(ui.challenges.activePunishment.timeout ?? 0)) }}
           </li>
@@ -66,15 +75,6 @@ onUnmounted(() => {
           </li>
           <li v-if="ui.challenges.activePunishment.productivityGeneral" class="punishment-item">
             {{ t('punishment.productivityGeneralLoss', Math.round(ui.challenges.activePunishment.productivityGeneral * 100), formatMinutes(ui.challenges.activePunishment.timeout ?? 0)) }}
-          </li>
-          <li v-if="ui.challenges.activePunishment.resources" class="punishment-item">
-            {{ t('punishment.resourceLoss', Math.round(ui.challenges.activePunishment.resources * 100)) }}
-          </li>
-          <li v-if="ui.challenges.activePunishment.workers" class="punishment-item">
-            {{ t('punishment.workerLoss', ui.challenges.activePunishment.workers) }}
-          </li>
-          <li v-if="ui.challenges.activePunishment.levels" class="punishment-item">
-            {{ t('punishment.buildingLoss', ui.challenges.activePunishment.levels) }}
           </li>
         </ul>
 
