@@ -246,7 +246,14 @@ class State {
 
   /**
    * Computes seasonal multipliers for food production and wood consumption.
-   * FAVORABLE_WEATHER blessing amplifies warm and softens cold modifiers.
+   * FAVORABLE_WEATHER blessing boosts food production and reduces wood consumption.
+   *
+   * Example output (warm/cold factor = 0.1):
+   *   Scenario             | Food production | Wood consumption
+   *   Warm, no blessing    |             1.2 |              0.8
+   *   Warm, with blessing  |             1.3 |              0.7
+   *   Cold, no blessing    |             0.8 |              1.2
+   *   Cold, with blessing  |             0.9 |              1.1
    *
    * @param {Array} blessings - Active blessings from meta.challenges
    * @returns {{ food: number, wood: number }}
@@ -256,9 +263,9 @@ class State {
     let woodModifier = this.colony.season.isWarm ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
     const favorableWeather = blessings.find(blessing => blessing.type === BLESSING_FAVORABLE_WEATHER)
     if (favorableWeather) {
-      const seasonMultiplier = this.colony.season.isWarm ? 1 + favorableWeather.warm : 1 - favorableWeather.cold
-      foodModifier *= seasonMultiplier
-      woodModifier *= seasonMultiplier
+      const seasonBonus = this.colony.season.isWarm ? favorableWeather.warm : favorableWeather.cold
+      foodModifier += seasonBonus
+      woodModifier -= seasonBonus
     }
     return {
       food: 1 + foodModifier,
