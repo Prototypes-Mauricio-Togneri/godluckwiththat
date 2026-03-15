@@ -94,23 +94,47 @@ All defined in `src/data/challenges.json`
 5. If the player meets the requirements, the challenge is moved to the `completed` array, and the requirements are deducted from the colony (e.g., faith, resources, workers). After that, a new modal is shown to the player, showing the available rewards from completing the challenge. While this modal is open, the game is paused. The modal cannot be dismissed by clicking outside or with a close button. The player has to choose one of the available blessings as a reward. Once the player chooses a blessing, the blessing is added to the field `activeBlessings` (tracked only — effects not applied, see note below). If more challenges are available in the pending array, go to step 1. If no more challenges are available, the win modal is shown, announcing that the portal is activated and the player goes home.
 6. If the player does not meet the requirements, a new modal is shown explaining what punishment will be applied to the colony. While this modal is open, the game is paused. This modal cannot be dismissed by clicking outside. It only has a button to acknowledge the punishment and continue. Once the player acknowledges, the punishment is applied to the colony (lose resources, workers, building levels, and 50% of stored faith). The punishment is also added to the field `activePunishments` (tracked only — ongoing effects not applied, see note below). After that, the challenge is reset (delay and timeout timers are reset to 0), but kept as the active challenge.
 
+## Design Rules
+
+- **No stacking**: Two blessings (or punishments) of the same type cannot be active simultaneously. The player will never be offered a blessing that duplicates an already active one (handled by challenge data design — each challenge offers distinct blessing types)
+- **Ongoing effect timeouts**: Only tick while the game is running (not during paused/modal states). Use the same `delta` from the game loop
+- **RAPID_CONSTRUCTION**: Only affects constructions started while the blessing is active, not constructions already in progress
+- **FAVORABLE_WEATHER formula**: Warm season modifiers are amplified by `(1 + warm)`, cold season modifiers are softened by `(1 - cold)`. Examples with `warm = 0.5, cold = 0.5`: warm food modifier `0.2 × 1.5 = 0.3` (+30% instead of +20%), warm wood modifier `-0.2 × 1.5 = -0.3` (-30% instead of -20%), cold food modifier `-0.2 × 0.5 = -0.1` (-10% instead of -20%), cold wood modifier `0.2 × 0.5 = 0.1` (+10% instead of +20%)
+- **BLESSED_MARKETS**: Trade fee is 0% while active, overriding market level reduction
+- **HOLY_EXPANSION**: Adds to a new `territoryBonus` field on `Resources`, which is added to `headquarters.territoryCap` when computing the effective territory cap. This is analogous to how `storageBonus` and `habitationBonus` work
+- **Building downgrade during construction**: When a level-1 building under construction is destroyed, set `constructionRemaining = 0` and level to 0. Dismiss the future event for that construction via `events.dismissFutureByBuildingKey(key)`. Pending territory naturally decreases since `pendingTerritory` counts buildings with active construction
+- **Worker sacrifice clamping**: If the colony has fewer total workers than `punishment.workers`, clamp to available workers (don't go negative)
+
 ## Implementation Steps
 
 ### Blessing & Punishment Effects
 
-#### Step 1: Punishment Application (`src/js/engine/state.js`)
-- `_applyPunishment(punishment)`: Called from `_failChallenge()` after adding punishment to array. Removes `punishment.faith` fraction of stored faith. Removes `punishment.resources` fraction of each bounded resource. Kills `punishment.workers` workers via `_sacrificeWorkers()`. Downgrades `punishment.levels` random building levels (picks random building from `DOWNGRADABLE_BUILDINGS` that meets one of these conditions: (a) level > 1, or (b) level == 1 and currently under construction — in this case, the construction is interrupted, the pending level increment is lost, and the building is effectively destroyed. Decrements the building's level, returns excess workers above the new capacity to idle — skips remaining if no eligible buildings)
+#### Step 1: Instant Punishment Effects (`src/js/engine/state.js`)
+- `_applyPunishment(punishment)`: Called from `acknowledgePunishment()` (after the player clicks "Accept Punishment" and the punishment is added to `activePunishments`). Applies all instant effects:
+  - Removes `punishment.faith` fraction of stored faith (e.g., 0.5 → lose 50%)
+  - Removes `punishment.resources` fraction of each bounded resource (food, wood, stone, copper, iron, gold)
+  - Kills `punishment.workers` workers via `_sacrificeWorkers()` (idle first, then randomly unassigned from producers; clamped to available workers)
+  - Downgrades `punishment.levels` random building levels: for each level, picks a random building from `DOWNGRADABLE_BUILDINGS` that meets one of these conditions: (a) level > 1, or (b) level == 1 and currently under construction. If (a), decrements the building's level and returns excess workers above new capacity to idle. If (b), sets `constructionRemaining = 0`, level to 0, and dismisses the construction future event. Skips remaining downgrades if no eligible buildings
 
-#### Step 2: Blessing Immediate Effects (`src/js/engine/state.js`)
-- `_applyBlessing(blessing)`: Called from `_completeChallenge()` after adding blessing to array. Handles instant effects: `GIFT_FROM_THE_HEAVENS` (grant resources), `HOLY_EXPANSION` (grant territory slots)
+#### Step 2: Instant Blessing Effects (`src/js/engine/state.js`)
+- `_applyBlessing(blessing)`: Called from `selectBlessing()` (after the player chooses a reward and the blessing is added to `activeBlessings`). Handles instant-only effects:
+  - `GIFT_FROM_THE_HEAVENS`: Grants `blessing.resources` amounts to colony resources (capped at storage cap)
+  - `HOLY_EXPANSION`: Adds `blessing.territory` to `resources.territoryBonus`
 
 #### Step 3: Ongoing Effects (`src/js/engine/state.js`)
-- Decrement `timeout` on active blessings and punishments each tick, remove expired effects
-- Wire productivity modifiers into game loop (`FERTILE_SOIL`, `FOREST_BLOOM`, `RICH_MINES`, `CELESTIAL_PROSPERITY`, `WISDOM_OF_THE_GODS`, `CROP_FAILURE`, `WILDFIRES`)
-- Wire weather modifiers (`FAVORABLE_WEATHER`)
-- Wire construction speed (`RAPID_CONSTRUCTION`)
-- Wire trade fee removal (`BLESSED_MARKETS`)
-- Wire worker/building loss from punishments (`PLAGUE`, `LANDSLIDE`, `VOLCANO`)
+- **Timeout tracking**: In `advanceChallenges(delta)` (or a new `advanceBlessingsPunishments(delta)`), decrement `timeout` on each active blessing and punishment by `delta`. Remove entries whose `timeout` reaches 0
+- **Productivity modifiers**: In `update()`, after computing base production rates and before applying season modifiers, apply active blessing/punishment productivity multipliers:
+  - `FERTILE_SOIL` / `CROP_FAILURE`: multiply farm production by `(1 + blessing.productivity)` or `(1 - punishment.productivityFarm)`
+  - `FOREST_BLOOM` / `WILDFIRES`: multiply woodcutter production by `(1 + blessing.productivity)` or `(1 - punishment.productivityWoodcutter)`
+  - `RICH_MINES`: multiply quarry + all mine production by `(1 + blessing.productivity)`
+  - `LANDSLIDE`: multiply quarry + all mine production by `(1 - punishment.productivityMines)`
+  - `CELESTIAL_PROSPERITY`: multiply all producer production by `(1 + blessing.productivity)`
+  - `WISDOM_OF_THE_GODS`: multiply academy production by `(1 + blessing.productivity)`
+  - `CROP_FAILURE` / `WILDFIRES` / `LANDSLIDE` / `PLAGUE` / `VOLCANO` with `productivityGeneral`: multiply all producer production by `(1 - punishment.productivityGeneral)`
+- **Weather modifiers**: In `update()`, when applying season modifiers, check for active `FAVORABLE_WEATHER` blessing. If present, multiply warm-season modifiers by `(1 + blessing.warm)` and cold-season modifiers by `(1 - blessing.cold)` before applying them
+- **Construction speed**: In `levelUpBuilding()` and `expandTerritory()`, check for active `RAPID_CONSTRUCTION` blessing. If present, multiply the construction duration by `(1 - blessing.construction)` (e.g., 0.5 → 50% faster → half the time)
+- **Trade fee removal**: In `Market.executeTrade()` (or the fee calculation), check for active `BLESSED_MARKETS` blessing. If present, override fee to 0%
+- **Territory bonus**: In `update()`, when computing effective territory cap, add `resources.territoryBonus` to `headquarters.territoryCap`
 
 ## Critical Files
 - `src/data/challenges.json` — challenge definitions (source data)
