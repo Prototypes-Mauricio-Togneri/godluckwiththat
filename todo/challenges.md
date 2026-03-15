@@ -93,3 +93,39 @@ All defined in `src/data/challenges.json`
 4. Once the time limit is reached, the game checks whether all requirements are met at that moment.
 5. If the player meets the requirements, the challenge is moved to the `completed` array, and the requirements are deducted from the colony (e.g., faith, resources, workers). After that, a new modal is shown to the player, showing the available rewards from completing the challenge. While this modal is open, the game is paused. The modal cannot be dismissed by clicking outside or with a close button. The player has to choose one of the available blessings as a reward. Once the player chooses a blessing, the blessing is added to the field `activeBlessings` (tracked only — effects not applied, see note below). If more challenges are available in the pending array, go to step 1. If no more challenges are available, the win modal is shown, announcing that the portal is activated and the player goes home.
 6. If the player does not meet the requirements, a new modal is shown explaining what punishment will be applied to the colony. While this modal is open, the game is paused. This modal cannot be dismissed by clicking outside. It only has a button to acknowledge the punishment and continue. Once the player acknowledges, the punishment is applied to the colony (lose resources, workers, building levels, and 50% of stored faith). The punishment is also added to the field `activePunishments` (tracked only — ongoing effects not applied, see note below). After that, the challenge is reset (delay and timeout timers are reset to 0), but kept as the active challenge.
+
+## Implementation Steps
+
+### Blessing & Punishment Effects
+
+#### Step 1: Punishment Application (`src/js/engine/state.js`)
+- `_applyPunishment(punishment)`: Called from `_failChallenge()` after adding punishment to array. Removes `punishment.faith` fraction of stored faith. Removes `punishment.resources` fraction of each bounded resource. Kills `punishment.workers` workers via `_sacrificeWorkers()`. Downgrades `punishment.levels` random building levels (picks random building from `DOWNGRADABLE_BUILDINGS` that meets one of these conditions: (a) level > 1, or (b) level == 1 and currently under construction — in this case, the construction is interrupted, the pending level increment is lost, and the building is effectively destroyed. Decrements the building's level, returns excess workers above the new capacity to idle — skips remaining if no eligible buildings)
+
+#### Step 2: Blessing Immediate Effects (`src/js/engine/state.js`)
+- `_applyBlessing(blessing)`: Called from `_completeChallenge()` after adding blessing to array. Handles instant effects: `GIFT_FROM_THE_HEAVENS` (grant resources), `HOLY_EXPANSION` (grant territory slots)
+
+#### Step 3: Ongoing Effects (`src/js/engine/state.js`)
+- Decrement `timeout` on active blessings and punishments each tick, remove expired effects
+- Wire productivity modifiers into game loop (`FERTILE_SOIL`, `FOREST_BLOOM`, `RICH_MINES`, `CELESTIAL_PROSPERITY`, `WISDOM_OF_THE_GODS`, `CROP_FAILURE`, `WILDFIRES`)
+- Wire weather modifiers (`FAVORABLE_WEATHER`)
+- Wire construction speed (`RAPID_CONSTRUCTION`)
+- Wire trade fee removal (`BLESSED_MARKETS`)
+- Wire worker/building loss from punishments (`PLAGUE`, `LANDSLIDE`, `VOLCANO`)
+
+## Critical Files
+- `src/data/challenges.json` — challenge definitions (source data)
+- `src/js/engine/enums.js` — new enums (challenge status, keys, blessing/punishment types, event types)
+- `src/js/engine/balancing.js` — (no challenge-specific constants; faith loss is per-punishment in `challenges.json`)
+- `src/js/engine/constants.js` — `createInitialChallenges()` factory
+- `src/js/models/challenges.js` — new `Challenges` container class (create)
+- `src/js/models/challenge.js` — new `Challenge` class (create)
+- `src/js/models/blessing.js` — new `Blessing` class (create)
+- `src/js/models/punishment.js` — new `Punishment` class (create)
+- `src/js/models/meta.js` — replace `numberOfChallenges` with `challenges` property
+- `src/js/engine/state.js` — game loop integration, challenge resolution, player actions
+- `src/js/models/events/event.js` — add `action` field
+- `src/components/screens/game_screen.vue` — header indicator, sync, modal wiring
+- `src/components/modals/challenge_modal.vue` — new modal (create)
+- `src/components/modals/challenge_reward_modal.vue` — new modal (create)
+- `src/components/modals/challenge_failure_modal.vue` — new modal (create)
+- `src/js/i18n/en.js` (+ es, fr, ca, it) — localization keys
