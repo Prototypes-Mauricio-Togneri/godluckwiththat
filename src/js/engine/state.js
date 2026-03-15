@@ -336,11 +336,10 @@ class State {
    * active blessings, seasonal modifiers, and general productivity. Returns
    * final rates after all multipliers are applied.
    *
-   * Four stages:
+   * Three stages:
    *   1. Base rates: workers × config.rate (or level × config.rate for passive buildings)
    *   2. Per-resource multipliers: research + worker productivity (bounded only) + blessings + season
-   *   3. Combination: baseRate × multiplier per resource
-   *   4. Productivity penalty: scale all rates when general productivity < 1
+   *   3. Combination: baseRate × multiplier × productivity per resource
    *
    * @param {Object} bonuses - Research bonus map from academy.completedBonuses()
    * @param {Array} blessings - Active blessings from meta.challenges
@@ -419,17 +418,10 @@ class State {
     // Season modifier on food production (additive)
     multipliers.food += seasonMultipliers.food - 1
 
-    // Stage 3: Combine base rates with multipliers
+    // Stage 3: Combine base rates with multipliers and productivity penalty
     const rates = {}
     for (const resource of Object.keys(baseRates)) {
-      rates[resource] = baseRates[resource] * multipliers[resource]
-    }
-
-    // Stage 4: General productivity penalty from resource shortages
-    if (productivity < 1) {
-      for (const resource of Object.keys(rates)) {
-        rates[resource] *= productivity
-      }
+      rates[resource] = baseRates[resource] * multipliers[resource] * productivity
     }
 
     return rates
