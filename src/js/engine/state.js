@@ -122,7 +122,7 @@ class State {
     // each second. Research bonuses reduce the base consumption rates (−5%/tier).
     // Wood upkeep is additionally scaled by seasonal modifier (cold = more heating).
     // Consumption rates are per-second and also used by the UI (header tooltips)
-    const consumptionRates = this._computeResourceConsumption(bonuses, seasonMultipliers, resources.workers)
+    const consumptionRates = this._computeConsumptionRates(bonuses, seasonMultipliers, resources.workers)
     consumption.food = consumptionRates.food
     consumption.wood = consumptionRates.wood
 
@@ -276,7 +276,7 @@ class State {
    * @param {number} workerCount - Total worker count (idle + assigned)
    * @returns {{ food: number, wood: number }}
    */
-  _computeResourceConsumption(bonuses, seasonMultipliers, workerCount) {
+  _computeConsumptionRates(bonuses, seasonMultipliers, workerCount) {
     if (workerCount <= 0) {
       return {
         food: 0,
