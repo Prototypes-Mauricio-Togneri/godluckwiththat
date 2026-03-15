@@ -238,7 +238,7 @@ export const LOCALIZED_FR = {
   'research.subcategory.warning': 'Alerte',
 
   // Research subcategory effects
-  'research.effect.transportation': 'Augmente la productivité des ouvriers de {0}%',
+  'research.effect.transportation': 'Augmente la productivité de collecte des ressources de {0}%',
   'research.effect.construction': 'Réduit le temps de construction de {0}%',
   'research.effect.expansion': 'Réduit le coût d\'expansion de {0}%',
   'research.effect.floods': 'Réduit l\'impact des inondations de {0}%',

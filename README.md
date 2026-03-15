@@ -2,12 +2,12 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Season improvement
-  - Show in the season tooltip the current effects (how much the food production and wood consumption are modified)
+- Check the new logic is the same as the one before
 
-- Improvement
- - Check if all production multipliers are added up before being applied
- - Show the current productivity multiplier in the UI (e.g. in the resources panel)
+- UI improvements
+  - In the general productivity tooltip, who why we have that number (e.g. missing food or wood)
+  - Show the current productivity multiplier in the UI (e.g. in the resources panel)
+  - Show in the season tooltip the current effects (how much the food production and wood consumption are modified)
 
 - Improve challenges
   - Implement blessings

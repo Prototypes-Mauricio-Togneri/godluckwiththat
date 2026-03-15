@@ -1,13 +1,13 @@
 // Central game state container — mutation handler, game loop, and player actions.
 
-import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_BONUS_MAP, PRODUCTION_RATES, RESEARCH_COSTS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_RATES, RESEARCH_COSTS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, IMG_RESOURCE_FAITH, IMG_RESOURCE_KNOWLEDGE, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_CREATED, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
 import storage from '@/js/engine/storage.js'
 import {BOUNDED_RESOURCES, BUILDING_CLASS_MAP, BUILDING_IMAGE_MAP, DOWNGRADABLE_BUILDINGS, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, TUTORIAL_STEPS} from '@/js/engine/constants.js'
 import Colony from '@/js/models/colony.js'
 import Meta from '@/js/models/meta.js'
-import {BLESSING_BLESSED_MARKETS, BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
+import {BLESSING_BLESSED_MARKETS, BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FAITH_PRODUCTION, BONUS_FOOD_CONSUMPTION, BONUS_FOOD_PRODUCTION, BONUS_HABITATION, BONUS_KNOWLEDGE_PRODUCTION, BONUS_MINING_PRODUCTION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WOOD_PRODUCTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -336,9 +336,11 @@ class State {
    * active blessings, seasonal modifiers, and general productivity. Returns
    * final rates after all multipliers are applied.
    *
-   * Two formulas depending on building type:
-   *   Passive (e.g. altar): level × baseRate × resourceBonus
-   *   Worker-based (e.g. farm): workers × baseRate × resourceBonus × workerBonus
+   * Four stages:
+   *   1. Base rates: workers × config.rate (or level × config.rate for passive buildings)
+   *   2. Per-resource multipliers: research + worker productivity (bounded only) + blessings + season
+   *   3. Combination: baseRate × multiplier per resource
+   *   4. Productivity penalty: scale all rates when general productivity < 1
    *
    * @param {Object} bonuses - Research bonus map from academy.completedBonuses()
    * @param {Array} blessings - Active blessings from meta.challenges
@@ -350,7 +352,8 @@ class State {
     const {
       buildings,
     } = this.colony
-    const rates = {
+    // Stage 1: Base production rates (workers/level × config.rate, no multipliers)
+    const baseRates = {
       food: 0,
       wood: 0,
       stone: 0,
@@ -361,63 +364,72 @@ class State {
       knowledge: 0,
     }
 
-    // workerMultiplier: global productivity bonus from Transportation research (+5%/tier)
-    // resourceMultiplier: per-resource bonus from research (e.g. Food Production, Mining)
-    const workerMultiplier = 1 + (bonuses[BONUS_WORKER_PRODUCTIVITY] ?? 0)
     for (const [
       buildingKey,
       config,
     ] of Object.entries(PRODUCTION_RATES)) {
       const building = buildings[buildingKey]
       if (building.level > 0) {
-        const bonusType = PRODUCTION_BONUS_MAP[buildingKey]
-        const resourceMultiplier = 1 + (bonusType ? (bonuses[bonusType] ?? 0) : 0)
         if (config.passive) {
-          rates[config.resource] += building.level * config.rate * resourceMultiplier
+          baseRates[config.resource] += building.level * config.rate
         } else if (building.workers > 0) {
-          rates[config.resource] += building.workers * config.rate * resourceMultiplier * workerMultiplier
+          baseRates[config.resource] += building.workers * config.rate
         }
       }
     }
 
-    // Productivity blessings (before season modifiers so seasons stack on top)
+    // Stage 2: Per-resource multipliers (additive accumulation)
+    const workerProductivityBonus = bonuses[BONUS_WORKER_PRODUCTIVITY] ?? 0
+    const multipliers = {
+      food: 1 + (bonuses[BONUS_FOOD_PRODUCTION] ?? 0) + workerProductivityBonus,
+      wood: 1 + (bonuses[BONUS_WOOD_PRODUCTION] ?? 0) + workerProductivityBonus,
+      stone: 1 + (bonuses[BONUS_MINING_PRODUCTION] ?? 0) + workerProductivityBonus,
+      copper: 1 + (bonuses[BONUS_MINING_PRODUCTION] ?? 0) + workerProductivityBonus,
+      iron: 1 + (bonuses[BONUS_MINING_PRODUCTION] ?? 0) + workerProductivityBonus,
+      gold: 1 + (bonuses[BONUS_MINING_PRODUCTION] ?? 0) + workerProductivityBonus,
+      knowledge: 1 + (bonuses[BONUS_KNOWLEDGE_PRODUCTION] ?? 0),
+      faith: 1 + (bonuses[BONUS_FAITH_PRODUCTION] ?? 0),
+    }
+
+    // Blessing productivity bonuses (additive)
     for (const blessing of blessings) {
       if (blessing.type === BLESSING_FERTILE_SOIL && blessing.productivity) {
-        rates.food *= 1 + blessing.productivity
+        multipliers.food += blessing.productivity
       } else if (blessing.type === BLESSING_FOREST_BLOOM && blessing.productivity) {
-        rates.wood *= 1 + blessing.productivity
+        multipliers.wood += blessing.productivity
       } else if (blessing.type === BLESSING_RICH_MINES && blessing.productivity) {
-        rates.stone *= 1 + blessing.productivity
-        rates.copper *= 1 + blessing.productivity
-        rates.iron *= 1 + blessing.productivity
-        rates.gold *= 1 + blessing.productivity
+        multipliers.stone += blessing.productivity
+        multipliers.copper += blessing.productivity
+        multipliers.iron += blessing.productivity
+        multipliers.gold += blessing.productivity
       } else if (blessing.type === BLESSING_WISDOM_OF_THE_GODS && blessing.productivity) {
-        rates.knowledge *= 1 + blessing.productivity
+        multipliers.knowledge += blessing.productivity
       } else if (blessing.type === BLESSING_CELESTIAL_PROSPERITY && blessing.productivity) {
-        rates.food *= 1 + blessing.productivity
-        rates.wood *= 1 + blessing.productivity
-        rates.stone *= 1 + blessing.productivity
-        rates.copper *= 1 + blessing.productivity
-        rates.iron *= 1 + blessing.productivity
-        rates.gold *= 1 + blessing.productivity
-        rates.faith *= 1 + blessing.productivity
-        rates.knowledge *= 1 + blessing.productivity
+        multipliers.food += blessing.productivity
+        multipliers.wood += blessing.productivity
+        multipliers.stone += blessing.productivity
+        multipliers.copper += blessing.productivity
+        multipliers.iron += blessing.productivity
+        multipliers.gold += blessing.productivity
+        multipliers.faith += blessing.productivity
+        multipliers.knowledge += blessing.productivity
       }
     }
 
-    // Season modifier on food production (stacks on top of blessings)
-    rates.food *= seasonMultipliers.food
+    // Season modifier on food production (additive)
+    multipliers.food += seasonMultipliers.food - 1
 
-    // General productivity penalty from resource shortages
+    // Stage 3: Combine base rates with multipliers
+    const rates = {}
+    for (const resource of Object.keys(baseRates)) {
+      rates[resource] = baseRates[resource] * multipliers[resource]
+    }
+
+    // Stage 4: General productivity penalty from resource shortages
     if (productivity < 1) {
-      rates.food *= productivity
-      rates.wood *= productivity
-      rates.stone *= productivity
-      rates.copper *= productivity
-      rates.iron *= productivity
-      rates.gold *= productivity
-      rates.faith *= productivity
-      rates.knowledge *= productivity
+      for (const resource of Object.keys(rates)) {
+        rates[resource] *= productivity
+      }
     }
 
     return rates

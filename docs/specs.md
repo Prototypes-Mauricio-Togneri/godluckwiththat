@@ -266,7 +266,7 @@ The research system allows the player to unlock permanent bonuses by spending kn
 ### Bonuses by subcategory
 
 - **General**
-  - Transportation: +5% worker productivity
+  - Transportation: +5% resource gathering productivity (bounded resources only)
   - Construction: -10% construction time
   - Expansion: -10% expansion cost
   - Storage: +10% storage capacity
@@ -328,10 +328,9 @@ The file contains:
 - **Building upgrades** (`BUILDING_UPGRADES`) — Per-building upgrade config with two sub-keys: `cost` (base resource cost) and `multiplier` (exponential scaling factor per level; formula: `floor(cost × multiplier^level)`, HQ uses `multiplier^(level-1)` since it starts at level 1). Build time is derived from the level-up cost via `Cost.toSeconds`.
 - **HQ upgrade costs** (`HQ_UPGRADE_COSTS`) — Fixed resource costs to upgrade the colony type (Camp → Settlement → Village → Town → City).
 - **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, temples). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.
-- **Production bonus map** (`PRODUCTION_BONUS_MAP`) — Maps each production building key to its corresponding `BONUS_*` research type (e.g. `BUILDING_FARM` → `BONUS_FOOD_PRODUCTION`). Used by `State.update()` to apply research multipliers to production rates.
 - **Population & workers** — House population formula value (`HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), worker recruitment cost (`WORKER_RECRUIT_COST`), worker upkeep rates (`WORKER_FOOD_CONSUMPTION`, `WORKER_WOOD_CONSUMPTION`).
 - **Resource time weights** (`RESOURCE_TIME_WEIGHTS`) — Per-resource time weight in seconds, used by `Cost.toSeconds` to derive build duration from resource costs.
 - **Season constants** (`SEASON_DURATION`, `SEASON_WARM_FOOD_MODIFIER`, `SEASON_COLD_FOOD_MODIFIER`, `SEASON_WARM_WOOD_MODIFIER`, `SEASON_COLD_WOOD_MODIFIER`) — Season duration in seconds and fractional modifiers for food production and wood consumption per season.
 - **Market trading** (`MARKET_TRADE_AMOUNT`, `MARKET_BASE_PRICES`, `MARKET_BASE_FEE`, `MARKET_MIN_FEE`, `MARKET_FEE_REDUCTION_PER_LEVEL`, `MARKET_PRICE_SHIFT`, `MARKET_MIN_CURRENT_PRICE`, `MARKET_MAX_CURRENT_PRICE`) — Trade lot size, base gold prices per resource, fee structure, and dynamic price bounds.
 - **Monument faith** (`MONUMENT_FAITH_PER_LEVEL`) — One-time faith granted when a monument finishes construction: `value × newLevel`.
-- **Research definitions** (`RESEARCH_SUBCATEGORY_BONUSES`, `RESEARCH_COSTS`) — `RESEARCH_SUBCATEGORY_BONUSES` maps each subcategory to `{ type: BONUS_*, value, [flat] }`. `RESEARCH_COSTS` maps each `RESEARCH_*` key to a `Cost` instance (duration derived via `Cost.toSeconds`). Currently active bonuses in the game loop: worker productivity, construction time, food/wood production, food/wood consumption, mining, knowledge production, faith production, habitation, storage capacity. Defined but not yet wired: disaster impacts, military stats, warning time.
+- **Research definitions** (`RESEARCH_SUBCATEGORY_BONUSES`, `RESEARCH_COSTS`) — `RESEARCH_SUBCATEGORY_BONUSES` maps each subcategory to `{ type: BONUS_*, value, [flat] }`. `RESEARCH_COSTS` maps each `RESEARCH_*` key to a `Cost` instance (duration derived via `Cost.toSeconds`). Currently active bonuses in the game loop: worker productivity (bounded resources only), construction time, food/wood production, food/wood consumption, mining, knowledge production, faith production, habitation, storage capacity. Defined but not yet wired: disaster impacts, military stats, warning time.
