@@ -25,6 +25,7 @@ const GROUP_LABELS = {
   ico: 'Icons',
   other: 'Other',
   punishments: 'Punishments',
+  blessings: 'Blessings',
   seasons: 'Seasons',
 }
 
