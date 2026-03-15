@@ -103,25 +103,8 @@ class State {
     production.faith = productionRates.faith
     production.knowledge = productionRates.knowledge
 
-    // Productivity ratio: starts at 1 (100%) and is reduced when food or wood
-    // has negative net production (from previous tick). The reduction is
-    // proportional to the deficit ratio (uncovered consumption / total
-    // consumption), scaled by SHORTAGE_MAX_PENALTY. Worst-of: only the
-    // largest deficit applies. Uses previous tick's consumption (still on
-    // colony.consumption) and current gross production
-    let productivity = 1
-    if (resources.workers === 0) {
-      productivity = 0
-    }
-    const prevConsumption = this.colony.consumption
-    if (this._resourcesNegativeProduction.has('food') && prevConsumption.food > 0) {
-      const deficit = Math.max(0, prevConsumption.food - production.food)
-      productivity = Math.min(productivity, 1 - (deficit / prevConsumption.food) * SHORTAGE_MAX_PENALTY)
-    }
-    if (this._resourcesNegativeProduction.has('wood') && prevConsumption.wood > 0) {
-      const deficit = Math.max(0, prevConsumption.wood - production.wood)
-      productivity = Math.min(productivity, 1 - (deficit / prevConsumption.wood) * SHORTAGE_MAX_PENALTY)
-    }
+    // Productivity ratio based on resource shortages (previous tick)
+    const productivity = this._computeGeneralProductivity(resources.workers, production)
     this.colony.productivity = productivity
     if (productivity < 1) {
       production.food *= productivity
@@ -246,6 +229,34 @@ class State {
       this._hadIdleWorkers = false
       this.colony.events.dismissPastByType(EVENT_TYPE_IDLE_WORKERS)
     }
+  }
+
+  /**
+   * Computes the general productivity ratio based on resource shortages.
+   * Starts at 1 (100%) and is reduced when food or wood has negative net
+   * production. The reduction is proportional to the deficit ratio (uncovered
+   * consumption / total consumption), scaled by SHORTAGE_MAX_PENALTY.
+   * Only the largest deficit applies.
+   *
+   * @param {number} workers - Current worker count
+   * @param {Object} production - Current gross production rates
+   * @returns {number} Productivity ratio between 0 and 1
+   */
+  _computeGeneralProductivity(workers, production) {
+    let productivity = 1
+    if (workers === 0) {
+      productivity = 0
+    }
+    const prevConsumption = this.colony.consumption
+    if (this._resourcesNegativeProduction.has('food') && prevConsumption.food > 0) {
+      const deficit = Math.max(0, prevConsumption.food - production.food)
+      productivity = Math.min(productivity, 1 - (deficit / prevConsumption.food) * SHORTAGE_MAX_PENALTY)
+    }
+    if (this._resourcesNegativeProduction.has('wood') && prevConsumption.wood > 0) {
+      const deficit = Math.max(0, prevConsumption.wood - production.wood)
+      productivity = Math.min(productivity, 1 - (deficit / prevConsumption.wood) * SHORTAGE_MAX_PENALTY)
+    }
+    return productivity
   }
 
   /**
