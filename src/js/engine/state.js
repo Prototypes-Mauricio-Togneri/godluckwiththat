@@ -444,7 +444,7 @@ class State {
    * Checks whether challenge requirements are met and branches to complete or fail.
    */
   _resolveChallengeTimeout() {
-    if (this._checkRequirements()) {
+    if (this.areChallengeRequirementsMet()) {
       this._completeChallenge()
     } else {
       this._failChallenge()
@@ -455,7 +455,7 @@ class State {
    * Checks whether all requirements for the active challenge are currently met.
    * @returns {boolean} True if all requirements are satisfied
    */
-  _checkRequirements() {
+  areChallengeRequirementsMet() {
     const challenge = this.meta.challenges.active
     if (!challenge) {
       return false

@@ -4,7 +4,6 @@
 
 - Improve challenges
   - Add images on each blessing card
-  - Play sound on success or failure
 
 - Create military
   - Open military window

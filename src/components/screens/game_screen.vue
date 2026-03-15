@@ -37,7 +37,7 @@ import TutorialModal from '@/components/tutorial/tutorial_modal.vue'
 import SettingsModal from '@/components/modals/settings_modal.vue'
 import {BUILDING_IMAGE_MAP, BUILDING_GRID, GAME_SPEED_DEFAULT, GAME_SPEED_OPTIONS, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, TUTORIAL_MODALS, TUTORIAL_STEPS, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
 import {BULK_WORKER_AMOUNT, SEASON_DURATION} from '@/js/engine/balancing.js'
-import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_STARTED, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, EMIT_QUIT, EMIT_RESTART} from '@/js/engine/enums.js'
+import {BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_STARTED, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, EMIT_QUIT, EMIT_RESTART, EVENT_TYPE_CHALLENGE_STARTED} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
@@ -413,6 +413,7 @@ function syncTimers() {
       params: e.params,
       remainingSeconds: e.remainingSeconds,
       action: e.action,
+      requirementsMet: e.type === EVENT_TYPE_CHALLENGE_STARTED && state.areChallengeRequirementsMet(),
     }))
   } else {
     ui.futureEvents = []
@@ -649,6 +650,7 @@ function syncEvents() {
     params: e.params,
     remainingSeconds: e.remainingSeconds,
     action: e.action,
+    requirementsMet: e.type === EVENT_TYPE_CHALLENGE_STARTED && state.areChallengeRequirementsMet(),
   }))
   ui.pastEvents = events.sortedPast.map(e => ({
     id: e.id,
@@ -1337,7 +1339,7 @@ onUnmounted(() => {
               v-for="event in ui.futureEvents"
               :key="event.id"
               class="event-row"
-              :class="{ 'event-row--clickable': event.action }"
+              :class="{ 'event-row--clickable': event.action, 'event-row--met': event.requirementsMet }"
               @click="event.action && handleEventAction(event.action)"
             >
               <img class="event-icon" :src="event.icon" :alt="t(event.textKey, ...event.params)">
@@ -1900,6 +1902,11 @@ onUnmounted(() => {
 /* Clickable future events (e.g. challenges) */
 .event-row--clickable {
   cursor: pointer;
+}
+
+/* Challenge event with all requirements met */
+.event-row--met .event-text {
+  color: rgba(80, 168, 80, 0.9);
 }
 
 /* Small event type icon with drop shadow */
