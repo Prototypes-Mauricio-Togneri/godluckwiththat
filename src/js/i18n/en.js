@@ -467,7 +467,7 @@ export const LOCALIZED_EN = {
   'punishment.volcano': 'Volcano',
 
   // Punishment effect descriptions
-  'punishment.faithLoss': 'Lose {0}% of stored faith',
+  'punishment.faithLoss': 'Lose {0}% of accumulated faith',
   'punishment.productivityLoss': 'Productivity reduced by {0}%',
   'punishment.resourceLoss': 'Lose {0}% of stored resources',
   'punishment.workerLoss': 'Lose {0} workers',

@@ -449,7 +449,7 @@ export const LOCALIZED_FR = {
   'punishment.plague': 'Peste',
   'punishment.landslide': 'Glissement de Terrain',
   'punishment.volcano': 'Volcan',
-  'punishment.faithLoss': 'Perdez {0}% de foi stockée',
+  'punishment.faithLoss': 'Perdez {0}% de foi accumulée',
   'punishment.productivityLoss': 'Productivité réduite de {0}%',
   'punishment.resourceLoss': 'Perdez {0}% de ressources stockées',
   'punishment.workerLoss': 'Perdez {0} travailleurs',

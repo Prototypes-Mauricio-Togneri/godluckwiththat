@@ -4,6 +4,8 @@
 
 - Improve challenges
   - Add images on each blessing card
+  - Fix productivy reduced text (needs to be specific)
+  - Change landslide to affect only mines?
 
 - Create military
   - Open military window
