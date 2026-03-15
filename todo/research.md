@@ -16,13 +16,16 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
 
 ### Categories & Subcategories
 
-| Category  | Subcategories                                                    | Bonus Effects                                                                                                                       |
-|-----------|------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| General   | Transportation, Construction, Expansion, Storage, Habitation     | +5%/tier worker productivity, -10%/tier construction time, -10%/tier expansion cost, +10%/tier storage capacity, +1/tier population  |
-| Resources | Food prod., Food cons., Wood prod., Wood cons., Mining, Knowledge | +/-5%/tier production/consumption rates                                                                                             |
-| Disasters | Floods, Health, Earthquakes                                      | -10%/tier flood/disease/earthquake impact                                                                                           |
-| Religion  | Faith                                                            | +5%/tier faith production                                                                                                           |
-| Military  | Defense, Attack, Warning                                         | +10%/tier unit defense, +10%/tier unit attack, +10%/tier warning time                                                               |
+- **General** — Transportation, Construction, Expansion, Storage, Habitation
+  - +5%/tier worker productivity, -10%/tier construction time, -10%/tier expansion cost, +10%/tier storage capacity, +1/tier population
+- **Resources** — Food prod., Food cons., Wood prod., Wood cons., Mining, Knowledge
+  - +/-5%/tier production/consumption rates
+- **Disasters** — Floods, Health, Earthquakes
+  - -10%/tier flood/disease/earthquake impact
+- **Religion** — Faith
+  - +5%/tier faith production
+- **Military** — Defense, Attack, Warning
+  - +10%/tier unit defense, +10%/tier unit attack, +10%/tier warning time
 
 ## Implementation Phases
 
