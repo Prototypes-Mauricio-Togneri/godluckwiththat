@@ -12,19 +12,19 @@ let rafId = null
 
 /** Returns a human-readable description for a blessing. */
 function blessingDescription(blessing) {
-  const pct = blessing.productivity ? Math.round(blessing.productivity * 100) : 0
-  const dur = formatMinutes(blessing.timeout ?? 0)
+  const percentage = blessing.productivity ? Math.round(blessing.productivity * 100) : 0
+  const duration = formatMinutes(blessing.timeout ?? 0)
   switch (blessing.type) {
-    case 'fertileSoil': return t('blessing.fertileSoil.description', pct, dur)
-    case 'forestBloom': return t('blessing.forestBloom.description', pct, dur)
+    case 'fertileSoil': return t('blessing.fertileSoil.description', percentage, duration)
+    case 'forestBloom': return t('blessing.forestBloom.description', percentage, duration)
     case 'giftFromTheHeavens': return t('blessing.giftFromTheHeavens.description')
     case 'holyExpansion': return t('blessing.holyExpansion.description', blessing.territory)
-    case 'richMines': return t('blessing.richMines.description', pct, dur)
-    case 'celestialProsperity': return t('blessing.celestialProsperity.description', pct, dur)
-    case 'rapidConstruction': return t('blessing.rapidConstruction.description', Math.round((blessing.construction ?? 0) * 100), dur)
-    case 'favorableWeather': return t('blessing.favorableWeather.description', dur)
-    case 'wisdomOfTheGods': return t('blessing.wisdomOfTheGods.description', pct, dur)
-    case 'blessedMarkets': return t('blessing.blessedMarkets.description', dur)
+    case 'richMines': return t('blessing.richMines.description', percentage, duration)
+    case 'celestialProsperity': return t('blessing.celestialProsperity.description', percentage, duration)
+    case 'rapidConstruction': return t('blessing.rapidConstruction.description', Math.round((blessing.construction ?? 0) * 100), duration)
+    case 'favorableWeather': return t('blessing.favorableWeather.description', duration)
+    case 'wisdomOfTheGods': return t('blessing.wisdomOfTheGods.description', percentage, duration)
+    case 'blessedMarkets': return t('blessing.blessedMarkets.description', duration)
     default: return ''
   }
 }
