@@ -1,6 +1,7 @@
 <script setup>
 import {inject, ref, onMounted, onUnmounted} from 'vue'
-import {playTap} from '@/js/engine/audio.js'
+import audio, {playTap} from '@/js/engine/audio.js'
+import {SND_NOTIFICATION_DISASTER} from '@/js/engine/assets.js'
 import {t} from '@/js/i18n/localized.js'
 
 const ui = inject('ui')
@@ -17,6 +18,7 @@ function handleKeydown(event) {
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeydown, true)
+  audio.playSound(SND_NOTIFICATION_DISASTER)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
