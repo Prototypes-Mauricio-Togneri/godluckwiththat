@@ -23,6 +23,7 @@ class Market extends Building {
     this[RESOURCE_STONE] = data[RESOURCE_STONE] ?? MARKET_BASE_PRICES[RESOURCE_STONE] // Current gold price per 100 stone
     this[RESOURCE_COPPER] = data[RESOURCE_COPPER] ?? MARKET_BASE_PRICES[RESOURCE_COPPER] // Current gold price per 100 copper
     this[RESOURCE_IRON] = data[RESOURCE_IRON] ?? MARKET_BASE_PRICES[RESOURCE_IRON] // Current gold price per 100 iron
+    this.blessedMarkets = false // Set by State.update() when BLESSED_MARKETS blessing is active
   }
 
   /**
@@ -41,6 +42,9 @@ class Market extends Building {
    * @returns {number} Effective fee fraction (e.g. 0.21)
    */
   get effectiveTradeFee() {
+    if (this.blessedMarkets) {
+      return 0
+    }
     const basePercent = Math.round(MARKET_BASE_FEE * 100) // e.g. 30
     const reductionPerLevel = Math.round(MARKET_FEE_REDUCTION_PER_LEVEL * 100) // e.g. 1
     const minPercent = Math.round(MARKET_MIN_FEE * 100) // e.g. 5

@@ -7,7 +7,7 @@ import storage from '@/js/engine/storage.js'
 import {BOUNDED_RESOURCES, BUILDING_CLASS_MAP, BUILDING_IMAGE_MAP, DOWNGRADABLE_BUILDINGS, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, TUTORIAL_STEPS} from '@/js/engine/constants.js'
 import Colony from '@/js/models/colony.js'
 import Meta from '@/js/models/meta.js'
-import {BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
+import {BLESSING_BLESSED_MARKETS, BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FOOD_CONSUMPTION, BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -120,13 +120,47 @@ class State {
       }
     }
 
-    // Seasonal post-multiplier on total food production: warm +20%, cold −20%
-    const foodSeasonMod = this.colony.season.isWarm ? SEASON_WARM_FOOD_MODIFIER : SEASON_COLD_FOOD_MODIFIER
-    production.food *= 1 + foodSeasonMod
+    // ── Ongoing blessing modifiers ────────────────────────────────────
+    // Productivity blessings (before season modifiers so seasons stack on top)
+    const blessings = this.meta.challenges.activeBlessings
+    for (const blessing of blessings) {
+      if (blessing.type === BLESSING_FERTILE_SOIL && blessing.productivity) {
+        production.food *= 1 + blessing.productivity
+      } else if (blessing.type === BLESSING_FOREST_BLOOM && blessing.productivity) {
+        production.wood *= 1 + blessing.productivity
+      } else if (blessing.type === BLESSING_RICH_MINES && blessing.productivity) {
+        production.stone *= 1 + blessing.productivity
+        production.copper *= 1 + blessing.productivity
+        production.iron *= 1 + blessing.productivity
+        production.gold *= 1 + blessing.productivity
+      } else if (blessing.type === BLESSING_WISDOM_OF_THE_GODS && blessing.productivity) {
+        production.knowledge *= 1 + blessing.productivity
+      } else if (blessing.type === BLESSING_CELESTIAL_PROSPERITY && blessing.productivity) {
+        production.food *= 1 + blessing.productivity
+        production.wood *= 1 + blessing.productivity
+        production.stone *= 1 + blessing.productivity
+        production.copper *= 1 + blessing.productivity
+        production.iron *= 1 + blessing.productivity
+        production.gold *= 1 + blessing.productivity
+        production.faith *= 1 + blessing.productivity
+        production.knowledge *= 1 + blessing.productivity
+      }
+    }
 
-    // Wood seasonal modifier — applied to wood *consumption* below, not production.
-    // Warm −20% (less heating needed), cold +20% (more heating needed)
-    const woodSeasonMod = this.colony.season.isWarm ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
+    // BLESSED_MARKETS: override trade fee to 0% while active
+    buildings.market.blessedMarkets = blessings.some(blessing => blessing.type === BLESSING_BLESSED_MARKETS)
+
+    // Seasonal modifiers: food production and wood consumption.
+    // FAVORABLE_WEATHER blessing amplifies warm and softens cold modifiers.
+    let foodSeasonMod = this.colony.season.isWarm ? SEASON_WARM_FOOD_MODIFIER : SEASON_COLD_FOOD_MODIFIER
+    let woodSeasonMod = this.colony.season.isWarm ? SEASON_WARM_WOOD_MODIFIER : SEASON_COLD_WOOD_MODIFIER
+    const favorableWeather = blessings.find(blessing => blessing.type === BLESSING_FAVORABLE_WEATHER)
+    if (favorableWeather) {
+      const seasonMult = this.colony.season.isWarm ? 1 + favorableWeather.warm : 1 - favorableWeather.cold
+      foodSeasonMod *= seasonMult
+      woodSeasonMod *= seasonMult
+    }
+    production.food *= 1 + foodSeasonMod
 
     // Productivity ratio: starts at 1 (100%) and is reduced when food or wood
     // has negative net production (from previous tick). The reduction is
@@ -948,8 +982,8 @@ class State {
   get expansionCost() {
     const baseCost = this.colony.buildings.headquarters.levelUpCost
     const bonuses = this.colony.buildings.academy.completedBonuses(RESEARCH_TREE)
-    const mult = 1 - (bonuses[BONUS_EXPANSION_COST] ?? 0)
-    return baseCost.multiplyFloor(mult)
+    const multiplier = 1 - (bonuses[BONUS_EXPANSION_COST] ?? 0)
+    return baseCost.multiplyFloor(multiplier)
   }
 
   /**
@@ -958,7 +992,12 @@ class State {
    */
   get _constructionDurationMult() {
     const bonuses = this.colony.buildings.academy.completedBonuses(RESEARCH_TREE)
-    return 1 - (bonuses[BONUS_CONSTRUCTION_TIME] ?? 0)
+    let reduction = bonuses[BONUS_CONSTRUCTION_TIME] ?? 0
+    const rapidConstruction = this.meta.challenges.activeBlessings.find(blessing => blessing.type === BLESSING_RAPID_CONSTRUCTION)
+    if (rapidConstruction) {
+      reduction += rapidConstruction.construction
+    }
+    return Math.max(0, 1 - reduction)
   }
 
   /**
