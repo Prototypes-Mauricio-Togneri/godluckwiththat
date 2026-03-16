@@ -783,6 +783,14 @@
     color: rgba(var(--color-text-rgb), 0.55);
 }
 
+/* Tooltip deficit warning */
+.resource-tooltip-deficit {
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: rgba(196, 80, 80, 1);
+}
+
 /* ── .productivity-box ───────────────────────────────────────────── */
 
 /* Productivity ratio display — always visible in header */

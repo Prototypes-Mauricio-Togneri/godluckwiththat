@@ -1241,6 +1241,8 @@ onUnmounted(() => {
           <div class="resource-tooltip">
             <span>{{ t('resource.productivity') }}</span>
             <span class="resource-tooltip-time">{{ Math.floor(ui.productivity * 100) }}%</span>
+            <span v-if="ui.netProduction.food < 0" class="resource-tooltip-deficit">{{ t('resource.foodDeficit') }}</span>
+            <span v-if="ui.netProduction.wood < 0" class="resource-tooltip-deficit">{{ t('resource.woodDeficit') }}</span>
           </div>
         </div>
 
