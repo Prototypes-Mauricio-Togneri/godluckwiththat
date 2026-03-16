@@ -300,11 +300,11 @@ class State {
     if (workers === 0) {
       productivity = 0
     }
-    if (this._resourcesNegativeProduction.has('food') && consumptionRates.food > 0) {
+    if (this._resourcesNegativeProduction.has(RESOURCE_FOOD) && consumptionRates.food > 0) {
       const deficit = Math.max(0, consumptionRates.food - productionRates.food)
       productivity = Math.min(productivity, 1 - (deficit / consumptionRates.food) * SHORTAGE_MAX_PENALTY)
     }
-    if (this._resourcesNegativeProduction.has('wood') && consumptionRates.wood > 0) {
+    if (this._resourcesNegativeProduction.has(RESOURCE_WOOD) && consumptionRates.wood > 0) {
       const deficit = Math.max(0, consumptionRates.wood - productionRates.wood)
       productivity = Math.min(productivity, 1 - (deficit / consumptionRates.wood) * SHORTAGE_MAX_PENALTY)
     }

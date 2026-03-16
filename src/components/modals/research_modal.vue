@@ -6,7 +6,7 @@ import {RESEARCH_TREE} from '@/js/engine/constants.js'
 import {RESEARCH_COSTS} from '@/js/engine/balancing.js'
 import {IMG_OTHER_COMPLETED, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {canAffordCost} from '@/js/engine/utils.js'
-import {EMIT_CLOSE} from '@/js/engine/enums.js'
+import {EMIT_CLOSE, RESEARCH_STATUS_ACTIVE, RESEARCH_STATUS_AVAILABLE, RESEARCH_STATUS_COMPLETED, RESEARCH_STATUS_LOCKED} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
 
@@ -41,13 +41,13 @@ const nodeStatusMap = computed(() => {
     for (let idx = 0; idx < sub.researches.length; idx++) {
       const key = sub.researches[idx]
       if (ui.academy.completed.has(key)) {
-        map[key] = 'completed'
+        map[key] = RESEARCH_STATUS_COMPLETED
       } else if (ui.academy.activeKeys.has(key)) {
-        map[key] = 'active'
+        map[key] = RESEARCH_STATUS_ACTIVE
       } else if (idx > 0 && !ui.academy.completed.has(sub.researches[idx - 1])) {
-        map[key] = 'locked'
+        map[key] = RESEARCH_STATUS_LOCKED
       } else {
-        map[key] = 'available'
+        map[key] = RESEARCH_STATUS_AVAILABLE
       }
     }
   }
@@ -67,7 +67,7 @@ function canAfford(key) {
  * @param {string} status - Current node status (available, locked, active, completed)
  */
 function handleNodeClick(key, status) {
-  if (status !== 'available' || !canAfford(key)) {
+  if (status !== RESEARCH_STATUS_AVAILABLE || !canAfford(key)) {
     return
   }
   playTap()
@@ -186,8 +186,8 @@ onUnmounted(() => {
                   <span class="node-name">{{ t('research.' + rKey) }}</span>
                 </div>
                 <div class="node-second-row">
-                  <img v-if="nodeStatusMap[rKey] === 'completed'" class="node-check" :src="IMG_OTHER_COMPLETED" alt="">
-                  <span v-else-if="nodeStatusMap[rKey] === 'active'" class="node-timer">
+                  <img v-if="nodeStatusMap[rKey] === RESEARCH_STATUS_COMPLETED" class="node-check" :src="IMG_OTHER_COMPLETED" alt="">
+                  <span v-else-if="nodeStatusMap[rKey] === RESEARCH_STATUS_ACTIVE" class="node-timer">
                     {{ formatTime(ui.academy.activeTimers[rKey]?.remainingSeconds ?? 0) }}
                   </span>
                   <template v-else>
@@ -201,7 +201,7 @@ onUnmounted(() => {
                     </div>
                   </template>
                 </div>
-                <div v-if="nodeStatusMap[rKey] !== 'completed' && nodeStatusMap[rKey] !== 'active'" class="action-cost-tooltip" :class="{ 'action-cost-tooltip--above': tooltipAbove[rKey] }">
+                <div v-if="nodeStatusMap[rKey] !== RESEARCH_STATUS_COMPLETED && nodeStatusMap[rKey] !== RESEARCH_STATUS_ACTIVE" class="action-cost-tooltip" :class="{ 'action-cost-tooltip--above': tooltipAbove[rKey] }">
                   <template v-for="[resource, amount] in RESEARCH_COST_ENTRIES[rKey]" :key="resource">
                     <span>{{ t(`resource.${resource}`) }}:</span>
                     <span class="action-cost-tooltip-amount">{{ formatNumberFull(amount) }}</span>

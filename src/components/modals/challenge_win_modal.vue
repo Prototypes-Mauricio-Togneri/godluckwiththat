@@ -2,11 +2,12 @@
 import {ref, onMounted, onUnmounted} from 'vue'
 import {IMG_OTHER_PORTAL} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
+import {EMIT_CONTINUE, EMIT_QUIT} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits([
-  'continue',
-  'quit',
+  EMIT_CONTINUE,
+  EMIT_QUIT,
 ])
 const visible = ref(false)
 let rafId = null
@@ -42,10 +43,10 @@ onUnmounted(() => {
       <p class="modal-description">{{ t('challenge.win.description') }}</p>
 
       <div class="modal-actions">
-        <button class="btn-gold modal-btn" @click="playTap(); emit('continue')">
+        <button class="btn-gold modal-btn" @click="playTap(); emit(EMIT_CONTINUE)">
           {{ t('challenge.win.continue') }}
         </button>
-        <button class="btn-gold modal-btn" @click="playTap(); emit('quit')">
+        <button class="btn-gold modal-btn" @click="playTap(); emit(EMIT_QUIT)">
           {{ t('challenge.win.quit') }}
         </button>
       </div>

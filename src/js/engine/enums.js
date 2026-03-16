@@ -229,6 +229,7 @@ export const EMIT_CONFIRM = 'confirm'
 export const EMIT_LOAD = 'load'
 export const EMIT_SETTINGS = 'settings'
 export const EMIT_RESTART = 'restart'
+export const EMIT_CONTINUE = 'continue'
 
 // Challenge status
 export const CHALLENGE_STATUS_PENDING = 'pending'
@@ -278,6 +279,12 @@ export const EVENT_TYPE_CHALLENGE_STARTED = 'challenge_started'
 // Unicode symbols
 export const SYMBOL_CHECK = '✓'
 export const SYMBOL_CROSS = '✕'
+
+// Research node statuses
+export const RESEARCH_STATUS_COMPLETED = 'completed'
+export const RESEARCH_STATUS_ACTIVE = 'active'
+export const RESEARCH_STATUS_LOCKED = 'locked'
+export const RESEARCH_STATUS_AVAILABLE = 'available'
 
 // Storage keys (localStorage)
 export const STORAGE_MUSIC_ENABLED = 'musicEnabled'
