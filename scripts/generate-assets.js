@@ -89,7 +89,9 @@ const groups = new Map()
 
 for (const file of allFiles) {
   const key = groupKey(file)
-  if (!groups.has(key)) groups.set(key, [])
+  if (!groups.has(key)) {
+    groups.set(key, [])
+  }
   groups.get(key).push(file)
 }
 
@@ -107,7 +109,9 @@ for (const [
   label,
 ] of Object.entries(GROUP_LABELS)) {
   const files = groups.get(dirKey)
-  if (!files || files.length === 0) continue
+  if (!files || files.length === 0) {
+    continue
+  }
 
   lines.push('')
   lines.push(`// ${label}`)
