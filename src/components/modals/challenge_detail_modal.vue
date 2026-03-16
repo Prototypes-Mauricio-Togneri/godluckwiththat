@@ -2,7 +2,7 @@
 import {inject, ref, computed, onMounted, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
 import {IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
-import {EMIT_CLOSE, SYMBOL_CHECK, SYMBOL_CROSS} from '@/js/engine/enums.js'
+import {BUILDING_ALTAR, BUILDING_MONUMENT, BUILDING_TEMPLE, EMIT_CLOSE, RESOURCE_FAITH, SYMBOL_CHECK, SYMBOL_CROSS} from '@/js/engine/enums.js'
 import {formatTime, formatNumber} from '@/js/engine/format.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -20,10 +20,10 @@ function isRequirementMet(type, value) {
     return false
   }
   switch (type) {
-    case 'faith': return ui.resources.faith >= value
-    case 'altar': return ui.buildings.altar?.level >= value
-    case 'temple': return ui.buildings.temple?.level >= value
-    case 'monument': return ui.buildings.monument?.level >= value
+    case RESOURCE_FAITH: return ui.resources[RESOURCE_FAITH] >= value
+    case BUILDING_ALTAR: return ui.buildings[BUILDING_ALTAR]?.level >= value
+    case BUILDING_TEMPLE: return ui.buildings[BUILDING_TEMPLE]?.level >= value
+    case BUILDING_MONUMENT: return ui.buildings[BUILDING_MONUMENT]?.level >= value
     case 'workers': return ui.resources.workers >= value
     default: return false
   }
@@ -102,33 +102,33 @@ onUnmounted(() => {
               <li
                 v-if="challenge.requirements.faith !== null"
                 class="req-item"
-                :class="{ 'req-item--met': isRequirementMet('faith', challenge.requirements.faith) }"
+                :class="{ 'req-item--met': isRequirementMet(RESOURCE_FAITH, challenge.requirements.faith) }"
               >
-                <span class="req-icon">{{ isRequirementMet('faith', challenge.requirements.faith) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
+                <span class="req-icon">{{ isRequirementMet(RESOURCE_FAITH, challenge.requirements.faith) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
                 {{ t('challenge.requirement.faith', formatNumber(challenge.requirements.faith)) }}
               </li>
               <li
                 v-if="challenge.requirements.altar !== null"
                 class="req-item"
-                :class="{ 'req-item--met': isRequirementMet('altar', challenge.requirements.altar) }"
+                :class="{ 'req-item--met': isRequirementMet(BUILDING_ALTAR, challenge.requirements.altar) }"
               >
-                <span class="req-icon">{{ isRequirementMet('altar', challenge.requirements.altar) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
+                <span class="req-icon">{{ isRequirementMet(BUILDING_ALTAR, challenge.requirements.altar) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
                 {{ t('challenge.requirement.altar', challenge.requirements.altar) }}
               </li>
               <li
                 v-if="challenge.requirements.temple !== null"
                 class="req-item"
-                :class="{ 'req-item--met': isRequirementMet('temple', challenge.requirements.temple) }"
+                :class="{ 'req-item--met': isRequirementMet(BUILDING_TEMPLE, challenge.requirements.temple) }"
               >
-                <span class="req-icon">{{ isRequirementMet('temple', challenge.requirements.temple) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
+                <span class="req-icon">{{ isRequirementMet(BUILDING_TEMPLE, challenge.requirements.temple) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
                 {{ t('challenge.requirement.temple', challenge.requirements.temple) }}
               </li>
               <li
                 v-if="challenge.requirements.monument !== null"
                 class="req-item"
-                :class="{ 'req-item--met': isRequirementMet('monument', challenge.requirements.monument) }"
+                :class="{ 'req-item--met': isRequirementMet(BUILDING_MONUMENT, challenge.requirements.monument) }"
               >
-                <span class="req-icon">{{ isRequirementMet('monument', challenge.requirements.monument) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
+                <span class="req-icon">{{ isRequirementMet(BUILDING_MONUMENT, challenge.requirements.monument) ? SYMBOL_CHECK : SYMBOL_CROSS }}</span>
                 {{ t('challenge.requirement.monument', challenge.requirements.monument) }}
               </li>
               <template v-if="challenge.requirements.resources !== null">
