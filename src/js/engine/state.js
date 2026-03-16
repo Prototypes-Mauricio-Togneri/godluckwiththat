@@ -71,6 +71,13 @@ class State {
       knowledge: 1,
     }
 
+    // Per-resource consumption multipliers (research bonuses + season),
+    // recalculated each tick in update(). Initialized to neutral defaults.
+    this.consumptionMultipliers = {
+      food: 1,
+      wood: 1,
+    }
+
     // Track which buildings are currently constructing so advanceConstruction()
     // only iterates the active subset instead of all 20 buildings every frame
     this._constructingKeys = new Set()
@@ -138,9 +145,10 @@ class State {
     // each second. Research bonuses reduce the base consumption rates (−5%/tier).
     // Wood upkeep is additionally scaled by seasonal modifier (cold = more heating).
     // Consumption rates are per-second and also used by the UI (header tooltips)
-    const consumptionRates = this._computeConsumptionRates(bonuses, this.seasonMultipliers, resources.workers)
-    consumption.food = consumptionRates.food
-    consumption.wood = consumptionRates.wood
+    const {
+      rates: consumptionRates, multipliers: consumptionMultipliers,
+    } = this._computeConsumptionRates(bonuses, this.seasonMultipliers, resources.workers)
+    this.consumptionMultipliers = consumptionMultipliers
 
     // Productivity ratio based on current production vs consumption. Uses raw
     // production rates (not penalized) so reassigning workers takes effect
@@ -157,6 +165,10 @@ class State {
     production.gold = productionRates.gold * productivity
     production.faith = productionRates.faith * productivity
     production.knowledge = productionRates.knowledge * productivity
+
+    // Apply consumption rates from worker upkeep
+    consumption.food = consumptionRates.food
+    consumption.wood = consumptionRates.wood
 
     // Apply production gains to resources. Rates are per-second, so
     // multiplying by delta converts to the actual elapsed interval
@@ -370,20 +382,30 @@ class State {
    * @returns {{ food: number, wood: number }}
    */
   _computeConsumptionRates(bonuses, seasonMultipliers, workerCount) {
-    if (workerCount <= 0) {
-      return {
-        food: 0,
-        wood: 0,
-      }
-    }
     const foodMultiplier = Math.max(0, 1 - (bonuses[BONUS_FOOD_CONSUMPTION] ?? 0))
     // Stack bonus and season reductions additively
     const woodMultiplier = Math.max(0, 1
       - (bonuses[BONUS_WOOD_CONSUMPTION] ?? 0)
       - (1 - seasonMultipliers.wood))
+    const multipliers = {
+      food: foodMultiplier,
+      wood: woodMultiplier,
+    }
+    if (workerCount <= 0) {
+      return {
+        rates: {
+          food: 0,
+          wood: 0,
+        },
+        multipliers: multipliers,
+      }
+    }
     return {
-      food: workerCount * WORKER_FOOD_CONSUMPTION * foodMultiplier,
-      wood: workerCount * WORKER_WOOD_CONSUMPTION * woodMultiplier,
+      rates: {
+        food: workerCount * WORKER_FOOD_CONSUMPTION * foodMultiplier,
+        wood: workerCount * WORKER_WOOD_CONSUMPTION * woodMultiplier,
+      },
+      multipliers: multipliers,
     }
   }
 

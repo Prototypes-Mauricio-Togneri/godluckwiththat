@@ -174,6 +174,19 @@ function productionModifierPercent(resource) {
   return Math.round((ui.productionMultipliers[resource] - 1) * 100)
 }
 
+/** Consumption multiplier percentage for a resource (e.g. +20 or -10).
+ * Returns 0 when no modifier is active (only food and wood have consumption).
+ * @param {string} resource - Resource key
+ * @returns {number} Rounded percentage modifier
+ */
+function consumptionModifierPercent(resource) {
+  const multiplier = ui.consumptionMultipliers[resource]
+  if (multiplier == null) {
+    return 0
+  }
+  return Math.round((multiplier - 1) * 100)
+}
+
 /** Season progress as a fraction from 0 to 1. */
 const seasonProgress = computed(() => ui.season.seasonElapsed / SEASON_DURATION)
 
@@ -323,6 +336,10 @@ const ui = shallowReactive({
     [RESOURCE_GOLD]: 1,
     [RESOURCE_FAITH]: 1,
     [RESOURCE_KNOWLEDGE]: 1,
+  },
+  consumptionMultipliers: {
+    [RESOURCE_FOOD]: 1,
+    [RESOURCE_WOOD]: 1,
   },
   productivity: 1,
   gameSpeed: GAME_SPEED_DEFAULT,
@@ -566,6 +583,10 @@ function syncProduction() {
     [RESOURCE_GOLD]: state.productionMultipliers[RESOURCE_GOLD],
     [RESOURCE_FAITH]: state.productionMultipliers[RESOURCE_FAITH],
     [RESOURCE_KNOWLEDGE]: state.productionMultipliers[RESOURCE_KNOWLEDGE],
+  }
+  ui.consumptionMultipliers = {
+    [RESOURCE_FOOD]: state.consumptionMultipliers[RESOURCE_FOOD],
+    [RESOURCE_WOOD]: state.consumptionMultipliers[RESOURCE_WOOD],
   }
   ui.productivity = state.productivity
   ui.gameSpeed = state.meta.gameSpeed
@@ -1308,6 +1329,8 @@ onUnmounted(() => {
               <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.consuming') }}: {{ +resourceConsumption(resource).toFixed(2) }}</span>
               <span v-if="productionModifierPercent(resource) > 0" class="resource-tooltip-boost">+{{ productionModifierPercent(resource) }}% {{ t('resource.production') }}</span>
               <span v-if="productionModifierPercent(resource) < 0" class="resource-tooltip-reduction">{{ productionModifierPercent(resource) }}% {{ t('resource.production') }}</span>
+              <span v-if="consumptionModifierPercent(resource) > 0" class="resource-tooltip-reduction">+{{ consumptionModifierPercent(resource) }}% {{ t('resource.consumption') }}</span>
+              <span v-if="consumptionModifierPercent(resource) < 0" class="resource-tooltip-boost">{{ consumptionModifierPercent(resource) }}% {{ t('resource.consumption') }}</span>
             </div>
           </div>
         </template>

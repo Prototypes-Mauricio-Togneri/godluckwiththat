@@ -4,10 +4,6 @@
 
 - Show tutorial modal when the first challenge starts
 
-- UI improvements
-  - Resource production rate
-  - Resource consumption rate
-
 - Improve challenges
   - Implement blessings
   - Implement punishments

@@ -87,6 +87,7 @@ export const LOCALIZED_IT = {
   'resource.consuming': 'Consumo',
   'resource.productivity': 'Produttività',
   'resource.production': 'produzione',
+  'resource.consumption': 'consumo',
   'resource.foodDeficit': 'Deficit di cibo',
   'resource.woodDeficit': 'Deficit di legno',
 
