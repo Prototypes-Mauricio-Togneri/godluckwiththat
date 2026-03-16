@@ -99,20 +99,33 @@ class State {
     // Seasonal multipliers for food production and wood consumption
     this.seasonMultipliers = this._computeSeasonMultipliers(blessings)
 
-    // Productivity ratio based on resource shortages (previous tick)
-    const productivity = this._computeGeneralProductivity(resources.workers)
+    // Production rates from buildings, blessings, and season (before
+    // productivity penalty — used for deficit calculation below)
+    const productionRates = this._computeProductionRates(bonuses, blessings, this.seasonMultipliers)
+
+    // Worker upkeep: every worker (idle and assigned) consumes food and wood
+    // each second. Research bonuses reduce the base consumption rates (−5%/tier).
+    // Wood upkeep is additionally scaled by seasonal modifier (cold = more heating).
+    // Consumption rates are per-second and also used by the UI (header tooltips)
+    const consumptionRates = this._computeConsumptionRates(bonuses, this.seasonMultipliers, resources.workers)
+    consumption.food = consumptionRates.food
+    consumption.wood = consumptionRates.wood
+
+    // Productivity ratio based on current production vs consumption. Uses raw
+    // production rates (not penalized) so reassigning workers takes effect
+    // immediately instead of being locked by the previous tick's penalty
+    const productivity = this._computeGeneralProductivity(resources.workers, productionRates, consumptionRates)
     this.colony.productivity = productivity
 
-    // Compute production rates from buildings, blessings, season, and productivity
-    const productionRates = this._computeProductionRates(bonuses, blessings, this.seasonMultipliers, productivity)
-    production.food = productionRates.food
-    production.wood = productionRates.wood
-    production.stone = productionRates.stone
-    production.copper = productionRates.copper
-    production.iron = productionRates.iron
-    production.gold = productionRates.gold
-    production.faith = productionRates.faith
-    production.knowledge = productionRates.knowledge
+    // Apply productivity penalty to production rates
+    production.food = productionRates.food * productivity
+    production.wood = productionRates.wood * productivity
+    production.stone = productionRates.stone * productivity
+    production.copper = productionRates.copper * productivity
+    production.iron = productionRates.iron * productivity
+    production.gold = productionRates.gold * productivity
+    production.faith = productionRates.faith * productivity
+    production.knowledge = productionRates.knowledge * productivity
 
     // Apply production gains to resources. Rates are per-second, so
     // multiplying by delta converts to the actual elapsed interval
@@ -124,14 +137,6 @@ class State {
     resources.gold += production.gold * delta
     resources.faith += production.faith * delta
     resources.knowledge += production.knowledge * delta
-
-    // Worker upkeep: every worker (idle and assigned) consumes food and wood
-    // each second. Research bonuses reduce the base consumption rates (−5%/tier).
-    // Wood upkeep is additionally scaled by seasonal modifier (cold = more heating).
-    // Consumption rates are per-second and also used by the UI (header tooltips)
-    const consumptionRates = this._computeConsumptionRates(bonuses, this.seasonMultipliers, resources.workers)
-    consumption.food = consumptionRates.food
-    consumption.wood = consumptionRates.wood
 
     // Deduct upkeep from resources. Guarded by delta > 0 because update(0) is
     // used as a "recalculate-only" call by action methods (e.g. after assigning
@@ -227,8 +232,12 @@ class State {
    * Starts at 1 (100%) and is reduced when food or wood has negative net
    * production. The reduction is proportional to the deficit ratio (uncovered
    * consumption / total consumption), scaled by SHORTAGE_MAX_PENALTY.
-   * Only the largest deficit applies. Uses previous tick's consumption and
-   * final production values (still on colony before current tick overwrites).
+   * Only the largest deficit applies. Uses current-tick raw production
+   * (before productivity penalty) and current-tick consumption to avoid a
+   * feedback loop where penalized production locks productivity at zero.
+   * The _resourcesNegativeProduction guard introduces a one-tick delay:
+   * the penalty only activates after a tick where negative net production
+   * was detected.
    *
    * Examples (SHORTAGE_MAX_PENALTY = 1):
    *
@@ -242,22 +251,22 @@ class State {
    * | Both, food worse       | 5       | 3 / 10           | 5 / 8            | 0.3    |
    *
    * @param {number} workers - Current worker count
+   * @param {{ food: number, wood: number }} productionRates - Raw production rates (before productivity penalty)
+   * @param {{ food: number, wood: number }} consumptionRates - Current-tick consumption rates
    * @returns {number} Productivity ratio between 0 and 1
    */
-  _computeGeneralProductivity(workers) {
+  _computeGeneralProductivity(workers, productionRates, consumptionRates) {
     let productivity = 1
     if (workers === 0) {
       productivity = 0
     }
-    const previousConsumption = this.colony.consumption
-    const previousProduction = this.colony.production
-    if (this._resourcesNegativeProduction.has('food') && previousConsumption.food > 0) {
-      const deficit = Math.max(0, previousConsumption.food - previousProduction.food)
-      productivity = Math.min(productivity, 1 - (deficit / previousConsumption.food) * SHORTAGE_MAX_PENALTY)
+    if (this._resourcesNegativeProduction.has('food') && consumptionRates.food > 0) {
+      const deficit = Math.max(0, consumptionRates.food - productionRates.food)
+      productivity = Math.min(productivity, 1 - (deficit / consumptionRates.food) * SHORTAGE_MAX_PENALTY)
     }
-    if (this._resourcesNegativeProduction.has('wood') && previousConsumption.wood > 0) {
-      const deficit = Math.max(0, previousConsumption.wood - previousProduction.wood)
-      productivity = Math.min(productivity, 1 - (deficit / previousConsumption.wood) * SHORTAGE_MAX_PENALTY)
+    if (this._resourcesNegativeProduction.has('wood') && consumptionRates.wood > 0) {
+      const deficit = Math.max(0, consumptionRates.wood - productionRates.wood)
+      productivity = Math.min(productivity, 1 - (deficit / consumptionRates.wood) * SHORTAGE_MAX_PENALTY)
     }
     return productivity
   }
@@ -340,21 +349,19 @@ class State {
 
   /**
    * Computes per-second production rates from building state, research bonuses,
-   * active blessings, seasonal modifiers, and general productivity. Returns
-   * final rates after all multipliers are applied.
+   * active blessings, and seasonal modifiers. Returns raw rates before the
+   * productivity penalty (applied externally in update()).
    *
-   * Three stages:
+   * Two stages:
    *   1. Base rates: workers × config.rate (or level × config.rate for passive buildings)
    *   2. Per-resource multipliers: research + worker productivity (bounded only) + blessings + season
-   *   3. Combination: baseRate × multiplier × productivity per resource
    *
    * @param {Object} bonuses - Research bonus map from academy.completedBonuses()
    * @param {Array} blessings - Active blessings from meta.challenges
    * @param {{ food: number, wood: number }} seasonMultipliers - Seasonal multipliers from _computeSeasonMultipliers
-   * @param {number} productivity - General productivity ratio (0–1) from _computeGeneralProductivity
    * @returns {{ food: number, wood: number, stone: number, copper: number, iron: number, gold: number, faith: number, knowledge: number }}
    */
-  _computeProductionRates(bonuses, blessings, seasonMultipliers, productivity) {
+  _computeProductionRates(bonuses, blessings, seasonMultipliers) {
     const {
       buildings,
     } = this.colony
@@ -425,10 +432,10 @@ class State {
     // Season modifier on food production (additive)
     multipliers.food += seasonMultipliers.food - 1
 
-    // Stage 3: Combine base rates with multipliers and productivity penalty
+    // Combine base rates with multipliers
     const rates = {}
     for (const resource of Object.keys(baseRates)) {
-      rates[resource] = baseRates[resource] * multipliers[resource] * productivity
+      rates[resource] = baseRates[resource] * multipliers[resource]
     }
 
     return rates
