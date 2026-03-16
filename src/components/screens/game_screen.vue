@@ -1325,12 +1325,10 @@ onUnmounted(() => {
               <span class="resource-tooltip-time">{{ t('resource.amount') }}: {{ formatNumberFull(ui.resources[resource]) }}</span>
               <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(ui.storageCap) }}</span>
               <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
-              <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.producing') }}: {{ +grossProduction(resource).toFixed(2) }}</span>
-              <span v-if="productionModifierPercent(resource) > 0" class="resource-tooltip-boost">+{{ productionModifierPercent(resource) }}% {{ t('resource.production') }}</span>
-              <span v-if="productionModifierPercent(resource) < 0" class="resource-tooltip-reduction">{{ productionModifierPercent(resource) }}% {{ t('resource.production') }}</span>
-              <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.consuming') }}: {{ +resourceConsumption(resource).toFixed(2) }}</span>
-              <span v-if="consumptionModifierPercent(resource) > 0" class="resource-tooltip-reduction">+{{ consumptionModifierPercent(resource) }}% {{ t('resource.consumption') }}</span>
-              <span v-if="consumptionModifierPercent(resource) < 0" class="resource-tooltip-boost">{{ consumptionModifierPercent(resource) }}% {{ t('resource.consumption') }}</span>
+              <span v-if="hasConsumption(resource)" class="resource-tooltip-time resource-tooltip-time--spaced">{{ t('resource.producing') }}: {{ +grossProduction(resource).toFixed(2) }}</span>
+              <span v-if="productionModifierPercent(resource) !== 0" class="resource-tooltip-time">{{ t('resource.production') }}: {{ productionModifierPercent(resource) > 0 ? '+' : '' }}{{ productionModifierPercent(resource) }}%</span>
+              <span v-if="hasConsumption(resource)" class="resource-tooltip-time resource-tooltip-time--spaced">{{ t('resource.consuming') }}: {{ +resourceConsumption(resource).toFixed(2) }}</span>
+              <span v-if="consumptionModifierPercent(resource) !== 0" class="resource-tooltip-time">{{ t('resource.consumption') }}: {{ consumptionModifierPercent(resource) > 0 ? '+' : '' }}{{ consumptionModifierPercent(resource) }}%</span>
             </div>
           </div>
         </template>

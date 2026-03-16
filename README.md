@@ -2,7 +2,10 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Stone, Copper, Iron, Gold, Knowledge and Faith should show: Production: %
 - Show tutorial modal when the first challenge starts
+- Align the texts in the resource indicator tooltips
+- Test that all productions, consumptions, bonuses, blessings, etc are applies correctly
 
 - Improve challenges
   - Implement blessings
