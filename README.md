@@ -2,6 +2,7 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Show tutorial modal when the first challenge starts
 - Check the new logic is the same as the one before
 
 - UI improvements
