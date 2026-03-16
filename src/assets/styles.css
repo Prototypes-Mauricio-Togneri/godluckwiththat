@@ -791,6 +791,24 @@
     color: rgba(196, 80, 80, 1);
 }
 
+/* Tooltip production modifier — positive boost */
+.resource-tooltip-boost {
+    font-family: var(--font-numeric);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: rgba(80, 168, 80, 1);
+}
+
+/* Tooltip production modifier — negative reduction */
+.resource-tooltip-reduction {
+    font-family: var(--font-numeric);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: rgba(196, 80, 80, 1);
+}
+
 /* ── .productivity-box ───────────────────────────────────────────── */
 
 /* Productivity ratio display — always visible in header */

@@ -165,6 +165,15 @@ function hasConsumption(resource) {
   return resourceConsumption(resource) > 0
 }
 
+/** Production multiplier percentage for a resource (e.g. +20 or -10).
+ * Returns 0 when no modifier is active.
+ * @param {string} resource - Resource key
+ * @returns {number} Rounded percentage modifier
+ */
+function productionModifierPercent(resource) {
+  return Math.round((ui.productionMultipliers[resource] - 1) * 100)
+}
+
 /** Season progress as a fraction from 0 to 1. */
 const seasonProgress = computed(() => ui.season.seasonElapsed / SEASON_DURATION)
 
@@ -304,6 +313,16 @@ const ui = shallowReactive({
     gold: 0,
     faith: 0,
     knowledge: 0,
+  },
+  productionMultipliers: {
+    food: 1,
+    wood: 1,
+    stone: 1,
+    copper: 1,
+    iron: 1,
+    gold: 1,
+    faith: 1,
+    knowledge: 1,
   },
   productivity: 1,
   gameSpeed: GAME_SPEED_DEFAULT,
@@ -512,11 +531,8 @@ function syncResources() {
 /** Syncs production, consumption, and net production rates. */
 function syncProduction() {
   const {
-    colony,
-  } = state
-  const {
     production, consumption,
-  } = colony
+  } = state
   ui.production = {
     food: production.food,
     wood: production.wood,
@@ -532,16 +548,26 @@ function syncProduction() {
     wood: consumption.wood,
   }
   ui.netProduction = {
-    food: colony.netProduction('food'),
-    wood: colony.netProduction('wood'),
-    stone: colony.netProduction('stone'),
-    copper: colony.netProduction('copper'),
-    iron: colony.netProduction('iron'),
-    gold: colony.netProduction('gold'),
-    faith: colony.netProduction('faith'),
-    knowledge: colony.netProduction('knowledge'),
+    food: state.netProduction('food'),
+    wood: state.netProduction('wood'),
+    stone: state.netProduction('stone'),
+    copper: state.netProduction('copper'),
+    iron: state.netProduction('iron'),
+    gold: state.netProduction('gold'),
+    faith: state.netProduction('faith'),
+    knowledge: state.netProduction('knowledge'),
   }
-  ui.productivity = colony.productivity
+  ui.productionMultipliers = {
+    food: state.productionMultipliers.food,
+    wood: state.productionMultipliers.wood,
+    stone: state.productionMultipliers.stone,
+    copper: state.productionMultipliers.copper,
+    iron: state.productionMultipliers.iron,
+    gold: state.productionMultipliers.gold,
+    faith: state.productionMultipliers.faith,
+    knowledge: state.productionMultipliers.knowledge,
+  }
+  ui.productivity = state.productivity
   ui.gameSpeed = state.meta.gameSpeed
 }
 
@@ -1280,6 +1306,8 @@ onUnmounted(() => {
               <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
               <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.producing') }}: {{ +grossProduction(resource).toFixed(2) }}</span>
               <span v-if="hasConsumption(resource)" class="resource-tooltip-time">{{ t('resource.consuming') }}: {{ +resourceConsumption(resource).toFixed(2) }}</span>
+              <span v-if="productionModifierPercent(resource) > 0" class="resource-tooltip-boost">+{{ productionModifierPercent(resource) }}% {{ t('resource.production') }}</span>
+              <span v-if="productionModifierPercent(resource) < 0" class="resource-tooltip-reduction">{{ productionModifierPercent(resource) }}% {{ t('resource.production') }}</span>
             </div>
           </div>
         </template>

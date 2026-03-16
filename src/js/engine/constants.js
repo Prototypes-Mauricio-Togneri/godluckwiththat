@@ -29,11 +29,9 @@ import Challenges from '@/js/models/challenges.js'
 import Colony from '@/js/models/colony.js'
 import Punishment from '@/js/models/punishment.js'
 import Season from '@/js/models/season.js'
-import Consumption from '@/js/models/consumption.js'
 import Events from '@/js/models/events/events.js'
 import Meta from '@/js/models/meta.js'
 import Tutorial from '@/js/models/tutorial.js'
-import Production from '@/js/models/production.js'
 import Resources from '@/js/models/resources.js'
 
 /**
@@ -888,19 +886,6 @@ export function createInitialColonyBasic() {
       knowledge: 0,
     }),
 
-    production: new Production({
-      food: 0,
-      wood: 0,
-      stone: 0,
-      copper: 0,
-      iron: 0,
-      gold: 0,
-      faith: 0,
-      knowledge: 0,
-    }),
-
-    consumption: new Consumption({}),
-
     events: new Events(),
 
     buildings: new Buildings({
@@ -993,19 +978,6 @@ export function createInitialColonyAdvanced() {
       faith: 0,
       knowledge: 1500,
     }),
-
-    production: new Production({
-      food: 0,
-      wood: 0,
-      stone: 0,
-      copper: 0,
-      iron: 0,
-      gold: 0,
-      faith: 0,
-      knowledge: 0,
-    }),
-
-    consumption: new Consumption({}),
 
     events: new Events(),
 

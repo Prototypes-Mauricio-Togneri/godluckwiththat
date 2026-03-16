@@ -6,7 +6,9 @@ import audio from '@/js/engine/audio.js'
 import storage from '@/js/engine/storage.js'
 import {BOUNDED_RESOURCES, BUILDING_CLASS_MAP, BUILDING_IMAGE_MAP, DOWNGRADABLE_BUILDINGS, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, TUTORIAL_STEPS} from '@/js/engine/constants.js'
 import Colony from '@/js/models/colony.js'
+import Consumption from '@/js/models/consumption.js'
 import Meta from '@/js/models/meta.js'
+import Production from '@/js/models/production.js'
 import {BLESSING_BLESSED_MARKETS, BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FAITH_PRODUCTION, BONUS_FOOD_CONSUMPTION, BONUS_FOOD_PRODUCTION, BONUS_HABITATION, BONUS_KNOWLEDGE_PRODUCTION, BONUS_MINING_PRODUCTION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WOOD_PRODUCTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -46,6 +48,29 @@ class State {
       wood: 1,
     }
 
+    // Per-second gross production rates (ephemeral, recalculated each tick)
+    this.production = new Production({})
+
+    // Per-second worker upkeep (ephemeral, recalculated each tick)
+    this.consumption = new Consumption({})
+
+    // Productivity ratio 0–1, recalculated each tick in update().
+    // Reduced by food/wood shortage.
+    this.productivity = 1
+
+    // Per-resource production multipliers (research + blessings + season),
+    // recalculated each tick in update(). Initialized to neutral defaults.
+    this.productionMultipliers = {
+      food: 1,
+      wood: 1,
+      stone: 1,
+      copper: 1,
+      iron: 1,
+      gold: 1,
+      faith: 1,
+      knowledge: 1,
+    }
+
     // Track which buildings are currently constructing so advanceConstruction()
     // only iterates the active subset instead of all 20 buildings every frame
     this._constructingKeys = new Set()
@@ -77,8 +102,11 @@ class State {
    */
   update(delta) {
     const {
-      resources, production, buildings, consumption,
+      resources, buildings,
     } = this.colony
+    const {
+      production, consumption,
+    } = this
 
     // Refresh derived state before production: territory counts both completed
     // building levels and buildings under construction (each reserves one slot).
@@ -101,7 +129,10 @@ class State {
 
     // Production rates from buildings, blessings, and season (before
     // productivity penalty — used for deficit calculation below)
-    const productionRates = this._computeProductionRates(bonuses, blessings, this.seasonMultipliers)
+    const {
+      rates: productionRates, multipliers: productionMultipliers,
+    } = this._computeProductionRates(bonuses, blessings, this.seasonMultipliers)
+    this.productionMultipliers = productionMultipliers
 
     // Worker upkeep: every worker (idle and assigned) consumes food and wood
     // each second. Research bonuses reduce the base consumption rates (−5%/tier).
@@ -115,7 +146,7 @@ class State {
     // production rates (not penalized) so reassigning workers takes effect
     // immediately instead of being locked by the previous tick's penalty
     const productivity = this._computeGeneralProductivity(resources.workers, productionRates, consumptionRates)
-    this.colony.productivity = productivity
+    this.productivity = productivity
 
     // Apply productivity penalty to production rates
     production.food = productionRates.food * productivity
@@ -189,7 +220,7 @@ class State {
     // events above). netProduction() = production − consumption, so this fires
     // when upkeep exceeds output. Warning auto-dismisses when production recovers
     for (const resource of BOUNDED_RESOURCES) {
-      if (this.colony.netProduction(resource) < 0) {
+      if (this.netProduction(resource) < 0) {
         if (!this._resourcesNegativeProduction.has(resource)) {
           this._resourcesNegativeProduction.add(resource)
           const config = RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG[resource]
@@ -225,6 +256,15 @@ class State {
       this._hadIdleWorkers = false
       this.colony.events.dismissPastByType(EVENT_TYPE_IDLE_WORKERS)
     }
+  }
+
+  /**
+   * Returns the net production rate for a resource (gross minus consumption).
+   * @param {string} resource - Resource key
+   * @returns {number} Net production per second
+   */
+  netProduction(resource) {
+    return this.production[resource] - (this.consumption[resource] ?? 0)
   }
 
   /**
@@ -438,7 +478,10 @@ class State {
       rates[resource] = baseRates[resource] * multipliers[resource]
     }
 
-    return rates
+    return {
+      rates: rates,
+      multipliers: multipliers,
+    }
   }
 
   /**
