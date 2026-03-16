@@ -171,8 +171,15 @@ const seasonProgress = computed(() => ui.season.seasonElapsed / SEASON_DURATION)
 /** Image path for the current season icon (warm or cold). */
 const seasonIcon = computed(() => ui.season.isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD)
 
-/** Localized tooltip text showing the current season name. */
-const seasonTooltip = computed(() => t('season.' + ui.season.currentSeason + 'Season'))
+/** Localized tooltip text showing season name, food production change, and wood consumption change. */
+const seasonTooltip = computed(() => {
+  const seasonName = t('season.' + ui.season.currentSeason + 'Season')
+  const foodPercent = Math.round((ui.season.foodMultiplier - 1) * 100)
+  const woodPercent = Math.round((ui.season.woodMultiplier - 1) * 100)
+  const foodSign = foodPercent >= 0 ? '+' : ''
+  const woodSign = woodPercent >= 0 ? '+' : ''
+  return `${seasonName}\n${foodSign}${foodPercent}% ${t('season.foodProduction')}\n${woodSign}${woodPercent}% ${t('season.woodConsumption')}`
+})
 
 // Dismiss idle workers
 const canDismiss = computed(() => ui.idleWorkers > 0)
@@ -253,6 +260,8 @@ const ui = shallowReactive({
     currentSeason: '',
     seasonElapsed: 0,
     isWarm: true,
+    foodMultiplier: 1,
+    woodMultiplier: 1,
   },
   year: 1,
   resources: {
@@ -345,10 +354,16 @@ function syncTimers() {
     buildings, season, events,
   } = colony
 
+  const seasonMultipliers = state.seasonMultipliers ?? {
+    food: 1,
+    wood: 1,
+  }
   ui.season = {
     currentSeason: season.currentSeason,
     seasonElapsed: season.seasonElapsed,
     isWarm: season.isWarm,
+    foodMultiplier: seasonMultipliers.food,
+    woodMultiplier: seasonMultipliers.wood,
   }
   ui.year = colony.year
 
@@ -451,10 +466,16 @@ function syncSeason() {
   const {
     season,
   } = state.colony
+  const seasonMultipliers = state.seasonMultipliers ?? {
+    food: 1,
+    wood: 1,
+  }
   ui.season = {
     currentSeason: season.currentSeason,
     seasonElapsed: season.seasonElapsed,
     isWarm: season.isWarm,
+    foodMultiplier: seasonMultipliers.food,
+    woodMultiplier: seasonMultipliers.wood,
   }
   ui.year = state.colony.year
 }
@@ -1188,8 +1209,8 @@ onUnmounted(() => {
     <pre ref="perfOverlay" class="perf-overlay" />
     <header class="game-header">
       <!-- Season & year indicator -->
-      <div class="header-season-group">
-        <div class="header-section header-season tooltip" :data-tooltip="seasonTooltip">
+      <div class="header-season-group tooltip tooltip--multiline tooltip--left" :data-tooltip="seasonTooltip">
+        <div class="header-section header-season">
           <div class="season-track" :class="'season-track--' + ui.season.currentSeason">
             <div class="season-fill" :style="{ width: (seasonProgress * 100) + '%' }" />
           </div>

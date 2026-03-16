@@ -39,6 +39,13 @@ class State {
     // idle-workers event fires only on the transition (not every tick)
     this._hadIdleWorkers = false
 
+    // Seasonal multipliers for food production and wood consumption,
+    // recalculated each tick in update(). Initialized to neutral defaults.
+    this.seasonMultipliers = {
+      food: 1,
+      wood: 1,
+    }
+
     // Track which buildings are currently constructing so advanceConstruction()
     // only iterates the active subset instead of all 20 buildings every frame
     this._constructingKeys = new Set()
@@ -90,14 +97,14 @@ class State {
     buildings.market.blessedMarkets = blessings.some(blessing => blessing.type === BLESSING_BLESSED_MARKETS)
 
     // Seasonal multipliers for food production and wood consumption
-    const seasonMultipliers = this._computeSeasonMultipliers(blessings)
+    this.seasonMultipliers = this._computeSeasonMultipliers(blessings)
 
     // Productivity ratio based on resource shortages (previous tick)
     const productivity = this._computeGeneralProductivity(resources.workers)
     this.colony.productivity = productivity
 
     // Compute production rates from buildings, blessings, season, and productivity
-    const productionRates = this._computeProductionRates(bonuses, blessings, seasonMultipliers, productivity)
+    const productionRates = this._computeProductionRates(bonuses, blessings, this.seasonMultipliers, productivity)
     production.food = productionRates.food
     production.wood = productionRates.wood
     production.stone = productionRates.stone
@@ -122,7 +129,7 @@ class State {
     // each second. Research bonuses reduce the base consumption rates (−5%/tier).
     // Wood upkeep is additionally scaled by seasonal modifier (cold = more heating).
     // Consumption rates are per-second and also used by the UI (header tooltips)
-    const consumptionRates = this._computeConsumptionRates(bonuses, seasonMultipliers, resources.workers)
+    const consumptionRates = this._computeConsumptionRates(bonuses, this.seasonMultipliers, resources.workers)
     consumption.food = consumptionRates.food
     consumption.wood = consumptionRates.wood
 

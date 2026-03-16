@@ -90,6 +90,8 @@ export const LOCALIZED_CA = {
   // Seasons
   'season.warmSeason': 'Estació càlida',
   'season.coldSeason': 'Estació freda',
+  'season.foodProduction': 'producció d\'aliments',
+  'season.woodConsumption': 'consum de fusta',
 
   // Building groups
   'buildingGroup.colony': 'Colònia',
