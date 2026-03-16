@@ -6,6 +6,8 @@
 - Check the new logic is the same as the one before
 
 - UI improvements
+  - Resource production rate
+  - Resource consumption rate
 
   - In the general productivity tooltip, who why we have that number (e.g. missing food or wood)
   - Show the current productivity multiplier in the UI (e.g. in the resources panel)
