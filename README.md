@@ -2,7 +2,6 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Stone, Copper, Iron, Gold, Knowledge and Faith should show: Production: %
 - Align the texts in the resource indicator tooltips
 - Show tutorial modal when the first challenge starts
 
