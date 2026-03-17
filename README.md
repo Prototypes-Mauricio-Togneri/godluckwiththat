@@ -2,6 +2,8 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+claude --resume 09491437-b17b-4c8b-957e-28d23e2092d0
+
 - Align the texts in the resource indicator tooltips
 - Show tutorial modal when the first challenge starts
   - BLESSING_FAVORABLE_WEATHER
