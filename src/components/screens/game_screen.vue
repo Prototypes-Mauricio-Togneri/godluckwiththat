@@ -193,16 +193,6 @@ const seasonProgress = computed(() => ui.season.seasonElapsed / SEASON_DURATION)
 /** Image path for the current season icon (warm or cold). */
 const seasonIcon = computed(() => ui.season.isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD)
 
-/** Localized tooltip text showing season name, food production change, and wood consumption change. */
-const seasonTooltip = computed(() => {
-  const seasonName = t('season.' + ui.season.currentSeason + 'Season')
-  const foodPercent = Math.round((ui.season.foodMultiplier - 1) * 100)
-  const woodPercent = Math.round((ui.season.woodMultiplier - 1) * 100)
-  const foodSign = foodPercent >= 0 ? '+' : ''
-  const woodSign = woodPercent >= 0 ? '+' : ''
-  return `${seasonName}\n${foodSign}${foodPercent}% ${t('season.foodProduction')}\n${woodSign}${woodPercent}% ${t('season.woodConsumption')}`
-})
-
 // Dismiss idle workers
 const canDismiss = computed(() => ui.idleWorkers > 0)
 const dismissTooltip = computed(() => canDismiss.value ? t('house.dismissWorker') : t('house.noIdleWorkers'))
@@ -282,8 +272,8 @@ const ui = shallowReactive({
     currentSeason: '',
     seasonElapsed: 0,
     isWarm: true,
-    foodMultiplier: 1,
-    woodMultiplier: 1,
+    foodModifierPercent: 0,
+    woodModifierPercent: 0,
   },
   year: 1,
   resources: {
@@ -398,8 +388,8 @@ function syncTimers() {
     currentSeason: season.currentSeason,
     seasonElapsed: season.seasonElapsed,
     isWarm: season.isWarm,
-    foodMultiplier: seasonMultipliers.food,
-    woodMultiplier: seasonMultipliers.wood,
+    foodModifierPercent: Math.round((seasonMultipliers.food - 1) * 100),
+    woodModifierPercent: Math.round((seasonMultipliers.wood - 1) * 100),
   }
   ui.year = colony.year
 
@@ -510,8 +500,8 @@ function syncSeason() {
     currentSeason: season.currentSeason,
     seasonElapsed: season.seasonElapsed,
     isWarm: season.isWarm,
-    foodMultiplier: seasonMultipliers.food,
-    woodMultiplier: seasonMultipliers.wood,
+    foodModifierPercent: Math.round((seasonMultipliers.food - 1) * 100),
+    woodModifierPercent: Math.round((seasonMultipliers.wood - 1) * 100),
   }
   ui.year = state.colony.year
 }
@@ -1256,7 +1246,7 @@ onUnmounted(() => {
     <pre ref="perfOverlay" class="perf-overlay" />
     <header class="game-header">
       <!-- Season & year indicator -->
-      <div class="header-season-group tooltip tooltip--multiline tooltip--left" :data-tooltip="seasonTooltip">
+      <div class="header-season-group">
         <div class="header-section header-season">
           <div class="season-track" :class="'season-track--' + ui.season.currentSeason">
             <div class="season-fill" :style="{ width: (seasonProgress * 100) + '%' }" />
@@ -1266,6 +1256,13 @@ onUnmounted(() => {
           <img class="season-icon" :src="seasonIcon" alt="">
           {{ t('screen.game.header.year') }} <span class="header-year-num">{{ ui.year }}</span>
         </span>
+
+        <!-- Rich tooltip -->
+        <div class="resource-tooltip">
+          <span>{{ t('season.' + ui.season.currentSeason + 'Season') }}</span>
+          <span class="resource-tooltip-time">{{ t('season.foodProduction') }}: {{ ui.season.foodModifierPercent >= 0 ? '+' : '' }}{{ ui.season.foodModifierPercent }}%</span>
+          <span class="resource-tooltip-time">{{ t('season.woodConsumption') }}: {{ ui.season.woodModifierPercent >= 0 ? '+' : '' }}{{ ui.season.woodModifierPercent }}%</span>
+        </div>
       </div>
 
       <!-- Resources -->
@@ -1598,11 +1595,23 @@ onUnmounted(() => {
 
 /* Vertically stacks season indicator and year label */
 .header-season-group {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
   flex-shrink: 0;
+}
+
+/* Show rich tooltip on season hover */
+.header-season-group:hover .resource-tooltip {
+  opacity: 1;
+}
+
+/* Left-align season tooltip */
+.header-season-group .resource-tooltip {
+  left: 0;
+  transform: none;
 }
 
 /* "YEAR" label text in subdued uppercase */

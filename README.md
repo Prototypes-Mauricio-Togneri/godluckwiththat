@@ -2,10 +2,10 @@
 
 [Website](https://god-luck-with-that.web.app)
 
-- Use in season tooltip the same font for numbers as the resources tooltip
 - Stone, Copper, Iron, Gold, Knowledge and Faith should show: Production: %
-- Show tutorial modal when the first challenge starts
 - Align the texts in the resource indicator tooltips
+- Show tutorial modal when the first challenge starts
+
 - Test that all productions, consumptions, bonuses, blessings, etc are applies correctly
   - season multiplier: season + favorable weather
   - consumption: season multiplier + researches (food consumption / wood consumption)
