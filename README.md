@@ -14,7 +14,6 @@
   - BLESSING_BLESSED_MARKETS
 
 - Improve challenges
-  - Implement blessings
   - Implement punishments
   - Add images on each blessing card
 
