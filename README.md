@@ -2,6 +2,7 @@
 
 [Website](https://god-luck-with-that.web.app)
 
+- Use in season tooltip the same font for numbers as the resources tooltip
 - Stone, Copper, Iron, Gold, Knowledge and Faith should show: Production: %
 - Show tutorial modal when the first challenge starts
 - Align the texts in the resource indicator tooltips
