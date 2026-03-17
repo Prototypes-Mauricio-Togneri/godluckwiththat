@@ -8,7 +8,7 @@
 - Test that all productions, consumptions, bonuses, blessings, etc are applies correctly
   - season multiplier: season + favorable weather
   - consumption: season multiplier + researches (food consumption / wood consumption)
-  - production: season multiplier + blessings (general + specific) + challenges + researches (general + specific)
+  - production: season multiplier + blessings (general + specific) + researches (general + specific)
 
 - Improve challenges
   - Implement blessings

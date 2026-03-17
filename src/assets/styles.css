@@ -787,6 +787,36 @@
     margin-top: 0.25rem;
 }
 
+/* Tooltip key-value grid for colon-aligned labels */
+.resource-tooltip-grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 0.25rem;
+    row-gap: 0.1rem;
+    font-family: var(--font-numeric);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: rgba(var(--color-text-rgb), 0.55);
+}
+
+/* Right-aligned label in first column */
+.resource-tooltip-label {
+    text-align: right;
+}
+
+/* Full-width row spanning both columns */
+.resource-tooltip-full {
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+/* Top spacing before producing/consuming groups */
+.resource-tooltip-label--spaced,
+.resource-tooltip-value--spaced {
+    margin-top: 0.25rem;
+}
+
 /* Tooltip deficit warning */
 .resource-tooltip-deficit {
     font-size: 0.7rem;

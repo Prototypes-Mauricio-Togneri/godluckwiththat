@@ -1318,14 +1318,32 @@ onUnmounted(() => {
             <!-- Rich tooltip -->
             <div class="resource-tooltip">
               <span>{{ t('resource.' + resource) }}</span>
-              <!-- Intentional: toLocaleString() instead of formatNumber() to display all digits -->
-              <span class="resource-tooltip-time">{{ t('resource.amount') }}: {{ formatNumberFull(ui.resources[resource]) }}</span>
-              <span v-if="isBounded(resource)" class="resource-tooltip-time">{{ t('resource.maxCapacity') }}: {{ formatNumber(ui.storageCap) }}</span>
-              <span v-if="timeEstimate(resource)" class="resource-tooltip-time">{{ timeEstimate(resource) }}</span>
-              <span v-if="hasConsumption(resource)" class="resource-tooltip-time resource-tooltip-time--spaced">{{ t('resource.producing') }}: {{ +grossProduction(resource).toFixed(2) }}</span>
-              <span v-if="productionModifierPercent(resource) !== 0" class="resource-tooltip-time">{{ t('resource.production') }}: {{ productionModifierPercent(resource) > 0 ? '+' : '' }}{{ productionModifierPercent(resource) }}%</span>
-              <span v-if="hasConsumption(resource)" class="resource-tooltip-time resource-tooltip-time--spaced">{{ t('resource.consuming') }}: {{ +resourceConsumption(resource).toFixed(2) }}</span>
-              <span v-if="consumptionModifierPercent(resource) !== 0" class="resource-tooltip-time">{{ t('resource.consumption') }}: {{ consumptionModifierPercent(resource) > 0 ? '+' : '' }}{{ consumptionModifierPercent(resource) }}%</span>
+              <div class="resource-tooltip-grid">
+                <!-- Intentional: toLocaleString() instead of formatNumber() to display all digits -->
+                <span class="resource-tooltip-label">{{ t('resource.amount') }}:</span>
+                <span class="resource-tooltip-value">{{ formatNumberFull(ui.resources[resource]) }}</span>
+                <template v-if="isBounded(resource)">
+                  <span class="resource-tooltip-label">{{ t('resource.maxCapacity') }}:</span>
+                  <span class="resource-tooltip-value">{{ formatNumber(ui.storageCap) }}</span>
+                </template>
+                <span v-if="timeEstimate(resource)" class="resource-tooltip-full">{{ timeEstimate(resource) }}</span>
+                <template v-if="hasConsumption(resource)">
+                  <span class="resource-tooltip-label resource-tooltip-label--spaced">{{ t('resource.producing') }}:</span>
+                  <span class="resource-tooltip-value resource-tooltip-value--spaced">{{ +grossProduction(resource).toFixed(2) }}</span>
+                </template>
+                <template v-if="productionModifierPercent(resource) !== 0">
+                  <span class="resource-tooltip-label">{{ t('resource.production') }}:</span>
+                  <span class="resource-tooltip-value">{{ productionModifierPercent(resource) > 0 ? '+' : '' }}{{ productionModifierPercent(resource) }}%</span>
+                </template>
+                <template v-if="hasConsumption(resource)">
+                  <span class="resource-tooltip-label resource-tooltip-label--spaced">{{ t('resource.consuming') }}:</span>
+                  <span class="resource-tooltip-value resource-tooltip-value--spaced">{{ +resourceConsumption(resource).toFixed(2) }}</span>
+                </template>
+                <template v-if="consumptionModifierPercent(resource) !== 0">
+                  <span class="resource-tooltip-label">{{ t('resource.consumption') }}:</span>
+                  <span class="resource-tooltip-value">{{ consumptionModifierPercent(resource) > 0 ? '+' : '' }}{{ consumptionModifierPercent(resource) }}%</span>
+                </template>
+              </div>
             </div>
           </div>
         </template>
