@@ -3,6 +3,7 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Align the texts in the resource indicator tooltips
+- Remove the indicators in the season tooltip
 - Show tutorial modal when the first challenge starts
 
 - Improve challenges
