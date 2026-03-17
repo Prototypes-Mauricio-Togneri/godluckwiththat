@@ -5,11 +5,6 @@
 - Align the texts in the resource indicator tooltips
 - Show tutorial modal when the first challenge starts
 
-- Test that all productions, consumptions, bonuses, blessings, etc are applies correctly
-  - season multiplier: season + favorable weather
-  - consumption: season multiplier + researches (food consumption / wood consumption)
-  - production: season multiplier + blessings (general + specific) + researches (general + specific)
-
 - Improve challenges
   - Implement blessings
   - Implement punishments
