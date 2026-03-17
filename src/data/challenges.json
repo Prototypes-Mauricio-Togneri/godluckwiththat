@@ -43,7 +43,7 @@
       },
       {
         "type": "holyExpansion",
-        "territory": 5
+        "territory": 10
       }
     ],
     "punishment": {
@@ -185,7 +185,7 @@
       },
       {
         "type": "holyExpansion",
-        "territory": 5
+        "territory": 10
       }
     ],
     "punishment": {
