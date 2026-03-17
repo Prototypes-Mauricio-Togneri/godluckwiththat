@@ -3,8 +3,15 @@
 [Website](https://god-luck-with-that.web.app)
 
 - Align the texts in the resource indicator tooltips
-- Remove the indicators in the season tooltip
 - Show tutorial modal when the first challenge starts
+  - BLESSING_FAVORABLE_WEATHER
+  - BLESSING_GIFT_FROM_THE_HEAVENS (it should show the amount of resources it gives)
+  - BLESSING_HOLY_EXPANSION
+  - BLESSING_RICH_MINES
+  - BLESSING_CELESTIAL_PROSPERITY
+  - BLESSING_RAPID_CONSTRUCTION
+  - BLESSING_WISDOM_OF_THE_GODS
+  - BLESSING_BLESSED_MARKETS
 
 - Improve challenges
   - Implement blessings

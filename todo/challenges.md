@@ -123,7 +123,7 @@ All defined in `src/data/challenges.json`
   - `GIFT_FROM_THE_HEAVENS`: Grants `blessing.resources` amounts to colony resources (capped at storage cap)
   - `HOLY_EXPANSION`: Adds `blessing.territory` to `resources.territoryBonus`
 
-### Step 2b: Ongoing Blessing Effects
+### Step 2b: Ongoing Blessing Effects (DONE)
 
 Wire into `state.js` — each modifier reads from `meta.challenges.activeBlessings`:
 
