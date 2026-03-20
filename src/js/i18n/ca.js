@@ -444,7 +444,7 @@ export const LOCALIZED_CA = {
   'blessing.blessedMarkets': 'Mercats Beneïts',
   'blessing.fertileSoil.description': 'Augmenta la productivitat d\'aliments un {0}% durant {1}',
   'blessing.forestBloom.description': 'Augmenta la productivitat de fusta un {0}% durant {1}',
-  'blessing.giftFromTheHeavens.description': 'Rep un regal de recursos',
+  'blessing.giftFromTheHeavens.description': 'Rep els següents recursos:',
   'blessing.holyExpansion.description': 'Guanya {0} espais de territori',
   'blessing.richMines.description': 'Augmenta la productivitat minera un {0}% durant {1}',
   'blessing.celestialProsperity.description': 'Augmenta la productivitat general un {0}% durant {1}',

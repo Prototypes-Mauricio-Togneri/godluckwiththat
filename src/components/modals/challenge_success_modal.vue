@@ -7,7 +7,7 @@ import {BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEA
   BLESSING_HOLY_EXPANSION, BLESSING_RICH_MINES, BLESSING_CELESTIAL_PROSPERITY,
   BLESSING_RAPID_CONSTRUCTION, BLESSING_FAVORABLE_WEATHER, BLESSING_WISDOM_OF_THE_GODS,
   BLESSING_BLESSED_MARKETS} from '@/js/engine/enums.js'
-import {formatMinutes} from '@/js/engine/format.js'
+import {formatMinutes, formatNumber} from '@/js/engine/format.js'
 
 const ui = inject('ui')
 const actions = inject('actions')
@@ -21,7 +21,15 @@ function blessingDescription(blessing) {
   switch (blessing.type) {
     case BLESSING_FERTILE_SOIL: return t('blessing.fertileSoil.description', percentage, duration)
     case BLESSING_FOREST_BLOOM: return t('blessing.forestBloom.description', percentage, duration)
-    case BLESSING_GIFT_FROM_THE_HEAVENS: return t('blessing.giftFromTheHeavens.description')
+    case BLESSING_GIFT_FROM_THE_HEAVENS: {
+      const resourceLines = Object.entries(blessing.resources ?? {})
+        .map(([
+          resource,
+          amount,
+        ]) => `${t('resource.' + resource)}: ${formatNumber(amount)}`)
+        .join('\n')
+      return t('blessing.giftFromTheHeavens.description') + '\n' + resourceLines
+    }
     case BLESSING_HOLY_EXPANSION: return t('blessing.holyExpansion.description', blessing.territory)
     case BLESSING_RICH_MINES: return t('blessing.richMines.description', percentage, duration)
     case BLESSING_CELESTIAL_PROSPERITY: return t('blessing.celestialProsperity.description', percentage, duration)
@@ -160,6 +168,7 @@ onUnmounted(() => {
   color: rgba(var(--color-text-rgb), 0.65);
   text-align: center;
   line-height: 1.5;
+  white-space: pre-line;
   flex: 1;
   margin-bottom: 0;
 }

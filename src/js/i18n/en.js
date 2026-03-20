@@ -458,7 +458,7 @@ export const LOCALIZED_EN = {
   // Blessing descriptions
   'blessing.fertileSoil.description': 'Increases food productivity by {0}% for {1}',
   'blessing.forestBloom.description': 'Increases wood productivity by {0}% for {1}',
-  'blessing.giftFromTheHeavens.description': 'Receive a gift of resources',
+  'blessing.giftFromTheHeavens.description': 'Receive the following resources:',
   'blessing.holyExpansion.description': 'Gain {0} territory slots',
   'blessing.richMines.description': 'Increases minerals productivity by {0}% for {1}',
   'blessing.celestialProsperity.description': 'Increases general productivity by {0}% for {1}',

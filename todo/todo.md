@@ -1,17 +1,17 @@
 - Show tutorial modal when the first challenge starts
 
 - To test
-  - BLESSING_RAPID_CONSTRUCTION = rapidConstruction
-  - BLESSING_GIFT_FROM_THE_HEAVENS = giftFromTheHeavens (it should show the amount of resources it gives)
   - BLESSING_RICH_MINES = richMines
   - BLESSING_WISDOM_OF_THE_GODS = wisdomOfTheGods
   - BLESSING_BLESSED_MARKETS = blessedMarkets
 
-  'blessing.rapidConstruction.description': 'Buildings constructed {0}% faster for {1}',
-  'blessing.giftFromTheHeavens.description': 'Receive a gift of resources',
   'blessing.wisdomOfTheGods.description': 'Increases knowledge productivity by {0}% for {1}',
   'blessing.richMines.description': 'Increases minerals productivity by {0}% for {1}',
   'blessing.blessedMarkets.description': 'No trading fees for {0}',
+
+- Show current blessing or punushement on the UI
+  - Details
+  - Time until finished
 
 - Tested
   - BLESSING_FERTILE_SOIL
@@ -19,6 +19,8 @@
   - BLESSING_HOLY_EXPANSION
   - BLESSING_FAVORABLE_WEATHER
   - BLESSING_CELESTIAL_PROSPERITY
+  - BLESSING_RAPID_CONSTRUCTION
+  - BLESSING_GIFT_FROM_THE_HEAVENS
 
 - Improve challenges
   - Implement punishments

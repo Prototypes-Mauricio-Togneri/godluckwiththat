@@ -444,7 +444,7 @@ export const LOCALIZED_ES = {
   'blessing.blessedMarkets': 'Mercados Bendecidos',
   'blessing.fertileSoil.description': 'Aumenta la productividad de comida un {0}% durante {1}',
   'blessing.forestBloom.description': 'Aumenta la productividad de madera un {0}% durante {1}',
-  'blessing.giftFromTheHeavens.description': 'Recibe un regalo de recursos',
+  'blessing.giftFromTheHeavens.description': 'Recibe los siguientes recursos:',
   'blessing.holyExpansion.description': 'Obtén {0} espacios de territorio',
   'blessing.richMines.description': 'Aumenta la productividad minera un {0}% durante {1}',
   'blessing.celestialProsperity.description': 'Aumenta la productividad general un {0}% durante {1}',
