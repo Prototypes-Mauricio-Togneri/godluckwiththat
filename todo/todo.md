@@ -1,11 +1,11 @@
 - Show tutorial modal when the first challenge starts
 
 - To test
-  - BLESSING_RAPID_CONSTRUCTION
-  - BLESSING_GIFT_FROM_THE_HEAVENS (it should show the amount of resources it gives)
-  - BLESSING_RICH_MINES
-  - BLESSING_WISDOM_OF_THE_GODS
-  - BLESSING_BLESSED_MARKETS
+  - BLESSING_RAPID_CONSTRUCTION = rapidConstruction
+  - BLESSING_GIFT_FROM_THE_HEAVENS = giftFromTheHeavens (it should show the amount of resources it gives)
+  - BLESSING_RICH_MINES = richMines
+  - BLESSING_WISDOM_OF_THE_GODS = wisdomOfTheGods
+  - BLESSING_BLESSED_MARKETS = blessedMarkets
 
   'blessing.rapidConstruction.description': 'Buildings constructed {0}% faster for {1}',
   'blessing.giftFromTheHeavens.description': 'Receive a gift of resources',
