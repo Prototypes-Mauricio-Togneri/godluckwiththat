@@ -118,7 +118,7 @@ function resourceFillPercent(resource) {
 
 /** Time estimate until a resource is full or empty, or null if stable.
  * @param {string} resource - Resource key
- * @returns {string|null} Localized "full in" / "empty in" string, or null
+ * @returns {{label: string, time: string}|null} Label and formatted time, or null
  */
 function timeEstimate(resource) {
   const rate = ui.netProduction[resource]
@@ -131,11 +131,17 @@ function timeEstimate(resource) {
     if (current >= ui.storageCap) {
       return null
     }
-    return `${t('resource.fullIn')} ${formatTime((ui.storageCap - current) / rate)}`
+    return {
+      label: t('resource.fullIn'),
+      time: formatTime((ui.storageCap - current) / rate),
+    }
   }
 
   if (rate < 0 && current > 0) {
-    return `${t('resource.emptyIn')} ${formatTime(current / Math.abs(rate))}`
+    return {
+      label: t('resource.emptyIn'),
+      time: formatTime(current / Math.abs(rate)),
+    }
   }
 
   return null
@@ -1326,7 +1332,10 @@ onUnmounted(() => {
                   <span class="resource-tooltip-label">{{ t('resource.maxCapacity') }}:</span>
                   <span class="resource-tooltip-value">{{ formatNumber(ui.storageCap) }}</span>
                 </template>
-                <span v-if="timeEstimate(resource)" class="resource-tooltip-full">{{ timeEstimate(resource) }}</span>
+                <template v-if="timeEstimate(resource)">
+                  <span class="resource-tooltip-label">{{ timeEstimate(resource).label }}:</span>
+                  <span class="resource-tooltip-value">{{ timeEstimate(resource).time }}</span>
+                </template>
                 <template v-if="hasConsumption(resource)">
                   <span class="resource-tooltip-label resource-tooltip-label--spaced">{{ t('resource.producing') }}:</span>
                   <span class="resource-tooltip-value resource-tooltip-value--spaced">{{ +grossProduction(resource).toFixed(2) }}</span>

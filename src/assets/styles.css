@@ -805,12 +805,6 @@
     text-align: right;
 }
 
-/* Full-width row spanning both columns */
-.resource-tooltip-full {
-    grid-column: 1 / -1;
-    text-align: center;
-}
-
 /* Top spacing before producing/consuming groups */
 .resource-tooltip-label--spaced,
 .resource-tooltip-value--spaced {
