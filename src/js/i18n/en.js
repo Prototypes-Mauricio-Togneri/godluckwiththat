@@ -463,7 +463,7 @@ export const LOCALIZED_EN = {
   'blessing.richMines.description': 'Increases minerals productivity by {0}% for {1}',
   'blessing.celestialProsperity.description': 'Increases general productivity by {0}% for {1}',
   'blessing.rapidConstruction.description': 'Buildings constructed {0}% faster for {1}',
-  'blessing.favorableWeather.description': 'Improved seasons for {0}',
+  'blessing.favorableWeather.description': 'Warm seasons are {0}% more productive and cold seasons are {1}% less harsh for {2}',
   'blessing.wisdomOfTheGods.description': 'Increases knowledge productivity by {0}% for {1}',
   'blessing.blessedMarkets.description': 'No trading fees for {0}',
 

@@ -1,7 +1,6 @@
 - Show tutorial modal when the first challenge starts
 
 - To test
-  - BLESSING_FAVORABLE_WEATHER
   - BLESSING_GIFT_FROM_THE_HEAVENS (it should show the amount of resources it gives)
   - BLESSING_RICH_MINES
   - BLESSING_CELESTIAL_PROSPERITY
@@ -9,10 +8,18 @@
   - BLESSING_WISDOM_OF_THE_GODS
   - BLESSING_BLESSED_MARKETS
 
+  'blessing.giftFromTheHeavens.description': 'Receive a gift of resources',
+  'blessing.richMines.description': 'Increases minerals productivity by {0}% for {1}',
+  'blessing.celestialProsperity.description': 'Increases general productivity by {0}% for {1}',
+  'blessing.rapidConstruction.description': 'Buildings constructed {0}% faster for {1}',
+  'blessing.wisdomOfTheGods.description': 'Increases knowledge productivity by {0}% for {1}',
+  'blessing.blessedMarkets.description': 'No trading fees for {0}',
+
 - Tested
-  BLESSING_FERTILE_SOIL
-  BLESSING_FOREST_BLOOM
-  BLESSING_HOLY_EXPANSION
+  - BLESSING_FERTILE_SOIL
+  - BLESSING_FOREST_BLOOM
+  - BLESSING_HOLY_EXPANSION
+  - BLESSING_FAVORABLE_WEATHER
 
 - Improve challenges
   - Implement punishments

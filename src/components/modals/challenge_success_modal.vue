@@ -26,7 +26,7 @@ function blessingDescription(blessing) {
     case BLESSING_RICH_MINES: return t('blessing.richMines.description', percentage, duration)
     case BLESSING_CELESTIAL_PROSPERITY: return t('blessing.celestialProsperity.description', percentage, duration)
     case BLESSING_RAPID_CONSTRUCTION: return t('blessing.rapidConstruction.description', Math.round((blessing.construction ?? 0) * 100), duration)
-    case BLESSING_FAVORABLE_WEATHER: return t('blessing.favorableWeather.description', duration)
+    case BLESSING_FAVORABLE_WEATHER: return t('blessing.favorableWeather.description', Math.round((blessing.warm ?? 0) * 100), Math.round((blessing.cold ?? 0) * 100), duration)
     case BLESSING_WISDOM_OF_THE_GODS: return t('blessing.wisdomOfTheGods.description', percentage, duration)
     case BLESSING_BLESSED_MARKETS: return t('blessing.blessedMarkets.description', duration)
     default: return ''
