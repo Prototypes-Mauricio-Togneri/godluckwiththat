@@ -1,4 +1,5 @@
 - Show tutorial modal when the first challenge starts
+- Test blessings
   - BLESSING_FAVORABLE_WEATHER
   - BLESSING_GIFT_FROM_THE_HEAVENS (it should show the amount of resources it gives)
   - BLESSING_RICH_MINES
