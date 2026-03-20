@@ -4,7 +4,7 @@
   - Details
   - Time until finished
 
-- Update function to calcualte time from cost
+- Update function to calculate time from cost
   - The higher the number, the less seconds per resource to avoid exploding numbers
 
 - Improve challenges
