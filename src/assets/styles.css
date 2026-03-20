@@ -192,7 +192,7 @@
 
 /* Dim cost items when action button is disabled */
 .action-row--disabled .action-cost-item {
-    opacity: 0.35;
+    opacity: 0.5;
 }
 
 /* Individual resource cost entry (icon + amount) */

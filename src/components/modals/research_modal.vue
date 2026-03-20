@@ -449,7 +449,7 @@ onUnmounted(() => {
 
 .research-node--locked > .node-header,
 .research-node--locked > .node-second-row {
-  opacity: 0.35;
+  opacity: 0.5;
 }
 
 /* ── Node content ────────────────────────────────────────── */
