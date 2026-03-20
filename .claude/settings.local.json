@@ -1,61 +1,15 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash",
-      "Read",
-      "Edit",
-      "Write",
-      "Glob",
-      "Grep",
-      "WebSearch",
-      "WebFetch",
-      "Skill(frontend-design)"
-    ]
-  },
   "hooks": {
-    "PermissionRequest": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "./scripts/notify.sh 'Claude: Permission request'"
-          }
-        ]
-      }
-    ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write",
         "hooks": [
           {
             "type": "command",
-            "command": "npm run lint -- --fix 2>&1 && npm run build 2>&1 || true"
+            "command": "FILE=$(echo \"$TOOL_INPUT\" | jq -r '.file_path') && npx eslint --fix \"$FILE\" 2>&1 && npm run build 2>&1 || true"
           }
         ]
       }
-    ],
-    "Stop": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "./scripts/notify.sh 'Claude: Ready'"
-          }
-        ]
-      }
-    ]
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "./scripts/statusline.sh",
-    "padding": 0
-  },
-  "spinnerVerbs": {
-    "mode": "replace",
-    "verbs": [
-      "Working"
     ]
   }
 }
