@@ -170,6 +170,9 @@ onUnmounted(() => {
   line-height: 1.5;
   white-space: pre-line;
   flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   margin-bottom: 0;
 }
 </style>

@@ -1,17 +1,9 @@
 - Show tutorial modal when the first challenge starts
 
 - To test
-  - BLESSING_RICH_MINES = richMines
-  - BLESSING_WISDOM_OF_THE_GODS = wisdomOfTheGods
   - BLESSING_BLESSED_MARKETS = blessedMarkets
 
-  'blessing.wisdomOfTheGods.description': 'Increases knowledge productivity by {0}% for {1}',
-  'blessing.richMines.description': 'Increases minerals productivity by {0}% for {1}',
   'blessing.blessedMarkets.description': 'No trading fees for {0}',
-
-- Show current blessing or punushement on the UI
-  - Details
-  - Time until finished
 
 - Tested
   - BLESSING_FERTILE_SOIL
@@ -21,6 +13,15 @@
   - BLESSING_CELESTIAL_PROSPERITY
   - BLESSING_RAPID_CONSTRUCTION
   - BLESSING_GIFT_FROM_THE_HEAVENS
+  - BLESSING_RICH_MINES
+  - BLESSING_WISDOM_OF_THE_GODS
+
+- Show current blessing or punushement on the UI
+  - Details
+  - Time until finished
+
+- Update function to calcualte time from cost
+  - The higher the number, the less seconds per resource to avoid exploding numbers
 
 - Improve challenges
   - Implement punishments

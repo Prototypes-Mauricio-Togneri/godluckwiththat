@@ -94,8 +94,8 @@ export const LOCALIZED_ES = {
   // Seasons
   'season.warmSeason': 'Estación cálida',
   'season.coldSeason': 'Estación fría',
-  'season.foodProduction': 'producción de alimentos',
-  'season.woodConsumption': 'consumo de madera',
+  'season.foodProduction': 'Producción de alimentos',
+  'season.woodConsumption': 'Consumo de madera',
 
   // Building groups
   'buildingGroup.colony': 'Colonia',

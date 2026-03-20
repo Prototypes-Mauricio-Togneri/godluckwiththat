@@ -1639,6 +1639,7 @@ onUnmounted(() => {
 .header-season-group .resource-tooltip {
   left: 0;
   transform: none;
+  align-items: flex-start;
 }
 
 /* "YEAR" label text in subdued uppercase */
