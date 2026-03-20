@@ -1,4 +1,3 @@
-- Align the texts in the resource indicator tooltips
 - Show tutorial modal when the first challenge starts
   - BLESSING_FAVORABLE_WEATHER
   - BLESSING_GIFT_FROM_THE_HEAVENS (it should show the amount of resources it gives)
