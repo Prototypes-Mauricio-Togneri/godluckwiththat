@@ -3,7 +3,7 @@ import {BUILDING_QUARRY} from '@/js/engine/enums.js'
 import Producer from '@/js/models/buildings/producer.js'
 
 /**
- * Produces stone for the colony.
+ * Produces stone for the colony. Rate per worker per second defined in PRODUCTION_RATES (balancing.js).
  */
 class Quarry extends Producer {
   /**

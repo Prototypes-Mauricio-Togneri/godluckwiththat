@@ -3,7 +3,8 @@ import {BUILDING_WORKSHOP} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Trains siege units.
+ * Trains siege units. Higher levels increase queue capacity and training speed.
+ * Workers cannot be assigned to this building.
  */
 class Workshop extends Building {
   /**

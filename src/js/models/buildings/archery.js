@@ -3,7 +3,8 @@ import {BUILDING_ARCHERY} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Trains archer units.
+ * Trains archer units. Higher levels increase queue capacity and training speed.
+ * Workers cannot be assigned to this building.
  */
 class Archery extends Building {
   /**

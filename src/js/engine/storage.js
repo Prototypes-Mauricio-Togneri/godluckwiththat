@@ -1,3 +1,6 @@
+// Thin localStorage wrapper for persisting user preferences and game state.
+// Exposes getter/setter pairs for music, sound, autosave, tutorial, trade amount, and saved game data.
+
 import {STORAGE_AUTOSAVE_ENABLED, STORAGE_AUTOSAVE_INTERVAL, STORAGE_MUSIC_ENABLED, STORAGE_SAVED_GAME, STORAGE_SOUND_ENABLED, STORAGE_TRADE_AMOUNT, STORAGE_TUTORIAL_COMPLETED} from '@/js/engine/enums.js'
 import {AUTOSAVE_DEFAULT_INTERVAL} from '@/js/engine/constants.js'
 import {MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'

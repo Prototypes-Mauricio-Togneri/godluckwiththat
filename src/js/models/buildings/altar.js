@@ -3,7 +3,8 @@ import {BUILDING_ALTAR} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Passive faith generator. Produces faith per level without worker assignment.
+ * Passive faith generator. Produces faith per level per second (flagged passive in PRODUCTION_RATES).
+ * Workers cannot be assigned to this building.
  */
 class Altar extends Building {
   /**

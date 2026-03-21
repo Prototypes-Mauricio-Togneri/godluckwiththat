@@ -3,7 +3,8 @@ import {BUILDING_BARRACKS} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Trains infantry units.
+ * Trains infantry units. Higher levels increase queue capacity and training speed.
+ * Workers cannot be assigned to this building.
  */
 class Barracks extends Building {
   /**

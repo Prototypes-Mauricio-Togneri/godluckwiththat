@@ -3,7 +3,7 @@ import {BUILDING_IRON_MINE} from '@/js/engine/enums.js'
 import Producer from '@/js/models/buildings/producer.js'
 
 /**
- * Produces iron for the colony.
+ * Produces iron for the colony. Rate per worker per second defined in PRODUCTION_RATES (balancing.js).
  */
 class IronMine extends Producer {
   /**

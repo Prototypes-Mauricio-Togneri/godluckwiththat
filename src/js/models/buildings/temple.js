@@ -3,7 +3,8 @@ import {BUILDING_TEMPLE} from '@/js/engine/enums.js'
 import Producer from '@/js/models/buildings/producer.js'
 
 /**
- * Produces faith through assigned workers.
+ * Worker-based faith producer. Workers are assigned to pray and generate faith per worker per second.
+ * Rate defined in PRODUCTION_RATES (balancing.js).
  */
 class Temple extends Producer {
   /**

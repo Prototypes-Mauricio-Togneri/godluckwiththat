@@ -3,14 +3,17 @@ import {BUILDING_MARKET, RESOURCE_COPPER, RESOURCE_FOOD, RESOURCE_IRON, RESOURCE
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Enables resource trading and tracks current market prices.
- * Prices shift with each trade (up on buy, down on sell).
+ * Enables trading food, wood, stone, copper, and iron for gold.
+ * Prices shift with each trade (up on buy, down on sell, AoE2-style).
+ * Base fee is 30%, reduced by 1% per level (minimum 5%). When blessedMarkets is true, fee is 0%.
+ * Workers cannot be assigned to this building.
  *
  * @property {number} food - Current gold price per 100 food
  * @property {number} wood - Current gold price per 100 wood
  * @property {number} stone - Current gold price per 100 stone
  * @property {number} copper - Current gold price per 100 copper
  * @property {number} iron - Current gold price per 100 iron
+ * @property {boolean} blessedMarkets - Whether the BLESSED_MARKETS blessing is active (0% fee)
  */
 class Market extends Building {
   /**

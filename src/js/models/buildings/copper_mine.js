@@ -3,7 +3,7 @@ import {BUILDING_COPPER_MINE} from '@/js/engine/enums.js'
 import Producer from '@/js/models/buildings/producer.js'
 
 /**
- * Produces copper for the colony.
+ * Produces copper for the colony. Rate per worker per second defined in PRODUCTION_RATES (balancing.js).
  */
 class CopperMine extends Producer {
   /**

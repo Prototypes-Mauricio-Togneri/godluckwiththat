@@ -3,7 +3,8 @@ import {BUILDING_STABLE} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Trains cavalry units.
+ * Trains cavalry units. Higher levels increase queue capacity and training speed.
+ * Workers cannot be assigned to this building.
  */
 class Stable extends Building {
   /**

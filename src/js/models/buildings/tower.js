@@ -3,7 +3,8 @@ import {BUILDING_TOWER} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Ranged attack structure.
+ * Ranged attack structure. The higher the level, the more attack it provides to the colony.
+ * Workers cannot be assigned to this building.
  */
 class Tower extends Building {
   /**

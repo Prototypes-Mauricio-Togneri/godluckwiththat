@@ -33,9 +33,6 @@ class Challenge {
   }
 
   /**
-   * Resets timer state and sets status back to activated (for retrying after failure).
-   */
-  /**
    * Whether the activation delay has fully elapsed and the challenge is ready to start.
    * @returns {boolean}
    */
@@ -53,6 +50,9 @@ class Challenge {
       && this.timeoutElapsed >= this.timeout
   }
 
+  /**
+   * Resets timer state and sets status back to activated (for retrying after failure).
+   */
   reset() {
     this.delayElapsed = 0
     this.timeoutElapsed = 0

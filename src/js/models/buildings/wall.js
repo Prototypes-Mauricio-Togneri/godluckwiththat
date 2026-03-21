@@ -3,7 +3,8 @@ import {BUILDING_WALL} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Defensive fortification.
+ * Defensive fortification. The higher the level, the more defense it provides to the colony.
+ * Workers cannot be assigned to this building.
  */
 class Wall extends Building {
   /**

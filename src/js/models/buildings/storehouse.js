@@ -3,7 +3,9 @@ import {BUILDING_STOREHOUSE} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Increases resource storage capacity.
+ * Increases resource storage capacity for food, wood, stone, copper, iron, and gold.
+ * Formula: floor(STOREHOUSE_BASE_CAPACITY × STOREHOUSE_CAPACITY_MULTIPLIER^level × (1 + storageBonus)).
+ * Workers cannot be assigned to this building.
  */
 class Storehouse extends Building {
   /**

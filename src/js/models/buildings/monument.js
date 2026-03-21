@@ -3,8 +3,9 @@ import {BUILDING_MONUMENT} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Grants a one-time faith bonus on each level completion.
- * The bonus is applied externally by State.advanceConstruction().
+ * Grants a one-time faith bonus on each level completion (MONUMENT_FAITH_PER_LEVEL × newLevel).
+ * The bonus is applied externally by State.advanceConstruction() when the build timer reaches zero.
+ * Workers cannot be assigned to this building.
  */
 class Monument extends Building {
   /**

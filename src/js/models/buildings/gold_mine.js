@@ -3,7 +3,7 @@ import {BUILDING_GOLD_MINE} from '@/js/engine/enums.js'
 import Producer from '@/js/models/buildings/producer.js'
 
 /**
- * Produces gold for the colony.
+ * Produces gold for the colony. Rate per worker per second defined in PRODUCTION_RATES (balancing.js).
  */
 class GoldMine extends Producer {
   /**
