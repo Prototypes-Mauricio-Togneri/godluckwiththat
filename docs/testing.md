@@ -26,8 +26,8 @@ Tests cover the **engine layer** and **model layer** — pure JavaScript classes
 | `format.test.js`    | `formatTime`, `formatNumber`, `formatNumberFull`, `formatMinutes`, `formatRate`                                                                   |
 | `utils.test.js`     | `canAffordCost`                                                                                                                                   |
 | `balancing.test.js` | `BUILDING_UPGRADES` keys/values, season multiplier ranges, trade fee ranges                                                                      |
-| `constants.test.js` | `BUILDING_CLASS_MAP` keys/values, consistency with `BUILDING_UPGRADES`, factory functions (`createInitialColony`, `createInitialMeta`, `createInitialChallenges`) |
-| `state.test.js`     | Game state machine: tick logic, season transitions, building construction, research, worker recruitment/dismissal, trading, challenge lifecycle (activation, blessing selection, punishment acknowledgement, win), tutorial progression, production/consumption rates, blessing/punishment effects, territory expansion, HQ upgrade, building downgrade, serialization (`toJSON`/`fromJSON`) |
+| `constants.test.js` | `BUILDING_CLASS_MAP` keys/values, consistency with `BUILDING_UPGRADES`, factory functions (`createInitialColony`, `createInitialColonyBasic`, `createInitialColonyAdvanced`, `createInitialMeta`, `createInitialChallenges`), `TUTORIAL_STEPS` check functions |
+| `state.test.js`     | Game state machine: tick logic (`update`), `netProduction`, `expansionCost`, season transitions, building construction, research (`startResearch`, `advanceResearch`), `advanceEvents`, worker management (`recruitWorker`, `dismissWorkers`, `assignWorkers`, `unassignWorkers`), trading, challenge lifecycle (`advanceChallenges`, `areChallengeRequirementsMet`, `selectBlessing`, `acknowledgePunishment`, `continueAfterWin`), tutorial progression (`checkTutorial`), internal computations (`_computeGeneralProductivity`, `_computeSeasonMultipliers`, `_computeConsumptionRates`, `_computeProductionRates`), territory expansion, HQ upgrade, serialization (`toJSON`/`fromJSON`) |
 
 ### Models (`tests/models/`)
 
@@ -35,7 +35,7 @@ Tests cover the **engine layer** and **model layer** — pure JavaScript classes
 |----------------------|---------------------------------------------------------------------------|
 | `colony.test.js`     | Constructor, `idleWorkers`, `fromJSON`/`toJSON` round-trip                |
 | `buildings.test.js`  | `totalLevels`, `totalAssignedWorkers`, `pendingTerritory`, serialization  |
-| `resources.test.js`  | Constructor defaults, `canAfford`, `deduct`, serialization                |
+| `resources.test.js`  | Constructor defaults, `canAfford`, `deduct`                               |
 | `cost.test.js`       | Constructor defaults, `entries` (caching), `multiplyFloor`, `toSeconds`   |
 | `season.test.js`     | `isWarm`/`isCold`, `advance` (flipping, carry-over), serialization        |
 | `blessing.test.js`   | Constructor, optional fields, `fromJSON`/`toJSON`                         |
@@ -61,7 +61,7 @@ Notable depth by file:
 - `building.test.js` / `producer.test.js` — base classes: `isUnbuilt`, `isConstructing`, `levelUp`, `advance` (construction tick), worker fields (`maxWorkers`, `isEmpty`, `isFull`)
 - `headquarters.test.js` — `isUpgrading`, `isMaxType`, `territoryCap`, `levelUpCost`, `upgradeCost`, `nextType`, `upgradeType`, `advanceUpgrade`, `toJSON`
 - `market.test.js` — `effectiveTradeFee`, `buyPrice`, `sellPrice`, `executeTrade` (buy/sell success, rejection conditions, price clamping, multi-unit trades), `toJSON`
-- `academy.test.js` — constructor (completed/active restoration), `isCompleted`, `isActive`, `canResearch`, `start`, `complete`, `completedBonuses` (aggregation, caching), `toJSON`
+- `academy.test.js` — `Research` inner class (`constructor`, `advance`), `Academy` constructor (completed/active restoration), `isCompleted`, `isActive`, `canResearch`, `start`, `complete`, `completedBonuses` (aggregation, caching), `toJSON`
 - `storehouse.test.js` — `storageCap` (base, level scaling, bonus, floor), `levelUpCost`
 - `house.test.js` — `populationCap` (base, bonus, unbuilt), `levelUpCost`
 
