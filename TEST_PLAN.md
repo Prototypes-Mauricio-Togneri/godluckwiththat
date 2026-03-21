@@ -6,37 +6,6 @@ Close the 51 uncovered lines in `state.js` (89.5% → ~100% statements) and the 
 
 ---
 
-## Step 1: `advanceConstruction` — building-type-specific completion branches
-
-**File**: `tests/engine/state.test.js`
-**Uncovered lines**: 550–580 (6 branches)
-
-Add tests inside `describe('advanceConstruction')`:
-
-1. **HQ level-up completion**: Build HQ (not type upgrade), advance timer to 0. Assert:
-   - `convertToPast` called with `event.territoryExpanded` text and `IMG_OTHER_TERRITORY` icon
-   - `SND_TERRITORY_EXPANDED` sound played
-   - `EVENT_TYPE_TERRITORY_LIMIT_REACHED` past events dismissed
-
-2. **Storehouse completion**: Build storehouse, advance timer to 0. Assert:
-   - `dismissFutureByBuildingKey('storehouse')` called
-   - `EVENT_TYPE_RESOURCE_LIMIT_REACHED` past events dismissed
-   - `_resourcesAtCap` cleared
-
-3. **House completion**: Build house, advance timer to 0. Assert:
-   - `EVENT_TYPE_POPULATION_LIMIT_REACHED` past events dismissed
-
-4. **Monument completion**: Build monument at level 2, advance timer to 0. Assert:
-   - `resources.faith` increased by `MONUMENT_FAITH_PER_LEVEL * 2`
-
-5. **HQ type upgrade completion**: Start HQ upgrade, advance timer to 0. Assert:
-   - `_hqUpgrading` set to `false`
-   - `dismissFutureByBuildingKey(BUILDING_HEADQUARTERS)` called
-   - `SND_HEADQUARTERS_UPGRADED` sound played
-   - Tutorial modal `TUTORIAL_MODAL_HQ_UPGRADE` triggered
-
----
-
 ## Step 2: `_computeProductionRates` — remaining blessing branches
 
 **File**: `tests/engine/state.test.js`
@@ -147,7 +116,6 @@ Add test inside `describe('factory functions')` or a new `describe('TUTORIAL_STE
 
 | Step | Target | Lines Covered | New Tests |
 |------|--------|---------------|-----------|
-| 1 | `advanceConstruction` branches | 550–580 | 5 |
 | 2 | `_computeProductionRates` blessings | 473–490 | 4 |
 | 3 | `update()` recovery branches | 214–216, 250–252 | 2 |
 | 4 | `advanceChallenges` paths | 644, 652, 659–660, 672, 677 | 4 |
@@ -156,6 +124,6 @@ Add test inside `describe('factory functions')` or a new `describe('TUTORIAL_STE
 | 7 | `checkTutorial` completion | 1215–1217 | 1 |
 | 8 | `levelUpBuilding` territory event | 957, 962 | 1 |
 | 9 | `constants.js` tutorial step | 766 | 1 |
-| **Total** | | **52 lines** | **22 tests** |
+| **Total** | | **~22 lines** | **17 tests** |
 
 Expected result: `state.js` → ~100% statements/lines, `constants.js` → 100%. Overall coverage → ~99%+ statements.

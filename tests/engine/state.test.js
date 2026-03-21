@@ -1,7 +1,7 @@
 import {describe, it, expect, vi, beforeEach} from 'vitest'
-import {BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
-import {HQ_TERRITORY_PER_LEVEL, SEASON_DURATION, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
-import {SND_WORKER_ACADEMY, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
+import {BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
+import {HQ_TERRITORY_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, SEASON_DURATION, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import {IMG_OTHER_TERRITORY, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import {DOWNGRADABLE_BUILDINGS} from '@/js/engine/constants.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
@@ -575,6 +575,139 @@ describe('State', () => {
       state.advanceConstruction(5)
       expect(state.colony.buildings.farm.level).toBe(0)
       expect(state.colony.buildings.farm.constructionRemaining).toBe(5)
+    })
+
+    it('should handle HQ level-up completion', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+              constructionRemaining: 1,
+              constructionDuration: 10,
+            },
+          },
+        },
+      })
+      state.colony.events.addFuture({
+        type: EVENT_TYPE_BUILDING_UPGRADE,
+        textKey: 'event.buildingUpgrading',
+        buildingKey: BUILDING_HEADQUARTERS,
+      })
+      state.colony.events.addPast({
+        type: EVENT_TYPE_TERRITORY_LIMIT_REACHED,
+        textKey: 'event.territoryLimitReached',
+      })
+      state.advanceConstruction(1)
+      expect(state.colony.events.past.some(
+        event => event.textKey === 'event.territoryExpanded' && event.icon === IMG_OTHER_TERRITORY,
+      )).toBe(true)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_TERRITORY_EXPANDED)
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_TERRITORY_LIMIT_REACHED)).toBe(false)
+    })
+
+    it('should handle storehouse completion', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            storehouse: {
+              level: 0,
+              constructionRemaining: 1,
+              constructionDuration: 10,
+            },
+          },
+        },
+      })
+      state.colony.events.addFuture({
+        type: EVENT_TYPE_BUILDING_UPGRADE,
+        textKey: 'event.buildingBuilding',
+        buildingKey: BUILDING_STOREHOUSE,
+      })
+      state.colony.events.addPast({
+        type: EVENT_TYPE_RESOURCE_LIMIT_REACHED,
+        textKey: 'event.resourceLimitReached',
+      })
+      state._resourcesAtCap.add('food')
+      state.advanceConstruction(1)
+      expect(state.colony.events.future.some(
+        event => event.buildingKey === BUILDING_STOREHOUSE,
+      )).toBe(false)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_BUILDING_CREATED)
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_RESOURCE_LIMIT_REACHED)).toBe(false)
+      expect(state._resourcesAtCap.size).toBe(0)
+    })
+
+    it('should handle house completion', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            house: {
+              level: 0,
+              constructionRemaining: 1,
+              constructionDuration: 10,
+            },
+          },
+        },
+      })
+      state.colony.events.addPast({
+        type: EVENT_TYPE_POPULATION_LIMIT_REACHED,
+        textKey: 'event.populationLimitReached',
+      })
+      state.advanceConstruction(1)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_BUILDING_CREATED)
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_POPULATION_LIMIT_REACHED)).toBe(false)
+    })
+
+    it('should handle monument completion and grant faith', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            monument: {
+              level: 1,
+              constructionRemaining: 1,
+              constructionDuration: 10,
+            },
+          },
+        },
+      })
+      const faithBefore = state.colony.resources.faith
+      state.advanceConstruction(1)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_BUILDING_CREATED)
+      expect(state.colony.resources.faith).toBe(faithBefore + MONUMENT_FAITH_PER_LEVEL * 2)
+    })
+
+    it('should handle HQ type upgrade completion', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+              upgradeRemaining: 1,
+              upgradeDuration: 10,
+            },
+          },
+        },
+        metaOverrides: {
+          tutorial: new Tutorial({
+            completed: false,
+          }),
+        },
+      })
+      state.colony.events.addFuture({
+        type: EVENT_TYPE_BUILDING_UPGRADE,
+        textKey: 'event.buildingUpgrading',
+        buildingKey: BUILDING_HEADQUARTERS,
+      })
+      expect(state._hqUpgrading).toBe(true)
+      state.advanceConstruction(1)
+      expect(state._hqUpgrading).toBe(false)
+      expect(state.colony.events.future.some(
+        event => event.buildingKey === BUILDING_HEADQUARTERS,
+      )).toBe(false)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_HEADQUARTERS_UPGRADED)
+      expect(state.meta.tutorial.activeModal).toBe(TUTORIAL_MODAL_HQ_UPGRADE)
     })
   })
 
