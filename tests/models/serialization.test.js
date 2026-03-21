@@ -13,6 +13,8 @@ import Season from '@/js/models/season.js'
 import Buildings from '@/js/models/buildings.js'
 import Headquarters from '@/js/models/buildings/headquarters.js'
 import Market from '@/js/models/buildings/market.js'
+import Production from '@/js/models/production.js'
+import Consumption from '@/js/models/consumption.js'
 import Events from '@/js/models/events/events.js'
 import EventFuture from '@/js/models/events/event_future.js'
 import EventPast from '@/js/models/events/event_past.js'
@@ -594,6 +596,70 @@ describe('Serialization robustness', () => {
 
     it('constructor with null input throws', () => {
       expect(() => new Market(null)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // Production (constructor-based deserialization)
+  // ============================================================
+
+  describe('Production', () => {
+    it('constructor with missing fields uses zero defaults', () => {
+      const production = new Production({})
+      expect(production.food).toBe(0)
+      expect(production.wood).toBe(0)
+      expect(production.stone).toBe(0)
+      expect(production.copper).toBe(0)
+      expect(production.iron).toBe(0)
+      expect(production.gold).toBe(0)
+      expect(production.faith).toBe(0)
+      expect(production.knowledge).toBe(0)
+    })
+
+    it('constructor with extra unknown fields ignores them', () => {
+      const production = new Production({
+        food: 5,
+        unknownField: 99,
+      })
+      expect(production.food).toBe(5)
+      expect(production).not.toHaveProperty('unknownField')
+    })
+
+    it('constructor with null input throws', () => {
+      expect(() => new Production(null)).toThrow()
+    })
+
+    it('constructor with undefined input throws', () => {
+      expect(() => new Production(undefined)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // Consumption (constructor-based deserialization)
+  // ============================================================
+
+  describe('Consumption', () => {
+    it('constructor with missing fields uses zero defaults', () => {
+      const consumption = new Consumption({})
+      expect(consumption.food).toBe(0)
+      expect(consumption.wood).toBe(0)
+    })
+
+    it('constructor with extra unknown fields ignores them', () => {
+      const consumption = new Consumption({
+        food: 3,
+        unknownField: 42,
+      })
+      expect(consumption.food).toBe(3)
+      expect(consumption).not.toHaveProperty('unknownField')
+    })
+
+    it('constructor with null input throws', () => {
+      expect(() => new Consumption(null)).toThrow()
+    })
+
+    it('constructor with undefined input throws', () => {
+      expect(() => new Consumption(undefined)).toThrow()
     })
   })
 

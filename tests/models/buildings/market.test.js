@@ -280,6 +280,41 @@ describe('Market', () => {
       expect(market[RESOURCE_FOOD]).toBe(MARKET_MIN_CURRENT_PRICE)
     })
 
+    it('should buy at base price when blessedMarkets is active (no fee)', () => {
+      const market = new Market({
+        level: 1,
+      })
+      market.blessedMarkets = true
+      const basePrice = market[RESOURCE_FOOD]
+      const resources = createResources({
+        gold: 5000,
+        food: 0,
+      })
+      const goldBefore = resources.gold
+
+      const result = market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 10000)
+      expect(result).toBe(true)
+      expect(resources.gold).toBe(goldBefore - basePrice)
+      expect(resources.food).toBe(MARKET_TRADE_AMOUNT)
+    })
+
+    it('should sell at base price when blessedMarkets is active (no fee)', () => {
+      const market = new Market({
+        level: 1,
+      })
+      market.blessedMarkets = true
+      const basePrice = market[RESOURCE_FOOD]
+      const resources = createResources({
+        gold: 0,
+        food: 500,
+      })
+
+      const result = market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, 10000)
+      expect(result).toBe(true)
+      expect(resources.gold).toBe(basePrice)
+      expect(resources.food).toBe(400)
+    })
+
     it('should accept valid multi-unit trades', () => {
       const market = new Market({
         level: 1,
