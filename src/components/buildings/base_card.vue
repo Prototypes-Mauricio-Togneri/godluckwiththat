@@ -208,14 +208,19 @@ function downgrade() {
 /* Help icon — top-right corner */
 .help-btn {
   position: absolute;
+  top: 0.5rem;
   top: 8cqh;
+  right: 0.5rem;
   right: 8cqh;
+  width: 1.1rem;
   width: 18cqh;
+  height: 1.1rem;
   height: 18cqh;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-body);
+  font-size: 0.55rem;
   font-size: 9cqh;
   font-weight: 500;
   line-height: 1;
@@ -244,7 +249,9 @@ function downgrade() {
 /* Building thumbnail image */
 .building-thumb {
   display: block;
+  width: 6.25rem;
   width: 100cqh;
+  height: 6.25rem;
   height: 100cqh;
   object-fit: contain;
 }
@@ -260,11 +267,13 @@ function downgrade() {
   bottom: 0;
   right: 0;
   font-family: var(--font-numeric);
+  font-size: 0.7rem;
   font-size: 11cqh;
   font-weight: 500;
   line-height: 1;
   color: var(--color-text);
   background: rgba(var(--color-shadow-rgb), 0.6);
+  padding: 0.25rem 0.375rem;
   padding: 4cqh 6cqh;
 }
 
@@ -273,6 +282,7 @@ function downgrade() {
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 0.125rem;
   gap: 2cqh;
   min-width: 0;
   align-self: stretch;
@@ -292,6 +302,7 @@ function downgrade() {
 /* Building display name */
 .building-name {
   font-family: var(--font-body);
+  font-size: 1rem;
   font-size: 16cqh;
   font-weight: 400;
   color: var(--color-text);

@@ -1928,7 +1928,9 @@ onUnmounted(() => {
 }
 
 .locked-icon {
+  width: 2.5rem;
   width: 40cqh;
+  height: 2.5rem;
   height: 40cqh;
   object-fit: contain;
   filter: grayscale(1);

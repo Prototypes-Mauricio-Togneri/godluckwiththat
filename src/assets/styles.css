@@ -151,6 +151,7 @@
 .action-row {
     display: flex;
     align-items: center;
+    gap: 0.45rem;
     gap: 7cqh;
 }
 
@@ -159,7 +160,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 1.75rem;
     width: 28cqh;
+    height: 1.75rem;
     height: 28cqh;
     padding: 0;
     border-radius: 0.25rem;
@@ -168,7 +171,9 @@
 
 /* Icon inside action button */
 .action-btn-icon {
+    width: 1.1rem;
     width: 18cqh;
+    height: 1.1rem;
     height: 18cqh;
     object-fit: contain;
 }
@@ -178,6 +183,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    gap: 0.3rem;
     gap: 5cqh;
     transition: opacity 0.25s ease;
 }
@@ -191,12 +197,15 @@
 .action-cost-item {
     display: flex;
     align-items: center;
+    gap: 0.125rem;
     gap: 2cqh;
 }
 
 /* Resource icon in cost display */
 .action-cost-icon {
+    width: 0.8rem;
     width: 13cqh;
+    height: 0.8rem;
     height: 13cqh;
     object-fit: contain;
 }
@@ -204,6 +213,7 @@
 /* Numeric amount in cost display */
 .action-cost-amount {
     font-family: var(--font-numeric);
+    font-size: 0.7rem;
     font-size: 11cqh;
     font-weight: 400;
     color: rgba(var(--color-text-rgb), 0.8);
@@ -269,7 +279,9 @@
     position: relative;
     overflow: hidden;
     width: auto;
+    min-width: 1.75rem;
     min-width: 28cqh;
+    padding: 0 0.375rem;
     padding: 0 6cqh;
 }
 
@@ -287,6 +299,7 @@
 .action-btn-time {
     position: relative;
     font-family: var(--font-numeric);
+    font-size: 0.55rem;
     font-size: 9cqh;
     font-weight: 500;
     color: var(--color-text);
@@ -299,6 +312,7 @@
 .slot-actions {
     display: flex;
     flex-direction: column;
+    gap: 0.45rem;
     gap: 7cqh;
     margin-top: auto;
 }
@@ -491,6 +505,7 @@
 .worker-row {
     display: flex;
     align-items: center;
+    gap: 0.125rem;
     gap: 2cqh;
 }
 
@@ -499,11 +514,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 1.75rem;
     width: 28cqh;
+    height: 1.75rem;
     height: 28cqh;
+    padding: 0 0 0.125rem;
     padding: 0 0 2cqh;
     border-radius: 0.25rem;
     font-family: var(--font-body);
+    font-size: 1.05rem;
     font-size: 17cqh;
     font-weight: 500;
     line-height: 1;
@@ -549,9 +568,12 @@
 .worker-count {
     display: flex;
     align-items: center;
+    gap: 0.25rem;
     gap: 4cqh;
+    padding: 0 0.3rem;
     padding: 0 5cqh;
     font-family: var(--font-numeric);
+    font-size: 0.7rem;
     font-size: 11cqh;
     font-weight: 400;
     color: rgba(var(--color-text-rgb), 0.85);
@@ -560,13 +582,16 @@
 
 /* Worker icon in count display */
 .worker-count-icon {
+    width: 0.95rem;
     width: 15cqh;
+    height: 0.95rem;
     height: 15cqh;
     object-fit: contain;
 }
 
 /* Numeric worker count text */
 .worker-count-text {
+    min-width: 2.2rem;
     min-width: 35cqh;
     text-align: center;
 }

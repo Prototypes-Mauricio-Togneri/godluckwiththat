@@ -1,0 +1,29 @@
+  File Path: src/components/buildings/base_card.vue
+  Line #: 191, 247–248, 263, 268, 276, 295
+  Severity: Critical
+  Description: container-type: size and cqh units in .building-card and
+  children.
+    Same container query support gap. Without container-type support, all cqh
+    values resolve to 0.
+  Recommended Fix: Same as above — provide rem fallbacks before each cqh value.
+  ────────────────────────────────────────
+  File Path: src/components/screens/game_screen.vue
+  Line #: 1917
+  Severity: Critical
+  Description: .building-card-locked uses container-type: size with
+  cqh-dependent
+    child styles from styles.css. Locked building placeholders will be invisible
+
+    on older browsers.
+  Recommended Fix: Add fallback sizing.
+  ────────────────────────────────────────
+  File Path: src/js/engine/audio.js
+  Line #: 70–76
+  Severity: High
+  Description: addEventListener with signal option (AbortController-based
+    cleanup) requires Safari 15+, Chrome 90+. On Safari 14, the signal option is
+
+    silently ignored — event listeners are never removed when a sound is
+    replayed, leaking listeners over time.
+  Recommended Fix: Remove listeners manually in the cleanup function instead of
+    relying on signal, or add a try/feature-detect path.
