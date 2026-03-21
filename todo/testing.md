@@ -5,40 +5,6 @@ All new tests go into existing test files following the project's conventions (s
 
 ---
 
-## Phase 2 — `state.js` private helper methods
-
-File: `tests/engine/state.test.js`
-
-### 2.1 `_triggerTutorialModal`
-
-Add a `describe('_triggerTutorialModal', ...)` block with:
-
-- should set `tutorial.activeModal` to the given key
-- should pause the game
-- should not trigger when key is already in `dismissedModals`
-- should not trigger when `activeModal` is already set
-- should not trigger when `storage.tutorialCompleted` is true
-
-### 2.2 `_playAssignSound`
-
-Add a `describe('_playAssignSound', ...)` block with:
-
-- should play `SND_WORKER_FARM` for farm
-- should play `SND_WORKER_WOODCUTTER` for woodcutter
-- should play `SND_WORKER_ACADEMY` for academy
-- should play `SND_WORKER_TEMPLE` for temple
-- should play `SND_WORKER_MINE` for quarry, copper_mine, iron_mine, gold_mine
-- should not play any sound for non-producer buildings (e.g. house)
-
-### 2.3 `_buildingName`
-
-Add a `describe('_buildingName', ...)` block with:
-
-- should return `t('building.headquarters.<type>')` for headquarters
-- should return `t('building.<key>')` for non-headquarters buildings
-
----
-
 ## Phase 3 — `state.js` `fromJSON` branch coverage
 
 File: `tests/engine/state.test.js`, within the existing `toJSON / fromJSON` describe block.

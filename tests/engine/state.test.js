@@ -1,6 +1,7 @@
 import {describe, it, expect, vi, beforeEach} from 'vitest'
-import {BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BUILDING_FARM, BUILDING_HEADQUARTERS, BUILDING_HOUSE, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
+import {BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
 import {HQ_TERRITORY_PER_LEVEL, SEASON_DURATION, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import {SND_WORKER_ACADEMY, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import {DOWNGRADABLE_BUILDINGS} from '@/js/engine/constants.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
@@ -3142,7 +3143,140 @@ describe('State', () => {
     })
   })
 
-  // ── downgradeBuilding ──────────────────────────────────────────
+  // ── _triggerTutorialModal ───────────────────────────────────────
+
+  describe('_triggerTutorialModal', () => {
+    it('should set tutorial.activeModal to the given key', async () => {
+      const state = await createState({
+        metaOverrides: {
+          tutorial: new Tutorial({
+            completed: false,
+          }),
+        },
+      })
+      state._triggerTutorialModal('welcome')
+      expect(state.meta.tutorial.activeModal).toBe('welcome')
+    })
+
+    it('should pause the game', async () => {
+      const state = await createState({
+        metaOverrides: {
+          tutorial: new Tutorial({
+            completed: false,
+          }),
+        },
+      })
+      state._triggerTutorialModal('welcome')
+      expect(state.paused).toBe(true)
+    })
+
+    it('should not trigger when key is already in dismissedModals', async () => {
+      const state = await createState({
+        metaOverrides: {
+          tutorial: new Tutorial({
+            completed: false,
+            dismissedModals: ['welcome'],
+          }),
+        },
+      })
+      state._triggerTutorialModal('welcome')
+      expect(state.meta.tutorial.activeModal).toBeNull()
+      expect(state.paused).toBe(false)
+    })
+
+    it('should not trigger when activeModal is already set', async () => {
+      const state = await createState({
+        metaOverrides: {
+          tutorial: new Tutorial({
+            completed: false,
+          }),
+        },
+      })
+      state.meta.tutorial.activeModal = 'existing'
+      state._triggerTutorialModal('another')
+      expect(state.meta.tutorial.activeModal).toBe('existing')
+    })
+
+    it('should not trigger when storage.tutorialCompleted is true', async () => {
+      storage.tutorialCompleted = true
+      const state = await createState({
+        metaOverrides: {
+          tutorial: new Tutorial({
+            completed: false,
+          }),
+        },
+      })
+      state._triggerTutorialModal('welcome')
+      expect(state.meta.tutorial.activeModal).toBeNull()
+      expect(state.paused).toBe(false)
+    })
+  })
+
+  // ── _playAssignSound ──────────────────────────────────────────────
+
+  describe('_playAssignSound', () => {
+    it('should play SND_WORKER_FARM for farm', async () => {
+      const state = await createState()
+      state._playAssignSound(BUILDING_FARM)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_WORKER_FARM)
+    })
+
+    it('should play SND_WORKER_WOODCUTTER for woodcutter', async () => {
+      const state = await createState()
+      state._playAssignSound(BUILDING_WOODCUTTER)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_WORKER_WOODCUTTER)
+    })
+
+    it('should play SND_WORKER_ACADEMY for academy', async () => {
+      const state = await createState()
+      state._playAssignSound(BUILDING_ACADEMY)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_WORKER_ACADEMY)
+    })
+
+    it('should play SND_WORKER_TEMPLE for temple', async () => {
+      const state = await createState()
+      state._playAssignSound(BUILDING_TEMPLE)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_WORKER_TEMPLE)
+    })
+
+    it('should play SND_WORKER_MINE for quarry, copper_mine, iron_mine, gold_mine', async () => {
+      const state = await createState()
+      for (const buildingKey of [
+        BUILDING_QUARRY,
+        BUILDING_COPPER_MINE,
+        BUILDING_IRON_MINE,
+        BUILDING_GOLD_MINE,
+      ]) {
+        audio.playSound.mockClear()
+        state._playAssignSound(buildingKey)
+        expect(audio.playSound).toHaveBeenCalledWith(SND_WORKER_MINE)
+      }
+    })
+
+    it('should not play any sound for non-producer buildings', async () => {
+      const state = await createState()
+      state._playAssignSound(BUILDING_HOUSE)
+      expect(audio.playSound).not.toHaveBeenCalled()
+    })
+  })
+
+  // ── _buildingName ─────────────────────────────────────────────────
+
+  describe('_buildingName', () => {
+    it('should return t(building.headquarters.<type>) for headquarters', async () => {
+      const state = await createState()
+      const result = state._buildingName(BUILDING_HEADQUARTERS)
+      expect(result).toBe('building.headquarters.' + HQ_TYPE_CAMP)
+    })
+
+    it('should return t(building.<key>) for non-headquarters buildings', async () => {
+      const state = await createState()
+      const result = state._buildingName(BUILDING_FARM)
+      expect(result).toBe('building.farm')
+    })
+  })
+
+  // ── downgradeBuilding ─────────────────────────────────────────────
 
   describe('downgradeBuilding', () => {
     it('should decrement building level by 1', async () => {
