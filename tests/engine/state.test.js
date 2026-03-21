@@ -1107,6 +1107,91 @@ describe('State', () => {
       })
       expect(state.areChallengeRequirementsMet()).toBe(false)
     })
+
+    it('should return false when monument level insufficient', async () => {
+      const activeChallenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        requirements: {
+          faith: null,
+          altar: null,
+          temple: null,
+          monument: 3,
+          resources: null,
+          workers: null,
+        },
+      })
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            monument: {
+              level: 1,
+            },
+          },
+        },
+        metaOverrides: {
+          challenges: createChallenges({
+            active: activeChallenge,
+          }),
+        },
+      })
+      expect(state.areChallengeRequirementsMet()).toBe(false)
+    })
+
+    it('should return false when temple level insufficient', async () => {
+      const activeChallenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        requirements: {
+          faith: null,
+          altar: null,
+          temple: 2,
+          monument: null,
+          resources: null,
+          workers: null,
+        },
+      })
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            temple: {
+              level: 0,
+            },
+          },
+        },
+        metaOverrides: {
+          challenges: createChallenges({
+            active: activeChallenge,
+          }),
+        },
+      })
+      expect(state.areChallengeRequirementsMet()).toBe(false)
+    })
+
+    it('should return false when workers insufficient', async () => {
+      const activeChallenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        requirements: {
+          faith: null,
+          altar: null,
+          temple: null,
+          monument: null,
+          resources: null,
+          workers: 10,
+        },
+      })
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 3,
+          },
+        },
+        metaOverrides: {
+          challenges: createChallenges({
+            active: activeChallenge,
+          }),
+        },
+      })
+      expect(state.areChallengeRequirementsMet()).toBe(false)
+    })
   })
 
   // ── selectBlessing ───────────────────────────────────────────────

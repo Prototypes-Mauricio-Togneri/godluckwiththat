@@ -6,19 +6,6 @@ Close the 51 uncovered lines in `state.js` (89.5% → ~100% statements) and the 
 
 ---
 
-## Step 5: `areChallengeRequirementsMet` — missing requirement types
-
-**File**: `tests/engine/state.test.js`
-**Uncovered lines**: 715, 718, 731
-
-Add tests inside `describe('areChallengeRequirementsMet')`:
-
-1. **Monument level insufficient**: Active challenge requires `monument: 3`, colony monument at level 1 → return `false`
-2. **Temple level insufficient**: Active challenge requires `temple: 2`, colony temple at level 0 → return `false`
-3. **Workers insufficient**: Active challenge requires `workers: 10`, colony has 3 workers → return `false`
-
----
-
 ## Step 6: `assignWorkers` — auto-recruit failure branch
 
 **File**: `tests/engine/state.test.js`
@@ -67,11 +54,10 @@ Add test inside `describe('factory functions')` or a new `describe('TUTORIAL_STE
 
 | Step | Target | Lines Covered | New Tests |
 |------|--------|---------------|-----------|
-| 5 | `areChallengeRequirementsMet` | 715, 718, 731 | 3 |
 | 6 | `assignWorkers` failure | 1098 | 1 |
 | 7 | `checkTutorial` completion | 1215–1217 | 1 |
 | 8 | `levelUpBuilding` territory event | 957, 962 | 1 |
 | 9 | `constants.js` tutorial step | 766 | 1 |
-| **Total** | | | **7 tests** |
+| **Total** | | | **4 tests** |
 
 Expected result: `state.js` → ~100% statements/lines, `constants.js` → 100%. Overall coverage → ~99%+ statements.
