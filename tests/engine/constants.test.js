@@ -56,6 +56,28 @@ describe('constants', () => {
       expect(challenges).toBeInstanceOf(Challenges)
     })
 
+    it('createInitialChallenges defaults missing punishment fields to null', () => {
+      const challenges = createInitialChallenges()
+      const optionalFields = [
+        'timeout',
+        'faith',
+        'productivityFarm',
+        'productivityWoodcutter',
+        'productivityMines',
+        'productivityGeneral',
+        'resources',
+        'workers',
+        'levels',
+      ]
+      for (const challenge of challenges.pending) {
+        for (const field of optionalFields) {
+          expect(challenge.punishment[field],
+            `challenge ${challenge.index} punishment.${field} should not be undefined`,
+          ).not.toBeUndefined()
+        }
+      }
+    })
+
     describe('createInitialColonyBasic', () => {
       it('should return a Colony instance', () => {
         const colony = createInitialColonyBasic()

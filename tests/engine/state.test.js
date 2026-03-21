@@ -30,7 +30,7 @@ import Resources from '@/js/models/resources.js'
 import Season from '@/js/models/season.js'
 import Events from '@/js/models/events/events.js'
 import Tutorial from '@/js/models/tutorial.js'
-import {createBlessing, createChallenge, createChallenges} from '../helpers/factories.js'
+import {createBlessing, createChallenge, createChallenges, createPunishment} from '../helpers/factories.js'
 
 vi.mock('@/js/engine/audio.js', () => ({
   default: {
@@ -938,6 +938,28 @@ describe('State', () => {
       const state = await createState()
       state.advanceChallenges(1)
       expect(state.meta.challenges.active).toBeNull()
+    })
+
+    it('should still advance effect timeouts when all challenges completed', async () => {
+      const blessing = createBlessing({
+        timeout: 100,
+      })
+      const punishment = createPunishment({
+        timeout: 80,
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            completed: [createChallenge()],
+            activeBlessings: [blessing],
+            activePunishments: [punishment],
+          }),
+        },
+      })
+      state.advanceChallenges(10)
+      expect(state.meta.challenges.active).toBeNull()
+      expect(blessing.timeout).toBe(90)
+      expect(punishment.timeout).toBe(70)
     })
 
     it('should transition to started when delay elapses', async () => {

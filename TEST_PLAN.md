@@ -1,13 +1,5 @@
 # Test Plan
 
-## Priority 1: Uncovered branches
-
-1. **`state.test.js` — `advanceChallenges` early return (line 652)**: Test calling `advanceChallenges` when `challenges.pending` is empty and `challenges.active` is null (i.e., all challenges already completed or no challenges configured). This would cover the early return after a failed activation attempt.
-
-2. **`challenges.test.js` — `advance` with `STARTED` status (line 95)**: Add a test calling `advance(delta)` when the active challenge has `CHALLENGE_STATUS_STARTED` to verify `timeoutElapsed` increments. Currently the `advance` test only covers `ACTIVATED` status directly.
-
-3. **`constants.test.js` — `createInitialChallenges` punishment optional fields (lines 820, 825)**: Test that challenges with `null`/`undefined` punishment fields (e.g., `faith`, `productivityGeneral`) default correctly via nullish coalescing.
-
 ## Priority 2: Deeper model coverage
 
 4. **`resources.test.js` — `toJSON` round-trip**: Add a direct serialization test to `resources.test.js` (currently only covered transitively through `colony.test.js` and `serialization.test.js`).
