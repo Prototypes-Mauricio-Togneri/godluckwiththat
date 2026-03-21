@@ -1,5 +1,5 @@
 import {describe, it, expect, vi, beforeEach} from 'vitest'
-import {BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
+import {BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
 import {HQ_TERRITORY_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, SEASON_DURATION, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import {DOWNGRADABLE_BUILDINGS} from '@/js/engine/constants.js'
@@ -2339,6 +2339,110 @@ describe('State', () => {
       })
       // Altar: passive, 3 levels × 0.1/s = 0.3
       expect(rates.faith).toBeCloseTo(0.3, 10)
+    })
+
+    it('should apply FOREST_BLOOM blessing productivity bonus to wood', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            woodcutter: {
+              level: 1,
+              workers: 2,
+            },
+          },
+        },
+      })
+      const blessing = createBlessing({
+        type: BLESSING_FOREST_BLOOM,
+        productivity: 0.25,
+        timeout: 60,
+      })
+      const {
+        rates,
+        multipliers,
+      } = state._computeProductionRates({}, [blessing], {
+        food: 1,
+        wood: 1,
+      })
+      expect(multipliers.wood).toBeCloseTo(1.25, 10)
+      // 2 workers × 0.5/s × 1.25 = 1.25
+      expect(rates.wood).toBeCloseTo(1.25, 10)
+    })
+
+    it('should apply RICH_MINES blessing productivity bonus to stone, copper, iron, gold', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            quarry: {
+              level: 1,
+              workers: 2,
+            },
+          },
+        },
+      })
+      const blessing = createBlessing({
+        type: BLESSING_RICH_MINES,
+        productivity: 0.4,
+        timeout: 60,
+      })
+      const {
+        multipliers,
+      } = state._computeProductionRates({}, [blessing], {
+        food: 1,
+        wood: 1,
+      })
+      expect(multipliers.stone).toBeCloseTo(1.4, 10)
+      expect(multipliers.copper).toBeCloseTo(1.4, 10)
+      expect(multipliers.iron).toBeCloseTo(1.4, 10)
+      expect(multipliers.gold).toBeCloseTo(1.4, 10)
+    })
+
+    it('should apply WISDOM_OF_THE_GODS blessing productivity bonus to knowledge', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            academy: {
+              level: 1,
+              workers: 2,
+            },
+          },
+        },
+      })
+      const blessing = createBlessing({
+        type: BLESSING_WISDOM_OF_THE_GODS,
+        productivity: 0.5,
+        timeout: 60,
+      })
+      const {
+        multipliers,
+      } = state._computeProductionRates({}, [blessing], {
+        food: 1,
+        wood: 1,
+      })
+      expect(multipliers.knowledge).toBeCloseTo(1.5, 10)
+    })
+
+    it('should apply CELESTIAL_PROSPERITY blessing productivity bonus to all 8 resources', async () => {
+      const state = await createState()
+      const blessing = createBlessing({
+        type: BLESSING_CELESTIAL_PROSPERITY,
+        productivity: 0.2,
+        timeout: 60,
+      })
+      const {
+        multipliers,
+      } = state._computeProductionRates({}, [blessing], {
+        food: 1,
+        wood: 1,
+      })
+      expect(multipliers.food).toBeCloseTo(1.2, 10)
+      expect(multipliers.wood).toBeCloseTo(1.2, 10)
+      expect(multipliers.stone).toBeCloseTo(1.2, 10)
+      expect(multipliers.copper).toBeCloseTo(1.2, 10)
+      expect(multipliers.iron).toBeCloseTo(1.2, 10)
+      expect(multipliers.gold).toBeCloseTo(1.2, 10)
+      expect(multipliers.faith).toBeCloseTo(1.2, 10)
+      expect(multipliers.knowledge).toBeCloseTo(1.2, 10)
     })
   })
 

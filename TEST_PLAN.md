@@ -6,22 +6,6 @@ Close the 51 uncovered lines in `state.js` (89.5% → ~100% statements) and the 
 
 ---
 
-## Step 2: `_computeProductionRates` — remaining blessing branches
-
-**File**: `tests/engine/state.test.js`
-**Uncovered lines**: 473–490 (4 blessing types)
-
-Add tests inside `describe('_computeProductionRates')`:
-
-1. **`FOREST_BLOOM`**: Verify `multipliers.wood` increases by `blessing.productivity`
-2. **`RICH_MINES`**: Verify `multipliers.stone`, `.copper`, `.iron`, `.gold` all increase
-3. **`WISDOM_OF_THE_GODS`**: Verify `multipliers.knowledge` increases
-4. **`CELESTIAL_PROSPERITY`**: Verify all 8 resource multipliers increase
-
-Each test: create a State with an active blessing of the given type, call `_computeProductionRates`, assert the returned `multipliers` object.
-
----
-
 ## Step 3: `update()` — resource cap and negative production recovery
 
 **File**: `tests/engine/state.test.js`
@@ -116,7 +100,6 @@ Add test inside `describe('factory functions')` or a new `describe('TUTORIAL_STE
 
 | Step | Target | Lines Covered | New Tests |
 |------|--------|---------------|-----------|
-| 2 | `_computeProductionRates` blessings | 473–490 | 4 |
 | 3 | `update()` recovery branches | 214–216, 250–252 | 2 |
 | 4 | `advanceChallenges` paths | 644, 652, 659–660, 672, 677 | 4 |
 | 5 | `areChallengeRequirementsMet` | 715, 718, 731 | 3 |
@@ -124,6 +107,6 @@ Add test inside `describe('factory functions')` or a new `describe('TUTORIAL_STE
 | 7 | `checkTutorial` completion | 1215–1217 | 1 |
 | 8 | `levelUpBuilding` territory event | 957, 962 | 1 |
 | 9 | `constants.js` tutorial step | 766 | 1 |
-| **Total** | | **~22 lines** | **17 tests** |
+| **Total** | | **~4 lines** | **13 tests** |
 
 Expected result: `state.js` → ~100% statements/lines, `constants.js` → 100%. Overall coverage → ~99%+ statements.
