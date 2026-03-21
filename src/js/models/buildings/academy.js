@@ -162,3 +162,6 @@ class Research {
 }
 
 export default Academy
+export {
+  Research,
+}

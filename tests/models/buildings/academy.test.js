@@ -1,6 +1,36 @@
 import {describe, it, expect} from 'vitest'
 import Cost from '@/js/models/cost.js'
-import Academy from '@/js/models/buildings/academy.js'
+import Academy, {Research} from '@/js/models/buildings/academy.js'
+
+describe('Research', () => {
+  it('should initialize with duration and remainingSeconds equal to duration', () => {
+    const research = new Research(120)
+    expect(research.duration).toBe(120)
+    expect(research.remainingSeconds).toBe(120)
+  })
+
+  it('should accept custom remainingSeconds override', () => {
+    const research = new Research(120, 45)
+    expect(research.duration).toBe(120)
+    expect(research.remainingSeconds).toBe(45)
+  })
+
+  describe('advance', () => {
+    it('should decrement remainingSeconds by delta', () => {
+      const research = new Research(60)
+      const completed = research.advance(10)
+      expect(research.remainingSeconds).toBe(50)
+      expect(completed).toBe(false)
+    })
+
+    it('should clamp remainingSeconds at 0', () => {
+      const research = new Research(60)
+      const completed = research.advance(100)
+      expect(research.remainingSeconds).toBe(0)
+      expect(completed).toBe(true)
+    })
+  })
+})
 
 describe('Academy', () => {
   describe('constructor', () => {
