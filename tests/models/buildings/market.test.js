@@ -239,6 +239,21 @@ describe('Market', () => {
       expect(market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, 1000)).toBe(false)
     })
 
+    it('should succeed sell when gold + sellPrice exactly equals storage cap', () => {
+      const market = new Market({
+        level: 1,
+      })
+      const sellPrice = market.sellPrice(RESOURCE_FOOD)
+      const storageCap = 5000
+      const resources = createResources({
+        gold: storageCap - sellPrice,
+        food: 500,
+      })
+      const result = market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, storageCap)
+      expect(result).toBe(true)
+      expect(resources.gold).toBe(storageCap)
+    })
+
     it('should clamp price at maximum after repeated buys', () => {
       const market = new Market({
         level: 1,

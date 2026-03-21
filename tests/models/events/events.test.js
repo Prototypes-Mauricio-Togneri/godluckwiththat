@@ -42,6 +42,35 @@ describe('Events', () => {
       expect(events.future[1].remainingSeconds).toBe(30)
       expect(events.future[2].remainingSeconds).toBe(50)
     })
+
+    it('should maintain sorted order when many events are inserted out of order', () => {
+      const events = new Events()
+      const values = [
+        90,
+        10,
+        50,
+        30,
+        80,
+        20,
+        70,
+        5,
+        60,
+        40,
+        100,
+        15,
+        55,
+        25,
+        75,
+      ]
+      for (const remainingSeconds of values) {
+        events.addFuture({
+          ...createEventData(),
+          remainingSeconds: remainingSeconds,
+        })
+      }
+      const sorted = [...values].sort((a, b) => a - b)
+      expect(events.future.map(event => event.remainingSeconds)).toEqual(sorted)
+    })
   })
 
   describe('addPast', () => {

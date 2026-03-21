@@ -101,6 +101,16 @@ describe('Season', () => {
       expect(season.seasonElapsed).toBe(50)
     })
 
+    it('should flip exactly once even when delta is 10x season duration', () => {
+      const season = createSeason({
+        currentSeason: SEASON_WARM,
+        seasonElapsed: 0,
+      })
+      season.advance(SEASON_DURATION * 10)
+      expect(season.currentSeason).toBe(SEASON_COLD)
+      expect(season.seasonElapsed).toBe(SEASON_DURATION * 9)
+    })
+
     it('should accumulate elapsed across multiple small ticks without flipping', () => {
       const season = createSeason({
         currentSeason: SEASON_WARM,
