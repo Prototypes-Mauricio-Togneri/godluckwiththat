@@ -18,7 +18,7 @@ class Audio {
     this._playlistIndex = 0 // Current index in the playlist
     this._cache = new Map() // Preloaded HTMLAudioElements keyed by asset path
     this._activeSounds = new Map() // Currently playing sound elements keyed by asset path
-    this._soundAbort = new Map() // AbortControllers for active sound listeners keyed by asset path
+    this._soundCleanup = new Map() // Cleanup handlers for active sound listeners keyed by asset path
     this._gamePaused = false // Whether music was paused by game logic (not the browser)
 
     // Resume music after iOS Safari suspends audio in background tabs
@@ -54,26 +54,28 @@ class Audio {
     if (element) {
       element.pause()
       element.currentTime = 0
-      this._soundAbort.get(assetPath)?.abort()
+      const previousCleanup = this._soundCleanup.get(assetPath)
+      if (previousCleanup) {
+        element.removeEventListener('ended', previousCleanup)
+        element.removeEventListener('error', previousCleanup)
+      }
     } else {
       const cached = this._cache.get(assetPath)
       element = cached ? /** @type {HTMLAudioElement} */ (cached.cloneNode()) : new window.Audio(assetPath)
       this._activeSounds.set(assetPath, element)
     }
-    // AbortController auto-removes ended/error listeners on abort, preventing leaks
-    const abortController = new window.AbortController()
-    this._soundAbort.set(assetPath, abortController)
     const cleanup = () => {
+      element.removeEventListener('ended', cleanup)
+      element.removeEventListener('error', cleanup)
       this._activeSounds.delete(assetPath)
-      this._soundAbort.delete(assetPath)
+      this._soundCleanup.delete(assetPath)
     }
+    this._soundCleanup.set(assetPath, cleanup)
     element.addEventListener('ended', cleanup, {
       once: true,
-      signal: abortController.signal,
     })
     element.addEventListener('error', cleanup, {
       once: true,
-      signal: abortController.signal,
     })
     element.volume = this._volume(assetPath)
     element.play().catch(cleanup)
