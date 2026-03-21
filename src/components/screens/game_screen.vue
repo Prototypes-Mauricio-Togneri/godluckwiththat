@@ -1914,17 +1914,23 @@ onUnmounted(() => {
 
 /* Locked building placeholder — mirrors .building-card shell */
 .building-card-locked {
-  container-type: size;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0.6rem 0.75rem;
-  min-height: 0;
   overflow: hidden;
   background: rgba(39, 33, 25, 0.3);
   border: 1px solid var(--color-border);
   border-radius: 0.25rem;
   opacity: 0.4;
+}
+
+/* Enable container-query sizing only when supported */
+@supports (container-type: size) {
+  .building-card-locked {
+    container-type: size;
+    min-height: 0;
+  }
 }
 
 .locked-icon {
