@@ -63,64 +63,6 @@ describe('Market', () => {
     })
   })
 
-  describe('buyPrice', () => {
-    it('should include fee markup', () => {
-      const market = new Market({
-        level: 1,
-      })
-      const basePrice = market[RESOURCE_FOOD]
-      const buyPrice = market.buyPrice(RESOURCE_FOOD)
-      expect(buyPrice).toBeGreaterThan(basePrice)
-    })
-
-    it('should equal base price when fee is zero (blessed)', () => {
-      const market = new Market({
-        level: 1,
-      })
-      market.blessedMarkets = true
-      const basePrice = market[RESOURCE_FOOD]
-      expect(market.buyPrice(RESOURCE_FOOD)).toBe(basePrice)
-    })
-
-    it('should use minimum fee at very high level', () => {
-      const market = new Market({
-        level: 100,
-      })
-      const basePrice = market[RESOURCE_FOOD]
-      const expected = Math.floor(basePrice * (1 + MARKET_MIN_FEE))
-      expect(market.buyPrice(RESOURCE_FOOD)).toBe(expected)
-    })
-  })
-
-  describe('sellPrice', () => {
-    it('should apply fee discount', () => {
-      const market = new Market({
-        level: 1,
-      })
-      const basePrice = market[RESOURCE_FOOD]
-      const sellPrice = market.sellPrice(RESOURCE_FOOD)
-      expect(sellPrice).toBeLessThan(basePrice)
-    })
-
-    it('should equal base price when fee is zero (blessed)', () => {
-      const market = new Market({
-        level: 1,
-      })
-      market.blessedMarkets = true
-      const basePrice = market[RESOURCE_FOOD]
-      expect(market.sellPrice(RESOURCE_FOOD)).toBe(basePrice)
-    })
-
-    it('should use minimum fee at very high level', () => {
-      const market = new Market({
-        level: 100,
-      })
-      const basePrice = market[RESOURCE_FOOD]
-      const expected = Math.floor(basePrice * (1 - MARKET_MIN_FEE))
-      expect(market.sellPrice(RESOURCE_FOOD)).toBe(expected)
-    })
-  })
-
   describe('executeTrade', () => {
     it('should buy: deduct gold, add resource, raise price', () => {
       const market = new Market({
@@ -218,7 +160,7 @@ describe('Market', () => {
       const market = new Market({
         level: 1,
       })
-      const exactGold = market.buyPrice(RESOURCE_FOOD)
+      const exactGold = Math.floor(market[RESOURCE_FOOD] * (1 + market.effectiveTradeFee))
       const resources = createResources({
         gold: exactGold,
         food: 0,
@@ -243,7 +185,7 @@ describe('Market', () => {
       const market = new Market({
         level: 1,
       })
-      const sellPrice = market.sellPrice(RESOURCE_FOOD)
+      const sellPrice = Math.floor(market[RESOURCE_FOOD] * (1 - market.effectiveTradeFee))
       const storageCap = 5000
       const resources = createResources({
         gold: storageCap - sellPrice,
@@ -326,6 +268,43 @@ describe('Market', () => {
       const amount = MARKET_TRADE_AMOUNT * 3
       expect(market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 99999, amount)).toBe(true)
       expect(resources.food).toBe(amount)
+    })
+
+    it('should not give a double-floor rounding discount on bulk buys', () => {
+      const market = new Market({
+        level: 1,
+      })
+      const basePrice = market[RESOURCE_FOOD]
+      const fee = market.effectiveTradeFee
+      const multiplier = 10
+      const amount = MARKET_TRADE_AMOUNT * multiplier
+      const resources = createResources({
+        gold: 99999,
+        food: 0,
+      })
+
+      market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 99999, amount)
+      const goldSpent = 99999 - resources.gold
+      const expectedCost = Math.floor(basePrice * multiplier * (1 + fee))
+      expect(goldSpent).toBe(expectedCost)
+    })
+
+    it('should not give a double-floor rounding discount on bulk sells', () => {
+      const market = new Market({
+        level: 1,
+      })
+      const basePrice = market[RESOURCE_FOOD]
+      const fee = market.effectiveTradeFee
+      const multiplier = 10
+      const amount = MARKET_TRADE_AMOUNT * multiplier
+      const resources = createResources({
+        gold: 0,
+        food: amount,
+      })
+
+      market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, 99999, amount)
+      const expectedGain = Math.floor(basePrice * multiplier * (1 - fee))
+      expect(resources.gold).toBe(expectedGain)
     })
   })
 

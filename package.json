@@ -7,7 +7,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint src/ tests/",
-    "lint-fix": "eslint src/ tests/ --fix",
+    "lint:fix": "eslint src/ tests/ --fix",
     "generate-assets": "node scripts/generate-assets.js",
     "deploy": "npm run build && firebase deploy --only hosting",
     "test": "vitest run",

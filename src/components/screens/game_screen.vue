@@ -349,8 +349,8 @@ const ui = shallowReactive({
   },
   market: {
     feePercent: 0,
-    buyPrices: {},
-    sellPrices: {},
+    fee: 0,
+    basePrices: {},
   },
   futureEvents: [],
   pastEvents: [],
@@ -689,16 +689,15 @@ function syncAcademy() {
 /** Syncs market prices and fee. */
 function syncMarket() {
   const market = state.colony.buildings.market
-  const buyPrices = {}
-  const sellPrices = {}
+  const basePrices = {}
   for (const resource of TRADEABLE_RESOURCES) {
-    buyPrices[resource] = market.buyPrice(resource)
-    sellPrices[resource] = market.sellPrice(resource)
+    basePrices[resource] = market[resource]
   }
+  const fee = market.effectiveTradeFee
   ui.market = {
-    feePercent: Math.round(market.effectiveTradeFee * 100),
-    buyPrices: buyPrices,
-    sellPrices: sellPrices,
+    feePercent: Math.round(fee * 100),
+    fee: fee,
+    basePrices: basePrices,
   }
 }
 

@@ -56,24 +56,6 @@ class Market extends Building {
   }
 
   /**
-   * Returns the gold cost to buy a resource at current market price + fee.
-   * @param {string} resource - Resource key
-   * @returns {number} Gold cost (floored)
-   */
-  buyPrice(resource) {
-    return Math.floor(this[resource] * (1 + this.effectiveTradeFee))
-  }
-
-  /**
-   * Returns the gold gained from selling a resource at current market price - fee.
-   * @param {string} resource - Resource key
-   * @returns {number} Gold gained (floored)
-   */
-  sellPrice(resource) {
-    return Math.floor(this[resource] * (1 - this.effectiveTradeFee))
-  }
-
-  /**
    * Executes a market trade: buy or sell a resource for gold.
    * @param {string} resource - Resource key (food, wood, stone, copper, iron)
    * @param {'buy'|'sell'} direction - Trade direction
@@ -89,7 +71,7 @@ class Market extends Building {
     const multiplier = amount / MARKET_TRADE_AMOUNT
     // Buy: deduct gold, add resource, raise price
     if (direction === TRADE_BUY) {
-      const goldCost = Math.floor(this.buyPrice(resource) * multiplier)
+      const goldCost = Math.floor(this[resource] * multiplier * (1 + this.effectiveTradeFee))
       if (resources.gold < goldCost) {
         return false
       }
@@ -101,7 +83,7 @@ class Market extends Building {
       this[resource] = Math.min(MARKET_MAX_CURRENT_PRICE, this[resource] + MARKET_PRICE_SHIFT)
     // Sell: deduct resource, add gold, lower price
     } else {
-      const goldGain = Math.floor(this.sellPrice(resource) * multiplier)
+      const goldGain = Math.floor(this[resource] * multiplier * (1 - this.effectiveTradeFee))
       if (resources[resource] < amount) {
         return false
       }

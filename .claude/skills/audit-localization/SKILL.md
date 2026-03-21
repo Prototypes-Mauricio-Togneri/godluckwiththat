@@ -19,4 +19,4 @@ description: Audit all locale files in `src/js/i18n/` against the English refere
    - Remove extra keys that don't exist in `en.js`.
    - Reorder keys to match `en.js` ordering, preserving comment lines and section structure from `en.js`.
 8. Preserve each locale's existing translations — only touch missing, extra, or misplaced keys.
-9. After edits, run `npm run lint-fix` and fix any remaining errors.
+9. After edits, run `npm run lint:fix` and fix any remaining errors.

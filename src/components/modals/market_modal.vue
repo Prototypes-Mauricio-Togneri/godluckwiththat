@@ -53,19 +53,21 @@ watch(tradeAmount, (value) => {
 const tradeMultiplier = computed(() => tradeAmount.value / MARKET_TRADE_AMOUNT)
 
 /** Scaled gold cost for buying a resource at the selected trade amount.
+ * Fee is applied after scaling to avoid double-floor rounding discount on bulk trades.
  * @param {string} resource - Resource key
  * @returns {number} Total gold cost (floored)
  */
 function scaledBuyPrice(resource) {
-  return Math.floor(ui.market.buyPrices[resource] * tradeMultiplier.value)
+  return Math.floor(ui.market.basePrices[resource] * tradeMultiplier.value * (1 + ui.market.fee))
 }
 
 /** Scaled gold gain for selling a resource at the selected trade amount.
+ * Fee is applied after scaling to avoid double-floor rounding discount on bulk trades.
  * @param {string} resource - Resource key
  * @returns {number} Total gold gain (floored)
  */
 function scaledSellPrice(resource) {
-  return Math.floor(ui.market.sellPrices[resource] * tradeMultiplier.value)
+  return Math.floor(ui.market.basePrices[resource] * tradeMultiplier.value * (1 - ui.market.fee))
 }
 
 function amountUp() {
