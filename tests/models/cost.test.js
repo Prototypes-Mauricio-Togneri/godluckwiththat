@@ -175,5 +175,16 @@ describe('Cost', () => {
       })
       expect(withZeros.toSeconds).toBe(foodOnly.toSeconds)
     })
+
+    it('should treat unknown resource keys as zero weight', () => {
+      const cost = new Cost()
+      cost._entries = new Map([
+        [
+          'unknownResource',
+          100,
+        ],
+      ])
+      expect(cost.toSeconds).toBe(0)
+    })
   })
 })

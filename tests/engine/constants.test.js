@@ -78,6 +78,19 @@ describe('constants', () => {
       }
     })
 
+    it('createInitialChallenges resolves absent punishment fields to null', () => {
+      const challenges = createInitialChallenges()
+      // Challenge 3 (plague) omits timeout, productivityFarm, productivityWoodcutter,
+      // productivityMines, productivityGeneral, and levels in the JSON template
+      const plague = challenges.pending.find(challenge => challenge.index === 3)
+      expect(plague.punishment.timeout).toBeNull()
+      expect(plague.punishment.productivityFarm).toBeNull()
+      expect(plague.punishment.productivityWoodcutter).toBeNull()
+      expect(plague.punishment.productivityMines).toBeNull()
+      expect(plague.punishment.productivityGeneral).toBeNull()
+      expect(plague.punishment.levels).toBeNull()
+    })
+
     describe('createInitialColonyBasic', () => {
       it('should return a Colony instance', () => {
         const colony = createInitialColonyBasic()
