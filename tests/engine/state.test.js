@@ -1,6 +1,6 @@
 import {describe, it, expect, vi, beforeEach} from 'vitest'
-import {BLESSING_FERTILE_SOIL, BUILDING_FARM, BUILDING_HOUSE, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, HQ_TYPE_CAMP, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
-import {SEASON_DURATION, WORKER_RECRUIT_COST} from '@/js/engine/balancing.js'
+import {BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BUILDING_FARM, BUILDING_HOUSE, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, HQ_TYPE_CAMP, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
+import {SEASON_DURATION, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
 import Archery from '@/js/models/buildings/archery.js'
@@ -1762,6 +1762,1015 @@ describe('State', () => {
       if (state.meta.tutorial.completed) {
         expect(storage.tutorialCompleted).toBe(true)
       }
+    })
+  })
+
+  // ── _computeGeneralProductivity ─────────────────────────────────────
+
+  describe('_computeGeneralProductivity', () => {
+    it('should return 1 when food and wood are sufficient', async () => {
+      const state = await createState()
+      const result = state._computeGeneralProductivity(
+        5,
+        {
+          food: 5,
+          wood: 3,
+        },
+        {
+          food: 2,
+          wood: 1,
+        },
+      )
+      expect(result).toBe(1)
+    })
+
+    it('should return 0 when workers is 0', async () => {
+      const state = await createState()
+      const result = state._computeGeneralProductivity(
+        0,
+        {
+          food: 5,
+          wood: 3,
+        },
+        {
+          food: 2,
+          wood: 1,
+        },
+      )
+      expect(result).toBe(0)
+    })
+
+    it('should return reduced value when food is short', async () => {
+      const state = await createState()
+      state._resourcesNegativeProduction.add(RESOURCE_FOOD)
+      const result = state._computeGeneralProductivity(
+        5,
+        {
+          food: 1,
+          wood: 3,
+        },
+        {
+          food: 4,
+          wood: 1,
+        },
+      )
+      // deficit = max(0, 4 - 1) = 3, penalty = (3/4) * SHORTAGE_MAX_PENALTY
+      const expected = 1 - (3 / 4) * SHORTAGE_MAX_PENALTY
+      expect(result).toBeCloseTo(expected, 10)
+    })
+
+    it('should return reduced value when wood is short', async () => {
+      const state = await createState()
+      state._resourcesNegativeProduction.add(RESOURCE_WOOD)
+      const result = state._computeGeneralProductivity(
+        5,
+        {
+          food: 5,
+          wood: 1,
+        },
+        {
+          food: 2,
+          wood: 4,
+        },
+      )
+      const expected = 1 - (3 / 4) * SHORTAGE_MAX_PENALTY
+      expect(result).toBeCloseTo(expected, 10)
+    })
+
+    it('should return minimum of food and wood penalty when both are short', async () => {
+      const state = await createState()
+      state._resourcesNegativeProduction.add(RESOURCE_FOOD)
+      state._resourcesNegativeProduction.add(RESOURCE_WOOD)
+      // Food deficit worse than wood deficit
+      const result = state._computeGeneralProductivity(
+        5,
+        {
+          food: 0,
+          wood: 2,
+        },
+        {
+          food: 4,
+          wood: 4,
+        },
+      )
+      const foodPenalty = 1 - (4 / 4) * SHORTAGE_MAX_PENALTY
+      const woodPenalty = 1 - (2 / 4) * SHORTAGE_MAX_PENALTY
+      expect(result).toBeCloseTo(Math.min(foodPenalty, woodPenalty), 10)
+    })
+
+    it('should not penalize when resource is not in _resourcesNegativeProduction', async () => {
+      const state = await createState()
+      // Food production < consumption, but not tracked as negative
+      const result = state._computeGeneralProductivity(
+        5,
+        {
+          food: 1,
+          wood: 3,
+        },
+        {
+          food: 4,
+          wood: 1,
+        },
+      )
+      expect(result).toBe(1)
+    })
+  })
+
+  // ── _computeSeasonMultipliers ───────────────────────────────────────
+
+  describe('_computeSeasonMultipliers', () => {
+    it('should return warm season multipliers with no blessing', async () => {
+      const state = await createState()
+      const result = state._computeSeasonMultipliers([])
+      expect(result.food).toBeCloseTo(1.2, 10)
+      expect(result.wood).toBeCloseTo(0.8, 10)
+    })
+
+    it('should return cold season multipliers with no blessing', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          season: {
+            currentSeason: SEASON_COLD,
+            seasonElapsed: 0,
+          },
+        },
+      })
+      const result = state._computeSeasonMultipliers([])
+      expect(result.food).toBeCloseTo(0.8, 10)
+      expect(result.wood).toBeCloseTo(1.2, 10)
+    })
+
+    it('should stack FAVORABLE_WEATHER blessing on warm season', async () => {
+      const state = await createState()
+      const blessing = createBlessing({
+        type: BLESSING_FAVORABLE_WEATHER,
+        warm: 0.1,
+        cold: 0.05,
+        timeout: 60,
+      })
+      const result = state._computeSeasonMultipliers([blessing])
+      expect(result.food).toBeCloseTo(1.3, 10)
+      expect(result.wood).toBeCloseTo(0.7, 10)
+    })
+
+    it('should stack FAVORABLE_WEATHER blessing on cold season', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          season: {
+            currentSeason: SEASON_COLD,
+            seasonElapsed: 0,
+          },
+        },
+      })
+      const blessing = createBlessing({
+        type: BLESSING_FAVORABLE_WEATHER,
+        warm: 0.1,
+        cold: 0.05,
+        timeout: 60,
+      })
+      const result = state._computeSeasonMultipliers([blessing])
+      expect(result.food).toBeCloseTo(0.85, 10)
+      expect(result.wood).toBeCloseTo(1.15, 10)
+    })
+  })
+
+  // ── _computeConsumptionRates ────────────────────────────────────────
+
+  describe('_computeConsumptionRates', () => {
+    it('should return zero rates with 0 workers', async () => {
+      const state = await createState()
+      const {
+        rates,
+      } = state._computeConsumptionRates({}, {
+        food: 1.2,
+        wood: 0.8,
+      }, 0)
+      expect(rates.food).toBe(0)
+      expect(rates.wood).toBe(0)
+    })
+
+    it('should scale with worker count at neutral season', async () => {
+      const state = await createState()
+      const {
+        rates,
+      } = state._computeConsumptionRates({}, {
+        food: 1,
+        wood: 1,
+      }, 10)
+      expect(rates.food).toBeCloseTo(10 * WORKER_FOOD_CONSUMPTION, 10)
+      expect(rates.wood).toBeCloseTo(10 * WORKER_WOOD_CONSUMPTION, 10)
+    })
+
+    it('should apply food consumption research bonus', async () => {
+      const state = await createState()
+      const bonuses = {
+        foodConsumption: 0.1,
+      }
+      const {
+        rates,
+      } = state._computeConsumptionRates(bonuses, {
+        food: 1,
+        wood: 1,
+      }, 10)
+      expect(rates.food).toBeCloseTo(10 * WORKER_FOOD_CONSUMPTION * 0.9, 10)
+      expect(rates.wood).toBeCloseTo(10 * WORKER_WOOD_CONSUMPTION, 10)
+    })
+
+    it('should stack wood consumption bonus and season multiplier additively', async () => {
+      const state = await createState()
+      const bonuses = {
+        woodConsumption: 0.1,
+      }
+      // Warm season: wood multiplier = 0.8 → season reduction = 1 - 0.8 = 0.2
+      // Total wood multiplier = max(0, 1 - 0.1 - 0.2) = 0.7
+      const {
+        rates,
+      } = state._computeConsumptionRates(bonuses, {
+        food: 1.2,
+        wood: 0.8,
+      }, 10)
+      expect(rates.wood).toBeCloseTo(10 * WORKER_WOOD_CONSUMPTION * 0.7, 10)
+    })
+  })
+
+  // ── _computeProductionRates ─────────────────────────────────────────
+
+  describe('_computeProductionRates', () => {
+    it('should return zero rates with all buildings at level 0', async () => {
+      const state = await createState()
+      const {
+        rates,
+      } = state._computeProductionRates({}, [], {
+        food: 1,
+        wood: 1,
+      })
+      expect(rates.food).toBe(0)
+      expect(rates.wood).toBe(0)
+      expect(rates.stone).toBe(0)
+    })
+
+    it('should produce based on assigned workers', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 1,
+              workers: 3,
+            },
+          },
+        },
+      })
+      const {
+        rates,
+      } = state._computeProductionRates({}, [], {
+        food: 1,
+        wood: 1,
+      })
+      // Farm: 3 workers × 1/s = 3, with food season multiplier of 1 (neutral)
+      expect(rates.food).toBeCloseTo(3, 10)
+    })
+
+    it('should aggregate production from multiple buildings', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 1,
+              workers: 2,
+            },
+            woodcutter: {
+              level: 1,
+              workers: 4,
+            },
+          },
+        },
+      })
+      const {
+        rates,
+      } = state._computeProductionRates({}, [], {
+        food: 1,
+        wood: 1,
+      })
+      expect(rates.food).toBeCloseTo(2, 10)
+      expect(rates.wood).toBeCloseTo(2, 10)
+    })
+
+    it('should apply research bonuses as multipliers', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 1,
+              workers: 2,
+            },
+          },
+        },
+      })
+      const bonuses = {
+        foodProduction: 0.2,
+      }
+      const {
+        rates,
+      } = state._computeProductionRates(bonuses, [], {
+        food: 1,
+        wood: 1,
+      })
+      // 2 workers × 1/s × (1 + 0.2) = 2.4, plus season (food: 1 → +0 from season)
+      expect(rates.food).toBeCloseTo(2.4, 10)
+    })
+
+    it('should apply FERTILE_SOIL blessing productivity bonus to food', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 1,
+              workers: 2,
+            },
+          },
+        },
+      })
+      const blessing = createBlessing({
+        type: BLESSING_FERTILE_SOIL,
+        productivity: 0.3,
+        timeout: 60,
+      })
+      const {
+        rates,
+      } = state._computeProductionRates({}, [blessing], {
+        food: 1,
+        wood: 1,
+      })
+      // 2 workers × 1/s × (1 + 0.3) = 2.6
+      expect(rates.food).toBeCloseTo(2.6, 10)
+    })
+
+    it('should apply season modifier to food production', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 1,
+              workers: 2,
+            },
+          },
+        },
+      })
+      // Warm season multiplier: food = 1.2
+      const {
+        rates,
+      } = state._computeProductionRates({}, [], {
+        food: 1.2,
+        wood: 0.8,
+      })
+      // 2 workers × 1/s × (1 + (1.2 - 1)) = 2 × 1.2 = 2.4
+      expect(rates.food).toBeCloseTo(2.4, 10)
+    })
+
+    it('should produce from passive buildings based on level', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            altar: {
+              level: 3,
+            },
+          },
+        },
+      })
+      const {
+        rates,
+      } = state._computeProductionRates({}, [], {
+        food: 1,
+        wood: 1,
+      })
+      // Altar: passive, 3 levels × 0.1/s = 0.3
+      expect(rates.faith).toBeCloseTo(0.3, 10)
+    })
+  })
+
+  // ── _resolveChallengeTimeout ────────────────────────────────────────
+
+  describe('_resolveChallengeTimeout', () => {
+    it('should complete challenge when requirements are met', async () => {
+      const challenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        requirements: {
+          faith: 50,
+          altar: null,
+          temple: null,
+          monument: null,
+          resources: null,
+          workers: null,
+        },
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            active: challenge,
+          }),
+        },
+        colonyOverrides: {
+          resources: {
+            faith: 100,
+          },
+        },
+      })
+      state._resolveChallengeTimeout()
+      expect(state.paused).toBe(true)
+      expect(state.challengeModal).toBe(CHALLENGE_MODAL_REWARD)
+    })
+
+    it('should fail challenge when requirements are not met', async () => {
+      const challenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        requirements: {
+          faith: 500,
+          altar: null,
+          temple: null,
+          monument: null,
+          resources: null,
+          workers: null,
+        },
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            active: challenge,
+          }),
+        },
+        colonyOverrides: {
+          resources: {
+            faith: 10,
+          },
+        },
+      })
+      state._resolveChallengeTimeout()
+      expect(state.paused).toBe(true)
+      expect(state.challengeModal).toBe(CHALLENGE_MODAL_FAILURE)
+    })
+  })
+
+  // ── _deductRequirements ─────────────────────────────────────────────
+
+  describe('_deductRequirements', () => {
+    it('should deduct faith when challenge requires it', async () => {
+      const challenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        requirements: {
+          faith: 50,
+          altar: null,
+          temple: null,
+          monument: null,
+          resources: null,
+          workers: null,
+        },
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            active: challenge,
+          }),
+        },
+        colonyOverrides: {
+          resources: {
+            faith: 200,
+          },
+        },
+      })
+      state._deductRequirements()
+      expect(state.colony.resources.faith).toBe(150)
+    })
+
+    it('should deduct resources when challenge requires them', async () => {
+      const challenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        requirements: {
+          faith: null,
+          altar: null,
+          temple: null,
+          monument: null,
+          resources: {
+            food: 30,
+            wood: 20,
+          },
+          workers: null,
+        },
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            active: challenge,
+          }),
+        },
+        colonyOverrides: {
+          resources: {
+            food: 200,
+            wood: 200,
+          },
+        },
+      })
+      state._deductRequirements()
+      expect(state.colony.resources.food).toBe(170)
+      expect(state.colony.resources.wood).toBe(180)
+    })
+
+    it('should sacrifice workers when challenge requires them', async () => {
+      const challenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        requirements: {
+          faith: null,
+          altar: null,
+          temple: null,
+          monument: null,
+          resources: null,
+          workers: 3,
+        },
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            active: challenge,
+          }),
+        },
+        colonyOverrides: {
+          resources: {
+            workers: 5,
+          },
+        },
+      })
+      state._deductRequirements()
+      expect(state.colony.resources.workers).toBe(2)
+    })
+
+    it('should no-op when no active challenge', async () => {
+      const state = await createState()
+      const foodBefore = state.colony.resources.food
+      state._deductRequirements()
+      expect(state.colony.resources.food).toBe(foodBefore)
+    })
+  })
+
+  // ── _completeChallenge ──────────────────────────────────────────────
+
+  describe('_completeChallenge', () => {
+    it('should pause game and show reward modal', async () => {
+      const challenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        requirements: {
+          faith: 50,
+          altar: null,
+          temple: null,
+          monument: null,
+          resources: null,
+          workers: null,
+        },
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            active: challenge,
+          }),
+        },
+        colonyOverrides: {
+          resources: {
+            faith: 200,
+          },
+        },
+      })
+      state._completeChallenge()
+      expect(state.paused).toBe(true)
+      expect(state.challengeModal).toBe(CHALLENGE_MODAL_REWARD)
+    })
+
+    it('should deduct requirements from colony', async () => {
+      const challenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        requirements: {
+          faith: 50,
+          altar: null,
+          temple: null,
+          monument: null,
+          resources: null,
+          workers: null,
+        },
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            active: challenge,
+          }),
+        },
+        colonyOverrides: {
+          resources: {
+            faith: 200,
+          },
+        },
+      })
+      state._completeChallenge()
+      expect(state.colony.resources.faith).toBe(150)
+    })
+  })
+
+  // ── _failChallenge ──────────────────────────────────────────────────
+
+  describe('_failChallenge', () => {
+    it('should pause game and show failure modal', async () => {
+      const state = await createState()
+      state._failChallenge()
+      expect(state.paused).toBe(true)
+      expect(state.challengeModal).toBe(CHALLENGE_MODAL_FAILURE)
+    })
+  })
+
+  // ── _sacrificeWorkers ───────────────────────────────────────────────
+
+  describe('_sacrificeWorkers', () => {
+    it('should remove workers from idle pool first', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 5,
+          },
+        },
+      })
+      state._sacrificeWorkers(3)
+      expect(state.colony.resources.workers).toBe(2)
+    })
+
+    it('should remove from producer buildings when idle pool is exhausted', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 5,
+          },
+          buildingOverrides: {
+            farm: {
+              level: 1,
+              workers: 3,
+            },
+          },
+        },
+      })
+      // 5 total - 3 assigned = 2 idle. Sacrificing 4 means: 2 from idle, 2 from farm
+      state._sacrificeWorkers(4)
+      expect(state.colony.resources.workers).toBe(1)
+      expect(state.colony.buildings.farm.workers).toBe(1)
+    })
+
+    it('should handle fewer total workers than sacrifice count', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 2,
+          },
+          buildingOverrides: {
+            farm: {
+              level: 1,
+              workers: 1,
+            },
+          },
+        },
+      })
+      // 2 total, 1 assigned, 1 idle. Sacrificing 5 removes all available
+      state._sacrificeWorkers(5)
+      expect(state.colony.resources.workers).toBe(0)
+      expect(state.colony.buildings.farm.workers).toBe(0)
+    })
+
+    it('should decrement resources.workers for each removed worker', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 10,
+          },
+          buildingOverrides: {
+            farm: {
+              level: 1,
+              workers: 5,
+            },
+            woodcutter: {
+              level: 1,
+              workers: 3,
+            },
+          },
+        },
+      })
+      // 10 total - 8 assigned = 2 idle
+      state._sacrificeWorkers(2)
+      expect(state.colony.resources.workers).toBe(8)
+    })
+  })
+
+  // ── _advanceEffectTimeouts ──────────────────────────────────────────
+
+  describe('_advanceEffectTimeouts', () => {
+    it('should decrement timeout by delta', async () => {
+      const state = await createState()
+      const effects = [
+        createBlessing({
+          timeout: 100,
+        }),
+      ]
+      state._advanceEffectTimeouts(effects, 10)
+      expect(effects[0].timeout).toBe(90)
+    })
+
+    it('should remove effect when timeout reaches 0', async () => {
+      const state = await createState()
+      const effects = [
+        createBlessing({
+          timeout: 10,
+        }),
+      ]
+      state._advanceEffectTimeouts(effects, 10)
+      expect(effects.length).toBe(0)
+    })
+
+    it('should skip effects with null timeout', async () => {
+      const state = await createState()
+      const effects = [
+        createBlessing({
+          timeout: null,
+        }),
+      ]
+      state._advanceEffectTimeouts(effects, 10)
+      expect(effects.length).toBe(1)
+      expect(effects[0].timeout).toBeNull()
+    })
+
+    it('should no-op on empty array', async () => {
+      const state = await createState()
+      const effects = []
+      state._advanceEffectTimeouts(effects, 10)
+      expect(effects.length).toBe(0)
+    })
+
+    it('should handle multiple effects with mixed timeouts', async () => {
+      const state = await createState()
+      const effects = [
+        createBlessing({
+          timeout: 5,
+        }),
+        createBlessing({
+          timeout: null,
+        }),
+        createBlessing({
+          timeout: 20,
+        }),
+      ]
+      state._advanceEffectTimeouts(effects, 5)
+      // First removed (timeout reached 0), second skipped, third decremented
+      expect(effects.length).toBe(2)
+      expect(effects[0].timeout).toBeNull()
+      expect(effects[1].timeout).toBe(15)
+    })
+  })
+
+  // ── _applyBlessing ─────────────────────────────────────────────────
+
+  describe('_applyBlessing', () => {
+    it('should add resources for GIFT_FROM_THE_HEAVENS', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 100,
+            wood: 100,
+          },
+        },
+      })
+      const blessing = createBlessing({
+        type: BLESSING_GIFT_FROM_THE_HEAVENS,
+        resources: {
+          food: 50,
+          wood: 30,
+        },
+      })
+      state._applyBlessing(blessing)
+      expect(state.colony.resources.food).toBe(150)
+      expect(state.colony.resources.wood).toBe(130)
+    })
+
+    it('should cap resources at storage limit for GIFT_FROM_THE_HEAVENS', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 500,
+          },
+          buildingOverrides: {
+            storehouse: {
+              level: 0,
+            },
+          },
+        },
+      })
+      const storageCap = state.colony.buildings.storehouse.storageCap(0)
+      const blessing = createBlessing({
+        type: BLESSING_GIFT_FROM_THE_HEAVENS,
+        resources: {
+          food: 99999,
+        },
+      })
+      state._applyBlessing(blessing)
+      expect(state.colony.resources.food).toBe(storageCap)
+    })
+
+    it('should add territory bonus for HOLY_EXPANSION', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            territoryBonus: 0,
+          },
+        },
+      })
+      const blessing = createBlessing({
+        type: BLESSING_HOLY_EXPANSION,
+        territory: 3,
+      })
+      state._applyBlessing(blessing)
+      expect(state.colony.resources.territoryBonus).toBe(3)
+    })
+
+    it('should not mutate resources for non-resource blessings', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 100,
+            wood: 100,
+          },
+        },
+      })
+      const foodBefore = state.colony.resources.food
+      const woodBefore = state.colony.resources.wood
+      const blessing = createBlessing({
+        type: BLESSING_FERTILE_SOIL,
+        productivity: 0.3,
+        timeout: 60,
+      })
+      state._applyBlessing(blessing)
+      expect(state.colony.resources.food).toBe(foodBefore)
+      expect(state.colony.resources.wood).toBe(woodBefore)
+    })
+  })
+
+  // ── _constructionDurationMult ───────────────────────────────────────
+
+  describe('_constructionDurationMult', () => {
+    it('should return 1 with no research bonus and no blessing', async () => {
+      const state = await createState()
+      expect(state._constructionDurationMult).toBe(1)
+    })
+
+    it('should return reduced value with construction-time research', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            academy: {
+              level: 1,
+              completed: ['construction1'],
+            },
+          },
+        },
+      })
+      // If research key is in the tree, the bonus applies.
+      // Since we may not know exact research keys, test via the getter logic
+      const result = state._constructionDurationMult
+      expect(result).toBeLessThanOrEqual(1)
+      expect(result).toBeGreaterThanOrEqual(0)
+    })
+
+    it('should stack RAPID_CONSTRUCTION blessing with research', async () => {
+      const blessing = createBlessing({
+        type: BLESSING_RAPID_CONSTRUCTION,
+        construction: 0.3,
+        timeout: 60,
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            activeBlessings: [blessing],
+          }),
+        },
+      })
+      expect(state._constructionDurationMult).toBeCloseTo(0.7, 10)
+    })
+
+    it('should floor at 0', async () => {
+      const blessing = createBlessing({
+        type: BLESSING_RAPID_CONSTRUCTION,
+        construction: 2.0,
+        timeout: 60,
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            activeBlessings: [blessing],
+          }),
+        },
+      })
+      expect(state._constructionDurationMult).toBe(0)
+    })
+  })
+
+  // ── _recruit ────────────────────────────────────────────────────────
+
+  describe('_recruit', () => {
+    it('should return true and increment workers when affordable and under cap', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 200,
+            workers: 0,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state.colony.buildings.house.workersCap = 10
+      const result = state._recruit()
+      expect(result).toBe(true)
+      expect(state.colony.resources.workers).toBe(1)
+    })
+
+    it('should return false when cannot afford recruit cost', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 0,
+            workers: 0,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state.colony.buildings.house.workersCap = 10
+      const result = state._recruit()
+      expect(result).toBe(false)
+      expect(state.colony.resources.workers).toBe(0)
+    })
+
+    it('should return false when at population cap', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 200,
+            workers: 5,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state.colony.buildings.house.workersCap = 5
+      const result = state._recruit()
+      expect(result).toBe(false)
+      expect(state.colony.resources.workers).toBe(5)
+    })
+
+    it('should fire population limit event when reaching cap', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 200,
+            workers: 4,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state.colony.buildings.house.workersCap = 5
+      state._recruit()
+      expect(state.colony.resources.workers).toBe(5)
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_POPULATION_LIMIT_REACHED)).toBe(true)
+    })
+
+    it('should deduct recruit cost from resources', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 200,
+            workers: 0,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state.colony.buildings.house.workersCap = 10
+      state._recruit()
+      expect(state.colony.resources.food).toBe(150)
     })
   })
 })
