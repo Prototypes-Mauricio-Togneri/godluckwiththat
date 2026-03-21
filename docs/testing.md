@@ -27,7 +27,7 @@ Tests cover the **engine layer** and **model layer** — pure JavaScript classes
 | `utils.test.js`     | `canAffordCost`                                                                                                                                   |
 | `balancing.test.js` | `BUILDING_UPGRADES` keys/values, season multiplier ranges, trade fee ranges                                                                      |
 | `constants.test.js` | `BUILDING_CLASS_MAP` keys/values, consistency with `BUILDING_UPGRADES`, factory functions (`createInitialColony`, `createInitialMeta`, `createInitialChallenges`) |
-| `state.test.js`     | Game state machine: tick logic, season transitions, building construction, research, worker recruitment, trading, challenge lifecycle, tutorial progression, production/consumption rates, blessing/punishment effects |
+| `state.test.js`     | Game state machine: tick logic, season transitions, building construction, research, worker recruitment/dismissal, trading, challenge lifecycle (activation, blessing selection, punishment acknowledgement, win), tutorial progression, production/consumption rates, blessing/punishment effects, territory expansion, HQ upgrade, building downgrade, serialization (`toJSON`/`fromJSON`) |
 
 ### Models (`tests/models/`)
 
@@ -104,7 +104,7 @@ Coverage is collected with the `v8` provider and reported as `text` (terminal) a
 - `src/js/engine/audio.js`
 - `src/js/engine/main.js`
 - `src/js/engine/storage.js`
-- `src/js/i18n/*.js` (all locale files)
+- `src/js/i18n/ca.js`, `en.js`, `es.js`, `fr.js`, `it.js` (locale data files; `localized.js` is covered)
 
 ## Test Patterns
 
