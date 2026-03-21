@@ -5,24 +5,6 @@ All new tests go into existing test files following the project's conventions (s
 
 ---
 
-## Phase 5 — Factory functions in `constants.js`
-
-File: `tests/engine/constants.test.js`, within the existing `factory functions` describe block.
-
-### 5.1 `createInitialColonyBasic`
-
-- should return a Colony instance
-- should have HQ at level 1 with type camp
-- should have starting food of 250 and wood of 100
-
-### 5.2 `createInitialColonyAdvanced`
-
-- should return a Colony instance
-- should have HQ at level 5 with type city
-- should have 60 workers and 1000 of each basic resource
-
----
-
 ## Phase 6 — `Research` class direct tests
 
 File: `tests/models/buildings/academy.test.js`
