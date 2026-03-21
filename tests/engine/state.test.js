@@ -1640,6 +1640,33 @@ describe('State', () => {
       expect(state.colony.buildings.farm.workers).toBe(5)
     })
 
+    it('should not assign when auto-recruit fails due to insufficient resources', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 0,
+            workers: 0,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+              workersCap: 10,
+            },
+            farm: {
+              level: 1,
+              workers: 0,
+            },
+            storehouse: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state.update(0)
+      state.assignWorkers(BUILDING_FARM, 5)
+      expect(state.colony.buildings.farm.workers).toBe(0)
+    })
+
     it('should auto-recruit when no idle workers available', async () => {
       const state = await createState({
         colonyOverrides: {

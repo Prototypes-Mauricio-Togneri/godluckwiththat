@@ -6,17 +6,6 @@ Close the 51 uncovered lines in `state.js` (89.5% → ~100% statements) and the 
 
 ---
 
-## Step 6: `assignWorkers` — auto-recruit failure branch
-
-**File**: `tests/engine/state.test.js`
-**Uncovered line**: 1098
-
-Add test inside `describe('assignWorkers')`:
-
-1. **Auto-recruit fails mid-batch**: Set idle workers to 0, resources insufficient for recruit cost, building not full. Call `assignWorkers(key, 5)`. Assert no workers assigned (building.workers unchanged).
-
----
-
 ## Step 7: `checkTutorial` — tutorial completion branch
 
 **File**: `tests/engine/state.test.js`
@@ -54,10 +43,9 @@ Add test inside `describe('factory functions')` or a new `describe('TUTORIAL_STE
 
 | Step | Target | Lines Covered | New Tests |
 |------|--------|---------------|-----------|
-| 6 | `assignWorkers` failure | 1098 | 1 |
 | 7 | `checkTutorial` completion | 1215–1217 | 1 |
 | 8 | `levelUpBuilding` territory event | 957, 962 | 1 |
 | 9 | `constants.js` tutorial step | 766 | 1 |
-| **Total** | | | **4 tests** |
+| **Total** | | | **3 tests** |
 
 Expected result: `state.js` → ~100% statements/lines, `constants.js` → 100%. Overall coverage → ~99%+ statements.
