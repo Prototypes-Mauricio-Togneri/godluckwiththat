@@ -75,9 +75,3 @@ Add dedicated test cases for the private helper methods in `State`. These are cu
 - **`_recruit()`**
   - Auto-recruits worker when assigning to building
   - Respects population cap
-
----
-
-## Priority Order
-
-1. State private methods (highest value — core game logic, most complex)
