@@ -108,23 +108,8 @@ Structural integrity tests — not testing logic, but validating data consistenc
 
 ---
 
-## 4. Simple Model Tests (`tests/models/production.test.js`, `tests/models/consumption.test.js`)
-
-### `production.test.js`
-
-- Constructor sets all fields to default values
-- Constructor accepts override values
-
-### `consumption.test.js`
-
-- Constructor sets all fields to default values
-- Constructor accepts override values
-
----
-
 ## Priority Order
 
 1. State private methods (highest value — core game logic, most complex)
 2. Balancing & constants validation (catches data integrity bugs)
 3. Locale consistency (catches missing translations)
-4. Production/consumption models (lowest priority — trivial classes)
