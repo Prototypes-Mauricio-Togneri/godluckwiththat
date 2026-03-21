@@ -27,6 +27,6 @@ Read `docs/architecture.md` (visual design, class architecture, game mechanics) 
 - **Getters**: Prefer getters over methods for parameterless functions that only read instance state and return a computed value (no side effects).
 - **Strict Scope**: Do not add features, refactor, or reorganize beyond what was explicitly requested.
 - **UI/UX**: Always use the `frontend-design` skill when changing the UI.
-- **Lint**: After editing code, run `npm run lint -- --fix` and fix remaining errors.
+- **Lint**: After editing code, run `npm run lint-fix` and fix remaining errors.
 - **Code Review**: After completing code changes, run /delta-review before responding.
 - **Doc Maintenance**: After changes, check if `CLAUDE.md`, `docs/architecture.md`, and `docs/specs.md` need updating.
