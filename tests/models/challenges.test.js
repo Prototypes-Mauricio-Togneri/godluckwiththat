@@ -1,0 +1,175 @@
+import {describe, it, expect} from 'vitest'
+import {CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_COMPLETED, CHALLENGE_STATUS_STARTED} from '@/js/engine/enums.js'
+import Challenges from '@/js/models/challenges.js'
+import {createBlessing, createChallenge, createChallenges, createPunishment} from '../helpers/factories.js'
+
+describe('Challenges', () => {
+  describe('totalCount', () => {
+    it('should count pending, active, and completed', () => {
+      const challenges = createChallenges({
+        pending: [
+          createChallenge(),
+          createChallenge(),
+        ],
+        active: createChallenge(),
+        completed: [createChallenge()],
+      })
+      expect(challenges.totalCount).toBe(4)
+    })
+
+    it('should handle null active', () => {
+      const challenges = createChallenges({
+        pending: [createChallenge()],
+      })
+      expect(challenges.totalCount).toBe(1)
+    })
+  })
+
+  describe('allCompleted', () => {
+    it('should return true when no pending and no active', () => {
+      const challenges = createChallenges({
+        completed: [createChallenge()],
+      })
+      expect(challenges.allCompleted).toBe(true)
+    })
+
+    it('should return false when pending challenges exist', () => {
+      const challenges = createChallenges({
+        pending: [createChallenge()],
+      })
+      expect(challenges.allCompleted).toBe(false)
+    })
+
+    it('should return false when active challenge exists', () => {
+      const challenges = createChallenges({
+        active: createChallenge(),
+      })
+      expect(challenges.allCompleted).toBe(false)
+    })
+  })
+
+  describe('activate', () => {
+    it('should move first pending challenge to active', () => {
+      const challenge = createChallenge({
+        index: 1,
+      })
+      const challenges = createChallenges({
+        pending: [challenge],
+      })
+      challenges.activate()
+      expect(challenges.active).toBe(challenge)
+      expect(challenges.active.status).toBe(CHALLENGE_STATUS_ACTIVATED)
+      expect(challenges.pending).toHaveLength(0)
+    })
+
+    it('should do nothing when no pending challenges', () => {
+      const challenges = createChallenges()
+      challenges.activate()
+      expect(challenges.active).toBeNull()
+    })
+  })
+
+  describe('start', () => {
+    it('should transition active challenge to started', () => {
+      const challenges = createChallenges({
+        active: createChallenge({
+          status: CHALLENGE_STATUS_ACTIVATED,
+        }),
+      })
+      challenges.start()
+      expect(challenges.active.status).toBe(CHALLENGE_STATUS_STARTED)
+    })
+
+    it('should do nothing when no active challenge', () => {
+      const challenges = createChallenges()
+      challenges.start()
+      expect(challenges.active).toBeNull()
+    })
+  })
+
+  describe('complete', () => {
+    it('should move active to completed and store blessing', () => {
+      const challenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+      })
+      const challenges = createChallenges({
+        active: challenge,
+      })
+      const blessing = createBlessing()
+      challenges.complete(blessing)
+      expect(challenges.active).toBeNull()
+      expect(challenges.completed).toHaveLength(1)
+      expect(challenges.completed[0].status).toBe(CHALLENGE_STATUS_COMPLETED)
+      expect(challenges.activeBlessings).toHaveLength(1)
+    })
+  })
+
+  describe('fail', () => {
+    it('should reset active challenge and store punishment', () => {
+      const challenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        delayElapsed: 50,
+        timeoutElapsed: 200,
+      })
+      const challenges = createChallenges({
+        active: challenge,
+      })
+      const punishment = createPunishment()
+      challenges.fail(punishment)
+      expect(challenges.active.status).toBe(CHALLENGE_STATUS_ACTIVATED)
+      expect(challenges.active.delayElapsed).toBe(0)
+      expect(challenges.activePunishments).toHaveLength(1)
+    })
+  })
+
+  describe('advance', () => {
+    it('should advance delay timer when activated', () => {
+      const challenge = createChallenge({
+        status: CHALLENGE_STATUS_ACTIVATED,
+        delayElapsed: 10,
+      })
+      const challenges = createChallenges({
+        active: challenge,
+      })
+      challenges.advance(5)
+      expect(challenges.active.delayElapsed).toBe(15)
+    })
+
+    it('should advance timeout timer when started', () => {
+      const challenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        timeoutElapsed: 10,
+      })
+      const challenges = createChallenges({
+        active: challenge,
+      })
+      challenges.advance(5)
+      expect(challenges.active.timeoutElapsed).toBe(15)
+    })
+
+    it('should do nothing when no active challenge', () => {
+      const challenges = createChallenges()
+      challenges.advance(5)
+      expect(challenges.active).toBeNull()
+    })
+  })
+
+  describe('fromJSON / toJSON', () => {
+    it('should round-trip through serialization', () => {
+      const challenge = createChallenge({
+        status: CHALLENGE_STATUS_ACTIVATED,
+        delayElapsed: 20,
+      })
+      const original = createChallenges({
+        active: challenge,
+        activeBlessings: [createBlessing()],
+        activePunishments: [createPunishment()],
+      })
+      const json = original.toJSON()
+      const restored = Challenges.fromJSON(json)
+      expect(restored.active.delayElapsed).toBe(20)
+      expect(restored.activeBlessings).toHaveLength(1)
+      expect(restored.activePunishments).toHaveLength(1)
+    })
+  })
+})
