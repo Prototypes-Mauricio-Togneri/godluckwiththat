@@ -1,7 +1,7 @@
 import {describe, it, expect} from 'vitest'
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
-import {BUILDING_CLASS_MAP, createInitialColony, createInitialColonyBasic, createInitialColonyAdvanced, createInitialMeta, createInitialChallenges} from '@/js/engine/constants.js'
-import {BUILDING_HEADQUARTERS, HQ_TYPE_CAMP, HQ_TYPE_CITY} from '@/js/engine/enums.js'
+import {BUILDING_CLASS_MAP, TUTORIAL_STEPS, createInitialColony, createInitialColonyBasic, createInitialColonyAdvanced, createInitialMeta, createInitialChallenges} from '@/js/engine/constants.js'
+import {BUILDING_HEADQUARTERS, HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT} from '@/js/engine/enums.js'
 import Colony from '@/js/models/colony.js'
 import Meta from '@/js/models/meta.js'
 import Challenges from '@/js/models/challenges.js'
@@ -99,6 +99,28 @@ describe('constants', () => {
         expect(colony.resources.iron).toBe(1000)
         expect(colony.resources.gold).toBe(1000)
       })
+    })
+  })
+
+  describe('TUTORIAL_STEPS', () => {
+    it('upgradeCamp check returns true when HQ type is not camp', () => {
+      const upgradeCampStep = TUTORIAL_STEPS.find(step => step.building === BUILDING_HEADQUARTERS && step.textKey === 'tutorial.step.upgradeCamp')
+      const buildings = {
+        headquarters: {
+          type: HQ_TYPE_SETTLEMENT,
+        },
+      }
+      expect(upgradeCampStep.check(buildings)).toBe(true)
+    })
+
+    it('upgradeCamp check returns false when HQ type is camp', () => {
+      const upgradeCampStep = TUTORIAL_STEPS.find(step => step.building === BUILDING_HEADQUARTERS && step.textKey === 'tutorial.step.upgradeCamp')
+      const buildings = {
+        headquarters: {
+          type: HQ_TYPE_CAMP,
+        },
+      }
+      expect(upgradeCampStep.check(buildings)).toBe(false)
     })
   })
 })
