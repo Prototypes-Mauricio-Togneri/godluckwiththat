@@ -78,28 +78,6 @@ Add dedicated test cases for the private helper methods in `State`. These are cu
 
 ---
 
-## 2. Balancing & Constants Validation (`tests/engine/balancing.test.js`, `tests/engine/constants.test.js`)
-
-Structural integrity tests — not testing logic, but validating data consistency.
-
-### `balancing.test.js`
-
-- Every key in `BUILDING_UPGRADES` corresponds to a valid `BUILDING_*` enum
-- All `baseCost` values are `Cost` instances with positive values
-- All `costMultiplier` values are > 1
-- Season multiplier values are between 0 and 2
-- Trade fee values are between 0 and 1
-
-### `constants.test.js`
-
-- Every key in `BUILDING_CLASS_MAP` is a valid `BUILDING_*` enum
-- Every value in `BUILDING_CLASS_MAP` is a constructor function
-- No orphaned keys between `BUILDING_CLASS_MAP` and `BUILDING_UPGRADES`
-- Factory functions return correct class instances
-
----
-
 ## Priority Order
 
 1. State private methods (highest value — core game logic, most complex)
-2. Balancing & constants validation (catches data integrity bugs)
