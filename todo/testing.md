@@ -5,53 +5,6 @@ All new tests go into existing test files following the project's conventions (s
 
 ---
 
-## Phase 1 — `state.js` public methods (highest impact)
-
-These three methods are untested player actions. Each is ~20 lines and has multiple guard branches.
-File: `tests/engine/state.test.js`
-
-### 1.1 `expandTerritory`
-
-Add a `describe('expandTerritory', ...)` block with:
-
-- should deduct expansion cost and start HQ construction
-- should add headquarters to constructing keys
-- should create a future `EVENT_TYPE_BUILDING_UPGRADE` event with `event.territoryExpanding` text
-- should dismiss existing `EVENT_TYPE_BUILDING_UPGRADE` past events
-- should call `update(0)` after expansion (verify resource caps recomputed)
-- should reject when HQ is already constructing
-- should reject when HQ is upgrading
-- should reject when resources insufficient
-
-### 1.2 `upgradeHeadquarters`
-
-Add a `describe('upgradeHeadquarters', ...)` block with:
-
-- should deduct upgrade cost and start HQ type upgrade
-- should set `_hqUpgrading` to true
-- should create a future `EVENT_TYPE_BUILDING_UPGRADE` event with `event.buildingUpgrading` text
-- should dismiss existing `EVENT_TYPE_BUILDING_UPGRADE` past events
-- should call `update(0)` after upgrade
-- should reject when HQ is already constructing
-- should reject when HQ is already upgrading
-- should reject when HQ is at max type (`upgradeCost` returns null)
-- should reject when resources insufficient
-
-### 1.3 `downgradeBuilding`
-
-Add a `describe('downgradeBuilding', ...)` block with:
-
-- should decrement building level by 1
-- should cap workers at new `maxWorkers` when workers exceed it
-- should dismiss `EVENT_TYPE_TERRITORY_LIMIT_REACHED` past events
-- should call `update(0)` after downgrade
-- should reject when building key is not in `DOWNGRADABLE_BUILDINGS`
-- should reject when building level is 0
-- should reject when building is constructing
-- should reject when territory is not at cap (guard condition: `resources.territory < hq.territoryCap + resources.territoryBonus`)
-
----
-
 ## Phase 2 — `state.js` private helper methods
 
 File: `tests/engine/state.test.js`

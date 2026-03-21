@@ -1,6 +1,7 @@
 import {describe, it, expect, vi, beforeEach} from 'vitest'
-import {BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BUILDING_FARM, BUILDING_HOUSE, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, HQ_TYPE_CAMP, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
-import {SEASON_DURATION, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import {BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BUILDING_FARM, BUILDING_HEADQUARTERS, BUILDING_HOUSE, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
+import {HQ_TERRITORY_PER_LEVEL, SEASON_DURATION, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import {DOWNGRADABLE_BUILDINGS} from '@/js/engine/constants.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
 import Archery from '@/js/models/buildings/archery.js'
@@ -2771,6 +2772,557 @@ describe('State', () => {
       state.colony.buildings.house.workersCap = 10
       state._recruit()
       expect(state.colony.resources.food).toBe(150)
+    })
+  })
+
+  // ── expandTerritory ────────────────────────────────────────────
+
+  describe('expandTerritory', () => {
+    it('should deduct expansion cost and start HQ construction', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 5000,
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      const foodBefore = state.colony.resources.food
+      const woodBefore = state.colony.resources.wood
+      state.expandTerritory()
+      expect(state.colony.resources.food).toBeLessThan(foodBefore)
+      expect(state.colony.resources.wood).toBeLessThan(woodBefore)
+      expect(state.colony.buildings.headquarters.isConstructing).toBe(true)
+    })
+
+    it('should add headquarters to constructing keys', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 5000,
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      state.expandTerritory()
+      expect(state._constructingKeys.has(BUILDING_HEADQUARTERS)).toBe(true)
+    })
+
+    it('should create a future EVENT_TYPE_BUILDING_UPGRADE event with event.territoryExpanding text', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 5000,
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      state.expandTerritory()
+      const futureEvent = state.colony.events.future.find(
+        event => event.type === EVENT_TYPE_BUILDING_UPGRADE,
+      )
+      expect(futureEvent).toBeDefined()
+      expect(futureEvent.textKey).toBe('event.territoryExpanding')
+      expect(futureEvent.buildingKey).toBe(BUILDING_HEADQUARTERS)
+    })
+
+    it('should dismiss existing EVENT_TYPE_BUILDING_UPGRADE past events', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 5000,
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      state.colony.events.addPast({
+        type: EVENT_TYPE_BUILDING_UPGRADE,
+        textKey: 'event.territoryExpanded',
+        icon: '',
+      })
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_BUILDING_UPGRADE)).toBe(true)
+      state.expandTerritory()
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_BUILDING_UPGRADE)).toBe(false)
+    })
+
+    it('should call update(0) after expansion', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 5000,
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      const updateSpy = vi.spyOn(state, 'update')
+      state.expandTerritory()
+      expect(updateSpy).toHaveBeenCalledWith(0)
+    })
+
+    it('should reject when HQ is already constructing', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 5000,
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      state.colony.buildings.headquarters.constructionRemaining = 10
+      const foodBefore = state.colony.resources.food
+      state.expandTerritory()
+      expect(state.colony.resources.food).toBe(foodBefore)
+    })
+
+    it('should reject when HQ is upgrading', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 5000,
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      state.colony.buildings.headquarters.upgradeRemaining = 10
+      const foodBefore = state.colony.resources.food
+      state.expandTerritory()
+      expect(state.colony.resources.food).toBe(foodBefore)
+    })
+
+    it('should reject when resources insufficient', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 0,
+            wood: 0,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      state.expandTerritory()
+      expect(state.colony.buildings.headquarters.isConstructing).toBe(false)
+    })
+  })
+
+  // ── upgradeHeadquarters ────────────────────────────────────────
+
+  describe('upgradeHeadquarters', () => {
+    it('should deduct upgrade cost and start HQ type upgrade', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      const woodBefore = state.colony.resources.wood
+      state.upgradeHeadquarters()
+      expect(state.colony.resources.wood).toBeLessThan(woodBefore)
+      expect(state.colony.buildings.headquarters.isUpgrading).toBe(true)
+    })
+
+    it('should set _hqUpgrading to true', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      expect(state._hqUpgrading).toBe(false)
+      state.upgradeHeadquarters()
+      expect(state._hqUpgrading).toBe(true)
+    })
+
+    it('should create a future EVENT_TYPE_BUILDING_UPGRADE event with event.buildingUpgrading text', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      state.upgradeHeadquarters()
+      const futureEvent = state.colony.events.future.find(
+        event => event.type === EVENT_TYPE_BUILDING_UPGRADE,
+      )
+      expect(futureEvent).toBeDefined()
+      expect(futureEvent.textKey).toBe('event.buildingUpgrading')
+      expect(futureEvent.buildingKey).toBe(BUILDING_HEADQUARTERS)
+    })
+
+    it('should dismiss existing EVENT_TYPE_BUILDING_UPGRADE past events', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      state.colony.events.addPast({
+        type: EVENT_TYPE_BUILDING_UPGRADE,
+        textKey: 'event.territoryExpanded',
+        icon: '',
+      })
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_BUILDING_UPGRADE)).toBe(true)
+      state.upgradeHeadquarters()
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_BUILDING_UPGRADE)).toBe(false)
+    })
+
+    it('should call update(0) after upgrade', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      const updateSpy = vi.spyOn(state, 'update')
+      state.upgradeHeadquarters()
+      expect(updateSpy).toHaveBeenCalledWith(0)
+    })
+
+    it('should reject when HQ is already constructing', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      state.colony.buildings.headquarters.constructionRemaining = 10
+      const woodBefore = state.colony.resources.wood
+      state.upgradeHeadquarters()
+      expect(state.colony.resources.wood).toBe(woodBefore)
+    })
+
+    it('should reject when HQ is already upgrading', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      state.colony.buildings.headquarters.upgradeRemaining = 10
+      const woodBefore = state.colony.resources.wood
+      state.upgradeHeadquarters()
+      expect(state.colony.resources.wood).toBe(woodBefore)
+    })
+
+    it('should reject when HQ is at max type', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            wood: 50000,
+            stone: 50000,
+            copper: 50000,
+            iron: 50000,
+            gold: 50000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CITY,
+            },
+          },
+        },
+      })
+      const woodBefore = state.colony.resources.wood
+      state.upgradeHeadquarters()
+      expect(state.colony.resources.wood).toBe(woodBefore)
+      expect(state._hqUpgrading).toBe(false)
+    })
+
+    it('should reject when resources insufficient', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            wood: 0,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+          },
+        },
+      })
+      state.upgradeHeadquarters()
+      expect(state.colony.buildings.headquarters.isUpgrading).toBe(false)
+    })
+  })
+
+  // ── downgradeBuilding ──────────────────────────────────────────
+
+  describe('downgradeBuilding', () => {
+    it('should decrement building level by 1', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            territory: HQ_TERRITORY_PER_LEVEL,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+            farm: {
+              level: 2,
+            },
+          },
+        },
+      })
+      state.downgradeBuilding(BUILDING_FARM)
+      expect(state.colony.buildings.farm.level).toBe(1)
+    })
+
+    it('should cap workers at new maxWorkers when workers exceed it', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            territory: HQ_TERRITORY_PER_LEVEL,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+            farm: {
+              level: 2,
+            },
+          },
+        },
+      })
+      state.colony.buildings.farm.workers = 10
+      state.downgradeBuilding(BUILDING_FARM)
+      expect(state.colony.buildings.farm.workers).toBeLessThanOrEqual(
+        state.colony.buildings.farm.maxWorkers,
+      )
+    })
+
+    it('should dismiss EVENT_TYPE_TERRITORY_LIMIT_REACHED past events', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            territory: HQ_TERRITORY_PER_LEVEL,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+            farm: {
+              level: 2,
+            },
+          },
+        },
+      })
+      state.colony.events.addPast({
+        type: EVENT_TYPE_TERRITORY_LIMIT_REACHED,
+        textKey: 'event.territoryLimitReached',
+        icon: '',
+      })
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_TERRITORY_LIMIT_REACHED)).toBe(true)
+      state.downgradeBuilding(BUILDING_FARM)
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_TERRITORY_LIMIT_REACHED)).toBe(false)
+    })
+
+    it('should call update(0) after downgrade', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            territory: HQ_TERRITORY_PER_LEVEL,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+            farm: {
+              level: 2,
+            },
+          },
+        },
+      })
+      const updateSpy = vi.spyOn(state, 'update')
+      state.downgradeBuilding(BUILDING_FARM)
+      expect(updateSpy).toHaveBeenCalledWith(0)
+    })
+
+    it('should reject when building key is not in DOWNGRADABLE_BUILDINGS', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            territory: HQ_TERRITORY_PER_LEVEL,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+            house: {
+              level: 2,
+            },
+          },
+        },
+      })
+      expect(DOWNGRADABLE_BUILDINGS.has(BUILDING_HOUSE)).toBe(false)
+      state.downgradeBuilding(BUILDING_HOUSE)
+      expect(state.colony.buildings.house.level).toBe(2)
+    })
+
+    it('should reject when building level is 0', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            territory: HQ_TERRITORY_PER_LEVEL,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+            farm: {
+              level: 0,
+            },
+          },
+        },
+      })
+      state.downgradeBuilding(BUILDING_FARM)
+      expect(state.colony.buildings.farm.level).toBe(0)
+    })
+
+    it('should reject when building is constructing', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            territory: HQ_TERRITORY_PER_LEVEL,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+            farm: {
+              level: 2,
+            },
+          },
+        },
+      })
+      state.colony.buildings.farm.constructionRemaining = 10
+      state.downgradeBuilding(BUILDING_FARM)
+      expect(state.colony.buildings.farm.level).toBe(2)
+    })
+
+    it('should reject when territory is not at cap', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            territory: 0,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+            farm: {
+              level: 2,
+            },
+          },
+        },
+      })
+      state.downgradeBuilding(BUILDING_FARM)
+      expect(state.colony.buildings.farm.level).toBe(2)
     })
   })
 })
