@@ -6,17 +6,6 @@ Close the 51 uncovered lines in `state.js` (89.5% → ~100% statements) and the 
 
 ---
 
-## Step 7: `checkTutorial` — tutorial completion branch
-
-**File**: `tests/engine/state.test.js`
-**Uncovered lines**: 1215–1217
-
-Add test inside `describe('checkTutorial')`:
-
-1. **All steps completed**: Set building state so every `TUTORIAL_STEPS[i].check()` returns true (HQ level >= 2, house level >= 1, farm level >= 1, HQ type !== camp). Call `checkTutorial()`. Assert `tutorial.completed === true` and `storage.tutorialCompleted === true`.
-
----
-
 ## Step 8: `levelUpBuilding` — territory limit event
 
 **File**: `tests/engine/state.test.js`
@@ -43,9 +32,8 @@ Add test inside `describe('factory functions')` or a new `describe('TUTORIAL_STE
 
 | Step | Target | Lines Covered | New Tests |
 |------|--------|---------------|-----------|
-| 7 | `checkTutorial` completion | 1215–1217 | 1 |
 | 8 | `levelUpBuilding` territory event | 957, 962 | 1 |
 | 9 | `constants.js` tutorial step | 766 | 1 |
-| **Total** | | | **3 tests** |
+| **Total** | | | **2 tests** |
 
 Expected result: `state.js` → ~100% statements/lines, `constants.js` → 100%. Overall coverage → ~99%+ statements.
