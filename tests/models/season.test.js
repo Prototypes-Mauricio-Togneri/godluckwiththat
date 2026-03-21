@@ -90,6 +90,38 @@ describe('Season', () => {
       season.advance(10)
       expect(season.seasonElapsed).toBe(5)
     })
+
+    it('should flip exactly once even when delta exceeds season duration', () => {
+      const season = createSeason({
+        currentSeason: SEASON_WARM,
+        seasonElapsed: 0,
+      })
+      season.advance(SEASON_DURATION + 50)
+      expect(season.currentSeason).toBe(SEASON_COLD)
+      expect(season.seasonElapsed).toBe(50)
+    })
+
+    it('should accumulate elapsed across multiple small ticks without flipping', () => {
+      const season = createSeason({
+        currentSeason: SEASON_WARM,
+        seasonElapsed: 0,
+      })
+      for (let i = 0; i < 10; i++) {
+        season.advance(1)
+      }
+      expect(season.currentSeason).toBe(SEASON_WARM)
+      expect(season.seasonElapsed).toBe(10)
+    })
+
+    it('should flip at exact boundary with zero carry-over', () => {
+      const season = createSeason({
+        currentSeason: SEASON_WARM,
+        seasonElapsed: 0,
+      })
+      season.advance(SEASON_DURATION)
+      expect(season.currentSeason).toBe(SEASON_COLD)
+      expect(season.seasonElapsed).toBe(0)
+    })
   })
 
   describe('toJSON', () => {

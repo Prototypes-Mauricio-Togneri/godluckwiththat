@@ -100,6 +100,23 @@ describe('Resources', () => {
       resources.deduct(cost)
       expect(resources.stone).toBe(50)
     })
+
+    it('should clamp each resource independently when some are insufficient', () => {
+      const resources = createResources({
+        food: 5,
+        wood: 200,
+        stone: 0,
+      })
+      const cost = createCost({
+        food: 50,
+        wood: 30,
+        stone: 10,
+      })
+      resources.deduct(cost)
+      expect(resources.food).toBe(0)
+      expect(resources.wood).toBe(170)
+      expect(resources.stone).toBe(0)
+    })
   })
 
   describe('toJSON', () => {

@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest'
-import {MARKET_BASE_FEE, MARKET_BASE_PRICES, MARKET_MIN_FEE, MARKET_PRICE_SHIFT, MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
+import {MARKET_BASE_FEE, MARKET_BASE_PRICES, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_MIN_FEE, MARKET_PRICE_SHIFT, MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
 import {RESOURCE_FOOD, RESOURCE_WOOD, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
 import Cost from '@/js/models/cost.js'
 import Market from '@/js/models/buildings/market.js'
@@ -72,6 +72,24 @@ describe('Market', () => {
       const buyPrice = market.buyPrice(RESOURCE_FOOD)
       expect(buyPrice).toBeGreaterThan(basePrice)
     })
+
+    it('should equal base price when fee is zero (blessed)', () => {
+      const market = new Market({
+        level: 1,
+      })
+      market.blessedMarkets = true
+      const basePrice = market[RESOURCE_FOOD]
+      expect(market.buyPrice(RESOURCE_FOOD)).toBe(basePrice)
+    })
+
+    it('should use minimum fee at very high level', () => {
+      const market = new Market({
+        level: 100,
+      })
+      const basePrice = market[RESOURCE_FOOD]
+      const expected = Math.floor(basePrice * (1 + MARKET_MIN_FEE))
+      expect(market.buyPrice(RESOURCE_FOOD)).toBe(expected)
+    })
   })
 
   describe('sellPrice', () => {
@@ -82,6 +100,24 @@ describe('Market', () => {
       const basePrice = market[RESOURCE_FOOD]
       const sellPrice = market.sellPrice(RESOURCE_FOOD)
       expect(sellPrice).toBeLessThan(basePrice)
+    })
+
+    it('should equal base price when fee is zero (blessed)', () => {
+      const market = new Market({
+        level: 1,
+      })
+      market.blessedMarkets = true
+      const basePrice = market[RESOURCE_FOOD]
+      expect(market.sellPrice(RESOURCE_FOOD)).toBe(basePrice)
+    })
+
+    it('should use minimum fee at very high level', () => {
+      const market = new Market({
+        level: 100,
+      })
+      const basePrice = market[RESOURCE_FOOD]
+      const expected = Math.floor(basePrice * (1 - MARKET_MIN_FEE))
+      expect(market.sellPrice(RESOURCE_FOOD)).toBe(expected)
     })
   })
 
@@ -176,6 +212,70 @@ describe('Market', () => {
       })
       expect(market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 10000, 0)).toBe(false)
       expect(market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 10000, 50)).toBe(false)
+    })
+
+    it('should succeed when gold exactly covers buy price', () => {
+      const market = new Market({
+        level: 1,
+      })
+      const exactGold = market.buyPrice(RESOURCE_FOOD)
+      const resources = createResources({
+        gold: exactGold,
+        food: 0,
+      })
+      expect(market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 10000)).toBe(true)
+      expect(resources.gold).toBe(0)
+      expect(resources.food).toBe(MARKET_TRADE_AMOUNT)
+    })
+
+    it('should reject sell when gold gained would exceed storage cap', () => {
+      const market = new Market({
+        level: 1,
+      })
+      const resources = createResources({
+        gold: 990,
+        food: 500,
+      })
+      expect(market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, 1000)).toBe(false)
+    })
+
+    it('should clamp price at maximum after repeated buys', () => {
+      const market = new Market({
+        level: 1,
+        [RESOURCE_FOOD]: MARKET_MAX_CURRENT_PRICE,
+      })
+      const resources = createResources({
+        gold: 99999,
+        food: 0,
+      })
+      market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 99999)
+      expect(market[RESOURCE_FOOD]).toBe(MARKET_MAX_CURRENT_PRICE)
+    })
+
+    it('should clamp price at minimum after repeated sells', () => {
+      const market = new Market({
+        level: 1,
+        [RESOURCE_FOOD]: MARKET_MIN_CURRENT_PRICE,
+      })
+      const resources = createResources({
+        gold: 0,
+        food: 500,
+      })
+      market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, 99999)
+      expect(market[RESOURCE_FOOD]).toBe(MARKET_MIN_CURRENT_PRICE)
+    })
+
+    it('should accept valid multi-unit trades', () => {
+      const market = new Market({
+        level: 1,
+      })
+      const resources = createResources({
+        gold: 99999,
+        food: 0,
+      })
+      const amount = MARKET_TRADE_AMOUNT * 3
+      expect(market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 99999, amount)).toBe(true)
+      expect(resources.food).toBe(amount)
     })
   })
 

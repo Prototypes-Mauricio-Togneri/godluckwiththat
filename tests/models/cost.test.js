@@ -92,6 +92,18 @@ describe('Cost', () => {
       expect(result.food).toBe(0)
       expect(result.wood).toBe(0)
     })
+
+    it('should shrink values with factor less than 1', () => {
+      const cost = createCost({
+        food: 100,
+        wood: 50,
+        stone: 1,
+      })
+      const result = cost.multiplyFloor(0.5)
+      expect(result.food).toBe(50)
+      expect(result.wood).toBe(25)
+      expect(result.stone).toBe(0)
+    })
   })
 
   describe('toSeconds', () => {
@@ -127,6 +139,18 @@ describe('Cost', () => {
         stone: 7,
       })
       expect(Number.isInteger(cost.toSeconds)).toBe(true)
+    })
+
+    it('should only weight non-zero resources', () => {
+      const withZeros = createCost({
+        food: 100,
+        wood: 0,
+        stone: 0,
+      })
+      const foodOnly = createCost({
+        food: 100,
+      })
+      expect(withZeros.toSeconds).toBe(foodOnly.toSeconds)
     })
   })
 })

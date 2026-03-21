@@ -67,6 +67,26 @@ describe('Challenges', () => {
       challenges.activate()
       expect(challenges.active).toBeNull()
     })
+
+    it('should replace active when called with existing active and pending', () => {
+      const first = createChallenge({
+        index: 1,
+      })
+      const second = createChallenge({
+        index: 2,
+      })
+      const challenges = createChallenges({
+        pending: [
+          first,
+          second,
+        ],
+      })
+      challenges.activate()
+      expect(challenges.active).toBe(first)
+      challenges.activate()
+      expect(challenges.active).toBe(second)
+      expect(challenges.pending).toHaveLength(0)
+    })
   })
 
   describe('start', () => {
@@ -102,6 +122,14 @@ describe('Challenges', () => {
       expect(challenges.completed[0].status).toBe(CHALLENGE_STATUS_COMPLETED)
       expect(challenges.activeBlessings).toHaveLength(1)
     })
+
+    it('should do nothing when no active challenge', () => {
+      const challenges = createChallenges()
+      const blessing = createBlessing()
+      challenges.complete(blessing)
+      expect(challenges.completed).toHaveLength(0)
+      expect(challenges.activeBlessings).toHaveLength(0)
+    })
   })
 
   describe('fail', () => {
@@ -119,6 +147,13 @@ describe('Challenges', () => {
       expect(challenges.active.status).toBe(CHALLENGE_STATUS_ACTIVATED)
       expect(challenges.active.delayElapsed).toBe(0)
       expect(challenges.activePunishments).toHaveLength(1)
+    })
+
+    it('should do nothing when no active challenge', () => {
+      const challenges = createChallenges()
+      const punishment = createPunishment()
+      challenges.fail(punishment)
+      expect(challenges.activePunishments).toHaveLength(0)
     })
   })
 
