@@ -20,12 +20,14 @@ Tests cover the **engine layer** and **model layer** — pure JavaScript classes
 
 ### Engine (`tests/engine/`)
 
-| File             | Covers                                                                                                                                            |
-|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| `enums.test.js`  | All exported enum values match expected strings                                                                                                   |
-| `format.test.js` | `formatTime`, `formatNumber`, `formatNumberFull`, `formatMinutes`, `formatRate`                                                                   |
-| `utils.test.js`  | `canAffordCost`                                                                                                                                   |
-| `state.test.js`  | Game state machine: tick logic, season transitions, building construction, worker recruitment, trading, challenge lifecycle, tutorial progression |
+| File                | Covers                                                                                                                                            |
+|---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| `enums.test.js`     | All exported enum values match expected strings (resources, HQ types, seasons, buildings, trade, challenge status, blessings, punishments, symbols) |
+| `format.test.js`    | `formatTime`, `formatNumber`, `formatNumberFull`, `formatMinutes`, `formatRate`                                                                   |
+| `utils.test.js`     | `canAffordCost`                                                                                                                                   |
+| `balancing.test.js` | `BUILDING_UPGRADES` keys/values, season multiplier ranges, trade fee ranges                                                                      |
+| `constants.test.js` | `BUILDING_CLASS_MAP` keys/values, consistency with `BUILDING_UPGRADES`, factory functions (`createInitialColony`, `createInitialMeta`, `createInitialChallenges`) |
+| `state.test.js`     | Game state machine: tick logic, season transitions, building construction, research, worker recruitment, trading, challenge lifecycle, tutorial progression, production/consumption rates, blessing/punishment effects |
 
 ### Models (`tests/models/`)
 
@@ -39,34 +41,45 @@ Tests cover the **engine layer** and **model layer** — pure JavaScript classes
 | `blessing.test.js`   | Constructor, optional fields, `fromJSON`/`toJSON`                         |
 | `punishment.test.js` | Constructor, serialization                                                |
 | `challenge.test.js`  | Constructor, `isDelayElapsed`, `isTimeoutElapsed`, `reset`, serialization |
-| `challenges.test.js` | Collection-level logic                                                    |
-| `meta.test.js`       | Meta/prestige model                                                       |
-| `tutorial.test.js`   | Tutorial step progression                                                 |
+| `challenges.test.js` | `totalCount`, `allCompleted`, `activate`, `start`, `complete`, `fail`, `advance`, serialization |
+| `meta.test.js`       | Constructor, `gameSpeed` defaults, `fromJSON`/`toJSON` round-trip         |
+| `tutorial.test.js`   | Constructor defaults, `isActive`, `dismissedModals` serialization         |
+| `production.test.js` | Constructor defaults and overrides                                        |
+| `consumption.test.js`| Constructor defaults and overrides                                        |
+| `serialization.test.js` | Robustness: missing fields, extra fields, null/undefined inputs for all model classes (Blessing, Punishment, Challenge, Challenges, Tutorial, Resources, Season, Meta, Buildings, Headquarters, Market, Events, EventFuture, EventPast, Colony) |
 
 ### Buildings (`tests/models/buildings/`)
 
 Every building class has its own test file. Tests verify:
 
 - **`levelUpCost`**: returns a `Cost` instance, matches the `baseCost * multiplier ^ level` formula from `balancing.js`, increases with level
-- **Building-specific getters**: e.g. `storageCap`, `populationCap`, `maxWorkers`, `productionRate`
+- **Building-specific getters/methods**: e.g. `storageCap`, `populationCap`, `maxWorkers`, `effectiveTradeFee`, `buyPrice`/`sellPrice`, `executeTrade`, `upgradeCost`, `nextType`, `isUpgrading`, `territoryCap`
 - **Serialization**: `toJSON` snapshots
 
-The base classes `building.test.js` and `producer.test.js` cover shared behavior: `isUnbuilt`, `isConstructing`, `levelUp`, `advance` (construction tick), and worker-related fields.
+Notable depth by file:
+
+- `building.test.js` / `producer.test.js` — base classes: `isUnbuilt`, `isConstructing`, `levelUp`, `advance` (construction tick), worker fields (`maxWorkers`, `isEmpty`, `isFull`)
+- `headquarters.test.js` — `isUpgrading`, `isMaxType`, `territoryCap`, `levelUpCost`, `upgradeCost`, `nextType`, `upgradeType`, `advanceUpgrade`, `toJSON`
+- `market.test.js` — `effectiveTradeFee`, `buyPrice`, `sellPrice`, `executeTrade` (buy/sell success, rejection conditions, price clamping, multi-unit trades), `toJSON`
+- `academy.test.js` — constructor (completed/active restoration), `isCompleted`, `isActive`, `canResearch`, `start`, `complete`, `completedBonuses` (aggregation, caching), `toJSON`
+- `storehouse.test.js` — `storageCap` (base, level scaling, bonus, floor), `levelUpCost`
+- `house.test.js` — `populationCap` (base, bonus, unbuilt), `levelUpCost`
 
 ### Events (`tests/models/events/`)
 
 | File                   | Covers                                               |
 |------------------------|------------------------------------------------------|
 | `event.test.js`        | Constructor, required/optional fields, serialization |
-| `event_future.test.js` | Future event model                                   |
-| `event_past.test.js`   | Past event model                                     |
-| `events.test.js`       | Event collection                                     |
+| `event_future.test.js` | Constructor, `remainingSeconds`, `advance` (decrement, clamp), `toJSON` |
+| `event_past.test.js`   | Constructor, inherits Event fields                                      |
+| `events.test.js`       | `addFuture`, `addPast`, `convertToPast`, `dismissFutureByType`/`ByBuildingKey`/`ByResearchKey`, `dismiss`, `hasPastEvent`, `dismissPastByType`/`ByTextKey`, `dismissAllPast`, `advance`, `sortedFuture`/`sortedPast`, serialization |
 
 ### i18n (`tests/i18n/`)
 
 | File                | Covers                                                                                                   |
 |---------------------|----------------------------------------------------------------------------------------------------------|
-| `localized.test.js` | Language resolution (browser language, region suffix, fallback to English), `t()` parameter substitution |
+| `localized.test.js`   | Language resolution (browser language, region suffix, fallback to English), `t()` parameter substitution |
+| `locale_keys.test.js` | Key consistency across all locale files: every non-en locale has all en keys, no extra keys, no empty strings, all values are strings |
 
 ## What Is Not Tested
 
@@ -78,7 +91,6 @@ The base classes `building.test.js` and `producer.test.js` cover shared behavior
 | `main.js`                      | App bootstrap (Vue mount, game loop `requestAnimationFrame`). Excluded from coverage.                               |
 | `storage.js`                   | `localStorage` wrapper. Mocked in tests that depend on it. Excluded from coverage.                                  |
 | Locale files (`i18n/*.js`)     | Static key-value data. Validated indirectly through `localized.test.js`. Excluded from coverage.                    |
-| `balancing.js`, `constants.js` | Declarative config. Validated indirectly through model and state tests that consume them.                           |
 | E2E / integration              | No browser-level tests. Game is manually tested in the browser.                                                     |
 
 ## Coverage
@@ -99,6 +111,10 @@ Coverage is collected with the `v8` provider and reported as `text` (terminal) a
 ### Factory Helpers (`tests/helpers/factories.js`)
 
 Reusable factory functions (`createCost`, `createResources`, `createSeason`, `createBuilding`, `createProducer`, `createHeadquarters`, `createBlessing`, `createPunishment`, `createChallenge`, `createChallenges`, `createTutorial`) provide sensible defaults with an `overrides` parameter for per-test customization.
+
+### Building Keys (`tests/helpers/building_keys.js`)
+
+Exports `VALID_BUILDING_KEYS` — a `Set` of all 20 `BUILDING_*` enum values. Used by `balancing.test.js` and `constants.test.js` to validate that config objects contain exactly the expected building keys.
 
 ### Mocking
 
