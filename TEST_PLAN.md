@@ -6,26 +6,6 @@ Close the 51 uncovered lines in `state.js` (89.5% → ~100% statements) and the 
 
 ---
 
-## Step 4: `advanceChallenges` — untested paths
-
-**File**: `tests/engine/state.test.js`
-**Uncovered lines**: 644, 652, 659–660, 672, 677
-
-Add tests inside `describe('advanceChallenges')`:
-
-1. **`allCompleted` short-circuit**: Set `challenges.allCompleted` to true (empty pending, no active, non-empty completed). Call `advanceChallenges(1)`. Assert no activation or timer advancement occurs.
-
-2. **No pending challenges, no active**: Empty pending array, null active. Call `advanceChallenges(1)`. Assert early return (no errors).
-
-3. **Delay → started transition**: Set active challenge with `delayElapsed` about to become true. Call `advanceChallenges(delta)` so delay expires. Assert:
-   - `challenges.start()` called (status → started)
-   - `EVENT_TYPE_CHALLENGE_STARTED` future event created with correct params
-   - `SND_NOTIFICATION_ALERT` sound played
-
-4. **Timeout expiry**: Set active challenge with `timeoutElapsed` about to become true, requirements met. Call `advanceChallenges(delta)`. Assert `_resolveChallengeTimeout` path executes (challenge completes or fails).
-
----
-
 ## Step 5: `areChallengeRequirementsMet` — missing requirement types
 
 **File**: `tests/engine/state.test.js`
@@ -87,12 +67,11 @@ Add test inside `describe('factory functions')` or a new `describe('TUTORIAL_STE
 
 | Step | Target | Lines Covered | New Tests |
 |------|--------|---------------|-----------|
-| 4 | `advanceChallenges` paths | 644, 652, 659–660, 672, 677 | 4 |
 | 5 | `areChallengeRequirementsMet` | 715, 718, 731 | 3 |
 | 6 | `assignWorkers` failure | 1098 | 1 |
 | 7 | `checkTutorial` completion | 1215–1217 | 1 |
 | 8 | `levelUpBuilding` territory event | 957, 962 | 1 |
 | 9 | `constants.js` tutorial step | 766 | 1 |
-| **Total** | | | **11 tests** |
+| **Total** | | | **7 tests** |
 
 Expected result: `state.js` → ~100% statements/lines, `constants.js` → 100%. Overall coverage → ~99%+ statements.

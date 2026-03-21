@@ -1,7 +1,7 @@
 import {describe, it, expect, vi, beforeEach} from 'vitest'
-import {BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
+import {BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
 import {HQ_TERRITORY_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, SEASON_DURATION, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
-import {IMG_OTHER_TERRITORY, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
+import {IMG_OTHER_TERRITORY, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import {DOWNGRADABLE_BUILDINGS, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
@@ -919,6 +919,72 @@ describe('State', () => {
       state.challengeModal = CHALLENGE_MODAL_REWARD
       state.advanceChallenges(10)
       expect(state.meta.challenges.active.timeoutElapsed).toBe(0)
+    })
+
+    it('should return early when all challenges completed', async () => {
+      const completedChallenge = createChallenge()
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            completed: [completedChallenge],
+          }),
+        },
+      })
+      state.advanceChallenges(1)
+      expect(state.meta.challenges.active).toBeNull()
+    })
+
+    it('should return early when no pending and no active challenge', async () => {
+      const state = await createState()
+      state.advanceChallenges(1)
+      expect(state.meta.challenges.active).toBeNull()
+    })
+
+    it('should transition to started when delay elapses', async () => {
+      const activeChallenge = createChallenge({
+        status: CHALLENGE_STATUS_ACTIVATED,
+        delay: 60,
+        delayElapsed: 59,
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            active: activeChallenge,
+          }),
+        },
+      })
+      state.advanceChallenges(1)
+      expect(state.meta.challenges.active.status).toBe(CHALLENGE_STATUS_STARTED)
+      expect(state.colony.events.future.some(
+        event => event.type === EVENT_TYPE_CHALLENGE_STARTED,
+      )).toBe(true)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_NOTIFICATION_ALERT)
+    })
+
+    it('should resolve challenge when timeout elapses and requirements met', async () => {
+      const activeChallenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        timeout: 300,
+        timeoutElapsed: 299,
+        requirements: {
+          faith: 50,
+          altar: null,
+          temple: null,
+          monument: null,
+          resources: null,
+          workers: null,
+        },
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            active: activeChallenge,
+          }),
+        },
+      })
+      state.advanceChallenges(1)
+      expect(state.challengeModal).toBe(CHALLENGE_MODAL_REWARD)
+      expect(state.paused).toBe(true)
     })
   })
 
