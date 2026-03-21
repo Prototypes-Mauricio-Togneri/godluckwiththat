@@ -99,17 +99,7 @@ Structural integrity tests — not testing logic, but validating data consistenc
 
 ---
 
-## 3. Locale Consistency (`tests/i18n/locale_keys.test.js`)
-
-- Every key in `en.js` exists in `es.js`, `ca.js`, `fr.js`, `it.js`
-- No locale has extra keys absent from `en.js`
-- No values are empty strings
-- All values are strings (not objects, arrays, etc.)
-
----
-
 ## Priority Order
 
 1. State private methods (highest value — core game logic, most complex)
 2. Balancing & constants validation (catches data integrity bugs)
-3. Locale consistency (catches missing translations)
