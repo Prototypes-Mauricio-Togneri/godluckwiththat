@@ -117,7 +117,7 @@ There are two types of resources
     - Headquarters
   - Consumed to
     - Construct and upgrade buildings
-  - When territory is full, resource producer buildings (farm, woodcutter, quarry, mines, academy, temple) can be downgraded by 1 level to free a slot. Downgrading is free, instant, and returns excess workers to idle
+  - When territory is full, certain buildings (farm, woodcutter, quarry, mines, academy, temple, market, altar) can be downgraded by 1 level to free a slot. Downgrading is free, instant, and returns excess workers to idle
 - Workers
   - Recruited by spending food
   - The maximum population is determined by the house level
@@ -252,8 +252,8 @@ Each building has a level that can be increased by spending resources. Building 
 
 The research system allows the player to unlock permanent bonuses by spending knowledge and other resources at the Academy. Research is accessed via the Research modal in the game UI.
 
-- Research is organized into 5 categories: General, Resources, Disasters, Religion, Military
-  - General (5 subcategories × 5 tiers = 25 researches): Transportation, Construction, Expansion, Storage, Habitation
+- Research is organized into 5 categories: Colony, Resources, Disasters, Religion, Military
+  - Colony (5 subcategories × 5 tiers = 25 researches): Transportation, Construction, Expansion, Storage, Habitation
   - Resources (6 subcategories × 5 tiers = 30 researches): Food Production, Food Consumption, Wood Production, Wood Consumption, Mining, Knowledge Production
   - Disasters (3 subcategories × 5 tiers = 15 researches): Floods, Health, Earthquakes
   - Religion (1 subcategory × 5 tiers = 5 researches): Faith
@@ -265,11 +265,11 @@ The research system allows the player to unlock permanent bonuses by spending kn
 
 ### Bonuses by subcategory
 
-- **General**
+- **Colony**
   - Transportation: +5% resource gathering productivity (bounded resources only)
   - Construction: -10% construction time
   - Expansion: -10% expansion cost
-  - Storage: +10% storage capacity
+  - Storage: +5% storage capacity
   - Habitation: +1 population per house level
 - **Resources**
   - Food Production: +5% food production
@@ -333,4 +333,4 @@ The file contains:
 - **Season constants** (`SEASON_DURATION`, `SEASON_WARM_FOOD_MODIFIER`, `SEASON_COLD_FOOD_MODIFIER`, `SEASON_WARM_WOOD_MODIFIER`, `SEASON_COLD_WOOD_MODIFIER`) — Season duration in seconds and fractional modifiers for food production and wood consumption per season.
 - **Market trading** (`MARKET_TRADE_AMOUNT`, `MARKET_BASE_PRICES`, `MARKET_BASE_FEE`, `MARKET_MIN_FEE`, `MARKET_FEE_REDUCTION_PER_LEVEL`, `MARKET_PRICE_SHIFT`, `MARKET_MIN_CURRENT_PRICE`, `MARKET_MAX_CURRENT_PRICE`) — Trade lot size, base gold prices per resource, fee structure, and dynamic price bounds.
 - **Monument faith** (`MONUMENT_FAITH_PER_LEVEL`) — One-time faith granted when a monument finishes construction: `value × newLevel`.
-- **Research definitions** (`RESEARCH_SUBCATEGORY_BONUSES`, `RESEARCH_COSTS`) — `RESEARCH_SUBCATEGORY_BONUSES` maps each subcategory to `{ type: BONUS_*, value, [flat] }`. `RESEARCH_COSTS` maps each `RESEARCH_*` key to a `Cost` instance (duration derived via `Cost.toSeconds`). Currently active bonuses in the game loop: worker productivity (bounded resources only), construction time, food/wood production, food/wood consumption, mining, knowledge production, faith production, habitation, storage capacity. Defined but not yet wired: disaster impacts, military stats, warning time.
+- **Research definitions** (`RESEARCH_SUBCATEGORY_BONUSES`, `RESEARCH_COSTS`) — `RESEARCH_SUBCATEGORY_BONUSES` maps each subcategory to `{ type: BONUS_*, value, [flat] }`. `RESEARCH_COSTS` maps each `RESEARCH_*` key to a `Cost` instance (duration derived via `Cost.toSeconds`). Currently active bonuses in the game loop: worker productivity (bounded resources only), construction time, expansion cost, food/wood production, food/wood consumption, mining, knowledge production, faith production, habitation, storage capacity. Defined but not yet wired: disaster impacts, military stats, warning time.
