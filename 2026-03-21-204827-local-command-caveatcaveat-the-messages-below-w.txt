@@ -1,48 +1,3 @@
-  File Path: src/assets/styles.css
-  Issue Type: Redundancy
-  Line #: 234, 250
-  Severity: Style
-  Description & Suggested Fix: display: grid on line 234 is immediately 
-    overridden by display: none on line 250 in the same .action-cost-tooltip
-    rule. When shown on hover (line 262), display: grid is re-applied anyway.
-  The
-     line 234 declaration has no effect. Remove display: grid from line 234, or 
-    restructure so grid properties are separate from visibility.
-  ────────────────────────────────────────
-  File Path: src/components/screens/game_screen.vue
-  Issue Type: Performance
-  Line #: 1335–1337
-  Severity: Warning
-  Description & Suggested Fix: timeEstimate(resource) called 3× per resource per
-   
-    render (once for v-if, twice for .label/.time). This function computes rates
-
-    and division each call. Since it's in a v-for over all resources, this is
-  3×8
-     = 24 unnecessary calls per render tick. Cache the result in a local 
-  variable
-     or  computed map.
-  ────────────────────────────────────────
-  File Path: src/components/screens/game_screen.vue
-  Issue Type: Performance
-  Line #: 1343–1346
-  Severity: Style
-  Description & Suggested Fix: productionModifierPercent(resource) called 3× per
-   
-    resource (once for v-if, once for sign check, once for display). Same
-  pattern
-     as above. Cache  result.
-  ────────────────────────────────────────
-  File Path: src/components/screens/game_screen.vue
-  Issue Type: Performance
-  Line #: 1347–1349
-  Severity: Style
-  Description & Suggested Fix: hasConsumption(resource), 
-    grossProduction(resource), resourceConsumption(resource) called in template
-    without caching — hasConsumption is called twice (lines 1339 and 1347) and
-    resourceConsumption is called separately from hasConsumption despite
-    computing the same underlying value. Cache shared  values.
-  ────────────────────────────────────────
   File Path: src/js/models/buildings/market.js
   Issue Type: Logical Bug
   Line #: 92, 104
@@ -104,22 +59,3 @@
     rationale: 400px, 420px, 440px, 480px, 520px, 960px, 90vw across 12
   different
      modals. Standardize on 2–3 documented breakpoints in  styles.css.
-
-  Summary
-
-  ┌──────────┬───────┐
-  │ Severity │ Count │
-  ├──────────┼───────┤
-  │ Critical │ 0     │
-  ├──────────┼───────┤
-  │ Warning  │ 4     │
-  ├──────────┼───────┤
-  │ Style    │ 7     │
-  └──────────┴───────┘
-
-  The codebase is well-structured with strong defensive patterns (edge-detection
-   sets, Math.max(0, ...) floors, proper cleanup). No critical bugs were found.
-  The most impactful issues are the bulk trade rounding advantage and the
-  repeated template function calls.
-
-✻ Baked for 7m 9s
