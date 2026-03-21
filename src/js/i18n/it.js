@@ -428,7 +428,6 @@ export const LOCALIZED_IT = {
   'event.challengeStarted': 'Sfida {0}/{1}: {2}',
   'challenge.reward.title': 'Sfida Completata',
   'challenge.reward.description': 'Gli dèi sono compiaciuti. Scegli la tua benedizione:',
-  'challenge.reward.choose': 'Scegli',
   'challenge.failure.title': 'Sfida Fallita',
   'challenge.failure.description': 'Gli dèi sono scontenti. La tua colonia soffrirà:',
   'challenge.failure.acknowledge': 'Accetta Punizione',

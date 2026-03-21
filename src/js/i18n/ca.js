@@ -428,7 +428,6 @@ export const LOCALIZED_CA = {
   'event.challengeStarted': 'Desafiament {0}/{1}: {2}',
   'challenge.reward.title': 'Desafiament Completat',
   'challenge.reward.description': 'Els déus estan complaguts. Tria la teva benedicció:',
-  'challenge.reward.choose': 'Triar',
   'challenge.failure.title': 'Desafiament Fallat',
   'challenge.failure.description': 'Els déus estan disgustats. La teva colònia patirà:',
   'challenge.failure.acknowledge': 'Acceptar Càstig',

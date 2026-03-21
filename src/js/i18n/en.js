@@ -436,8 +436,6 @@ export const LOCALIZED_EN = {
   // Challenge reward modal
   'challenge.reward.title': 'Challenge Complete',
   'challenge.reward.description': 'The gods are pleased. Choose your blessing:',
-  'challenge.reward.choose': 'Choose',
-
   // Challenge failure modal
   'challenge.failure.title': 'Challenge Failed',
   'challenge.failure.description': 'The gods are displeased. Your colony will suffer:',
