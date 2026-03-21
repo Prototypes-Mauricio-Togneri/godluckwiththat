@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest'
-import {RESOURCE_FOOD, RESOURCE_WOOD} from '@/js/engine/enums.js'
+import {RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
 import Cost from '@/js/models/cost.js'
 import {createCost} from '../helpers/factories.js'
 
@@ -43,6 +43,29 @@ describe('Cost', () => {
     it('should return empty map when all resources are 0', () => {
       const cost = new Cost()
       expect(cost.entries.size).toBe(0)
+    })
+
+    it('should include all 8 resources when all are non-zero', () => {
+      const cost = createCost({
+        food: 1,
+        wood: 2,
+        stone: 3,
+        copper: 4,
+        iron: 5,
+        gold: 6,
+        knowledge: 7,
+        faith: 8,
+      })
+      const entries = cost.entries
+      expect(entries.size).toBe(8)
+      expect(entries.get(RESOURCE_FOOD)).toBe(1)
+      expect(entries.get(RESOURCE_WOOD)).toBe(2)
+      expect(entries.get(RESOURCE_STONE)).toBe(3)
+      expect(entries.get(RESOURCE_COPPER)).toBe(4)
+      expect(entries.get(RESOURCE_IRON)).toBe(5)
+      expect(entries.get(RESOURCE_GOLD)).toBe(6)
+      expect(entries.get(RESOURCE_KNOWLEDGE)).toBe(7)
+      expect(entries.get(RESOURCE_FAITH)).toBe(8)
     })
 
     it('should cache the entries map', () => {

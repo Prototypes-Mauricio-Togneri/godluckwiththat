@@ -190,6 +190,17 @@ describe('Challenges', () => {
   })
 
   describe('fromJSON / toJSON', () => {
+    it('should serialize active as null when no active challenge', () => {
+      const original = createChallenges({
+        pending: [createChallenge()],
+        completed: [createChallenge()],
+      })
+      const json = original.toJSON()
+      expect(json.active).toBeNull()
+      const restored = Challenges.fromJSON(json)
+      expect(restored.active).toBeNull()
+    })
+
     it('should round-trip through serialization', () => {
       const challenge = createChallenge({
         status: CHALLENGE_STATUS_ACTIVATED,

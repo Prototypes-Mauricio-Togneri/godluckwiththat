@@ -59,6 +59,21 @@ describe('Events', () => {
   })
 
   describe('convertToPast', () => {
+    it('should still add past event when no matching future event found', () => {
+      const events = new Events()
+      events.addFuture({
+        ...createEventData(),
+        buildingKey: 'farm',
+        remainingSeconds: 30,
+      })
+      events.convertToPast('quarry', createEventData({
+        textKey: 'quarry.done',
+      }))
+      expect(events.future).toHaveLength(1)
+      expect(events.past).toHaveLength(1)
+      expect(events.past[0].textKey).toBe('quarry.done')
+    })
+
     it('should remove future event and add past event', () => {
       const events = new Events()
       events.addFuture({
@@ -131,6 +146,18 @@ describe('Events', () => {
       })
       events.dismiss(event.id)
       expect(events.future).toHaveLength(0)
+    })
+
+    it('should no-op gracefully when ID does not match any event', () => {
+      const events = new Events()
+      events.addFuture({
+        ...createEventData(),
+        remainingSeconds: 10,
+      })
+      events.addPast(createEventData())
+      events.dismiss(999)
+      expect(events.future).toHaveLength(1)
+      expect(events.past).toHaveLength(1)
     })
 
     it('should remove a past event by ID', () => {

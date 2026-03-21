@@ -218,6 +218,35 @@ describe('Academy', () => {
       expect(Object.keys(bonuses)).toHaveLength(0)
     })
 
+    it('should skip subcategories that have no bonus property', () => {
+      const researchTree = [
+        {
+          subcategories: [
+            {
+              researches: ['transportation1'],
+            },
+            {
+              bonus: {
+                type: 'miningProduction',
+                value: 0.05,
+              },
+              researches: ['mining1'],
+            },
+          ],
+        },
+      ]
+      const academy = new Academy({
+        level: 1,
+        completed: [
+          'transportation1',
+          'mining1',
+        ],
+      })
+      const bonuses = academy.completedBonuses(researchTree)
+      expect(Object.keys(bonuses)).toHaveLength(1)
+      expect(bonuses.miningProduction).toBeCloseTo(0.05)
+    })
+
     it('should cache the result', () => {
       const researchTree = [
         {

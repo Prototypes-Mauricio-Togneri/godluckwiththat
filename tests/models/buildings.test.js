@@ -1,5 +1,6 @@
 import {describe, it, expect} from 'vitest'
 import {BUILDING_CLASS_MAP} from '@/js/engine/constants.js'
+import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
 import Buildings from '@/js/models/buildings.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
@@ -140,6 +141,32 @@ describe('Buildings', () => {
       buildings.farm.constructionRemaining = 10
       buildings.house.constructionRemaining = 5
       expect(buildings.pendingTerritory).toBe(2)
+    })
+
+    it.each([
+      BUILDING_HOUSE,
+      BUILDING_ACADEMY,
+      BUILDING_STOREHOUSE,
+      BUILDING_MARKET,
+      BUILDING_ALTAR,
+      BUILDING_TEMPLE,
+      BUILDING_MONUMENT,
+      BUILDING_FARM,
+      BUILDING_WOODCUTTER,
+      BUILDING_QUARRY,
+      BUILDING_COPPER_MINE,
+      BUILDING_IRON_MINE,
+      BUILDING_GOLD_MINE,
+      BUILDING_BARRACKS,
+      BUILDING_ARCHERY,
+      BUILDING_STABLE,
+      BUILDING_WORKSHOP,
+      BUILDING_WALL,
+      BUILDING_TOWER,
+    ])('should count %s when constructing', (key) => {
+      const buildings = createAllBuildings()
+      buildings[key].constructionRemaining = 10
+      expect(buildings.pendingTerritory).toBe(1)
     })
   })
 
