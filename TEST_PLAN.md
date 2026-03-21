@@ -6,19 +6,6 @@ Close the 51 uncovered lines in `state.js` (89.5% → ~100% statements) and the 
 
 ---
 
-## Step 3: `update()` — resource cap and negative production recovery
-
-**File**: `tests/engine/state.test.js`
-**Uncovered lines**: 214–216, 250–252
-
-Add tests inside `describe('update')`:
-
-1. **Resource drops below storage cap**: Pre-populate `_resourcesAtCap` with a resource, set that resource below `storageCap`, call `update(1)`. Assert the resource is removed from `_resourcesAtCap` and `dismissPastByTextKey` is called with the correct config text key.
-
-2. **Negative production recovers**: Pre-populate `_resourcesNegativeProduction` with a resource, set production to exceed consumption, call `update(1)`. Assert the resource is removed from `_resourcesNegativeProduction` and the negative-production past event is dismissed.
-
----
-
 ## Step 4: `advanceChallenges` — untested paths
 
 **File**: `tests/engine/state.test.js`
@@ -100,13 +87,12 @@ Add test inside `describe('factory functions')` or a new `describe('TUTORIAL_STE
 
 | Step | Target | Lines Covered | New Tests |
 |------|--------|---------------|-----------|
-| 3 | `update()` recovery branches | 214–216, 250–252 | 2 |
 | 4 | `advanceChallenges` paths | 644, 652, 659–660, 672, 677 | 4 |
 | 5 | `areChallengeRequirementsMet` | 715, 718, 731 | 3 |
 | 6 | `assignWorkers` failure | 1098 | 1 |
 | 7 | `checkTutorial` completion | 1215–1217 | 1 |
 | 8 | `levelUpBuilding` territory event | 957, 962 | 1 |
 | 9 | `constants.js` tutorial step | 766 | 1 |
-| **Total** | | **~4 lines** | **13 tests** |
+| **Total** | | | **11 tests** |
 
 Expected result: `state.js` → ~100% statements/lines, `constants.js` → 100%. Overall coverage → ~99%+ statements.

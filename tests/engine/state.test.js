@@ -2,7 +2,7 @@ import {describe, it, expect, vi, beforeEach} from 'vitest'
 import {BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
 import {HQ_TERRITORY_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, SEASON_DURATION, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
-import {DOWNGRADABLE_BUILDINGS} from '@/js/engine/constants.js'
+import {DOWNGRADABLE_BUILDINGS, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
 import Archery from '@/js/models/buildings/archery.js'
@@ -364,6 +364,61 @@ describe('State', () => {
       state.update(0)
       // totalLevels = all non-HQ building levels = 2 + 1 = 3
       expect(state.colony.resources.territory).toBe(3)
+    })
+
+    it('should dismiss cap event when resource drops below storage cap', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 100,
+          },
+          buildingOverrides: {
+            storehouse: {
+              level: 1,
+            },
+          },
+        },
+      })
+      // Pre-populate the tracking set as if food was previously at cap
+      state._resourcesAtCap.add(RESOURCE_FOOD)
+      const dismissSpy = vi.spyOn(state.colony.events, 'dismissPastByTextKey')
+      state.update(1)
+      expect(state._resourcesAtCap.has(RESOURCE_FOOD)).toBe(false)
+      const config = RESOURCE_LIMIT_EVENT_CONFIG[RESOURCE_FOOD]
+      expect(dismissSpy).toHaveBeenCalledWith(config.textKey)
+    })
+
+    it('should dismiss negative production event when production recovers', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 200,
+            wood: 200,
+            workers: 5,
+          },
+          buildingOverrides: {
+            farm: {
+              level: 1,
+              workers: 5,
+            },
+            house: {
+              level: 1,
+              workersCap: 10,
+            },
+            storehouse: {
+              level: 1,
+            },
+          },
+        },
+      })
+      // Pre-populate as if food had negative production previously
+      state._resourcesNegativeProduction.add(RESOURCE_FOOD)
+      const dismissSpy = vi.spyOn(state.colony.events, 'dismissPastByTextKey')
+      // With 5 farm workers, production exceeds consumption → recovery
+      state.update(1)
+      expect(state._resourcesNegativeProduction.has(RESOURCE_FOOD)).toBe(false)
+      const config = RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG[RESOURCE_FOOD]
+      expect(dismissSpy).toHaveBeenCalledWith(config.textKey)
     })
   })
 
