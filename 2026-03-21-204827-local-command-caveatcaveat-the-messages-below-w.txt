@@ -1,61 +1,31 @@
-  File Path: src/js/models/buildings/market.js
-  Issue Type: Logical Bug
-  Line #: 92, 104
-  Severity: Warning
-  Description & Suggested Fix: Bulk trade double-floor rounding gives a slight 
-    discount. buyPrice() returns floor(base × (1 + fee)), then executeTrade
-    applies floor(... × multiplier). For a 1000-unit buy at base price 33 with
-    30% fee: floor(floor(33 × 1.3) × 10) = floor(42 × 10) = 420, vs the
-  "correct"
-     floor(33 × 1.3 × 10) = floor(429) = 429. Bulk buyers save gold. The display
+File Path: src/js/models/buildings/market.js
+Issue Type: Logical Bug
+Line #: 92, 104
+Severity: Warning
+Description & Suggested Fix: Bulk trade double-floor rounding gives a slight 
+  discount. buyPrice() returns floor(base × (1 + fee)), then executeTrade
+  applies floor(... × multiplier). For a 1000-unit buy at base price 33 with
+  30% fee: floor(floor(33 × 1.3) × 10) = floor(42 × 10) = 420, vs the
+"correct"
+    floor(33 × 1.3 × 10) = floor(429) = 429. Bulk buyers save gold. The display
 
-    (scaledBuyPrice in market_modal.vue:60) uses the same formula, so UI matches
+  (scaledBuyPrice in market_modal.vue:60) uses the same formula, so UI matches
 
-    execution — but the economic advantage is unintentional. Apply fee to the 
-    scaled amount:  floor(base × multiplier × (1 + fee)).
-  ────────────────────────────────────────
-  File Path: src/js/engine/state.js
-  Issue Type: Logical Bug
-  Line #: 752, 759
-  Severity: Style
-  Description & Suggested Fix: _deductRequirements doesn't clamp deducted values
-   
-    to 0. resources.faith -= requirements.faith and resources[resource] -= 
-  amount
-     could theoretically go negative. This is guarded by
-    areChallengeRequirementsMet() checking sufficiency first (line 685), but a
-    floating-point production tick between the check and deduction (if possible)
+  execution — but the economic advantage is unintentional. Apply fee to the 
+  scaled amount:  floor(base × multiplier × (1 + fee)).
+────────────────────────────────────────
+File Path: src/js/engine/state.js
+Issue Type: Logical Bug
+Line #: 752, 759
+Severity: Style
+Description & Suggested Fix: _deductRequirements doesn't clamp deducted values
+  
+  to 0. resources.faith -= requirements.faith and resources[resource] -= 
+amount
+    could theoretically go negative. This is guarded by
+  areChallengeRequirementsMet() checking sufficiency first (line 685), but a
+  floating-point production tick between the check and deduction (if possible)
 
-    could cause a brief negative value. The next update() would floor it at line
+  could cause a brief negative value. The next update() would floor it at line
 
-    222–229. Low  risk, but Math.max(0, ...) would be defensive.
-  ────────────────────────────────────────
-  File Path: src/assets/styles.css
-  Issue Type: Inconsistency
-  Line #: —
-  Severity: Style
-  Description & Suggested Fix: No :focus or :focus-visible styles anywhere in 
-  the
-    stylesheet. All interactive elements (.btn-gold, .action-btn, .worker-btn,
-    .modal-btn, .speed-btn, .amount-btn) lack visible keyboard focus indicators.
-
-    Add :focus-visible outlines for keyboard accessibility.
-  ────────────────────────────────────────
-  File Path: src/assets/styles.css
-  Issue Type: Inconsistency
-  Line #: 225, 543, 556
-  Severity: Style
-  Description & Suggested Fix: Hardcoded rgba() color values repeated across 
-    rules instead of CSS custom properties. Red (rgba(196, 80, 80, 1)) appears
-  at
-     lines 225, 543, 620, 626, 723, 836, 850, 861. Green (rgba(80, 168, 80, 1))
-    at lines 556, 742. Extract to --color-red / --color-green CSS variables.
-  ────────────────────────────────────────
-  File Path: Multiple modal .vue files
-  Issue Type: Inconsistency
-  Line #: —
-  Severity: Style
-  Description & Suggested Fix: Modal max-width values vary without clear 
-    rationale: 400px, 420px, 440px, 480px, 520px, 960px, 90vw across 12
-  different
-     modals. Standardize on 2–3 documented breakpoints in  styles.css.
+  222–229. Low  risk, but Math.max(0, ...) would be defensive.

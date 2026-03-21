@@ -16,6 +16,10 @@
     --color-accent-rgb: 184, 148, 62;
     --color-border: rgba(184, 148, 62, 0.15);
     --color-shadow-rgb: 0, 0, 0;
+    --color-red: rgba(196, 80, 80, 1);
+    --color-red-rgb: 196, 80, 80;
+    --color-green: rgba(80, 168, 80, 1);
+    --color-green-rgb: 80, 168, 80;
     --color-highlight-rgb: 255, 255, 255;
     --font-display: 'Josefin Sans', sans-serif;
     --font-body: 'Jost', sans-serif;
@@ -222,7 +226,7 @@
 
 /* Red color when resources are insufficient */
 .action-cost-short {
-    color: rgba(196, 80, 80, 1);
+    color: var(--color-red);
 }
 
 /* Cost breakdown tooltip — multi-line grid below cost display */
@@ -463,22 +467,22 @@
     color: rgba(228, 213, 188, 1);
     background: linear-gradient(
         180deg,
-        rgba(196, 80, 80, 0.15),
-        rgba(196, 80, 80, 0.05)
+        rgba(var(--color-red-rgb), 0.15),
+        rgba(var(--color-red-rgb), 0.05)
     );
-    border: 1px solid rgba(196, 80, 80, 0.35);
+    border: 1px solid rgba(var(--color-red-rgb), 0.35);
 }
 
 /* Hover — intensified red */
 .modal-btn--danger:hover {
-    color: rgba(196, 80, 80, 1);
+    color: var(--color-red);
     background: linear-gradient(
         180deg,
-        rgba(196, 80, 80, 0.22),
-        rgba(196, 80, 80, 0.08)
+        rgba(var(--color-red-rgb), 0.22),
+        rgba(var(--color-red-rgb), 0.08)
     );
-    border-color: rgba(196, 80, 80, 0.6);
-    box-shadow: 0 0 20px rgba(196, 80, 80, 0.1);
+    border-color: rgba(var(--color-red-rgb), 0.6);
+    box-shadow: 0 0 20px rgba(var(--color-red-rgb), 0.1);
 }
 
 /* Card modal button — small icon-only button inside building card slots (academy, market) */
@@ -539,28 +543,28 @@
 
 /* Red minus button */
 .worker-btn--minus {
-    color: rgba(196, 80, 80, 1);
-    border: 1px solid rgba(196, 80, 80, 0.3);
+    color: var(--color-red);
+    border: 1px solid rgba(var(--color-red-rgb), 0.3);
 }
 
 /* Hover — red glow */
 .worker-btn--minus:hover:not(:disabled) {
-    background: rgba(196, 80, 80, 0.12);
-    border-color: rgba(196, 80, 80, 0.6);
-    box-shadow: 0 0 8px rgba(196, 80, 80, 0.1);
+    background: rgba(var(--color-red-rgb), 0.12);
+    border-color: rgba(var(--color-red-rgb), 0.6);
+    box-shadow: 0 0 8px rgba(var(--color-red-rgb), 0.1);
 }
 
 /* Green plus button */
 .worker-btn--plus {
-    color: rgba(80, 168, 80, 1);
-    border: 1px solid rgba(80, 168, 80, 0.3);
+    color: var(--color-green);
+    border: 1px solid rgba(var(--color-green-rgb), 0.3);
 }
 
 /* Hover — green glow */
 .worker-btn--plus:hover:not(:disabled) {
-    background: rgba(80, 168, 80, 0.12);
-    border-color: rgba(80, 168, 80, 0.6);
-    box-shadow: 0 0 8px rgba(80, 168, 80, 0.1);
+    background: rgba(var(--color-green-rgb), 0.12);
+    border-color: rgba(var(--color-green-rgb), 0.6);
+    box-shadow: 0 0 8px rgba(var(--color-green-rgb), 0.1);
 }
 
 /* Worker count display (icon + current/max) */
@@ -597,7 +601,7 @@
 
 /* Red text when zero workers assigned */
 .worker-count-text--zero {
-    color: rgba(196, 80, 80, 1);
+    color: var(--color-red);
 }
 
 /* ── .production-rate ─────────────────────────────────────────────── */
@@ -616,13 +620,13 @@
 
 /* Green for positive rate */
 .production-rate--positive {
-    color: rgba(80, 168, 80, 1);
+    color: var(--color-green);
 }
 
 /* Red for negative or zero rate */
 .production-rate--negative,
 .production-rate--zero {
-    color: rgba(196, 80, 80, 1);
+    color: var(--color-red);
 }
 
 /* ── .resource-box / .resource-bar / .resource-tooltip ────────────── */
@@ -719,7 +723,7 @@
 
 /* Red when resource is empty */
 .resource-value--zero {
-    color: rgba(196, 80, 80, 1);
+    color: var(--color-red);
 }
 
 /* Narrower width for idle worker count */
@@ -750,12 +754,12 @@
 
 /* Green fill for positive production */
 .resource-bar-fill--positive {
-    background: linear-gradient(90deg, rgba(61, 138, 61, 1), rgba(80, 168, 80, 1));
+    background: linear-gradient(90deg, rgba(61, 138, 61, 1), var(--color-green));
 }
 
 /* Red fill for negative production */
 .resource-bar-fill--negative {
-    background: linear-gradient(90deg, rgba(168, 60, 60, 1), rgba(196, 80, 80, 1));
+    background: linear-gradient(90deg, rgba(168, 60, 60, 1), var(--color-red));
 }
 
 /* Rich tooltip — HTML-based multi-line tooltip below resource boxes */
@@ -832,7 +836,7 @@
     font-size: 0.7rem;
     font-weight: 400;
     letter-spacing: 0.02em;
-    color: rgba(196, 80, 80, 1);
+    color: var(--color-red);
 }
 
 
@@ -846,10 +850,10 @@
 /* Penalized state — subtle red tint on border and background */
 .productivity-box--penalized,
 .resource-box--penalized {
-    border-color: rgba(196, 80, 80, 0.3);
+    border-color: rgba(var(--color-red-rgb), 0.3);
     background: linear-gradient(
         180deg,
-        rgba(196, 80, 80, 0.08),
+        rgba(var(--color-red-rgb), 0.08),
         rgba(var(--color-shadow-rgb), 0.12)
     );
 }
@@ -857,10 +861,10 @@
 /* Penalized hover — intensified red tint */
 .productivity-box--penalized:hover,
 .resource-box--penalized:hover {
-    border-color: rgba(196, 80, 80, 0.45);
+    border-color: rgba(var(--color-red-rgb), 0.45);
     background: linear-gradient(
         180deg,
-        rgba(196, 80, 80, 0.1),
+        rgba(var(--color-red-rgb), 0.1),
         rgba(var(--color-shadow-rgb), 0.1)
     );
 }
