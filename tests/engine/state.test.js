@@ -1,6 +1,6 @@
 import {describe, it, expect, vi, beforeEach} from 'vitest'
-import {BLESSING_FERTILE_SOIL, BUILDING_FARM, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_STOREHOUSE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, HQ_TYPE_CAMP, PUNISHMENT_CROP_FAILURE, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
-import {SEASON_DURATION, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST} from '@/js/engine/balancing.js'
+import {BLESSING_FERTILE_SOIL, BUILDING_FARM, BUILDING_HOUSE, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, HQ_TYPE_CAMP, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
+import {SEASON_DURATION, WORKER_RECRUIT_COST} from '@/js/engine/balancing.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
 import Archery from '@/js/models/buildings/archery.js'
@@ -28,7 +28,7 @@ import Resources from '@/js/models/resources.js'
 import Season from '@/js/models/season.js'
 import Events from '@/js/models/events/events.js'
 import Tutorial from '@/js/models/tutorial.js'
-import {createBlessing, createChallenge, createChallenges, createPunishment} from '../helpers/factories.js'
+import {createBlessing, createChallenge, createChallenges} from '../helpers/factories.js'
 
 vi.mock('@/js/engine/audio.js', () => ({
   default: {

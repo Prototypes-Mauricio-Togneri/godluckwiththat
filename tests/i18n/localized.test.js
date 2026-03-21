@@ -36,17 +36,17 @@ describe('localized', () => {
     })
 
     it('should resolve Spanish for es browser language', async () => {
-      const translate = await importLocalized('es')
+      await importLocalized('es')
       expect(document.documentElement.lang).toBe('es')
     })
 
     it('should fall back to English for unsupported language', async () => {
-      const translate = await importLocalized('zh')
+      await importLocalized('zh')
       expect(document.documentElement.lang).toBe('en')
     })
 
     it('should handle language codes with region suffix', async () => {
-      const translate = await importLocalized('fr-CA')
+      await importLocalized('fr-CA')
       expect(document.documentElement.lang).toBe('fr')
     })
   })

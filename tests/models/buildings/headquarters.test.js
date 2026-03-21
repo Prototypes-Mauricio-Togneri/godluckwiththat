@@ -1,6 +1,6 @@
 import {describe, it, expect} from 'vitest'
 import {BUILDING_UPGRADES, HQ_TERRITORY_PER_LEVEL, HQ_UPGRADE_COSTS} from '@/js/engine/balancing.js'
-import {BUILDING_HEADQUARTERS, HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE} from '@/js/engine/enums.js'
+import {BUILDING_HEADQUARTERS, HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT, HQ_TYPE_VILLAGE} from '@/js/engine/enums.js'
 import Cost from '@/js/models/cost.js'
 import {createCost, createHeadquarters} from '../../helpers/factories.js'
 

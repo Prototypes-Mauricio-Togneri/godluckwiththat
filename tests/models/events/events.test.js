@@ -1,7 +1,6 @@
 import {describe, it, expect} from 'vitest'
 import Events from '@/js/models/events/events.js'
 import EventFuture from '@/js/models/events/event_future.js'
-import EventPast from '@/js/models/events/event_past.js'
 
 function createEventData(overrides = {}) {
   return {

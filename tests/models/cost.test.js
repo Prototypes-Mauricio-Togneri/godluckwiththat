@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest'
-import {RESOURCE_FOOD, RESOURCE_WOOD, RESOURCE_STONE} from '@/js/engine/enums.js'
+import {RESOURCE_FOOD, RESOURCE_WOOD} from '@/js/engine/enums.js'
 import Cost from '@/js/models/cost.js'
 import {createCost} from '../helpers/factories.js'
 
