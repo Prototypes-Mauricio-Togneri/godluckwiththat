@@ -749,14 +749,14 @@ class State {
     } = this.colony
 
     if (requirements.faith !== null) {
-      resources.faith -= requirements.faith
+      resources.faith = Math.max(0, resources.faith - requirements.faith)
     }
     if (requirements.resources !== null) {
       for (const [
         resource,
         amount,
       ] of Object.entries(requirements.resources)) {
-        resources[resource] -= amount
+        resources[resource] = Math.max(0, resources[resource] - amount)
       }
     }
     if (requirements.workers !== null) {
