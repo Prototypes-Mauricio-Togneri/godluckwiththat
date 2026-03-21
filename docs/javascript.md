@@ -1,15 +1,19 @@
 # JavaScript Rules
 
+## Style
+
 - Do not use semicolons
 - One class per file
-- Naming
-  - Files: `snake_case`
-  - Classes: `PascalCase`
-  - Functions: `camelCase`
-  - Variables: full descriptive names, avoid abbreviations
-    - Allowed: `i`, `j` (loop counters), `x`, `y` (coordinates), `dx`, `dy` (deltas), `ctx` (canvas context)
-    - Avoid: `p` (player), `em` (enemyManager), `el` (element), `sw` (switch), `m` (mine), etc.
 - Unused parameters: use `_`, `__`, `___`, etc.
+
+## Naming
+
+- Files: `snake_case`
+- Classes: `PascalCase`
+- Functions: `camelCase`
+- Variables: full descriptive names, avoid abbreviations
+  - Allowed: `i`, `j` (loop counters), `x`, `y` (coordinates), `dx`, `dy` (deltas), `ctx` (canvas context)
+  - Avoid: `p` (player), `em` (enemyManager), `el` (element), `sw` (switch), `m` (mine), etc.
 
 ## Centralized Constants
 
