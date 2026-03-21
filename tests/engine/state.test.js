@@ -1415,6 +1415,29 @@ describe('State', () => {
       // Should not deduct cost or change anything
       expect(state.colony.resources.wood).toBe(woodBefore)
     })
+
+    it('should fire territory limit event when build fills territory', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 500,
+            wood: 500,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+            },
+            farm: {
+              level: 9,
+            },
+          },
+        },
+      })
+      state.levelUpBuilding(BUILDING_HOUSE)
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_TERRITORY_LIMIT_REACHED)).toBe(true)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_NOTIFICATION_ALERT)
+    })
   })
 
   // ── recruitWorker ────────────────────────────────────────────────

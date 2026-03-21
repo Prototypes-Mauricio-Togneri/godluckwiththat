@@ -6,17 +6,6 @@ Close the 51 uncovered lines in `state.js` (89.5% → ~100% statements) and the 
 
 ---
 
-## Step 8: `levelUpBuilding` — territory limit event
-
-**File**: `tests/engine/state.test.js`
-**Uncovered lines**: 957, 962
-
-Add test inside `describe('levelUpBuilding')`:
-
-1. **Territory becomes full after build**: Set territory near cap (one slot remaining), build a building. Assert `EVENT_TYPE_TERRITORY_LIMIT_REACHED` past event fired and `SND_NOTIFICATION_ALERT` played after `update(0)`.
-
----
-
 ## Step 9: `constants.js` — tutorial step check function
 
 **File**: `tests/engine/constants.test.js`
