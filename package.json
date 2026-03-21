@@ -8,7 +8,8 @@
     "preview": "vite preview",
     "lint": "eslint src/",
     "lint-fix": "eslint src/ --fix",
-    "generate-assets": "node scripts/generate-assets.js"
+    "generate-assets": "node scripts/generate-assets.js",
+    "deploy": "npm run build && firebase deploy --only hosting"
   },
   "dependencies": {
     "vue": "^3.5.30"
