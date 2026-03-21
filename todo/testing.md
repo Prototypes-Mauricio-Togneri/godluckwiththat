@@ -5,23 +5,6 @@ All new tests go into existing test files following the project's conventions (s
 
 ---
 
-## Phase 3 — `state.js` `fromJSON` branch coverage
-
-File: `tests/engine/state.test.js`, within the existing `toJSON / fromJSON` describe block.
-
-### 3.1 `fromJSON` with `challengeModal`
-
-- should restore `paused` to true when `challengeModal` is set in data (covers lines 1318-1320)
-
-### 3.2 `fromJSON` with missing tracking fields
-
-- should default `resourcesAtCap` to empty set when missing from data
-- should default `resourcesNegativeProduction` to empty set when missing
-- should default `hadIdleWorkers` to false when missing
-- should default `challengeModal` to null when missing
-
----
-
 ## Phase 4 — Branch coverage in model files
 
 ### 4.1 `cost.js` `entries` — uncovered resources (lines 50-63)

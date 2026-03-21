@@ -1662,6 +1662,65 @@ describe('State', () => {
       })
       expect(result).toBeNull()
     })
+
+    it('should restore paused to true when challengeModal is set in data', async () => {
+      const state = await createState()
+      state.challengeModal = CHALLENGE_MODAL_REWARD
+      const json = state.toJSON()
+      const {
+        default: State,
+      } = await import('@/js/engine/state.js')
+      const restored = State.fromJSON(json)
+      expect(restored.challengeModal).toBe(CHALLENGE_MODAL_REWARD)
+      expect(restored.paused).toBe(true)
+    })
+
+    it('should default resourcesAtCap to empty set when missing from data', async () => {
+      const state = await createState()
+      const json = state.toJSON()
+      delete json.resourcesAtCap
+      const {
+        default: State,
+      } = await import('@/js/engine/state.js')
+      const restored = State.fromJSON(json)
+      expect(restored._resourcesAtCap).toBeInstanceOf(Set)
+      expect(restored._resourcesAtCap.size).toBe(0)
+    })
+
+    it('should default resourcesNegativeProduction to empty set when missing', async () => {
+      const state = await createState()
+      const json = state.toJSON()
+      delete json.resourcesNegativeProduction
+      const {
+        default: State,
+      } = await import('@/js/engine/state.js')
+      const restored = State.fromJSON(json)
+      expect(restored._resourcesNegativeProduction).toBeInstanceOf(Set)
+      expect(restored._resourcesNegativeProduction.size).toBe(0)
+    })
+
+    it('should default hadIdleWorkers to false when missing', async () => {
+      const state = await createState()
+      const json = state.toJSON()
+      delete json.hadIdleWorkers
+      const {
+        default: State,
+      } = await import('@/js/engine/state.js')
+      const restored = State.fromJSON(json)
+      expect(restored._hadIdleWorkers).toBe(false)
+    })
+
+    it('should default challengeModal to null when missing', async () => {
+      const state = await createState()
+      const json = state.toJSON()
+      delete json.challengeModal
+      const {
+        default: State,
+      } = await import('@/js/engine/state.js')
+      const restored = State.fromJSON(json)
+      expect(restored.challengeModal).toBeNull()
+      expect(restored.paused).toBe(false)
+    })
   })
 
   // ── checkTutorial ────────────────────────────────────────────────
