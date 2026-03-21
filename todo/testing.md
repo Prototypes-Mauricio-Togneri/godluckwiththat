@@ -122,22 +122,9 @@ Structural integrity tests — not testing logic, but validating data consistenc
 
 ---
 
-## 5. Serialization Robustness (`tests/models/serialization.test.js`)
-
-Cross-cutting tests for `fromJSON` resilience across all models that support it.
-
-- `fromJSON` with missing optional fields uses defaults
-- `fromJSON` with extra unknown fields ignores them (no crash)
-- `fromJSON` with `null`/`undefined` input does not throw (or throws predictably)
-
-Models to cover: `Colony`, `Resources`, `Season`, `Challenge`, `Challenges`, `Blessing`, `Punishment`, `Meta`, `Tutorial`, `Buildings`, `Headquarters`, `Market`, all event models.
-
----
-
 ## Priority Order
 
 1. State private methods (highest value — core game logic, most complex)
 2. Balancing & constants validation (catches data integrity bugs)
-3. Serialization robustness (protects save/load)
-4. Locale consistency (catches missing translations)
-5. Production/consumption models (lowest priority — trivial classes)
+3. Locale consistency (catches missing translations)
+4. Production/consumption models (lowest priority — trivial classes)

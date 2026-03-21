@@ -1,0 +1,737 @@
+import {describe, it, expect} from 'vitest'
+import {BLESSING_FERTILE_SOIL, BLESSING_GIFT_FROM_THE_HEAVENS, BUILDING_HEADQUARTERS, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_SEASON_CHANGED, HQ_TYPE_CAMP, PUNISHMENT_CROP_FAILURE, SEASON_WARM} from '@/js/engine/enums.js'
+import {BUILDING_CLASS_MAP} from '@/js/engine/constants.js'
+import Blessing from '@/js/models/blessing.js'
+import Punishment from '@/js/models/punishment.js'
+import Challenge from '@/js/models/challenge.js'
+import Challenges from '@/js/models/challenges.js'
+import Meta from '@/js/models/meta.js'
+import Tutorial from '@/js/models/tutorial.js'
+import Colony from '@/js/models/colony.js'
+import Resources from '@/js/models/resources.js'
+import Season from '@/js/models/season.js'
+import Buildings from '@/js/models/buildings.js'
+import Headquarters from '@/js/models/buildings/headquarters.js'
+import Market from '@/js/models/buildings/market.js'
+import Events from '@/js/models/events/events.js'
+import EventFuture from '@/js/models/events/event_future.js'
+import EventPast from '@/js/models/events/event_past.js'
+
+// Minimal valid data factories for nested dependencies
+
+function minimalBlessingData(overrides = {}) {
+  return {
+    type: BLESSING_FERTILE_SOIL,
+    ...overrides,
+  }
+}
+
+function minimalPunishmentData(overrides = {}) {
+  return {
+    type: PUNISHMENT_CROP_FAILURE,
+    ...overrides,
+  }
+}
+
+function minimalChallengeData(overrides = {}) {
+  return {
+    index: 1,
+    status: CHALLENGE_STATUS_PENDING,
+    delay: 60,
+    timeout: 300,
+    requirements: {
+      faith: 100,
+    },
+    blessings: [minimalBlessingData()],
+    punishment: minimalPunishmentData(),
+    ...overrides,
+  }
+}
+
+function minimalChallengesData(overrides = {}) {
+  return {
+    pending: [],
+    active: null,
+    completed: [],
+    activeBlessings: [],
+    activePunishments: [],
+    ...overrides,
+  }
+}
+
+function minimalTutorialData(overrides = {}) {
+  return {
+    currentStep: 0,
+    completed: false,
+    dismissedModals: [],
+    ...overrides,
+  }
+}
+
+function minimalMetaData(overrides = {}) {
+  return {
+    version: 1,
+    createdDateTime: '2026-01-01T00:00:00.000Z',
+    updatedDateTime: '2026-01-01T00:00:00.000Z',
+    challenges: minimalChallengesData(),
+    tutorial: minimalTutorialData(),
+    ...overrides,
+  }
+}
+
+function minimalSeasonData(overrides = {}) {
+  return {
+    currentSeason: SEASON_WARM,
+    seasonElapsed: 0,
+    ...overrides,
+  }
+}
+
+function minimalResourcesData(overrides = {}) {
+  return {
+    territory: 1,
+    workers: 0,
+    food: 0,
+    wood: 0,
+    stone: 0,
+    copper: 0,
+    iron: 0,
+    gold: 0,
+    faith: 0,
+    knowledge: 0,
+    ...overrides,
+  }
+}
+
+function minimalBuildingsData() {
+  const data = {}
+  for (const key of Object.keys(BUILDING_CLASS_MAP)) {
+    data[key] = key === BUILDING_HEADQUARTERS
+      ? {
+        level: 1,
+        type: HQ_TYPE_CAMP,
+      }
+      : {
+        level: 0,
+      }
+  }
+  return data
+}
+
+function minimalEventsData(overrides = {}) {
+  return {
+    future: [],
+    past: [],
+    nextId: 1,
+    ...overrides,
+  }
+}
+
+function minimalColonyData(overrides = {}) {
+  return {
+    year: 1,
+    season: minimalSeasonData(),
+    resources: minimalResourcesData(),
+    buildings: minimalBuildingsData(),
+    events: minimalEventsData(),
+    ...overrides,
+  }
+}
+
+function minimalEventData(overrides = {}) {
+  return {
+    id: 1,
+    type: EVENT_TYPE_SEASON_CHANGED,
+    textKey: 'event.seasonChanged',
+    icon: '/img/resources/food.png',
+    ...overrides,
+  }
+}
+
+// ============================================================
+// Blessing
+// ============================================================
+
+describe('Serialization robustness', () => {
+  describe('Blessing', () => {
+    it('fromJSON with missing optional fields uses defaults', () => {
+      const blessing = Blessing.fromJSON({
+        type: BLESSING_FERTILE_SOIL,
+      })
+      expect(blessing).toBeInstanceOf(Blessing)
+      expect(blessing.type).toBe(BLESSING_FERTILE_SOIL)
+      expect(blessing.timeout).toBeNull()
+      expect(blessing.productivity).toBeNull()
+      expect(blessing.resources).toBeNull()
+      expect(blessing.territory).toBeNull()
+      expect(blessing.construction).toBeNull()
+      expect(blessing.warm).toBeNull()
+      expect(blessing.cold).toBeNull()
+    })
+
+    it('fromJSON with extra unknown fields ignores them', () => {
+      const blessing = Blessing.fromJSON({
+        type: BLESSING_FERTILE_SOIL,
+        unknownField: 'test',
+        anotherExtra: 42,
+      })
+      expect(blessing).toBeInstanceOf(Blessing)
+      expect(blessing.type).toBe(BLESSING_FERTILE_SOIL)
+      expect(blessing).not.toHaveProperty('unknownField')
+      expect(blessing).not.toHaveProperty('anotherExtra')
+    })
+
+    it('fromJSON with null input throws', () => {
+      expect(() => Blessing.fromJSON(null)).toThrow()
+    })
+
+    it('fromJSON with undefined input throws', () => {
+      expect(() => Blessing.fromJSON(undefined)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // Punishment
+  // ============================================================
+
+  describe('Punishment', () => {
+    it('fromJSON with missing optional fields uses defaults', () => {
+      const punishment = Punishment.fromJSON({
+        type: PUNISHMENT_CROP_FAILURE,
+      })
+      expect(punishment).toBeInstanceOf(Punishment)
+      expect(punishment.type).toBe(PUNISHMENT_CROP_FAILURE)
+      expect(punishment.timeout).toBeNull()
+      expect(punishment.faith).toBeNull()
+      expect(punishment.productivityFarm).toBeNull()
+      expect(punishment.productivityWoodcutter).toBeNull()
+      expect(punishment.productivityMines).toBeNull()
+      expect(punishment.productivityGeneral).toBeNull()
+      expect(punishment.resources).toBeNull()
+      expect(punishment.workers).toBeNull()
+      expect(punishment.levels).toBeNull()
+    })
+
+    it('fromJSON with extra unknown fields ignores them', () => {
+      const punishment = Punishment.fromJSON({
+        type: PUNISHMENT_CROP_FAILURE,
+        unknownField: true,
+      })
+      expect(punishment).toBeInstanceOf(Punishment)
+      expect(punishment).not.toHaveProperty('unknownField')
+    })
+
+    it('fromJSON with null input throws', () => {
+      expect(() => Punishment.fromJSON(null)).toThrow()
+    })
+
+    it('fromJSON with undefined input throws', () => {
+      expect(() => Punishment.fromJSON(undefined)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // Challenge
+  // ============================================================
+
+  describe('Challenge', () => {
+    it('fromJSON with missing optional fields uses defaults', () => {
+      const challenge = Challenge.fromJSON(minimalChallengeData())
+      expect(challenge).toBeInstanceOf(Challenge)
+      expect(challenge.delayElapsed).toBe(0)
+      expect(challenge.timeoutElapsed).toBe(0)
+    })
+
+    it('fromJSON preserves provided optional fields', () => {
+      const challenge = Challenge.fromJSON(minimalChallengeData({
+        delayElapsed: 30,
+        timeoutElapsed: 120,
+      }))
+      expect(challenge.delayElapsed).toBe(30)
+      expect(challenge.timeoutElapsed).toBe(120)
+    })
+
+    it('fromJSON reconstructs nested Blessing and Punishment instances', () => {
+      const challenge = Challenge.fromJSON(minimalChallengeData({
+        blessings: [
+          minimalBlessingData({
+            timeout: 60,
+          }),
+          minimalBlessingData({
+            type: BLESSING_GIFT_FROM_THE_HEAVENS,
+          }),
+        ],
+      }))
+      expect(challenge.blessings).toHaveLength(2)
+      expect(challenge.blessings[0]).toBeInstanceOf(Blessing)
+      expect(challenge.blessings[0].timeout).toBe(60)
+      expect(challenge.blessings[1].type).toBe(BLESSING_GIFT_FROM_THE_HEAVENS)
+      expect(challenge.punishment).toBeInstanceOf(Punishment)
+    })
+
+    it('fromJSON with extra unknown fields ignores them', () => {
+      const challenge = Challenge.fromJSON(minimalChallengeData({
+        unknownField: 'test',
+      }))
+      expect(challenge).toBeInstanceOf(Challenge)
+      expect(challenge).not.toHaveProperty('unknownField')
+    })
+
+    it('fromJSON with null input throws', () => {
+      expect(() => Challenge.fromJSON(null)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // Challenges
+  // ============================================================
+
+  describe('Challenges', () => {
+    it('fromJSON with missing optional arrays uses defaults', () => {
+      const challenges = Challenges.fromJSON({})
+      expect(challenges).toBeInstanceOf(Challenges)
+      expect(challenges.pending).toEqual([])
+      expect(challenges.active).toBeNull()
+      expect(challenges.completed).toEqual([])
+      expect(challenges.activeBlessings).toEqual([])
+      expect(challenges.activePunishments).toEqual([])
+    })
+
+    it('fromJSON reconstructs nested Challenge instances in arrays', () => {
+      const challenges = Challenges.fromJSON({
+        pending: [minimalChallengeData()],
+        active: minimalChallengeData({
+          status: CHALLENGE_STATUS_STARTED,
+        }),
+        completed: [minimalChallengeData()],
+        activeBlessings: [minimalBlessingData()],
+        activePunishments: [minimalPunishmentData()],
+      })
+      expect(challenges.pending[0]).toBeInstanceOf(Challenge)
+      expect(challenges.active).toBeInstanceOf(Challenge)
+      expect(challenges.completed[0]).toBeInstanceOf(Challenge)
+      expect(challenges.activeBlessings[0]).toBeInstanceOf(Blessing)
+      expect(challenges.activePunishments[0]).toBeInstanceOf(Punishment)
+    })
+
+    it('fromJSON with extra unknown fields ignores them', () => {
+      const challenges = Challenges.fromJSON({
+        ...minimalChallengesData(),
+        unknownField: [
+          1,
+          2,
+          3,
+        ],
+      })
+      expect(challenges).toBeInstanceOf(Challenges)
+      expect(challenges).not.toHaveProperty('unknownField')
+    })
+
+    it('fromJSON with null input throws', () => {
+      expect(() => Challenges.fromJSON(null)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // Tutorial (constructor-based deserialization)
+  // ============================================================
+
+  describe('Tutorial', () => {
+    it('constructor with missing fields uses defaults', () => {
+      const tutorial = new Tutorial({})
+      expect(tutorial.currentStep).toBe(0)
+      expect(tutorial.completed).toBe(false)
+      expect(tutorial.dismissedModals).toEqual(new Set())
+      expect(tutorial.activeModal).toBeNull()
+    })
+
+    it('constructor with null input uses defaults', () => {
+      const tutorial = new Tutorial(null)
+      expect(tutorial.currentStep).toBe(0)
+      expect(tutorial.completed).toBe(false)
+      expect(tutorial.dismissedModals).toEqual(new Set())
+    })
+
+    it('constructor with undefined input uses defaults', () => {
+      const tutorial = new Tutorial(undefined)
+      expect(tutorial.currentStep).toBe(0)
+      expect(tutorial.completed).toBe(false)
+    })
+
+    it('constructor with extra unknown fields ignores them', () => {
+      const tutorial = new Tutorial({
+        currentStep: 3,
+        completed: true,
+        unknownField: 'test',
+      })
+      expect(tutorial.currentStep).toBe(3)
+      expect(tutorial.completed).toBe(true)
+      expect(tutorial).not.toHaveProperty('unknownField')
+    })
+
+    it('constructor converts dismissedModals array to Set', () => {
+      const tutorial = new Tutorial({
+        dismissedModals: [
+          'modal1',
+          'modal2',
+        ],
+      })
+      expect(tutorial.dismissedModals).toBeInstanceOf(Set)
+      expect(tutorial.dismissedModals.has('modal1')).toBe(true)
+      expect(tutorial.dismissedModals.has('modal2')).toBe(true)
+    })
+  })
+
+  // ============================================================
+  // Resources (constructor-based deserialization)
+  // ============================================================
+
+  describe('Resources', () => {
+    it('constructor with missing fields uses zero defaults', () => {
+      const resources = new Resources({})
+      expect(resources.territory).toBe(0)
+      expect(resources.territoryBonus).toBe(0)
+      expect(resources.workers).toBe(0)
+      expect(resources.food).toBe(0)
+      expect(resources.wood).toBe(0)
+      expect(resources.stone).toBe(0)
+      expect(resources.copper).toBe(0)
+      expect(resources.iron).toBe(0)
+      expect(resources.gold).toBe(0)
+      expect(resources.faith).toBe(0)
+      expect(resources.knowledge).toBe(0)
+    })
+
+    it('constructor with extra unknown fields ignores them', () => {
+      const resources = new Resources({
+        food: 50,
+        unknownResource: 999,
+      })
+      expect(resources.food).toBe(50)
+      expect(resources).not.toHaveProperty('unknownResource')
+    })
+
+    it('constructor with null input throws', () => {
+      expect(() => new Resources(null)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // Season (constructor-based deserialization)
+  // ============================================================
+
+  describe('Season', () => {
+    it('constructor sets fields from data', () => {
+      const season = new Season({
+        currentSeason: SEASON_WARM,
+        seasonElapsed: 50,
+      })
+      expect(season.currentSeason).toBe(SEASON_WARM)
+      expect(season.seasonElapsed).toBe(50)
+    })
+
+    it('constructor with extra unknown fields ignores them', () => {
+      const season = new Season({
+        currentSeason: SEASON_WARM,
+        seasonElapsed: 0,
+        unknownField: true,
+      })
+      expect(season).not.toHaveProperty('unknownField')
+    })
+
+    it('constructor with null input throws', () => {
+      expect(() => new Season(null)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // Meta
+  // ============================================================
+
+  describe('Meta', () => {
+    it('fromJSON with missing gameSpeed uses default', () => {
+      const meta = Meta.fromJSON(minimalMetaData())
+      expect(meta).toBeInstanceOf(Meta)
+      expect(meta.gameSpeed).toBe(1)
+    })
+
+    it('fromJSON preserves provided gameSpeed', () => {
+      const meta = Meta.fromJSON(minimalMetaData({
+        gameSpeed: 3,
+      }))
+      expect(meta.gameSpeed).toBe(3)
+    })
+
+    it('fromJSON reconstructs nested Challenges and Tutorial', () => {
+      const meta = Meta.fromJSON(minimalMetaData({
+        challenges: {
+          pending: [minimalChallengeData()],
+          active: null,
+          completed: [],
+          activeBlessings: [],
+          activePunishments: [],
+        },
+        tutorial: {
+          currentStep: 5,
+          completed: true,
+          dismissedModals: ['m1'],
+        },
+      }))
+      expect(meta.challenges).toBeInstanceOf(Challenges)
+      expect(meta.challenges.pending).toHaveLength(1)
+      expect(meta.tutorial).toBeInstanceOf(Tutorial)
+      expect(meta.tutorial.currentStep).toBe(5)
+      expect(meta.tutorial.completed).toBe(true)
+    })
+
+    it('fromJSON with extra unknown fields ignores them', () => {
+      const meta = Meta.fromJSON({
+        ...minimalMetaData(),
+        unknownField: 'test',
+      })
+      expect(meta).toBeInstanceOf(Meta)
+      expect(meta).not.toHaveProperty('unknownField')
+    })
+
+    it('fromJSON with null input throws', () => {
+      expect(() => Meta.fromJSON(null)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // Buildings
+  // ============================================================
+
+  describe('Buildings', () => {
+    it('fromJSON reconstructs all building instances', () => {
+      const buildings = Buildings.fromJSON(minimalBuildingsData(), BUILDING_CLASS_MAP)
+      expect(buildings).toBeInstanceOf(Buildings)
+      expect(buildings.headquarters).toBeInstanceOf(Headquarters)
+      expect(buildings.headquarters.type).toBe(HQ_TYPE_CAMP)
+      expect(buildings.farm.level).toBe(0)
+    })
+
+    it('fromJSON skips unknown building keys', () => {
+      const data = {
+        ...minimalBuildingsData(),
+        unknownBuilding: {
+          level: 5,
+        },
+      }
+      const buildings = Buildings.fromJSON(data, BUILDING_CLASS_MAP)
+      expect(buildings).toBeInstanceOf(Buildings)
+      expect(buildings).not.toHaveProperty('unknownBuilding')
+    })
+
+    it('fromJSON with empty object creates Buildings with undefined fields', () => {
+      const buildings = Buildings.fromJSON({}, BUILDING_CLASS_MAP)
+      expect(buildings).toBeInstanceOf(Buildings)
+      expect(buildings.headquarters).toBeUndefined()
+    })
+
+    it('fromJSON with null input throws', () => {
+      expect(() => Buildings.fromJSON(null, BUILDING_CLASS_MAP)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // Headquarters
+  // ============================================================
+
+  describe('Headquarters', () => {
+    it('constructor with missing optional fields uses defaults', () => {
+      const headquarters = new Headquarters({
+        level: 1,
+        type: HQ_TYPE_CAMP,
+      })
+      expect(headquarters.level).toBe(1)
+      expect(headquarters.type).toBe(HQ_TYPE_CAMP)
+      expect(headquarters.upgradeRemaining).toBe(0)
+      expect(headquarters.upgradeDuration).toBe(0)
+      expect(headquarters.constructionRemaining).toBe(0)
+      expect(headquarters.constructionDuration).toBe(0)
+    })
+
+    it('constructor with extra unknown fields ignores them', () => {
+      const headquarters = new Headquarters({
+        level: 1,
+        type: HQ_TYPE_CAMP,
+        unknownField: 'test',
+      })
+      expect(headquarters).not.toHaveProperty('unknownField')
+    })
+
+    it('constructor with null input throws', () => {
+      expect(() => new Headquarters(null)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // Market
+  // ============================================================
+
+  describe('Market', () => {
+    it('constructor with missing price fields uses base price defaults', () => {
+      const market = new Market({
+        level: 1,
+      })
+      expect(market).toBeInstanceOf(Market)
+      expect(market.level).toBe(1)
+      expect(market.food).toBeGreaterThan(0)
+      expect(market.wood).toBeGreaterThan(0)
+      expect(market.stone).toBeGreaterThan(0)
+      expect(market.copper).toBeGreaterThan(0)
+      expect(market.iron).toBeGreaterThan(0)
+    })
+
+    it('constructor with extra unknown fields ignores them', () => {
+      const market = new Market({
+        level: 1,
+        unknownField: 'test',
+      })
+      expect(market).not.toHaveProperty('unknownField')
+    })
+
+    it('constructor with null input throws', () => {
+      expect(() => new Market(null)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // Events
+  // ============================================================
+
+  describe('Events', () => {
+    it('fromJSON with missing optional fields uses defaults', () => {
+      const events = Events.fromJSON({})
+      expect(events).toBeInstanceOf(Events)
+      expect(events.future).toEqual([])
+      expect(events.past).toEqual([])
+      expect(events._nextId).toBe(1)
+    })
+
+    it('fromJSON reconstructs EventFuture and EventPast instances', () => {
+      const events = Events.fromJSON({
+        future: [
+          {
+            ...minimalEventData(),
+            remainingSeconds: 30,
+          },
+        ],
+        past: [
+          minimalEventData({
+            id: 2,
+          }),
+        ],
+        nextId: 3,
+      })
+      expect(events.future).toHaveLength(1)
+      expect(events.future[0]).toBeInstanceOf(EventFuture)
+      expect(events.future[0].remainingSeconds).toBe(30)
+      expect(events.past).toHaveLength(1)
+      expect(events.past[0]).toBeInstanceOf(EventPast)
+      expect(events._nextId).toBe(3)
+    })
+
+    it('fromJSON with extra unknown fields ignores them', () => {
+      const events = Events.fromJSON({
+        future: [],
+        past: [],
+        nextId: 1,
+        unknownField: 'test',
+      })
+      expect(events).toBeInstanceOf(Events)
+      expect(events).not.toHaveProperty('unknownField')
+    })
+
+    it('fromJSON with null input throws', () => {
+      expect(() => Events.fromJSON(null)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // EventFuture
+  // ============================================================
+
+  describe('EventFuture', () => {
+    it('constructor with missing optional fields uses defaults', () => {
+      const event = new EventFuture({
+        id: 1,
+        type: EVENT_TYPE_SEASON_CHANGED,
+        textKey: 'event.test',
+        icon: '/img/test.png',
+        remainingSeconds: 60,
+      })
+      expect(event.params).toEqual([])
+      expect(event.buildingKey).toBeNull()
+      expect(event.researchKey).toBeNull()
+      expect(event.action).toBeNull()
+      expect(event.remainingSeconds).toBe(60)
+    })
+
+    it('constructor with extra unknown fields ignores them', () => {
+      const event = new EventFuture({
+        ...minimalEventData(),
+        remainingSeconds: 10,
+        unknownField: 'test',
+      })
+      expect(event).not.toHaveProperty('unknownField')
+    })
+  })
+
+  // ============================================================
+  // EventPast
+  // ============================================================
+
+  describe('EventPast', () => {
+    it('constructor with missing optional fields uses defaults', () => {
+      const event = new EventPast({
+        id: 1,
+        type: EVENT_TYPE_SEASON_CHANGED,
+        textKey: 'event.test',
+        icon: '/img/test.png',
+      })
+      expect(event.params).toEqual([])
+      expect(event.buildingKey).toBeNull()
+      expect(event.researchKey).toBeNull()
+      expect(event.action).toBeNull()
+    })
+
+    it('constructor with extra unknown fields ignores them', () => {
+      const event = new EventPast({
+        ...minimalEventData(),
+        unknownField: 'test',
+      })
+      expect(event).not.toHaveProperty('unknownField')
+    })
+  })
+
+  // ============================================================
+  // Colony
+  // ============================================================
+
+  describe('Colony', () => {
+    it('fromJSON reconstructs all sub-models', () => {
+      const colony = Colony.fromJSON(minimalColonyData(), BUILDING_CLASS_MAP)
+      expect(colony).toBeInstanceOf(Colony)
+      expect(colony.year).toBe(1)
+      expect(colony.season).toBeInstanceOf(Season)
+      expect(colony.resources).toBeInstanceOf(Resources)
+      expect(colony.buildings).toBeInstanceOf(Buildings)
+      expect(colony.events).toBeInstanceOf(Events)
+    })
+
+    it('fromJSON with extra unknown fields ignores them', () => {
+      const colony = Colony.fromJSON({
+        ...minimalColonyData(),
+        unknownField: 'test',
+      }, BUILDING_CLASS_MAP)
+      expect(colony).toBeInstanceOf(Colony)
+      expect(colony).not.toHaveProperty('unknownField')
+    })
+
+    it('fromJSON with null input throws', () => {
+      expect(() => Colony.fromJSON(null, BUILDING_CLASS_MAP)).toThrow()
+    })
+  })
+})
