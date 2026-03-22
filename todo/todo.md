@@ -1,4 +1,4 @@
-- Improve challenges
+- Implement challenges
   - Implement punishments
   - Add images on each blessing card
 
