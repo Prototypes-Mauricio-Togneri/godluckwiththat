@@ -404,6 +404,8 @@ export const LOCALIZED_EN = {
   'tutorial.modal.negativeProduction.body': 'Your colony is consuming more than it produces. Assign more workers to production buildings or build new ones to recover. If shortages persist, worker productivity will drop.',
   'tutorial.modal.campUpgrade.title': 'Camp upgraded',
   'tutorial.modal.campUpgrade.body': 'Your camp has been upgraded to a settlement, unlocking new buildings. Explore the new options available to grow your colony further.',
+  'tutorial.modal.challengeStarted.title': 'Divine challenge',
+  'tutorial.modal.challengeStarted.body': 'The Gods have sent you a divine challenge. Complete it to receive their blessing. Fail, and face their punishment. Click the ongoing event for more details.',
 
   // Challenge system
   'challenge.title': 'Challenges',

@@ -164,7 +164,7 @@ Step-by-step guided tutorial for new players, active from game start until compl
 
 **Steps** — `TUTORIAL_STEPS` constant in `constants.js` — 15 sequential steps, each with `textKey` (i18n key), `building` (optional building key to highlight), and `check(state)` function that returns `true` when the step's objective is met. Steps guide the player through building a house, farm, and woodcutter, assigning workers, upgrading buildings, building an altar, expanding territory, and upgrading the headquarters.
 
-**Modals** — `TUTORIAL_MODALS` constant in `constants.js` — 3 reactive modal definitions keyed by `TUTORIAL_MODAL_*` enums (`SEASON_CHANGED`, `NEGATIVE_PRODUCTION`, `HQ_UPGRADE`). Each has `titleKey` and `bodyKey` for localization. Triggered by game state transitions (e.g. first season change) and shown once (tracked via `dismissedModals`).
+**Modals** — `TUTORIAL_MODALS` constant in `constants.js` — 4 reactive modal definitions keyed by `TUTORIAL_MODAL_*` enums (`SEASON_CHANGED`, `NEGATIVE_PRODUCTION`, `HQ_UPGRADE`, `CHALLENGE_STARTED`). Each has `titleKey` and `bodyKey` for localization. Triggered by game state transitions (e.g. first season change, first challenge start) and shown once (tracked via `dismissedModals`).
 
 **UI** — `TutorialBanner` (`src/components/tutorial/tutorial_banner.vue`) displays the current step at the bottom of the game screen with optional building icon and step counter. `TutorialModal` (`src/components/tutorial/tutorial_modal.vue`) shows educational popups triggered by state transitions. Both are rendered in `game_screen.vue` when the tutorial is active.
 

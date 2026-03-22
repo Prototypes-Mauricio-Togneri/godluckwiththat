@@ -219,6 +219,7 @@ export const BONUS_WARNING_TIME = 'warningTime'
 export const TUTORIAL_MODAL_SEASON_CHANGED = 'seasonChanged'
 export const TUTORIAL_MODAL_NEGATIVE_PRODUCTION = 'negativeProduction'
 export const TUTORIAL_MODAL_HQ_UPGRADE = 'hqUpgrade'
+export const TUTORIAL_MODAL_CHALLENGE_STARTED = 'challengeStarted'
 
 // Emit events
 export const EMIT_CLOSE = 'close'

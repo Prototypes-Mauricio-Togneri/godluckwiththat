@@ -1,5 +1,3 @@
-- Show tutorial modal when the first challenge starts
-
 - Show current blessing or punushement on the UI
   - Details
   - Time until finished

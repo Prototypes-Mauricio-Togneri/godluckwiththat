@@ -404,6 +404,8 @@ export const LOCALIZED_FR = {
   'tutorial.modal.negativeProduction.body': 'Votre colonie consomme plus qu\'elle ne produit. Assignez plus d\'ouvriers aux bâtiments de production ou construisez-en de nouveaux. Si les pénuries persistent, la productivité baissera.',
   'tutorial.modal.campUpgrade.title': 'Camp amélioré',
   'tutorial.modal.campUpgrade.body': 'Votre camp a été amélioré en un établissement, débloquant de nouveaux bâtiments. Explorez les nouvelles options disponibles pour développer votre colonie.',
+  'tutorial.modal.challengeStarted.title': 'Défi divin',
+  'tutorial.modal.challengeStarted.body': 'Les Dieux vous ont envoyé un défi divin. Accomplissez-le pour recevoir leur bénédiction. En cas d\'échec, vous subirez leur châtiment. Cliquez sur l\'événement en cours pour plus de détails.',
 
   // Challenge system
   'challenge.title': 'Défis',

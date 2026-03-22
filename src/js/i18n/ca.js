@@ -404,6 +404,8 @@ export const LOCALIZED_CA = {
   'tutorial.modal.negativeProduction.body': 'La teva colònia consumeix més del que produeix. Assigna més treballadors als edificis de producció o construeix-ne de nous. Si l\'escassetat persisteix, la productivitat baixarà.',
   'tutorial.modal.campUpgrade.title': 'Campament millorat',
   'tutorial.modal.campUpgrade.body': 'El teu campament ha estat millorat a un assentament, desbloquejant nous edificis. Explora les noves opcions disponibles per fer créixer la teva colònia.',
+  'tutorial.modal.challengeStarted.title': 'Desafiament diví',
+  'tutorial.modal.challengeStarted.body': 'Els Déus t\'han enviat un desafiament diví. Completa\'l per rebre la seva benedicció. Si falles, enfrontaràs el seu càstig. Fes clic a l\'esdeveniment en curs per a més detalls.',
 
   // Challenge system
   'challenge.title': 'Desafiaments',

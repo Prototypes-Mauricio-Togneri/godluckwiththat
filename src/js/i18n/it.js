@@ -404,6 +404,8 @@ export const LOCALIZED_IT = {
   'tutorial.modal.negativeProduction.body': 'La tua colonia consuma più di quanto produce. Assegna più lavoratori agli edifici di produzione o costruiscine di nuovi. Se la carenza persiste, la produttività calerà.',
   'tutorial.modal.campUpgrade.title': 'Accampamento migliorato',
   'tutorial.modal.campUpgrade.body': 'Il tuo accampamento è stato migliorato a un insediamento, sbloccando nuovi edifici. Esplora le nuove opzioni disponibili per far crescere la tua colonia.',
+  'tutorial.modal.challengeStarted.title': 'Sfida divina',
+  'tutorial.modal.challengeStarted.body': 'Gli Dei ti hanno inviato una sfida divina. Completala per ricevere la loro benedizione. Se fallisci, affronterai la loro punizione. Clicca sull\'evento in corso per maggiori dettagli.',
 
   // Challenge system
   'challenge.title': 'Sfide',

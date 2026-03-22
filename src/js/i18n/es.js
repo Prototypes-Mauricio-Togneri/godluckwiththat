@@ -404,6 +404,8 @@ export const LOCALIZED_ES = {
   'tutorial.modal.negativeProduction.body': 'Tu colonia consume más de lo que produce. Asigna más trabajadores a los edificios de producción o construye nuevos para recuperarte. Si la escasez persiste, la productividad bajará.',
   'tutorial.modal.campUpgrade.title': 'Campamento mejorado',
   'tutorial.modal.campUpgrade.body': 'Tu campamento ha sido mejorado a un asentamiento, desbloqueando nuevos edificios. Explora las nuevas opciones disponibles para hacer crecer tu colonia.',
+  'tutorial.modal.challengeStarted.title': 'Desafío divino',
+  'tutorial.modal.challengeStarted.body': 'Los Dioses te han enviado un desafío divino. Complétalo para recibir su bendición. Si fallas, enfrentarás su castigo. Haz clic en el evento en curso para más detalles.',
 
   // Challenge system
   'challenge.title': 'Desafíos',
