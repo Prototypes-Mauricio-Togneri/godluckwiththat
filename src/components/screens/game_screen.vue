@@ -1489,10 +1489,7 @@ onUnmounted(() => {
               class="event-row blessing-row"
             >
               <img class="event-icon" :src="IMG_BLESSING_BLESSING" :alt="t(`blessing.${blessing.type}`)">
-              <span class="blessing-info">
-                <span class="blessing-name">{{ t(`blessing.${blessing.type}`) }}</span>
-                <span class="blessing-effect">{{ t(blessing.effectKey, ...blessing.effectParams) }}</span>
-              </span>
+              <span class="event-text">{{ t(blessing.effectKey, ...blessing.effectParams) }}</span>
               <span class="event-countdown">{{ formatTime(blessing.timeout) }}</span>
             </div>
           </div>
@@ -2162,34 +2159,6 @@ onUnmounted(() => {
 
 .blessing-row:hover {
   border-left-color: rgba(212, 175, 55, 0.85);
-}
-
-/* Two-line blessing info: name above, effect below */
-.blessing-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.blessing-name {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: rgba(212, 175, 55, 0.9);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.blessing-effect {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 400;
-  color: rgba(var(--color-text-rgb), 0.55);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* Placeholder text shown when no events exist */
