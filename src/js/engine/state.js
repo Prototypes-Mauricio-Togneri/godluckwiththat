@@ -1209,12 +1209,27 @@ class State {
     if (!tutorial.isActive) {
       return
     }
+    if (tutorial.allStepsCompleted) {
+      // Steps done, but defer completion until all modals are dismissed
+      // so players see every explanation before the tutorial ends
+      if (tutorial.allModalsDismissed) {
+        tutorial.completed = true
+        storage.tutorialCompleted = true
+      }
+      return
+    }
+    // Auto-advance past steps whose conditions are already satisfied
+    // (e.g. player built the required building before the tutorial caught up)
     let step = TUTORIAL_STEPS[tutorial.currentStep]
     while (step?.check(this.colony.buildings)) {
       tutorial.currentStep++
-      if (tutorial.currentStep >= TUTORIAL_STEPS.length) {
-        tutorial.completed = true
-        storage.tutorialCompleted = true
+      if (tutorial.allStepsCompleted) {
+        // Steps finished during auto-advance; check modals here too,
+        // otherwise completion is deferred until the next checkTutorial call
+        if (tutorial.allModalsDismissed) {
+          tutorial.completed = true
+          storage.tutorialCompleted = true
+        }
         return
       }
       step = TUTORIAL_STEPS[tutorial.currentStep]

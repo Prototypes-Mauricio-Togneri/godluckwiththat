@@ -1,5 +1,5 @@
 import {describe, it, expect, vi, beforeEach} from 'vitest'
-import {BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL, TUTORIAL_MODAL_HQ_UPGRADE} from '@/js/engine/enums.js'
+import {BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL, TUTORIAL_MODAL_CHALLENGE_STARTED, TUTORIAL_MODAL_HQ_UPGRADE, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_SEASON_CHANGED} from '@/js/engine/enums.js'
 import {HQ_TERRITORY_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, SEASON_DURATION, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import {DOWNGRADABLE_BUILDINGS, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
@@ -2199,7 +2199,7 @@ describe('State', () => {
       expect(state.meta.tutorial.currentStep).toBe(0)
     })
 
-    it('should complete tutorial and set storage flag when all steps pass', async () => {
+    it('should not complete tutorial when all steps pass but modals remain undismissed', async () => {
       const state = await createState({
         metaOverrides: {
           tutorial: new Tutorial({
@@ -2230,6 +2230,96 @@ describe('State', () => {
           },
         },
       })
+      state.checkTutorial()
+      expect(state.meta.tutorial.completed).toBe(false)
+      expect(storage.tutorialCompleted).toBe(false)
+    })
+
+    it('should complete tutorial when all steps pass and all modals dismissed', async () => {
+      const state = await createState({
+        metaOverrides: {
+          tutorial: new Tutorial({
+            currentStep: 0,
+            completed: false,
+            dismissedModals: [
+              TUTORIAL_MODAL_SEASON_CHANGED,
+              TUTORIAL_MODAL_NEGATIVE_PRODUCTION,
+              TUTORIAL_MODAL_HQ_UPGRADE,
+              TUTORIAL_MODAL_CHALLENGE_STARTED,
+            ],
+          }),
+        },
+        colonyOverrides: {
+          buildingOverrides: {
+            headquarters: {
+              level: 2,
+              type: HQ_TYPE_SETTLEMENT,
+            },
+            house: {
+              level: 3,
+            },
+            farm: {
+              level: 3,
+              workers: 5,
+            },
+            woodcutter: {
+              level: 3,
+              workers: 5,
+            },
+            altar: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state.checkTutorial()
+      expect(state.meta.tutorial.completed).toBe(true)
+      expect(storage.tutorialCompleted).toBe(true)
+    })
+
+    it('should complete tutorial on re-entry after steps passed and modals later dismissed', async () => {
+      const state = await createState({
+        metaOverrides: {
+          tutorial: new Tutorial({
+            currentStep: 0,
+            completed: false,
+          }),
+        },
+        colonyOverrides: {
+          buildingOverrides: {
+            headquarters: {
+              level: 2,
+              type: HQ_TYPE_SETTLEMENT,
+            },
+            house: {
+              level: 3,
+            },
+            farm: {
+              level: 3,
+              workers: 5,
+            },
+            woodcutter: {
+              level: 3,
+              workers: 5,
+            },
+            altar: {
+              level: 1,
+            },
+          },
+        },
+      })
+      // First call: all steps pass but modals are undismissed
+      state.checkTutorial()
+      expect(state.meta.tutorial.completed).toBe(false)
+      expect(storage.tutorialCompleted).toBe(false)
+
+      // Simulate user dismissing all modals between ticks
+      state.meta.tutorial.dismissedModals.add(TUTORIAL_MODAL_SEASON_CHANGED)
+      state.meta.tutorial.dismissedModals.add(TUTORIAL_MODAL_NEGATIVE_PRODUCTION)
+      state.meta.tutorial.dismissedModals.add(TUTORIAL_MODAL_HQ_UPGRADE)
+      state.meta.tutorial.dismissedModals.add(TUTORIAL_MODAL_CHALLENGE_STARTED)
+
+      // Second call: should now detect all modals dismissed and complete
       state.checkTutorial()
       expect(state.meta.tutorial.completed).toBe(true)
       expect(storage.tutorialCompleted).toBe(true)

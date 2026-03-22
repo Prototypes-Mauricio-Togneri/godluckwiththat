@@ -1,3 +1,5 @@
+import {TUTORIAL_MODALS, TUTORIAL_STEPS} from '@/js/engine/constants.js'
+
 /**
  * Tutorial data model. Tracks step progression, completion state,
  * and dismissed modal history.
@@ -21,6 +23,16 @@ class Tutorial {
   /** @returns {boolean} Whether the tutorial is still in progress */
   get isActive() {
     return !this.completed
+  }
+
+  /** @returns {boolean} Whether all tutorial steps have been completed */
+  get allStepsCompleted() {
+    return this.currentStep >= TUTORIAL_STEPS.length
+  }
+
+  /** @returns {boolean} Whether all tutorial modals have been dismissed */
+  get allModalsDismissed() {
+    return Object.keys(TUTORIAL_MODALS).every(key => this.dismissedModals.has(key))
   }
 
   /**
