@@ -1,6 +1,3 @@
-- Update function to calculate time from cost
-  - The higher the number, the less seconds per resource to avoid exploding numbers
-
 - Improve challenges
   - Implement punishments
   - Add images on each blessing card

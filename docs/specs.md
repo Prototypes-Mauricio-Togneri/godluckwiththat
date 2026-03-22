@@ -145,7 +145,7 @@ There are two types of resources
 
 ## Buildings
 
-Each building has a level that can be increased by spending resources. Building and upgrading takes time — resources are deducted immediately when construction starts, but the level increments only after a construction timer expires. Build time is derived from the upgrade cost via `Cost.toSeconds`, which sums each resource amount multiplied by its time weight (defined in `RESOURCE_TIME_WEIGHTS`). During construction, buildings continue producing at their current level. Territory is reserved immediately for buildings under construction.
+Each building has a level that can be increased by spending resources. Building and upgrading takes time — resources are deducted immediately when construction starts, but the level increments only after a construction timer expires. Build time is derived from the upgrade cost via `Cost.toSeconds`, which sums each resource amount multiplied by its time weight (defined in `RESOURCE_TIME_WEIGHTS`), then raises the total to a sub-linear exponent (`RESOURCE_TIME_EXPONENT`). During construction, buildings continue producing at their current level. Territory is reserved immediately for buildings under construction.
 
 - Headquarters
   - Each type upgrade unlocks new buildings (see Colony types above)
@@ -331,7 +331,7 @@ The file contains:
 - **HQ upgrade costs** (`HQ_UPGRADE_COSTS`) — Fixed resource costs to upgrade the colony type (Camp → Settlement → Village → Town → City).
 - **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, temples). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.
 - **Population & workers** — House population formula value (`HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), worker recruitment cost (`WORKER_RECRUIT_COST`), worker upkeep rates (`WORKER_FOOD_CONSUMPTION`, `WORKER_WOOD_CONSUMPTION`).
-- **Resource time weights** (`RESOURCE_TIME_WEIGHTS`) — Per-resource time weight in seconds, used by `Cost.toSeconds` to derive build duration from resource costs.
+- **Resource time weights** (`RESOURCE_TIME_WEIGHTS`, `RESOURCE_TIME_EXPONENT`) — Per-resource time weight in seconds and a sub-linear exponent (0.7), used by `Cost.toSeconds` to derive build duration from resource costs: `floor(weightedSum ^ exponent)`.
 - **Season constants** (`SEASON_DURATION`, `SEASON_WARM_FOOD_MODIFIER`, `SEASON_COLD_FOOD_MODIFIER`, `SEASON_WARM_WOOD_MODIFIER`, `SEASON_COLD_WOOD_MODIFIER`) — Season duration in seconds and fractional modifiers for food production and wood consumption per season.
 - **Market trading** (`MARKET_TRADE_AMOUNT`, `MARKET_BASE_PRICES`, `MARKET_BASE_FEE`, `MARKET_MIN_FEE`, `MARKET_FEE_REDUCTION_PER_LEVEL`, `MARKET_PRICE_SHIFT`, `MARKET_MIN_CURRENT_PRICE`, `MARKET_MAX_CURRENT_PRICE`) — Trade lot size, base gold prices per resource, fee structure, and dynamic price bounds.
 - **Monument faith** (`MONUMENT_FAITH_PER_LEVEL`) — One-time faith granted when a monument finishes construction: `value × newLevel`.

@@ -8,6 +8,7 @@ import Cost from '@/js/models/cost.js'
 // ── Build Time ──────────────────────────────────────────────────────
 // Time weight per resource unit (seconds). Used by Cost.toSeconds to
 // derive construction duration from resource costs.
+// Formula: floor(weightedSum ^ RESOURCE_TIME_EXPONENT)
 export const RESOURCE_TIME_WEIGHTS = {
   [RESOURCE_FOOD]: 0.1,
   [RESOURCE_WOOD]: 0.1,
@@ -18,6 +19,7 @@ export const RESOURCE_TIME_WEIGHTS = {
   [RESOURCE_KNOWLEDGE]: 0.1,
   [RESOURCE_FAITH]: 0.1,
 }
+export const RESOURCE_TIME_EXPONENT = 0.7
 
 // ── Building Upgrades ─────────────────────────────────────────────
 // Per-building upgrade config: base cost and exponential cost multiplier.

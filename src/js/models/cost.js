@@ -1,4 +1,4 @@
-import {RESOURCE_TIME_WEIGHTS} from '@/js/engine/balancing.js'
+import {RESOURCE_TIME_EXPONENT, RESOURCE_TIME_WEIGHTS} from '@/js/engine/balancing.js'
 import {RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
 
 /**
@@ -97,7 +97,7 @@ class Cost {
     ] of this.entries) {
       seconds += amount * (RESOURCE_TIME_WEIGHTS[resource] ?? 0)
     }
-    return Math.floor(seconds)
+    return Math.floor(Math.pow(seconds, RESOURCE_TIME_EXPONENT))
   }
 }
 
