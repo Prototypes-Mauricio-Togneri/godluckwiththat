@@ -177,6 +177,7 @@ export const LOCALIZED_EN = {
   'events.past': 'History',
   'events.empty': 'No events',
   'events.clearAll': 'Clear all',
+  'events.blessings': 'Blessings',
   'event.warmSeason': 'Warm season has begun',
   'event.coldSeason': 'Cold season has begun',
   'event.populationLimitReached': 'Population limit reached',
@@ -466,6 +467,16 @@ export const LOCALIZED_EN = {
   'blessing.favorableWeather.description': 'Warm seasons are {0}% more productive and cold seasons are {1}% less harsh for {2}',
   'blessing.wisdomOfTheGods.description': 'Increases knowledge productivity by {0}% for {1}',
   'blessing.blessedMarkets.description': 'No trading fees for {0}',
+
+  // Blessing short effects (active blessing indicator)
+  'blessing.fertileSoil.effect': '+{0}% food',
+  'blessing.forestBloom.effect': '+{0}% wood',
+  'blessing.richMines.effect': '+{0}% minerals',
+  'blessing.celestialProsperity.effect': '+{0}% all production',
+  'blessing.wisdomOfTheGods.effect': '+{0}% knowledge',
+  'blessing.rapidConstruction.effect': '+{0}% build speed',
+  'blessing.favorableWeather.effect': '+{0}% warm / -{1}% cold',
+  'blessing.blessedMarkets.effect': 'No trade fees',
 
   // Punishment types
   'punishment.cropFailure': 'Crop Failure',

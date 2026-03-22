@@ -31,7 +31,7 @@ import TowerCard from '@/components/buildings/tower_card.vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull, formatRate, formatTime} from '@/js/engine/format.js'
 import storage from '@/js/engine/storage.js'
-import {IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
+import {IMG_BLESSING_BLESSING, IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
 import TutorialBanner from '@/components/tutorial/tutorial_banner.vue'
 import TutorialModal from '@/components/tutorial/tutorial_modal.vue'
 import SettingsModal from '@/components/modals/settings_modal.vue'
@@ -362,6 +362,7 @@ const ui = shallowReactive({
     activePunishment: null,
   },
   challengeModal: null,
+  activeBlessings: [],
   tutorial: {
     stepTextKey: null,
     stepBuilding: null,
@@ -374,6 +375,31 @@ const ui = shallowReactive({
     activeModalBody: null,
   },
 })
+
+/** Maps a Blessing instance to a plain UI snapshot for template rendering.
+ * @param {Object} blessing - Blessing model instance
+ * @returns {Object} Plain object with type, timeout, effectKey, effectParams
+ */
+function blessingToUIEntry(blessing) {
+  const effectKey = `blessing.${blessing.type}.effect`
+  let effectParams = []
+  if (blessing.productivity !== null) {
+    effectParams = [Math.round(blessing.productivity * 100)]
+  } else if (blessing.construction !== null) {
+    effectParams = [Math.round(blessing.construction * 100)]
+  } else if (blessing.warm !== null && blessing.cold !== null) {
+    effectParams = [
+      Math.round(blessing.warm * 100),
+      Math.round(blessing.cold * 100),
+    ]
+  }
+  return {
+    type: blessing.type,
+    timeout: blessing.timeout,
+    effectKey: effectKey,
+    effectParams: effectParams,
+  }
+}
 
 /** Fast-path sync: updates only time-sensitive fields that change every rAF frame
  * (season elapsed, construction/upgrade remaining, research timers, event countdowns).
@@ -464,6 +490,26 @@ function syncTimers() {
     }))
   } else {
     ui.futureEvents = []
+  }
+
+  // Blessing countdown timers
+  const activeBlessings = state.meta.challenges.activeBlessings
+  if (activeBlessings.length > 0) {
+    const updatedBlessings = []
+    for (const blessing of activeBlessings) {
+      if (blessing.timeout !== null && blessing.timeout > 0) {
+        const existing = ui.activeBlessings.find(entry => entry.type === blessing.type)
+        if (existing) {
+          updatedBlessings.push({
+            ...existing,
+            timeout: blessing.timeout,
+          })
+        }
+      }
+    }
+    ui.activeBlessings = updatedBlessings
+  } else if (ui.activeBlessings.length > 0) {
+    ui.activeBlessings = []
   }
 
   // Challenge timer (smooth countdown)
@@ -789,6 +835,9 @@ function syncChallenges() {
     } : null,
   }
   ui.challengeModal = state.challengeModal
+  ui.activeBlessings = state.meta.challenges.activeBlessings
+    .filter(blessing => blessing.timeout !== null && blessing.timeout > 0)
+    .map(blessingToUIEntry)
 }
 
 /** Full sync: copies all values the templates need from the plain engine state into the reactive ui object. */
@@ -1430,6 +1479,25 @@ onUnmounted(() => {
       <div class="events-column">
         <h2 class="column-header">{{ t('events.title') }}</h2>
 
+        <!-- Active blessings -->
+        <div v-if="ui.activeBlessings.length">
+          <h3 class="events-section-label">{{ t('events.blessings') }}</h3>
+          <div class="events-list">
+            <div
+              v-for="blessing in ui.activeBlessings"
+              :key="blessing.type"
+              class="event-row blessing-row"
+            >
+              <img class="event-icon" :src="IMG_BLESSING_BLESSING" :alt="t(`blessing.${blessing.type}`)">
+              <span class="blessing-info">
+                <span class="blessing-name">{{ t(`blessing.${blessing.type}`) }}</span>
+                <span class="blessing-effect">{{ t(blessing.effectKey, ...blessing.effectParams) }}</span>
+              </span>
+              <span class="event-countdown">{{ formatTime(blessing.timeout) }}</span>
+            </div>
+          </div>
+        </div>
+
         <!-- Future events -->
         <div v-if="ui.futureEvents.length">
           <h3 class="events-section-label">{{ t('events.future') }}</h3>
@@ -1464,7 +1532,7 @@ onUnmounted(() => {
         </div>
 
         <!-- Empty state -->
-        <p v-if="!ui.futureEvents.length && !ui.pastEvents.length" class="events-empty">
+        <p v-if="!ui.activeBlessings.length && !ui.futureEvents.length && !ui.pastEvents.length" class="events-empty">
           {{ t('events.empty') }}
         </p>
       </div>
@@ -2085,6 +2153,43 @@ onUnmounted(() => {
   color: rgba(196, 80, 80, 1);
   border-color: rgba(196, 80, 80, 0.4);
   background: rgba(196, 80, 80, 0.1);
+}
+
+/* Blessing row with divine golden border */
+.blessing-row {
+  border-left-color: rgba(212, 175, 55, 0.6);
+}
+
+.blessing-row:hover {
+  border-left-color: rgba(212, 175, 55, 0.85);
+}
+
+/* Two-line blessing info: name above, effect below */
+.blessing-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.blessing-name {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(212, 175, 55, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.blessing-effect {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: rgba(var(--color-text-rgb), 0.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Placeholder text shown when no events exist */
