@@ -1,3 +1,6 @@
+- Tooltip 2 Segundo to 1 Segundo
+- Test error with hibernating computer
+
 - Implement challenges
   - Implement punishments
   - Add images on each blessing card
