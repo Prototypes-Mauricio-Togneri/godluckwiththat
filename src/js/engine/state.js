@@ -988,13 +988,15 @@ class State {
         if (building.level === 1 && building.isConstructing) {
           building.constructionRemaining = 0
           building.constructionDuration = 0
-          building.workers = 0
+          if ('workers' in building) {
+            building.workers = 0
+          }
           building.level = 0
           this._constructingKeys.delete(randomKey)
           this.colony.events.dismissFutureByBuildingKey(randomKey)
         } else {
           building.level -= 1
-          if (building.workers > building.maxWorkers) {
+          if ('workers' in building && building.workers > building.maxWorkers) {
             building.workers = building.maxWorkers
           }
         }
@@ -1075,7 +1077,7 @@ class State {
     }
 
     building.level -= 1
-    if (building.workers > building.maxWorkers) {
+    if ('workers' in building && building.workers > building.maxWorkers) {
       building.workers = building.maxWorkers
     }
 

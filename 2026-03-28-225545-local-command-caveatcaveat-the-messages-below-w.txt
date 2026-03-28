@@ -1,0 +1,39 @@
+  File Path: src/components/buildings/house_card.vue
+  Issue Type: Dead Code
+  Line #: 1–73
+  Severity: Warning
+  Description & Suggested Fix: Permanently hidden recruit UI. Lines 58–70 use
+    v-show="false", rendering the recruit button/cost display to DOM but never
+    showing it. The associated <script> code (3 computed properties, 1 function,
+
+    2 imports on lines 7–8) executes every reactive update for no visible
+  effect.
+     Worker recruitment happens exclusively through worker_assignment_row.vue.
+    Fix: Remove the v-show="false" block and its associated JS, or replace
+    v-show="false" with a proper condition if the feature is planned.
+  ────────────────────────────────────────
+  File Path: src/components/modals/help_modal.vue
+  Issue Type: Vue Anti-pattern
+  Line #: 54
+  Severity: Style
+  Description & Suggested Fix: Array index used as v-key. <p v-for="(para, i) in
+   
+    paragraphs" :key="i"> uses index keys on a computed list derived from
+    props.body.split('\n'). When the same modal instance receives different body
+
+    text, Vue may reuse DOM nodes incorrectly. In practice risk is low because
+    help_modal is typically destroyed/recreated via v-if. Fix: Use :key="para"
+    (paragraph text is unique per body) or :key="'p-' + i" with a comment
+    explaining why index is acceptable here.
+  ────────────────────────────────────────
+  File Path: src/assets/styles.css
+  Issue Type: Undocumented Pattern
+  Line #: 159, 168–170, 179–181, 221
+  Severity: Style
+  Description & Suggested Fix: Dual CSS declarations without fallback comment.
+    Properties like gap: 0.45rem; gap: 7cqh; appear throughout — the rem value
+    serves as a fallback for browsers not supporting container query units. This
+
+    is a valid progressive enhancement pattern but is nowhere documented. Fix:
+    Add a one-line comment at the first occurrence (e.g. /* rem fallback for 
+    browsers without cqh support */).
