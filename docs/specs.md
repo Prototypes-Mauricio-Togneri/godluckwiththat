@@ -295,9 +295,68 @@ The game displays an event log as a column alongside the building columns. Event
 
 - **Future events** — warn about incoming events (e.g. enemy raids, disasters). Each shows a countdown timer that ticks down in real time.
 - **Past events** — inform about things that have already happened (e.g. season changed, raid repelled, resource production went negative). Displayed in a muted style.
-- All events can be dismissed by the player (close button).
+- Past events can be dismissed by the player (close button). Future events cannot be dismissed.
 - Events are part of the colony data model and are persisted with save data.
 - The events column is always visible in the game screen.
+
+## Challenges
+
+The core narrative driver. The gods test the colony's worthiness to pass through the portal by sending 10 sequential challenges. Completing all challenges is the win condition (portal activates, player goes home).
+
+### Lifecycle
+
+1. When the game starts, the first pending challenge is activated immediately
+2. **Delay phase**: a hidden timer counts up (`delayElapsed`). When it reaches `delay`, the challenge transitions to `started`, a non-dismissable future event appears, and the player is notified. Clicking the event opens the challenge detail modal
+3. **Timeout phase**: a visible timer counts up (`timeoutElapsed`). The player must meet all requirements before `timeoutElapsed` reaches `timeout`
+4. **Resolution**: when the timeout expires, the game checks whether all requirements are met at that moment
+   - **Success**: requirements are deducted from the colony (faith, resources, workers sacrificed). A reward modal pauses the game and offers two blessings to choose from. After choosing, the blessing is applied. If more challenges remain, the next one activates. If all 10 are completed, the win modal appears
+   - **Failure**: a punishment modal pauses the game showing the penalty. After acknowledging, the punishment is applied (lose resources, workers, building levels, and 50% of stored faith). The challenge resets (timers back to 0) and the player can retry
+
+### Requirements
+
+Each challenge specifies a combination of (all optional per challenge):
+- `faith` — consumed on completion
+- `altar` / `temple` / `monument` — building level checked (not consumed)
+- `resources` — resource amounts consumed on completion
+- `workers` — sacrificed on completion: first from idle pool, then randomly unassigned from producer buildings (clamped to available workers)
+
+### Blessings
+
+Rewards earned by completing challenges. The player chooses one of two offered blessings. Each challenge offers distinct blessing types to avoid stacking conflicts.
+
+#### Instant blessings (applied immediately, no ongoing effect)
+- **Gift from the Heavens** — receive a fixed amount of resources (capped at storage)
+- **Holy Expansion** — receive a fixed number of territory slots (added to `territoryBonus`)
+
+#### Ongoing blessings (applied continuously for a duration)
+- **Fertile Soil** — increases farm productivity
+- **Forest Bloom** — increases wood productivity
+- **Rich Mines** — increases mining productivity (quarry + all mines)
+- **Wisdom of the Gods** — increases knowledge productivity
+- **Celestial Prosperity** — increases general productivity (all producers)
+- **Rapid Construction** — buildings constructed faster (only affects new constructions, not in-progress ones)
+- **Favorable Weather** — warm season becomes more productive, cold season becomes less harsh. Formula: warm modifiers amplified by `(1 + warm)`, cold modifiers softened by `(1 - cold)`
+- **Blessed Markets** — trade fee is 0%, overriding market level reduction
+
+### Punishments
+
+Penalties applied when a challenge fails. Each punishment has instant effects (faith/resources/workers/building levels lost) and may include ongoing productivity reductions for a duration.
+
+- **Crop Failure** — reduces farm productivity
+- **Wildfires** — reduces woodcutter productivity
+- **Landslide** — reduces mining productivity (quarry + all mines)
+- **Plague** — reduces general productivity, loses workers
+- **Volcano** — reduces general productivity, destroys building levels, loses workers and resources
+
+Building level downgrades select random buildings from the downgradable list. A building is eligible if its level is > 1, or level == 1 and currently under construction (construction is cancelled and the building is destroyed). Excess workers above new capacity are returned to idle.
+
+### Design Rules
+
+- **Sequential**: one challenge active at a time
+- **No stacking**: two blessings (or punishments) of the same type cannot be active simultaneously
+- **Ongoing effect timeouts**: only tick while the game is running (paused/modal states excluded)
+- **Non-dismissable**: challenge countdown events cannot be dismissed by the player
+- **All definitions**: stored in `src/data/challenges.json`
 
 ## Difficulties
 Players have to choose between:

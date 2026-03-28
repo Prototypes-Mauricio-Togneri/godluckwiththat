@@ -1,5 +1,4 @@
-- Implement challenges
-  - Implement punishments
+- Improve challenges
   - Add images on each blessing card
 
 - Create military

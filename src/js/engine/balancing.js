@@ -101,9 +101,9 @@ export const BUILDING_UPGRADES = {
   },
   [BUILDING_ALTAR]: {
     cost: new Cost({
-      wood: 40,
+      wood: 50,
     }),
-    multiplier: 1.4,
+    multiplier: 1.2,
   },
   [BUILDING_TEMPLE]: {
     cost: new Cost({
