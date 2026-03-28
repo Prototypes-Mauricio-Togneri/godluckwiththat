@@ -9,7 +9,7 @@ import Colony from '@/js/models/colony.js'
 import Consumption from '@/js/models/consumption.js'
 import Meta from '@/js/models/meta.js'
 import Production from '@/js/models/production.js'
-import {BLESSING_BLESSED_MARKETS, BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FAITH_PRODUCTION, BONUS_FOOD_CONSUMPTION, BONUS_FOOD_PRODUCTION, BONUS_HABITATION, BONUS_KNOWLEDGE_PRODUCTION, BONUS_MINING_PRODUCTION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WOOD_PRODUCTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE, TUTORIAL_MODAL_CHALLENGE_STARTED} from '@/js/engine/enums.js'
+import {BLESSING_BLESSED_MARKETS, BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FAITH_PRODUCTION, BONUS_FOOD_CONSUMPTION, BONUS_FOOD_PRODUCTION, BONUS_HABITATION, BONUS_KNOWLEDGE_PRODUCTION, BONUS_MINING_PRODUCTION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WOOD_PRODUCTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, PUNISHMENT_CROP_FAILURE, PUNISHMENT_LANDSLIDE, PUNISHMENT_PLAGUE, PUNISHMENT_VOLCANO, PUNISHMENT_WILDFIRES, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE, TUTORIAL_MODAL_CHALLENGE_STARTED} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -134,11 +134,12 @@ class State {
     // Seasonal multipliers for food production and wood consumption
     this.seasonMultipliers = this._computeSeasonMultipliers(blessings)
 
-    // Production rates from buildings, blessings, and season (before
-    // productivity penalty — used for deficit calculation below)
+    // Production rates from buildings, blessings, punishments, and season
+    // (before productivity penalty — used for deficit calculation below)
+    const punishments = this.meta.challenges.activePunishments
     const {
       rates: productionRates, multipliers: productionMultipliers,
-    } = this._computeProductionRates(bonuses, blessings, this.seasonMultipliers)
+    } = this._computeProductionRates(bonuses, blessings, punishments, this.seasonMultipliers)
     this.productionMultipliers = productionMultipliers
 
     // Worker upkeep: every worker (idle and assigned) consumes food and wood
@@ -411,19 +412,20 @@ class State {
 
   /**
    * Computes per-second production rates from building state, research bonuses,
-   * active blessings, and seasonal modifiers. Returns raw rates before the
-   * productivity penalty (applied externally in update()).
+   * active blessings, active punishments, and seasonal modifiers. Returns raw
+   * rates before the productivity penalty (applied externally in update()).
    *
    * Two stages:
    *   1. Base rates: workers × config.rate (or level × config.rate for passive buildings)
-   *   2. Per-resource multipliers: research + worker productivity (bounded only) + blessings + season
+   *   2. Per-resource multipliers: research + worker productivity (bounded only) + blessings + punishments + season
    *
    * @param {Object} bonuses - Research bonus map from academy.completedBonuses()
    * @param {Array} blessings - Active blessings from meta.challenges
+   * @param {Array} punishments - Active punishments from meta.challenges
    * @param {{ food: number, wood: number }} seasonMultipliers - Seasonal multipliers from _computeSeasonMultipliers
    * @returns {{ food: number, wood: number, stone: number, copper: number, iron: number, gold: number, faith: number, knowledge: number }}
    */
-  _computeProductionRates(bonuses, blessings, seasonMultipliers) {
+  _computeProductionRates(bonuses, blessings, punishments, seasonMultipliers) {
     const {
       buildings,
     } = this.colony
@@ -488,6 +490,29 @@ class State {
         multipliers.gold += blessing.productivity
         multipliers.faith += blessing.productivity
         multipliers.knowledge += blessing.productivity
+      }
+    }
+
+    // Punishment productivity penalties (subtractive)
+    for (const punishment of punishments) {
+      if (punishment.type === PUNISHMENT_CROP_FAILURE && punishment.productivityFarm) {
+        multipliers.food -= punishment.productivityFarm
+      } else if (punishment.type === PUNISHMENT_WILDFIRES && punishment.productivityWoodcutter) {
+        multipliers.wood -= punishment.productivityWoodcutter
+      } else if (punishment.type === PUNISHMENT_LANDSLIDE && punishment.productivityMines) {
+        multipliers.stone -= punishment.productivityMines
+        multipliers.copper -= punishment.productivityMines
+        multipliers.iron -= punishment.productivityMines
+        multipliers.gold -= punishment.productivityMines
+      } else if ((punishment.type === PUNISHMENT_PLAGUE || punishment.type === PUNISHMENT_VOLCANO) && punishment.productivityGeneral) {
+        multipliers.food -= punishment.productivityGeneral
+        multipliers.wood -= punishment.productivityGeneral
+        multipliers.stone -= punishment.productivityGeneral
+        multipliers.copper -= punishment.productivityGeneral
+        multipliers.iron -= punishment.productivityGeneral
+        multipliers.gold -= punishment.productivityGeneral
+        multipliers.faith -= punishment.productivityGeneral
+        multipliers.knowledge -= punishment.productivityGeneral
       }
     }
 
