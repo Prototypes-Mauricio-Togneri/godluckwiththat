@@ -868,6 +868,7 @@ class State {
     this.colony.events.dismissFutureByType(EVENT_TYPE_CHALLENGE_STARTED)
 
     this.meta.challenges.fail(challenge.punishment)
+    this._applyPunishment(challenge.punishment)
     this.challengeModal = null
     this.paused = false
     this.update(0)
@@ -912,6 +913,67 @@ class State {
     } else if (blessing.type === BLESSING_HOLY_EXPANSION && blessing.territory) {
       resources.territoryBonus += blessing.territory
       this.colony.events.dismissPastByType(EVENT_TYPE_TERRITORY_LIMIT_REACHED)
+    }
+  }
+
+  /**
+   * Applies instant punishment effects after the player acknowledges a failure.
+   * @param {Punishment} punishment - The punishment to apply
+   */
+  _applyPunishment(punishment) {
+    const {
+      resources, buildings,
+    } = this.colony
+
+    // Lose a fraction of stored faith
+    if (punishment.faith !== null) {
+      resources.faith = Math.floor(resources.faith * (1 - punishment.faith))
+    }
+
+    // Lose a fraction of each bounded resource
+    if (punishment.resources !== null) {
+      for (const resource of BOUNDED_RESOURCES) {
+        resources[resource] = Math.floor(resources[resource] * (1 - punishment.resources))
+      }
+    }
+
+    // Sacrifice workers (clamped to available)
+    if (punishment.workers !== null) {
+      const count = Math.min(punishment.workers, resources.workers)
+      this._sacrificeWorkers(count)
+    }
+
+    // Downgrade random building levels
+    if (punishment.levels !== null) {
+      for (let i = 0; i < punishment.levels; i++) {
+        const eligibleKeys = []
+        for (const key of DOWNGRADABLE_BUILDINGS) {
+          const building = buildings[key]
+          if (building.level > 1 || (building.level === 1 && building.isConstructing)) {
+            eligibleKeys.push(key)
+          }
+        }
+        if (eligibleKeys.length === 0) {
+          break
+        }
+
+        const randomKey = eligibleKeys[Math.floor(Math.random() * eligibleKeys.length)]
+        const building = buildings[randomKey]
+
+        if (building.level === 1 && building.isConstructing) {
+          building.constructionRemaining = 0
+          building.constructionDuration = 0
+          building.workers = 0
+          building.level = 0
+          this._constructingKeys.delete(randomKey)
+          this.colony.events.dismissFutureByBuildingKey(randomKey)
+        } else {
+          building.level -= 1
+          if (building.workers > building.maxWorkers) {
+            building.workers = building.maxWorkers
+          }
+        }
+      }
     }
   }
 

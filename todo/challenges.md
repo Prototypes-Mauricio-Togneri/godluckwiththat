@@ -140,7 +140,7 @@ Wire into `state.js` — each modifier reads from `meta.challenges.activeBlessin
 - **Trade fee** (in `Market.executeTrade()` or fee calculation):
   - `BLESSED_MARKETS`: override fee to 0%
 
-### Step 2c: Instant Punishment Effects
+### Step 2c: Instant Punishment Effects (DONE)
 
 - `_applyPunishment(punishment)`: Called from `acknowledgePunishment()` (after the player clicks "Accept Punishment" and the punishment is added to `activePunishments`). Applies all instant effects:
   - Removes `punishment.faith` fraction of stored faith (e.g., 0.5 → lose 50%)
