@@ -803,10 +803,6 @@
     color: rgba(var(--color-text-rgb), 0.55);
 }
 
-.resource-tooltip-time--spaced {
-    margin-top: 0.25rem;
-}
-
 /* Tooltip key-value grid for colon-aligned labels */
 .resource-tooltip-grid {
     display: grid;
