@@ -1,5 +1,5 @@
 import {describe, it, expect, vi, beforeEach} from 'vitest'
-import {BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL, TUTORIAL_MODAL_CHALLENGE_STARTED, TUTORIAL_MODAL_HQ_UPGRADE, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_SEASON_CHANGED} from '@/js/engine/enums.js'
+import {BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT, PUNISHMENT_VOLCANO, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL, TUTORIAL_MODAL_CHALLENGE_STARTED, TUTORIAL_MODAL_HQ_UPGRADE, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_SEASON_CHANGED} from '@/js/engine/enums.js'
 import {HQ_TERRITORY_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, SEASON_DURATION, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import {IMG_OTHER_TERRITORY, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import {DOWNGRADABLE_BUILDINGS, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
@@ -1335,6 +1335,34 @@ describe('State', () => {
       expect(state.meta.challenges.active.status).toBe(CHALLENGE_STATUS_ACTIVATED)
       expect(state.meta.challenges.active.delayElapsed).toBe(0)
       expect(state.meta.challenges.active.timeoutElapsed).toBe(0)
+    })
+
+    it('should apply punishment effects to colony', async () => {
+      const activeChallenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        punishment: createPunishment({
+          faith: 0.5,
+          resources: 0.3,
+        }),
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            active: activeChallenge,
+          }),
+        },
+        colonyOverrides: {
+          resources: {
+            faith: 1000,
+            food: 500,
+          },
+        },
+      })
+      state.paused = true
+      state.challengeModal = CHALLENGE_MODAL_FAILURE
+      state.acknowledgePunishment()
+      expect(state.colony.resources.faith).toBe(500)
+      expect(state.colony.resources.food).toBe(350)
     })
 
     it('should do nothing when modal is not failure', async () => {
@@ -3306,6 +3334,339 @@ describe('State', () => {
       state._applyBlessing(blessing)
       expect(state.colony.resources.food).toBe(foodBefore)
       expect(state.colony.resources.wood).toBe(woodBefore)
+    })
+  })
+
+  // ── _applyPunishment ────────────────────────────────────────────────
+
+  describe('_applyPunishment', () => {
+    it('should remove fraction of stored faith', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            faith: 1000,
+          },
+        },
+      })
+      const punishment = createPunishment({
+        faith: 0.5,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.resources.faith).toBe(500)
+    })
+
+    it('should floor faith after fractional loss', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            faith: 1001,
+          },
+        },
+      })
+      const punishment = createPunishment({
+        faith: 0.5,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.resources.faith).toBe(500)
+    })
+
+    it('should not change faith when punishment.faith is null', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            faith: 1000,
+          },
+        },
+      })
+      const punishment = createPunishment({
+        faith: null,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.resources.faith).toBe(1000)
+    })
+
+    it('should remove fraction of each bounded resource', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 1000,
+            wood: 500,
+            stone: 200,
+            copper: 100,
+            iron: 50,
+            gold: 10,
+          },
+        },
+      })
+      const punishment = createPunishment({
+        resources: 0.3,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.resources.food).toBe(700)
+      expect(state.colony.resources.wood).toBe(350)
+      expect(state.colony.resources.stone).toBe(140)
+      expect(state.colony.resources.copper).toBe(70)
+      expect(state.colony.resources.iron).toBe(35)
+      expect(state.colony.resources.gold).toBe(7)
+    })
+
+    it('should floor bounded resources after fractional loss', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 101,
+          },
+        },
+      })
+      const punishment = createPunishment({
+        resources: 0.3,
+      })
+      state._applyPunishment(punishment)
+      // 101 * 0.7 = 70.7 → floor → 70
+      expect(state.colony.resources.food).toBe(70)
+    })
+
+    it('should not change resources when punishment.resources is null', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 1000,
+            wood: 500,
+          },
+        },
+      })
+      const punishment = createPunishment({
+        resources: null,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.resources.food).toBe(1000)
+      expect(state.colony.resources.wood).toBe(500)
+    })
+
+    it('should sacrifice workers clamped to available count', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 3,
+          },
+        },
+      })
+      const punishment = createPunishment({
+        workers: 10,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.resources.workers).toBe(0)
+    })
+
+    it('should sacrifice exact worker count when available', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 10,
+          },
+        },
+      })
+      const punishment = createPunishment({
+        workers: 4,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.resources.workers).toBe(6)
+    })
+
+    it('should not change workers when punishment.workers is null', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 10,
+          },
+        },
+      })
+      const punishment = createPunishment({
+        workers: null,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.resources.workers).toBe(10)
+    })
+
+    it('should downgrade a building with level > 1', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 3,
+            },
+          },
+        },
+      })
+      const punishment = createPunishment({
+        levels: 1,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.buildings.farm.level).toBe(2)
+    })
+
+    it('should return excess workers to idle after downgrade', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 8,
+          },
+          buildingOverrides: {
+            farm: {
+              level: 2,
+              workers: 8,
+            },
+          },
+        },
+      })
+      const punishment = createPunishment({
+        levels: 1,
+      })
+      state._applyPunishment(punishment)
+      // Farm goes from level 2 (max 10) to level 1 (max 5), excess 3 returned to idle
+      expect(state.colony.buildings.farm.level).toBe(1)
+      expect(state.colony.buildings.farm.workers).toBe(5)
+      // Total workers unchanged — just reassigned to idle
+      expect(state.colony.resources.workers).toBe(8)
+    })
+
+    it('should destroy level-1 building under construction', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 1,
+              constructionRemaining: 10,
+              constructionDuration: 20,
+              workers: 1,
+            },
+          },
+        },
+      })
+      state._constructingKeys.add(BUILDING_FARM)
+      const punishment = createPunishment({
+        levels: 1,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.buildings.farm.level).toBe(0)
+      expect(state.colony.buildings.farm.constructionRemaining).toBe(0)
+      expect(state.colony.buildings.farm.constructionDuration).toBe(0)
+      expect(state.colony.buildings.farm.workers).toBe(0)
+      expect(state._constructingKeys.has(BUILDING_FARM)).toBe(false)
+    })
+
+    it('should dismiss future event when destroying constructing building', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 1,
+              constructionRemaining: 10,
+              constructionDuration: 20,
+            },
+          },
+        },
+      })
+      state._constructingKeys.add(BUILDING_FARM)
+      state.colony.events.addFuture({
+        type: EVENT_TYPE_BUILDING_UPGRADE,
+        textKey: 'event.buildingUpgrading',
+        icon: 'icon',
+        buildingKey: BUILDING_FARM,
+        remainingSeconds: 10,
+      })
+      const punishment = createPunishment({
+        levels: 1,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.events.future).toHaveLength(0)
+    })
+
+    it('should skip remaining downgrades when no eligible buildings', async () => {
+      const state = await createState()
+      // All buildings at level 0 — none eligible
+      const punishment = createPunishment({
+        levels: 5,
+      })
+      state._applyPunishment(punishment)
+      // Should not throw, all buildings remain at level 0
+      for (const key of DOWNGRADABLE_BUILDINGS) {
+        expect(state.colony.buildings[key].level).toBe(0)
+      }
+    })
+
+    it('should downgrade multiple levels across buildings', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 3,
+            },
+            woodcutter: {
+              level: 2,
+            },
+          },
+        },
+      })
+      const punishment = createPunishment({
+        levels: 3,
+      })
+      state._applyPunishment(punishment)
+      // Total levels lost should be 3 (distributed randomly across the two eligible buildings)
+      const totalLevels = state.colony.buildings.farm.level + state.colony.buildings.woodcutter.level
+      expect(totalLevels).toBe(2) // Started with 5, lost 3
+    })
+
+    it('should not change buildings when punishment.levels is null', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 3,
+            },
+          },
+        },
+      })
+      const punishment = createPunishment({
+        levels: null,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.buildings.farm.level).toBe(3)
+    })
+
+    it('should apply all punishment effects together', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            faith: 1000,
+            food: 500,
+            wood: 500,
+            stone: 500,
+            copper: 500,
+            iron: 500,
+            gold: 500,
+            workers: 10,
+          },
+          buildingOverrides: {
+            farm: {
+              level: 3,
+              workers: 5,
+            },
+          },
+        },
+      })
+      const punishment = createPunishment({
+        type: PUNISHMENT_VOLCANO,
+        faith: 0.5,
+        resources: 0.3,
+        workers: 3,
+        levels: 1,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.resources.faith).toBe(500)
+      expect(state.colony.resources.food).toBe(350)
+      expect(state.colony.resources.workers).toBe(7)
+      expect(state.colony.buildings.farm.level).toBe(2)
     })
   })
 
