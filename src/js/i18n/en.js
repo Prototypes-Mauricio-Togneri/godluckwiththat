@@ -178,6 +178,7 @@ export const LOCALIZED_EN = {
   'events.empty': 'No events',
   'events.clearAll': 'Clear all',
   'events.blessings': 'Blessings',
+  'events.punishments': 'Punishments',
   'event.warmSeason': 'Warm season has begun',
   'event.coldSeason': 'Cold season has begun',
   'event.populationLimitReached': 'Population limit reached',
@@ -484,6 +485,13 @@ export const LOCALIZED_EN = {
   'punishment.plague': 'Plague',
   'punishment.landslide': 'Landslide',
   'punishment.volcano': 'Volcano',
+
+  // Punishment effect descriptions (short, for events column)
+  'punishment.cropFailure.effect': '-{0}% food',
+  'punishment.wildfires.effect': '-{0}% wood',
+  'punishment.plague.effect': '-{0}% all production',
+  'punishment.landslide.effect': '-{0}% minerals',
+  'punishment.volcano.effect': '-{0}% all production',
 
   // Punishment effect descriptions
   'punishment.faithLoss': 'Lose {0}% of accumulated faith',

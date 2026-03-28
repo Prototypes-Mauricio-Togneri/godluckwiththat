@@ -31,7 +31,7 @@ import TowerCard from '@/components/buildings/tower_card.vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull, formatRate, formatTime} from '@/js/engine/format.js'
 import storage from '@/js/engine/storage.js'
-import {IMG_BLESSING_BLESSING, IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRITORY, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
+import {IMG_BLESSING_BLESSING, IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRITORY, IMG_PUNISHMENT_MAP, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
 import TutorialBanner from '@/components/tutorial/tutorial_banner.vue'
 import TutorialModal from '@/components/tutorial/tutorial_modal.vue'
 import SettingsModal from '@/components/modals/settings_modal.vue'
@@ -363,6 +363,7 @@ const ui = shallowReactive({
   },
   challengeModal: null,
   activeBlessings: [],
+  activePunishments: [],
   tutorial: {
     stepTextKey: null,
     stepBuilding: null,
@@ -396,6 +397,32 @@ function blessingToUIEntry(blessing) {
   return {
     type: blessing.type,
     timeout: blessing.timeout,
+    effectKey: effectKey,
+    effectParams: effectParams,
+  }
+}
+
+/**
+ * Converts an active punishment into a plain UI entry for the events column.
+ * @param {Object} punishment - Punishment model instance
+ * @returns {Object} Plain object with type, timeout, icon, effectKey, effectParams
+ */
+function punishmentToUIEntry(punishment) {
+  const effectKey = `punishment.${punishment.type}.effect`
+  let effectParams = []
+  if (punishment.productivityFarm !== null) {
+    effectParams = [Math.round(punishment.productivityFarm * 100)]
+  } else if (punishment.productivityWoodcutter !== null) {
+    effectParams = [Math.round(punishment.productivityWoodcutter * 100)]
+  } else if (punishment.productivityMines !== null) {
+    effectParams = [Math.round(punishment.productivityMines * 100)]
+  } else if (punishment.productivityGeneral !== null) {
+    effectParams = [Math.round(punishment.productivityGeneral * 100)]
+  }
+  return {
+    type: punishment.type,
+    timeout: punishment.timeout,
+    icon: IMG_PUNISHMENT_MAP[punishment.type],
     effectKey: effectKey,
     effectParams: effectParams,
   }
@@ -510,6 +537,26 @@ function syncTimers() {
     ui.activeBlessings = updatedBlessings
   } else if (ui.activeBlessings.length > 0) {
     ui.activeBlessings = []
+  }
+
+  // Punishment countdown timers
+  const activePunishments = state.meta.challenges.activePunishments
+  if (activePunishments.length > 0) {
+    const updatedPunishments = []
+    for (const punishment of activePunishments) {
+      if (punishment.timeout !== null && punishment.timeout > 0) {
+        const existing = ui.activePunishments.find(entry => entry.type === punishment.type)
+        if (existing) {
+          updatedPunishments.push({
+            ...existing,
+            timeout: punishment.timeout,
+          })
+        }
+      }
+    }
+    ui.activePunishments = updatedPunishments
+  } else if (ui.activePunishments.length > 0) {
+    ui.activePunishments = []
   }
 
   // Challenge timer (smooth countdown)
@@ -838,6 +885,9 @@ function syncChallenges() {
   ui.activeBlessings = state.meta.challenges.activeBlessings
     .filter(blessing => blessing.timeout !== null && blessing.timeout > 0)
     .map(blessingToUIEntry)
+  ui.activePunishments = state.meta.challenges.activePunishments
+    .filter(punishment => punishment.timeout !== null && punishment.timeout > 0)
+    .map(punishmentToUIEntry)
 }
 
 /** Full sync: copies all values the templates need from the plain engine state into the reactive ui object. */
@@ -1496,6 +1546,22 @@ onUnmounted(() => {
           </div>
         </div>
 
+        <!-- Active punishments -->
+        <div v-if="ui.activePunishments.length">
+          <h3 class="events-section-label">{{ t('events.punishments') }}</h3>
+          <div class="events-list">
+            <div
+              v-for="punishment in ui.activePunishments"
+              :key="punishment.type"
+              class="event-row punishment-row"
+            >
+              <img class="event-icon" :src="punishment.icon" :alt="t(`punishment.${punishment.type}`)">
+              <span class="event-text">{{ t(punishment.effectKey, ...punishment.effectParams) }}</span>
+              <span class="event-countdown">{{ formatTime(punishment.timeout) }}</span>
+            </div>
+          </div>
+        </div>
+
         <!-- Future events -->
         <div v-if="ui.futureEvents.length">
           <h3 class="events-section-label">{{ t('events.future') }}</h3>
@@ -1530,7 +1596,7 @@ onUnmounted(() => {
         </div>
 
         <!-- Empty state -->
-        <p v-if="!ui.activeBlessings.length && !ui.futureEvents.length && !ui.pastEvents.length" class="events-empty">
+        <p v-if="!ui.activeBlessings.length && !ui.activePunishments.length && !ui.futureEvents.length && !ui.pastEvents.length" class="events-empty">
           {{ t('events.empty') }}
         </p>
       </div>
@@ -2160,6 +2226,15 @@ onUnmounted(() => {
 
 .blessing-row:hover {
   border-left-color: rgba(212, 175, 55, 0.85);
+}
+
+/* Punishment row with ominous red border */
+.punishment-row {
+  border-left-color: rgba(180, 60, 60, 0.6);
+}
+
+.punishment-row:hover {
+  border-left-color: rgba(180, 60, 60, 0.85);
 }
 
 /* Placeholder text shown when no events exist */
