@@ -1,5 +1,8 @@
 # Natural Disasters
 
+* As the game progresses, random natural disasters (not sent by the gods) will appear and affect the colony
+* Some technologies can prevent/alleviate these catastrophes
+
 - Implement random disasters (see Spreadsheet)
 - Implement disasters researches
 
