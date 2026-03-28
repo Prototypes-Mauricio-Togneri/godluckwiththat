@@ -1,17 +1,3 @@
-  File Path: src/components/buildings/house_card.vue
-  Issue Type: Dead Code
-  Line #: 1–73
-  Severity: Warning
-  Description & Suggested Fix: Permanently hidden recruit UI. Lines 58–70 use
-    v-show="false", rendering the recruit button/cost display to DOM but never
-    showing it. The associated <script> code (3 computed properties, 1 function,
-
-    2 imports on lines 7–8) executes every reactive update for no visible
-  effect.
-     Worker recruitment happens exclusively through worker_assignment_row.vue.
-    Fix: Remove the v-show="false" block and its associated JS, or replace
-    v-show="false" with a proper condition if the feature is planned.
-  ────────────────────────────────────────
   File Path: src/components/modals/help_modal.vue
   Issue Type: Vue Anti-pattern
   Line #: 54
