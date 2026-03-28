@@ -512,20 +512,24 @@ class State {
    * @param {number} delta - Seconds since last season tick
    */
   advanceSeason(delta) {
-    if (this.colony.season.advance(delta)) {
-      const isWarm = this.colony.season.isWarm
-      if (isWarm) {
-        this.colony.year++
-      }
-      audio.playSound(SND_NOTIFICATION_SEASON)
-      this.colony.events.dismissPastByType(EVENT_TYPE_SEASON_CHANGED)
-      this.colony.events.addPast({
-        type: EVENT_TYPE_SEASON_CHANGED,
-        textKey: isWarm ? 'event.warmSeason' : 'event.coldSeason',
-        icon: isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD,
-      })
-      this._triggerTutorialModal(TUTORIAL_MODAL_SEASON_CHANGED)
+    const wasCold = this.colony.season.isCold
+    const flips = this.colony.season.advance(delta)
+    if (flips === 0) {
+      return
     }
+    // Count warm arrivals (each = new year). Starting cold: flips 1,3,5...
+    // land on warm → ceil(flips/2). Starting warm: flips 2,4,6... → floor(flips/2).
+    const yearIncrements = wasCold ? Math.ceil(flips / 2) : Math.floor(flips / 2)
+    this.colony.year += yearIncrements
+    const isWarm = this.colony.season.isWarm
+    audio.playSound(SND_NOTIFICATION_SEASON)
+    this.colony.events.dismissPastByType(EVENT_TYPE_SEASON_CHANGED)
+    this.colony.events.addPast({
+      type: EVENT_TYPE_SEASON_CHANGED,
+      textKey: isWarm ? 'event.warmSeason' : 'event.coldSeason',
+      icon: isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD,
+    })
+    this._triggerTutorialModal(TUTORIAL_MODAL_SEASON_CHANGED)
   }
 
   /**

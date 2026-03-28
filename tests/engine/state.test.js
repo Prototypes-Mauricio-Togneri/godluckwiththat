@@ -558,6 +558,38 @@ describe('State', () => {
       expect(state.colony.year).toBe(2)
     })
 
+    it('should increment year correctly on multi-flip from cold', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          year: 1,
+          season: {
+            currentSeason: SEASON_COLD,
+            seasonElapsed: 0,
+          },
+        },
+      })
+      // 3 flips from cold: cold→warm (year++), warm→cold, cold→warm (year++)
+      state.advanceSeason(SEASON_DURATION * 3)
+      expect(state.colony.season.currentSeason).toBe(SEASON_WARM)
+      expect(state.colony.year).toBe(3)
+    })
+
+    it('should increment year correctly on multi-flip from warm', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          year: 1,
+          season: {
+            currentSeason: SEASON_WARM,
+            seasonElapsed: 0,
+          },
+        },
+      })
+      // 4 flips from warm: warm→cold, cold→warm (year++), warm→cold, cold→warm (year++)
+      state.advanceSeason(SEASON_DURATION * 4)
+      expect(state.colony.season.currentSeason).toBe(SEASON_WARM)
+      expect(state.colony.year).toBe(3)
+    })
+
     it('should play season notification sound on flip', async () => {
       const state = await createState({
         colonyOverrides: {

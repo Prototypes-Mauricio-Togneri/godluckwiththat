@@ -1,5 +1,3 @@
-- Test error with hibernating computer
-
 - Implement challenges
   - Implement punishments
   - Add images on each blessing card

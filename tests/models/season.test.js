@@ -56,11 +56,11 @@ describe('Season', () => {
       expect(season.seasonElapsed).toBe(10)
     })
 
-    it('should return false when season does not change', () => {
+    it('should return 0 when season does not change', () => {
       const season = createSeason({
         seasonElapsed: 0,
       })
-      expect(season.advance(10)).toBe(false)
+      expect(season.advance(10)).toBe(0)
     })
 
     it('should flip from warm to cold at season duration', () => {
@@ -68,8 +68,8 @@ describe('Season', () => {
         currentSeason: SEASON_WARM,
         seasonElapsed: SEASON_DURATION - 1,
       })
-      const changed = season.advance(1)
-      expect(changed).toBe(true)
+      const flips = season.advance(1)
+      expect(flips).toBe(1)
       expect(season.currentSeason).toBe(SEASON_COLD)
     })
 
@@ -78,8 +78,8 @@ describe('Season', () => {
         currentSeason: SEASON_COLD,
         seasonElapsed: SEASON_DURATION - 1,
       })
-      const changed = season.advance(1)
-      expect(changed).toBe(true)
+      const flips = season.advance(1)
+      expect(flips).toBe(1)
       expect(season.currentSeason).toBe(SEASON_WARM)
     })
 
@@ -91,24 +91,26 @@ describe('Season', () => {
       expect(season.seasonElapsed).toBe(5)
     })
 
-    it('should flip exactly once even when delta exceeds season duration', () => {
+    it('should flip once when delta slightly exceeds season duration', () => {
       const season = createSeason({
         currentSeason: SEASON_WARM,
         seasonElapsed: 0,
       })
-      season.advance(SEASON_DURATION + 50)
+      const flips = season.advance(SEASON_DURATION + 50)
+      expect(flips).toBe(1)
       expect(season.currentSeason).toBe(SEASON_COLD)
       expect(season.seasonElapsed).toBe(50)
     })
 
-    it('should flip exactly once even when delta is 10x season duration', () => {
+    it('should flip all seasons when delta is 10x season duration', () => {
       const season = createSeason({
         currentSeason: SEASON_WARM,
         seasonElapsed: 0,
       })
-      season.advance(SEASON_DURATION * 10)
-      expect(season.currentSeason).toBe(SEASON_COLD)
-      expect(season.seasonElapsed).toBe(SEASON_DURATION * 9)
+      const flips = season.advance(SEASON_DURATION * 10)
+      expect(flips).toBe(10)
+      expect(season.currentSeason).toBe(SEASON_WARM) // even flips → back to start
+      expect(season.seasonElapsed).toBe(0)
     })
 
     it('should accumulate elapsed across multiple small ticks without flipping', () => {

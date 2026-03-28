@@ -29,18 +29,19 @@ class Season {
   }
 
   /**
-   * Advances the season timer and flips the season when the duration is reached.
+   * Advances the season timer and flips the season each time the duration is reached.
    * @param {number} delta - Seconds since last tick
-   * @returns {boolean} Whether the season changed
+   * @returns {number} Number of season flips that occurred (0 if none)
    */
   advance(delta) {
     this.seasonElapsed += delta
-    if (this.seasonElapsed >= SEASON_DURATION) {
+    let flips = 0
+    while (this.seasonElapsed >= SEASON_DURATION) {
       this.seasonElapsed -= SEASON_DURATION
       this.currentSeason = this.isWarm ? SEASON_COLD : SEASON_WARM
-      return true
+      flips++
     }
-    return false
+    return flips
   }
 
   /**

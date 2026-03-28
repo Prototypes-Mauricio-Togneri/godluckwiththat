@@ -1083,6 +1083,7 @@ let tickTimer = null
 let lastTickTime = 0
 let progressAnimFrame = null
 let lastProgressTickTime = 0
+const MAX_TICK_DELTA = 5 // Max game-time delta (seconds) per tick; caps sleep/wake time gaps
 const UI_SYNC_INTERVAL = 50 // ms (~20fps visual updates)
 let lastUISyncTime = 0
 
@@ -1108,7 +1109,7 @@ function gameTick() {
     lastProgressTickTime = now
     return
   }
-  const delta = (now - lastTickTime) / 1000 * state.meta.gameSpeed
+  const delta = Math.min(MAX_TICK_DELTA, (now - lastTickTime) / 1000 * state.meta.gameSpeed)
   lastTickTime = now
   const tickStart = now
   state.update(delta)
@@ -1118,7 +1119,7 @@ function gameTick() {
 
   // Advance progress only when the tab is backgrounded (rAF pauses, so gameTick takes over)
   if (document.hidden) {
-    const progressDelta = (now - lastProgressTickTime) / 1000 * state.meta.gameSpeed
+    const progressDelta = Math.min(MAX_TICK_DELTA, (now - lastProgressTickTime) / 1000 * state.meta.gameSpeed)
     lastProgressTickTime = now
     state.advanceSeason(progressDelta)
     state.advanceConstruction(progressDelta)
@@ -1139,7 +1140,7 @@ function progressTick() {
     return
   }
   const now = performance.now()
-  const delta = (now - lastProgressTickTime) / 1000 * state.meta.gameSpeed
+  const delta = Math.min(MAX_TICK_DELTA, (now - lastProgressTickTime) / 1000 * state.meta.gameSpeed)
   lastProgressTickTime = now
   const prevConstructing = state._constructingKeys.size
   const prevHqUpgrading = state._hqUpgrading
