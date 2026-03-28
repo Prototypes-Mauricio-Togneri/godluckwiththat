@@ -2,7 +2,7 @@
   {
     "index": 1,
     "delay": 5,
-    "timeout": 180,
+    "timeout": 120,
     "requirements": {
       "altar": 3
     },
