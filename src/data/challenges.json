@@ -33,14 +33,14 @@
     "delay": 30,
     "timeout": 300,
     "requirements": {
-      "faith": 1000
+      "faith": 500
     },
     "blessings": [
       {
         "type": "giftFromTheHeavens",
         "resources": {
-          "food": 2000,
-          "wood": 1500
+          "food": 1000,
+          "wood": 500
         }
       },
       {
@@ -115,7 +115,7 @@
     "delay": 30,
     "timeout": 300,
     "requirements": {
-      "monument": 3
+      "monument": 5
     },
     "blessings": [
       {
@@ -143,7 +143,7 @@
     "delay": 30,
     "timeout": 300,
     "requirements": {
-      "faith": 5000
+      "faith": 3000
     },
     "blessings": [
       {
@@ -171,9 +171,9 @@
     "timeout": 600,
     "requirements": {
       "resources": {
-        "food": 3000,
-        "wood": 3000,
-        "copper": 1000
+        "food": 2000,
+        "wood": 1000,
+        "stone": 500
       },
       "workers": 20
     },
@@ -181,8 +181,8 @@
       {
         "type": "giftFromTheHeavens",
         "resources": {
-          "food": 5000,
-          "wood": 3000
+          "food": 2000,
+          "wood": 1000
         }
       },
       {
@@ -203,13 +203,14 @@
     "delay": 30,
     "timeout": 600,
     "requirements": {
-      "faith": 8000,
+      "faith": 5000,
       "altar": 30,
       "temple": 15,
       "resources": {
-        "food": 5000,
-        "wood": 5000,
-        "copper": 2000
+        "food": 3000,
+        "wood": 2000,
+        "stone": 1000,
+        "copper": 500
       }
     },
     "blessings": [
@@ -236,13 +237,14 @@
     "delay": 30,
     "timeout": 600,
     "requirements": {
-      "faith": 10000,
+      "faith": 8000,
       "monument": 10,
       "resources": {
-        "food": 7000,
-        "wood": 5000,
-        "copper": 3000,
-        "iron": 1000
+        "food": 5000,
+        "wood": 3000,
+        "stone": 2000,
+        "copper": 1000,
+        "iron": 500
       },
       "workers": 50
     },
@@ -272,16 +274,17 @@
     "delay": 30,
     "timeout": 600,
     "requirements": {
-      "faith": 15000,
+      "faith": 10000,
       "altar": 50,
       "temple": 30,
       "monument": 20,
       "resources": {
-        "food": 10000,
-        "wood": 8000,
-        "copper": 5000,
-        "iron": 3000,
-        "gold": 1000
+        "food": 7500,
+        "wood": 5000,
+        "stone": 3000,
+        "copper": 2000,
+        "iron": 1000,
+        "gold": 500
       },
       "workers": 100
     },
