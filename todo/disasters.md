@@ -24,3 +24,7 @@ Builds on the existing (but unimplemented) Disaster research tree (Floods, Healt
   * 20% warm / 50% cold
   * Random building loses 1 level (min 1), territory reduced by 10%
   * 60 seconds
+
+## Future Blessings (not yet implemented)
+
+* `DIVINE_PROTECTION`: No natural disasters
