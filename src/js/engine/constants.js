@@ -246,7 +246,7 @@ export const BUILDING_CLASS_MAP = {
 }
 
 // Buildings that can be downgraded (level reduced by 1) to free territory slots.
-// Only worker-based resource producers are eligible.
+// The 8 worker-assignable producers plus market and altar.
 export const DOWNGRADABLE_BUILDINGS = new Set([
   BUILDING_FARM,
   BUILDING_WOODCUTTER,

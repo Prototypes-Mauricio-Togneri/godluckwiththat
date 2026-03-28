@@ -4,7 +4,6 @@ import Producer from '@/js/models/buildings/producer.js'
 
 /**
  * Produces wood for the colony. Rate per worker per second defined in PRODUCTION_RATES (balancing.js).
- * Wood consumption is affected by seasonal modifiers (-20% warm, +20% cold).
  */
 class Woodcutter extends Producer {
   /**
