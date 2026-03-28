@@ -188,7 +188,6 @@ function downgrade() {
 <style scoped>
 /* Card container — flex row with thumbnail and info */
 .building-card {
-  container-type: size;
   position: relative;
   display: flex;
   align-items: flex-start;
@@ -198,6 +197,13 @@ function downgrade() {
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border);
   border-radius: 0.25rem;
+}
+
+/* Enable container-query sizing only when supported */
+@supports (container-type: size) {
+  .building-card {
+    container-type: size;
+  }
 }
 
 /* Intensified border during construction */

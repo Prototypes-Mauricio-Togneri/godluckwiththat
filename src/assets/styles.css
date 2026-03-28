@@ -292,6 +292,10 @@
 .action-btn--constructing::before {
     content: '';
     position: absolute;
+    top: 0;
+    right: auto;
+    bottom: 0;
+    left: 0;
     inset: 0;
     right: auto;
     width: var(--progress);
@@ -385,6 +389,10 @@
 /* Full-screen overlay with backdrop blur */
 .modal-overlay {
     position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     inset: 0;
     background: rgba(var(--color-shadow-rgb), 0.85);
     display: flex;
