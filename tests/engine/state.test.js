@@ -388,6 +388,55 @@ describe('State', () => {
       expect(dismissSpy).toHaveBeenCalledWith(config.textKey)
     })
 
+    it('should not re-fire cap event when resource stays at cap on consecutive ticks', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 500,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+            },
+          },
+        },
+      })
+      // Pre-populate as if food was already at cap on the previous tick
+      state._resourcesAtCap.add(RESOURCE_FOOD)
+      const addSpy = vi.spyOn(state.colony.events, 'addPast')
+      state.update(0)
+      // Food is still at cap but already tracked — no duplicate event
+      expect(state._resourcesAtCap.has(RESOURCE_FOOD)).toBe(true)
+      expect(addSpy).not.toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: EVENT_TYPE_RESOURCE_LIMIT_REACHED,
+        }),
+      )
+    })
+
+    it('should not trigger tutorial modal for non-food/non-wood negative production', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 200,
+            wood: 200,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state.update(0)
+      // Inject artificial stone consumption to force negative stone production
+      state.consumption.stone = 999
+      const triggerSpy = vi.spyOn(state, '_triggerTutorialModal')
+      state.update(0)
+      expect(state._resourcesNegativeProduction.has(RESOURCE_STONE)).toBe(true)
+      expect(triggerSpy).not.toHaveBeenCalledWith(TUTORIAL_MODAL_NEGATIVE_PRODUCTION)
+    })
+
     it('should dismiss negative production event when production recovers', async () => {
       const state = await createState({
         colonyOverrides: {
@@ -1816,6 +1865,28 @@ describe('State', () => {
       state.dismissWorkers(1)
       expect(state.colony.resources.workers).toBe(4)
     })
+
+    it('should not dismiss population limit event when workers remain at or above cap after dismissal', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 12,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state.update(0)
+      // workersCap = 1 * 10 = 10, idle = 12
+      const dismissSpy = vi.spyOn(state.colony.events, 'dismissPastByType')
+      state.dismissWorkers(1)
+      // workers = 11, still >= 10 → population limit event NOT dismissed
+      expect(state.colony.resources.workers).toBe(11)
+      expect(dismissSpy).not.toHaveBeenCalledWith(EVENT_TYPE_POPULATION_LIMIT_REACHED)
+    })
   })
 
   // ── assignWorkers ────────────────────────────────────────────────
@@ -2534,6 +2605,22 @@ describe('State', () => {
       expect(state.meta.tutorial.completed).toBe(true)
       expect(storage.tutorialCompleted).toBe(true)
     })
+
+    it('should defer completion when steps pre-completed but modals undismissed', async () => {
+      const state = await createState({
+        metaOverrides: {
+          tutorial: new Tutorial({
+            currentStep: 16,
+            completed: false,
+          }),
+        },
+      })
+      // allStepsCompleted is true at entry (currentStep >= 16),
+      // but no modals dismissed → should not complete
+      state.checkTutorial()
+      expect(state.meta.tutorial.completed).toBe(false)
+      expect(storage.tutorialCompleted).toBe(false)
+    })
   })
 
   // ── _computeGeneralProductivity ─────────────────────────────────────
@@ -3020,6 +3107,30 @@ describe('State', () => {
       expect(multipliers.gold).toBeCloseTo(1.2, 10)
       expect(multipliers.faith).toBeCloseTo(1.2, 10)
       expect(multipliers.knowledge).toBeCloseTo(1.2, 10)
+    })
+
+    it('should not apply productivity bonus for blessings without a productivity branch', async () => {
+      const state = await createState()
+      const blessing = createBlessing({
+        type: BLESSING_GIFT_FROM_THE_HEAVENS,
+        productivity: 0,
+        timeout: 60,
+      })
+      const {
+        multipliers,
+      } = state._computeProductionRates({}, [blessing], {
+        food: 1,
+        wood: 1,
+      })
+      // No productivity branch matches → all multipliers stay at 1
+      expect(multipliers.food).toBeCloseTo(1, 10)
+      expect(multipliers.wood).toBeCloseTo(1, 10)
+      expect(multipliers.stone).toBeCloseTo(1, 10)
+      expect(multipliers.copper).toBeCloseTo(1, 10)
+      expect(multipliers.iron).toBeCloseTo(1, 10)
+      expect(multipliers.gold).toBeCloseTo(1, 10)
+      expect(multipliers.faith).toBeCloseTo(1, 10)
+      expect(multipliers.knowledge).toBeCloseTo(1, 10)
     })
   })
 
