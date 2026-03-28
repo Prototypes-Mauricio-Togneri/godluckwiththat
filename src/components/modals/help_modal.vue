@@ -51,7 +51,7 @@ onUnmounted(() => {
     <div class="modal-content">
       <h2 class="modal-title">{{ title }}</h2>
       <span class="modal-rule" />
-      <p v-for="(para, i) in paragraphs" :key="i" class="modal-description">{{ para }}</p>
+      <p v-for="para in paragraphs" :key="para" class="modal-description">{{ para }}</p>
 
       <button class="btn-gold modal-btn" @click="playTap(); emit(EMIT_CLOSE)">
         {{ t('modal.help.close') }}
