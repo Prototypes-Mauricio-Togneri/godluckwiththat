@@ -194,10 +194,19 @@ function consumptionModifierPercent(resource) {
 }
 
 /** Season progress as a fraction from 0 to 1. */
-const seasonProgress = computed(() => ui.season.seasonElapsed / SEASON_DURATION)
+const seasonProgress = computed(() => ui.seasonElapsed / SEASON_DURATION)
 
 /** Image path for the current season icon (warm or cold). */
 const seasonIcon = computed(() => ui.season.isWarm ? IMG_SEASON_WARM : IMG_SEASON_COLD)
+
+/** Cached time estimates (full-in / empty-in) per resource, or null when stable. */
+const timeEstimates = computed(() => {
+  const map = {}
+  for (const resource of HEADER_RESOURCES) {
+    map[resource] = timeEstimate(resource)
+  }
+  return map
+})
 
 // Dismiss idle workers
 const canDismiss = computed(() => ui.idleWorkers > 0)
@@ -276,11 +285,11 @@ let autosaveTimer = null
 const ui = shallowReactive({
   season: {
     currentSeason: '',
-    seasonElapsed: 0,
     isWarm: true,
     foodModifierPercent: 0,
     woodModifierPercent: 0,
   },
+  seasonElapsed: 0,
   year: 1,
   resources: {
     territory: 0,
@@ -438,16 +447,24 @@ function syncTimers() {
     buildings, season, events,
   } = colony
 
+  ui.seasonElapsed = season.seasonElapsed
+
   const seasonMultipliers = state.seasonMultipliers ?? {
     food: 1,
     wood: 1,
   }
-  ui.season = {
-    currentSeason: season.currentSeason,
-    seasonElapsed: season.seasonElapsed,
-    isWarm: season.isWarm,
-    foodModifierPercent: Math.round((seasonMultipliers.food - 1) * 100),
-    woodModifierPercent: Math.round((seasonMultipliers.wood - 1) * 100),
+  const foodModifierPercent = Math.round((seasonMultipliers.food - 1) * 100)
+  const woodModifierPercent = Math.round((seasonMultipliers.wood - 1) * 100)
+  if (ui.season.currentSeason !== season.currentSeason
+    || ui.season.isWarm !== season.isWarm
+    || ui.season.foodModifierPercent !== foodModifierPercent
+    || ui.season.woodModifierPercent !== woodModifierPercent) {
+    ui.season = {
+      currentSeason: season.currentSeason,
+      isWarm: season.isWarm,
+      foodModifierPercent: foodModifierPercent,
+      woodModifierPercent: woodModifierPercent,
+    }
   }
   ui.year = colony.year
 
@@ -596,11 +613,11 @@ function syncSeason() {
   }
   ui.season = {
     currentSeason: season.currentSeason,
-    seasonElapsed: season.seasonElapsed,
     isWarm: season.isWarm,
     foodModifierPercent: Math.round((seasonMultipliers.food - 1) * 100),
     woodModifierPercent: Math.round((seasonMultipliers.wood - 1) * 100),
   }
+  ui.seasonElapsed = season.seasonElapsed
   ui.year = state.colony.year
 }
 
@@ -1429,9 +1446,9 @@ onUnmounted(() => {
                   <span class="resource-tooltip-label">{{ t('resource.maxCapacity') }}:</span>
                   <span class="resource-tooltip-value">{{ formatNumber(ui.storageCap) }}</span>
                 </template>
-                <template v-if="timeEstimate(resource)">
-                  <span class="resource-tooltip-label">{{ timeEstimate(resource).label }}:</span>
-                  <span class="resource-tooltip-value">{{ timeEstimate(resource).time }}</span>
+                <template v-if="timeEstimates[resource]">
+                  <span class="resource-tooltip-label">{{ timeEstimates[resource].label }}:</span>
+                  <span class="resource-tooltip-value">{{ timeEstimates[resource].time }}</span>
                 </template>
                 <template v-if="hasConsumption(resource)">
                   <span class="resource-tooltip-label resource-tooltip-label--spaced">{{ t('resource.producing') }}:</span>
