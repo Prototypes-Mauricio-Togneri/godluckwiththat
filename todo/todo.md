@@ -1,4 +1,3 @@
-- Tooltip 2 Segundo to 1 Segundo
 - Test error with hibernating computer
 
 - Implement challenges
