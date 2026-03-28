@@ -381,9 +381,10 @@ Players have to choose between:
 
 All tunable numeric constants are centralized in `src/js/engine/balancing.js`. This file is the single source of truth for game economy values and is consumed by building classes, `constants.js`, `state.js`, and UI components. When adjusting the game's difficulty or economy, only this file should need to change.
 
+**Game speed** (`GAME_SPEED_OPTIONS`, `GAME_SPEED_DEFAULT` in `constants.js`) — Available speed multipliers (`[1, 2, 3]`) and the default (1x). Stored in `Meta.gameSpeed`. The game loop multiplies delta time by the speed multiplier, uniformly affecting production, seasons, construction, research, and events. Audio playback is unaffected.
+
 The file contains:
 
-- **Game speed** (`GAME_SPEED_OPTIONS`, `GAME_SPEED_DEFAULT`) — Available speed multipliers (`[1, 2, 3]`) and the default (1x). Stored in `Meta.gameSpeed`. The game loop multiplies delta time by the speed multiplier, uniformly affecting production, seasons, construction, research, and events. Audio playback is unaffected.
 - **Building upgrades** (`BUILDING_UPGRADES`) — Per-building upgrade config with two sub-keys: `cost` (base resource cost) and `multiplier` (exponential scaling factor per level). Build time is derived from the level-up cost via `Cost.toSeconds`.
   - Standard formula (all buildings except HQ): `floor(cost × multiplier^level)` — a level-0 building pays `cost × 1` for its first upgrade.
   - HQ formula: `floor(cost × multiplier^(level-1))` — because HQ starts at level 1 (never level 0), the exponent is shifted by one so the first expansion (level 1 → 2) also pays the base cost (`cost × 1`).
@@ -394,4 +395,8 @@ The file contains:
 - **Season constants** (`SEASON_DURATION`, `SEASON_WARM_FOOD_MODIFIER`, `SEASON_COLD_FOOD_MODIFIER`, `SEASON_WARM_WOOD_MODIFIER`, `SEASON_COLD_WOOD_MODIFIER`) — Season duration in seconds and fractional modifiers for food production and wood consumption per season.
 - **Market trading** (`MARKET_TRADE_AMOUNT`, `MARKET_BASE_PRICES`, `MARKET_BASE_FEE`, `MARKET_MIN_FEE`, `MARKET_FEE_REDUCTION_PER_LEVEL`, `MARKET_PRICE_SHIFT`, `MARKET_MIN_CURRENT_PRICE`, `MARKET_MAX_CURRENT_PRICE`) — Trade lot size, base gold prices per resource, fee structure, and dynamic price bounds.
 - **Monument faith** (`MONUMENT_FAITH_PER_LEVEL`) — One-time faith granted when a monument finishes construction: `value × newLevel`.
+- **Storehouse capacity** (`STOREHOUSE_BASE_CAPACITY`, `STOREHOUSE_CAPACITY_MULTIPLIER`) — Storage cap formula: `floor(base × multiplier^level × (1 + storageBonus))`. Base capacity is 500, multiplier is 1.2.
+- **Territory capacity** (`HQ_TERRITORY_PER_LEVEL`) — Territory slots per HQ level (10). Cap = `level × HQ_TERRITORY_PER_LEVEL + territoryBonus`.
+- **Shortage penalty** (`SHORTAGE_MAX_PENALTY`) — Maximum productivity reduction factor (1 = 100%) when food or wood has negative net production. Penalty scales proportionally to the deficit ratio.
+- **Bulk worker amount** (`BULK_WORKER_AMOUNT`) — Number of workers assigned/dismissed per Ctrl+click (10).
 - **Research definitions** (`RESEARCH_SUBCATEGORY_BONUSES`, `RESEARCH_COSTS`) — `RESEARCH_SUBCATEGORY_BONUSES` maps each subcategory to `{ type: BONUS_*, value, [flat] }`. `RESEARCH_COSTS` maps each `RESEARCH_*` key to a `Cost` instance (duration derived via `Cost.toSeconds`). Currently active bonuses in the game loop: worker productivity (bounded resources only), construction time, expansion cost, food/wood production, food/wood consumption, mining, knowledge production, faith production, habitation, storage capacity. Defined but not yet wired: disaster impacts, military stats, warning time.
