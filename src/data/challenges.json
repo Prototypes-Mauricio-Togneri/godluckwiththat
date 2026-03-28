@@ -30,7 +30,7 @@
   },
   {
     "index": 2,
-    "delay": 60,
+    "delay": 30,
     "timeout": 600,
     "requirements": {
       "faith": 500
@@ -58,7 +58,7 @@
   },
   {
     "index": 3,
-    "delay": 60,
+    "delay": 30,
     "timeout": 600,
     "requirements": {
       "temple": 5
@@ -84,7 +84,7 @@
   },
   {
     "index": 4,
-    "delay": 60,
+    "delay": 30,
     "timeout": 600,
     "requirements": {
       "faith": 1000
@@ -112,7 +112,7 @@
   },
   {
     "index": 5,
-    "delay": 45,
+    "delay": 30,
     "timeout": 600,
     "requirements": {
       "monument": 3
@@ -140,7 +140,7 @@
   },
   {
     "index": 6,
-    "delay": 45,
+    "delay": 30,
     "timeout": 600,
     "requirements": {
       "faith": 2000
@@ -167,7 +167,7 @@
   },
   {
     "index": 7,
-    "delay": 45,
+    "delay": 30,
     "timeout": 600,
     "requirements": {
       "resources": {
