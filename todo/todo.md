@@ -1,16 +1,9 @@
 - Improve challenges
   - Add images on each blessing card
 
-- Create military
-  - Open military window
-  - See military
-  - Create units
-  - See upcoming attacks
-  - Implement military researches
+- [Implement military](./military.md)
 
-- Implement natural disasters
-  - Implement random disasters (see Spreadsheet)
-  - Implement disasters researches
+- [Implement disasters](./disasters.md)
 
 - Implement story intro
 

@@ -1,3 +1,8 @@
+# Natural Disasters
+
+- Implement random disasters (see Spreadsheet)
+- Implement disasters researches
+
 50% faith loss
 
 ### 2. Disaster System

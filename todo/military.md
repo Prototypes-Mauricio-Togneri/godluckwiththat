@@ -1,3 +1,11 @@
+# Military
+
+- Open military window
+- See military
+- Create units
+- See upcoming attacks
+- Implement military researches
+
 * **Recover relic** challenge type: send military away to recover a relic. Skipped for now (military not implemented)
 
 ## Blessings (not yet implemented)
