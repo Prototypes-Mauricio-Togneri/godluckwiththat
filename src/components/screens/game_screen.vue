@@ -369,7 +369,6 @@ const ui = shallowReactive({
     stepBuilding: null,
     stepBuildingImg: null,
     stepNumber: 0,
-    totalSteps: 0,
     isActive: false,
     activeModal: null,
     activeModalTitle: null,
@@ -829,7 +828,6 @@ function syncTutorial() {
     stepBuilding: step?.building ?? null,
     stepBuildingImg: step?.building ? BUILDING_IMAGE_MAP[step.building] : null,
     stepNumber: tutorial.currentStep + 1,
-    totalSteps: TUTORIAL_STEPS.length,
     isActive: tutorial.isActive,
     activeModal: tutorial.activeModal,
     activeModalTitle: modalConfig?.titleKey ?? null,
@@ -1681,8 +1679,6 @@ onUnmounted(() => {
         :text-key="ui.tutorial.stepTextKey"
         :hint-key="ui.tutorial.stepHintKey"
         :building-img="ui.tutorial.stepBuildingImg"
-        :step-number="ui.tutorial.stepNumber"
-        :total-steps="ui.tutorial.totalSteps"
       />
     </Transition>
 

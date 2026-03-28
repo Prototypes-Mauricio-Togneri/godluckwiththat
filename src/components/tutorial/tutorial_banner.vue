@@ -14,14 +14,6 @@ defineProps({
     type: String,
     default: null,
   },
-  stepNumber: {
-    type: Number,
-    required: true,
-  },
-  totalSteps: {
-    type: Number,
-    required: true,
-  },
 })
 </script>
 
