@@ -23,7 +23,7 @@
       "timeout": 120,
       "faith": 0.5,
       "productivityFarm": 0.1,
-      "resource": 0.2
+      "resources": 0.2
     }
   },
   {
@@ -51,7 +51,7 @@
       "timeout": 120,
       "faith": 0.5,
       "productivityWoodcutter": 0.2,
-      "resource": 0.3
+      "resources": 0.3
     }
   },
   {
@@ -76,8 +76,8 @@
     "punishment": {
       "type": "plague",
       "faith": 0.5,
-      "resource": 0.3,
-      "worker": 20
+      "resources": 0.3,
+      "workers": 20
     }
   },
   {
@@ -105,7 +105,7 @@
       "timeout": 180,
       "faith": 0.5,
       "productivityMines": 0.3,
-      "resource": 0.3
+      "resources": 0.3
     }
   },
   {
@@ -131,8 +131,8 @@
       "timeout": 180,
       "faith": 0.5,
       "productivityGeneral": 0.3,
-      "resource": 0.3,
-      "worker": 5,
+      "resources": 0.3,
+      "workers": 5,
       "levels": 10
     }
   },
@@ -160,7 +160,7 @@
       "timeout": 180,
       "faith": 0.5,
       "productivityFarm": 0.2,
-      "resource": 0.3
+      "resources": 0.3
     }
   },
   {
@@ -193,7 +193,7 @@
       "timeout": 180,
       "faith": 0.5,
       "productivityWoodcutter": 0.3,
-      "resource": 0.4
+      "resources": 0.4
     }
   },
   {
@@ -225,8 +225,8 @@
     "punishment": {
       "type": "plague",
       "faith": 0.5,
-      "resource": 0.4,
-      "worker": 50
+      "resources": 0.4,
+      "workers": 50
     }
   },
   {
@@ -262,7 +262,7 @@
       "timeout": 180,
       "faith": 0.5,
       "productivityMines": 0.4,
-      "resource": 0.4
+      "resources": 0.4
     }
   },
   {
@@ -299,8 +299,8 @@
       "timeout": 180,
       "faith": 0.5,
       "productivityGeneral": 0.5,
-      "resource": 0.5,
-      "worker": 100,
+      "resources": 0.5,
+      "workers": 100,
       "levels": 30
     }
   }
