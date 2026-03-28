@@ -826,8 +826,8 @@ export function createInitialChallenges() {
       productivityWoodcutter: challenge.punishment.productivityWoodcutter ?? null,
       productivityMines: challenge.punishment.productivityMines ?? null,
       productivityGeneral: challenge.punishment.productivityGeneral ?? null,
-      resources: challenge.punishment.resource ?? null,
-      workers: challenge.punishment.worker ?? null,
+      resources: challenge.punishment.resources ?? null,
+      workers: challenge.punishment.workers ?? null,
       levels: challenge.punishment.levels ?? null,
     }),
   }))

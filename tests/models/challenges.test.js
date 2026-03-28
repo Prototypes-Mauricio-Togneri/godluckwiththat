@@ -182,6 +182,20 @@ describe('Challenges', () => {
       expect(challenges.active.timeoutElapsed).toBe(15)
     })
 
+    it('should not advance timers when status is completed', () => {
+      const challenge = createChallenge({
+        status: CHALLENGE_STATUS_COMPLETED,
+        delayElapsed: 10,
+        timeoutElapsed: 10,
+      })
+      const challenges = createChallenges({
+        active: challenge,
+      })
+      challenges.advance(5)
+      expect(challenges.active.delayElapsed).toBe(10)
+      expect(challenges.active.timeoutElapsed).toBe(10)
+    })
+
     it('should do nothing when no active challenge', () => {
       const challenges = createChallenges()
       challenges.advance(5)

@@ -796,6 +796,25 @@ describe('State', () => {
       expect(audio.playSound).toHaveBeenCalledWith(SND_HEADQUARTERS_UPGRADED)
       expect(state.meta.tutorial.activeModal).toBe(TUTORIAL_MODAL_HQ_UPGRADE)
     })
+
+    it('should not complete HQ upgrade when timer has time remaining', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_CAMP,
+              isUpgrading: true,
+              upgradeRemaining: 10,
+            },
+          },
+        },
+      })
+      state._hqUpgrading = true
+      state.advanceConstruction(1)
+      expect(state._hqUpgrading).toBe(true)
+      expect(state.colony.buildings.headquarters.upgradeRemaining).toBe(9)
+    })
   })
 
   // ── advanceResearch ──────────────────────────────────────────────
@@ -843,6 +862,28 @@ describe('State', () => {
       state.advanceResearch(1)
       expect(state.colony.buildings.academy.isActive('foodProduction1')).toBe(false)
       expect(state.colony.buildings.academy.isCompleted('foodProduction1')).toBe(true)
+    })
+
+    it('should not complete research when timer has not elapsed', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            academy: {
+              level: 1,
+              active: [
+                {
+                  key: 'foodProduction1',
+                  remainingSeconds: 10,
+                  duration: 10,
+                },
+              ],
+            },
+          },
+        },
+      })
+      state.advanceResearch(1)
+      expect(state.colony.buildings.academy.isActive('foodProduction1')).toBe(true)
+      expect(state.colony.buildings.academy.isCompleted('foodProduction1')).toBe(false)
     })
 
     it('should not advance when no active research', async () => {
@@ -968,6 +1009,19 @@ describe('State', () => {
 
     it('should return early when no pending and no active challenge', async () => {
       const state = await createState()
+      state.advanceChallenges(1)
+      expect(state.meta.challenges.active).toBeNull()
+    })
+
+    it('should return early if activate does not set an active challenge', async () => {
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            pending: [createChallenge()],
+          }),
+        },
+      })
+      vi.spyOn(state.meta.challenges, 'activate').mockImplementation(() => {})
       state.advanceChallenges(1)
       expect(state.meta.challenges.active).toBeNull()
     })
@@ -1246,6 +1300,35 @@ describe('State', () => {
       })
       expect(state.areChallengeRequirementsMet()).toBe(false)
     })
+
+    it('should return true when resource requirements are met', async () => {
+      const activeChallenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        requirements: {
+          faith: null,
+          altar: null,
+          temple: null,
+          monument: null,
+          resources: {
+            food: 100,
+          },
+          workers: null,
+        },
+      })
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 200,
+          },
+        },
+        metaOverrides: {
+          challenges: createChallenges({
+            active: activeChallenge,
+          }),
+        },
+      })
+      expect(state.areChallengeRequirementsMet()).toBe(true)
+    })
   })
 
   // ── selectBlessing ───────────────────────────────────────────────
@@ -1520,6 +1603,34 @@ describe('State', () => {
       expect(state.colony.events.hasPastEvent(EVENT_TYPE_TERRITORY_LIMIT_REACHED)).toBe(true)
       expect(audio.playSound).toHaveBeenCalledWith(SND_NOTIFICATION_ALERT)
     })
+
+    it('should use buildingUpgrading text when building already exists', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 5000,
+            wood: 5000,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 2,
+              type: HQ_TYPE_CAMP,
+            },
+            storehouse: {
+              level: 1,
+            },
+            farm: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state.levelUpBuilding(BUILDING_FARM)
+      const futureEvent = state.colony.events.future.find(
+        event => event.type === EVENT_TYPE_BUILDING_UPGRADE,
+      )
+      expect(futureEvent.textKey).toBe('event.buildingUpgrading')
+    })
   })
 
   // ── recruitWorker ────────────────────────────────────────────────
@@ -1685,6 +1796,25 @@ describe('State', () => {
       state.update(0)
       state.dismissWorkers(1)
       expect(state.colony.resources.workers).toBe(3)
+    })
+
+    it('should not dismiss population event when workers still at or above cap', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 5,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+              workersCap: 2,
+            },
+          },
+        },
+      })
+      state.update(0)
+      state.dismissWorkers(1)
+      expect(state.colony.resources.workers).toBe(4)
     })
   })
 
@@ -2023,6 +2153,26 @@ describe('State', () => {
       const goldBefore = state.colony.resources.gold
       state.executeTrade(RESOURCE_FOOD, TRADE_SELL, 100)
       expect(state.colony.resources.gold).toBeGreaterThan(goldBefore)
+    })
+
+    it('should not update when trade fails', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 0,
+            gold: 0,
+          },
+          buildingOverrides: {
+            market: {
+              level: 0,
+            },
+          },
+        },
+      })
+      state.update(0)
+      const spy = vi.spyOn(state, 'update')
+      state.executeTrade(RESOURCE_FOOD, TRADE_BUY, 100)
+      expect(spy).not.toHaveBeenCalled()
     })
   })
 

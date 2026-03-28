@@ -1,4 +1,4 @@
-import {describe, it, expect} from 'vitest'
+import {describe, it, expect, vi} from 'vitest'
 import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
 import {BUILDING_CLASS_MAP, TUTORIAL_STEPS, createInitialColony, createInitialColonyBasic, createInitialColonyAdvanced, createInitialMeta, createInitialChallenges} from '@/js/engine/constants.js'
 import {BUILDING_HEADQUARTERS, HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT} from '@/js/engine/enums.js'
@@ -134,6 +134,36 @@ describe('constants', () => {
         expect(colony.resources.iron).toBe(1000)
         expect(colony.resources.gold).toBe(1000)
       })
+    })
+
+    it('should default punishment.faith to null when absent in JSON', async () => {
+      vi.resetModules()
+      vi.doMock('@/data/challenges.json', () => ({
+        default: [
+          {
+            index: 99,
+            delay: 60,
+            timeout: 300,
+            requirements: {
+              faith: 100,
+            },
+            blessings: [
+              {
+                type: 'fertileSoil',
+              },
+            ],
+            punishment: {
+              type: 'cropFailure',
+            },
+          },
+        ],
+      }))
+      const {
+        createInitialChallenges: create,
+      } = await import('@/js/engine/constants.js')
+      const challenges = create()
+      expect(challenges.pending[0].punishment.faith).toBeNull()
+      vi.doUnmock('@/data/challenges.json')
     })
   })
 

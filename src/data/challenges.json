@@ -2,7 +2,7 @@
   {
     "index": 1,
     "delay": 5,
-    "timeout": 60,
+    "timeout": 180,
     "requirements": {
       "altar": 3
     },
@@ -21,9 +21,11 @@
     "punishment": {
       "type": "cropFailure",
       "timeout": 120,
-      "faith": 0.5,
       "productivityFarm": 0.1,
-      "resources": 0.2
+      "faith": 0.5,
+      "resources": 0.2,
+      "workers": 2,
+      "levels": 2
     }
   },
   {
@@ -49,8 +51,8 @@
     "punishment": {
       "type": "wildfires",
       "timeout": 120,
-      "faith": 0.5,
       "productivityWoodcutter": 0.2,
+      "faith": 0.5,
       "resources": 0.3
     }
   },
@@ -103,8 +105,8 @@
     "punishment": {
       "type": "landslide",
       "timeout": 180,
-      "faith": 0.5,
       "productivityMines": 0.3,
+      "faith": 0.5,
       "resources": 0.3
     }
   },
@@ -129,8 +131,8 @@
     "punishment": {
       "type": "volcano",
       "timeout": 180,
-      "faith": 0.5,
       "productivityGeneral": 0.3,
+      "faith": 0.5,
       "resources": 0.3,
       "workers": 5,
       "levels": 10
@@ -158,8 +160,8 @@
     "punishment": {
       "type": "cropFailure",
       "timeout": 180,
-      "faith": 0.5,
       "productivityFarm": 0.2,
+      "faith": 0.5,
       "resources": 0.3
     }
   },
@@ -191,8 +193,8 @@
     "punishment": {
       "type": "wildfires",
       "timeout": 180,
-      "faith": 0.5,
       "productivityWoodcutter": 0.3,
+      "faith": 0.5,
       "resources": 0.4
     }
   },
@@ -260,8 +262,8 @@
     "punishment": {
       "type": "landslide",
       "timeout": 180,
-      "faith": 0.5,
       "productivityMines": 0.4,
+      "faith": 0.5,
       "resources": 0.4
     }
   },
@@ -297,8 +299,8 @@
     "punishment": {
       "type": "volcano",
       "timeout": 180,
-      "faith": 0.5,
       "productivityGeneral": 0.5,
+      "faith": 0.5,
       "resources": 0.5,
       "workers": 100,
       "levels": 30
