@@ -160,7 +160,7 @@ onUnmounted(() => {
       </div>
 
       <!-- Scrollable content -->
-      <div ref="scrollRef" class="research-scroll">
+      <div ref="scrollRef" class="research-scroll thin-scrollbar">
         <div
           v-for="sub in activeCategory.subcategories"
           :key="sub.key"
@@ -303,21 +303,6 @@ onUnmounted(() => {
   overflow-x: hidden;
   min-height: 0;
   padding-top: 0.15rem;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(var(--color-accent-rgb), 0.2) rgba(0, 0, 0, 0);
-}
-
-.research-scroll::-webkit-scrollbar {
-  width: 4px;
-}
-
-.research-scroll::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0);
-}
-
-.research-scroll::-webkit-scrollbar-thumb {
-  background: rgba(var(--color-accent-rgb), 0.2);
-  border-radius: 0.125rem;
 }
 
 /* ── Subcategory section ─────────────────────────────────── */

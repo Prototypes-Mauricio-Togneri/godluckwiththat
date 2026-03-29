@@ -936,3 +936,25 @@
         rgba(var(--color-shadow-rgb), 0.1)
     );
 }
+
+/* ============================================
+   Thin Scrollbar
+   ============================================ */
+
+.thin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--color-accent-rgb), 0.2) transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(var(--color-accent-rgb), 0.2);
+    border-radius: 0.125rem;
+}

@@ -46,7 +46,7 @@ onUnmounted(() => {
       <h2 class="modal-title">{{ t('modal.changelog.title') }}</h2>
       <span class="modal-rule" />
       <!-- eslint-disable-next-line vue/no-v-html -- static bundled asset, HTML-stripped before parsing -->
-      <div class="changelog-body" v-html="changelogHtml" />
+      <div class="changelog-body thin-scrollbar" v-html="changelogHtml" />
 
       <button class="btn-gold modal-btn" @click="playTap(); emit(EMIT_CLOSE)">
         {{ t('modal.help.close') }}
