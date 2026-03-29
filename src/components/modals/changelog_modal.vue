@@ -72,10 +72,12 @@ onUnmounted(() => {
 .changelog-body {
   overflow-y: auto;
   max-height: 50vh;
+  padding: 0.5rem 0.75rem;
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 300;
   line-height: 1.6;
+  text-align: justify;
   color: rgba(var(--color-text-rgb), 0.75);
 }
 
