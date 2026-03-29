@@ -1,6 +1,9 @@
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import {fileURLToPath, URL} from 'node:url'
+import {readFileSync} from 'node:fs'
+
+const packageJson = JSON.parse(readFileSync('./package.json', 'utf-8'))
 
 export default defineConfig({
   plugins: [vue()],
@@ -8,5 +11,8 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
+  },
+  define: {
+    __APP_VERSION__: JSON.stringify(packageJson.version),
   },
 })

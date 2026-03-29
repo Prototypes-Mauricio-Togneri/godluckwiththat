@@ -23,6 +23,16 @@ export const LOCALIZED_CA = {
   // About screen
   'screen.about.title': 'Sobre',
   'screen.about.back': 'Tornar',
+  'screen.about.changelog': 'Novetats',
+  'screen.about.moreGames': 'Més jocs',
+  'screen.about.feedback': 'Contacte',
+  'screen.about.version': 'Versió {0}',
+
+  // Changelog modal
+  'modal.changelog.title': 'Novetats',
+
+  // More Games modal
+  'modal.moreGames.title': 'Més jocs',
 
   // Game screen
   'screen.game.header.year': 'Any',

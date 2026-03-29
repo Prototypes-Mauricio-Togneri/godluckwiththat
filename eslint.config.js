@@ -23,6 +23,7 @@ export default [
         cancelAnimationFrame: 'readonly',
         navigator: 'readonly',
         performance: 'readonly',
+        __APP_VERSION__: 'readonly',
       },
     },
     rules: {
