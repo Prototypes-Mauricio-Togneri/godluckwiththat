@@ -15,6 +15,10 @@ export const LOCALIZED_EN = {
   // Settings screen
   'screen.settings.title': 'Settings',
   'screen.settings.back': 'Back',
+  'screen.settings.music': 'Music',
+  'screen.settings.sound': 'Sound',
+  'screen.settings.autosave': 'Autosave',
+  'screen.settings.autosaveInterval': '{0} min',
 
   // About screen
   'screen.about.title': 'About',

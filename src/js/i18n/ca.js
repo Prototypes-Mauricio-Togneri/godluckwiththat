@@ -15,6 +15,10 @@ export const LOCALIZED_CA = {
   // Settings screen
   'screen.settings.title': 'Configuració',
   'screen.settings.back': 'Tornar',
+  'screen.settings.music': 'Música',
+  'screen.settings.sound': 'So',
+  'screen.settings.autosave': 'Autodesament',
+  'screen.settings.autosaveInterval': '{0} min',
 
   // About screen
   'screen.about.title': 'Sobre',
