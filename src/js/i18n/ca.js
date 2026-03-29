@@ -9,6 +9,16 @@ export const LOCALIZED_CA = {
   'screen.home.newGame': 'Nova partida',
   'screen.home.continue': 'Continuar',
   'screen.home.mobileUnavailable': 'Versió mòbil encara no disponible',
+  'screen.home.settings': 'Configuració',
+  'screen.home.about': 'Sobre',
+
+  // Settings screen
+  'screen.settings.title': 'Configuració',
+  'screen.settings.back': 'Tornar',
+
+  // About screen
+  'screen.about.title': 'Sobre',
+  'screen.about.back': 'Tornar',
 
   // Game screen
   'screen.game.header.year': 'Any',

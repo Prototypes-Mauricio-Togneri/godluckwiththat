@@ -231,6 +231,7 @@ export const EMIT_LOAD = 'load'
 export const EMIT_SETTINGS = 'settings'
 export const EMIT_RESTART = 'restart'
 export const EMIT_CONTINUE = 'continue'
+export const EMIT_ABOUT = 'about'
 
 // Challenge status
 export const CHALLENGE_STATUS_PENDING = 'pending'

@@ -1,7 +1,9 @@
 <script setup>
 import {ref} from 'vue'
-import HomeScreen from '@/components/screens/home_screen.vue'
+import AboutScreen from '@/components/screens/about_screen.vue'
 import GameScreen from '@/components/screens/game_screen.vue'
+import HomeScreen from '@/components/screens/home_screen.vue'
+import SettingsScreen from '@/components/screens/settings_screen.vue'
 import {MUS_MUSIC_1, MUS_MUSIC_2, MUS_MUSIC_3, MUS_MUSIC_4} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
 import {createInitialColony, createInitialMeta} from '@/js/engine/constants.js'
@@ -48,10 +50,17 @@ function quitGame() {
   currentScreen.value = 'home'
 }
 
+/** Returns to the home screen from a sub-screen. */
+function goHome() {
+  currentScreen.value = 'home'
+}
+
 </script>
 
 <template>
-  <HomeScreen v-if="currentScreen === 'home'" @start="startGame" />
+  <HomeScreen v-if="currentScreen === 'home'" @start="startGame" @settings="currentScreen = 'settings'" @about="currentScreen = 'about'" />
   <GameScreen v-else-if="currentScreen === 'game'" :key="gameKey" :initial-state="gameState" @quit="quitGame" @restart="restartGame" />
+  <SettingsScreen v-else-if="currentScreen === 'settings'" @close="goHome" />
+  <AboutScreen v-else-if="currentScreen === 'about'" @close="goHome" />
 </template>
 

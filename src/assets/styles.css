@@ -43,6 +43,69 @@
    Shared Components
    ============================================ */
 
+/* ── .screen-layout ──────────────────────────────────────────────── */
+
+/* Full-viewport centered layout shared by home, settings, about screens */
+.screen-layout {
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Warm torchlight glow behind content */
+.screen-glow {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(
+        ellipse,
+        rgba(var(--color-accent-rgb), 0.1) 0%,
+        rgba(var(--color-accent-rgb), 0.04) 40%,
+        rgba(var(--color-accent-rgb), 0) 70%
+    );
+    pointer-events: none;
+}
+
+/* Content wrapper — above the glow layer */
+.screen-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    z-index: 1;
+}
+
+/* Screen heading */
+.screen-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-align: center;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+}
+
+/* Small navigation/action button */
+.screen-btn-small {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    padding: 0.55rem 1.6rem;
+}
+
+/* Press effect for small screen buttons */
+.screen-btn-small:active {
+    transform: scale(0.97);
+}
+
 /* ── .btn-gold ────────────────────────────────────────────────────── */
 
 /* Bronze-bordered button used across screens */

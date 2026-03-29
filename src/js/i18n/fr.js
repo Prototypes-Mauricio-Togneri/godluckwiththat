@@ -9,6 +9,16 @@ export const LOCALIZED_FR = {
   'screen.home.newGame': 'Nouvelle partie',
   'screen.home.continue': 'Continuer',
   'screen.home.mobileUnavailable': 'Version mobile pas encore disponible',
+  'screen.home.settings': 'Paramètres',
+  'screen.home.about': 'À propos',
+
+  // Settings screen
+  'screen.settings.title': 'Paramètres',
+  'screen.settings.back': 'Retour',
+
+  // About screen
+  'screen.about.title': 'À propos',
+  'screen.about.back': 'Retour',
 
   // Game screen
   'screen.game.header.year': 'Année',
