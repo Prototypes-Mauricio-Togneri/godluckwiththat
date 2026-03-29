@@ -17,7 +17,7 @@ const savedData = ref(storage.savedGame)
 const hasSavedGame = computed(() => savedData.value !== null)
 
 onMounted(() => {
-  if (!IS_DEV) {
+  if (IS_DEV) {
     emit(EMIT_START, savedData.value)
   }
 })
