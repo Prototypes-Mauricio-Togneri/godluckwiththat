@@ -39,11 +39,11 @@ const appVersion = __APP_VERSION__
         >
           {{ t('screen.about.feedback') }}
         </a>
-      </div>
 
-      <span class="about-version">
-        {{ t('screen.about.version', appVersion) }}
-      </span>
+        <span class="about-version">
+          {{ t('screen.about.version', appVersion) }}
+        </span>
+      </div>
 
       <button class="btn-gold screen-btn-small" @click="playTap(); emit(EMIT_CLOSE)">
         {{ t('screen.about.back') }}
@@ -59,8 +59,11 @@ const appVersion = __APP_VERSION__
 .about-actions {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
+  align-items: stretch;
+  width: min(200px, 85vw);
+  gap: 1.5rem;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 }
 
 /* Mailto link styled as button */
@@ -76,5 +79,6 @@ const appVersion = __APP_VERSION__
   font-weight: 300;
   letter-spacing: 0.1em;
   color: rgba(var(--color-text-rgb), 0.4);
+  align-self: center;
 }
 </style>
