@@ -1,4 +1,5 @@
 - Improve challenges
+  - Make blessings and punishments dynamic
   - Add images on each blessing card
 
 - [Implement military](./military.md)

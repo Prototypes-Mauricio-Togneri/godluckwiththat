@@ -90,6 +90,7 @@
     font-weight: 900;
     font-size: clamp(2rem, 5vw, 3.5rem);
     text-align: center;
+    text-transform: uppercase;
     color: var(--color-text);
     letter-spacing: 0.02em;
 }
