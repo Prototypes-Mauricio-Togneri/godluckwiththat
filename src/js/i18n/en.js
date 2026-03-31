@@ -184,6 +184,7 @@ export const LOCALIZED_EN = {
 
   // Worker assignment
   'worker.assign': 'Assign worker',
+  'worker.recruit': 'Recruit worker',
   'worker.unassign': 'Unassign worker',
 
   // House actions

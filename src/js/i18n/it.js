@@ -184,6 +184,7 @@ export const LOCALIZED_IT = {
 
   // Worker assignment
   'worker.assign': 'Assegna lavoratore',
+  'worker.recruit': 'Recluta lavoratore',
   'worker.unassign': 'Rimuovi lavoratore',
 
   // House actions

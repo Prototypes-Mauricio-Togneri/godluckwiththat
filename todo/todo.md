@@ -1,5 +1,4 @@
 - Improvements
-  - Explain how much a worker costs
   - Make more obvious that you can click on the challenge event row
 
 - Improve challenges

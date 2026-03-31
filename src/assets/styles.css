@@ -677,6 +677,12 @@
     color: var(--color-red);
 }
 
+/* Recruit cost indicator — adds left margin when shown in worker row */
+.recruit-cost {
+    margin-left: 0.25rem;
+    margin-left: 4cqh;
+}
+
 /* ── .production-rate ─────────────────────────────────────────────── */
 
 /* Production rate indicator — colored rate beside resource values */
