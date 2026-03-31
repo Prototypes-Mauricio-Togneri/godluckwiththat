@@ -1093,6 +1093,7 @@ function clearAllPast() {
 
 /** Handles clicking a future event with an action. */
 function handleEventAction(action) {
+  playTap()
   if (action === 'openChallengeModal') {
     showChallengeModal.value = true
   }
@@ -1591,6 +1592,9 @@ onUnmounted(() => {
               <img class="event-icon" :src="event.icon" :alt="t(event.textKey, ...event.params)">
               <span class="event-text">{{ t(event.textKey, ...event.params) }}</span>
               <span class="event-countdown">{{ formatTime(event.remainingSeconds) }}</span>
+              <svg v-if="event.action" class="event-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
             </div>
           </div>
         </div>
@@ -2167,6 +2171,20 @@ onUnmounted(() => {
 /* Clickable future events (e.g. challenges) */
 .event-row--clickable {
   cursor: pointer;
+}
+
+/* Chevron icon indicating clickable event */
+.event-chevron {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  color: rgba(var(--color-accent-rgb), 0.5);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.event-row--clickable:hover .event-chevron {
+  color: rgba(var(--color-accent-rgb), 0.9);
+  transform: translateX(2px);
 }
 
 /* Challenge event with all requirements met */
