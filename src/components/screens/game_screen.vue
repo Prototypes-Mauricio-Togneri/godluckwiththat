@@ -304,6 +304,7 @@ const ui = shallowReactive({
     [RESOURCE_KNOWLEDGE]: 0,
   },
   storageCap: 0,
+  storageBonus: 0,
   idleWorkers: 0,
   workersCap: 0,
   territoryCap: 0,
@@ -644,6 +645,7 @@ function syncResources() {
   const bonuses = buildings.academy.completedBonuses(RESEARCH_TREE)
   const storageBonus = bonuses[BONUS_STORAGE_CAPACITY] ?? 0
   ui.storageCap = buildings.storehouse.storageCap(storageBonus)
+  ui.storageBonus = storageBonus
   ui.idleWorkers = colony.idleWorkers
   ui.workersCap = buildings.house.workersCap
   ui.territoryCap = buildings.headquarters.territoryCap + resources.territoryBonus

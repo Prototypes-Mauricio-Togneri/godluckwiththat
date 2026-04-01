@@ -213,6 +213,12 @@
     transition-delay: 1s;
 }
 
+/* Allow line breaks in tooltip text */
+.tooltip--multiline::after {
+    white-space: pre;
+    text-align: center;
+}
+
 /* ── .action-row / .action-btn / .action-cost ─────────────────────── */
 
 /* Action row — icon button beside resource cost items */

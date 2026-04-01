@@ -6,6 +6,8 @@ import {IMG_OTHER_BUILD, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/
 import {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull, formatTime} from '@/js/engine/format.js'
 import {BUILDING_CLASS_MAP, DOWNGRADABLE_BUILDINGS} from '@/js/engine/constants.js'
+import {MONUMENT_FAITH_PER_LEVEL, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER} from '@/js/engine/balancing.js'
+import {BUILDING_MONUMENT, BUILDING_STOREHOUSE} from '@/js/engine/enums.js'
 import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -70,7 +72,22 @@ const actionTooltip = computed(() => {
   if (canActBase.value && !canAfford.value) {
     return t('building.insufficientResources')
   }
-  return isBuildable.value ? t('building.build') + ' ' + t(displayNameKey.value).toLowerCase() : t('building.levelUp')
+  const baseText = isBuildable.value
+    ? t('building.build') + ' ' + t(displayNameKey.value).toLowerCase()
+    : t('building.levelUp')
+  // Append bonus info for storehouse and monument
+  if (props.buildingKey === BUILDING_STOREHOUSE) {
+    const level = props.building.level
+    const bonus = ui.storageBonus
+    const currentCap = Math.floor(STOREHOUSE_BASE_CAPACITY * Math.pow(STOREHOUSE_CAPACITY_MULTIPLIER, level) * (1 + bonus))
+    const nextCap = Math.floor(STOREHOUSE_BASE_CAPACITY * Math.pow(STOREHOUSE_CAPACITY_MULTIPLIER, level + 1) * (1 + bonus))
+    return baseText + '\n' + t('building.levelUpBonus.capacity', formatNumber(nextCap - currentCap))
+  }
+  if (props.buildingKey === BUILDING_MONUMENT) {
+    const faith = MONUMENT_FAITH_PER_LEVEL * (props.building.level + 1)
+    return baseText + '\n' + t('building.levelUpBonus.faith', formatNumber(faith))
+  }
+  return baseText
 })
 const actionCostEntries = computed(() => props.building.levelUpCostEntries ?? [])
 const isWorkerAssignable = computed(() => props.building.isProducer)
@@ -132,7 +149,7 @@ function downgrade() {
       <span class="building-name">{{ t(displayNameKey) }}</span>
       <div class="slot-actions">
         <div v-if="hasAction" class="action-row" :class="{ 'action-row--disabled': !canAct }">
-          <span class="tooltip" :class="{ 'tooltip--delayed': canAct }" :data-tooltip="actionTooltip">
+          <span class="tooltip" :class="{ 'tooltip--delayed': canAct, 'tooltip--multiline': buildingKey === BUILDING_STOREHOUSE || buildingKey === BUILDING_MONUMENT }" :data-tooltip="actionTooltip">
             <button
               class="btn-gold action-btn"
               :class="{ 'action-btn--constructing': isConstructing }"

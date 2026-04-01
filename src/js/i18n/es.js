@@ -181,6 +181,8 @@ export const LOCALIZED_ES = {
   'building.insufficientResources': 'Recursos insuficientes',
   'building.maxTerritoryReached': 'Territorio máximo alcanzado',
   'building.maxPopulationReached': 'Población máxima alcanzada',
+  'building.levelUpBonus.capacity': '+{0} capacidad',
+  'building.levelUpBonus.faith': '+{0} fe',
 
   // Worker assignment
   'worker.assign': 'Asignar trabajador',
