@@ -1,3 +1,5 @@
+- Show what the new level of a building does (e.g. storage capacity)
+
 - Improve challenges
   - Make blessings and punishments dynamic
   - Add images on each blessing card
