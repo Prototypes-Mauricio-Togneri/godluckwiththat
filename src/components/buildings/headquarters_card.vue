@@ -3,6 +3,7 @@ import {computed, inject} from 'vue'
 import BaseCard from '@/components/buildings/base_card.vue'
 import {IMG_OTHER_TERRITORY, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
+import {HQ_TERRITORY_PER_LEVEL} from '@/js/engine/balancing.js'
 import {formatNumber, formatNumberFull, formatTime} from '@/js/engine/format.js'
 import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
@@ -56,7 +57,7 @@ const levelUpTooltip = computed(() => {
   if (!isBusy.value && !canAffordLevelUp.value) {
     return t('building.insufficientResources')
   }
-  return t('headquarters.expandTerritory')
+  return t('headquarters.expandTerritory') + '\n' + t('building.levelUpBonus.slots', formatNumber(HQ_TERRITORY_PER_LEVEL))
 })
 
 function levelUp() {
@@ -126,7 +127,7 @@ function upgradeType() {
     </div>
 
     <div class="action-row" :class="{ 'action-row--disabled': !canLevelUp }">
-      <span class="tooltip" :class="{ 'tooltip--delayed': canLevelUp }" :data-tooltip="levelUpTooltip">
+      <span class="tooltip tooltip--multiline" :class="{ 'tooltip--delayed': canLevelUp }" :data-tooltip="levelUpTooltip">
         <button
           class="btn-gold action-btn"
           :class="{ 'action-btn--constructing': isLevelingUp }"
