@@ -183,6 +183,7 @@ export const LOCALIZED_ES = {
   'building.maxPopulationReached': 'Población máxima alcanzada',
   'building.levelUpBonus.capacity': '+{0} capacidad',
   'building.levelUpBonus.faith': '+{0} fe',
+  'building.levelUpBonus.population': '+{0} población',
 
   // Worker assignment
   'worker.assign': 'Asignar trabajador',

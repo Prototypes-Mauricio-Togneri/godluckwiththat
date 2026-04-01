@@ -6,8 +6,8 @@ import {IMG_OTHER_BUILD, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/
 import {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull, formatTime} from '@/js/engine/format.js'
 import {BUILDING_CLASS_MAP, DOWNGRADABLE_BUILDINGS} from '@/js/engine/constants.js'
-import {MONUMENT_FAITH_PER_LEVEL, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER} from '@/js/engine/balancing.js'
-import {BUILDING_MONUMENT, BUILDING_STOREHOUSE} from '@/js/engine/enums.js'
+import {HOUSE_POPULATION_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER} from '@/js/engine/balancing.js'
+import {BUILDING_HOUSE, BUILDING_MONUMENT, BUILDING_STOREHOUSE} from '@/js/engine/enums.js'
 import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -87,6 +87,10 @@ const actionTooltip = computed(() => {
     const faith = MONUMENT_FAITH_PER_LEVEL * (props.building.level + 1)
     return baseText + '\n' + t('building.levelUpBonus.faith', formatNumber(faith))
   }
+  if (props.buildingKey === BUILDING_HOUSE) {
+    const population = HOUSE_POPULATION_PER_LEVEL + ui.habitationBonus
+    return baseText + '\n' + t('building.levelUpBonus.population', formatNumber(population))
+  }
   return baseText
 })
 const actionCostEntries = computed(() => props.building.levelUpCostEntries ?? [])
@@ -149,7 +153,7 @@ function downgrade() {
       <span class="building-name">{{ t(displayNameKey) }}</span>
       <div class="slot-actions">
         <div v-if="hasAction" class="action-row" :class="{ 'action-row--disabled': !canAct }">
-          <span class="tooltip" :class="{ 'tooltip--delayed': canAct, 'tooltip--multiline': buildingKey === BUILDING_STOREHOUSE || buildingKey === BUILDING_MONUMENT }" :data-tooltip="actionTooltip">
+          <span class="tooltip" :class="{ 'tooltip--delayed': canAct, 'tooltip--multiline': buildingKey === BUILDING_STOREHOUSE || buildingKey === BUILDING_MONUMENT || buildingKey === BUILDING_HOUSE }" :data-tooltip="actionTooltip">
             <button
               class="btn-gold action-btn"
               :class="{ 'action-btn--constructing': isConstructing }"
