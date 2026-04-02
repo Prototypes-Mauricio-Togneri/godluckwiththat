@@ -1,3 +1,8 @@
+## [0.12.0] - 2026-03-29
+* Feat: Display building bonus before upgrade
+* Feat: Display workers cost
+* Feat: Improve UI to show challenge events are clickable
+
 ## [0.11.0] - 2026-03-29
 
 * Feat: Added challenges
