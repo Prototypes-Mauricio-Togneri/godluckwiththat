@@ -208,12 +208,11 @@ function downgrade() {
               </template>
             </div>
           </span>
-          <slot v-if="!isWorkerAssignable && !isBuildable" />
+          <slot v-if="!isBuildable" />
         </div>
         <slot v-if="hasAction && !isWorkerAssignable && !isBuildable" name="below-action" />
         <div v-if="isWorkerAssignable && !isBuildable" class="worker-slot-row">
           <WorkerAssignmentRow :building-key="buildingKey" />
-          <slot v-if="isWorkerAssignable" />
         </div>
         <slot v-if="!hasAction && !isBuildable" />
       </div>
