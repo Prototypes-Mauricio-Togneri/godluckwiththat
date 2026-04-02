@@ -185,6 +185,9 @@ export const LOCALIZED_ES = {
   'building.levelUpBonus.faith': '+{0} fe',
   'building.levelUpBonus.population': '+{0} población',
   'building.levelUpBonus.slots': '+{0} espacios',
+  'building.levelUpBonus.workerCapacity': '+{0} capacidad de trabajadores',
+  'building.levelUpBonus.marketFee': '-{0}% comisión de mercado',
+  'building.levelUpBonus.faithRate': '+{0}/s fe',
 
   // Worker assignment
   'worker.assign': 'Asignar trabajador',

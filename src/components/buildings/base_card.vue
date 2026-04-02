@@ -6,8 +6,8 @@ import {IMG_OTHER_BUILD, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/
 import {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull, formatTime} from '@/js/engine/format.js'
 import {BUILDING_CLASS_MAP, DOWNGRADABLE_BUILDINGS} from '@/js/engine/constants.js'
-import {HOUSE_POPULATION_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER} from '@/js/engine/balancing.js'
-import {BUILDING_HOUSE, BUILDING_MONUMENT, BUILDING_STOREHOUSE} from '@/js/engine/enums.js'
+import {HOUSE_POPULATION_PER_LEVEL, MARKET_FEE_REDUCTION_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, PRODUCTION_RATES, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
+import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER} from '@/js/engine/enums.js'
 import {canAffordCost} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -91,9 +91,32 @@ const actionTooltip = computed(() => {
     const population = HOUSE_POPULATION_PER_LEVEL + ui.habitationBonus
     return baseText + '\n' + t('building.levelUpBonus.population', formatNumber(population))
   }
+  // Worker-based buildings: show worker capacity bonus
+  const workerBuildings = [
+    BUILDING_ACADEMY,
+    BUILDING_FARM,
+    BUILDING_WOODCUTTER,
+    BUILDING_QUARRY,
+    BUILDING_COPPER_MINE,
+    BUILDING_IRON_MINE,
+    BUILDING_GOLD_MINE,
+    BUILDING_TEMPLE,
+  ]
+  if (workerBuildings.includes(props.buildingKey)) {
+    return baseText + '\n' + t('building.levelUpBonus.workerCapacity', formatNumber(WORKERS_PER_LEVEL))
+  }
+  if (props.buildingKey === BUILDING_MARKET) {
+    const feeReduction = MARKET_FEE_REDUCTION_PER_LEVEL * 100
+    return baseText + '\n' + t('building.levelUpBonus.marketFee', formatNumber(feeReduction))
+  }
+  if (props.buildingKey === BUILDING_ALTAR) {
+    const faithRate = PRODUCTION_RATES[BUILDING_ALTAR].rate.toFixed(1)
+    return baseText + '\n' + t('building.levelUpBonus.faithRate', faithRate)
+  }
   return baseText
 })
 const actionCostEntries = computed(() => props.building.levelUpCostEntries ?? [])
+const hasMultilineTooltip = computed(() => actionTooltip.value.includes('\n'))
 const isWorkerAssignable = computed(() => props.building.isProducer)
 
 const constructionProgress = computed(() => {
@@ -153,7 +176,7 @@ function downgrade() {
       <span class="building-name">{{ t(displayNameKey) }}</span>
       <div class="slot-actions">
         <div v-if="hasAction" class="action-row" :class="{ 'action-row--disabled': !canAct }">
-          <span class="tooltip" :class="{ 'tooltip--delayed': canAct, 'tooltip--multiline': buildingKey === BUILDING_STOREHOUSE || buildingKey === BUILDING_MONUMENT || buildingKey === BUILDING_HOUSE }" :data-tooltip="actionTooltip">
+          <span class="tooltip" :class="{ 'tooltip--delayed': canAct, 'tooltip--multiline': hasMultilineTooltip }" :data-tooltip="actionTooltip">
             <button
               class="btn-gold action-btn"
               :class="{ 'action-btn--constructing': isConstructing }"

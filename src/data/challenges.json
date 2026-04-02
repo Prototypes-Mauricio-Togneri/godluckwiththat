@@ -113,7 +113,7 @@
   {
     "index": 5,
     "delay": 30,
-    "timeout": 300,
+    "timeout": 600,
     "requirements": {
       "monument": 5
     },
@@ -130,10 +130,10 @@
     ],
     "punishment": {
       "type": "volcano",
-      "timeout": 180,
-      "productivityGeneral": 0.3,
+      "timeout": 120,
+      "productivityGeneral": 0.2,
       "faith": 0.5,
-      "resources": 0.3,
+      "resources": 0.2,
       "workers": 5,
       "levels": 10
     }
