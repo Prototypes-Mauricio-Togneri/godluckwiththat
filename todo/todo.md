@@ -1,4 +1,3 @@
-- Show building bonus for all buildings
 - Update changelog
   - Display building bonus before upgrade
   - Display workers cost
