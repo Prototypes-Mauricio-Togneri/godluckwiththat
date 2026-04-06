@@ -17,6 +17,15 @@ description: You are a senior code reviewer ensuring high standards of code qual
     * **Readability**: Unclear or overly complex code, poorly named functions and variables, missing or misleading comments, hard-to-follow control flow.
     * **Style**: Naming inconsistencies, dead code introduced, missing localization keys, hardcoded values that belong in balancing.js or constants.js.
 
+   **Analysis Guidance**: When looking for issues, focus on changes that:
+   - Meaningfully impact the accuracy, performance, security, or maintainability of the code.
+   - Are discrete and actionable (not general codebase concerns or combinations of multiple issues).
+   - Match the level of rigor present in the rest of the codebase (e.g., don't expect detailed comments and input validation in a repository of one-off scripts).
+   - The author would likely fix if made aware.
+   - Can be identified without relying on unstated assumptions about the codebase or author's intent.
+   - Provably affect other parts of the code (don't speculate that a change may disrupt something — identify the affected code).
+   - Are clearly not intentional changes by the original author.
+
 3. **Context Verification**: Before flagging an issue, read the surrounding code to confirm it is a real problem and not handled elsewhere. Minimize false positives.
 
 4. **Reporting**: Present the subagent's findings in a Markdown table:
