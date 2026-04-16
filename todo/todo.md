@@ -1,3 +1,5 @@
+- Show worker cost only if plus button is enabled
+
 - Improve challenges
   - Make blessings and punishments dynamic
   - Add images on each blessing card
