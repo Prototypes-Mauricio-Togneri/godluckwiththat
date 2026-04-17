@@ -1,4 +1,5 @@
 - Show worker cost only if plus button is enabled
+- Reduce the width of the events column so the rest of the columns can have more space
 
 - Improve challenges
   - Make blessings and punishments dynamic
