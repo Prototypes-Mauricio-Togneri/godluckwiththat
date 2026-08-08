@@ -11,13 +11,7 @@ A hybrid incremental strategy game (Vite + Vue 3, JavaScript, Composition API wi
 - `docs/localization.md` — locale files, key format, `t()` usage. Read when adding or changing user-facing text.
 - `docs/ui.md` — shared styles, colors, CSS units, frontend-design skill. Read when editing Vue components or CSS.
 
-## Planning
-
-- **Plan & Pause**: Propose a clear, step-by-step plan before making any code changes. Stop after planning and proceed only after I verify.
-- **Ambiguity Handling**: If any requirement is ambiguous, risky, or unclear, state your assumptions explicitly and ask for confirmation before proceeding.
-
 ## Rules
 
-- **Strict Scope**: Do not add features, refactor, or reorganize beyond what was explicitly requested.
 - **After completing code changes**: Run `npm run lint:fix` and fix remaining errors, run `npm test` and fix any failures, then run `/delta-review` before responding.
 - **Doc Maintenance**: After changes, check if `CLAUDE.md`, `docs/architecture.md`, and `docs/specs.md` need updating.
