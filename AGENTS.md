@@ -13,5 +13,5 @@ A hybrid incremental strategy game (Vite + Vue 3, JavaScript, Composition API wi
 
 ## Rules
 
-- **After completing code changes**: Run `npm run lint:fix` and fix remaining errors, run `npm test` and fix any failures, then run `/delta-review` before responding.
+- **After completing code changes**: Run `npm run lint:fix` and fix remaining errors, run `npm test` and fix any failures.
 - **Doc Maintenance**: After changes, check if `CLAUDE.md`, `docs/architecture.md`, and `docs/specs.md` need updating.
