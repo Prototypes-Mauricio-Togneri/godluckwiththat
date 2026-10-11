@@ -27,6 +27,17 @@ describe('Tutorial', () => {
       expect(tutorial.dismissedModals.size).toBe(2)
       expect(tutorial.dismissedModals.has('seasonChanged')).toBe(true)
     })
+
+    it('should drop an unknown or malformed saved activeModal', () => {
+      expect(createTutorial({
+        activeModal: 'unknownModal',
+      }).activeModal).toBeNull()
+      expect(createTutorial({
+        activeModal: {
+          toString: 1,
+        },
+      }).activeModal).toBeNull()
+    })
   })
 
   describe('isActive', () => {
@@ -56,11 +67,11 @@ describe('Tutorial', () => {
       expect(json.dismissedModals).toContain('seasonChanged')
     })
 
-    it('should not include activeModal in serialization', () => {
+    it('should include activeModal in serialization', () => {
       const tutorial = createTutorial()
       tutorial.activeModal = 'seasonChanged'
       const json = tutorial.toJSON()
-      expect(json).not.toHaveProperty('activeModal')
+      expect(json.activeModal).toBe('seasonChanged')
     })
 
     it('should produce a round-trippable snapshot', () => {
@@ -72,11 +83,13 @@ describe('Tutorial', () => {
           'hqUpgrade',
         ],
       })
+      original.activeModal = 'negativeProduction'
       const json = original.toJSON()
       const restored = new Tutorial(json)
       expect(restored.currentStep).toBe(7)
       expect(restored.completed).toBe(true)
       expect(restored.dismissedModals.size).toBe(2)
+      expect(restored.activeModal).toBe('negativeProduction')
     })
   })
 })

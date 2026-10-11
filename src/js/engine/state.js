@@ -1433,7 +1433,8 @@ class State {
       state._resourcesNegativeProduction = new Set(data.resourcesNegativeProduction ?? [])
       state._hadIdleWorkers = data.hadIdleWorkers ?? false
       state.challengeModal = data.challengeModal ?? null
-      if (state.challengeModal) {
+      // A challenge or tutorial modal open at save time keeps the game paused until dismissed
+      if (state.challengeModal || meta.tutorial.activeModal) {
         state.paused = true
       }
 

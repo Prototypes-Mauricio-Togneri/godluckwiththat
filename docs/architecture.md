@@ -184,7 +184,7 @@ Called from the `progressTick` loop (`requestAnimationFrame`, ~60 fps) in `game_
 
 Step-by-step guided tutorial for new players, active from game start until completion.
 
-**Model** — `Tutorial` class (`src/js/models/tutorial.js`) with `currentStep` (number), `completed` (boolean), `dismissedModals` (Set<string>), `activeModal` (string, ephemeral — not persisted). Getter: `isActive`. Methods: `toJSON()`, static `fromJSON()`. Lives on `state.meta.tutorial`.
+**Model** — `Tutorial` class (`src/js/models/tutorial.js`) with `currentStep` (number), `completed` (boolean), `dismissedModals` (Set<string>), `activeModal` (string or null, persisted — a save made while a tutorial modal is open restores it and keeps the game paused). Getter: `isActive`. Methods: `toJSON()`, static `fromJSON()`. Lives on `state.meta.tutorial`.
 
 **Steps** — `TUTORIAL_STEPS` constant in `constants.js` — 15 sequential steps, each with `textKey` (i18n key), `building` (optional building key to highlight), and `check(state)` function that returns `true` when the step's objective is met. Steps guide the player through building a house, farm, and woodcutter, assigning workers, upgrading buildings, building an altar, expanding territory, and upgrading the headquarters.
 

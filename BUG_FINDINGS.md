@@ -1,14 +1,3 @@
-### [a/state-and-lifecycle/tutorial/open-tutorial-modal-lost-on-save] A tutorial modal open at save time is lost on reload
-
-- **Location:** `src/js/models/tutorial.js:20`; related `src/js/models/tutorial.js:42`, `src/components/screens/game_screen.vue:1018`
-- **Severity:** Low
-- **Confidence:** Medium
-- **Likelihood:** Low. It requires autosave or F9 to fire while a tutorial modal is open, then a reload of that save.
-- **Defect:** The open tutorial modal is not serialized, and autosave keeps running while a tutorial modal pauses the game. After loading, the game runs unpaused, and that modal is neither shown nor marked dismissed. One-off triggers (the last HQ type upgrade) never fire again, and the negative-production trigger is suppressed by the restored edge-detection set. Tutorial completion waits for every modal to be dismissed, so it can stall for that save.
-- **Trigger:** A negative-production tutorial modal is open, autosave fires (or F9), and the player later loads that save.
-- **Evidence / verification:** Traced `Tutorial.toJSON` (omits `activeModal`), `State.fromJSON` (restores the negative-production set), and `checkTutorial` (requires `allModalsDismissed`). Refutation: recurring triggers (season change, challenge start) re-fire later, which limits the impact to one-off modals.
-- **Suggested fix:** Serialize `activeModal` and restore the pause on load, or skip saving while a tutorial modal is open.
-
 ### [a/state-and-lifecycle/game-screen/tutorial-dismiss-unpauses-under-challenge-modal] Dismissing a tutorial modal unpauses the game while a challenge modal is still showing
 
 - **Location:** `src/components/screens/game_screen.vue:1130`; related `src/js/engine/state.js:1336`, `src/components/screens/game_screen.vue:1196`

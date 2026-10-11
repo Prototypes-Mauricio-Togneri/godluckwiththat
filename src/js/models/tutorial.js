@@ -7,7 +7,7 @@ import {TUTORIAL_MODALS, TUTORIAL_STEPS} from '@/js/engine/constants.js'
  * @property {number} currentStep - Current tutorial step index (starts at 0)
  * @property {boolean} completed - Whether the tutorial has been completed
  * @property {Set<string>} dismissedModals - Set of dismissed modal identifiers
- * @property {string|null} activeModal - Currently displayed modal identifier (ephemeral, not serialized)
+ * @property {string|null} activeModal - Currently displayed modal identifier
  */
 class Tutorial {
   /**
@@ -17,7 +17,9 @@ class Tutorial {
     this.currentStep = data?.currentStep ?? 0 // Current tutorial step index
     this.completed = data?.completed ?? false // Whether the tutorial is complete
     this.dismissedModals = new Set(data?.dismissedModals ?? []) // Set of dismissed modal identifiers
-    this.activeModal = null // Currently displayed modal (ephemeral)
+    // Only restore a known modal key, so an edited or outdated save can't break the modal lookup
+    const savedModal = data?.activeModal
+    this.activeModal = Object.keys(TUTORIAL_MODALS).includes(savedModal) ? savedModal : null // Currently displayed modal identifier
   }
 
   /** @returns {boolean} Whether the tutorial is still in progress */
@@ -36,7 +38,7 @@ class Tutorial {
   }
 
   /**
-   * Serializes tutorial state for saving (excludes ephemeral activeModal).
+   * Serializes tutorial state for saving.
    * @returns {Object} JSON-serializable tutorial data
    */
   toJSON() {
@@ -44,6 +46,7 @@ class Tutorial {
       currentStep: this.currentStep,
       completed: this.completed,
       dismissedModals: [...this.dismissedModals],
+      activeModal: this.activeModal,
     }
   }
 }

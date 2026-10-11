@@ -2395,6 +2395,18 @@ describe('State', () => {
       expect(restored.paused).toBe(true)
     })
 
+    it('should restore the active tutorial modal and pause when saved while it was open', async () => {
+      const state = await createState()
+      state.meta.tutorial.activeModal = TUTORIAL_MODAL_NEGATIVE_PRODUCTION
+      const json = state.toJSON()
+      const {
+        default: State,
+      } = await import('@/js/engine/state.js')
+      const restored = State.fromJSON(json)
+      expect(restored.meta.tutorial.activeModal).toBe(TUTORIAL_MODAL_NEGATIVE_PRODUCTION)
+      expect(restored.paused).toBe(true)
+    })
+
     it('should default resourcesAtCap to empty set when missing from data', async () => {
       const state = await createState()
       const json = state.toJSON()
