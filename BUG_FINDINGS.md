@@ -1,14 +1,3 @@
-### [a/state-and-lifecycle/game-screen/challenge-detail-not-closed-after-background-resolution] The challenge detail modal stays open under the result modal after a background-tab resolution
-
-- **Location:** `src/components/screens/game_screen.vue:1223`; related `src/components/screens/game_screen.vue:1196`, `src/components/screens/game_screen.vue:1209`
-- **Severity:** Low
-- **Confidence:** High
-- **Likelihood:** Low. It requires the detail modal to be open while the tab is hidden at the moment the challenge times out.
-- **Defect:** The detail modal is closed only in the per-frame loop, right after challenges advance. When the challenge resolves in the hidden-tab tick, the game is paused, so the per-frame loop returns early and never closes it. Detail and result modals stack, and Escape closes the detail modal first.
-- **Trigger:** Open the challenge detail modal, switch tabs until the timeout, and return.
-- **Evidence / verification:** Traced: the hidden-tab path calls `advanceChallenges` without the close check, and `progressTick` exits on `state.paused` before reaching it.
-- **Suggested fix:** Close the detail modal whenever a challenge modal becomes active, e.g. via a watcher on the synced challenge-modal value.
-
 ### [a/state-and-lifecycle/audio/playlist-survives-quit] Toggling music in Settings after quitting plays game music on the menu screens
 
 - **Location:** `src/js/engine/audio.js:172`; related `src/js/engine/audio.js:123`, `src/app.vue:47`

@@ -1249,9 +1249,6 @@ function progressTick() {
   state.advanceConstruction(delta)
   state.advanceResearch(delta)
   state.advanceChallenges(delta)
-  if (state.challengeModal && showChallengeModal.value) {
-    showChallengeModal.value = false
-  }
   state.advanceEvents(delta)
   // Full sync when a construction, upgrade, or research just completed, or a tutorial modal was triggered (always immediate)
   const justCompleted = state._constructingKeys.size < prevConstructing || (!state._hqUpgrading && prevHqUpgrading) || state.colony.buildings.academy.active.size < prevResearchActive || state.paused
@@ -1370,6 +1367,13 @@ watch(showModal, (isOpen) => {
     tickTimer = setInterval(gameTick, TICK_INTERVAL)
     progressAnimFrame = requestAnimationFrame(progressTick)
     startAutosave()
+  }
+})
+
+// Close the challenge detail modal whenever a result modal appears, whichever loop resolved the challenge
+watch(() => ui.challengeModal, (challengeModal) => {
+  if (challengeModal) {
+    showChallengeModal.value = false
   }
 })
 
