@@ -1129,13 +1129,15 @@ function handleWinQuit() {
   emit(EMIT_QUIT)
 }
 
-/** Dismisses the active tutorial modal, unpauses, and syncs UI. */
+/** Dismisses the active tutorial modal, unpauses unless a challenge modal is still open, and syncs UI. */
 function dismissTutorialModal() {
   const tutorial = state.meta.tutorial
   if (tutorial.activeModal) {
     tutorial.dismissedModals.add(tutorial.activeModal)
     tutorial.activeModal = null
-    state.paused = false
+    if (!state.challengeModal) {
+      state.paused = false
+    }
     syncUI()
   }
 }

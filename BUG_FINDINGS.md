@@ -1,14 +1,3 @@
-### [a/state-and-lifecycle/game-screen/tutorial-dismiss-unpauses-under-challenge-modal] Dismissing a tutorial modal unpauses the game while a challenge modal is still showing
-
-- **Location:** `src/components/screens/game_screen.vue:1130`; related `src/js/engine/state.js:1336`, `src/components/screens/game_screen.vue:1196`
-- **Severity:** Low
-- **Confidence:** Medium
-- **Likelihood:** Low. Both modals must appear at once: in a background tab the 1-second tick fires a tutorial modal and resolves the challenge timeout in the same tick, or the final blessing's recalculation fires a tutorial modal over the win modal.
-- **Defect:** Tutorial modals can be triggered regardless of an active challenge modal. Challenge advancement does not stop when a tutorial pause happens in the same tick. Dismissing the tutorial sets `paused = false` unconditionally. Production, seasons and construction then run behind a reward, failure or win modal that the architecture says keeps the game paused.
-- **Trigger:** Background tab; the first negative food production and the challenge timeout land in the same tick; return and dismiss the tutorial modal.
-- **Evidence / verification:** Traced `gameTick` (hidden path: `update` → tutorial pause → `advanceChallenges` → challenge modal) and `dismissTutorialModal`, which ignores `challengeModal`. Remaining uncertainty is only the timing coincidence.
-- **Suggested fix:** On tutorial dismissal, unpause only when no challenge modal is active. Optionally, stop advancing challenges in a tick once the game has been paused.
-
 ### [a/state-and-lifecycle/autosave/countdown-reset-on-pause-close] Opening and closing the pause menu restarts the autosave countdown
 
 - **Location:** `src/components/screens/game_screen.vue:1345`; related `src/components/screens/game_screen.vue:1018`
