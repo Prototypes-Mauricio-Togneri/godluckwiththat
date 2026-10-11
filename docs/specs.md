@@ -170,8 +170,9 @@ Each building has a level that can be increased by spending resources. Building 
 - Market
   - Allows trading Food, Wood, Stone, Copper, and Iron for Gold (buy or sell in lots of 100)
   - Base gold prices per 100: Food=100, Wood=110, Stone=120, Copper=130, Iron=140
-  - Default 30% trade fee: buy costs `price × 1.30`, sell returns `price × 0.70`
-  - Buying raises the resource price by 3 gold; selling lowers it by 3 gold (AoE2-style)
+  - Default 30% trade fee, applied once to the summed lot prices: buy costs `lot prices × 1.30`, sell returns `lot prices × 0.70` (rounded down). Buying 100 food at price 100 costs 133; selling it returns 67
+  - Each lot of 100 bought raises the resource price by 3 gold; each lot sold lowers it by 3 gold (AoE2-style)
+  - Each lot trades at its shifted price: buying 100 food at price 100 costs 103 (before fee), selling at 100 returns 97. Bulk trades are priced lot by lot (buying 1000 food at 100 costs 103 + 106 + … + 130 = 1165 before fee), so buy/sell round trips and split trades always lose gold, even at 0% fee
   - Price floor: minimum 20 gold (sell floor ~14 gold at max fee). Price cap: 9999
   - Workers cannot be assigned to this building
   - The higher the level, the cheaper the trades (-1% fee per level)

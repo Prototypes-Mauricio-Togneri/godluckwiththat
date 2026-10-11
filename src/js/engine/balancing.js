@@ -880,7 +880,7 @@ export const MARKET_MIN_FEE = 0.05
 // Fee reduction per market building level (percentage points)
 export const MARKET_FEE_REDUCTION_PER_LEVEL = 0.01
 
-// Gold shift in current price per trade (both buy and sell)
+// Gold shift in current price per MARKET_TRADE_AMOUNT lot traded (both buy and sell)
 export const MARKET_PRICE_SHIFT = 3
 
 // Minimum current price (ensures sell floor of ~14 Gold at max fee)

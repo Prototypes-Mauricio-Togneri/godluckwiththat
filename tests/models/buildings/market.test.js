@@ -22,6 +22,16 @@ describe('Market', () => {
       })
       expect(market[RESOURCE_FOOD]).toBe(200)
     })
+
+    it('should fall back to base prices when saved prices are not finite numbers', () => {
+      const market = new Market({
+        level: 1,
+        food: '100',
+        wood: Infinity,
+      })
+      expect(market[RESOURCE_FOOD]).toBe(MARKET_BASE_PRICES[RESOURCE_FOOD])
+      expect(market[RESOURCE_WOOD]).toBe(MARKET_BASE_PRICES[RESOURCE_WOOD])
+    })
   })
 
   describe('levelUpCost', () => {
@@ -160,7 +170,7 @@ describe('Market', () => {
       const market = new Market({
         level: 1,
       })
-      const exactGold = Math.floor(market[RESOURCE_FOOD] * (1 + market.effectiveTradeFee))
+      const exactGold = Math.floor((market[RESOURCE_FOOD] + MARKET_PRICE_SHIFT) * (1 + market.effectiveTradeFee))
       const resources = createResources({
         gold: exactGold,
         food: 0,
@@ -185,7 +195,7 @@ describe('Market', () => {
       const market = new Market({
         level: 1,
       })
-      const sellPrice = Math.floor(market[RESOURCE_FOOD] * (1 - market.effectiveTradeFee))
+      const sellPrice = Math.floor((market[RESOURCE_FOOD] - MARKET_PRICE_SHIFT) * (1 - market.effectiveTradeFee))
       const storageCap = 5000
       const resources = createResources({
         gold: storageCap - sellPrice,
@@ -222,7 +232,7 @@ describe('Market', () => {
       expect(market[RESOURCE_FOOD]).toBe(MARKET_MIN_CURRENT_PRICE)
     })
 
-    it('should buy at base price when blessedMarkets is active (no fee)', () => {
+    it('should buy at the raised price with no fee when blessedMarkets is active', () => {
       const market = new Market({
         level: 1,
       })
@@ -236,11 +246,11 @@ describe('Market', () => {
 
       const result = market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 10000)
       expect(result).toBe(true)
-      expect(resources.gold).toBe(goldBefore - basePrice)
+      expect(resources.gold).toBe(goldBefore - (basePrice + MARKET_PRICE_SHIFT))
       expect(resources.food).toBe(MARKET_TRADE_AMOUNT)
     })
 
-    it('should sell at base price when blessedMarkets is active (no fee)', () => {
+    it('should sell at the lowered price with no fee when blessedMarkets is active', () => {
       const market = new Market({
         level: 1,
       })
@@ -253,7 +263,7 @@ describe('Market', () => {
 
       const result = market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, 10000)
       expect(result).toBe(true)
-      expect(resources.gold).toBe(basePrice)
+      expect(resources.gold).toBe(basePrice - MARKET_PRICE_SHIFT)
       expect(resources.food).toBe(400)
     })
 
@@ -285,7 +295,11 @@ describe('Market', () => {
 
       market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 99999, amount)
       const goldSpent = 99999 - resources.gold
-      const expectedCost = Math.floor(basePrice * multiplier * (1 + fee))
+      let lotPrices = 0
+      for (let lot = 1; lot <= multiplier; lot++) {
+        lotPrices += basePrice + lot * MARKET_PRICE_SHIFT
+      }
+      const expectedCost = Math.floor(lotPrices * (1 + fee))
       expect(goldSpent).toBe(expectedCost)
     })
 
@@ -303,8 +317,126 @@ describe('Market', () => {
       })
 
       market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, 99999, amount)
-      const expectedGain = Math.floor(basePrice * multiplier * (1 - fee))
+      let lotPrices = 0
+      for (let lot = 1; lot <= multiplier; lot++) {
+        lotPrices += basePrice - lot * MARKET_PRICE_SHIFT
+      }
+      const expectedGain = Math.floor(lotPrices * (1 - fee))
       expect(resources.gold).toBe(expectedGain)
+    })
+
+    it('should move the price by one shift per lot on bulk trades', () => {
+      const market = new Market({
+        level: 1,
+      })
+      const priceBefore = market[RESOURCE_FOOD]
+      const resources = createResources({
+        gold: 99999,
+        food: 0,
+      })
+      market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 99999, MARKET_TRADE_AMOUNT * 10)
+      expect(market[RESOURCE_FOOD]).toBe(priceBefore + MARKET_PRICE_SHIFT * 10)
+      market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, 99999, MARKET_TRADE_AMOUNT * 10)
+      expect(market[RESOURCE_FOOD]).toBe(priceBefore)
+    })
+
+    it('should charge the same for one bulk trade as for the same lots traded one by one', () => {
+      const bulkMarket = new Market({
+        level: 1,
+      })
+      const splitMarket = new Market({
+        level: 1,
+      })
+      bulkMarket.blessedMarkets = true
+      splitMarket.blessedMarkets = true
+      const bulkResources = createResources({
+        gold: 5000,
+        food: 0,
+      })
+      const splitResources = createResources({
+        gold: 5000,
+        food: 0,
+      })
+
+      bulkMarket.executeTrade(RESOURCE_FOOD, TRADE_BUY, bulkResources, 99999, MARKET_TRADE_AMOUNT * 10)
+      for (let lot = 0; lot < 10; lot++) {
+        splitMarket.executeTrade(RESOURCE_FOOD, TRADE_BUY, splitResources, 99999)
+      }
+      expect(splitResources.gold).toBe(bulkResources.gold)
+      expect(splitMarket[RESOURCE_FOOD]).toBe(bulkMarket[RESOURCE_FOOD])
+    })
+
+    it('should lose gold on a buy-then-sell round trip when blessedMarkets is active', () => {
+      const market = new Market({
+        level: 1,
+      })
+      market.blessedMarkets = true
+      const priceBefore = market[RESOURCE_FOOD]
+      const resources = createResources({
+        gold: 5000,
+        food: 0,
+      })
+      const amount = MARKET_TRADE_AMOUNT * 10
+
+      market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 99999, amount)
+      market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, 99999, amount)
+      expect(resources.gold).toBeLessThan(5000)
+      expect(resources.food).toBe(0)
+      expect(market[RESOURCE_FOOD]).toBe(priceBefore)
+    })
+
+    it('should lose gold on a sell-then-buy round trip when blessedMarkets is active', () => {
+      const market = new Market({
+        level: 1,
+      })
+      market.blessedMarkets = true
+      const resources = createResources({
+        gold: 5000,
+        food: 1000,
+      })
+      const amount = MARKET_TRADE_AMOUNT * 10
+
+      market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, 99999, amount)
+      market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 99999, amount)
+      expect(resources.gold).toBeLessThan(5000)
+      expect(resources.food).toBe(1000)
+    })
+
+    it('should lose gold on round trips near the price floor at the minimum fee', () => {
+      for (let price = MARKET_MIN_CURRENT_PRICE; price <= MARKET_MIN_CURRENT_PRICE + 10; price++) {
+        const market = new Market({
+          level: 100,
+          [RESOURCE_FOOD]: price,
+        })
+        const resources = createResources({
+          gold: 5000,
+          food: 100,
+        })
+
+        market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 99999)
+        market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, 99999)
+        market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, 99999)
+        market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 99999)
+        expect(resources.gold).toBeLessThan(5000)
+        expect(resources.food).toBe(100)
+      }
+    })
+
+    it('should lose gold when selling lots one by one and buying them back in bulk', () => {
+      const market = new Market({
+        level: 100,
+      })
+      const resources = createResources({
+        gold: 5000,
+        food: 1000,
+      })
+
+      for (let lot = 0; lot < 10; lot++) {
+        market.executeTrade(RESOURCE_FOOD, TRADE_SELL, resources, 99999)
+      }
+      market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 99999, MARKET_TRADE_AMOUNT * 10)
+      expect(resources.gold).toBeLessThan(5000)
+      expect(resources.food).toBe(1000)
     })
   })
 

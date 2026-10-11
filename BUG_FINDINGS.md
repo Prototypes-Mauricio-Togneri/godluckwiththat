@@ -1,14 +1,3 @@
-### [b/validation-and-coercion/market/zero-fee-round-trip-arbitrage] Buying then selling under Blessed Markets creates gold from nothing
-
-- **Location:** `src/js/models/buildings/market.js:84`; related `src/js/models/buildings/market.js:49`, `src/js/models/buildings/market.js:96`
-- **Severity:** Medium
-- **Confidence:** High
-- **Likelihood:** Low. It requires picking the Blessed Markets blessing (challenges 5 and 10) and alternating buy/sell trades within its 120 s window.
-- **Defect:** With the fee forced to 0%, a buy costs `price × lots`, raises the price by 3, and an immediate sell then pays `(price + 3) × lots` and restores the price. Every buy/sell pair nets `3 × lots` gold with no resource cost. The player can repeat this until gold hits the storage cap. The same arithmetic also yields profit at the 5% minimum fee near the 20-gold price floor (market level 26+).
-- **Trigger:** Blessed Markets active, market level ≥ 1: buy 1000 food, sell 1000 food, repeat.
-- **Evidence / verification:** Reproduced in an isolated test: 10 round trips of 1000 food turned 1000 gold into 1300 gold, with the food price back at its starting value. Refutation: there is no cooldown, no buy/sell spread and no per-trade shift scaled to lot size. The UI only checks affordability and capacity.
-- **Suggested fix:** Ensure a round trip can never be profitable. Options: keep a minimum spread even when the blessing removes the fee; price a trade at the post-shift price (buy at `price + shift`, sell at `price − shift`); or scale the shift with the lot size so bulk trades move the price proportionally.
-
 ### [a/null-and-numeric-hazards/construction/duration-multiplier-reaches-zero] Construction research plus Rapid Construction makes every build take 1 second
 
 - **Location:** `src/js/engine/state.js:1293`; related `src/js/models/buildings/building.js:35`, `src/js/models/buildings/headquarters.js:66`
@@ -43,17 +32,6 @@
 - **Trigger:** Fill the house cap, then complete a worker-sacrifice challenge or fail Plague; or fill territory, then take a level-loss punishment.
 - **Evidence / verification:** Traced every dismissal site of both event types. None is on the sacrifice or punishment paths, and `update()` never re-evaluates either condition. Refutation: no periodic recheck exists.
 - **Suggested fix:** After sacrificing workers or removing levels, dismiss the notices when the colony is below the respective cap. Alternatively, edge-detect both limits in `update()` the way storage caps are handled.
-
-### [a/state-and-lifecycle/game-loop/paused-time-counted-after-unpause] Up to one second of paused time (× game speed) is simulated after unpausing
-
-- **Location:** `src/components/screens/game_screen.vue:1130`; related `src/components/screens/game_screen.vue:1176`, `src/components/screens/game_screen.vue:1209`
-- **Severity:** Low
-- **Confidence:** High
-- **Likelihood:** Medium. It occurs on every tutorial-modal dismissal, blessing selection and punishment acknowledgement.
-- **Defect:** While paused, the per-frame loop skips without refreshing its timestamp. Only the 1-second tick refreshes it. The unpause paths for the tutorial, blessing and punishment do not reset the timestamps (the win-continue and pause-menu paths do). The first frame after unpausing therefore advances seasons, construction, research, challenge timers and effect timeouts by up to 1 s × speed (up to 3 s) of time that elapsed while paused.
-- **Trigger:** At 3× speed, open a tutorial modal and dismiss it about 0.9 s after the last 1-second tick.
-- **Evidence / verification:** Traced `progressTick` (paused branch keeps `lastProgressTickTime`), `gameTick` (refreshes it once per second while paused), and `dismissTutorialModal` / `selectBlessing` / `acknowledgePunishment` (no reset), compared with `handleWinContinue`, which resets. Refutation: the 5 s delta cap bounds but does not remove the leak.
-- **Suggested fix:** Reset the tick timestamps in every unpause path, e.g. in one shared "resume" helper.
 
 ### [a/concurrency/audio/stale-play-rejection-clears-new-sound-entry] Re-triggering a sound before it starts corrupts sound bookkeeping
 

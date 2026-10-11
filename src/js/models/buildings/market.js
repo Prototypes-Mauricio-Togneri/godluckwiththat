@@ -1,10 +1,12 @@
-import {BUILDING_UPGRADES, MARKET_BASE_FEE, MARKET_BASE_PRICES, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_MIN_FEE, MARKET_PRICE_SHIFT, MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
+import {BUILDING_UPGRADES, MARKET_BASE_FEE, MARKET_BASE_PRICES, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MIN_FEE, MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
 import {BUILDING_MARKET, RESOURCE_COPPER, RESOURCE_FOOD, RESOURCE_IRON, RESOURCE_STONE, RESOURCE_WOOD, TRADE_BUY} from '@/js/engine/enums.js'
+import {marketTradeQuote} from '@/js/engine/utils.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
  * Enables trading food, wood, stone, copper, and iron for gold.
- * Prices shift with each trade (up on buy, down on sell, AoE2-style).
+ * Prices shift with every MARKET_TRADE_AMOUNT lot traded (up on buy, down on sell, AoE2-style),
+ * and each lot trades at its shifted price so buy/sell round trips always cost gold.
  * Base fee is 30%, reduced by 1% per level (minimum 5%). When blessedMarkets is true, fee is 0%.
  * Workers cannot be assigned to this building.
  *
@@ -17,15 +19,15 @@ import Building from '@/js/models/buildings/building.js'
  */
 class Market extends Building {
   /**
-   * @param {Object} data - Initial building data + optional price overrides
+   * @param {Object} data - Initial building data + optional price overrides (non-numeric saved prices fall back to base prices)
    */
   constructor(data) {
     super(data)
-    this[RESOURCE_FOOD] = data[RESOURCE_FOOD] ?? MARKET_BASE_PRICES[RESOURCE_FOOD] // Current gold price per 100 food
-    this[RESOURCE_WOOD] = data[RESOURCE_WOOD] ?? MARKET_BASE_PRICES[RESOURCE_WOOD] // Current gold price per 100 wood
-    this[RESOURCE_STONE] = data[RESOURCE_STONE] ?? MARKET_BASE_PRICES[RESOURCE_STONE] // Current gold price per 100 stone
-    this[RESOURCE_COPPER] = data[RESOURCE_COPPER] ?? MARKET_BASE_PRICES[RESOURCE_COPPER] // Current gold price per 100 copper
-    this[RESOURCE_IRON] = data[RESOURCE_IRON] ?? MARKET_BASE_PRICES[RESOURCE_IRON] // Current gold price per 100 iron
+    this[RESOURCE_FOOD] = Number.isFinite(data[RESOURCE_FOOD]) ? data[RESOURCE_FOOD] : MARKET_BASE_PRICES[RESOURCE_FOOD] // Current gold price per 100 food
+    this[RESOURCE_WOOD] = Number.isFinite(data[RESOURCE_WOOD]) ? data[RESOURCE_WOOD] : MARKET_BASE_PRICES[RESOURCE_WOOD] // Current gold price per 100 wood
+    this[RESOURCE_STONE] = Number.isFinite(data[RESOURCE_STONE]) ? data[RESOURCE_STONE] : MARKET_BASE_PRICES[RESOURCE_STONE] // Current gold price per 100 stone
+    this[RESOURCE_COPPER] = Number.isFinite(data[RESOURCE_COPPER]) ? data[RESOURCE_COPPER] : MARKET_BASE_PRICES[RESOURCE_COPPER] // Current gold price per 100 copper
+    this[RESOURCE_IRON] = Number.isFinite(data[RESOURCE_IRON]) ? data[RESOURCE_IRON] : MARKET_BASE_PRICES[RESOURCE_IRON] // Current gold price per 100 iron
     this.blessedMarkets = false // Set by State.update() when BLESSED_MARKETS blessing is active
   }
 
@@ -69,32 +71,29 @@ class Market extends Building {
     if (this.level < 1 || amount <= 0 || amount % MARKET_TRADE_AMOUNT !== 0) {
       return false
     }
-    const multiplier = amount / MARKET_TRADE_AMOUNT
+    const quote = marketTradeQuote(this[resource], direction, amount / MARKET_TRADE_AMOUNT, this.effectiveTradeFee)
     // Buy: deduct gold, add resource, raise price
     if (direction === TRADE_BUY) {
-      const goldCost = Math.floor(this[resource] * multiplier * (1 + this.effectiveTradeFee))
-      if (resources.gold < goldCost) {
+      if (resources.gold < quote.gold) {
         return false
       }
       if (resources[resource] + amount > storageCap) {
         return false
       }
-      resources.gold -= goldCost
+      resources.gold -= quote.gold
       resources[resource] += amount
-      this[resource] = Math.min(MARKET_MAX_CURRENT_PRICE, this[resource] + MARKET_PRICE_SHIFT)
     // Sell: deduct resource, add gold, lower price
     } else {
-      const goldGain = Math.floor(this[resource] * multiplier * (1 - this.effectiveTradeFee))
       if (resources[resource] < amount) {
         return false
       }
-      if (resources.gold + goldGain > storageCap) {
+      if (resources.gold + quote.gold > storageCap) {
         return false
       }
-      resources.gold += goldGain
+      resources.gold += quote.gold
       resources[resource] -= amount
-      this[resource] = Math.max(MARKET_MIN_CURRENT_PRICE, this[resource] - MARKET_PRICE_SHIFT)
     }
+    this[resource] = quote.price
     return true
   }
 

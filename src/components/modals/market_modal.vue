@@ -7,6 +7,7 @@ import {MARKET_TRADE_AMOUNT, MARKET_PRICE_SHIFT, MARKET_BASE_FEE, MARKET_MIN_FEE
 import {IMG_RESOURCE_MAP, SND_MARKET_EXCHANGE} from '@/js/engine/assets.js'
 import {EMIT_CLOSE, RESOURCE_GOLD, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
 import storage from '@/js/engine/storage.js'
+import {marketTradeQuote} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
 
@@ -53,21 +54,21 @@ watch(tradeAmount, (value) => {
 const tradeMultiplier = computed(() => tradeAmount.value / MARKET_TRADE_AMOUNT)
 
 /** Scaled gold cost for buying a resource at the selected trade amount.
- * Fee is applied after scaling to avoid double-floor rounding discount on bulk trades.
+ * Uses the same per-lot pricing as the market trade itself.
  * @param {string} resource - Resource key
  * @returns {number} Total gold cost (floored)
  */
 function scaledBuyPrice(resource) {
-  return Math.floor(ui.market.basePrices[resource] * tradeMultiplier.value * (1 + ui.market.fee))
+  return marketTradeQuote(ui.market.basePrices[resource], TRADE_BUY, tradeMultiplier.value, ui.market.fee).gold
 }
 
 /** Scaled gold gain for selling a resource at the selected trade amount.
- * Fee is applied after scaling to avoid double-floor rounding discount on bulk trades.
+ * Uses the same per-lot pricing as the market trade itself.
  * @param {string} resource - Resource key
  * @returns {number} Total gold gain (floored)
  */
 function scaledSellPrice(resource) {
-  return Math.floor(ui.market.basePrices[resource] * tradeMultiplier.value * (1 - ui.market.fee))
+  return marketTradeQuote(ui.market.basePrices[resource], TRADE_SELL, tradeMultiplier.value, ui.market.fee).gold
 }
 
 function amountUp() {
