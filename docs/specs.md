@@ -336,7 +336,7 @@ Rewards earned by completing challenges. The player chooses one of two offered b
 - **Wisdom of the Gods** — increases knowledge productivity
 - **Celestial Prosperity** — increases general productivity (all producers)
 - **Rapid Construction** — buildings constructed faster (only affects new constructions, not in-progress ones). Stacks multiplicatively with Construction research: `duration × (1 − research) × (1 − blessing)`, so 50% research + 50% blessing yields 25% of the base duration
-- **Favorable Weather** — warm season becomes more productive, cold season becomes less harsh. Formula: warm modifiers amplified by `(1 + warm)`, cold modifiers softened by `(1 - cold)`. Examples with `warm = 0.5, cold = 0.5`: warm food modifier `0.2 × 1.5 = 0.3` (+30% instead of +20%), warm wood modifier `-0.2 × 1.5 = -0.3` (-30% instead of -20%), cold food modifier `-0.2 × 0.5 = -0.1` (-10% instead of -20%), cold wood modifier `0.2 × 0.5 = 0.1` (+10% instead of +20%)
+- **Favorable Weather** — warm season becomes more productive, cold season becomes less harsh. Formula: the season bonus (`warm` in warm season, `cold` in cold season) is added to the food modifier and subtracted from the wood modifier. Examples with `warm = 0.1, cold = 0.1`: warm food modifier `0.2 + 0.1 = 0.3` (+30% instead of +20%), warm wood modifier `-0.2 - 0.1 = -0.3` (-30% instead of -20%), cold food modifier `-0.2 + 0.1 = -0.1` (-10% instead of -20%), cold wood modifier `0.2 - 0.1 = 0.1` (+10% instead of +20%)
 - **Blessed Markets** — trade fee is 0%, overriding market level reduction
 
 ### Punishments
@@ -346,7 +346,7 @@ Penalties applied when a challenge fails. Each punishment has instant effects (f
 - **Crop Failure** — reduces farm productivity
 - **Wildfires** — reduces woodcutter productivity
 - **Landslide** — reduces mining productivity (quarry + all mines)
-- **Plague** — reduces general productivity, loses workers
+- **Plague** — loses workers (instant only, no ongoing productivity reduction)
 - **Volcano** — reduces general productivity, destroys building levels, loses workers and resources
 
 Building level downgrades select random buildings from the downgradable list. A building is eligible if its level is > 1, or level == 1 and currently under construction (construction is cancelled and the building is destroyed). Excess workers above new capacity are returned to idle.
