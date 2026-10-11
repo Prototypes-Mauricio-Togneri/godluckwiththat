@@ -1,6 +1,6 @@
 // Shared utility functions for resource affordability checks and market pricing.
 
-import {MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_PRICE_SHIFT} from '@/js/engine/balancing.js'
+import {MARKET_BASE_FEE, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_MIN_FEE, MARKET_PRICE_SHIFT} from '@/js/engine/balancing.js'
 import {TRADE_BUY} from '@/js/engine/enums.js'
 
 /**
@@ -19,6 +19,19 @@ export function canAffordCost(resources, cost) {
     && cost.gold <= resources.gold
     && cost.knowledge <= resources.knowledge
     && cost.faith <= resources.faith
+}
+
+/**
+ * Market trade fee in whole percent for a market level, ignoring the BLESSED_MARKETS blessing.
+ * Base fee, reduced per level above 1, never below the minimum fee.
+ * @param {number} level - Market level
+ * @returns {number} Fee percent (e.g. 26 at level 5)
+ */
+export function marketFeePercent(level) {
+  const basePercent = Math.round(MARKET_BASE_FEE * 100) // e.g. 30
+  const reductionPerLevel = Math.round(MARKET_FEE_REDUCTION_PER_LEVEL * 100) // e.g. 1
+  const minPercent = Math.round(MARKET_MIN_FEE * 100) // e.g. 5
+  return Math.max(minPercent, basePercent - Math.max(0, level - 1) * reductionPerLevel)
 }
 
 /**

@@ -1,7 +1,7 @@
 import {describe, it, expect} from 'vitest'
-import {MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_PRICE_SHIFT} from '@/js/engine/balancing.js'
+import {MARKET_BASE_FEE, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_MIN_FEE, MARKET_PRICE_SHIFT} from '@/js/engine/balancing.js'
 import {TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
-import {canAffordCost, marketTradeQuote} from '@/js/engine/utils.js'
+import {canAffordCost, marketFeePercent, marketTradeQuote} from '@/js/engine/utils.js'
 import {createCost} from '../helpers/factories.js'
 
 describe('canAffordCost', () => {
@@ -109,6 +109,29 @@ describe('canAffordCost', () => {
       faith: 11,
     })
     expect(canAffordCost(resources, costTooMuchFaith)).toBe(false)
+  })
+})
+
+describe('marketFeePercent', () => {
+  const basePercent = Math.round(MARKET_BASE_FEE * 100)
+  const minPercent = Math.round(MARKET_MIN_FEE * 100)
+  const reductionPerLevel = Math.round(MARKET_FEE_REDUCTION_PER_LEVEL * 100)
+  const floorLevel = 1 + (basePercent - minPercent) / reductionPerLevel
+
+  it('should return the base fee at levels 0 and 1', () => {
+    expect(marketFeePercent(0)).toBe(basePercent)
+    expect(marketFeePercent(1)).toBe(basePercent)
+  })
+
+  it('should reduce the fee for each level above 1', () => {
+    expect(marketFeePercent(2)).toBe(basePercent - reductionPerLevel)
+    expect(marketFeePercent(5)).toBe(basePercent - 4 * reductionPerLevel)
+  })
+
+  it('should stop at the minimum fee', () => {
+    expect(marketFeePercent(floorLevel)).toBe(minPercent)
+    expect(marketFeePercent(floorLevel + 1)).toBe(minPercent)
+    expect(marketFeePercent(100)).toBe(minPercent)
   })
 })
 

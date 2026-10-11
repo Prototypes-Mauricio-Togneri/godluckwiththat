@@ -6,9 +6,9 @@ import {IMG_OTHER_BUILD, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/
 import {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull, formatTime} from '@/js/engine/format.js'
 import {BUILDING_CLASS_MAP, DOWNGRADABLE_BUILDINGS} from '@/js/engine/constants.js'
-import {HOUSE_POPULATION_PER_LEVEL, MARKET_FEE_REDUCTION_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, PRODUCTION_RATES, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
+import {HOUSE_POPULATION_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, PRODUCTION_RATES, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
 import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER} from '@/js/engine/enums.js'
-import {canAffordCost} from '@/js/engine/utils.js'
+import {canAffordCost, marketFeePercent} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
@@ -105,9 +105,13 @@ const actionTooltip = computed(() => {
   if (workerBuildings.includes(props.buildingKey)) {
     return baseText + '\n' + t('building.levelUpBonus.workerCapacity', formatNumber(WORKERS_PER_LEVEL))
   }
+  // Market: show fee reduction, omitted when the next level does not lower the fee (build, minimum fee reached)
   if (props.buildingKey === BUILDING_MARKET) {
-    const feeReduction = MARKET_FEE_REDUCTION_PER_LEVEL * 100
-    return baseText + '\n' + t('building.levelUpBonus.marketFee', formatNumber(feeReduction))
+    const level = props.building.level
+    const feeReduction = marketFeePercent(level) - marketFeePercent(level + 1)
+    return feeReduction > 0
+      ? baseText + '\n' + t('building.levelUpBonus.marketFee', formatNumber(feeReduction))
+      : baseText
   }
   if (props.buildingKey === BUILDING_ALTAR) {
     const faithRate = PRODUCTION_RATES[BUILDING_ALTAR].rate.toFixed(1)

@@ -1,6 +1,6 @@
-import {BUILDING_UPGRADES, MARKET_BASE_FEE, MARKET_BASE_PRICES, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MIN_FEE, MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
+import {BUILDING_UPGRADES, MARKET_BASE_PRICES, MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
 import {BUILDING_MARKET, RESOURCE_COPPER, RESOURCE_FOOD, RESOURCE_IRON, RESOURCE_STONE, RESOURCE_WOOD, TRADE_BUY} from '@/js/engine/enums.js'
-import {marketTradeQuote} from '@/js/engine/utils.js'
+import {marketFeePercent, marketTradeQuote} from '@/js/engine/utils.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
@@ -51,11 +51,7 @@ class Market extends Building {
     if (this.blessedMarkets) {
       return 0
     }
-    const basePercent = Math.round(MARKET_BASE_FEE * 100) // e.g. 30
-    const reductionPerLevel = Math.round(MARKET_FEE_REDUCTION_PER_LEVEL * 100) // e.g. 1
-    const minPercent = Math.round(MARKET_MIN_FEE * 100) // e.g. 5
-    const rawPercent = basePercent - Math.max(0, this.level - 1) * reductionPerLevel // e.g. 26 at level 5
-    return Math.max(minPercent, rawPercent) / 100
+    return marketFeePercent(this.level) / 100
   }
 
   /**
