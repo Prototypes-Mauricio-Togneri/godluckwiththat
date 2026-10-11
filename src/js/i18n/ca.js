@@ -43,6 +43,7 @@ export const LOCALIZED_CA = {
 
   // Notifications
   'notifications.gameSaved': 'Partida desada',
+  'notifications.saveFailed': 'Error en desar',
 
   // Pause modal
   'modal.pause.title': 'Pausa',

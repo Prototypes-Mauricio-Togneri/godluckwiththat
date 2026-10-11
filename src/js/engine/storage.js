@@ -1,5 +1,5 @@
 // Thin localStorage wrapper for persisting user preferences and game state.
-// Exposes getter/setter pairs for music, sound, autosave, tutorial, trade amount, and saved game data.
+// Exposes getter/setter pairs for music, sound, autosave, tutorial, and trade amount, plus saved game read/write/delete.
 
 import {STORAGE_AUTOSAVE_ENABLED, STORAGE_AUTOSAVE_INTERVAL, STORAGE_MUSIC_ENABLED, STORAGE_SAVED_GAME, STORAGE_SOUND_ENABLED, STORAGE_TRADE_AMOUNT, STORAGE_TUTORIAL_COMPLETED} from '@/js/engine/enums.js'
 import {AUTOSAVE_DEFAULT_INTERVAL} from '@/js/engine/constants.js'
@@ -52,11 +52,18 @@ class Storage {
     }
   }
 
-  /** @param {Object} value - Game state data to persist */
-  set savedGame(value) {
+  /**
+   * Persists the game state, reporting whether the write succeeded.
+   * @param {Object} value - Game state data to persist
+   * @returns {boolean} False if storage is blocked or full
+   */
+  writeSavedGame(value) {
     try {
       window.localStorage.setItem(STORAGE_SAVED_GAME, JSON.stringify(value))
-    } catch { /* quota exceeded */ }
+      return true
+    } catch {
+      return false
+    }
   }
 
   /** @returns {boolean} Whether autosave is enabled */

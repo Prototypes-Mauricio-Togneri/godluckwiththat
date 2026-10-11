@@ -10,7 +10,7 @@ Vite + Vue 3 single-page application using Composition API (`<script setup>`). N
 
 Centered overlay with "PAUSED" title, decorative rule, and six stacked buttons:
 - **Resume** — emits `close`, resumes the game
-- **Save** — emits `save`, triggers `saveGame()` in `game_screen.vue` which writes `state.toJSON()` to `storage.savedGame` and closes the modal
+- **Save** — emits `save`, triggers `saveGame()` in `game_screen.vue` which calls `persistGame()` and closes the modal
 - **Load** — emits `load`, loads the saved game (disabled when no saved game exists)
 - **Settings** — emits `settings`, opens `SettingsModal`
 - *(decorative rule separator)*
@@ -70,7 +70,7 @@ Top bar divided into 4 sections separated by decorative vertical dividers:
 
 Resource/colony items use `<img>` icons from `public/img/` (no text labels). Values use `Azeret Mono` (numeric font). All values sourced from `State` (see below), which initializes from `src/js/engine/constants.js` (factories) using values from `src/js/engine/balancing.js`.
 
-**Keyboard**: Escape key toggles the pause modal (ignored when an `INPUT` or `TEXTAREA` is focused). F9 triggers a manual save (with a flash indicator). F3 toggles the performance overlay.
+**Keyboard**: Escape key toggles the pause modal (ignored when an `INPUT` or `TEXTAREA` is focused). F9 triggers a manual save. Pause-menu Save, F9 and autosave all go through `persistGame()`, which writes `state.toJSON()` via `storage.writeSavedGame()`, marks a saved game as available only on success, and flashes a "Game Saved" or red "Save Failed" indicator. F3 toggles the performance overlay.
 
 ### Building Grid (`game_screen.vue`)
 
@@ -108,7 +108,7 @@ Each action is a horizontal row: a square icon-only button (2.5rem × 2.5rem) wi
 
 Central state container instantiated once per game session. Plain JS class — **not** wrapped in `reactive()`. The engine operates on vanilla objects with zero Proxy overhead. `game_screen.vue` maintains a `shallowReactive` UI view model (`ui`) that is synced from the plain engine state via two functions: `syncTimers()` (fast-path, throttled to ~20fps via `UI_SYNC_INTERVAL` — updates only season elapsed, construction/research timers, event countdowns, challenge timers, and blessing/punishment timeouts) and `syncUI()` (full sync, called on every 1-second `gameTick` and after every player action — copies all resource/production/building/market/academy/challenge data). Constructor receives a `Meta` instance (first) and a `Colony` instance (second). Created by `app.vue` via either `State.fromJSON(savedData)` (load) or `new State(createInitialMeta(), createInitialColony())` (new game), then passed as `initialState` prop to `game_screen.vue`.
 
-**Save/Load**: `State.toJSON()` → `Meta.toJSON()` + `Colony.toJSON()` (which calls `Season.toJSON()`, `Resources.toJSON()`, `Buildings.toJSON()` (iterates all 20 buildings' `toJSON()`), `Events.toJSON()`). `State.fromJSON(data)` reverses the process using `Meta.fromJSON()`, `Colony.fromJSON(data, BUILDING_CLASS_MAP)`, then calls `update(0)` to rehydrate derived fields; returns `null` on any error. Stored in `localStorage` via `storage.savedGame` getter/setter.
+**Save/Load**: `State.toJSON()` → `Meta.toJSON()` + `Colony.toJSON()` (which calls `Season.toJSON()`, `Resources.toJSON()`, `Buildings.toJSON()` (iterates all 20 buildings' `toJSON()`), `Events.toJSON()`). `State.fromJSON(data)` reverses the process using `Meta.fromJSON()`, `Colony.fromJSON(data, BUILDING_CLASS_MAP)`, then calls `update(0)` to rehydrate derived fields; returns `null` on any error. Stored in `localStorage` via the `storage.savedGame` getter and `storage.writeSavedGame()`.
 
 **Provide/inject**: `game_screen.vue` calls `provide('ui', ui)`, `provide('actions', actions)`, `provide('openResearchModal', fn)`, `provide('openMarketModal', fn)`, and `provide('openChallengeModal', fn)`. Components `inject('ui')` for reactive reads from the view model, `inject('actions')` to dispatch player actions (`levelUpBuilding`, `downgradeBuilding`, `expandTerritory`, `upgradeHeadquarters`, `recruitWorker`, `assignWorkers`, `unassignWorkers`, `startResearch`, `executeTrade`, `dismissEvent`, `dismissAllPast`, `selectBlessing`, `acknowledgePunishment`), `inject('openResearchModal')` to open the research modal (used by `academy_card.vue`), `inject('openMarketModal')` to open the market modal (used by `market_card.vue`), and `inject('openChallengeModal')` to open the challenge detail modal (used by event click handlers). Affordability checks use the `canAffordCost(resources, cost)` utility from `utils.js` instead of the `Resources.canAfford` method.
 
@@ -238,7 +238,7 @@ Singleton `Audio` class managing sound effects and background music. Preloads al
 
 ### Storage (`src/js/engine/storage.js`)
 
-Thin `localStorage` wrapper for persisting user preferences and game state. Exposes `musicEnabled` and `soundEnabled` as getter/setter pairs (default `true`). Used by `Audio` to persist toggle state across sessions. Also exposes `autosaveEnabled` (default `true`) and `autosaveInterval` (default `AUTOSAVE_DEFAULT_INTERVAL`, clamped to min/max bounds) getter/setter pairs for autosave configuration. Also exposes `tradeAmount` (default `MARKET_TRADE_AMOUNT`) for persisting the market trade lot size. Exposes `savedGame` getter/setter (JSON parse/stringify with error handling) and `deleteSavedGame()` for save/load persistence.
+Thin `localStorage` wrapper for persisting user preferences and game state. Exposes `musicEnabled` and `soundEnabled` as getter/setter pairs (default `true`). Used by `Audio` to persist toggle state across sessions. Also exposes `autosaveEnabled` (default `true`) and `autosaveInterval` (default `AUTOSAVE_DEFAULT_INTERVAL`, clamped to min/max bounds) getter/setter pairs for autosave configuration. Also exposes `tradeAmount` (default `MARKET_TRADE_AMOUNT`) for persisting the market trade lot size. Exposes a `savedGame` getter (JSON parse, `null` on missing/corrupt data), `writeSavedGame(value)` (JSON stringify; returns `false` when storage is blocked or full) and `deleteSavedGame()` for save/load persistence.
 
 ### Research System
 

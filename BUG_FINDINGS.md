@@ -1,16 +1,3 @@
-### [a/error-handling/persistence/failed-save-reported-as-success] A failed save still shows "Game Saved" and enables Load
-
-- **Location:** `src/js/engine/storage.js:56`; related `src/components/screens/game_screen.vue:1004`, `src/components/screens/game_screen.vue:1023`, `src/components/screens/game_screen.vue:1304`
-- **Severity:** Medium
-- **Confidence:** Medium
-- **Likelihood:** Low. It needs a browser where the storage write throws: storage blocked by privacy settings or policy, a full quota, or legacy Safari private mode.
-- **Defect:** The `savedGame` setter swallows every write error and returns nothing. All three save paths (pause-menu Save, autosave, F9) unconditionally set "has saved game" and show the "Game Saved" indicator. The player believes progress is stored. Load then finds nothing and does nothing, and after quitting there is no Continue. The progress is lost after a save the game said succeeded.
-- **Trigger:** Play with site storage blocked (e.g. cookies/site data disabled), then save and close the tab.
-- **Evidence / verification:** Traced: `set savedGame` → `try { setItem } catch {}` with no signal; callers never read back or check. Remaining assumption: how often real players run with storage blocked; not reproduced in a browser.
-- **Suggested fix:** Have the setter return success or failure (or rethrow). Show a "save failed" notification instead of "Game Saved", and do not set the has-saved-game flag on failure.
-
-## Low
-
 ### [a/state-and-lifecycle/events/limit-notices-not-cleared-after-losses] Population and territory limit notices stay after workers or levels are lost
 
 - **Location:** `src/js/engine/state.js:802`; related `src/js/engine/state.js:968`, `src/js/engine/state.js:1362`

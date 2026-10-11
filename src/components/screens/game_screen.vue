@@ -278,6 +278,7 @@ const showResearchModal = ref(false)
 const showMarketModal = ref(false)
 const showChallengeModal = ref(false)
 const showSaveIndicator = ref(false)
+const saveSucceeded = ref(true)
 const hasSavedGame = ref(storage.savedGame !== null)
 let saveIndicatorTimer = null
 let autosaveTimer = null
@@ -998,15 +999,26 @@ provide('openChallengeModal', () => {
   showChallengeModal.value = true
 })
 
-/** Saves the current game state to localStorage and closes the pause modal. */
+/** Writes the current game state to localStorage and flashes the save result. */
+function persistGame() {
+  const saved = storage.writeSavedGame(state.toJSON())
+  if (saved) {
+    hasSavedGame.value = true
+  }
+  flashSaveIndicator(saved)
+}
+
+/** Saves the current game state and closes the pause modal. */
 function saveGame() {
-  storage.savedGame = state.toJSON()
-  hasSavedGame.value = true
+  persistGame()
   showModal.value = false
 }
 
-/** Shows the save indicator for 1.5 seconds. */
-function flashSaveIndicator() {
+/** Shows the save indicator for 1.5 seconds.
+ * @param {boolean} succeeded - Whether the save was written
+ */
+function flashSaveIndicator(succeeded) {
+  saveSucceeded.value = succeeded
   showSaveIndicator.value = true
   clearTimeout(saveIndicatorTimer)
   saveIndicatorTimer = setTimeout(() => {
@@ -1018,11 +1030,7 @@ function flashSaveIndicator() {
 function startAutosave() {
   stopAutosave()
   if (storage.autosaveEnabled) {
-    autosaveTimer = setInterval(() => {
-      storage.savedGame = state.toJSON()
-      hasSavedGame.value = true
-      flashSaveIndicator()
-    }, storage.autosaveInterval * 60 * 1000)
+    autosaveTimer = setInterval(persistGame, storage.autosaveInterval * 60 * 1000)
   }
 }
 
@@ -1300,9 +1308,7 @@ function handleKeydown(event) {
   }
   if (event.key === 'F9') {
     event.preventDefault()
-    storage.savedGame = state.toJSON()
-    hasSavedGame.value = true
-    flashSaveIndicator()
+    persistGame()
   }
   if (event.key === 'F3') {
     event.preventDefault()
@@ -1716,7 +1722,7 @@ onUnmounted(() => {
     />
 
     <Transition name="save-indicator">
-      <div v-if="showSaveIndicator" class="save-indicator">{{ t('notifications.gameSaved') }}</div>
+      <div v-if="showSaveIndicator" class="save-indicator" :class="{ 'save-indicator--failed': !saveSucceeded }">{{ t(saveSucceeded ? 'notifications.gameSaved' : 'notifications.saveFailed') }}</div>
     </Transition>
   </div>
 </template>
@@ -2309,6 +2315,20 @@ onUnmounted(() => {
   z-index: 9000;
   box-shadow: 0 2px 12px rgba(var(--color-accent-rgb), 0.1);
   text-shadow: 0 0 8px rgba(var(--color-accent-rgb), 0.3);
+}
+
+/* Failed save warning tint */
+.save-indicator--failed {
+  color: rgba(var(--color-red-rgb), 1);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(var(--color-red-rgb), 0.16) 0%,
+      rgba(var(--color-red-rgb), 0.06) 100%
+    );
+  border-color: rgba(var(--color-red-rgb), 0.35);
+  box-shadow: 0 2px 12px rgba(var(--color-red-rgb), 0.15);
+  text-shadow: 0 0 8px rgba(var(--color-red-rgb), 0.3);
 }
 
 .tutorial-banner-enter-active {

@@ -43,6 +43,7 @@ export const LOCALIZED_FR = {
 
   // Notifications
   'notifications.gameSaved': 'Partie sauvegardée',
+  'notifications.saveFailed': 'Échec de la sauvegarde',
 
   // Pause modal
   'modal.pause.title': 'Pause',
