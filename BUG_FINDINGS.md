@@ -1,14 +1,3 @@
-### [a/state-and-lifecycle/modals/escape-closes-underlying-modal] Escape closes the hidden Market or Research modal instead of the modal on top
-
-- **Location:** `src/components/modals/research_modal.vue:126`; related `src/components/modals/market_modal.vue:174`, `src/components/modals/challenge_failure_modal.vue:21`
-- **Severity:** Low
-- **Confidence:** High
-- **Likelihood:** Low. It requires Market or Research to be open, without pausing the game, when a tutorial or challenge modal appears.
-- **Defect:** Every modal registers a capture-phase window keydown listener that stops propagation immediately. Listeners fire in registration order, so the earlier-opened Market or Research modal consumes Escape. It closes beneath the visible tutorial or challenge modal, which stays open.
-- **Trigger:** Keep the Market open until a season change triggers the tutorial modal, then press Escape.
-- **Evidence / verification:** Traced listener registration order on `window` with `stopImmediatePropagation()` in each handler.
-- **Suggested fix:** Keep a modal stack and let only the topmost modal handle Escape.
-
 ### [a/logic-errors/building-card/market-fee-tooltip-past-floor] Market upgrade tooltip promises "-1% market fee" after the fee has hit its floor
 
 - **Location:** `src/components/buildings/base_card.vue:110`; related `src/js/models/buildings/market.js:55`

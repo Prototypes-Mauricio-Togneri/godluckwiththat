@@ -8,6 +8,7 @@ import {BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEA
   BLESSING_RAPID_CONSTRUCTION, BLESSING_FAVORABLE_WEATHER, BLESSING_WISDOM_OF_THE_GODS,
   BLESSING_BLESSED_MARKETS} from '@/js/engine/enums.js'
 import {formatMinutes, formatNumber} from '@/js/engine/format.js'
+import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
 
 const ui = inject('ui')
 const actions = inject('actions')
@@ -41,15 +42,13 @@ function blessingDescription(blessing) {
   }
 }
 
-/** Block Escape — this modal cannot be dismissed. */
-function handleKeydown(event) {
-  if (event.key === 'Escape') {
-    event.stopImmediatePropagation()
-  }
+/** Block Escape while topmost — this modal cannot be dismissed with it. */
+function handleEscape() {
+  // Swallows Escape so modals underneath and the pause toggle never see it
 }
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeydown, true)
+  pushEscapeHandler(handleEscape)
   audio.playSound(SND_NOTIFICATION_BLESSING)
   rafId = requestAnimationFrame(() => {
     visible.value = true
@@ -57,7 +56,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown, true)
+  removeEscapeHandler(handleEscape)
   cancelAnimationFrame(rafId)
 })
 </script>

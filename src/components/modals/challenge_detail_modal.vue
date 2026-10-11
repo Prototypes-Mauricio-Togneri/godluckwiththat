@@ -4,6 +4,7 @@ import {playTap} from '@/js/engine/audio.js'
 import {IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {BUILDING_ALTAR, BUILDING_MONUMENT, BUILDING_TEMPLE, EMIT_CLOSE, RESOURCE_FAITH, SYMBOL_CHECK, SYMBOL_CROSS} from '@/js/engine/enums.js'
 import {formatTime, formatNumber} from '@/js/engine/format.js'
+import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
 import {t} from '@/js/i18n/localized.js'
 
 const ui = inject('ui')
@@ -50,23 +51,20 @@ const timeoutProgress = computed(() => {
   return Math.min(1, challenge.value.timeoutElapsed / challenge.value.timeout)
 })
 
-/** Closes modal on Escape key (capture phase). */
-function handleKeydown(event) {
-  if (event.key === 'Escape') {
-    event.stopImmediatePropagation()
-    emit(EMIT_CLOSE)
-  }
+/** Closes modal on Escape while it is the topmost modal. */
+function handleEscape() {
+  emit(EMIT_CLOSE)
 }
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeydown, true)
+  pushEscapeHandler(handleEscape)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
 })
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown, true)
+  removeEscapeHandler(handleEscape)
   cancelAnimationFrame(rafId)
 })
 </script>

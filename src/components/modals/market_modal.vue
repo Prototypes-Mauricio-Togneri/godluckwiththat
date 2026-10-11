@@ -8,6 +8,7 @@ import {IMG_RESOURCE_MAP, SND_MARKET_EXCHANGE} from '@/js/engine/assets.js'
 import {EMIT_CLOSE, RESOURCE_GOLD, TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
 import storage from '@/js/engine/storage.js'
 import {marketTradeQuote} from '@/js/engine/utils.js'
+import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
 
@@ -157,29 +158,20 @@ function sell(resource) {
   actions.executeTrade(resource, TRADE_SELL, tradeAmount.value)
 }
 
-/** Handles Escape key to close the help sub-modal first, then the market modal.
- * @param {KeyboardEvent} event - Keyboard event
- */
-function handleKeydown(event) {
-  if (event.key === 'Escape') {
-    event.stopImmediatePropagation()
-    if (showHelp.value) {
-      showHelp.value = false
-    } else {
-      emit(EMIT_CLOSE)
-    }
-  }
+/** Closes modal on Escape while it is the topmost modal (the help overlay, when open, sits above it). */
+function handleEscape() {
+  emit(EMIT_CLOSE)
 }
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeydown, true)
+  pushEscapeHandler(handleEscape)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
 })
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown, true)
+  removeEscapeHandler(handleEscape)
   cancelAnimationFrame(rafId)
 })
 </script>

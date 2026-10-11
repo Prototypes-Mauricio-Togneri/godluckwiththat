@@ -3,6 +3,7 @@ import {ref, onMounted, onUnmounted} from 'vue'
 import {IMG_OTHER_PORTAL} from '@/js/engine/assets.js'
 import {playTap} from '@/js/engine/audio.js'
 import {EMIT_CONTINUE, EMIT_QUIT} from '@/js/engine/enums.js'
+import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits([
@@ -12,22 +13,20 @@ const emit = defineEmits([
 const visible = ref(false)
 let rafId = null
 
-/** Block Escape — this modal cannot be dismissed without choosing. */
-function handleKeydown(event) {
-  if (event.key === 'Escape') {
-    event.stopImmediatePropagation()
-  }
+/** Block Escape while topmost — this modal cannot be dismissed with it. */
+function handleEscape() {
+  // Swallows Escape so modals underneath and the pause toggle never see it
 }
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeydown, true)
+  pushEscapeHandler(handleEscape)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
 })
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown, true)
+  removeEscapeHandler(handleEscape)
   cancelAnimationFrame(rafId)
 })
 </script>

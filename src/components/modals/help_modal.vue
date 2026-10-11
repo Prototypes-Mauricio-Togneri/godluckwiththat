@@ -2,6 +2,7 @@
 import {ref, computed, onMounted, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
 import {EMIT_CLOSE} from '@/js/engine/enums.js'
+import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
@@ -21,23 +22,20 @@ const emit = defineEmits([EMIT_CLOSE])
 const visible = ref(false)
 let rafId = null
 
-/** Closes modal on Escape key (capture phase, stops propagation to parent modal). */
-function handleKeydown(event) {
-  if (event.key === 'Escape') {
-    event.stopImmediatePropagation()
-    emit(EMIT_CLOSE)
-  }
+/** Closes modal on Escape while it is the topmost modal. */
+function handleEscape() {
+  emit(EMIT_CLOSE)
 }
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeydown, true)
+  pushEscapeHandler(handleEscape)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
 })
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown, true)
+  removeEscapeHandler(handleEscape)
   cancelAnimationFrame(rafId)
 })
 </script>

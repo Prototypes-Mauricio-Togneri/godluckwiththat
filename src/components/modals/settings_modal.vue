@@ -4,6 +4,7 @@ import audio, {playTap} from '@/js/engine/audio.js'
 import {AUTOSAVE_MAX_INTERVAL, AUTOSAVE_MIN_INTERVAL} from '@/js/engine/constants.js'
 import {EMIT_CLOSE} from '@/js/engine/enums.js'
 import storage from '@/js/engine/storage.js'
+import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits([EMIT_CLOSE])
@@ -53,23 +54,20 @@ function incrementInterval() {
   }
 }
 
-/** Closes modal on Escape key (capture phase). */
-function handleKeydown(event) {
-  if (event.key === 'Escape') {
-    event.stopImmediatePropagation()
-    emit(EMIT_CLOSE)
-  }
+/** Closes modal on Escape while it is the topmost modal. */
+function handleEscape() {
+  emit(EMIT_CLOSE)
 }
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeydown, true)
+  pushEscapeHandler(handleEscape)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
 })
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown, true)
+  removeEscapeHandler(handleEscape)
   cancelAnimationFrame(rafId)
 })
 </script>

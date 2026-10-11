@@ -7,6 +7,7 @@ import {RESEARCH_COSTS} from '@/js/engine/balancing.js'
 import {IMG_OTHER_COMPLETED, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {canAffordCost} from '@/js/engine/utils.js'
 import {EMIT_CLOSE, RESEARCH_STATUS_ACTIVE, RESEARCH_STATUS_AVAILABLE, RESEARCH_STATUS_COMPLETED, RESEARCH_STATUS_LOCKED} from '@/js/engine/enums.js'
+import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
 
@@ -108,29 +109,20 @@ function updateTooltipDirection(rKey, event) {
   tooltipAbove.value[rKey] = spaceBelow < 80
 }
 
-/** Handles Escape key to close help overlay or the modal itself.
- * @param {KeyboardEvent} event - Keyboard event
- */
-function handleKeydown(event) {
-  if (event.key === 'Escape') {
-    event.stopImmediatePropagation()
-    if (showHelp.value) {
-      showHelp.value = false
-    } else {
-      emit(EMIT_CLOSE)
-    }
-  }
+/** Closes modal on Escape while it is the topmost modal (the help overlay, when open, sits above it). */
+function handleEscape() {
+  emit(EMIT_CLOSE)
 }
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeydown, true)
+  pushEscapeHandler(handleEscape)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
 })
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown, true)
+  removeEscapeHandler(handleEscape)
   cancelAnimationFrame(rafId)
 })
 </script>

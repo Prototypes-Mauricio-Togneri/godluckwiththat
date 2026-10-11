@@ -4,7 +4,7 @@ Vite + Vue 3 single-page application using Composition API (`<script setup>`). N
 
 **Screen flow**: Home → Game (via `start` event with optional saved data payload)
 
-**Modal pattern**: Parent controls visibility with `v-if`. Modal component emits `close` on backdrop click (`.self` modifier) or close button. Mounts/unmounts cleanly.
+**Modal pattern**: Parent controls visibility with `v-if`. Modal component emits `close` on backdrop click (`.self` modifier) or close button. Mounts/unmounts cleanly. Escape is routed through `escape_stack.js` (`src/js/engine/`): each modal calls `pushEscapeHandler` on mount and `removeEscapeHandler` on unmount, and a single capture-phase window listener calls only the most recently pushed handler and stops the event, so the topmost modal handles Escape and modals underneath (and the game screen's pause toggle) never see it. Blocking modals push a no-op handler.
 
 ### Pause Modal (`pause_modal.vue`)
 
@@ -33,7 +33,7 @@ Centered overlay (same pattern as pause modal) showing information about a build
 
 ### Modal Help Modal (`help_modal.vue`)
 
-Generic help modal for overlay-on-overlay display (z-index 110, above the parent modal's z-index 100). Takes `title` and `body` props (pre-translated strings). Layout: uppercase title, decorative rule, description paragraph, and a "CLOSE" button. Follows the same animation pattern as other modals (rAF-driven `visible` class). Escape key handler in capture phase with `stopImmediatePropagation` to close itself without affecting the parent modal. Used by `research_modal.vue` and `market_modal.vue` via their "?" help buttons. Parent modals also guard their own Escape handler to close the help modal first when open.
+Generic help modal for overlay-on-overlay display (z-index 110, above the parent modal's z-index 100). Takes `title` and `body` props (pre-translated strings). Layout: uppercase title, decorative rule, description paragraph, and a "CLOSE" button. Follows the same animation pattern as other modals (rAF-driven `visible` class). Mounts after its parent, so it sits on top of the Escape stack and closes itself without affecting the parent modal. Used by `research_modal.vue` and `market_modal.vue` via their "?" help buttons.
 
 ### Confirm Modal (`confirm_modal.vue`)
 
@@ -70,7 +70,7 @@ Top bar divided into 4 sections separated by decorative vertical dividers:
 
 Resource/colony items use `<img>` icons from `public/img/` (no text labels). Values use `Azeret Mono` (numeric font). All values sourced from `State` (see below), which initializes from `src/js/engine/constants.js` (factories) using values from `src/js/engine/balancing.js`.
 
-**Keyboard**: Escape key toggles the pause modal (ignored when an `INPUT` or `TEXTAREA` is focused). F9 triggers a manual save. Pause-menu Save, F9 and autosave all go through `persistGame()`, which writes `state.toJSON()` via `storage.writeSavedGame()`, marks a saved game as available only on success, and flashes a "Game Saved" or red "Save Failed" indicator. F3 toggles the performance overlay.
+**Keyboard**: Escape key toggles the pause modal (ignored when an `INPUT` or `TEXTAREA` is focused, or when any other modal is open — the topmost modal takes Escape via the Escape stack). F9 triggers a manual save. Pause-menu Save, F9 and autosave all go through `persistGame()`, which writes `state.toJSON()` via `storage.writeSavedGame()`, marks a saved game as available only on success, and flashes a "Game Saved" or red "Save Failed" indicator. F3 toggles the performance overlay.
 
 ### Building Grid (`game_screen.vue`)
 

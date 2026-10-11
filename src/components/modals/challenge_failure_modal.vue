@@ -4,21 +4,20 @@ import audio, {playTap} from '@/js/engine/audio.js'
 import {SND_NOTIFICATION_DISASTER, IMG_PUNISHMENT_MAP} from '@/js/engine/assets.js'
 import {t} from '@/js/i18n/localized.js'
 import {formatMinutes} from '@/js/engine/format.js'
+import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
 
 const ui = inject('ui')
 const actions = inject('actions')
 const visible = ref(false)
 let rafId = null
 
-/** Block Escape — this modal cannot be dismissed. */
-function handleKeydown(event) {
-  if (event.key === 'Escape') {
-    event.stopImmediatePropagation()
-  }
+/** Block Escape while topmost — this modal cannot be dismissed with it. */
+function handleEscape() {
+  // Swallows Escape so modals underneath and the pause toggle never see it
 }
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeydown, true)
+  pushEscapeHandler(handleEscape)
   audio.playSound(SND_NOTIFICATION_DISASTER)
   rafId = requestAnimationFrame(() => {
     visible.value = true
@@ -26,7 +25,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown, true)
+  removeEscapeHandler(handleEscape)
   cancelAnimationFrame(rafId)
 })
 </script>
