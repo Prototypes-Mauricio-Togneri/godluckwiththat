@@ -4211,6 +4211,37 @@ describe('State', () => {
       expect(state._constructionDurationMult).toBeCloseTo(0.7, 10)
     })
 
+    it('should combine full construction research and RAPID_CONSTRUCTION multiplicatively', async () => {
+      const blessing = createBlessing({
+        type: BLESSING_RAPID_CONSTRUCTION,
+        construction: 0.5,
+        timeout: 60,
+      })
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            academy: {
+              level: 1,
+              completed: [
+                'construction1',
+                'construction2',
+                'construction3',
+                'construction4',
+                'construction5',
+              ],
+            },
+          },
+        },
+        metaOverrides: {
+          challenges: createChallenges({
+            activeBlessings: [blessing],
+          }),
+        },
+      })
+      // (1 - 0.5 research) × (1 - 0.5 blessing) = 0.25, not 1 - (0.5 + 0.5) = 0
+      expect(state._constructionDurationMult).toBeCloseTo(0.25, 10)
+    })
+
     it('should floor at 0', async () => {
       const blessing = createBlessing({
         type: BLESSING_RAPID_CONSTRUCTION,

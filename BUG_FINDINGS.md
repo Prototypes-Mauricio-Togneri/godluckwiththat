@@ -1,14 +1,3 @@
-### [a/null-and-numeric-hazards/construction/duration-multiplier-reaches-zero] Construction research plus Rapid Construction makes every build take 1 second
-
-- **Location:** `src/js/engine/state.js:1293`; related `src/js/models/buildings/building.js:35`, `src/js/models/buildings/headquarters.js:66`
-- **Severity:** Medium
-- **Confidence:** High
-- **Likelihood:** Low. It requires all five Construction research tiers plus choosing Rapid Construction (challenges 4 or 9). The effect then lasts the blessing's 180 s.
-- **Defect:** The research reductions (5 × 10% = 50%) and the blessing (50%) are summed without a cap, so the duration multiplier becomes `max(0, 1 − 1) = 0`. Every building level, territory expansion and headquarters type upgrade started in that window is then clamped to the 1-second minimum, regardless of cost. The getter's own contract says the multiplier lies in (0, 1]. The spec describes the blessing as "50% faster", not instant.
-- **Trigger:** Complete Construction 1–5, then select Rapid Construction and start any construction.
-- **Evidence / verification:** Reproduced in an isolated test: with the five research keys completed and the blessing active, the multiplier read exactly 0 and an HQ expansion returned a 1-second duration. Refutation: no cap or minimum multiplier exists, and the floating-point sum is exactly 1.0.
-- **Suggested fix:** Combine reductions multiplicatively (`(1 − research) × (1 − blessing)`), or clamp the multiplier to a sensible minimum such as 0.25.
-
 ### [a/error-handling/persistence/failed-save-reported-as-success] A failed save still shows "Game Saved" and enables Load
 
 - **Location:** `src/js/engine/storage.js:56`; related `src/components/screens/game_screen.vue:1004`, `src/components/screens/game_screen.vue:1023`, `src/components/screens/game_screen.vue:1304`

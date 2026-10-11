@@ -1280,17 +1280,19 @@ class State {
   }
 
   /**
-   * Duration multiplier from completed construction-time research bonuses.
+   * Duration multiplier from completed construction-time research bonuses and the
+   * Rapid Construction blessing. The two stack multiplicatively so that their combined
+   * reduction never reaches 100% (e.g. 50% research + 50% blessing = 25% of the base duration).
    * @returns {number} Multiplier in (0, 1] — lower means faster construction
    */
   get _constructionDurationMult() {
     const bonuses = this.colony.buildings.academy.completedBonuses(RESEARCH_TREE)
-    let reduction = bonuses[BONUS_CONSTRUCTION_TIME] ?? 0
+    let multiplier = 1 - (bonuses[BONUS_CONSTRUCTION_TIME] ?? 0)
     const rapidConstruction = this.meta.challenges.activeBlessings.find(blessing => blessing.type === BLESSING_RAPID_CONSTRUCTION)
     if (rapidConstruction) {
-      reduction += rapidConstruction.construction
+      multiplier *= 1 - rapidConstruction.construction
     }
-    return Math.max(0, 1 - reduction)
+    return Math.max(0, multiplier)
   }
 
   /**

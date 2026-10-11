@@ -335,7 +335,7 @@ Rewards earned by completing challenges. The player chooses one of two offered b
 - **Rich Mines** — increases mining productivity (quarry + all mines)
 - **Wisdom of the Gods** — increases knowledge productivity
 - **Celestial Prosperity** — increases general productivity (all producers)
-- **Rapid Construction** — buildings constructed faster (only affects new constructions, not in-progress ones)
+- **Rapid Construction** — buildings constructed faster (only affects new constructions, not in-progress ones). Stacks multiplicatively with Construction research: `duration × (1 − research) × (1 − blessing)`, so 50% research + 50% blessing yields 25% of the base duration
 - **Favorable Weather** — warm season becomes more productive, cold season becomes less harsh. Formula: warm modifiers amplified by `(1 + warm)`, cold modifiers softened by `(1 - cold)`. Examples with `warm = 0.5, cold = 0.5`: warm food modifier `0.2 × 1.5 = 0.3` (+30% instead of +20%), warm wood modifier `-0.2 × 1.5 = -0.3` (-30% instead of -20%), cold food modifier `-0.2 × 0.5 = -0.1` (-10% instead of -20%), cold wood modifier `0.2 × 0.5 = 0.1` (+10% instead of +20%)
 - **Blessed Markets** — trade fee is 0%, overriding market level reduction
 
