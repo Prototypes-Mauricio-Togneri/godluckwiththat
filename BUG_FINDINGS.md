@@ -1,14 +1,3 @@
-### [a/state-and-lifecycle/autosave/countdown-reset-on-pause-close] Opening and closing the pause menu restarts the autosave countdown
-
-- **Location:** `src/components/screens/game_screen.vue:1345`; related `src/components/screens/game_screen.vue:1018`
-- **Severity:** Low
-- **Confidence:** High
-- **Likelihood:** Low. Autosave is off by default, and the player must reopen the pause menu more often than the interval (default 5 min).
-- **Defect:** Closing the pause menu stops and recreates the autosave `setInterval`, discarding the play time already accumulated toward the next save. A player who pauses at least once per interval never gets an autosave.
-- **Trigger:** Autosave on (5 min); open and close the pause menu every 4 minutes.
-- **Evidence / verification:** Traced the `showModal` watcher: open → `stopAutosave()`, close → `startAutosave()` → new full-length interval. No remaining-time bookkeeping exists.
-- **Suggested fix:** Track elapsed unpaused play time toward the next autosave and resume with the remaining time, instead of restarting the full interval.
-
 ### [a/state-and-lifecycle/game-screen/challenge-detail-not-closed-after-background-resolution] The challenge detail modal stays open under the result modal after a background-tab resolution
 
 - **Location:** `src/components/screens/game_screen.vue:1223`; related `src/components/screens/game_screen.vue:1196`, `src/components/screens/game_screen.vue:1209`

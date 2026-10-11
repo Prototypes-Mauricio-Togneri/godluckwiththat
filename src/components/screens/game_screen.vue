@@ -282,6 +282,8 @@ const saveSucceeded = ref(true)
 const hasSavedGame = ref(storage.savedGame !== null)
 let saveIndicatorTimer = null
 let autosaveTimer = null
+let autosaveElapsed = 0 // ms of play time already counted toward the next autosave
+let autosaveResumedAt = 0 // performance.now() when the running countdown started
 
 const ui = shallowReactive({
   season: {
@@ -1026,21 +1028,38 @@ function flashSaveIndicator(succeeded) {
   }, 1500)
 }
 
-/** Starts the autosave interval if autosave is enabled. */
+/** Starts the autosave countdown if autosave is enabled, resuming from the play time already
+ * counted toward the next save. Disabling autosave discards that progress.
+ */
 function startAutosave() {
   stopAutosave()
   if (storage.autosaveEnabled) {
-    autosaveTimer = setInterval(persistGame, storage.autosaveInterval * 60 * 1000)
+    const interval = storage.autosaveInterval * 60 * 1000
+    autosaveResumedAt = performance.now()
+    autosaveTimer = setTimeout(runAutosave, Math.max(0, interval - autosaveElapsed))
+  } else {
+    autosaveElapsed = 0
   }
 }
 
-/** Stops the autosave interval. */
-function stopAutosave() {
-  clearInterval(autosaveTimer)
+/** Saves the game and starts a fresh autosave countdown. */
+function runAutosave() {
   autosaveTimer = null
+  autosaveElapsed = 0
+  persistGame()
+  startAutosave()
 }
 
-/** Handles settings modal close — restarts autosave timer with current settings. */
+/** Stops the autosave countdown, keeping the play time already counted toward the next save. */
+function stopAutosave() {
+  if (autosaveTimer !== null) {
+    clearTimeout(autosaveTimer)
+    autosaveTimer = null
+    autosaveElapsed += performance.now() - autosaveResumedAt
+  }
+}
+
+/** Handles settings modal close — resumes the autosave countdown with current settings. */
 function closeSettings() {
   showSettingsModal.value = false
   if (!showModal.value) {
