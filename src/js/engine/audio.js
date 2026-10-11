@@ -133,6 +133,15 @@ class Audio {
   }
 
   /**
+   * Stops music and clears the playlist, so re-enabling music does not restart it.
+   */
+  stopMusicPlaylist() {
+    this.stopMusic()
+    this._playlist = []
+    this._playlistIndex = 0
+  }
+
+  /**
    * Pauses the current music track without resetting position.
    */
   pauseMusic() {

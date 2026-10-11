@@ -45,7 +45,7 @@ function restartGame(savedData) {
 
 /** Stops music and returns to the home screen. */
 function quitGame() {
-  audio.stopMusic()
+  audio.stopMusicPlaylist()
   gameState.value = null
   currentScreen.value = 'home'
 }

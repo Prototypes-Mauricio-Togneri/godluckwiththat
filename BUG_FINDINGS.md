@@ -1,14 +1,3 @@
-### [a/state-and-lifecycle/audio/playlist-survives-quit] Toggling music in Settings after quitting plays game music on the menu screens
-
-- **Location:** `src/js/engine/audio.js:172`; related `src/js/engine/audio.js:123`, `src/app.vue:47`
-- **Severity:** Low
-- **Confidence:** High
-- **Likelihood:** Low. It requires quitting a game and then turning music off and on from the home Settings screen.
-- **Defect:** Quitting stops the current track but keeps the playlist. Re-enabling music sees a playlist and no active track, so it starts the game playlist on the home or settings screen, which otherwise never plays music.
-- **Trigger:** Start a game → Quit → Settings → Music off → Music on.
-- **Evidence / verification:** Traced `quitGame` → `stopMusic()` (clears only the element) and `setMusicEnabled(true)` (`_playlist.length && !_music` → `_playTrack`).
-- **Suggested fix:** Clear the playlist when quitting to the home screen (e.g. a `stopMusic` variant that also resets `_playlist`).
-
 ### [a/state-and-lifecycle/modals/escape-closes-underlying-modal] Escape closes the hidden Market or Research modal instead of the modal on top
 
 - **Location:** `src/components/modals/research_modal.vue:126`; related `src/components/modals/market_modal.vue:174`, `src/components/modals/challenge_failure_modal.vue:21`

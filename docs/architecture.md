@@ -232,7 +232,7 @@ Shared display formatters.
 
 Singleton `Audio` class managing sound effects and background music. Preloads all audio files from `AUDIO_CONFIG` (in `constants.js`) at startup. Per-asset volume levels are configured in `AUDIO_CONFIG`. Preferences (music/sound enabled) are persisted via `Storage`. Registers a `visibilitychange` listener to auto-resume music when the tab becomes visible (workaround for iOS Safari suspending audio in background tabs). A `_gamePaused` flag prevents auto-resume from overriding intentional pauses by game logic.
 
-**Methods**: `preload()`, `playSound(assetPath)` (one-shot effect), `playMusicPlaylist(tracks)` (sequential playlist, cycles back to first after last), `stopMusic()`, `pauseMusic()`, `resumeMusic()`, `setMusicEnabled(enabled)`, `setSoundEnabled(enabled)`.
+**Methods**: `preload()`, `playSound(assetPath)` (one-shot effect), `playMusicPlaylist(tracks)` (sequential playlist, cycles back to first after last), `stopMusic()`, `stopMusicPlaylist()` (stops and clears the playlist; used when quitting to the home screen), `pauseMusic()`, `resumeMusic()`, `setMusicEnabled(enabled)`, `setSoundEnabled(enabled)`.
 
 **Helper**: `playTap()` — exported shortcut that plays the button tap sound effect (`SND_BUTTON_TAP`). Used by all interactive UI components.
 
