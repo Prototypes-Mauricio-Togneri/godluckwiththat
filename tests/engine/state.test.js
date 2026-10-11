@@ -1497,6 +1497,34 @@ describe('State', () => {
       expect(state.colony.resources.food).toBe(350)
     })
 
+    it('should apply the full punishment duration when the challenge is failed again', async () => {
+      const activeChallenge = createChallenge({
+        status: CHALLENGE_STATUS_STARTED,
+        punishment: createPunishment({
+          productivityFarm: 0.5,
+          timeout: 120,
+        }),
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            active: activeChallenge,
+          }),
+        },
+      })
+      state.challengeModal = CHALLENGE_MODAL_FAILURE
+      state.acknowledgePunishment()
+      // Let the first punishment expire
+      state.advanceChallenges(120)
+      expect(state.meta.challenges.activePunishments).toHaveLength(0)
+
+      state.challengeModal = CHALLENGE_MODAL_FAILURE
+      state.acknowledgePunishment()
+      expect(state.meta.challenges.active.punishment.timeout).toBe(120)
+      expect(state.meta.challenges.activePunishments).toHaveLength(1)
+      expect(state.meta.challenges.activePunishments[0].timeout).toBe(120)
+    })
+
     it('should do nothing when modal is not failure', async () => {
       const state = await createState()
       state.challengeModal = null

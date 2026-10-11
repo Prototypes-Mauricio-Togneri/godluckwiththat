@@ -123,6 +123,22 @@ describe('Challenges', () => {
       expect(challenges.activeBlessings).toHaveLength(1)
     })
 
+    it('should store a copy so the challenge blessing is not drained', () => {
+      const challenges = createChallenges({
+        active: createChallenge({
+          status: CHALLENGE_STATUS_STARTED,
+        }),
+      })
+      const blessing = createBlessing({
+        timeout: 600,
+      })
+      challenges.complete(blessing)
+      expect(challenges.activeBlessings[0]).not.toBe(blessing)
+      expect(challenges.activeBlessings[0].toJSON()).toEqual(blessing.toJSON())
+      challenges.activeBlessings[0].timeout = 0
+      expect(blessing.timeout).toBe(600)
+    })
+
     it('should do nothing when no active challenge', () => {
       const challenges = createChallenges()
       const blessing = createBlessing()
@@ -147,6 +163,22 @@ describe('Challenges', () => {
       expect(challenges.active.status).toBe(CHALLENGE_STATUS_ACTIVATED)
       expect(challenges.active.delayElapsed).toBe(0)
       expect(challenges.activePunishments).toHaveLength(1)
+    })
+
+    it('should store a copy so the challenge punishment is not drained', () => {
+      const challenges = createChallenges({
+        active: createChallenge({
+          status: CHALLENGE_STATUS_STARTED,
+        }),
+      })
+      const punishment = createPunishment({
+        timeout: 120,
+      })
+      challenges.fail(punishment)
+      expect(challenges.activePunishments[0]).not.toBe(punishment)
+      expect(challenges.activePunishments[0].toJSON()).toEqual(punishment.toJSON())
+      challenges.activePunishments[0].timeout = 0
+      expect(punishment.timeout).toBe(120)
     })
 
     it('should do nothing when no active challenge', () => {

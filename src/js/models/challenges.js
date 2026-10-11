@@ -57,7 +57,8 @@ class Challenges {
   }
 
   /**
-   * Completes the active challenge: moves it to completed, stores the chosen blessing.
+   * Completes the active challenge: moves it to completed, stores a copy of the chosen blessing.
+   * A copy is stored so the timeout countdown does not drain the challenge's own blessing.
    * @param {Blessing} blessing - The blessing the player chose as reward
    */
   complete(blessing) {
@@ -66,12 +67,14 @@ class Challenges {
     }
     this.active.status = CHALLENGE_STATUS_COMPLETED
     this.completed.push(this.active)
-    this.activeBlessings.push(blessing)
+    this.activeBlessings.push(Blessing.fromJSON(blessing.toJSON()))
     this.active = null
   }
 
   /**
-   * Fails the active challenge: resets timers, stores the punishment.
+   * Fails the active challenge: resets timers, stores a copy of the punishment.
+   * A copy is stored so the timeout countdown does not drain the challenge's own punishment,
+   * which is reused if the challenge is failed again.
    * @param {Punishment} punishment - The punishment applied
    */
   fail(punishment) {
@@ -79,7 +82,7 @@ class Challenges {
       return
     }
     this.active.reset()
-    this.activePunishments.push(punishment)
+    this.activePunishments.push(Punishment.fromJSON(punishment.toJSON()))
   }
 
   /**

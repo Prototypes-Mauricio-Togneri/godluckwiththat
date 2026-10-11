@@ -1,18 +1,3 @@
-# Bug Findings
-
-## Medium
-
-### [a/state-and-lifecycle/challenges/punishment-object-shared-with-active-list] Repeated challenge failure applies a 0-second productivity punishment
-
-- **Location:** `src/js/models/challenges.js:82`; related `src/js/engine/state.js:895`, `src/js/engine/state.js:913`, `src/components/screens/game_screen.vue:893`, `src/components/modals/challenge_failure_modal.vue:68`
-- **Severity:** Medium
-- **Confidence:** High
-- **Likelihood:** Medium. Failing the same challenge twice in one session is a normal path for a struggling player, and every punishment with a duration is affected (challenges 1, 2, 4, 5, 6, 7, 9, 10).
-- **Defect:** On failure, the challenge's own punishment object, not a copy, is pushed into the list of active punishments. The per-frame countdown mutates that shared object's `timeout` down to 0 and removes it. Nothing restores the duration when the challenge resets. Every later failure of the same challenge therefore pushes a punishment whose duration is already 0, and the next frame removes it. The timed productivity penalty (crop failure, wildfires, landslide, volcano) never applies. The failure modal also announces it as lasting "0 min". The partially or fully drained duration is saved, so the corruption survives reloads.
-- **Trigger:** Fail challenge 1 (120 s crop failure) and acknowledge it. Play through the 30 s delay and 300 s timeout of the retry, by which point the punishment has expired. Fail it again.
-- **Evidence / verification:** Reproduced with an isolated test in a disposable copy of the project, driving `advanceChallenges` and `acknowledgePunishment` on a fresh State. The first failure's punishment timeout was 120. The second failure's modal saw timeout 0, and the active list was empty after one 16 ms frame. Refutation: no copy is made in `Challenges.fail`, `State.acknowledgePunishment`, `Challenge.reset` or `createInitialChallenges`. Only a reload creates separate objects, and by then the drained timeout has already been saved. Existing tests cover only a single failure.
-- **Suggested fix:** Push a fresh copy of the punishment when a challenge fails (e.g. `Punishment.fromJSON(punishment.toJSON())`). Never mutate the challenge's template punishment. Do the same for blessings for consistency.
-
 ### [b/validation-and-coercion/market/zero-fee-round-trip-arbitrage] Buying then selling under Blessed Markets creates gold from nothing
 
 - **Location:** `src/js/models/buildings/market.js:84`; related `src/js/models/buildings/market.js:49`, `src/js/models/buildings/market.js:96`
