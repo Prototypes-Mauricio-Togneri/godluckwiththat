@@ -1,14 +1,3 @@
-### [a/concurrency/audio/stale-play-rejection-clears-new-sound-entry] Re-triggering a sound before it starts corrupts sound bookkeeping
-
-- **Location:** `src/js/engine/audio.js:81`; related `src/js/engine/audio.js:54`, `src/js/engine/state.js:1359`
-- **Severity:** Low
-- **Confidence:** Medium
-- **Likelihood:** Medium. Assigning a batch of workers with recruiting plays the recruit sound several times synchronously, and double taps do the same for the tap sound.
-- **Defect:** A second `playSound` for the same asset pauses the element while the first `play()` promise is still pending. Per the HTML spec, that rejects the first promise. Its `.catch(cleanup)` then deletes the map entries now owned by the second call. The element keeps playing untracked, so the next call creates a second element that overlaps it. When the first element ends, its later cleanup deletes the newer element's entry, and the corruption continues.
-- **Trigger:** Assign 10 workers to a building with no idle workers and enough food, so several recruit sounds fire in one call.
-- **Evidence / verification:** Traced: the cleanup closure deletes `_activeSounds`/`_soundCleanup` by asset key without checking that the entry is still its own element. Not reproduced in a browser; depends on the play promise still being pending, which is the common case for synchronous repeats.
-- **Suggested fix:** In cleanup, delete map entries only if they still reference this element and this cleanup. Alternatively, ignore `AbortError` rejections.
-
 ### [a/state-and-lifecycle/tutorial/open-tutorial-modal-lost-on-save] A tutorial modal open at save time is lost on reload
 
 - **Location:** `src/js/models/tutorial.js:20`; related `src/js/models/tutorial.js:42`, `src/components/screens/game_screen.vue:1018`

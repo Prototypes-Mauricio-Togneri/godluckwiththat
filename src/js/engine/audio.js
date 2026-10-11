@@ -67,8 +67,11 @@ class Audio {
     const cleanup = () => {
       element.removeEventListener('ended', cleanup)
       element.removeEventListener('error', cleanup)
-      this._activeSounds.delete(assetPath)
-      this._soundCleanup.delete(assetPath)
+      // A stale cleanup (e.g. the aborted play() of a re-triggered sound) must not clear the newer entry
+      if (this._soundCleanup.get(assetPath) === cleanup) {
+        this._activeSounds.delete(assetPath)
+        this._soundCleanup.delete(assetPath)
+      }
     }
     this._soundCleanup.set(assetPath, cleanup)
     element.addEventListener('ended', cleanup, {
