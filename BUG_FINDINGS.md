@@ -1,14 +1,3 @@
-### [a/state-and-lifecycle/events/limit-notices-not-cleared-after-losses] Population and territory limit notices stay after workers or levels are lost
-
-- **Location:** `src/js/engine/state.js:802`; related `src/js/engine/state.js:968`, `src/js/engine/state.js:1362`
-- **Severity:** Low
-- **Confidence:** High
-- **Likelihood:** Medium. Several challenges sacrifice workers on success or remove workers and building levels on failure, and players frequently sit at their population or territory cap.
-- **Defect:** The "population limit reached" and "territory limit reached" notices are dismissed only by dismissing workers by hand, downgrading by hand, finishing a house or territory expansion, or Holy Expansion. Worker sacrifice (challenge requirements and punishments) and punishment level loss free population or territory but leave the notices up. Because the notice is still present, reaching the population cap again does not raise a fresh one.
-- **Trigger:** Fill the house cap, then complete a worker-sacrifice challenge or fail Plague; or fill territory, then take a level-loss punishment.
-- **Evidence / verification:** Traced every dismissal site of both event types. None is on the sacrifice or punishment paths, and `update()` never re-evaluates either condition. Refutation: no periodic recheck exists.
-- **Suggested fix:** After sacrificing workers or removing levels, dismiss the notices when the colony is below the respective cap. Alternatively, edge-detect both limits in `update()` the way storage caps are handled.
-
 ### [a/concurrency/audio/stale-play-rejection-clears-new-sound-entry] Re-triggering a sound before it starts corrupts sound bookkeeping
 
 - **Location:** `src/js/engine/audio.js:81`; related `src/js/engine/audio.js:54`, `src/js/engine/state.js:1359`

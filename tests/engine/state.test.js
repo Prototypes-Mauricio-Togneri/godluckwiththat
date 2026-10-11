@@ -3659,6 +3659,56 @@ describe('State', () => {
       state._sacrificeWorkers(2)
       expect(state.colony.resources.workers).toBe(8)
     })
+
+    it('should dismiss population limit event when workers drop below cap', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 10,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state.update(0)
+      // workersCap = 1 * 10 = 10
+      state.colony.events.addPast({
+        type: EVENT_TYPE_POPULATION_LIMIT_REACHED,
+        textKey: 'event.populationLimitReached',
+        icon: '',
+      })
+      state._sacrificeWorkers(1)
+      expect(state.colony.resources.workers).toBe(9)
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_POPULATION_LIMIT_REACHED)).toBe(false)
+    })
+
+    it('should keep population limit event when workers remain at or above cap', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 12,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state.update(0)
+      // workersCap = 1 * 10 = 10
+      state.colony.events.addPast({
+        type: EVENT_TYPE_POPULATION_LIMIT_REACHED,
+        textKey: 'event.populationLimitReached',
+        icon: '',
+      })
+      state._sacrificeWorkers(1)
+      expect(state.colony.resources.workers).toBe(11)
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_POPULATION_LIMIT_REACHED)).toBe(true)
+    })
   })
 
   // ── _advanceEffectTimeouts ──────────────────────────────────────────
@@ -4131,6 +4181,43 @@ describe('State', () => {
       })
       state._applyPunishment(punishment)
       expect(state.colony.buildings.farm.level).toBe(3)
+    })
+
+    it('should dismiss territory limit event when a level is lost', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 3,
+            },
+          },
+        },
+      })
+      state.colony.events.addPast({
+        type: EVENT_TYPE_TERRITORY_LIMIT_REACHED,
+        textKey: 'event.territoryLimitReached',
+        icon: '',
+      })
+      const punishment = createPunishment({
+        levels: 1,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_TERRITORY_LIMIT_REACHED)).toBe(false)
+    })
+
+    it('should keep territory limit event when no level can be lost', async () => {
+      const state = await createState()
+      // All buildings at level 0 — none eligible
+      state.colony.events.addPast({
+        type: EVENT_TYPE_TERRITORY_LIMIT_REACHED,
+        textKey: 'event.territoryLimitReached',
+        icon: '',
+      })
+      const punishment = createPunishment({
+        levels: 1,
+      })
+      state._applyPunishment(punishment)
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_TERRITORY_LIMIT_REACHED)).toBe(true)
     })
 
     it('should apply all punishment effects together', async () => {

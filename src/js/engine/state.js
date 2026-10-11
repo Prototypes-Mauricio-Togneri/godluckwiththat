@@ -829,6 +829,10 @@ class State {
       resources.workers -= 1
       remaining -= 1
     }
+
+    if (resources.workers < buildings.house.workersCap) {
+      this.colony.events.dismissPastByType(EVENT_TYPE_POPULATION_LIMIT_REACHED)
+    }
   }
 
   /**
@@ -1000,6 +1004,9 @@ class State {
             building.workers = building.maxWorkers
           }
         }
+
+        // Each lost level frees a territory slot
+        this.colony.events.dismissPastByType(EVENT_TYPE_TERRITORY_LIMIT_REACHED)
       }
     }
   }

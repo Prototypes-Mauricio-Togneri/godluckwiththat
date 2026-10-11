@@ -147,7 +147,7 @@ All game state mutations are centralised in `State`. Each method guards precondi
 - `areChallengeRequirementsMet()` — checks all active challenge requirements (faith, building levels, resources, workers) against current colony state. Returns boolean.
 - `_applyBlessing(blessing)` — applies instant blessing effects: `GIFT_FROM_THE_HEAVENS` grants resources (capped at storage), `HOLY_EXPANSION` adds to `resources.territoryBonus`.
 - `_applyPunishment(punishment)` — applies instant punishment effects: removes fraction of faith, removes fraction of bounded resources, sacrifices workers, downgrades random building levels.
-- `_sacrificeWorkers(count)` — removes workers: first from idle pool, then randomly unassigned from producer buildings. Clamped to available workers.
+- `_sacrificeWorkers(count)` — removes workers: first from idle pool, then randomly unassigned from producer buildings. Clamped to available workers. Dismisses population-limit event if below cap.
 - `_buildingName(buildingKey)` — returns the localized display name for a building. For headquarters, resolves to the HQ type name; for others, uses `t('building.' + key)`.
 
 ### Events (`src/js/models/events/event.js`, `event_future.js`, `event_past.js`, `events.js`)
