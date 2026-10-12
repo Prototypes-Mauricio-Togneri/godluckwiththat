@@ -22,12 +22,13 @@ Tests cover the **engine layer** and **model layer** — pure JavaScript classes
 
 | File                | Covers                                                                                                                                            |
 |---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| `analytics.test.js` | Firebase initialization (project config, localhost/127.0.0.1 exclusion, unsupported browser, failed init), `logGameStart`/`logTutorialComplete` event names and params, no events before `init`, logging failures swallowed |
 | `enums.test.js`     | All exported enum values match expected strings (resources, HQ types, seasons, buildings, trade, challenge status, blessings, punishments, symbols) |
 | `format.test.js`    | `formatTime`, `formatNumber`, `formatNumberFull`, `formatMinutes`, `formatRate`                                                                   |
 | `utils.test.js`     | `canAffordCost`, `marketFeePercent`, `marketTradeQuote`                                                                                           |
 | `balancing.test.js` | `BUILDING_UPGRADES` keys/values, season multiplier ranges, trade fee ranges                                                                      |
 | `constants.test.js` | `BUILDING_CLASS_MAP` keys/values, consistency with `BUILDING_UPGRADES`, factory functions (`createInitialColony`, `createInitialColonyBasic`, `createInitialColonyAdvanced`, `createInitialMeta`, `createInitialChallenges`), `TUTORIAL_STEPS` check functions |
-| `state.test.js`     | Game state machine (42 describe blocks, 242 tests): `constructor`, tick logic (`update`), `netProduction`, `expansionCost`, `advanceSeason`, `advanceConstruction`, `advanceResearch`, `advanceEvents`, `advanceChallenges`, `areChallengeRequirementsMet`, `selectBlessing`, `acknowledgePunishment`, `continueAfterWin`, `levelUpBuilding`, `recruitWorker`, `dismissWorkers`, `assignWorkers`, `unassignWorkers`, `startResearch`, `executeTrade`, `checkTutorial`, `expandTerritory`, `upgradeHeadquarters`, `downgradeBuilding`, serialization (`toJSON`/`fromJSON`), internal computations (`_computeGeneralProductivity`, `_computeSeasonMultipliers`, `_computeConsumptionRates`, `_computeProductionRates`, `_resolveChallengeTimeout`, `_deductRequirements`, `_completeChallenge`, `_failChallenge`, `_sacrificeWorkers`, `_advanceEffectTimeouts`, `_applyBlessing`, `_applyPunishment`, `_constructionDurationMult`, `_recruit`, `_triggerTutorialModal`, `_playAssignSound`, `_buildingName`) |
+| `state.test.js`     | Game state machine (42 describe blocks, 244 tests): `constructor`, tick logic (`update`), `netProduction`, `expansionCost`, `advanceSeason`, `advanceConstruction`, `advanceResearch`, `advanceEvents`, `advanceChallenges`, `areChallengeRequirementsMet`, `selectBlessing`, `acknowledgePunishment`, `continueAfterWin`, `levelUpBuilding`, `recruitWorker`, `dismissWorkers`, `assignWorkers`, `unassignWorkers`, `startResearch`, `executeTrade`, `checkTutorial`, `expandTerritory`, `upgradeHeadquarters`, `downgradeBuilding`, serialization (`toJSON`/`fromJSON`), internal computations (`_computeGeneralProductivity`, `_computeSeasonMultipliers`, `_computeConsumptionRates`, `_computeProductionRates`, `_resolveChallengeTimeout`, `_deductRequirements`, `_completeChallenge`, `_failChallenge`, `_sacrificeWorkers`, `_advanceEffectTimeouts`, `_applyBlessing`, `_applyPunishment`, `_constructionDurationMult`, `_recruit`, `_triggerTutorialModal`, `_playAssignSound`, `_buildingName`) |
 
 ### Models (`tests/models/`)
 
@@ -119,6 +120,7 @@ Exports `VALID_BUILDING_KEYS` — a `Set` of all 20 `BUILDING_*` enum values. Us
 ### Mocking
 
 - **`localized.js`** is mocked to return raw keys (`t: (key) => key`) so tests do not depend on translation content.
+- **`analytics.js`** is mocked with `vi.fn()` stubs (`logTutorialComplete`) in state tests; `analytics.test.js` mocks `firebase/app` and `firebase/analytics` instead and stubs `window.location`.
 - **`audio.js`** is mocked with `vi.fn()` stubs (`playSound`) so tests run without the Web Audio API.
 - **`storage.js`** is mocked with default values so tests run without `localStorage`.
 - Browser globals (`navigator.language`, `document.documentElement`) are stubbed via `vi.stubGlobal` in i18n tests.

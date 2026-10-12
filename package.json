@@ -17,6 +17,7 @@
     "check": "npm run lint:fix && npm run test && npm run build"
   },
   "dependencies": {
+    "firebase": "^12.19.0",
     "marked": "^17.0.5",
     "vue": "^3.5.31"
   },

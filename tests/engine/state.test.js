@@ -32,6 +32,12 @@ import Events from '@/js/models/events/events.js'
 import Tutorial from '@/js/models/tutorial.js'
 import {createBlessing, createChallenge, createChallenges, createPunishment} from '../helpers/factories.js'
 
+vi.mock('@/js/engine/analytics.js', () => ({
+  default: {
+    logTutorialComplete: vi.fn(),
+  },
+}))
+
 vi.mock('@/js/engine/audio.js', () => ({
   default: {
     playSound: vi.fn(),
@@ -152,11 +158,14 @@ async function createState(options = {}) {
 }
 
 describe('State', () => {
+  let analytics
   let audio
   let storage
 
   beforeEach(async () => {
     vi.clearAllMocks()
+    const analyticsModule = await import('@/js/engine/analytics.js')
+    analytics = analyticsModule.default
     const audioModule = await import('@/js/engine/audio.js')
     audio = audioModule.default
     const storageModule = await import('@/js/engine/storage.js')
@@ -2660,6 +2669,47 @@ describe('State', () => {
       state.checkTutorial()
       expect(state.meta.tutorial.completed).toBe(false)
       expect(storage.tutorialCompleted).toBe(false)
+    })
+
+    it('should log tutorial completion the first time on this device', async () => {
+      const state = await createState({
+        metaOverrides: {
+          tutorial: new Tutorial({
+            currentStep: 16,
+            completed: false,
+            dismissedModals: [
+              TUTORIAL_MODAL_SEASON_CHANGED,
+              TUTORIAL_MODAL_NEGATIVE_PRODUCTION,
+              TUTORIAL_MODAL_HQ_UPGRADE,
+              TUTORIAL_MODAL_CHALLENGE_STARTED,
+            ],
+          }),
+        },
+      })
+      state.checkTutorial()
+      expect(state.meta.tutorial.completed).toBe(true)
+      expect(analytics.logTutorialComplete).toHaveBeenCalledTimes(1)
+    })
+
+    it('should not log tutorial completion again when replayed from an older save', async () => {
+      storage.tutorialCompleted = true
+      const state = await createState({
+        metaOverrides: {
+          tutorial: new Tutorial({
+            currentStep: 16,
+            completed: false,
+            dismissedModals: [
+              TUTORIAL_MODAL_SEASON_CHANGED,
+              TUTORIAL_MODAL_NEGATIVE_PRODUCTION,
+              TUTORIAL_MODAL_HQ_UPGRADE,
+              TUTORIAL_MODAL_CHALLENGE_STARTED,
+            ],
+          }),
+        },
+      })
+      state.checkTutorial()
+      expect(state.meta.tutorial.completed).toBe(true)
+      expect(analytics.logTutorialComplete).not.toHaveBeenCalled()
     })
   })
 

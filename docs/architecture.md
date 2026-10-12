@@ -236,6 +236,12 @@ Singleton `Audio` class managing sound effects and background music. Preloads al
 
 **Helper**: `playTap()` — exported shortcut that plays the button tap sound effect (`SND_BUTTON_TAP`). Used by all interactive UI components.
 
+### Analytics (`src/js/engine/analytics.js`)
+
+Singleton `Analytics` class sending gameplay events to Firebase Analytics (Google Analytics 4). `main.js` calls `init()` at startup; it initializes Firebase with `FIREBASE_CONFIG` (in `constants.js`) unless the hostname is in `ANALYTICS_EXCLUDED_HOSTNAMES` or `isSupported()` reports no support. Events are chained on the initialization promise, so events fired before it settles are still sent; when analytics is disabled or blocked, every call is a silent no-op. Event names and params live in `enums.js` (`ANALYTICS_EVENT_*`, `ANALYTICS_GAME_MODE_*`).
+
+**Methods**: `init()`, `logGameStart(mode)` (`game_start`, sent from `app.vue` `startGame` with mode `new` or `saved`; a corrupt save that falls back to a new game counts as `new`), `logTutorialComplete()` (`tutorial_complete`, sent from `State.checkTutorial` when the tutorial completes).
+
 ### Storage (`src/js/engine/storage.js`)
 
 Thin `localStorage` wrapper for persisting user preferences and game state. Exposes `musicEnabled` and `soundEnabled` as getter/setter pairs (default `true`). Used by `Audio` to persist toggle state across sessions. Also exposes `autosaveEnabled` (default `true`) and `autosaveInterval` (default `AUTOSAVE_DEFAULT_INTERVAL`, clamped to min/max bounds) getter/setter pairs for autosave configuration. Also exposes `tradeAmount` (default `MARKET_TRADE_AMOUNT`) for persisting the market trade lot size. Exposes a `savedGame` getter (JSON parse, `null` on missing/corrupt data), `writeSavedGame(value)` (JSON stringify; returns `false` when storage is blocked or full) and `deleteSavedGame()` for save/load persistence.

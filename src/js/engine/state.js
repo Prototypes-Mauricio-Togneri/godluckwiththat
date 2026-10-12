@@ -1,6 +1,7 @@
 // Central game state container — mutation handler, game loop, and player actions.
 
 import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_RATES, RESEARCH_COSTS, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import analytics from '@/js/engine/analytics.js'
 import {IMG_OTHER_TERRITORY, IMG_RESOURCE_FAITH, IMG_RESOURCE_KNOWLEDGE, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_CREATED, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
 import storage from '@/js/engine/storage.js'
@@ -1316,6 +1317,10 @@ class State {
       // so players see every explanation before the tutorial ends
       if (tutorial.allModalsDismissed) {
         tutorial.completed = true
+        // Loading an older save can replay completion; report only the first one on this device
+        if (!storage.tutorialCompleted) {
+          analytics.logTutorialComplete()
+        }
         storage.tutorialCompleted = true
       }
       return
@@ -1330,6 +1335,10 @@ class State {
         // otherwise completion is deferred until the next checkTutorial call
         if (tutorial.allModalsDismissed) {
           tutorial.completed = true
+          // Loading an older save can replay completion; report only the first one on this device
+          if (!storage.tutorialCompleted) {
+            analytics.logTutorialComplete()
+          }
           storage.tutorialCompleted = true
         }
         return

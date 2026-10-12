@@ -42,6 +42,23 @@ import Resources from '@/js/models/resources.js'
 // Whether the app is running in a local development environment
 export const IS_DEV = import.meta.env.DEV
 
+// Firebase web app configuration (public by design; identifies the project, grants no access)
+export const FIREBASE_CONFIG = {
+  apiKey: 'AIzaSyDqXvxNcmyrFhrV4vb_UozS0BbBjO_Hje8',
+  authDomain: 'god-luck-with-that.firebaseapp.com',
+  projectId: 'god-luck-with-that',
+  storageBucket: 'god-luck-with-that.firebasestorage.app',
+  messagingSenderId: '676925285254',
+  appId: '1:676925285254:web:d84d8307f137e148878207',
+  measurementId: 'G-FP50VBQH4N',
+}
+
+// Hostnames where analytics stays disabled (local dev server and local preview builds)
+export const ANALYTICS_EXCLUDED_HOSTNAMES = [
+  'localhost',
+  '127.0.0.1',
+]
+
 // Tick interval in milliseconds
 export const TICK_INTERVAL = 1000
 

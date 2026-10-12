@@ -296,3 +296,11 @@ export const STORAGE_AUTOSAVE_ENABLED = 'autosaveEnabled'
 export const STORAGE_AUTOSAVE_INTERVAL = 'autosaveInterval'
 export const STORAGE_TUTORIAL_COMPLETED = 'tutorialCompleted'
 export const STORAGE_TRADE_AMOUNT = 'tradeAmount'
+
+// Analytics event names
+export const ANALYTICS_EVENT_GAME_START = 'game_start'
+export const ANALYTICS_EVENT_TUTORIAL_COMPLETE = 'tutorial_complete'
+
+// Analytics game start modes
+export const ANALYTICS_GAME_MODE_NEW = 'new'
+export const ANALYTICS_GAME_MODE_SAVED = 'saved'
