@@ -958,6 +958,79 @@ describe('State', () => {
       state.advanceResearch(1)
       expect(state.colony.buildings.academy.completed.size).toBe(0)
     })
+
+    it('should dismiss population limit event when habitation research raises the cap', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 200,
+            workers: 9,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+            },
+            academy: {
+              level: 1,
+              active: [
+                {
+                  key: 'habitation1',
+                  remainingSeconds: 1,
+                  duration: 10,
+                },
+              ],
+            },
+          },
+        },
+      })
+      state.update(0)
+      // workersCap = 1 * 10 = 10
+      state._recruit()
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_POPULATION_LIMIT_REACHED)).toBe(true)
+      state.advanceResearch(1)
+      expect(state.colony.buildings.house.workersCap).toBe(11)
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_POPULATION_LIMIT_REACHED)).toBe(false)
+      // Reaching the raised cap warns again
+      audio.playSound.mockClear()
+      state._recruit()
+      expect(state.colony.resources.workers).toBe(11)
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_POPULATION_LIMIT_REACHED)).toBe(true)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_NOTIFICATION_ALERT)
+    })
+
+    it('should keep population limit event when completed research leaves workers at the cap', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 10,
+          },
+          buildingOverrides: {
+            house: {
+              level: 1,
+            },
+            academy: {
+              level: 1,
+              active: [
+                {
+                  key: 'foodProduction1',
+                  remainingSeconds: 1,
+                  duration: 10,
+                },
+              ],
+            },
+          },
+        },
+      })
+      state.update(0)
+      // workersCap = 1 * 10 = 10
+      state.colony.events.addPast({
+        type: EVENT_TYPE_POPULATION_LIMIT_REACHED,
+        textKey: 'event.populationLimitReached',
+        icon: '',
+      })
+      state.advanceResearch(1)
+      expect(state.colony.events.hasPastEvent(EVENT_TYPE_POPULATION_LIMIT_REACHED)).toBe(true)
+    })
   })
 
   // ── advanceEvents ────────────────────────────────────────────────

@@ -85,7 +85,7 @@ export const LOCALIZED_ES = {
   'modal.buildingHelp.tooltip': 'Ayuda',
   'modal.buildingHelp.close': 'Cerrar',
   'modal.researchHelp.title': 'Investigación',
-  'modal.researchHelp.body': 'Gasta conocimiento y otros recursos en la academia para desbloquear bonificaciones permanentes. Solo una investigación puede estar activa por categoría. Las bonificaciones completadas se acumulan.',
+  'modal.researchHelp.body': 'Gasta conocimiento y otros recursos en la academia para desbloquear bonificaciones permanentes. Pueden hacerse varias investigaciones a la vez, pero solo una por línea de investigación (como Transporte), ya que los niveles de cada línea se desbloquean en orden. Las bonificaciones completadas se acumulan.',
   'modal.marketHelp.title': 'Mercado',
   'modal.marketHelp.body': 'Compra y vende recursos (comida, madera, piedra, cobre, hierro) usando oro. La cantidad por operación empieza en {0} y se puede ajustar.\nCada recurso tiene un precio por cada {0} unidades. Comprar lo sube {1} de oro por cada {0} unidades y pagas el precio ya subido; vender lo baja {1} de oro por cada {0} unidades y recibes el precio ya bajado. Las operaciones grandes mueven más el precio.\nSe aplica una tarifa a cada transacción: pagas más al comprar y recibes menos al vender. La tarifa base comienza en {2}% y disminuye un {3}% por cada nivel del edificio mercado, hasta un mínimo de {4}%.\nLas operaciones se bloquean si no tienes suficiente oro o recursos, o si tu almacén está lleno.\nEs un sistema simple de oferta y demanda — comprar sube los precios, vender los baja. Las dos variables principales que afectan el comercio son el nivel del edificio mercado (reduce la tarifa) y el historial de operaciones (modifica los precios).',
 

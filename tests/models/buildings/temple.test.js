@@ -24,6 +24,14 @@ describe('Temple', () => {
       expect(temple.levelUpCost.stone).toBe(expected.stone)
     })
 
+    it('should not lose a unit to float rounding at level 2', () => {
+      const temple = new Temple({
+        level: 2,
+      })
+      expect(temple.levelUpCost.wood).toBe(98)
+      expect(temple.levelUpCost.stone).toBe(49)
+    })
+
     it('should increase with level', () => {
       expect(new Temple({
         level: 5,

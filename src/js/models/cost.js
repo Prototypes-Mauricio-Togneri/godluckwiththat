@@ -1,5 +1,6 @@
 import {RESOURCE_TIME_EXPONENT, RESOURCE_TIME_WEIGHTS} from '@/js/engine/balancing.js'
 import {RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
+import {floorWithTolerance} from '@/js/engine/utils.js'
 
 /**
  * Multi-resource cost holder.
@@ -73,14 +74,14 @@ class Cost {
    */
   multiplyFloor(factor) {
     return new Cost({
-      food: Math.floor(this.food * factor),
-      wood: Math.floor(this.wood * factor),
-      stone: Math.floor(this.stone * factor),
-      copper: Math.floor(this.copper * factor),
-      iron: Math.floor(this.iron * factor),
-      gold: Math.floor(this.gold * factor),
-      knowledge: Math.floor(this.knowledge * factor),
-      faith: Math.floor(this.faith * factor),
+      food: floorWithTolerance(this.food * factor),
+      wood: floorWithTolerance(this.wood * factor),
+      stone: floorWithTolerance(this.stone * factor),
+      copper: floorWithTolerance(this.copper * factor),
+      iron: floorWithTolerance(this.iron * factor),
+      gold: floorWithTolerance(this.gold * factor),
+      knowledge: floorWithTolerance(this.knowledge * factor),
+      faith: floorWithTolerance(this.faith * factor),
     })
   }
 

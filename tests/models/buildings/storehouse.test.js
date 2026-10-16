@@ -33,6 +33,13 @@ describe('Storehouse', () => {
       expect(withBonus).toBeGreaterThan(withoutBonus)
     })
 
+    it('should not lose a unit when the exact capacity is a whole number', () => {
+      const storehouse = new Storehouse({
+        level: 3,
+      })
+      expect(storehouse.storageCap()).toBe(864)
+    })
+
     it('should floor the result', () => {
       const storehouse = new Storehouse({
         level: 2,

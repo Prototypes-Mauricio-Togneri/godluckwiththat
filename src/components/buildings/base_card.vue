@@ -6,9 +6,9 @@ import {IMG_OTHER_BUILD, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/
 import {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull, formatTime} from '@/js/engine/format.js'
 import {BUILDING_CLASS_MAP, DOWNGRADABLE_BUILDINGS} from '@/js/engine/constants.js'
-import {HOUSE_POPULATION_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, PRODUCTION_RATES, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
+import {HOUSE_POPULATION_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, PRODUCTION_RATES, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
 import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER} from '@/js/engine/enums.js'
-import {canAffordCost, marketFeePercent} from '@/js/engine/utils.js'
+import {canAffordCost, marketFeePercent, storageCapacity} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 
 const props = defineProps({
@@ -79,8 +79,8 @@ const actionTooltip = computed(() => {
   if (props.buildingKey === BUILDING_STOREHOUSE) {
     const level = props.building.level
     const bonus = ui.storageBonus
-    const currentCap = Math.floor(STOREHOUSE_BASE_CAPACITY * Math.pow(STOREHOUSE_CAPACITY_MULTIPLIER, level) * (1 + bonus))
-    const nextCap = Math.floor(STOREHOUSE_BASE_CAPACITY * Math.pow(STOREHOUSE_CAPACITY_MULTIPLIER, level + 1) * (1 + bonus))
+    const currentCap = storageCapacity(level, bonus)
+    const nextCap = storageCapacity(level + 1, bonus)
     return baseText + '\n' + t('building.levelUpBonus.capacity', formatNumber(nextCap - currentCap))
   }
   if (props.buildingKey === BUILDING_MONUMENT) {

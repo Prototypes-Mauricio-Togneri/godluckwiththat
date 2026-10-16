@@ -23,11 +23,11 @@ let rafId = null
 
 const tradeAmount = ref(storage.tradeAmount)
 
-/** Available trade amounts: 100, 1000, 10000, ... up to storageCap. */
+/** Available trade amounts: 100, 1000, 10000, ... up to storageCap (stops at Infinity so a hand-edited save can't hang the loop). */
 const availableAmounts = computed(() => {
   const amounts = []
   let value = MARKET_TRADE_AMOUNT
-  while (value <= ui.storageCap) {
+  while (value <= ui.storageCap && Number.isFinite(value)) {
     amounts.push(value)
     value *= 10
   }

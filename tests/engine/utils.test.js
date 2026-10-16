@@ -1,7 +1,7 @@
 import {describe, it, expect} from 'vitest'
-import {MARKET_BASE_FEE, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_MIN_FEE, MARKET_PRICE_SHIFT} from '@/js/engine/balancing.js'
+import {MARKET_BASE_FEE, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_MIN_FEE, MARKET_PRICE_SHIFT, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER} from '@/js/engine/balancing.js'
 import {TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
-import {canAffordCost, marketFeePercent, marketTradeQuote} from '@/js/engine/utils.js'
+import {canAffordCost, floorWithTolerance, marketFeePercent, marketTradeQuote, storageCapacity} from '@/js/engine/utils.js'
 import {createCost} from '../helpers/factories.js'
 
 describe('canAffordCost', () => {
@@ -112,6 +112,29 @@ describe('canAffordCost', () => {
   })
 })
 
+describe('floorWithTolerance', () => {
+  it('should floor fractional values', () => {
+    expect(floorWithTolerance(4.2)).toBe(4)
+    expect(floorWithTolerance(62.5)).toBe(62)
+  })
+
+  it('should not lose a unit when a whole-number product evaluates slightly low', () => {
+    expect(floorWithTolerance(45 * 1.4)).toBe(63)
+    expect(floorWithTolerance(50 * Math.pow(1.4, 2))).toBe(98)
+  })
+})
+
+describe('storageCapacity', () => {
+  it('should match formula: base * multiplier ^ level * (1 + bonus)', () => {
+    expect(storageCapacity(1, 0)).toBe(Math.floor(STOREHOUSE_BASE_CAPACITY * STOREHOUSE_CAPACITY_MULTIPLIER))
+  })
+
+  it('should not lose a unit when the exact capacity is a whole number', () => {
+    expect(storageCapacity(3, 0)).toBe(864)
+    expect(storageCapacity(2, 0.15)).toBe(828)
+  })
+})
+
 describe('marketFeePercent', () => {
   const basePercent = Math.round(MARKET_BASE_FEE * 100)
   const minPercent = Math.round(MARKET_MIN_FEE * 100)
@@ -157,6 +180,12 @@ describe('marketTradeQuote', () => {
   it('should apply the fee once to the total and floor it', () => {
     expect(marketTradeQuote(100, TRADE_BUY, 10, 0.05).gold).toBe(Math.floor((1000 + MARKET_PRICE_SHIFT * 55) * 1.05))
     expect(marketTradeQuote(130, TRADE_SELL, 10, 0.05).gold).toBe(Math.floor((1300 - MARKET_PRICE_SHIFT * 55) * 0.95))
+  })
+
+  it('should not lose a gold when the fee-adjusted total is a whole number', () => {
+    // Sell lot total 90 at a 30% fee pays exactly 63; buy lot total 100 at a 16% fee costs exactly 116
+    expect(marketTradeQuote(90 + MARKET_PRICE_SHIFT, TRADE_SELL, 1, 0.30).gold).toBe(63)
+    expect(marketTradeQuote(100 - MARKET_PRICE_SHIFT, TRADE_BUY, 1, 0.16).gold).toBe(116)
   })
 
   it('should trade remaining lots at the price floor once it is reached', () => {

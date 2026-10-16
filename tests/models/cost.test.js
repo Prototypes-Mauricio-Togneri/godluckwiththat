@@ -106,6 +106,16 @@ describe('Cost', () => {
       expect(result.food).toBe(4)
     })
 
+    it('should not lose a unit when a whole-number product evaluates slightly low', () => {
+      const cost = createCost({
+        wood: 50,
+        stone: 25,
+      })
+      const result = cost.multiplyFloor(Math.pow(1.4, 2))
+      expect(result.wood).toBe(98)
+      expect(result.stone).toBe(49)
+    })
+
     it('should handle factor of 0', () => {
       const cost = createCost({
         food: 100,

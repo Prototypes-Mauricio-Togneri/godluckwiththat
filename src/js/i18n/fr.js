@@ -85,7 +85,7 @@ export const LOCALIZED_FR = {
   'modal.buildingHelp.tooltip': 'Aide',
   'modal.buildingHelp.close': 'Fermer',
   'modal.researchHelp.title': 'Recherche',
-  'modal.researchHelp.body': 'Dépensez du savoir et d\'autres ressources à l\'académie pour débloquer des bonus permanents. Une seule recherche peut être active par catégorie. Les bonus complétés se cumulent.',
+  'modal.researchHelp.body': 'Dépensez du savoir et d\'autres ressources à l\'académie pour débloquer des bonus permanents. Plusieurs recherches peuvent avancer en même temps, mais une seule par ligne de recherche (comme Transport), car les niveaux de chaque ligne se débloquent dans l\'ordre. Les bonus complétés se cumulent.',
   'modal.marketHelp.title': 'Marché',
   'modal.marketHelp.body': 'Achetez et vendez des ressources (nourriture, bois, pierre, cuivre, fer) en utilisant de l\'or. La quantité par échange commence à {0} et peut être ajustée.\nChaque ressource a un prix pour {0} unités. Acheter l\'augmente de {1} en or par tranche de {0} unités et vous payez le prix augmenté ; vendre le diminue de {1} en or par tranche de {0} unités et vous recevez le prix diminué. Les gros échanges font davantage bouger le prix.\nDes frais s\'appliquent à chaque transaction : vous payez plus à l\'achat et recevez moins à la vente. Les frais de base commencent à {2}% et diminuent de {3}% par niveau du bâtiment marché, jusqu\'à un minimum de {4}%.\nLes échanges sont bloqués si vous manquez d\'or ou de ressources, ou si votre entrepôt est plein.\nC\'est un système simple d\'offre et demande — acheter fait monter les prix, vendre les fait baisser. Les deux variables principales affectant le commerce sont le niveau du bâtiment marché (réduit les frais) et l\'historique des échanges (modifie les prix).',
 

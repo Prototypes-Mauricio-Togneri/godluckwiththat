@@ -979,10 +979,12 @@ const actions = {
   },
   selectBlessing: (index) => {
     state.selectBlessing(index)
+    resumeClocks()
     syncUI()
   },
   acknowledgePunishment: () => {
     state.acknowledgePunishment()
+    resumeClocks()
     syncUI()
   },
 }
@@ -1136,10 +1138,7 @@ function handleEventAction(action) {
  */
 function handleWinContinue() {
   state.continueAfterWin()
-  const now = performance.now()
-  lastTickTime = now
-  lastProgressTickTime = now
-  lastUISyncTime = now
+  resumeClocks()
   syncUI()
 }
 
@@ -1156,6 +1155,7 @@ function dismissTutorialModal() {
     tutorial.activeModal = null
     if (!state.challengeModal) {
       state.paused = false
+      resumeClocks()
     }
     syncUI()
   }
@@ -1188,6 +1188,7 @@ const MAX_CATCH_UP_GAP = 300 // Max real-time gap (seconds) credited in full; lo
 const MAX_CATCH_UP_DELTA = MAX_CATCH_UP_GAP * Math.max(...GAME_SPEED_OPTIONS) // Max game seconds per catch-up, even if a hand-edited save holds an out-of-range speed
 const UI_SYNC_INTERVAL = 50 // ms (~20fps visual updates)
 let lastUISyncTime = 0
+let pausedAt = null // performance.now() when the current pause began, or null while running
 
 // --- Perf overlay ---
 const perfOverlay = ref(null)
@@ -1215,6 +1216,35 @@ function gameDelta(elapsedMilliseconds) {
     return MAX_TICK_DELTA
   }
   return Math.min(MAX_CATCH_UP_DELTA, elapsedSeconds * state.meta.gameSpeed)
+}
+
+/**
+ * Records when the game paused, once per pause, so resuming can skip exactly the paused time.
+ * The loop clocks stay frozen while paused, keeping any production earned before the pause.
+ * @param {number} now - performance.now() timestamp of the step that saw the pause
+ */
+function markPauseStart(now) {
+  if (state.paused && pausedAt === null) {
+    pausedAt = now
+  }
+}
+
+/**
+ * Shifts the loop clocks forward by the paused time once the game runs again, so the next tick
+ * and frame credit only running time. No-op while the game is still paused.
+ */
+function resumeClocks() {
+  if (state.paused) {
+    return
+  }
+  const now = performance.now()
+  if (pausedAt !== null) {
+    const pausedDuration = now - pausedAt
+    lastTickTime += pausedDuration
+    lastProgressTickTime += pausedDuration
+    pausedAt = null
+  }
+  lastUISyncTime = now
 }
 
 /**
@@ -1262,13 +1292,13 @@ function catchUp(now, includeProgress) {
 function gameTick() {
   const now = performance.now()
   if (state.paused) {
-    lastTickTime = now
-    lastProgressTickTime = now
+    markPauseStart(now)
     return
   }
   // Also advance progress when rAF is suspended (background tab) or more than a tick behind (first tick back from one)
   const tickStart = now
   catchUp(now, document.hidden || now - lastProgressTickTime > TICK_INTERVAL)
+  markPauseStart(now)
   perfGameTickTime += performance.now() - tickStart
   perfGameTickCount++
 
@@ -1281,6 +1311,7 @@ function gameTick() {
 /** rAF loop for smooth visual progress (season, construction, research, events). */
 function progressTick() {
   if (state.paused) {
+    markPauseStart(performance.now())
     progressAnimFrame = requestAnimationFrame(progressTick)
     return
   }
@@ -1297,6 +1328,7 @@ function progressTick() {
     lastProgressTickTime = now
     advanceProgress(delta)
   }
+  markPauseStart(now)
   // Full sync after a catch-up, when a construction, upgrade, or research just completed, or a tutorial modal was triggered (always immediate)
   const justCompleted = resumed || state._constructingKeys.size < prevConstructing || (!state._hqUpgrading && prevHqUpgrading) || state.colony.buildings.academy.active.size < prevResearchActive || state.paused
   if (justCompleted) {
@@ -1390,6 +1422,7 @@ function handleKeydown(event) {
 watch(showModal, (isOpen) => {
   if (isOpen) {
     state.paused = true
+    markPauseStart(performance.now())
     clearInterval(tickTimer)
     tickTimer = null
     cancelAnimationFrame(progressAnimFrame)
@@ -1397,10 +1430,8 @@ watch(showModal, (isOpen) => {
     stopAutosave()
   } else if (!showConfirmQuit.value && !showConfirmRestart.value) {
     state.paused = false
+    resumeClocks()
     const now = performance.now()
-    lastTickTime = now
-    lastProgressTickTime = now
-    lastUISyncTime = now
     perfFrameCount = 0
     perfFrameTimeSum = 0
     perfSyncUITime = 0

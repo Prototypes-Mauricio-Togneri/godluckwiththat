@@ -640,6 +640,13 @@ class State {
     }
     if (completed.length > 0) {
       this.update(0)
+      // Habitation research raises the population cap, so the limit warning may no longer apply
+      const {
+        resources, buildings,
+      } = this.colony
+      if (resources.workers < buildings.house.workersCap) {
+        this.colony.events.dismissPastByType(EVENT_TYPE_POPULATION_LIMIT_REACHED)
+      }
     }
   }
 
