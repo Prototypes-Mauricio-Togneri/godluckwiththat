@@ -1,7 +1,20 @@
-import {BUILDING_UPGRADES, MARKET_BASE_PRICES, MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
+import {BUILDING_UPGRADES, MARKET_BASE_PRICES, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
 import {BUILDING_MARKET, RESOURCE_COPPER, RESOURCE_FOOD, RESOURCE_IRON, RESOURCE_STONE, RESOURCE_WOOD, TRADE_BUY} from '@/js/engine/enums.js'
 import {marketFeePercent, marketTradeQuote} from '@/js/engine/utils.js'
 import Building from '@/js/models/buildings/building.js'
+
+/**
+ * Restores a saved market price within the allowed trading range.
+ * @param {number} price - Saved price
+ * @param {number} basePrice - Price used when the saved value is not finite
+ * @returns {number} Valid current price
+ */
+function restoredPrice(price, basePrice) {
+  if (!Number.isFinite(price)) {
+    return basePrice
+  }
+  return Math.min(MARKET_MAX_CURRENT_PRICE, Math.max(MARKET_MIN_CURRENT_PRICE, price))
+}
 
 /**
  * Enables trading food, wood, stone, copper, and iron for gold.
@@ -19,15 +32,15 @@ import Building from '@/js/models/buildings/building.js'
  */
 class Market extends Building {
   /**
-   * @param {Object} data - Initial building data + optional price overrides (non-numeric saved prices fall back to base prices)
+   * @param {Object} data - Initial building data + optional price overrides (non-finite saved prices fall back to base prices)
    */
   constructor(data) {
     super(data)
-    this[RESOURCE_FOOD] = Number.isFinite(data[RESOURCE_FOOD]) ? data[RESOURCE_FOOD] : MARKET_BASE_PRICES[RESOURCE_FOOD] // Current gold price per 100 food
-    this[RESOURCE_WOOD] = Number.isFinite(data[RESOURCE_WOOD]) ? data[RESOURCE_WOOD] : MARKET_BASE_PRICES[RESOURCE_WOOD] // Current gold price per 100 wood
-    this[RESOURCE_STONE] = Number.isFinite(data[RESOURCE_STONE]) ? data[RESOURCE_STONE] : MARKET_BASE_PRICES[RESOURCE_STONE] // Current gold price per 100 stone
-    this[RESOURCE_COPPER] = Number.isFinite(data[RESOURCE_COPPER]) ? data[RESOURCE_COPPER] : MARKET_BASE_PRICES[RESOURCE_COPPER] // Current gold price per 100 copper
-    this[RESOURCE_IRON] = Number.isFinite(data[RESOURCE_IRON]) ? data[RESOURCE_IRON] : MARKET_BASE_PRICES[RESOURCE_IRON] // Current gold price per 100 iron
+    this[RESOURCE_FOOD] = restoredPrice(data[RESOURCE_FOOD], MARKET_BASE_PRICES[RESOURCE_FOOD]) // Current gold price per 100 food
+    this[RESOURCE_WOOD] = restoredPrice(data[RESOURCE_WOOD], MARKET_BASE_PRICES[RESOURCE_WOOD]) // Current gold price per 100 wood
+    this[RESOURCE_STONE] = restoredPrice(data[RESOURCE_STONE], MARKET_BASE_PRICES[RESOURCE_STONE]) // Current gold price per 100 stone
+    this[RESOURCE_COPPER] = restoredPrice(data[RESOURCE_COPPER], MARKET_BASE_PRICES[RESOURCE_COPPER]) // Current gold price per 100 copper
+    this[RESOURCE_IRON] = restoredPrice(data[RESOURCE_IRON], MARKET_BASE_PRICES[RESOURCE_IRON]) // Current gold price per 100 iron
     this.blessedMarkets = false // Set by State.update() when BLESSED_MARKETS blessing is active
   }
 

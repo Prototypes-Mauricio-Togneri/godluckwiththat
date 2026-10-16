@@ -1,14 +1,3 @@
-### [b/validation-and-coercion/market/negative-saved-price] A negative saved market price grants gold on purchase
-
-- **Location:** `src/js/models/buildings/market.js:26`; related: `src/js/engine/utils.js:73`, `src/js/models/buildings/market.js:79`, `src/js/engine/state.js:1481`.
-- **Severity:** Medium.
-- **Confidence:** High.
-- **Likelihood:** Low. Ordinary trading respects price bounds; the trigger requires a malformed or hand-edited local save.
-- **Defect:** Market restoration accepts any finite price, including negative values. A buy quote can then be negative, and subtracting that quote adds gold while also granting the purchased resource.
-- **Trigger:** Load a save with a built market whose saved food price is `-100`, then buy one 100-unit food lot with room in storage.
-- **Evidence / verification:** The constructor accepts `-100`; the one-lot buy quote shifts it to `-97` before the fee, producing a negative gold cost. The affordability and storage checks do not reject that cost, and the load path does not clamp it. A separate refutation checked the quote bounds, trade guards, and modal guard; none blocks this path. Verified statically; tests were not run.
-- **Suggested fix:** Validate restored prices against the configured minimum and maximum before any trade, or reject invalid saved market state.
-
 ### [a/state-and-lifecycle/tutorial/dropped-challenge-explanation] A simultaneous popup can discard a challenge tutorial step
 
 - **Location:** `src/js/engine/state.js:1377`; related: `src/components/screens/game_screen.vue:1283`, `src/js/engine/state.js:700`, `src/js/models/tutorial.js:35`.

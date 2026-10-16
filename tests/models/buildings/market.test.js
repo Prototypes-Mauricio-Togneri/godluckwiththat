@@ -32,6 +32,16 @@ describe('Market', () => {
       expect(market[RESOURCE_FOOD]).toBe(MARKET_BASE_PRICES[RESOURCE_FOOD])
       expect(market[RESOURCE_WOOD]).toBe(MARKET_BASE_PRICES[RESOURCE_WOOD])
     })
+
+    it('should clamp saved prices to the trading bounds', () => {
+      const market = new Market({
+        level: 1,
+        food: -100,
+        wood: MARKET_MAX_CURRENT_PRICE + 1,
+      })
+      expect(market[RESOURCE_FOOD]).toBe(MARKET_MIN_CURRENT_PRICE)
+      expect(market[RESOURCE_WOOD]).toBe(MARKET_MAX_CURRENT_PRICE)
+    })
   })
 
   describe('levelUpCost', () => {
@@ -74,6 +84,21 @@ describe('Market', () => {
   })
 
   describe('executeTrade', () => {
+    it('should not grant gold or food from a negative saved price', () => {
+      const market = new Market({
+        level: 1,
+        food: -100,
+      })
+      const resources = createResources({
+        gold: 0,
+        food: 0,
+      })
+
+      expect(market.executeTrade(RESOURCE_FOOD, TRADE_BUY, resources, 10000)).toBe(false)
+      expect(resources.gold).toBe(0)
+      expect(resources.food).toBe(0)
+    })
+
     it('should buy: deduct gold, add resource, raise price', () => {
       const market = new Market({
         level: 1,
