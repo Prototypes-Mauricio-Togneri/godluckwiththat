@@ -2508,6 +2508,27 @@ describe('State', () => {
       expect(restored.paused).toBe(true)
     })
 
+    it('should finish an older tutorial save without pausing for its saved modal after device completion', async () => {
+      const state = await createState({
+        metaOverrides: {
+          tutorial: new Tutorial({
+            currentStep: 3,
+            completed: false,
+            activeModal: TUTORIAL_MODAL_NEGATIVE_PRODUCTION,
+          }),
+        },
+      })
+      const json = state.toJSON()
+      storage.tutorialCompleted = true
+      const {
+        default: State,
+      } = await import('@/js/engine/state.js')
+      const restored = State.fromJSON(json)
+      expect(restored.meta.tutorial.completed).toBe(true)
+      expect(restored.meta.tutorial.activeModal).toBeNull()
+      expect(restored.paused).toBe(false)
+    })
+
     it('should default resourcesAtCap to empty set when missing from data', async () => {
       const state = await createState()
       const json = state.toJSON()

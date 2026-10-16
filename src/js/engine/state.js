@@ -1481,6 +1481,12 @@ class State {
   static fromJSON(data) {
     try {
       const meta = Meta.fromJSON(data.meta)
+      // A tutorial completed on this device stays complete when an older save is loaded.
+      // Clear its saved modal so it cannot leave the restored game paused.
+      if (storage.tutorialCompleted) {
+        meta.tutorial.completed = true
+        meta.tutorial.activeModal = null
+      }
       const colony = Colony.fromJSON(data.colony, BUILDING_CLASS_MAP)
       const state = new State(meta, colony)
 
