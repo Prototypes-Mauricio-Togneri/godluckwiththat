@@ -117,7 +117,7 @@ There are two types of resources
     - Headquarters
   - Consumed to
     - Construct and upgrade buildings
-  - When territory is full, certain buildings (farm, woodcutter, quarry, mines, academy, temple, market, altar) can be downgraded by 1 level to free a slot. Downgrading is free, instant, and returns excess workers to idle
+  - When territory is full and expanding is impossible (the largest single resource in the expansion cost exceeds storage capacity), certain buildings (farm, woodcutter, quarry, mines, academy, temple, market, altar) can be downgraded by 1 level to free a slot. Downgrading is free, instant, and returns excess workers to idle
 - Workers
   - Recruited by spending food
   - The maximum population is determined by the house level

@@ -2,12 +2,12 @@
 // Exposes getter/setter pairs for music, sound, autosave, tutorial, and trade amount, plus saved game read/write/delete.
 
 import {STORAGE_AUTOSAVE_ENABLED, STORAGE_AUTOSAVE_INTERVAL, STORAGE_MUSIC_ENABLED, STORAGE_SAVED_GAME, STORAGE_SOUND_ENABLED, STORAGE_TRADE_AMOUNT, STORAGE_TUTORIAL_COMPLETED} from '@/js/engine/enums.js'
-import {AUTOSAVE_DEFAULT_INTERVAL} from '@/js/engine/constants.js'
+import {AUTOSAVE_DEFAULT_INTERVAL, AUTOSAVE_MAX_INTERVAL, AUTOSAVE_MIN_INTERVAL} from '@/js/engine/constants.js'
 import {MARKET_TRADE_AMOUNT} from '@/js/engine/balancing.js'
 
 /**
  * Thin wrapper around localStorage for persisting user preferences.
- * Defaults to enabled (true) when no value has been stored yet.
+ * Music and sound default to enabled (true) and autosave to disabled when no value has been stored yet.
  */
 class Storage {
   /** @returns {boolean} Whether music is enabled */
@@ -82,11 +82,16 @@ class Storage {
     } catch { /* quota exceeded */ }
   }
 
-  /** @returns {number} Autosave interval in minutes */
+  /** @returns {number} Autosave interval in minutes, clamped to the allowed range */
   get autosaveInterval() {
     try {
       const raw = window.localStorage.getItem(STORAGE_AUTOSAVE_INTERVAL)
-      return raw ? Number(raw) : AUTOSAVE_DEFAULT_INTERVAL
+      const value = Number(raw)
+      // Stored text can be hand-edited; a non-number would make autosave run almost constantly
+      if (!raw || !Number.isFinite(value)) {
+        return AUTOSAVE_DEFAULT_INTERVAL
+      }
+      return Math.min(AUTOSAVE_MAX_INTERVAL, Math.max(AUTOSAVE_MIN_INTERVAL, value))
     } catch {
       return AUTOSAVE_DEFAULT_INTERVAL
     }

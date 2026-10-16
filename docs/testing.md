@@ -29,8 +29,9 @@ Tests cover the **engine layer** and **model layer** — pure JavaScript classes
 | `balancing.test.js` | `BUILDING_UPGRADES` keys/values, season multiplier ranges, trade fee ranges                                                                      |
 | `escape_stack.test.js` | Only the most recently pushed handler receives Escape and stops the event, Escape returns to the previous handler on removal (top or lower), other keys ignored, a single window listener attached while handlers exist, unknown removals ignored |
 | `focus_stack.test.js` | Everything outside the topmost modal marked inert (not the modal or its ancestors, stopping at `<body>`), stacked and nested modals, removal order, elements added after opening marked too, focus returned to the previously focused element when the top modal closes, only its own marks cleared |
+| `storage.test.js`   | `autosaveInterval` read validation: default when missing or not a number, clamped to the allowed range, valid values kept, default when storage throws |
 | `constants.test.js` | `BUILDING_CLASS_MAP` keys/values, consistency with `BUILDING_UPGRADES`, factory functions (`createInitialColony`, `createInitialColonyBasic`, `createInitialColonyAdvanced`, `createInitialMeta`, `createInitialChallenges`), `TUTORIAL_STEPS` check functions |
-| `state.test.js`     | Game state machine (42 describe blocks, 247 tests): `constructor`, tick logic (`update`), `netProduction`, `expansionCost`, `advanceSeason`, `advanceConstruction`, `advanceResearch`, `advanceEvents`, `advanceChallenges`, `areChallengeRequirementsMet`, `selectBlessing`, `acknowledgePunishment`, `continueAfterWin`, `levelUpBuilding`, `recruitWorker`, `dismissWorkers`, `assignWorkers`, `unassignWorkers`, `startResearch`, `executeTrade`, `checkTutorial`, `expandTerritory`, `upgradeHeadquarters`, `downgradeBuilding`, serialization (`toJSON`/`fromJSON`), internal computations (`_computeGeneralProductivity`, `_computeSeasonMultipliers`, `_computeConsumptionRates`, `_computeProductionRates`, `_resolveChallengeTimeout`, `_deductRequirements`, `_completeChallenge`, `_failChallenge`, `_sacrificeWorkers`, `_advanceEffectTimeouts`, `_applyBlessing`, `_applyPunishment`, `_constructionDurationMult`, `_recruit`, `_triggerTutorialModal`, `_playAssignSound`, `_buildingName`) |
+| `state.test.js`     | Game state machine (42 describe blocks, 252 tests): `constructor`, tick logic (`update`), `netProduction`, `expansionCost`, `advanceSeason`, `advanceConstruction`, `advanceResearch`, `advanceEvents`, `advanceChallenges`, `areChallengeRequirementsMet`, `selectBlessing`, `acknowledgePunishment`, `continueAfterWin`, `levelUpBuilding`, `recruitWorker`, `dismissWorkers`, `assignWorkers`, `unassignWorkers`, `startResearch`, `executeTrade`, `checkTutorial`, `expandTerritory`, `upgradeHeadquarters`, `downgradeBuilding`, serialization (`toJSON`/`fromJSON`), internal computations (`_computeGeneralProductivity`, `_computeSeasonMultipliers`, `_computeConsumptionRates`, `_computeProductionRates`, `_resolveChallengeTimeout`, `_deductRequirements`, `_completeChallenge`, `_failChallenge`, `_sacrificeWorkers`, `_advanceEffectTimeouts`, `_applyBlessing`, `_applyPunishment`, `_constructionDurationMult`, `_recruit`, `_triggerTutorialModal`, `_playAssignSound`, `_buildingName`) |
 
 ### Models (`tests/models/`)
 
@@ -92,7 +93,7 @@ Notable depth by file:
 | `assets.js`                    | Auto-generated file (`npm run generate-assets`). Excluded from coverage.                                            |
 | `audio.js`                     | Browser Audio API wrapper. Mocked in tests that depend on it. Excluded from coverage.                               |
 | `main.js`                      | App bootstrap (Vue mount, game loop `requestAnimationFrame`). Excluded from coverage.                               |
-| `storage.js`                   | `localStorage` wrapper. Mocked in tests that depend on it. Excluded from coverage.                                  |
+| `storage.js`                   | `localStorage` wrapper. Mocked in tests that depend on it. Excluded from coverage. Only `autosaveInterval` read validation is tested (`storage.test.js`). |
 | Locale files (`i18n/*.js`)     | Static key-value data. Validated indirectly through `localized.test.js`. Excluded from coverage.                    |
 | E2E / integration              | No browser-level tests. Game is manually tested in the browser.                                                     |
 
@@ -124,7 +125,7 @@ Exports `VALID_BUILDING_KEYS` — a `Set` of all 20 `BUILDING_*` enum values. Us
 - **`localized.js`** is mocked to return raw keys (`t: (key) => key`) so tests do not depend on translation content.
 - **`analytics.js`** is mocked with `vi.fn()` stubs (`logTutorialComplete`) in state tests; `analytics.test.js` mocks `firebase/app` and `firebase/analytics` instead and stubs `window.location`.
 - **`audio.js`** is mocked with `vi.fn()` stubs (`playSound`) so tests run without the Web Audio API.
-- **`storage.js`** is mocked with default values so tests run without `localStorage`.
+- **`storage.js`** is mocked with default values in `state.test.js` so it runs without `localStorage`; `storage.test.js` imports the real module and stubs `window.localStorage` via `vi.stubGlobal`.
 - Browser globals (`navigator.language`, `document.documentElement`) are stubbed via `vi.stubGlobal` in i18n tests.
 - `vi.resetModules()` is used in i18n tests to re-evaluate module-level side effects between test cases.
 

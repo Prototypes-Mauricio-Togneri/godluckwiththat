@@ -5,7 +5,7 @@
  */
 
 import {existsSync, readdirSync, statSync, writeFileSync} from 'node:fs'
-import {basename, dirname, extname, join, relative} from 'node:path'
+import {basename, dirname, extname, join, relative, sep} from 'node:path'
 import {fileURLToPath} from 'node:url'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -31,7 +31,7 @@ const GROUP_LABELS = {
 
 /**
  * Recursively collects all files under a directory.
- * Returns paths relative to the base directory.
+ * Returns paths relative to the base directory, with '/' separators on every platform.
  */
 function collectFiles(dir, base = dir) {
   const entries = readdirSync(dir).sort()
@@ -41,7 +41,8 @@ function collectFiles(dir, base = dir) {
     if (statSync(full).isDirectory()) {
       files.push(...collectFiles(full, base))
     } else {
-      files.push(relative(base, full))
+      // Always use '/' so group lookups and emitted paths match on Windows too
+      files.push(relative(base, full).split(sep).join('/'))
     }
   }
   return files

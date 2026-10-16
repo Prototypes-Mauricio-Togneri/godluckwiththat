@@ -1420,12 +1420,16 @@ function handleKeydown(event) {
   if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
     return
   }
-  if (event.key === 'Escape') {
+  // Ignore auto-repeat so holding Escape (e.g. to close stacked modals) doesn't flicker the pause menu
+  if (event.key === 'Escape' && !event.repeat) {
     showModal.value = !showModal.value
   }
   if (event.key === 'F9') {
     event.preventDefault()
-    persistGame()
+    // Ignore auto-repeat so holding F9 saves once
+    if (!event.repeat) {
+      persistGame()
+    }
   }
   if (event.key === 'F3') {
     event.preventDefault()
@@ -1474,6 +1478,18 @@ watch(showModal, (isOpen) => {
 watch(() => ui.challengeModal, (challengeModal) => {
   if (challengeModal) {
     showChallengeModal.value = false
+  }
+})
+
+// A punishment can drop a mid-upgrade market or academy to level 0, which removes its card button; close its modal too
+watch(() => ui.buildings[BUILDING_MARKET]?.level, (level) => {
+  if (level < 1) {
+    showMarketModal.value = false
+  }
+})
+watch(() => ui.buildings[BUILDING_ACADEMY]?.level, (level) => {
+  if (level < 1) {
+    showResearchModal.value = false
   }
 })
 

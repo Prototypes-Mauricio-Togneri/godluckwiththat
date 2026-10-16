@@ -10,7 +10,7 @@ import Colony from '@/js/models/colony.js'
 import Consumption from '@/js/models/consumption.js'
 import Meta from '@/js/models/meta.js'
 import Production from '@/js/models/production.js'
-import {BLESSING_BLESSED_MARKETS, BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FAITH_PRODUCTION, BONUS_FOOD_CONSUMPTION, BONUS_FOOD_PRODUCTION, BONUS_HABITATION, BONUS_KNOWLEDGE_PRODUCTION, BONUS_MINING_PRODUCTION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WOOD_PRODUCTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, PUNISHMENT_CROP_FAILURE, PUNISHMENT_LANDSLIDE, PUNISHMENT_PLAGUE, PUNISHMENT_VOLCANO, PUNISHMENT_WILDFIRES, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE, TUTORIAL_MODAL_CHALLENGE_STARTED} from '@/js/engine/enums.js'
+import {BLESSING_BLESSED_MARKETS, BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FAITH_PRODUCTION, BONUS_FOOD_CONSUMPTION, BONUS_FOOD_PRODUCTION, BONUS_HABITATION, BONUS_KNOWLEDGE_PRODUCTION, BONUS_MINING_PRODUCTION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WOOD_PRODUCTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, PUNISHMENT_CROP_FAILURE, PUNISHMENT_LANDSLIDE, PUNISHMENT_PLAGUE, PUNISHMENT_VOLCANO, PUNISHMENT_WILDFIRES, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE, TUTORIAL_MODAL_CHALLENGE_STARTED} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -1325,6 +1325,11 @@ class State {
     if (!tutorial.isActive) {
       return
     }
+    // The HQ upgrade popup is dropped when another popup is open as the upgrade completes;
+    // show it once that one is dismissed, while its camp-to-settlement text still holds
+    if (this.colony.buildings.headquarters.type !== HQ_TYPE_CAMP) {
+      this._triggerTutorialModal(TUTORIAL_MODAL_HQ_UPGRADE)
+    }
     if (tutorial.allStepsCompleted) {
       // Steps done, but defer completion until all modals are dismissed
       // so players see every explanation before the tutorial ends
@@ -1438,6 +1443,36 @@ class State {
   }
 
   /**
+   * Rebuilds the translated names in upcoming events in the current language.
+   * Event parameters are saved already translated, so a save loaded under another
+   * browser language would otherwise show mixed languages (e.g. "Upgrading granja").
+   */
+  _relocalizeFutureEvents() {
+    for (const event of this.colony.events.future) {
+      if (!Array.isArray(event.params) || event.params.length === 0) {
+        continue
+      }
+      // A name with no translation (edited save, or a key renamed since) keeps its saved text instead of failing the load
+      if (event.type === EVENT_TYPE_CHALLENGE_STARTED) {
+        const name = t('challenge.name.' + event.params[0])
+        if (name) {
+          event.params[2] = name
+        }
+      } else if (event.researchKey) {
+        const name = t('research.' + event.researchKey)
+        if (name) {
+          event.params = [name.toLowerCase()]
+        }
+      } else if (event.buildingKey) {
+        const name = this._buildingName(event.buildingKey)
+        if (name) {
+          event.params = [name.toLowerCase()]
+        }
+      }
+    }
+  }
+
+  /**
    * Reconstructs a State instance from serialized data.
    * Returns null if data is corrupted or invalid.
    * @param {Object} data - Serialized state data
@@ -1459,6 +1494,7 @@ class State {
       if (state.challengeModal || meta.tutorial.activeModal) {
         state.paused = true
       }
+      state._relocalizeFutureEvents()
 
       state.update(0)
       return state
