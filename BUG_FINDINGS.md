@@ -1,28 +1,3 @@
-### [b/resource-and-configuration-parity/hosting/stale-index-html-with-catch-all-rewrite] Returning players can get a blank page after a deploy
-
-- **Location:** `firebase.json:11` (the no-cache rule only matches `**/*.html`). Related: `firebase.json:20` (`**/*.@(js|css)` no-store), `firebase.json:31-32` (catch-all rewrite to `/index.html`).
-- **Severity:** Medium
-- **Confidence:** Medium
-- **Likelihood:** Low. It needs a visit within the hour before a deploy and a return by normal navigation within the hour after it. A reload recovers.
-- **Defect:**
-  - The page at `/` does not match `**/*.html`, so it is served with Firebase's default `cache-control: max-age=3600`, and browsers may reuse it for up to an hour.
-  - After `npm run deploy` replaces the hashed bundle, that stale page requests the old `/assets/index-<hash>.js`.
-  - The catch-all rewrite answers with `index.html`: status 200, `text/html`. The browser refuses to run HTML as a module script, so the screen stays blank.
-  - The no-store rule on JS means no cached copy of the old bundle exists to fall back on.
-  - The app has no router, so the `**` rewrite serves no real route.
-- **Trigger:** A player opens the game. Within the next hour the developer deploys a build with a new bundle hash. The player then returns via bookmark or typed URL before the cached page expires.
-- **Evidence / verification:** Read-only HEAD requests to the live site (approved by the user):
-  - `/` returned `200`, `cache-control: max-age=3600`.
-  - `/index.html` returned `no-cache, no-store, must-revalidate`.
-  - `/assets/x.js` (does not exist) returned `200`, `content-type: text/html`, no-store.
-  - The build uses hashed file names and Vite empties `dist` on every build. The output is a single chunk with no service worker, so already-open sessions are unaffected.
-  - Remaining assumption: browsers reuse a fresh cached document on normal navigation without revalidating. A plain reload revalidates and recovers.
-- **Suggested fix:**
-  - Add `Cache-Control: no-cache` for source `/`, or for `**` with a long immutable override for `/assets/**`.
-  - Narrow or remove the `**` rewrite so missing `/assets/**` files return 404.
-
-## Low
-
 ### [a/null-and-numeric-hazards/economy-formulas/float-product-floored-without-tolerance] Costs, storage cap and market payouts lose one unit to floating-point rounding
 
 - **Location:** `src/js/models/cost.js:74-85` (`multiplyFloor`). Related: `src/js/models/buildings/storehouse.js:24-25`, `src/js/engine/utils.js:58` (`marketTradeQuote`), `src/components/buildings/base_card.vue:82-83`.
