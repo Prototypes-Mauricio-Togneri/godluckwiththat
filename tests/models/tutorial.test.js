@@ -11,6 +11,7 @@ describe('Tutorial', () => {
       expect(tutorial.dismissedModals).toBeInstanceOf(Set)
       expect(tutorial.dismissedModals.size).toBe(0)
       expect(tutorial.activeModal).toBeNull()
+      expect(tutorial.pendingModals).toEqual([])
     })
 
     it('should set provided values', () => {
@@ -37,6 +38,30 @@ describe('Tutorial', () => {
           toString: 1,
         },
       }).activeModal).toBeNull()
+    })
+
+    it('should restore only unique, undismissed known pending modals', () => {
+      const tutorial = createTutorial({
+        activeModal: 'seasonChanged',
+        dismissedModals: ['negativeProduction'],
+        pendingModals: [
+          'challengeStarted',
+          'challengeStarted',
+          'seasonChanged',
+          'negativeProduction',
+          'unknownModal',
+        ],
+      })
+      expect(tutorial.pendingModals).toEqual(['challengeStarted'])
+    })
+
+    it('should show a valid queued modal when the saved active modal is unknown', () => {
+      const tutorial = createTutorial({
+        activeModal: 'unknownModal',
+        pendingModals: ['challengeStarted'],
+      })
+      expect(tutorial.activeModal).toBe('challengeStarted')
+      expect(tutorial.pendingModals).toEqual([])
     })
   })
 
@@ -84,12 +109,14 @@ describe('Tutorial', () => {
         ],
       })
       original.activeModal = 'negativeProduction'
+      original.pendingModals = ['challengeStarted']
       const json = original.toJSON()
       const restored = new Tutorial(json)
       expect(restored.currentStep).toBe(7)
       expect(restored.completed).toBe(true)
       expect(restored.dismissedModals.size).toBe(2)
       expect(restored.activeModal).toBe('negativeProduction')
+      expect(restored.pendingModals).toEqual(['challengeStarted'])
     })
   })
 })

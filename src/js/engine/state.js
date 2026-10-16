@@ -1325,8 +1325,7 @@ class State {
     if (!tutorial.isActive) {
       return
     }
-    // The HQ upgrade popup is dropped when another popup is open as the upgrade completes;
-    // show it once that one is dismissed, while its camp-to-settlement text still holds
+    // Older saves may have lost this popup while another was open; recover it.
     if (this.colony.buildings.headquarters.type !== HQ_TYPE_CAMP) {
       this._triggerTutorialModal(TUTORIAL_MODAL_HQ_UPGRADE)
     }
@@ -1374,10 +1373,28 @@ class State {
       return
     }
     const tutorial = this.meta.tutorial
-    if (!tutorial.dismissedModals.has(key) && !tutorial.activeModal) {
+    if (tutorial.dismissedModals.has(key) || tutorial.activeModal === key || tutorial.pendingModals.includes(key)) {
+      return
+    }
+    if (tutorial.activeModal) {
+      tutorial.pendingModals.push(key)
+    } else {
       tutorial.activeModal = key
       this.paused = true
     }
+  }
+
+  /**
+   * Dismisses the active tutorial modal and shows the next queued explanation.
+   */
+  dismissTutorialModal() {
+    const tutorial = this.meta.tutorial
+    if (!tutorial.activeModal) {
+      return
+    }
+    tutorial.dismissedModals.add(tutorial.activeModal)
+    tutorial.activeModal = tutorial.pendingModals.shift() ?? null
+    this.paused = Boolean(tutorial.activeModal || this.challengeModal)
   }
 
   /**
@@ -1486,6 +1503,7 @@ class State {
       if (storage.tutorialCompleted) {
         meta.tutorial.completed = true
         meta.tutorial.activeModal = null
+        meta.tutorial.pendingModals = []
       }
       const colony = Colony.fromJSON(data.colony, BUILDING_CLASS_MAP)
       const state = new State(meta, colony)

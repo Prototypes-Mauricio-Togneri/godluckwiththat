@@ -8,6 +8,7 @@ import {TUTORIAL_MODALS, TUTORIAL_STEPS} from '@/js/engine/constants.js'
  * @property {boolean} completed - Whether the tutorial has been completed
  * @property {Set<string>} dismissedModals - Set of dismissed modal identifiers
  * @property {string|null} activeModal - Currently displayed modal identifier
+ * @property {string[]} pendingModals - Modal identifiers waiting to be displayed
  */
 class Tutorial {
   /**
@@ -20,6 +21,14 @@ class Tutorial {
     // Only restore a known modal key, so an edited or outdated save can't break the modal lookup
     const savedModal = data?.activeModal
     this.activeModal = Object.keys(TUTORIAL_MODALS).includes(savedModal) ? savedModal : null // Currently displayed modal identifier
+    const savedPending = Array.isArray(data?.pendingModals) ? data.pendingModals : []
+    this.pendingModals = [
+      ...new Set(savedPending.filter(key => Object.keys(TUTORIAL_MODALS).includes(key)
+      && key !== this.activeModal && !this.dismissedModals.has(key))),
+    ] // Undelivered modal identifiers
+    if (!this.activeModal && this.pendingModals.length > 0) {
+      this.activeModal = this.pendingModals.shift()
+    }
   }
 
   /** @returns {boolean} Whether the tutorial is still in progress */
@@ -47,6 +56,7 @@ class Tutorial {
       completed: this.completed,
       dismissedModals: [...this.dismissedModals],
       activeModal: this.activeModal,
+      pendingModals: this.pendingModals,
     }
   }
 }

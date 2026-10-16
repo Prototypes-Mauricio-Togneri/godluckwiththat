@@ -1219,6 +1219,44 @@ describe('State', () => {
       expect(audio.playSound).toHaveBeenCalledWith(SND_NOTIFICATION_ALERT)
     })
 
+    it('should show the challenge explanation after a simultaneous season popup closes', async () => {
+      const activeChallenge = createChallenge({
+        status: CHALLENGE_STATUS_ACTIVATED,
+        delay: 60,
+        delayElapsed: 59,
+      })
+      const state = await createState({
+        metaOverrides: {
+          challenges: createChallenges({
+            active: activeChallenge,
+            pending: [],
+          }),
+          tutorial: new Tutorial({
+            completed: false,
+          }),
+        },
+        colonyOverrides: {
+          season: {
+            seasonElapsed: SEASON_DURATION - 1,
+          },
+        },
+      })
+      state.advanceSeason(1)
+      state.advanceChallenges(1)
+      expect(state.meta.challenges.active.status).toBe(CHALLENGE_STATUS_STARTED)
+      expect(state.meta.tutorial.activeModal).toBe(TUTORIAL_MODAL_SEASON_CHANGED)
+      expect(state.meta.tutorial.pendingModals).toEqual([TUTORIAL_MODAL_CHALLENGE_STARTED])
+
+      state.dismissTutorialModal()
+      expect(state.meta.tutorial.activeModal).toBe(TUTORIAL_MODAL_CHALLENGE_STARTED)
+      expect(state.meta.tutorial.pendingModals).toEqual([])
+      expect(state.paused).toBe(true)
+
+      state.dismissTutorialModal()
+      expect(state.meta.tutorial.dismissedModals.has(TUTORIAL_MODAL_CHALLENGE_STARTED)).toBe(true)
+      expect(state.paused).toBe(false)
+    })
+
     it('should resolve challenge when timeout elapses and requirements met', async () => {
       const activeChallenge = createChallenge({
         status: CHALLENGE_STATUS_STARTED,
@@ -2508,6 +2546,39 @@ describe('State', () => {
       expect(restored.paused).toBe(true)
     })
 
+    it('should restore a queued tutorial explanation after a save', async () => {
+      const state = await createState({
+        metaOverrides: {
+          tutorial: new Tutorial({
+            completed: false,
+            activeModal: TUTORIAL_MODAL_SEASON_CHANGED,
+            pendingModals: [TUTORIAL_MODAL_CHALLENGE_STARTED],
+          }),
+        },
+      })
+      const {
+        default: State,
+      } = await import('@/js/engine/state.js')
+      const restored = State.fromJSON(state.toJSON())
+      expect(restored.paused).toBe(true)
+      restored.dismissTutorialModal()
+      expect(restored.meta.tutorial.activeModal).toBe(TUTORIAL_MODAL_CHALLENGE_STARTED)
+      expect(restored.paused).toBe(true)
+    })
+
+    it('should restore a queued explanation when the saved active popup is outdated', async () => {
+      const state = await createState()
+      const json = state.toJSON()
+      json.meta.tutorial.activeModal = 'outdatedModal'
+      json.meta.tutorial.pendingModals = [TUTORIAL_MODAL_CHALLENGE_STARTED]
+      const {
+        default: State,
+      } = await import('@/js/engine/state.js')
+      const restored = State.fromJSON(json)
+      expect(restored.meta.tutorial.activeModal).toBe(TUTORIAL_MODAL_CHALLENGE_STARTED)
+      expect(restored.paused).toBe(true)
+    })
+
     it('should finish an older tutorial save without pausing for its saved modal after device completion', async () => {
       const state = await createState({
         metaOverrides: {
@@ -2515,6 +2586,7 @@ describe('State', () => {
             currentStep: 3,
             completed: false,
             activeModal: TUTORIAL_MODAL_NEGATIVE_PRODUCTION,
+            pendingModals: [TUTORIAL_MODAL_CHALLENGE_STARTED],
           }),
         },
       })
@@ -2526,6 +2598,7 @@ describe('State', () => {
       const restored = State.fromJSON(json)
       expect(restored.meta.tutorial.completed).toBe(true)
       expect(restored.meta.tutorial.activeModal).toBeNull()
+      expect(restored.meta.tutorial.pendingModals).toEqual([])
       expect(restored.paused).toBe(false)
     })
 
