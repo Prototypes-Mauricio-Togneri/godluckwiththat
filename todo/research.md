@@ -196,4 +196,4 @@ Blocked on unbuilt game systems (disasters, military, warnings).
 
 - Balancing pass on all research values (costs, bonus percentages)
 - Visual polish on research nodes (icons, animations, progress indicators)
-- Documentation updates (CLAUDE.md, architecture.md, specs.md)
+- Documentation updates (AGENTS.md, architecture.md, specs.md)

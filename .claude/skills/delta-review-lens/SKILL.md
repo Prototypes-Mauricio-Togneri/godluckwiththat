@@ -7,9 +7,9 @@ This file is a **lens**, not a review. The `delta-review` skill reads it, takes 
 
 **The project.** An incremental colony-management game: 20 buildings across 4 categories, worker assignment, a season cycle, a research tree, a market, and 10 sequential divine challenges as the win condition. Vue 3 with `<script setup>`, no Vue Router — screens switch on a `currentScreen` ref in `app.vue`. The game engine lives in plain JavaScript under `src/js/engine/` and `src/js/models/`; Vue components under `src/components/`; five locales under `src/js/i18n/`. Tests run on Vitest under `tests/`, mirroring the engine, models, helpers and i18n directories.
 
-**What already ran before you.** `CLAUDE.md` requires `npm run lint:fix` and `npm test` before this review. ESLint with `@stylistic` and `eslint-plugin-vue` already enforces semicolons, quotes, indentation, spacing, trailing commas and Vue template rules — **never report what the linter reports**. Assume the suite passed; report a test concern only when the change made an existing test wrong rather than failing.
+**What already ran before you.** `AGENTS.md` requires `npm run lint:fix` and `npm test` before this review. ESLint with `@stylistic` and `eslint-plugin-vue` already enforces semicolons, quotes, indentation, spacing, trailing commas and Vue template rules — **never report what the linter reports**. Assume the suite passed; report a test concern only when the change made an existing test wrong rather than failing.
 
-**What to read first.** `CLAUDE.md` for every review, then the doc matching the change: `docs/architecture.md` (state, tick system, components), `docs/specs.md` (buildings, seasons, progression), `docs/javascript.md` (naming, constants, imports, comments), `docs/localization.md`, `docs/ui.md`, `docs/audio.md`, `docs/performance.md`, `docs/testing.md`.
+**What to read first.** `AGENTS.md` for every review, then the doc matching the change: `docs/architecture.md` (state, tick system, components), `docs/specs.md` (buildings, seasons, progression), `docs/javascript.md` (naming, constants, imports, comments), `docs/localization.md`, `docs/ui.md`, `docs/audio.md`, `docs/performance.md`, `docs/testing.md`.
 
 ## Architecture
 
@@ -67,7 +67,7 @@ Several sets must move together, and every one of them fails silently.
 - **Constants live in three places by rule** (`docs/javascript.md`): numeric balancing in `balancing.js`, structural constants — class maps, enums, sets, factories — in `constants.js`, pure string enums in `enums.js` re-exported by `constants.js`. A value in the wrong file, or duplicated across two of them, drifts the moment one copy is edited.
 - **A new building or resource touches many parallel tables at once** — see the registration list in Architecture. Check every one, plus its locale keys and its image constant.
 - **Shared CSS lives in `src/assets/styles.css`.** Repeated rules across `.vue` files belong there; a scoped block that re-declares a shared class silently forks it.
-- **Docs are part of the change.** `CLAUDE.md` requires `docs/architecture.md` and `docs/specs.md` to be updated when the behaviour they describe changes, and `docs/testing.md` to track the test suite.
+- **Docs are part of the change.** `AGENTS.md` requires `docs/architecture.md` and `docs/specs.md` to be updated when the behaviour they describe changes.
 
 **Report shape:** the two sides that drifted, and the user-visible consequence of the drift.
 

@@ -1183,7 +1183,9 @@ let tickTimer = null
 let lastTickTime = 0
 let progressAnimFrame = null
 let lastProgressTickTime = 0
-const MAX_TICK_DELTA = 5 // Max game-time delta (seconds) per tick; caps sleep/wake time gaps
+const MAX_TICK_DELTA = 5 // Max game-time delta (seconds) per simulation step
+const MAX_CATCH_UP_GAP = 300 // Max real-time gap (seconds) credited in full; longer gaps are sleep/wake and credit one step
+const MAX_CATCH_UP_DELTA = MAX_CATCH_UP_GAP * Math.max(...GAME_SPEED_OPTIONS) // Max game seconds per catch-up, even if a hand-edited save holds an out-of-range speed
 const UI_SYNC_INTERVAL = 50 // ms (~20fps visual updates)
 let lastUISyncTime = 0
 
@@ -1201,6 +1203,61 @@ let perfGameTickTime = 0
 let perfGameTickCount = 0
 const perfHasMemory = typeof performance !== 'undefined' && !!performance.memory
 
+/**
+ * Converts elapsed real time into game seconds to simulate. Gaps up to MAX_CATCH_UP_GAP (e.g. throttled
+ * background-tab timers) count in full; longer gaps are sleep/wake and count as a single step.
+ * @param {number} elapsedMilliseconds - Real milliseconds since the last tick
+ * @returns {number} Game seconds to simulate
+ */
+function gameDelta(elapsedMilliseconds) {
+  const elapsedSeconds = elapsedMilliseconds / 1000
+  if (elapsedSeconds > MAX_CATCH_UP_GAP) {
+    return MAX_TICK_DELTA
+  }
+  return Math.min(MAX_CATCH_UP_DELTA, elapsedSeconds * state.meta.gameSpeed)
+}
+
+/**
+ * Advances season, construction, research, challenge, and event timers by one step.
+ * @param {number} delta - Game seconds to advance
+ */
+function advanceProgress(delta) {
+  state.advanceSeason(delta)
+  state.advanceConstruction(delta)
+  state.advanceResearch(delta)
+  state.advanceChallenges(delta)
+  state.advanceEvents(delta)
+}
+
+/**
+ * Simulates the time since the last tick in steps of at most MAX_TICK_DELTA, interleaving production with
+ * progress when requested, and stops early if a modal pauses the game mid-gap.
+ * @param {number} now - Current performance.now() timestamp
+ * @param {boolean} includeProgress - Whether to also advance progress timers (rAF is suspended or behind)
+ */
+function catchUp(now, includeProgress) {
+  let remaining = gameDelta(now - lastTickTime)
+  lastTickTime = now
+  let progressRemaining = 0
+  if (includeProgress) {
+    progressRemaining = gameDelta(now - lastProgressTickTime)
+    lastProgressTickTime = now
+  }
+  while ((remaining > 0 || progressRemaining > 0) && !state.paused) {
+    const step = Math.min(MAX_TICK_DELTA, remaining)
+    const progressStep = Math.min(MAX_TICK_DELTA, progressRemaining)
+    remaining -= step
+    progressRemaining -= progressStep
+    if (step > 0) {
+      state.update(step)
+      state.checkTutorial()
+    }
+    if (progressStep > 0) {
+      advanceProgress(progressStep)
+    }
+  }
+}
+
 /** Main 1-second game loop: applies production, consumption, and advances visual progress. */
 function gameTick() {
   const now = performance.now()
@@ -1209,24 +1266,12 @@ function gameTick() {
     lastProgressTickTime = now
     return
   }
-  const delta = Math.min(MAX_TICK_DELTA, (now - lastTickTime) / 1000 * state.meta.gameSpeed)
-  lastTickTime = now
+  // Also advance progress when rAF is suspended (background tab) or more than a tick behind (first tick back from one)
   const tickStart = now
-  state.update(delta)
-  state.checkTutorial()
+  catchUp(now, document.hidden || now - lastProgressTickTime > TICK_INTERVAL)
   perfGameTickTime += performance.now() - tickStart
   perfGameTickCount++
 
-  // Advance progress only when the tab is backgrounded (rAF pauses, so gameTick takes over)
-  if (document.hidden) {
-    const progressDelta = Math.min(MAX_TICK_DELTA, (now - lastProgressTickTime) / 1000 * state.meta.gameSpeed)
-    lastProgressTickTime = now
-    state.advanceSeason(progressDelta)
-    state.advanceConstruction(progressDelta)
-    state.advanceResearch(progressDelta)
-    state.advanceChallenges(progressDelta)
-    state.advanceEvents(progressDelta)
-  }
   const syncStart = performance.now()
   syncUI()
   perfSyncUITime += performance.now() - syncStart
@@ -1240,18 +1285,20 @@ function progressTick() {
     return
   }
   const now = performance.now()
-  const delta = Math.min(MAX_TICK_DELTA, (now - lastProgressTickTime) / 1000 * state.meta.gameSpeed)
-  lastProgressTickTime = now
   const prevConstructing = state._constructingKeys.size
   const prevHqUpgrading = state._hqUpgrading
   const prevResearchActive = state.colony.buildings.academy.active.size
-  state.advanceSeason(delta)
-  state.advanceConstruction(delta)
-  state.advanceResearch(delta)
-  state.advanceChallenges(delta)
-  state.advanceEvents(delta)
-  // Full sync when a construction, upgrade, or research just completed, or a tutorial modal was triggered (always immediate)
-  const justCompleted = state._constructingKeys.size < prevConstructing || (!state._hqUpgrading && prevHqUpgrading) || state.colony.buildings.academy.active.size < prevResearchActive || state.paused
+  // First frame back from a background tab (rAF was suspended): catch up production and progress together
+  const resumed = now - lastProgressTickTime > TICK_INTERVAL
+  const delta = resumed ? 0 : gameDelta(now - lastProgressTickTime)
+  if (resumed) {
+    catchUp(now, true)
+  } else {
+    lastProgressTickTime = now
+    advanceProgress(delta)
+  }
+  // Full sync after a catch-up, when a construction, upgrade, or research just completed, or a tutorial modal was triggered (always immediate)
+  const justCompleted = resumed || state._constructingKeys.size < prevConstructing || (!state._hqUpgrading && prevHqUpgrading) || state.colony.buildings.academy.active.size < prevResearchActive || state.paused
   if (justCompleted) {
     const t0 = performance.now()
     syncUI()
@@ -1267,7 +1314,7 @@ function progressTick() {
   }
 
   // Perf sampling (discard stale data after returning from background tab)
-  if (delta > 1) {
+  if (resumed || delta > 1) {
     perfFrameCount = 0
     perfFrameTimeSum = 0
     perfSyncUITime = 0
