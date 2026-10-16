@@ -30,6 +30,7 @@ import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull, formatRate, formatTime} from '@/js/engine/format.js'
+import State from '@/js/engine/state.js'
 import storage from '@/js/engine/storage.js'
 import {IMG_BLESSING_BLESSING, IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCTIVITY, IMG_OTHER_TERRITORY, IMG_PUNISHMENT_MAP, IMG_RESOURCE_MAP, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_OPEN_ACADEMY, SND_OPEN_MARKET} from '@/js/engine/assets.js'
 import TutorialBanner from '@/components/tutorial/tutorial_banner.vue'
@@ -278,7 +279,8 @@ const showResearchModal = ref(false)
 const showMarketModal = ref(false)
 const showChallengeModal = ref(false)
 const showSaveIndicator = ref(false)
-const saveSucceeded = ref(true)
+const saveIndicatorKey = ref('notifications.gameSaved') // i18n key of the save/load result shown
+const saveIndicatorFailed = ref(false) // Whether the indicator shows a failure (red styling)
 const hasSavedGame = ref(storage.savedGame !== null)
 let saveIndicatorTimer = null
 let autosaveTimer = null
@@ -1009,7 +1011,7 @@ function persistGame() {
   if (saved) {
     hasSavedGame.value = true
   }
-  flashSaveIndicator(saved)
+  flashSaveIndicator(saved ? 'notifications.gameSaved' : 'notifications.saveFailed', !saved)
 }
 
 /** Saves the current game state and closes the pause modal. */
@@ -1019,10 +1021,12 @@ function saveGame() {
 }
 
 /** Shows the save indicator for 1.5 seconds.
- * @param {boolean} succeeded - Whether the save was written
+ * @param {string} messageKey - i18n key of the save/load result to show
+ * @param {boolean} failed - Whether the result is a failure (red styling)
  */
-function flashSaveIndicator(succeeded) {
-  saveSucceeded.value = succeeded
+function flashSaveIndicator(messageKey, failed) {
+  saveIndicatorKey.value = messageKey
+  saveIndicatorFailed.value = failed
   showSaveIndicator.value = true
   clearTimeout(saveIndicatorTimer)
   saveIndicatorTimer = setTimeout(() => {
@@ -1069,13 +1073,20 @@ function closeSettings() {
   }
 }
 
-/** Loads the saved game state from localStorage. */
+/**
+ * Restores the saved game from localStorage and restarts with it. A missing or unreadable save
+ * (e.g. overwritten from another tab since the menu opened) keeps the current game and the pause
+ * menu, and flashes "Load Failed".
+ */
 function loadGame() {
   const savedData = storage.savedGame
-  if (savedData) {
-    showModal.value = false
-    emit(EMIT_RESTART, savedData)
+  const restoredState = savedData ? State.fromJSON(savedData) : null
+  if (!restoredState) {
+    flashSaveIndicator('notifications.loadFailed', true)
+    return
   }
+  showModal.value = false
+  emit(EMIT_RESTART, restoredState)
 }
 
 /** Opens the settings modal on top of the pause modal. */
@@ -1192,9 +1203,11 @@ let pausedAt = null // performance.now() when the current pause began, or null w
 
 // --- Perf overlay ---
 const perfOverlay = ref(null)
+const PERF_STALE_GAP = 1000 // ms; a longer real gap between frames (background tab, sleep) discards the perf sample
 let perfVisible = true
 let perfFrameCount = 0
 let perfFrameTimeSum = 0
+let perfLastFrameTime = 0 // performance.now() of the previous rAF frame, paused frames included
 let perfLastSample = 0
 let perfSyncUITime = 0
 let perfSyncUICount = 0
@@ -1203,6 +1216,22 @@ let perfSyncTimersCount = 0
 let perfGameTickTime = 0
 let perfGameTickCount = 0
 const perfHasMemory = typeof performance !== 'undefined' && !!performance.memory
+
+/**
+ * Discards the counters collected so far and starts a new perf sample.
+ * @param {number} now - performance.now() timestamp the new sample starts at
+ */
+function resetPerfSample(now) {
+  perfFrameCount = 0
+  perfFrameTimeSum = 0
+  perfSyncUITime = 0
+  perfSyncUICount = 0
+  perfSyncTimersTime = 0
+  perfSyncTimersCount = 0
+  perfGameTickTime = 0
+  perfGameTickCount = 0
+  perfLastSample = now
+}
 
 /**
  * Converts elapsed real time into game seconds to simulate. Gaps up to MAX_CATCH_UP_GAP (e.g. throttled
@@ -1311,7 +1340,11 @@ function gameTick() {
 /** rAF loop for smooth visual progress (season, construction, research, events). */
 function progressTick() {
   if (state.paused) {
-    markPauseStart(performance.now())
+    const now = performance.now()
+    markPauseStart(now)
+    // Paused frames are left out of the perf sample
+    perfLastFrameTime = now
+    resetPerfSample(now)
     progressAnimFrame = requestAnimationFrame(progressTick)
     return
   }
@@ -1319,6 +1352,7 @@ function progressTick() {
   const prevConstructing = state._constructingKeys.size
   const prevHqUpgrading = state._hqUpgrading
   const prevResearchActive = state.colony.buildings.academy.active.size
+  const prevBlessingCount = state.meta.challenges.activeBlessings.length
   // First frame back from a background tab (rAF was suspended): catch up production and progress together
   const resumed = now - lastProgressTickTime > TICK_INTERVAL
   const delta = resumed ? 0 : gameDelta(now - lastProgressTickTime)
@@ -1329,8 +1363,8 @@ function progressTick() {
     advanceProgress(delta)
   }
   markPauseStart(now)
-  // Full sync after a catch-up, when a construction, upgrade, or research just completed, or a tutorial modal was triggered (always immediate)
-  const justCompleted = resumed || state._constructingKeys.size < prevConstructing || (!state._hqUpgrading && prevHqUpgrading) || state.colony.buildings.academy.active.size < prevResearchActive || state.paused
+  // Full sync after a catch-up, when a construction, upgrade, or research just completed, a blessing expired (e.g. the market fee changes), or a tutorial modal was triggered (always immediate)
+  const justCompleted = resumed || state._constructingKeys.size < prevConstructing || (!state._hqUpgrading && prevHqUpgrading) || state.colony.buildings.academy.active.size < prevResearchActive || state.meta.challenges.activeBlessings.length < prevBlessingCount || state.paused
   if (justCompleted) {
     const t0 = performance.now()
     syncUI()
@@ -1345,20 +1379,15 @@ function progressTick() {
     lastUISyncTime = now
   }
 
-  // Perf sampling (discard stale data after returning from background tab)
-  if (resumed || delta > 1) {
-    perfFrameCount = 0
-    perfFrameTimeSum = 0
-    perfSyncUITime = 0
-    perfSyncUICount = 0
-    perfSyncTimersTime = 0
-    perfSyncTimersCount = 0
-    perfGameTickTime = 0
-    perfGameTickCount = 0
-    perfLastSample = now
+  // Perf sampling uses real time between frames, unaffected by game speed (discard stale data after a long gap, e.g. a background tab)
+  const frameGap = now - perfLastFrameTime
+  perfLastFrameTime = now
+  if (frameGap > PERF_STALE_GAP) {
+    resetPerfSample(now)
+  } else {
+    perfFrameTimeSum += frameGap
   }
   perfFrameCount++
-  perfFrameTimeSum += delta * 1000
   if (perfVisible && now - perfLastSample >= 1000) {
     const element = perfOverlay.value
     if (element) {
@@ -1378,16 +1407,7 @@ function progressTick() {
       }
       element.textContent = text
     }
-    perfFrameCount = 0
-    perfFrameTimeSum = 0
-    perfSyncUITime = 0
-    perfSyncUICount = 0
-    perfSyncTimersTime = 0
-    perfSyncTimersCount = 0
-    perfGameTickTime = 0
-    perfGameTickCount = 0
-
-    perfLastSample = now
+    resetPerfSample(now)
   }
 
   progressAnimFrame = requestAnimationFrame(progressTick)
@@ -1414,7 +1434,8 @@ function handleKeydown(event) {
       perfOverlay.value.style.display = perfVisible ? 'block' : 'none'
     }
     if (perfVisible) {
-      perfLastSample = performance.now()
+      // Counters kept running while hidden; start a fresh sample
+      resetPerfSample(performance.now())
     }
   }
 }
@@ -1429,19 +1450,20 @@ watch(showModal, (isOpen) => {
     progressAnimFrame = null
     stopAutosave()
   } else if (!showConfirmQuit.value && !showConfirmRestart.value) {
-    state.paused = false
+    // A tutorial or challenge modal still on screen keeps the game paused; dismissing it unpauses.
+    // Only values that render a modal count, so a hand-edited save can't leave the game paused with nothing to dismiss
+    const challengeModalShown = [
+      CHALLENGE_MODAL_REWARD,
+      CHALLENGE_MODAL_FAILURE,
+      CHALLENGE_MODAL_WIN,
+    ].includes(state.challengeModal)
+    if (!challengeModalShown && !state.meta.tutorial.activeModal) {
+      state.paused = false
+    }
     resumeClocks()
     const now = performance.now()
-    perfFrameCount = 0
-    perfFrameTimeSum = 0
-    perfSyncUITime = 0
-    perfSyncUICount = 0
-    perfSyncTimersTime = 0
-    perfSyncTimersCount = 0
-    perfGameTickTime = 0
-    perfGameTickCount = 0
-
-    perfLastSample = now
+    perfLastFrameTime = now
+    resetPerfSample(now)
     tickTimer = setInterval(gameTick, TICK_INTERVAL)
     progressAnimFrame = requestAnimationFrame(progressTick)
     startAutosave()
@@ -1825,7 +1847,7 @@ onUnmounted(() => {
     />
 
     <Transition name="save-indicator">
-      <div v-if="showSaveIndicator" class="save-indicator" :class="{ 'save-indicator--failed': !saveSucceeded }">{{ t(saveSucceeded ? 'notifications.gameSaved' : 'notifications.saveFailed') }}</div>
+      <div v-if="showSaveIndicator" class="save-indicator" :class="{ 'save-indicator--failed': saveIndicatorFailed }">{{ t(saveIndicatorKey) }}</div>
     </Transition>
   </div>
 </template>

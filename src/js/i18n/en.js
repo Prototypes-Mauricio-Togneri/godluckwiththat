@@ -44,6 +44,7 @@ export const LOCALIZED_EN = {
   // Notifications
   'notifications.gameSaved': 'Game Saved',
   'notifications.saveFailed': 'Save Failed',
+  'notifications.loadFailed': 'Load Failed',
 
   // Pause modal
   'modal.pause.title': 'Paused',

@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from 'vue'
+import {ref, shallowRef} from 'vue'
 import AboutScreen from '@/components/screens/about_screen.vue'
 import GameScreen from '@/components/screens/game_screen.vue'
 import HomeScreen from '@/components/screens/home_screen.vue'
@@ -13,13 +13,21 @@ import State from '@/js/engine/state.js'
 import storage from '@/js/engine/storage.js'
 
 const currentScreen = ref('home')
-const gameState = ref(null)
+const gameState = shallowRef(null) // Shallow so Vue never proxies the plain engine State
 const gameKey = ref(0)
 
-/** Preloads audio, creates or restores State, switches to game screen, and starts background music. */
+/** Preloads audio, restores State from save data (or creates a new one), switches to game screen, and starts background music. */
 function startGame(savedData) {
   audio.preload()
-  let state = savedData ? State.fromJSON(savedData) : null
+  launchGame(savedData ? State.fromJSON(savedData) : null)
+}
+
+/**
+ * Switches to the game screen with the given State, or a new game when null, and starts background music.
+ * @param {State|null} restoredState - Game restored from a save, or null for a new game
+ */
+function launchGame(restoredState) {
+  let state = restoredState
   // A corrupt save falls back to a new game, so the mode reflects what actually loaded
   const mode = state ? ANALYTICS_GAME_MODE_SAVED : ANALYTICS_GAME_MODE_NEW
   if (!state) {
@@ -40,12 +48,16 @@ function startGame(savedData) {
   ])
 }
 
-/** Restarts the game with a fresh or loaded state. */
-function restartGame(savedData) {
+/**
+ * Restarts the game with a State the game screen already restored, or a fresh one when null.
+ * @param {State|null} restoredState - Game restored from a save, or null for a new game
+ */
+function restartGame(restoredState) {
   audio.stopMusic()
   gameState.value = null
   gameKey.value++
-  startGame(savedData)
+  audio.preload()
+  launchGame(restoredState)
 }
 
 /** Stops music and returns to the home screen. */

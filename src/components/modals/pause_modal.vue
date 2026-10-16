@@ -1,7 +1,8 @@
 <script setup>
-import {ref, onMounted, onUnmounted} from 'vue'
+import {ref, onMounted, onBeforeUnmount, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
 import {EMIT_CLOSE, EMIT_SAVE, EMIT_LOAD, EMIT_SETTINGS, EMIT_RESTART, EMIT_QUIT} from '@/js/engine/enums.js'
+import {pushFocusLayer, removeFocusLayer} from '@/js/engine/focus_stack.js'
 import {t} from '@/js/i18n/localized.js'
 
 defineProps({
@@ -20,12 +21,18 @@ const emit = defineEmits([
   EMIT_QUIT,
 ])
 const visible = ref(false)
+const overlay = ref(null) // Root element; everything else is inert while this modal is topmost
 let rafId = null
 
 onMounted(() => {
+  pushFocusLayer(overlay.value)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
+})
+
+onBeforeUnmount(() => {
+  removeFocusLayer(overlay.value)
 })
 
 onUnmounted(() => {
@@ -35,6 +42,7 @@ onUnmounted(() => {
 
 <template>
   <div
+    ref="overlay"
     class="modal-overlay"
     :class="{ visible }"
     @click.self="emit(EMIT_CLOSE)"

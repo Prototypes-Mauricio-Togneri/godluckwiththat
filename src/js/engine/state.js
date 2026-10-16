@@ -674,8 +674,14 @@ class State {
     const challenges = this.meta.challenges
 
     // Decrement ongoing blessing/punishment timeouts (ticks even after all challenges completed)
+    const blessingCount = challenges.activeBlessings.length
     this._advanceEffectTimeouts(challenges.activeBlessings, delta)
     this._advanceEffectTimeouts(challenges.activePunishments, delta)
+    // Refresh derived state as soon as a blessing expires, so cached effects (e.g. the
+    // Blessed Markets 0% fee) don't outlive it until the next tick
+    if (challenges.activeBlessings.length < blessingCount) {
+      this.update(0)
+    }
 
     if (challenges.allCompleted) {
       return

@@ -1,15 +1,17 @@
 <script setup>
-import {inject, ref, computed, onMounted, onUnmounted} from 'vue'
+import {inject, ref, computed, onMounted, onBeforeUnmount, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
 import {IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {BUILDING_ALTAR, BUILDING_MONUMENT, BUILDING_TEMPLE, EMIT_CLOSE, RESOURCE_FAITH, SYMBOL_CHECK, SYMBOL_CROSS} from '@/js/engine/enums.js'
 import {formatTime, formatNumber} from '@/js/engine/format.js'
 import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
+import {pushFocusLayer, removeFocusLayer} from '@/js/engine/focus_stack.js'
 import {t} from '@/js/i18n/localized.js'
 
 const ui = inject('ui')
 const emit = defineEmits([EMIT_CLOSE])
 const visible = ref(false)
+const overlay = ref(null) // Root element; everything else is inert while this modal is topmost
 let rafId = null
 
 const challenge = computed(() => ui.challenges.active)
@@ -57,10 +59,15 @@ function handleEscape() {
 }
 
 onMounted(() => {
+  pushFocusLayer(overlay.value)
   pushEscapeHandler(handleEscape)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
+})
+
+onBeforeUnmount(() => {
+  removeFocusLayer(overlay.value)
 })
 
 onUnmounted(() => {
@@ -71,6 +78,7 @@ onUnmounted(() => {
 
 <template>
   <div
+    ref="overlay"
     class="modal-overlay"
     :class="{ visible }"
     @click.self="emit(EMIT_CLOSE)"

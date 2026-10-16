@@ -1,12 +1,14 @@
 <script setup>
-import {ref, onMounted, onUnmounted} from 'vue'
+import {ref, onMounted, onBeforeUnmount, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
 import {EMIT_CLOSE} from '@/js/engine/enums.js'
 import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
+import {pushFocusLayer, removeFocusLayer} from '@/js/engine/focus_stack.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits([EMIT_CLOSE])
 const visible = ref(false)
+const overlay = ref(null) // Root element; everything else is inert while this modal is topmost
 let rafId = null
 
 /** Closes modal on Escape while it is the topmost modal. */
@@ -15,10 +17,15 @@ function handleEscape() {
 }
 
 onMounted(() => {
+  pushFocusLayer(overlay.value)
   pushEscapeHandler(handleEscape)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
+})
+
+onBeforeUnmount(() => {
+  removeFocusLayer(overlay.value)
 })
 
 onUnmounted(() => {
@@ -29,6 +36,7 @@ onUnmounted(() => {
 
 <template>
   <div
+    ref="overlay"
     class="modal-overlay"
     :class="{ visible }"
     @click.self="emit(EMIT_CLOSE)"

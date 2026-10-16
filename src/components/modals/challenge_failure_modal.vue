@@ -1,14 +1,16 @@
 <script setup>
-import {inject, ref, onMounted, onUnmounted} from 'vue'
+import {inject, ref, onMounted, onBeforeUnmount, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {SND_NOTIFICATION_DISASTER, IMG_PUNISHMENT_MAP} from '@/js/engine/assets.js'
 import {t} from '@/js/i18n/localized.js'
 import {formatMinutes} from '@/js/engine/format.js'
 import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
+import {pushFocusLayer, removeFocusLayer} from '@/js/engine/focus_stack.js'
 
 const ui = inject('ui')
 const actions = inject('actions')
 const visible = ref(false)
+const overlay = ref(null) // Root element; everything else is inert while this modal is topmost
 let rafId = null
 
 /** Block Escape while topmost — this modal cannot be dismissed with it. */
@@ -17,11 +19,16 @@ function handleEscape() {
 }
 
 onMounted(() => {
+  pushFocusLayer(overlay.value)
   pushEscapeHandler(handleEscape)
   audio.playSound(SND_NOTIFICATION_DISASTER)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
+})
+
+onBeforeUnmount(() => {
+  removeFocusLayer(overlay.value)
 })
 
 onUnmounted(() => {
@@ -31,7 +38,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="modal-overlay" :class="{ visible }">
+  <div ref="overlay" class="modal-overlay" :class="{ visible }">
     <div class="modal-content">
       <h2 class="modal-title modal-title--failure">{{ t('challenge.failure.title') }}</h2>
       <span class="modal-rule modal-rule--failure" />

@@ -1,14 +1,16 @@
 <script setup>
-import {ref, onMounted, onUnmounted} from 'vue'
+import {ref, onMounted, onBeforeUnmount, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {AUTOSAVE_MAX_INTERVAL, AUTOSAVE_MIN_INTERVAL} from '@/js/engine/constants.js'
 import {EMIT_CLOSE} from '@/js/engine/enums.js'
 import storage from '@/js/engine/storage.js'
 import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
+import {pushFocusLayer, removeFocusLayer} from '@/js/engine/focus_stack.js'
 import {t} from '@/js/i18n/localized.js'
 
 const emit = defineEmits([EMIT_CLOSE])
 const visible = ref(false)
+const overlay = ref(null) // Root element; everything else is inert while this modal is topmost
 const musicEnabled = ref(audio.musicEnabled)
 const soundEnabled = ref(audio.soundEnabled)
 const autosaveEnabled = ref(storage.autosaveEnabled)
@@ -24,9 +26,9 @@ function toggleMusic() {
 
 /** Toggles sound effects on/off. */
 function toggleSound() {
-  playTap()
   soundEnabled.value = !soundEnabled.value
   audio.setSoundEnabled(soundEnabled.value)
+  playTap()
 }
 
 /** Toggles autosave on/off and persists to storage. */
@@ -60,10 +62,15 @@ function handleEscape() {
 }
 
 onMounted(() => {
+  pushFocusLayer(overlay.value)
   pushEscapeHandler(handleEscape)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
+})
+
+onBeforeUnmount(() => {
+  removeFocusLayer(overlay.value)
 })
 
 onUnmounted(() => {
@@ -74,6 +81,7 @@ onUnmounted(() => {
 
 <template>
   <div
+    ref="overlay"
     class="modal-overlay settings-overlay"
     :class="{ visible }"
     @click.self="emit(EMIT_CLOSE)"

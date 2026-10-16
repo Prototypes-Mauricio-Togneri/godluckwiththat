@@ -1,5 +1,5 @@
 <script setup>
-import {computed, ref, watch, inject, onMounted, onUnmounted} from 'vue'
+import {computed, ref, watch, inject, onMounted, onBeforeUnmount, onUnmounted} from 'vue'
 import audio, {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull} from '@/js/engine/format.js'
 import {TRADEABLE_RESOURCES} from '@/js/engine/constants.js'
@@ -9,6 +9,7 @@ import {EMIT_CLOSE, RESOURCE_GOLD, TRADE_BUY, TRADE_SELL} from '@/js/engine/enum
 import storage from '@/js/engine/storage.js'
 import {marketTradeQuote} from '@/js/engine/utils.js'
 import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
+import {pushFocusLayer, removeFocusLayer} from '@/js/engine/focus_stack.js'
 import {t} from '@/js/i18n/localized.js'
 import ModalHelpModal from '@/components/modals/help_modal.vue'
 
@@ -16,6 +17,7 @@ const emit = defineEmits([EMIT_CLOSE])
 const ui = inject('ui')
 const actions = inject('actions')
 const visible = ref(false)
+const overlay = ref(null) // Root element; everything else is inert while this modal is topmost
 const showHelp = ref(false)
 let rafId = null
 
@@ -164,10 +166,15 @@ function handleEscape() {
 }
 
 onMounted(() => {
+  pushFocusLayer(overlay.value)
   pushEscapeHandler(handleEscape)
   rafId = requestAnimationFrame(() => {
     visible.value = true
   })
+})
+
+onBeforeUnmount(() => {
+  removeFocusLayer(overlay.value)
 })
 
 onUnmounted(() => {
@@ -178,6 +185,7 @@ onUnmounted(() => {
 
 <template>
   <div
+    ref="overlay"
     class="modal-overlay"
     :class="{ visible }"
     @click.self="emit(EMIT_CLOSE)"
