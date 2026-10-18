@@ -301,7 +301,8 @@ The research system allows the player to unlock permanent bonuses by spending kn
   - Religion (1 subcategory × 5 tiers = 5 researches): Faith
   - Military (3 subcategories × 5 tiers = 15 researches): Defense, Attack, Warning (advance notice of enemy raids)
   - Disasters (3 subcategories × 5 tiers = 15 researches): Floods, Health, Earthquakes
-  - Military and Disasters researches can already be bought, but their bonuses have no effect yet *(planned — see [military](../todo/military.md) and [disasters](../todo/disasters.md))*
+  - Military researches can already be bought, but their bonuses have no effect yet *(planned — see [military](../todo/military.md))*
+  - The Disasters tab is hidden in the research modal until disasters are implemented, so its researches cannot be started *(planned — see [disasters](../todo/disasters.md))*
 - Within a subcategory, researches form a linear chain of 5 tiers. Tier N requires tier N-1 to be completed first
 - Each research has a resource cost (knowledge plus other resources). Duration is derived from the cost via `Cost.toSeconds`. Starting any research requires academy level ≥ 1 (flat check, not per-research). Bonuses are defined per subcategory (type and value), granted once per completed tier
 - Multiple researches can be active simultaneously across different subcategories, but within a subcategory only one can be active (the linear chain prevents starting the next tier before the current one completes)

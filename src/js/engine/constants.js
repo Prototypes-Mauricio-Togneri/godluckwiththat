@@ -690,6 +690,9 @@ export const RESEARCH_TREE = [
   },
 ]
 
+// Research categories shown as tabs in the research modal; disasters stays hidden until disasters are implemented.
+export const RESEARCH_MODAL_TREE = RESEARCH_TREE.filter(entry => entry.category !== RESEARCH_CATEGORY_DISASTERS)
+
 // Tutorial sequential steps — each has i18n text key, building icon key, and completion check
 export const TUTORIAL_STEPS = [
   {

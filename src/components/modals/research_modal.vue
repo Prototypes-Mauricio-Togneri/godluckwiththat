@@ -2,7 +2,7 @@
 import {ref, inject, computed, onMounted, onBeforeUnmount, onUnmounted} from 'vue'
 import {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull, formatTime} from '@/js/engine/format.js'
-import {RESEARCH_TREE} from '@/js/engine/constants.js'
+import {RESEARCH_MODAL_TREE} from '@/js/engine/constants.js'
 import {RESEARCH_COSTS} from '@/js/engine/balancing.js'
 import {IMG_OTHER_COMPLETED, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
 import {canAffordCost} from '@/js/engine/utils.js'
@@ -30,12 +30,12 @@ const overlay = ref(null) // Root element; everything else is inert while this m
 const showHelp = ref(false)
 let rafId = null
 
-const activeTab = ref(RESEARCH_TREE[0].category)
+const activeTab = ref(RESEARCH_MODAL_TREE[0].category)
 const scrollRef = ref(null)
 const tooltipAbove = ref({})
 
 const activeCategory = computed(() =>
-  RESEARCH_TREE.find(entry => entry.category === activeTab.value),
+  RESEARCH_MODAL_TREE.find(entry => entry.category === activeTab.value),
 )
 
 const nodeStatusMap = computed(() => {
@@ -149,7 +149,7 @@ onUnmounted(() => {
       <!-- Tab bar -->
       <div class="research-tabs">
         <button
-          v-for="cat in RESEARCH_TREE"
+          v-for="cat in RESEARCH_MODAL_TREE"
           :key="cat.category"
           class="research-tab"
           :class="{ 'research-tab--active': activeTab === cat.category }"
