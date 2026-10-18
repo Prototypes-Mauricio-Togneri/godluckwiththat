@@ -257,6 +257,7 @@ Shared pure helpers used by both engine and components.
 - `marketFeePercent(level)` — market fee in whole percent: base fee reduced per level above 1, floored at the minimum fee (ignores the Blessed Markets blessing). Used by `Market.effectiveTradeFee` and the market card tooltip.
 - `storageCapacity(level, storageBonus)` — storehouse cap formula, shared by the storehouse model and its card tooltip.
 - `marketTradeQuote(price, direction, lots, fee)` — gold total and resulting price for trading a number of lots; each lot shifts the price first, the price stops at its bounds, and the fee is applied once to the total in integer percent math. Shared by `Market.executeTrade` and the market modal.
+- `timerProgress(remainingSeconds, duration)` — elapsed fraction (0–1, clamped) of a countdown timer; 0 when the duration is missing or not positive. Used by the research modal's progress fill.
 
 ### Audio (`src/js/engine/audio.js`)
 
@@ -288,7 +289,7 @@ Research is an academy-gated tech tree providing cumulative bonus modifiers.
 
 **Tree** (`constants.js`) — `RESEARCH_TREE` is an ordered array of `{ category, subcategories: [{ key, bonus, researches: [research keys] }] }` (`bonus` is the subcategory's entry from `RESEARCH_SUBCATEGORY_BONUSES`). It drives `Academy.completedBonuses` and `RESEARCH_COSTS` (each research key → `RESEARCH_TIER_COSTS[index].multiplyFloor(RESEARCH_SUBCATEGORY_COST_MULTIPLIERS[subcategory])`); position in `researches` implies the linear prerequisite. `RESEARCH_MODAL_TREE` is the same tree without the disasters category and drives the research modal layout, so the Disasters tab stays hidden until disasters are implemented.
 
-**Modal** (`research_modal.vue`) — Tabbed overlay with category tabs at top, scrollable subcategory sections below. Each subcategory displays a horizontal chain of research nodes connected by arrows. Node states: `completed` (green border + checkmark), `active` (pulsing glow), `available` (brighter border), `locked` (dimmed). Each node shows name and resource cost icons. A "?" help button (`.modal-help-btn`) sits left of the close button and opens `ModalHelpModal` with research help text. Opened via `inject('openResearchModal')` from `academy_card.vue`, and closed automatically by `game_screen.vue` when the academy's level drops below 1 (a punishment can destroy a mid-upgrade academy). Emits `close` on backdrop click, close button, or Escape key.
+**Modal** (`research_modal.vue`) — Tabbed overlay with category tabs at top, scrollable subcategory sections below. Each subcategory displays a horizontal chain of research nodes connected by arrows. Node states: `completed` (green border + checkmark), `active` (accent border, gold fill growing left to right like construction buttons, driven by a `--progress` CSS variable computed with `timerProgress` from `utils.js`, plus a MM:SS countdown), `available` (brighter border), `locked` (dimmed). Each node shows name and resource cost icons. A "?" help button (`.modal-help-btn`) sits left of the close button and opens `ModalHelpModal` with research help text. Opened via `inject('openResearchModal')` from `academy_card.vue`, and closed automatically by `game_screen.vue` when the academy's level drops below 1 (a punishment can destroy a mid-upgrade academy). Emits `close` on backdrop click, close button, or Escape key.
 
 ### Challenges System
 

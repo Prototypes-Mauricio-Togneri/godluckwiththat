@@ -4,7 +4,7 @@ import {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull, formatTime} from '@/js/engine/format.js'
 import {RESEARCH_COSTS, RESEARCH_MODAL_TREE} from '@/js/engine/constants.js'
 import {IMG_OTHER_COMPLETED, IMG_RESOURCE_MAP} from '@/js/engine/assets.js'
-import {canAffordCost} from '@/js/engine/utils.js'
+import {canAffordCost, timerProgress} from '@/js/engine/utils.js'
 import {EMIT_CLOSE, RESEARCH_STATUS_ACTIVE, RESEARCH_STATUS_AVAILABLE, RESEARCH_STATUS_COMPLETED, RESEARCH_STATUS_LOCKED} from '@/js/engine/enums.js'
 import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
 import {pushFocusLayer, removeFocusLayer} from '@/js/engine/focus_stack.js'
@@ -62,6 +62,18 @@ const nodeStatusMap = computed(() => {
  */
 function canAfford(key) {
   return canAffordCost(ui.resources, RESEARCH_COSTS[key])
+}
+
+/** Elapsed fraction of an active research timer, for the node's progress fill.
+ * @param {string} key - Research key
+ * @returns {number} Progress from 0 to 1, or 0 when the research is not running
+ */
+function nodeProgress(key) {
+  const timer = ui.academy.activeTimers[key]
+  if (!timer) {
+    return 0
+  }
+  return timerProgress(timer.remainingSeconds, timer.duration)
 }
 
 /** Starts research when node is available and affordable.
@@ -178,6 +190,7 @@ onUnmounted(() => {
                 :class="[
                   'research-node--' + nodeStatusMap[rKey],
                 ]"
+                :style="nodeStatusMap[rKey] === RESEARCH_STATUS_ACTIVE ? { '--progress': (nodeProgress(rKey) * 100) + '%' } : undefined"
                 @click="handleNodeClick(rKey, nodeStatusMap[rKey])"
                 @mouseenter="updateTooltipDirection(rKey, $event)"
               >
@@ -410,14 +423,30 @@ onUnmounted(() => {
 
 .research-node--active {
   border-color: rgba(var(--color-accent-rgb), 0.45);
-  animation: research-pulse 2s ease-in-out infinite;
-  will-change: outline;
+  overflow: hidden;
 }
 
-/* Pulsing glow for active research nodes (outline is cheaper than box-shadow) */
-@keyframes research-pulse {
-  0%, 100% { outline: 2px solid rgba(var(--color-accent-rgb), 0.08); }
-  50% { outline: 2px solid rgba(var(--color-accent-rgb), 0.25); }
+/* Gold fill overlay driven by --progress variable, as on construction buttons */
+.research-node--active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--progress);
+  background: rgba(var(--color-accent-rgb), 0.25);
+  pointer-events: none;
+}
+
+/* Keep active node content above the progress fill */
+.research-node--active > .node-header,
+.research-node--active > .node-second-row {
+  position: relative;
+}
+
+/* Countdown in text color for contrast on the gold fill */
+.research-node--active .node-timer {
+  color: var(--color-text);
 }
 
 .research-node--available {

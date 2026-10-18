@@ -1,7 +1,7 @@
 import {describe, it, expect} from 'vitest'
 import {MARKET_BASE_FEE, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_MIN_FEE, MARKET_PRICE_SHIFT, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER} from '@/js/engine/balancing.js'
 import {TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
-import {canAffordCost, floorWithTolerance, marketFeePercent, marketTradeQuote, storageCapacity} from '@/js/engine/utils.js'
+import {canAffordCost, floorWithTolerance, marketFeePercent, marketTradeQuote, storageCapacity, timerProgress} from '@/js/engine/utils.js'
 import {createCost} from '../helpers/factories.js'
 
 describe('canAffordCost', () => {
@@ -231,5 +231,33 @@ describe('marketTradeQuote', () => {
         }
       }
     }
+  })
+})
+
+describe('timerProgress', () => {
+  it('should return 0 when the timer has just started', () => {
+    expect(timerProgress(40, 40)).toBe(0)
+  })
+
+  it('should return 0.5 halfway through', () => {
+    expect(timerProgress(20, 40)).toBe(0.5)
+  })
+
+  it('should return 1 when no time remains', () => {
+    expect(timerProgress(0, 40)).toBe(1)
+  })
+
+  it('should clamp to 0 when remaining exceeds the duration', () => {
+    expect(timerProgress(50, 40)).toBe(0)
+  })
+
+  it('should clamp to 1 when remaining is negative', () => {
+    expect(timerProgress(-5, 40)).toBe(1)
+  })
+
+  it('should return 0 when the duration is zero, negative or missing', () => {
+    expect(timerProgress(0, 0)).toBe(0)
+    expect(timerProgress(10, -40)).toBe(0)
+    expect(timerProgress(10, undefined)).toBe(0)
   })
 })

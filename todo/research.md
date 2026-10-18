@@ -38,7 +38,8 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
   - Resources: Food prod., Food cons., Wood prod., Wood cons., Mining, Knowledge
   - Religion: Faith
 - **Balancing** (first pass; tune by playtest) — tier base costs × per-chain price bands, research durations ×4, new Transportation, Expansion, Storage and Knowledge bonus sizes (see [research-1-balancing.md](./research-1-balancing.md))
-- **Phase 4** (partial) — Modal polish (status colors, pulsing active nodes, checkmarks, countdown, cost tooltips, accumulated bonus per chain, help modal) and documentation in `docs/specs.md` and `docs/architecture.md`
+- **Phase 4** — Modal polish (status colors, checkmarks, countdown, cost tooltips, accumulated bonus per chain, help modal) and documentation in `docs/specs.md` and `docs/architecture.md`
+- **Node visuals** — a gold progress fill on active nodes, replacing the pulse (see [research-2-node-visuals.md](./research-2-node-visuals.md)). Per-research icons were tried and dropped
 
 ### Deferred
 
@@ -55,6 +56,5 @@ Blocked on unbuilt game systems (disasters, military). These researches can alre
 
 ### TODO
 
-- Visual polish on research nodes (per-node icons, progress bar on active nodes)
 - Enforce prerequisites in `startResearch()` — today only the research modal prevents skipping a tier
 - Decide what happens to active researches when the Academy is downgraded to level 0 — today they keep running and complete

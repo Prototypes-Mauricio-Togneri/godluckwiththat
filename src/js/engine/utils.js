@@ -1,4 +1,4 @@
-// Shared utility functions for resource affordability checks, rounding, storage capacity, and market pricing.
+// Shared utility functions for resource affordability checks, rounding, storage capacity, market pricing, and timer progress.
 
 import {MARKET_BASE_FEE, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_MIN_FEE, MARKET_PRICE_SHIFT, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER} from '@/js/engine/balancing.js'
 import {TRADE_BUY} from '@/js/engine/enums.js'
@@ -84,4 +84,17 @@ export function marketTradeQuote(price, direction, lots, fee) {
     gold: Math.floor(total * (isBuy ? 100 + feePercent : 100 - feePercent) / 100),
     price: boundLots > 0 ? bound : price + shift * freeLots,
   }
+}
+
+/**
+ * Elapsed fraction of a countdown timer, for progress fills.
+ * @param {number} remainingSeconds - Seconds left on the timer
+ * @param {number} duration - Total timer length in seconds
+ * @returns {number} Progress from 0 (just started) to 1 (finished), clamped; 0 when the duration is missing or not positive
+ */
+export function timerProgress(remainingSeconds, duration) {
+  if (!(duration > 0)) {
+    return 0
+  }
+  return Math.min(1, Math.max(0, 1 - remainingSeconds / duration))
 }
