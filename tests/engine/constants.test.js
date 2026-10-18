@@ -1,7 +1,8 @@
 import {describe, it, expect, vi} from 'vitest'
-import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
-import {BUILDING_CLASS_MAP, TUTORIAL_STEPS, createInitialColony, createInitialColonyBasic, createInitialColonyAdvanced, createInitialMeta, createInitialChallenges} from '@/js/engine/constants.js'
-import {BUILDING_HEADQUARTERS, HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT} from '@/js/engine/enums.js'
+import {BUILDING_UPGRADES, RESEARCH_SUBCATEGORY_COST_MULTIPLIERS, RESEARCH_TIER_COSTS} from '@/js/engine/balancing.js'
+import {BUILDING_CLASS_MAP, RESEARCH_COSTS, RESEARCH_TREE, TUTORIAL_STEPS, createInitialColony, createInitialColonyBasic, createInitialColonyAdvanced, createInitialMeta, createInitialChallenges} from '@/js/engine/constants.js'
+import {BUILDING_HEADQUARTERS, HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT, RESEARCH_FOOD_PRODUCTION_1, RESEARCH_SUBCATEGORY_FOOD_PRODUCTION} from '@/js/engine/enums.js'
+import Cost from '@/js/models/cost.js'
 import Colony from '@/js/models/colony.js'
 import Meta from '@/js/models/meta.js'
 import Challenges from '@/js/models/challenges.js'
@@ -37,6 +38,33 @@ describe('constants', () => {
       for (const key of upgradesKeys) {
         expect(classMapKeys.has(key), `"${key}" is in BUILDING_UPGRADES but not BUILDING_CLASS_MAP`).toBe(true)
       }
+    })
+  })
+
+  describe('RESEARCH_COSTS', () => {
+    const subcategories = RESEARCH_TREE.flatMap(entry => entry.subcategories)
+
+    it('has a Cost for every research in RESEARCH_TREE and no extra keys', () => {
+      const treeKeys = new Set(subcategories.flatMap(subcategory => subcategory.researches))
+      expect(new Set(Object.keys(RESEARCH_COSTS))).toEqual(treeKeys)
+      for (const key of treeKeys) {
+        expect(RESEARCH_COSTS[key], key).toBeInstanceOf(Cost)
+      }
+    })
+
+    it('knowledge rises tier by tier within each chain', () => {
+      for (const subcategory of subcategories) {
+        for (let i = 1; i < subcategory.researches.length; i++) {
+          const previous = RESEARCH_COSTS[subcategory.researches[i - 1]]
+          const current = RESEARCH_COSTS[subcategory.researches[i]]
+          expect(current.knowledge, subcategory.researches[i]).toBeGreaterThan(previous.knowledge)
+        }
+      }
+    })
+
+    it('scales the tier base cost by the chain price band', () => {
+      const expected = RESEARCH_TIER_COSTS[0].multiplyFloor(RESEARCH_SUBCATEGORY_COST_MULTIPLIERS[RESEARCH_SUBCATEGORY_FOOD_PRODUCTION])
+      expect(RESEARCH_COSTS[RESEARCH_FOOD_PRODUCTION_1].entries).toEqual(expected.entries)
     })
   })
 

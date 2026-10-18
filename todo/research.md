@@ -6,8 +6,8 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
 
 - **5 categories** (tabs, in this order): Colony, Resources, Religion, Military, Disasters
 - **18 subcategories**, each a linear chain of 5 tiers (90 researches)
-- **Cost**: Knowledge + two other resources (paid upfront when starting). Tiers climb the resource ladder: T1 food + wood, T2 wood + stone, T3 stone + copper, T4 copper + iron, T5 iron + gold
-- **Duration**: Derived from cost via `cost.toSeconds` (same as building upgrades). Construction bonuses do not affect it
+- **Cost**: Knowledge + two other resources (paid upfront when starting). Tiers climb the resource ladder: T1 food + wood, T2 wood + stone, T3 stone + copper, T4 copper + iron, T5 iron + gold. Each chain pays the tier's base cost times its price band: cheap ×0.75, standard ×1, premium ×1.5 (see [research-1-balancing.md](./research-1-balancing.md))
+- **Duration**: `cost.toSeconds × 4` (the building formula, scaled for research). Construction bonuses do not affect it
 - **Parallelism**: Unlimited concurrent researches (one per chain)
 - **Prerequisites**: Linear within subcategory only (level N requires level N-1)
 - **Gating**: Requires Academy to be built (level >= 1)
@@ -17,9 +17,9 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
 ### Categories & Subcategories
 
 - **Colony** — Transportation, Construction, Expansion, Storage, Habitation
-  - +5%/tier worker productivity (bounded resources only), -10%/tier construction time, -10%/tier territory expansion cost, +5%/tier storage capacity, +1/tier population per house level
+  - +3%/tier worker productivity (bounded resources only), -10%/tier construction time, -8%/tier territory expansion cost, +10%/tier storage capacity, +1/tier population per house level
 - **Resources** — Food prod., Food cons., Wood prod., Wood cons., Mining, Knowledge
-  - +/-5%/tier production/consumption rates
+  - +/-5%/tier production/consumption rates, +10%/tier knowledge production
 - **Religion** — Faith
   - +5%/tier faith production
 - **Military** — Defense, Attack, Warning
@@ -37,6 +37,7 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
   - Colony: Transportation, Construction, Expansion, Storage, Habitation
   - Resources: Food prod., Food cons., Wood prod., Wood cons., Mining, Knowledge
   - Religion: Faith
+- **Balancing** (first pass; tune by playtest) — tier base costs × per-chain price bands, research durations ×4, new Transportation, Expansion, Storage and Knowledge bonus sizes (see [research-1-balancing.md](./research-1-balancing.md))
 - **Phase 4** (partial) — Modal polish (status colors, pulsing active nodes, checkmarks, countdown, cost tooltips, accumulated bonus per chain, help modal) and documentation in `docs/specs.md` and `docs/architecture.md`
 
 ### Deferred
@@ -54,7 +55,6 @@ Blocked on unbuilt game systems (disasters, military). These researches can alre
 
 ### TODO
 
-- Balancing pass on all research values (costs, bonus percentages)
 - Visual polish on research nodes (per-node icons, progress bar on active nodes)
 - Enforce prerequisites in `startResearch()` — today only the research modal prevents skipping a tier
 - Decide what happens to active researches when the Academy is downgraded to level 0 — today they keep running and complete

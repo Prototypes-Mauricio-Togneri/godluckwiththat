@@ -304,17 +304,17 @@ The research system allows the player to unlock permanent bonuses by spending kn
   - Military researches can already be bought, but their bonuses have no effect yet *(planned — see [military](../todo/military.md))*
   - The Disasters tab is hidden in the research modal until disasters are implemented, so its researches cannot be started *(planned — see [disasters](../todo/disasters.md))*
 - Within a subcategory, researches form a linear chain of 5 tiers. Tier N requires tier N-1 to be completed first
-- Each research has a resource cost (knowledge plus other resources). Duration is derived from the cost via `Cost.toSeconds`. Starting any research requires academy level ≥ 1 (flat check, not per-research). Bonuses are defined per subcategory (type and value), granted once per completed tier
+- Each research has a resource cost: knowledge plus the two resources of its tier (T1 food + wood, T2 wood + stone, T3 stone + copper, T4 copper + iron, T5 iron + gold). The cost is the tier's base cost times the chain's price band: cheap ×0.75 (Food Production, Food Consumption, Wood Production, Wood Consumption, Knowledge Production, Storage), standard ×1 (Mining, Faith, Construction, all Military and Disasters chains) or premium ×1.5 (Transportation, Expansion, Habitation). Duration is `floor(Cost.toSeconds × RESEARCH_TIME_MULTIPLIER)` (×4, minimum 1 s); Construction research and the Rapid Construction blessing do not shorten it. Starting any research requires academy level ≥ 1 (flat check, not per-research). Bonuses are defined per subcategory (type and value), granted once per completed tier
 - Multiple researches can be active simultaneously across different subcategories, but within a subcategory only one can be active (the linear chain prevents starting the next tier before the current one completes)
 - Completed bonuses accumulate additively across all completed researches
 
 ### Bonuses by subcategory
 
 - **Colony**
-  - Transportation: +5% resource gathering productivity (bounded resources only)
+  - Transportation: +3% resource gathering productivity (bounded resources only)
   - Construction: -10% construction time
-  - Expansion: -10% expansion cost
-  - Storage: +5% storage capacity
+  - Expansion: -8% expansion cost
+  - Storage: +10% storage capacity
   - Habitation: +1 population per house level
 - **Resources**
   - Food Production: +5% food production
@@ -322,7 +322,7 @@ The research system allows the player to unlock permanent bonuses by spending kn
   - Wood Production: +5% wood production
   - Wood Consumption: -5% wood consumption
   - Mining: +5% stone/copper/iron/gold production
-  - Knowledge Production: +5% knowledge production
+  - Knowledge Production: +10% knowledge production
 - **Disasters** *(planned — see [disasters](../todo/disasters.md))*
   - Floods: -10% flood impact
   - Health: -10% disease impact
@@ -445,7 +445,7 @@ The file contains:
 - **HQ upgrade costs** (`HQ_UPGRADE_COSTS`) — Fixed resource costs to upgrade the colony type (Camp → Settlement → Village → Town → City).
 - **Production rates** (`PRODUCTION_RATES`) — Base resource output per worker per second for each production building (farms, woodcutters, quarries, mines, academies, temples). Passive buildings (e.g. altar, flagged `passive: true`) produce per level instead of per worker.
 - **Population & workers** — House population formula value (`HOUSE_POPULATION_PER_LEVEL`), worker slots per building level (`WORKERS_PER_LEVEL`), worker recruitment cost (`WORKER_RECRUIT_COST`), worker upkeep rates (`WORKER_FOOD_CONSUMPTION`, `WORKER_WOOD_CONSUMPTION`).
-- **Resource time weights** (`RESOURCE_TIME_WEIGHTS`, `RESOURCE_TIME_EXPONENT`) — Per-resource time weight in seconds and a sub-linear exponent (0.7), used by `Cost.toSeconds` to derive build duration from resource costs: `floor(weightedSum ^ exponent)`.
+- **Resource time weights** (`RESOURCE_TIME_WEIGHTS`, `RESOURCE_TIME_EXPONENT`) — Per-resource time weight in seconds and a sub-linear exponent (0.7), used by `Cost.toSeconds` to derive build and research duration from resource costs: `floor(weightedSum ^ exponent)`.
 - **Season constants** (`SEASON_DURATION`, `SEASON_WARM_FOOD_MODIFIER`, `SEASON_COLD_FOOD_MODIFIER`, `SEASON_WARM_WOOD_MODIFIER`, `SEASON_COLD_WOOD_MODIFIER`) — Season duration in seconds and fractional modifiers for food production and wood consumption per season.
 - **Market trading** (`MARKET_TRADE_AMOUNT`, `MARKET_BASE_PRICES`, `MARKET_BASE_FEE`, `MARKET_MIN_FEE`, `MARKET_FEE_REDUCTION_PER_LEVEL`, `MARKET_PRICE_SHIFT`, `MARKET_MIN_CURRENT_PRICE`, `MARKET_MAX_CURRENT_PRICE`) — Trade lot size, base gold prices per resource, fee structure, and dynamic price bounds.
 - **Monument faith** (`MONUMENT_FAITH_PER_LEVEL`) — One-time faith granted when a monument finishes construction: `value × newLevel`.
@@ -453,4 +453,4 @@ The file contains:
 - **Territory capacity** (`HQ_TERRITORY_PER_LEVEL`) — Territory slots per HQ level (10). Cap = `level × HQ_TERRITORY_PER_LEVEL + territoryBonus`.
 - **Shortage penalty** (`SHORTAGE_MAX_PENALTY`) — Maximum productivity reduction factor (1 = 100%) when food or wood has negative net production. Penalty scales proportionally to the deficit ratio.
 - **Bulk worker amount** (`BULK_WORKER_AMOUNT`) — Number of workers assigned/dismissed per Ctrl+click (10).
-- **Research definitions** (`RESEARCH_SUBCATEGORY_BONUSES`, `RESEARCH_COSTS`) — `RESEARCH_SUBCATEGORY_BONUSES` maps each subcategory to `{ type: BONUS_*, value, [flat] }`. `RESEARCH_COSTS` maps each `RESEARCH_*` key to a `Cost` instance (duration derived via `Cost.toSeconds`). Currently active bonuses in the game loop: worker productivity (bounded resources only), construction time, expansion cost, food/wood production, food/wood consumption, mining, knowledge production, faith production, habitation, storage capacity. Defined but not yet wired: disaster impacts, military stats, raid warning time *(planned)*.
+- **Research definitions** (`RESEARCH_SUBCATEGORY_BONUSES`, `RESEARCH_TIER_COSTS`, `RESEARCH_SUBCATEGORY_COST_MULTIPLIERS`, `RESEARCH_TIME_MULTIPLIER`) — `RESEARCH_SUBCATEGORY_BONUSES` maps each subcategory to `{ type: BONUS_*, value, [flat] }`; fractional values must be whole percents. `RESEARCH_TIER_COSTS` holds the five per-tier base costs (`Cost`, index 0 = T1) of a standard chain, and `RESEARCH_SUBCATEGORY_COST_MULTIPLIERS` maps each subcategory to its price band (0.75 / 1 / 1.5). `RESEARCH_COSTS` (derived in `constants.js`) maps each `RESEARCH_*` key to `tierCost.multiplyFloor(bandMultiplier)`. `RESEARCH_TIME_MULTIPLIER` (4) scales `Cost.toSeconds` for research only. Currently active bonuses in the game loop: worker productivity (bounded resources only), construction time, expansion cost, food/wood production, food/wood consumption, mining, knowledge production, faith production, habitation, storage capacity. Defined but not yet wired: disaster impacts, military stats, raid warning time *(planned)*.
