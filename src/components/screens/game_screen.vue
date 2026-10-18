@@ -2242,8 +2242,10 @@ onUnmounted(() => {
 
 /* ---- Events column ---- */
 
+/* Events column at 3/4 building width; long event text truncates */
 .events-column {
-  flex: 1;
+  flex: 0.75;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;

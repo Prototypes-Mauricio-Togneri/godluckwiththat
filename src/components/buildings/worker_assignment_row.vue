@@ -34,6 +34,13 @@ const isRecruitMode = computed(() => ui.idleWorkers === 0)
 const assignTooltip = computed(() => isRecruitMode.value ? t('worker.recruit') : t('worker.assign'))
 const recruitCost = computed(() => WORKER_RECRUIT_COST.entries.get('food') ?? 0)
 
+// Cost is hidden when the building is full or the population is capped; food shortage alone keeps it visible
+const showRecruitCost = computed(() =>
+  isRecruitMode.value
+  && building.value.workers < maxWorkers.value
+  && ui.resources.workers < ui.workersCap,
+)
+
 /** Assigns worker(s) to this building (recruits if needed). Ctrl+Click assigns up to 10. */
 function assign(event) {
   if (!canAssign.value) {
@@ -71,9 +78,9 @@ function unassign(event) {
         +
       </button>
     </span>
-    <span v-if="isRecruitMode" class="action-cost-item recruit-cost">
+    <span v-if="showRecruitCost" class="action-cost-item recruit-cost">
       <img class="action-cost-icon" :src="IMG_RESOURCE_FOOD" :alt="t('resource.food')">
-      <span class="action-cost-amount">{{ formatNumber(recruitCost) }}</span>
+      <span class="action-cost-amount" :class="{ 'action-cost-short': ui.resources.food < recruitCost }">{{ formatNumber(recruitCost) }}</span>
     </span>
   </div>
 </template>
