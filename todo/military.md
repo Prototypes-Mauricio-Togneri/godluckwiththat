@@ -30,11 +30,18 @@
     - Cheap but they only work once
     - Risk/reward: They can kill a very weak or very strong unit
 
-## Port
+## Current state
+
+* Barracks, Archery, Stable, Workshop, Wall and Tower can be built (they cost resources and take territory) but have no effect yet
+* Defense, Attack and Warning researches can be bought, but their bonuses are not used yet
+* No units, raids, combat, heroes, traps or Port
+* `SND_UNDER_ATTACK` is loaded but never played
+
+## Port (not implemented)
 * Each level
   - +1% in food production (thought fishing), unaffected by season
   - +1% in wood production, unaffected by season
-  - -1% in trading fee
+  - -1% in trading fee (the Market already gives -1% per level)
   - Allows to send raids
     - Enables military raids (send units to plunder)
     - Raid slots: 1 + floor(level / 3)
@@ -48,7 +55,9 @@
 - See military
 - Create units
 - See upcoming attacks
-- Implement military researches
+- Make military research bonuses take effect (`BONUS_UNIT_DEFENSE`, `BONUS_UNIT_ATTACK`, `BONUS_WARNING_TIME`)
+- Give the existing military buildings an effect
+- Until then, hide or mark as "coming soon" the military buildings and researches, so players don't spend resources on them for nothing
 
 * **Recover relic** challenge type: send military away to recover a relic. Skipped for now (military not implemented)
 

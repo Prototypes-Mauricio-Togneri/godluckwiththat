@@ -253,12 +253,12 @@ Each building has a level that can be increased by spending resources. Building 
 
 The research system allows the player to unlock permanent bonuses by spending knowledge and other resources at the Academy. Research is accessed via the Research modal in the game UI.
 
-- Research is organized into 5 categories: Colony, Resources, Disasters, Religion, Military
+- Research is organized into 5 categories: Colony, Resources, Religion, Military, Disasters
   - Colony (5 subcategories × 5 tiers = 25 researches): Transportation, Construction, Expansion, Storage, Habitation
   - Resources (6 subcategories × 5 tiers = 30 researches): Food Production, Food Consumption, Wood Production, Wood Consumption, Mining, Knowledge Production
-  - Disasters (3 subcategories × 5 tiers = 15 researches): Floods, Health, Earthquakes
   - Religion (1 subcategory × 5 tiers = 5 researches): Faith
   - Military (3 subcategories × 5 tiers = 15 researches): Defense, Attack, Warning
+  - Disasters (3 subcategories × 5 tiers = 15 researches): Floods, Health, Earthquakes
 - Within a subcategory, researches form a linear chain of 5 tiers. Tier N requires tier N-1 to be completed first
 - Each research has a resource cost (knowledge plus other resources). Duration is derived from the cost via `Cost.toSeconds`. Starting any research requires academy level ≥ 1 (flat check, not per-research). Bonuses are defined per subcategory (type and value), granted once per completed tier
 - Multiple researches can be active simultaneously across different subcategories, but within a subcategory only one can be active (the linear chain prevents starting the next tier before the current one completes)

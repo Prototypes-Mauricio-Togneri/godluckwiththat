@@ -50,22 +50,21 @@
 
 * Feat: Added City colony type unlocking Market, Gold Mine, Workshop, Tower
 * Feat: Added Gold Mine building producing gold resource
-* Feat: Added Workshop building producing siege units
+* Feat: Added Workshop building
 * Feat: Gold resource visible in header bar at City level
 
 ## [0.7.1] - 2026-03-17
 
-* Feat: Added Stable building producing cavalry units
-* Feat: Added Wall building providing colony defense
-* Feat: Added Tower building providing colony attack
-* Fix: Fixed military building queue not scaling with building level
+* Feat: Added Stable building
+* Feat: Added Wall building
+* Feat: Added Tower building
 
 ## [0.7.0] - 2026-03-16
 
 * Feat: Added Town colony type unlocking Monument, Iron Mine, Stable, Wall
 * Feat: Added Iron Mine building producing iron resource
-* Feat: Added Barracks building producing infantry units
-* Feat: Added Archery building producing archer units
+* Feat: Added Barracks building
+* Feat: Added Archery building
 
 ## [0.6.1] - 2026-03-14
 
