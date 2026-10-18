@@ -41,7 +41,7 @@ A tech tree system where players spend Knowledge + resources + time to unlock pa
 
 ### Deferred
 
-Blocked on unbuilt game systems (disasters, military, warnings). These researches can already be bought but have no effect (see [military.md](./military.md) and [disasters.md](./disasters.md)).
+Blocked on unbuilt game systems (disasters, military). These researches can already be bought but have no effect (see [military.md](./military.md) and [disasters.md](./disasters.md)).
 
 | Category  | Subcategory | Bonus                      | Blocked on              |
 |-----------|-------------|----------------------------|-------------------------|
@@ -50,7 +50,7 @@ Blocked on unbuilt game systems (disasters, military, warnings). These researche
 | Disasters | Earthquakes | `BONUS_EARTHQUAKE_IMPACT`  | Disaster system         |
 | Military  | Defense     | `BONUS_UNIT_DEFENSE`       | Combat system           |
 | Military  | Attack      | `BONUS_UNIT_ATTACK`        | Combat system           |
-| Military  | Warning     | `BONUS_WARNING_TIME`       | Disaster warning system |
+| Military  | Warning     | `BONUS_WARNING_TIME`       | Raid warning system     |
 
 ### TODO
 

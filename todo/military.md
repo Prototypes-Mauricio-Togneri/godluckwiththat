@@ -41,7 +41,7 @@
 * Each level
   - +1% in food production (thought fishing), unaffected by season
   - +1% in wood production, unaffected by season
-  - -1% in trading fee (the Market already gives -1% per level)
+  - -1% in trading fee (the Market already gives -1% per level above 1)
   - Allows to send raids
     - Enables military raids (send units to plunder)
     - Raid slots: 1 + floor(level / 3)

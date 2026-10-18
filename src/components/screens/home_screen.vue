@@ -57,7 +57,7 @@ onMounted(() => {
 /* Game title heading */
 .title {
   font-family: var(--font-display);
-  font-weight: 900;
+  font-weight: 700;
   font-size: clamp(2.8rem, 8vw, 5.5rem);
   line-height: 1.1;
   text-align: center;

@@ -17,7 +17,7 @@
 
 ## Centralized Constants
 
-Numeric balancing values (costs, rates, formulas, initial state) go in `src/js/engine/balancing.js`. Structural constants (class maps, enums, sets, factory functions) go in `src/js/engine/constants.js`. Pure string enums in `src/js/engine/enums.js` (re-exported by `constants.js`). Do not hardcode values in other files.
+Numeric balancing values (costs, rates, formulas, initial state) go in `src/js/engine/balancing.js`. Structural constants (class maps, enums, sets, factory functions) go in `src/js/engine/constants.js`. Pure string enums in `src/js/engine/enums.js` (import them from there directly; `constants.js` does not re-export them). Do not hardcode values in other files.
 
 ## Asset Paths
 

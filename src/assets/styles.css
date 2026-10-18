@@ -87,7 +87,7 @@
 /* Screen heading */
 .screen-title {
     font-family: var(--font-display);
-    font-weight: 900;
+    font-weight: 700;
     font-size: clamp(2rem, 5vw, 3.5rem);
     text-align: center;
     text-transform: uppercase;

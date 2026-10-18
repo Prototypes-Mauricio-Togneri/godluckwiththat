@@ -10,6 +10,8 @@ A hybrid incremental strategy game (Vite + Vue 3, JavaScript, Composition API wi
 - `docs/audio.md` — bitrate requirements. Read when adding or converting audio files and features.
 - `docs/localization.md` — locale files, key format, `t()` usage. Read when adding or changing user-facing text.
 - `docs/ui.md` — shared styles, colors, CSS units, frontend-design skill. Read when editing Vue components or CSS.
+- `docs/testing.md` — test layout, factory helpers, mocks, coverage. Read when adding or changing tests.
+- `docs/performance.md` — performance overlay metrics. Read when working on the game loop, UI sync, or performance.
 
 ## Rules
 

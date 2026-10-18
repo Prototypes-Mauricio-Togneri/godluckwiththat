@@ -13,6 +13,6 @@
 
 - Implement story intro
 
-- Improve save and load (currently a single local slot, manual save/load from the pause menu, optional autosave)
+- Improve save and load (currently a single local slot, manual save/load from the pause menu, F9 quick save, Continue on the home screen, optional autosave)
   - Have many save slots
   - Cloud saves

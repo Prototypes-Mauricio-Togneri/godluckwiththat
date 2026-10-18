@@ -16,22 +16,22 @@
 
 ## Test Scope
 
-Tests cover the **engine layer** and **model layer** — pure JavaScript classes with no DOM or Vue dependency. The UI layer (Vue components) is not unit-tested.
+Tests cover the **engine layer**, **model layer** and **i18n layer** — pure JavaScript with no DOM or Vue dependency. The UI layer (Vue components) is not unit-tested.
 
 ### Engine (`tests/engine/`)
 
 | File                | Covers                                                                                                                                            |
 |---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
 | `analytics.test.js` | Firebase initialization (project config, localhost/127.0.0.1 exclusion, unsupported browser, failed init), `logGameStart`/`logTutorialComplete` event names and params, no events before `init`, logging failures swallowed |
-| `enums.test.js`     | All exported enum values match expected strings (resources, HQ types, seasons, buildings, trade, challenge status, blessings, punishments, symbols) |
+| `enums.test.js`     | Core enum values match expected strings (resources, HQ types, seasons, buildings, trade, challenge status, symbols) plus one blessing and one punishment type; research, bonus, event, storage, tutorial and analytics enums are not checked |
 | `format.test.js`    | `formatTime`, `formatNumber`, `formatNumberFull`, `formatMinutes`, `formatRate`                                                                   |
 | `utils.test.js`     | `canAffordCost`, `floorWithTolerance`, `storageCapacity`, `marketFeePercent`, `marketTradeQuote`                                                  |
 | `balancing.test.js` | `BUILDING_UPGRADES` keys/values, season multiplier ranges, trade fee ranges                                                                      |
 | `escape_stack.test.js` | Only the most recently pushed handler receives Escape and stops the event, Escape returns to the previous handler on removal (top or lower), other keys ignored, a single window listener attached while handlers exist, unknown removals ignored |
 | `focus_stack.test.js` | Everything outside the topmost modal marked inert (not the modal or its ancestors, stopping at `<body>`), stacked and nested modals, removal order, elements added after opening marked too, focus returned to the previously focused element when the top modal closes, only its own marks cleared |
 | `storage.test.js`   | `autosaveInterval` read validation: default when missing or not a number, clamped to the allowed range, valid values kept, default when storage throws |
-| `constants.test.js` | `BUILDING_CLASS_MAP` keys/values, consistency with `BUILDING_UPGRADES`, factory functions (`createInitialColony`, `createInitialColonyBasic`, `createInitialColonyAdvanced`, `createInitialMeta`, `createInitialChallenges`), `TUTORIAL_STEPS` check functions |
-| `state.test.js`     | Game state machine (42 describe blocks, 252 tests): `constructor`, tick logic (`update`), `netProduction`, `expansionCost`, `advanceSeason`, `advanceConstruction`, `advanceResearch`, `advanceEvents`, `advanceChallenges`, `areChallengeRequirementsMet`, `selectBlessing`, `acknowledgePunishment`, `continueAfterWin`, `levelUpBuilding`, `recruitWorker`, `dismissWorkers`, `assignWorkers`, `unassignWorkers`, `startResearch`, `executeTrade`, `checkTutorial`, `expandTerritory`, `upgradeHeadquarters`, `downgradeBuilding`, serialization (`toJSON`/`fromJSON`), internal computations (`_computeGeneralProductivity`, `_computeSeasonMultipliers`, `_computeConsumptionRates`, `_computeProductionRates`, `_resolveChallengeTimeout`, `_deductRequirements`, `_completeChallenge`, `_failChallenge`, `_sacrificeWorkers`, `_advanceEffectTimeouts`, `_applyBlessing`, `_applyPunishment`, `_constructionDurationMult`, `_recruit`, `_triggerTutorialModal`, `_playAssignSound`, `_buildingName`) |
+| `constants.test.js` | `BUILDING_CLASS_MAP` keys/values, consistency with `BUILDING_UPGRADES`, factory functions (`createInitialColony`, `createInitialColonyBasic`, `createInitialColonyAdvanced`, `createInitialMeta`, `createInitialChallenges` incl. punishment field defaults when absent in `challenges.json`), `TUTORIAL_STEPS` `upgradeCamp` check function |
+| `state.test.js`     | Game state machine (42 describe blocks, 256 tests): `constructor`, tick logic (`update`), `netProduction`, `expansionCost`, `advanceSeason`, `advanceConstruction`, `advanceResearch`, `advanceEvents`, `advanceChallenges`, `areChallengeRequirementsMet`, `selectBlessing`, `acknowledgePunishment`, `continueAfterWin`, `levelUpBuilding`, `recruitWorker`, `dismissWorkers`, `assignWorkers`, `unassignWorkers`, `startResearch`, `executeTrade`, `checkTutorial`, `expandTerritory`, `upgradeHeadquarters`, `downgradeBuilding`, serialization (`toJSON`/`fromJSON`), internal computations (`_computeGeneralProductivity`, `_computeSeasonMultipliers`, `_computeConsumptionRates`, `_computeProductionRates`, `_resolveChallengeTimeout`, `_deductRequirements`, `_completeChallenge`, `_failChallenge`, `_sacrificeWorkers`, `_advanceEffectTimeouts`, `_applyBlessing`, `_applyPunishment`, `_constructionDurationMult`, `_recruit`, `_triggerTutorialModal`, `_playAssignSound`, `_buildingName`) |
 
 ### Models (`tests/models/`)
 
@@ -39,7 +39,7 @@ Tests cover the **engine layer** and **model layer** — pure JavaScript classes
 |----------------------|---------------------------------------------------------------------------|
 | `colony.test.js`     | Constructor, `idleWorkers`, `fromJSON`/`toJSON` round-trip                |
 | `buildings.test.js`  | `totalLevels`, `totalAssignedWorkers`, `pendingTerritory`, serialization  |
-| `resources.test.js`  | Constructor defaults, `canAfford`, `deduct`                               |
+| `resources.test.js`  | Constructor defaults, `canAfford`, `deduct`, `toJSON`                     |
 | `cost.test.js`       | Constructor defaults, `entries` (caching), `multiplyFloor`, `toSeconds`   |
 | `season.test.js`     | `isWarm`/`isCold`, `advance` (flipping, carry-over), serialization        |
 | `blessing.test.js`   | Constructor, optional fields, `fromJSON`/`toJSON`                         |
@@ -50,21 +50,21 @@ Tests cover the **engine layer** and **model layer** — pure JavaScript classes
 | `tutorial.test.js`   | Constructor defaults, `isActive`, `dismissedModals` serialization         |
 | `production.test.js` | Constructor defaults and overrides                                        |
 | `consumption.test.js`| Constructor defaults and overrides                                        |
-| `serialization.test.js` | Robustness: missing fields, extra fields, null/undefined inputs for all model classes (Blessing, Punishment, Challenge, Challenges, Tutorial, Resources, Season, Meta, Buildings, Headquarters, Market, Events, EventFuture, EventPast, Colony) |
+| `serialization.test.js` | Robustness: missing fields, extra fields, null/undefined inputs for all model classes (Blessing, Punishment, Challenge, Challenges, Tutorial, Resources, Season, Meta, Buildings, Headquarters, Market, Production, Consumption, Events, EventFuture, EventPast, Colony) |
 
 ### Buildings (`tests/models/buildings/`)
 
 Every building class has its own test file. Tests verify:
 
-- **`levelUpCost`**: returns a `Cost` instance, matches the `baseCost * multiplier ^ level` formula from `balancing.js`, increases with level
-- **Building-specific getters/methods**: e.g. `storageCap`, `populationCap`, `maxWorkers`, `effectiveTradeFee`, `buyPrice`/`sellPrice`, `executeTrade`, `upgradeCost`, `nextType`, `isUpgrading`, `territoryCap`
-- **Serialization**: `toJSON` snapshots
+- **`levelUpCost`** (every file): returns a `Cost` instance, matches the `baseCost * multiplier ^ level` formula from `balancing.js`, increases with level. The 15 buildings with no logic of their own test only this
+- **Building-specific getters/methods**: e.g. `storageCap`, `populationCap`, `maxWorkers`, `effectiveTradeFee`, `executeTrade`, `upgradeCost`, `nextType`, `isUpgrading`, `territoryCap`
+- **Serialization**: `toJSON` output (`toEqual`), only in `building`, `producer`, `headquarters`, `market` and `academy`
 
 Notable depth by file:
 
 - `building.test.js` / `producer.test.js` — base classes: `isUnbuilt`, `isConstructing`, `levelUp`, `advance` (construction tick), worker fields (`maxWorkers`, `isEmpty`, `isFull`)
 - `headquarters.test.js` — `isUpgrading`, `isMaxType`, `territoryCap`, `levelUpCost`, `upgradeCost`, `nextType`, `upgradeType`, `advanceUpgrade`, `toJSON`
-- `market.test.js` — `effectiveTradeFee`, `executeTrade` (buy/sell success, rejection conditions, price clamping, multi-unit trades, per-lot price shifts, `blessedMarkets` bypass, rounding edge cases, no profitable round trips or split trades), `toJSON`
+- `market.test.js` — constructor (price overrides, fallback for non-finite saved prices, clamping to trading bounds), `effectiveTradeFee`, `executeTrade` (buy/sell success, rejection conditions, price clamping, multi-unit trades, per-lot price shifts, `blessedMarkets` bypass, rounding edge cases, no profitable round trips or split trades), `toJSON`
 - `academy.test.js` — `Research` inner class (`constructor`, `advance`), `Academy` constructor (completed/active restoration), `isCompleted`, `isActive`, `canResearch`, `start`, `complete`, `completedBonuses` (aggregation, caching), `toJSON`
 - `storehouse.test.js` — `storageCap` (base, level scaling, bonus, floor), `levelUpCost`
 - `house.test.js` — `populationCap` (base, bonus, unbuilt), `levelUpCost`
@@ -92,9 +92,9 @@ Notable depth by file:
 | Vue components (`.vue` files)  | UI is thin — rendering, props, emits. Logic lives in models/engine. No component test setup (no `@vue/test-utils`). |
 | `assets.js`                    | Auto-generated file (`npm run generate-assets`). Excluded from coverage.                                            |
 | `audio.js`                     | Browser Audio API wrapper. Mocked in tests that depend on it. Excluded from coverage.                               |
-| `main.js`                      | App bootstrap (Vue mount, game loop `requestAnimationFrame`). Excluded from coverage.                               |
+| `main.js`                      | App bootstrap (analytics init, Vue mount). The game loop lives in `game_screen.vue`. Excluded from coverage.        |
 | `storage.js`                   | `localStorage` wrapper. Mocked in tests that depend on it. Excluded from coverage. Only `autosaveInterval` read validation is tested (`storage.test.js`). |
-| Locale files (`i18n/*.js`)     | Static key-value data. Validated indirectly through `localized.test.js`. Excluded from coverage.                    |
+| Locale files (`i18n/*.js`)     | Static key-value data. Key consistency validated by `locale_keys.test.js`. Excluded from coverage.                  |
 | E2E / integration              | No browser-level tests. Game is manually tested in the browser.                                                     |
 
 ## Coverage
@@ -124,10 +124,10 @@ Exports `VALID_BUILDING_KEYS` — a `Set` of all 20 `BUILDING_*` enum values. Us
 
 - **`localized.js`** is mocked to return raw keys (`t: (key) => key`) so tests do not depend on translation content.
 - **`analytics.js`** is mocked with `vi.fn()` stubs (`logTutorialComplete`) in state tests; `analytics.test.js` mocks `firebase/app` and `firebase/analytics` instead and stubs `window.location`.
-- **`audio.js`** is mocked with `vi.fn()` stubs (`playSound`) so tests run without the Web Audio API.
+- **`audio.js`** is mocked with `vi.fn()` stubs (`playSound`) so tests run without browser audio (`HTMLAudioElement`).
 - **`storage.js`** is mocked with default values in `state.test.js` so it runs without `localStorage`; `storage.test.js` imports the real module and stubs `window.localStorage` via `vi.stubGlobal`.
 - Browser globals (`navigator.language`, `document.documentElement`) are stubbed via `vi.stubGlobal` in i18n tests.
-- `vi.resetModules()` is used in i18n tests to re-evaluate module-level side effects between test cases.
+- `vi.resetModules()` is used in i18n, analytics and constants tests to re-evaluate module-level side effects (or apply a `vi.doMock`) between test cases.
 
 ### Setup File (`tests/helpers/setup.js`)
 
@@ -135,7 +135,7 @@ Pre-imports `balancing.js` to establish the correct module load order. `balancin
 
 ### Conventions
 
-- **File naming**: `<source_file>.test.js`, mirroring the `src/` directory structure under `tests/`.
-- **Describe blocks**: top-level `describe` matches the class name; nested `describe` blocks match the method or getter name.
+- **File naming**: `<source_file>.test.js`, mirroring the `src/` directory structure under `tests/`. Cross-cutting suites (`serialization.test.js`, `locale_keys.test.js`) have no source counterpart.
+- **Describe blocks**: top-level `describe` matches the class name (or the module/function name for engine files without a class); nested `describe` blocks match the method or getter name.
 - **Assertions**: prefer `toBe` for primitives, `toBeInstanceOf` for type checks, `toEqual` for deep equality, `toBeGreaterThan` for ordering.
 - **Serialization round-trips**: most model tests include a `fromJSON`/`toJSON` block that serializes and reconstructs, then asserts key fields are preserved.
