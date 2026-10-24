@@ -19,7 +19,7 @@
 - Defenses
   - Wall: delays the attacks
   - Tower: shoots enemies (acts like a standing still archer, but it's very vulnerable to siege fire)
-- The colony can dedice to pay an enemy to delay or cancel an attack
+- The colony can decide to pay an enemy to delay or cancel an attack
 
 ## Current state
 
