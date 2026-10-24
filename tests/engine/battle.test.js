@@ -314,7 +314,10 @@ describe('resolveBattle', () => {
   })
 
   describe('tower', () => {
-    it('should add its archers attack to the player', () => {
+    // Health of the tower's archers per level (they share losses but never die)
+    const TOWER_HEALTH = TOWER_ARCHERS_PER_LEVEL * UNIT_STATS[UNIT_ARCHER].health
+
+    it('should add its archers attack and health to the player', () => {
       const result = fight({
         units: {
           [UNIT_INFANTRY]: 10,
@@ -325,7 +328,7 @@ describe('resolveBattle', () => {
       })
       // Infantry 10 × 10 × 2 (counter) + tower 3 archers × 15 × 1 (no infantry to counter)
       const towerAttack = TOWER_ARCHERS_PER_LEVEL * UNIT_STATS[UNIT_ARCHER].attack
-      expect(result.playerPower).toBeCloseTo((200 + towerAttack) * 300, 6)
+      expect(result.playerPower).toBeCloseTo((200 + towerAttack) * (300 + TOWER_HEALTH), 6)
     })
 
     it('should get the archer counter bonus against infantry', () => {
@@ -345,7 +348,7 @@ describe('resolveBattle', () => {
         [UNIT_INFANTRY]: 10,
       })
       const towerAttack = TOWER_ARCHERS_PER_LEVEL * UNIT_STATS[UNIT_ARCHER].attack * UNIT_COUNTER_MULTIPLIER
-      expect(withTower.playerPower - withoutTower.playerPower).toBeCloseTo(towerAttack * 300, 6)
+      expect(withTower.playerPower).toBeCloseTo((100 + towerAttack) * (300 + TOWER_HEALTH), 6)
       expect(withoutTower.victory).toBe(false)
       expect(withTower.victory).toBe(true)
     })
@@ -367,8 +370,9 @@ describe('resolveBattle', () => {
       }, {
         [UNIT_INFANTRY]: 10,
       })
-      // Tower adds 90 attack per level against infantry, times 300 unit health
-      expect(level3.playerPower - level1.playerPower).toBeCloseTo(2 * 90 * 300, 6)
+      // Tower adds 90 attack and 60 health per level against infantry
+      expect(level1.playerPower).toBeCloseTo((100 + 90) * (300 + 60), 6)
+      expect(level3.playerPower).toBeCloseTo((100 + 270) * (300 + 180), 6)
     })
 
     it('should not get the attack research bonus', () => {
@@ -382,7 +386,55 @@ describe('resolveBattle', () => {
         [UNIT_INFANTRY]: 10,
       })
       // Units 100 × 1.5 = 150, tower 90 unchanged
-      expect(result.playerPower).toBeCloseTo((150 + 90) * 300, 6)
+      expect(result.playerPower).toBeCloseTo((150 + 90) * (300 + TOWER_HEALTH), 6)
+    })
+
+    it('should not get the defense research bonus', () => {
+      const result = fight({
+        units: {
+          [UNIT_INFANTRY]: 10,
+        },
+        towerLevel: 1,
+        defenseBonus: 0.1,
+      }, {
+        [UNIT_INFANTRY]: 10,
+      })
+      // Units 300 × 1.1 = 330 health, tower 60 unchanged
+      expect(result.playerPower).toBeCloseTo((100 + 90) * (330 + TOWER_HEALTH), 6)
+    })
+
+    it('should defend on its own', () => {
+      const result = fight({
+        towerLevel: 1,
+        workers: 10,
+      }, {
+        [UNIT_INFANTRY]: 3,
+      })
+      // Tower 90 attack × 60 health against 3 infantry: 30 attack × 90 health
+      expect(result.playerPower).toBeCloseTo(5400, 6)
+      expect(result.ratio).toBeCloseTo(Math.SQRT2, 6)
+      expect(result.victory).toBe(true)
+      expect(result.unitsLost).toEqual({
+        [UNIT_INFANTRY]: 0,
+        [UNIT_ARCHER]: 0,
+        [UNIT_CAVALRY]: 0,
+      })
+    })
+
+    it('should share losses with the units without dying', () => {
+      // Ratio 1.98: about 58 of 420 health (300 infantry + 120 tower) is lost. Units alone would
+      // lose 10 × 58 / 300 ≈ 2 infantry; the tower's archers take their share, so 10 × 58 / 420 ≈ 1
+      const result = fight({
+        units: {
+          [UNIT_INFANTRY]: 10,
+        },
+        towerLevel: 2,
+      }, {
+        [UNIT_INFANTRY]: 10,
+      })
+      expect(result.victory).toBe(true)
+      expect(result.ratio).toBeCloseTo(1.98, 2)
+      expect(result.unitsLost[UNIT_INFANTRY]).toBe(1)
     })
   })
 

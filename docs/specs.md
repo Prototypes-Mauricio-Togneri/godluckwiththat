@@ -281,7 +281,7 @@ Each building has a level that can be increased by spending resources. Building 
   - In a raid, absorbs damage before units take losses (100 per level). It is never damaged
   - Workers cannot be assigned to this building
 - Tower
-  - In a raid, fights as a fixed number of archers (3 per level) that never die and get no research bonus
+  - In a raid, fights as a fixed number of archers (3 per level) that share the hits with the units but never die and get no research bonus. A tower alone can defend
   - Workers cannot be assigned to this building
 
 The five military buildings are not in the downgradable list: punishments, raids and manual downgrades skip them, so the territory they take cannot be freed and unit caps never shrink.
@@ -316,14 +316,14 @@ There is at most one raid at a time.
 
 A one-step, deterministic strength comparison. The forecast in the military window uses the same calculation, so it always matches the result.
 
-- Each side's power is attack × health (Lanchester square law). The colony's health adds the wall; its attack adds the tower
-- A unit deals up to ×2 attack against the type it beats, scaled by that type's share of the opponent's army
+- Each side's power is attack × health (Lanchester square law). The colony's health adds the wall and the tower's archers; its attack adds the tower's archers
+- A unit deals up to ×2 attack against the type it beats, scaled by that type's share of the opponent's army. The tower's archers do not count toward that share
 - Attack and Defense research raise unit attack and health by 10% per tier (not the tower or the wall). Raiders get no bonuses
 - `ratio = sqrt(colony power / raider power)`. Above 1 is a victory
-- **Victory**: the colony loses health `(1 − sqrt(1 − 1/ratio²)) × total health`. The wall absorbs it first; units lose the rest in proportion to their numbers. Nothing else is gained
+- **Victory**: the colony loses health `(1 − sqrt(1 − 1/ratio²)) × total health`. The wall absorbs it first; units and the tower's archers share the rest by health, and units lose their share in proportion to their numbers (the tower's archers never die). Nothing else is gained
 - **Defeat**: the whole army is lost. With `severity = sqrt(1 − ratio²)` (0 near a tie, 1 with no defense), the colony also loses `severity × 30%` of each stored regular resource, `severity × 10%` of its workers (idle first) and `round(severity × 3)` building levels from the downgradable list (same rules as punishments). Faith and knowledge are never taken
 
-Examples: 10 infantry beat 9 infantry and lose 6 (2 with a level 1 wall). 10 infantry beat 10 cavalry, 10 archers beat 10 infantry, 10 cavalry beat 10 archers. No units and no tower is a full defeat.
+Examples: 10 infantry beat 9 infantry and lose 6 (2 with a level 1 wall). 10 infantry beat 10 cavalry, 10 archers beat 10 infantry, 10 cavalry beat 10 archers. A level 1 tower alone beats 3 infantry. No units and no tower is a full defeat, with or without a wall.
 
 ### Tribute
 
@@ -374,7 +374,7 @@ The research system allows the player to unlock permanent bonuses by spending kn
 - **Religion**
   - Faith: +5% faith production
 - **Military**
-  - Defense: +10% unit health (not the wall)
+  - Defense: +10% unit health (not the wall or the tower)
   - Attack: +10% unit attack (not the tower)
   - Warning: +10% raid warning time (delays already paid are not scaled)
 

@@ -79,15 +79,16 @@ export function armyAttack(units, attackBonus, opponentUnits, opponentDefenseBon
 
 /**
  * Resolves a raid in one step by comparing both sides' power (attack × health, Lanchester square law).
- * The defender's wall adds health that soaks losses first and is never damaged; the tower adds attack
- * as a fixed number of archers per level and never dies. Research bonuses apply to defender units only.
+ * The defender's wall adds health that soaks losses first and is never damaged; the tower fights as a
+ * fixed number of archers per level, adding their attack and health, sharing losses with the units and
+ * never dying, so a tower alone can defend. Research bonuses apply to defender units only.
  *
  * | Fight                            | Ratio | Result                   |
  * |----------------------------------|-------|--------------------------|
  * | 10 infantry vs 9 infantry        | 1.11  | Victory, 6 infantry lost |
  * | Same, plus a level 1 wall        | 1.28  | Victory, 2 infantry lost |
  * | 10 archers vs 10 infantry        | 1.41  | Victory                  |
- * | No units and no tower            | 0     | Defeat at severity 1     |
+ * | No units and no tower (any wall) | 0     | Defeat at severity 1     |
  *
  * @param {Object} defender - The colony's side
  * @param {Object<string, number>} defender.units - Unit count per type
@@ -109,9 +110,12 @@ export function resolveBattle(defender, attacker) {
 
   const unitHealth = armyHealth(units, defenseBonus)
   const wallHealth = wallLevel * WALL_HEALTH_PER_LEVEL
-  const towerAttack = towerLevel * TOWER_ARCHERS_PER_LEVEL * UNIT_STATS[UNIT_ARCHER].attack * counterFactor(UNIT_ARCHER, enemyShares)
+  const towerArchers = towerLevel * TOWER_ARCHERS_PER_LEVEL
+  const towerAttack = towerArchers * UNIT_STATS[UNIT_ARCHER].attack * counterFactor(UNIT_ARCHER, enemyShares)
+  const towerHealth = towerArchers * UNIT_STATS[UNIT_ARCHER].health
   const playerAttack = armyAttack(units, attackBonus, attacker.units, 0) + towerAttack
-  const playerPower = playerAttack * (unitHealth + wallHealth)
+  const playerHealth = unitHealth + wallHealth + towerHealth
+  const playerPower = playerAttack * playerHealth
   const enemyPower = armyAttack(attacker.units, 0, units, defenseBonus) * armyHealth(attacker.units, 0)
 
   const unitsLost = {}
@@ -140,13 +144,14 @@ export function resolveBattle(defender, attacker) {
   const ratio = Math.sqrt(playerPower / enemyPower)
 
   if (ratio > 1) {
-    // The wall soaks the lost health first; units lose the rest in proportion to their numbers
+    // The wall soaks the lost health first; units and the tower's archers share the rest by health,
+    // and units lose their share in proportion to their numbers (the tower's archers never die)
     const lossShare = 1 - Math.sqrt(Math.max(0, 1 - 1 / (ratio * ratio)))
-    const healthLost = lossShare * (unitHealth + wallHealth)
+    const healthLost = lossShare * playerHealth
     const absorbed = Math.min(healthLost, wallHealth)
     for (const type of UNIT_TYPES) {
       const count = units[type] ?? 0
-      unitsLost[type] = unitHealth > 0 ? Math.min(count, Math.round(count * (healthLost - absorbed) / unitHealth)) : 0
+      unitsLost[type] = unitHealth > 0 ? Math.min(count, Math.round(count * (healthLost - absorbed) / (unitHealth + towerHealth))) : 0
     }
     return {
       ...victoryResult,
