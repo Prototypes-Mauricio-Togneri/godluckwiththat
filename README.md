@@ -18,7 +18,6 @@
 - Losing a raid costs resources and workers, and lowers some buildings levels by some amount.
 - Play the "under attack" sound. It's loaded but never used.
 - Military blessings: Celestial Fortification, Temporary Peace and Sanctified Hero.
-- The colony can dedice to pay an enemy to delay or cancel an attack
 - Make the 6 military research bonuses do something. They can be bought now but have no effect.
 
 **Challenges**
