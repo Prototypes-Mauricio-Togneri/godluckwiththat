@@ -117,12 +117,14 @@ This is a pure function in `src/js/engine/battle.js`. The forecast in the milita
 health(type)  = count × UNIT_STATS[type].health × (1 + defenseBonus)   // defenseBonus = 0 for the enemy
 unitHealth    = Σ health(type)
 share(type)   = health(type) / unitHealth                               // 0 when unitHealth = 0
+playerShare(type) = (health(type) + (type = archer ? towerHealth : 0)) / (unitHealth + towerHealth)   // what the enemy counters; the tower's archers count as archers
 
 counterFactor(type, opponent) = 1 + (UNIT_COUNTER_MULTIPLIER − 1) × opponent.share(UNIT_COUNTERS[type])
 
 attack(army, opponent) = Σ count × UNIT_STATS[type].attack × (1 + attackBonus) × counterFactor(type, opponent)
 playerAttack += towerLevel × TOWER_ARCHERS_PER_LEVEL × archer.attack × counterFactor(archer, enemy)   // no research bonus
-playerHealth  = unitHealth + wallLevel × WALL_HEALTH_PER_LEVEL
+towerHealth   = towerLevel × TOWER_ARCHERS_PER_LEVEL × archer.health                                 // no research bonus
+playerHealth  = unitHealth + wallLevel × WALL_HEALTH_PER_LEVEL + towerHealth
 
 power = attack × totalHealth          // Lanchester square law: power grows with the square of army size
 ratio = sqrt(playerPower / enemyPower)
@@ -141,7 +143,7 @@ ratio = sqrt(playerPower / enemyPower)
 lossShare     = 1 − sqrt(1 − 1 / ratio²)
 healthLost    = lossShare × playerHealth
 absorbed      = min(healthLost, wallHealth)        // the Wall soaks first and is never damaged
-unitsLost(t)  = min(count(t), round(count(t) × (healthLost − absorbed) / unitHealth))
+unitsLost(t)  = min(count(t), round(count(t) × (healthLost − absorbed) / (unitHealth + towerHealth)))   // the tower's archers share losses but never die
 ```
 
 **Defeat**

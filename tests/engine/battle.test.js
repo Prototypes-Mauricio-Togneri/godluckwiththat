@@ -421,6 +421,37 @@ describe('resolveBattle', () => {
       })
     })
 
+    it('should count its archers in the mix the raiders counter', () => {
+      const result = fight({
+        towerLevel: 2,
+      }, {
+        [UNIT_CAVALRY]: 5,
+      })
+      // An all-archer mix gives the raider cavalry their full counter bonus: 5 × 12 × 2 attack × 150 health
+      expect(result.enemyPower).toBeCloseTo(5 * 12 * UNIT_COUNTER_MULTIPLIER * 150, 6)
+      expect(result.victory).toBe(false)
+    })
+
+    it('should not turn a won fight into a loss when the first unit is trained, with no wall', () => {
+      const towerOnly = fight({
+        towerLevel: 3,
+      }, {
+        [UNIT_ARCHER]: 8,
+      })
+      const withInfantry = fight({
+        units: {
+          [UNIT_INFANTRY]: 1,
+        },
+        towerLevel: 3,
+      }, {
+        [UNIT_ARCHER]: 8,
+      })
+      // One infantry is only 1/7 of the mix, so the raider archers' bonus over it stays small
+      expect(towerOnly.victory).toBe(true)
+      expect(withInfantry.victory).toBe(true)
+      expect(withInfantry.ratio).toBeGreaterThan(towerOnly.ratio)
+    })
+
     it('should share losses with the units without dying', () => {
       // Ratio 1.98: about 58 of 420 health (300 infantry + 120 tower) is lost. Units alone would
       // lose 10 × 58 / 300 ≈ 2 infantry; the tower's archers take their share, so 10 × 58 / 420 ≈ 1

@@ -317,7 +317,7 @@ There is at most one raid at a time.
 A one-step, deterministic strength comparison. The forecast in the military window uses the same calculation, so it always matches the result.
 
 - Each side's power is attack × health (Lanchester square law). The colony's health adds the wall and the tower's archers; its attack adds the tower's archers
-- A unit deals up to ×2 attack against the type it beats, scaled by that type's share of the opponent's army. The tower's archers do not count toward that share
+- A unit deals up to ×2 attack against the type it beats, scaled by that type's share of the opponent's army. The tower's archers count as archers in the colony's share, so raider cavalry gets its bonus against them
 - Attack and Defense research raise unit attack and health by 10% per tier (not the tower or the wall). Raiders get no bonuses
 - `ratio = sqrt(colony power / raider power)`. Above 1 is a victory
 - **Victory**: the colony loses health `(1 − sqrt(1 − 1/ratio²)) × total health`. The wall absorbs it first; units and the tower's archers share the rest by health, and units lose their share in proportion to their numbers (the tower's archers never die). Nothing else is gained
