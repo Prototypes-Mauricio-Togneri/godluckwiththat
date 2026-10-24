@@ -8,7 +8,8 @@
 - Losing a raid attack
   - Losing resources
   - Losing workers
-  - Some buildings' level are downgraded
+  - Some buildings' level are downgraded, possibly by more than one level
+- Units: infantry, archers, cavalry and siege
 - Military units consume resources to survive (food and wood) but they don’t produce any
 - Strengths
   - Infantry > Cavalry
@@ -35,7 +36,7 @@
 - See upcoming attacks
 - Make military research bonuses take effect (`BONUS_UNIT_DEFENSE`, `BONUS_UNIT_ATTACK`, `BONUS_WARNING_TIME`)
 - Give the existing military buildings an effect
-- Play `SND_UNDER_ATTACK` when a raid arrives
+- Play `SND_UNDER_ATTACK` when the notification that a raid is on its way is received
 - Until then, hide or mark as "coming soon" the military buildings and researches, so players don't spend resources on them for nothing
 
 ## Blessings (not yet implemented)
