@@ -1,28 +1,26 @@
 # Military
 
-* As you develop your colony, you will expand your territory. This will attract the natives on the island. For that you will have to develop an army to defend your colony from their raids.
-* Attack waves come one after the other from
-  - Bandits: their attacks are not announced
-  - Other tribes: their attacks are informed in advance
-* Their power increases over time
-* Launch a preventive attack and destroy the enemy and loot resources
-* Must balance the units for defenses and attacks and avoid having only one type of units. Encourage the trident of units
-* Losing a raid attack
+- As you develop your colony, you will expand your territory. This will attract the natives on the island. For that you will have to develop an army to defend your colony from their raids.
+- Attack waves come one after the other from other tribes: their attacks are informed in advance
+- Their power increases over time
+- Launch a preventive attack and destroy the enemy and loot resources
+- Must balance the units for defenses and attacks and avoid having only one type of units. Encourage the trident of units
+- Losing a raid attack
   - Losing resources
   - Losing workers
   - Some buildings' level are downgraded
-* Military units consume resources to survive but they don’t produce any
-* Strengths
+- Military units consume resources to survive but they don’t produce any
+- Strengths
   - Infantry > Cavalry
   - Archers > Infantry
   - Cavalry > Archers
   - Siege > Buildings
-* Heroes
+- Heroes
   - Special units that are much stronger than the rest and have unique abilities
-* Defenses
+- Defenses
   - Wall
   - Tower
-* Ideas
+- Ideas
   - Send expeditions to expand the territory. The more soldiers and the longer you send them, the more slots you get
   - Negotiate with enemies (give them goods) to delay it or cancel the attack
   - Pay a tribute to enemies to make them allies to trade
@@ -32,13 +30,14 @@
 
 ## Current state
 
-* Barracks, Archery, Stable, Workshop, Wall and Tower can be built (they cost resources and take territory) but have no effect yet
-* Defense, Attack and Warning researches can be bought, but their bonuses are not used yet
-* No units, raids, combat, heroes, traps or Port
-* `SND_UNDER_ATTACK` is loaded but never played
+- Barracks, Archery, Stable, Workshop, Wall and Tower can be built (they cost resources and take territory) but have no effect yet
+- Defense, Attack and Warning researches can be bought, but their bonuses are not used yet
+- No units, raids, combat, heroes, traps or Port
+- `SND_UNDER_ATTACK` is loaded but never played
 
 ## Port (not implemented)
-* Each level
+
+- Each level
   - +1% in food production (thought fishing), unaffected by season
   - +1% in wood production, unaffected by season
   - -1% in trading fee (the Market already gives -1% per level above 1)
@@ -51,6 +50,7 @@
     - Risk: units can be lost on failed raids
 
 ## TODO
+
 - Open military window
 - See military
 - Create units
@@ -63,6 +63,6 @@
 
 ## Blessings (not yet implemented)
 
-* `CELESTIAL_FORTIFICATION`: Buildings more resilient to attacks and disasters
-* `TEMPORARY_PEACE`: No enemy raids
-* `SANCTIFIED_HERO`: Gives a special military unit
+- `CELESTIAL_FORTIFICATION`: Buildings more resilient to attacks and disasters
+- `TEMPORARY_PEACE`: No enemy raids
+- `SANCTIFIED_HERO`: Gives a special military unit
