@@ -1,9 +1,9 @@
-import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_UPGRADES, TOWER_ARCHERS_PER_LEVEL} from '@/js/engine/balancing.js'
 import {BUILDING_TOWER} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Ranged attack structure. The higher the level, the more attack it provides to the colony.
+ * Ranged attack structure. In a raid it fights as a fixed number of archers per level, which never die.
  * Workers cannot be assigned to this building.
  */
 class Tower extends Building {
@@ -12,6 +12,15 @@ class Tower extends Building {
    */
   constructor(data) {
     super(data)
+  }
+
+  /**
+   * Archers the tower fights as in a raid (no research bonus).
+   * Formula: level × TOWER_ARCHERS_PER_LEVEL
+   * @returns {number} Archer count at the current level
+   */
+  get archers() {
+    return this.level * TOWER_ARCHERS_PER_LEVEL
   }
 
   /**

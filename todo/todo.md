@@ -5,7 +5,7 @@
   - Make blessings and punishments dynamic (currently fixed per challenge in `challenges.json`)
   - Add images on each blessing card (all blessings share `blessing.jpg`; punishments already have one image per type)
 
-- [Implement military](./military.md)
+- [Finish military](./military.md): Port, traps, heroes, siege units, relic challenge
 
 - [Implement disasters](./disasters.md)
 

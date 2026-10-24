@@ -6,8 +6,8 @@ import {IMG_OTHER_BUILD, IMG_OTHER_UPGRADE, IMG_RESOURCE_MAP} from '@/js/engine/
 import {playTap} from '@/js/engine/audio.js'
 import {formatNumber, formatNumberFull, formatTime} from '@/js/engine/format.js'
 import {BUILDING_CLASS_MAP, DOWNGRADABLE_BUILDINGS} from '@/js/engine/constants.js'
-import {HOUSE_POPULATION_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, PRODUCTION_RATES, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
-import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER} from '@/js/engine/enums.js'
+import {HOUSE_POPULATION_PER_LEVEL, MILITARY_UNITS_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, PRODUCTION_RATES, TOWER_ARCHERS_PER_LEVEL, WALL_HEALTH_PER_LEVEL, WORKERS_PER_LEVEL} from '@/js/engine/balancing.js'
+import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER} from '@/js/engine/enums.js'
 import {canAffordCost, marketFeePercent, storageCapacity} from '@/js/engine/utils.js'
 import {t} from '@/js/i18n/localized.js'
 
@@ -116,6 +116,20 @@ const actionTooltip = computed(() => {
   if (props.buildingKey === BUILDING_ALTAR) {
     const faithRate = PRODUCTION_RATES[BUILDING_ALTAR].rate.toFixed(1)
     return baseText + '\n' + t('building.levelUpBonus.faithRate', faithRate)
+  }
+  // Military buildings: unit cap, wall absorption, tower archers
+  if ([
+    BUILDING_BARRACKS,
+    BUILDING_ARCHERY,
+    BUILDING_STABLE,
+  ].includes(props.buildingKey)) {
+    return baseText + '\n' + t('building.levelUpBonus.units', formatNumber(MILITARY_UNITS_PER_LEVEL))
+  }
+  if (props.buildingKey === BUILDING_WALL) {
+    return baseText + '\n' + t('building.levelUpBonus.wallAbsorb', formatNumber(WALL_HEALTH_PER_LEVEL))
+  }
+  if (props.buildingKey === BUILDING_TOWER) {
+    return baseText + '\n' + t('building.levelUpBonus.towerArchers', formatNumber(TOWER_ARCHERS_PER_LEVEL))
   }
   return baseText
 })

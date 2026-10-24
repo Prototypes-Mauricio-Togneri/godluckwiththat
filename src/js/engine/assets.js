@@ -40,7 +40,6 @@ export const IMG_BUILDING_BARRACKS = '/img/buildings/military/barracks.jpg'
 export const IMG_BUILDING_STABLE = '/img/buildings/military/stable.jpg'
 export const IMG_BUILDING_TOWER = '/img/buildings/military/tower.jpg'
 export const IMG_BUILDING_WALL = '/img/buildings/military/wall.jpg'
-export const IMG_BUILDING_WORKSHOP = '/img/buildings/military/workshop.jpg'
 
 // Units
 export const IMG_UNIT_WORKER = '/img/units/worker.png'

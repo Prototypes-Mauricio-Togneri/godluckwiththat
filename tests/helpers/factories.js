@@ -1,9 +1,11 @@
-import {BLESSING_FERTILE_SOIL, CHALLENGE_STATUS_PENDING, HQ_TYPE_CAMP, PUNISHMENT_CROP_FAILURE, SEASON_WARM} from '@/js/engine/enums.js'
+import {BLESSING_FERTILE_SOIL, CHALLENGE_STATUS_PENDING, HQ_TYPE_CAMP, PUNISHMENT_CROP_FAILURE, RAID_PHASE_INCOMING, SEASON_WARM} from '@/js/engine/enums.js'
 import Blessing from '@/js/models/blessing.js'
 import Challenge from '@/js/models/challenge.js'
 import Challenges from '@/js/models/challenges.js'
 import Cost from '@/js/models/cost.js'
+import Military from '@/js/models/military.js'
 import Punishment from '@/js/models/punishment.js'
+import Raid from '@/js/models/raid.js'
 import Resources from '@/js/models/resources.js'
 import Season from '@/js/models/season.js'
 import Tutorial from '@/js/models/tutorial.js'
@@ -105,4 +107,33 @@ export function createChallenges(overrides = {}) {
 
 export function createTutorial(overrides) {
   return new Tutorial(overrides)
+}
+
+export function createRaid(overrides = {}) {
+  return new Raid({
+    phase: RAID_PHASE_INCOMING,
+    remainingSeconds: 60,
+    enemy: {
+      infantry: 5,
+    },
+    demand: {
+      food: 100,
+      wood: 50,
+    },
+    delaysPaid: 0,
+    ...overrides,
+  })
+}
+
+export function createMilitary(overrides = {}) {
+  return new Military({
+    units: {
+      infantry: 0,
+      archer: 0,
+      cavalry: 0,
+    },
+    raid: null,
+    raidCount: 0,
+    ...overrides,
+  })
 }

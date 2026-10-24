@@ -1,11 +1,12 @@
 import Buildings from '@/js/models/buildings.js'
 import Events from '@/js/models/events/events.js'
+import Military from '@/js/models/military.js'
 import Resources from '@/js/models/resources.js'
 import Season from '@/js/models/season.js'
 
 /**
  * Colony data model. Wraps all colony sub-models
- * (season, resources, buildings, events).
+ * (season, resources, buildings, events, military).
  *
  * @property {number} year - Current year (starts at 1, increments every warm+cold cycle)
  * @property {Season} season - Current season state
@@ -13,6 +14,7 @@ import Season from '@/js/models/season.js'
  * @property {Resources} resources - Current resource amounts
  * @property {Buildings} buildings - All building instances
  * @property {Events} events - Game event log (future countdowns + past notifications)
+ * @property {Military} military - Army and raid state
  */
 class Colony {
   /**
@@ -24,6 +26,7 @@ class Colony {
     this.resources = data.resources // Current resource amounts
     this.buildings = data.buildings // All building instances
     this.events = data.events // Game event log (future countdowns + past notifications)
+    this.military = data.military ?? new Military() // Army and raid state
   }
 
   /** @returns {number} Workers not assigned to any building (derived from total - assigned) */
@@ -44,6 +47,7 @@ class Colony {
       resources: new Resources(data.resources),
       buildings: Buildings.fromJSON(data.buildings, classMap),
       events: Events.fromJSON(data.events),
+      military: Military.fromJSON(data.military),
     })
   }
 
@@ -58,6 +62,7 @@ class Colony {
       resources: this.resources.toJSON(),
       buildings: this.buildings.toJSON(),
       events: this.events.toJSON(),
+      military: this.military.toJSON(),
     }
   }
 }

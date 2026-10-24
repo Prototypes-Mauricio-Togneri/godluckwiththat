@@ -1,5 +1,8 @@
 <script setup>
 import BaseCard from '@/components/buildings/base_card.vue'
+import MilitaryCardButton from '@/components/buildings/military_card_button.vue'
+import UnitCountRow from '@/components/buildings/unit_count_row.vue'
+import {UNIT_INFANTRY} from '@/js/engine/enums.js'
 
 defineProps({
   buildingKey: {
@@ -18,5 +21,10 @@ defineProps({
 </script>
 
 <template>
-  <BaseCard :building-key="buildingKey" :img="img" :building="building" />
+  <BaseCard :building-key="buildingKey" :img="img" :building="building">
+    <MilitaryCardButton />
+    <template #below-action>
+      <UnitCountRow :unit-type="UNIT_INFANTRY" />
+    </template>
+  </BaseCard>
 </template>

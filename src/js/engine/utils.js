@@ -1,7 +1,7 @@
-// Shared utility functions for resource affordability checks, rounding, storage capacity, market pricing, and timer progress.
+// Shared utility functions for resource affordability checks, rounding, storage capacity, market pricing, timer progress, and unit counts.
 
 import {MARKET_BASE_FEE, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_MIN_FEE, MARKET_PRICE_SHIFT, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER} from '@/js/engine/balancing.js'
-import {TRADE_BUY} from '@/js/engine/enums.js'
+import {TRADE_BUY, UNIT_ARCHER, UNIT_CAVALRY, UNIT_INFANTRY} from '@/js/engine/enums.js'
 
 const FLOOR_TOLERANCE = 1e-9 // Float error absorbed before flooring, far below any real fractional part
 
@@ -97,4 +97,17 @@ export function timerProgress(remainingSeconds, duration) {
     return 0
   }
   return Math.min(1, Math.max(0, 1 - remainingSeconds / duration))
+}
+
+/**
+ * Copies a per-unit-type count map, filling missing types with 0 (saved data may lack some).
+ * @param {Object<string, number>} [counts] - Unit count per type
+ * @returns {Object<string, number>} Count for every unit type
+ */
+export function unitCounts(counts) {
+  return {
+    [UNIT_INFANTRY]: counts?.[UNIT_INFANTRY] ?? 0,
+    [UNIT_ARCHER]: counts?.[UNIT_ARCHER] ?? 0,
+    [UNIT_CAVALRY]: counts?.[UNIT_CAVALRY] ?? 0,
+  }
 }

@@ -7,6 +7,8 @@ import ChallengeWinModal from '@/components/modals/challenge_win_modal.vue'
 import ConfirmModal from '@/components/modals/confirm_modal.vue'
 import PauseModal from '@/components/modals/pause_modal.vue'
 import MarketModal from '@/components/modals/market_modal.vue'
+import MilitaryModal from '@/components/modals/military_modal.vue'
+import RaidResultModal from '@/components/modals/raid_result_modal.vue'
 import ResearchModal from '@/components/modals/research_modal.vue'
 import HeadquartersCard from '@/components/buildings/headquarters_card.vue'
 import HouseCard from '@/components/buildings/house_card.vue'
@@ -25,7 +27,6 @@ import MonumentCard from '@/components/buildings/monument_card.vue'
 import BarracksCard from '@/components/buildings/barracks_card.vue'
 import ArcheryCard from '@/components/buildings/archery_card.vue'
 import StableCard from '@/components/buildings/stable_card.vue'
-import WorkshopCard from '@/components/buildings/workshop_card.vue'
 import WallCard from '@/components/buildings/wall_card.vue'
 import TowerCard from '@/components/buildings/tower_card.vue'
 import audio, {playTap} from '@/js/engine/audio.js'
@@ -36,9 +37,9 @@ import {IMG_BLESSING_BLESSING, IMG_OTHER_IDLE, IMG_OTHER_LOCK, IMG_OTHER_PRODUCT
 import TutorialBanner from '@/components/tutorial/tutorial_banner.vue'
 import TutorialModal from '@/components/tutorial/tutorial_modal.vue'
 import SettingsModal from '@/components/modals/settings_modal.vue'
-import {BUILDING_IMAGE_MAP, BUILDING_GRID, GAME_SPEED_DEFAULT, GAME_SPEED_OPTIONS, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, TUTORIAL_MODALS, TUTORIAL_STEPS, UNBOUNDED_RESOURCES} from '@/js/engine/constants.js'
-import {BULK_WORKER_AMOUNT, SEASON_DURATION} from '@/js/engine/balancing.js'
-import {BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_STARTED, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, EMIT_QUIT, EMIT_RESTART, EVENT_TYPE_CHALLENGE_STARTED, HQ_TYPE_CAMP, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
+import {BUILDING_IMAGE_MAP, BUILDING_GRID, GAME_SPEED_DEFAULT, GAME_SPEED_OPTIONS, HEADER_RESOURCES, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_TREE, SECONDS_PER_MINUTE, TICK_INTERVAL, TRADEABLE_RESOURCES, TUTORIAL_MODALS, TUTORIAL_STEPS, UNBOUNDED_RESOURCES, UNIT_BUILDINGS, UNIT_TYPES} from '@/js/engine/constants.js'
+import {BULK_WORKER_AMOUNT, SEASON_DURATION, UNIT_STATS} from '@/js/engine/balancing.js'
+import {BONUS_HABITATION, BONUS_STORAGE_CAPACITY, BUILDING_ACADEMY, BUILDING_ALTAR, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_STARTED, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, EMIT_QUIT, EMIT_RESTART, EVENT_TYPE_CHALLENGE_STARTED, HQ_TYPE_CAMP, RAID_PHASE_INCOMING, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 const CARD_COMPONENTS = {
@@ -59,7 +60,6 @@ const CARD_COMPONENTS = {
   [BUILDING_BARRACKS]: BarracksCard,
   [BUILDING_ARCHERY]: ArcheryCard,
   [BUILDING_STABLE]: StableCard,
-  [BUILDING_WORKSHOP]: WorkshopCard,
   [BUILDING_WALL]: WallCard,
   [BUILDING_TOWER]: TowerCard,
 }
@@ -277,6 +277,7 @@ const showConfirmRestart = ref(false)
 const showSettingsModal = ref(false)
 const showResearchModal = ref(false)
 const showMarketModal = ref(false)
+const showMilitaryModal = ref(false)
 const showChallengeModal = ref(false)
 const showSaveIndicator = ref(false)
 const saveIndicatorKey = ref('notifications.gameSaved') // i18n key of the save/load result shown
@@ -353,6 +354,10 @@ const ui = shallowReactive({
     [RESOURCE_FOOD]: 1,
     [RESOURCE_WOOD]: 1,
   },
+  armyConsumption: {
+    [RESOURCE_FOOD]: 0,
+    [RESOURCE_WOOD]: 0,
+  },
   productivity: 1,
   gameSpeed: GAME_SPEED_DEFAULT,
   buildings: {},
@@ -368,6 +373,16 @@ const ui = shallowReactive({
     fee: 0,
     basePrices: {},
   },
+  military: {
+    units: [],
+    wallLevel: 0,
+    wallAbsorb: 0,
+    towerLevel: 0,
+    towerArchers: 0,
+    raid: null,
+    forecast: null,
+  },
+  raidReport: null,
   futureEvents: [],
   pastEvents: [],
   challenges: {
@@ -594,6 +609,21 @@ function syncTimers() {
     }
   }
 
+  // Raid countdown; a full military sync when the raid was just announced, resolved or called off
+  const raid = state.colony.military.raid
+  const raidIncoming = raid?.phase === RAID_PHASE_INCOMING
+  if (raidIncoming !== (ui.military.raid !== null) || (state.raidReport !== null) !== (ui.raidReport !== null)) {
+    syncMilitary()
+  } else if (raidIncoming && ui.military.raid.remainingSeconds !== raid.remainingSeconds) {
+    ui.military = {
+      ...ui.military,
+      raid: {
+        ...ui.military.raid,
+        remainingSeconds: raid.remainingSeconds,
+      },
+    }
+  }
+
   // Challenge modal state (may have changed from advanceChallenges)
   if (state.challengeModal !== ui.challengeModal) {
     syncChallenges()
@@ -702,6 +732,10 @@ function syncProduction() {
   ui.consumptionMultipliers = {
     [RESOURCE_FOOD]: state.consumptionMultipliers[RESOURCE_FOOD],
     [RESOURCE_WOOD]: state.consumptionMultipliers[RESOURCE_WOOD],
+  }
+  ui.armyConsumption = {
+    [RESOURCE_FOOD]: state.armyConsumption[RESOURCE_FOOD],
+    [RESOURCE_WOOD]: state.armyConsumption[RESOURCE_WOOD],
   }
   ui.productivity = state.productivity
   ui.gameSpeed = state.meta.gameSpeed
@@ -820,6 +854,52 @@ function syncMarket() {
   }
 }
 
+/** Syncs the army, defenses, the announced raid with its forecast, and the raid report. */
+function syncMilitary() {
+  const {
+    resources, buildings, military,
+  } = state.colony
+  const raid = military.raid
+  ui.military = {
+    units: UNIT_TYPES.map(type => {
+      const buildingKey = UNIT_BUILDINGS[type]
+      const stats = UNIT_STATS[type]
+      return {
+        type: type,
+        buildingKey: buildingKey,
+        count: military.units[type],
+        cap: buildings[buildingKey].unitCap,
+        unlocked: unlockedBuildings.value.has(buildingKey),
+        cost: stats.cost,
+        costEntries: costToEntries(stats.cost),
+        canAfford: resources.canAfford(stats.cost),
+        upkeep: stats.upkeep,
+      }
+    }),
+    wallLevel: buildings.wall.level,
+    wallAbsorb: buildings.wall.absorb,
+    towerLevel: buildings.tower.level,
+    towerArchers: buildings.tower.archers,
+    // The waiting timer stays hidden; only an announced raid is shown
+    raid: raid?.phase === RAID_PHASE_INCOMING
+      ? {
+        remainingSeconds: raid.remainingSeconds,
+        enemy: {
+          ...raid.enemy,
+        },
+        enemyCount: raid.enemyCount,
+        canDelay: raid.canDelay,
+        delayCost: raid.delayCost,
+        delayCostEntries: costToEntries(raid.delayCost),
+        cancelCost: raid.cancelCost,
+        cancelCostEntries: costToEntries(raid.cancelCost),
+      }
+      : null,
+    forecast: state._raidForecast,
+  }
+  ui.raidReport = state.raidReport ? state.raidReport.toJSON() : null
+}
+
 /** Syncs future and past events. */
 function syncEvents() {
   const {
@@ -924,6 +1004,7 @@ function syncUI() {
   syncHQ()
   syncAcademy()
   syncMarket()
+  syncMilitary()
   syncEvents()
   syncChallenges()
   syncTutorial()
@@ -989,6 +1070,23 @@ const actions = {
     resumeClocks()
     syncUI()
   },
+  buyUnits: (type, count) => {
+    state.buyUnits(type, count)
+    syncResources(); syncProduction(); syncMilitary(); syncEvents(); syncTutorial()
+  },
+  dismissUnits: (type, count) => {
+    state.dismissUnits(type, count)
+    syncResources(); syncProduction(); syncMilitary(); syncEvents(); syncTutorial()
+  },
+  payTribute: (kind) => {
+    state.payTribute(kind)
+    syncResources(); syncProduction(); syncMilitary(); syncEvents()
+  },
+  acknowledgeRaid: () => {
+    state.acknowledgeRaid()
+    resumeClocks()
+    syncUI()
+  },
 }
 
 provide('ui', ui)
@@ -1003,6 +1101,9 @@ provide('openMarketModal', () => {
 })
 provide('openChallengeModal', () => {
   showChallengeModal.value = true
+})
+provide('openMilitaryModal', () => {
+  showMilitaryModal.value = true
 })
 
 /** Writes the current game state to localStorage and flashes the save result. */
@@ -1141,6 +1242,8 @@ function handleEventAction(action) {
   playTap()
   if (action === 'openChallengeModal') {
     showChallengeModal.value = true
+  } else if (action === 'openMilitaryModal') {
+    showMilitaryModal.value = true
   }
 }
 
@@ -1274,7 +1377,9 @@ function resumeClocks() {
 }
 
 /**
- * Advances season, construction, research, challenge, and event timers by one step.
+ * Advances season, construction, research, challenge, event, and raid timers by one step.
+ * Raids run last so they can correct the raid event after advanceEvents, and so a challenge
+ * result and a raid result never land in the same step (a paused game skips the raid step).
  * @param {number} delta - Game seconds to advance
  */
 function advanceProgress(delta) {
@@ -1283,6 +1388,7 @@ function advanceProgress(delta) {
   state.advanceResearch(delta)
   state.advanceChallenges(delta)
   state.advanceEvents(delta)
+  state.advanceRaids(delta)
 }
 
 /**
@@ -1451,14 +1557,14 @@ watch(showModal, (isOpen) => {
     progressAnimFrame = null
     stopAutosave()
   } else if (!showConfirmQuit.value && !showConfirmRestart.value) {
-    // A tutorial or challenge modal still on screen keeps the game paused; dismissing it unpauses.
+    // A tutorial, challenge or raid result modal still on screen keeps the game paused; dismissing it unpauses.
     // Only values that render a modal count, so a hand-edited save can't leave the game paused with nothing to dismiss
     const challengeModalShown = [
       CHALLENGE_MODAL_REWARD,
       CHALLENGE_MODAL_FAILURE,
       CHALLENGE_MODAL_WIN,
     ].includes(state.challengeModal)
-    if (!challengeModalShown && !state.meta.tutorial.activeModal) {
+    if (!challengeModalShown && !state.meta.tutorial.activeModal && !state.raidReport) {
       state.paused = false
     }
     resumeClocks()
@@ -1475,6 +1581,13 @@ watch(showModal, (isOpen) => {
 watch(() => ui.challengeModal, (challengeModal) => {
   if (challengeModal) {
     showChallengeModal.value = false
+  }
+})
+
+// Close the military window when the raid result window appears
+watch(() => ui.raidReport, (raidReport) => {
+  if (raidReport) {
+    showMilitaryModal.value = false
   }
 })
 
@@ -1611,6 +1724,10 @@ onUnmounted(() => {
                 <template v-if="hasConsumption(resource)">
                   <span class="resource-tooltip-label resource-tooltip-label--spaced">{{ t('resource.consuming') }}:</span>
                   <span class="resource-tooltip-value resource-tooltip-value--spaced">{{ +resourceConsumption(resource).toFixed(2) }}</span>
+                </template>
+                <template v-if="ui.armyConsumption[resource] > 0">
+                  <span class="resource-tooltip-label">{{ t('resource.army') }}:</span>
+                  <span class="resource-tooltip-value">{{ +ui.armyConsumption[resource].toFixed(2) }}</span>
                 </template>
                 <template v-if="consumptionModifierPercent(resource) !== 0">
                   <span class="resource-tooltip-label">{{ t('resource.consumption') }}:</span>
@@ -1823,6 +1940,11 @@ onUnmounted(() => {
       @close="showMarketModal = false"
     />
 
+    <MilitaryModal
+      v-if="showMilitaryModal"
+      @close="showMilitaryModal = false"
+    />
+
     <ChallengeDetailModal
       v-if="showChallengeModal"
       @close="showChallengeModal = false"
@@ -1840,6 +1962,10 @@ onUnmounted(() => {
       v-if="ui.challengeModal === CHALLENGE_MODAL_WIN"
       @continue="handleWinContinue"
       @quit="handleWinQuit"
+    />
+
+    <RaidResultModal
+      v-if="ui.raidReport"
     />
 
     <Transition name="tutorial-banner" mode="out-in">

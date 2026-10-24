@@ -152,9 +152,8 @@
         "productivity": 0.3
       },
       {
-        "type": "forestBloom",
-        "timeout": 120,
-        "productivity": 0.3
+        "type": "temporaryPeace",
+        "timeout": 300
       }
     ],
     "punishment": {
@@ -220,9 +219,8 @@
         "productivity": 0.3
       },
       {
-        "type": "celestialProsperity",
-        "timeout": 60,
-        "productivity": 0.1
+        "type": "celestialFortification",
+        "timeout": 300
       }
     ],
     "punishment": {

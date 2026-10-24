@@ -18,7 +18,6 @@
  * @property {Barracks} barracks - Infantry training
  * @property {Archery} archery - Archer unit training
  * @property {Stable} stable - Cavalry unit training
- * @property {Workshop} workshop - Siege unit training
  * @property {Wall} wall - Defensive fortification
  * @property {Tower} tower - Ranged attack structure
  */
@@ -44,7 +43,6 @@ class Buildings {
     this.barracks = data.barracks // Infantry training
     this.archery = data.archery // Archer unit training
     this.stable = data.stable // Cavalry unit training
-    this.workshop = data.workshop // Siege unit training
     this.wall = data.wall // Defensive fortification
     this.tower = data.tower // Ranged attack structure
   }
@@ -62,8 +60,7 @@ class Buildings {
       + this.monument.level + this.farm.level + this.woodcutter.level
       + this.quarry.level + this.copperMine.level + this.ironMine.level
       + this.goldMine.level + this.barracks.level + this.archery.level
-      + this.stable.level + this.workshop.level + this.wall.level
-      + this.tower.level
+      + this.stable.level + this.wall.level + this.tower.level
   }
 
   /**
@@ -137,9 +134,6 @@ class Buildings {
       count++
     }
     if (this.stable.isConstructing) {
-      count++
-    }
-    if (this.workshop.isConstructing) {
       count++
     }
     if (this.wall.isConstructing) {

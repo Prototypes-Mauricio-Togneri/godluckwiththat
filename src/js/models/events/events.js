@@ -211,6 +211,25 @@ class Events {
   }
 
   /**
+   * Sets the countdown of the future event with the given type and moves it to its sorted position.
+   * Used for events whose timer can freeze or jump (e.g. a raid), so they follow their own timer.
+   * No-op when no such event exists or the value is unchanged.
+   * @param {string} type - Event type to match
+   * @param {number} seconds - New remaining seconds
+   */
+  setFutureRemaining(type, seconds) {
+    const index = this.future.findIndex(
+      event => event.type === type,
+    )
+    if (index === -1 || this.future[index].remainingSeconds === seconds) {
+      return
+    }
+    const [event] = this.future.splice(index, 1)
+    event.remainingSeconds = seconds
+    this._binaryInsertFuture(event)
+  }
+
+  /**
    * Decrements remaining seconds on future events.
    * Clamps at 0 — does not auto-convert to past.
    * @param {number} delta - Seconds elapsed since last tick

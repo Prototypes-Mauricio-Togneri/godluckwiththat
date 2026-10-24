@@ -271,6 +271,103 @@ describe('Events', () => {
     })
   })
 
+  describe('setFutureRemaining', () => {
+    it('should update the countdown of the event with the given type', () => {
+      const events = new Events()
+      const event = events.addFuture({
+        ...createEventData({
+          type: 'raid_incoming',
+        }),
+        remainingSeconds: 30,
+      })
+      events.setFutureRemaining('raid_incoming', 45)
+      expect(event.remainingSeconds).toBe(45)
+      expect(events.future[0]).toBe(event)
+    })
+
+    it('should move an event later in the list when its countdown grows', () => {
+      const events = new Events()
+      events.addFuture({
+        ...createEventData({
+          type: 'raid_incoming',
+        }),
+        remainingSeconds: 10,
+      })
+      events.addFuture({
+        ...createEventData(),
+        remainingSeconds: 50,
+      })
+      events.setFutureRemaining('raid_incoming', 100)
+      expect(events.future.map(event => event.remainingSeconds)).toEqual([
+        50,
+        100,
+      ])
+      expect(events.future[1].type).toBe('raid_incoming')
+    })
+
+    it('should move an event earlier in the list when its countdown shrinks', () => {
+      const events = new Events()
+      events.addFuture({
+        ...createEventData(),
+        remainingSeconds: 50,
+      })
+      events.addFuture({
+        ...createEventData({
+          type: 'raid_incoming',
+        }),
+        remainingSeconds: 100,
+      })
+      events.setFutureRemaining('raid_incoming', 20)
+      expect(events.future[0].type).toBe('raid_incoming')
+      expect(events.future.map(event => event.remainingSeconds)).toEqual([
+        20,
+        50,
+      ])
+    })
+
+    it('should keep the event id', () => {
+      const events = new Events()
+      const event = events.addFuture({
+        ...createEventData({
+          type: 'raid_incoming',
+        }),
+        remainingSeconds: 10,
+      })
+      events.setFutureRemaining('raid_incoming', 60)
+      expect(events.future[0].id).toBe(event.id)
+    })
+
+    it('should do nothing when no event has the given type', () => {
+      const events = new Events()
+      events.addFuture({
+        ...createEventData(),
+        remainingSeconds: 10,
+      })
+      events.setFutureRemaining('raid_incoming', 60)
+      expect(events.future).toHaveLength(1)
+      expect(events.future[0].remainingSeconds).toBe(10)
+    })
+
+    it('should not reorder when the value is unchanged', () => {
+      const events = new Events()
+      const other = events.addFuture({
+        ...createEventData(),
+        remainingSeconds: 20,
+      })
+      events.addFuture({
+        ...createEventData({
+          type: 'raid_incoming',
+        }),
+        remainingSeconds: 30,
+      })
+      // Tie: re-inserting the raid event would place it before the other one
+      other.remainingSeconds = 30
+      events.setFutureRemaining('raid_incoming', 30)
+      expect(events.future[0]).toBe(other)
+      expect(events.future[1].type).toBe('raid_incoming')
+    })
+  })
+
   describe('sortedFuture / sortedPast', () => {
     it('should return future array directly', () => {
       const events = new Events()

@@ -1,6 +1,6 @@
 import {describe, it, expect} from 'vitest'
 import {BUILDING_CLASS_MAP} from '@/js/engine/constants.js'
-import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP} from '@/js/engine/enums.js'
+import {BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER} from '@/js/engine/enums.js'
 import Buildings from '@/js/models/buildings.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
@@ -21,7 +21,6 @@ import Temple from '@/js/models/buildings/temple.js'
 import Tower from '@/js/models/buildings/tower.js'
 import Wall from '@/js/models/buildings/wall.js'
 import Woodcutter from '@/js/models/buildings/woodcutter.js'
-import Workshop from '@/js/models/buildings/workshop.js'
 
 function createAllBuildings(overrides = {}) {
   return new Buildings({
@@ -76,9 +75,6 @@ function createAllBuildings(overrides = {}) {
     }),
     stable: new Stable({
       level: overrides.stableLevel ?? 0,
-    }),
-    workshop: new Workshop({
-      level: overrides.workshopLevel ?? 0,
     }),
     wall: new Wall({
       level: overrides.wallLevel ?? 0,
@@ -160,7 +156,6 @@ describe('Buildings', () => {
       BUILDING_BARRACKS,
       BUILDING_ARCHERY,
       BUILDING_STABLE,
-      BUILDING_WORKSHOP,
       BUILDING_WALL,
       BUILDING_TOWER,
     ])('should count %s when constructing', (key) => {

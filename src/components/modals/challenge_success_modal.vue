@@ -6,7 +6,7 @@ import {t} from '@/js/i18n/localized.js'
 import {BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS,
   BLESSING_HOLY_EXPANSION, BLESSING_RICH_MINES, BLESSING_CELESTIAL_PROSPERITY,
   BLESSING_RAPID_CONSTRUCTION, BLESSING_FAVORABLE_WEATHER, BLESSING_WISDOM_OF_THE_GODS,
-  BLESSING_BLESSED_MARKETS} from '@/js/engine/enums.js'
+  BLESSING_BLESSED_MARKETS, BLESSING_TEMPORARY_PEACE, BLESSING_CELESTIAL_FORTIFICATION} from '@/js/engine/enums.js'
 import {formatMinutes, formatNumber} from '@/js/engine/format.js'
 import {pushEscapeHandler, removeEscapeHandler} from '@/js/engine/escape_stack.js'
 import {pushFocusLayer, removeFocusLayer} from '@/js/engine/focus_stack.js'
@@ -40,6 +40,8 @@ function blessingDescription(blessing) {
     case BLESSING_FAVORABLE_WEATHER: return t('blessing.favorableWeather.description', Math.round((blessing.warm ?? 0) * 100), Math.round((blessing.cold ?? 0) * 100), duration)
     case BLESSING_WISDOM_OF_THE_GODS: return t('blessing.wisdomOfTheGods.description', percentage, duration)
     case BLESSING_BLESSED_MARKETS: return t('blessing.blessedMarkets.description', duration)
+    case BLESSING_TEMPORARY_PEACE: return t('blessing.temporaryPeace.description', duration)
+    case BLESSING_CELESTIAL_FORTIFICATION: return t('blessing.celestialFortification.description', duration)
     default: return ''
   }
 }

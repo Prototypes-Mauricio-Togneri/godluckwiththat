@@ -1,7 +1,8 @@
-import {describe, it, expect, vi, beforeEach} from 'vitest'
-import {BLESSING_BLESSED_MARKETS, BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT, PUNISHMENT_CROP_FAILURE, PUNISHMENT_LANDSLIDE, PUNISHMENT_PLAGUE, PUNISHMENT_VOLCANO, PUNISHMENT_WILDFIRES, RESEARCH_FOOD_PRODUCTION_1, RESOURCE_FOOD, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL, TUTORIAL_MODAL_CHALLENGE_STARTED, TUTORIAL_MODAL_HQ_UPGRADE, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_SEASON_CHANGED} from '@/js/engine/enums.js'
-import {HQ_TERRITORY_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, RESEARCH_TIME_MULTIPLIER, SEASON_DURATION, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
-import {IMG_OTHER_TERRITORY, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
+import {describe, it, expect, vi, beforeEach, afterEach} from 'vitest'
+import {BLESSING_BLESSED_MARKETS, BLESSING_CELESTIAL_FORTIFICATION, BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_TEMPORARY_PEACE, BLESSING_WISDOM_OF_THE_GODS, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, CHALLENGE_STATUS_ACTIVATED, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RAID_INCOMING, EVENT_TYPE_RAID_RESULT, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, HQ_TYPE_CITY, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, PUNISHMENT_CROP_FAILURE, PUNISHMENT_LANDSLIDE, PUNISHMENT_PLAGUE, PUNISHMENT_VOLCANO, PUNISHMENT_WILDFIRES, RAID_PHASE_INCOMING, RAID_PHASE_WAITING, RESEARCH_ATTACK_1, RESEARCH_DEFENSE_1, RESEARCH_FOOD_PRODUCTION_1, RESEARCH_WARNING_1, RESEARCH_WARNING_2, RESOURCE_COPPER, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_STONE, RESOURCE_WOOD, SEASON_COLD, SEASON_WARM, TRADE_BUY, TRADE_SELL, TRIBUTE_CANCEL, TRIBUTE_DELAY, TUTORIAL_MODAL_CHALLENGE_STARTED, TUTORIAL_MODAL_HQ_UPGRADE, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_RAID_INCOMING, TUTORIAL_MODAL_SEASON_CHANGED, UNIT_ARCHER, UNIT_CAVALRY, UNIT_INFANTRY} from '@/js/engine/enums.js'
+import {HQ_TERRITORY_PER_LEVEL, MILITARY_UNITS_PER_LEVEL, MONUMENT_FAITH_PER_LEVEL, RAID_GRACE_PERIOD, RAID_INTERVAL_BASE, RAID_INTERVAL_MIN, RAID_INTERVAL_PER_TERRITORY, RAID_UNITS_BASE, RAID_UNITS_PER_TERRITORY, RAID_UNITS_PER_YEAR, RAID_WARNING_TIME, RESEARCH_TIME_MULTIPLIER, SEASON_DURATION, SHORTAGE_MAX_PENALTY, TRIBUTE_DELAY_SECONDS, TRIBUTE_ROUNDING, UNIT_STATS, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import {IMG_BUILDING_WALL, IMG_OTHER_TERRITORY, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_DISASTER, SND_TERRITORY_EXPANDED, SND_UNDER_ATTACK, SND_WORKER_ACADEMY, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
+import {resolveBattle} from '@/js/engine/battle.js'
 import {DOWNGRADABLE_BUILDINGS, RESEARCH_COSTS, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG} from '@/js/engine/constants.js'
 import Academy from '@/js/models/buildings/academy.js'
 import Altar from '@/js/models/buildings/altar.js'
@@ -22,15 +23,17 @@ import Temple from '@/js/models/buildings/temple.js'
 import Tower from '@/js/models/buildings/tower.js'
 import Wall from '@/js/models/buildings/wall.js'
 import Woodcutter from '@/js/models/buildings/woodcutter.js'
-import Workshop from '@/js/models/buildings/workshop.js'
 import Buildings from '@/js/models/buildings.js'
 import Colony from '@/js/models/colony.js'
+import Cost from '@/js/models/cost.js'
 import Meta from '@/js/models/meta.js'
+import Raid from '@/js/models/raid.js'
+import RaidReport from '@/js/models/raid_report.js'
 import Resources from '@/js/models/resources.js'
 import Season from '@/js/models/season.js'
 import Events from '@/js/models/events/events.js'
 import Tutorial from '@/js/models/tutorial.js'
-import {createBlessing, createChallenge, createChallenges, createPunishment} from '../helpers/factories.js'
+import {createBlessing, createChallenge, createChallenges, createMilitary, createPunishment, createRaid} from '../helpers/factories.js'
 
 vi.mock('@/js/engine/analytics.js', () => ({
   default: {
@@ -102,7 +105,6 @@ function createBuildings(overrides = {}) {
     barracks: defaultBuilding(Barracks, overrides.barracks),
     archery: defaultBuilding(Archery, overrides.archery),
     stable: defaultBuilding(Stable, overrides.stable),
-    workshop: defaultBuilding(Workshop, overrides.workshop),
     wall: defaultBuilding(Wall, overrides.wall),
     tower: defaultBuilding(Tower, overrides.tower),
   })
@@ -132,6 +134,7 @@ function createColony(overrides = {}) {
     }),
     buildings: overrides.buildings ?? createBuildings(overrides.buildingOverrides),
     events: overrides.events ?? new Events(),
+    military: overrides.military,
   })
 }
 
@@ -155,6 +158,45 @@ async function createState(options = {}) {
   const meta = options.meta ?? createMeta(options.metaOverrides ?? {})
   const colony = options.colony ?? createColony(options.colonyOverrides ?? {})
   return new State(meta, colony)
+}
+
+// A Settlement colony with the given army and raid; an incoming raid also gets its upcoming event
+async function createRaidState(options = {}) {
+  const colonyOverrides = options.colonyOverrides ?? {}
+  const state = await createState({
+    metaOverrides: options.metaOverrides,
+    colonyOverrides: {
+      ...colonyOverrides,
+      military: createMilitary({
+        units: options.units ?? {},
+        raid: options.raid === undefined ? createRaid() : options.raid,
+        raidCount: options.raidCount ?? 0,
+      }),
+      buildingOverrides: {
+        headquarters: {
+          level: 1,
+          type: HQ_TYPE_SETTLEMENT,
+        },
+        ...colonyOverrides.buildingOverrides,
+      },
+    },
+  })
+  const raid = state.colony.military.raid
+  if (raid?.phase === RAID_PHASE_INCOMING) {
+    state.colony.events.addFuture({
+      type: EVENT_TYPE_RAID_INCOMING,
+      textKey: 'event.raidIncoming',
+      icon: IMG_BUILDING_WALL,
+      params: [raid.enemyCount],
+      action: 'openMilitaryModal',
+      remainingSeconds: raid.remainingSeconds,
+    })
+  }
+  return state
+}
+
+function raidEvent(state) {
+  return state.colony.events.future.find(event => event.type === EVENT_TYPE_RAID_INCOMING)
 }
 
 describe('State', () => {
@@ -196,6 +238,25 @@ describe('State', () => {
     it('should initialize challengeModal to null', async () => {
       const state = await createState()
       expect(state.challengeModal).toBeNull()
+    })
+
+    it('should initialize raidReport to null', async () => {
+      const state = await createState()
+      expect(state.raidReport).toBeNull()
+    })
+
+    it('should initialize army consumption to zero', async () => {
+      const state = await createState()
+      expect(state.armyConsumption).toEqual({
+        food: 0,
+        wood: 0,
+      })
+    })
+
+    it('should give the colony an empty Military when none is passed', async () => {
+      const state = await createState()
+      expect(state.colony.military.totalUnits).toBe(0)
+      expect(state.colony.military.raid).toBeNull()
     })
 
     it('should detect constructing buildings', async () => {
@@ -477,6 +538,80 @@ describe('State', () => {
       expect(state._resourcesNegativeProduction.has(RESOURCE_FOOD)).toBe(false)
       const config = RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG[RESOURCE_FOOD]
       expect(dismissSpy).toHaveBeenCalledWith(config.textKey)
+    })
+
+    it('should store the army share of upkeep in armyConsumption', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          military: createMilitary({
+            units: {
+              [UNIT_INFANTRY]: 10,
+            },
+          }),
+        },
+      })
+      state.update(0)
+      expect(state.armyConsumption.food).toBeCloseTo(10 * UNIT_STATS[UNIT_INFANTRY].upkeep.food, 10)
+      expect(state.armyConsumption.wood).toBeGreaterThan(0)
+      // No workers: all consumption comes from the army
+      expect(state.consumption.food).toBeCloseTo(state.armyConsumption.food, 10)
+      expect(state.consumption.wood).toBeCloseTo(state.armyConsumption.wood, 10)
+    })
+
+    it('should deduct army upkeep from food and wood over time', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          military: createMilitary({
+            units: {
+              [UNIT_INFANTRY]: 10,
+            },
+          }),
+        },
+      })
+      state.update(10)
+      expect(state.colony.resources.food).toBeCloseTo(200 - 10 * state.armyConsumption.food, 6)
+      expect(state.colony.resources.wood).toBeCloseTo(200 - 10 * state.armyConsumption.wood, 6)
+      expect(state.colony.resources.food).toBeLessThan(200)
+    })
+
+    it('should count army upkeep toward the shortage penalty', async () => {
+      const colonyOverrides = (units) => ({
+        resources: {
+          workers: 10,
+        },
+        buildingOverrides: {
+          farm: {
+            level: 1,
+            workers: 5,
+          },
+          woodcutter: {
+            level: 1,
+            workers: 5,
+          },
+          house: {
+            level: 2,
+          },
+        },
+        military: createMilitary({
+          units: units,
+        }),
+      })
+      const withoutArmy = await createState({
+        colonyOverrides: colonyOverrides({}),
+      })
+      const withArmy = await createState({
+        colonyOverrides: colonyOverrides({
+          [UNIT_INFANTRY]: 60,
+        }),
+      })
+      // The second tick applies the penalty detected on the first
+      withoutArmy.update(0)
+      withoutArmy.update(0)
+      withArmy.update(0)
+      withArmy.update(0)
+      expect(withoutArmy.productivity).toBe(1)
+      expect(withArmy.netProduction(RESOURCE_FOOD)).toBeLessThan(0)
+      expect(withArmy.productivity).toBeLessThan(1)
     })
   })
 
@@ -2508,7 +2643,7 @@ describe('State', () => {
       expect(json.colony.season).toBeDefined()
       expect(json.colony.resources).toBeDefined()
       expect(json.colony.buildings).toBeDefined()
-      // All 20 buildings serialized
+      // All 19 buildings serialized
       const expectedBuildingKeys = [
         'headquarters',
         'house',
@@ -2527,7 +2662,6 @@ describe('State', () => {
         'barracks',
         'archery',
         'stable',
-        'workshop',
         'wall',
         'tower',
       ]
@@ -2790,6 +2924,113 @@ describe('State', () => {
       expect(restored).not.toBeNull()
       expect(restored.colony.events.future[0].params).toBe('edited')
     })
+
+    it('should serialize the military with its incoming raid', async () => {
+      const state = await createRaidState({
+        units: {
+          [UNIT_INFANTRY]: 3,
+        },
+        raid: createRaid({
+          remainingSeconds: 40,
+          delaysPaid: 1,
+        }),
+        raidCount: 2,
+      })
+      const json = state.toJSON()
+      expect(json.colony.military).toEqual({
+        units: {
+          [UNIT_INFANTRY]: 3,
+          [UNIT_ARCHER]: 0,
+          [UNIT_CAVALRY]: 0,
+        },
+        raid: {
+          phase: RAID_PHASE_INCOMING,
+          remainingSeconds: 40,
+          enemy: {
+            [UNIT_INFANTRY]: 5,
+            [UNIT_ARCHER]: 0,
+            [UNIT_CAVALRY]: 0,
+          },
+          demand: {
+            food: 100,
+            wood: 50,
+          },
+          delaysPaid: 1,
+        },
+        raidCount: 2,
+      })
+    })
+
+    it('should restore the military and its raid on load', async () => {
+      const state = await createRaidState({
+        units: {
+          [UNIT_ARCHER]: 2,
+        },
+        raid: createRaid({
+          remainingSeconds: 40,
+          delaysPaid: 1,
+        }),
+        raidCount: 2,
+      })
+      const {
+        default: State,
+      } = await import('@/js/engine/state.js')
+      const restored = State.fromJSON(state.toJSON())
+      const {
+        military,
+      } = restored.colony
+      expect(military.units[UNIT_ARCHER]).toBe(2)
+      expect(military.raidCount).toBe(2)
+      expect(military.raid).toBeInstanceOf(Raid)
+      expect(military.raid.remainingSeconds).toBe(40)
+      expect(military.raid.delaysPaid).toBe(1)
+      expect(military.raid.demand).toBeInstanceOf(Cost)
+      expect(raidEvent(restored).remainingSeconds).toBe(40)
+    })
+
+    it('should serialize raidReport as null when no result window is open', async () => {
+      const state = await createState()
+      expect(state.toJSON().raidReport).toBeNull()
+    })
+
+    it('should restore the raid report and stay paused on load', async () => {
+      const state = await createState()
+      state.raidReport = new RaidReport({
+        victory: false,
+        army: {
+          [UNIT_INFANTRY]: 2,
+        },
+        unitsLost: {
+          [UNIT_INFANTRY]: 2,
+        },
+        resourcesLost: {
+          food: 60,
+        },
+        workersLost: 1,
+        buildingsLost: [BUILDING_FARM],
+      })
+      const json = state.toJSON()
+      expect(json.raidReport.buildingsLost).toEqual([BUILDING_FARM])
+      const {
+        default: State,
+      } = await import('@/js/engine/state.js')
+      const restored = State.fromJSON(json)
+      expect(restored.raidReport).toBeInstanceOf(RaidReport)
+      expect(restored.raidReport.toJSON()).toEqual(state.raidReport.toJSON())
+      expect(restored.paused).toBe(true)
+    })
+
+    it('should default raidReport to null and not pause when missing', async () => {
+      const state = await createState()
+      const json = state.toJSON()
+      delete json.raidReport
+      const {
+        default: State,
+      } = await import('@/js/engine/state.js')
+      const restored = State.fromJSON(json)
+      expect(restored.raidReport).toBeNull()
+      expect(restored.paused).toBe(false)
+    })
   })
 
   // ── checkTutorial ────────────────────────────────────────────────
@@ -2904,6 +3145,7 @@ describe('State', () => {
               TUTORIAL_MODAL_NEGATIVE_PRODUCTION,
               TUTORIAL_MODAL_HQ_UPGRADE,
               TUTORIAL_MODAL_CHALLENGE_STARTED,
+              TUTORIAL_MODAL_RAID_INCOMING,
             ],
           }),
         },
@@ -2976,6 +3218,7 @@ describe('State', () => {
       state.meta.tutorial.dismissedModals.add(TUTORIAL_MODAL_NEGATIVE_PRODUCTION)
       state.meta.tutorial.dismissedModals.add(TUTORIAL_MODAL_HQ_UPGRADE)
       state.meta.tutorial.dismissedModals.add(TUTORIAL_MODAL_CHALLENGE_STARTED)
+      state.meta.tutorial.dismissedModals.add(TUTORIAL_MODAL_RAID_INCOMING)
 
       // Second call: should now detect all modals dismissed and complete
       state.checkTutorial()
@@ -3010,6 +3253,7 @@ describe('State', () => {
               TUTORIAL_MODAL_NEGATIVE_PRODUCTION,
               TUTORIAL_MODAL_HQ_UPGRADE,
               TUTORIAL_MODAL_CHALLENGE_STARTED,
+              TUTORIAL_MODAL_RAID_INCOMING,
             ],
           }),
         },
@@ -3031,6 +3275,7 @@ describe('State', () => {
               TUTORIAL_MODAL_NEGATIVE_PRODUCTION,
               TUTORIAL_MODAL_HQ_UPGRADE,
               TUTORIAL_MODAL_CHALLENGE_STARTED,
+              TUTORIAL_MODAL_RAID_INCOMING,
             ],
           }),
         },
@@ -3050,6 +3295,7 @@ describe('State', () => {
               TUTORIAL_MODAL_SEASON_CHANGED,
               TUTORIAL_MODAL_NEGATIVE_PRODUCTION,
               TUTORIAL_MODAL_CHALLENGE_STARTED,
+              TUTORIAL_MODAL_RAID_INCOMING,
             ],
           }),
         },
@@ -3335,6 +3581,87 @@ describe('State', () => {
         wood: 0.8,
       }, 10)
       expect(rates.wood).toBeCloseTo(10 * WORKER_WOOD_CONSUMPTION * 0.7, 10)
+    })
+
+    it('should add army upkeep to the rates even with 0 workers', async () => {
+      const state = await createState()
+      const {
+        rates, armyRates,
+      } = state._computeConsumptionRates({}, {
+        food: 1,
+        wood: 1,
+      }, 0, {
+        [UNIT_INFANTRY]: 2,
+        [UNIT_ARCHER]: 1,
+        [UNIT_CAVALRY]: 1,
+      })
+      const expectedFood = 2 * UNIT_STATS[UNIT_INFANTRY].upkeep.food + UNIT_STATS[UNIT_ARCHER].upkeep.food + UNIT_STATS[UNIT_CAVALRY].upkeep.food
+      const expectedWood = 2 * UNIT_STATS[UNIT_INFANTRY].upkeep.wood + UNIT_STATS[UNIT_ARCHER].upkeep.wood + UNIT_STATS[UNIT_CAVALRY].upkeep.wood
+      expect(armyRates.food).toBeCloseTo(expectedFood, 10)
+      expect(armyRates.wood).toBeCloseTo(expectedWood, 10)
+      expect(rates.food).toBeCloseTo(expectedFood, 10)
+      expect(rates.wood).toBeCloseTo(expectedWood, 10)
+    })
+
+    it('should add army upkeep to worker upkeep', async () => {
+      const state = await createState()
+      const {
+        rates,
+      } = state._computeConsumptionRates({}, {
+        food: 1,
+        wood: 1,
+      }, 10, {
+        [UNIT_INFANTRY]: 4,
+      })
+      expect(rates.food).toBeCloseTo(10 * WORKER_FOOD_CONSUMPTION + 4 * UNIT_STATS[UNIT_INFANTRY].upkeep.food, 10)
+      expect(rates.wood).toBeCloseTo(10 * WORKER_WOOD_CONSUMPTION + 4 * UNIT_STATS[UNIT_INFANTRY].upkeep.wood, 10)
+    })
+
+    it('should apply the food consumption research to army upkeep', async () => {
+      const state = await createState()
+      const {
+        armyRates,
+      } = state._computeConsumptionRates({
+        foodConsumption: 0.1,
+      }, {
+        food: 1,
+        wood: 1,
+      }, 0, {
+        [UNIT_CAVALRY]: 4,
+      })
+      expect(armyRates.food).toBeCloseTo(4 * UNIT_STATS[UNIT_CAVALRY].upkeep.food * 0.9, 10)
+      expect(armyRates.wood).toBeCloseTo(4 * UNIT_STATS[UNIT_CAVALRY].upkeep.wood, 10)
+    })
+
+    it('should apply the wood consumption research and the season to army upkeep', async () => {
+      const state = await createState()
+      // Same additive stacking as workers: max(0, 1 − 0.1 − (1 − 0.8)) = 0.7
+      const {
+        armyRates,
+      } = state._computeConsumptionRates({
+        woodConsumption: 0.1,
+      }, {
+        food: 1.2,
+        wood: 0.8,
+      }, 0, {
+        [UNIT_ARCHER]: 4,
+      })
+      expect(armyRates.wood).toBeCloseTo(4 * UNIT_STATS[UNIT_ARCHER].upkeep.wood * 0.7, 10)
+      expect(armyRates.food).toBeCloseTo(4 * UNIT_STATS[UNIT_ARCHER].upkeep.food, 10)
+    })
+
+    it('should return zero army rates without units', async () => {
+      const state = await createState()
+      const {
+        armyRates,
+      } = state._computeConsumptionRates({}, {
+        food: 1,
+        wood: 1,
+      }, 10)
+      expect(armyRates).toEqual({
+        food: 0,
+        wood: 0,
+      })
     })
   })
 
@@ -4044,6 +4371,36 @@ describe('State', () => {
   // ── _sacrificeWorkers ───────────────────────────────────────────────
 
   describe('_sacrificeWorkers', () => {
+    it('should return the number of workers removed', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 5,
+          },
+        },
+      })
+      expect(state._sacrificeWorkers(3)).toBe(3)
+    })
+
+    it('should return fewer than asked when the colony runs out of workers', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            workers: 3,
+          },
+          buildingOverrides: {
+            farm: {
+              level: 1,
+              workers: 1,
+            },
+          },
+        },
+      })
+      expect(state._sacrificeWorkers(5)).toBe(3)
+      expect(state.colony.resources.workers).toBe(0)
+      expect(state.colony.buildings.farm.workers).toBe(0)
+    })
+
     it('should remove workers from idle pool first', async () => {
       const state = await createState({
         colonyOverrides: {
@@ -5589,6 +5946,1782 @@ describe('State', () => {
       })
       state.downgradeBuilding(BUILDING_FARM)
       expect(state.colony.buildings.farm.level).toBe(2)
+    })
+  })
+
+  // ── buyUnits ──────────────────────────────────────────────────────
+
+  describe('buyUnits', () => {
+    it('should buy a unit, deduct its cost and return 1', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            barracks: {
+              level: 1,
+            },
+          },
+        },
+      })
+      const cost = UNIT_STATS[UNIT_INFANTRY].cost
+      expect(state.buyUnits(UNIT_INFANTRY, 1)).toBe(1)
+      expect(state.colony.military.units[UNIT_INFANTRY]).toBe(1)
+      expect(state.colony.resources.food).toBe(200 - cost.food)
+      expect(state.colony.resources.wood).toBe(200 - cost.wood)
+    })
+
+    it('should stop at the cap set by the building level', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 450,
+            wood: 450,
+          },
+          buildingOverrides: {
+            barracks: {
+              level: 1,
+            },
+          },
+        },
+      })
+      const cost = UNIT_STATS[UNIT_INFANTRY].cost
+      expect(state.buyUnits(UNIT_INFANTRY, 10)).toBe(MILITARY_UNITS_PER_LEVEL)
+      expect(state.colony.military.units[UNIT_INFANTRY]).toBe(MILITARY_UNITS_PER_LEVEL)
+      expect(state.colony.resources.food).toBe(450 - MILITARY_UNITS_PER_LEVEL * cost.food)
+    })
+
+    it('should buy nothing while the building is unbuilt', async () => {
+      const state = await createState()
+      expect(state.buyUnits(UNIT_INFANTRY, 1)).toBe(0)
+      expect(state.colony.military.units[UNIT_INFANTRY]).toBe(0)
+      expect(state.colony.resources.food).toBe(200)
+    })
+
+    it('should buy nothing when already at the cap', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            barracks: {
+              level: 1,
+            },
+          },
+          military: createMilitary({
+            units: {
+              [UNIT_INFANTRY]: MILITARY_UNITS_PER_LEVEL,
+            },
+          }),
+        },
+      })
+      expect(state.buyUnits(UNIT_INFANTRY, 1)).toBe(0)
+      expect(state.colony.military.units[UNIT_INFANTRY]).toBe(MILITARY_UNITS_PER_LEVEL)
+      expect(state.colony.resources.food).toBe(200)
+    })
+
+    it('should stop when the colony can no longer afford a unit', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 100,
+          },
+          buildingOverrides: {
+            barracks: {
+              level: 2,
+            },
+          },
+        },
+      })
+      // 40 food each: 2 bought, 20 food left
+      expect(state.buyUnits(UNIT_INFANTRY, 10)).toBe(2)
+      expect(state.colony.military.units[UNIT_INFANTRY]).toBe(2)
+      expect(state.colony.resources.food).toBe(20)
+    })
+
+    it('should buy nothing and keep resources when the colony cannot afford one unit', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 30,
+          },
+          buildingOverrides: {
+            barracks: {
+              level: 1,
+            },
+          },
+        },
+      })
+      expect(state.buyUnits(UNIT_INFANTRY, 1)).toBe(0)
+      expect(state.colony.resources.food).toBe(30)
+      expect(state.colony.resources.wood).toBe(200)
+    })
+
+    it('should use each unit type own building and cost', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            archery: {
+              level: 1,
+            },
+            stable: {
+              level: 1,
+            },
+          },
+        },
+      })
+      const archerCost = UNIT_STATS[UNIT_ARCHER].cost
+      const cavalryCost = UNIT_STATS[UNIT_CAVALRY].cost
+      expect(state.buyUnits(UNIT_ARCHER, 1)).toBe(1)
+      expect(state.buyUnits(UNIT_CAVALRY, 1)).toBe(1)
+      expect(state.colony.military.units).toEqual({
+        [UNIT_INFANTRY]: 0,
+        [UNIT_ARCHER]: 1,
+        [UNIT_CAVALRY]: 1,
+      })
+      expect(state.colony.resources.wood).toBe(200 - archerCost.wood - cavalryCost.wood)
+      expect(state.colony.resources.copper).toBe(200 - archerCost.copper - cavalryCost.copper)
+      expect(state.colony.resources.food).toBe(200 - archerCost.food - cavalryCost.food)
+      expect(state.colony.resources.iron).toBe(200 - archerCost.iron - cavalryCost.iron)
+    })
+
+    it('should not let another military building raise the cap', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            barracks: {
+              level: 3,
+            },
+          },
+        },
+      })
+      expect(state.buyUnits(UNIT_ARCHER, 1)).toBe(0)
+      expect(state.buyUnits(UNIT_CAVALRY, 1)).toBe(0)
+    })
+
+    it('should refresh the army upkeep after buying', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            barracks: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state.buyUnits(UNIT_INFANTRY, 3)
+      expect(state.armyConsumption.food).toBeCloseTo(3 * UNIT_STATS[UNIT_INFANTRY].upkeep.food, 10)
+    })
+  })
+
+  // ── dismissUnits ──────────────────────────────────────────────────
+
+  describe('dismissUnits', () => {
+    it('should remove units without any refund', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          military: createMilitary({
+            units: {
+              [UNIT_INFANTRY]: 4,
+            },
+          }),
+        },
+      })
+      const before = state.colony.resources.toJSON()
+      state.dismissUnits(UNIT_INFANTRY, 3)
+      expect(state.colony.military.units[UNIT_INFANTRY]).toBe(1)
+      expect(state.colony.resources.toJSON()).toEqual(before)
+    })
+
+    it('should clamp to the units owned', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          military: createMilitary({
+            units: {
+              [UNIT_ARCHER]: 4,
+            },
+          }),
+        },
+      })
+      state.dismissUnits(UNIT_ARCHER, 10)
+      expect(state.colony.military.units[UNIT_ARCHER]).toBe(0)
+    })
+
+    it('should do nothing when there are no units of that type', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          military: createMilitary({
+            units: {
+              [UNIT_INFANTRY]: 2,
+            },
+          }),
+        },
+      })
+      state.dismissUnits(UNIT_CAVALRY, 1)
+      expect(state.colony.military.units).toEqual({
+        [UNIT_INFANTRY]: 2,
+        [UNIT_ARCHER]: 0,
+        [UNIT_CAVALRY]: 0,
+      })
+    })
+
+    it('should refresh the army upkeep after dismissing', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          military: createMilitary({
+            units: {
+              [UNIT_INFANTRY]: 4,
+            },
+          }),
+        },
+      })
+      state.update(0)
+      expect(state.armyConsumption.food).toBeGreaterThan(0)
+      state.dismissUnits(UNIT_INFANTRY, 4)
+      expect(state.armyConsumption).toEqual({
+        food: 0,
+        wood: 0,
+      })
+    })
+  })
+
+  // ── advanceRaids ──────────────────────────────────────────────────
+
+  describe('advanceRaids', () => {
+    beforeEach(() => {
+      // Keep tutorial popups from pausing the game between steps
+      storage.tutorialCompleted = true
+    })
+
+    afterEach(() => {
+      vi.restoreAllMocks()
+    })
+
+    it('should not schedule raids while the headquarters is a Camp', async () => {
+      const state = await createState()
+      state.advanceRaids(10000)
+      expect(state.colony.military.raid).toBeNull()
+      expect(state.colony.events.future).toHaveLength(0)
+    })
+
+    it('should schedule the first raid after the grace period once at Settlement', async () => {
+      const state = await createRaidState({
+        raid: null,
+      })
+      state.advanceRaids(0)
+      const raid = state.colony.military.raid
+      expect(raid).toBeInstanceOf(Raid)
+      expect(raid.phase).toBe(RAID_PHASE_WAITING)
+      expect(raid.remainingSeconds).toBe(RAID_GRACE_PERIOD)
+    })
+
+    it('should keep the waiting timer hidden', async () => {
+      const state = await createRaidState({
+        raid: null,
+      })
+      state.advanceRaids(10)
+      expect(state.colony.military.raid.remainingSeconds).toBe(RAID_GRACE_PERIOD - 10)
+      expect(state.colony.events.future).toHaveLength(0)
+    })
+
+    it('should announce the raid when the grace period ends', async () => {
+      const state = await createRaidState({
+        raid: null,
+      })
+      state.advanceRaids(0)
+      state.advanceRaids(RAID_GRACE_PERIOD - 1)
+      expect(state.colony.military.raid.phase).toBe(RAID_PHASE_WAITING)
+      state.advanceRaids(1)
+      expect(state.colony.military.raid.phase).toBe(RAID_PHASE_INCOMING)
+    })
+
+    it('should wait the raid interval instead of the grace period for later raids', async () => {
+      const state = await createRaidState({
+        raid: null,
+        raidCount: 1,
+      })
+      state.advanceRaids(0)
+      // HQ level 1 → territory cap 10
+      const expected = Math.max(RAID_INTERVAL_MIN, RAID_INTERVAL_BASE - RAID_INTERVAL_PER_TERRITORY * HQ_TERRITORY_PER_LEVEL)
+      expect(state.colony.military.raid.remainingSeconds).toBe(expected)
+    })
+
+    it('should shorten the interval as the territory cap grows, territory bonus included', async () => {
+      const small = await createRaidState({
+        raid: null,
+      })
+      const large = await createRaidState({
+        raid: null,
+        colonyOverrides: {
+          resources: {
+            territoryBonus: 10,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 5,
+              type: HQ_TYPE_SETTLEMENT,
+            },
+          },
+        },
+      })
+      // Territory cap 5 × 10 + 10 = 60
+      expect(large._raidInterval).toBe(RAID_INTERVAL_BASE - RAID_INTERVAL_PER_TERRITORY * 60)
+      expect(large._raidInterval).toBeLessThan(small._raidInterval)
+    })
+
+    it('should never wait less than RAID_INTERVAL_MIN', async () => {
+      const state = await createRaidState({
+        raid: null,
+        raidCount: 1,
+        colonyOverrides: {
+          buildingOverrides: {
+            headquarters: {
+              level: 20,
+              type: HQ_TYPE_CITY,
+            },
+          },
+        },
+      })
+      state.advanceRaids(0)
+      expect(state.colony.military.raid.remainingSeconds).toBe(RAID_INTERVAL_MIN)
+    })
+
+    it('should do nothing while the game is paused', async () => {
+      const state = await createRaidState({
+        raid: null,
+      })
+      state.paused = true
+      state.advanceRaids(10)
+      expect(state.colony.military.raid).toBeNull()
+    })
+
+    it('should keep sending raids after every challenge is completed', async () => {
+      const state = await createRaidState({
+        raid: createRaid({
+          remainingSeconds: 10,
+        }),
+        metaOverrides: {
+          challenges: createChallenges({
+            completed: [createChallenge()],
+          }),
+        },
+      })
+      expect(state.meta.challenges.allCompleted).toBe(true)
+      state.advanceRaids(10)
+      expect(state.raidReport).toBeInstanceOf(RaidReport)
+      expect(state.colony.military.raidCount).toBe(1)
+    })
+
+    it('should turn the raid incoming with raiders, a tribute demand and the warning countdown', async () => {
+      const state = await createRaidState({
+        raid: new Raid({
+          phase: RAID_PHASE_WAITING,
+          remainingSeconds: 5,
+        }),
+      })
+      state.advanceRaids(5)
+      const raid = state.colony.military.raid
+      // Territory cap 10, year 1: floor(3 + 1.5) raiders
+      const expectedCount = Math.floor(RAID_UNITS_BASE + RAID_UNITS_PER_TERRITORY * 10)
+      expect(raid.phase).toBe(RAID_PHASE_INCOMING)
+      expect(raid.enemyCount).toBe(expectedCount)
+      expect(raid.demand).toBeInstanceOf(Cost)
+      expect(raid.demand.entries.size).toBeGreaterThanOrEqual(2)
+      expect(raid.delaysPaid).toBe(0)
+      expect(raid.remainingSeconds).toBe(RAID_WARNING_TIME)
+    })
+
+    it('should add a clickable upcoming raid event on announcement', async () => {
+      const state = await createRaidState({
+        raid: new Raid({
+          phase: RAID_PHASE_WAITING,
+          remainingSeconds: 5,
+        }),
+      })
+      state.advanceRaids(5)
+      const event = raidEvent(state)
+      expect(event).toBeDefined()
+      expect(event.textKey).toBe('event.raidIncoming')
+      expect(event.action).toBe('openMilitaryModal')
+      expect(event.icon).toBe(IMG_BUILDING_WALL)
+      expect(event.params).toEqual([state.colony.military.raid.enemyCount])
+      expect(event.remainingSeconds).toBe(RAID_WARNING_TIME)
+    })
+
+    it('should play the under attack sound on announcement', async () => {
+      const state = await createRaidState({
+        raid: new Raid({
+          phase: RAID_PHASE_WAITING,
+          remainingSeconds: 5,
+        }),
+      })
+      state.advanceRaids(5)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_UNDER_ATTACK)
+    })
+
+    it('should show the raid tutorial popup and pause on the first announcement', async () => {
+      storage.tutorialCompleted = false
+      const state = await createRaidState({
+        raid: new Raid({
+          phase: RAID_PHASE_WAITING,
+          remainingSeconds: 5,
+        }),
+      })
+      state.advanceRaids(5)
+      expect(state.meta.tutorial.activeModal).toBe(TUTORIAL_MODAL_RAID_INCOMING)
+      expect(state.paused).toBe(true)
+    })
+
+    it('should not show the raid tutorial popup once it was dismissed', async () => {
+      storage.tutorialCompleted = false
+      const state = await createRaidState({
+        raid: new Raid({
+          phase: RAID_PHASE_WAITING,
+          remainingSeconds: 5,
+        }),
+      })
+      state.meta.tutorial.dismissedModals.add(TUTORIAL_MODAL_RAID_INCOMING)
+      state.advanceRaids(5)
+      expect(state.meta.tutorial.activeModal).toBeNull()
+      expect(state.paused).toBe(false)
+    })
+
+    it('should lengthen the warning countdown with Warning research', async () => {
+      const state = await createRaidState({
+        raid: new Raid({
+          phase: RAID_PHASE_WAITING,
+          remainingSeconds: 5,
+        }),
+        colonyOverrides: {
+          buildingOverrides: {
+            academy: {
+              level: 1,
+              completed: [RESEARCH_WARNING_1],
+            },
+          },
+        },
+      })
+      state.advanceRaids(5)
+      expect(state.colony.military.raid.remainingSeconds).toBeCloseTo(RAID_WARNING_TIME * 1.1, 10)
+      expect(raidEvent(state).remainingSeconds).toBeCloseTo(RAID_WARNING_TIME * 1.1, 10)
+    })
+
+    it('should stack Warning research tiers', async () => {
+      const state = await createRaidState({
+        colonyOverrides: {
+          buildingOverrides: {
+            academy: {
+              level: 1,
+              completed: [
+                RESEARCH_WARNING_1,
+                RESEARCH_WARNING_2,
+              ],
+            },
+          },
+        },
+      })
+      expect(state._raidWarningTime).toBeCloseTo(RAID_WARNING_TIME * 1.2, 10)
+    })
+
+    it('should only send unit types the colony can train', async () => {
+      vi.spyOn(Math, 'random').mockReturnValue(0.5)
+      const state = await createRaidState({
+        raid: new Raid({
+          phase: RAID_PHASE_WAITING,
+          remainingSeconds: 5,
+        }),
+      })
+      state.advanceRaids(5)
+      const {
+        enemy,
+      } = state.colony.military.raid
+      expect(enemy[UNIT_ARCHER]).toBe(0)
+      expect(enemy[UNIT_CAVALRY]).toBe(0)
+      expect(enemy[UNIT_INFANTRY]).toBeGreaterThan(0)
+    })
+
+    it('should freeze the waiting timer and announce nothing during Temporary Peace', async () => {
+      const state = await createRaidState({
+        raid: null,
+        metaOverrides: {
+          challenges: createChallenges({
+            activeBlessings: [
+              createBlessing({
+                type: BLESSING_TEMPORARY_PEACE,
+                timeout: 300,
+              }),
+            ],
+          }),
+        },
+      })
+      state.advanceRaids(0)
+      state.advanceRaids(RAID_GRACE_PERIOD * 2)
+      const raid = state.colony.military.raid
+      expect(raid.phase).toBe(RAID_PHASE_WAITING)
+      expect(raid.remainingSeconds).toBe(RAID_GRACE_PERIOD)
+      expect(raidEvent(state)).toBeUndefined()
+      expect(audio.playSound).not.toHaveBeenCalledWith(SND_UNDER_ATTACK)
+    })
+
+    it('should freeze the incoming countdown during Temporary Peace', async () => {
+      const state = await createRaidState({
+        raid: createRaid({
+          remainingSeconds: 30,
+        }),
+        metaOverrides: {
+          challenges: createChallenges({
+            activeBlessings: [
+              createBlessing({
+                type: BLESSING_TEMPORARY_PEACE,
+                timeout: 300,
+              }),
+            ],
+          }),
+        },
+      })
+      state.advanceRaids(100)
+      expect(state.colony.military.raid.remainingSeconds).toBe(30)
+      expect(state.raidReport).toBeNull()
+      expect(state.paused).toBe(false)
+    })
+
+    it('should keep the raid event on the frozen raid timer during Temporary Peace', async () => {
+      const state = await createRaidState({
+        raid: createRaid({
+          remainingSeconds: 30,
+        }),
+        metaOverrides: {
+          challenges: createChallenges({
+            activeBlessings: [
+              createBlessing({
+                type: BLESSING_TEMPORARY_PEACE,
+                timeout: 300,
+              }),
+            ],
+          }),
+        },
+      })
+      // The event step lowers every upcoming countdown; the raid step corrects it
+      state.colony.events.advance(10)
+      expect(raidEvent(state).remainingSeconds).toBe(20)
+      state.advanceRaids(10)
+      expect(raidEvent(state).remainingSeconds).toBe(30)
+    })
+
+    it('should resume the countdown once Temporary Peace ends', async () => {
+      const state = await createRaidState({
+        raid: createRaid({
+          remainingSeconds: 30,
+        }),
+        metaOverrides: {
+          challenges: createChallenges({
+            activeBlessings: [
+              createBlessing({
+                type: BLESSING_TEMPORARY_PEACE,
+                timeout: 300,
+              }),
+            ],
+          }),
+        },
+      })
+      state.advanceRaids(10)
+      state.meta.challenges.activeBlessings = []
+      state.advanceRaids(10)
+      expect(state.colony.military.raid.remainingSeconds).toBe(20)
+    })
+
+    it('should keep the raid event countdown in sync and sorted', async () => {
+      const state = await createRaidState({
+        raid: createRaid({
+          remainingSeconds: 100,
+        }),
+      })
+      state.colony.events.addFuture({
+        type: EVENT_TYPE_BUILDING_UPGRADE,
+        textKey: 'event.buildingBuilding',
+        buildingKey: BUILDING_FARM,
+        remainingSeconds: 50,
+      })
+      expect(state.colony.events.future[0].type).toBe(EVENT_TYPE_BUILDING_UPGRADE)
+      state.advanceRaids(60)
+      expect(raidEvent(state).remainingSeconds).toBe(40)
+      expect(state.colony.events.future[0].type).toBe(EVENT_TYPE_RAID_INCOMING)
+      expect(state.colony.events.future[1].type).toBe(EVENT_TYPE_BUILDING_UPGRADE)
+    })
+
+    it('should resolve the raid when the countdown reaches 0', async () => {
+      const state = await createRaidState({
+        raid: createRaid({
+          remainingSeconds: 10,
+        }),
+      })
+      state.advanceRaids(10)
+      expect(state.raidReport).toBeInstanceOf(RaidReport)
+      expect(state.colony.military.raid).toBeNull()
+      expect(state.colony.military.raidCount).toBe(1)
+      expect(state.paused).toBe(true)
+      expect(raidEvent(state)).toBeUndefined()
+    })
+
+    it('should schedule the next raid with the interval after a resolved raid', async () => {
+      const state = await createRaidState({
+        raid: createRaid({
+          remainingSeconds: 10,
+        }),
+      })
+      state.advanceRaids(10)
+      state.acknowledgeRaid()
+      state.advanceRaids(0)
+      const raid = state.colony.military.raid
+      expect(raid.phase).toBe(RAID_PHASE_WAITING)
+      expect(raid.remainingSeconds).toBe(state._raidInterval)
+    })
+  })
+
+  // ── _generateRaidArmy ─────────────────────────────────────────────
+
+  describe('_generateRaidArmy', () => {
+    afterEach(() => {
+      vi.restoreAllMocks()
+    })
+
+    function total(enemy) {
+      return enemy[UNIT_INFANTRY] + enemy[UNIT_ARCHER] + enemy[UNIT_CAVALRY]
+    }
+
+    it('should size the army from the territory cap and the year', async () => {
+      const state = await createRaidState({
+        colonyOverrides: {
+          year: 3,
+          resources: {
+            territoryBonus: 10,
+          },
+          buildingOverrides: {
+            headquarters: {
+              level: 2,
+              type: HQ_TYPE_SETTLEMENT,
+            },
+          },
+        },
+      })
+      // Territory cap 2 × 10 + 10 = 30: floor(3 + 4.5 + 2 × 2) = 11
+      const expected = Math.floor(RAID_UNITS_BASE + RAID_UNITS_PER_TERRITORY * 30 + RAID_UNITS_PER_YEAR * 2)
+      expect(expected).toBe(11)
+      expect(total(state._generateRaidArmy())).toBe(expected)
+    })
+
+    it('should only send infantry at Settlement', async () => {
+      const state = await createRaidState()
+      const enemy = state._generateRaidArmy()
+      expect(enemy[UNIT_ARCHER]).toBe(0)
+      expect(enemy[UNIT_CAVALRY]).toBe(0)
+      expect(enemy[UNIT_INFANTRY]).toBe(total(enemy))
+    })
+
+    it('should add archers but not cavalry at Village', async () => {
+      vi.spyOn(Math, 'random').mockReturnValue(0.5)
+      const state = await createRaidState({
+        colonyOverrides: {
+          buildingOverrides: {
+            headquarters: {
+              level: 1,
+              type: HQ_TYPE_VILLAGE,
+            },
+          },
+        },
+      })
+      // 4 raiders split evenly between infantry and archers
+      expect(state._generateRaidArmy()).toEqual({
+        [UNIT_INFANTRY]: 2,
+        [UNIT_ARCHER]: 2,
+        [UNIT_CAVALRY]: 0,
+      })
+    })
+
+    it('should split by random weight with floor and give the remainder to one random type', async () => {
+      vi.spyOn(Math, 'random')
+        .mockReturnValueOnce(0.5)
+        .mockReturnValueOnce(0.25)
+        .mockReturnValueOnce(0.25)
+        .mockReturnValueOnce(0.99)
+      const state = await createRaidState({
+        colonyOverrides: {
+          buildingOverrides: {
+            headquarters: {
+              level: 3,
+              type: HQ_TYPE_TOWN,
+            },
+          },
+        },
+      })
+      // 7 raiders: floor(3.5) = 3, floor(1.75) = 1, floor(1.75) = 1, remainder 2 to cavalry
+      expect(state._generateRaidArmy()).toEqual({
+        [UNIT_INFANTRY]: 3,
+        [UNIT_ARCHER]: 1,
+        [UNIT_CAVALRY]: 3,
+      })
+    })
+
+    it('should give the remainder to the type the last random pick selects', async () => {
+      vi.spyOn(Math, 'random')
+        .mockReturnValueOnce(0.5)
+        .mockReturnValueOnce(0.25)
+        .mockReturnValueOnce(0.25)
+        .mockReturnValueOnce(0)
+      const state = await createRaidState({
+        colonyOverrides: {
+          buildingOverrides: {
+            headquarters: {
+              level: 3,
+              type: HQ_TYPE_TOWN,
+            },
+          },
+        },
+      })
+      expect(state._generateRaidArmy()).toEqual({
+        [UNIT_INFANTRY]: 5,
+        [UNIT_ARCHER]: 1,
+        [UNIT_CAVALRY]: 1,
+      })
+    })
+
+    it('should always total the army size whatever the weights', async () => {
+      const state = await createRaidState({
+        colonyOverrides: {
+          buildingOverrides: {
+            headquarters: {
+              level: 5,
+              type: HQ_TYPE_CITY,
+            },
+          },
+        },
+      })
+      // Territory cap 50: floor(3 + 7.5) = 10
+      for (const values of [
+        [
+          0.1,
+          0.2,
+          0.7,
+          0.4,
+        ],
+        [
+          0.9,
+          0.05,
+          0.05,
+          0.6,
+        ],
+        [
+          0.33,
+          0.33,
+          0.34,
+          0.99,
+        ],
+      ]) {
+        const spy = vi.spyOn(Math, 'random')
+        for (const value of values) {
+          spy.mockReturnValueOnce(value)
+        }
+        const enemy = state._generateRaidArmy()
+        expect(total(enemy), values.join()).toBe(10)
+        for (const count of Object.values(enemy)) {
+          expect(count).toBeGreaterThanOrEqual(0)
+        }
+        spy.mockRestore()
+      }
+    })
+  })
+
+  // ── _generateTributeDemand ────────────────────────────────────────
+
+  describe('_generateTributeDemand', () => {
+    afterEach(() => {
+      vi.restoreAllMocks()
+    })
+
+    it('should split the value evenly over the picked resources', async () => {
+      vi.spyOn(Math, 'random').mockReturnValue(0)
+      const state = await createRaidState()
+      // 2 resources (food, wood), 25 × 4 = 100 value → 50 each
+      const demand = state._generateTributeDemand(4)
+      expect(demand).toBeInstanceOf(Cost)
+      expect(Object.fromEntries(demand.entries)).toEqual({
+        food: 50,
+        wood: 50,
+      })
+    })
+
+    it('should convert by resource value and round each amount up to TRIBUTE_ROUNDING', async () => {
+      vi.spyOn(Math, 'random').mockReturnValue(0.99)
+      const state = await createRaidState()
+      // 3 resources, 100 / 3 ≈ 33.3 each: food and wood 34 → 35, stone 33.3 / 1.5 → 23 → 25
+      const demand = state._generateTributeDemand(4)
+      expect(Object.fromEntries(demand.entries)).toEqual({
+        food: 35,
+        wood: 35,
+        stone: 25,
+      })
+      for (const amount of demand.entries.values()) {
+        expect(amount % TRIBUTE_ROUNDING).toBe(0)
+      }
+    })
+
+    it('should pick from the higher resources once the headquarters unlocks them', async () => {
+      vi.spyOn(Math, 'random')
+        .mockReturnValueOnce(0)
+        .mockReturnValue(0.99)
+      const state = await createRaidState({
+        colonyOverrides: {
+          buildingOverrides: {
+            headquarters: {
+              level: 5,
+              type: HQ_TYPE_CITY,
+            },
+          },
+        },
+      })
+      // 2 resources (gold, iron), 250 value → 125 each: gold 125 / 5 = 25, iron 125 / 3 → 42 → 45
+      expect(Object.fromEntries(state._generateTributeDemand(10).entries)).toEqual({
+        gold: 25,
+        iron: 45,
+      })
+    })
+
+    it('should only ask for bounded resources the headquarters has unlocked', async () => {
+      const state = await createRaidState()
+      const allowed = [
+        RESOURCE_FOOD,
+        RESOURCE_WOOD,
+        RESOURCE_STONE,
+      ]
+      for (let i = 0; i < 30; i++) {
+        const demand = state._generateTributeDemand(5)
+        for (const resource of demand.entries.keys()) {
+          expect(allowed, resource).toContain(resource)
+        }
+        expect(demand.copper + demand.iron + demand.gold + demand.faith + demand.knowledge).toBe(0)
+      }
+    })
+
+    it('should ask for 2 or 3 distinct resources', async () => {
+      const state = await createRaidState({
+        colonyOverrides: {
+          buildingOverrides: {
+            headquarters: {
+              level: 5,
+              type: HQ_TYPE_CITY,
+            },
+          },
+        },
+      })
+      const counts = new Set()
+      for (const first of [
+        0,
+        0.49,
+        0.5,
+        0.99,
+      ]) {
+        const spy = vi.spyOn(Math, 'random').mockReturnValueOnce(first).mockReturnValue(0.5)
+        counts.add(state._generateTributeDemand(6).entries.size)
+        spy.mockRestore()
+      }
+      expect([...counts].sort()).toEqual([
+        2,
+        3,
+      ])
+    })
+  })
+
+  // ── _resolveRaid ──────────────────────────────────────────────────
+
+  describe('_resolveRaid', () => {
+    beforeEach(() => {
+      storage.tutorialCompleted = true
+    })
+
+    afterEach(() => {
+      vi.restoreAllMocks()
+    })
+
+    // A colony with no army, stocked resources, idle workers and two downgradable buildings
+    function defeatOptions(overrides = {}) {
+      return {
+        raid: createRaid({
+          enemy: {
+            [UNIT_INFANTRY]: 5,
+          },
+        }),
+        colonyOverrides: {
+          resources: {
+            workers: 20,
+            food: 400,
+            wood: 300,
+            stone: 200,
+            copper: 100,
+            iron: 50,
+            gold: 10,
+          },
+          buildingOverrides: {
+            farm: {
+              level: 3,
+            },
+            quarry: {
+              level: 3,
+            },
+          },
+        },
+        ...overrides,
+      }
+    }
+
+    it('should apply only unit losses on a victory', async () => {
+      const state = await createRaidState({
+        units: {
+          [UNIT_INFANTRY]: 10,
+        },
+        raid: createRaid({
+          enemy: {
+            [UNIT_INFANTRY]: 9,
+          },
+        }),
+        colonyOverrides: {
+          resources: {
+            workers: 5,
+          },
+          buildingOverrides: {
+            barracks: {
+              level: 2,
+            },
+            farm: {
+              level: 3,
+            },
+          },
+        },
+      })
+      state._resolveRaid()
+      const report = state.raidReport
+      expect(state.colony.military.units[UNIT_INFANTRY]).toBe(4)
+      expect(report.victory).toBe(true)
+      expect(report.army[UNIT_INFANTRY]).toBe(10)
+      expect(report.enemy[UNIT_INFANTRY]).toBe(9)
+      expect(report.unitsLost[UNIT_INFANTRY]).toBe(6)
+      expect(report.resourcesLost).toEqual({})
+      expect(report.workersLost).toBe(0)
+      expect(report.buildingsLost).toEqual([])
+      expect(state.colony.resources.food).toBe(200)
+      expect(state.colony.resources.workers).toBe(5)
+      expect(state.colony.buildings.farm.level).toBe(3)
+    })
+
+    it('should add a "Raid repelled" past event and play the alert sound on a victory', async () => {
+      const state = await createRaidState({
+        units: {
+          [UNIT_INFANTRY]: 10,
+        },
+        raid: createRaid({
+          enemy: {
+            [UNIT_INFANTRY]: 2,
+          },
+        }),
+      })
+      state._resolveRaid()
+      const event = state.colony.events.past.find(candidate => candidate.type === EVENT_TYPE_RAID_RESULT)
+      expect(event.textKey).toBe('event.raidRepelled')
+      // The shortage warning may also play the alert later in the same step
+      expect(audio.playSound).toHaveBeenNthCalledWith(1, SND_NOTIFICATION_ALERT)
+      expect(audio.playSound).not.toHaveBeenCalledWith(SND_NOTIFICATION_DISASTER)
+    })
+
+    it('should apply full-severity defeat losses to a colony with no army', async () => {
+      vi.spyOn(Math, 'random').mockReturnValue(0)
+      const state = await createRaidState(defeatOptions())
+      state._resolveRaid()
+      const {
+        resources, buildings,
+      } = state.colony
+      // 30% of each bounded resource, floored
+      expect(resources.food).toBe(280)
+      expect(resources.wood).toBe(210)
+      expect(resources.stone).toBe(140)
+      expect(resources.copper).toBe(70)
+      expect(resources.iron).toBe(35)
+      expect(resources.gold).toBe(7)
+      // 10% of 20 workers
+      expect(resources.workers).toBe(18)
+      // 3 levels: the first eligible building each time (farm, farm, then quarry)
+      expect(buildings.farm.level).toBe(1)
+      expect(buildings.quarry.level).toBe(2)
+    })
+
+    it('should never take faith or knowledge on a defeat', async () => {
+      const state = await createRaidState(defeatOptions())
+      state._resolveRaid()
+      expect(state.colony.resources.faith).toBe(200)
+      expect(state.colony.resources.knowledge).toBe(200)
+    })
+
+    it('should report the losses actually applied on a defeat', async () => {
+      vi.spyOn(Math, 'random').mockReturnValue(0)
+      const state = await createRaidState(defeatOptions())
+      state._resolveRaid()
+      const report = state.raidReport
+      expect(report.victory).toBe(false)
+      expect(report.resourcesLost).toEqual({
+        food: 120,
+        wood: 90,
+        stone: 60,
+        copper: 30,
+        iron: 15,
+        gold: 3,
+      })
+      expect(report.workersLost).toBe(2)
+      expect(report.buildingsLost).toEqual([
+        BUILDING_FARM,
+        BUILDING_FARM,
+        BUILDING_QUARRY,
+      ])
+    })
+
+    it('should report no building levels when no building can lose one', async () => {
+      const state = await createRaidState(defeatOptions({
+        colonyOverrides: {
+          resources: {
+            workers: 0,
+          },
+        },
+      }))
+      state._resolveRaid()
+      expect(state.raidReport.victory).toBe(false)
+      expect(state.raidReport.buildingsLost).toEqual([])
+      expect(state.raidReport.workersLost).toBe(0)
+    })
+
+    it('should lose the whole army on a defeat', async () => {
+      const state = await createRaidState({
+        units: {
+          [UNIT_INFANTRY]: 2,
+          [UNIT_ARCHER]: 1,
+        },
+        raid: createRaid({
+          enemy: {
+            [UNIT_INFANTRY]: 20,
+          },
+        }),
+      })
+      state._resolveRaid()
+      expect(state.colony.military.totalUnits).toBe(0)
+      expect(state.raidReport.army).toEqual({
+        [UNIT_INFANTRY]: 2,
+        [UNIT_ARCHER]: 1,
+        [UNIT_CAVALRY]: 0,
+      })
+      expect(state.raidReport.unitsLost).toEqual(state.raidReport.army)
+    })
+
+    it('should add a "Raid lost" past event and play the disaster sound on a defeat', async () => {
+      const state = await createRaidState(defeatOptions())
+      state._resolveRaid()
+      const event = state.colony.events.past.find(candidate => candidate.type === EVENT_TYPE_RAID_RESULT)
+      expect(event.textKey).toBe('event.raidLost')
+      expect(event.icon).toBe(IMG_BUILDING_WALL)
+      expect(audio.playSound).toHaveBeenCalledWith(SND_NOTIFICATION_DISASTER)
+    })
+
+    it('should take no building levels while Celestial Fortification is active', async () => {
+      const state = await createRaidState(defeatOptions({
+        metaOverrides: {
+          challenges: createChallenges({
+            activeBlessings: [
+              createBlessing({
+                type: BLESSING_CELESTIAL_FORTIFICATION,
+                timeout: 300,
+              }),
+            ],
+          }),
+        },
+      }))
+      state._resolveRaid()
+      expect(state.raidReport.buildingsLost).toEqual([])
+      expect(state.colony.buildings.farm.level).toBe(3)
+      expect(state.colony.buildings.quarry.level).toBe(3)
+      // Resources and workers are still lost
+      expect(state.colony.resources.food).toBe(280)
+      expect(state.colony.resources.workers).toBe(18)
+    })
+
+    it('should pause the game, store the report and remove the raid event', async () => {
+      const state = await createRaidState()
+      expect(raidEvent(state)).toBeDefined()
+      state._resolveRaid()
+      expect(state.paused).toBe(true)
+      expect(state.raidReport).toBeInstanceOf(RaidReport)
+      expect(raidEvent(state)).toBeUndefined()
+    })
+
+    it('should increase the raid count and clear the raid', async () => {
+      const state = await createRaidState({
+        raidCount: 2,
+      })
+      state._resolveRaid()
+      expect(state.colony.military.raidCount).toBe(3)
+      expect(state.colony.military.raid).toBeNull()
+    })
+
+    it('should let the wall absorb losses', async () => {
+      const state = await createRaidState({
+        units: {
+          [UNIT_INFANTRY]: 10,
+        },
+        raid: createRaid({
+          enemy: {
+            [UNIT_INFANTRY]: 9,
+          },
+        }),
+        colonyOverrides: {
+          buildingOverrides: {
+            wall: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state._resolveRaid()
+      expect(state.raidReport.unitsLost[UNIT_INFANTRY]).toBe(2)
+    })
+
+    it('should let the tower turn a tie into a victory', async () => {
+      const state = await createRaidState({
+        units: {
+          [UNIT_INFANTRY]: 10,
+        },
+        raid: createRaid({
+          enemy: {
+            [UNIT_INFANTRY]: 10,
+          },
+        }),
+        colonyOverrides: {
+          buildingOverrides: {
+            tower: {
+              level: 1,
+            },
+          },
+        },
+      })
+      state._resolveRaid()
+      expect(state.raidReport.victory).toBe(true)
+    })
+
+    it('should apply Attack and Defense research to the colony units', async () => {
+      const tie = {
+        units: {
+          [UNIT_INFANTRY]: 10,
+        },
+        raid: createRaid({
+          enemy: {
+            [UNIT_INFANTRY]: 10,
+          },
+        }),
+      }
+      const withoutResearch = await createRaidState(tie)
+      withoutResearch._resolveRaid()
+      expect(withoutResearch.raidReport.victory).toBe(false)
+      for (const research of [
+        RESEARCH_ATTACK_1,
+        RESEARCH_DEFENSE_1,
+      ]) {
+        const state = await createRaidState({
+          ...tie,
+          raid: createRaid({
+            enemy: {
+              [UNIT_INFANTRY]: 10,
+            },
+          }),
+          colonyOverrides: {
+            buildingOverrides: {
+              academy: {
+                level: 1,
+                completed: [research],
+              },
+            },
+          },
+        })
+        state._resolveRaid()
+        expect(state.raidReport.victory, research).toBe(true)
+      }
+    })
+
+    it('should match the forecast shown before the battle', async () => {
+      const state = await createRaidState({
+        units: {
+          [UNIT_INFANTRY]: 6,
+          [UNIT_ARCHER]: 4,
+        },
+        raid: createRaid({
+          enemy: {
+            [UNIT_INFANTRY]: 4,
+            [UNIT_CAVALRY]: 3,
+          },
+        }),
+      })
+      const forecast = state._raidForecast
+      state._resolveRaid()
+      expect(state.raidReport.victory).toBe(forecast.victory)
+      expect(state.raidReport.unitsLost).toEqual(forecast.unitsLost)
+    })
+  })
+
+  // ── _raidForecast ─────────────────────────────────────────────────
+
+  describe('_raidForecast', () => {
+    it('should be null without a raid', async () => {
+      const state = await createRaidState({
+        raid: null,
+      })
+      expect(state._raidForecast).toBeNull()
+    })
+
+    it('should be null while the raid is waiting', async () => {
+      const state = await createRaidState({
+        raid: new Raid({
+          phase: RAID_PHASE_WAITING,
+          remainingSeconds: 100,
+        }),
+      })
+      expect(state._raidForecast).toBeNull()
+    })
+
+    it('should be the battle result for the incoming raid', async () => {
+      const state = await createRaidState({
+        units: {
+          [UNIT_INFANTRY]: 3,
+        },
+      })
+      const raid = state.colony.military.raid
+      expect(state._raidForecast).toEqual(resolveBattle(state._raidDefender, {
+        units: raid.enemy,
+      }))
+    })
+
+    it('should improve as units are bought', async () => {
+      storage.tutorialCompleted = true
+      const state = await createRaidState({
+        colonyOverrides: {
+          buildingOverrides: {
+            barracks: {
+              level: 2,
+            },
+          },
+        },
+      })
+      const before = state._raidForecast
+      state.buyUnits(UNIT_INFANTRY, 4)
+      const after = state._raidForecast
+      expect(after.ratio).toBeGreaterThan(before.ratio)
+    })
+
+    it('should spare building levels while Celestial Fortification is active', async () => {
+      const without = await createRaidState()
+      const blessed = await createRaidState({
+        metaOverrides: {
+          challenges: createChallenges({
+            activeBlessings: [
+              createBlessing({
+                type: BLESSING_CELESTIAL_FORTIFICATION,
+                timeout: 300,
+              }),
+            ],
+          }),
+        },
+      })
+      expect(without._raidForecast.levelsLost).toBe(3)
+      expect(blessed._raidForecast.levelsLost).toBe(0)
+      expect(blessed._raidForecast.resourceShare).toBe(without._raidForecast.resourceShare)
+    })
+  })
+
+  // ── _raidDefender ─────────────────────────────────────────────────
+
+  describe('_raidDefender', () => {
+    it('should describe the colony side of the battle', async () => {
+      const state = await createRaidState({
+        units: {
+          [UNIT_INFANTRY]: 4,
+          [UNIT_CAVALRY]: 1,
+        },
+        colonyOverrides: {
+          resources: {
+            workers: 12,
+          },
+          buildingOverrides: {
+            wall: {
+              level: 2,
+            },
+            tower: {
+              level: 3,
+            },
+            academy: {
+              level: 1,
+              completed: [
+                RESEARCH_ATTACK_1,
+                RESEARCH_DEFENSE_1,
+              ],
+            },
+          },
+        },
+      })
+      const defender = state._raidDefender
+      expect(defender.units).toEqual({
+        [UNIT_INFANTRY]: 4,
+        [UNIT_ARCHER]: 0,
+        [UNIT_CAVALRY]: 1,
+      })
+      expect(defender.units).not.toBe(state.colony.military.units)
+      expect(defender.wallLevel).toBe(2)
+      expect(defender.towerLevel).toBe(3)
+      expect(defender.attackBonus).toBeCloseTo(0.1, 10)
+      expect(defender.defenseBonus).toBeCloseTo(0.1, 10)
+      expect(defender.workers).toBe(12)
+    })
+
+    it('should give zero bonuses without military research', async () => {
+      const state = await createRaidState()
+      expect(state._raidDefender.attackBonus).toBe(0)
+      expect(state._raidDefender.defenseBonus).toBe(0)
+    })
+  })
+
+  // ── payTribute ────────────────────────────────────────────────────
+
+  describe('payTribute', () => {
+    beforeEach(() => {
+      storage.tutorialCompleted = true
+    })
+
+    function tributeOptions(overrides = {}) {
+      return {
+        raid: createRaid({
+          remainingSeconds: 60,
+          ...overrides.raid,
+        }),
+        colonyOverrides: {
+          resources: {
+            food: 450,
+            wood: 450,
+            ...overrides.resources,
+          },
+          buildingOverrides: overrides.buildingOverrides,
+        },
+      }
+    }
+
+    it('should pay the delay price, add TRIBUTE_DELAY_SECONDS and count the delay', async () => {
+      const state = await createRaidState(tributeOptions())
+      state.payTribute(TRIBUTE_DELAY)
+      const raid = state.colony.military.raid
+      expect(state.colony.resources.food).toBe(350)
+      expect(state.colony.resources.wood).toBe(400)
+      expect(raid.remainingSeconds).toBe(60 + TRIBUTE_DELAY_SECONDS)
+      expect(raid.delaysPaid).toBe(1)
+    })
+
+    it('should move the raid event to the new countdown in sorted order', async () => {
+      const state = await createRaidState(tributeOptions())
+      state.colony.events.addFuture({
+        type: EVENT_TYPE_BUILDING_UPGRADE,
+        textKey: 'event.buildingBuilding',
+        buildingKey: BUILDING_FARM,
+        remainingSeconds: 100,
+      })
+      expect(state.colony.events.future[0].type).toBe(EVENT_TYPE_RAID_INCOMING)
+      state.payTribute(TRIBUTE_DELAY)
+      expect(raidEvent(state).remainingSeconds).toBe(60 + TRIBUTE_DELAY_SECONDS)
+      expect(state.colony.events.future[0].type).toBe(EVENT_TYPE_BUILDING_UPGRADE)
+      expect(state.colony.events.future[1].type).toBe(EVENT_TYPE_RAID_INCOMING)
+    })
+
+    it('should raise the price with each delay', async () => {
+      const state = await createRaidState(tributeOptions({
+        resources: {
+          food: 500,
+          wood: 500,
+        },
+      }))
+      state.payTribute(TRIBUTE_DELAY)
+      state.payTribute(TRIBUTE_DELAY)
+      state.payTribute(TRIBUTE_DELAY)
+      // 100 + 150 + 225 food, 50 + 75 + 112 wood
+      expect(state.colony.resources.food).toBe(25)
+      expect(state.colony.resources.wood).toBe(263)
+      expect(state.colony.military.raid.delaysPaid).toBe(3)
+      expect(state.colony.military.raid.remainingSeconds).toBe(60 + 3 * TRIBUTE_DELAY_SECONDS)
+    })
+
+    it('should not offer a delay once it would cost more than cancelling', async () => {
+      const state = await createRaidState(tributeOptions({
+        raid: {
+          delaysPaid: 3,
+        },
+      }))
+      state.payTribute(TRIBUTE_DELAY)
+      expect(state.colony.resources.food).toBe(450)
+      expect(state.colony.military.raid.remainingSeconds).toBe(60)
+      expect(state.colony.military.raid.delaysPaid).toBe(3)
+    })
+
+    it('should not scale a paid delay with Warning research', async () => {
+      const state = await createRaidState(tributeOptions({
+        buildingOverrides: {
+          academy: {
+            level: 1,
+            completed: [RESEARCH_WARNING_1],
+          },
+        },
+      }))
+      state.payTribute(TRIBUTE_DELAY)
+      expect(state.colony.military.raid.remainingSeconds).toBe(60 + TRIBUTE_DELAY_SECONDS)
+    })
+
+    it('should cancel the raid for the cancel price', async () => {
+      const state = await createRaidState(tributeOptions())
+      state.payTribute(TRIBUTE_CANCEL)
+      const {
+        military, events,
+      } = state.colony
+      expect(state.colony.resources.food).toBe(150)
+      expect(state.colony.resources.wood).toBe(300)
+      expect(military.raid).toBeNull()
+      expect(military.raidCount).toBe(1)
+      expect(raidEvent(state)).toBeUndefined()
+      const event = events.past.find(candidate => candidate.type === EVENT_TYPE_RAID_RESULT)
+      expect(event.textKey).toBe('event.raidCancelled')
+      expect(state.raidReport).toBeNull()
+      expect(state.paused).toBe(false)
+    })
+
+    it('should keep the cancel price fixed after delays', async () => {
+      const state = await createRaidState(tributeOptions({
+        raid: {
+          delaysPaid: 2,
+        },
+      }))
+      state.payTribute(TRIBUTE_CANCEL)
+      expect(state.colony.resources.food).toBe(150)
+      expect(state.colony.military.raid).toBeNull()
+    })
+
+    it('should schedule the next raid normally after cancelling', async () => {
+      const state = await createRaidState(tributeOptions())
+      state.payTribute(TRIBUTE_CANCEL)
+      state.advanceRaids(0)
+      const raid = state.colony.military.raid
+      expect(raid.phase).toBe(RAID_PHASE_WAITING)
+      expect(raid.remainingSeconds).toBe(state._raidInterval)
+    })
+
+    it('should do nothing when the delay is unaffordable', async () => {
+      const state = await createRaidState(tributeOptions({
+        resources: {
+          food: 50,
+        },
+      }))
+      state.payTribute(TRIBUTE_DELAY)
+      expect(state.colony.resources.food).toBe(50)
+      expect(state.colony.resources.wood).toBe(450)
+      expect(state.colony.military.raid.remainingSeconds).toBe(60)
+      expect(state.colony.military.raid.delaysPaid).toBe(0)
+    })
+
+    it('should do nothing when the cancel is unaffordable', async () => {
+      const state = await createRaidState(tributeOptions({
+        resources: {
+          food: 299,
+        },
+      }))
+      state.payTribute(TRIBUTE_CANCEL)
+      expect(state.colony.resources.food).toBe(299)
+      expect(state.colony.military.raid).not.toBeNull()
+      expect(state.colony.military.raidCount).toBe(0)
+      expect(raidEvent(state)).toBeDefined()
+    })
+
+    it('should do nothing while the raid is not announced', async () => {
+      const state = await createRaidState({
+        raid: new Raid({
+          phase: RAID_PHASE_WAITING,
+          remainingSeconds: 100,
+        }),
+      })
+      state.payTribute(TRIBUTE_CANCEL)
+      state.payTribute(TRIBUTE_DELAY)
+      expect(state.colony.military.raid.phase).toBe(RAID_PHASE_WAITING)
+      expect(state.colony.military.raid.remainingSeconds).toBe(100)
+      expect(state.colony.resources.food).toBe(200)
+    })
+
+    it('should do nothing without a raid', async () => {
+      const state = await createRaidState({
+        raid: null,
+      })
+      state.payTribute(TRIBUTE_CANCEL)
+      expect(state.colony.military.raid).toBeNull()
+      expect(state.colony.military.raidCount).toBe(0)
+    })
+
+    it('should ignore an unknown tribute kind', async () => {
+      const state = await createRaidState(tributeOptions())
+      state.payTribute('bribe')
+      expect(state.colony.resources.food).toBe(450)
+      expect(state.colony.military.raid.remainingSeconds).toBe(60)
+    })
+  })
+
+  // ── acknowledgeRaid ───────────────────────────────────────────────
+
+  describe('acknowledgeRaid', () => {
+    it('should clear the report and resume the game', async () => {
+      const state = await createState()
+      state.raidReport = new RaidReport({
+        victory: true,
+      })
+      state.paused = true
+      state.acknowledgeRaid()
+      expect(state.raidReport).toBeNull()
+      expect(state.paused).toBe(false)
+    })
+
+    it('should stay paused while a tutorial popup is open', async () => {
+      const state = await createState()
+      state.raidReport = new RaidReport({
+        victory: true,
+      })
+      state.meta.tutorial.activeModal = TUTORIAL_MODAL_RAID_INCOMING
+      state.paused = true
+      state.acknowledgeRaid()
+      expect(state.raidReport).toBeNull()
+      expect(state.paused).toBe(true)
+    })
+
+    it('should stay paused while a challenge window is open', async () => {
+      const state = await createState()
+      state.raidReport = new RaidReport({
+        victory: false,
+      })
+      state.challengeModal = CHALLENGE_MODAL_REWARD
+      state.paused = true
+      state.acknowledgeRaid()
+      expect(state.raidReport).toBeNull()
+      expect(state.paused).toBe(true)
+    })
+
+    it('should do nothing without a report', async () => {
+      const state = await createState()
+      state.paused = true
+      state.acknowledgeRaid()
+      expect(state.paused).toBe(true)
+    })
+
+    it('should keep the game paused when a tutorial popup closes while the result window is open', async () => {
+      const state = await createState()
+      state.raidReport = new RaidReport({
+        victory: true,
+      })
+      state.meta.tutorial.activeModal = TUTORIAL_MODAL_NEGATIVE_PRODUCTION
+      state.paused = true
+      state.dismissTutorialModal()
+      expect(state.paused).toBe(true)
+      state.acknowledgeRaid()
+      expect(state.paused).toBe(false)
+    })
+
+    it('should stay paused after a won raid that triggered a tutorial popup', async () => {
+      // The surviving army eats food the colony does not produce, which shows the shortage popup
+      const state = await createRaidState({
+        units: {
+          [UNIT_INFANTRY]: 10,
+        },
+        raid: createRaid({
+          enemy: {
+            [UNIT_INFANTRY]: 2,
+          },
+        }),
+      })
+      state._resolveRaid()
+      expect(state.meta.tutorial.activeModal).toBe(TUTORIAL_MODAL_NEGATIVE_PRODUCTION)
+      state.acknowledgeRaid()
+      expect(state.paused).toBe(true)
+      state.dismissTutorialModal()
+      expect(state.paused).toBe(false)
+    })
+  })
+
+  // ── _removeResourceShare ──────────────────────────────────────────
+
+  describe('_removeResourceShare', () => {
+    it('should remove the share of each bounded resource and return the amounts removed', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 400,
+            wood: 300,
+            stone: 200,
+            copper: 100,
+            iron: 50,
+            gold: 10,
+          },
+        },
+      })
+      expect(state._removeResourceShare(0.3)).toEqual({
+        [RESOURCE_FOOD]: 120,
+        [RESOURCE_WOOD]: 90,
+        [RESOURCE_STONE]: 60,
+        [RESOURCE_COPPER]: 30,
+        [RESOURCE_IRON]: 15,
+        [RESOURCE_GOLD]: 3,
+      })
+      expect(state.colony.resources.food).toBe(280)
+      expect(state.colony.resources.gold).toBe(7)
+    })
+
+    it('should floor what remains and count the rest as removed', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          resources: {
+            food: 101,
+          },
+        },
+      })
+      const removed = state._removeResourceShare(0.3)
+      expect(state.colony.resources.food).toBe(70)
+      expect(removed[RESOURCE_FOOD]).toBe(31)
+    })
+
+    it('should not touch faith or knowledge', async () => {
+      const state = await createState()
+      const removed = state._removeResourceShare(0.5)
+      expect(state.colony.resources.faith).toBe(200)
+      expect(state.colony.resources.knowledge).toBe(200)
+      expect(removed).not.toHaveProperty('faith')
+      expect(removed).not.toHaveProperty('knowledge')
+    })
+
+    it('should remove nothing for a share of 0', async () => {
+      const state = await createState()
+      const removed = state._removeResourceShare(0)
+      expect(Object.values(removed).every(amount => amount === 0)).toBe(true)
+      expect(state.colony.resources.food).toBe(200)
+    })
+  })
+
+  // ── _downgradeRandomBuildings ─────────────────────────────────────
+
+  describe('_downgradeRandomBuildings', () => {
+    afterEach(() => {
+      vi.restoreAllMocks()
+    })
+
+    it('should return the key of each level removed', async () => {
+      vi.spyOn(Math, 'random').mockReturnValue(0)
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 3,
+            },
+            quarry: {
+              level: 3,
+            },
+          },
+        },
+      })
+      expect(state._downgradeRandomBuildings(3)).toEqual([
+        BUILDING_FARM,
+        BUILDING_FARM,
+        BUILDING_QUARRY,
+      ])
+      expect(state.colony.buildings.farm.level).toBe(1)
+      expect(state.colony.buildings.quarry.level).toBe(2)
+    })
+
+    it('should stop and return fewer keys when nothing else is eligible', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 2,
+            },
+          },
+        },
+      })
+      expect(state._downgradeRandomBuildings(3)).toEqual([BUILDING_FARM])
+      expect(state.colony.buildings.farm.level).toBe(1)
+    })
+
+    it('should destroy a level 1 building under construction and return its key', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 1,
+              constructionRemaining: 5,
+              constructionDuration: 10,
+            },
+          },
+        },
+      })
+      expect(state._downgradeRandomBuildings(1)).toEqual([BUILDING_FARM])
+      expect(state.colony.buildings.farm.level).toBe(0)
+      expect(state.colony.buildings.farm.isConstructing).toBe(false)
+      expect(state._constructingKeys.has(BUILDING_FARM)).toBe(false)
+    })
+
+    it('should never downgrade military buildings', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            barracks: {
+              level: 3,
+            },
+            archery: {
+              level: 3,
+            },
+            stable: {
+              level: 3,
+            },
+            wall: {
+              level: 3,
+            },
+            tower: {
+              level: 3,
+            },
+          },
+        },
+      })
+      expect(state._downgradeRandomBuildings(3)).toEqual([])
+      const {
+        buildings,
+      } = state.colony
+      expect([
+        buildings.barracks.level,
+        buildings.archery.level,
+        buildings.stable.level,
+        buildings.wall.level,
+        buildings.tower.level,
+      ]).toEqual([
+        3,
+        3,
+        3,
+        3,
+        3,
+      ])
+    })
+
+    it('should return an empty list for 0 levels', async () => {
+      const state = await createState({
+        colonyOverrides: {
+          buildingOverrides: {
+            farm: {
+              level: 3,
+            },
+          },
+        },
+      })
+      expect(state._downgradeRandomBuildings(0)).toEqual([])
+      expect(state.colony.buildings.farm.level).toBe(3)
     })
   })
 })

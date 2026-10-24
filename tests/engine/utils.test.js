@@ -1,7 +1,7 @@
 import {describe, it, expect} from 'vitest'
 import {MARKET_BASE_FEE, MARKET_FEE_REDUCTION_PER_LEVEL, MARKET_MAX_CURRENT_PRICE, MARKET_MIN_CURRENT_PRICE, MARKET_MIN_FEE, MARKET_PRICE_SHIFT, STOREHOUSE_BASE_CAPACITY, STOREHOUSE_CAPACITY_MULTIPLIER} from '@/js/engine/balancing.js'
-import {TRADE_BUY, TRADE_SELL} from '@/js/engine/enums.js'
-import {canAffordCost, floorWithTolerance, marketFeePercent, marketTradeQuote, storageCapacity, timerProgress} from '@/js/engine/utils.js'
+import {TRADE_BUY, TRADE_SELL, UNIT_ARCHER, UNIT_CAVALRY, UNIT_INFANTRY} from '@/js/engine/enums.js'
+import {canAffordCost, floorWithTolerance, marketFeePercent, marketTradeQuote, storageCapacity, timerProgress, unitCounts} from '@/js/engine/utils.js'
 import {createCost} from '../helpers/factories.js'
 
 describe('canAffordCost', () => {
@@ -259,5 +259,63 @@ describe('timerProgress', () => {
     expect(timerProgress(0, 0)).toBe(0)
     expect(timerProgress(10, -40)).toBe(0)
     expect(timerProgress(10, undefined)).toBe(0)
+  })
+})
+
+describe('unitCounts', () => {
+  it('should keep the given counts', () => {
+    expect(unitCounts({
+      [UNIT_INFANTRY]: 3,
+      [UNIT_ARCHER]: 2,
+      [UNIT_CAVALRY]: 1,
+    })).toEqual({
+      [UNIT_INFANTRY]: 3,
+      [UNIT_ARCHER]: 2,
+      [UNIT_CAVALRY]: 1,
+    })
+  })
+
+  it('should fill missing unit types with 0', () => {
+    expect(unitCounts({
+      [UNIT_ARCHER]: 4,
+    })).toEqual({
+      [UNIT_INFANTRY]: 0,
+      [UNIT_ARCHER]: 4,
+      [UNIT_CAVALRY]: 0,
+    })
+  })
+
+  it('should return all zeros for undefined or null', () => {
+    const zeros = {
+      [UNIT_INFANTRY]: 0,
+      [UNIT_ARCHER]: 0,
+      [UNIT_CAVALRY]: 0,
+    }
+    expect(unitCounts(undefined)).toEqual(zeros)
+    expect(unitCounts(null)).toEqual(zeros)
+    expect(unitCounts()).toEqual(zeros)
+  })
+
+  it('should drop unknown unit types', () => {
+    expect(unitCounts({
+      [UNIT_INFANTRY]: 1,
+      siege: 5,
+    })).toEqual({
+      [UNIT_INFANTRY]: 1,
+      [UNIT_ARCHER]: 0,
+      [UNIT_CAVALRY]: 0,
+    })
+  })
+
+  it('should return a copy', () => {
+    const counts = {
+      [UNIT_INFANTRY]: 1,
+      [UNIT_ARCHER]: 0,
+      [UNIT_CAVALRY]: 0,
+    }
+    const result = unitCounts(counts)
+    expect(result).not.toBe(counts)
+    result[UNIT_INFANTRY] = 9
+    expect(counts[UNIT_INFANTRY]).toBe(1)
   })
 })

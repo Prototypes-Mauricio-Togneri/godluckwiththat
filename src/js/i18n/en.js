@@ -87,6 +87,8 @@ export const LOCALIZED_EN = {
   'modal.buildingHelp.close': 'Close',
   'modal.researchHelp.title': 'Research',
   'modal.researchHelp.body': 'Spend knowledge and other resources at the academy to unlock permanent bonuses. Several researches can run at once, but only one per research line (such as Transportation), since each line\'s levels unlock in order. Completed bonuses accumulate.',
+  'modal.militaryHelp.title': 'Military',
+  'modal.militaryHelp.body': 'Train infantry at the barracks, archers at the archery and cavalry at the stable. Each building level lets you keep {0} more units of its type. Units cost resources to train and consume food and wood every second. Dismissed units are not refunded.\nEach unit type is strong against another: infantry beat cavalry, cavalry beat archers and archers beat infantry. Units deal up to {1} times the damage to the type they beat, so a mixed army is hard to counter.\nThe wall absorbs {2} damage per level before your units take losses. The tower fights as {3} archers per level and is never destroyed.\nOnce your camp becomes a settlement, raiders attack from time to time. Each raid is announced in the events column before it arrives. Raids come more often as your territory grows and get bigger over the years. The forecast shows how the battle would go if the raiders arrived now.\nLosing a raid costs your whole army, part of your stored resources and workers, and some building levels. Winning costs only the units that fall.\nYou can pay tribute to delay a raid, at a rising price, or to call it off.',
   'modal.marketHelp.title': 'Market',
   'modal.marketHelp.body': 'Buy and sell resources (food, wood, stone, copper, iron) using gold. The trade amount starts at {0} and can be adjusted.\nEach resource has a price per {0} units. Buying raises it by {1} gold for every {0} units, and you pay the raised price; selling lowers it by {1} gold for every {0} units, and you receive the lowered price. Bigger trades move the price more.\nA fee applies to every transaction: you pay more when buying and receive less when selling. The base fee starts at {2}% and decreases by {3}% per market building level, down to a minimum of {4}%.\nTrades are blocked if you lack enough gold or resources, or if your stockpile is full.\nIt\'s a simple supply/demand system — buying drives prices up, selling drives them down. The two main variables affecting trading are market building level (reduces fee) and trade history (shifts prices).',
 
@@ -116,6 +118,7 @@ export const LOCALIZED_EN = {
   'resource.consumption': 'Consumption',
   'resource.foodDeficit': 'Food deficit',
   'resource.woodDeficit': 'Wood deficit',
+  'resource.army': 'Army',
 
   // Seasons
   'season.warmSeason': 'Warm season',
@@ -144,12 +147,11 @@ export const LOCALIZED_EN = {
   'buildingHelp.altar': 'A sacred place that passively produces a small amount of faith over time. No workers needed.',
   'buildingHelp.temple': 'A holy site where workers can be assigned to pray and produce faith.',
   'buildingHelp.monument': 'A divine structure. Grants faith each time it is upgraded. Required for some divine challenges.',
-  'buildingHelp.barracks': 'Trains infantry units.',
-  'buildingHelp.archery': 'Trains archer units.',
-  'buildingHelp.stable': 'Trains cavalry units.',
-  'buildingHelp.workshop': 'Builds siege units.',
-  'buildingHelp.wall': 'Fortifications that protect your colony. Each level increases your defense.',
-  'buildingHelp.tower': 'Defensive structures that strike at enemies. Each level increases your attack power.',
+  'buildingHelp.barracks': 'Trains infantry, which are strong against cavalry. Each level lets you keep more infantry.',
+  'buildingHelp.archery': 'Trains archers, which are strong against infantry. Each level lets you keep more archers.',
+  'buildingHelp.stable': 'Trains cavalry, which are strong against archers. Each level lets you keep more cavalry.',
+  'buildingHelp.wall': 'Fortifications that protect your colony. In a raid, the wall absorbs damage before your units take losses. Each level absorbs more.',
+  'buildingHelp.tower': 'A defensive tower that shoots at raiders. It fights as a group of archers that is never destroyed. Each level adds more archers.',
 
   // Buildings
   'building.headquarters.camp': 'Camp',
@@ -173,7 +175,6 @@ export const LOCALIZED_EN = {
   'building.barracks': 'Barracks',
   'building.archery': 'Archery',
   'building.stable': 'Stable',
-  'building.workshop': 'Workshop',
   'building.wall': 'Wall',
   'building.tower': 'Tower',
   'building.locked': 'Locked',
@@ -190,6 +191,14 @@ export const LOCALIZED_EN = {
   'building.levelUpBonus.workerCapacity': '+{0} worker capacity',
   'building.levelUpBonus.marketFee': '-{0}% market fee',
   'building.levelUpBonus.faithRate': '+{0}/s faith',
+  'building.levelUpBonus.units': '+{0} unit capacity',
+  'building.levelUpBonus.wallAbsorb': '+{0} damage absorbed',
+  'building.levelUpBonus.towerArchers': '+{0} tower archers',
+
+  // Units
+  'unit.infantry': 'Infantry',
+  'unit.archer': 'Archers',
+  'unit.cavalry': 'Cavalry',
 
   // Worker assignment
   'worker.assign': 'Assign worker',
@@ -235,6 +244,10 @@ export const LOCALIZED_EN = {
   'event.idleWorkers': 'There are idle workers',
   'event.researchInProgress': 'Researching {0}',
   'event.territoryExpanded': 'Territory expanded',
+  'event.raidIncoming': 'Raid incoming: {0} raiders',
+  'event.raidRepelled': 'Raid repelled',
+  'event.raidLost': 'Raid lost',
+  'event.raidCancelled': 'Raid called off',
 
   // Market modal
   'market.title': 'Market',
@@ -248,6 +261,56 @@ export const LOCALIZED_EN = {
   'market.goldStockpileFull': 'Not enough gold stockpile',
   'market.buyTooltip': 'Buy {0} {1} for {2} gold',
   'market.sellTooltip': 'Sell {0} {1} for {2} gold',
+
+  // Military modal
+  'military.title': 'Military',
+  'military.army': 'Army',
+  'military.upkeep': 'Upkeep',
+  'military.train': 'Train unit',
+  'military.dismiss': 'Dismiss unit',
+  'military.noUnitsToDismiss': 'No units to dismiss',
+  'military.buildingRequired': 'Build the {0} first',
+  'military.unitCapReached': 'Limit reached, upgrade the {0}',
+  'military.unlocksAt': 'Unlocks at {0}',
+  'military.strongAgainst': 'Strong against {0}',
+  'military.unitStats': 'Attack {0}, health {1}',
+  'military.unitUpkeep': 'Upkeep per unit: {0} food/s, {1} wood/s',
+  'military.defenses': 'Defenses',
+  'military.wallAbsorb': 'Absorbs {0} damage',
+  'military.towerArchers': 'Fights as {0} archers',
+  'military.notBuilt': 'Not built',
+  'military.raid': 'Raid',
+  'military.noRaid': 'No raid announced',
+  'military.raidArrivesIn': 'Raiders arrive in',
+  'military.yourArmy': 'Your army',
+  'military.raiders': 'Raiders',
+  'military.victoryExpected': 'Victory expected',
+  'military.defeatExpected': 'Defeat expected',
+  'military.noLosses': 'No losses',
+  'military.expectedLosses': 'Expected losses',
+  'military.armyLost': 'Your whole army is lost',
+  'military.resourceLoss': '{0}% of stored resources',
+  'military.workerLoss': '{0} workers',
+  'military.levelLoss': '{0} building levels',
+  'military.tribute': 'Tribute',
+  'military.delay': 'Delay the raid',
+  'military.delayTooltip': 'Pay to delay the raid by {0}',
+  'military.cancel': 'Call off the raid',
+  'military.cancelButton': 'Call off',
+  'military.cancelTooltip': 'Pay to call off the raid',
+
+  // Raid result modal
+  'raid.result.victoryTitle': 'Raid Repelled',
+  'raid.result.defeatTitle': 'Raid Lost',
+  'raid.result.victoryDescription': 'Your defenders drove the raiders off.',
+  'raid.result.defeatDescription': 'The raiders broke through and plundered the colony.',
+  'raid.result.yourArmy': 'Your army',
+  'raid.result.raiders': 'Raiders',
+  'raid.result.noUnits': 'No units',
+  'raid.result.resourcesLost': 'Resources lost',
+  'raid.result.workersLost': 'Workers lost',
+  'raid.result.buildingsLost': 'Building levels lost',
+  'raid.result.continue': 'Continue',
 
   // Research modal
   'research.title': 'Research',
@@ -442,6 +505,8 @@ export const LOCALIZED_EN = {
   'tutorial.modal.campUpgrade.body': 'Your camp has been upgraded to a settlement, unlocking new buildings. Explore the new options available to grow your colony further.',
   'tutorial.modal.challengeStarted.title': 'Divine challenge',
   'tutorial.modal.challengeStarted.body': 'The Gods have sent you a divine challenge. Complete it to receive their blessing. Fail, and face their punishment. Click the ongoing event for more details.',
+  'tutorial.modal.raidIncoming.title': 'Raid incoming',
+  'tutorial.modal.raidIncoming.body': 'Raiders are coming for your colony. Click the raid event to see their numbers and prepare: train units, build defenses, or pay tribute to delay or call off the raid. Losing a raid costs your army, resources, workers and building levels.',
 
   // Challenge system
   'challenge.title': 'Challenges',
@@ -490,6 +555,8 @@ export const LOCALIZED_EN = {
   'blessing.favorableWeather': 'Favorable Weather',
   'blessing.wisdomOfTheGods': 'Wisdom of the Gods',
   'blessing.blessedMarkets': 'Blessed Markets',
+  'blessing.temporaryPeace': 'Temporary Peace',
+  'blessing.celestialFortification': 'Celestial Fortification',
 
   // Blessing descriptions
   'blessing.fertileSoil.description': 'Increases food productivity by {0}% for {1}',
@@ -502,6 +569,8 @@ export const LOCALIZED_EN = {
   'blessing.favorableWeather.description': 'Warm seasons are {0}% more productive and cold seasons are {1}% less harsh for {2}',
   'blessing.wisdomOfTheGods.description': 'Increases knowledge productivity by {0}% for {1}',
   'blessing.blessedMarkets.description': 'No trading fees for {0}',
+  'blessing.temporaryPeace.description': 'No raids are announced or arrive for {0}',
+  'blessing.celestialFortification.description': 'A lost raid destroys no building levels for {0}',
 
   // Blessing short effects (active blessing indicator)
   'blessing.fertileSoil.effect': '+{0}% food',
@@ -512,6 +581,8 @@ export const LOCALIZED_EN = {
   'blessing.rapidConstruction.effect': '+{0}% build speed',
   'blessing.favorableWeather.effect': '+{0}% warm / -{1}% cold',
   'blessing.blessedMarkets.effect': 'No trade fees',
+  'blessing.temporaryPeace.effect': 'No raids',
+  'blessing.celestialFortification.effect': 'Buildings safe from raids',
 
   // Punishment types
   'punishment.cropFailure': 'Crop Failure',

@@ -1,5 +1,5 @@
 import {describe, it, expect} from 'vitest'
-import {BLESSING_FERTILE_SOIL, BLESSING_GIFT_FROM_THE_HEAVENS, BUILDING_HEADQUARTERS, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_SEASON_CHANGED, HQ_TYPE_CAMP, PUNISHMENT_CROP_FAILURE, SEASON_WARM} from '@/js/engine/enums.js'
+import {BLESSING_FERTILE_SOIL, BLESSING_GIFT_FROM_THE_HEAVENS, BUILDING_FARM, BUILDING_HEADQUARTERS, CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_STARTED, EVENT_TYPE_SEASON_CHANGED, HQ_TYPE_CAMP, PUNISHMENT_CROP_FAILURE, RAID_PHASE_INCOMING, RAID_PHASE_WAITING, SEASON_WARM, UNIT_ARCHER, UNIT_CAVALRY, UNIT_INFANTRY} from '@/js/engine/enums.js'
 import {BUILDING_CLASS_MAP} from '@/js/engine/constants.js'
 import Blessing from '@/js/models/blessing.js'
 import Punishment from '@/js/models/punishment.js'
@@ -18,6 +18,10 @@ import Consumption from '@/js/models/consumption.js'
 import Events from '@/js/models/events/events.js'
 import EventFuture from '@/js/models/events/event_future.js'
 import EventPast from '@/js/models/events/event_past.js'
+import Cost from '@/js/models/cost.js'
+import Military from '@/js/models/military.js'
+import Raid from '@/js/models/raid.js'
+import RaidReport from '@/js/models/raid_report.js'
 
 // Minimal valid data factories for nested dependencies
 
@@ -773,6 +777,203 @@ describe('Serialization robustness', () => {
   })
 
   // ============================================================
+  // Raid
+  // ============================================================
+
+  describe('Raid', () => {
+    it('fromJSON with missing optional fields uses defaults', () => {
+      const raid = Raid.fromJSON({})
+      expect(raid).toBeInstanceOf(Raid)
+      expect(raid.phase).toBe(RAID_PHASE_WAITING)
+      expect(raid.remainingSeconds).toBe(0)
+      expect(raid.enemy).toEqual({
+        [UNIT_INFANTRY]: 0,
+        [UNIT_ARCHER]: 0,
+        [UNIT_CAVALRY]: 0,
+      })
+      expect(raid.demand).toBeNull()
+      expect(raid.delaysPaid).toBe(0)
+    })
+
+    it('fromJSON fills missing unit types in the enemy', () => {
+      const raid = Raid.fromJSON({
+        phase: RAID_PHASE_INCOMING,
+        remainingSeconds: 10,
+        enemy: {
+          [UNIT_CAVALRY]: 3,
+        },
+      })
+      expect(raid.enemy).toEqual({
+        [UNIT_INFANTRY]: 0,
+        [UNIT_ARCHER]: 0,
+        [UNIT_CAVALRY]: 3,
+      })
+    })
+
+    it('fromJSON with null enemy and demand uses defaults', () => {
+      const raid = Raid.fromJSON({
+        enemy: null,
+        demand: null,
+      })
+      expect(raid.enemyCount).toBe(0)
+      expect(raid.demand).toBeNull()
+    })
+
+    it('fromJSON rebuilds a partial demand as a Cost', () => {
+      const raid = Raid.fromJSON({
+        demand: {
+          stone: 25,
+        },
+      })
+      expect(raid.demand).toBeInstanceOf(Cost)
+      expect(raid.demand.stone).toBe(25)
+      expect(raid.demand.food).toBe(0)
+    })
+
+    it('fromJSON with extra unknown fields ignores them', () => {
+      const raid = Raid.fromJSON({
+        phase: RAID_PHASE_WAITING,
+        unknownField: 'test',
+      })
+      expect(raid).toBeInstanceOf(Raid)
+      expect(raid).not.toHaveProperty('unknownField')
+    })
+
+    it('fromJSON with undefined input uses defaults', () => {
+      const raid = Raid.fromJSON(undefined)
+      expect(raid).toBeInstanceOf(Raid)
+      expect(raid.phase).toBe(RAID_PHASE_WAITING)
+    })
+
+    it('fromJSON with null input throws', () => {
+      expect(() => Raid.fromJSON(null)).toThrow()
+    })
+  })
+
+  // ============================================================
+  // Military
+  // ============================================================
+
+  describe('Military', () => {
+    it('fromJSON with missing optional fields uses defaults', () => {
+      const military = Military.fromJSON({})
+      expect(military).toBeInstanceOf(Military)
+      expect(military.units).toEqual({
+        [UNIT_INFANTRY]: 0,
+        [UNIT_ARCHER]: 0,
+        [UNIT_CAVALRY]: 0,
+      })
+      expect(military.raid).toBeNull()
+      expect(military.raidCount).toBe(0)
+    })
+
+    it('fromJSON fills missing unit types', () => {
+      const military = Military.fromJSON({
+        units: {
+          [UNIT_INFANTRY]: 2,
+        },
+      })
+      expect(military.units).toEqual({
+        [UNIT_INFANTRY]: 2,
+        [UNIT_ARCHER]: 0,
+        [UNIT_CAVALRY]: 0,
+      })
+    })
+
+    it('fromJSON with null units and raid uses defaults', () => {
+      const military = Military.fromJSON({
+        units: null,
+        raid: null,
+        raidCount: null,
+      })
+      expect(military.totalUnits).toBe(0)
+      expect(military.raid).toBeNull()
+      expect(military.raidCount).toBe(0)
+    })
+
+    it('fromJSON with extra unknown fields ignores them', () => {
+      const military = Military.fromJSON({
+        units: {
+          [UNIT_INFANTRY]: 1,
+          siege: 4,
+        },
+        unknownField: 'test',
+      })
+      expect(military).not.toHaveProperty('unknownField')
+      expect(military.units).not.toHaveProperty('siege')
+      expect(military.totalUnits).toBe(1)
+    })
+
+    it('fromJSON with null input uses defaults', () => {
+      const military = Military.fromJSON(null)
+      expect(military).toBeInstanceOf(Military)
+      expect(military.totalUnits).toBe(0)
+    })
+
+    it('fromJSON with undefined input uses defaults', () => {
+      const military = Military.fromJSON(undefined)
+      expect(military).toBeInstanceOf(Military)
+      expect(military.raid).toBeNull()
+    })
+  })
+
+  // ============================================================
+  // RaidReport
+  // ============================================================
+
+  describe('RaidReport', () => {
+    it('fromJSON with missing optional fields uses defaults', () => {
+      const report = RaidReport.fromJSON({})
+      expect(report).toBeInstanceOf(RaidReport)
+      expect(report.victory).toBe(false)
+      expect(report.army).toEqual({
+        [UNIT_INFANTRY]: 0,
+        [UNIT_ARCHER]: 0,
+        [UNIT_CAVALRY]: 0,
+      })
+      expect(report.enemy).toEqual(report.army)
+      expect(report.unitsLost).toEqual(report.army)
+      expect(report.resourcesLost).toEqual({})
+      expect(report.workersLost).toBe(0)
+      expect(report.buildingsLost).toEqual([])
+    })
+
+    it('fromJSON with null nested fields uses defaults', () => {
+      const report = RaidReport.fromJSON({
+        army: null,
+        enemy: null,
+        unitsLost: null,
+        resourcesLost: null,
+        workersLost: null,
+        buildingsLost: null,
+      })
+      expect(report.army[UNIT_INFANTRY]).toBe(0)
+      expect(report.resourcesLost).toEqual({})
+      expect(report.workersLost).toBe(0)
+      expect(report.buildingsLost).toEqual([])
+    })
+
+    it('fromJSON with extra unknown fields ignores them', () => {
+      const report = RaidReport.fromJSON({
+        victory: true,
+        buildingsLost: [BUILDING_FARM],
+        unknownField: 'test',
+      })
+      expect(report).not.toHaveProperty('unknownField')
+      expect(report.victory).toBe(true)
+      expect(report.buildingsLost).toEqual([BUILDING_FARM])
+    })
+
+    it('fromJSON with null input throws', () => {
+      expect(() => RaidReport.fromJSON(null)).toThrow()
+    })
+
+    it('fromJSON with undefined input throws', () => {
+      expect(() => RaidReport.fromJSON(undefined)).toThrow()
+    })
+  })
+
+  // ============================================================
   // Colony
   // ============================================================
 
@@ -785,6 +986,49 @@ describe('Serialization robustness', () => {
       expect(colony.resources).toBeInstanceOf(Resources)
       expect(colony.buildings).toBeInstanceOf(Buildings)
       expect(colony.events).toBeInstanceOf(Events)
+      expect(colony.military).toBeInstanceOf(Military)
+    })
+
+    it('fromJSON with missing military uses an empty Military', () => {
+      const colony = Colony.fromJSON(minimalColonyData(), BUILDING_CLASS_MAP)
+      expect(colony.military.totalUnits).toBe(0)
+      expect(colony.military.raid).toBeNull()
+      expect(colony.military.raidCount).toBe(0)
+    })
+
+    it('fromJSON with null military uses an empty Military', () => {
+      const colony = Colony.fromJSON(minimalColonyData({
+        military: null,
+      }), BUILDING_CLASS_MAP)
+      expect(colony.military).toBeInstanceOf(Military)
+      expect(colony.military.totalUnits).toBe(0)
+    })
+
+    it('fromJSON restores a saved incoming raid', () => {
+      const colony = Colony.fromJSON(minimalColonyData({
+        military: {
+          units: {
+            [UNIT_ARCHER]: 3,
+          },
+          raid: {
+            phase: RAID_PHASE_INCOMING,
+            remainingSeconds: 50,
+            enemy: {
+              [UNIT_INFANTRY]: 4,
+            },
+            demand: {
+              food: 50,
+            },
+            delaysPaid: 1,
+          },
+          raidCount: 2,
+        },
+      }), BUILDING_CLASS_MAP)
+      expect(colony.military.units[UNIT_ARCHER]).toBe(3)
+      expect(colony.military.raid).toBeInstanceOf(Raid)
+      expect(colony.military.raid.enemyCount).toBe(4)
+      expect(colony.military.raid.demand).toBeInstanceOf(Cost)
+      expect(colony.military.raidCount).toBe(2)
     })
 
     it('fromJSON with extra unknown fields ignores them', () => {

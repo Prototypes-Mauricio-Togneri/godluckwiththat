@@ -7,7 +7,7 @@ import {RESOURCE_FOOD, RESOURCE_WOOD, RESOURCE_STONE, RESOURCE_COPPER,
   BUILDING_STOREHOUSE, BUILDING_MARKET, BUILDING_WOODCUTTER, BUILDING_QUARRY,
   BUILDING_COPPER_MINE, BUILDING_IRON_MINE, BUILDING_GOLD_MINE,
   BUILDING_ALTAR, BUILDING_TEMPLE, BUILDING_MONUMENT,
-  BUILDING_BARRACKS, BUILDING_ARCHERY, BUILDING_STABLE, BUILDING_WORKSHOP,
+  BUILDING_BARRACKS, BUILDING_ARCHERY, BUILDING_STABLE,
   BUILDING_WALL, BUILDING_TOWER,
   TRADE_BUY, TRADE_SELL,
   CHALLENGE_STATUS_PENDING, CHALLENGE_STATUS_ACTIVATED,
@@ -47,7 +47,7 @@ describe('enums', () => {
   })
 
   describe('buildings', () => {
-    it('should export all 20 building key enums', () => {
+    it('should export all 19 building key enums', () => {
       const buildings = [
         BUILDING_HEADQUARTERS,
         BUILDING_HOUSE,
@@ -66,11 +66,10 @@ describe('enums', () => {
         BUILDING_BARRACKS,
         BUILDING_ARCHERY,
         BUILDING_STABLE,
-        BUILDING_WORKSHOP,
         BUILDING_WALL,
         BUILDING_TOWER,
       ]
-      expect(buildings).toHaveLength(20)
+      expect(buildings).toHaveLength(19)
       buildings.forEach(building => {
         expect(typeof building).toBe('string')
         expect(building.length).toBeGreaterThan(0)

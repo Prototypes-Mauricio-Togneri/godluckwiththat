@@ -1,9 +1,9 @@
-import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_UPGRADES, MILITARY_UNITS_PER_LEVEL} from '@/js/engine/balancing.js'
 import {BUILDING_STABLE} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Trains cavalry units. Higher levels increase queue capacity and training speed.
+ * Trains cavalry units. Higher levels raise how many cavalry the colony can have.
  * Workers cannot be assigned to this building.
  */
 class Stable extends Building {
@@ -12,6 +12,15 @@ class Stable extends Building {
    */
   constructor(data) {
     super(data)
+  }
+
+  /**
+   * Maximum cavalry the colony can have. An unbuilt building gives 0.
+   * Formula: level × MILITARY_UNITS_PER_LEVEL
+   * @returns {number} Unit cap at the current level
+   */
+  get unitCap() {
+    return this.level * MILITARY_UNITS_PER_LEVEL
   }
 
   /**

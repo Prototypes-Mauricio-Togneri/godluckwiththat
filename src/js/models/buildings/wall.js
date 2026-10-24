@@ -1,9 +1,9 @@
-import {BUILDING_UPGRADES} from '@/js/engine/balancing.js'
+import {BUILDING_UPGRADES, WALL_HEALTH_PER_LEVEL} from '@/js/engine/balancing.js'
 import {BUILDING_WALL} from '@/js/engine/enums.js'
 import Building from '@/js/models/buildings/building.js'
 
 /**
- * Defensive fortification. The higher the level, the more defense it provides to the colony.
+ * Defensive fortification. In a raid it absorbs damage before units take losses, and is never damaged.
  * Workers cannot be assigned to this building.
  */
 class Wall extends Building {
@@ -12,6 +12,15 @@ class Wall extends Building {
    */
   constructor(data) {
     super(data)
+  }
+
+  /**
+   * Damage absorbed in a raid before units take losses.
+   * Formula: level × WALL_HEALTH_PER_LEVEL
+   * @returns {number} Absorbed damage at the current level
+   */
+  get absorb() {
+    return this.level * WALL_HEALTH_PER_LEVEL
   }
 
   /**

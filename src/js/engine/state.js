@@ -1,16 +1,20 @@
 // Central game state container — mutation handler, game loop, and player actions.
 
-import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_RATES, RESEARCH_TIME_MULTIPLIER, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, SHORTAGE_MAX_PENALTY, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
+import {MONUMENT_FAITH_PER_LEVEL, PRODUCTION_RATES, RAID_GRACE_PERIOD, RAID_INTERVAL_BASE, RAID_INTERVAL_MIN, RAID_INTERVAL_PER_TERRITORY, RAID_UNITS_BASE, RAID_UNITS_PER_TERRITORY, RAID_UNITS_PER_YEAR, RAID_WARNING_TIME, RESEARCH_TIME_MULTIPLIER, SEASON_COLD_FOOD_MODIFIER, SEASON_COLD_WOOD_MODIFIER, SEASON_WARM_FOOD_MODIFIER, SEASON_WARM_WOOD_MODIFIER, SHORTAGE_MAX_PENALTY, TRIBUTE_DELAY_SECONDS, TRIBUTE_MAX_RESOURCES, TRIBUTE_MIN_RESOURCES, TRIBUTE_RESOURCE_VALUES, TRIBUTE_ROUNDING, TRIBUTE_VALUE_PER_UNIT, UNIT_STATS, WORKER_FOOD_CONSUMPTION, WORKER_RECRUIT_COST, WORKER_WOOD_CONSUMPTION} from '@/js/engine/balancing.js'
 import analytics from '@/js/engine/analytics.js'
-import {IMG_OTHER_TERRITORY, IMG_RESOURCE_FAITH, IMG_RESOURCE_KNOWLEDGE, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_WORKER_ACADEMY, SND_WORKER_CREATED, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
+import {IMG_BUILDING_WALL, IMG_OTHER_TERRITORY, IMG_RESOURCE_FAITH, IMG_RESOURCE_KNOWLEDGE, IMG_SEASON_COLD, IMG_SEASON_WARM, IMG_UNIT_WORKER, SND_BUILDING_CREATED, SND_HEADQUARTERS_UPGRADED, SND_NOTIFICATION_ALERT, SND_NOTIFICATION_DISASTER, SND_NOTIFICATION_SEASON, SND_RESEARCH_COMPLETED, SND_TERRITORY_EXPANDED, SND_UNDER_ATTACK, SND_WORKER_ACADEMY, SND_WORKER_CREATED, SND_WORKER_FARM, SND_WORKER_MINE, SND_WORKER_TEMPLE, SND_WORKER_WOODCUTTER} from '@/js/engine/assets.js'
 import audio from '@/js/engine/audio.js'
+import {resolveBattle} from '@/js/engine/battle.js'
 import storage from '@/js/engine/storage.js'
-import {BOUNDED_RESOURCES, BUILDING_CLASS_MAP, BUILDING_IMAGE_MAP, DOWNGRADABLE_BUILDINGS, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_COSTS, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, TUTORIAL_STEPS} from '@/js/engine/constants.js'
+import {BOUNDED_RESOURCES, BUILDING_CLASS_MAP, BUILDING_IMAGE_MAP, DOWNGRADABLE_BUILDINGS, HQ_BUILDING_UNLOCKS, HQ_RESOURCE_UNLOCKS, HQ_TYPES, IMG_BUILDING_HEADQUARTERS_MAP, RESEARCH_COSTS, RESEARCH_TREE, RESOURCE_LIMIT_EVENT_CONFIG, RESOURCE_NEGATIVE_PRODUCTION_EVENT_CONFIG, TUTORIAL_STEPS, UNIT_BUILDINGS, UNIT_TYPES} from '@/js/engine/constants.js'
 import Colony from '@/js/models/colony.js'
 import Consumption from '@/js/models/consumption.js'
+import Cost from '@/js/models/cost.js'
 import Meta from '@/js/models/meta.js'
 import Production from '@/js/models/production.js'
-import {BLESSING_BLESSED_MARKETS, BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_WISDOM_OF_THE_GODS, BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FAITH_PRODUCTION, BONUS_FOOD_CONSUMPTION, BONUS_FOOD_PRODUCTION, BONUS_HABITATION, BONUS_KNOWLEDGE_PRODUCTION, BONUS_MINING_PRODUCTION, BONUS_STORAGE_CAPACITY, BONUS_WOOD_CONSUMPTION, BONUS_WOOD_PRODUCTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, PUNISHMENT_CROP_FAILURE, PUNISHMENT_LANDSLIDE, PUNISHMENT_PLAGUE, PUNISHMENT_VOLCANO, PUNISHMENT_WILDFIRES, RESOURCE_FOOD, RESOURCE_WOOD, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE, TUTORIAL_MODAL_CHALLENGE_STARTED} from '@/js/engine/enums.js'
+import Raid from '@/js/models/raid.js'
+import RaidReport from '@/js/models/raid_report.js'
+import {BLESSING_BLESSED_MARKETS, BLESSING_CELESTIAL_FORTIFICATION, BLESSING_CELESTIAL_PROSPERITY, BLESSING_FAVORABLE_WEATHER, BLESSING_FERTILE_SOIL, BLESSING_FOREST_BLOOM, BLESSING_GIFT_FROM_THE_HEAVENS, BLESSING_HOLY_EXPANSION, BLESSING_RAPID_CONSTRUCTION, BLESSING_RICH_MINES, BLESSING_TEMPORARY_PEACE, BLESSING_WISDOM_OF_THE_GODS, BONUS_CONSTRUCTION_TIME, BONUS_EXPANSION_COST, BONUS_FAITH_PRODUCTION, BONUS_FOOD_CONSUMPTION, BONUS_FOOD_PRODUCTION, BONUS_HABITATION, BONUS_KNOWLEDGE_PRODUCTION, BONUS_MINING_PRODUCTION, BONUS_STORAGE_CAPACITY, BONUS_UNIT_ATTACK, BONUS_UNIT_DEFENSE, BONUS_WARNING_TIME, BONUS_WOOD_CONSUMPTION, BONUS_WOOD_PRODUCTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_STOREHOUSE, BUILDING_TEMPLE, BUILDING_WOODCUTTER, CHALLENGE_MODAL_FAILURE, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_WIN, EVENT_TYPE_BUILDING_UPGRADE, EVENT_TYPE_CHALLENGE_STARTED, EVENT_TYPE_POPULATION_LIMIT_REACHED, EVENT_TYPE_RAID_INCOMING, EVENT_TYPE_RAID_RESULT, EVENT_TYPE_RESEARCH_COMPLETE, EVENT_TYPE_RESOURCE_LIMIT_REACHED, EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION, EVENT_TYPE_SEASON_CHANGED, EVENT_TYPE_IDLE_WORKERS, EVENT_TYPE_TERRITORY_LIMIT_REACHED, HQ_TYPE_CAMP, PUNISHMENT_CROP_FAILURE, PUNISHMENT_LANDSLIDE, PUNISHMENT_PLAGUE, PUNISHMENT_VOLCANO, PUNISHMENT_WILDFIRES, RAID_PHASE_INCOMING, RAID_PHASE_WAITING, RESOURCE_FOOD, RESOURCE_WOOD, TRIBUTE_CANCEL, TRIBUTE_DELAY, TUTORIAL_MODAL_SEASON_CHANGED, TUTORIAL_MODAL_NEGATIVE_PRODUCTION, TUTORIAL_MODAL_HQ_UPGRADE, TUTORIAL_MODAL_CHALLENGE_STARTED, TUTORIAL_MODAL_RAID_INCOMING} from '@/js/engine/enums.js'
 import {t} from '@/js/i18n/localized.js'
 
 /**
@@ -52,8 +56,14 @@ class State {
     // Per-second gross production rates (ephemeral, recalculated each tick)
     this.production = new Production({})
 
-    // Per-second worker upkeep (ephemeral, recalculated each tick)
+    // Per-second upkeep of workers and army (ephemeral, recalculated each tick)
     this.consumption = new Consumption({})
+
+    // Army share of the per-second upkeep, kept for the header tooltips (ephemeral)
+    this.armyConsumption = {
+      food: 0,
+      wood: 0,
+    }
 
     // Productivity ratio 0–1, recalculated each tick in update().
     // Reduced by food/wood shortage.
@@ -80,7 +90,7 @@ class State {
     }
 
     // Track which buildings are currently constructing so advanceConstruction()
-    // only iterates the active subset instead of all 20 buildings every frame
+    // only iterates the active subset instead of all 19 buildings every frame
     this._constructingKeys = new Set()
     for (const [
       key,
@@ -99,6 +109,9 @@ class State {
 
     // Which challenge modal is showing: null, CHALLENGE_MODAL_REWARD, CHALLENGE_MODAL_FAILURE, or CHALLENGE_MODAL_WIN
     this.challengeModal = null
+
+    // Outcome of the last raid (RaidReport). Non-null while the raid result window shows, which keeps the game paused
+    this.raidReport = null
   }
 
   /**
@@ -143,14 +156,15 @@ class State {
     } = this._computeProductionRates(bonuses, blessings, punishments, this.seasonMultipliers)
     this.productionMultipliers = productionMultipliers
 
-    // Worker upkeep: every worker (idle and assigned) consumes food and wood
+    // Upkeep: every worker (idle and assigned) and every unit consumes food and wood
     // each second. Research bonuses reduce the base consumption rates (−5%/tier).
     // Wood upkeep is additionally scaled by seasonal modifier (cold = more heating).
     // Consumption rates are per-second and also used by the UI (header tooltips)
     const {
-      rates: consumptionRates, multipliers: consumptionMultipliers,
-    } = this._computeConsumptionRates(bonuses, this.seasonMultipliers, resources.workers)
+      rates: consumptionRates, multipliers: consumptionMultipliers, armyRates,
+    } = this._computeConsumptionRates(bonuses, this.seasonMultipliers, resources.workers, this.colony.military.units)
     this.consumptionMultipliers = consumptionMultipliers
+    this.armyConsumption = armyRates
 
     // Productivity ratio based on current production vs consumption. Uses raw
     // production rates (not penalized) so reassigning workers takes effect
@@ -168,7 +182,7 @@ class State {
     production.faith = productionRates.faith * productivity
     production.knowledge = productionRates.knowledge * productivity
 
-    // Apply consumption rates from worker upkeep
+    // Apply consumption rates from worker and army upkeep
     consumption.food = consumptionRates.food
     consumption.wood = consumptionRates.wood
 
@@ -378,12 +392,17 @@ class State {
    * Cold season increases wood consumption by 20% (seasonMultipliers.wood = 1.2).
    * Food consumption is unaffected by season.
    *
+   * Units add their own upkeep (UNIT_STATS[type].upkeep per unit) with the same
+   * food and wood multipliers. Their share is also returned on its own (armyRates)
+   * and is included in rates.
+   *
    * @param {Object} bonuses - Research bonus map from academy.completedBonuses()
    * @param {{ food: number, wood: number }} seasonMultipliers - Seasonal multipliers from _computeSeasonMultipliers
    * @param {number} workerCount - Total worker count (idle + assigned)
-   * @returns {{ food: number, wood: number }}
+   * @param {Object<string, number>} [units={}] - Army unit count per type
+   * @returns {{ rates: { food: number, wood: number }, multipliers: { food: number, wood: number }, armyRates: { food: number, wood: number } }}
    */
-  _computeConsumptionRates(bonuses, seasonMultipliers, workerCount) {
+  _computeConsumptionRates(bonuses, seasonMultipliers, workerCount, units = {}) {
     const foodMultiplier = Math.max(0, 1 - (bonuses[BONUS_FOOD_CONSUMPTION] ?? 0))
     // Stack bonus and season reductions additively
     const woodMultiplier = Math.max(0, 1
@@ -393,21 +412,24 @@ class State {
       food: foodMultiplier,
       wood: woodMultiplier,
     }
-    if (workerCount <= 0) {
-      return {
-        rates: {
-          food: 0,
-          wood: 0,
-        },
-        multipliers: multipliers,
-      }
+    const armyRates = {
+      food: 0,
+      wood: 0,
     }
+    for (const type of UNIT_TYPES) {
+      const count = units[type] ?? 0
+      armyRates.food += count * UNIT_STATS[type].upkeep.food * foodMultiplier
+      armyRates.wood += count * UNIT_STATS[type].upkeep.wood * woodMultiplier
+    }
+    // With no workers only the army consumes
+    const workers = Math.max(0, workerCount)
     return {
       rates: {
-        food: workerCount * WORKER_FOOD_CONSUMPTION * foodMultiplier,
-        wood: workerCount * WORKER_WOOD_CONSUMPTION * woodMultiplier,
+        food: workers * WORKER_FOOD_CONSUMPTION * foodMultiplier + armyRates.food,
+        wood: workers * WORKER_WOOD_CONSUMPTION * woodMultiplier + armyRates.wood,
       },
       multipliers: multipliers,
+      armyRates: armyRates,
     }
   }
 
@@ -812,6 +834,7 @@ class State {
    * Removes workers from the colony: first from idle pool, then randomly
    * unassigned from producer buildings that have workers.
    * @param {number} count - Number of workers to sacrifice
+   * @returns {number} Workers actually removed (fewer when the colony runs out)
    */
   _sacrificeWorkers(count) {
     const {
@@ -847,6 +870,76 @@ class State {
     if (resources.workers < buildings.house.workersCap) {
       this.colony.events.dismissPastByType(EVENT_TYPE_POPULATION_LIMIT_REACHED)
     }
+    return count - remaining
+  }
+
+  /**
+   * Removes a fraction of each stored bounded resource (faith and knowledge are untouched).
+   * @param {number} fraction - Share of each resource to remove (e.g. 0.3 = 30%)
+   * @returns {Object<string, number>} Amount removed per bounded resource
+   */
+  _removeResourceShare(fraction) {
+    const {
+      resources,
+    } = this.colony
+    const removed = {}
+    for (const resource of BOUNDED_RESOURCES) {
+      const before = resources[resource]
+      resources[resource] = Math.floor(before * (1 - fraction))
+      removed[resource] = before - resources[resource]
+    }
+    return removed
+  }
+
+  /**
+   * Downgrades random buildings from the downgradable list, one level at a time.
+   * A building is eligible if its level is > 1, or it is at level 1 and under construction
+   * (the construction is cancelled and the building is destroyed). Excess workers are
+   * returned to idle.
+   * @param {number} count - Number of levels to remove
+   * @returns {string[]} Building key of each level removed (fewer when nothing is eligible)
+   */
+  _downgradeRandomBuildings(count) {
+    const {
+      buildings,
+    } = this.colony
+    const downgraded = []
+    for (let i = 0; i < count; i++) {
+      const eligibleKeys = []
+      for (const key of DOWNGRADABLE_BUILDINGS) {
+        const building = buildings[key]
+        if (building.level > 1 || (building.level === 1 && building.isConstructing)) {
+          eligibleKeys.push(key)
+        }
+      }
+      if (eligibleKeys.length === 0) {
+        break
+      }
+
+      const randomKey = eligibleKeys[Math.floor(Math.random() * eligibleKeys.length)]
+      const building = buildings[randomKey]
+
+      if (building.level === 1 && building.isConstructing) {
+        building.constructionRemaining = 0
+        building.constructionDuration = 0
+        if ('workers' in building) {
+          building.workers = 0
+        }
+        building.level = 0
+        this._constructingKeys.delete(randomKey)
+        this.colony.events.dismissFutureByBuildingKey(randomKey)
+      } else {
+        building.level -= 1
+        if ('workers' in building && building.workers > building.maxWorkers) {
+          building.workers = building.maxWorkers
+        }
+      }
+      downgraded.push(randomKey)
+
+      // Each lost level frees a territory slot
+      this.colony.events.dismissPastByType(EVENT_TYPE_TERRITORY_LIMIT_REACHED)
+    }
+    return downgraded
   }
 
   /**
@@ -965,7 +1058,7 @@ class State {
    */
   _applyPunishment(punishment) {
     const {
-      resources, buildings,
+      resources,
     } = this.colony
 
     // Lose a fraction of stored faith
@@ -975,9 +1068,7 @@ class State {
 
     // Lose a fraction of each bounded resource
     if (punishment.resources !== null) {
-      for (const resource of BOUNDED_RESOURCES) {
-        resources[resource] = Math.floor(resources[resource] * (1 - punishment.resources))
-      }
+      this._removeResourceShare(punishment.resources)
     }
 
     // Sacrifice workers (clamped to available)
@@ -988,40 +1079,7 @@ class State {
 
     // Downgrade random building levels
     if (punishment.levels !== null) {
-      for (let i = 0; i < punishment.levels; i++) {
-        const eligibleKeys = []
-        for (const key of DOWNGRADABLE_BUILDINGS) {
-          const building = buildings[key]
-          if (building.level > 1 || (building.level === 1 && building.isConstructing)) {
-            eligibleKeys.push(key)
-          }
-        }
-        if (eligibleKeys.length === 0) {
-          break
-        }
-
-        const randomKey = eligibleKeys[Math.floor(Math.random() * eligibleKeys.length)]
-        const building = buildings[randomKey]
-
-        if (building.level === 1 && building.isConstructing) {
-          building.constructionRemaining = 0
-          building.constructionDuration = 0
-          if ('workers' in building) {
-            building.workers = 0
-          }
-          building.level = 0
-          this._constructingKeys.delete(randomKey)
-          this.colony.events.dismissFutureByBuildingKey(randomKey)
-        } else {
-          building.level -= 1
-          if ('workers' in building && building.workers > building.maxWorkers) {
-            building.workers = building.maxWorkers
-          }
-        }
-
-        // Each lost level frees a territory slot
-        this.colony.events.dismissPastByType(EVENT_TYPE_TERRITORY_LIMIT_REACHED)
-      }
+      this._downgradeRandomBuildings(punishment.levels)
     }
   }
 
@@ -1034,6 +1092,256 @@ class State {
     }
     this.challengeModal = null
     this.paused = false
+  }
+
+  /**
+   * Advances the raid timers. From Settlement on there is always one raid: it waits on a
+   * hidden timer, is announced (incoming) and counts down, then arrives and is resolved.
+   * Temporary Peace freezes both phases. Runs after advanceEvents, so it can correct the
+   * raid event, whose countdown follows the raid's own timer (it can freeze or jump).
+   * Driven by requestAnimationFrame for smooth visual progress.
+   * @param {number} delta - Seconds since last tick
+   */
+  advanceRaids(delta) {
+    if (this.paused) {
+      return
+    }
+    const {
+      military, buildings, events,
+    } = this.colony
+    if (buildings.headquarters.type === HQ_TYPE_CAMP) {
+      return
+    }
+    if (!military.raid) {
+      military.raid = new Raid({
+        phase: RAID_PHASE_WAITING,
+        remainingSeconds: military.raidCount === 0 ? RAID_GRACE_PERIOD : this._raidInterval,
+      })
+    }
+    const raid = military.raid
+    const peace = this.meta.challenges.activeBlessings.some(blessing => blessing.type === BLESSING_TEMPORARY_PEACE)
+    if (!peace && raid.advance(delta)) {
+      if (raid.phase === RAID_PHASE_WAITING) {
+        this._announceRaid()
+      } else {
+        this._resolveRaid()
+        return
+      }
+    }
+    if (raid.phase === RAID_PHASE_INCOMING) {
+      events.setFutureRemaining(EVENT_TYPE_RAID_INCOMING, raid.remainingSeconds)
+    }
+  }
+
+  /**
+   * Announces the waiting raid: generates the raiders and the tribute demand, starts the
+   * warning countdown, adds the clickable raid event, plays the alarm and shows the tutorial popup.
+   */
+  _announceRaid() {
+    const raid = this.colony.military.raid
+    raid.phase = RAID_PHASE_INCOMING
+    raid.enemy = this._generateRaidArmy()
+    raid.demand = this._generateTributeDemand(raid.enemyCount)
+    raid.delaysPaid = 0
+    raid.remainingSeconds = this._raidWarningTime
+    this.colony.events.addFuture({
+      type: EVENT_TYPE_RAID_INCOMING,
+      textKey: 'event.raidIncoming',
+      icon: IMG_BUILDING_WALL,
+      params: [raid.enemyCount],
+      action: 'openMilitaryModal',
+      remainingSeconds: raid.remainingSeconds,
+    })
+    audio.playSound(SND_UNDER_ATTACK)
+    this._triggerTutorialModal(TUTORIAL_MODAL_RAID_INCOMING)
+  }
+
+  /**
+   * Resolves the arriving raid: fights the battle, applies the losses at once, stores the
+   * report and pauses the game for the result window. Clears the raid so the next one is scheduled.
+   */
+  _resolveRaid() {
+    const {
+      military, events,
+    } = this.colony
+    const raid = military.raid
+    const result = this._raidForecast
+    const army = {
+      ...military.units,
+    }
+
+    for (const type of UNIT_TYPES) {
+      military.units[type] -= result.unitsLost[type]
+    }
+    let resourcesLost = {}
+    let workersLost = 0
+    let buildingsLost = []
+    if (!result.victory) {
+      resourcesLost = this._removeResourceShare(result.resourceShare)
+      workersLost = this._sacrificeWorkers(result.workersLost)
+      buildingsLost = this._downgradeRandomBuildings(result.levelsLost)
+    }
+
+    this.raidReport = new RaidReport({
+      victory: result.victory,
+      army: army,
+      enemy: raid.enemy,
+      unitsLost: result.unitsLost,
+      resourcesLost: resourcesLost,
+      workersLost: workersLost,
+      buildingsLost: buildingsLost,
+    })
+    events.dismissFutureByType(EVENT_TYPE_RAID_INCOMING)
+    events.addPast({
+      type: EVENT_TYPE_RAID_RESULT,
+      textKey: result.victory ? 'event.raidRepelled' : 'event.raidLost',
+      icon: IMG_BUILDING_WALL,
+    })
+    audio.playSound(result.victory ? SND_NOTIFICATION_ALERT : SND_NOTIFICATION_DISASTER)
+
+    military.raidCount += 1
+    military.raid = null
+    this.paused = true
+    this.update(0)
+  }
+
+  /**
+   * Generates the raiders: the count grows with the territory cap and the years, and is split at
+   * random among the unit types the colony can already train (the remainder goes to one random type).
+   * @returns {Object<string, number>} Raider count per unit type
+   */
+  _generateRaidArmy() {
+    const {
+      resources, buildings,
+    } = this.colony
+    const territoryCap = buildings.headquarters.territoryCap + resources.territoryBonus
+    const count = Math.floor(RAID_UNITS_BASE + RAID_UNITS_PER_TERRITORY * territoryCap + RAID_UNITS_PER_YEAR * (this.colony.year - 1))
+    const unlockedBuildings = this._unlockedByHeadquarters(HQ_BUILDING_UNLOCKS)
+    const allowedTypes = UNIT_TYPES.filter(type => unlockedBuildings.includes(UNIT_BUILDINGS[type]))
+
+    const enemy = {}
+    for (const type of UNIT_TYPES) {
+      enemy[type] = 0
+    }
+    const weights = allowedTypes.map(() => Math.random())
+    const totalWeight = weights.reduce((sum, weight) => sum + weight, 0)
+    let assigned = 0
+    allowedTypes.forEach((type, index) => {
+      enemy[type] = totalWeight > 0 ? Math.floor(count * weights[index] / totalWeight) : 0
+      assigned += enemy[type]
+    })
+    const remainderType = allowedTypes[Math.floor(Math.random() * allowedTypes.length)]
+    enemy[remainderType] += count - assigned
+    return enemy
+  }
+
+  /**
+   * Generates the base tribute demand: a value per raider split evenly across a few random
+   * resources the colony has unlocked, each amount rounded up to a multiple of TRIBUTE_ROUNDING.
+   * @param {number} enemyCount - Number of raiders
+   * @returns {Cost} Base demand (delay and cancel prices are multiples of it)
+   */
+  _generateTributeDemand(enemyCount) {
+    const unlockedResources = this._unlockedByHeadquarters(HQ_RESOURCE_UNLOCKS)
+    const pool = BOUNDED_RESOURCES.filter(resource => unlockedResources.includes(resource))
+    const resourceCount = Math.min(pool.length, TRIBUTE_MIN_RESOURCES + Math.floor(Math.random() * (TRIBUTE_MAX_RESOURCES - TRIBUTE_MIN_RESOURCES + 1)))
+    const picked = []
+    for (let i = 0; i < resourceCount; i++) {
+      picked.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0])
+    }
+
+    const share = TRIBUTE_VALUE_PER_UNIT * enemyCount / picked.length
+    const amounts = {}
+    for (const resource of picked) {
+      const amount = Math.ceil(share / TRIBUTE_RESOURCE_VALUES[resource])
+      amounts[resource] = Math.ceil(amount / TRIBUTE_ROUNDING) * TRIBUTE_ROUNDING
+    }
+    return new Cost(amounts)
+  }
+
+  /**
+   * Keys unlocked by the headquarters types up to the current one.
+   * @param {Object<string, string[]>} unlocks - HQ type → keys it unlocks (HQ_BUILDING_UNLOCKS or HQ_RESOURCE_UNLOCKS)
+   * @returns {string[]} Unlocked keys
+   */
+  _unlockedByHeadquarters(unlocks) {
+    const typeIndex = HQ_TYPES.indexOf(this.colony.buildings.headquarters.type)
+    return HQ_TYPES.slice(0, typeIndex + 1).flatMap(type => unlocks[type])
+  }
+
+  /**
+   * Hidden wait before the next raid is announced; shorter as the territory cap grows.
+   * @returns {number} Seconds
+   */
+  get _raidInterval() {
+    const {
+      resources, buildings,
+    } = this.colony
+    const territoryCap = buildings.headquarters.territoryCap + resources.territoryBonus
+    return Math.max(RAID_INTERVAL_MIN, RAID_INTERVAL_BASE - RAID_INTERVAL_PER_TERRITORY * territoryCap)
+  }
+
+  /**
+   * Countdown between a raid's announcement and its arrival, lengthened by Warning research.
+   * @returns {number} Seconds
+   */
+  get _raidWarningTime() {
+    const bonuses = this.colony.buildings.academy.completedBonuses(RESEARCH_TREE)
+    return RAID_WARNING_TIME * (1 + (bonuses[BONUS_WARNING_TIME] ?? 0))
+  }
+
+  /**
+   * The colony's side of a battle: army, wall, tower, Attack and Defense research, and workers.
+   * @returns {Object} Defender input for resolveBattle
+   */
+  get _raidDefender() {
+    const {
+      resources, buildings, military,
+    } = this.colony
+    const bonuses = buildings.academy.completedBonuses(RESEARCH_TREE)
+    return {
+      units: {
+        ...military.units,
+      },
+      wallLevel: buildings.wall.level,
+      towerLevel: buildings.tower.level,
+      attackBonus: bonuses[BONUS_UNIT_ATTACK] ?? 0,
+      defenseBonus: bonuses[BONUS_UNIT_DEFENSE] ?? 0,
+      workers: resources.workers,
+    }
+  }
+
+  /**
+   * Outcome the incoming raid would have if it arrived now. The real battle uses the same
+   * result, so the forecast shown in the military window always matches it.
+   * Celestial Fortification spares building levels on a lost raid.
+   * @returns {Object|null} resolveBattle result, or null when no raid is announced
+   */
+  get _raidForecast() {
+    const raid = this.colony.military.raid
+    if (raid?.phase !== RAID_PHASE_INCOMING) {
+      return null
+    }
+    const result = resolveBattle(this._raidDefender, {
+      units: raid.enemy,
+    })
+    if (this.meta.challenges.activeBlessings.some(blessing => blessing.type === BLESSING_CELESTIAL_FORTIFICATION)) {
+      result.levelsLost = 0
+    }
+    return result
+  }
+
+  /**
+   * Player action: closes the raid result window and resumes the game unless another
+   * blocking window (tutorial or challenge) is still open.
+   */
+  acknowledgeRaid() {
+    if (!this.raidReport) {
+      return
+    }
+    this.raidReport = null
+    this.paused = Boolean(this.meta.tutorial.activeModal || this.challengeModal)
+    this.update(0)
   }
 
   /**
@@ -1290,6 +1598,92 @@ class State {
   }
 
   /**
+   * Buys up to `count` units of a type, one at a time, while below the cap set by
+   * its building's level and while the colony can afford the cost.
+   * @param {string} type - Unit type (UNIT_*)
+   * @param {number} count - Maximum units to buy
+   * @returns {number} Units bought
+   */
+  buyUnits(type, count) {
+    const {
+      resources, buildings, military,
+    } = this.colony
+    const cap = buildings[UNIT_BUILDINGS[type]].unitCap
+    const cost = UNIT_STATS[type].cost
+    let bought = 0
+    while (bought < count && military.units[type] < cap && resources.canAfford(cost)) {
+      resources.deduct(cost)
+      military.units[type] += 1
+      bought += 1
+    }
+    if (bought > 0) {
+      this.update(0)
+    }
+    return bought
+  }
+
+  /**
+   * Dismisses up to `count` units of a type. Nothing is refunded.
+   * @param {string} type - Unit type (UNIT_*)
+   * @param {number} count - Maximum units to dismiss
+   */
+  dismissUnits(type, count) {
+    const {
+      military,
+    } = this.colony
+    const actual = Math.min(count, military.units[type])
+    if (actual <= 0) {
+      return
+    }
+    military.units[type] -= actual
+    this.update(0)
+  }
+
+  /**
+   * Pays tribute to the incoming raid, in full. A delay adds TRIBUTE_DELAY_SECONDS to the
+   * countdown at a price that rises with each delay; cancelling calls the raid off.
+   * @param {string} kind - TRIBUTE_DELAY or TRIBUTE_CANCEL
+   */
+  payTribute(kind) {
+    const {
+      resources, military, events,
+    } = this.colony
+    const raid = military.raid
+    if (raid?.phase !== RAID_PHASE_INCOMING) {
+      return
+    }
+
+    if (kind === TRIBUTE_DELAY) {
+      const cost = raid.delayCost
+      if (!cost || !raid.canDelay || !resources.canAfford(cost)) {
+        return
+      }
+      resources.deduct(cost)
+      raid.remainingSeconds += TRIBUTE_DELAY_SECONDS
+      raid.delaysPaid += 1
+      events.setFutureRemaining(EVENT_TYPE_RAID_INCOMING, raid.remainingSeconds)
+    } else if (kind === TRIBUTE_CANCEL) {
+      const cost = raid.cancelCost
+      if (!cost || !resources.canAfford(cost)) {
+        return
+      }
+      resources.deduct(cost)
+      military.raid = null
+      military.raidCount += 1
+      events.dismissFutureByType(EVENT_TYPE_RAID_INCOMING)
+      events.addPast({
+        type: EVENT_TYPE_RAID_RESULT,
+        textKey: 'event.raidCancelled',
+        icon: IMG_BUILDING_WALL,
+      })
+    } else {
+      return
+    }
+
+    this.update(0)
+  }
+
+  /**
    * Discounted territory expansion cost after applying expansion-cost research bonuses.
    * @returns {Cost} The discounted cost for the next territory level
    */
@@ -1394,7 +1788,7 @@ class State {
     }
     tutorial.dismissedModals.add(tutorial.activeModal)
     tutorial.activeModal = tutorial.pendingModals.shift() ?? null
-    this.paused = Boolean(tutorial.activeModal || this.challengeModal)
+    this.paused = Boolean(tutorial.activeModal || this.challengeModal || this.raidReport)
   }
 
   /**
@@ -1514,8 +1908,9 @@ class State {
       state._resourcesNegativeProduction = new Set(data.resourcesNegativeProduction ?? [])
       state._hadIdleWorkers = data.hadIdleWorkers ?? false
       state.challengeModal = data.challengeModal ?? null
-      // A challenge or tutorial modal open at save time keeps the game paused until dismissed
-      if (state.challengeModal || meta.tutorial.activeModal) {
+      state.raidReport = data.raidReport ? RaidReport.fromJSON(data.raidReport) : null
+      // A challenge, raid result or tutorial modal open at save time keeps the game paused until dismissed
+      if (state.challengeModal || state.raidReport || meta.tutorial.activeModal) {
         state.paused = true
       }
       state._relocalizeFutureEvents()
@@ -1539,6 +1934,7 @@ class State {
       resourcesNegativeProduction: [...this._resourcesNegativeProduction],
       hadIdleWorkers: this._hadIdleWorkers,
       challengeModal: this.challengeModal,
+      raidReport: this.raidReport ? this.raidReport.toJSON() : null,
     }
   }
 }

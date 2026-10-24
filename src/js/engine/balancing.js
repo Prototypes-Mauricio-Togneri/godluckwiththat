@@ -2,7 +2,7 @@
 // Consumed by constants.js, building classes, state.js, and
 // UI components.
 
-import {BONUS_CONSTRUCTION_TIME, BONUS_DISEASE_IMPACT, BONUS_EARTHQUAKE_IMPACT, BONUS_EXPANSION_COST, BONUS_FAITH_PRODUCTION, BONUS_FLOOD_IMPACT, BONUS_FOOD_CONSUMPTION, BONUS_FOOD_PRODUCTION, BONUS_HABITATION, BONUS_KNOWLEDGE_PRODUCTION, BONUS_MINING_PRODUCTION, BONUS_STORAGE_CAPACITY, BONUS_UNIT_ATTACK, BONUS_UNIT_DEFENSE, BONUS_WARNING_TIME, BONUS_WOOD_CONSUMPTION, BONUS_WOOD_PRODUCTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, BUILDING_WORKSHOP, HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESEARCH_SUBCATEGORY_ATTACK, RESEARCH_SUBCATEGORY_CONSTRUCTION, RESEARCH_SUBCATEGORY_DEFENSE, RESEARCH_SUBCATEGORY_EARTHQUAKES, RESEARCH_SUBCATEGORY_EXPANSION, RESEARCH_SUBCATEGORY_FAITH, RESEARCH_SUBCATEGORY_FLOODS, RESEARCH_SUBCATEGORY_FOOD_CONSUMPTION, RESEARCH_SUBCATEGORY_FOOD_PRODUCTION, RESEARCH_SUBCATEGORY_HABITATION, RESEARCH_SUBCATEGORY_HEALTH, RESEARCH_SUBCATEGORY_KNOWLEDGE_PRODUCTION, RESEARCH_SUBCATEGORY_MINING, RESEARCH_SUBCATEGORY_STORAGE, RESEARCH_SUBCATEGORY_TRANSPORTATION, RESEARCH_SUBCATEGORY_WARNING, RESEARCH_SUBCATEGORY_WOOD_CONSUMPTION, RESEARCH_SUBCATEGORY_WOOD_PRODUCTION, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD} from '@/js/engine/enums.js'
+import {BONUS_CONSTRUCTION_TIME, BONUS_DISEASE_IMPACT, BONUS_EARTHQUAKE_IMPACT, BONUS_EXPANSION_COST, BONUS_FAITH_PRODUCTION, BONUS_FLOOD_IMPACT, BONUS_FOOD_CONSUMPTION, BONUS_FOOD_PRODUCTION, BONUS_HABITATION, BONUS_KNOWLEDGE_PRODUCTION, BONUS_MINING_PRODUCTION, BONUS_STORAGE_CAPACITY, BONUS_UNIT_ATTACK, BONUS_UNIT_DEFENSE, BONUS_WARNING_TIME, BONUS_WOOD_CONSUMPTION, BONUS_WOOD_PRODUCTION, BONUS_WORKER_PRODUCTIVITY, BUILDING_ACADEMY, BUILDING_ALTAR, BUILDING_ARCHERY, BUILDING_BARRACKS, BUILDING_COPPER_MINE, BUILDING_FARM, BUILDING_GOLD_MINE, BUILDING_HEADQUARTERS, BUILDING_HOUSE, BUILDING_IRON_MINE, BUILDING_MARKET, BUILDING_MONUMENT, BUILDING_QUARRY, BUILDING_TEMPLE, BUILDING_STABLE, BUILDING_STOREHOUSE, BUILDING_TOWER, BUILDING_WALL, BUILDING_WOODCUTTER, HQ_TYPE_CAMP, HQ_TYPE_SETTLEMENT, HQ_TYPE_TOWN, HQ_TYPE_VILLAGE, RESEARCH_SUBCATEGORY_ATTACK, RESEARCH_SUBCATEGORY_CONSTRUCTION, RESEARCH_SUBCATEGORY_DEFENSE, RESEARCH_SUBCATEGORY_EARTHQUAKES, RESEARCH_SUBCATEGORY_EXPANSION, RESEARCH_SUBCATEGORY_FAITH, RESEARCH_SUBCATEGORY_FLOODS, RESEARCH_SUBCATEGORY_FOOD_CONSUMPTION, RESEARCH_SUBCATEGORY_FOOD_PRODUCTION, RESEARCH_SUBCATEGORY_HABITATION, RESEARCH_SUBCATEGORY_HEALTH, RESEARCH_SUBCATEGORY_KNOWLEDGE_PRODUCTION, RESEARCH_SUBCATEGORY_MINING, RESEARCH_SUBCATEGORY_STORAGE, RESEARCH_SUBCATEGORY_TRANSPORTATION, RESEARCH_SUBCATEGORY_WARNING, RESEARCH_SUBCATEGORY_WOOD_CONSUMPTION, RESEARCH_SUBCATEGORY_WOOD_PRODUCTION, RESOURCE_COPPER, RESOURCE_FAITH, RESOURCE_FOOD, RESOURCE_GOLD, RESOURCE_IRON, RESOURCE_KNOWLEDGE, RESOURCE_STONE, RESOURCE_WOOD, UNIT_ARCHER, UNIT_CAVALRY, UNIT_INFANTRY} from '@/js/engine/enums.js'
 import Cost from '@/js/models/cost.js'
 
 // ── Build Time ──────────────────────────────────────────────────────
@@ -137,13 +137,6 @@ export const BUILDING_UPGRADES = {
     cost: new Cost({
       wood: 110,
       stone: 55,
-    }),
-    multiplier: 1.4,
-  },
-  [BUILDING_WORKSHOP]: {
-    cost: new Cost({
-      wood: 160,
-      stone: 80,
     }),
     multiplier: 1.4,
   },
@@ -462,3 +455,108 @@ export const MARKET_MIN_CURRENT_PRICE = 20
 
 // Maximum current price (caps how expensive buying can get)
 export const MARKET_MAX_CURRENT_PRICE = 9999
+
+// ── Military ───────────────────────────────────────────────────────
+
+// Units each military building level allows of its unit type (cap = level × perLevel)
+export const MILITARY_UNITS_PER_LEVEL = 5
+
+// Per-unit combat stats, purchase cost and upkeep per second.
+// Tuned so every counter wins at equal numbers (infantry > cavalry > archer > infantry)
+export const UNIT_STATS = {
+  [UNIT_INFANTRY]: {
+    attack: 10,
+    health: 30,
+    cost: new Cost({
+      food: 40,
+      wood: 20,
+    }),
+    upkeep: {
+      food: 0.1,
+      wood: 0.05,
+    },
+  },
+  [UNIT_ARCHER]: {
+    attack: 15,
+    health: 20,
+    cost: new Cost({
+      wood: 40,
+      copper: 20,
+    }),
+    upkeep: {
+      food: 0.1,
+      wood: 0.1,
+    },
+  },
+  [UNIT_CAVALRY]: {
+    attack: 12,
+    health: 30,
+    cost: new Cost({
+      food: 60,
+      iron: 25,
+    }),
+    upkeep: {
+      food: 0.2,
+      wood: 0.05,
+    },
+  },
+}
+
+// Attack multiplier against an army made entirely of the unit type this unit beats
+export const UNIT_COUNTER_MULTIPLIER = 2
+
+// Damage the wall absorbs per level before units take losses
+export const WALL_HEALTH_PER_LEVEL = 100
+
+// Archers the tower fights as per level (never die, no research bonus)
+export const TOWER_ARCHERS_PER_LEVEL = 3
+
+// Seconds before the first raid is announced, counted from reaching Settlement
+export const RAID_GRACE_PERIOD = 300
+
+// Seconds between raids: max(min, base − perTerritory × territoryCap)
+export const RAID_INTERVAL_BASE = 600
+export const RAID_INTERVAL_PER_TERRITORY = 4
+export const RAID_INTERVAL_MIN = 240
+
+// Seconds between a raid's announcement and its arrival (before Warning research)
+export const RAID_WARNING_TIME = 120
+
+// Raiders per raid: floor(base + perTerritory × territoryCap + perYear × (year − 1))
+export const RAID_UNITS_BASE = 3
+export const RAID_UNITS_PER_TERRITORY = 0.15
+export const RAID_UNITS_PER_YEAR = 2
+
+// Losses of a lost raid at full severity (no defense): share of each stored
+// regular resource, share of workers, and building levels
+export const RAID_DEFEAT_MAX_RESOURCES = 0.3
+export const RAID_DEFEAT_MAX_WORKERS = 0.1
+export const RAID_DEFEAT_MAX_LEVELS = 3
+
+// Tribute value demanded per raider, split across a few random resources
+export const TRIBUTE_VALUE_PER_UNIT = 25
+
+// Value of one unit of each resource when converting tribute value into amounts
+export const TRIBUTE_RESOURCE_VALUES = {
+  [RESOURCE_FOOD]: 1,
+  [RESOURCE_WOOD]: 1,
+  [RESOURCE_STONE]: 1.5,
+  [RESOURCE_COPPER]: 2,
+  [RESOURCE_IRON]: 3,
+  [RESOURCE_GOLD]: 5,
+}
+
+// Number of distinct resources a tribute demand asks for
+export const TRIBUTE_MIN_RESOURCES = 2
+export const TRIBUTE_MAX_RESOURCES = 3
+
+// Delay price = base × growth ^ delaysPaid, offered while growth ^ delaysPaid ≤ cancel multiplier.
+// Cancel price = base × cancel multiplier
+export const TRIBUTE_DELAY_GROWTH = 1.5
+export const TRIBUTE_CANCEL_MULTIPLIER = 3
+
+// Seconds a paid delay adds to the raid countdown
+export const TRIBUTE_DELAY_SECONDS = 120
+
+// Tribute amounts are rounded up to a multiple of this
+export const TRIBUTE_ROUNDING = 5

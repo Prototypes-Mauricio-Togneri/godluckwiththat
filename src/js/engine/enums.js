@@ -40,9 +40,21 @@ export const BUILDING_MONUMENT = 'monument'
 export const BUILDING_BARRACKS = 'barracks'
 export const BUILDING_ARCHERY = 'archery'
 export const BUILDING_STABLE = 'stable'
-export const BUILDING_WORKSHOP = 'workshop'
 export const BUILDING_WALL = 'wall'
 export const BUILDING_TOWER = 'tower'
+
+// Military unit types
+export const UNIT_INFANTRY = 'infantry'
+export const UNIT_ARCHER = 'archer'
+export const UNIT_CAVALRY = 'cavalry'
+
+// Raid phases: waiting (hidden timer until the announcement) and incoming (announced countdown)
+export const RAID_PHASE_WAITING = 'waiting'
+export const RAID_PHASE_INCOMING = 'incoming'
+
+// Tribute kinds paid to raiders
+export const TRIBUTE_DELAY = 'delay'
+export const TRIBUTE_CANCEL = 'cancel'
 
 // Trade directions
 export const TRADE_BUY = 'buy'
@@ -57,6 +69,8 @@ export const EVENT_TYPE_RESOURCE_NEGATIVE_PRODUCTION = 'resource_negative_produc
 export const EVENT_TYPE_BUILDING_UPGRADE = 'building_upgrade'
 export const EVENT_TYPE_RESEARCH_COMPLETE = 'research_complete'
 export const EVENT_TYPE_IDLE_WORKERS = 'idle_workers'
+export const EVENT_TYPE_RAID_INCOMING = 'raid_incoming'
+export const EVENT_TYPE_RAID_RESULT = 'raid_result'
 
 // Research categories
 export const RESEARCH_CATEGORY_COLONY = 'colony'
@@ -220,6 +234,7 @@ export const TUTORIAL_MODAL_SEASON_CHANGED = 'seasonChanged'
 export const TUTORIAL_MODAL_NEGATIVE_PRODUCTION = 'negativeProduction'
 export const TUTORIAL_MODAL_HQ_UPGRADE = 'hqUpgrade'
 export const TUTORIAL_MODAL_CHALLENGE_STARTED = 'challengeStarted'
+export const TUTORIAL_MODAL_RAID_INCOMING = 'raidIncoming'
 
 // Emit events
 export const EMIT_CLOSE = 'close'
@@ -267,6 +282,8 @@ export const BLESSING_RAPID_CONSTRUCTION = 'rapidConstruction'
 export const BLESSING_FAVORABLE_WEATHER = 'favorableWeather'
 export const BLESSING_WISDOM_OF_THE_GODS = 'wisdomOfTheGods'
 export const BLESSING_BLESSED_MARKETS = 'blessedMarkets'
+export const BLESSING_TEMPORARY_PEACE = 'temporaryPeace'
+export const BLESSING_CELESTIAL_FORTIFICATION = 'celestialFortification'
 
 // Punishment types
 export const PUNISHMENT_CROP_FAILURE = 'cropFailure'

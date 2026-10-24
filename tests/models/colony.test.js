@@ -1,9 +1,11 @@
 import {describe, it, expect} from 'vitest'
 import {BUILDING_CLASS_MAP} from '@/js/engine/constants.js'
-import {SEASON_WARM} from '@/js/engine/enums.js'
+import {RAID_PHASE_INCOMING, SEASON_WARM, UNIT_ARCHER, UNIT_INFANTRY} from '@/js/engine/enums.js'
 import Colony from '@/js/models/colony.js'
 import Buildings from '@/js/models/buildings.js'
 import Events from '@/js/models/events/events.js'
+import Military from '@/js/models/military.js'
+import Raid from '@/js/models/raid.js'
 import Resources from '@/js/models/resources.js'
 import Season from '@/js/models/season.js'
 import Academy from '@/js/models/buildings/academy.js'
@@ -25,7 +27,7 @@ import Temple from '@/js/models/buildings/temple.js'
 import Tower from '@/js/models/buildings/tower.js'
 import Wall from '@/js/models/buildings/wall.js'
 import Woodcutter from '@/js/models/buildings/woodcutter.js'
-import Workshop from '@/js/models/buildings/workshop.js'
+import {createMilitary, createRaid} from '../helpers/factories.js'
 
 function createColony(overrides = {}) {
   return new Colony({
@@ -91,9 +93,6 @@ function createColony(overrides = {}) {
       stable: new Stable({
         level: 0,
       }),
-      workshop: new Workshop({
-        level: 0,
-      }),
       wall: new Wall({
         level: 0,
       }),
@@ -115,6 +114,24 @@ describe('Colony', () => {
       expect(colony.resources).toBeInstanceOf(Resources)
       expect(colony.buildings).toBeInstanceOf(Buildings)
       expect(colony.events).toBeInstanceOf(Events)
+    })
+
+    it('should default military to an empty Military when absent', () => {
+      const colony = createColony()
+      expect(colony.military).toBeInstanceOf(Military)
+      expect(colony.military.totalUnits).toBe(0)
+      expect(colony.military.raid).toBeNull()
+      expect(colony.military.raidCount).toBe(0)
+    })
+
+    it('should keep the given military', () => {
+      const military = createMilitary({
+        raidCount: 2,
+      })
+      const colony = createColony({
+        military: military,
+      })
+      expect(colony.military).toBe(military)
     })
   })
 
@@ -149,6 +166,40 @@ describe('Colony', () => {
       expect(restored.resources.food).toBe(999)
       expect(restored.resources.workers).toBe(15)
       expect(restored.buildings.farm.workers).toBe(5)
+    })
+
+    it('should round-trip the military with its raid', () => {
+      const original = createColony({
+        military: createMilitary({
+          units: {
+            [UNIT_INFANTRY]: 4,
+            [UNIT_ARCHER]: 2,
+          },
+          raid: createRaid({
+            remainingSeconds: 33,
+            delaysPaid: 1,
+          }),
+          raidCount: 5,
+        }),
+      })
+      const restored = Colony.fromJSON(original.toJSON(), BUILDING_CLASS_MAP)
+      expect(restored.military).toBeInstanceOf(Military)
+      expect(restored.military.units[UNIT_INFANTRY]).toBe(4)
+      expect(restored.military.units[UNIT_ARCHER]).toBe(2)
+      expect(restored.military.raidCount).toBe(5)
+      expect(restored.military.raid).toBeInstanceOf(Raid)
+      expect(restored.military.raid.phase).toBe(RAID_PHASE_INCOMING)
+      expect(restored.military.raid.remainingSeconds).toBe(33)
+      expect(restored.military.raid.delaysPaid).toBe(1)
+    })
+
+    it('should give an empty military when the saved data has none', () => {
+      const json = createColony().toJSON()
+      delete json.military
+      const restored = Colony.fromJSON(json, BUILDING_CLASS_MAP)
+      expect(restored.military).toBeInstanceOf(Military)
+      expect(restored.military.totalUnits).toBe(0)
+      expect(restored.military.raid).toBeNull()
     })
   })
 })

@@ -25,19 +25,23 @@ Tests cover the **engine layer**, **model layer** and **i18n layer** — pure Ja
 | `analytics.test.js` | Firebase initialization (project config, localhost/127.0.0.1 exclusion, unsupported browser, failed init), `logGameStart`/`logTutorialComplete` event names and params, no events before `init`, logging failures swallowed |
 | `enums.test.js`     | Core enum values match expected strings (resources, HQ types, seasons, buildings, trade, challenge status, symbols) plus one blessing and one punishment type; research, bonus, event, storage, tutorial and analytics enums are not checked |
 | `format.test.js`    | `formatTime`, `formatNumber`, `formatNumberFull`, `formatMinutes`, `formatRate`                                                                   |
-| `utils.test.js`     | `canAffordCost`, `floorWithTolerance`, `storageCapacity`, `marketFeePercent`, `marketTradeQuote`, `timerProgress`                                 |
-| `balancing.test.js` | `BUILDING_UPGRADES` keys/values, season multiplier ranges, trade fee ranges, `RESEARCH_TIER_COSTS` (5 `Cost`s, rising knowledge, resource pair per tier), `RESEARCH_SUBCATEGORY_COST_MULTIPLIERS` (every subcategory, positive), `RESEARCH_TIME_MULTIPLIER` ≥ 1, `RESEARCH_SUBCATEGORY_BONUSES` shown as whole numbers |
+| `utils.test.js`     | `canAffordCost`, `floorWithTolerance`, `storageCapacity`, `marketFeePercent`, `marketTradeQuote`, `timerProgress`, `unitCounts`                   |
+| `battle.test.js`    | `armyHealth`, `armyAttack`, `resolveBattle`: the worked examples from the military plan, every counter winning at equal numbers, mirror fights (ratio 1 is a defeat at severity 0), wall absorption (not raised by Defense research), tower attack with its counter bonus and no Attack bonus, research applying to the colony only, defeat severity and its scaled losses, victory loss rounding and caps, empty enemy |
+| `balancing.test.js` | `BUILDING_UPGRADES` keys/values, season multiplier ranges, trade fee ranges, `RESEARCH_TIER_COSTS` (5 `Cost`s, rising knowledge, resource pair per tier), `RESEARCH_SUBCATEGORY_COST_MULTIPLIERS` (every subcategory, positive), `RESEARCH_TIME_MULTIPLIER` ≥ 1, `RESEARCH_SUBCATEGORY_BONUSES` shown as whole numbers, sanity checks on the military constants (unit stats and costs, raid timing and size, defeat maximums, tribute values and prices) |
 | `escape_stack.test.js` | Only the most recently pushed handler receives Escape and stops the event, Escape returns to the previous handler on removal (top or lower), other keys ignored, a single window listener attached while handlers exist, unknown removals ignored |
 | `focus_stack.test.js` | Everything outside the topmost modal marked inert (not the modal or its ancestors, stopping at `<body>`), stacked and nested modals, removal order, elements added after opening marked too, focus returned to the previously focused element when the top modal closes, only its own marks cleared |
 | `storage.test.js`   | `autosaveInterval` read validation: default when missing or not a number, clamped to the allowed range, valid values kept, default when storage throws |
-| `constants.test.js` | `BUILDING_CLASS_MAP` keys/values, consistency with `BUILDING_UPGRADES`, `RESEARCH_COSTS` (a `Cost` for exactly the `RESEARCH_TREE` keys, knowledge rising within each chain, tier cost × price band), factory functions (`createInitialColony`, `createInitialColonyBasic`, `createInitialColonyAdvanced`, `createInitialMeta`, `createInitialChallenges` incl. punishment field defaults when absent in `challenges.json`), `TUTORIAL_STEPS` `upgradeCamp` check function |
-| `state.test.js`     | Game state machine (42 describe blocks, 258 tests): `constructor`, tick logic (`update`), `netProduction`, `expansionCost`, `advanceSeason`, `advanceConstruction`, `advanceResearch`, `advanceEvents`, `advanceChallenges`, `areChallengeRequirementsMet`, `selectBlessing`, `acknowledgePunishment`, `continueAfterWin`, `levelUpBuilding`, `recruitWorker`, `dismissWorkers`, `assignWorkers`, `unassignWorkers`, `startResearch`, `executeTrade`, `checkTutorial`, `expandTerritory`, `upgradeHeadquarters`, `downgradeBuilding`, serialization (`toJSON`/`fromJSON`), internal computations (`_computeGeneralProductivity`, `_computeSeasonMultipliers`, `_computeConsumptionRates`, `_computeProductionRates`, `_resolveChallengeTimeout`, `_deductRequirements`, `_completeChallenge`, `_failChallenge`, `_sacrificeWorkers`, `_advanceEffectTimeouts`, `_applyBlessing`, `_applyPunishment`, `_constructionDurationMult`, `_recruit`, `_triggerTutorialModal`, `_playAssignSound`, `_buildingName`) |
+| `constants.test.js` | `BUILDING_CLASS_MAP` keys/values, consistency with `BUILDING_UPGRADES`, `RESEARCH_COSTS` (a `Cost` for exactly the `RESEARCH_TREE` keys, knowledge rising within each chain, tier cost × price band), factory functions (`createInitialColony`, `createInitialColonyBasic`, `createInitialColonyAdvanced` incl. an empty `Military`, `createInitialMeta`, `createInitialChallenges` incl. punishment field defaults when absent in `challenges.json`), the Temporary Peace and Celestial Fortification blessings in `challenges.json`, `UNIT_TYPES` / `UNIT_BUILDINGS` / `UNIT_COUNTERS`, `TUTORIAL_STEPS` `upgradeCamp` check function |
+| `state.test.js`     | Game state machine (54 describe blocks, 374 tests): `constructor`, tick logic (`update`), `netProduction`, `expansionCost`, `advanceSeason`, `advanceConstruction`, `advanceResearch`, `advanceEvents`, `advanceChallenges`, `areChallengeRequirementsMet`, `selectBlessing`, `acknowledgePunishment`, `continueAfterWin`, `levelUpBuilding`, `recruitWorker`, `dismissWorkers`, `assignWorkers`, `unassignWorkers`, `startResearch`, `executeTrade`, `checkTutorial`, `expandTerritory`, `upgradeHeadquarters`, `downgradeBuilding`, serialization (`toJSON`/`fromJSON`), internal computations (`_computeGeneralProductivity`, `_computeSeasonMultipliers`, `_computeConsumptionRates`, `_computeProductionRates`, `_resolveChallengeTimeout`, `_deductRequirements`, `_completeChallenge`, `_failChallenge`, `_sacrificeWorkers`, `_advanceEffectTimeouts`, `_applyBlessing`, `_applyPunishment`, `_constructionDurationMult`, `_recruit`, `_triggerTutorialModal`, `_playAssignSound`, `_buildingName`); military: `buyUnits`, `dismissUnits`, upkeep with an army (incl. the shortage penalty), `advanceRaids` (no raids at Camp, grace period, interval scaling, announcement event/sound/popup, Warning research, Temporary Peace freezing, raid event kept in sync and sorted), `_generateRaidArmy`, `_generateTributeDemand`, `_resolveRaid` (victory and defeat effects, Celestial Fortification, pause and report, past event, `raidCount`), `_raidForecast`, `_raidDefender`, `payTribute`, `acknowledgeRaid`, `_removeResourceShare`, `_downgradeRandomBuildings`, `_sacrificeWorkers` return value, saving the army and raid report and re-pausing on load |
 
 ### Models (`tests/models/`)
 
 | File                 | Covers                                                                    |
 |----------------------|---------------------------------------------------------------------------|
-| `colony.test.js`     | Constructor, `idleWorkers`, `fromJSON`/`toJSON` round-trip                |
+| `colony.test.js`     | Constructor (default `Military`), `idleWorkers`, `fromJSON`/`toJSON` round-trip incl. military |
+| `military.test.js`   | Constructor defaults, `totalUnits`, `fromJSON` (missing data, raid restored as `Raid`), `toJSON`, round-trip |
+| `raid.test.js`       | Constructor defaults, `enemyCount`, `delayCost` growth, `cancelCost`, `canDelay` (false after 3 delays), `advance` clamping, `toJSON`, round-trip |
+| `raid_report.test.js`| Constructor defaults, round-trip                                          |
 | `buildings.test.js`  | `totalLevels`, `totalAssignedWorkers`, `pendingTerritory`, serialization  |
 | `resources.test.js`  | Constructor defaults, `canAfford`, `deduct`, `toJSON`                     |
 | `cost.test.js`       | Constructor defaults, `entries` (caching), `multiplyFloor`, `toSeconds`   |
@@ -50,14 +54,14 @@ Tests cover the **engine layer**, **model layer** and **i18n layer** — pure Ja
 | `tutorial.test.js`   | Constructor defaults, `isActive`, `dismissedModals` serialization         |
 | `production.test.js` | Constructor defaults and overrides                                        |
 | `consumption.test.js`| Constructor defaults and overrides                                        |
-| `serialization.test.js` | Robustness: missing fields, extra fields, null/undefined inputs for all model classes (Blessing, Punishment, Challenge, Challenges, Tutorial, Resources, Season, Meta, Buildings, Headquarters, Market, Production, Consumption, Events, EventFuture, EventPast, Colony) |
+| `serialization.test.js` | Robustness: missing fields, extra fields, null/undefined inputs for all model classes (Blessing, Punishment, Challenge, Challenges, Tutorial, Resources, Season, Meta, Buildings, Headquarters, Market, Production, Consumption, Events, EventFuture, EventPast, Colony, Military, Raid, RaidReport) |
 
 ### Buildings (`tests/models/buildings/`)
 
 Every building class has its own test file. Tests verify:
 
-- **`levelUpCost`** (every file): returns a `Cost` instance, matches the `baseCost * multiplier ^ level` formula from `balancing.js`, increases with level. The 15 buildings with no logic of their own test only this
-- **Building-specific getters/methods**: e.g. `storageCap`, `populationCap`, `maxWorkers`, `effectiveTradeFee`, `executeTrade`, `upgradeCost`, `nextType`, `isUpgrading`, `territoryCap`
+- **`levelUpCost`** (every file): returns a `Cost` instance, matches the `baseCost * multiplier ^ level` formula from `balancing.js`, increases with level. The buildings with no logic of their own test only this
+- **Building-specific getters/methods**: e.g. `storageCap`, `populationCap`, `maxWorkers`, `effectiveTradeFee`, `executeTrade`, `upgradeCost`, `nextType`, `isUpgrading`, `territoryCap`, `unitCap` (barracks, archery, stable), `absorb` (wall), `archers` (tower)
 - **Serialization**: `toJSON` output (`toEqual`), only in `building`, `producer`, `headquarters`, `market` and `academy`
 
 Notable depth by file:
@@ -76,7 +80,7 @@ Notable depth by file:
 | `event.test.js`        | Constructor, required/optional fields, serialization |
 | `event_future.test.js` | Constructor, `remainingSeconds`, `advance` (decrement, clamp), `toJSON` |
 | `event_past.test.js`   | Constructor, inherits Event fields                                      |
-| `events.test.js`       | `addFuture`, `addPast`, `convertToPast`, `dismissFutureByType`/`ByBuildingKey`/`ByResearchKey`, `dismiss`, `hasPastEvent`, `dismissPastByType`/`ByTextKey`, `dismissAllPast`, `advance`, `sortedFuture`/`sortedPast`, serialization |
+| `events.test.js`       | `addFuture`, `addPast`, `convertToPast`, `dismissFutureByType`/`ByBuildingKey`/`ByResearchKey`, `dismiss`, `hasPastEvent`, `dismissPastByType`/`ByTextKey`, `dismissAllPast`, `advance`, `setFutureRemaining`, `sortedFuture`/`sortedPast`, serialization |
 
 ### i18n (`tests/i18n/`)
 
@@ -114,11 +118,11 @@ Coverage is collected with the `v8` provider and reported as `text` (terminal) a
 
 ### Factory Helpers (`tests/helpers/factories.js`)
 
-Reusable factory functions (`createCost`, `createResources`, `createSeason`, `createBuilding`, `createProducer`, `createHeadquarters`, `createBlessing`, `createPunishment`, `createChallenge`, `createChallenges`, `createTutorial`) provide sensible defaults with an `overrides` parameter for per-test customization.
+Reusable factory functions (`createCost`, `createResources`, `createSeason`, `createBuilding`, `createProducer`, `createHeadquarters`, `createBlessing`, `createPunishment`, `createChallenge`, `createChallenges`, `createTutorial`, `createRaid`, `createMilitary`) provide sensible defaults with an `overrides` parameter for per-test customization.
 
 ### Building Keys (`tests/helpers/building_keys.js`)
 
-Exports `VALID_BUILDING_KEYS` — a `Set` of all 20 `BUILDING_*` enum values. Used by `balancing.test.js` and `constants.test.js` to validate that config objects contain exactly the expected building keys.
+Exports `VALID_BUILDING_KEYS` — a `Set` of all 19 `BUILDING_*` enum values. Used by `balancing.test.js` and `constants.test.js` to validate that config objects contain exactly the expected building keys.
 
 ### Mocking
 

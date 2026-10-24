@@ -2,7 +2,7 @@
 
 This document contains the specifications of the game, divided into sections.
 
-Items marked *(planned)* are designed but not implemented yet. Their design lives in [todo/military.md](../todo/military.md) and [todo/disasters.md](../todo/disasters.md).
+Items marked *(planned)* are designed but not implemented yet. Their design lives in [todo/military.md](../todo/military.md), [todo/port.md](../todo/port.md) and [todo/disasters.md](../todo/disasters.md).
 
 ## History
 
@@ -36,7 +36,7 @@ The colony is where the game takes place. It is where you will build your buildi
     - Settlement → unlocks: Storehouse, Temple, Quarry, Barracks
     - Village → unlocks: Academy, Copper Mine, Archery
     - Town → unlocks: Monument, Iron Mine, Stable, Wall
-    - City → unlocks: Market, Gold Mine, Workshop, Tower
+    - City → unlocks: Market, Gold Mine, Tower
   - Each colony upgrade also unlocks resources visible in the header bar:
     - Camp: Food, Wood, Faith
     - Settlement: Stone
@@ -47,7 +47,7 @@ The colony is where the game takes place. It is where you will build your buildi
 - The colony can be improved by spending resources on
   - Buildings
   - Researches
-  - Military *(planned — see [military](../todo/military.md))*
+  - Military
   - Challenges
 
 ## Starting State
@@ -94,7 +94,9 @@ Regular resources are capped by the storage capacity (see Storehouse). Any of th
     - Maintain population alive
     - Perform research
     - Sell at the market
-    - Create military units *(planned — see [military](../todo/military.md))*
+    - Train infantry and cavalry
+    - Feed military units (upkeep)
+    - Pay raid tribute
 - Wood
   - Produced in
     - Woodcutters
@@ -103,7 +105,9 @@ Regular resources are capped by the storage capacity (see Storehouse). Any of th
     - Maintain population alive
     - Perform research
     - Sell at the market
-    - Create basic military units *(planned — see [military](../todo/military.md))*
+    - Train infantry and archers
+    - Supply military units (upkeep)
+    - Pay raid tribute
 - Stone
   - Produced in
     - Quarries
@@ -111,6 +115,7 @@ Regular resources are capped by the storage capacity (see Storehouse). Any of th
     - Construct buildings (including HQ type upgrades)
     - Perform research
     - Sell at the market
+    - Pay raid tribute
 - Copper
   - Produced in
     - Copper mines
@@ -118,7 +123,8 @@ Regular resources are capped by the storage capacity (see Storehouse). Any of th
     - Upgrade the HQ type
     - Perform research
     - Sell at the market
-    - Create intermediary military units *(planned — see [military](../todo/military.md))*
+    - Train archers
+    - Pay raid tribute
 - Iron
   - Produced in
     - Iron mines
@@ -126,7 +132,8 @@ Regular resources are capped by the storage capacity (see Storehouse). Any of th
     - Upgrade the HQ type
     - Perform research
     - Sell at the market
-    - Create advanced military units *(planned — see [military](../todo/military.md))*
+    - Train cavalry
+    - Pay raid tribute
 - Gold
   - Produced in
     - Gold mines
@@ -134,7 +141,7 @@ Regular resources are capped by the storage capacity (see Storehouse). Any of th
   - Consumed to
     - Perform research
     - Buy resources at the market
-    - Create advanced military units *(planned — see [military](../todo/military.md))*
+    - Pay raid tribute
 
 ### Special
 
@@ -258,38 +265,76 @@ Each building has a level that can be increased by spending resources. Building 
   - The higher the level
     - The more workers it can have assigned
     - The more resources it produces
-- Barracks *(planned — see [military](../todo/military.md))*
-  - Produces infantry units
-  - The higher the level
-    - The more infantry can be queued
-    - The faster it produces them
+- Barracks
+  - Trains infantry (see Military)
+  - The higher the level, the more infantry the colony can have (5 per level)
   - Workers cannot be assigned to this building
-- Archery *(planned — see [military](../todo/military.md))*
-  - Produces archer units
-  - The higher the level
-    - The more archers can be queued
-    - The faster it produces them
+- Archery
+  - Trains archers (see Military)
+  - The higher the level, the more archers the colony can have (5 per level)
   - Workers cannot be assigned to this building
-- Stable *(planned — see [military](../todo/military.md))*
-  - Produces cavalry units
-  - The higher the level
-    - The more cavalry can be queued
-    - The faster it produces them
+- Stable
+  - Trains cavalry (see Military)
+  - The higher the level, the more cavalry the colony can have (5 per level)
   - Workers cannot be assigned to this building
-- Workshop *(planned — see [military](../todo/military.md))*
-  - Produces siege units
-  - The higher the level
-    - The more siege units can be queued
-    - The faster it produces them
+- Wall
+  - In a raid, absorbs damage before units take losses (100 per level). It is never damaged
   - Workers cannot be assigned to this building
-- Wall *(planned — see [military](../todo/military.md))*
-  - The higher the level, the more defense it provides to the colony
-  - Workers cannot be assigned to this building
-- Tower *(planned — see [military](../todo/military.md))*
-  - The higher the level, the more attack it provides to the colony
+- Tower
+  - In a raid, fights as a fixed number of archers (3 per level) that never die and get no research bonus
   - Workers cannot be assigned to this building
 
-The six military buildings (Barracks, Archery, Stable, Workshop, Wall, Tower) can already be built and upgraded: they cost resources and take territory, but have no effect yet. They are not in the downgradable list, so the territory they take cannot be freed.
+The five military buildings are not in the downgradable list: punishments, raids and manual downgrades skip them, so the territory they take cannot be freed and unit caps never shrink.
+
+## Military
+
+Raiders from other tribes attack the colony once it grows past a camp. The colony trains an army and builds defenses to repel them, or pays them off. All values below are starting values in `src/js/engine/balancing.js`.
+
+### Units
+
+| Unit | Trained at | Unlocked at | Strong against | Attack | Health | Cost | Upkeep per second |
+|---|---|---|---|---|---|---|---|
+| Infantry | Barracks | Settlement | Cavalry | 10 | 30 | 40 food, 20 wood | 0.1 food, 0.05 wood |
+| Archers | Archery | Village | Infantry | 15 | 20 | 40 wood, 20 copper | 0.1 food, 0.1 wood |
+| Cavalry | Stable | Town | Archers | 12 | 30 | 60 food, 25 iron | 0.2 food, 0.05 wood |
+
+- Units are bought instantly and do not use population. Each type is capped at its building's level × 5 (an unbuilt building gives a cap of 0)
+- Buying is blocked at the cap or when the colony cannot afford the cost. Dismissing a unit refunds nothing. Ctrl+click buys or dismisses up to 10
+- Upkeep is added to colony consumption with the same modifiers as worker upkeep: Food Consumption research lowers food upkeep; Wood Consumption research and the season change wood upkeep. A shortage triggers the usual shortage penalty; units never desert
+
+### Raids
+
+There is at most one raid at a time.
+
+1. While the HQ is a camp, nothing happens. From Settlement on, a raid is scheduled on a hidden timer: the first one 300 s after reaching Settlement, later ones `max(240, 600 − 4 × territoryCap)` seconds after the previous raid ends (territory cap includes blessing bonus slots)
+2. When the timer ends the raid is announced: an "incoming" event appears under Upcoming (clicking it opens the military window), the alarm sounds, and the first announcement shows a tutorial popup. The raiders arrive after 120 s, lengthened by Warning research
+3. Raiders: `floor(3 + 0.15 × territoryCap + 2 × (year − 1))` units, split at random among the unit types the colony can already train. Their exact numbers are shown
+4. On arrival the battle is resolved at once, its losses are applied, a "Raid repelled" or "Raid lost" history entry is added, and a result window pauses the game until dismissed
+5. Raids keep coming after the final challenge is won. Game speed applies to raid timers
+
+### Battle
+
+A one-step, deterministic strength comparison. The forecast in the military window uses the same calculation, so it always matches the result.
+
+- Each side's power is attack × health (Lanchester square law). The colony's health adds the wall; its attack adds the tower
+- A unit deals up to ×2 attack against the type it beats, scaled by that type's share of the opponent's army
+- Attack and Defense research raise unit attack and health by 10% per tier (not the tower or the wall). Raiders get no bonuses
+- `ratio = sqrt(colony power / raider power)`. Above 1 is a victory
+- **Victory**: the colony loses health `(1 − sqrt(1 − 1/ratio²)) × total health`. The wall absorbs it first; units lose the rest in proportion to their numbers. Nothing else is gained
+- **Defeat**: the whole army is lost. With `severity = sqrt(1 − ratio²)` (0 near a tie, 1 with no defense), the colony also loses `severity × 30%` of each stored regular resource, `severity × 10%` of its workers (idle first) and `round(severity × 3)` building levels from the downgradable list (same rules as punishments). Faith and knowledge are never taken
+
+Examples: 10 infantry beat 9 infantry and lose 6 (2 with a level 1 wall). 10 infantry beat 10 cavalry, 10 archers beat 10 infantry, 10 cavalry beat 10 archers. No units and no tower is a full defeat.
+
+### Tribute
+
+When a raid is announced, it demands tribute worth 25 per raider, split evenly across 2–3 random regular resources the colony has unlocked (amounts weighted by resource value and rounded up to multiples of 5). Both prices are paid in full:
+
+- **Delay**: adds 120 s to the countdown. Each delay costs ×1.5 the previous one; it stops being offered once it would cost more than cancelling (3 delays)
+- **Cancel**: ×3 the base demand. The raid is called off ("Raid called off" in the history) and the next one is scheduled normally
+
+### Military window
+
+Opened from the military building cards and from the raid event. Shows the resource stock; the army (count/cap per type, train and dismiss buttons, cost, what each type beats, and total upkeep); the wall and tower effects; and, when a raid is announced, its countdown, the raiders, the forecast (expected victory or defeat, a strength bar and the expected losses) and the tribute options.
 
 ## Research
 
@@ -301,7 +346,6 @@ The research system allows the player to unlock permanent bonuses by spending kn
   - Religion (1 subcategory × 5 tiers = 5 researches): Faith
   - Military (3 subcategories × 5 tiers = 15 researches): Defense, Attack, Warning (advance notice of enemy raids)
   - Disasters (3 subcategories × 5 tiers = 15 researches): Floods, Health, Earthquakes
-  - Military researches can already be bought, but their bonuses have no effect yet *(planned — see [military](../todo/military.md))*
   - The Disasters tab is hidden in the research modal until disasters are implemented, so its researches cannot be started *(planned — see [disasters](../todo/disasters.md))*
 - Within a subcategory, researches form a linear chain of 5 tiers. Tier N requires tier N-1 to be completed first
 - Each research has a resource cost: knowledge plus the two resources of its tier (T1 food + wood, T2 wood + stone, T3 stone + copper, T4 copper + iron, T5 iron + gold). The cost is the tier's base cost times the chain's price band: cheap ×0.75 (Food Production, Food Consumption, Wood Production, Wood Consumption, Knowledge Production, Storage), standard ×1 (Mining, Faith, Construction, all Military and Disasters chains) or premium ×1.5 (Transportation, Expansion, Habitation). Duration is `floor(Cost.toSeconds × RESEARCH_TIME_MULTIPLIER)` (×4, minimum 1 s); Construction research and the Rapid Construction blessing do not shorten it. Starting any research requires academy level ≥ 1 (flat check, not per-research). Bonuses are defined per subcategory (type and value), granted once per completed tier
@@ -329,20 +373,20 @@ The research system allows the player to unlock permanent bonuses by spending kn
   - Earthquakes: -10% earthquake impact
 - **Religion**
   - Faith: +5% faith production
-- **Military** *(planned — see [military](../todo/military.md))*
-  - Defense: +10% unit defense
-  - Attack: +10% unit attack
-  - Warning: +10% raid warning time
+- **Military**
+  - Defense: +10% unit health (not the wall)
+  - Attack: +10% unit attack (not the tower)
+  - Warning: +10% raid warning time (delays already paid are not scaled)
 
 ## Events
 
 The game displays an event log as a column alongside the building columns. Events inform the player of upcoming threats and past occurrences.
 
-- **Future events** — warn about incoming events: construction, territory expansion, HQ type upgrade, research in progress and the active challenge countdown. Each shows a countdown timer that ticks down in real time. Enemy raids and disasters will also appear here *(planned — see [military](../todo/military.md) and [disasters](../todo/disasters.md))*.
-- **Past events** — inform about things that have already happened (e.g. season changed, research completed, resource at storage cap, resource production went negative, idle workers, population or territory limit reached). Displayed in a muted style. Raid outcomes will also appear here *(planned — see [military](../todo/military.md))*.
+- **Future events** — warn about incoming events: construction, territory expansion, HQ type upgrade, research in progress, the active challenge countdown and an announced raid. Each shows a countdown timer that ticks down in real time (the raid countdown follows the raid itself, so it freezes during Temporary Peace and jumps when a delay is paid). Disasters will also appear here *(planned — see [disasters](../todo/disasters.md))*.
+- **Past events** — inform about things that have already happened (e.g. season changed, research completed, resource at storage cap, resource production went negative, idle workers, population or territory limit reached, raid repelled, lost or called off). Displayed in a muted style.
 - Past events can be dismissed by the player (close button), or all at once with a "Clear all" button (asks for confirmation). Future events cannot be dismissed.
 - Warnings clear themselves when their condition ends: storage cap, negative production, idle workers, population limit and territory limit.
-- The challenge countdown row is highlighted while its requirements are currently met. Clicking it opens the challenge detail modal.
+- The challenge countdown row is highlighted while its requirements are currently met. Clicking it opens the challenge detail modal. Clicking the raid row opens the military window.
 - Active blessings and punishments are listed in their own sections of the column, each with its remaining time.
 - Events are part of the colony data model and are persisted with save data.
 - The events column is always visible in the game screen.
@@ -385,6 +429,8 @@ Rewards earned by completing challenges. The player chooses one of two offered b
 - **Rapid Construction** — buildings constructed faster (only affects new constructions, not in-progress ones). Stacks multiplicatively with Construction research: `duration × (1 − research) × (1 − blessing)`, so 50% research + 50% blessing yields 25% of the base duration
 - **Favorable Weather** — warm season becomes more productive, cold season becomes less harsh. Formula: the season bonus (`warm` in warm season, `cold` in cold season) is added to the food modifier and subtracted from the wood modifier. Examples with `warm = 0.1, cold = 0.1`: warm food modifier `0.2 + 0.1 = 0.3` (+30% instead of +20%), warm wood modifier `-0.2 - 0.1 = -0.3` (-30% instead of -20%), cold food modifier `-0.2 + 0.1 = -0.1` (-10% instead of -20%), cold wood modifier `0.2 - 0.1 = 0.1` (+10% instead of +20%)
 - **Blessed Markets** — trade fee is 0%, overriding market level reduction
+- **Temporary Peace** — raid timers freeze: no raid is announced or arrives while it lasts
+- **Celestial Fortification** — a lost raid takes no building levels (its effect on disasters is planned with disasters)
 
 ### Punishments
 
@@ -412,11 +458,11 @@ Players have to choose between:
   - Overproducing one resource leads to shortages in others
 - Grow population
   - More population enables economic growth but consumes more resources to sustain
-- Grow military *(planned — see [military](../todo/military.md))*
-  - Stronger defenses protect against raids but divert resources from economic growth
+- Grow military
+  - Stronger defenses protect against raids but divert resources from economic growth, and units cost upkeep
 - Expand territory
   - More territory enables economic growth
-  - It will also provoke more frequent enemy attacks *(planned — see [military](../todo/military.md))*
+  - It also provokes more frequent and bigger raids
 - Research new technologies
   - Unlocking upgrades costs resources and time, delaying other priorities
 - Adapt to seasons
@@ -430,12 +476,12 @@ Players have to choose between:
 
 Tunable numeric constants live in two places:
 
-- `src/js/engine/balancing.js` — the colony economy (buildings, production, workers, seasons, market, storage, territory, research). It is consumed by building classes, `constants.js`, `state.js`, and UI components.
+- `src/js/engine/balancing.js` — the colony economy (buildings, production, workers, seasons, market, storage, territory, research, military). It is consumed by building classes, `constants.js`, `state.js`, `battle.js`, and UI components.
 - `src/data/challenges.json` — the challenge economy: requirements, blessing strengths and durations, punishment fractions, workers and building levels lost, and the delay/timeout of each challenge.
 
 When adjusting the game's difficulty or economy, only these two files should need to change.
 
-**Game speed** (`GAME_SPEED_OPTIONS`, `GAME_SPEED_DEFAULT` in `constants.js`) — Available speed multipliers (`[1, 2, 3]`) and the default (1x). Stored in `Meta.gameSpeed`. The game loop multiplies delta time by the speed multiplier, uniformly affecting production, seasons, construction, research, events, challenge timers, and blessing/punishment durations. Audio playback is unaffected.
+**Game speed** (`GAME_SPEED_OPTIONS`, `GAME_SPEED_DEFAULT` in `constants.js`) — Available speed multipliers (`[1, 2, 3]`) and the default (1x). Stored in `Meta.gameSpeed`. The game loop multiplies delta time by the speed multiplier, uniformly affecting production, seasons, construction, research, events, challenge timers, raid timers, and blessing/punishment durations. Audio playback is unaffected.
 
 The file contains:
 
@@ -452,5 +498,6 @@ The file contains:
 - **Storehouse capacity** (`STOREHOUSE_BASE_CAPACITY`, `STOREHOUSE_CAPACITY_MULTIPLIER`) — Storage cap formula: `floor(base × multiplier^level × (1 + storageBonus))`. Base capacity is 500, multiplier is 1.2.
 - **Territory capacity** (`HQ_TERRITORY_PER_LEVEL`) — Territory slots per HQ level (10). Cap = `level × HQ_TERRITORY_PER_LEVEL + territoryBonus`.
 - **Shortage penalty** (`SHORTAGE_MAX_PENALTY`) — Maximum productivity reduction factor (1 = 100%) when food or wood has negative net production. Penalty scales proportionally to the deficit ratio.
-- **Bulk worker amount** (`BULK_WORKER_AMOUNT`) — Number of workers assigned/dismissed per Ctrl+click (10).
-- **Research definitions** (`RESEARCH_SUBCATEGORY_BONUSES`, `RESEARCH_TIER_COSTS`, `RESEARCH_SUBCATEGORY_COST_MULTIPLIERS`, `RESEARCH_TIME_MULTIPLIER`) — `RESEARCH_SUBCATEGORY_BONUSES` maps each subcategory to `{ type: BONUS_*, value, [flat] }`; fractional values must be whole percents. `RESEARCH_TIER_COSTS` holds the five per-tier base costs (`Cost`, index 0 = T1) of a standard chain, and `RESEARCH_SUBCATEGORY_COST_MULTIPLIERS` maps each subcategory to its price band (0.75 / 1 / 1.5). `RESEARCH_COSTS` (derived in `constants.js`) maps each `RESEARCH_*` key to `tierCost.multiplyFloor(bandMultiplier)`. `RESEARCH_TIME_MULTIPLIER` (4) scales `Cost.toSeconds` for research only. Currently active bonuses in the game loop: worker productivity (bounded resources only), construction time, expansion cost, food/wood production, food/wood consumption, mining, knowledge production, faith production, habitation, storage capacity. Defined but not yet wired: disaster impacts, military stats, raid warning time *(planned)*.
+- **Bulk worker amount** (`BULK_WORKER_AMOUNT`) — Number of workers assigned/dismissed, or units trained/dismissed, per Ctrl+click (10).
+- **Research definitions** (`RESEARCH_SUBCATEGORY_BONUSES`, `RESEARCH_TIER_COSTS`, `RESEARCH_SUBCATEGORY_COST_MULTIPLIERS`, `RESEARCH_TIME_MULTIPLIER`) — `RESEARCH_SUBCATEGORY_BONUSES` maps each subcategory to `{ type: BONUS_*, value, [flat] }`; fractional values must be whole percents. `RESEARCH_TIER_COSTS` holds the five per-tier base costs (`Cost`, index 0 = T1) of a standard chain, and `RESEARCH_SUBCATEGORY_COST_MULTIPLIERS` maps each subcategory to its price band (0.75 / 1 / 1.5). `RESEARCH_COSTS` (derived in `constants.js`) maps each `RESEARCH_*` key to `tierCost.multiplyFloor(bandMultiplier)`. `RESEARCH_TIME_MULTIPLIER` (4) scales `Cost.toSeconds` for research only. Currently active bonuses in the game loop: worker productivity (bounded resources only), construction time, expansion cost, food/wood production, food/wood consumption, mining, knowledge production, faith production, habitation, storage capacity, unit attack, unit defense, raid warning time. Defined but not yet wired: disaster impacts *(planned)*.
+- **Military** (`MILITARY_UNITS_PER_LEVEL`, `UNIT_STATS`, `UNIT_COUNTER_MULTIPLIER`, `WALL_HEALTH_PER_LEVEL`, `TOWER_ARCHERS_PER_LEVEL`, `RAID_GRACE_PERIOD`, `RAID_INTERVAL_BASE` / `_PER_TERRITORY` / `_MIN`, `RAID_WARNING_TIME`, `RAID_UNITS_BASE` / `_PER_TERRITORY` / `_PER_YEAR`, `RAID_DEFEAT_MAX_RESOURCES` / `_WORKERS` / `_LEVELS`, `TRIBUTE_VALUE_PER_UNIT`, `TRIBUTE_RESOURCE_VALUES`, `TRIBUTE_MIN_RESOURCES` / `_MAX_RESOURCES`, `TRIBUTE_DELAY_GROWTH`, `TRIBUTE_CANCEL_MULTIPLIER`, `TRIBUTE_DELAY_SECONDS`, `TRIBUTE_ROUNDING`) — unit cap per building level; per-unit attack, health, cost and upkeep; counter bonus; wall and tower strength; raid timing, size and defeat losses; tribute value, mix and prices (see Military).
