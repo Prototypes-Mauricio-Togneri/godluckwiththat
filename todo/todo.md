@@ -1,3 +1,16 @@
+## TO DO LATER (THIS SECTION SHOULD BE IGNORED BY AGENTS)
+
+**Challenges**
+
+- Make blessings and punishments change between games instead of being fixed for each challenge.
+- Give each blessing its own card image.
+
+**Other**
+
+- Story intro.
+
+---
+
 - Show worker cost only if plus button is enabled
 - Reduce the width of the events column so the rest of the columns can have more space
 
